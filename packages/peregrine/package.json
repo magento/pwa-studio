@@ -1,0 +1,48 @@
+{
+  "name": "@magento/peregrine",
+  "version": "0.1.0",
+  "description": "A collection of UI components for the Magento PWA",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --ignore __tests__",
+    "clean": "rimraf dist",
+    "test": "jest",
+    "test:ci": "run-p test prettier:check",
+    "prettier": "prettier --write 'src/**/*.js'",
+    "prettier:check": "prettier-check 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magento-research/peregrine.git"
+  },
+  "keywords": [
+    "magento",
+    "pwa",
+    "react",
+    "ui"
+  ],
+  "author": "Magento Commerce",
+  "license": "OSL",
+  "bugs": {
+    "url": "https://github.com/magento-research/peregrine/issues"
+  },
+  "homepage": "https://github.com/magento-research/peregrine#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-preset-env": "^1.6.1",
+    "enzyme": "^3.1.0",
+    "jest": "^21.2.1",
+    "npm-run-all": "^4.1.1",
+    "prettier": "^1.7.4",
+    "prettier-check": "^2.0.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}

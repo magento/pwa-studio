@@ -1,0 +1,20 @@
+{
+    "env": {
+        "test": {
+            "presets": [
+                "env"
+            ]
+        }
+    },
+    "presets": [
+        [
+            "env",
+            {
+                "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+        "syntax-jsx"
+    ]
+}
