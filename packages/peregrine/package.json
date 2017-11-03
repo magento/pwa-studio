@@ -7,7 +7,8 @@
     "build": "babel src --out-dir dist --ignore __tests__",
     "clean": "rimraf dist",
     "test": "jest",
-    "test:ci": "run-p test prettier:check",
+    "lint": "eslint 'src/**/*.js'",
+    "test:ci": "run-p test prettier:check lint",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier:check": "prettier-check 'src/**/*.js'"
   },
@@ -34,6 +35,8 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "enzyme": "^3.1.0",
+    "eslint": "^4.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "jest": "^21.2.1",
     "npm-run-all": "^4.1.1",
     "prettier": "^1.7.4",
