@@ -17,10 +17,10 @@ test('Does not transform when no extensions are registered', () => {
     expect(result).toMatchSnapshot();
 });
 
-test('Removes mageID prop even if that element was not targeted', () => {
+test('Removes targetProp prop even if that element was not targeted', () => {
     const extensions = new Map();
     const plugin = pluginFactory({ extensions });
-    const result = transform(plugin, '<Abc mageID="bar" />');
+    const result = transform(plugin, '<Abc mid="bar" />');
     expect(result).toMatchSnapshot();
 });
 
@@ -31,7 +31,7 @@ test('replacement injects new import declaration, and replaces target', () => {
     const extensions = new Map([['foo.bar', [op]]]);
     const result = transform(
         pluginFactory({ extensions }),
-        `<div mageID='foo.bar' />`
+        `<div mid='foo.bar' />`
     );
     expect(result).toMatchSnapshot();
 });
@@ -44,7 +44,7 @@ test('replace transfers children when "withoutChildren" not specified', () => {
     const result = transform(
         pluginFactory({ extensions }),
         dedent`
-            <div mageID='foo.bar'>
+            <div mid='foo.bar'>
                 <div>I should be transferred</div>
             </div>
         `
@@ -61,7 +61,7 @@ test('replace using "withoutChildren" does not copy children', () => {
     const result = transform(
         pluginFactory({ extensions }),
         dedent`
-            <div mageID='foo.bar'>
+            <div mid='foo.bar'>
                 <div>I should not be in the output</div>
             </div>
         `
@@ -69,15 +69,15 @@ test('replace using "withoutChildren" does not copy children', () => {
     expect(result).toMatchSnapshot();
 });
 
-test('Throws when mageID is not a string literal', () => {
+test('Throws when targetProp is not a string literal', () => {
     const extensions = new Map();
     const plugin = pluginFactory({ extensions });
 
-    const resultFn = () => transform(plugin, '<Abc mageID={1} />');
-    expect(resultFn).toThrow(/mageID prop must be a literal string/);
+    const resultFn = () => transform(plugin, '<Abc mid={1} />');
+    expect(resultFn).toThrow(/mid prop must be a literal string/);
 
-    const resultFn2 = () => transform(plugin, '<Abc mageID={`heh`} />');
-    expect(resultFn2).toThrow(/mageID prop must be a literal string/);
+    const resultFn2 = () => transform(plugin, '<Abc mid={`heh`} />');
+    expect(resultFn2).toThrow(/mid prop must be a literal string/);
 });
 
 test('replace copies over props by default', () => {
@@ -87,7 +87,7 @@ test('replace copies over props by default', () => {
     const extensions = new Map([['foo.bar', [op]]]);
     const result = transform(
         pluginFactory({ extensions }),
-        '<div mageID="foo.bar" customPropShouldStay="test" />'
+        '<div mid="foo.bar" customPropShouldStay="test" />'
     );
     expect(result).toMatchSnapshot();
 });
@@ -100,7 +100,7 @@ test('replace does not copy over props when "withoutProps" is true', () => {
     const extensions = new Map([['foo.bar', [op]]]);
     const result = transform(
         pluginFactory({ extensions }),
-        '<div mageID="foo.bar" customPropShouldNotStay="test" />'
+        '<div mid="foo.bar" customPropShouldNotStay="test" />'
     );
     expect(result).toMatchSnapshot();
 });
@@ -110,11 +110,11 @@ test('throws with descriptive message when "extensions" is not provided', () => 
     expect(fn).toThrow(/should be a Map/);
 });
 
-test('throws if a new name for "mageID" is provided, and it is not a string', () => {
+test('throws if a new name for "targetProp" is provided, and it is not a string', () => {
     const fn = () =>
         pluginFactory({
             extensions: new Map(),
-            mageID: 1
+            targetProp: 1
         });
     expect(fn).toThrow(/must be a string/);
 });

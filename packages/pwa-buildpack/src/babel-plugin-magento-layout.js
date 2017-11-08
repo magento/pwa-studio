@@ -5,11 +5,14 @@ const nodeProcessed = Symbol('node-was-processed');
 /**
  * @param {object} options
  * @param {Map<string, Array<{componentPath: string, withoutChildren?: bool, withoutProps?: bool}>>} options.extensions
- * @param {string | undefined} options.mageID
+ * @param {string | undefined} options.targetProp
  */
 function babelPluginMageExtensionsFactory(options = {}) {
-    const { extensions, mageID = 'mageID' } = options;
-    assert(typeof mageID === 'string', 'mageID descriptor must be a string');
+    const { extensions, targetProp = 'mid' } = options;
+    assert(
+        typeof targetProp === 'string',
+        'targetProp descriptor must be a string'
+    );
     assert(
         Object.prototype.toString.call(extensions) === '[object Map]',
         '"extensions" should be a Map'
@@ -50,29 +53,29 @@ function babelPluginMageExtensionsFactory(options = {}) {
                     const { attributes } = openingElement;
                     const elementName = openingElement.name.name;
 
-                    const mageIDAttr = attributes.find(
-                        attr => attr.name.name === mageID
+                    const targetPropAttr = attributes.find(
+                        attr => attr.name.name === targetProp
                     );
 
-                    // no mageID prop, bail early
-                    if (!mageIDAttr) return;
+                    // no targetProp prop, bail early
+                    if (!targetPropAttr) return;
 
-                    const mageIDWrapper = mageIDAttr.value;
+                    const targetPropWrapper = targetPropAttr.value;
                     assert(
-                        t.isStringLiteral(mageIDWrapper),
+                        t.isStringLiteral(targetPropWrapper),
                         `${
-                            mageID
+                            targetProp
                         } prop must be a literal string value. Instead it was of type ${
-                            mageIDWrapper.type
+                            targetPropWrapper.type
                         }`
                     );
 
-                    // remove mageID from the compiled output to prevent unknown prop warnings
-                    attributes.splice(attributes.indexOf(mageIDAttr), 1);
+                    // remove targetProp from the compiled output to prevent unknown prop warnings
+                    attributes.splice(attributes.indexOf(targetPropAttr), 1);
 
-                    const currentMageID = mageIDWrapper.value;
-                    const operations = extensions.get(currentMageID);
-                    // No extensions registered operations for this mageID, bail early
+                    const currentTargetProp = targetPropWrapper.value;
+                    const operations = extensions.get(currentTargetProp);
+                    // No extensions registered operations for this targetProp, bail early
                     if (!operations || !operations.length) return;
 
                     const program = this.file.path;

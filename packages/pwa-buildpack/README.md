@@ -6,5 +6,10 @@
     <h3> A collection of tools for build/layout optimizations for the Magento PWA Studio.</h3>
 </p>
 <p align="center">
-    <img src="anhinga.jpg" alt="Water Turkey" width="30%" />
+    <a href="https://en.wikipedia.org/wiki/Anhinga">
+        <img src="anhinga.jpg" alt="Water Turkey" width="30%" />
+    </a>
 </p>
+
+## Docs
+- [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md)
