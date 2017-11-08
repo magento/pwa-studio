@@ -30,3 +30,8 @@ exports[`replacement injects new import declaration, and replaces target 1`] = `
 "import _Extension from '/My/extension/path.js';
 <_Extension></_Extension>;"
 `;
+
+exports[`replacement works w/ custom targetProp 1`] = `
+"import _Extension from \\"/My/extensions/path.js\\";
+<_Extension>Test</_Extension>;"
+`;

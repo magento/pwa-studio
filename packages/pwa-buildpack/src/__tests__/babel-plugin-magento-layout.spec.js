@@ -118,3 +118,15 @@ test('throws if a new name for "targetProp" is provided, and it is not a string'
         });
     expect(fn).toThrow(/must be a string/);
 });
+
+test('replacement works w/ custom targetProp', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions, targetProp: 'myID' }),
+        '<div myID="foo.bar">Test</div>'
+    );
+    expect(result).toMatchSnapshot();
+});

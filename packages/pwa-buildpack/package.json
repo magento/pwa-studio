@@ -6,7 +6,7 @@
   "scripts": {
     "test": "run-p jest:ci prettier:check",
     "test:dev": "jest --watch",
-    "jest:ci": "jest -i",
+    "jest:ci": "jest -i --coverage",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier:check": "prettier-check 'src/**/*.js'"
   },
