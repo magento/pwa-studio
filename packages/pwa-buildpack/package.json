@@ -1,0 +1,38 @@
+{
+  "name": "@magento/anhinga",
+  "version": "0.1.0",
+  "description": "Build/Layout optimization tooling for the Magento PWA",
+  "main": "index.js",
+  "scripts": {
+    "test": "run-p jest:ci prettier:check",
+    "test:dev": "jest --watch",
+    "jest:ci": "jest -i",
+    "prettier": "prettier --write 'src/**/*.js'",
+    "prettier:check": "prettier-check 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magento-research/anhinga.git"
+  },
+  "keywords": [
+    "magento",
+    "pwa",
+    "babel",
+    "webpack"
+  ],
+  "author": "Magento Commerce",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/magento-research/anhinga/issues"
+  },
+  "homepage": "https://github.com/magento-research/anhinga#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "dedent": "^0.7.0",
+    "jest": "^21.2.1",
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.8.1",
+    "prettier-check": "^2.0.0"
+  }
+}
