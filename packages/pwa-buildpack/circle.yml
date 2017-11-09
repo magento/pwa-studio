@@ -1,7 +1,9 @@
 machine:
   node:
     version: 8
+  environment:
+    TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/
 
 general:
   artifacts:
-    - "coverage"
+    -"coverage"
