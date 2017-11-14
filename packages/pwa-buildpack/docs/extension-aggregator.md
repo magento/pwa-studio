@@ -15,7 +15,7 @@ extensionAggregator({
     extensionsRoot: '/path/to/project/extensions'
 }).then(extensions => {
     // `extensions` is an array of objects that include
-    // an extension's configuration, and it's rootpath
+    // an extension's configuration, and its rootpath
 });
 ```
 

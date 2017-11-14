@@ -19,6 +19,11 @@ function babelPluginMageExtensionsFactory(options = {}) {
     );
 
     return function babelPluginMageExtensions({ types: t }) {
+        /**
+         * @param {string} elemLocalIdent
+         * @param {Array<any>} children
+         * @param {Array<any>} attrs
+         */
         const buildReplacementNode = (elemLocalIdent, children, attrs = []) => {
             return t.JSXElement(
                 t.JSXOpeningElement(
@@ -31,7 +36,12 @@ function babelPluginMageExtensionsFactory(options = {}) {
             );
         };
 
+        /**
+         * @param {string} localIdent
+         * @param {string} src
+         */
         const buildImportNode = (localIdent, src) => {
+            // Example: `import localIdent from 'src';`
             return t.ImportDeclaration(
                 [t.ImportDefaultSpecifier(t.Identifier(localIdent))],
                 t.StringLiteral(src)
@@ -84,15 +94,39 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         const ident = path.scope.generateUidIdentifier(
                             'Extension'
                         ).name;
+                        const wrapperIdent = path.scope.generateUidIdentifier(
+                            'ExtensionComponentWrap'
+                        ).name;
                         program.node.body.unshift(
-                            buildImportNode(ident, config.componentPath)
+                            buildImportNode(ident, config.componentPath),
+                            buildImportNode(
+                                wrapperIdent,
+                                '@magento/anhinga/dist/ExtensionComponentWrap'
+                            )
                         );
                         const replacement = buildReplacementNode(
                             ident,
                             config.withoutChildren ? [] : path.node.children,
                             config.withoutProps ? [] : attributes
                         );
-                        path.replaceWith(replacement);
+
+                        // Create a JSX prop to pass to the replacement wrapper,
+                        // so we can identify at runtime within an error boundary
+                        // what component was replaced with a faulty extension
+                        const replacedIDAttr = t.JSXAttribute(
+                            t.JSXIdentifier('replacedID'),
+                            t.StringLiteral(currentTargetProp)
+                        );
+
+                        // nest the replacement extension component within
+                        // our wrapper with an error boundary
+                        const replacementWrapper = buildReplacementNode(
+                            wrapperIdent,
+                            [replacement],
+                            [replacedIDAttr]
+                        );
+
+                        path.replaceWith(replacementWrapper);
                     }
                 }
             }

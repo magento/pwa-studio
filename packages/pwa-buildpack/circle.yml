@@ -7,3 +7,7 @@ machine:
 general:
   artifacts:
     -"coverage"
+
+compile:
+  override:
+    - npm run build
