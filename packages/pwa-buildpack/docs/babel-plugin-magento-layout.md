@@ -4,6 +4,7 @@
 
  ## Basic Example
  ```js
+ // Input file: /My/cool/Component.js
 <div>
     <span mid="foo.bar" style={{ color: 'blue' }}>I can be replaced by a plugin</span>
 </div>
@@ -18,10 +19,21 @@
  ```
 
  ```js
-// Final output
+// Final output when "prod: true"
 import _Extension from '/some/component/path.js';
 <div>
     <_Extension style={{ color: 'blue' }}></_Extension>
+</div>
+ ```
+
+ ```js
+// Final output when "prod: false"
+import _Extension from '/some/component/path.js';
+import _ExtensionComponentWrap from "@magento/anhinga/dist/ExtensionComponentWrap";
+<div>
+    <_ExtensionComponentWrap replacedID="foo.bar" replacedInFile="/My/cool/Component.js" replacedElementType="span">
+        <_Extension style={{ color: 'blue' }}></_Extension>
+    </_ExtensionComponentWrap>
 </div>
  ```
 
@@ -33,7 +45,9 @@ const { babelPluginMagentoLayout } = require('@magento/anhinga');
 {
     plugins: [
         babelPluginMagentoLayout({
-            extensions: new Map() // See "Specifying Extensions"
+            extensions: new Map(), // See "Specifying Extensions"
+            targetProp: 'mid', // optional
+            prod: false // When true, will not wrap components with debugging helpers
         })
     ]
 }

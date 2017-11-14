@@ -1,5 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Does not include ExtensionComponentWrap for prod builds 1`] = `
+"import _Extension from \\"/My/extensions/path.js\\";
+<_Extension>should not be wrapped</_Extension>;"
+`;
+
 exports[`Does not transform when no extensions are registered 1`] = `"<Abc />;"`;
 
 exports[`Removes targetProp prop even if that element was not targeted 1`] = `"<Abc />;"`;

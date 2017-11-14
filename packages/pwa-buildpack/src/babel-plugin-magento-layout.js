@@ -6,9 +6,15 @@ const nodeProcessed = Symbol('node-was-processed');
  * @param {object} options
  * @param {Map<string, Array<{componentPath: string, withoutChildren?: bool, withoutProps?: bool}>>} options.extensions
  * @param {string | undefined} options.targetProp
+ * @param {boolean} options.prod
  */
 function babelPluginMageExtensionsFactory(options = {}) {
-    const { extensions, targetProp = 'mid' } = options;
+    const {
+        extensions,
+        targetProp = 'mid',
+        prod = process.env.NODE_ENV === 'production'
+    } = options;
+
     assert(
         typeof targetProp === 'string',
         'targetProp descriptor must be a string'
@@ -96,13 +102,22 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         const wrapperIdent = path.scope.generateUidIdentifier(
                             'ExtensionComponentWrap'
                         ).name;
+
+                        if (!prod) {
+                            // Inject import for the Magento extension boundary
+                            // in development mode only
+                            program.node.body.unshift(
+                                buildImportNode(
+                                    wrapperIdent,
+                                    '@magento/anhinga/dist/ExtensionComponentWrap'
+                                )
+                            );
+                        }
+
                         program.node.body.unshift(
-                            buildImportNode(ident, config.componentPath),
-                            buildImportNode(
-                                wrapperIdent,
-                                '@magento/anhinga/dist/ExtensionComponentWrap'
-                            )
+                            buildImportNode(ident, config.componentPath)
                         );
+
                         const replacement = buildReplacementNode(
                             ident,
                             config.withoutChildren ? [] : path.node.children,
@@ -139,7 +154,10 @@ function babelPluginMageExtensionsFactory(options = {}) {
                             ]
                         );
 
-                        path.replaceWith(replacementWrapper);
+                        // Don't include Magento boundary in production builds
+                        path.replaceWith(
+                            prod ? replacement : replacementWrapper
+                        );
                     }
                 }
             }

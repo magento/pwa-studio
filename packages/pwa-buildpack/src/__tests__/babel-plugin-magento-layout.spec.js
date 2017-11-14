@@ -130,3 +130,15 @@ test('replacement works w/ custom targetProp', () => {
     );
     expect(result).toMatchSnapshot();
 });
+
+test('Does not include ExtensionComponentWrap for prod builds', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions, prod: true }),
+        '<div mid="foo.bar">should not be wrapped</div>'
+    );
+    expect(result).toMatchSnapshot();
+});
