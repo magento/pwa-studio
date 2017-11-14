@@ -4,10 +4,6 @@ machine:
   environment:
     TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/
 
-general:
-  artifacts:
-    -"coverage"
-
 compile:
   override:
     - npm run build

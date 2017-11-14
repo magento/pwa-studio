@@ -7,7 +7,7 @@
     "build": "babel src --out-dir dist --ignore __tests__ --source-maps",
     "test": "run-p jest:ci prettier:check",
     "test:dev": "jest --watch",
-    "jest:ci": "jest -i --forceExit --coverage --testResultsProcessor=./node_modules/jest-junit-reporter",
+    "jest:ci": "jest -i --forceExit --testResultsProcessor=./node_modules/jest-junit-reporter",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier:check": "prettier-check 'src/**/*.js'"
   },
