@@ -7,19 +7,19 @@ exports[`Removes targetProp prop even if that element was not targeted 1`] = `"<
 exports[`replace copies over props by default 1`] = `
 "import _Extension from \\"/My/extensions/path.js\\";
 import _ExtensionComponentWrap from \\"@magento/anhinga/dist/ExtensionComponentWrap\\";
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension customPropShouldStay=\\"test\\"></_Extension></_ExtensionComponentWrap>;"
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension customPropShouldStay=\\"test\\"></_Extension></_ExtensionComponentWrap>;"
 `;
 
 exports[`replace does not copy over props when "withoutProps" is true 1`] = `
 "import _Extension from \\"/My/extensions/path.js\\";
 import _ExtensionComponentWrap from \\"@magento/anhinga/dist/ExtensionComponentWrap\\";
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
 `;
 
 exports[`replace transfers children when "withoutChildren" not specified 1`] = `
 "import _Extension from '/My/extension/path.js';
 import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension>
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension>
     <div>I should be transferred</div>
     </_Extension></_ExtensionComponentWrap>;"
 `;
@@ -27,17 +27,17 @@ import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWra
 exports[`replace using "withoutChildren" does not copy children 1`] = `
 "import _Extension from '/My/extensions/path.js';
 import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
 `;
 
 exports[`replacement injects new import declaration, and replaces target 1`] = `
 "import _Extension from '/My/extension/path.js';
 import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
 `;
 
 exports[`replacement works w/ custom targetProp 1`] = `
 "import _Extension from \\"/My/extensions/path.js\\";
 import _ExtensionComponentWrap from \\"@magento/anhinga/dist/ExtensionComponentWrap\\";
-<_ExtensionComponentWrap replacedID=\\"foo.bar\\"><_Extension>Test</_Extension></_ExtensionComponentWrap>;"
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"div\\"><_Extension>Test</_Extension></_ExtensionComponentWrap>;"
 `;

@@ -61,7 +61,6 @@ function babelPluginMageExtensionsFactory(options = {}) {
 
                     const { openingElement } = path.node;
                     const { attributes } = openingElement;
-                    const elementName = openingElement.name.name;
 
                     const targetPropAttr = attributes.find(
                         attr => attr.name.name === targetProp
@@ -112,10 +111,20 @@ function babelPluginMageExtensionsFactory(options = {}) {
 
                         // Create a JSX prop to pass to the replacement wrapper,
                         // so we can identify at runtime within an error boundary
-                        // what component was replaced with a faulty extension
+                        // additional details about the replacement
                         const replacedIDAttr = t.JSXAttribute(
                             t.JSXIdentifier('replacedID'),
                             t.StringLiteral(currentTargetProp)
+                        );
+                        const replacementLocation = t.JSXAttribute(
+                            t.JSXIdentifier('replacedInFile'),
+                            t.StringLiteral(
+                                this.file.opts.filename || 'unknown'
+                            )
+                        );
+                        const replacedElementName = t.JSXAttribute(
+                            t.JSXIdentifier('replacedElementType'),
+                            t.StringLiteral(openingElement.name.name)
                         );
 
                         // nest the replacement extension component within
@@ -123,7 +132,11 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         const replacementWrapper = buildReplacementNode(
                             wrapperIdent,
                             [replacement],
-                            [replacedIDAttr]
+                            [
+                                replacedIDAttr,
+                                replacementLocation,
+                                replacedElementName
+                            ]
                         );
 
                         path.replaceWith(replacementWrapper);

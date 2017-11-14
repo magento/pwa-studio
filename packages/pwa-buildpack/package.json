@@ -4,10 +4,10 @@
   "description": "Build/Layout optimization tooling for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore __tests__",
+    "build": "babel src --out-dir dist --ignore __tests__ --source-maps",
     "test": "run-p jest:ci prettier:check",
     "test:dev": "jest --watch",
-    "jest:ci": "jest -i --coverage --testResultsProcessor=./node_modules/jest-junit-reporter",
+    "jest:ci": "jest -i --forceExit --coverage --testResultsProcessor=./node_modules/jest-junit-reporter",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier:check": "prettier-check 'src/**/*.js'"
   },
