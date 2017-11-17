@@ -157,3 +157,48 @@ test('Removes associated import decl when there is only one specifier, and it is
     );
     expect(result).toMatchSnapshot();
 });
+
+test('Removes default import specifier when there are also named, and binding for default not used after replace', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions }),
+        dedent`
+            import Foo, { Bar } from 'bar';
+            <Foo mid='foo.bar' />
+        `
+    );
+    expect(result).toMatchSnapshot();
+});
+
+test('Removes named import specifier when there is a default, and binding for name not used after replace', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions }),
+        dedent`
+            import Foo, { Bar } from 'bar';
+            <Bar mid='foo.bar' />
+        `
+    );
+    expect(result).toMatchSnapshot();
+});
+
+test('Removes named import specifier when there is a default and >1 named, and binding for name not used after replace', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions }),
+        dedent`
+            import Foo, { Bar, Bizz } from 'bar';
+            <Bar mid='foo.bar' />
+        `
+    );
+    expect(result).toMatchSnapshot();
+});

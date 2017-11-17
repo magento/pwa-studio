@@ -171,10 +171,14 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         const importDecl = binding.path.parentPath;
                         importDecl.assertImportDeclaration();
 
-                        // Only one import specifier, so we can simply remove
-                        // the entire ImportDeclaration
                         if (importDecl.node.specifiers.length === 1) {
+                            // Only one import specifier, so we can simply remove
+                            // the entire ImportDeclaration
                             importDecl.remove();
+                        } else {
+                            // > 1 import specifier in this declaration, so only
+                            // remove the specifier we replaced
+                            binding.path.remove();
                         }
                     }
                 }

@@ -14,6 +14,27 @@ import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWra
 <_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Foo\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
 `;
 
+exports[`Removes default import specifier when there are also named, and binding for default not used after replace 1`] = `
+"import _Extension from '/My/extensions/path.js';
+import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
+import { Bar } from 'bar';
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Foo\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+`;
+
+exports[`Removes named import specifier when there is a default and >1 named, and binding for name not used after replace 1`] = `
+"import _Extension from '/My/extensions/path.js';
+import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
+import Foo, { Bizz } from 'bar';
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Bar\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+`;
+
+exports[`Removes named import specifier when there is a default, and binding for name not used after replace 1`] = `
+"import _Extension from '/My/extensions/path.js';
+import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
+import Foo from 'bar';
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Bar\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+`;
+
 exports[`Removes targetProp prop even if that element was not targeted 1`] = `"<Abc />;"`;
 
 exports[`replace copies over props by default 1`] = `
