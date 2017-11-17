@@ -7,6 +7,13 @@ exports[`Does not include ExtensionComponentWrap for prod builds 1`] = `
 
 exports[`Does not transform when no extensions are registered 1`] = `"<Abc />;"`;
 
+exports[`Removes associated import decl when there is only one specifier, and it is replaced 1`] = `
+"import _Extension from '/My/extensions/path.js';
+import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
+
+<_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Foo\\"><_Extension></_Extension></_ExtensionComponentWrap>;"
+`;
+
 exports[`Removes targetProp prop even if that element was not targeted 1`] = `"<Abc />;"`;
 
 exports[`replace copies over props by default 1`] = `

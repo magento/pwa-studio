@@ -142,3 +142,18 @@ test('Does not include ExtensionComponentWrap for prod builds', () => {
     );
     expect(result).toMatchSnapshot();
 });
+
+test('Removes associated import decl when there is only one specifier, and it is replaced', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions }),
+        dedent`
+            import Foo from 'bar';
+            <Foo mid='foo.bar' />
+        `
+    );
+    expect(result).toMatchSnapshot();
+});

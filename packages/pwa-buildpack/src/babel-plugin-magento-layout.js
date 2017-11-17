@@ -66,6 +66,7 @@ function babelPluginMageExtensionsFactory(options = {}) {
                     path.node[nodeProcessed] = true;
 
                     const { openingElement } = path.node;
+                    const elementName = openingElement.name.name;
                     const { attributes } = openingElement;
 
                     const targetPropAttr = attributes.find(
@@ -139,7 +140,7 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         );
                         const replacedElementName = t.JSXAttribute(
                             t.JSXIdentifier('replacedElementType'),
-                            t.StringLiteral(openingElement.name.name)
+                            t.StringLiteral(elementName)
                         );
 
                         // nest the replacement extension component within
@@ -158,11 +159,33 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         path.replaceWith(
                             prod ? replacement : replacementWrapper
                         );
+
+                        // Dead code elimination
+                        // Can't kill code for DOM elements
+                        if (!isCompositeComponent(elementName)) return;
+
+                        const binding = path.scope.getBinding(elementName);
+                        // We only kill dead code (for now) when it comes from an import
+                        if (binding.kind !== 'module') return;
+
+                        const importDecl = binding.path.parentPath;
+                        importDecl.assertImportDeclaration();
+
+                        // Only one import specifier, so we can simply remove
+                        // the entire ImportDeclaration
+                        if (importDecl.node.specifiers.length === 1) {
+                            importDecl.remove();
+                        }
                     }
                 }
             }
         };
     };
+}
+
+function isCompositeComponent(name) {
+    const firstCharIsLower = /^[a-z]/.test(name);
+    return !firstCharIsLower;
 }
 
 module.exports = babelPluginMageExtensionsFactory;
