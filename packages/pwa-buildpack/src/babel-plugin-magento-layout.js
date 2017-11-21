@@ -162,7 +162,7 @@ function babelPluginMageExtensionsFactory(options = {}) {
 
                         // Dead code elimination
                         // Can't kill code for DOM elements
-                        if (!isCompositeComponent(elementName)) return;
+                        if (t.react.isCompatTag(elementName)) return;
 
                         const binding = path.scope.getBinding(elementName);
                         // We only kill dead code (for now) when it comes from an import
@@ -187,11 +187,6 @@ function babelPluginMageExtensionsFactory(options = {}) {
             }
         };
     };
-}
-
-function isCompositeComponent(name) {
-    const firstCharIsLower = /^[a-z]/.test(name);
-    return !firstCharIsLower;
 }
 
 module.exports = babelPluginMageExtensionsFactory;
