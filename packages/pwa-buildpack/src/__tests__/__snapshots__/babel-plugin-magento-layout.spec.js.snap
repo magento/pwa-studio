@@ -5,6 +5,14 @@ exports[`Does not include ExtensionComponentWrap for prod builds 1`] = `
 <_Extension>should not be wrapped</_Extension>;"
 `;
 
+exports[`Does not remove import if used in other places in the file 1`] = `
+"import _Extension from '/My/extensions/path.js';
+import _ExtensionComponentWrap from '@magento/anhinga/dist/ExtensionComponentWrap';
+import Foo from 'bar';
+const foo = <_ExtensionComponentWrap replacedID=\\"foo.bar\\" replacedInFile=\\"unknown\\" replacedElementType=\\"Foo\\"><_Extension></_Extension></_ExtensionComponentWrap>;
+const otherFoo = <Foo />;"
+`;
+
 exports[`Does not transform when no extensions are registered 1`] = `"<Abc />;"`;
 
 exports[`Removes associated import decl when there is only one specifier, and it is replaced 1`] = `

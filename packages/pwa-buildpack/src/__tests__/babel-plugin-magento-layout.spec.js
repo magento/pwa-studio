@@ -202,3 +202,19 @@ test('Removes named import specifier when there is a default and >1 named, and b
     );
     expect(result).toMatchSnapshot();
 });
+
+test('Does not remove import if used in other places in the file', () => {
+    const op = {
+        componentPath: '/My/extensions/path.js'
+    };
+    const extensions = new Map([['foo.bar', [op]]]);
+    const result = transform(
+        pluginFactory({ extensions }),
+        dedent`
+            import Foo from 'bar';
+            const foo = <Foo mid='foo.bar' />;
+            const otherFoo = <Foo />;
+        `
+    );
+    expect(result).toMatchSnapshot();
+});

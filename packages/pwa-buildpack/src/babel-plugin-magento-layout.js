@@ -167,6 +167,8 @@ function babelPluginMageExtensionsFactory(options = {}) {
                         const binding = path.scope.getBinding(elementName);
                         // We only kill dead code (for now) when it comes from an import
                         if (binding.kind !== 'module') return;
+                        // Import identifier is used in other expressions, can't remove
+                        if (binding.references > 1) return;
 
                         const importDecl = binding.path.parentPath;
                         importDecl.assertImportDeclaration();
