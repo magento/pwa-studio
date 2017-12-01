@@ -1,0 +1,8 @@
+.App {
+  min-height: 100vh;
+}
+
+.App[data-nav="true"] {
+  height: 100vh;
+  overflow: hidden;
+}

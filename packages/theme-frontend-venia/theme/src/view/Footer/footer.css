@@ -1,0 +1,17 @@
+.Footer {
+  background-color: rgb(246, 246, 246);
+  color: black;
+  min-height: 12rem;
+  padding: 1rem;
+}
+
+[class^="Footer-tile--"] {
+  border-bottom: 1px solid rgb(213, 213, 213);
+  margin: 0 auto;
+  padding: 1rem 4rem 1rem 2rem;
+  width: calc(100% - 2rem);
+}
+
+.Footer-tile--support {
+  border-bottom-width: 0;
+}

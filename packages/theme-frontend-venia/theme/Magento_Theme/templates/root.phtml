@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Try not to put things in this file.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<!doctype html>
+<html>
+  <head>
+    <?= /* @escapeNotVerified */ $headContent ?>
+    <?= /* @escapeNotVerified */ $headAdditional ?>
+  </head>
+  <body>
+    <div id="root"></div>
+    <?php
+    $mode = \Magento\Framework\App\ObjectManager::getInstance()->create(\Magento\Framework\App\State::class)->getMode();
+    if ($mode == 'developer') {
+        echo '<script src="http://localhost:8080/client.js"></script> ';
+    }
+    ?>
+  </body>
+</html>

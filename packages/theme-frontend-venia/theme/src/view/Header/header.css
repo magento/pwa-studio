@@ -1,0 +1,51 @@
+.Header {
+  background-color: var(--rush-gray);
+}
+
+.Header-toolbar {
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.Header-title,
+.Header-navTrigger,
+.Header-cartTrigger {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 3rem;
+  min-width: 3rem;
+}
+
+.Header-title {
+  font-family: Times, serif;
+  font-size: 1rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.Header-navTrigger {
+  cursor: pointer;
+  order: -1;
+}
+
+.Header-searchBlock {
+  align-items: center;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  padding: 0.5rem 1.5rem 1rem;
+  width: 100%;
+}
+
+.Header-searchBlock-input {
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 6px;
+  font-size: 1rem;
+  height: 3rem;
+  padding: 0 1.5rem;
+  width: 24rem;
+  -webkit-appearance: none;
+}
