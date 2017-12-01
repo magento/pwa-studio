@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 8
+dependencies:
+  override:
+    - cd theme && npm i
+test:
+  override:
+    - cd theme && npm t
