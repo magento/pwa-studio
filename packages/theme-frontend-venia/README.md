@@ -1,5 +1,7 @@
 # PWA Module/Theme
 
+[![CircleCI](https://circleci.com/gh/magento-research/pwa-module-theme.svg?style=svg&circle-token=8184a92e30a5842fbdafe7f2b86f49b794828f0d)](https://circleci.com/gh/magento-research/pwa-module-theme)
+
 A temporary (private) location for the Magento PWA team to persist our work.
 
 ## Why not in the magento2ce repository?
