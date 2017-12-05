@@ -2,9 +2,13 @@
   "name": "rush",
   "version": "0.1.0",
   "description": "Rush theme for Magento 2",
-  "license": "OSL",
+  "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magento-research/pwa-module-theme"
+  },
   "scripts": {
     "build": "webpack --progress --color --env production",
     "lint": "prettier --config .prettierrc.js --write \"./**/*.js\"",
