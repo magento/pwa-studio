@@ -41,12 +41,12 @@ module.exports = env => {
         module: {
             rules: [
                 {
-                    exclude: /node_modules/,
+                    include: dirSource,
                     test: /\.js$/,
                     use: [
                         {
                             loader: 'babel-loader',
-                            options: babelOptions
+                            options: { ...babelOptions, cacheDirectory: true }
                         }
                     ]
                 },
