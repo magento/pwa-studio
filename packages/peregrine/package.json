@@ -1,60 +1,53 @@
 {
-  "name": "@magento/peregrine",
+  "name": "peregrine",
+  "private": true,
   "version": "0.1.0",
-  "description": "A collection of UI components for the Magento PWA",
+  "description": "The core runtime of Magento PWA",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "author": "Magento Commerce",
   "main": "dist/index.js",
-  "scripts": {
-    "build": "babel src --out-dir dist --ignore __tests__",
-    "clean": "rimraf dist",
-    "test": "jest",
-    "lint": "eslint 'src/**/*.js'",
-    "test:ci": "run-p test prettier:check lint",
-    "prettier": "prettier --write 'src/**/*.js'",
-    "prettier:check": "prettier-check 'src/**/*.js'"
-  },
+  "module": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magento-research/peregrine.git"
+    "url": "https://github.com/magento-research/peregrine"
   },
-  "keywords": [
-    "magento",
-    "pwa",
-    "react",
-    "ui"
-  ],
-  "author": "Magento Commerce",
-  "license": "OSL",
-  "bugs": {
-    "url": "https://github.com/magento-research/peregrine/issues"
+  "scripts": {
+    "build": "babel src -d dist --ignore test.js",
+    "clean": "rimraf dist",
+    "lint": "eslint 'src/**/*.js'",
+    "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
+    "prettier:check": "prettier-check '{src/**/,scripts/**/,}*.js'",
+    "test": "jest --no-cache",
+    "test:ci": "run-p test prettier:check lint"
   },
-  "homepage": "https://github.com/magento-research/peregrine#readme",
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "enzyme": "^3.1.0",
-    "enzyme-adapter-react-16": "^1.0.2",
-    "eslint": "^4.10.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "eslint": "^4.12.1",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "jest": "^21.2.1",
-    "npm-run-all": "^4.1.1",
-    "prettier": "^1.7.4",
+    "jest": "^21.3.0-beta.8",
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.8.2",
     "prettier-check": "^2.0.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
     "rimraf": "^2.6.2"
-  },
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
-  "jest": {
-    "verbose": true,
-    "setupFiles": [
-      "./shim.js"
-    ]
   }
 }
