@@ -5,3 +5,7 @@ machine:
 test:
   override:
     - npm run test:ci
+
+general:
+  artifacts:
+    - "coverage/lcov-report"

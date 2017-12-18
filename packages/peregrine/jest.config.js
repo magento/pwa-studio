@@ -1,5 +1,5 @@
 module.exports = {
-    rootDir: 'src',
-    setupFiles: ['../scripts/shim.js'],
-    verbose: true
+    setupFiles: ['<rootDir>/scripts/shim.js'],
+    verbose: true,
+    collectCoverageFrom: ['src/**/*.js']
 };

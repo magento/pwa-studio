@@ -17,7 +17,7 @@
     "lint": "eslint 'src/**/*.js'",
     "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
     "prettier:check": "prettier-check '{src/**/,scripts/**/,}*.js'",
-    "test": "jest --no-cache",
+    "test": "jest --no-cache --coverage",
     "test:ci": "run-p test prettier:check lint"
   },
   "dependencies": {},
