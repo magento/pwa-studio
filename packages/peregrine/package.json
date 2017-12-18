@@ -18,7 +18,8 @@
     "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
     "prettier:check": "prettier-check '{src/**/,scripts/**/,}*.js'",
     "test": "jest --no-cache --coverage",
-    "test:ci": "run-p test prettier:check lint"
+    "test:ci": "run-p test prettier:check lint",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -31,6 +32,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -38,7 +41,7 @@
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "jest": "^21.3.0-beta.8",
+    "jest": "^21.3.0-beta.13",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.8.2",
     "prettier-check": "^2.0.0",

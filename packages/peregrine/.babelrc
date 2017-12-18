@@ -3,6 +3,7 @@
     "development": {
       "plugins": [
         "transform-object-rest-spread",
+        "transform-class-properties",
         ["transform-react-jsx", { "pragma": "createElement" }]
       ]
     },
@@ -10,6 +11,7 @@
       "plugins": [
         "transform-es2015-modules-commonjs",
         "transform-object-rest-spread",
+        "transform-class-properties",
         ["transform-react-jsx", { "pragma": "createElement" }]
       ]
     }

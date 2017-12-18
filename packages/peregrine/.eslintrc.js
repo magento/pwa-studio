@@ -4,6 +4,7 @@ const config = {
         es6: true,
         node: true
     },
+    parser: 'babel-eslint',
     parserOptions: {
         ecmaFeatures: {
             experimentalObjectRestSpread: true,
