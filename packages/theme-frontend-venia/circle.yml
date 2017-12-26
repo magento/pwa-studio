@@ -7,3 +7,6 @@ dependencies:
 test:
   override:
     - cd theme && npm t
+checkout:
+  post:
+    - cd ../ && git clone git@github.com:magento-research/peregrine.git
