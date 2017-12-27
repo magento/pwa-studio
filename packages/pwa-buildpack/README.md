@@ -12,5 +12,5 @@
 </p>
 
 ## Docs
-- [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md)
-- [`extension-aggregator`](docs/extension-aggregator.md)
+
+* [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md)
