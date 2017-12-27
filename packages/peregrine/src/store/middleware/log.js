@@ -1,3 +1,10 @@
+/**
+ * Log actions and state to the browser console.
+ * This function adheres to Redux's middleware pattern.
+ *
+ * @param {Store} store The store to augment.
+ * @returns {Function}
+ */
 const log = store => next => action => {
     const result = next(action);
 
