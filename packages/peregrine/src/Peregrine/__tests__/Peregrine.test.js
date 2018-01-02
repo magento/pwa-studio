@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { configure, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Peregrine from './index.js';
+import Peregrine from '..';
 
 configure({ adapter: new Adapter() });
 
 const SimpleComponent = () => <i />;
 
-test('constructs a new Peregrine instance', () => {
+test('Constructs a new Peregrine instance', () => {
     const received = new Peregrine(SimpleComponent);
 
     expect(received).toMatchObject(
@@ -23,7 +23,7 @@ test('constructs a new Peregrine instance', () => {
     );
 });
 
-test('renders a Peregrine instance', () => {
+test('Renders a Peregrine instance', () => {
     const app = new Peregrine(SimpleComponent);
     const received = app.render();
     const expected = <SimpleComponent />;
@@ -31,7 +31,7 @@ test('renders a Peregrine instance', () => {
     expect(render(received)).toEqual(render(expected));
 });
 
-test('mounts a Peregrine instance', () => {
+test('Mounts a Peregrine instance', () => {
     const container = document.createElement('div');
     const received = new Peregrine(SimpleComponent);
     const expected = <SimpleComponent />;
@@ -43,7 +43,7 @@ test('mounts a Peregrine instance', () => {
     expect(container.firstChild.outerHTML).toEqual(render(expected).toString());
 });
 
-test('adds a reducer to the store', () => {
+test('Adds a reducer to the store', () => {
     const expected = {};
     const app = new Peregrine(SimpleComponent);
     const fooReducer = (state = null, { type }) =>
