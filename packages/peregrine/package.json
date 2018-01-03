@@ -1,12 +1,13 @@
 {
-  "name": "peregrine",
-  "private": true,
-  "version": "0.1.0",
+  "name": "@magento/peregrine",
+  "version": "0.1.0-alpha",
   "description": "The core runtime of Magento PWA",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/magento-research/peregrine"

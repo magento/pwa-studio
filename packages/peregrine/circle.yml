@@ -9,3 +9,13 @@ test:
 general:
   artifacts:
     - "coverage/lcov-report"
+
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
+deployment:
+  npm:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - npm publish
