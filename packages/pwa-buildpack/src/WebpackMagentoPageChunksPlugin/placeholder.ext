@@ -1,0 +1,10 @@
+This placeholder is necessary for our `pages-chunk-loader`. We want
+to force webpack to bundle chunks for each component in a `pages` directory, without
+having to write a temp file to disk with all the dynamic `import(path)` expressions.
+
+Instead, `MagentoPageChunksPlugin` injects a new entry point, that uses
+the `pages-chunk-loader` plugin. You cannot point a loader to a file that
+does not exist, so we use this dummy file to get past the webpack restriction.
+
+The dummy extension `ext` (as opposed to `js`) is used to prevent this file from getting run through any
+loaders the user has configured
