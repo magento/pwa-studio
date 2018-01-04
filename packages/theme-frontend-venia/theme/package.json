@@ -11,9 +11,12 @@
   },
   "scripts": {
     "build": "webpack --progress --color --env production",
-    "lint": "prettier --config .prettierrc.js --write \"./**/*.js\"",
+    "lint": "eslint */**.js",
+    "prettier": "prettier --write './**/*.js'",
+    "prettier:check": "prettier-check './**/*.js'",
+    "jest": "jest -i",
     "start": "webpack-dev-server --progress --color --env development",
-    "test": "concurrently 'jest -i' 'prettier-check --config .prettierrc.js \"./**/*.js\"'",
+    "test": "run-p jest prettier:check lint",
     "test:dev": "jest --watch"
   },
   "dependencies": {
@@ -25,16 +28,21 @@
     "redux-actions": "^2.2.1"
   },
   "devDependencies": {
+    "@magento/eslint-config": "^1.0.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
-    "concurrently": "^3.5.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.14.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "jest": "^21.2.1",
+    "npm-run-all": "^4.1.2",
     "prettier": "^1.7.4",
     "prettier-check": "^2.0.0",
     "style-loader": "^0.19.0",
