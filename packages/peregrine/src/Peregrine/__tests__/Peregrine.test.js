@@ -1,5 +1,4 @@
 import { createElement } from 'react';
-import { connect } from 'react-redux';
 import { configure, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
