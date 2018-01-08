@@ -3,6 +3,7 @@ const presets = [];
 
 // define default plugin list
 const plugins = [
+    'syntax-dynamic-import',
     'syntax-jsx',
     'transform-class-properties',
     'transform-object-rest-spread',

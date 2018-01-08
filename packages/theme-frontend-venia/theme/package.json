@@ -11,27 +11,29 @@
   },
   "scripts": {
     "build": "webpack --progress --color --env production",
+    "jest": "jest -i",
     "lint": "eslint */**.js",
     "prettier": "prettier --write './**/*.js'",
     "prettier:check": "prettier-check './**/*.js'",
-    "jest": "jest -i",
     "start": "webpack-dev-server --progress --color --env development",
     "test": "run-p jest prettier:check lint",
     "test:dev": "jest --watch"
   },
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "@magento/peregrine": "^0.1.1-alpha",
+    "dotenv": "^4.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.2",
     "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

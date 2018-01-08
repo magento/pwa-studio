@@ -1,8 +1,8 @@
-.App {
+.Page {
   min-height: 100vh;
 }
 
-.App[data-nav="true"] {
+.Page[data-nav="true"] {
   height: 100vh;
   overflow: hidden;
 }

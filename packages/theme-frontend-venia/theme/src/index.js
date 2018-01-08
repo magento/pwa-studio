@@ -1,21 +1,19 @@
-import { createElement } from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Peregrine from '@magento/peregrine';
 
-import store from 'src/store';
-import App from 'src/view/App';
+import { extract } from 'src/utils';
 
 import './index.css';
 
-const app = (
-    <Provider store={store}>
-        <Router>
-            <App />
-        </Router>
-    </Provider>
-);
+const app = new Peregrine();
+const container = document.getElementById('root');
 
-document.addEventListener('DOMContentLoaded', () =>
-    render(app, document.getElementById('root'))
-);
+extract(import('src/view/App'))
+    .then(App => {
+        app.component = App;
+        app.mount(container);
+    })
+    .catch(error => {
+        throw error;
+    });
+
+export default app;

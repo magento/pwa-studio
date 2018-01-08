@@ -1,30 +1,31 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
 
-import Footer from 'src/view/Footer';
-import Header from 'src/view/Header';
-import Main from 'src/view/Main';
-import Navigation from 'src/view/Navigation';
+import app from 'src';
+import Page from 'src/view/Page';
+import { selectNavigation } from 'src/store/reducers/navigation';
+import { extract } from 'src/utils';
 
-import './app.css';
+export class App extends Component {
+    componentDidMount(props) {
+        extract(import('src/store/reducers/navigation'))
+            .then(reducer => {
+                app.addReducer('navigation', reducer);
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
 
-class App extends Component {
     render() {
-        const nav = !!this.props.navigation.open || null;
+        const nav = this.props.navigation.open || null;
 
-        return (
-            <div className="App" data-nav={nav}>
-                <Header nav={nav} />
-                <Main />
-                <Footer />
-                <Navigation nav={nav} />
-            </div>
-        );
+        return <Page nav={nav} />;
     }
 }
 
-const mapStateToProps = ({ views }) => ({ navigation: views.navigation });
+const mapStateToProps = state => ({
+    navigation: selectNavigation(state)
+});
 
 export default connect(mapStateToProps)(App);
-
-export { App };
