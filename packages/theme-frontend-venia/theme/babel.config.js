@@ -17,10 +17,11 @@ const defaults = {
     plugins
 };
 
-// define target browsers for production
-const browsers = {
+// define preset-env config for production
+const presetEnvConfig = {
     targets: {
-        browsers: ['last 2 versions', 'ie >= 11']
+        browsers: ['last 2 versions', 'ie >= 11'],
+        modules: false
     }
 };
 
@@ -28,7 +29,21 @@ const browsers = {
 const options = {
     development: Object.assign({}, defaults),
     production: Object.assign({}, defaults, {
-        presets: [['babel-preset-env', browsers]]
+        presets: [
+            ...(defaults.presets || []),
+            ['babel-preset-env', presetEnvConfig]
+        ],
+        plugins: [
+            ...(defaults.plugins || []),
+            [
+                'transform-runtime',
+                {
+                    helpers: true,
+                    polyfill: false, // polyfills will be handled by preset-env
+                    regenerator: false
+                }
+            ]
+        ]
     })
 };
 
