@@ -4,7 +4,7 @@ const { promisify: pify } = require('util');
 const webpack = require('webpack');
 const MagentoPageChunksPlugin = require('..');
 
-const basic3PageProductDir = join(
+const basic3PageProjectDir = join(
     __dirname,
     '__fixtures__/basic-project-3-pages'
 );
@@ -27,9 +27,9 @@ const compile = async config => {
 test('Throws with actionable error when "entry" in config is not an object', async () => {
     expect.hasAssertions();
     const config = {
-        entry: join(basic3PageProductDir, 'entry.js'),
+        entry: join(basic3PageProjectDir, 'entry.js'),
         output: {
-            path: join(basic3PageProductDir, 'dist')
+            path: join(basic3PageProjectDir, 'dist')
         },
         plugins: [new MagentoPageChunksPlugin()]
     };
@@ -40,20 +40,22 @@ test('Throws with actionable error when "entry" in config is not an object', asy
     }
 });
 
-test('Creates a chunk for each page when multiple pages exist', async () => {
+test('Creates a chunk for each root when multiple roots exist', async () => {
     const config = {
-        context: basic3PageProductDir,
+        context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProductDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'entry.js')
         },
         output: {
-            path: join(basic3PageProductDir, 'dist'),
+            path: join(basic3PageProjectDir, 'dist'),
             filename: '[name].js',
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                pagesDirs: [join(basic3PageProductDir, 'pages')]
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents')
+                ]
             })
         ]
     };
@@ -66,18 +68,20 @@ test('Creates a chunk for each page when multiple pages exist', async () => {
 
 test('Does not write injected entry to disk (only its chunks)', async () => {
     const config = {
-        context: basic3PageProductDir,
+        context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProductDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'entry.js')
         },
         output: {
-            path: join(basic3PageProductDir, 'dist'),
+            path: join(basic3PageProjectDir, 'dist'),
             filename: '[name].js',
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                pagesDirs: [join(basic3PageProductDir, 'pages')],
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents')
+                ],
                 manifestFileName: 'manifest.json'
             })
         ]
@@ -98,18 +102,20 @@ test('Does not write injected entry to disk (only its chunks)', async () => {
 
 test('Does not prevent chunk name from being configurable', async () => {
     const config = {
-        context: basic3PageProductDir,
+        context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProductDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'entry.js')
         },
         output: {
-            path: join(basic3PageProductDir, 'dist'),
+            path: join(basic3PageProjectDir, 'dist'),
             filename: '[name].js',
             chunkFilename: '[name].foobar.js'
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                pagesDirs: [join(basic3PageProductDir, 'pages')]
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents')
+                ]
             })
         ]
     };
@@ -120,18 +126,20 @@ test('Does not prevent chunk name from being configurable', async () => {
 
 test('Writes manifest to location specified with "manifestFileName" option', async () => {
     const config = {
-        context: basic3PageProductDir,
+        context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProductDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'entry.js')
         },
         output: {
-            path: join(basic3PageProductDir, 'dist'),
+            path: join(basic3PageProjectDir, 'dist'),
             filename: '[name].js',
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                pagesDirs: [join(basic3PageProductDir, 'pages')],
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents')
+                ],
                 manifestFileName: 'manifest.json'
             })
         ]
@@ -140,7 +148,7 @@ test('Writes manifest to location specified with "manifestFileName" option', asy
     const { fs } = await compile(config);
     const manifest = JSON.parse(
         fs.readFileSync(
-            join(basic3PageProductDir, 'dist/manifest.json'),
+            join(basic3PageProjectDir, 'dist/manifest.json'),
             'utf8'
         )
     );
@@ -149,7 +157,7 @@ test('Writes manifest to location specified with "manifestFileName" option', asy
     expect(manifest.Page3).toBe('Page3.chunk.js');
 });
 
-test('Creates chunks for all pages when multiple values are provided in "pagesDirs" config', async () => {
+test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: {
@@ -162,9 +170,9 @@ test('Creates chunks for all pages when multiple values are provided in "pagesDi
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                pagesDirs: [
-                    join(basic3PageProductDir, 'pages'),
-                    join(basic1PageProjectDir, 'pages')
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents'),
+                    join(basic1PageProjectDir, 'RootComponents')
                 ]
             })
         ]

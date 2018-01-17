@@ -3,14 +3,16 @@ const assert = require('assert');
 const { isAbsolute } = require('path');
 const { RawSource } = require('webpack-sources');
 
-const loaderPath = path.join(__dirname, 'pages-chunk-loader.js');
+const loaderPath = path.join(__dirname, 'roots-chunk-loader.js');
 const placeholderPath = path.join(__dirname, 'placeholder.ext');
-const ENTRY_NAME = '__magento_pages__';
+const ENTRY_NAME = '__magento_page_roots__';
 
-class MagentoPageChunksPlugin {
-    constructor({ pagesDirs, manifestFileName } = {}) {
-        this.pagesDirs = pagesDirs || ['./src/pages'];
-        this.manifestFileName = manifestFileName || 'pages-manifest.json';
+class WebpackMagentoRootComponentsChunksPlugin {
+    constructor({ rootComponentsDirs, manifestFileName } = {}) {
+        this.rootComponentsDirs = rootComponentsDirs || [
+            './src/RootComponents'
+        ];
+        this.manifestFileName = manifestFileName || 'roots-manifest.json';
     }
 
     apply(compiler) {
@@ -21,20 +23,20 @@ class MagentoPageChunksPlugin {
         // not sure we really need it
         assert(
             Object.prototype.toString.call(entry) === '[object Object]',
-            'MagentoPageChunksPlugin requires that your webpack "entry" is an object'
+            'WebpackMagentoRootComponentsChunksPlugin requires that your webpack "entry" is an object'
         );
 
-        const { pagesDirs } = this;
-        const pagesDirsAbs = pagesDirs.map(
+        const { rootComponentsDirs } = this;
+        const rootComponentsDirsAbs = rootComponentsDirs.map(
             dir => (isAbsolute(dir) ? dir : path.join(context, dir))
         );
 
         // This is a trick to force webpack into reading a dynamic file from memory,
         // instead of from disk. We point it at our loader with a dummy file, and
         // the loader will return the code we want webpack to parse
-        entry[ENTRY_NAME] = `${loaderPath}?pagesDirs=${pagesDirsAbs.join(
-            '|'
-        )}!${placeholderPath}`;
+        entry[ENTRY_NAME] = `${
+            loaderPath
+        }?rootsDirs=${rootComponentsDirsAbs.join('|')}!${placeholderPath}`;
 
         compiler.plugin('emit', (compilation, cb) => {
             const trickEntryPoint = compilation.chunks.find(
@@ -42,7 +44,9 @@ class MagentoPageChunksPlugin {
             );
             assert(
                 trickEntryPoint,
-                'WebpackMagentoPageChunksPlugin could not find the "pages" entry chunk'
+                `WebpackMagentoRootComponentsChunksPlugin could not find the "${
+                    ENTRY_NAME
+                }" entry chunk`
             );
 
             // Prepare the manifest that the Magento backend can use
@@ -64,4 +68,4 @@ class MagentoPageChunksPlugin {
     }
 }
 
-module.exports = MagentoPageChunksPlugin;
+module.exports = WebpackMagentoRootComponentsChunksPlugin;

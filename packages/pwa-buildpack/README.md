@@ -14,4 +14,4 @@
 ## Docs
 
 * [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md)
-* [`webpack-magento-page-chunks-plugin`](docs/webpack-magento-page-chunks-plugin)
+* [`webpack-magento-root-components-chunks-plugin`](docs/webpack-magento-root-components-chunks-plugin)

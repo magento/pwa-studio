@@ -5,16 +5,16 @@ const { promisify: pify } = require('util');
 /**
  * By design, this loader ignores the input content. The loader's sole purpose
  * is to dynamically generate import() expressions that tell webpack to create
- * chunks for each page of a Magento theme
+ * chunks for each Root Component in a Magento theme
  */
-module.exports = async function pagesChunkLoader(/*ignored*/) {
+module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
     const cb = this.async();
-    const pagesDirs = loaderUtils.getOptions(this).pagesDirs.split('|');
+    const rootsDirs = loaderUtils.getOptions(this).rootsDirs.split('|');
 
     const readdir = pify(this.fs.readdir.bind(this.fs));
     const dirEntries = flatten(
         await Promise.all(
-            pagesDirs.map(async dir => {
+            rootsDirs.map(async dir => {
                 const dirs = await readdir(dir);
                 return dirs.map(d => join(dir, d));
             })
@@ -37,8 +37,8 @@ function generateDynamicChunkEntry(dirs) {
     return dirs
         .map(dir => {
             const chunkName = dir.split(sep).slice(-1);
-            // Right now, pages are assumed to always be the `index.js` inside of a
-            // top-level dir in `/pages/`. We can change this to something else or
+            // Right now, Root Components are assumed to always be the `index.js` inside of a
+            // top-level dir in a specified root dir. We can change this to something else or
             // make it configurable later
             const fullPath = join(dir, 'index.js');
             return `import(/* webpackChunkName: "${chunkName}" */ '${

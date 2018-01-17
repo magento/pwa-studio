@@ -1,10 +1,10 @@
-# webpack-magento-page-chunks-plugin
+# webpack-magento-root-components-chunks-plugin
 
 Automagically creates [unique
-chunks](https://webpack.js.org/guides/code-splitting/) for each page in a
-Magento PWA theme.
+chunks](https://webpack.js.org/guides/code-splitting/) for each Root Component
+in a Magento PWA theme and extensions.
 
-Given a `pages` directory in a theme with the following structure:
+Given a `RootComponents` directory in a theme with the following structure:
 
 ```sh
 ├── Page1
@@ -25,7 +25,9 @@ usual.
 // webpack.config.js
 
 const path = require('path');
-const { WebpackMagentoPageChunksPlugin } = require('@magento/anhinga');
+const {
+    WebpackMagentoRootComponentsChunksPlugin
+} = require('@magento/anhinga');
 
 module.exports = {
     entry: {
@@ -37,9 +39,9 @@ module.exports = {
         chunkFilename: '[name].chunk.js'
     },
     plugins: [
-        new WebpackMagentoPageChunksPlugin({
-            pagesDirs: [path.join(__dirname, 'src/pages')], // optional
-            manifestFileName: 'pages-manifest.json' // optional
+        new WebpackMagentoRootComponentsChunksPlugin({
+            rootComponentsDirs: [path.join(__dirname, 'src/RootComponents')], // optional
+            manifestFileName: 'roots-manifest.json' // optional
         })
     ]
 };
