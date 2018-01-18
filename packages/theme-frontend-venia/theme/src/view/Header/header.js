@@ -15,19 +15,23 @@ class Header extends Component {
                     <h2 className="Header-title">
                         <span>Rush</span>
                     </h2>
-                    <Trigger className="Header-navTrigger" nav={nav}>
-                        <span>🍔</span>
-                    </Trigger>
-                    <div className="Header-cartTrigger">
-                        <Link to="/cart">🛒</Link>
+                    <div className="Header-primaryActions">
+                        <Trigger className="Header-navTrigger" nav={nav}>
+                            <span>🍔</span>
+                        </Trigger>
                     </div>
-                </div>
-                <div className="Header-searchBlock">
-                    <input
-                        className="Header-searchBlock-input"
-                        type="text"
-                        placeholder="I'm looking for..."
-                    />
+                    <div className="Header-secondaryActions">
+                        <div className="Header-cartTrigger">
+                            <Link to="/cart">🛒</Link>
+                        </div>
+                    </div>
+                    <div className="Header-searchBlock">
+                        <input
+                            className="Header-searchBlock-input"
+                            type="text"
+                            placeholder="I'm looking for..."
+                        />
+                    </div>
                 </div>
             </header>
         );

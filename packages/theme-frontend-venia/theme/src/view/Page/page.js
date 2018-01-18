@@ -9,12 +9,12 @@ import './page.css';
 
 class Page extends Component {
     render() {
-        const { nav } = this.props;
+        const { children, nav } = this.props;
 
         return (
             <div className="Page" data-nav={nav}>
                 <Header nav={nav} />
-                <Main />
+                <Main>{children}</Main>
                 <Footer />
                 <Navigation nav={nav} />
             </div>

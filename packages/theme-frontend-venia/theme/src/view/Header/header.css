@@ -3,27 +3,43 @@
 }
 
 .Header-toolbar {
-  align-content: center;
-  display: flex;
-  justify-content: space-between;
+  align-items: center;
+  display: grid;
+  grid-row-gap: 0.5rem;
+  grid-template-areas:
+    "primary title secondary"
+    "search search search";
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 3rem 4rem;
+  justify-items: center;
   padding: 0 1rem;
 }
 
-.Header-title,
 .Header-navTrigger,
 .Header-cartTrigger {
   align-items: center;
   display: inline-flex;
   justify-content: center;
-  min-height: 3rem;
-  min-width: 3rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .Header-title {
   font-family: Times, serif;
   font-size: 1rem;
+  grid-area: title;
   margin: 0;
   text-transform: uppercase;
+}
+
+.Header-primaryActions {
+  grid-area: primary;
+  justify-self: start;
+}
+
+.Header-secondaryActions {
+  grid-area: secondary;
+  justify-self: end;
 }
 
 .Header-navTrigger {
@@ -35,8 +51,10 @@
   align-items: center;
   display: flex;
   flex: none;
+  grid-area: search;
   justify-content: center;
-  padding: 0.5rem 1.5rem 1rem;
+  order: 1;
+  padding: 0 0.5rem 1rem;
   width: 100%;
 }
 

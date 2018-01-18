@@ -30,3 +30,10 @@ a {
 p {
   margin: 1rem 0;
 }
+
+button {
+  background: none;
+  border: 0;
+  font-size: 100%;
+  -webkit-appearance: none;
+}
