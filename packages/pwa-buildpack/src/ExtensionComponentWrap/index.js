@@ -22,7 +22,7 @@ export default class MagentoExtensionBoundary extends React.Component {
         };
     }
 
-    componentDidCatch(error, info) {
+    componentDidCatch() {
         const { replacedID } = this.props;
         console.error(
             'An error occurred within a part of the React component tree ' +
