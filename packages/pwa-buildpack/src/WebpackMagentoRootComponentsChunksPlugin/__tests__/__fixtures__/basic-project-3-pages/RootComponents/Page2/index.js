@@ -1,1 +1,4 @@
-// Page 2 index
+/**
+ * @RootComponent
+ * pageTypes = catalog_page
+ */

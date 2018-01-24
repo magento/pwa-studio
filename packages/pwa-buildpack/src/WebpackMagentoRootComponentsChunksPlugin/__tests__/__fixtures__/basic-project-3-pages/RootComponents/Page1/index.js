@@ -1,1 +1,4 @@
-// Page 1 index
+/**
+ * @RootComponent
+ * pageTypes = product_page
+ */

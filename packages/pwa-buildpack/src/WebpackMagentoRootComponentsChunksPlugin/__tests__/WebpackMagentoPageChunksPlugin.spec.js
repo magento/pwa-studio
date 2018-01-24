@@ -24,22 +24,6 @@ const compile = async config => {
     };
 };
 
-test('Throws with actionable error when "entry" in config is not an object', async () => {
-    expect.hasAssertions();
-    const config = {
-        entry: join(basic3PageProjectDir, 'entry.js'),
-        output: {
-            path: join(basic3PageProjectDir, 'dist')
-        },
-        plugins: [new MagentoPageChunksPlugin()]
-    };
-    try {
-        await compile(config);
-    } catch (err) {
-        expect(err.message).toContain('"entry" is an object');
-    }
-});
-
 test('Creates a chunk for each root when multiple roots exist', async () => {
     const config = {
         context: basic3PageProjectDir,
@@ -146,15 +130,11 @@ test('Writes manifest to location specified with "manifestFileName" option', asy
     };
 
     const { fs } = await compile(config);
-    const manifest = JSON.parse(
-        fs.readFileSync(
-            join(basic3PageProjectDir, 'dist/manifest.json'),
-            'utf8'
-        )
+    const manifest = fs.readFileSync(
+        join(basic3PageProjectDir, 'dist/manifest.json'),
+        'utf8'
     );
-    expect(manifest.Page1).toBe('Page1.chunk.js');
-    expect(manifest.Page2).toBe('Page2.chunk.js');
-    expect(manifest.Page3).toBe('Page3.chunk.js');
+    expect(manifest).toBeTruthy();
 });
 
 test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
@@ -181,4 +161,117 @@ test('Creates chunks for all roots when multiple values are provided in "rootCom
     const { stats } = await compile(config);
     expect(stats.compilation.assets['Page1.chunk.js']).toBeTruthy();
     expect(stats.compilation.assets['SomePage.chunk.js']).toBeTruthy();
+});
+
+test('Works when there is 1 unnamed entry point in the config', async () => {
+    const config = {
+        context: basic3PageProjectDir,
+        entry: join(basic3PageProjectDir, 'entry.js'),
+        output: {
+            path: join(basic3PageProjectDir, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].chunk.js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [
+                    join(basic3PageProjectDir, 'RootComponents')
+                ],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    const { fs } = await compile(config);
+    const writtenFiles = fs.readdirSync(config.output.path).sort();
+    const expectedFiles = [
+        'Page1.chunk.js',
+        'Page2.chunk.js',
+        'Page3.chunk.js',
+        'main.js', // default entry point name when name isn't provided
+        'manifest.json'
+    ].sort();
+
+    expect(writtenFiles).toEqual(expectedFiles);
+});
+
+test('Includes RootComponent description, pageTypes, and chunk filename in the manifest', async () => {
+    const config = {
+        context: basic1PageProjectDir,
+        entry: join(basic1PageProjectDir, 'entry.js'),
+        output: {
+            path: join(basic1PageProjectDir, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].chunk.js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [
+                    join(basic1PageProjectDir, 'RootComponents')
+                ],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    const { fs } = await compile(config);
+    const manifest = JSON.parse(
+        fs.readFileSync(
+            join(basic1PageProjectDir, 'dist/manifest.json'),
+            'utf8'
+        )
+    );
+    expect(manifest.SomePage.pageTypes).toEqual(['cms_page']);
+    expect(manifest.SomePage.description).toEqual('CMS Page Root Component');
+    expect(manifest.SomePage.chunkName).toBe('SomePage.chunk.js');
+});
+
+test('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
+    const projectDir = join(__dirname, '__fixtures__/dupe-root-component');
+    const config = {
+        context: projectDir,
+        entry: join(projectDir, 'entry.js'),
+        output: {
+            path: join(projectDir, 'dist'),
+            filename: '[name].js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [join(projectDir, 'RootComponents')],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+    await compile(config);
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/Found more than 1 RootComponent Directive/)
+    );
+    console.warn.mockRestore();
+});
+
+test('Build fails when no @RootComponent directive is found', async () => {
+    const projectDir = join(__dirname, '__fixtures__/missing-root-directive');
+    const config = {
+        context: projectDir,
+        entry: join(projectDir, 'entry.js'),
+        output: {
+            path: join(projectDir, 'dist'),
+            filename: '[name].js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [join(projectDir, 'RootComponents')],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    const { stats } = await compile(config);
+    expect(stats.compilation.errors.length).toBe(1);
+    const [firstError] = stats.compilation.errors;
+    expect(firstError.message).toMatch(
+        /Failed to create chunk for the following file, because it is missing a @RootComponent directive/
+    );
 });
