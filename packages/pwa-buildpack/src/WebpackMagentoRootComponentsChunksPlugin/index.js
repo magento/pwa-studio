@@ -6,9 +6,12 @@ const SingleEntryPlugin = require('webpack/lib/SingleEntryPlugin');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
 const placeholderPath = join(__dirname, 'placeholder.ext');
-const ENTRY_NAME = '__magento_page_roots__';
 
 class WebpackMagentoRootComponentsChunksPlugin {
+    static get ENTRY_NAME() {
+        return '__magento_page_roots__';
+    }
+
     constructor({ rootComponentsDirs, manifestFileName } = {}) {
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
@@ -17,6 +20,7 @@ class WebpackMagentoRootComponentsChunksPlugin {
     }
 
     apply(compiler) {
+        const { ENTRY_NAME } = WebpackMagentoRootComponentsChunksPlugin;
         const { context } = compiler.options;
         const { rootComponentsDirs } = this;
 
@@ -56,9 +60,11 @@ class WebpackMagentoRootComponentsChunksPlugin {
                 return acc;
             }, {});
 
-            // Remove the asset for our trick entry point that contained the `import()`
+            // Remove the asset + sourcemap for our trick entry point that contained the `import()`
             // expressions, before it is written to disk. Its chunks have already been created
-            delete compilation.assets[trickEntryPoint.files[0]];
+            trickEntryPoint.files.forEach(file => {
+                delete compilation.assets[file];
+            });
 
             compilation.assets[this.manifestFileName] = new RawSource(
                 JSON.stringify(manifest, null, 4)

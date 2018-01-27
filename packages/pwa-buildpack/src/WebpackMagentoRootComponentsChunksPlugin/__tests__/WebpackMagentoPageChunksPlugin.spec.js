@@ -302,3 +302,30 @@ test('Can resolve dependencies of a RootComponent', async () => {
     );
     expect(chunkStr).not.toContain('Cannot find module');
 });
+
+test('Should not spit out sourcemaps for the removed "trick" entry point when external sourcemaps are enabled', async () => {
+    const config = {
+        context: basic1PageProjectDir,
+        devtool: 'source-map',
+        entry: join(basic1PageProjectDir, 'entry.js'),
+        output: {
+            path: join(basic1PageProjectDir, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].chunk.js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [
+                    join(basic1PageProjectDir, 'RootComponents')
+                ],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    const { fs } = await compile(config);
+    const writtenFiles = fs.readdirSync(config.output.path).sort();
+    expect(writtenFiles).not.toContain(
+        `${MagentoPageChunksPlugin.ENTRY_NAME}.js.map`
+    );
+});
