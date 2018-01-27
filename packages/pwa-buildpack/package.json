@@ -4,7 +4,7 @@
   "description": "Build/Layout optimization tooling for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore __tests__ --source-maps",
+    "build": "babel src --out-dir dist --ignore __tests__ --source-maps --copy-files",
     "lint": "eslint *.js src/**/*.js",
     "test": "run-p jest:ci prettier:check lint",
     "test:dev": "jest --watch",

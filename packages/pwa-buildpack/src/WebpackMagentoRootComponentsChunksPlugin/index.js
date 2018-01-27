@@ -2,7 +2,7 @@ const assert = require('assert');
 const { isAbsolute, join } = require('path');
 const { RawSource } = require('webpack-sources');
 const { rootComponentMap } = require('./roots-chunk-loader');
-const SingleEntryDependency = require('webpack/lib/dependencies/SingleEntryDependency');
+const SingleEntryPlugin = require('webpack/lib/SingleEntryPlugin');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
 const placeholderPath = join(__dirname, 'placeholder.ext');
@@ -30,13 +30,7 @@ class WebpackMagentoRootComponentsChunksPlugin {
         const entryPath = `${loaderPath}?rootsDirs=${rootComponentsDirsAbs.join(
             '|'
         )}!${placeholderPath}`;
-
-        compiler.plugin('make', (compilation, cb) => {
-            const dep = new SingleEntryDependency(entryPath);
-            dep.loc = ENTRY_NAME;
-            // Register our tricky entry
-            compilation.addEntry(context, dep, ENTRY_NAME, cb);
-        });
+        compiler.apply(new SingleEntryPlugin(context, entryPath, ENTRY_NAME));
 
         compiler.plugin('emit', (compilation, cb) => {
             const trickEntryPoint = compilation.chunks.find(
@@ -52,8 +46,7 @@ class WebpackMagentoRootComponentsChunksPlugin {
             // Prepare the manifest that the Magento backend can use
             // to pick root components for a page.
             const manifest = trickEntryPoint.chunks.reduce((acc, chunk) => {
-                const [chunkModule] = chunk._modules;
-                const rootDirective = rootComponentMap.get(chunkModule);
+                const rootDirective = rootComponentMap.get(chunk.name);
                 const [rootComponentFilename] = chunk.files; // No idea why `files` is an array here 🤔
 
                 acc[chunk.name] = Object.assign(

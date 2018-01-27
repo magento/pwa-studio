@@ -275,3 +275,30 @@ test('Build fails when no @RootComponent directive is found', async () => {
         /Failed to create chunk for the following file, because it is missing a @RootComponent directive/
     );
 });
+
+test('Can resolve dependencies of a RootComponent', async () => {
+    // https://github.com/DrewML/webpack-loadmodule-bug
+    const projectDir = join(__dirname, '__fixtures__/root-component-dep');
+    const config = {
+        context: projectDir,
+        entry: join(projectDir, 'entry.js'),
+        output: {
+            path: join(projectDir, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].chunk.js'
+        },
+        plugins: [
+            new MagentoPageChunksPlugin({
+                rootComponentsDirs: [join(projectDir, 'RootComponents')],
+                manifestFileName: 'manifest.json'
+            })
+        ]
+    };
+
+    const { fs } = await compile(config);
+    const chunkStr = fs.readFileSync(
+        join(projectDir, 'dist/Page1.chunk.js'),
+        'utf8'
+    );
+    expect(chunkStr).not.toContain('Cannot find module');
+});

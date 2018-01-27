@@ -1,4 +1,4 @@
-const { join, sep } = require('path');
+const { join, sep, dirname } = require('path');
 const loaderUtils = require('loader-utils');
 const { promisify: pify } = require('util');
 const directiveParser = require('@magento/directive-parser');
@@ -12,6 +12,7 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
     // Using `this.async()` because webpack's loader-runner lib has a super broken implementation
     // of promise support
     const cb = this.async();
+    const readFile = pify(this.fs.readFile.bind(this.fs));
 
     try {
         const rootsDirs = loaderUtils.getOptions(this).rootsDirs.split('|');
@@ -34,19 +35,21 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
         const sources = await Promise.all(
             dirs.map(async dir => {
                 const rootComponentPath = join(dir, 'index.js'); // index.js should probably be configurable
-                const [src, , mod] = await pifyMultipleArgs(
-                    this.loadModule.bind(this)
-                )(rootComponentPath);
+                // `this.loadModule` would typically be used here, but we can't  use it due to a bug
+                // https://github.com/DrewML/webpack-loadmodule-bug. Instead, we do a read from webpack's MemoryFS.
+                // The `toString` is necessary because webpack's implementation of the `fs` API doesn't respect the
+                // encoding param, so the returned value is a Buffer. We don't actually _need_ `this.loadModule`,
+                // since we're not running the source through a full ECMAScript parser (so we don't need the file post-loaders)
+                const src = (await readFile(rootComponentPath)).toString();
 
                 return {
                     rootComponentPath,
-                    src,
-                    mod
+                    src
                 };
             })
         );
 
-        sources.forEach(({ rootComponentPath, src, mod }) => {
+        sources.forEach(({ rootComponentPath, src }) => {
             const { directives = [], errors } = directiveParser(src);
             if (errors.length) {
                 console.warn(
@@ -77,7 +80,10 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
                 );
             }
 
-            rootComponentMap.set(mod, rootComponentDirectives[0]);
+            rootComponentMap.set(
+                chunkNameFromRootComponentDir(dirname(rootComponentPath)),
+                rootComponentDirectives[0]
+            );
         });
 
         cb(null, generateDynamicChunkEntry(dirs));
@@ -86,7 +92,7 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
     }
 };
 
-const rootComponentMap = (module.exports.rootComponentMap = new WeakMap());
+const rootComponentMap = (module.exports.rootComponentMap = new Map());
 
 /**
  * @param {string[]} dirs
@@ -97,7 +103,7 @@ function generateDynamicChunkEntry(dirs) {
     // generating strings of JS is far from ideal
     return dirs
         .map(dir => {
-            const chunkName = dir.split(sep).slice(-1);
+            const chunkName = chunkNameFromRootComponentDir(dir);
             // Right now, Root Components are assumed to always be the `index.js` inside of a
             // top-level dir in a specified root dir. We can change this to something else or
             // make it configurable later
@@ -107,6 +113,14 @@ function generateDynamicChunkEntry(dirs) {
             }')`;
         })
         .join('\n\n');
+}
+
+/**
+ *
+ * @param {string} dir
+ */
+function chunkNameFromRootComponentDir(dir) {
+    return dir.split(sep).slice(-1)[0];
 }
 
 /**
@@ -137,16 +151,4 @@ async function promiseBoolReflect(promise) {
 
 function flatten(arr) {
     return Array.prototype.concat(...arr);
-}
-
-function pifyMultipleArgs(fn) {
-    return function(...args) {
-        return new Promise((res, rej) => {
-            args.push((err, ...cbArgs) => {
-                if (err) rej(err);
-                else res(cbArgs);
-            });
-            fn.apply(this, args);
-        });
-    };
 }
