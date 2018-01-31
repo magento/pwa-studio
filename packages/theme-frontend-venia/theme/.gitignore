@@ -1,5 +1,6 @@
-dist
 node_modules
 npm-debug.log
+web/*.js
+web/*.js.map
 .DS_Store
 .env
