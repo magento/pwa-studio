@@ -50,40 +50,6 @@ test('Creates a chunk for each root when multiple roots exist', async () => {
     expect(stats.compilation.assets['Page3.chunk.js']).toBeTruthy();
 });
 
-test('Does not write injected entry to disk (only its chunks)', async () => {
-    const config = {
-        context: basic3PageProjectDir,
-        entry: {
-            main: join(basic3PageProjectDir, 'entry.js')
-        },
-        output: {
-            path: join(basic3PageProjectDir, 'dist'),
-            filename: '[name].js',
-            chunkFilename: '[name].chunk.js'
-        },
-        plugins: [
-            new MagentoPageChunksPlugin({
-                rootComponentsDirs: [
-                    join(basic3PageProjectDir, 'RootComponents')
-                ],
-                manifestFileName: 'manifest.json'
-            })
-        ]
-    };
-
-    const { fs } = await compile(config);
-    const writtenFiles = fs.readdirSync(config.output.path).sort();
-    const expectedFiles = [
-        'Page1.chunk.js',
-        'Page2.chunk.js',
-        'Page3.chunk.js',
-        'main.js',
-        'manifest.json'
-    ].sort();
-
-    expect(writtenFiles).toEqual(expectedFiles);
-});
-
 test('Does not prevent chunk name from being configurable', async () => {
     const config = {
         context: basic3PageProjectDir,
@@ -303,11 +269,12 @@ test('Can resolve dependencies of a RootComponent', async () => {
     expect(chunkStr).not.toContain('Cannot find module');
 });
 
-test('Should not spit out sourcemaps for the removed "trick" entry point when external sourcemaps are enabled', async () => {
+test('Uglify compiles out dynamic imports injected into entry point', async () => {
     const config = {
         context: basic1PageProjectDir,
-        devtool: 'source-map',
-        entry: join(basic1PageProjectDir, 'entry.js'),
+        entry: {
+            main: join(basic1PageProjectDir, 'entry.js')
+        },
         output: {
             path: join(basic1PageProjectDir, 'dist'),
             filename: '[name].js',
@@ -319,13 +286,19 @@ test('Should not spit out sourcemaps for the removed "trick" entry point when ex
                     join(basic1PageProjectDir, 'RootComponents')
                 ],
                 manifestFileName: 'manifest.json'
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                keep_fnames: true,
+                mangle: false
             })
         ]
     };
 
     const { fs } = await compile(config);
-    const writtenFiles = fs.readdirSync(config.output.path).sort();
-    expect(writtenFiles).not.toContain(
-        `${MagentoPageChunksPlugin.ENTRY_NAME}.js.map`
+    const entryPointSrc = fs.readFileSync(
+        join(config.output.path, 'main.js'),
+        'utf8'
     );
+    expect(entryPointSrc).not.toContain('import()');
+    expect(entryPointSrc).not.toContain('doNotInvoke');
 });

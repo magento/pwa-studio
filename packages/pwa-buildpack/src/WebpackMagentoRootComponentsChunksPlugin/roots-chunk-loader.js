@@ -1,5 +1,4 @@
 const { join, sep, dirname } = require('path');
-const loaderUtils = require('loader-utils');
 const { promisify: pify } = require('util');
 const directiveParser = require('@magento/directive-parser');
 
@@ -8,14 +7,14 @@ const directiveParser = require('@magento/directive-parser');
  * is to dynamically generate import() expressions that tell webpack to create
  * chunks for each Root Component in a Magento theme
  */
-module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
+module.exports = async function rootComponentsChunkLoader(src) {
     // Using `this.async()` because webpack's loader-runner lib has a super broken implementation
     // of promise support
     const cb = this.async();
     const readFile = pify(this.fs.readFile.bind(this.fs));
 
     try {
-        const rootsDirs = loaderUtils.getOptions(this).rootsDirs.split('|');
+        const rootsDirs = this.query.rootsDirs;
 
         const readdir = pify(this.fs.readdir.bind(this.fs));
         const dirEntries = flatten(
@@ -86,7 +85,11 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
             );
         });
 
-        cb(null, generateDynamicChunkEntry(dirs));
+        const dynamicImportCalls = generateDynamicImportCode(dirs);
+        const finalSrc = `${src};\n${dynamicImportCalls}`;
+        // The entry point source now contains the code of the entry point +
+        // a dynamic import() for each RootComponent
+        cb(null, finalSrc);
     } catch (err) {
         cb(err);
     }
@@ -95,13 +98,18 @@ module.exports = async function rootComponentsChunkLoader(/*ignored*/) {
 const rootComponentMap = (module.exports.rootComponentMap = new Map());
 
 /**
+ * @description webpack does not provide a programmatic API to create chunks for
+ * n files. To get around this, we inject an (unused) function declaration in the entry point,
+ * that wraps n number of import() calls. This will force webpack to create the chunks we need
+ * for each RootComponent, but will allow UglifyJS to remove the wrapper function
+ * (and the dynamic import calls) from the final bundle.
  * @param {string[]} dirs
  * @returns {string}
  */
-function generateDynamicChunkEntry(dirs) {
+function generateDynamicImportCode(dirs) {
     // TODO: Dig deeper for an API to programatically create chunks, because
     // generating strings of JS is far from ideal
-    return dirs
+    const dynamicImportsStr = dirs
         .map(dir => {
             const chunkName = chunkNameFromRootComponentDir(dir);
             // Right now, Root Components are assumed to always be the `index.js` inside of a
@@ -113,6 +121,14 @@ function generateDynamicChunkEntry(dirs) {
             }')`;
         })
         .join('\n\n');
+
+    // Note: the __PURE__ comment ensures UglifyJS won't include
+    // the unnecessary function in the output
+    return `
+        /*#__PURE__*/function this_function_will_be_removed_by_uglify() {
+            ${dynamicImportsStr}
+        }
+    `;
 }
 
 /**

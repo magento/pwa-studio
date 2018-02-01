@@ -1,17 +1,10 @@
-const assert = require('assert');
 const { isAbsolute, join } = require('path');
 const { RawSource } = require('webpack-sources');
 const { rootComponentMap } = require('./roots-chunk-loader');
-const SingleEntryPlugin = require('webpack/lib/SingleEntryPlugin');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
-const placeholderPath = join(__dirname, 'placeholder.ext');
 
 class WebpackMagentoRootComponentsChunksPlugin {
-    static get ENTRY_NAME() {
-        return '__magento_page_roots__';
-    }
-
     constructor({ rootComponentsDirs, manifestFileName } = {}) {
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
@@ -20,51 +13,68 @@ class WebpackMagentoRootComponentsChunksPlugin {
     }
 
     apply(compiler) {
-        const { ENTRY_NAME } = WebpackMagentoRootComponentsChunksPlugin;
         const { context } = compiler.options;
         const { rootComponentsDirs } = this;
 
+        // Create a list of absolute paths for root components. When a
+        // relative path is found, resolve it from the root context of
+        // the webpack build
         const rootComponentsDirsAbs = rootComponentsDirs.map(
             dir => (isAbsolute(dir) ? dir : join(context, dir))
         );
 
-        // This is a trick to force webpack into reading a dynamic file from memory,
-        // instead of from disk. We point it at our loader with a dummy file, and
-        // the loader will return the code we want webpack to parse
-        const entryPath = `${loaderPath}?rootsDirs=${rootComponentsDirsAbs.join(
-            '|'
-        )}!${placeholderPath}`;
-        compiler.apply(new SingleEntryPlugin(context, entryPath, ENTRY_NAME));
+        compiler.plugin('compilation', compilation => {
+            compilation.plugin('normal-module-loader', (loaderContext, mod) => {
+                // To create a unique chunk for each RootComponent, we want to inject
+                // a dynamic import() for each RootComponent, within each entry point.
+                const isAnEntry = compilation.entries.some(entryMod => {
+                    // Check if the module being constructed matches a defined entry point
+                    if (mod === entryMod) return true;
+                    if (!entryMod.identifier().startsWith('multi')) {
+                        return false;
+                    }
+
+                    // If a multi-module entry is used (webpack-dev-server creates one), we
+                    // need to try and match against each dependency in the multi module
+                    return entryMod.dependencies.some(
+                        singleDep => singleDep.module === mod
+                    );
+                });
+                if (!isAnEntry) return;
+
+                // If this module is an entry module, inject a loader in the pipeline
+                // that will force creation of all our RootComponent chunks
+                mod.loaders.push({
+                    loader: loaderPath,
+                    options: {
+                        rootsDirs: rootComponentsDirsAbs
+                    }
+                });
+            });
+        });
 
         compiler.plugin('emit', (compilation, cb) => {
-            const trickEntryPoint = compilation.chunks.find(
-                chunk => chunk.name === ENTRY_NAME
-            );
-            assert(
-                trickEntryPoint,
-                `WebpackMagentoRootComponentsChunksPlugin could not find the "${
-                    ENTRY_NAME
-                }" entry chunk`
-            );
-
             // Prepare the manifest that the Magento backend can use
             // to pick root components for a page.
-            const manifest = trickEntryPoint.chunks.reduce((acc, chunk) => {
+            const namedChunks = Array.from(
+                Object.values(compilation.namedChunks)
+            );
+            const manifest = namedChunks.reduce((acc, chunk) => {
                 const rootDirective = rootComponentMap.get(chunk.name);
-                const [rootComponentFilename] = chunk.files; // No idea why `files` is an array here 🤔
+                if (!rootDirective) return acc;
 
+                // Index 0 is always the chunk, but it's an Array because
+                // there could be a source map (which we don't care about)
+                const [rootComponentFilename] = chunk.files;
                 acc[chunk.name] = Object.assign(
-                    { chunkName: rootComponentFilename },
+                    {
+                        chunkName: rootComponentFilename,
+                        chunkID: chunk.id
+                    },
                     rootDirective
                 );
                 return acc;
             }, {});
-
-            // Remove the asset + sourcemap for our trick entry point that contained the `import()`
-            // expressions, before it is written to disk. Its chunks have already been created
-            trickEntryPoint.files.forEach(file => {
-                delete compilation.assets[file];
-            });
 
             compilation.assets[this.manifestFileName] = new RawSource(
                 JSON.stringify(manifest, null, 4)

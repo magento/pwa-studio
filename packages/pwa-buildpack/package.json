@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --ignore __tests__ --source-maps --copy-files",
-    "lint": "eslint *.js src/**/*.js",
+    "lint": "eslint '*.js' 'src/**/*.js'",
     "test": "run-p jest:ci prettier:check lint",
     "test:dev": "jest --watch",
     "jest:ci": "jest -i --forceExit --testResultsProcessor=./node_modules/jest-junit-reporter",
@@ -53,7 +53,6 @@
   },
   "dependencies": {
     "@magento/directive-parser": "^0.1.1",
-    "loader-utils": "^1.1.0",
     "webpack-sources": "^1.1.0"
   },
   "jest": {
