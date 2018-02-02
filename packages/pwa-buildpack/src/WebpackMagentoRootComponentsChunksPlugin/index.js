@@ -1,11 +1,25 @@
 const { isAbsolute, join } = require('path');
 const { RawSource } = require('webpack-sources');
-const { rootComponentMap } = require('./roots-chunk-loader');
+const {
+    rootComponentMap,
+    seenRootComponents
+} = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
 
+/**
+ * @description webpack plugin that creates chunks for each
+ * individual RootComponent in a store, and generates a manifest
+ * with data for consumption by the backend.
+ */
 class WebpackMagentoRootComponentsChunksPlugin {
-    constructor({ rootComponentsDirs, manifestFileName } = {}) {
+    /**
+     * @param {object} opts
+     * @param {string[]} opts.rootComponentsDirs All directories to be searched for RootComponents
+     * @param {string} opts.manifestFileName Name of the manifest file to be emitted from the build
+     */
+    constructor(opts = {}) {
+        const { rootComponentsDirs, manifestFileName } = opts;
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
         ];
@@ -23,8 +37,15 @@ class WebpackMagentoRootComponentsChunksPlugin {
             dir => (isAbsolute(dir) ? dir : join(context, dir))
         );
 
+        const moduleByPath = new Map();
         compiler.plugin('compilation', compilation => {
             compilation.plugin('normal-module-loader', (loaderContext, mod) => {
+                if (seenRootComponents.has(mod.resource)) {
+                    // The module ("mod") has not been assigned an ID yet,
+                    // so we need to keep a reference to it which will allow
+                    // us to grab the ID during the emit phase
+                    moduleByPath.set(mod.resource, mod);
+                }
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
                 const isAnEntry = compilation.entries.some(entryMod => {
@@ -60,7 +81,8 @@ class WebpackMagentoRootComponentsChunksPlugin {
                 Object.values(compilation.namedChunks)
             );
             const manifest = namedChunks.reduce((acc, chunk) => {
-                const rootDirective = rootComponentMap.get(chunk.name);
+                const { rootDirective, rootComponentPath } =
+                    rootComponentMap.get(chunk.name) || {};
                 if (!rootDirective) return acc;
 
                 // Index 0 is always the chunk, but it's an Array because
@@ -69,7 +91,8 @@ class WebpackMagentoRootComponentsChunksPlugin {
                 acc[chunk.name] = Object.assign(
                     {
                         chunkName: rootComponentFilename,
-                        chunkID: chunk.id
+                        rootChunkID: chunk.id,
+                        rootModuleID: moduleByPath.get(rootComponentPath).id
                     },
                     rootDirective
                 );

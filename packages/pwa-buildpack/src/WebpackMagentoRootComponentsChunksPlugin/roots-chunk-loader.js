@@ -1,3 +1,4 @@
+const { EOL } = require('os');
 const { join, sep, dirname } = require('path');
 const { promisify: pify } = require('util');
 const directiveParser = require('@magento/directive-parser');
@@ -34,7 +35,7 @@ module.exports = async function rootComponentsChunkLoader(src) {
         const sources = await Promise.all(
             dirs.map(async dir => {
                 const rootComponentPath = join(dir, 'index.js'); // index.js should probably be configurable
-                // `this.loadModule` would typically be used here, but we can't  use it due to a bug
+                // `this.loadModule` would typically be used here, but we can't use it due to a bug
                 // https://github.com/DrewML/webpack-loadmodule-bug. Instead, we do a read from webpack's MemoryFS.
                 // The `toString` is necessary because webpack's implementation of the `fs` API doesn't respect the
                 // encoding param, so the returned value is a Buffer. We don't actually _need_ `this.loadModule`,
@@ -67,9 +68,9 @@ module.exports = async function rootComponentsChunkLoader(src) {
                 );
             }
 
-            // Because this error is reported from the loader, webpack CLI shows
-            // the error happening within `placeholder.ext`, which is some unfortunate
-            // indirection. TODO: Find a way to report the error for the correct module.
+            // Because this error is reported from the loader for an entry point, webpack CLI shows
+            // the error happening within an entry point for the project, rather than the file
+            // that is missing a directive. TODO: Find a way to report the error for the correct module.
             // Likely involves passing the error back to `WebpackMagentoPageChunksPlugin`
             if (!rootComponentDirectives.length) {
                 throw new Error(
@@ -81,21 +82,27 @@ module.exports = async function rootComponentsChunkLoader(src) {
 
             rootComponentMap.set(
                 chunkNameFromRootComponentDir(dirname(rootComponentPath)),
-                rootComponentDirectives[0]
+                { rootDirective: rootComponentDirectives[0], rootComponentPath }
             );
+            // We already have the rootComponentPath in the rootComponenMap,
+            // but we need quick "has" validation later, and this won't force us
+            // to iterate a Map each time looking for a match
+            seenRootComponents.add(rootComponentPath);
         });
 
         const dynamicImportCalls = generateDynamicImportCode(dirs);
-        const finalSrc = `${src};\n${dynamicImportCalls}`;
-        // The entry point source now contains the code of the entry point +
-        // a dynamic import() for each RootComponent
+        const finalSrc = `${src};${EOL}${EOL}${dynamicImportCalls}`;
+        // The entry point source in the graph will now contain the code authored
+        // in the entry point's file + a dynamic import() for each RootComponent
         cb(null, finalSrc);
     } catch (err) {
         cb(err);
     }
 };
 
-const rootComponentMap = (module.exports.rootComponentMap = new Map());
+const rootComponentMap = new Map();
+const seenRootComponents = new Set();
+Object.assign(module.exports, { rootComponentMap, seenRootComponents });
 
 /**
  * @description webpack does not provide a programmatic API to create chunks for
@@ -125,6 +132,7 @@ function generateDynamicImportCode(dirs) {
     // Note: the __PURE__ comment ensures UglifyJS won't include
     // the unnecessary function in the output
     return `
+        /** Automatically injected by the webpack Magento Plugin **/
         /*#__PURE__*/function this_function_will_be_removed_by_uglify() {
             ${dynamicImportsStr}
         }
@@ -132,7 +140,6 @@ function generateDynamicImportCode(dirs) {
 }
 
 /**
- *
  * @param {string} dir
  */
 function chunkNameFromRootComponentDir(dir) {

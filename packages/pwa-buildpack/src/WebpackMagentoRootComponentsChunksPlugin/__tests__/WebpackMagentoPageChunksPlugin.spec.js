@@ -203,8 +203,7 @@ test('Logs warning when RootComponent file has > 1 @RootComponent comment', asyn
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                rootComponentsDirs: [join(projectDir, 'RootComponents')],
-                manifestFileName: 'manifest.json'
+                rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
         ]
     };
@@ -228,8 +227,7 @@ test('Build fails when no @RootComponent directive is found', async () => {
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                rootComponentsDirs: [join(projectDir, 'RootComponents')],
-                manifestFileName: 'manifest.json'
+                rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
         ]
     };
@@ -255,8 +253,7 @@ test('Can resolve dependencies of a RootComponent', async () => {
         },
         plugins: [
             new MagentoPageChunksPlugin({
-                rootComponentsDirs: [join(projectDir, 'RootComponents')],
-                manifestFileName: 'manifest.json'
+                rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
         ]
     };
@@ -284,8 +281,7 @@ test('Uglify compiles out dynamic imports injected into entry point', async () =
             new MagentoPageChunksPlugin({
                 rootComponentsDirs: [
                     join(basic1PageProjectDir, 'RootComponents')
-                ],
-                manifestFileName: 'manifest.json'
+                ]
             }),
             new webpack.optimize.UglifyJsPlugin({
                 keep_fnames: true,
@@ -300,5 +296,7 @@ test('Uglify compiles out dynamic imports injected into entry point', async () =
         'utf8'
     );
     expect(entryPointSrc).not.toContain('import()');
-    expect(entryPointSrc).not.toContain('doNotInvoke');
+    expect(entryPointSrc).not.toContain(
+        'this_function_will_be_removed_by_uglify'
+    );
 });
