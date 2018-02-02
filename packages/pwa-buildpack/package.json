@@ -1,6 +1,6 @@
 {
   "name": "@magento/anhinga",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Build/Layout optimization tooling for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
