@@ -1,11 +1,22 @@
 const dotenv = require('dotenv');
+const proxy = require('http-proxy-middleware');
 const webpack = require('webpack');
 const { URL } = require('url');
 const { readFile } = require('fs');
 const { resolve } = require('path');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('@magento/workbox-webpack-plugin');
+const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 const configureBabel = require('./babel.config.js');
+const getMagentoEnv = require('./lib/get-magento-env');
+const express = require('express');
+let trustCert = () => {};
+if (process.platform === 'darwin') {
+    trustCert = require('./lib/webpack-dev-server-tls-trust/osx')(
+        console,
+        process
+    );
+}
 
 // assign .env contents to process.env
 dotenv.config();
@@ -23,12 +34,30 @@ const mockImagesPath = new URL(process.env.MOCK_IMAGES_PATH);
 // mark dependencies for vendor bundle
 const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
 
-module.exports = env => {
+// static file directories to serve
+const staticFileDirs = ['images'];
+
+module.exports = async env => {
     const environment = [].concat(env);
     const babelOptions = configureBabel(environment);
     const isProd = environment.includes('production');
 
     console.log(`Environment: ${environment}`);
+    let magentoEnv;
+
+    try {
+        magentoEnv = await getMagentoEnv(process.env.MAGENTO_HOST);
+    } catch (e) {
+        console.error(
+            `Unable to get Magento environment from ${
+                process.env.MAGENTO_HOST
+            }.`,
+            e
+        );
+        process.exit(1);
+    }
+
+    const devPublicPath = magentoEnv.devServerHost + magentoEnv.publicAssetPath;
 
     // create the default config for development-like environments
     const config = {
@@ -38,7 +67,7 @@ module.exports = env => {
         },
         output: {
             path: dirOutput,
-            publicPath: publicPath.href,
+            publicPath: devPublicPath,
             filename: '[name].js',
             chunkFilename: '[name].js'
         },
@@ -77,14 +106,35 @@ module.exports = env => {
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.EnvironmentPlugin({
                 NODE_ENV: isProd ? 'production' : 'development',
-                THEME_PATH: null
+                SERVICE_WORKER_FILE_NAME: magentoEnv.serviceWorkerFileName
             })
         ],
         devServer: {
             contentBase: false,
             https: true,
-            port: 8080,
-            publicPath: '/'
+            host: magentoEnv.devServerHostname,
+            port: magentoEnv.devServerPort,
+            publicPath: devPublicPath,
+            before(app) {
+                app.use(
+                    proxy(['**', `!${magentoEnv.publicAssetPath}**/*`], {
+                        secure: false,
+                        target: magentoEnv.storeOrigin,
+                        changeOrigin: true,
+                        logLevel: 'debug'
+                    })
+                );
+                staticFileDirs.forEach(dir => {
+                    app.use(
+                        resolve(magentoEnv.publicAssetPath, dir),
+                        express.static(resolve('web', dir))
+                    );
+                });
+                trustCert();
+            },
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
         },
         devtool: 'source-map'
     };
@@ -110,7 +160,11 @@ module.exports = env => {
 
     // add the Workbox plugin to generate a service worker
     config.plugins.push(
-        new WorkboxPlugin({
+        new WriteFileWebpackPlugin({
+            test: /sw\.js$/,
+            log: true
+        }),
+        new WorkboxPlugin.GenerateSW({
             // `globDirectory` and `globPatterns` must match at least 1 file
             // otherwise workbox throws an error
             globDirectory: 'web',
@@ -124,11 +178,16 @@ module.exports = env => {
                 }
             ],
 
+            modifyUrlPrefix: staticFileDirs.reduce((out, dir) => {
+                out[dir] = resolve(magentoEnv.publicAssetPath, dir);
+                return out;
+            }, {}),
+
             // activate the worker as soon as it reaches the waiting phase
             skipWaiting: true,
 
             // the max scope of a worker is its location
-            swDest: 'web/sw.js'
+            swDest: magentoEnv.serviceWorkerFileName
         })
     );
 

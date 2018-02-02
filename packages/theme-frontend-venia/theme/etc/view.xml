@@ -258,6 +258,9 @@
     <vars module="Js_Bundle">
         <var name="bundle_size">1MB</var>
     </vars>
+    <vars module="Magento_Pwa">
+        <var name="serviceworker_name">sw.js</var>
+    </vars>
     <exclude>
         <item type="file">Lib::jquery/jquery.min.js</item>
         <item type="file">Lib::jquery/jquery-ui-1.9.2.js</item>

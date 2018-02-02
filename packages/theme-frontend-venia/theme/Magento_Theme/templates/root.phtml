@@ -9,6 +9,7 @@
  */
 
 // @codingStandardsIgnoreFile
+/** @var $block Magento\Pwa\Block\Bundle */
 ?>
 <!doctype html>
 <html>
@@ -19,10 +20,13 @@
   <body>
     <div id="root"></div>
     <?php
-    $mode = \Magento\Framework\App\ObjectManager::getInstance()->create(\Magento\Framework\App\State::class)->getMode();
-    if ($mode == 'developer') {
-        echo '<script src="https://localhost:8080/client.js"></script> ';
-    }
+        $mode = \Magento\Framework\App\ObjectManager::getInstance()->create(\Magento\Framework\App\State::class)->getMode();
+        $webpackConfig = \Magento\Framework\App\ObjectManager::getInstance()->create(\Magento\Pwa\Helper\WebpackConfig::class);
+        $bundleUrl = "";
+        if ($mode == "developer") {
+            $bundleUrl = $webpackConfig->getDevServerHost() . $webpackConfig->getPublicAssetPath() . "client.js";
+        }
     ?>
+    <script src="<?= $bundleUrl ?>"></script>
   </body>
 </html>

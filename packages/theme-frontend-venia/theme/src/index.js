@@ -10,7 +10,7 @@ const container = document.getElementById('root');
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
-            .register(`${process.env.THEME_PATH}/sw.js`)
+            .register(process.env.SERVICE_WORKER_FILE_NAME)
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })
