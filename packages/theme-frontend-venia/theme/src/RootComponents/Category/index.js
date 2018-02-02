@@ -1,6 +1,6 @@
 /**
  * @RootComponent
- * description = 'Basic Category Page Implementation'
- * pageTypes = catalog_category_view
+ * description = 'Basic Category Page'
+ * pageTypes = CATEGORY
  */
 export { default } from './category';
