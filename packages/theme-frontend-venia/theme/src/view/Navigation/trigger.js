@@ -5,7 +5,7 @@ const defaultClassName = 'NavigationTrigger';
 
 class Trigger extends Component {
     render() {
-        const { children, className, nav } = this.props;
+        const { children, className } = this.props;
 
         return (
             <button
@@ -17,7 +17,7 @@ class Trigger extends Component {
         );
     }
 
-    handleClick = ev => {
+    handleClick = () => {
         this.props.dispatch({ type: 'TOGGLE_NAVIGATION' });
     };
 }

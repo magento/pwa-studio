@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, createElement } from 'react';
 
 import './gallery.css';
@@ -52,9 +53,8 @@ class Gallery extends Component {
     };
 
     componentDidMount() {
-        const { data } = this.props;
-
         // request images here, inside Promise.all()
+        // const { data } = this.props;
         // data.map(({ image }) => fetch(image, { method: 'GET', cors: true }))
         Promise.resolve().then(() => {
             this.setState(() => ({

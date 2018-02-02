@@ -2,7 +2,6 @@ const dotenv = require('dotenv');
 const proxy = require('http-proxy-middleware');
 const webpack = require('webpack');
 const { URL } = require('url');
-const { readFile } = require('fs');
 const { resolve } = require('path');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('@magento/workbox-webpack-plugin');
@@ -28,7 +27,6 @@ const dirOutput = resolve(dirRoot, 'web/js');
 const dirModules = resolve(dirRoot, 'node_modules');
 
 // ensure env paths are valid URLs
-const publicPath = new URL(process.env.PUBLIC_PATH);
 const mockImagesPath = new URL(process.env.MOCK_IMAGES_PATH);
 
 // mark dependencies for vendor bundle

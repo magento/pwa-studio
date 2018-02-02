@@ -16,7 +16,10 @@ class Home extends Component {
                         <span>Pieces Inspired By Paris</span>
                     </h2>
                     <div className="Home-hero-actions">
-                        <a className="Home-hero-actions-action">
+                        <a
+                            className="Home-hero-actions-action"
+                            href="outerwear"
+                        >
                             <span>Shop Outerwear</span>
                         </a>
                     </div>
@@ -51,7 +54,10 @@ class Home extends Component {
                             </span>
                         </p>
                         <div className="Home-storySection-content-actions">
-                            <a className="Home-storySection-content-actions-action">
+                            <a
+                                className="Home-storySection-content-actions-action"
+                                href="read-more"
+                            >
                                 <span>Read More</span>
                             </a>
                         </div>

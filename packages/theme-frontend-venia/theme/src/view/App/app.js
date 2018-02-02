@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 
 import app from 'src';
 import Category from 'src/RootComponents/Category';
-import Home from 'src/view/Home';
 import Page from 'src/view/Page';
 import { selectNavigation } from 'src/store/reducers/navigation';
 import { extract } from 'src/utils';
 
 export class App extends Component {
-    componentDidMount(props) {
+    componentDidMount() {
         extract(import('src/store/reducers/navigation'))
             .then(reducer => {
                 app.addReducer('navigation', reducer);

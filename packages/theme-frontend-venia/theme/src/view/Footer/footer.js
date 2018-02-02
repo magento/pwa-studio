@@ -1,4 +1,4 @@
-import { Component, createElement, PureComponent } from 'react';
+import { Component, createElement } from 'react';
 
 import './footer.css';
 
