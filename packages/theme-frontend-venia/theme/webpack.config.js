@@ -9,6 +9,10 @@ const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 const getMagentoEnv = require('./devtools/get-magento-env');
 const express = require('express');
+const {
+    WebpackMagentoRootComponentsChunksPlugin
+} = require('@magento/anhinga');
+
 let trustCert = () => {};
 if (process.platform === 'darwin') {
     trustCert = require('./devtools/webpack-dev-server-tls-trust/osx')(
@@ -101,6 +105,7 @@ module.exports = async env => {
             extensions: ['.js']
         },
         plugins: [
+            new WebpackMagentoRootComponentsChunksPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.EnvironmentPlugin({
                 NODE_ENV: isProd ? 'production' : 'development',
