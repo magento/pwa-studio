@@ -7,11 +7,11 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('@magento/workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 const configureBabel = require('./babel.config.js');
-const getMagentoEnv = require('./lib/get-magento-env');
+const getMagentoEnv = require('./devtools/get-magento-env');
 const express = require('express');
 let trustCert = () => {};
 if (process.platform === 'darwin') {
-    trustCert = require('./lib/webpack-dev-server-tls-trust/osx')(
+    trustCert = require('./devtools/webpack-dev-server-tls-trust/osx')(
         console,
         process
     );
