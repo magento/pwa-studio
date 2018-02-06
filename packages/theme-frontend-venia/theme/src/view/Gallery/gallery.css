@@ -1,0 +1,50 @@
+.gallery-item-image {
+  display: block;
+  grid-area: main;
+  height: auto;
+  transition-duration: 512ms;
+  transition-property: opacity, visibility;
+  transition-timing-function: ease-out;
+  width: 100%;
+}
+
+.gallery-item-image[data-placeholder="true"] {
+  background-color: #eee;
+}
+
+.gallery-item-image[data-show="false"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gallery-item-image[data-show="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gallery-item-name,
+.gallery-item-price {
+  margin: 0.5rem 0;
+}
+
+.gallery-item[data-placeholder="true"] .gallery-item-name {
+  background-color: #eee;
+  height: 1.25rem;
+}
+
+.gallery-item[data-placeholder="true"] .gallery-item-price {
+  background-color: #eee;
+  height: 1.25rem;
+  width: 3rem;
+}
+
+.gallery-item-images {
+  display: grid;
+  grid-template-areas: "main";
+}
+
+.gallery-items {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}

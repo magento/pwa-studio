@@ -1,11 +1,11 @@
 import { Component, createElement } from 'react';
 
-import Gallery from './gallery';
+import Gallery from 'src/view/Gallery';
 import mockData from './mockData';
 
 import './category.css';
 
-const emptyData = Array.from({ length: 12 }, () => null);
+const emptyData = [];
 
 class Category extends Component {
     state = {
