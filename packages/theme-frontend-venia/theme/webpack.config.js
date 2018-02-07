@@ -51,7 +51,7 @@ module.exports = async env => {
         magentoEnv = await getMagentoEnv(process.env.MAGENTO_HOST);
     } catch (e) {
         console.error(
-            `Unable to get Magento environment from ${
+            `Unable to get Magento environment from "MAGENTO_HOST" configuration. Found: ${
                 process.env.MAGENTO_HOST
             }.`,
             e
