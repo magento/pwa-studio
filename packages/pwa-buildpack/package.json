@@ -1,7 +1,7 @@
 {
-  "name": "@magento/anhinga",
+  "name": "@magento/peregrine-magento2-connector",
   "version": "0.2.0",
-  "description": "Build/Layout optimization tooling for the Magento PWA",
+  "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --ignore __tests__ --source-maps --copy-files",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magento-research/anhinga.git"
+    "url": "git+https://github.com/magento-research/peregrine-magento2-connector.git"
   },
   "keywords": [
     "magento",
@@ -31,9 +31,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/anhinga/issues"
+    "url": "https://github.com/magento-research/peregrine-magento2-connector/issues"
   },
-  "homepage": "https://github.com/magento-research/anhinga#readme",
+  "homepage": "https://github.com/magento-research/peregrine-magento2-connector#readme",
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
     "babel-cli": "^6.26.0",
