@@ -177,7 +177,7 @@ module.exports = async env => {
             runtimeCaching: [
                 {
                     urlPattern: new RegExp(mockImagesPath.href),
-                    handler: 'cacheFirst'
+                    handler: 'staleWhileRevalidate'
                 }
             ],
 
