@@ -16,4 +16,4 @@ When integrating Peregrine with another backend or external system, the best pra
 ## Tools
 
 * [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md) -- Resolves Magento layout directives into compile-time changes to React components
-* [`webpack-magento-root-components-chunks-plugin`](docs/webpack-magento-root-components-chunks-plugin) -- Divides static assets into bundled "chunks" based on components registered with the Magento PWA `RootComponent` interface
+* [`webpack-magento-root-components-chunks-plugin`](docs/webpack-magento-root-components-chunks-plugin.md) -- Divides static assets into bundled "chunks" based on components registered with the Magento PWA `RootComponent` interface
