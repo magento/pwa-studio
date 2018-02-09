@@ -8,6 +8,18 @@ configure({ adapter: new Adapter() });
 
 const SimpleComponent = () => <i />;
 
+beforeAll(() => {
+    for (const method of Object.keys(console)) {
+        jest.spyOn(console, method).mockImplementation(() => {});
+    }
+});
+
+afterAll(() => {
+    for (const method of Object.values(console)) {
+        method.mockRestore();
+    }
+});
+
 test('Constructs a new Peregrine instance', () => {
     const received = new Peregrine(SimpleComponent);
 

@@ -20,7 +20,7 @@
     "prettier:check": "prettier-check '{src/**/,scripts/**/,}*.js'",
     "test": "jest --no-cache --coverage",
     "test:ci": "run-p test prettier:check lint",
-    "test:debug": "DEBUG=1 node --inspect-brk node_modules/.bin/jest -i"
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i"
   },
   "dependencies": {},
   "peerDependencies": {
