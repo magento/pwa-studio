@@ -27,16 +27,16 @@ test('`extract` retrieves the default export', async () => {
     expect(bar).toBe('bar');
 });
 
-test('`extract` throws if the module fails to resolve', async () => {
+test('`extract` throws if the module fails to resolve', () => {
     const error = new Error('Invalid namespace object provided.');
 
-    expect(extract(null)).rejects.toEqual(error);
+    return expect(extract(null)).rejects.toEqual(error);
 });
 
-test('`extract` throws if the binding is not present', async () => {
+test('`extract` throws if the binding is not present', () => {
     const error = new Error('Binding baz not found.');
 
-    expect(extract(dynamicImport(), 'baz')).rejects.toEqual(error);
+    return expect(extract(dynamicImport(), 'baz')).rejects.toEqual(error);
 });
 
 test('`fixedObserver` yields undefined', () => {
