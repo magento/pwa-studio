@@ -1,6 +1,6 @@
 <h1>pwa-buildpack<img width="20%" align="right" alt="Magento PWA" src="logo-mpwa-rev2-sm.png"></h1>
 
-[![CircleCI](https://circleci.com/gh/magento-research/pwa-buildpack.svg?style=svg&circle-token=b2943e2d363311e88b089eb37020f2b8e95ce8f4)](https://circleci.com/gh/magento-research/pwa-buildpack)
+[![CircleCI](https://circleci.com/gh/magento-research/pwa-buildpack.svg?style=svg&circle-token=a34631f6c22f0bdd341f9773895f9441584d2e6a)](https://circleci.com/gh/magento-research/pwa-buildpack)
 #### Build and development tools for Magento Progressive Web Apps
 
 
