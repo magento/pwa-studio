@@ -29,7 +29,7 @@ import _Extension from '/some/component/path.js';
  ```js
 // Final output when "prod: false"
 import _Extension from '/some/component/path.js';
-import _ExtensionComponentWrap from "@magento/anhinga/dist/ExtensionComponentWrap";
+import _ExtensionComponentWrap from "@magento/pwa-buildpack/dist/ExtensionComponentWrap";
 <div>
     <_ExtensionComponentWrap replacedID="foo.bar" replacedInFile="/My/cool/Component.js" replacedElementType="span">
         <_Extension style={{ color: 'blue' }}></_Extension>
@@ -39,7 +39,7 @@ import _ExtensionComponentWrap from "@magento/anhinga/dist/ExtensionComponentWra
 
 ## Usage with `webpack` and `babel-loader`
 ```js
-const { babelPluginMagentoLayout } = require('@magento/anhinga');
+const { babelPluginMagentoLayout } = require('@magento/pwa-buildpack');
 
 // in `babel-loader` configuration
 {

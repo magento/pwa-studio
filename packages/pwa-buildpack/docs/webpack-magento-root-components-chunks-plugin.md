@@ -27,7 +27,7 @@ usual.
 const path = require('path');
 const {
     WebpackMagentoRootComponentsChunksPlugin
-} = require('@magento/anhinga');
+} = require('@magento/pwa-buildpack');
 
 module.exports = {
     entry: {

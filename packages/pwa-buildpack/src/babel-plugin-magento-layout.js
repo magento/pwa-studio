@@ -110,7 +110,7 @@ function babelPluginMageExtensionsFactory(options = {}) {
                             program.node.body.unshift(
                                 buildImportNode(
                                     wrapperIdent,
-                                    '@magento/anhinga/dist/ExtensionComponentWrap'
+                                    '@magento/pwa-buildpack/dist/ExtensionComponentWrap'
                                 )
                             );
                         }

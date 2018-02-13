@@ -1,5 +1,5 @@
 {
-  "name": "@magento/peregrine-magento2-connector",
+  "name": "@magento/pwa-buildpack",
   "version": "0.2.0",
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magento-research/peregrine-magento2-connector.git"
+    "url": "git+https://github.com/magento-research/pwa-buildpack.git"
   },
   "keywords": [
     "magento",
@@ -31,9 +31,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/peregrine-magento2-connector/issues"
+    "url": "https://github.com/magento-research/pwa-buildpack/issues"
   },
-  "homepage": "https://github.com/magento-research/peregrine-magento2-connector#readme",
+  "homepage": "https://github.com/magento-research/pwa-buildpack#readme",
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
     "babel-cli": "^6.26.0",
