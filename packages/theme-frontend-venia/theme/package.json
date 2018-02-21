@@ -48,6 +48,8 @@
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
     "death": "^1.1.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eol": "^0.9.1",
     "eslint": "^4.14.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",

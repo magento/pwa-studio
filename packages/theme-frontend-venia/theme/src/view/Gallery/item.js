@@ -28,18 +28,25 @@ const itemPlaceholder = (
 class GalleryItem extends Component {
     static propTypes = {
         item: PropTypes.shape({
+            key: PropTypes.string.isRequired,
             image: PropTypes.string,
             name: PropTypes.string,
             price: PropTypes.string
         }),
-        placeholder: PropTypes.bool,
+        onError: PropTypes.func,
+        onLoad: PropTypes.func,
         showImage: PropTypes.bool
     };
 
-    render() {
-        const { item, placeholder, showImage } = this.props;
+    static defaultProps = {
+        onError: () => {},
+        onLoad: () => {}
+    };
 
-        if (placeholder) {
+    render() {
+        const { item, showImage } = this.props;
+
+        if (!item) {
             return itemPlaceholder;
         }
 

@@ -15,23 +15,23 @@ const placeholders = emptyData.map((_, index) => (
 
 // initialize the state with a one-page observer, `collection`
 // when the observer completes, set `done` to `true`
-const initState = () => ({
-    collection: createCollection(pageSize),
+const initState = (prevState, { items }) => ({
+    collection: createCollection(items.length),
     done: false
 });
 
 class GalleryItems extends Component {
     static propTypes = {
-        items: PropTypes.arrayOf(PropTypes.object)
+        items: PropTypes.arrayOf(PropTypes.object).isRequired
     };
 
-    state = initState();
+    constructor(props) {
+        super(props);
 
-    componentWillReceiveProps({ items }) {
-        if (items === emptyData) {
-            return;
-        }
+        this.state = initState({}, props);
+    }
 
+    componentWillReceiveProps() {
         this.setState(initState);
     }
 
@@ -48,22 +48,21 @@ class GalleryItems extends Component {
                 key={item.key}
                 item={item}
                 showImage={done}
-                onLoad={this.onLoad}
-                onError={this.onError}
+                onLoad={this.handleLoad}
+                onError={this.handleError}
             />
         ));
     }
 
-    onLoad = key => {
+    handleLoad = key => {
         const { done } = this.state.collection.next(key);
 
         this.setState(() => ({ done }));
     };
 
-    onError = key => {
+    handleError = key => {
         const { done } = this.state.collection.next(key);
 
-        console.error(`Error loading image: ${key}`);
         this.setState(() => ({ done }));
     };
 }

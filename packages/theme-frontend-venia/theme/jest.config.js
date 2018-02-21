@@ -5,7 +5,11 @@ module.exports = {
         {
             displayName: 'theme',
             testMatch: ['<rootDir>/src/**/__tests__/*.spec.js'],
-            browser: true
+            browser: true,
+            modulePaths: ['<rootDir>'],
+            moduleNameMapper: {
+                '\\.css$': '<rootDir>/__mocks__/style.js'
+            }
         },
         {
             displayName: 'devtools',
