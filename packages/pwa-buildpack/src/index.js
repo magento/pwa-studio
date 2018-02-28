@@ -1,7 +1,7 @@
 const babelPluginMagentoLayout = require('./babel-plugin-magento-layout');
-const WebpackMagentoRootComponentsChunksPlugin = require('./WebpackMagentoRootComponentsChunksPlugin');
+const MagentoRootComponentsPlugin = require('./MagentoRootComponentsPlugin');
 
 module.exports = {
     babelPluginMagentoLayout,
-    WebpackMagentoRootComponentsChunksPlugin
+    MagentoRootComponentsPlugin
 };

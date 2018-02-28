@@ -12,7 +12,7 @@ const loaderPath = join(__dirname, 'roots-chunk-loader.js');
  * individual RootComponent in a store, and generates a manifest
  * with data for consumption by the backend.
  */
-class WebpackMagentoRootComponentsChunksPlugin {
+class MagentoRootComponentsPlugin {
     /**
      * @param {object} opts
      * @param {string[]} opts.rootComponentsDirs All directories to be searched for RootComponents
@@ -107,4 +107,4 @@ class WebpackMagentoRootComponentsChunksPlugin {
     }
 }
 
-module.exports = WebpackMagentoRootComponentsChunksPlugin;
+module.exports = MagentoRootComponentsPlugin;

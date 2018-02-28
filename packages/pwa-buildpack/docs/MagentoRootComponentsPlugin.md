@@ -1,4 +1,4 @@
-# webpack-magento-root-components-chunks-plugin
+# MagentoRootComponentsPlugin
 
 Automagically creates [unique
 chunks](https://webpack.js.org/guides/code-splitting/) for each Root Component
@@ -25,9 +25,7 @@ usual.
 // webpack.config.js
 
 const path = require('path');
-const {
-    WebpackMagentoRootComponentsChunksPlugin
-} = require('@magento/pwa-buildpack');
+const { MagentoRootComponentsPlugin } = require('@magento/pwa-buildpack');
 
 module.exports = {
     entry: {
@@ -39,7 +37,7 @@ module.exports = {
         chunkFilename: '[name].chunk.js'
     },
     plugins: [
-        new WebpackMagentoRootComponentsChunksPlugin({
+        new MagentoRootComponentsPlugin({
             rootComponentsDirs: [path.join(__dirname, 'src/RootComponents')], // optional
             manifestFileName: 'roots-manifest.json' // optional
         })
