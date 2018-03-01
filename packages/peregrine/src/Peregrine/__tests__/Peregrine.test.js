@@ -1,12 +1,13 @@
+import ReactDOM from 'react-dom';
 import { createElement } from 'react';
-import { configure, render } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Peregrine from '..';
 
-configure({ adapter: new Adapter() });
+jest.mock('react-dom');
 
-const SimpleComponent = () => <i />;
+configure({ adapter: new Adapter() });
 
 beforeAll(() => {
     for (const method of Object.keys(console)) {
@@ -21,11 +22,10 @@ afterAll(() => {
 });
 
 test('Constructs a new Peregrine instance', () => {
-    const received = new Peregrine(SimpleComponent);
+    const received = new Peregrine();
 
     expect(received).toMatchObject(
         expect.objectContaining({
-            component: SimpleComponent,
             store: expect.objectContaining({
                 dispatch: expect.any(Function),
                 getState: expect.any(Function)
@@ -35,28 +35,22 @@ test('Constructs a new Peregrine instance', () => {
 });
 
 test('Renders a Peregrine instance', () => {
-    const app = new Peregrine(SimpleComponent);
-    const received = app.render();
-    const expected = <SimpleComponent />;
-
-    expect(render(received)).toEqual(render(expected));
+    const app = new Peregrine();
+    const wrapper = shallow(app.render());
+    expect(wrapper.find('MagentoRouter')).toHaveLength(1);
 });
 
 test('Mounts a Peregrine instance', () => {
     const container = document.createElement('div');
-    const received = new Peregrine(SimpleComponent);
-    const expected = <SimpleComponent />;
+    const received = new Peregrine();
 
     received.mount(container);
-
-    expect(received.container).toEqual(container);
-    expect(render(received.element)).toEqual(render(expected));
-    expect(container.firstChild.outerHTML).toEqual(render(expected).toString());
+    expect(ReactDOM.render).toHaveBeenCalledWith(expect.anything(), container);
 });
 
 test('Adds a reducer to the store', () => {
     const expected = {};
-    const app = new Peregrine(SimpleComponent);
+    const app = new Peregrine();
     const fooReducer = (state = null, { type }) =>
         type === 'bar' ? expected : state;
 

@@ -1,25 +1,37 @@
 import { createElement } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import createStore from '../store';
+import MagentoRouter from '../Router';
 
 /**
  * @class
- * @prop {Component} component
  * @prop {Element} container
  * @prop {ReactElement} element
  * @prop {Store} store
+ * @prop {string} apiBase
+ * @prop {string} __tmp_webpack_public_path__
  */
 class Peregrine {
     /**
      * Create a Peregrine instance.
-     *
-     * @param {Component} component The root component.
+     * @param {object} opts
+     * @param {string} opts.apiBase Base URL for the store's GraphQL API, including host/port
+     * @param {string} opts.__tmp_webpack_public_path__ Temporary until PWA module extends GraphQL API
      */
-    constructor(component) {
-        this.component = component;
+    constructor(opts = {}) {
+        const { apiBase = location.origin, __tmp_webpack_public_path__ } = opts;
+        this.apiBase = apiBase;
+        this.__tmp_webpack_public_path__ = __tmp_webpack_public_path__;
+        if (!__tmp_webpack_public_path__ && process.env.NODE_ENV === 'test') {
+            // Since __tmp_webpack_public_path__ is temporary, we're
+            // defaulting it here in tests to lessen tests that need to change
+            // when this property is removed
+            this.__tmp_webpack_public_path__ = 'https://temporary.com/pub';
+        }
         this.store = createStore();
+        this.container = null;
+        this.element = null;
     }
 
     /**
@@ -29,13 +41,11 @@ class Peregrine {
      * @returns {ReactElement}
      */
     render() {
-        const { component: Component, store } = this;
+        const { store, apiBase, __tmp_webpack_public_path__ } = this;
 
         return (
             <Provider store={store}>
-                <BrowserRouter>
-                    <Component />
-                </BrowserRouter>
+                <MagentoRouter {...{ apiBase, __tmp_webpack_public_path__ }} />
             </Provider>
         );
     }
@@ -51,7 +61,7 @@ class Peregrine {
         this.container = container;
         this.element = this.render();
 
-        return render(this.element, ...arguments);
+        render(this.element, ...arguments);
     }
 
     /**
