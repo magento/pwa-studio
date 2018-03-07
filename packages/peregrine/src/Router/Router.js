@@ -13,7 +13,7 @@ export default class MagentoRouter extends Component {
     };
 
     static defaultProps = {
-        Router: BrowserRouter,
+        using: BrowserRouter,
         routerProps: {}
     };
 
