@@ -25,9 +25,8 @@ if (process.platform === 'darwin') {
 dotenv.config();
 
 // resolve directories
-const dirRoot = resolve(__dirname);
-const dirSource = resolve(dirRoot, 'src');
-const dirOutput = resolve(dirRoot, 'web/js');
+const dirSource = resolve(__dirname, 'src');
+const dirOutput = resolve(__dirname, 'web/js');
 
 // ensure env paths are valid URLs
 const mockImagesPath = new URL(process.env.MOCK_IMAGES_PATH);
@@ -62,7 +61,7 @@ module.exports = async env => {
 
     // create the default config for development-like environments
     const config = {
-        context: dirRoot,
+        context: __dirname,
         entry: {
             client: resolve(dirSource, 'index.js')
         },
@@ -99,7 +98,7 @@ module.exports = async env => {
             ]
         },
         resolve: {
-            modules: [dirRoot, 'node_modules'],
+            modules: [__dirname, 'node_modules'],
             mainFiles: ['index'],
             extensions: ['.js']
         },
