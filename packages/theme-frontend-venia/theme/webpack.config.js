@@ -28,7 +28,6 @@ dotenv.config();
 const dirRoot = resolve(__dirname);
 const dirSource = resolve(dirRoot, 'src');
 const dirOutput = resolve(dirRoot, 'web/js');
-const dirModules = resolve(dirRoot, 'node_modules');
 
 // ensure env paths are valid URLs
 const mockImagesPath = new URL(process.env.MOCK_IMAGES_PATH);
@@ -100,7 +99,7 @@ module.exports = async env => {
             ]
         },
         resolve: {
-            modules: [dirRoot, dirModules],
+            modules: [dirRoot, 'node_modules'],
             mainFiles: ['index'],
             extensions: ['.js']
         },
