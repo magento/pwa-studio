@@ -1,6 +1,4 @@
 import { createElement } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import cheerio from 'cheerio';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -8,35 +6,13 @@ import Items, { emptyData } from '../items';
 
 configure({ adapter: new Adapter() });
 
-// use cheerio directly rather than enzyme
-// since enzyme doesn't support React Fragment yet
-// see https://github.com/airbnb/enzyme/issues/1213
-const render = element => cheerio.load(renderToStaticMarkup(element));
-
 const items = [{ key: 'a' }, { key: 'b' }];
+
+// no render tests for now, since enzyme doesn't support React Fragment yet
+// see https://github.com/airbnb/enzyme/issues/1213
 
 test('emptyData contains only nulls', () => {
     expect(emptyData.every(v => v === null)).toBe(true);
-});
-
-test('renders if items is an empty array', () => {
-    const wrapper = render(<Items items={[]} />);
-
-    expect(wrapper.text()).toBe('');
-});
-
-test('renders an array of items', () => {
-    const wrapper = render(<Items items={items} />);
-
-    expect(wrapper('.gallery-item')).toHaveLength(items.length);
-});
-
-test('renders placeholder items', () => {
-    const wrapper = render(<Items items={emptyData} />);
-
-    expect(wrapper('.gallery-item[data-placeholder="true"]')).toHaveLength(
-        emptyData.length
-    );
 });
 
 test('has initial state', () => {

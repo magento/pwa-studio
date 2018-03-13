@@ -1,0 +1,24 @@
+.root {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  text-align: center;
+}
+
+.button {
+  composes: root;
+  background-color: white;
+  border: 1px solid currentColor;
+  border-radius: 1.5rem;
+  color: rgb(var(--venia-teal));
+  font-size: 0.875rem;
+  height: 3rem;
+  min-width: 8.75rem;
+}
+
+.button:hover {
+  background-color: rgba(var(--venia-teal), 0.12);
+}

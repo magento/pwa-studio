@@ -3,18 +3,27 @@
 }
 
 html {
+  --venia-border: 224, 224, 224;
+  --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+  --venia-grey: 246, 246, 246;
+  --venia-teal: 0, 134, 138;
+  --venia-text: 33, 33, 33;
+  --venia-text-alt: 117, 117, 117;
+  --venia-text-hint: 158, 158, 158;
+}
+
+html {
   background-color: white;
-  color: black;
-  font-family: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--venia-font);
   font-size: 100%;
   font-weight: 400;
   line-height: 1.25;
   -webkit-font-smoothing: antialiased;
-  --rush-gray: rgb(246, 246, 246);
 }
 
 body {
   background-color: white;
+  color: rgb(--venia-text);
   margin: 0;
   padding: 0;
 }
@@ -24,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
+  color: currentColor;
   text-decoration: none;
 }
 

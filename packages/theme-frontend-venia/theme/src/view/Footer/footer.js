@@ -1,55 +1,71 @@
 import { Component, createElement } from 'react';
+import PropTypes from 'prop-types';
 
-import './footer.css';
+import classify from 'src/classify';
+import defaultClasses from './footer.css';
 
 class Footer extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            copyright: PropTypes.string,
+            root: PropTypes.string,
+            tile: PropTypes.string,
+            tileBody: PropTypes.string,
+            tileTitle: PropTypes.string
+        })
+    };
+
     render() {
+        const { classes } = this.props;
+
         return (
-            <footer className="Footer">
-                <div className="Footer-tile--account">
-                    <h2>
+            <footer className={classes.root}>
+                <div className={classes.tile}>
+                    <h2 className={classes.tileTitle}>
                         <span>Your Account</span>
                     </h2>
-                    <p>
+                    <p className={classes.tileBody}>
                         <span>
                             Sign up and get access to our wonderful rewards
                             program.
                         </span>
                     </p>
                 </div>
-                <div className="Footer-tile--instagram">
-                    <h2>
-                        <span>Follow Us On Instagram</span>
+                <div className={classes.tile}>
+                    <h2 className={classes.tileTitle}>
+                        <span>inquiries@example.com</span>
                     </h2>
-                    <p>
+                    <p className={classes.tileBody}>
                         <span>
-                            See what the Rush Tribe is up to, and add your
-                            stories to the mix.
+                            Need to email us? Use the address above and
+                            we&rsquo;ll respond as soon as possible.
                         </span>
                     </p>
                 </div>
-                <div className="Footer-tile--locator">
-                    <h2>
-                        <span>Store Locator</span>
+                <div className={classes.tile}>
+                    <h2 className={classes.tileTitle}>
+                        <span>Live Chat</span>
                     </h2>
-                    <p>
-                        <span>
-                            Find the one closest to you from over 1200 locations
-                            worldwide.
-                        </span>
+                    <p className={classes.tileBody}>
+                        <span>Mon – Fri: 5 a.m. – 10 p.m. PST</span>
+                        <br />
+                        <span>Sat – Sun: 6 a.m. – 9 p.m. PST</span>
                     </p>
                 </div>
-                <div className="Footer-tile--support">
-                    <h2>
-                        <span>Customer Support</span>
+                <div className={classes.tile}>
+                    <h2 className={classes.tileTitle}>
+                        <span>Help Center</span>
                     </h2>
-                    <p>
-                        <span>Call us, chat, email us, FAQs and more.</span>
+                    <p className={classes.tileBody}>
+                        <span>Get answers from our community online.</span>
                     </p>
+                </div>
+                <div className={classes.copyright}>
+                    <span>© Magento 2018. All rights reserved.</span>
                 </div>
             </footer>
         );
     }
 }
 
-export default Footer;
+export default classify(defaultClasses)(Footer);

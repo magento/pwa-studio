@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 const proxy = require('http-proxy-middleware');
 const webpack = require('webpack');
-const { URL } = require('url');
 const { resolve } = require('path');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const WorkboxPlugin = require('@magento/workbox-webpack-plugin');
@@ -27,9 +26,6 @@ dotenv.config();
 // resolve directories
 const dirSource = resolve(__dirname, 'src');
 const dirOutput = resolve(__dirname, 'web/js');
-
-// ensure env paths are valid URLs
-const mockImagesPath = new URL(process.env.MOCK_IMAGES_PATH);
 
 // mark dependencies for vendor bundle
 const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
@@ -90,8 +86,20 @@ module.exports = async env => {
                         {
                             loader: 'css-loader',
                             options: {
-                                importLoaders: 1
+                                importLoaders: 1,
+                                localIdentName:
+                                    '[name]-[local]-[hash:base64:3]',
+                                modules: true
                             }
+                        }
+                    ]
+                },
+                {
+                    test: /\.svg$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {}
                         }
                     ]
                 }
@@ -170,15 +178,6 @@ module.exports = async env => {
             // otherwise workbox throws an error
             globDirectory: 'web',
             globPatterns: ['**/*.{gif,jpg,png,svg}'],
-
-            // specify external resources to be cached
-            runtimeCaching: [
-                {
-                    urlPattern: new RegExp(mockImagesPath.href),
-                    handler: 'staleWhileRevalidate'
-                }
-            ],
-
             modifyUrlPrefix: staticFileDirs.reduce((out, dir) => {
                 out[dir] = resolve(magentoEnv.publicAssetPath, dir);
                 return out;

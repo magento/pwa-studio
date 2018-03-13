@@ -1,17 +1,19 @@
-.Footer {
-  background-color: rgb(246, 246, 246);
+.root {
+  background-color: rgb(var(--venia-grey));
+  border-top: 1px solid rgb(var(--venia-border));
   color: black;
-  min-height: 12rem;
-  padding: 1rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
 }
 
-[class^="Footer-tile--"] {
-  border-bottom: 1px solid rgb(213, 213, 213);
-  margin: 0 auto;
-  padding: 1rem 4rem 1rem 2rem;
-  width: calc(100% - 2rem);
+.tile {
+  border-bottom: 1px solid rgb(var(--venia-border));
+  padding: 1rem 2rem;
 }
 
-.Footer-tile--support {
-  border-bottom-width: 0;
+.copyright {
+  color: rgb(var(--venia-text-alt));
+  font-size: 0.75rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
 }

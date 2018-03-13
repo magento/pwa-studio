@@ -1,32 +1,37 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
-// generate a 300x372 transparent png
-const imagePlaceholderUri =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAfCAQAAAC4ua71AAAAGklEQVR42mNkIBkwjmoZ1TKqZVTLqJYRpgUAaP0AIAQAObYAAAAASUVORK5CYII=';
+import classify from 'src/classify';
+import { imagePlaceholderUri } from 'src/constants';
+import defaultClasses from './item.css';
 
-// inline the placeholder elements, since they're constant
-const imagePlaceholder = (
-    <img
-        className="gallery-item-image"
-        width="300"
-        height="372"
-        src={imagePlaceholderUri}
-        alt=""
-        data-placeholder={true}
-    />
-);
+const imageWidth = '300';
+const imageHeight = '372';
 
-const itemPlaceholder = (
-    <div className="gallery-item" data-placeholder={true}>
-        <div className="gallery-item-images">{imagePlaceholder}</div>
-        <div className="gallery-item-name" />
-        <div className="gallery-item-price" />
+const ItemPlaceholder = ({ children, classes }) => (
+    <div className={classes.root_pending}>
+        <div className={classes.images_pending}>{children}</div>
+        <div className={classes.name_pending} />
+        <div className={classes.price_pending} />
     </div>
 );
 
 class GalleryItem extends Component {
     static propTypes = {
+        classes: PropTypes.shape({
+            image: PropTypes.string,
+            image_pending: PropTypes.string,
+            imagePlaceholder: PropTypes.string,
+            imagePlaceholder_pending: PropTypes.string,
+            images: PropTypes.string,
+            images_pending: PropTypes.string,
+            name: PropTypes.string,
+            name_pending: PropTypes.string,
+            price: PropTypes.string,
+            price_pending: PropTypes.string,
+            root: PropTypes.string,
+            root_pending: PropTypes.string
+        }),
         item: PropTypes.shape({
             key: PropTypes.string.isRequired,
             image: PropTypes.string,
@@ -44,38 +49,78 @@ class GalleryItem extends Component {
     };
 
     render() {
-        const { item, showImage } = this.props;
+        const { classes, item } = this.props;
 
         if (!item) {
-            return itemPlaceholder;
+            return (
+                <ItemPlaceholder classes={classes}>
+                    {this.renderImagePlaceholder()}
+                </ItemPlaceholder>
+            );
         }
 
-        const { image, name, price } = item;
+        const { name, price } = item;
 
         return (
-            <div className="gallery-item">
-                <div className="gallery-item-images">
-                    {!showImage && imagePlaceholder}
-                    <img
-                        className="gallery-item-image"
-                        width="300"
-                        height="372"
-                        src={image}
-                        alt={name}
-                        onLoad={this.handleLoad}
-                        onError={this.handleError}
-                        data-show={showImage}
-                    />
+            <div className={classes.root}>
+                <div className={classes.images}>
+                    {this.renderImagePlaceholder()}
+                    {this.renderImage()}
                 </div>
-                <div className="gallery-item-name">
+                <div className={classes.name}>
                     <span>{name}</span>
                 </div>
-                <div className="gallery-item-price">
+                <div className={classes.price}>
                     <span>{price}</span>
                 </div>
             </div>
         );
     }
+
+    renderImagePlaceholder = () => {
+        const { classes, item, showImage } = this.props;
+
+        if (showImage) {
+            return null;
+        }
+
+        const className = item
+            ? classes.imagePlaceholder
+            : classes.imagePlaceholder_pending;
+
+        return (
+            <img
+                className={className}
+                src={imagePlaceholderUri}
+                alt=""
+                width={imageWidth}
+                height={imageHeight}
+            />
+        );
+    };
+
+    renderImage = () => {
+        const { classes, item, showImage } = this.props;
+
+        if (!item) {
+            return null;
+        }
+
+        const { image, name } = item;
+        const className = showImage ? classes.image : classes.image_pending;
+
+        return (
+            <img
+                className={className}
+                src={image}
+                alt={name}
+                width={imageWidth}
+                height={imageHeight}
+                onLoad={this.handleLoad}
+                onError={this.handleError}
+            />
+        );
+    };
 
     handleLoad = () => {
         const { item, onLoad } = this.props;
@@ -90,4 +135,4 @@ class GalleryItem extends Component {
     };
 }
 
-export default GalleryItem;
+export default classify(defaultClasses)(GalleryItem);

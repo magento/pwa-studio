@@ -31,7 +31,14 @@ class GalleryItems extends Component {
         this.state = initState({}, props);
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
+        const { items } = this.props;
+        const { items: nextItems } = nextProps;
+
+        if (nextItems === items) {
+            return;
+        }
+
         this.setState(initState);
     }
 

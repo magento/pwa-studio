@@ -3,7 +3,7 @@
 }
 
 .Home-hero {
-  background-image: linear-gradient(90deg, rgb(246, 246, 246), rgb(192, 192, 192));
+  background-color: rgb(var(--venia-grey));
   color: white;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -46,7 +46,7 @@
 }
 
 .Home-saleBanner {
-  background-color: rgb(0, 134, 138);
+  background-color: rgb(var(--venia-teal));
   color: white;
   padding: 0.5rem 3rem;
   text-align: center;
@@ -66,7 +66,7 @@
 }
 
 .Home-storySection-image {
-  background-image: linear-gradient(90deg, rgb(246, 246, 246), rgb(192, 190, 196));
+  background-color: rgb(var(--venia-grey));
   height: 360px;
 }
 
@@ -90,7 +90,7 @@
 
 .Home-storySection-content-actions-action {
   align-items: center;
-  background-color: rgb(0, 134, 138);
+  background-color: rgb(var(--venia-teal));
   border-radius: 1.5rem;
   color: white;
   display: inline-flex;

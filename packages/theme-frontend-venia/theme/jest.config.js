@@ -7,7 +7,7 @@ module.exports = {
             testMatch: ['<rootDir>/src/**/__tests__/*.spec.js'],
             browser: true,
             moduleNameMapper: {
-                '\\.css$': '<rootDir>/__mocks__/style.js',
+                '\\.css$': 'identity-obj-proxy',
                 '^src/(.+)': '<rootDir>/src/$1'
             }
         },
@@ -21,7 +21,7 @@ module.exports = {
                 // There is no `src` dir or `.css` files in the `devtools`
                 // dir, so these are a noop. But they're circumventing a bug in
                 // Jest's multi-project runner
-                '\\.css$': '<rootDir>/__mocks__/style.js',
+                '\\.css$': 'identity-obj-proxy',
                 '^src/(.+)': '<rootDir>/src/$1'
             }
         }

@@ -1,59 +1,47 @@
-.Navigation {
+.root {
   background-color: white;
   bottom: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
   left: 0;
-  opacity: 0;
   position: absolute;
   right: 0;
   top: 0;
-  transform: translate3d(-100vw, 0, 0);
-  transition-duration: 192ms;
   transition-property: opacity, transform, visibility;
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  visibility: hidden;
 }
 
-.Navigation[data-nav="true"] {
-  box-shadow: 0px -1px rgb(213, 213, 213);
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  transition-duration: 224ms;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  visibility: visible;
-}
-
-.Navigation-header {
-  background-color: var(--rush-gray);
+.header {
+  align-content: center;
+  align-items: center;
+  background-color: rgb(var(--venia-grey));
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   display: grid;
   grid-auto-columns: auto;
   grid-auto-flow: column;
   grid-auto-rows: 3rem;
   grid-template-columns: 1fr;
-  height: 3rem;
+  height: 3.5rem;
   justify-content: end;
   padding: 0 1rem;
+  position: relative;
 }
 
-.Navigation-header-title {
+.title {
   align-items: center;
   display: inline-flex;
-  font-size: 0.8125rem;
+  font-size: 1.25rem;
+  font-weight: 400;
   margin: 0 auto 0 0;
   padding: 0 1rem;
-  text-transform: uppercase;
 }
 
-.Navigation-navTrigger {
-  align-items: center;
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
+.navTrigger {
+  composes: root from '../button.css';
+  height: 3rem;
   width: 3rem;
 }
 
-.Navigation-tiles {
+.tiles {
   background-color: white;
   display: grid;
   grid-gap: 2rem;
@@ -62,24 +50,45 @@
   padding: 2rem 0;
 }
 
-.Navigation-items {
-  background-color: var(--rush-gray);
-  box-shadow: 0px -1px rgb(213, 213, 213);
+.items {
+  background-color: rgb(var(--venia-grey));
+  box-shadow: 0px -1px rgb(var(--venia-border));
   display: grid;
   grid-auto-columns: 3rem;
   grid-auto-flow: column;
   grid-auto-rows: 3rem;
-  grid-gap: 2rem;
+  grid-gap: 4rem;
   justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.Navigation-item {
+.item {
   align-items: center;
   display: inline-flex;
   height: 3rem;
   justify-content: center;
   width: 3rem;
+}
+
+/* state: open,closed */
+
+.closed {
+  composes: root;
+  opacity: 0;
+  transform: translate3d(-100vw, 0, 0);
+  transition-duration: 192ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  visibility: hidden;
+}
+
+.open {
+  composes: root;
+  box-shadow: 0px -1px rgb(var(--venia-border));
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-duration: 224ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  visibility: visible;
 }

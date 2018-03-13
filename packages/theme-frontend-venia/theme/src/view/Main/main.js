@@ -1,13 +1,21 @@
 import { Component, createElement } from 'react';
+import PropTypes from 'prop-types';
 
-import './main.css';
+import classify from 'src/classify';
+import defaultClasses from './main.css';
 
 class Main extends Component {
-    render() {
-        const { children } = this.props;
+    static propTypes = {
+        classes: PropTypes.shape({
+            root: PropTypes.string
+        })
+    };
 
-        return <main className="Main">{children}</main>;
+    render() {
+        const { children, classes } = this.props;
+
+        return <main className={classes.root}>{children}</main>;
     }
 }
 
-export default Main;
+export default classify(defaultClasses)(Main);

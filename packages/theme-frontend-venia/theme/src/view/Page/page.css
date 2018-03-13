@@ -1,8 +1,8 @@
-.Page {
+.root {
   min-height: 100vh;
 }
 
-.Page[data-nav="true"] {
+.masked {
   height: 100vh;
   overflow: hidden;
 }

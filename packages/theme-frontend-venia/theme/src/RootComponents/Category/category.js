@@ -1,44 +1,51 @@
 import { Component, createElement } from 'react';
+import PropTypes from 'prop-types';
 
+import classify from 'src/classify';
 import Gallery from 'src/view/Gallery';
 import mockData from './mockData';
-
-import './category.css';
+import defaultClasses from './category.css';
 
 const emptyData = [];
 
 class Category extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            gallery: PropTypes.string,
+            root: PropTypes.string,
+            title: PropTypes.string
+        })
+    };
+
     state = {
         loaded: false
     };
 
+    componentDidMount() {
+        this.timer = window.setTimeout(() => {
+            this.setState(() => ({ loaded: true }));
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        window.clearTimeout(this.timer);
+    }
+
     render() {
+        const { classes } = this.props;
         const data = this.state.loaded ? mockData : emptyData;
 
         return (
-            <article className="Category">
-                <h1 className="Category-title">
+            <article className={classes.root}>
+                <h1 className={classes.title}>
                     <span>Dresses</span>
                 </h1>
-                <section className="Category-hero">
-                    <div className="Category-hero-image" />
-                </section>
-                <button onClick={this.handleClickUnload}>Set state to 0</button>
-                <button onClick={this.handleClickLoad}>Set state to 1</button>
-                <section className="Category-gallery">
-                    <Gallery data={data} />
+                <section className={classes.gallery}>
+                    <Gallery data={data} title="Dresses" />
                 </section>
             </article>
         );
     }
-
-    handleClickLoad = () => {
-        this.setState(() => ({ loaded: true }));
-    };
-
-    handleClickUnload = () => {
-        this.setState(() => ({ loaded: false }));
-    };
 }
 
-export default Category;
+export default classify(defaultClasses)(Category);
