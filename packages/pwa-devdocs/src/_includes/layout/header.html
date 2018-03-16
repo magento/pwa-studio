@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+	<meta name="description" content="{{ site.description }}">
+
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/app.css" />
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/print.css" media="print"/>
+
+	{% include layout/header-styles.html %}
+	{% include layout/header-scripts.html %}
+
+	<link rel="canonical" href="{{ page.url | replace:'/index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-{{ page.layout }}"> 
+
+	<header class="site-header">
+
+		{% include layout/site-nav.html %}
+
+    </header>
+    
+    <div class="message-banner">
+        This is the pre-release documentation site for the Magento PWA project. To provide feedback or contribute content, check out the <a href="https://github.com/magento-research/pwa-devdocs">pwa-devdocs</a> repository.
+    </div>
+
+
+	<div class="global-wrapper">
+
+		<div class="main-container">
+			<a id="main-content"></a>

@@ -1,0 +1,25 @@
+{
+  "name": "pwa-devdocs",
+  "version": "1.0.0",
+  "description": "A documentation site for Magento PWA",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "jekyll-tasks": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "gulp dev",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magento-research/pwa-devdocs.git"
+  },
+  "author": "James Calcaben",
+  "license": "OSL-3.0",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-devdocs/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-devdocs#readme"
+}

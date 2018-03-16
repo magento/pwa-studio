@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,700|Oxygen+Mono|Open+Sans:400,700');
+$headerFont: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bodyFont: 'Opens Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$codeFont: 'Oxygen Mono', monospace;
+
+* {
+  font-family: inherit;
+}
+
+body {
+  font-family: $bodyFont;
+  strong {
+    font-weight: 700;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $headerFont;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 2rem;
+}
+
+h1 {
+  font-size: 2.8rem;
+}
+
+p {
+  line-height: 1.8;
+}
+
+pre {
+  font-family: $codeFont;
+}

@@ -1,0 +1,19 @@
+<!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+{% for entry in site.data.top-nav %}
+    <li class="nav-main-item" tabindex="0" role="menuitem" aria-haspopup="true">
+        <span href="#" data-proofer-ignore tabindex="-1">{{entry.label}}</span>
+
+        <div class="nav-popup" role="menu" aria-hidden="true">
+
+            <ul>
+            {% for navLink in entry.links %}
+                <li><a href="{{navLink.url}}">{{navLink.label}}</a></li>
+            {% endfor %}
+            </ul>
+
+        </div>
+
+    </li>
+{% endfor %}
+</ul>

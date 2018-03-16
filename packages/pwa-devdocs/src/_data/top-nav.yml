@@ -1,0 +1,26 @@
+- label: Technologies
+  links:
+    - label: Overview
+      url: /
+    - label: pwa-buildpack
+      url: /
+    - label: peregrine
+      url: /
+
+- label: References and Guides
+  links:
+    - label: PWA UI Components
+      url: /
+    - label: Testing
+      url: /
+    - label: Tutorials
+      url: /
+
+- label: External DevDocs Sites
+  links:
+    - label: Magento DevDocs
+      url: http://devdocs.magento.com
+    - label: Tech Resources
+      url: https://magento.com/resources/technical
+    - label: Knowledge Base
+      url: https://support.magento.com/hc/en-us
