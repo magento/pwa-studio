@@ -40,8 +40,12 @@ class MagentoRootComponentsPlugin {
         );
 
         const moduleByPath = new Map();
-        compiler.plugin('compilation', compilation => {
-            compilation.plugin('normal-module-loader', (loaderContext, mod) => {
+        compiler.hooks.compilation.tap(
+            'MagentoRootComponentsPlugin',
+            compilation => {
+                compilation.hooks.normalModuleLoader.tap(
+                    'MagentoRootComponentsPlugin',
+                    (loaderContext, mod) => {
                 if (!isJsFile(mod.resource)) {
                     return;
                 }
@@ -53,6 +57,7 @@ class MagentoRootComponentsPlugin {
                 }
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
+
                 const isAnEntry = compilation.entries.some(entryMod => {
                     // Check if the module being constructed matches a defined entry point
                     if (mod === entryMod) return true;
@@ -75,17 +80,18 @@ class MagentoRootComponentsPlugin {
                     options: {
                         rootsDirs: rootComponentsDirsAbs
                     }
+                    }
                 });
-            });
-        });
+                );
+            }
+        );
 
-        compiler.plugin('emit', (compilation, cb) => {
+        compiler.hooks.emit.tap('MagentoRootComponentsPlugin', compilation => {
             // Prepare the manifest that the Magento backend can use
             // to pick root components for a page.
-            const namedChunks = Array.from(
-                Object.values(compilation.namedChunks)
-            );
-            const manifest = namedChunks.reduce((acc, chunk) => {
+            const chunks = Array.from(compilation.chunks);
+
+            const manifest = chunks.reduce((acc, chunk) => {
                 const { rootDirective, rootComponentPath } =
                     rootComponentMap.get(chunk.name) || {};
                 if (!rootDirective) return acc;
@@ -107,7 +113,6 @@ class MagentoRootComponentsPlugin {
             compilation.assets[this.manifestFileName] = new RawSource(
                 JSON.stringify(manifest, null, 4)
             );
-            cb();
         });
     }
 }
