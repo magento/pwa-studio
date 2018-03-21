@@ -1,0 +1,11 @@
+{% if page.toc-group == "technologies" %}
+    {% assign toc = site.data.technologies %}
+{% endif %}
+
+<h4 class="guide-title">{{toc.title}}</h4>
+
+<ul>
+    {% for entry in toc.entries %}
+    {% include layout/toc-entry.html entry=entry %}
+    {% endfor %}
+</ul>

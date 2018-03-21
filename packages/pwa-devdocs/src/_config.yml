@@ -1,1 +1,13 @@
 theme: devdocs
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+  -
+    scope:
+      path: "technologies"
+    values:
+      toc-group: "technologies"

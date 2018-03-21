@@ -1,0 +1,21 @@
+<li {% if entry.url == page.url %}class="active"{% endif %}>
+    {% if entry.url %}
+    <a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.label }}</a>
+    {% else %}
+    <span>{{ entry.label }}</span>
+    {% endif %}
+
+    {% if entry.entries.size > 0 %}
+    <ul>
+    {% for entry2 in entry.entries %}
+        <li {% if entry2.url == pageurl %}class="active"{% endif %}>
+            {% if entry.url %}
+            <a href="{{ site.baseurl }}{{ entry2.url }}">{{ entry2.label }}</a>
+            {% else %}
+            <span>{{ entry2.label }}</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</li>
