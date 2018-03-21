@@ -10,7 +10,7 @@ entries:
         url: /technologies/overview/tools-libraries/
 
   - label: pwa-buildpack
-    url: /technologies/pwa-buildpack
+    url: /technologies/pwa-buildpack/
 
   - label: peregrine
-    url: /technologies/peregrine
+    url: /technologies/peregrine/

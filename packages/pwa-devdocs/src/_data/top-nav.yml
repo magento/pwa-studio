@@ -1,20 +1,20 @@
 - label: Technologies
   links:
     - label: Overview
-      url: /
+      url: /technologies/overview/
     - label: pwa-buildpack
-      url: /
+      url: /technologies/pwa-buildpack/
     - label: peregrine
-      url: /
+      url: /technologies/peregrine/
 
-- label: References and Guides
+- label: Reference and Guides
   links:
-    - label: PWA UI Components
-      url: /
-    - label: Testing
-      url: /
+    - label: UI Components Reference
+      url: /reference/ui-components/
+    - label: Testing Guide
+      url: /guides/testing
     - label: Tutorials
-      url: /
+      url: /tutorials/
 
 - label: External DevDocs Sites
   links:
