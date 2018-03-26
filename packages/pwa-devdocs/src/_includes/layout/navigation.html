@@ -8,7 +8,12 @@
 
             <ul>
             {% for navLink in entry.links %}
-                <li><a href="{{navLink.url}}">{{navLink.label}}</a></li>
+                {% if navLink.url contains 'http' %}
+                    {% assign navUrl = navLink.url %} 
+                {% else %}
+                    {% assign navUrl = site.baseurl | append: navLink.url %}
+                {% endif %}
+                <li><a href="{{navUrl}}">{{navLink.label}}</a></li>
             {% endfor %}
             </ul>
 

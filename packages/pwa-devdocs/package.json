@@ -10,7 +10,8 @@
   "devDependencies": {},
   "scripts": {
     "start": "gulp dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "package": "jekyll build --source src/ --config src/_config.yml,_config-production.yml && tar -cvvf site.tar _site"
   },
   "repository": {
     "type": "git",
