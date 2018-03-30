@@ -20,7 +20,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-extract(import('src/view/App'))
+extract(import('src/components/App'))
     .then(App => {
         app.component = App;
         app.mount(container);

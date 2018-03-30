@@ -2,7 +2,7 @@ import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import Icon from 'src/view/Icon';
+import Icon from 'src/components/Icon';
 import Tile from './tile';
 import Trigger from './trigger';
 import defaultClasses from './navigation.css';

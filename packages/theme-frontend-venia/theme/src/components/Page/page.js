@@ -1,10 +1,10 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
-import Footer from 'src/view/Footer';
-import Header from 'src/view/Header';
-import Main from 'src/view/Main';
-import Navigation from 'src/view/Navigation';
+import Footer from 'src/components/Footer';
+import Header from 'src/components/Header';
+import Main from 'src/components/Main';
+import Navigation from 'src/components/Navigation';
 
 import classify from 'src/classify';
 import defaultClasses from './page.css';

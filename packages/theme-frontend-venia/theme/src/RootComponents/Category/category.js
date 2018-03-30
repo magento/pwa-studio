@@ -2,7 +2,7 @@ import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import Gallery from 'src/view/Gallery';
+import Gallery from 'src/components/Gallery';
 import mockData from './mockData';
 import defaultClasses from './category.css';
 

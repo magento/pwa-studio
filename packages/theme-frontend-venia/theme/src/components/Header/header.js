@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import { Trigger as NavTrigger } from 'src/view/Navigation';
-import Icon from 'src/view/Icon';
+import { Trigger as NavTrigger } from 'src/components/Navigation';
+import Icon from 'src/components/Icon';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 

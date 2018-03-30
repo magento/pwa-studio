@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import app from 'src';
 import classify from 'src/classify';
 import Category from 'src/RootComponents/Category';
-import Page from 'src/view/Page';
+import Page from 'src/components/Page';
 import { selectNavigation } from 'src/store/reducers/navigation';
 import { extract } from 'src/utils';
 import defaultClasses from './app.css';
