@@ -1,0 +1,19 @@
+title: pwa-buildpack
+entries:
+    - label: Introduction
+      url: /pwa-buildpack/
+    
+    - label: Project setup tutorial
+      url: /pwa-buildpack/project-setup/
+      entries:
+        - label: Create initial theme files
+          url: /pwa-buildpack/project-setup/create-theme-files/
+        - label: Install project dependencies
+          url:  /pwa-buildpack/project-setup/install-dependencies/
+        - label: Create configuration files
+          url: /pwa-buildpack/project-setup/create-configuration-files/
+          entries:
+            - label: Example - webpack.config.js
+              url: /pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/
+        - label: Create a simple peregrine app
+          url: /pwa-buildpack/project-setup/create-simple-peregrine-app/

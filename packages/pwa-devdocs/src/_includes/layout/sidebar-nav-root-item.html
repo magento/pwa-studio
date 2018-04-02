@@ -1,5 +1,7 @@
 {% if page.toc-group == "technologies" %}
     {% assign toc = site.data.technologies %}
+{% else page.toc-group == "pwa-buildpack" %}
+    {% assign toc = site.data.pwa-buildpack %}
 {% endif %}
 
 <h4 class="guide-title">{{toc.title}}</h4>

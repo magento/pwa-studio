@@ -54,10 +54,6 @@ entries:
         url: /technologies/basic-concepts/critical-path/
         css-classes: stub
 
-  - label: pwa-buildpack
-    url: /technologies/pwa-buildpack/
-    css-classes: stub
-
   - label: peregrine
     url: /technologies/peregrine/
     css-classes: stub

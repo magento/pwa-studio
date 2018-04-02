@@ -1,0 +1,249 @@
+---
+title: Create configuration files
+---
+
+In the [previous topic], you created a `package.json` file and installed the project dependencies.
+In this topic, you will create the other configuration files for your development environment.
+
+## Create the Babel configuration file
+Create a `.babelrc` file in your theme’s root directory with the following content:
+
+``` javascript
+{
+    "plugins": [
+        "syntax-jsx",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-react-jsx"
+    ]
+}
+```
+
+This Babel configuration file allows you to use [JSX] in your project.
+JSX allows you to write React components using a syntax structure similar to HTML.
+
+See [Introducing JSX] for more information.
+
+## Create the local environment variables file
+
+Create a `.env` file and assign values to the following environment variables:
+
+* `MAGENTO_BACKEND_DOMAIN` - Your local Magento store’s host and port.
+* `MAGENTO_PATH` - The absolute path to the root directory of your local Magento store
+* `MAGENTO_BACKEND_PUBLIC_PATH` - Your theme’s vendor and name. The locale must be `en_US` for now.
+* `SERVICE_WORKER_FILE_NAME` - Set this value to `"sw.js"`.
+
+Your file should look like the following:
+
+``` text
+MAGENTO_BACKEND_DOMAIN=https://localhost.magento:8008
+
+MAGENTO_PATH=~/path/to/magento/rootdir
+
+MAGENTO_BACKEND_PUBLIC_PATH=/pub/static/frontend/OrangeCompany/orange-theme/en_US
+
+SERVICE_WORKER_FILE_NAME="sw.js"
+```
+
+## Create the webpack configuration file
+
+Create a `webpack.config.js` file in your theme’s root directory.
+This file exports a configuration object that tells Webpack how to build your theme.
+
+Webpack configuration is a complicated topic, so the following sections explain what each piece does in the configuration file.
+To see the fully assembled file, see the example [webpack.config.js].
+
+### Import environment variables
+
+At the top of the webpack.config.js file add the following:
+
+``` javascript
+require(`dotenv`).config();
+```
+
+This imports the the contents of the `.env` file as environment variables using the `dotenv` module.
+These environment variables are accessed using the `process.env` global object.
+
+For example, the following code outputs the value of the `MAGENTO_BACKEND_DOMAIN` environment variable:
+
+``` javascript
+console.log(process.env.MAGENTO_BACKEND_DOMAIN);
+```
+
+### Import Webpack and pwa-buildpack libraries
+
+Append the following content to `webpack.config.js` to import the Webpack and pwa-buildpack libraries:
+
+``` javascript
+const webpack = require('webpack');
+const {
+    Webpack: {
+        MagentoRootComponentsPlugin,
+        ServiceWorkerPlugin,
+        MagentoResolver,
+        PWADevServer
+    }
+} = require('@magento/pwa-buildpack');
+```
+
+### Define paths to theme resources
+
+Add the following content to `webpack.config.js` to define the paths to your theme resources:
+
+``` javascript 
+const path = require('path');
+
+const themePaths = {
+    src: path.resolve(__dirname, 'src'),
+    assets: path.resolve(__dirname, 'web'),
+    output: path.resolve(__dirname, 'web/js'),
+};
+```
+
+This snippet uses the `path` module to format and normalize the file paths.
+It also uses the special Node variable `__dirname` because it always resolves to the directory of the current executing script file.
+
+The locations specified in the snippet are the standard locations of source code, static assets, and build output in a [Peregrine] app.
+
+### Export the Webpack configuration object
+
+Append the following content to webpack.config.js to export the configuration object for Webpack:
+
+``` javascript
+module.exports = async function(env) {
+    const config = {
+        mode: env.mode, // passed on the command line via the '--env' flag
+        context: __dirname, // Node global for the running script's directory
+        entry: {
+            client: path.resolve(themePaths.src, 'index.js')
+        },
+        output: {
+            path: themePaths.output,
+            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            filename: '[name].js',
+            chunkFilename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    include: [themePaths.src],
+                    test: /\.js$/,
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            options: { cacheDirectory: true }
+                        }
+                    ]
+                },
+                {
+                     test: /\.css$/,
+                     use: [
+                         'style-loader',
+                         {
+                             loader: 'css-loader',
+                             options: {
+                                 importLoaders: 1
+                             }
+                         }
+                     ]
+                 }
+             ]
+         },
+         resolve: await MagentoResolver.configure({
+             paths: {
+                 root: __dirname
+             }
+         }),
+         plugins: [
+             new MagentoRootComponentsPlugin(),
+             new webpack.NoEmitOnErrorsPlugin(),
+             new webpack.EnvironmentPlugin({
+                 NODE_ENV: env.mode,
+                 SERVICE_WORKER_FILE_NAME: 'sw.js'
+             })
+         ]
+
+    };
+
+    return config;
+}
+```
+
+This configuration sets up Webpack for your development environment.
+Some important things to note in this configuration:
+
+* How it configures the `MagentoResolver` service
+* The inclusion of the `MagentoRootComponent` as a plugin
+* The use of `webpack.EnvironmentPlugin` to pass environment variables
+
+### Add development mode configuration
+
+Add the following development mode configuration before returning the `config` object:
+
+``` javascript
+if (env.mode === "development") {
+    config.devServer = await PWADevServer.configure({
+        publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+        backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+        serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
+        paths: themePaths,
+        id: 'magento-my-theme'
+    });
+
+    // A DevServer generates its own unique output path at startup. It needs
+    // to assign the main outputPath to this value as well.
+
+    config.output.publicPath = config.devServer.publicPath;
+
+    config.plugins.push(
+         new ServiceWorkerPlugin({
+             env,
+             paths: themePaths,
+             enableServiceWorkerDebugging: false,
+             serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME
+         })
+     );
+
+     config.plugins.push(
+         new webpack.HotModuleReplacementPlugin()
+     );
+} else if (env.mode === "production") {
+    throw Error("Production configuration not implemented yet.");
+}
+```
+
+This code block does the following:
+
+* Create a `PWADevServer` confgiuration object and attach it to the Webpack configuration object.
+* Create a `ServiceWorkerPlugin` and attach it to the Webpack configuration object.
+* Add a `webpack.HotModuleReplacementPlugin` to enable fast workflow.
+* Configure Webpack to throw an error if you are in production mode.
+  This part will be configured in a future topic.
+
+### Add start script
+
+Edit the `scripts` section of your `package.json file` so it looks like the following:
+
+``` javascript 
+"scripts": {
+    "start" : "webpack-dev-server --progress --color --env.mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+}
+```
+
+This allows you to start a development server using the `npm start` command.
+The `--env.mode development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
+
+**NOTE:**
+*When you run npm start for the first time or after a long period of time, PWA Studio may ask for your password.*
+*This is required to set the local host and SSL trust settings on your system.*
+*It will not retain broad permissions on your system.*
+
+Now that you have created your project configuration files, you can create a [simple peregrine app].
+
+[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[JSX]: https://facebook.github.io/jsx/
+[Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
+[webpack.config.js]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/index.md %}
+[Peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
+[simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md %}

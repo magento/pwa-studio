@@ -8,11 +8,27 @@
     {% if entry.entries.size > 0 %}
     <ul>
     {% for entry2 in entry.entries %}
+
         <li {% if entry2.url == page.url %}class="active"{% endif %}>
-            {% if entry.url %}
+            {% if entry2.url %}
             <a href="{{ site.baseurl }}{{ entry2.url }}" {% if entry2.css-classes %}class="{{entry2.css-classes}}"{% endif %}>{{ entry2.label }}</a>
             {% else %}
             <span>{{ entry2.label }}</span>
+            {% endif %}
+
+            {% if entry2.entries.size ? 0 %}
+            <ul>
+            {% for entry3 in entry2.entries %}
+
+                <li {% if entry3.url == page.url %}class="active"{% endif %}>
+                {% if entry3.url %}
+                <a href="{{ site.baseurl }}{{ entry3.url }}" {% if entry3.css-classes %}class="{{entry3.css-classes}}"{% endif %}>{{ entry3.label }}</a>
+                {% else %}
+                <span>{{ entry3.label }}</span>
+                {% endif %}
+
+            {% endfor %}
+            </ul>
             {% endif %}
         </li>
     {% endfor %}

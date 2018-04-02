@@ -3,7 +3,7 @@
     - label: Overview
       url: /technologies/overview/
     - label: pwa-buildpack
-      url: /technologies/pwa-buildpack/
+      url: /pwa-buildpack/
     - label: peregrine
       url: /technologies/peregrine/
 
