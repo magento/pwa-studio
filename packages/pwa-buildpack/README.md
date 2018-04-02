@@ -13,9 +13,9 @@ a Peregrine app to a Magento backend and a
 
 ## Tools
 
-* [`babel-plugin-magento-layout`](docs/babel-plugin-magento-layout.md) --
-  Resolves Magento layout directives into compile-time changes to React
-  components
+* [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento
+  modules/extensions the ability to inject or remove content blocks in a layout
+  without modifying theme source files
 * [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) --
   Divides static assets into bundled "chunks" based on components registered
   with the Magento PWA `RootComponent` interface

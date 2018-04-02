@@ -1,7 +1,7 @@
-const babelPluginMagentoLayout = require('./babel-plugin-magento-layout');
+const magentoLayoutLoader = require('./magento-layout-loader');
 const MagentoRootComponentsPlugin = require('./MagentoRootComponentsPlugin');
 
 module.exports = {
-    babelPluginMagentoLayout,
+    magentoLayoutLoader,
     MagentoRootComponentsPlugin
 };

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`"insertAfter" injects an extension after its target ContainerChild 1`] = `
+"import _Extension from '/Users/person/components/SomeComponent.js';
+import React from 'react';
+import { ContainerChild } from '@magento/peregrine';
+React.createElement(
+    'div',
+    { 'data-mid': 'product.page.pricing' },
+    React.createElement(ContainerChild, {
+        id: 'product.page.pricing.add.button',
+        render: () => {}
+    }),
+    React.createElement(_Extension, null)
+);"
+`;
+
+exports[`"insertBefore" injects an extension before its target ContainerChild 1`] = `
+"import _Extension from '/Users/person/components/SomeComponent.js';
+import React from 'react';
+import { ContainerChild } from '@magento/peregrine';
+React.createElement(
+    'div',
+    { 'data-mid': 'product.page.pricing' },
+    React.createElement(_Extension, null),
+    React.createElement(ContainerChild, {
+        id: 'product.page.pricing.add.button',
+        render: () => {}
+    })
+);"
+`;
+
+exports[`"removeChild" operation removes specified child, but not other children 1`] = `
+"import React from 'react';
+import { ContainerChild } from '@magento/peregrine';
+React.createElement(
+    'div',
+    { 'data-mid': 'product.page.pricing' },
+    React.createElement(ContainerChild, {
+        id: 'product.page.pricing.some.other.button',
+        render: () => React.createElement(
+            'div',
+            null,
+            'I should render'
+        )
+    })
+);"
+`;
+
+exports[`"removeContainer" operation removes container 1`] = `
+"import React from 'react';
+React.createElement(
+    'div',
+    null,
+    'Should remove container below'
+);"
+`;
+
+exports[`A removeChild operation works when ContainerChild is aliased in import 1`] = `
+"import React from 'react';
+import { ContainerChild as CC } from '@magento/peregrine';
+React.createElement(
+    'div',
+    { 'data-mid': 'product.page.pricing' }
+);"
+`;
+
+exports[`Operations work when createElement is used instead of React.createElement 1`] = `
+"import { createElement } from 'react';
+createElement(
+    'div',
+    null,
+    'Should remove container below'
+);"
+`;
