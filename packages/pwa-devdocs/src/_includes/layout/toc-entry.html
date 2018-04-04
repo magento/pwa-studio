@@ -1,6 +1,6 @@
 <li {% if entry.url == page.url %}class="active"{% endif %}>
     {% if entry.url %}
-    <a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.label }}</a>
+    <a href="{{ site.baseurl }}{{ entry.url }}" {% if entry.css-classes %}class="{{entry.css-classes}}"{% endif %}>{{ entry.label }}</a>
     {% else %}
     <span>{{ entry.label }}</span>
     {% endif %}
@@ -10,7 +10,7 @@
     {% for entry2 in entry.entries %}
         <li {% if entry2.url == page.url %}class="active"{% endif %}>
             {% if entry.url %}
-            <a href="{{ site.baseurl }}{{ entry2.url }}">{{ entry2.label }}</a>
+            <a href="{{ site.baseurl }}{{ entry2.url }}" {% if entry2.css-classes %}class="{{entry2.css-classes}}"{% endif %}>{{ entry2.label }}</a>
             {% else %}
             <span>{{ entry2.label }}</span>
             {% endif %}
