@@ -7,6 +7,7 @@ The tools provided by the Magento PWA project allows you to create websites that
 The following guides describe basic concepts you need to know to work with Magento PWA Studio tools.
 
 *  [Application shell]
+*  [Service worker]
 *  [Component data binding]
 *  [GraphQL]
 *  [CSS modules]
@@ -18,6 +19,7 @@ The following guides describe basic concepts you need to know to work with Magen
 *  [Critical path]
 
 [Application shell]: {{ site.baseurl }}{% link technologies/basic-concepts/app-shell/index.md %}
+[Service worker]: {{site.baseurl }}{% link technologies/basic-concepts/service-worker/index.md %}
 [Component data binding]: {{ site.baseurl }}{% link technologies/basic-concepts/component-data-binding/index.md %}
 [GraphQL]: {{ site.baseurl }}{% link technologies/basic-concepts/graphql/index.md %}
 [CSS modules]: {{ site.baseurl }}{% link technologies/basic-concepts/css-modules/index.md %}
