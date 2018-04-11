@@ -23,7 +23,7 @@ To complete this tutorial, make sure your development system has the following:
 [NPM]: https://www.npmjs.com/
 [NodeJS 8.x]: https://nodejs.org/en/
 
-[Create the initial theme files]: {{site.basurl}}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
-[Install project dependencies]: {{site.basurl}}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
-[Create a simple peregrine app]: {{site.basurl}}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md  %}
-[Create configuration files]: {{site.basurl}}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[Create the initial theme files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
+[Install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[Create a simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md  %}
+[Create configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
