@@ -2,10 +2,11 @@
 title: Create configuration files
 ---
 
-In the [previous topic], you created a `package.json` file and installed the project dependencies.
-In this topic, you will create the other configuration files for your development environment.
+In the [previous topic], you linked your project to the Magento backend store.
+In this topic, you will create the configuration files for your development environment.
 
 ## Create the Babel configuration file
+
 Create a `.babelrc` file in your theme’s root directory with the following content:
 
 ``` javascript
@@ -19,10 +20,24 @@ Create a `.babelrc` file in your theme’s root directory with the following con
 }
 ```
 
-This Babel configuration file allows you to use [JSX] in your project.
-JSX allows you to write React components using a syntax structure similar to HTML.
+This configuration installs the following [Babel] plugins:
 
-See [Introducing JSX] for more information.
+* [`syntax-jsx`] and [`transform-react-jsx`] - Transform [JSX] code into backwards-compatible JavaScript. 
+  JSX allows you to write React components using a syntax structure similar to HTML.
+    
+  See [Introducing JSX] for more information.
+* [`transform-class-properties`] - Transforms class properties and lets you use the following syntax:
+  ``` javascript
+  class Example {
+    anInstanceProperty = 52;
+  }
+  ```
+* [`transform-object-rest-spread`] - Transforms the rest and spread properties for objects to let you use the following syntax:
+  ``` javascript
+  const config = { ...defaultConfig, ...passedConfig };
+  ```
+
+In general, these plugins provide convenience and produces cleaner code in your project.
 
 ## Create the local environment variables file
 
@@ -58,7 +73,7 @@ To see the fully assembled file, see the example [webpack.config.js].
 At the top of the webpack.config.js file add the following:
 
 ``` javascript
-require(`dotenv`).config();
+require('dotenv').config();
 ```
 
 This imports the the contents of the `.env` file as environment variables using the `dotenv` module.
@@ -207,8 +222,8 @@ if (env.mode === "development") {
      config.plugins.push(
          new webpack.HotModuleReplacementPlugin()
      );
-} else if (env.mode === "production") {
-    throw Error("Production configuration not implemented yet.");
+} else {
+  throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
 }
 ```
 
@@ -217,8 +232,7 @@ This code block does the following:
 * Create a `PWADevServer` confgiuration object and attach it to the Webpack configuration object.
 * Create a `ServiceWorkerPlugin` and attach it to the Webpack configuration object.
 * Add a `webpack.HotModuleReplacementPlugin` to enable fast workflow.
-* Configure Webpack to throw an error if you are in production mode.
-  This part will be configured in a future topic.
+* Configure Webpack to throw an error if you are not in development mode.
 
 ### Add start script
 
@@ -241,9 +255,14 @@ The `--env.mode development` argument sets the `mode` property to `development` 
 
 Now that you have created your project configuration files, you can create a [simple peregrine app].
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
 [JSX]: https://facebook.github.io/jsx/
 [Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
 [webpack.config.js]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/index.md %}
 [Peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
 [simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md %}
+[Babel]: https://babeljs.io/
+[`syntax-jsx`]: https://babeljs.io/docs/plugins/syntax-jsx
+[`transform-react-jsx`]: https://babeljs.io/docs/plugins/transform-react-jsx
+[`transform-class-properties`]: https://babeljs.io/docs/plugins/transform-class-properties/
+[`transform-object-rest-spread`]: https://babeljs.io/docs/plugins/transform-object-rest-spread/

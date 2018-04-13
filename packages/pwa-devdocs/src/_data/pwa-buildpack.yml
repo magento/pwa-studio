@@ -10,6 +10,8 @@ entries:
           url: /pwa-buildpack/project-setup/create-theme-files/
         - label: Install project dependencies
           url:  /pwa-buildpack/project-setup/install-dependencies/
+        - label: Link project to the Magento backend
+          url: /pwa-buildpack/project-setup/link-project/
         - label: Create configuration files
           url: /pwa-buildpack/project-setup/create-configuration-files/
           entries:

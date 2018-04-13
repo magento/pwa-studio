@@ -3,30 +3,16 @@ title: Install project dependencies
 ---
 
 In the [previous topic], you created the basic directory structure and files for a Magento theme.
-In this topic, you will initialize the `package.json` file and install project dependencies for your Magento PWA theme.
+In this topic you will initialize the `package.json` file and install project dependencies for your Magento PWA theme.
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
+## Initialize and define the package configuration file
 
-## Initialize the package configuration file
-
-1. The following command runs a tool that walks you through the process of creating your project's `package.json` file:
+1. The following command uses `npm` to create your project's `package.json` file using default project values:
    
    ``` bash
-   npm init
+   npm init -y
    ```
    
-1. For this tutorial, leave the input blank and hit `Return` or `Enter` on all the prompts to accept the default values.
-
-## Install project dependencies
-
-1. Run the following command to install the `dotenv` module:
-
-   ``` bash
-   npm install --save-dev dotenv
-   ```
-
-   This module loads environment values from a `.env` file and allows you to separate environment-specific values from source code.
-
 1. Run the following command to install [peregrine] and [React] as a production dependency:
 
    ``` bash
@@ -48,7 +34,18 @@ In this topic, you will initialize the `package.json` file and install project d
 
    These dependencies allow you to create a [Webpack]-based build environment for your project.
 
-   It also installs [Babel], a JavaScript transpiler that allows you to write code using the latest and custom JavaScript language features without having to worry about browser compatibility.
+   It also installs [Babel], a JavaScript transpiler and modifier that allows you to write code using the latest and custom JavaScript language features without having to worry about browser compatibility.
+
+1. **Optional** Run the following command to install the `dotenv` module:
+
+   ``` bash
+   npm install --save-dev dotenv
+   ```
+
+   This tutorial uses the `dotenv` module to load environment values from a `.env` file and to separate environment-specific values from source code.
+
+   Using this module is not a requirement for working with PWA studios, but
+   it is good practice to use this or other similar tools for managing environment variables across different platforms.
 
 ## Review `package.json` content
 
@@ -90,11 +87,15 @@ Now that you have your project dependencies installed, your `package.json` file 
 }
 ```
 
-In the next topic, you will [create configuration files] for your development environment.
+**Note:**
+*Dependency versions in your `package.json` file may differ from the ones listed here.*
 
+In the next topic, you will [link your project to the Magento backend].
+
+[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
 [peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
 [pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [Webpack]: https://webpack.js.org/
-[create configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[link your project to the Magento backend]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
 [Babel]: https://babeljs.io/
 [React]: http://reactjs.org/

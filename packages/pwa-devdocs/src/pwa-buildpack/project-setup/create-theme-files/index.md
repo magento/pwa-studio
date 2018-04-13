@@ -3,28 +3,26 @@ title: Create the initial theme files
 
 ---
 
-Magento Progressive Web Apps are built on top of [Magento Themes] and share the same general file structure. 
-In this part of the [Project setup tutorial], you will create the initial files and directories for a Magento PWA theme.
+Unlike regular [Magento Themes], Magento Progressive Web Apps are built on top of the [PWA base theme].
+They are also *decoupled* from the backing Magento stores, so they no longer need to be developed under `app/design/frontend`.
 
-## Create vendor and theme directories
+It is still possible to develop your project under `app/design/frontend`, but 
+the recommended approach is to use Composer to manage the connection between your project and the backend store.
 
-1. From the Magento 2 application root directory, `cd` into `app/design/frontend`.
-1. `cd` into your vendor directory or create a new one and `cd` into it. 
+In this part of the [Project setup tutorial], you will create the initial files and directories for a Magento PWA theme using the recommended Composer approach.
 
-    For this tutorial, **OrangeCompany** is the name of the vendor for the new theme.
+## Create theme directory and files
 
-    ``` bash
-    mkdir OrangeCompany && cd OrangeCompany
-    ```
-1. Create a directory for your new theme and `cd` into it.
 
-    For this tutorial **orange-theme** is the name of the theme directory.
+1.  For this tutorial, **orange-theme** will be the name of the theme directory.
+    Run the following command to create this directory and `cd` into it:
 
     ``` bash
     mkdir orange-theme && cd orange-theme
     ```
 
-## Create theme directory structure and files
+    **Note:**
+    *Your theme directory does not need to be created inside a Magento application directory.*
 
 1. Create a `media` directory and place a `preview.jpg` image file inside.
     This image is used as the preview image for your theme.
@@ -35,27 +33,28 @@ In this part of the [Project setup tutorial], you will create the initial files 
 
     <theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
         <title>Orange Theme</title>
+        <parent>Magento/pwa</parent>
         <media>
             <preview_image>media/preview.jpg</preview_image>
         </media>
     </theme>
     ```
 
-    This file provides the name of theme and the location of the preview image to Magento.
+    This file provides the name of theme, the required PWA parent theme, and the location of the preview image to Magento.
 
 1. Create a `composer.json` file.
 
     ``` json
     {
         "name": "orangecompany/orange-theme",
-        "description": "N/A",
+        "description": "The inimitable Orange Theme.",
         "require": {
             "php": "~7.1.0|~7.2.0",
-            "magento/framework": "100.3.*"
+            "magento/framework": "100.3.*",
+            "magento-research/theme-frontend-pwa": "*"
         },
         "type": "magento2-theme",
-        "version": "100.3.0-dev",
-        "license": ["OSL-3.0", "AFL-3.0"],
+        "license": "OSL-3.0",
         "autoload": {
             "files": ["registration.php"]
         }
@@ -80,12 +79,7 @@ In this part of the [Project setup tutorial], you will create the initial files 
 1. Create directories for your theme's static files using the following command:
 
     ``` bash
-    mkdir web && \
-    mkdir web/css && \
-    mkdir web/css/source && \
-    mkdir web/fonts && \
-    mkdir web/images && \
-    mkdir web/js
+    mkdir -p web/css/source web/fonts web/images web/js
     ```
 
 Now that you have the basic directory structure for your theme project, you need to [install project dependencies].
@@ -95,3 +89,4 @@ Now that you have the basic directory structure for your theme project, you need
 [Magento Marketplace]: https://marketplace.magento.com/
 [install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
 [Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
+[PWA base theme]: https://github.com/magento-research/theme-frontend-pwa

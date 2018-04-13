@@ -107,8 +107,8 @@ module.exports = async function(env) {
             new webpack.HotModuleReplacementPlugin()
         );
 
-    } else if (env.mode === "production") {
-        throw Error("Production configuration not implemented yet.");
+    } else {
+        throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
     }
     
     return config;
