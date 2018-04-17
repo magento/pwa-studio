@@ -5,21 +5,21 @@ import PropTypes from 'prop-types';
 
 import app from 'src';
 import classify from 'src/classify';
-import Category from 'src/RootComponents/Category';
+import Product from 'src/RootComponents/Product';
 import Page from 'src/components/Page';
 import { selectNavigation } from 'src/store/reducers/navigation';
-import { extract } from 'src/utils';
+import getNamedExport from 'src/util/getNamedExport';
 import defaultClasses from './app.css';
 
 export class App extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            promo: PropTypes.string
+        navigation: PropTypes.shape({
+            open: PropTypes.bool
         })
     };
 
     componentDidMount() {
-        extract(import('src/store/reducers/navigation'))
+        getNamedExport(import('src/store/reducers/navigation'))
             .then(reducer => {
                 app.addReducer('navigation', reducer);
             })
@@ -29,16 +29,12 @@ export class App extends Component {
     }
 
     render() {
-        const { classes, navigation } = this.props;
+        const { navigation } = this.props;
         const nav = navigation.open || null;
 
         return (
             <Page nav={nav}>
-                <div className={classes.promo}>
-                    Free shipping on our new arrivals! Enter the promo code NEW
-                    at checkout!
-                </div>
-                <Category />
+                <Product />
             </Page>
         );
     }

@@ -11,6 +11,17 @@
   padding: 1rem 2rem;
 }
 
+.tileTitle {
+  font-size: 1.25rem;
+  margin: 1rem 0;
+}
+
+.tileBody {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 1rem 0;
+}
+
 .copyright {
   color: rgb(var(--venia-text-alt));
   font-size: 0.75rem;

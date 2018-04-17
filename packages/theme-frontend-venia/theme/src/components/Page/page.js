@@ -14,7 +14,8 @@ class Page extends Component {
         classes: PropTypes.shape({
             masked: PropTypes.string,
             root: PropTypes.string
-        })
+        }),
+        nav: PropTypes.bool
     };
 
     render() {

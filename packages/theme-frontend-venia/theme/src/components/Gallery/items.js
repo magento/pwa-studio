@@ -1,8 +1,9 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
+import fixedObserver from 'src/util/fixedObserver';
+import initObserver from 'src/util/initObserver';
 import GalleryItem from './item';
-import { fixedObserver, initObserver } from 'src/utils';
 
 const pageSize = 12;
 const emptyData = Array.from({ length: pageSize }).fill(null);

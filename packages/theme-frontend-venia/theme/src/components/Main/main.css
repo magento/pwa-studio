@@ -1,4 +1,4 @@
 .root {
   background-color: white;
-  color: black;
+  color: rgb(var(--venia-text));
 }

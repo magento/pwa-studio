@@ -1,0 +1,13 @@
+.root {
+  align-items: center;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  color: inherit;
+  display: flex;
+  font-size: 1rem;
+  height: 2.5rem;
+  padding-left: calc(0.75rem - 1px);
+  padding-right: calc(2.5rem - 1px);
+  -webkit-appearance: none;
+}

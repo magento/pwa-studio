@@ -1,0 +1,14 @@
+.root {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.inventory {
+  align-items: center;
+  background-color: rgb(var(--venia-grey));
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1rem;
+  padding: 0.75rem;
+}

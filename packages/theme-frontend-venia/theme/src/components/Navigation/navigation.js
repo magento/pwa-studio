@@ -27,7 +27,8 @@ class Navigation extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string
-        })
+        }),
+        nav: PropTypes.bool
     };
 
     render() {

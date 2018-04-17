@@ -1,0 +1,19 @@
+.root {
+  align-content: stretch;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, 1rem);
+  justify-content: center;
+  margin-top: -3rem;
+}
+
+@media(min-width: 1024px) {
+  .root {
+    align-content: start;
+    grid-auto-flow: row;
+    grid-gap: 1.5rem;
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+}
