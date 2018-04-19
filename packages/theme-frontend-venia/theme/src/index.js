@@ -1,10 +1,13 @@
 import Peregrine from '@magento/peregrine';
 
-import getNamedExport from 'src/util/getNamedExport';
 import './index.css';
 
-const app = new Peregrine();
-const container = document.getElementById('root');
+const app = new Peregrine({
+    apiBase: new URL('/graphql', location.origin).toString(),
+    __tmp_webpack_public_path__: __webpack_public_path__
+});
+
+app.mount(document.getElementById('root'));
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -18,14 +21,5 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-
-getNamedExport(import('src/components/App'))
-    .then(App => {
-        app.component = App;
-        app.mount(container);
-    })
-    .catch(error => {
-        throw error;
-    });
 
 export default app;
