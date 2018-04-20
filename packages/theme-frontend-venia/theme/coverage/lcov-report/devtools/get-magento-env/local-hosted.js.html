@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for devtools/get-magento-env/local-hosted.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">devtools/get-magento-env</a> local-hosted.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.27% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>44/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.27% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>44/51</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { debuglog } = require('util');
+const { URL } = require('url');
+const debug = debuglog('get-magento-env');
+const lget = require('lodash.get');
+const findHttpConf = require('./autodetect-httpdconf-path');
+const localSession = require('./local-session');
+const makeApacheSecure = require('./make-apache-secure');
+const fromEndpoint = require('./pwa-config-endpoint');
+&nbsp;
+module.exports = class LocalHostedProvisioner {
+    constructor({
+        origin,
+        localPath,
+        httpdConfPath,
+        session = <span class="branch-0 cbranch-no" title="branch not covered" >localSession(),</span>
+        logger = <span class="branch-0 cbranch-no" title="branch not covered" >console</span>
+    }) {
+        this.origin = origin;
+        this.hostname = new URL(origin).hostname;
+        this.localPath = localPath;
+        this.httpdConfPath = httpdConfPath;
+        this.logger = logger;
+        this.session = session;
+        this.updates = {
+            notices: [],
+            cmds: []
+        };
+    }
+    getRequiredConfigValues() {
+        return {
+            'env.system.default.web.unsecure.base_url': this.origin,
+            'env.system.default.web.secure.base_url': this.origin,
+            'config.system.default.dev.static.sign': 0,
+            'config.system.default.web.secure.use_in_frontend': 1,
+            'config.system.default.web.secure.base_web_url':
+                '{{secure_base_url}}'
+        };
+    }
+    lookupConfig(p) {
+        const value = lget(this.config, p);
+        if (typeof value === 'string') {
+            if (/^\d+$/.test(value)) {
+                return Number(value);
+            }
+            return value.trim();
+        }
+        return value;
+    }
+    async getFullConfig() {
+        const outJson = await this.session.exec(
+            `cd ${
+                this.localPath
+            } &amp;&amp; bin/magento app:config:dump &gt; /dev/null &amp;&amp; php -r 'echo json_encode([ "env" =&gt; include("app/etc/env.php"), "config" =&gt; include("app/etc/config.php") ]);'`
+        );
+        this.config = JSON.parse(outJson);
+    }
+    queueConfigUpdates() {
+        Object.entries(this.getRequiredConfigValues()).forEach(
+            ([path, desired]) =&gt; {
+                const current = this.lookupConfig(path);
+                if (current !== desired) {
+                    const configPath = path.replace(
+                        /.*\.([^\.]+)\.([^\.]+)\.([^\.]+)$/,
+                        '$1/$2/$3'
+                    );
+                    this.updates.notices.push(
+                        `${configPath} is "${current}" and should be "${desired}"`
+                    );
+                    this.updates.cmds.push(
+                        `bin/magento config:set --lock ${configPath} ${desired}`
+                    );
+                }
+            }
+        );
+    }
+    queueOtherUpdates() {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.lookupConfig('config.modules.Magento_Pwa') !== 1) {
+<span class="cstat-no" title="statement not covered" >            this.updates.notices.push(</span>
+                `Magento_Pwa module must be installed and/or enabled.`
+            );
+<span class="cstat-no" title="statement not covered" >            this.updates.cmds.push(`bin/magento setup:upgrade`);</span>
+        }
+    }
+    async runUpdates() {
+        const { cmds, notices } = this.updates;
+        if (cmds.length &gt; 0) {
+            debug(
+                `${cmds.length} setting(s) need updating: \n${notices.join(
+                    '\n'
+                )}`
+            );
+            debug(`Run: ${cmds.join(' &amp;&amp; \n')}`);
+            await this.session(`cd ${this.localPath} &amp;&amp; ` + cmds.join(' &amp;&amp; '));
+<span class="cstat-no" title="statement not covered" >            debug(`${cmds.length} setting(s) updated.`);</span>
+        }
+    }
+    async provision() {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.httpdConfPath) {
+<span class="cstat-no" title="statement not covered" >            debug(</span>
+                `httpdConfPath not supplied to LocalHostedProvisioner. Trying to autodetect!`
+            );
+<span class="cstat-no" title="statement not covered" >            try {</span>
+<span class="cstat-no" title="statement not covered" >                this.httpdConfPath = await findHttpConf(this.logger);</span>
+            } catch (e) {
+<span class="cstat-no" title="statement not covered" >                throw Error(</span>
+                    `Could not provision PWA Studio developer mode on ${
+                        this.origin
+                    }: ${e}`
+                );
+            }
+        }
+&nbsp;
+        await makeApacheSecure({
+            hostname: this.hostname,
+            session: this.session,
+            httpdConfPath: this.httpdConfPath
+        });
+        await this.getFullConfig();
+        this.queueConfigUpdates();
+        this.queueOtherUpdates();
+        await this.runUpdates();
+        return fromEndpoint(this.origin);
+    }
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 09 2018 14:11:41 GMT-0600 (CST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

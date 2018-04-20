@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for webpack-dev-server-tls-trust/__tests__/webpack-pem.spec.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">webpack-dev-server-tls-trust/__tests__</a> webpack-pem.spec.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>88/88</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>26/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>80/80</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">jest.mock('fs');
+const fs = require('fs');
+const eol = require('eol');
+const WebpackPEM = require('../webpack-pem');
+const { URL } = require('url');
+const forge = require('node-forge');
+const PHOO = `
+------BEGIN TEST PHOO------
+haluhglauhguhalgh
+------END TEST PHOO------
+`.trim();
+const BAHR = `
+---BEGIN TEST BAHR---
+nhgnfhgbhmgb
+---END TEST BAHR---
+`.trim();
+const PHOO_BAHR = `
+${PHOO}
+${BAHR}
+`.trim();
+let goodPem, key, cert;
+beforeAll(() =&gt; {
+    goodPem = WebpackPEM.generate();
+    key = eol.auto(goodPem.key).trim();
+    cert = eol.auto(goodPem.cert).trim();
+});
+beforeEach(() =&gt; {
+    jest.clearAllMocks();
+    fs.__reset();
+});
+test('static .BlockParser() takes a key-to-label object and throws if the object has non-string values', () =&gt; {
+    expect(() =&gt; WebpackPEM.BlockParser({ k: 2 })).toThrow(
+        'keyToLabel argument must be an object with all-string values'
+    );
+});
+const testParser = () =&gt;
+    WebpackPEM.BlockParser({
+        foo: 'test phoo',
+        bar: 'test bahr'
+    });
+test('BlockParser parses a string into labeled substrings based on delimited blocks', () =&gt; {
+    const parse = testParser();
+    const { foo, bar } = parse(PHOO_BAHR);
+    expect(foo).toBe(PHOO);
+    expect(bar).toBe(BAHR);
+});
+test('BlockParser silently fails when the text does not match', () =&gt; {
+    const parse = testParser();
+    let parsed;
+    expect(() =&gt; {
+        parsed = parse('blorf');
+    }).not.toThrow();
+    expect(parsed).toBeInstanceOf(Object);
+    expect(parsed.foo).toBeFalsy();
+    expect(parsed.bar).toBeFalsy();
+});
+test('static .generate() creates a webpack-valid key-cert pair', () =&gt; {
+    expect(() =&gt; forge.pki.certificateFromPem(goodPem.cert)).not.toThrow();
+    expect(() =&gt; forge.pki.privateKeyFromPem(goodPem.key)).not.toThrow();
+    expect(() =&gt; new WebpackPEM().write(goodPem)).not.toThrow();
+});
+test('static .generate() takes an optional argument for a different URL', () =&gt; {
+    const pem = WebpackPEM.generate(new URL('https://fake.domain:8081'));
+    const cert = forge.pki.certificateFromPem(pem.cert);
+    expect(cert.subject.attributes).toEqual(
+        expect.arrayContaining([
+            expect.objectContaining({
+                name: 'commonName',
+                value: 'fake.domain'
+            })
+        ])
+    );
+    expect(() =&gt; new WebpackPEM().write(pem)).not.toThrow();
+});
+test('.read() reads from the default path', () =&gt; {
+    fs.__mockWriteFileSync(WebpackPEM.DEFAULT_PATH, '');
+    new WebpackPEM().read();
+    expect(fs.readFileSync).toHaveBeenCalledWith(
+        WebpackPEM.DEFAULT_PATH,
+        'utf8'
+    );
+});
+test('.read() reads from a custom path', () =&gt; {
+    fs.__mockWriteFileSync('customPath', '');
+    new WebpackPEM('customPath').read();
+    expect(fs.readFileSync).toHaveBeenCalledWith('customPath', 'utf8');
+});
+test('.read() fails silently if the path does not exist', () =&gt; {
+    const pem = new WebpackPEM();
+    pem.read();
+    expect(pem.exists).toBe(false);
+});
+test('.read() fails silently if the key and cert are not both valid', () =&gt; {
+    const pem = new WebpackPEM();
+    fs.__mockWriteFileSync(WebpackPEM.DEFAULT_PATH, key);
+    pem.read();
+    expect(pem).toMatchObject({
+        key,
+        contents: key,
+        exists: false
+    });
+    fs.__mockWriteFileSync(WebpackPEM.DEFAULT_PATH, cert);
+    pem.read();
+    expect(pem).toMatchObject({
+        cert,
+        contents: cert,
+        exists: false
+    });
+});
+test('.read() sets .exists, .key, and .cert if key and cert are valid', () =&gt; {
+    fs.__mockWriteFileSync(WebpackPEM.DEFAULT_PATH, key + '\n' + cert);
+    const pem = new WebpackPEM();
+    pem.read();
+    expect(pem).toMatchObject({
+        key,
+        cert,
+        exists: true
+    });
+});
+let pem;
+const writeGoodPem = () =&gt; {
+    pem = new WebpackPEM();
+    pem.write({ key, cert });
+};
+test('.write() throws if test receives a bad key or cert', () =&gt; {
+    pem = new WebpackPEM();
+    expect(() =&gt; pem.write()).toThrow('Unrecognized input');
+    expect(() =&gt; pem.write({ key })).toThrow('Unrecognized input');
+    expect(() =&gt; pem.write({ cert })).toThrow('Unrecognized input');
+});
+test('.write() writes a valid key and cert to fs', () =&gt; {
+    writeGoodPem();
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+        pem.path,
+        eol.crlf(key + '\n' + cert),
+        'utf8'
+    );
+});
+test('.write() sets contents, key, and cert properties', () =&gt; {
+    writeGoodPem();
+    expect(pem).toMatchObject({
+        contents: key + '\n' + cert,
+        key,
+        cert,
+        exists: true
+    });
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Feb 05 2018 04:54:12 GMT-0600 (CST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

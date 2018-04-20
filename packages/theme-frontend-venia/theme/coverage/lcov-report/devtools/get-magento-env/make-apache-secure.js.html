@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for devtools/get-magento-env/make-apache-secure.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">devtools/get-magento-env</a> make-apache-secure.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">74.19% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>23/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">74.19% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const path = require('path');
+const { debuglog, promisify } = require('util');
+const debug = debuglog('get-magento-env');
+const apacheconf = promisify(require('apacheconf'));
+const lget = require('lodash.get');
+const TempFile = require('../temp-file');
+const devcert = require('@magento/devcert');
+&nbsp;
+const hasSecureVHost = (directive, hostname) =&gt;
+    lget(directive, 'VirtualHost', []).some(
+        host =&gt; host.$args === '*:443' &amp;&amp; host.ServerName.includes(hostname)
+    );
+&nbsp;
+module.exports = async function secureApache({
+    hostname,
+    session,
+    httpdConfPath
+}) {
+    debug('getting current apache config');
+    const confTxt = await session.readFile(httpdConfPath);
+&nbsp;
+    // the apacheconf library streams from a local file and has no API to take a string or buffer directly
+    // therefore we put it in a TempFile
+    const tmpf = new TempFile(confTxt);
+    debug('parsing current apache config');
+    const conf = await apacheconf(tmpf.path);
+&nbsp;
+    // the VirtualHost for SSL could be declared at root
+    const alreadySecure =
+        hasSecureVHost(conf, hostname) ||
+        // or it could be declared inside an IfModule for ssl_module
+        lget(conf, 'IfModule', []).some(
+            directive =&gt;
+                directive.$args === 'ssl_module' &amp;&amp;
+                hasSecureVHost(directive, hostname)
+        );
+&nbsp;
+    if (alreadySecure) {
+        debug('found existing secure vhosts, leaving there');
+        return;
+    }
+    debug('found no existing secure vhosts, generating new ssl cert');
+    const { key, cert } = await devcert(this.origin, {
+        escalate: devcert.Escalators.GUIDialog({
+            name: 'Magento PWA Studio',
+            icns: path.join(__dirname, '../../pwas-graphene.icns')
+        })
+    });
+    const sslCertFile = <span class="cstat-no" title="statement not covered" >'/etc/ssl/certs/vagrant-apache-ssl.crt';</span>
+    const sslKeyFile = <span class="cstat-no" title="statement not covered" >'/etc/ssl/private/vagrant-apache-ssl.key';</span>
+    const sslConf = <span class="cstat-no" title="statement not covered" >`</span>
+&lt;IfModule ssl_module&gt;
+    &lt;VirtualHost *:443&gt;
+        ServerName ${this.hostname}
+        SSLEngine on
+        SSLCertificateFile "${sslCertFile}"
+        SSLCertificateKeyFile "${sslKeyFile}"
+        DocumentRoot "${this.magentoRoot}"
+        &lt;Directory "${this.magentoRoot}"&gt;
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        &lt;/Directory&gt;
+        ErrorLog "/error.log"
+        CustomLog "/access.log" common
+    &lt;/VirtualHost&gt;
+&lt;/IfModule&gt;
+`;
+<span class="cstat-no" title="statement not covered" >    debug('writing key, cert, and new conf');</span>
+<span class="cstat-no" title="statement not covered" >    await Promise.all([</span>
+        session.writeFile(
+            `${httpdConfPath}.bak-${new Date().getTime()}`,
+            confTxt
+        ),
+        session.writeFile(sslKeyFile, key),
+        session.writeFile(sslCertFile, cert),
+        session.writeFile(httpdConfPath, confTxt + sslConf)
+    ]);
+<span class="cstat-no" title="statement not covered" >    debug('restarting httpd');</span>
+    const restartCommandsToTry = <span class="cstat-no" title="statement not covered" >[</span>
+        `sudo brew services start httpd24`,
+        `sudo /usr/local/bin/apachectl -k restart`,
+        `sudo service apache2 restart`
+    ];
+<span class="cstat-no" title="statement not covered" >    return session.exec(restartCommandsToTry.join(' || '));</span>
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 09 2018 14:11:41 GMT-0600 (CST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
