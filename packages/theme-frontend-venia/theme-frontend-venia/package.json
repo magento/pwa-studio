@@ -1,13 +1,13 @@
 {
-  "name": "rush",
+  "name": "venia-pwa-concept",
   "version": "0.1.0",
-  "description": "Rush theme for Magento 2",
+  "description": "Venia concept theme for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/magento-research/pwa-module-theme"
+    "url": "https://github.com/magento-research/venia-pwa-concept"
   },
   "scripts": {
     "build": "webpack --progress --color --env production",

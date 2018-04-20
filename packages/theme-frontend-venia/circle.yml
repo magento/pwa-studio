@@ -3,7 +3,7 @@ machine:
     version: 8
 dependencies:
   override:
-    - cd theme && npm i
+    - cd theme-frontend-venia && npm i
 test:
   override:
-    - cd theme && npm t
+    - cd theme-frontend-venia && npm t
