@@ -1,12 +1,5 @@
 const { URL } = require('url');
-const makeFetchHappen = require('make-fetch-happen');
-
-// `strictSSL` corresponds to `rejectUnauthorized`
-// our self-signed certs are "unauthorized", and we want to accept them
-const fetch = makeFetchHappen.defaults({
-    cache: 'no-store',
-    strictSSL: false
-});
+const fetch = require('fetch');
 
 module.exports = async magentoHost => {
     let uri;
