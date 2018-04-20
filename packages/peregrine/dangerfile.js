@@ -1,5 +1,5 @@
 const execa = require('execa');
-const { fail } = require('danger');
+const { fail, markdown } = require('danger');
 
 const fromRoot = path => path.replace(`${process.cwd()}/`, '');
 const fence = '```';
@@ -57,6 +57,24 @@ const tasks = [
                     failSummary
             );
         }
+    },
+
+    function storybook() {
+        const org = process.env.CIRCLE_PROJECT_USERNAME;
+        const repo = process.env.CIRCLE_PROJECT_REPONAME;
+        const buildNum = process.env.CIRCLE_BUILD_NUM;
+        const idx = process.env.CIRCLE_NODE_INDEX;
+        const storybookURI = [
+            'https://circleci.com/api/v1/project',
+            `/${org}/${repo}/${buildNum}`,
+            `/artifacts/${idx}/home/ubuntu`,
+            `/${repo}/storybook-dist/index.html`
+        ].join('');
+
+        markdown(
+            `[A Storybook for this PR has been deployed!](${storybookURI}). ` +
+                'It will be accessible as soon as the current build completes.'
+        );
     }
 ];
 

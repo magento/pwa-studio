@@ -20,7 +20,9 @@
     "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
     "prettier:check": "prettier --list-different '{src/**/,scripts/**/,}*.js'",
     "test": "jest --no-cache --coverage",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest -i"
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -33,6 +35,8 @@
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
+    "@storybook/addon-actions": "^3.4.2",
+    "@storybook/react": "^3.4.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",

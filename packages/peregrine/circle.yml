@@ -6,6 +6,13 @@ test:
   override:
     - npm run danger
 
+deployment:
+  prs:
+    branch: /\b(?!master)\b\S+/
+    commands:
+      - npm run storybook:build
+
 general:
   artifacts:
     - "coverage/lcov-report"
+    - "storybook-dist"
