@@ -18,7 +18,8 @@ const compile = async config => {
 const babelLoaderConfig = {
     loader: 'babel-loader',
     options: {
-        plugins: ['transform-react-jsx']
+        plugins: ['transform-react-jsx'],
+        babelrc: false
     }
 };
 

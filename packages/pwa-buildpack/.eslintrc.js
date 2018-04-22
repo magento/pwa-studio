@@ -1,8 +1,13 @@
 const config = {
+    parser: 'babel-eslint',
     parserOptions: {
-        ecmaVersion: '2017'
+        sourceType: 'script'
     },
-    extends: ['@magento']
+    extends: ['@magento', "plugin:node/recommended"],
+    plugins: [
+        "babel",
+        "node"
+    ]
 };
 
 module.exports = config;

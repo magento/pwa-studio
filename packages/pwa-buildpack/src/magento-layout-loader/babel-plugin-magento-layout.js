@@ -94,9 +94,7 @@ function babelPluginMagentoLayout({ types: t }) {
                             if (type !== 'StringLiteral') {
                                 onWarning(
                                     'Expected "data-mid" to be a literal string, ' +
-                                        `but instead found a value of type "${
-                                            type
-                                        }"`
+                                        `but instead found a value of type "${type}"`
                                 );
                             }
 

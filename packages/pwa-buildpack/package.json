@@ -1,19 +1,24 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore __tests__ --source-maps --copy-files",
-    "lint": "eslint '*.js' 'src/**/*.js'",
     "test": "run-p jest:ci prettier:check lint",
-    "test:dev": "jest --watch",
-    "jest:ci": "jest -i --forceExit --testResultsProcessor=./node_modules/jest-junit-reporter",
+    "test:dev": "run-s prettier lint jest:ci",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand",
+    "test:watch:focus": "jest --watch --coverageReporters=text --collectCoverageFrom=\"${FOCUS}/**/*.js\" --no-cache \"${FOCUS}.*\"",
+    "test:debug:focus": "node --inspect-brk ./node_modules/.bin/jest --runInBand --no-coverage --no-cache \"${FOCUS}.*\"",
+    "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "lint": "eslint '*.js' 'src/**/*.js'",
+    "jest:ci": "jest -i --testResultsProcessor=./node_modules/jest-junit-reporter",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier:check": "prettier-check 'src/**/*.js'"
   },
   "files": [
-    "dist"
+    "dist",
+    "buildpack-logo.icns"
   ],
   "engines": {
     "node": ">=8.0.0"
@@ -38,36 +43,66 @@
     "@magento/eslint-config": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "dedent": "^0.7.0",
     "eslint": "^4.16.0",
+    "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-react": "^7.5.1",
-    "jest": "^21.2.1",
+    "jest": "^22.4.0",
     "jest-junit-reporter": "^1.1.0",
     "memory-fs": "^0.4.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.8.1",
     "prettier-check": "^2.0.0",
     "react": "^16.1.1",
+    "supertest": "^3.0.0",
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "@magento/devcert": "^0.5.0",
     "@magento/directive-parser": "^0.1.1",
     "ajv": "^6.1.1",
     "babel-helper-module-imports": "^7.0.0-beta.3",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "webpack-sources": "^1.1.0"
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "flat-file-db": "^1.0.0",
+    "harmon": "^1.3.2",
+    "hostile": "^1.3.1",
+    "http-proxy-middleware": "^0.18.0",
+    "lodash.get": "^4.4.2",
+    "openport": "0.0.4",
+    "sudo-prompt": "^8.1.0",
+    "through": "^2.3.8",
+    "webpack-sources": "^1.1.0",
+    "workbox-webpack-plugin": "^3.0.0-beta.1",
+    "write-file-webpack-plugin": "^4.2.0"
   },
   "peerDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7"
   },
   "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/src/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ],
+    "testEnvironment": "node",
     "testPathIgnorePatterns": [
-      "/node_modules/",
+      "dist",
+      "node_modules",
       "__fixtures__"
     ]
   }

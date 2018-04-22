@@ -62,9 +62,7 @@ module.exports = async function rootComponentsChunkLoader(src) {
 
             if (rootComponentDirectives.length > 1) {
                 console.warn(
-                    `Found more than 1 RootComponent Directive in ${
-                        rootComponentPath
-                    }. Only the first will be used`
+                    `Found more than 1 RootComponent Directive in ${rootComponentPath}. Only the first will be used`
                 );
             }
 
@@ -74,9 +72,7 @@ module.exports = async function rootComponentsChunkLoader(src) {
             // Likely involves passing the error back to `MagentoRootComponentsPlugin`
             if (!rootComponentDirectives.length) {
                 throw new Error(
-                    `Failed to create chunk for the following file, because it is missing a @RootComponent directive: ${
-                        rootComponentPath
-                    }`
+                    `Failed to create chunk for the following file, because it is missing a @RootComponent directive: ${rootComponentPath}`
                 );
             }
 
@@ -123,9 +119,7 @@ function generateDynamicImportCode(dirs) {
             // top-level dir in a specified root dir. We can change this to something else or
             // make it configurable later
             const fullPath = join(dir, 'index.js');
-            return `import(/* webpackChunkName: "${chunkName}" */ '${
-                fullPath
-            }')`;
+            return `import(/* webpackChunkName: "${chunkName}" */ '${fullPath}')`;
         })
         .join('\n\n');
 
