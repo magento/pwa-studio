@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
+import Page from 'src/components/Page';
 import mockData from './mockData';
 import defaultClasses from './category.css';
 
@@ -36,14 +37,16 @@ class Category extends Component {
         const data = this.state.loaded ? mockData : emptyData;
 
         return (
-            <article className={classes.root}>
-                <h1 className={classes.title}>
-                    <span>Dresses</span>
-                </h1>
-                <section className={classes.gallery}>
-                    <Gallery data={data} title="Dresses" />
-                </section>
-            </article>
+            <Page>
+                <article className={classes.root}>
+                    <h1 className={classes.title}>
+                        <span>Dresses</span>
+                    </h1>
+                    <section className={classes.gallery}>
+                        <Gallery data={data} title="Dresses" />
+                    </section>
+                </article>
+            </Page>
         );
     }
 }

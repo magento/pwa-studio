@@ -6,7 +6,8 @@
  */
 -->
 <theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
-    <title>Magento Rush</title>
+    <title>Magento Venia</title>
+    <parent>Magento/pwa</parent>
     <media>
         <preview_image>media/preview.jpg</preview_image>
     </media>

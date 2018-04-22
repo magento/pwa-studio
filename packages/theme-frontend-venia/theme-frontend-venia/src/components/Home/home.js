@@ -7,7 +7,7 @@ class Home extends Component {
         return (
             <article className="Home">
                 <h1 className="Home-title">
-                    <span>Rush</span>
+                    <span>Venia</span>
                 </h1>
                 <section className="Home-hero">
                     <h2 className="Home-hero-title">
@@ -48,7 +48,7 @@ class Home extends Component {
                         </p>
                         <p className="Home-storySection-content-copy">
                             <span>
-                                Rush opened its very first doors in the autumn
+                                Venia opened its very first doors in the autumn
                                 of 1992 in Lima, Peru. We now operate over 200
                                 stores worldwide.
                             </span>

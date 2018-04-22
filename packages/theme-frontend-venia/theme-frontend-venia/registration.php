@@ -8,6 +8,6 @@ use \Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::THEME,
-    'frontend/Magento/rush',
+    'frontend/Magento/venia',
     __DIR__
 );

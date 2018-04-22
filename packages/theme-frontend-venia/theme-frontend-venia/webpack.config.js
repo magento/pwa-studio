@@ -1,76 +1,47 @@
-const dotenv = require('dotenv');
-const proxy = require('http-proxy-middleware');
+require('dotenv').config();
+
 const webpack = require('webpack');
-const { resolve } = require('path');
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxPlugin = require('@magento/workbox-webpack-plugin');
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
-const configureBabel = require('./babel.config.js');
-const getMagentoEnv = require('./devtools/get-magento-env');
-const express = require('express');
 const {
-    WebpackMagentoRootComponentsChunksPlugin
-} = require('@magento/anhinga');
+    WebpackTools: {
+        MagentoRootComponentsPlugin,
+        ServiceWorkerPlugin,
+        MagentoResolver,
+        PWADevServer
+    }
+} = require('@jzetlen/pwa-buildpack');
+const path = require('path');
 
-let trustCert = () => {};
-if (process.platform === 'darwin') {
-    trustCert = require('./devtools/webpack-dev-server-tls-trust/osx')(
-        console,
-        process
-    );
-}
+const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const configureBabel = require('./babel.config.js');
 
-// assign .env contents to process.env
-dotenv.config();
-
-// resolve directories
-const dirSource = resolve(__dirname, 'src');
-const dirOutput = resolve(__dirname, 'web/js');
+const themePaths = {
+    src: path.resolve(__dirname, 'src'),
+    assets: path.resolve(__dirname, 'web'),
+    output: path.resolve(__dirname, 'web/js')
+};
 
 // mark dependencies for vendor bundle
 const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
 
-// static file directories to serve
-const staticFileDirs = ['images'];
+module.exports = async function(env) {
+    const babelOptions = configureBabel(env.phase);
 
-module.exports = async env => {
-    const environment = [].concat(env);
-    const babelOptions = configureBabel(environment);
-    const isProd = environment.includes('production');
-
-    console.log(`Environment: ${environment}`);
-    let magentoEnv;
-
-    try {
-        magentoEnv = await getMagentoEnv(process.env.MAGENTO_HOST);
-    } catch (e) {
-        console.error(
-            `Unable to get Magento environment from "MAGENTO_HOST" configuration. Found: ${
-                process.env.MAGENTO_HOST
-            }.`,
-            e
-        );
-        process.exit(1);
-    }
-
-    const devPublicPath = magentoEnv.devServerHost + magentoEnv.publicAssetPath;
-
-    // create the default config for development-like environments
     const config = {
-        context: __dirname,
+        context: __dirname, // Node global for the running script's directory
         entry: {
-            client: resolve(dirSource, 'index.js')
+            client: path.resolve(themePaths.src, 'index.js')
         },
         output: {
-            path: dirOutput,
-            publicPath: devPublicPath,
+            path: themePaths.output,
+            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             filename: '[name].js',
-            chunkFilename: '[name].js'
+            chunkFilename: '[name]-[chunkhash].js',
+            pathinfo: true
         },
         module: {
             rules: [
                 {
-                    include: [dirSource],
+                    include: [themePaths.src],
                     test: /\.js$/,
                     use: [
                         {
@@ -105,91 +76,60 @@ module.exports = async env => {
                 }
             ]
         },
-        resolve: {
-            modules: [__dirname, 'node_modules'],
-            mainFiles: ['index'],
-            extensions: ['.js']
+        performance: {
+            hints: 'warning'
         },
+        resolve: await MagentoResolver.configure({
+            paths: {
+                root: __dirname
+            }
+        }),
         plugins: [
-            new WebpackMagentoRootComponentsChunksPlugin(),
+            new MagentoRootComponentsPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.EnvironmentPlugin({
-                NODE_ENV: isProd ? 'production' : 'development',
-                SERVICE_WORKER_FILE_NAME: magentoEnv.serviceWorkerFileName
+                NODE_ENV: env.phase,
+                SERVICE_WORKER_FILE_NAME: 'sw.js'
+            }),
+            new ServiceWorkerPlugin({
+                env,
+                paths: themePaths,
+                enableServiceWorkerDebugging: false,
+                serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME
             })
-        ],
-        devServer: {
-            contentBase: false,
-            https: true,
-            host: magentoEnv.devServerHostname,
-            port: magentoEnv.devServerPort,
-            publicPath: devPublicPath,
-            before(app) {
-                app.use(
-                    proxy(['**', `!${magentoEnv.publicAssetPath}**/*`], {
-                        secure: false,
-                        target: magentoEnv.storeOrigin,
-                        changeOrigin: true,
-                        logLevel: 'debug'
-                    })
-                );
-                staticFileDirs.forEach(dir => {
-                    app.use(
-                        resolve(magentoEnv.publicAssetPath, dir),
-                        express.static(resolve('web', dir))
-                    );
-                });
-                trustCert();
-            },
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        },
-        devtool: 'source-map'
+        ]
     };
+    if (env.phase === 'development') {
+        config.devtool = 'eval-source-map';
 
-    // modify the default config for production-like environments
-    if (isProd) {
-        // disable sourcemaps
-        delete config.devtool;
+        config.devServer = await PWADevServer.configure({
+            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+            serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
+            paths: themePaths,
+            id: 'magento-venia'
+        });
 
-        // add a second entry point for third-party runtime dependencies
-        config.entry.vendor = libs;
+        // A DevServer generates its own unique output path at startup. It needs
+        // to assign the main outputPath to this value as well.
 
-        // add the CommonsChunk plugin to generate more than one bundle
+        config.output.publicPath = config.devServer.publicPath;
+
+        config.plugins.push(
+            new webpack.NamedChunksPlugin(),
+            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin()
+        );
+    } else if (env.phase === 'production') {
+        config.vendor.entry = libs;
         config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['vendor']
-            })
+            }),
+            new UglifyPlugin()
         );
-
-        // add the UglifyJS plugin to minify the bundle and eliminate dead code
-        config.plugins.push(new UglifyPlugin());
+    } else {
+        throw Error(`Unsupported environment phase in webpack config: `);
     }
-
-    // add the Workbox plugin to generate a service worker
-    config.plugins.push(
-        new WriteFileWebpackPlugin({
-            test: /sw\.js$/,
-            log: true
-        }),
-        new WorkboxPlugin.GenerateSW({
-            // `globDirectory` and `globPatterns` must match at least 1 file
-            // otherwise workbox throws an error
-            globDirectory: 'web',
-            globPatterns: ['**/*.{gif,jpg,png,svg}'],
-            modifyUrlPrefix: staticFileDirs.reduce((out, dir) => {
-                out[dir] = resolve(magentoEnv.publicAssetPath, dir);
-                return out;
-            }, {}),
-
-            // activate the worker as soon as it reaches the waiting phase
-            skipWaiting: true,
-
-            // the max scope of a worker is its location
-            swDest: magentoEnv.serviceWorkerFileName
-        })
-    );
-
     return config;
 };
