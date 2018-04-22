@@ -1,7 +1,22 @@
 import { createElement } from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import ContainerChild from '..';
+import docs from '../__docs__/ContainerChild.md';
+import { withReadme } from 'storybook-readme';
 
-storiesOf('Hello World', module).add('with my', () => (
-    <button onClick={action('click')}>Hello Button</button>
-));
+const stories = storiesOf('ContainerChild', module);
+
+stories.add(
+    'default',
+    withReadme(docs, () => (
+        <ContainerChild
+            id="example.container.child.id"
+            render={() => (
+                <div>
+                    An example ContainerChild component, rendering its children
+                    from the "render" prop
+                </div>
+            )}
+        />
+    ))
+);
