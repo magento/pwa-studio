@@ -145,7 +145,7 @@ which reads an ini-formatted file to set the environment.
    babel-core babel-loader babel-helper-module-imports \
    babel-plugin-syntax-jsx babel-plugin-transform-class-properties \
    babel-plugin-transform-object-rest-spread babel-plugin-transform-react-jsx \
-   webpack webpack-cli webpack-dev-server
+   webpack@3 webpack-dev-server@2
    ```
 
 1. Create a file in your theme directory called `.babelrc`. Babel, the code
