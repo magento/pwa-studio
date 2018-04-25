@@ -14,7 +14,8 @@
     "lint": "eslint '*.js' 'src/**/*.js'",
     "jest:ci": "jest -i --testResultsProcessor=./node_modules/jest-junit-reporter",
     "prettier": "prettier --write 'src/**/*.js'",
-    "prettier:check": "prettier-check 'src/**/*.js'"
+    "prettier:check": "prettier-check 'src/**/*.js'",
+    "prepublishOnly": "rimraf dist && npm run build"
   },
   "files": [
     "dist",
@@ -62,6 +63,7 @@
     "prettier": "^1.8.1",
     "prettier-check": "^2.0.0",
     "react": "^16.1.1",
+    "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
     "webpack": "^3.10.0"
   },
