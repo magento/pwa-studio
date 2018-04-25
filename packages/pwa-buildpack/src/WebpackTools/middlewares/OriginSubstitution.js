@@ -9,6 +9,8 @@
  *
  * For Magento 2 specifically, This is a stopgap until we can hack Framework to
  * have branch logic in asset URL resolvers.
+ *
+ * EXPERIMENTAL -- not ready for prime time
  */
 const debug = require('../../util/debug').makeFileLogger(__filename);
 const url = require('url');
@@ -36,6 +38,7 @@ module.exports = function createOriginSubstitutionMiddleware(
     const tagsToReplaceOrigin = ['style'].map(attr => ({
         query: attr,
         func(node) {
+            debug('tag', attr, node);
             const stream = node.createStream();
             stream
                 .pipe(

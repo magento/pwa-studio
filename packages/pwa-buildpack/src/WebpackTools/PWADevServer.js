@@ -146,13 +146,15 @@ const PWADevServer = {
                 Object.assign({}, devHost, { pathname: config.publicPath })
             ),
             before(app) {
-                // replace origins in links in returned html
-                app.use(
-                    middlewares.originSubstitution(
-                        new url.URL(config.backendDomain),
-                        devHost
-                    )
-                );
+                if (config.changeOrigin) {
+                    // replace origins in links in returned html
+                    app.use(
+                        middlewares.originSubstitution(
+                            new url.URL(config.backendDomain),
+                            devHost
+                        )
+                    );
+                }
                 // proxy to backend
                 app.use(
                     middlewares.devProxy(config.backendDomain, {

@@ -93,6 +93,9 @@ configuration.
   - `assets`: Directory for other public static assets.
 - `serviceWorkerFileName: string`: **Required.** The name of the ServiceWorker
    file this theme creates, e.g. `'sw.js'`.
+- `changeOrigin: boolean`: ⚠️ **(experimental)** Try to parse any HTML responses
+   from the proxied Magento backend, and replace its domain name with the
+   dev server domain name. Default `false`.
 - `middleware: function`: A function which receives the Express `app` as its
    argument. Runs before the app is configured otherwise (in the `before` step),
    so you can use this to add custom middleware.

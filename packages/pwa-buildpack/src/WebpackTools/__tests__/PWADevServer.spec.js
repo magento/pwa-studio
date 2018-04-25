@@ -319,6 +319,62 @@ test('.configure() returns a configuration object with a before() handler that a
         use: jest.fn()
     };
 
+    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
+    middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
+
+    devServer.before(app);
+
+    expect(middlewares.DevProxy).toHaveBeenCalledWith(
+        'https://magento.backend.domain',
+        {
+            passthru: ['js', 'map', 'css', 'json', 'svg']
+        }
+    );
+
+    expect(middlewares.OriginSubstitution).not.toHaveBeenCalled();
+
+    expect(app.use).toHaveBeenCalledWith('fakeDevProxy');
+
+    expect(middlewares.StaticRootRoute).toHaveBeenCalledWith(
+        'path/to/static/swname.js'
+    );
+
+    expect(app.use).toHaveBeenCalledWith('fakeStaticRootRoute');
+
+    expect(app.use).toHaveBeenCalledWith(
+        'full/path/to/publicPath',
+        expect.any(Function)
+    );
+});
+
+test('.configure() optionally adds OriginSubstitution middleware', async () => {
+    simulate
+        .hostnameForNextId('coolnewhost.local.pwadev')
+        .portSavedForNextHostname(8765)
+        .hostResolvesLoopback()
+        .certExistsForNextHostname({
+            key: 'fakeKey2',
+            cert: 'fakeCert2'
+        });
+
+    const config = {
+        id: 'Theme_Unique_Id',
+        paths: {
+            output: 'path/to/static',
+            assets: 'path/to/assets'
+        },
+        publicPath: 'full/path/to/publicPath',
+        serviceWorkerFileName: 'swname.js',
+        backendDomain: 'https://magento.backend.domain',
+        changeOrigin: true
+    };
+
+    const devServer = await PWADevServer.configure(config);
+
+    const app = {
+        use: jest.fn()
+    };
+
     middlewares.OriginSubstitution.mockReturnValueOnce(
         'fakeOriginSubstitution'
     );
@@ -340,24 +396,4 @@ test('.configure() returns a configuration object with a before() handler that a
     );
 
     expect(app.use).toHaveBeenCalledWith('fakeOriginSubstitution');
-
-    expect(middlewares.DevProxy).toHaveBeenCalledWith(
-        'https://magento.backend.domain',
-        {
-            passthru: ['js', 'map', 'css', 'json', 'svg']
-        }
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeDevProxy');
-
-    expect(middlewares.StaticRootRoute).toHaveBeenCalledWith(
-        'path/to/static/swname.js'
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeStaticRootRoute');
-
-    expect(app.use).toHaveBeenCalledWith(
-        'full/path/to/publicPath',
-        expect.any(Function)
-    );
 });
