@@ -8,7 +8,7 @@ const {
         MagentoResolver,
         PWADevServer
     }
-} = require('@jzetlen/pwa-buildpack');
+} = require('@magento/pwa-buildpack');
 const path = require('path');
 
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
