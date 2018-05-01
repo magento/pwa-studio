@@ -160,7 +160,7 @@ async function asyncFilter(array, predicate) {
  */
 async function promiseBoolReflect(promise) {
     try {
-        return !!await promise;
+        return !!(await promise);
     } catch (err) {
         return false;
     }
