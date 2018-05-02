@@ -121,7 +121,7 @@ module.exports = async function(env) {
             new webpack.HotModuleReplacementPlugin()
         );
     } else if (env.phase === 'production') {
-        config.vendor.entry = libs;
+        config.entry.vendor = libs;
         config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['vendor']
