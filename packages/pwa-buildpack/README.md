@@ -191,7 +191,7 @@ which reads an ini-formatted file to set the environment.
    ```js
    const webpack = require('webpack');
    const {
-       Webpack: {
+       WebpackTools: {
            MagentoRootComponentsPlugin,
            ServiceWorkerPlugin,
            MagentoResolver,
