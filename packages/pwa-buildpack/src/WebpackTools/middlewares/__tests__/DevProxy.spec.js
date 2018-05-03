@@ -14,12 +14,12 @@ test('proxies requests based on target and extension', () => {
     );
     expect(proxyMiddleware).toHaveBeenCalledWith(
         ['**', '!**/*.{js,woah,js.map}'],
-        {
+        expect.objectContaining({
             target: 'https://shampoo.infrequently',
             logLevel: 'warn',
             secure: false,
             changeOrigin: true
-        }
+        })
     );
 });
 
