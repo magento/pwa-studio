@@ -35,8 +35,8 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
-    "@magento/pwa-buildpack": "^0.6.0",
     "@magento/eslint-config": "^1.0.0",
+    "@magento/pwa-buildpack": "^0.7.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.2",
     "babel-jest": "^22.1.0",
