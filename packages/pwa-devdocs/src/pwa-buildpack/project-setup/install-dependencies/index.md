@@ -17,7 +17,7 @@ In this topic you will initialize the `package.json` file and install project de
 
    ``` bash
    npm install --save @magento/peregrine \
-   react react-dom react-redux react-router-dom redux
+   react react-dom react-redux react-router-dom redux@3
    ```
 
    These dependencies allow you to use the UI components and services provided by the peregrine project to develop your theme.
@@ -29,7 +29,7 @@ In this topic you will initialize the `package.json` file and install project de
    babel-core babel-loader babel-helper-module-imports \
    babel-plugin-syntax-jsx babel-plugin-transform-class-properties \
    babel-plugin-transform-object-rest-spread babel-plugin-transform-react-jsx \
-   webpack webpack-cli webpack-dev-server
+   webpack@3 webpack-dev-server@2
    ```
 
    These dependencies allow you to create a [Webpack]-based build environment for your project.

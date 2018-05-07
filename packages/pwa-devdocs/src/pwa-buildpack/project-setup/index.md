@@ -28,6 +28,10 @@ To complete this tutorial, make sure your development system has the following:
 * A local Magento 2 store accessible via filesystem.
   A network share also works if your backing store is in a virtual machine or remote system.
 
+  **Note:**
+  *Use the `2.3-develop` branch of Magento for this tutorial.*
+  
+
 Begin this tutorial by [creating the initial theme files].
 
 [NPM]: https://www.npmjs.com/

@@ -48,6 +48,7 @@ In this part of the [Project setup tutorial], you will create the initial files 
     {
         "name": "orangecompany/orange-theme",
         "description": "The inimitable Orange Theme.",
+        "version": "1.0.0",
         "require": {
             "php": "~7.1.0|~7.2.0",
             "magento/framework": "100.3.*",

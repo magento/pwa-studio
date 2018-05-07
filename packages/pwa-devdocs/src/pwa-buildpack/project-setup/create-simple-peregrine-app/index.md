@@ -7,7 +7,10 @@ In this topic, you will create a simple app that follows the [Peregrine] pattern
 
 ## Create app.js
 
-1. Inside `src`, create a directory called `components`.
+1. Create the `src` and `src/components` directories in your theme's root directory using the following command:
+    ``` sh
+    mkdir -p src/components
+    ```
 1. Inside the `components` directory, create an `app.js` file with the following content:
 
    ``` jsx 
@@ -63,7 +66,11 @@ For now, leave this directory empty.
 
 You have created a Peregrine app skeleton!
 
-If you followed the [Project setup tutorial] from the beginning, you have also successfully set up your development environment!
+If you followed the [Project setup tutorial] from the beginning, you can now run the following command in the root of your theme directory to finish setting up your development environment:
+
+``` sh
+npm start
+```
 
 [previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
 [Peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}

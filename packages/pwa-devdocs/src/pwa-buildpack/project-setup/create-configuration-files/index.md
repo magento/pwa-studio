@@ -37,15 +37,15 @@ This configuration installs the following [Babel] plugins:
   const config = { ...defaultConfig, ...passedConfig };
   ```
 
-In general, these plugins provide convenience and produces cleaner code in your project.
+In general, these plugins provide convenience and produce cleaner code in your project.
 
 ## Create the local environment variables file
 
 Create a `.env` file and assign values to the following environment variables:
 
 * `MAGENTO_BACKEND_DOMAIN` - Your local Magento store’s host and port.
-* `MAGENTO_PATH` - The absolute path to the root directory of your local Magento store
-* `MAGENTO_BACKEND_PUBLIC_PATH` - Your theme’s vendor and name. The locale must be `en_US` for now.
+* `MAGENTO_BACKEND_PUBLIC_PATH` - PWA files are served from root during development, but
+    this environment variable can later be used to simulate a deployed static path.
 * `SERVICE_WORKER_FILE_NAME` - Set this value to `"sw.js"`.
 
 Your file should look like the following:
@@ -53,9 +53,7 @@ Your file should look like the following:
 ``` text
 MAGENTO_BACKEND_DOMAIN=https://localhost.magento:8008
 
-MAGENTO_PATH=~/path/to/magento/rootdir
-
-MAGENTO_BACKEND_PUBLIC_PATH=/pub/static/frontend/OrangeCompany/orange-theme/en_US
+MAGENTO_BACKEND_PUBLIC_PATH=/
 
 SERVICE_WORKER_FILE_NAME="sw.js"
 ```
@@ -92,7 +90,7 @@ Append the following content to `webpack.config.js` to import the Webpack and pw
 ``` javascript
 const webpack = require('webpack');
 const {
-    Webpack: {
+    WebpackTools: {
         MagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
         MagentoResolver,
@@ -127,7 +125,6 @@ Append the following content to webpack.config.js to export the configuration ob
 ``` javascript
 module.exports = async function(env) {
     const config = {
-        mode: env.mode, // passed on the command line via the '--env' flag
         context: __dirname, // Node global for the running script's directory
         entry: {
             client: path.resolve(themePaths.src, 'index.js')
@@ -173,7 +170,7 @@ module.exports = async function(env) {
              new MagentoRootComponentsPlugin(),
              new webpack.NoEmitOnErrorsPlugin(),
              new webpack.EnvironmentPlugin({
-                 NODE_ENV: env.mode,
+                 NODE_ENV: env.phase,
                  SERVICE_WORKER_FILE_NAME: 'sw.js'
              })
          ]
@@ -196,13 +193,13 @@ Some important things to note in this configuration:
 Add the following development mode configuration before returning the `config` object:
 
 ``` javascript
-if (env.mode === "development") {
+if (env.phase === "development") {
     config.devServer = await PWADevServer.configure({
         publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
         backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
         serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
         paths: themePaths,
-        id: 'magento-my-theme'
+        id: path.basename(__dirname) // Defaults to theme directory name
     });
 
     // A DevServer generates its own unique output path at startup. It needs
@@ -223,7 +220,7 @@ if (env.mode === "development") {
          new webpack.HotModuleReplacementPlugin()
      );
 } else {
-  throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
+  throw Error('Only "development" mode is currently supported. Please pass "--env.phase development" on the command line.');
 }
 ```
 
@@ -240,13 +237,13 @@ Edit the `scripts` section of your `package.json file` so it looks like the foll
 
 ``` javascript 
 "scripts": {
-    "start" : "webpack-dev-server --progress --color --env.mode development",
+    "start" : "webpack-dev-server --progress --color --env.phase development",
     "test": "echo \"Error: no test specified\" && exit 1"
 }
 ```
 
 This allows you to start a development server using the `npm start` command.
-The `--env.mode development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
+The `--env.phase development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
 
 **NOTE:**
 *When you run npm start for the first time or after a long period of time, PWA Studio may ask for your password.*

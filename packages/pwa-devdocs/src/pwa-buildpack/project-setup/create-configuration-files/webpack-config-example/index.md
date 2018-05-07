@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const webpack = require('webpack');
 const {
-    Webpack: {
+    WebpackTools: {
         MagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
         MagentoResolver,
@@ -27,7 +27,7 @@ const themePaths = {
 
 module.exports = async function(env) {
     const config = {
-        mode: env.mode, // passed on the command line via the '--env' flag
+        mode: env.phase, // passed on the command line via the '--env' flag
         context: __dirname, // Node global for the running script's directory
         entry: {
             client: path.resolve(themePaths.src, 'index.js')
@@ -73,20 +73,20 @@ module.exports = async function(env) {
              new MagentoRootComponentsPlugin(),
              new webpack.NoEmitOnErrorsPlugin(),
              new webpack.EnvironmentPlugin({
-                 NODE_ENV: env.mode,
+                 NODE_ENV: env.phase,
                  SERVICE_WORKER_FILE_NAME: 'sw.js'
              })
          ]
 
     };
 
-    if (env.mode === "development") {
+    if (env.phase === "development") {
         config.devServer = await PWADevServer.configure({
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
             paths: themePaths,
-            id: 'magento-my-theme'
+            id: path.basename(__dirname) // Defaults to theme directory name
         });
     
         // A DevServer generates its own unique output path at startup. It needs
@@ -108,7 +108,7 @@ module.exports = async function(env) {
         );
 
     } else {
-        throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
+        throw Error('Only "development" mode is currently supported. Please pass "--env.phase development" on the command line.');
     }
     
     return config;
