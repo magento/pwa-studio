@@ -22,12 +22,14 @@ class Peregrine {
     constructor(opts = {}) {
         const { apiBase = location.origin, __tmp_webpack_public_path__ } = opts;
         this.apiBase = apiBase;
-        this.__tmp_webpack_public_path__ = __tmp_webpack_public_path__;
+        this.__tmp_webpack_public_path__ =
+            __tmp_webpack_public_path__ &&
+            ensureDirURI(__tmp_webpack_public_path__);
         if (!__tmp_webpack_public_path__ && process.env.NODE_ENV === 'test') {
             // Since __tmp_webpack_public_path__ is temporary, we're
             // defaulting it here in tests to lessen tests that need to change
             // when this property is removed
-            this.__tmp_webpack_public_path__ = 'https://temporary.com/pub';
+            this.__tmp_webpack_public_path__ = 'https://temporary.com/pub/';
         }
         this.store = createStore();
         this.container = null;
@@ -75,6 +77,14 @@ class Peregrine {
     addReducer(key, reducer) {
         this.store.addReducer(key, reducer);
     }
+}
+
+/**
+ * Given a URI, will always return the same URI with a trailing slash
+ * @param {string} uri
+ */
+function ensureDirURI(uri) {
+    return uri.endsWith('/') ? uri : uri + '/';
 }
 
 export default Peregrine;

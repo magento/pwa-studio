@@ -62,3 +62,18 @@ test('Adds a reducer to the store', () => {
     const next = app.store.getState().foo;
     expect(next).toBe(expected);
 });
+
+// https://github.com/magento-research/venia-pwa-concept/pull/57
+test('__tmp_webpack_public_path__ is normalized to include a trailing / when not present', () => {
+    const app = new Peregrine({
+        __tmp_webpack_public_path__: 'https://foo.bar/test'
+    });
+    expect(app.__tmp_webpack_public_path__).toBe('https://foo.bar/test/');
+});
+
+test('Does not double up trailing slash in __tmp_webpack_public_path__ when one exists', () => {
+    const app = new Peregrine({
+        __tmp_webpack_public_path__: 'https://foo.bar/test/'
+    });
+    expect(app.__tmp_webpack_public_path__).toBe('https://foo.bar/test/');
+});
