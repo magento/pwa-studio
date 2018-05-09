@@ -11,17 +11,13 @@ export default function fetchRootComponent(chunkID, moduleID) {
         const modNamespace = webpackInterop.require(moduleID);
         if (!modNamespace) {
             throw new Error(
-                `Expected chunkID ${chunkID} to have module ${
-                    moduleID
-                }. Cannot render this route without a matching RootComponent`
+                `Expected chunkID ${chunkID} to have module ${moduleID}. Cannot render this route without a matching RootComponent`
             );
         }
 
         if (typeof modNamespace.default !== 'function') {
             throw new Error(
-                `moduleID ${moduleID} in chunk ${
-                    chunkID
-                } was missing a default export for a RootComponent`
+                `moduleID ${moduleID} in chunk ${chunkID} was missing a default export for a RootComponent`
             );
         }
 

@@ -11,7 +11,12 @@ configure({ adapter: new Adapter() });
 
 beforeAll(() => {
     for (const method of Object.keys(console)) {
-        jest.spyOn(console, method).mockImplementation(() => {});
+        if (
+            typeof method === 'function' &&
+            !jest.isMockFunction(console.method)
+        ) {
+            jest.spyOn(console, method).mockImplementation(() => {});
+        }
     }
 });
 
