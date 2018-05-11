@@ -20,8 +20,8 @@ const middlewares = {
 
 let PWADevServer;
 beforeAll(() => {
-    GlobalConfig.mockImplementation(() => ({
-        set: jest.fn(),
+    GlobalConfig.mockImplementation(({ key }) => ({
+        set: jest.fn(key),
         get: jest.fn(),
         values: jest.fn()
     }));
@@ -288,11 +288,12 @@ test('.configure() returns a configuration object for the `devServer` property o
         port: 8765,
         publicPath:
             'https://coolnewhost.local.pwadev:8765/full/path/to/publicPath',
-        before: expect.any(Function)
+        before: expect.any(Function),
+        after: expect.any(Function)
     });
 });
 
-test('.configure() returns a configuration object with a before() handler that adds middlewares', async () => {
+test('.configure() returns a configuration object with before() and after() handlers that add middlewares in order', async () => {
     simulate
         .hostnameForNextId('coolnewhost.local.pwadev')
         .portSavedForNextHostname(8765)
@@ -319,16 +320,18 @@ test('.configure() returns a configuration object with a before() handler that a
         use: jest.fn()
     };
 
-    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
     middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
 
     devServer.before(app);
 
+    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
+
+    devServer.after(app);
+
     expect(middlewares.DevProxy).toHaveBeenCalledWith(
-        'https://magento.backend.domain',
-        {
-            passthru: ['js', 'map', 'css', 'json', 'svg']
-        }
+        expect.objectContaining({
+            target: 'https://magento.backend.domain'
+        })
     );
 
     expect(middlewares.OriginSubstitution).not.toHaveBeenCalled();

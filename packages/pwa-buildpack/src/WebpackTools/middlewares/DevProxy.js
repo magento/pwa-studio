@@ -5,14 +5,15 @@
  * Tries to detect a case where the target URL is misconfigured and the
  * store tries to redirect to http or https.
  */
-const proxy = require('http-proxy-middleware');
+const proxyMiddleware = require('http-proxy-middleware');
+const optionsValidator = require('../../util/options-validator');
 const { format, URL } = require('url');
 
 const RedirectCodes = [201, 301, 302, 307, 308];
 const findRedirect = message =>
     RedirectCodes.includes(message.statusCode) && message.headers.location;
 
-const throwOnProtocolChange = (target, redirected) => {
+const emitErrorOnProtocolChange = (emit, target, redirected) => {
     const backend = new URL(target);
     const { host, protocol } = new URL(redirected);
     if (backend.host === host && backend.protocol === protocol) {
@@ -20,42 +21,66 @@ const throwOnProtocolChange = (target, redirected) => {
     }
 
     if (backend.protocol === 'https:' && protocol === 'http:') {
-        throw Error(
-            `pwa-buildpack: Backend domain is configured to ${target}, but redirected to unsecure HTTP. Please configure backend server to use SSL.`
+        return emit(
+            new Error(
+                `pwa-buildpack: Backend domain is configured to ${target}, but redirected to unsecure HTTP. Please configure backend server to use SSL.`
+            )
         );
     }
 
     if (backend.protocol === 'http:' && protocol === 'https:') {
-        throw Error(
-            `pwa-buildpack: Backend domain is configured to ${target}, but redirected to secure HTTPS. Please change configuration to point to secure backend domain: ${format(
-                Object.assign(backend, { protocol: 'https:' })
-            )}.`
+        return emit(
+            new Error(
+                `pwa-buildpack: Backend domain is configured to ${target}, but redirected to secure HTTPS. Please change configuration to point to secure backend domain: ${format(
+                    Object.assign(backend, { protocol: 'https:' })
+                )}.`
+            )
         );
     }
 
-    throw Error(
-        `pwa-buildpack: Backend domain redirected to unknown protocol: ${redirected}`
+    emit(
+        new Error(
+            `pwa-buildpack: Backend domain redirected to unknown protocol: ${redirected}`
+        )
     );
 };
 
-module.exports = function createDevProxy(
-    target,
-    { passthru },
-    logLevel = 'debug'
-) {
-    const noDot = passthru.map(x => x.replace(/^\./, ''));
-    return proxy(['**', `!**/*.{${noDot.join(',')}}`], {
-        onProxyRes(proxyRes) {
-            const redirected = findRedirect(proxyRes);
-            if (redirected) {
-                throwOnProtocolChange(target, redirected);
-            }
+const validateConfig = optionsValidator('DevProxyMiddleware', {
+    target: 'string'
+});
+
+module.exports = function createDevProxy(config) {
+    validateConfig('createDevProxy', config);
+    const proxyConf = Object.assign(
+        {
+            logLevel: 'debug',
+            logProvider: defaultProvider => config.logger || defaultProvider,
+            onProxyRes(proxyRes) {
+                const redirected = findRedirect(proxyRes);
+                if (redirected) {
+                    emitErrorOnProtocolChange(
+                        nextCallback,
+                        config.target,
+                        redirected
+                    );
+                }
+            },
+            secure: false,
+            changeOrigin: true,
+            autoRewrite: true,
+            cookieDomainRewrite: '' // remove any absolute domain on cookies
         },
-        target,
-        logLevel,
-        secure: false,
-        changeOrigin: true,
-        autoRewrite: true,
-        cookieDomainRewrite: '' // remove any absolute domain on cookies
-    });
+        config
+    );
+    let nextCallback;
+    const proxy = proxyMiddleware('**', proxyConf);
+    // Return an outer middleware so we can access the `next` function to
+    // properly pass errors along.
+    return (req, res, next) => {
+        nextCallback = err => {
+            proxyConf.logProvider(console).error(err);
+            return next(err);
+        };
+        return proxy(req, res, next);
+    };
 };

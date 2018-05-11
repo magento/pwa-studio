@@ -155,24 +155,23 @@ const PWADevServer = {
                         )
                     );
                 }
-                // proxy to backend
-                app.use(
-                    middlewares.devProxy(config.backendDomain, {
-                        passthru: ['js', 'map', 'css', 'json', 'svg']
-                    })
-                );
                 // serviceworker root route
                 app.use(
                     middlewares.staticRootRoute(
                         join(config.paths.output, config.serviceWorkerFileName)
                     )
                 );
+            },
+            after(app) {
                 // set static server to load and serve from different paths
                 app.use(config.publicPath, express.static(config.paths.assets));
 
-                if (typeof config.middleware === 'function') {
-                    config.middleware(app);
-                }
+                // proxy to backend
+                app.use(
+                    middlewares.devProxy({
+                        target: config.backendDomain
+                    })
+                );
             }
         };
     }
