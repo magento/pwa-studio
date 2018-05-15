@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/magento-research/pwa-buildpack/compare/v0.7.0...v0.7.1) (2018-05-15)
+
+
+### Bug Fixes
+
+* **DevProxy:** put proxy after other middlewares ([#33](https://github.com/magento-research/pwa-buildpack/issues/33)) ([6378414](https://github.com/magento-research/pwa-buildpack/commit/6378414)), closes [#32](https://github.com/magento-research/pwa-buildpack/issues/32)
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/magento-research/pwa-buildpack/compare/v0.6.0...v0.7.0) (2018-05-03)
 
