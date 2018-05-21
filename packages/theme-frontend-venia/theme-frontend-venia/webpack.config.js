@@ -24,7 +24,14 @@ const themePaths = {
 const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
 
 module.exports = async function(env) {
-    const babelOptions = configureBabel(env.phase);
+    const { phase } = env;
+
+    const babelOptions = configureBabel(phase);
+
+    const enableServiceWorkerDebugging = Boolean(
+        process.env.ENABLE_SERVICE_WORKER_DEBUGGING
+    );
+    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
     const config = {
         context: __dirname, // Node global for the running script's directory
@@ -87,25 +94,33 @@ module.exports = async function(env) {
         plugins: [
             new MagentoRootComponentsPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
-            new webpack.EnvironmentPlugin({
-                NODE_ENV: env.phase,
-                SERVICE_WORKER_FILE_NAME: 'sw.js'
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(phase),
+                // Blank the service worker file name to stop the app from
+                // attempting to register a service worker in index.js.
+                // Only register a service worker when in production or in the
+                // special case of debugging the service worker itself.
+                'process.env.SERVICE_WORKER': JSON.stringify(
+                    phase === 'production' || enableServiceWorkerDebugging
+                        ? serviceWorkerFileName
+                        : false
+                )
             }),
             new ServiceWorkerPlugin({
                 env,
-                paths: themePaths,
-                enableServiceWorkerDebugging: false,
-                serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME
+                enableServiceWorkerDebugging,
+                serviceWorkerFileName,
+                paths: themePaths
             })
         ]
     };
-    if (env.phase === 'development') {
-        config.devtool = 'eval-source-map';
+    if (phase === 'development') {
+        config.devtool = 'source-map';
 
         config.devServer = await PWADevServer.configure({
+            serviceWorkerFileName,
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
             paths: themePaths,
             id: 'magento-venia'
         });
@@ -120,7 +135,7 @@ module.exports = async function(env) {
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin()
         );
-    } else if (env.phase === 'production') {
+    } else if (phase === 'production') {
         config.entry.vendor = libs;
         config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({

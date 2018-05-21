@@ -9,10 +9,10 @@ const app = new Peregrine({
 
 app.mount(document.getElementById('root'));
 
-if ('serviceWorker' in navigator) {
+if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
-            .register(process.env.SERVICE_WORKER_FILE_NAME)
+            .register(process.env.SERVICE_WORKER)
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })
