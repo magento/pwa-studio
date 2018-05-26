@@ -84,6 +84,7 @@ test('.setLoopback() updates /etc/hosts to make hostname local', async () => {
     lookup.mockRejectedValueOnce({ code: 'ENOTFOUND' });
     await PWADevServer.setLoopback('excelsior.com');
     expect(runAsRoot).toHaveBeenCalledWith(
+        expect.any(String),
         expect.any(Function),
         'excelsior.com'
     );

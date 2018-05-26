@@ -82,7 +82,6 @@
     "http-proxy-middleware": "^0.18.0",
     "lodash.get": "^4.4.2",
     "openport": "0.0.4",
-    "sudo-prompt": "^8.1.0",
     "through": "^2.3.8",
     "webpack-sources": "^1.1.0",
     "workbox-webpack-plugin": "^3.0.0-beta.1",

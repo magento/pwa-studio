@@ -53,6 +53,7 @@ const PWADevServer = {
                 `setting ${hostname} loopback in /etc/hosts, may require password...`
             );
             return runAsRoot(
+                `Resolving ${hostname} to localhost and editing the hostfile requires temporary administrative privileges.\n Enter password for %u on %H: `,
                 /* istanbul ignore next: never runs in process */
                 d => require('hostile').set('127.0.0.1', d),
                 hostname

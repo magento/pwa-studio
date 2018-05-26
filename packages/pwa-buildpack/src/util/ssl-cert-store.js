@@ -39,6 +39,7 @@ module.exports = {
         try {
             return JSON.parse(
                 await runAsRoot(
+                    'Creating and trusting an SSL certificate for local dev requires temporary administrative privileges.\n Enter password for %u on %H: ',
                     /* istanbul ignore next: this runs out of band in another process, hard to test */
                     async name => {
                         const devcert = require('@magento/devcert');
