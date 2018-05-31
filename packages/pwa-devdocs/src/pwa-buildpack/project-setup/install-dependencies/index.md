@@ -87,8 +87,9 @@ Now that you have your project dependencies installed, your `package.json` file 
 }
 ```
 
+{: .bs-callout .bs-callout-info}
 **Note:**
-*Dependency versions in your `package.json` file may differ from the ones listed here.*
+Dependency versions in your `package.json` file may differ from the ones listed here.
 
 In the next topic, you will [link your project to the Magento backend].
 

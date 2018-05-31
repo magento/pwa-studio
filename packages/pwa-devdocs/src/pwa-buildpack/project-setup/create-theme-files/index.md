@@ -21,8 +21,9 @@ In this part of the [Project setup tutorial], you will create the initial files 
     mkdir orange-theme && cd orange-theme
     ```
 
+    {: .bs-callout .bs-callout-info}
     **Note:**
-    *Your theme directory does not need to be created inside a Magento application directory.*
+    Your theme directory does not need to be created inside a Magento application directory.
 
 1. Create a `media` directory and place a `preview.jpg` image file inside.
     This image is used as the preview image for your theme.

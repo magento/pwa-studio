@@ -245,10 +245,11 @@ Edit the `scripts` section of your `package.json file` so it looks like the foll
 This allows you to start a development server using the `npm start` command.
 The `--env.phase development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
 
-**NOTE:**
-*When you run npm start for the first time or after a long period of time, PWA Studio may ask for your password.*
-*This is required to set the local host and SSL trust settings on your system.*
-*It will not retain broad permissions on your system.*
+{: .bs-callout .bs-callout-info}
+**Note:**
+When you run npm start for the first time or after a long period of time, PWA Studio may ask for your password.
+This is required to set the local host and SSL trust settings on your system.
+It will not retain broad permissions on your system.
 
 Now that you have created your project configuration files, you can create a [simple peregrine app].
 

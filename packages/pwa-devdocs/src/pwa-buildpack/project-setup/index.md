@@ -22,14 +22,16 @@ To complete this tutorial, make sure your development system has the following:
 * [NodeJS 8.x LTS] - A JavaScript run-time environment that executes server-side JavaScript code. 
   NodeJS 8.x is the newest LTS release at the time this topic was written.
 
+  {: .bs-callout .bs-callout-info}
   **Note:** 
-  *PWA Studios intends to keep pace with NodeJS LTS windows, so we recommend you use the latest LTS version for NodeJS.*
+  PWA Studios intends to keep pace with NodeJS LTS windows, so we recommend you use the latest LTS version for NodeJS.
 
 * A local Magento 2 store accessible via filesystem.
   A network share also works if your backing store is in a virtual machine or remote system.
 
+  {: .bs-callout .bs-callout-info}
   **Note:**
-  *Use the `2.3-develop` branch of Magento for this tutorial.*
+  Use the `2.3-develop` branch of Magento for this tutorial.
   
 
 Begin this tutorial by [creating the initial theme files].
