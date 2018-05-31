@@ -1,26 +1,11 @@
-- label: Technologies
-  links:
-    - label: Overview
-      url: /technologies/overview/
-    - label: pwa-buildpack
-      url: /pwa-buildpack/
-    - label: peregrine
-      url: /technologies/peregrine/
+- label: Overview
+  url: /technologies/overview/
 
-- label: Reference and Guides
-  links:
-    - label: UI Components Reference
-      url: /reference/ui-components/
-    - label: Testing Guide
-      url: /guides/testing
-    - label: Tutorials
-      url: /tutorials/
+- label: PWA Buildpack
+  url: /pwa-buildpack/
 
-- label: External DevDocs Sites
-  links:
-    - label: Magento DevDocs
-      url: http://devdocs.magento.com
-    - label: Tech Resources
-      url: https://magento.com/resources/technical
-    - label: Knowledge Base
-      url: https://support.magento.com/hc/en-us
+- label: UI Components
+  url: /peregrine/
+
+- label: Venia Theme
+  url: /venia-pwa-concept/

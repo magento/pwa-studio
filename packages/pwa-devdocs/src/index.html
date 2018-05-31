@@ -2,47 +2,148 @@
 layout: home
 ---
 
-<section class="home-features">
-    <div class="container">
-        <div class="feature card">
-            <img src="{{site.baseurl}}/static/images/magento-research-logo.png" alt="Magento Research"/>
-            <h2 class="title">What is Magento PWA</h2>
-            <p>
-                A Progressive Web App, or PWA, is a website or web app that is built using performance-focused and mobile-centered implementation patterns.
-                The Magento PWA project provides all the necessary support systems and tools to make a Magento storefront theme powered by PWA technologies. 
-            </p>
-            <p>
-                See <a href="{{ site.baseurl }}/technologies/overview/">Magento PWA Overview</a> for more information.
-            </p>
-        </div>
-        <div class="feature">
-            <img src="{{site.baseurl}}/static/images/magento-research-logo.png" alt="Magento Research"/>
-            <h2 class="title">Getting Started</h2>
-            <ul>
-                <li><a href="{{ site.baseurl }}/technologies/basic-concepts/">Basic Concepts</a></li>
-                <li><a href="{{ site.baseurl }}/technologies/tools-libraries/">Tools and Libraries</a></li>
-                <li><a href="{{ site.baseurl }}/reference/ui-components/">UI Components Reference</a></li>
-                <li><a href="{{ site.baseurl }}/tutorials/">Tutorials</a></li>
-            </ul>
-        </div>
-        <div class="feature card">
-            <img src="{{site.baseurl}}/static/images/magento-research-logo.png" alt="Magento Research"/>
-            <h2 class="title">Contribute to the project</h2>
-            <p>
-                The Magento PWA project is an open source project that welcomes community contributions and collaboration.
-            </p>
-            <p>
-                If you have any questions, please join the <strong>#pwa</strong> Slack channel at <a href="https://magentocommeng.slack.com/">magentocommeng.slack.com</a>.
-            </p>
-        </div>
-        <div class="feature">
-            <img src="{{site.baseurl}}/static/images/magento-research-logo.png" alt="Magento Research"/>
-            <h2 class="title">Magento PWA Repositories</h2>
-            <ul>
-                <li><a href="https://github.com/magento-research/pwa-buildpack">pwa-buildpack</a></li>
-                <li><a href="https://github.com/magento-research/peregrine">peregrine</a></li>
-                <li><a href="https://github.com/magento-research/pwa-devdocs">pwa-devdocs</a></li>
-            </ul>
-        </div>
+<section class="home-getting-started section">
+  <div class="container">
+
+    <div class="columns">
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link technologies/overview/index.md %}" class="card">
+          <h2>Overview</h2>
+          <p>
+            The Magento PWA project is a set of developer tools that allow you to develop, deploy, and maintain a PWA storefront on top of Magento 2.
+          </p>
+        </a>
+      </div>
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link technologies/basic-concepts/index.md %}" class="card">
+          <h2>Basic Concepts</h2>
+          <p>
+            Things you need to know to work with the Magento PWA Studio tools.
+          </p>
+        </a>
+      </div>
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link pwa-buildpack/index.md %}" class="card">
+          <h2>PWA Buildpack</h2>
+          <p>
+            Build and development tool for Magento PWA projects. Set up and configure your local environment for PWA development.
+          </p>
+        </a>
+      </div>
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link technologies/tools-libraries/index.md %}" class="card">
+          <h2>Tools and Libraries</h2>
+          <p>
+            The technologies that power Magento PWA projects.
+          </p>
+        </a>
+      </div>
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link peregrine/index.md %}" class="card">
+          <h2>Peregrine UI Components</h2>
+          <p>
+            Use, extend, or remix these components to create a unique Magento PWA theme
+          </p>
+        </a>
+      </div>
+
+      <div class="column">
+        <a href="{{ site.baseurl }}{% link venia-pwa-concept/index.md %}" class="card">
+          <h2>Venia Theme</h2>
+          <p>
+            A proof-of-concept Magento theme built using PWA Buildack tools and Peregrine components.
+          </p>
+        </a>
+      </div>
+
     </div>
+
+  </div>
+
+</section>
+
+<section class="home-contribute section">
+
+  <div class="container">
+
+    <div class="intro">
+
+      <h2>Contribute to the Project</h2>
+
+      <p>
+        The Magento PWA project is an open source project that welcomes community contributions and collaboration.
+      </p>
+      <p>
+          If you have any questions, please join the <strong>#pwa</strong> Slack channel at <a href="https://magentocommeng.slack.com/">magentocommeng.slack.com</a>.
+      </p>
+
+    </div>
+
+
+    <div class="columns">
+
+      <div class="column">
+        <article class="repository tile">
+          <h3>
+            <a href="https://github.com/magento-research/pwa-buildpack">Buildpack</a>
+          </h3>
+          <p>
+            Build and layout optimization tooling for Magento PWA projects.
+          </p>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="repository tile">
+          <h3>
+            <a href="https://github.com/magento-research/peregrine">Peregrine</a>
+          </h3>
+          <p>
+            A collection of UI components for the Magento PWA projects.
+          </p>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="repository tile">
+          <h3>
+            <a href="https://github.com/magento-research/theme-frontend-pwa">Base Theme</a>
+          </h3>
+          <p>
+            The required base theme for Magento PWA themes.
+          </p>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="repository tile">
+          <h3>
+            <a href="https://github.com/magento-research/venia-pwa-concept">Venia Theme (Concept)</a>
+          </h3>
+          <p>
+            A conceptual PWA theme for Magento 2 built using the Peregrine component library and Buildpack tools.
+          </p>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="repository tile">
+          <h3>
+            <a href="{{ site.data.vars.repo }}">PWA Documentation</a>
+          </h3>
+          <p>
+            PWA Developer Documentation (this website).
+          </p>
+        </article>
+      </div>
+
+    </div>
+
+  <div>
+
 </section>

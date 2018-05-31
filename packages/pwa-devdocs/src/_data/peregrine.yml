@@ -1,0 +1,13 @@
+title: Peregrine
+entries:
+  - label: Overview
+    url: /peregrine/
+  
+  - label: Component Reference
+    entries:
+
+      - label: ContainerChild
+        url: /peregrine/reference/container-child/
+
+      - label: Router
+        url: /peregrine/reference/router/

@@ -1,3 +1,16 @@
+<script>
+  var baseUrl = "{{ site.baseurl }}";
+  var algolia = {
+    id : "{{ site.algolia.application_id}}",
+    index:  "{{ site.algolia.index_name}}",
+    key:  "{{ site.algolia.api_key}}"
+  };
+</script>
+
+
+
+{% if site.environment == "public" %}
+
 <!-- Hotjar Tracking Code for https://magento-research.github.io/pwa-devdocs/ -->
 <script>
     (function(h,o,t,j,a,r){
@@ -9,3 +22,17 @@
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google.analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ site.google.analytics }}');
+</script>
+
+
+{% endif %}

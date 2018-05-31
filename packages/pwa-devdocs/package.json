@@ -6,7 +6,8 @@
   "dependencies": {
     "broken-link-checker-local": "^0.1.1",
     "gulp": "^3.9.1",
-    "jekyll-tasks": "^1.2.1"
+    "jekyll-tasks": "^1.2.1",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -14,7 +15,7 @@
     "build": "gulp build",
     "package": "jekyll build --source src/ --config src/_config.yml,_config-production.yml && tar -cvvf site.tar _site",
     "tests": "npm run test-links",
-    "test-links": "node_modules/broken-link-checker-local/out/bin.js _site -ro"
+    "test-links": "rm -fr _site && npm run build && node_modules/broken-link-checker-local/out/bin.js _site -rog"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,30 @@
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">{{toc.title}}</h4></div>
+
+    <ul class="table-of-contents">
+    {% for entry in toc.entries %}
+        <li {% if entry.url == page.url %}class="active"{% endif %}>
+            {% if entry.url %}
+            <a href="{{ site.baseurl }}{{ entry.url }}" class="{% if entry.css-classes %}{{entry.css-classes}}{% endif %} {% if entry.entries.size > 0 %}parent{% endif %}">{{ entry.label }}</a>
+            {% else %}
+            <span>{{ entry.label }}</span>
+            {% endif %}
+
+            {% if entry.entries.size > 0 %}
+            <ul>
+            {% for entry2 in entry.entries %}
+                <li {% if entry2.url == page.url %}class="active"{% endif %}>
+                    {% if entry2.url %}
+                    <a href="{{ site.baseurl }}{{ entry2.url }}" class="{% if entry2.css-classes %} {{entry2.css-classes}}{% endif %} {% if entry2.entries.size > 0 %}parent{% endif %}">{{ entry2.label }}</a>
+                    {% else %}
+                    <span>{{ entry2.label }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</div>

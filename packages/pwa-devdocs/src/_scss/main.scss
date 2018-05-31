@@ -1,6 +1,8 @@
-@import "var/fonts";
+// Import theme variables
+@import "variables";
+
 @import "var/syntax";
-@import "src/feature";
+
+@import "src/home";
 @import "src/message-banner";
-@import "src/nav-container";
-@import "src/table-of-contents";
+@import "src/material-icons";

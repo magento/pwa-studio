@@ -1,6 +1,6 @@
-title: pwa-buildpack
+title: PWA Buildpack
 entries:
-    - label: Introduction
+    - label: Overview
       url: /pwa-buildpack/
     
     - label: Project setup tutorial
@@ -19,3 +19,12 @@ entries:
               url: /pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/
         - label: Create a simple peregrine app
           url: /pwa-buildpack/project-setup/create-simple-peregrine-app/
+
+  - label: Tools reference
+    entries:
+
+      - label: magento-layout-loader
+        url: /pwa-buildpack/reference/layout-loader/
+      
+      - label: MagentoRootComponentsPlugin
+        url: /pwa-buildpack/reference/root-components-plugin/

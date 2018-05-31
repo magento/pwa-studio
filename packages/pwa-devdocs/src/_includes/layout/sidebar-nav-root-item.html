@@ -1,13 +1,21 @@
 {% if page.toc-group == "technologies" %}
     {% assign toc = site.data.technologies %}
+<<<<<<< HEAD
 {% else page.toc-group == "pwa-buildpack" %}
     {% assign toc = site.data.pwa-buildpack %}
 {% endif %}
+=======
+>>>>>>> develop
 
-<h4 class="guide-title">{{toc.title}}</h4>
+{% elsif page.toc-group == "pwa-buildpack" %}
+    {% assign toc = site.data.pwa-buildpack %}
 
-<ul class="table-of-contents">
-    {% for entry in toc.entries %}
-    {% include layout/toc-entry.html entry=entry %}
-    {% endfor %}
-</ul>
+{% elsif page.toc-group == "peregrine" %}
+    {% assign toc = site.data.peregrine %}
+
+{% elsif page.toc-group == "venia-pwa-concept" %}
+    {% assign toc = site.data.venia-pwa-concept %}
+
+{% endif %}
+
+{% include layout/toc.html %}

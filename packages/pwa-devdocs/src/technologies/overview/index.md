@@ -26,9 +26,8 @@ It uses modern [tools and libraries] to create a build system and framework that
 The Magento PWA project provides the following tools:
 
 * **[pwa-buildpack]** - Contains the main build and development tools for a Magento PWA.
-* **[peregrine]** - Contains a collection of [UI components] for a Magento PWA.
+* **[peregrine]** - Contains a collection of UI components for a Magento PWA.
 
-[tools and libraries]: {{ site.baseurl }}/technologies/overview/tools-libraries/
-[pwa-buildpack]: {{ site.baseurl }}/technologies/pwa-buildpack/
-[peregrine]: {{ site.baseurl }}/technologies/peregrine/
-[UI components]: {{ site.baseurl }}/reference/ui-components/
+[tools and libraries]: {{ site.baseurl }}{% link technologies/tools-libraries/index.md %}
+[pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
+[peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
