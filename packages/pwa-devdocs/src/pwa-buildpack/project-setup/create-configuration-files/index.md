@@ -256,7 +256,7 @@ Now that you have created your project configuration files, you can create a [si
 [JSX]: https://facebook.github.io/jsx/
 [Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
 [webpack.config.js]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/index.md %}
-[Peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
+[Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
 [simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md %}
 [Babel]: https://babeljs.io/
 [`syntax-jsx`]: https://babeljs.io/docs/plugins/syntax-jsx

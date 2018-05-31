@@ -93,7 +93,7 @@ Now that you have your project dependencies installed, your `package.json` file 
 In the next topic, you will [link your project to the Magento backend].
 
 [previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
-[peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
+[peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
 [pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [Webpack]: https://webpack.js.org/
 [link your project to the Magento backend]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}

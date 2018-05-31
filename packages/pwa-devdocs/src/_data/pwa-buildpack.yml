@@ -1,24 +1,24 @@
 title: PWA Buildpack
 entries:
-    - label: Overview
-      url: /pwa-buildpack/
-    
-    - label: Project setup tutorial
-      url: /pwa-buildpack/project-setup/
-      entries:
-        - label: Create initial theme files
-          url: /pwa-buildpack/project-setup/create-theme-files/
-        - label: Install project dependencies
-          url:  /pwa-buildpack/project-setup/install-dependencies/
-        - label: Link project to the Magento backend
-          url: /pwa-buildpack/project-setup/link-project/
-        - label: Create configuration files
-          url: /pwa-buildpack/project-setup/create-configuration-files/
-          entries:
-            - label: Example - webpack.config.js
-              url: /pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/
-        - label: Create a simple peregrine app
-          url: /pwa-buildpack/project-setup/create-simple-peregrine-app/
+  - label: Overview
+    url: /pwa-buildpack/
+  
+  - label: Project setup tutorial
+    url: /pwa-buildpack/project-setup/
+    entries:
+      - label: Create initial theme files
+        url: /pwa-buildpack/project-setup/create-theme-files/
+      - label: Install project dependencies
+        url:  /pwa-buildpack/project-setup/install-dependencies/
+      - label: Link project to the Magento backend
+        url: /pwa-buildpack/project-setup/link-project/
+      - label: Create configuration files
+        url: /pwa-buildpack/project-setup/create-configuration-files/
+        entries:
+          - label: Example - webpack.config.js
+            url: /pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/
+      - label: Create a simple peregrine app
+        url: /pwa-buildpack/project-setup/create-simple-peregrine-app/
 
   - label: Tools reference
     entries:

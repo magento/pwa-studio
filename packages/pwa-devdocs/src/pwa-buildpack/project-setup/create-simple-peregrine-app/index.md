@@ -73,5 +73,5 @@ npm start
 ```
 
 [previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
-[Peregrine]: {{ site.baseurl }}{% link technologies/peregrine/index.md %}
+[Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
 [Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
