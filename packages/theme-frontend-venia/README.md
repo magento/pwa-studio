@@ -24,5 +24,6 @@ And by changing `php_version: "7.0"` to `php_version: "7.1"`
 7. Copy `.env.dist` to `.env` and update as necessary, i.e. with the correct host URL.
 8. Run `npm install`. Note if you run inside the vagrant box you may need to install and [switch to a newer version of node](https://github.com/paliarush/magento2-vagrant-for-developers#switch-nodejs-versions).
 9. If making changes, run `npm start` to start the development server.
-10. Login to `/admin`, and change your store's theme to `venia`
+10. On your host, `cd` to your Magento installation root `magento2-vagrant-for-developers/magento2ce/` and `bin/magento setup:upgrade` to install the necessary module files that were linked in step 5.
+11. Login to `/admin`, and change your store's theme to `venia`
  
