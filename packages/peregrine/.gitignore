@@ -4,3 +4,6 @@ npm-debug.log
 dist
 coverage
 storybook-dist
+
+.vscode
+.idea
