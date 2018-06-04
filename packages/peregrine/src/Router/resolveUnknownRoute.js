@@ -8,10 +8,7 @@ export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
     return remotelyResolveRoute({
-        // urlResolver GraphQL query currently fails if a leading slash exists.
-        // This code can be removed after this bug is fixed:
-        // https://jira.corp.magento.com/browse/MAGETWO-87425
-        route: route[0] === '/' ? route.slice(1) : route,
+        route,
         apiBase
     }).then(res => {
         if (!(res && res.type)) {
