@@ -5,6 +5,8 @@ title: Setup
 Follow the instructions on this page to setup the [Venia PWA concept theme] for Magento 2.
 At the end of this tutorial, you will have the Venia theme project installed in Magento 2 and a local development environment set up.
 
+If you experience problems with the project setup, see [Troubleshooting] in the PWA Buildpack section.
+
 ## Prerequisites
 
 * A local development instance of Magento 2.3 or above.
@@ -127,3 +129,4 @@ Congratulations! You have set up your development environment for the Venia them
 [Node Package Manager]: https://www.npmjs.com/
 [NodeJS 8.x LTS]: https://nodejs.org/en/
 [Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
+[Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}

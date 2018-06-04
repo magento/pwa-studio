@@ -4,6 +4,8 @@ title: Project setup tutorial
 
 This multi-part tutorial goes through the steps of setting up a development environment for creating a theme.
 
+If you experience problems with the project setup, see [Troubleshooting].
+
 ## Objectives
 
 1. [Create the initial theme files]
@@ -44,4 +46,5 @@ Begin this tutorial by [creating the initial theme files].
 [Install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
 [Create a simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md  %}
 [Create configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
-[Link project to the Magento backend]: {{ site.baseurl }} {% link pwa-buildpack/project-setup/link-project/index.md %}
+[Link project to the Magento backend]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
+[Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}

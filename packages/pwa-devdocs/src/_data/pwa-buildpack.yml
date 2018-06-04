@@ -40,4 +40,7 @@ entries:
 
       - label: ServiceWorkerPlugin
         url: /pwa-buildpack/reference/serviceworker-plugin/
+
+  - label: Troubleshooting
+    url: /pwa-buildpack/troubleshooting/
       
