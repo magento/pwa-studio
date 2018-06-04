@@ -10,19 +10,18 @@ jest.mock('react-dom');
 configure({ adapter: new Adapter() });
 
 beforeAll(() => {
-    for (const method of Object.keys(console)) {
-        if (
-            typeof method === 'function' &&
-            !jest.isMockFunction(console.method)
-        ) {
-            jest.spyOn(console, method).mockImplementation(() => {});
+    for (const [methodName, method] of Object.entries(console)) {
+        if (typeof method === 'function') {
+            jest.spyOn(console, methodName).mockImplementation(() => {});
         }
     }
 });
 
 afterAll(() => {
     for (const method of Object.values(console)) {
-        method.mockRestore();
+        if (typeof method === 'function') {
+            method.mockRestore();
+        }
     }
 });
 
