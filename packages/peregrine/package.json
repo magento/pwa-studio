@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "0.1.5-alpha",
+  "version": "0.2.0",
   "description": "The core runtime of Magento PWA",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
