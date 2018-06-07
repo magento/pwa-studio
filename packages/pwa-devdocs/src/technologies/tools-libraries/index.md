@@ -50,7 +50,7 @@ whereas REST requires specialized endpoints for different data request combinati
 Unlike REST, which can require multiple server requests to aggregate data, 
 a single GraphQL request returns only the data needed and nothing more.
 
-Performance is an important metric for PWA applications.
+Performance is an important metric for PWAs.
 Using GraphQL improves this by reducing the number of server calls and the amount of data returned.
 
 
