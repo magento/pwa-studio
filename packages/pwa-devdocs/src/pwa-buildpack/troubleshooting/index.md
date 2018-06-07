@@ -19,7 +19,7 @@ Paste the result console output into the issue. Thank you!
 * [Browser displays "Cannot proxy to " error and the console displays `ENOTFOUND`](#cannot-proxy)
 * [Webpack hangs for a long time before beginning compilation](#webpack-hangs)
 * [Browser cannot resolve the `.local.pwadev` site](#cannot-resolve-site)
-* [Browser does not trust the generated SSL certificate](:#untrusted-ssl-cert)
+* [Browser does not trust the generated SSL certificate](#untrusted-ssl-cert)
 
 ## Resolutions
 
