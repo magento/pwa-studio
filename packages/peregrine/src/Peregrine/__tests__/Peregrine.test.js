@@ -1,11 +1,9 @@
-import ReactDOM from 'react-dom';
 import { createElement } from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
-import Peregrine from '..';
-
-jest.mock('react-dom');
+import { Provider as ReduxProvider } from 'react-redux';
+import MagentoRouter from '../../Router';
+import bootstrap from '..';
 
 configure({ adapter: new Adapter() });
 
@@ -25,59 +23,29 @@ afterAll(() => {
     }
 });
 
-test('Constructs a new Peregrine instance', () => {
-    const received = new Peregrine();
-
-    expect(received).toMatchObject(
-        expect.objectContaining({
-            store: expect.objectContaining({
-                dispatch: expect.any(Function),
-                getState: expect.any(Function)
-            })
-        })
-    );
+test('Throws descriptive error when using former API', () => {
+    const fn = () => new bootstrap({});
+    expect(fn).toThrowError(/The API for Peregrine has changed/);
 });
 
-test('Renders a Peregrine instance', () => {
-    const app = new Peregrine();
-    const wrapper = shallow(app.render());
-    expect(wrapper.find('MagentoRouter')).toHaveLength(1);
-});
-
-test('Mounts a Peregrine instance', () => {
-    const container = document.createElement('div');
-    const received = new Peregrine();
-
-    received.mount(container);
-    expect(ReactDOM.render).toHaveBeenCalledWith(expect.anything(), container);
-});
-
-test('Adds a reducer to the store', () => {
-    const expected = {};
-    const app = new Peregrine();
-    const fooReducer = (state = null, { type }) =>
-        type === 'bar' ? expected : state;
-
-    app.addReducer('foo', fooReducer);
-    const received = app.store.getState().foo;
-    expect(received).toBe(null);
-
-    app.store.dispatch({ type: 'bar' });
-    const next = app.store.getState().foo;
-    expect(next).toBe(expected);
-});
-
-// https://github.com/magento-research/venia-pwa-concept/pull/57
-test('__tmp_webpack_public_path__ is normalized to include a trailing / when not present', () => {
-    const app = new Peregrine({
-        __tmp_webpack_public_path__: 'https://foo.bar/test'
+test('Exposes the Redux store', () => {
+    const { store } = bootstrap({
+        apiBase: '/graphql',
+        __tmp_webpack_public_path__: 'foobar'
     });
-    expect(app.__tmp_webpack_public_path__).toBe('https://foo.bar/test/');
+    expect(store).toMatchObject({
+        dispatch: expect.any(Function),
+        getState: expect.any(Function),
+        addReducer: expect.any(Function)
+    });
 });
 
-test('Does not double up trailing slash in __tmp_webpack_public_path__ when one exists', () => {
-    const app = new Peregrine({
-        __tmp_webpack_public_path__: 'https://foo.bar/test/'
+test('Provider includes Redux + Router', () => {
+    const { Provider } = bootstrap({
+        apiBase: '/graphql',
+        __tmp_webpack_public_path__: 'foobar'
     });
-    expect(app.__tmp_webpack_public_path__).toBe('https://foo.bar/test/');
+    const wrapper = shallow(<Provider />);
+    expect(wrapper.find(ReduxProvider).length).toBe(1);
+    expect(wrapper.find(MagentoRouter).length).toBe(1);
 });
