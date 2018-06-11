@@ -5,6 +5,12 @@ import { log } from './middleware';
 const reducer = (state = {}) => state;
 
 const initStore = () =>
-    createStore(reducer, compose(applyMiddleware(log), exposeSlices));
+    createStore(
+        reducer,
+        compose(
+            applyMiddleware(log),
+            exposeSlices
+        )
+    );
 
 export default initStore;

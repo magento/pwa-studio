@@ -56,6 +56,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
     "execa": "^0.10.0",
+    "intl": "^1.2.5",
     "jest": "^22.4.3",
     "jest-fetch-mock": "^1.4.1",
     "npm-merge-driver": "^2.3.5",
