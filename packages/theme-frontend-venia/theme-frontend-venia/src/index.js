@@ -1,13 +1,15 @@
-import Peregrine from '@magento/peregrine';
+import { createElement } from 'react';
+import ReactDOM from 'react-dom';
+import bootstrap from '@magento/peregrine';
 
 import './index.css';
 
-const app = new Peregrine({
+const { Provider } = bootstrap({
     apiBase: new URL('/graphql', location.origin).toString(),
     __tmp_webpack_public_path__: __webpack_public_path__
 });
 
-app.mount(document.getElementById('root'));
+ReactDOM.render(<Provider />, document.getElementById('root'));
 
 if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -21,5 +23,3 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
             });
     });
 }
-
-export default app;
