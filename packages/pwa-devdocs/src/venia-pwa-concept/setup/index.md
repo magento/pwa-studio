@@ -21,17 +21,22 @@ Clone the [Venia PWA concept theme] repository into your development environment
 git clone git@github.com:magento-research/venia-pwa-concept.git
 ```
 
+{: .bs-callout .bs-callout-info}
 **Note:**
-*For this tutorial, the project is located in the `/Users/magedev/venia-pwa-concept` directory.*
+For this tutorial, the project location is the `/Users/magedev/venia-pwa-concept` directory.
 
 ### Vagrant Box instructions
 
-If you are using a virtual machine, make sure it is able to access the new project directory and runs Magento 2.3. 
+If you are using a virtual machine, make sure it can access the new project directory and runs Magento 2.3. 
 
 For example, if you are using the [Vagrant Box for Magento 2 developers], use the following steps to add a synced folder to the virtual machine and configure it to use Magento 2.3.
 
 <details markdown="1">
 <summary>Show steps</summary>
+
+{: .bs-callout .bs-callout-tip}
+**Tip:**
+If you clone the Venia project repo into the `magento2ce` directory of the Vagrant project, the Venia project folder will already be visible to the Vagrant box and you can skip ahead to Step 3.
 
 1. In the Vagrant box project directory, open the `Vagrantfile` and locate the following line:
    ``` 
@@ -74,6 +79,19 @@ Navigate to your Magento installation's `app/code/Magento` directory and create 
 **Example command:**
 ``` sh
 ln -s /Users/magedev/venia-pwa-concept/module Pwa
+```
+
+### Enable and install
+
+Navigate to your Magento installation's root director and run the following command to enable the module:
+
+``` sh
+bin/magento module:enable Magento_Pwa
+```
+
+Install the module using the following command:
+``` sh
+bin/magento setup:upgrade
 ```
 
 ## Link theme directory
@@ -120,8 +138,9 @@ This is the new address for your PWA frontend.
 You can still use the old address to access the Admin section of Magento, but 
 for PWA development on the frontend, use this new address.
 
+{: .bs-callout .bs-callout-info}
 **Note:**
-*This project is still in early development, and currently only the `/home` route is supported.*
+This project is still in development and only supports the `/home` route.
 
 Congratulations! You have set up your development environment for the Venia theme project.
 
