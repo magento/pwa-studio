@@ -1,9 +1,0 @@
-node_modules
-npm-debug.log
-.DS_Store
-dist
-coverage
-storybook-dist
-
-.vscode
-.idea

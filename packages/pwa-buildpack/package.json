@@ -4,17 +4,8 @@
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "test": "run-p jest:ci prettier:check lint",
-    "test:dev": "run-s prettier lint jest:ci",
-    "test:watch": "jest --watch",
-    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand",
-    "test:watch:focus": "jest --watch --coverageReporters=text --collectCoverageFrom=\"${FOCUS}/**/*.js\" --no-cache \"${FOCUS}.*\"",
-    "test:debug:focus": "node --inspect-brk ./node_modules/.bin/jest --runInBand --no-coverage --no-cache \"${FOCUS}.*\"",
     "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "lint": "eslint '*.js' 'src/**/*.js'",
-    "jest:ci": "jest -i --testResultsProcessor=./node_modules/jest-junit-reporter",
-    "prettier": "prettier --write 'src/**/*.js'",
-    "prettier:check": "prettier-check 'src/**/*.js'",
     "prepublishOnly": "rimraf dist && npm run build"
   },
   "files": [
@@ -56,13 +47,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-react": "^7.5.1",
-    "jest": "^22.4.0",
     "jest-junit-reporter": "^1.1.0",
     "memory-fs": "^0.4.1",
     "nock": "^9.2.5",
     "npm-run-all": "^4.1.2",
-    "prettier": "^1.8.1",
-    "prettier-check": "^2.0.0",
     "react": "^16.1.1",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0",
@@ -90,22 +78,5 @@
   "peerDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7"
-  },
-  "jest": {
-    "clearMocks": true,
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/src/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text-summary"
-    ],
-    "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "dist",
-      "node_modules",
-      "__fixtures__"
-    ]
   }
 }

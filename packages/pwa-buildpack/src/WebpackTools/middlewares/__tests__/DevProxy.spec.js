@@ -68,8 +68,6 @@ test('logs to console by default', async () => {
     expect(console.log).toHaveBeenCalledWith(
         expect.stringContaining('will-log')
     );
-
-    console.log.mockRestore();
 });
 
 test('handles redirects silently when origin is same', async () => {

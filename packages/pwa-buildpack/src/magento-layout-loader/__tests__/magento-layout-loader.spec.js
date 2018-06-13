@@ -23,7 +23,7 @@ const babelLoaderConfig = {
     }
 };
 
-test('Warnings from babel plugin are mapped to the correct webpack module', async () => {
+test.skip('Warnings from babel plugin are mapped to the correct webpack module', async () => {
     const fixtureRoot = join(__dirname, '__fixtures__/only-entry');
     const config = {
         entry: join(fixtureRoot, 'index.js'),

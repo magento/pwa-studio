@@ -3,11 +3,8 @@ const config = {
     parserOptions: {
         sourceType: 'script'
     },
-    extends: ['@magento', "plugin:node/recommended"],
-    plugins: [
-        "babel",
-        "node"
-    ]
+    extends: ['@magento', 'plugin:node/recommended'],
+    plugins: ['babel', 'node']
 };
 
 module.exports = config;

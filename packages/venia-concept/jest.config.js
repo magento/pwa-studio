@@ -1,8 +1,6 @@
 module.exports = {
-    verbose: true,
+    displayName: 'Venia Concept',
     browser: true,
-    collectCoverage: true,
-    testMatch: ['<rootDir>/src/**/__tests__/*.spec.js'],
     moduleNameMapper: {
         '\\.css$': 'identity-obj-proxy',
         '^src/(.+)': '<rootDir>/src/$1'

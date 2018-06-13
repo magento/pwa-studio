@@ -28,4 +28,7 @@ class Trigger extends Component {
     };
 }
 
-export default compose(classify(defaultClasses), connect())(Trigger);
+export default compose(
+    classify(defaultClasses),
+    connect()
+)(Trigger);

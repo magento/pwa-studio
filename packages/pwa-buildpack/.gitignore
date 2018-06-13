@@ -1,7 +1,0 @@
-node_modules
-npm-debug.log
-.DS_Store
-coverage
-dist
-test-report.xml
-.vscode

@@ -1,5 +1,27 @@
 {
-	"devDependencies": {
-		"lerna": "^2.11.0"
-	}
+  "name": "@magento/pwa-studio",
+  "private": true,
+  "author": "Magento Commerce",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "homepage": "https://github.com/magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "test": "jest",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
+    "test:dev": "jest --watch",
+    "prettier": "prettier --write 'packages/**/*.js' '*.js'",
+    "prettier:check": "prettier-check 'packages/**/*.js' '*.js'"
+  },
+  "devDependencies": {
+    "jest": "^23.1.0",
+    "lerna": "^3.0.0-beta.21",
+    "prettier": "^1.13.5",
+    "prettier-check": "^2.0.0"
+  }
 }

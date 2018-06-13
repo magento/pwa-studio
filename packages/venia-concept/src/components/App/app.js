@@ -44,4 +44,7 @@ const mapStateToProps = state => ({
     navigation: selectNavigation(state)
 });
 
-export default compose(classify(defaultClasses), connect(mapStateToProps))(App);
+export default compose(
+    classify(defaultClasses),
+    connect(mapStateToProps)
+)(App);

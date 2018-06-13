@@ -1,12 +1,8 @@
 module.exports = {
+    displayName: 'Peregrine',
     setupFiles: [
         '<rootDir>/scripts/shim.js',
         '<rootDir>/scripts/fetch-mock.js'
     ],
-    verbose: true,
-    collectCoverageFrom: [
-        'src/**/*.js',
-        '!src/**/index.js',
-        '!src/**/__stories__/**'
-    ]
+    coveragePathIgnorePatterns: ['scripts/*', 'node_modules', 'src/index.js']
 };
