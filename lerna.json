@@ -1,15 +1,16 @@
 {
-  "lerna": "2.11.0",
-  "packages": [
-    "packages/*"
-  ],
-  "version": "independent",
-  "npmClient": "npm",
-  "command": {
-    "publish": {
-      "ignoreChanges": [
-        "__tests__/**"
-      ]
+    "lerna": "2.11.0",
+    "packages": [
+        "packages/*"
+    ],
+    "version": "independent",
+    "npmClient": "npm",
+    "command": {
+        "publish": {
+            "ignoreChanges": [
+                "__tests__/**",
+                "pwa-module"
+            ]
+        }
     }
-  }
 }
