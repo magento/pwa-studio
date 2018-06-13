@@ -1,9 +1,0 @@
-machine:
-  node:
-    version: 8
-dependencies:
-  override:
-    - cd theme-frontend-venia && npm i
-test:
-  override:
-    - cd theme-frontend-venia && npm t

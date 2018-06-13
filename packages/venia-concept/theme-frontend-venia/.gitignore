@@ -1,6 +1,0 @@
-node_modules
-npm-debug.log
-web/
-coverage
-.DS_Store
-.env
