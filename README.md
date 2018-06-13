@@ -6,9 +6,10 @@ This repository includes all Magento-authored tools necessary for PWA Studio, al
 
 ## Packages
 
--   [venia-concept](packages/venia-concept/README.md) - Reference/Concept Theme
+-   [venia-concept](packages/venia-concept) - Reference/Concept Theme
 -   [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 -   [peregrine](packages/peregrine/README.md) - eCommerce Component Library
+-   [pwa-module](packages/pwa-module)
 
 ## Getting Started
 
@@ -20,8 +21,8 @@ To ease local development, testing, and versioning, the PWA Studio project uses 
 
 1.  Clone the repository
 2.  Navigate to the root of the repository from the command line
-2.  Run `npm install`
-3.  Run [`lerna bootstrap`](https://github.com/lerna/lerna#bootstrap).
+3.  Run `npm install`
+4.  Run [`lerna bootstrap`](https://github.com/lerna/lerna#bootstrap).
 
 ## Things not to do
 
