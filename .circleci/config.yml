@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.11.2
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install # Install root dependencies, including lerna
+      - run: npm run bootstrap # Lerna bootstraps all projects
+
+      # TODO: Setup caching for all packages, not just the root devDependencies
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: ESLint
+          command: 'npm run lint'
+      - run:
+          name: Prettier
+          command: 'npm run prettier:check'
+      - run:
+          name: Unit Tests
+          command: 'npm test -- -i'
+
+      - store_artifacts:
+          path: coverage
