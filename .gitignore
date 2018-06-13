@@ -7,3 +7,4 @@ dist
 storybook-dist
 .idea
 test-report.xml
+lerna-debug.log
