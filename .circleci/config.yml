@@ -9,24 +9,40 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          # Partial match to always find the latest npm tarball cache
+          - v1-npm-cache-{{ .Branch }}
+          - v1-npm-cache-
 
-      - run: npm install # Install root dependencies, including lerna
+      # Install root devDependencies and bootstrap packages
+      - run:
+          name: Install shared devDependencies
+          command: 'npm install --ignore-scripts'
 
-      # TODO: Setup caching for all packages, not just the root devDependencies
+      - run:
+          name: Lerna Bootstrap
+          command: 'npm run bootstrap'
+
+      # Cache a bunch of stuff
+      # - npm's local tarball cache
+      # - node_modules for each package (npm is fast at restoring from a partially-outdated tree)
       - save_cache:
           paths:
+            - ~/.npm
+            - /root/.npm
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - packages/peregrine/node_modules
+            - packages/pwa-buildpack/node_modules
+            - venia-concept/node_modules
+          key: v1-npm-cache-{{ .Branch }}
 
       - run:
           name: ESLint
           command: 'npm run lint'
+
       - run:
           name: Prettier
           command: 'npm run prettier:check'
+
       - run:
           name: Unit Tests
           command: 'npm test -- -i'
