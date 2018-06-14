@@ -35,6 +35,7 @@ const options = {
         ],
         plugins: [
             ...(defaults.plugins || []),
+            'transform-react-remove-prop-types',
             [
                 'transform-runtime',
                 {
