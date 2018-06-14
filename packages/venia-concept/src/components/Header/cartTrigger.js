@@ -4,22 +4,22 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import defaultClasses from './trigger.css';
+import defaultClasses from './cartTrigger.css';
 
-class NavTrigger extends Component {
+class Trigger extends Component {
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        closeNav: PropTypes.func
+        openCart: PropTypes.func
     };
 
     render() {
-        const { children, classes, closeNav } = this.props;
+        const { children, classes, openCart } = this.props;
 
         return (
-            <button className={classes.root} onClick={closeNav}>
+            <button className={classes.root} onClick={openCart}>
                 {children}
             </button>
         );
@@ -27,7 +27,7 @@ class NavTrigger extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    closeNav: () => dispatch({ type: 'TOGGLE_DRAWER', payload: null })
+    openCart: () => dispatch({ type: 'TOGGLE_DRAWER', payload: 'cart' })
 });
 
 export default compose(
@@ -36,4 +36,4 @@ export default compose(
         null,
         mapDispatchToProps
     )
-)(NavTrigger);
+)(Trigger);
