@@ -1,0 +1,105 @@
+.root {
+  align-content: start;
+  background-color: white;
+  bottom: 0;
+  display: grid;
+  grid-auto-rows: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition-property: opacity, transform, visibility;
+  width: 360px;
+  z-index: 4;
+}
+
+.header {
+  align-content: center;
+  align-items: center;
+  background-color: rgb(var(--venia-grey));
+  box-shadow: 0 1px rgb(var(--venia-border));
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  grid-auto-rows: 3rem;
+  grid-template-columns: 1fr;
+  height: 3.5rem;
+  justify-content: end;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.title {
+  align-items: center;
+  display: inline-flex;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: auto;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.products {
+  box-shadow: 0 1px rgb(var(--venia-border));
+  display: grid;
+  grid-gap: 1rem;
+  margin: 0 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.summary {
+  margin: 0 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.totals {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.subtotalLabel {
+  color: rgb(var(--venia-text-alt));
+}
+
+.subtotalValue {
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.cta {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 1rem;
+}
+
+.checkout {
+  composes: button from '../button.css';
+  align-content: center;
+  display: grid;
+  grid: auto / auto auto;
+  grid-gap: 0.5rem;
+  justify-content: center;
+}
+
+/* state: open,closed */
+
+.closed {
+  composes: root;
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+  transition-duration: 192ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  visibility: hidden;
+}
+
+.open {
+  composes: root;
+  box-shadow: -1px 0 rgb(var(--venia-border));
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-duration: 224ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  visibility: visible;
+}

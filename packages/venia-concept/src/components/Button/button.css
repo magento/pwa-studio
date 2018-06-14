@@ -1,0 +1,14 @@
+.root {
+    composes: button from '../button.css';
+}
+
+.content {
+    align-items: center;
+    display: inline-grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: 0.5rem;
+    grid-template-rows: auto;
+    justify-content: center;
+    justify-items: center;
+}

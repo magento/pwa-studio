@@ -13,8 +13,8 @@ class Icon extends Component {
     };
 
     render() {
-        const { classes, name } = this.props;
-        const svg = Feather.icons[name].toSvg();
+        const { attrs, classes, name } = this.props;
+        const svg = Feather.icons[name].toSvg(attrs);
         const fn = () => ({ __html: svg });
 
         return <span className={classes.root} dangerouslySetInnerHTML={fn()} />;

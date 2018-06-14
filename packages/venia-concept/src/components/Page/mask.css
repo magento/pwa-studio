@@ -1,5 +1,5 @@
 .root {
-  background-image: repeating-linear-gradient(-45deg, #080808, #080808 20px, black 20px, black 40px);
+  background-color: black;
   cursor: pointer;
   display: block;
   height: 100vh;
