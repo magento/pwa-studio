@@ -14,7 +14,6 @@ jobs:
           - v1-dependencies-
 
       - run: npm install # Install root dependencies, including lerna
-      - run: npm run bootstrap # Lerna bootstraps all projects
 
       # TODO: Setup caching for all packages, not just the root devDependencies
       - save_cache:
