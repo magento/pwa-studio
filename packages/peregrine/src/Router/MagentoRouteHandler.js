@@ -63,6 +63,6 @@ export default class MagentoRouteHandler extends Component {
             return <div>Loading</div>;
         }
 
-        return <Page />;
+        return <Page location={location} />;
     }
 }
