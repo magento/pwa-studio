@@ -16,6 +16,7 @@ The `Items` component is used as a direct child of the [`List`] component.
 | `items`          | <i class="material-icons green">check_box</i> | An iterable that yields `[key, item]` pairs such as an ES2015 [Map] |
 | `renderItem`     |                                               | A [render prop] or HTML tagname string.                             |
 | `selectionModel` |                                               | A string corresponding to a selection model.                        |
+{:style="table-layout:auto"}
 
 ### Selection models
 

@@ -2,7 +2,7 @@
 title: Tools and libraries
 ---
 
-To work with the utilities provided by the Magento PWA project, you should be familiar with the tools and libraries described on this page.
+To work with the utilities provided by the Magento PWA Studio project, you should be familiar with the tools and libraries described on this page.
 
 ## webpack
 

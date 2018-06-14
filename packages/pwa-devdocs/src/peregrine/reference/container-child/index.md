@@ -11,6 +11,7 @@ This component is responsible for rendering content.
 | -------- | :-------------------------------------------: | --------------------------------------------------------- |
 | `id`     | <i class="material-icons green">check_box</i> | A unique string identifier                                |
 | `render` | <i class="material-icons green">check_box</i> | A [render prop] that should return the children to render |
+{:style="table-layout:auto"}
 
 ## Example
 

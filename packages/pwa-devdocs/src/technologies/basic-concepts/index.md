@@ -2,7 +2,7 @@
 title: Basic Concepts
 ---
 
-The tools provided by the Magento PWA project allows you to create websites that are fast, mobile-friendly, and reliable. 
+The tools provided by the Magento PWA Studio project allows you to create websites that are fast, mobile-friendly, and reliable. 
 This topic lists the basic concepts you need to know to work with the Magento PWA Studio tools.
 
 ## Application shell

@@ -15,15 +15,15 @@ If you experience problems with the project setup, see [Troubleshooting] in the 
 
 ## Clone repository
 
-Clone the [Venia PWA concept theme] repository into your development environment. 
+Clone the [PWA Studio] repository into your development environment. 
 
 ``` sh
-git clone git@github.com:magento-research/venia-pwa-concept.git
+git clone git@github.com:magento-research/pwa-studio.git
 ```
 
 {: .bs-callout .bs-callout-info}
 **Note:**
-For this tutorial, the project location is the `/Users/magedev/venia-pwa-concept` directory.
+For this tutorial, the project location is the `/Users/magedev/pwa-studio` directory.
 
 ### Vagrant Box instructions
 
@@ -36,17 +36,17 @@ For example, if you are using the [Vagrant Box for Magento 2 developers], use th
 
 {: .bs-callout .bs-callout-tip}
 **Tip:**
-If you clone the Venia project repo into the `magento2ce` directory of the Vagrant project, the Venia project folder will already be visible to the Vagrant box and you can skip ahead to Step 3.
+If you clone the PWA Studio project repo into the `magento2ce` directory of the Vagrant project, the project folder will already be visible to the Vagrant box and you can skip ahead to Step 3.
 
 1. In the Vagrant box project directory, open the `Vagrantfile` and locate the following line:
    ``` 
    config.vm.synced_folder '.', '/vagrant', disabled: true
    ```
-1. Add an entry similar to the following entry above this line:
+2. Above this line, add the following entry (substituting the project directory path with your own):
    ```
-   config.vm.synced_folder '/Users/magedev/venia-pwa-concept', '/Users/magedev/venia-pwa-concept', type: "nfs", create: true
+   config.vm.synced_folder '/Users/magedev/pwa-studio', '/Users/magedev/pwa-studio', type: "nfs", create: true
    ```
-1. If your environment does not already use Magento 2.3, copy `etc/config.yaml.dist` as `etc/config.yml` and update the following line:
+3. If your environment does not already use Magento 2.3, copy `etc/config.yaml.dist` as `etc/config.yml` and update the following line:
    ``` yml
    ce: "git@github.com:magento/magento2.git"
    ```
@@ -54,7 +54,7 @@ If you clone the Venia project repo into the `magento2ce` directory of the Vagra
    ``` yml
    ce: "git@github.com:magento/magento2.git::2.3-develop"
    ```
-1. In that same file, update the PHP version to 7.1 by updating the following line:
+4. In that same file, update the PHP version to 7.1 by updating the following line:
    ``` yml
    php_version: "7.0"
    ```
@@ -62,7 +62,7 @@ If you clone the Venia project repo into the `magento2ce` directory of the Vagra
    ``` yml
    php_version: "7.1"
    ```
-1. Init or reset the Vagrant environment:
+5. Init or reset the Vagrant environment:
    ```
    bash init-project
    ```
@@ -72,13 +72,21 @@ If you clone the Venia project repo into the `magento2ce` directory of the Vagra
    ```
 </details>
 
+## Install PWA Studio dependencies
+
+In the PWA Studio project's root directory, run the following command to install the project dependencies:
+
+``` sh
+npm install
+```
+
 ## Link module
 
 Navigate to your Magento installation's `app/code/Magento` directory and create a `Pwa` symlink folder linking to the project's `module` directory.
    
 **Example command:**
 ``` sh
-ln -s /Users/magedev/venia-pwa-concept/module Pwa
+ln -s /Users/magedev/pwa-studio/packages/pwa-module Pwa
 ```
 
 ### Enable and install
@@ -100,25 +108,17 @@ Navigate to your Magento installation's `app/design/frontend/Magento` directory 
 
 **Example command:**
 ``` sh
-ln -s /Users/magedev/venia-pwa-concept/theme-frontend-venia venia
+ln -s /Users/magedev/pwa-studio/packages/venia-concept venia
 ```
 
 ## Activate the Venia theme
 
 Browse to the Admin section of your Magento store and configure it to use the **Magento Venia** theme.
-This configuration is set in the **Configuration** link in the **Content** tab.
+You can find this configuration using the **Configuration** link in the **Content** tab.
 
 ## Set environment variables
 
 Under the Venia project's `theme-frontend-venia` directory, copy `.env.dist` into a new `.env` file and update the variables with the URL to your Magento development store.
-
-## Install theme dependencies
-
-Under the Venia project's `theme-frontend-venia` directory, install the theme dependencies using the the following command:
-
-``` sh
-npm install
-```
 
 ## Start the development server
 
@@ -144,8 +144,9 @@ This project is still in development and only supports the `/home` route.
 
 Congratulations! You have set up your development environment for the Venia theme project.
 
-[Venia PWA concept theme]: https://github.com/magento-research/venia-pwa-concept
+[Venia PWA concept theme]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
 [Node Package Manager]: https://www.npmjs.com/
 [NodeJS 8.x LTS]: https://nodejs.org/en/
 [Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
 [Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+[PWA Studio]: https://github.com/magento-research/pwa-studio

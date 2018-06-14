@@ -16,6 +16,7 @@ This component is used as a direct child of the [`Items`] fragment.
 | `isSelected` |                                               | `false` | Set to `true` if the item is currently selected               |
 | `item`       | <i class="material-icons green">check_box</i> |         | A data object. If this is a string, it is rendered as a child |
 | `render`     | <i class="material-icons green">check_box</i> | `'div'` | A render prop or HTML tagname string, such as `"div"`.        |
+{:style="table-layout:auto"}
 
 ## Example
 

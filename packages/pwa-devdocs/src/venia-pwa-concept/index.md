@@ -29,9 +29,9 @@ This directory contains the files required for a Magento theme along with files 
 
 ## Contribute
 
-Visit the [`venia-pwa-concept`] repository to contribute to the development of this project.
+Visit the [`venia-pwa-concept`] package in the PWA Studio repository to contribute to the development of this project.
 
-[`venia-pwa-concept`]: https://github.com/magento-research/venia-pwa-concept
+[`venia-pwa-concept`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
 [PWA Buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
 

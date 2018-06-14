@@ -15,6 +15,7 @@ It also manages the selection and focus of those elements.
 | `renderItem`        |                                               | A [render prop] for the list item elements. A tagname string, such as `"div"`, is also valid. |
 | `onSelectionChange` |                                               | A callback that fires when the selection state changes.                                       |
 | `selectionModel`    |                                               | A string corresponding to a selection model.                                                  |
+{:style="table-layout:auto"}
 
 ### Selection models
 

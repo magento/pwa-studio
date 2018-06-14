@@ -2,7 +2,7 @@
 title: Overview
 ---
 
-This page provides a brief description of a Progressive Web App (PWA) and its relationship to the Magento PWA project.
+This page provides a brief description of a Progressive Web App (PWA) and its relationship to the Magento PWA Studio project.
 
 ## What is a Progressive Web App
 
@@ -18,16 +18,18 @@ The following features define a basic PWA website:
 * **Mobile "Install"** - Mobile users can add PWA sites to their home screens and even recieve Push notifications from the site.
 * **Shareable content** - Each page in a PWA site has a unique URL that can be shared with other apps or social media.
 
-## What is the Magento PWA project
+## What is the Magento PWA Studio project
 
-The Magento PWA project is a set of developer tools that allow for the development, deployment, and maintenance of a PWA storefront on top of Magento 2. 
+The Magento PWA Studio project is a set of developer tools that allow for the development, deployment, and maintenance of a PWA storefront on top of Magento 2. 
 It uses modern [tools and libraries] to create a build system and framework that adheres to the Magento principle of extensibility.
 
-The Magento PWA project provides the following tools:
+The Magento PWA Studio project provides the following tools:
 
 * **[pwa-buildpack]** - Contains the main build and development tools for a Magento PWA.
 * **[peregrine]** - Contains a collection of UI components for a Magento PWA.
+* **[Venia theme]** - A proof of concept Magento 2 theme built using the PWA Studio tools.
 
 [tools and libraries]: {{ site.baseurl }}{% link technologies/tools-libraries/index.md %}
 [pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
+[Venia theme]: {{ site.baseurl }}{% link venia-pwa-concept/index.md %}

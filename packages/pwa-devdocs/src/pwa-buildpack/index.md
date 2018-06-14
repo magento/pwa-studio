@@ -13,8 +13,8 @@ If you are having trouble setting up your environment, see the [Troubleshooting 
 
 ## Contribute
 
-Visit the [`pwa-buildpack`] repository to contribute to this project.
+Visit the [`pwa-buildpack`] package in the PWA Studio repository to contribute to this project.
 
-[`pwa-buildpack`]: https://github.com/magento-research/pwa-buildpack
+[`pwa-buildpack`]: https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack
 [Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
 [Troubleshooting page]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}

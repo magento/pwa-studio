@@ -12,6 +12,7 @@ If using Peregrine to bootstrap your PWA, it is configured automatically. If not
 | `apiBase`     | <i class="material-icons green">check_box</i> | Root URL of the Magento store (including protocol and hostname)                                         |
 | `using`       |                                               | Router implementation from React-Router. Possible values: `BrowserRouter`, `HashRouter`, `MemoryRouter` |
 | `routerProps` |                                               | Any additional props to pass to React-Router                                                            |
+{:style="table-layout:auto"}
 
 ## Example
 
