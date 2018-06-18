@@ -14,19 +14,19 @@
   "scripts": {
     "start": "gulp dev",
     "build": "gulp build",
-    "package": "jekyll build --source src/ --config src/_config.yml,_config-production.yml",
+    "build-production": "jekyll build --source src/ --config src/_config.yml,_config-production.yml",
     "deploy": "./scripts/deploy.sh",
     "tests": "npm run test-links",
     "test-links": "rm -fr _site && npm run build && node_modules/broken-link-checker-local/out/bin.js _site -rog"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magento-research/pwa-devdocs.git"
+    "url": "git+git@github.com:magento-research/pwa-studio.git"
   },
   "author": "James Calcaben",
   "license": "OSL-3.0",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-devdocs/issues"
+    "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-devdocs#readme"
+  "homepage": "https://github.com/magento-research/pwa-studio#readme"
 }
