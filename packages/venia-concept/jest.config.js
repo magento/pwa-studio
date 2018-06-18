@@ -1,8 +1,19 @@
+const { join } = require('path');
+
 module.exports = {
     displayName: 'Venia Concept',
     browser: true,
     moduleNameMapper: {
         '\\.css$': 'identity-obj-proxy',
-        '^src/(.+)': '<rootDir>/src/$1'
-    }
+        // Mirrors webpack alias to resolve from 'src'
+        '^src/(.+)': '<rootDir>/src/$1',
+        // Re-write imports to Peregrine to ensure they're not pulled from the
+        // (possibly outdated) build artifacts on disk in `dist`.
+        // Ideally this rule would be in the root Jest config, but Jest's config
+        // merging strategy isn't currently smart enough for this
+        '^@magento/peregrine(/*(?:.+)*)': join(__dirname, '../peregrine/src/$1')
+    },
+    // Have Jest use Babel to transpile Peregrine imports in tests, since
+    // our cross-package tests in the monorepo should all operate on `src`
+    transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)']
 };
