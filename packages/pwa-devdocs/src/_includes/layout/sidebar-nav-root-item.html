@@ -1,0 +1,15 @@
+{% if page.toc-group == "technologies" %}
+    {% assign toc = site.data.technologies %}
+
+{% elsif page.toc-group == "pwa-buildpack" %}
+    {% assign toc = site.data.pwa-buildpack %}
+
+{% elsif page.toc-group == "peregrine" %}
+    {% assign toc = site.data.peregrine %}
+
+{% elsif page.toc-group == "venia-pwa-concept" %}
+    {% assign toc = site.data.venia-pwa-concept %}
+
+{% endif %}
+
+{% include layout/toc.html %}

@@ -1,0 +1,14 @@
+.material-icons {
+    &.edit{
+        vertical-align: sub;
+    }
+
+    &.warning{
+        vertical-align: sub;
+        color: #ffa500;
+    }
+
+    &.green{
+        color: #008000;
+    }
+}

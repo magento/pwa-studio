@@ -1,0 +1,30 @@
+<!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+{% for entry in site.data.top-nav %}
+  {% if entry.links %}
+  <li class="nav-main-item" tabindex="0" role="menuitem" aria-haspopup="true">
+    <span href="#" data-proofer-ignore tabindex="-1">{{entry.label}}</span>
+
+    <div class="nav-popup" role="menu" aria-hidden="true">
+      <ul>
+        {% for navLink in entry.links %}
+          {% if navLink.url contains 'http' %}
+            {% assign navUrl = navLink.url %}
+          {% else %}
+            {% assign navUrl = site.baseurl | append: navLink.url %}
+          {% endif %}
+          <li><a href="{{navUrl}}">{{navLink.label}}</a></li>
+        {% endfor %}
+        </ul>
+
+    </div>
+
+  </li>
+
+  {% else %}
+  <li class="menuitem {% if page.url contains entry.url %}current{% endif %}">
+      <a href="{{site.baseurl}}{{entry.url}}">{{entry.label}}</a>
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>

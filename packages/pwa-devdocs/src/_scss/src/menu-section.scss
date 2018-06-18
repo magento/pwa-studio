@@ -1,0 +1,40 @@
+.menu-section {
+    padding-bottom: 5px;
+
+    .toc-entry {
+        display: flex;
+        cursor: pointer;
+
+        border-bottom: 1px solid #d2d2d2;
+
+        h4 {
+            flex-grow: 1;
+        }
+
+        .material-icons {
+            font-size: 36px;
+            color: #26A2AA;
+        }
+    }
+
+    .table-of-contents {
+
+        .stub {
+            color: #626366;
+            font-style: italic
+        }
+
+    }
+}
+
+.sidebar {
+
+    ul ul a {
+        padding-left: 30px;
+    }
+
+    .guide-title {
+        color: #626366;
+        border-bottom: none;
+    }
+}
