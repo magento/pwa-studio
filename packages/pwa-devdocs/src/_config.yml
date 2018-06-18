@@ -9,8 +9,8 @@ logo: PWA Docs
 
 github_link: true
 feedback_link: true
-github_repo: "https://github.com/magento-research/pwa-devdocs/"
-github_files: "https://github.com/magento-research/pwa-devdocs/tree/master/src/"
+github_repo: "https://github.com/magento-research/pwa-studio/"
+github_files: "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-devdocs/src/"
 
 
 defaults:
