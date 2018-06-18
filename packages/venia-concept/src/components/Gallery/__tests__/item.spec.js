@@ -22,10 +22,17 @@ const classes = {
 };
 
 const validItem = {
-    key: 'foo',
-    image: 'foo.jpg',
-    name: 'Foo',
-    price: '$1.00'
+    id: 1,
+    name: 'Test Product',
+    small_image: '/foo/bar/pic.png',
+    price: {
+        regularPrice: {
+            amount: {
+                value: 21,
+                currency: 'USD'
+            }
+        }
+    }
 };
 
 /**
@@ -94,7 +101,7 @@ test('calls `onLoad` on image `load`', () => {
         .first()
         .simulate('load');
 
-    expect(handleLoad).toBeCalledWith(validItem.key);
+    expect(handleLoad).toBeCalledWith(validItem.id);
 });
 
 test('calls `onError` on image `error`', () => {
@@ -113,7 +120,7 @@ test('calls `onError` on image `error`', () => {
         .first()
         .simulate('error');
 
-    expect(handleError).toBeCalledWith(validItem.key);
+    expect(handleError).toBeCalledWith(validItem.id);
 });
 
 /**

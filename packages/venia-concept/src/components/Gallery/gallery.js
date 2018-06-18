@@ -1,20 +1,33 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
-
+import { string, shape, arrayOf, number } from 'prop-types';
 import classify from 'src/classify';
 import GalleryItems, { emptyData } from './items';
 import defaultClasses from './gallery.css';
 
 class Gallery extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            actions: PropTypes.string,
-            filters: PropTypes.string,
-            items: PropTypes.string,
-            pagination: PropTypes.string,
-            root: PropTypes.string
+        classes: shape({
+            actions: string,
+            filters: string,
+            items: string,
+            pagination: string,
+            root: string
         }),
-        data: PropTypes.arrayOf(PropTypes.object)
+        data: arrayOf(
+            shape({
+                id: number.isRequired,
+                name: string.isRequired,
+                small_image: string.isRequired,
+                price: shape({
+                    regularPrice: shape({
+                        amount: shape({
+                            value: number.isRequired,
+                            currency: string.isRequired
+                        }).isRequired
+                    }).isRequired
+                }).isRequired
+            })
+        )
     };
 
     static defaultProps = {

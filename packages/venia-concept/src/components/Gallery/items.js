@@ -1,6 +1,5 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
-
+import { arrayOf, string, number, shape } from 'prop-types';
 import fixedObserver from 'src/util/fixedObserver';
 import initObserver from 'src/util/initObserver';
 import GalleryItem from './item';
@@ -23,7 +22,20 @@ const initState = (prevState, { items }) => ({
 
 class GalleryItems extends Component {
     static propTypes = {
-        items: PropTypes.arrayOf(PropTypes.object).isRequired
+        items: arrayOf(
+            shape({
+                id: number.isRequired,
+                name: string.isRequired,
+                small_image: string.isRequired,
+                price: shape({
+                    regularPrice: shape({
+                        amount: shape({
+                            value: number.isRequired
+                        }).isRequired
+                    }).isRequired
+                }).isRequired
+            })
+        ).isRequired
     };
 
     constructor(props) {
@@ -53,7 +65,7 @@ class GalleryItems extends Component {
 
         return items.map(item => (
             <GalleryItem
-                key={item.key}
+                key={item.id}
                 item={item}
                 showImage={done}
                 onLoad={this.handleLoad}

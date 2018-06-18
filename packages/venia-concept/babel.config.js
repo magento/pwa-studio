@@ -7,7 +7,8 @@ const plugins = [
     'syntax-jsx',
     'transform-class-properties',
     'transform-object-rest-spread',
-    ['transform-react-jsx', { pragma: 'createElement' }]
+    ['transform-react-jsx', { pragma: 'createElement' }],
+    'graphql-tag'
 ];
 
 // define default babel options

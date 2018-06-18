@@ -7,7 +7,34 @@ import Gallery from '../gallery';
 configure({ adapter: new Adapter() });
 
 const classes = { root: 'foo' };
-const items = [{ key: 'a' }, { key: 'b' }];
+const items = [
+    {
+        id: 1,
+        name: 'Test Product 1',
+        small_image: '/test/product/1.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100,
+                    currency: 'USD'
+                }
+            }
+        }
+    },
+    {
+        id: 2,
+        name: 'Test Product 2',
+        small_image: '/test/product/2.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100,
+                    currency: 'USD'
+                }
+            }
+        }
+    }
+];
 
 test('renders if `data` is an empty array', () => {
     const wrapper = shallow(<Gallery classes={classes} data={[]} />).dive();

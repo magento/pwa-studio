@@ -13,7 +13,7 @@
     "url": "https://github.com/magento-research/peregrine"
   },
   "scripts": {
-    "build": "babel src -d dist --ignore test.js",
+    "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
     "danger": "danger-ci",
     "clean": "rimraf dist",
     "prepare": "npm-merge-driver install",
