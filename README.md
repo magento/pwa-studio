@@ -22,11 +22,10 @@ To ease local development, testing, and versioning, the PWA Studio project uses 
 1.  Clone the repository
 2.  Navigate to the root of the repository from the command line
 3.  Run `npm install`
-4.  Run [`lerna bootstrap`](https://github.com/lerna/lerna#bootstrap).
 
 ## Things not to do
 
 When using a monorepo and lerna, it's important that you break some common habits that are common when developing front-end packages.
 
--   Do _not_ run `npm install` to get `node_modules` up to date within any folder under `packages/`. Instead, run `lerna bootstrap` in the root of the repo, which will ensure all package's dependencies are up-to-date.
+-   Do _not_ run `npm install` to get `node_modules` up to date within any folder under `packages/`. Instead, run `npm install` in the root of the repo, which will ensure all package's dependencies are up-to-date.
 -   When adding a new entry to `devDependencies` in a package's `package.json`, ask yourself whether that dependency will be used across multiple packages. If the answer is "yes," the dependency should instead be installed in the root `package.json`. This will speed up runs of `lerna bootstrap`.

@@ -1,0 +1,46 @@
+title: PWA Buildpack
+entries:
+  - label: Overview
+    url: /pwa-buildpack/
+  
+  - label: Project setup tutorial
+    url: /pwa-buildpack/project-setup/
+    entries:
+      - label: Create initial theme files
+        url: /pwa-buildpack/project-setup/create-theme-files/
+      - label: Install project dependencies
+        url:  /pwa-buildpack/project-setup/install-dependencies/
+      - label: Link project to the Magento backend
+        url: /pwa-buildpack/project-setup/link-project/
+      - label: Create configuration files
+        url: /pwa-buildpack/project-setup/create-configuration-files/
+        entries:
+          - label: Example - webpack.config.js
+            url: /pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/
+      - label: Create a simple peregrine app
+        url: /pwa-buildpack/project-setup/create-simple-peregrine-app/
+
+  - label: Tools reference
+    entries:
+
+      - label: magento-layout-loader
+        url: /pwa-buildpack/reference/layout-loader/
+
+      - label: MagentoResolver
+        url: /pwa-buildpack/reference/magento-resolver/
+      
+      - label: MagentoRootComponentsPlugin
+        url: /pwa-buildpack/reference/root-components-plugin/
+
+      - label: Object Types
+        url: /pwa-buildpack/reference/object-types/
+      
+      - label: PWADevServer
+        url: /pwa-buildpack/reference/pwa-dev-server/
+
+      - label: ServiceWorkerPlugin
+        url: /pwa-buildpack/reference/serviceworker-plugin/
+
+  - label: Troubleshooting
+    url: /pwa-buildpack/troubleshooting/
+      

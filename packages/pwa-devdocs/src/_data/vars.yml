@@ -1,0 +1,5 @@
+# Site specific variables
+
+title: Magento PWA Studio Documentation
+description: Everything you need to build a Magento PWA.
+repo: https://github.com/magento-research/pwa-studio
