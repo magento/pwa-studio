@@ -10,7 +10,9 @@ module.exports = {
         // Re-write imports to Peregrine to ensure they're not pulled from the
         // (possibly outdated) build artifacts on disk in `dist`.
         // Ideally this rule would be in the root Jest config, but Jest's config
-        // merging strategy isn't currently smart enough for this
+        // merging strategy isn't currently smart enough for this. TODO: Look
+        // into moving to root config in later versions of Jest if config merging
+        // improves
         '^@magento/peregrine(/*(?:.+)*)': join(__dirname, '../peregrine/src/$1')
     },
     // Have Jest use Babel to transpile Peregrine imports in tests, since
