@@ -13,7 +13,10 @@ jobs:
           - v1-npm-cache-{{ .Branch }}
           - v1-npm-cache-
 
-      # Install root devDependencies and bootstrap packages
+      # Install root devDependencies and bootstrap packages. We use
+      # --ignore-scripts to prevent building any artifacts to disk prior
+      # to running Jest. This is a safeguard to ensure our tests always operate
+      # on the latest source
       - run:
           name: Install shared devDependencies
           command: 'npm install --ignore-scripts'

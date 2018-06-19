@@ -16,7 +16,7 @@
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development"
   },
   "dependencies": {
-    "@magento/peregrine": "^0.3.0",
+    "@magento/peregrine": "^0.4.0",
     "babel-runtime": "^6.26.0",
     "dotenv": "^4.0.0",
     "feather-icons": "^4.6.0",
