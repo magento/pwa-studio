@@ -11,13 +11,18 @@ import MagentoRouter from '../Router';
  * @param middleWare redux middleware added to the store by the consumer of Peregrine
  * @returns {{ store: Store, Provider: () => JSX.Element }}
  */
-export default function bootstrap({ apiBase, __tmp_webpack_public_path__, reducer, middleWare }) {
+export default function bootstrap({
+    apiBase,
+    __tmp_webpack_public_path__,
+    reducer,
+    middleWare
+}) {
     // Remove deprecation warning after 2 version bumps
     if (process.env.NODE_ENV !== 'production' && this instanceof bootstrap) {
         throw new Error(
             'The API for Peregrine has changed. ' +
-            'Please see the Release Notes on Github ' +
-            'for instructions to update your application'
+                'Please see the Release Notes on Github ' +
+                'for instructions to update your application'
         );
     }
 
