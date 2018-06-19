@@ -18,6 +18,6 @@ const reducer = (state = initialState, { payload, type }) => {
     }
 };
 
-const selectAppState = ({ app }) => ({ app: app || initialState });
+const selectAppState = ({ app }) => ({ app });
 
 export { reducer as default, selectAppState };

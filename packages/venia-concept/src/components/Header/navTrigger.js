@@ -12,7 +12,7 @@ class Trigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        openNav: PropTypes.func
+        openNav: PropTypes.func.isRequired
     };
 
     render() {

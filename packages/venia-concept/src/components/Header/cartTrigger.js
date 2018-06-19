@@ -12,7 +12,7 @@ class Trigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        openCart: PropTypes.func
+        openCart: PropTypes.func.isRequired
     };
 
     render() {

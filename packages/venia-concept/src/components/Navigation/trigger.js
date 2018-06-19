@@ -12,14 +12,14 @@ class NavTrigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        closeNav: PropTypes.func
+        closeNav: PropTypes.func.isRequired
     };
 
     render() {
         const { children, classes, closeNav } = this.props;
 
         return (
-            <button className={classes.root} onClick={closeNav}>
+            <button className={classes.root} type="button" onClick={closeNav}>
                 {children}
             </button>
         );
