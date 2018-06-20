@@ -10,10 +10,32 @@ const classes = {
     root: 'abc'
 };
 
-const items = new Map()
-    .set('a', { id: 'a' })
-    .set('b', { id: 'b' })
-    .set('c', { id: 'c' });
+const items = [
+    {
+        id: '001',
+        name: 'Test Product 1',
+        small_image: '/test/product/1.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100
+                }
+            }
+        }
+    },
+    {
+        id: '002',
+        name: 'Test Product 2',
+        small_image: '/test/product/2.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100
+                }
+            }
+        }
+    }
+];
 
 test('renders a div by default', () => {
     const props = { classes };

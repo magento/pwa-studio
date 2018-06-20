@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
+import iterable from '../validators/iterable';
 import Items from './items';
 
 class List extends Component {
@@ -9,10 +10,8 @@ class List extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        items: PropTypes.oneOfType([
-            PropTypes.instanceOf(Map),
-            PropTypes.arrayOf(PropTypes.array)
-        ]).isRequired,
+        getItemKey: PropTypes.func.isRequired,
+        items: iterable.isRequired,
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
             .isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -22,7 +21,8 @@ class List extends Component {
 
     static defaultProps = {
         classes: {},
-        items: new Map(),
+        getItemKey: ({ id }) => id,
+        items: [],
         render: 'div',
         renderItem: 'div',
         selectionModel: 'radio'
@@ -31,6 +31,7 @@ class List extends Component {
     render() {
         const {
             classes,
+            getItemKey,
             items,
             render,
             renderItem,
@@ -41,6 +42,7 @@ class List extends Component {
 
         const customProps = {
             classes,
+            getItemKey,
             items,
             onSelectionChange,
             selectionModel
@@ -52,6 +54,7 @@ class List extends Component {
             <Root className={classes.root} {...customProps} {...restProps}>
                 <Items
                     items={items}
+                    getItemKey={getItemKey}
                     renderItem={renderItem}
                     selectionModel={selectionModel}
                     onSelectionChange={this.handleSelectionChange}
