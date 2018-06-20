@@ -65,6 +65,6 @@ test('returns a proper error object', () => {
     };
 
     expect(thrower).toThrow(
-        'Invalid prop `f` supplied to `MyComponent`. Validation failed.'
+        'Invalid prop `f` of type `object` supplied to `MyComponent`, expected `iterable`.'
     );
 });
