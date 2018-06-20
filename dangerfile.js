@@ -1,5 +1,5 @@
 const execa = require('execa');
-const { fail, markdown } = require('danger');
+const { fail, markdown, danger } = require('danger');
 
 const fromRoot = path => path.replace(`${process.cwd()}/`, '');
 const fence = '```';
@@ -39,12 +39,6 @@ const tasks = [
     function unitTests() {
         try {
             execa.sync('jest', ['--json', '--coverage']);
-            const coverageLink = linkToCircleAsset(
-                'coverage/lcov-report/index.html'
-            );
-            markdown(
-                `All tests passed! [View Coverage Report](${coverageLink})`
-            );
         } catch (err) {
             const summary = JSON.parse(err.stdout);
             const failedTests = summary.testResults.filter(
@@ -52,40 +46,43 @@ const tasks = [
             );
             // prettier-ignore
             const failSummary = failedTests.map(t =>
-`<details>
-<summary>${fromRoot(t.name)}</summary>
-<pre>${t.message}</pre>
-</details>`
-            ).join('\n');
+    `<details>
+    <summary>${fromRoot(t.name)}</summary>
+    <pre>${t.message}</pre>
+    </details>`
+                ).join('\n');
             fail(
                 'The following unit tests did _not_ pass 😔. ' +
                     'All tests must pass before this PR can be merged\n\n\n' +
                     failSummary
             );
         }
-    },
-
-    function storybook() {
-        const storybookURI = linkToCircleAsset('storybook-dist/index.html');
-        markdown(
-            `[A Storybook for this PR has been deployed!](${storybookURI}). ` +
-                'It will be accessible as soon as the current build completes.'
-        );
     }
+
+    // Disabled for now, but leaving in for future implementation.
+    // Can't use right now due to the lack of permissions granularity
+    // in GitHub
+    // async function addProjectLabels() {
+    //     const allChangedFiles = [
+    //         ...danger.git.created_files,
+    //         ...danger.git.deleted_files,
+    //         ...danger.git.modified_files
+    //     ];
+    //     const touchedPackages = allChangedFiles.reduce((touched, path) => {
+    //         const matches = path.match(/packages\/([\w-]+)\//);
+    //         return matches ? touched.add(matches[1]) : touched;
+    //     }, new Set());
+
+    //     if (!touchedPackages.size) return;
+
+    //     await danger.github.api.issues.addLabels(
+    //         Object.assign({}, danger.github.thisPR, {
+    //             labels: Array.from(touchedPackages).map(s => `pkg:${s}`)
+    //         })
+    //     );
+    // }
 ];
 
-for (const task of tasks) task();
-
-function linkToCircleAsset(pathFromProjectRoot) {
-    const org = process.env.CIRCLE_PROJECT_USERNAME;
-    const repo = process.env.CIRCLE_PROJECT_REPONAME;
-    const buildNum = process.env.CIRCLE_BUILD_NUM;
-    const idx = process.env.CIRCLE_NODE_INDEX;
-
-    return [
-        'https://circleci.com/api/v1/project',
-        `/${org}/${repo}/${buildNum}`,
-        `/artifacts/${idx}/home/ubuntu`,
-        `/${repo}/${pathFromProjectRoot}`
-    ].join('');
-}
+(async () => {
+    for (const task of tasks) await task();
+})();

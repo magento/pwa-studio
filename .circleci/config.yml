@@ -39,16 +39,8 @@ jobs:
           key: v1-npm-cache-{{ .Branch }}
 
       - run:
-          name: ESLint
-          command: 'npm run lint'
-
-      - run:
-          name: Prettier
-          command: 'npm run prettier:check'
-
-      - run:
-          name: Unit Tests
-          command: 'npm test -- -i'
+          name: DangerCI
+          command: 'npm run danger'
 
       - store_artifacts:
           path: coverage
