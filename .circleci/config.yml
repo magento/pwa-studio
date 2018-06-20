@@ -42,5 +42,9 @@ jobs:
           name: DangerCI
           command: 'npm run danger'
 
+      - run:
+          name: Coveralls
+          command: 'npm run coveralls'
+
       - store_artifacts:
           path: coverage

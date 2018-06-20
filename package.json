@@ -14,6 +14,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run build",
     "clean": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run clean",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
     "postinstall": "lerna bootstrap && npm run build",
     "lint": "eslint 'packages/**/*.js' --ignore-pattern node_modules",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
     "babel-eslint": "^8.2.3",
+    "coveralls": "^3.0.1",
     "danger": "^3.7.18",
     "eslint": "^4.19.1",
     "eslint-plugin-babel": "^5.1.0",
