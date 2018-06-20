@@ -48,7 +48,9 @@ jobs:
 
       - run:
           name: Unit Tests
-          command: 'npm test -- -i'
+          # TODO: Re-enable cache once bug in fixed in Jest
+          # https://github.com/facebook/jest/issues/6506
+          command: 'npm test -- -i --no-cache'
 
       - store_artifacts:
           path: coverage
