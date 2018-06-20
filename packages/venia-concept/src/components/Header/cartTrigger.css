@@ -1,0 +1,5 @@
+.root {
+  composes: root from "../button.css";
+  height: 3rem;
+  width: 3rem;
+}

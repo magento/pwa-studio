@@ -52,10 +52,14 @@ p {
   margin: 0;
 }
 
-ul {
+dl, ol, ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+dd, dt {
+  margin: 0;
 }
 
 button {

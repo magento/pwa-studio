@@ -2,7 +2,10 @@
   min-height: 100vh;
 }
 
-.masked {
+/* state: masked */
+
+.root_masked {
+  composes: root;
   height: 100vh;
   overflow: hidden;
 }
