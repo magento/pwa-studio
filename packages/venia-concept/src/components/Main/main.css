@@ -1,4 +1,13 @@
 .root {
   background-color: white;
   color: rgb(var(--venia-text));
+  position: relative;
+  z-index: 1;
+}
+
+/* state: masked */
+
+.root_masked {
+  composes: root;
+  filter: grayscale(1);
 }

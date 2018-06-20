@@ -2,12 +2,16 @@ import { createElement } from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from '@magento/peregrine';
 
+import reducer from 'src/store/reducers/app';
 import './index.css';
 
-const { Provider } = bootstrap({
+const { Provider, store } = bootstrap({
     apiBase: new URL('/graphql', location.origin).toString(),
     __tmp_webpack_public_path__: __webpack_public_path__
 });
+
+// add the `app` reducer for global state
+store.addReducer('app', reducer);
 
 ReactDOM.render(<Provider />, document.getElementById('root'));
 
@@ -23,3 +27,5 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
             });
     });
 }
+
+export { store };

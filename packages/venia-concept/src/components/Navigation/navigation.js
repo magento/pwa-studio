@@ -28,12 +28,12 @@ class Navigation extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        nav: PropTypes.bool
+        isOpen: PropTypes.bool
     };
 
     render() {
-        const { classes, nav } = this.props;
-        const className = nav ? classes.open : classes.closed;
+        const { classes, isOpen } = this.props;
+        const className = isOpen ? classes.open : classes.closed;
 
         return (
             <aside className={className}>
@@ -41,7 +41,7 @@ class Navigation extends Component {
                     <h2 className={classes.title}>
                         <span>Main Menu</span>
                     </h2>
-                    <Trigger className={classes.navTrigger}>
+                    <Trigger>
                         <Icon name="x" />
                     </Trigger>
                 </div>

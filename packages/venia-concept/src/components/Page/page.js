@@ -1,12 +1,13 @@
 import { Component, createElement } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
-import Footer from 'src/components/Footer';
-import Header from 'src/components/Header';
+import classify from 'src/classify';
 import Main from 'src/components/Main';
 import Navigation from 'src/components/Navigation';
-
-import classify from 'src/classify';
+import { selectAppState } from 'src/store/reducers/app';
+import Mask from './mask';
 import defaultClasses from './page.css';
 
 class Page extends Component {
@@ -14,23 +15,33 @@ class Page extends Component {
         classes: PropTypes.shape({
             masked: PropTypes.string,
             root: PropTypes.string
-        }),
-        nav: PropTypes.bool
+        })
     };
 
     render() {
-        const { children, classes, nav } = this.props;
-        const className = nav ? classes.masked : classes.root;
+        const { app, children, classes, closeDrawer } = this.props;
+        const { drawer, overlay } = app;
+        const navIsOpen = drawer === 'nav';
+        const className = overlay ? classes.root_masked : classes.root;
 
         return (
             <div className={className}>
-                <Header />
-                <Main>{children}</Main>
-                <Footer />
-                <Navigation nav={nav} />
+                <Main isMasked={overlay}>{children}</Main>
+                <Mask isActive={overlay} dismiss={closeDrawer} />
+                <Navigation isOpen={navIsOpen} />
             </div>
         );
     }
 }
 
-export default classify(defaultClasses)(Page);
+const mapDispatchToProps = dispatch => ({
+    closeDrawer: () => dispatch({ type: 'TOGGLE_DRAWER', payload: null })
+});
+
+export default compose(
+    classify(defaultClasses),
+    connect(
+        selectAppState,
+        mapDispatchToProps
+    )
+)(Page);
