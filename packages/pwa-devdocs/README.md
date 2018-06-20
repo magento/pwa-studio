@@ -11,10 +11,10 @@ Use the following instructions to build a local instance of the documentation.
 ### Prerequisites
 
 -   [Git]
--   [NodeJS]
+-   [Node.JS]
 -   [Ruby]
 -   [Bundler]
--   [Yarn]
+-   [npm]
 
 ### Installation
 
@@ -64,10 +64,10 @@ This project is licensed under OSL-3.0 - see the [LICENSE.txt] file for details.
 [code of conduct]: ../../.github/CODE_OF_CONDUCT.md
 [license.txt]: LICENSE.txt
 [documentation site]: https://magento-research.github.io/pwa-studio/
-[nodejs]: https://nodejs.org
+[node.js]: https://nodejs.org
 [ruby]: https://www.ruby-lang.org/
 [bundler]: http://bundler.io/
-[yarn]: https://yarnpkg.com/en/
+[npm]: https://www.npmjs.com/
 [jekyll]: https://jekyllrb.com/
 [github pages]: https://pages.github.com/
 [git]: https://git-scm.com/
