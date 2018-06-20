@@ -45,7 +45,7 @@ This library is often paired with React to alleviate the problem of passing data
 [GraphQL] is a specification for a data query language on the client side and a service layer on the server side.
 It is often seen as an alternative to using [REST] endpoints.
 
-One of the main advantages GraphQL has over REST is that a single GraphQL endpoint can accomodate requests for any combination of X, Y, and Z pieces of data,
+One of the main advantages GraphQL has over REST is that a single GraphQL endpoint can accommodate requests for any combination of X, Y, and Z pieces of data,
 whereas REST requires specialized endpoints for different data request combinations. 
 Unlike REST, which can require multiple server requests to aggregate data, 
 a single GraphQL request returns only the data needed and nothing more.
