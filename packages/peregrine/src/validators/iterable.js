@@ -13,7 +13,7 @@ function optionalIterable(props, propName, componentName) {
 function requiredIterable(props, propName, componentName) {
     const prop = props[propName];
 
-    if (!isIterable(prop)) {
+    if (prop == null || !isIterable(prop)) {
         return new Error(
             `Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed.`
         );
