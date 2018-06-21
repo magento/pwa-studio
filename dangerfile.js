@@ -56,7 +56,10 @@ const tasks = [
                     'All tests must pass before this PR can be merged\n\n\n' +
                     failSummary
             );
+            return;
         }
+
+        execa.sync('npm', ['run', 'coveralls']);
     }
 
     // Disabled for now, but leaving in for future implementation.

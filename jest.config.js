@@ -4,5 +4,6 @@ module.exports = {
         'packages/pwa-buildpack',
         'packages/venia-concept'
     ],
-    collectCoverage: true
+    collectCoverage: true,
+    collectCoverageFrom: ['src/**/*.js', '!**/__stories__/**']
 };

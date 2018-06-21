@@ -17,5 +17,6 @@ module.exports = {
     },
     // Have Jest use Babel to transpile Peregrine imports in tests, since
     // our cross-package tests in the monorepo should all operate on `src`
-    transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)']
+    transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)'],
+    testPathIgnorePatterns: ['dist', 'node_modules']
 };
