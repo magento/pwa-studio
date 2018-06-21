@@ -2,6 +2,7 @@ import { Component, Fragment, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import memoize from '../util/unaryMemoize';
+import iterable from '../validators/iterable';
 import ListItem from './item';
 
 const removeFocus = () => ({
@@ -36,15 +37,14 @@ const updateSelection = memoize(key => (prevState, props) => {
 
 class Items extends Component {
     static propTypes = {
-        items: PropTypes.oneOfType([
-            PropTypes.instanceOf(Map),
-            PropTypes.arrayOf(PropTypes.array)
-        ]).isRequired,
+        getItemKey: PropTypes.func.isRequired,
+        items: iterable.isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
         selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
     };
 
     static defaultProps = {
+        getItemKey: ({ id }) => id,
         selectionModel: 'radio'
     };
 
@@ -55,21 +55,25 @@ class Items extends Component {
     };
 
     render() {
-        const { items, renderItem } = this.props;
+        const { getItemKey, items, renderItem } = this.props;
         const { cursor, hasFocus, selection } = this.state;
 
-        const children = Array.from(items, ([key, item], index) => (
-            <ListItem
-                key={key}
-                item={item}
-                render={renderItem}
-                hasFocus={hasFocus && cursor === index}
-                isSelected={selection.has(key)}
-                onBlur={this.handleBlur}
-                onClick={this.getClickHandler(key)}
-                onFocus={this.getFocusHandler(index)}
-            />
-        ));
+        const children = Array.from(items, (item, index) => {
+            const key = getItemKey(item, index);
+
+            return (
+                <ListItem
+                    key={key}
+                    item={item}
+                    render={renderItem}
+                    hasFocus={hasFocus && cursor === index}
+                    isSelected={selection.has(key)}
+                    onBlur={this.handleBlur}
+                    onClick={this.getClickHandler(key)}
+                    onFocus={this.getFocusHandler(index)}
+                />
+            );
+        });
 
         return <Fragment>{children}</Fragment>;
     }

@@ -1,12 +1,10 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
+import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import List from 'src/components/List';
 import Swatch from './swatch';
 import defaultClasses from './swatchList.css';
-
-const getItemKey = ({ id }) => id;
 
 class SwatchList extends Component {
     static propTypes = {
@@ -17,9 +15,7 @@ class SwatchList extends Component {
     };
 
     render() {
-        return (
-            <List renderItem={Swatch} getItemKey={getItemKey} {...this.props} />
-        );
+        return <List renderItem={Swatch} {...this.props} />;
     }
 }
 
