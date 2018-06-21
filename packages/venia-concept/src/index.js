@@ -1,6 +1,8 @@
 import { createElement } from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from '@magento/peregrine';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
 import reducer from 'src/store/reducers/app';
 import './index.css';
@@ -10,10 +12,16 @@ const { Provider, store } = bootstrap({
     __tmp_webpack_public_path__: __webpack_public_path__
 });
 
-// add the `app` reducer for global state
 store.addReducer('app', reducer);
 
-ReactDOM.render(<Provider />, document.getElementById('root'));
+const apolloClient = new ApolloClient();
+
+ReactDOM.render(
+    <ApolloProvider client={apolloClient}>
+        <Provider />
+    </ApolloProvider>,
+    document.getElementById('root')
+);
 
 if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {

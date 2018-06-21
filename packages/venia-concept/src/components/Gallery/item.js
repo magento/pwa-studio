@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
-
+import { string, number, shape, func, bool } from 'prop-types';
+import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { imagePlaceholderUri } from 'src/constants';
 import defaultClasses from './item.css';
@@ -18,29 +18,36 @@ const ItemPlaceholder = ({ children, classes }) => (
 
 class GalleryItem extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            image: PropTypes.string,
-            image_pending: PropTypes.string,
-            imagePlaceholder: PropTypes.string,
-            imagePlaceholder_pending: PropTypes.string,
-            images: PropTypes.string,
-            images_pending: PropTypes.string,
-            name: PropTypes.string,
-            name_pending: PropTypes.string,
-            price: PropTypes.string,
-            price_pending: PropTypes.string,
-            root: PropTypes.string,
-            root_pending: PropTypes.string
+        classes: shape({
+            image: string,
+            image_pending: string,
+            imagePlaceholder: string,
+            imagePlaceholder_pending: string,
+            images: string,
+            images_pending: string,
+            name: string,
+            name_pending: string,
+            price: string,
+            price_pending: string,
+            root: string,
+            root_pending: string
         }),
-        item: PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            image: PropTypes.string,
-            name: PropTypes.string,
-            price: PropTypes.string
+        item: shape({
+            id: number.isRequired,
+            name: string.isRequired,
+            small_image: string.isRequired,
+            price: shape({
+                regularPrice: shape({
+                    amount: shape({
+                        value: number.isRequired,
+                        currency: string.isRequired
+                    }).isRequired
+                }).isRequired
+            }).isRequired
         }),
-        onError: PropTypes.func,
-        onLoad: PropTypes.func,
-        showImage: PropTypes.bool
+        onError: func,
+        onLoad: func,
+        showImage: bool
     };
 
     static defaultProps = {
@@ -71,7 +78,10 @@ class GalleryItem extends Component {
                     <span>{name}</span>
                 </div>
                 <div className={classes.price}>
-                    <span>{price}</span>
+                    <Price
+                        value={price.regularPrice.amount.value}
+                        currencyCode={price.regularPrice.amount.currency}
+                    />
                 </div>
             </div>
         );
@@ -99,6 +109,10 @@ class GalleryItem extends Component {
         );
     };
 
+    /**
+     * Product images are currently broken and pending a fix from the `graphql-ce` project
+     * https://github.com/magento/graphql-ce/issues/88
+     */
     renderImage = () => {
         const { classes, item, showImage } = this.props;
 
@@ -106,13 +120,13 @@ class GalleryItem extends Component {
             return null;
         }
 
-        const { image, name } = item;
+        const { small_image, name } = item;
         const className = showImage ? classes.image : classes.image_pending;
 
         return (
             <img
                 className={className}
-                src={image}
+                src={small_image}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
@@ -125,13 +139,13 @@ class GalleryItem extends Component {
     handleLoad = () => {
         const { item, onLoad } = this.props;
 
-        onLoad(item.key);
+        onLoad(item.id);
     };
 
     handleError = () => {
         const { item, onError } = this.props;
 
-        onError(item.key);
+        onError(item.id);
     };
 }
 

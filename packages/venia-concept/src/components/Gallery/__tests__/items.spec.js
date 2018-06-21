@@ -6,8 +6,32 @@ import Items, { emptyData } from '../items';
 
 configure({ adapter: new Adapter() });
 
-const items = [{ key: 'a' }, { key: 'b' }];
-
+const items = [
+    {
+        id: 1,
+        name: 'Test Product 1',
+        small_image: '/test/product/1.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100
+                }
+            }
+        }
+    },
+    {
+        id: 2,
+        name: 'Test Product 2',
+        small_image: '/test/product/2.png',
+        price: {
+            regularPrice: {
+                amount: {
+                    value: 100
+                }
+            }
+        }
+    }
+];
 // no render tests for now, since enzyme doesn't support React Fragment yet
 // see https://github.com/airbnb/enzyme/issues/1213
 
