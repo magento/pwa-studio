@@ -2,6 +2,8 @@
 
 Magento PWA Studio is a collection of tools that enables developers to build complex Progressive Web Applications for Magento 2 stores.
 
+Documentation for these tools exist in the PWA Studio [documentation site].
+
 This repository includes all Magento-authored tools necessary for PWA Studio, along with a reference/concept theme implementation.
 
 ## Packages
@@ -10,6 +12,7 @@ This repository includes all Magento-authored tools necessary for PWA Studio, al
 -   [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 -   [peregrine](packages/peregrine/README.md) - eCommerce Component Library
 -   [pwa-module](packages/pwa-module)
+-   [pwa-devdocs](packages/pwa-devdocs) - Project source for the [documentation site]
 
 ## Getting Started
 
@@ -29,3 +32,5 @@ When using a monorepo and lerna, it's important that you break some common habit
 
 -   Do _not_ run `npm install` to get `node_modules` up to date within any folder under `packages/`. Instead, run `npm install` in the root of the repo, which will ensure all package's dependencies are up-to-date.
 -   When adding a new entry to `devDependencies` in a package's `package.json`, ask yourself whether that dependency will be used across multiple packages. If the answer is "yes," the dependency should instead be installed in the root `package.json`. This will speed up runs of `lerna bootstrap`.
+
+[documentation site]: https://magento-research.github.io/pwa-studio/
