@@ -1,8 +1,8 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
+import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import List from 'src/components/List';
 import Option from './option';
 import defaultClasses from './select.css';
 
