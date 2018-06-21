@@ -5,3 +5,60 @@ entries:
 
   - label: Setup
     url: /venia-pwa-concept/setup/
+
+  - label: Design
+    entries:
+    
+    - label: Product page
+      url: /venia-pwa-concept/design/product-page/
+  
+  - label: Component specifications
+    entries:
+
+    - label: Add to cart
+      url: /venia-pwa-concept/component/add-to-cart/
+
+    - label: Add to wishlist
+      url: /venia-pwa-concept/component/add-to-wishlist/
+
+    - label: Buy now / Buy with
+      url: /venia-pwa-concept/component/buy-now-with/
+
+    - label: Color selector
+      url: /venia-pwa-concept/component/color-selector/
+
+    - label: Footer
+      url: /venia-pwa-concept/component/footer/
+
+    - label: Header
+      url: /venia-pwa-concept/component/header
+
+    - label: Image carousel
+      url: /venia-pwa-concept/component/image-carousel/
+
+    - label: Label selector
+      url: /venia-pwa-concept/component/label-selector/
+
+    - label: Page
+      url: /venia-pwa-concept/component/page/
+    
+    - label: Product description
+      url: /venia-pwa-concept/component/product-description/
+
+    - label: Quantity selector
+      url: /venia-pwa-concept/component/quantity-selector/
+
+    - label: Quantity sync bar
+      url: /venia-pwa-concept/component/quantity-sync-bar/
+
+    - label: Recommended carousel
+      url: /venia-pwa-concept/component/recommended-carousel/
+    
+    - label: Share
+      url: /venia-pwa-concept/component/share/
+
+    - label: Size selector
+      url: /venia-pwa-concept/component/size-selector/
+
+    - label: Title bar
+      url: /venia-pwa-concept/component/title-bar/
