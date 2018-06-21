@@ -3,18 +3,26 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
-      - master-coverage:
-          requires:
-            - build
+      - build:
+          filters:
+            branches:
+              ignore: master
+      - master:
           filters:
             branches:
               only: master
 jobs:
-  master-coverage:
+  master:
     docker:
       - image: circleci/node:8.11.2
     steps:
+      - checkout
+      - run:
+          name: Install shared devDependencies
+          command: 'npm install --ignore-scripts'
+      - run:
+          name: Lerna Bootstrap
+          command: 'npm run bootstrap'
       - run:
           name: 'Coveralls'
           command: 'npm test && npm run coveralls'
