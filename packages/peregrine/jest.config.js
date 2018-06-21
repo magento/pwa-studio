@@ -4,5 +4,6 @@ module.exports = {
         '<rootDir>/scripts/shim.js',
         '<rootDir>/scripts/fetch-mock.js'
     ],
-    coveragePathIgnorePatterns: ['scripts/*', 'node_modules', 'src/index.js']
+    coveragePathIgnorePatterns: ['scripts/*', 'node_modules', 'src/index.js'],
+    testPathIgnorePatterns: ['dist', 'node_modules']
 };
