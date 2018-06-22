@@ -1,5 +1,6 @@
 import { Component, Fragment, createElement } from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
+import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import defaultClasses from './product.css';
@@ -26,7 +27,14 @@ class Product extends Component {
                     value: string
                 })
             ),
-            price: string
+            price: shape({
+                regularPrice: shape({
+                    amount: shape({
+                        currency: string.isRequired,
+                        value: number.isRequired
+                    }).isRequired
+                }).isRequired
+            }).isRequired
         })
     };
 
@@ -44,6 +52,7 @@ class Product extends Component {
     render() {
         const { options, props } = this;
         const { classes, item } = props;
+        const amount = item.price.regularPrice.amount;
 
         return (
             <li className={classes.root}>
@@ -59,7 +68,12 @@ class Product extends Component {
                         <option value="1">{'1'}</option>
                     </select>
                     <span className={classes.quantityOperator}>{'×'}</span>
-                    <span className={classes.price}>{item.price}</span>
+                    <span className={classes.price}>
+                        <Price
+                            currencyCode={amount.currency}
+                            value={amount.value}
+                        />
+                    </span>
                 </div>
             </li>
         );

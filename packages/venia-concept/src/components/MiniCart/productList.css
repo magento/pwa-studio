@@ -1,0 +1,7 @@
+.root {
+  box-shadow: 0 1px rgb(var(--venia-border));
+  display: grid;
+  grid-gap: 1rem;
+  margin: 0 1.5rem;
+  padding: 1.5rem 0;
+}

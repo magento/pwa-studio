@@ -1,11 +1,11 @@
 import { Component, createElement } from 'react';
 import { shape, string } from 'prop-types';
-import { List } from '@magento/peregrine';
+import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import Product from './product';
+import ProductList from './productList';
 import Trigger from './trigger';
 import mockData from './mockData';
 import defaultClasses from './miniCart.css';
@@ -16,7 +16,6 @@ class MiniCart extends Component {
             checkout: string,
             cta: string,
             header: string,
-            products: string,
             root: string,
             root_open: string,
             subtotalLabel: string,
@@ -36,7 +35,6 @@ class MiniCart extends Component {
         const { classes, data, isOpen } = this.props;
         const className = isOpen ? classes.root_open : classes.root;
         const iconDimensions = { height: 16, width: 16 };
-        const productListClasses = { root: classes.products };
 
         return (
             <aside className={className}>
@@ -48,18 +46,15 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <List
-                    render="ul"
-                    renderItem={Product}
-                    items={data}
-                    classes={productListClasses}
-                />
+                <ProductList items={data} />
                 <div className={classes.summary}>
                     <dl className={classes.totals}>
                         <dt className={classes.subtotalLabel}>
-                            Subtotal (4 Items)
+                            <span>Subtotal (4 Items)</span>
                         </dt>
-                        <dd className={classes.subtotalValue}>$528.00</dd>
+                        <dd className={classes.subtotalValue}>
+                            <Price currencyCode="USD" value={528} />
+                        </dd>
                     </dl>
                 </div>
                 <div className={classes.cta}>
