@@ -19,23 +19,23 @@ export default class Price extends PureComponent {
 
     render() {
         const { value, currencyCode, classes } = this.props;
+
         const parts = Intl.NumberFormat(undefined, {
             style: 'currency',
             currency: currencyCode
         }).formatToParts(value);
 
-        return (
-            <Fragment>
-                {parts.map((part, i) => {
-                    const partClass = classes[part.type];
-                    const key = `${i}-${part.value}`;
-                    return (
-                        <span key={key} className={partClass}>
-                            {part.value}
-                        </span>
-                    );
-                })}
-            </Fragment>
-        );
+        const children = parts.map((part, i) => {
+            const partClass = classes[part.type];
+            const key = `${i}-${part.value}`;
+
+            return (
+                <span key={key} className={partClass}>
+                    {part.value}
+                </span>
+            );
+        });
+
+        return <Fragment>{children}</Fragment>;
     }
 }

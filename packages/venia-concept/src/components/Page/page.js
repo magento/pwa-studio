@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import Main from 'src/components/Main';
+import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import { selectAppState } from 'src/store/reducers/app';
 import Mask from './mask';
@@ -22,6 +23,7 @@ class Page extends Component {
         const { app, children, classes, closeDrawer } = this.props;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
+        const cartIsOpen = drawer === 'cart';
         const className = overlay ? classes.root_masked : classes.root;
 
         return (
@@ -29,6 +31,7 @@ class Page extends Component {
                 <Main isMasked={overlay}>{children}</Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
+                <MiniCart isOpen={cartIsOpen} />
             </div>
         );
     }
