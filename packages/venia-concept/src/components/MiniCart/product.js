@@ -1,13 +1,32 @@
 import { Component, Fragment, createElement } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './product.css';
 
 class Product extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            image: string,
+            name: string,
+            optionName: string,
+            optionValue: string,
+            options: string,
+            price: string,
+            quantity: string,
+            quantityOperator: string,
+            quantitySelect: string,
+            root: string
+        }),
+        item: shape({
+            name: string,
+            options: arrayOf(
+                shape({
+                    name: string,
+                    value: string
+                })
+            ),
+            price: string
         })
     };
 

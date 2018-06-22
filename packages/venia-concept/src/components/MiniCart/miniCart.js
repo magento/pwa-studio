@@ -1,11 +1,10 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import toMap from 'src/util/toMap';
 import Product from './product';
 import Trigger from './trigger';
 import mockData from './mockData';
@@ -13,19 +12,29 @@ import defaultClasses from './miniCart.css';
 
 class MiniCart extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            checkout: string,
+            cta: string,
+            header: string,
+            products: string,
+            root: string,
+            root_open: string,
+            subtotalLabel: string,
+            subtotalValue: string,
+            summary: string,
+            title: string,
+            totals: string
         })
     };
 
     static defaultProps = {
         // TODO: remove when connected to graphql
-        data: toMap(mockData, v => [v.id, v])
+        data: mockData
     };
 
     render() {
         const { classes, data, isOpen } = this.props;
-        const className = isOpen ? classes.open : classes.closed;
+        const className = isOpen ? classes.root_open : classes.root;
         const iconDimensions = { height: 16, width: 16 };
         const productListClasses = { root: classes.products };
 
