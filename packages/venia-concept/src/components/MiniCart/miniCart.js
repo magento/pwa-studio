@@ -13,8 +13,10 @@ import defaultClasses from './miniCart.css';
 class MiniCart extends Component {
     static propTypes = {
         classes: shape({
+            body: string,
             checkout: string,
             cta: string,
+            footer: string,
             header: string,
             root: string,
             root_open: string,
@@ -46,22 +48,26 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <ProductList items={data} />
-                <div className={classes.summary}>
-                    <dl className={classes.totals}>
-                        <dt className={classes.subtotalLabel}>
-                            <span>Subtotal (4 Items)</span>
-                        </dt>
-                        <dd className={classes.subtotalValue}>
-                            <Price currencyCode="USD" value={528} />
-                        </dd>
-                    </dl>
+                <div className={classes.body}>
+                    <ProductList items={data} />
                 </div>
-                <div className={classes.cta}>
-                    <Button>
-                        <Icon name="lock" attrs={iconDimensions} />
-                        <span>Checkout</span>
-                    </Button>
+                <div className={classes.footer}>
+                    <div className={classes.summary}>
+                        <dl className={classes.totals}>
+                            <dt className={classes.subtotalLabel}>
+                                <span>Subtotal (4 Items)</span>
+                            </dt>
+                            <dd className={classes.subtotalValue}>
+                                <Price currencyCode="USD" value={528} />
+                            </dd>
+                        </dl>
+                    </div>
+                    <div className={classes.cta}>
+                        <Button>
+                            <Icon name="lock" attrs={iconDimensions} />
+                            <span>Checkout</span>
+                        </Button>
+                    </div>
                 </div>
             </aside>
         );

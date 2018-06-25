@@ -4,7 +4,7 @@
   bottom: 0;
   box-shadow: -1px 0 rgb(var(--venia-border));
   display: grid;
-  grid-auto-rows: auto;
+  grid-template-rows: min-content 1fr min-content;
   opacity: 0;
   position: fixed;
   right: 0;
@@ -42,6 +42,15 @@
   margin-right: auto;
   padding: 0;
   text-transform: uppercase;
+}
+
+.body {
+  overflow: auto;
+}
+
+.footer {
+  box-shadow: 0 -1px rgb(var(--venia-border));
+  margin: 0 1.5rem;
 }
 
 .summary {
