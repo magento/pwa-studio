@@ -6,6 +6,9 @@ entries:
   - label: Setup
     url: /venia-pwa-concept/setup/
 
+  - label: Checkout flow
+    url: /venia-pwa-concept/checkout/
+
   - label: Design
     entries:
     
