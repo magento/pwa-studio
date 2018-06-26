@@ -3,8 +3,8 @@ import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
+import CheckoutButton from './checkoutButton';
 import ProductList from './productList';
 import Trigger from './trigger';
 import mockData from './mockData';
@@ -36,7 +36,6 @@ class MiniCart extends Component {
     render() {
         const { classes, data, isOpen } = this.props;
         const className = isOpen ? classes.root_open : classes.root;
-        const iconDimensions = { height: 16, width: 16 };
 
         return (
             <aside className={className}>
@@ -63,10 +62,7 @@ class MiniCart extends Component {
                         </dl>
                     </div>
                     <div className={classes.cta}>
-                        <Button>
-                            <Icon name="lock" attrs={iconDimensions} />
-                            <span>Checkout</span>
-                        </Button>
+                        <CheckoutButton />
                     </div>
                 </div>
             </aside>

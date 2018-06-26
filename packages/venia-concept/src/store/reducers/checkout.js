@@ -6,28 +6,38 @@ const initialState = {
 
 const reducer = (state = initialState, { type }) => {
     switch (type) {
-        case 'ENTER_CHECKOUT': {
+        case 'REQUEST_ORDER': {
+            return {
+                ...state,
+                active: true,
+                status: 'REQUESTING'
+            };
+        }
+        case 'RECEIVE_ORDER': {
             return {
                 ...state,
                 active: true,
                 status: 'MODIFYING'
             };
         }
-        case 'EXIT_CHECKOUT': {
+        case 'SUBMIT_ORDER': {
             return {
                 ...state,
+                active: true,
                 status: 'SUBMITTING'
             };
         }
-        case 'RESUME_CHECKOUT': {
+        case 'REJECT_ORDER': {
             return {
                 ...state,
+                active: true,
                 status: 'MODIFYING'
             };
         }
-        case 'COMPLETE_CHECKOUT': {
+        case 'ACCEPT_ORDER': {
             return {
                 ...state,
+                active: true,
                 status: 'ACCEPTED'
             };
         }
