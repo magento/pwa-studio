@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './thumbnail.css';
-
-const uri =
-    'iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII=';
+import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import { transparentPlaceholder } from 'src/shared/images';
 
 class Thumbnail extends Component {
     static propTypes = {
@@ -15,15 +14,14 @@ class Thumbnail extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, item } = this.props;
+        const src = item.file
+            ? makeProductMediaPath(item.file)
+            : transparentPlaceholder;
 
         return (
             <div className={classes.root}>
-                <img
-                    className={classes.image}
-                    src={`data:image/png;base64,${uri}`}
-                    alt="thumbnail"
-                />
+                <img className={classes.image} src={src} alt={item.label} />
             </div>
         );
     }

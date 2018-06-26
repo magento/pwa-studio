@@ -2,7 +2,8 @@ import { Component, createElement } from 'react';
 import { string, number, shape, func, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
-import { imagePlaceholderUri } from 'src/constants';
+import { transparentPlaceholder } from 'src/shared/images';
+import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 
 const imageWidth = '300';
@@ -101,7 +102,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={className}
-                src={imagePlaceholderUri}
+                src={transparentPlaceholder}
                 alt=""
                 width={imageWidth}
                 height={imageHeight}
@@ -110,8 +111,13 @@ class GalleryItem extends Component {
     };
 
     /**
-     * Product images are currently broken and pending a fix from the `graphql-ce` project
+     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
      * https://github.com/magento/graphql-ce/issues/88
+     *
+     * When using sample data, which uses symlinks to bypass cache,
+     * you can simply prepend /media/catalog/product/, which we will do by
+     * default, but allow the env var MAGENTO_BACKEND_PRODUCT_MEDIA_PATH to
+     * override.
      */
     renderImage = () => {
         const { classes, item, showImage } = this.props;
@@ -126,7 +132,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={className}
-                src={small_image}
+                src={makeProductMediaPath(small_image)}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
