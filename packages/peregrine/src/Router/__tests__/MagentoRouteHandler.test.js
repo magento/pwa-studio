@@ -15,7 +15,8 @@ const mockUnknownRouteResolverOnce = () =>
         Promise.resolve({
             rootChunkID: 0,
             rootModuleID: 1,
-            matched: true
+            matched: true,
+            id: 1
         })
     );
 const mockFetchRootComponentOnce = Component =>
@@ -35,7 +36,9 @@ test('Does not re-fetch route that has already been seen', cb => {
     );
     wrapper.setState({
         // Populate state with a pre-visited route
-        '/second-path.html': SecondRouteComponent
+        '/second-path.html': {
+            Component: SecondRouteComponent
+        }
     });
     process.nextTick(() => {
         wrapper.update();
