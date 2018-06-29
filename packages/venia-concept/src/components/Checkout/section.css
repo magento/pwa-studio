@@ -1,0 +1,18 @@
+.root {
+    align-items: center;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    margin: 0 1.5rem;
+    padding: 1.5rem 0;
+}
+
+.label {
+    color: rgb(var(--venia-teal));
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.summary {
+    font-size: 14px;
+}

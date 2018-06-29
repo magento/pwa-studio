@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
+import { store } from 'src';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CheckoutButton from './checkoutButton';
@@ -9,6 +10,8 @@ import ProductList from './productList';
 import Trigger from './trigger';
 import mockData from './mockData';
 import defaultClasses from './miniCart.css';
+
+let CheckoutForm;
 
 class MiniCart extends Component {
     static propTypes = {
@@ -33,8 +36,23 @@ class MiniCart extends Component {
         data: mockData
     };
 
+    async componentDidMount() {
+        const { default: Form } = await import('src/components/Checkout');
+        const {
+            default: reducer
+        } = await import('src/store/reducers/checkout.js');
+
+        CheckoutForm = Form;
+        store.addReducer('checkout', reducer);
+    }
+
+    get checkout() {
+        return CheckoutForm ? <CheckoutForm /> : null;
+    }
+
     render() {
-        const { classes, data, isOpen } = this.props;
+        const { checkout, props } = this;
+        const { classes, data, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
         return (
@@ -65,6 +83,7 @@ class MiniCart extends Component {
                         <CheckoutButton />
                     </div>
                 </div>
+                {checkout}
             </aside>
         );
     }

@@ -1,7 +1,7 @@
 const initialState = {
     active: false,
     order: null,
-    status: 'UNSTARTED'
+    status: 'READY'
 };
 
 const reducer = (state = initialState, { type }) => {
@@ -16,28 +16,24 @@ const reducer = (state = initialState, { type }) => {
         case 'RECEIVE_ORDER': {
             return {
                 ...state,
-                active: true,
                 status: 'MODIFYING'
             };
         }
         case 'SUBMIT_ORDER': {
             return {
                 ...state,
-                active: true,
                 status: 'SUBMITTING'
             };
         }
         case 'REJECT_ORDER': {
             return {
                 ...state,
-                active: true,
                 status: 'MODIFYING'
             };
         }
         case 'ACCEPT_ORDER': {
             return {
                 ...state,
-                active: true,
                 status: 'ACCEPTED'
             };
         }
@@ -45,7 +41,7 @@ const reducer = (state = initialState, { type }) => {
             return {
                 ...state,
                 active: false,
-                status: 'UNSTARTED'
+                status: 'READY'
             };
         }
         default: {
