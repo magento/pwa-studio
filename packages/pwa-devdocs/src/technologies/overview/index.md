@@ -15,7 +15,7 @@ The following features define a basic PWA website:
 * **Responsive** - PWA sites implement responsive design strategies to provide a consistent experience on desktops, tablets, and mobile devices. 
 * **Cross-browser compatible** - PWA sites work equally well on all modern browsers, such as Chrome, Edge, Firefox, Safari. 
 * **Offline Mode** - PWA sites cache content to ensure that some content can be served when a user is offline.
-* **Mobile "Install"** - Mobile users can add PWA sites to their home screens and even recieve Push notifications from the site.
+* **Mobile "Install"** - Mobile users can add PWA sites to their home screens and even receive Push notifications from the site.
 * **Shareable content** - Each page in a PWA site has a unique URL that can be shared with other apps or social media.
 
 ## What is the Magento PWA Studio project
