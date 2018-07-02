@@ -35,7 +35,6 @@ class Flow extends Component {
             submitOrder
         } = this.props;
         const step = stepMap[status];
-        console.log(status, step);
         let child = null;
 
         switch (step) {
