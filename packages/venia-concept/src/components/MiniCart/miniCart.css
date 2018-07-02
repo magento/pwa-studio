@@ -4,7 +4,7 @@
   bottom: 0;
   box-shadow: -1px 0 rgb(var(--venia-border));
   display: grid;
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: min-content 1fr auto auto;
   opacity: 0;
   overflow: hidden;
   position: fixed;
@@ -33,6 +33,7 @@
   justify-content: end;
   padding: 0 1rem;
   position: relative;
+  z-index: 1;
 }
 
 .title {
@@ -52,10 +53,7 @@
 .footer {
   box-shadow: 0 -1px rgb(var(--venia-border));
   margin: 0 1.5rem;
-}
-
-.summary {
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0.5rem;
 }
 
 .totals {
@@ -72,13 +70,6 @@
 .subtotalValue {
   font-weight: 600;
   margin-left: 0.5rem;
-}
-
-.cta {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 1rem;
 }
 
 /* state: open */

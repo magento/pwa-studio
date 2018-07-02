@@ -1,9 +1,10 @@
 import { Component, createElement } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
+
+const isDisabled = status => ['ACCEPTED', 'REQUESTING'].includes(status);
 
 class CheckoutButton extends Component {
     static propTypes = {
@@ -11,11 +12,12 @@ class CheckoutButton extends Component {
     };
 
     render() {
-        const { requestOrder } = this.props;
+        const { requestOrder, status } = this.props;
+        const disabled = isDisabled(status);
         const iconDimensions = { height: 16, width: 16 };
 
         return (
-            <Button onClick={requestOrder}>
+            <Button disabled={disabled} onClick={requestOrder}>
                 <Icon name="lock" attrs={iconDimensions} />
                 <span>Checkout</span>
             </Button>
@@ -23,11 +25,4 @@ class CheckoutButton extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    requestOrder: () => dispatch({ type: 'REQUEST_ORDER', payload: null })
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(CheckoutButton);
+export default CheckoutButton;

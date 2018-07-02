@@ -5,22 +5,19 @@ import { Price } from '@magento/peregrine';
 import { store } from 'src';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import CheckoutButton from './checkoutButton';
 import ProductList from './productList';
 import Trigger from './trigger';
 import mockData from './mockData';
 import defaultClasses from './miniCart.css';
 
-let CheckoutForm;
+let Checkout;
 
 class MiniCart extends Component {
     static propTypes = {
         classes: shape({
             body: string,
-            checkout: string,
-            cta: string,
-            footer: string,
             header: string,
+            footer: string,
             root: string,
             root_open: string,
             subtotalLabel: string,
@@ -37,17 +34,19 @@ class MiniCart extends Component {
     };
 
     async componentDidMount() {
-        const { default: Form } = await import('src/components/Checkout');
         const {
-            default: reducer
-        } = await import('src/store/reducers/checkout.js');
+            default: CheckoutComponent
+        } = await import('src/components/Checkout');
+        const {
+            default: checkoutReducer
+        } = await import('src/store/reducers/checkout');
 
-        CheckoutForm = Form;
-        store.addReducer('checkout', reducer);
+        Checkout = CheckoutComponent;
+        store.addReducer('checkout', checkoutReducer);
     }
 
     get checkout() {
-        return CheckoutForm ? <CheckoutForm /> : null;
+        return Checkout ? <Checkout /> : null;
     }
 
     render() {
@@ -78,9 +77,6 @@ class MiniCart extends Component {
                                 <Price currencyCode="USD" value={528} />
                             </dd>
                         </dl>
-                    </div>
-                    <div className={classes.cta}>
-                        <CheckoutButton />
                     </div>
                 </div>
                 {checkout}
