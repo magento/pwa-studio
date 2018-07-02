@@ -7,41 +7,50 @@
  * Date: 1/25/18
  * Time: 10:14 AM
  */
+declare(strict_types=1);
 
 namespace Magento\Pwa\Controller\Index;
 
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Pwa\Helper\WebpackConfig;
+use Magento\Pwa\Model\Result\JsFileResultFactory;
 
-class Js extends \Magento\Framework\App\Action\Action
+/**
+ * Class Js
+ * @package Magento\Pwa\Controller\Index
+ */
+class Js extends Action
 {
-    /** @var \Magento\Pwa\Helper\WebpackConfig $webpackConfig */
+    /**
+     * @var WebpackConfig $webpackConfig
+     */
     private $webpackConfig;
 
     /**
-     * @var \Magento\Pwa\Model\Result\JsFileResultFactory
+     * @var JsFileResultFactory
      */
     private $jsFileResultFactory;
 
     /**
      * Index constructor.
      *
-     * @param \Magento\Pwa\Helper\WebpackConfig $webpackConfig
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Pwa\Model\Result\JsFileResultFactory $jsFileResultFactory
+     * @param WebpackConfig $webpackConfig
+     * @param Context $context
+     * @param JsFileResultFactory $jsFileResultFactory
      */
     public function __construct(
-        \Magento\Pwa\Helper\WebpackConfig $webpackConfig,
-        \Magento\Framework\App\Action\Context $context,
-        \Magento\Pwa\Model\Result\JsFileResultFactory $jsFileResultFactory
+        WebpackConfig $webpackConfig,
+        Context $context,
+        JsFileResultFactory $jsFileResultFactory
     )
     {
-
         parent::__construct($context);
         $this->webpackConfig = $webpackConfig;
         $this->jsFileResultFactory = $jsFileResultFactory;
     }
-
 
     /**
      * @inheritdoc
@@ -54,17 +63,19 @@ class Js extends \Magento\Framework\App\Action\Action
             'js',
             $this->webpackConfig->getServiceWorkerFileName()
         ]);
+
         if (file_exists($filePath)) {
             $result = $this->jsFileResultFactory->create();
             $result->setHttpResponseCode(200);
             $result->sendJSFile($filePath);
-        } else {
-            /** @var Raw $result */
-            $result = $this->resultFactory->create(ResultFactory::TYPE_RAW);
-            $result->setHttpResponseCode(404);
-            $result->setContents('404: Could not find ' . $this->webpackConfig->getServiceWorkerFileName());
+            return $result;
         }
+
+        /** @var Raw $result */
+        $result = $this->resultFactory->create(ResultFactory::TYPE_RAW);
+        $result->setHttpResponseCode(404);
+        $result->setContents('404: Could not find ' . $this->webpackConfig->getServiceWorkerFileName());
+
         return $result;
     }
-
 }

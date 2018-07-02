@@ -7,11 +7,13 @@
  * Date: 1/25/18
  * Time: 10:14 AM
  */
+declare(strict_types=1);
 
 namespace Magento\Pwa\Model\Result;
 
 use Magento\Framework\App\Response\HttpInterface as HttpResponseInterface;
 use Magento\Framework\Controller\AbstractResult;
+use Magento\Framework\Filesystem\Io\File;
 
 /**
  * A possible implementation of JSON response type (instead of hardcoding json_encode() all over the place)
@@ -22,7 +24,7 @@ use Magento\Framework\Controller\AbstractResult;
 class JsFileResult extends AbstractResult
 {
     /**
-     * @var \Magento\Framework\Filesystem\Io\File $file
+     * @var File $file
      */
     private $file;
 
@@ -38,17 +40,17 @@ class JsFileResult extends AbstractResult
 
     /**
      * JsFileResult constructor.
-     * @param \Magento\Framework\Filesystem\Io\File $file
+     * @param File $file
      */
     public function __construct(
-        \Magento\Framework\Filesystem\Io\File $file
-    )
-    {
+        File $file
+    ) {
         $this->file = $file;
     }
 
     /**
      * Serve this file from disk.
+     *
      * @param string $path
      */
     public function sendJSFile($path)
@@ -71,4 +73,3 @@ class JsFileResult extends AbstractResult
         return $this;
     }
 }
-

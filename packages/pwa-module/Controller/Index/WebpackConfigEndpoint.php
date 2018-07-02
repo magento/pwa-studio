@@ -7,32 +7,36 @@
  * Date: 1/25/18
  * Time: 10:14 AM
  */
+declare(strict_types=1);
+
 namespace Magento\Pwa\Controller\Index;
 
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Pwa\Helper\WebpackConfig;
 
-class WebpackConfigEndpoint extends \Magento\Framework\App\Action\Action
+class WebpackConfigEndpoint extends Action
 {
-    /** @var \Magento\Pwa\Helper\WebpackConfig $webpackConfig */
+    /**
+     * @var WebpackConfig $webpackConfig
+     */
     private $webpackConfig;
 
     /**
      * Index constructor.
      *
-     * @param \Magento\Pwa\Helper\WebpackConfig $webpackConfig
-     * @param \Magento\Framework\App\Action\Context $context
+     * @param WebpackConfig $webpackConfig
+     * @param Context $context
      */
     public function __construct(
-        \Magento\Pwa\Helper\WebpackConfig $webpackConfig,
-        \Magento\Framework\App\Action\Context $context
-    )
-    {
-
+        WebpackConfig $webpackConfig,
+        Context $context
+    ) {
         parent::__construct($context);
         $this->webpackConfig = $webpackConfig;
     }
-
 
     /**
      * @inheritdoc
@@ -45,5 +49,4 @@ class WebpackConfigEndpoint extends \Magento\Framework\App\Action\Action
         $result->setData($this->webpackConfig);
         return $result;
     }
-
 }

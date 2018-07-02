@@ -7,17 +7,34 @@
  * Date: 1/25/18
  * Time: 10:14 AM
  */
+declare(strict_types=1);
 
 namespace Magento\Pwa\Helper;
 
-
+use JsonSerializable;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Asset\Repository;
+use Magento\Framework\View\Config;
+use Magento\Framework\View\ConfigInterface;
+use Magento\Framework\View\Design\Theme\ThemeProviderInterface;
+use Magento\Framework\View\Design\ThemeInterface;
+use Magento\Framework\View\DesignInterface;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Magento\Theme\Model\Theme;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionMethod;
 
-class WebpackConfig implements \JsonSerializable
+/**
+ * Class WebpackConfig
+ * @package Magento\Pwa\Helper
+ */
+class WebpackConfig implements JsonSerializable
 {
-
     /**
      * Namespace of the PWA module
      */
@@ -59,7 +76,7 @@ class WebpackConfig implements \JsonSerializable
     const DEFAULT_SERVICE_WORKER_NAME = 'sw.js';
 
     /**
-     * @var \Magento\Framework\View\Config
+     * @var Config
      */
     private $_viewConfig;
 
@@ -94,25 +111,30 @@ class WebpackConfig implements \JsonSerializable
     private $_devServerPort;
 
     /**
-     * @var \Magento\Framework\App\Filesystem\DirectoryList
+     * @var DirectoryList
      */
     private $_directoryList;
+
     /**
-     * @var \Magento\Framework\View\Design\Theme\ThemeProviderInterface
+     * @var ThemeProviderInterface
      */
     private $_themeProvider;
+
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var ScopeConfigInterface
      */
     private $_scopeConfig;
+
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var StoreManagerInterface
      */
     private $_storeManager;
+
     /**
-     * @var \Magento\Framework\View\Asset\Repository
+     * @var Repository
      */
     private $_assetRepo;
+
     /**
      * @var UrlInterface
      */
@@ -120,20 +142,20 @@ class WebpackConfig implements \JsonSerializable
 
     /**
      * ViewConfig constructor.
-     * @param \Magento\Framework\View\ConfigInterface $viewConfig
-     * @param \Magento\Framework\App\Filesystem\DirectoryList $directoryList
-     * @param \Magento\Framework\View\Design\Theme\ThemeProviderInterface $themeProvider
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param ConfigInterface $viewConfig
+     * @param DirectoryList $directoryList
+     * @param ThemeProviderInterface $themeProvider
+     * @param ScopeConfigInterface $scopeConfig
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         \Magento\Framework\UrlInterface $baseUrl,
-        \Magento\Framework\View\ConfigInterface $viewConfig,
-        \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \Magento\Framework\View\Design\Theme\ThemeProviderInterface $themeProvider,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        ConfigInterface $viewConfig,
+        DirectoryList $directoryList,
+        ThemeProviderInterface $themeProvider,
+        ScopeConfigInterface $scopeConfig,
+        StoreManagerInterface $storeManager,
+        Repository $assetRepo
     )
     {
         $this->_viewConfig = $viewConfig;
@@ -147,22 +169,24 @@ class WebpackConfig implements \JsonSerializable
 
     /**
      * Get the base origin of the store.
+     *
      * @return string
      */
-    public function getStoreOrigin()
+    public function getStoreOrigin(): string
     {
         if (empty($this->_storeOrigin)) {
             $this->_storeOrigin = $this->_baseUrl->getBaseUrl(['_secure' => true]);
         }
+
         return $this->_storeOrigin;
     }
 
-
     /**
      * Get the public URL path of the service worker
+     *
      * @return string
      */
-    public function getPublicAssetPath()
+    public function getPublicAssetPath(): string
     {
         if (empty($this->_publicAssetPath)) {
             $this->_publicAssetPath = "/" . trim(str_replace(
@@ -171,20 +195,19 @@ class WebpackConfig implements \JsonSerializable
                     $this->_baseUrl->getBaseUrl(['_type' => UrlInterface::URL_TYPE_STATIC, '_secure' => true]) .
                     $this->_assetRepo->createAsset("/")->getPath()
                 ), "/") . "/";
-
         }
+
         return $this->_publicAssetPath;
     }
-
 
     /**
      * Get the name of the service worker file
      * @return string
      */
-    public function getServiceWorkerFileName()
+    public function getServiceWorkerFileName(): string
     {
         if (empty($this->_serviceWorkerFileName)) {
-            $this->_serviceWorkerFileName = $this->_getVarOrFallback(
+            $this->_serviceWorkerFileName = (string) $this->_getVarOrFallback(
                 self::SERVICE_WORKER_NAME_VAR,
                 self::DEFAULT_SERVICE_WORKER_NAME
             );
@@ -194,9 +217,11 @@ class WebpackConfig implements \JsonSerializable
 
     /**
      * Get the absolute filesystem path of the theme
+     *
      * @return string
+     * @throws FileSystemException
      */
-    public function getThemePath()
+    public function getThemePath(): string
     {
         if (empty($this->_themePath)) {
             $this->_themePath = implode(DIRECTORY_SEPARATOR, [
@@ -205,49 +230,55 @@ class WebpackConfig implements \JsonSerializable
                 $this->_getTheme()->getFullPath()
             ]);
         }
+
         return $this->_themePath;
     }
 
     /**
      * @return string
      */
-    public function getDevServerHostname()
+    public function getDevServerHostname(): string
     {
         if (empty($this->_devServerHostname)) {
-            $this->_devServerHostname = $this->_getVarOrFallback(
+            $this->_devServerHostname = (string) $this->_getVarOrFallback(
                 self::DEVSERVER_HOSTNAME_VAR,
                 self::DEFAULT_DEVSERVER_HOSTNAME
             );
         }
+
         return $this->_devServerHostname;
     }
 
     /**
      * @return string
      */
-    public function getDevServerPort()
+    public function getDevServerPort(): string
     {
         if (empty($this->_devServerPort)) {
-            $this->_devServerPort = $this->_getVarOrFallback(
+            $this->_devServerPort = (string) $this->_getVarOrFallback(
                 self::DEVSERVER_PORT_VAR,
                 self::DEFAULT_DEVSERVER_PORT
             );
         }
+
         return $this->_devServerPort;
     }
-
 
     /**
      * Get the configured local webpack-dev-server hostname
      * @return string
      */
-    public function getDevServerHost()
+    public function getDevServerHost(): string
     {
         // TODO: proper URL builder
         return self::DEVSERVER_PROTOCOL . "://" . $this->getDevServerHostname() . ":" . $this->getDevServerPort();
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
+    public function jsonSerialize(): array
     {
         $class = new ReflectionClass(self::class);
         $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
@@ -259,27 +290,26 @@ class WebpackConfig implements \JsonSerializable
                 $properties[$propName] = $method->invoke($this);
             }
         }
+
         return $properties;
     }
-
 
     /**
      * Get the currently active theme instance
      *
-     * @return \Magento\Framework\View\Design\ThemeInterface
+     * @return ThemeInterface
      */
-    private function _getTheme()
+    private function _getTheme(): ThemeInterface
     {
 
         $themeId = $this->_scopeConfig->getValue(
-            \Magento\Framework\View\DesignInterface::XML_PATH_THEME_ID,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            DesignInterface::XML_PATH_THEME_ID,
+            ScopeInterface::SCOPE_STORE,
             $this->_storeManager->getStore()->getId()
         );
 
         return $this->_themeProvider->getThemeById($themeId);
     }
-
 
     /**
      * Get a variable from view.xml or fall back to a default value
