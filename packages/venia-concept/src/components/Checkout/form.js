@@ -1,22 +1,36 @@
 import { Component, createElement } from 'react';
-import { shape, string } from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
+import timeout from 'src/util/timeout';
 import Section from './section';
 import SubmitButton from './submitButton';
 import defaultClasses from './form.css';
 
+const submitOrderAction = () => async dispatch => {
+    dispatch({ type: 'SUBMIT_ORDER' });
+    await timeout(5000); // TODO: replace with api call
+    dispatch({ type: 'ACCEPT_ORDER' });
+};
+
 class CheckoutForm extends Component {
     static propTypes = {
+        checkout: shape({
+            status: string
+        }),
         classes: shape({
             footer: string,
             root: string,
             sections: string
-        })
+        }),
+        submitOrder: func
     };
 
     render() {
-        const { classes } = this.props;
+        const { checkout, classes, submitOrder } = this.props;
+        const { status } = checkout;
         const today = new Date().toDateString();
 
         return (
@@ -34,11 +48,23 @@ class CheckoutForm extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
-                    <SubmitButton />
+                    <SubmitButton status={status} submitOrder={submitOrder} />
                 </div>
             </div>
         );
     }
 }
 
-export default classify(defaultClasses)(CheckoutForm);
+const mapStateToProps = ({ checkout }) => ({ checkout });
+
+const mapDispatchToProps = dispatch => ({
+    submitOrder: () => dispatch(submitOrderAction())
+});
+
+export default compose(
+    classify(defaultClasses),
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )
+)(CheckoutForm);

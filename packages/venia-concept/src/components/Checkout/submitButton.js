@@ -1,38 +1,26 @@
 import { Component, createElement } from 'react';
-import { connect } from 'react-redux';
-import { func } from 'prop-types';
+import { func, string } from 'prop-types';
 
 import Button from 'src/components/Button';
-import timeout from 'src/util/timeout';
 
-const submitOrderAction = () =>
-    Object.assign(
-        async dispatch => {
-            await timeout(2000); // TODO: replace with api call
-            dispatch({ type: 'ACCEPT_ORDER' });
-        },
-        { type: 'SUBMIT_ORDER' }
-    );
+const isDisabled = status => ['ACCEPTED', 'SUBMITTING'].includes(status);
 
 class SubmitButton extends Component {
     static propTypes = {
+        status: string,
         submitOrder: func
     };
 
     render() {
-        const { submitOrder } = this.props;
+        const { status, submitOrder } = this.props;
+        const disabled = isDisabled(status);
 
-        return <Button onClick={submitOrder}>Place Order</Button>;
+        return (
+            <Button disabled={disabled} onClick={submitOrder}>
+                Place Order
+            </Button>
+        );
     }
 }
 
-const mapStateToProps = ({ checkout }) => ({ checkout });
-
-const mapDispatchToProps = dispatch => ({
-    submitOrder: () => dispatch(submitOrderAction())
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SubmitButton);
+export default SubmitButton;

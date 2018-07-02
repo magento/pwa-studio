@@ -2,4 +2,4 @@ import thunk from 'redux-thunk';
 
 import log from './log';
 
-export default [log, thunk];
+export default [thunk, log];
