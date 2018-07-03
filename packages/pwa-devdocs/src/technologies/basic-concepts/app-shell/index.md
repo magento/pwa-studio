@@ -1,12 +1,17 @@
 ---
 title: Application Shell
+contributors:
+    - gavin2point0
 ---
 
-The Magento PWA Studio uses application shell architecture to quickly load pages on mobile apps.
+Magento PWA Studio uses an application shell architecture to shorten the time it takes to load a branded experience in the UI instead of a blank page.
 
-This Approach involves heavily caching the minimal amount of HTML, CSS and JS to load the basic UI of the page. Then pulling in the rest of the content through an API. 
+This approach involves heavily caching the minimal amount of HTML, CSS and JS to load the basic UI of the page before fetching the rest through an API. 
 
-Because the majority of the page is cached, it will load almost instantly on repeat visits. It also prevents unnecessary data usage as it removes the need to download any static content more than once.
+App shell rendering is instantaneous on repeat visits because the majority of the page is in the cache.
+It also prevents unnecessary data usage because it removes the need to download static content more than once.
+
+The following is a simple example of an application shell:
 
 ``` html
 <!DOCTYPE html>
@@ -56,5 +61,3 @@ Because the majority of the page is cached, it will load almost instantly on rep
 </html>
 
 ```
-
-{% include content-not-available.md issue=8 %}
