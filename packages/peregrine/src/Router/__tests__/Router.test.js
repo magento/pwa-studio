@@ -16,7 +16,8 @@ const mockUnknownRouteResolverOnce = () =>
         Promise.resolve({
             rootChunkID: 0,
             rootModuleID: 1,
-            matched: true
+            matched: true,
+            id: 1
         })
     );
 

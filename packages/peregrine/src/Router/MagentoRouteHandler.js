@@ -36,18 +36,22 @@ export default class MagentoRouteHandler extends Component {
             apiBase,
             __tmp_webpack_public_path__
         })
-            .then(({ rootChunkID, rootModuleID, matched }) => {
+            .then(({ rootChunkID, rootModuleID, matched, id }) => {
                 if (!matched) {
                     // TODO: User-defined 404 page
                     // when the API work is done to support it
                     throw new Error('404');
                 }
-                return fetchRootComponent(rootChunkID, rootModuleID);
-            })
-            .then(Component => {
-                this.setState({
-                    [pathname]: Component
-                });
+                return fetchRootComponent(rootChunkID, rootModuleID).then(
+                    Component => {
+                        this.setState({
+                            [pathname]: {
+                                Component,
+                                id
+                            }
+                        });
+                    }
+                );
             })
             .catch(err => {
                 console.log('Routing resolve failed\n', err);
@@ -56,13 +60,15 @@ export default class MagentoRouteHandler extends Component {
 
     render() {
         const { location } = this.props;
-        const Page = this.state[location.pathname];
+        const routeInfo = this.state[location.pathname];
 
-        if (!Page) {
+        if (!routeInfo) {
             // TODO (future iteration): User-defined loading content
             return <div>Loading</div>;
         }
 
-        return <Page />;
+        const { Component, ...routeProps } = routeInfo;
+
+        return <Component {...routeProps} />;
     }
 }

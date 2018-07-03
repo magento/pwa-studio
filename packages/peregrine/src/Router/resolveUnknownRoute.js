@@ -2,7 +2,7 @@
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
- * @returns {Promise<{matched: boolean, rootChunkID: number | undefined, rootModuleID: number | undefined }>}
+ * @returns {Promise<{matched: boolean, rootChunkID: number | undefined, rootModuleID: number | undefined, id: number }>}
  */
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
@@ -20,6 +20,7 @@ export default function resolveUnknownRoute(opts) {
         ).then(({ rootChunkID, rootModuleID }) => ({
             rootChunkID,
             rootModuleID,
+            id: res.id,
             matched: true
         }));
     });
@@ -43,6 +44,7 @@ function remotelyResolveRoute(opts) {
                 {
                     urlResolver(url: "${opts.route}") {
                         type
+                        id
                     }
                 }
             `.trim()
