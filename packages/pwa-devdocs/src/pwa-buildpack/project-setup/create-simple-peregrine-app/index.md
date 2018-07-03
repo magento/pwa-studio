@@ -1,5 +1,5 @@
 ---
-title: Create simple peregrine app
+title: Create a simple peregrine app
 ---
 
 In the [previous topic], you created configuration files for your theme project.
