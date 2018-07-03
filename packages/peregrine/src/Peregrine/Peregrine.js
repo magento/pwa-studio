@@ -1,15 +1,22 @@
 import { createElement } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import createStore from '../store';
+import initStore from '../store';
 import MagentoRouter from '../Router';
 
 /**
  *
  * @param {string} apiBase Absolute URL pointing to the GraphQL endpoint
  * @param {string} __tmp_webpack_public_path__ Temporary hack. Expects the `__webpack_public_path__` value
+ * @param reducer the single root reducer resulting from combineReducers() called by the consumer of Peregrine
+ * @param middleWare redux middleware added to the store by the consumer of Peregrine
  * @returns {{ store: Store, Provider: () => JSX.Element }}
  */
-export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
+export default function bootstrap({
+    apiBase,
+    __tmp_webpack_public_path__,
+    reducer,
+    middleWare
+}) {
     // Remove deprecation warning after 2 version bumps
     if (process.env.NODE_ENV !== 'production' && this instanceof bootstrap) {
         throw new Error(
@@ -19,7 +26,7 @@ export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
         );
     }
 
-    const store = createStore();
+    const store = initStore(reducer, middleWare);
     const routerProps = {
         apiBase,
         __tmp_webpack_public_path__: ensureDirURI(__tmp_webpack_public_path__)
