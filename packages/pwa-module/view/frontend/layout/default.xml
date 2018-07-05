@@ -1,8 +1,8 @@
-<?xml version='1.0'?>
-<page xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='urn:magento:framework:View/Layout/etc/page_configuration.xsd'>
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name='root'>
-            <block class='Magento\Pwa\Block\Bundle' name='Magento_Pwa_Block_Bundle' />
+        <referenceContainer name="root">
+            <block class="Magento\Pwa\Block\Bundle" name="Magento_Pwa_Block_Bundle" />
         </referenceContainer>
     </body>
 </page>
