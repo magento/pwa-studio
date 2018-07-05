@@ -15,6 +15,7 @@ use JsonSerializable;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Framework\View\Config;
@@ -78,75 +79,78 @@ class WebpackConfig implements JsonSerializable
     /**
      * @var Config
      */
-    private $_viewConfig;
+    private $viewConfig;
 
     /**
      * @var string
      */
-    private $_themePath;
+    private $themePath;
 
     /**
      * @var string
      */
-    private $_serviceWorkerFileName;
+    private $serviceWorkerFileName;
 
     /**
      * @var string
      */
-    private $_publicAssetPath;
+    private $publicAssetPath;
 
     /**
      * @var string
      */
-    private $_devServerHostname;
+    private $devServerHostname;
 
     /**
      * @var string
      */
-    private $_storeOrigin;
+    private $storeOrigin;
 
     /**
      * @var string
      */
-    private $_devServerPort;
+    private $devServerPort;
 
     /**
      * @var DirectoryList
      */
-    private $_directoryList;
+    private $directoryList;
 
     /**
      * @var ThemeProviderInterface
      */
-    private $_themeProvider;
+    private $themeProvider;
 
     /**
      * @var ScopeConfigInterface
      */
-    private $_scopeConfig;
+    private $scopeConfig;
 
     /**
      * @var StoreManagerInterface
      */
-    private $_storeManager;
+    private $storeManager;
 
     /**
      * @var Repository
      */
-    private $_assetRepo;
+    private $assetRepo;
 
     /**
      * @var UrlInterface
      */
-    private $_baseUrl;
+    private $baseUrl;
 
     /**
      * ViewConfig constructor.
+     *
+     * @param UrlInterface $baseUrl
      * @param ConfigInterface $viewConfig
      * @param DirectoryList $directoryList
      * @param ThemeProviderInterface $themeProvider
      * @param ScopeConfigInterface $scopeConfig
      * @param StoreManagerInterface $storeManager
+     * @param Repository $assetRepo
      */
     public function __construct(
         \Magento\Framework\UrlInterface $baseUrl,
@@ -158,13 +162,13 @@ class WebpackConfig implements JsonSerializable
         Repository $assetRepo
     )
     {
-        $this->_viewConfig = $viewConfig;
-        $this->_directoryList = $directoryList;
-        $this->_themeProvider = $themeProvider;
-        $this->_scopeConfig = $scopeConfig;
-        $this->_storeManager = $storeManager;
-        $this->_assetRepo = $assetRepo;
-        $this->_baseUrl = $baseUrl;
+        $this->viewConfig = $viewConfig;
+        $this->directoryList = $directoryList;
+        $this->themeProvider = $themeProvider;
+        $this->scopeConfig = $scopeConfig;
+        $this->storeManager = $storeManager;
+        $this->assetRepo = $assetRepo;
+        $this->baseUrl = $baseUrl;
     }
 
     /**
@@ -174,11 +178,11 @@ class WebpackConfig implements JsonSerializable
      */
     public function getStoreOrigin(): string
     {
-        if (empty($this->_storeOrigin)) {
-            $this->_storeOrigin = $this->_baseUrl->getBaseUrl(['_secure' => true]);
+        if (empty($this->storeOrigin)) {
+            $this->storeOrigin = $this->baseUrl->getBaseUrl(['_secure' => true]);
         }
 
-        return $this->_storeOrigin;
+        return $this->storeOrigin;
     }
 
     /**
@@ -188,16 +192,16 @@ class WebpackConfig implements JsonSerializable
      */
     public function getPublicAssetPath(): string
     {
-        if (empty($this->_publicAssetPath)) {
-            $this->_publicAssetPath = "/" . trim(str_replace(
+        if (empty($this->publicAssetPath)) {
+            $this->publicAssetPath = "/" . trim(str_replace(
                     $this->getStoreOrigin(),
                     "",
-                    $this->_baseUrl->getBaseUrl(['_type' => UrlInterface::URL_TYPE_STATIC, '_secure' => true]) .
-                    $this->_assetRepo->createAsset("/")->getPath()
+                    $this->baseUrl->getBaseUrl(['_type' => UrlInterface::URL_TYPE_STATIC, '_secure' => true]) .
+                    $this->assetRepo->createAsset("/")->getPath()
                 ), "/") . "/";
         }
 
-        return $this->_publicAssetPath;
+        return $this->publicAssetPath;
     }
 
     /**
@@ -206,13 +210,13 @@ class WebpackConfig implements JsonSerializable
      */
     public function getServiceWorkerFileName(): string
     {
-        if (empty($this->_serviceWorkerFileName)) {
-            $this->_serviceWorkerFileName = (string) $this->_getVarOrFallback(
+        if (empty($this->serviceWorkerFileName)) {
+            $this->serviceWorkerFileName = (string) $this->_getVarOrFallback(
                 self::SERVICE_WORKER_NAME_VAR,
                 self::DEFAULT_SERVICE_WORKER_NAME
             );
         }
-        return $this->_serviceWorkerFileName;
+        return $this->serviceWorkerFileName;
     }
 
     /**
@@ -223,15 +227,15 @@ class WebpackConfig implements JsonSerializable
      */
     public function getThemePath(): string
     {
-        if (empty($this->_themePath)) {
-            $this->_themePath = implode(DIRECTORY_SEPARATOR, [
-                $this->_directoryList->getPath('app'),
+        if (empty($this->themePath)) {
+            $this->themePath = implode(DIRECTORY_SEPARATOR, [
+                $this->directoryList->getPath('app'),
                 "design",
                 $this->_getTheme()->getFullPath()
             ]);
         }
 
-        return $this->_themePath;
+        return $this->themePath;
     }
 
     /**
@@ -239,14 +243,14 @@ class WebpackConfig implements JsonSerializable
      */
     public function getDevServerHostname(): string
     {
-        if (empty($this->_devServerHostname)) {
-            $this->_devServerHostname = (string) $this->_getVarOrFallback(
+        if (empty($this->devServerHostname)) {
+            $this->devServerHostname = (string) $this->_getVarOrFallback(
                 self::DEVSERVER_HOSTNAME_VAR,
                 self::DEFAULT_DEVSERVER_HOSTNAME
             );
         }
 
-        return $this->_devServerHostname;
+        return $this->devServerHostname;
     }
 
     /**
@@ -254,14 +258,14 @@ class WebpackConfig implements JsonSerializable
      */
     public function getDevServerPort(): string
     {
-        if (empty($this->_devServerPort)) {
-            $this->_devServerPort = (string) $this->_getVarOrFallback(
+        if (empty($this->devServerPort)) {
+            $this->devServerPort = (string) $this->_getVarOrFallback(
                 self::DEVSERVER_PORT_VAR,
                 self::DEFAULT_DEVSERVER_PORT
             );
         }
 
-        return $this->_devServerPort;
+        return $this->devServerPort;
     }
 
     /**
@@ -298,17 +302,18 @@ class WebpackConfig implements JsonSerializable
      * Get the currently active theme instance
      *
      * @return ThemeInterface
+     * @throws NoSuchEntityException
      */
     private function _getTheme(): ThemeInterface
     {
 
-        $themeId = $this->_scopeConfig->getValue(
+        $themeId = $this->scopeConfig->getValue(
             DesignInterface::XML_PATH_THEME_ID,
             ScopeInterface::SCOPE_STORE,
-            $this->_storeManager->getStore()->getId()
+            $this->storeManager->getStore()->getId()
         );
 
-        return $this->_themeProvider->getThemeById($themeId);
+        return $this->themeProvider->getThemeById($themeId);
     }
 
     /**
@@ -320,7 +325,7 @@ class WebpackConfig implements JsonSerializable
      */
     private function _getVarOrFallback($name, $fallback)
     {
-        $varValue = $this->_viewConfig->getViewConfig()->getVarValue(self::PWA_MODULE_NAME, $name);
+        $varValue = $this->viewConfig->getViewConfig()->getVarValue(self::PWA_MODULE_NAME, $name);
         return empty($varValue) ? $fallback : $varValue;
     }
 }
