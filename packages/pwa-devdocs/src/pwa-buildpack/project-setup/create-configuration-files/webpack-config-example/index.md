@@ -27,7 +27,6 @@ const themePaths = {
 
 module.exports = async function(env) {
     const config = {
-        mode: env.phase, // passed on the command line via the '--env' flag
         context: __dirname, // Node global for the running script's directory
         entry: {
             client: path.resolve(themePaths.src, 'index.js')
