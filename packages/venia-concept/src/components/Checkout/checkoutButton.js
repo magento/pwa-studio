@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
+import { func, string } from 'prop-types';
 
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
@@ -8,7 +8,8 @@ const isDisabled = status => ['ACCEPTED', 'REQUESTING'].includes(status);
 
 class CheckoutButton extends Component {
     static propTypes = {
-        requestOrder: PropTypes.func
+        requestOrder: func.isRequired,
+        status: string.isRequired
     };
 
     render() {

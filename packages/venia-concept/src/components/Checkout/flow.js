@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { func, shape, string } from 'prop-types';
+import { func, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Entrance from './entrance';
@@ -15,15 +15,17 @@ const stepMap = {
     ACCEPTED: 'STEP_3'
 };
 
+const stepEnum = Object.keys(stepMap);
+
 class Flow extends Component {
     static propTypes = {
         classes: shape({
             root: string
         }),
-        resetCheckout: func,
-        requestOrder: func,
-        status: string,
-        submitOrder: func
+        resetCheckout: func.isRequired,
+        requestOrder: func.isRequired,
+        status: oneOf(stepEnum).isRequired,
+        submitOrder: func.isRequired
     };
 
     render() {
@@ -51,6 +53,14 @@ class Flow extends Component {
             case 'STEP_3': {
                 child = <Exit resetCheckout={resetCheckout} />;
                 break;
+            }
+            default: {
+                const message =
+                    'Checkout is in an invalid state. ' +
+                    'Expected `status` to be one of the following: ' +
+                    stepEnum.map(s => `\`${s}\``).join(', ');
+
+                throw new Error(message);
             }
         }
 

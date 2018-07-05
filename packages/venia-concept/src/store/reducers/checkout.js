@@ -1,5 +1,4 @@
 const initialState = {
-    active: false,
     order: null,
     status: 'READY'
 };
@@ -9,7 +8,6 @@ const reducer = (state = initialState, { type }) => {
         case 'REQUEST_ORDER': {
             return {
                 ...state,
-                active: true,
                 status: 'REQUESTING'
             };
         }
@@ -40,7 +38,6 @@ const reducer = (state = initialState, { type }) => {
         case 'RESET_CHECKOUT': {
             return {
                 ...state,
-                active: false,
                 status: 'READY'
             };
         }

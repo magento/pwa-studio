@@ -12,7 +12,7 @@ class Exit extends Component {
             footer: string,
             root: string
         }),
-        resetCheckout: func
+        resetCheckout: func.isRequired
     };
 
     render() {

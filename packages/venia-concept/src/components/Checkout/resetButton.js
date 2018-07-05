@@ -5,7 +5,7 @@ import Button from 'src/components/Button';
 
 class ResetButton extends Component {
     static propTypes = {
-        resetCheckout: func
+        resetCheckout: func.isRequired
     };
 
     render() {

@@ -9,12 +9,12 @@ import defaultClasses from './form.css';
 class Form extends Component {
     static propTypes = {
         classes: shape({
+            body: string,
             footer: string,
-            root: string,
-            sections: string
+            root: string
         }),
-        status: string,
-        submitOrder: func
+        status: string.isRequired,
+        submitOrder: func.isRequired
     };
 
     render() {

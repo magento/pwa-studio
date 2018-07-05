@@ -7,8 +7,8 @@ const isDisabled = status => ['ACCEPTED', 'SUBMITTING'].includes(status);
 
 class SubmitButton extends Component {
     static propTypes = {
-        status: string,
-        submitOrder: func
+        status: string.isRequired,
+        submitOrder: func.isRequired
     };
 
     render() {

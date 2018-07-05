@@ -10,8 +10,8 @@ class Entrance extends Component {
         classes: shape({
             root: string
         }),
-        requestOrder: func,
-        status: string
+        requestOrder: func.isRequired,
+        status: string.isRequired
     };
 
     render() {

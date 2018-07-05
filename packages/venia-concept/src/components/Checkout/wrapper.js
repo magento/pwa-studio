@@ -30,7 +30,9 @@ class CheckoutWrapper extends Component {
         checkout: shape({
             status: string
         }),
-        submitOrder: func
+        resetCheckout: func.isRequired,
+        requestOrder: func.isRequired,
+        submitOrder: func.isRequired
     };
 
     render() {
