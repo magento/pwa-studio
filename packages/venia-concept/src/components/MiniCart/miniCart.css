@@ -4,8 +4,9 @@
   bottom: 0;
   box-shadow: -1px 0 rgb(var(--venia-border));
   display: grid;
-  grid-auto-rows: auto;
+  grid-template-rows: min-content 1fr auto auto;
   opacity: 0;
+  overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
@@ -32,6 +33,7 @@
   justify-content: end;
   padding: 0 1rem;
   position: relative;
+  z-index: 1;
 }
 
 .title {
@@ -44,9 +46,14 @@
   text-transform: uppercase;
 }
 
-.summary {
+.body {
+  overflow: auto;
+}
+
+.footer {
+  box-shadow: 0 -1px rgb(var(--venia-border));
   margin: 0 1.5rem;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0.5rem;
 }
 
 .totals {
@@ -63,22 +70,6 @@
 .subtotalValue {
   font-weight: 600;
   margin-left: 0.5rem;
-}
-
-.cta {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 0 1rem 1rem;
-}
-
-.checkout {
-  composes: button from '../button.css';
-  align-content: center;
-  display: grid;
-  grid: auto / auto auto;
-  grid-gap: 0.5rem;
-  justify-content: center;
 }
 
 /* state: open */

@@ -2,20 +2,22 @@ import { Component, createElement } from 'react';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
+import { store } from 'src';
 import classify from 'src/classify';
-import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
 import mockData from './mockData';
 import defaultClasses from './miniCart.css';
 
+let Checkout;
+
 class MiniCart extends Component {
     static propTypes = {
         classes: shape({
-            checkout: string,
-            cta: string,
+            body: string,
             header: string,
+            footer: string,
             root: string,
             root_open: string,
             subtotalLabel: string,
@@ -31,10 +33,26 @@ class MiniCart extends Component {
         data: mockData
     };
 
+    async componentDidMount() {
+        const {
+            default: CheckoutComponent
+        } = await import('src/components/Checkout');
+        const {
+            default: checkoutReducer
+        } = await import('src/store/reducers/checkout');
+
+        Checkout = CheckoutComponent;
+        store.addReducer('checkout', checkoutReducer);
+    }
+
+    get checkout() {
+        return Checkout ? <Checkout /> : null;
+    }
+
     render() {
-        const { classes, data, isOpen } = this.props;
+        const { checkout, props } = this;
+        const { classes, data, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
-        const iconDimensions = { height: 16, width: 16 };
 
         return (
             <aside className={className}>
@@ -46,23 +64,22 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <ProductList items={data} />
-                <div className={classes.summary}>
-                    <dl className={classes.totals}>
-                        <dt className={classes.subtotalLabel}>
-                            <span>Subtotal (4 Items)</span>
-                        </dt>
-                        <dd className={classes.subtotalValue}>
-                            <Price currencyCode="USD" value={528} />
-                        </dd>
-                    </dl>
+                <div className={classes.body}>
+                    <ProductList items={data} />
                 </div>
-                <div className={classes.cta}>
-                    <Button>
-                        <Icon name="lock" attrs={iconDimensions} />
-                        <span>Checkout</span>
-                    </Button>
+                <div className={classes.footer}>
+                    <div className={classes.summary}>
+                        <dl className={classes.totals}>
+                            <dt className={classes.subtotalLabel}>
+                                <span>Subtotal (4 Items)</span>
+                            </dt>
+                            <dd className={classes.subtotalValue}>
+                                <Price currencyCode="USD" value={528} />
+                            </dd>
+                        </dl>
+                    </div>
                 </div>
+                {checkout}
             </aside>
         );
     }
