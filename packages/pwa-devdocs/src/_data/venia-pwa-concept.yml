@@ -6,8 +6,8 @@ entries:
   - label: Setup
     url: /venia-pwa-concept/setup/
 
-  - label: Checkout flow
-    url: /venia-pwa-concept/checkout/
+  - label: Simple REST checkout flow
+    url: /venia-pwa-concept/simple-rest-checkout/
 
   - label: Design
     entries:
