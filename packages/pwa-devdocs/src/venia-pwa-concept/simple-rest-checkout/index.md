@@ -3,8 +3,11 @@ title: Simple REST checkout flow
 ---
 
 The checkout process is an important piece of any online store.
+It can be as simple as a single click or as complicated as filling out a series of forms to complete a purchase.
 
-## User experience
+The goal of this topic is to describe a simple, end-to-end checkout implemention in Venia to learn from and build uponin your own projects.
+
+## Shopper experience
 
 * Navigate to a product page
 * Add item to cart -> shopping cart slides out
