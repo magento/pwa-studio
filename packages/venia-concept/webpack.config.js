@@ -5,6 +5,7 @@ const {
     WebpackTools: {
         MagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
+        DevServerReadyNotifierPlugin,
         MagentoResolver,
         PWADevServer
     }
@@ -133,7 +134,8 @@ module.exports = async function(env) {
         config.plugins.push(
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new DevServerReadyNotifierPlugin(config.devServer)
         );
     } else if (phase === 'production') {
         config.entry.vendor = libs;
