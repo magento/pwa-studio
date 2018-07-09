@@ -7,7 +7,9 @@ title: Image carousel component
 | Image carousel | ![Image carousel]{:width="300px"} |
 {:style="table-layout:auto"}
 
-## Interactions
+[Image carousel]: {{ site.baseurl }}{% link venia-pwa-concept/images/image-carousel.png %}
+
+## General Interactions
 
 * **Swipe** - Moves the carousel image to the right or left based on swipe direction
 * **Zoom** - When user clicks the *Zoom* icon, a new screen shows up with an enlarged image.
@@ -16,4 +18,48 @@ title: Image carousel component
 * **Click** - (Desktop only) TBD
 * **Click + Drag** - (Desktop only) Zoom
 
-[Image carousel]: {{ site.baseurl }}{% link venia-pwa-concept/images/image-carousel.png %}
+## New arrivals 
+
+The new arrivals carousel display images of products that are new to the store.
+
+| Description    | Reference image                   |
+| -------------- | :-------------------------------: |
+| New arrivals carousel | ![New arrivals carousel image]{:width="300px"} |
+{:style="table-layout:auto"}
+
+[New arrivals carousel image]: {{ site.baseurl }}{% link venia-pwa-concept/images/new-arrivals-carousel.jpg %}
+
+### Visual specifications
+
+* Contain product-specific images
+* Contains a _Call to action_ button labeled **See All New Arrivals**
+* These products do not contain a rating associated with them because they are new.
+
+### Interactions
+
+* Clicking on a product-specific image takes the shopper to the product page for that item
+* Clicking/tapping on the _Call to action_ button takes the shopper to a filtered page for newly added items.
+
+## Recommended items
+
+The recommended items carousel display images of products recommended for a shopper.
+
+| Description    | Reference image                   |
+| -------------- | :-------------------------------: |
+| Recommended items carousel | ![Recommended items carousel image]{:width="300px"} |
+{:style="table-layout:auto"}
+
+[Recommended items carousel image]: {{ site.baseurl }}{% link venia-pwa-concept/images/recommended-carousel.jpg %}
+
+### Visual specifications
+
+* Contains thumbnails stacked below the main image
+* A product rating is displayed on the current main image
+
+### Interactions
+
+* Swiping the main image moves the image one at a time
+* Swiping the thumbnail row moves the thumbnails three at a time and displays the middle image as the main image
+* Clicking/tapping on the main image takes the shopper to the product page for that image.
+* Tapping on a thumbnail displays that product as the main image or takes the shopper directly to the product page
+
