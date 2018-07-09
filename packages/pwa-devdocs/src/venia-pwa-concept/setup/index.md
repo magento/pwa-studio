@@ -88,6 +88,10 @@ Navigate to your Magento installation's `app/code/Magento` directory and create 
 ``` sh
 ln -s /Users/magedev/pwa-studio/packages/pwa-module Pwa
 ```
+Or from your Magento 2 root
+``` sh
+ln -s pwa-studio/packages/pwa-module app/code/Magento/Pwa
+```
 
 ### Enable and install
 
@@ -120,6 +124,14 @@ You can find this configuration using the **Configuration** link in the **Conten
 
 Under the Venia project's `theme-frontend-venia` directory, copy `.env.dist` into a new `.env` file and update the variables with the URL to your Magento development store.
 
+**Example commands:**
+``` sh
+cd /Users/magedev/pwa-studio/packages/venia-concept
+```
+``` sh
+cp .env.dist .env
+```
+
 ## Start the development server
 
 Use the following command to start the development server:
@@ -127,6 +139,9 @@ Use the following command to start the development server:
 ``` sh
 npm start
 ```
+{: .bs-callout .bs-callout-info}
+**Note:**
+Some users have reported using `sudo npm start` works due to permissions.
 
 After the development server is up and running, look for a similar line in the terminal output (the port will differ for your instance):
 
