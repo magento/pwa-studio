@@ -24,20 +24,38 @@ The product page handles the following page states:
 
 The Product page is made up of the following components:
 
-| Components                                            | Reference image                               |
-| ----------------------------------------------------- | :-------------------------------------------: |
-| **[Header]**                                          | ![Header image]{:width="400px"}               |
-| **[Title bar]**                                       | ![Title bar image]{:width="400px"}            |
-| **[Image carousel]**                                  | ![Image carousel image]{:width="400px"}       |
-| **[Add to wishlist]** <br/> **[Share]**               | ![Add to wishlist image]{:width="400px"}      |
-| **[Size selector]**                                   | ![Size selector image]{:width="400px"}        |
-| **[Color selector]**                                  | ![Color selector image]{:width="400px"}       |
-| **[Label selector]**                                  | ![Label selector image]{:width="400px"}       |
-| **[Quantity selector]** <br/> **[Quantity sync bar]** | ![Quantity selector image]{:width="400px"}    |
-| **[Product description]**                             | ![Product description image]{:width="400px"}  |
-| **[Recommended carousel]**                            | ![Recommended carousel image]{:width="400px"} |
-| **[Add to cart]** <br/> **[Buy now / Buy with]**      | ![Add to cart image]{:width="400px"}          |
-| **[Footer]**                                          | ![Footer image]{:width="400px"}               |
+* [Header]                                          
+* [Title bar]                                       
+* [Image carousel]                                  
+* [Add to wishlist]
+* [Share]               
+* [Size selector]                                   
+* [Color selector]                                  
+* [Label selector]                                  
+* [Quantity selector]
+* [Quantity sync bar] 
+* [Product description]                             
+* [Recommended carousel]                            
+* [Buy now / Buy with]      
+* [Add to cart]
+* [Footer]                                          
+
+The following table shows a visual breakdown of these components.
+
+| Components                                        | Reference image                                                       |
+| ------------------------------------------------- | :-------------------------------------------------------------------: |
+| **Header**                                        | [![Header image]{:width="400px"}][Header]                             |
+| **Title bar**                                     | [![Title bar image]{:width="400px"}][Title bar]                       |
+| **Image carousel**                                | [![Image carousel image]{:width="400px"}][Image carousel]             |
+| **Add to wishlist** <br/> **Share**               | [![Add to wishlist image]{:width="400px"}][Add to wishlist]           |
+| **Size selector**                                 | [![Size selector image]{:width="400px"}][Size selector]               |
+| **Color selector**                                | [![Color selector image]{:width="400px"}][Color selector]             |
+| **Label selector**                                | [![Label selector image]{:width="400px"}][Label selector]             |
+| **Quantity selector** <br/> **Quantity sync bar** | [![Quantity selector image]{:width="400px"}][Quantity selector]       |
+| **Product description**                           | [![Product description image]{:width="400px"}][Product description]   |
+| **Recommended carousel**                          | [![Recommended carousel image]{:width="400px"}][Recommended carousel] |
+| **Buy now / Buy with** <br/> **Add to cart**      | [![Add to cart image]{:width="400px"}][Add to cart]                   |
+| **Footer**                                       | [![Footer image]{:width="400px"}][Footer]                             |
 {:style="table-layout:auto"}
 
 

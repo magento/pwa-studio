@@ -25,16 +25,27 @@ The homepage handles the following page states:
 
 The homepage is made up of the following components:
 
-| Components                       | Reference image                                |
-| -------------------------------- | :--------------------------------------------: |
-| **[Header]**                     | ![Header image]{:width="400px"}                |
-| **[Category menu]**              | ![Category menu image]{:width="400px"}         |
-| **[Sale banner - small]**        | ![Small sale banner image]{:width="400px"}     |
-| **[New arrivals carousel]**      | ![New arrivals carousel image]{:width="400px"} |
-| **[Sale banner - large]**        | ![Large sale banner image]{:width="400px"}     |
-| **[Recommended items carousel]** | ![Recommended items carousel image]{:width="400px"}  |
-| **[Shop the look]**              | ![Shop the look image]{:width="400px"}         |
-| **[Footer]**                     | ![Footer image]{:width="400px"}                |
+* [Header]
+* [Category menu]
+* [Sale banner - small]
+* [New arrivals carousel]
+* [Sale banner - large]
+* [Recommended items carousel]
+* [Promotional banner]
+* [Footer]
+
+The following table shows a visual breakdown of these components.
+
+| Components                     | Reference image                                                                   |
+| ------------------------------ | :-------------------------------------------------------------------------------: |
+| **Header**                     | [![Header image]{:width="400px"}][Header]                                         |
+| **Category menu**              | [![Category menu image]{:width="400px"}][Category menu]                           |
+| **Sale banner - small**        | [![Small sale banner image]{:width="400px"}][Sale banner - small]                 |
+| **New arrivals carousel**      | [![New arrivals carousel image]{:width="400px"}][New arrivals carousel]           |
+| **Sale banner - large**        | [![Large sale banner image]{:width="400px"}][Sale banner - large]                 |
+| **Recommended items carousel** | [![Recommended items carousel image]{:width="400px"}][Recommended items carousel] |
+| **Promotional banner**         | [![Promotional banner image]{:width="400px"}][Promotional banner]                 |
+| **Footer**                     | [![Footer image]{:width="400px"}][Footer]                                         |
 {:style="table-layout:auto"}
 
 
@@ -58,8 +69,8 @@ The homepage is made up of the following components:
 [Recommended items carousel]: {{site.baseurl}}{% link venia-pwa-concept/component/image-carousel/index.md %}#recommended-items
 [Recommended items carousel image]: {{site.baseurl}}{% link venia-pwa-concept/images/recommended-carousel.jpg %}
 
-[Shop the look]: {{site.baseurl}}{% link venia-pwa-concept/component/sale-banner/index.md %}#promotional
-[Shop the look image]: {{site.baseurl}}{% link venia-pwa-concept/images/shop-the-look.jpg %}
+[Promotional banner]: {{site.baseurl}}{% link venia-pwa-concept/component/sale-banner/index.md %}#promotional
+[Promotional banner image]: {{site.baseurl}}{% link venia-pwa-concept/images/shop-the-look.jpg %}
 
 [Footer]: {{ site.baseurl }}{% link venia-pwa-concept/component/footer/index.md %} 
 [Footer image]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-full.png %}

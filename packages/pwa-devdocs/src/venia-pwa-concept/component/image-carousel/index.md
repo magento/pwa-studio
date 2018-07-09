@@ -53,13 +53,13 @@ The recommended items carousel display images of products recommended for a shop
 
 ### Visual specifications
 
-* Contains thumbnails stacked below the main image
+* Contains 3 thumbnails stacked below the main image with the left or right thumbnail showing half the image.
 * A product rating is displayed on the current main image
 
 ### Interactions
 
-* Swiping the main image moves the image one at a time
-* Swiping the thumbnail row moves the thumbnails three at a time and displays the middle image as the main image
+* Swiping the thumbnail row shifts the thumbnails one at a time to the left or right.
+  The outgoing image is removed from the row, and the new, incoming thumbnail image appears as a half image.
 * Clicking/tapping on the main image takes the shopper to the product page for that image.
-* Tapping on a thumbnail displays that product as the main image or takes the shopper directly to the product page
+* Tapping on a thumbnail takes the shopper directly to the product page
 
