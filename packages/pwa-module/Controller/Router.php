@@ -1,22 +1,39 @@
 <?php
+declare(strict_types=1);
 
 namespace Magento\Pwa\Controller;
 
-class Router implements \Magento\Framework\App\RouterInterface
+use Magento\Framework\App\Action\Forward;
+use Magento\Framework\App\ActionFactory;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\RouterInterface;
+use Magento\Pwa\Helper\WebpackConfig;
+
+/**
+ * Class Router
+ * @package Magento\Pwa\Controller
+ */
+class Router implements RouterInterface
 {
-    /** @var \Magento\Framework\App\ActionFactory $actionFactory */
+    /**
+     * @var ActionFactory $actionFactory
+     */
     private $actionFactory;
 
     /**
-     * @var \Magento\Pwa\Helper\WebpackConfig $webpackConfig
+     * @var WebpackConfig $webpackConfig
      */
     private $webpackConfig;
 
+    /**
+     * Router constructor.
+     * @param WebpackConfig $webpackConfig
+     * @param ActionFactory $actionFactory
+     */
     public function __construct(
-        \Magento\Pwa\Helper\WebpackConfig $webpackConfig,
-        \Magento\Framework\App\ActionFactory $actionFactory
-    )
-    {
+        WebpackConfig $webpackConfig,
+        ActionFactory $actionFactory
+    ) {
         $this->actionFactory = $actionFactory;
         $this->webpackConfig = $webpackConfig;
     }
@@ -24,7 +41,7 @@ class Router implements \Magento\Framework\App\RouterInterface
     /**
      * @inheritdoc
      */
-    public function match(\Magento\Framework\App\RequestInterface $request)
+    public function match(RequestInterface $request)
     {
         $rootPath = trim($request->getPathInfo(), '/');
         if ($rootPath == $this->webpackConfig->getServiceWorkerFileName()) {
@@ -32,7 +49,7 @@ class Router implements \Magento\Framework\App\RouterInterface
                 ->setControllerName('index')
                 ->setActionName('js');
             return $this->actionFactory->create(
-                \Magento\Framework\App\Action\Forward::class
+                Forward::class
             );
         }
         if ($rootPath == "webpack-config.json") {
@@ -40,7 +57,7 @@ class Router implements \Magento\Framework\App\RouterInterface
                 ->setControllerName('index')
                 ->setActionName('webpackconfigendpoint');
             return $this->actionFactory->create(
-                \Magento\Framework\App\Action\Forward::class
+                Forward::class
             );
         }
         return null;

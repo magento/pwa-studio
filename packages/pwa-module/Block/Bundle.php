@@ -4,17 +4,26 @@
  * See COPYING.txt for license details.
  * Created by PhpStorm.
  */
+declare(strict_types=1);
 
 namespace Magento\Pwa\Block;
 
+use Magento\Backend\Block\AbstractBlock;
+use Magento\Backend\Block\Context;
+use Magento\Framework\App\State;
 use Magento\Pwa\Helper\WebpackConfig;
 
-class Bundle extends \Magento\Backend\Block\AbstractBlock
+/**
+ * Class Bundle
+ * @package Magento\Pwa\Block
+ */
+class Bundle extends AbstractBlock
 {
     /**
-     * @var \Magento\Framework\App\State
+     * @var State
      */
     private $state;
+
     /**
      * @var WebpackConfig
      */
@@ -23,19 +32,17 @@ class Bundle extends \Magento\Backend\Block\AbstractBlock
     /**
      * @override
      * @see \Magento\Backend\Block\AbstractBlock::_construct()
-     * @param \Magento\Backend\Block\Context $context
+     * @param Context $context
      * @param array $data
-     * @param \Magento\Framework\App\State $state
+     * @param State $state
      * @param WebpackConfig $webpackConfig
      */
-
     public function __construct(
-        \Magento\Backend\Block\Context $context,
+        Context $context,
         array $data = [],
-        \Magento\Framework\App\State $state,
+        State $state,
         WebpackConfig $webpackConfig
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->webpackConfig = $webpackConfig;
         $this->state = $state;
@@ -51,17 +58,24 @@ class Bundle extends \Magento\Backend\Block\AbstractBlock
 
     }
 
-    public function getMode()
+    /**
+     * @return string
+     */
+    public function getMode(): string
     {
         return $this->state->getMode();
     }
 
-    public function getBundleUrl()
+    /**
+     * @return string
+     */
+    public function getBundleUrl(): string
     {
         $mode = $this->getMode();
-        if ($mode == "development") {
-            return $this->webpackConfig->getDevServerHost() . $this->webpackConfig->getPublicAssetPath() . "client.js";
+        if ($mode === 'development') {
+            return $this->webpackConfig->getDevServerHost() . $this->webpackConfig->getPublicAssetPath() . 'client.js';
         }
-        return "";
+
+        return '';
     }
 }
