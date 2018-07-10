@@ -12,6 +12,7 @@
     animation-duration: 224ms;
     animation-iteration-count: 1;
     animation-name: enter;
+    display: grid;
     position: relative;
 }
 

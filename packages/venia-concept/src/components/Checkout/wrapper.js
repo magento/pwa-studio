@@ -38,12 +38,19 @@ class CheckoutWrapper extends Component {
     render() {
         const {
             checkout,
+            enterSubflow,
             resetCheckout,
             requestOrder,
             submitOrder
         } = this.props;
-        const { status } = checkout;
-        const flowProps = { resetCheckout, requestOrder, status, submitOrder };
+
+        const flowProps = {
+            enterSubflow,
+            resetCheckout,
+            requestOrder,
+            status: checkout.status,
+            submitOrder
+        };
 
         return <CheckoutFlow {...flowProps} />;
     }
@@ -52,6 +59,7 @@ class CheckoutWrapper extends Component {
 const mapStateToProps = ({ checkout }) => ({ checkout });
 
 const mapDispatchToProps = dispatch => ({
+    enterSubflow: payload => dispatch({ type: 'ENTER_SUBFLOW', payload }),
     resetCheckout: () => dispatch(resetCheckoutAction()),
     requestOrder: () => dispatch(requestOrderAction()),
     submitOrder: () => dispatch(submitOrderAction())
