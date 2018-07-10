@@ -2,16 +2,15 @@ import { Component, createElement } from 'react';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
-import classify from 'src/classify';
 import getUrlKey from 'src/util/getUrlKey';
 import Page from 'src/components/Page';
-import Carousel from 'src/components/ProductImageCarousel';
-import Quantity from 'src/components/ProductQuantity';
-import RichText from 'src/components/RichText';
-import defaultClasses from './product.css';
+import ProductFullDetail from 'src/components/ProductFullDetail';
 
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+
+import { addItemToCart, toggleCart, getCartDetails } from 'src/actions/cart';
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -99,9 +98,12 @@ class Product extends Component {
         })
     };
 
-    render() {
-        const { classes } = this.props;
+    addToCart = async (item, quantity) => {
+        const { guestCartId } = this.props;
+        await this.props.addItemToCart({ guestCartId, item, quantity });
+    };
 
+    render() {
         return (
             <Page>
                 <Query
@@ -113,57 +115,12 @@ class Product extends Component {
                         if (loading) return <div>Fetching Data</div>;
 
                         const product = data.productDetail.items[0];
-                        const { regularPrice } = product.price;
 
                         return (
-                            <article className={classes.root}>
-                                <section className={classes.title}>
-                                    <h1 className={classes.productName}>
-                                        <span>{product.name}</span>
-                                    </h1>
-                                    <p className={classes.productPrice}>
-                                        <Price
-                                            currencyCode={
-                                                regularPrice.amount.currency
-                                            }
-                                            value={regularPrice.amount.value}
-                                        />
-                                    </p>
-                                </section>
-                                <section className={classes.imageCarousel}>
-                                    <Carousel
-                                        images={product.media_gallery_entries}
-                                    />
-                                </section>
-                                <section className={classes.actions}>
-                                    <button className={classes.action}>
-                                        <span>Add to Wishlist</span>
-                                    </button>
-                                </section>
-                                <section className={classes.quantity}>
-                                    <h2 className={classes.quantityTitle}>
-                                        <span>Quantity</span>
-                                    </h2>
-                                    <Quantity />
-                                </section>
-                                <section className={classes.cartActions}>
-                                    <button className={classes.addToCart}>
-                                        <span>Add to Cart</span>
-                                    </button>
-                                </section>
-                                <section className={classes.description}>
-                                    <h2 className={classes.descriptionTitle}>
-                                        <span>Product Description</span>
-                                    </h2>
-                                    <RichText content={product.description} />
-                                </section>
-                                <section className={classes.details}>
-                                    <h2 className={classes.detailsTitle}>
-                                        <span>SKU</span>
-                                    </h2>
-                                    <strong>{product.sku}</strong>
-                                </section>
-                            </article>
+                            <ProductFullDetail
+                                product={product}
+                                onClickAddToCart={this.addToCart}
+                            />
                         );
                     }}
                 </Query>
@@ -172,4 +129,11 @@ class Product extends Component {
     }
 }
 
-export default classify(defaultClasses)(Product);
+export default connect(
+    ({ cart: { guestCartId } = {} }) => ({ guestCartId }),
+    {
+        addItemToCart,
+        getCartDetails,
+        toggleCart
+    }
+)(Product);
