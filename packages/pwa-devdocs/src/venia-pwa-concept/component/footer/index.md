@@ -2,9 +2,14 @@
 title: Footer component
 ---
 
-| Description | Reference image           |
-| ----------- | :-----------------------: |
-| Footer      | ![Footer]{:width="300px"} |
+The footer offers links to areas that are not accessed frequently enough to be in the header but
+are still important enough to highlight.
+
+| Description                   | Reference image                                  |
+| ----------------------------- | :----------------------------------------------: |
+| Footer collapsed              | ![Footer collapsed]{:width="300px"}              |
+| Footer collapsed notification | ![Footer collapsed notification]{:width="300px"} |
+| Footer full                   | ![Footer]{:width="300px"}                        |
 {:style="table-layout:auto"}
 
 ## Interactions
@@ -13,3 +18,5 @@ title: Footer component
 * **Minimal footer** - Appears inside the main menu for access at all times
 
 [Footer]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-full.png %}
+[Footer collapsed]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-scroll.png %}
+[Footer collapsed notification]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-scroll-notification.png %}

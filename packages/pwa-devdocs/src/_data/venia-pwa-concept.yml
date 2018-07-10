@@ -8,6 +8,9 @@ entries:
 
   - label: Design
     entries:
+
+    - label: Homepage
+      url: /venia-pwa-concept/design/homepage/
     
     - label: Product page
       url: /venia-pwa-concept/design/product-page/
@@ -24,6 +27,9 @@ entries:
     - label: Buy now / Buy with
       url: /venia-pwa-concept/component/buy-now-with/
 
+    - label: Category menu
+      url: /venia-pwa-concept/component/category-menu/
+
     - label: Color selector
       url: /venia-pwa-concept/component/color-selector/
 
@@ -31,7 +37,7 @@ entries:
       url: /venia-pwa-concept/component/footer/
 
     - label: Header
-      url: /venia-pwa-concept/component/header
+      url: /venia-pwa-concept/component/header/
 
     - label: Image carousel
       url: /venia-pwa-concept/component/image-carousel/
@@ -53,6 +59,9 @@ entries:
 
     - label: Recommended carousel
       url: /venia-pwa-concept/component/recommended-carousel/
+
+    - label: Sale banner
+      url: /venia-pwa-concept/component/sale-banner/
     
     - label: Share
       url: /venia-pwa-concept/component/share/
