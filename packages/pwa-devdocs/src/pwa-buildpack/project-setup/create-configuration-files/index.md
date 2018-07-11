@@ -226,7 +226,7 @@ if (env.phase === "development") {
 
 This code block does the following:
 
-* Create a `PWADevServer` confgiuration object and attach it to the Webpack configuration object.
+* Create a `PWADevServer` configuration object and attach it to the Webpack configuration object.
 * Create a `ServiceWorkerPlugin` and attach it to the Webpack configuration object.
 * Add a `webpack.HotModuleReplacementPlugin` to enable fast workflow.
 * Configure Webpack to throw an error if you are not in development mode.
