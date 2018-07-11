@@ -13,9 +13,10 @@
     "url": "https://github.com/magento-research/peregrine"
   },
   "scripts": {
-    "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
-    "clean": "rimraf dist",
+    "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "watch": "npm run -s build -- --watch",
     "danger": "danger-ci",
+    "clean": "rimraf dist",
     "prepare": "npm-merge-driver install",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
