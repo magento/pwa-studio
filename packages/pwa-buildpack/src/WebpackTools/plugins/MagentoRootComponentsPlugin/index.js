@@ -1,4 +1,4 @@
-const { isAbsolute, join } = require('path');
+const { isAbsolute, join, extname } = require('path');
 const { RawSource } = require('webpack-sources');
 const {
     rootComponentMap,
@@ -6,6 +6,8 @@ const {
 } = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
+
+const isJsFile = filepath => /\.jsx?/.test(extname(filepath));
 
 /**
  * @description webpack plugin that creates chunks for each
@@ -40,6 +42,9 @@ class MagentoRootComponentsPlugin {
         const moduleByPath = new Map();
         compiler.plugin('compilation', compilation => {
             compilation.plugin('normal-module-loader', (loaderContext, mod) => {
+                if (!isJsFile(mod.resource)) {
+                    return;
+                }
                 if (seenRootComponents.has(mod.resource)) {
                     // The module ("mod") has not been assigned an ID yet,
                     // so we need to keep a reference to it which will allow

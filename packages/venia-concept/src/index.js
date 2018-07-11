@@ -16,11 +16,15 @@ store.addReducer('app', reducer);
 
 const apolloClient = new ApolloClient();
 
+const root = document.createElement('div');
+root.setAttribute('id', 'root');
+document.body.appendChild(root);
+
 ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <Provider />
     </ApolloProvider>,
-    document.getElementById('root')
+    root
 );
 
 if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {

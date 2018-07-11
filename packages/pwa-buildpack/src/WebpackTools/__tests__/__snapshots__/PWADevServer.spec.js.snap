@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.configure() returns a configuration object for the \`serve\` property of a webpack config 1`] = `
+Object {
+  "add": [Function],
+  "clipboard": false,
+  "content": Array [
+    "path/to/assets",
+  ],
+  "hotClient": Object {
+    "logLevel": "warning",
+    "stats": "minimal",
+  },
+}
+`;

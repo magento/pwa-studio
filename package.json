@@ -12,8 +12,10 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run build",
-    "clean": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run clean",
+    "build": "lerna run --ignore pwa-devdocs --ignore pwa-module build",
+    "clean": "lerna run clean",
+    "build:venia": "lerna --stream --scope '@magento/peregrine' --scope 'theme-frontend-venia' run build",
+    "watch:venia": "lerna --parallel --scope '@magento/peregrine' --scope 'theme-frontend-venia' run watch",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
     "postinstall": "lerna bootstrap && npm run build",
