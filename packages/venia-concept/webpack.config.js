@@ -41,7 +41,10 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            publicPath: path.join(
+                process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+                'js/'
+            ),
             filename: '[name].js',
             chunkFilename: '[name]-[chunkhash].js',
             pathinfo: true

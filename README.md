@@ -27,6 +27,8 @@ To ease local development, testing, and versioning, the PWA Studio project uses 
 1.  Clone the repository
 2.  Navigate to the root of the repository from the command line
 3.  Run `npm install`
+4.  Watch the bootstrapping take place.
+5.  To run the Venia theme development experience, with hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:venia` from package root.
 
 ## Things not to do
 

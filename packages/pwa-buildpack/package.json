@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "watch": "npm run -s build -- --watch",
     "clean": "rm -rf dist",
     "prepublishOnly": "rimraf dist && npm run build"
   },
