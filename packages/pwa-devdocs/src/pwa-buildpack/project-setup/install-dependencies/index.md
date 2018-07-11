@@ -22,7 +22,7 @@ In this topic you will initialize the `package.json` file and install project de
 
    These dependencies allow you to use the UI components and services provided by the peregrine project to develop your theme.
 
-1. Run the following command to install [pwa-buildpack] and its standard peer dependincies:
+1. Run the following command to install [pwa-buildpack] and its standard peer dependencies:
 
    ``` bash
    npm install --save-dev @magento/pwa-buildpack \
