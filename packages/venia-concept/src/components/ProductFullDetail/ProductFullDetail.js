@@ -1,11 +1,10 @@
 import { Component, createElement } from 'react';
 import {
+    arrayOf,
     bool,
     func,
-    shape,
     number,
-    objectOf,
-    arrayOf,
+    shape,
     string
 } from 'prop-types';
 import { Price } from '@magento/peregrine';
@@ -18,7 +17,23 @@ import defaultClasses from './productFullDetail.css';
 
 class ProductFullDetail extends Component {
     static propTypes = {
-        classes: objectOf(string).isRequired,
+        classes: shape({
+            action: string,
+            actions: string,
+            addToCart: string,
+            cartActions: string,
+            description: string,
+            descriptionTitle: string,
+            details: string,
+            detailsTitle: string,
+            imageCarousel: string,
+            productName: string,
+            productPrice: string,
+            quantity: string,
+            quantityTitle: string,
+            root: string,
+            title: string
+        }),
         product: shape({
             id: number,
             sku: string.isRequired,
@@ -40,7 +55,7 @@ class ProductFullDetail extends Component {
             ),
             description: string
         }).isRequired,
-        onClickAddToCart: func.isRequired
+        addToCart: func.isRequired
     };
 
     state = { quantity: 1 };
@@ -48,7 +63,7 @@ class ProductFullDetail extends Component {
     setQuantity = quantity => this.setState({ quantity });
 
     addToCart = () =>
-        this.props.onClickAddToCart(this.props.product, this.state.quantity);
+        this.props.addToCart(this.props.product, this.state.quantity);
 
     render() {
         const { classes, product } = this.props;

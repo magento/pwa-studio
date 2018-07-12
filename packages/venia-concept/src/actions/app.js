@@ -1,12 +1,15 @@
 import timeout from 'src/util/timeout';
-import { drawer as drawerMs } from 'src/shared/durations';
+import {
+    drawerClose as closeMs,
+    drawerOpen as openMs
+} from 'src/shared/durations';
 
-export const toggleDrawer = drawerName => async dispatch => {
+export const toggleDrawer = drawerName => dispatch => {
     dispatch({
         type: 'TOGGLE_DRAWER',
         payload: drawerName
     });
-    return timeout(drawerMs);
+    return timeout(drawerName ? openMs : closeMs);
 };
 
 export const closeDrawer = () => toggleDrawer(null);

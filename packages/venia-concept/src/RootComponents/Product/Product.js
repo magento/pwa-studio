@@ -1,16 +1,13 @@
 import { Component, createElement } from 'react';
-import { bool, shape, number, arrayOf, string } from 'prop-types';
-import { Price } from '@magento/peregrine';
-
-import getUrlKey from 'src/util/getUrlKey';
-import Page from 'src/components/Page';
-import ProductFullDetail from 'src/components/ProductFullDetail';
-
+import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { connect } from 'react-redux';
+import { bool, shape, number, arrayOf, string } from 'prop-types';
 
-import { addItemToCart, toggleCart, getCartDetails } from 'src/actions/cart';
+import { addItemToCart, getCartDetails, toggleCart } from 'src/actions/cart';
+import Page from 'src/components/Page';
+import ProductFullDetail from 'src/components/ProductFullDetail';
+import getUrlKey from 'src/util/getUrlKey';
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -47,23 +44,6 @@ const productDetailQuery = gql`
 
 class Product extends Component {
     static propTypes = {
-        classes: shape({
-            action: string,
-            actions: string,
-            addToCart: string,
-            cartActions: string,
-            description: string,
-            descriptionTitle: string,
-            details: string,
-            detailsTitle: string,
-            imageCarousel: string,
-            productName: string,
-            productPrice: string,
-            quantity: string,
-            quantityTitle: string,
-            root: string,
-            title: string
-        }),
         data: shape({
             productDetail: shape({
                 total_count: number,
@@ -119,7 +99,7 @@ class Product extends Component {
                         return (
                             <ProductFullDetail
                                 product={product}
-                                onClickAddToCart={this.addToCart}
+                                addToCart={this.addToCart}
                             />
                         );
                     }}
@@ -129,11 +109,14 @@ class Product extends Component {
     }
 }
 
+const mapStateToProps = ({ cart: { guestCartId } = {} }) => ({ guestCartId });
+const mapDispatchToProps = {
+    addItemToCart,
+    getCartDetails,
+    toggleCart
+};
+
 export default connect(
-    ({ cart: { guestCartId } = {} }) => ({ guestCartId }),
-    {
-        addItemToCart,
-        getCartDetails,
-        toggleCart
-    }
+    mapStateToProps,
+    mapDispatchToProps
 )(Product);

@@ -1,5 +1,7 @@
-import { toggleDrawer } from 'src/actions/app';
 import { RestApi } from '@magento/peregrine';
+
+import { toggleDrawer } from 'src/actions/app';
+
 const {
     Magento2: { request }
 } = RestApi;

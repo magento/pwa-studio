@@ -1,8 +1,8 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
 import { func, shape, string } from 'prop-types';
-import { requestOrder, submitOrder, resetCheckout } from 'src/actions/checkout';
 
+import { requestOrder, resetCheckout, submitOrder } from 'src/actions/checkout';
 import CheckoutFlow from './flow';
 
 class CheckoutWrapper extends Component {
