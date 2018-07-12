@@ -16,7 +16,7 @@ For example, given a `RootComponents` directory in a theme with the following st
 ```
 
 The plugin creates unique chunks for `Page1`, `Page2`, and `Page3`.
-Further webpack optimization techiniques, such as [`CommonsChunkPlugin`], can be applied as usual.
+Further webpack optimization techniques, such as [`CommonsChunkPlugin`], can be applied as usual.
 
 ## Example usage
 
