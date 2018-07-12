@@ -20,8 +20,8 @@ The price is vertically centered in the bar.
 
 ## Interactions
 
-* **Scroll up** - Component disappearts from the top on scroll and appended to the "Add to cart" bar.
+* **Scroll up** - Component disappears from the top on scroll and appended to the "Add to cart" bar.
 * **Scroll down** - Not visible until the user scrolls to the top of the page.
-* **Page referesh** - TBD
+* **Page refresh** - TBD
 
 [Title bar]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar.png %}
