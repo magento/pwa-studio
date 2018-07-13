@@ -56,7 +56,10 @@ class ProductFullDetail extends Component {
     setQuantity = quantity => this.setState({ quantity });
 
     addToCart = () =>
-        this.props.addToCart(this.props.product, this.state.quantity);
+        this.props.addToCart({
+            item: this.props.product,
+            quantity: this.state.quantity
+        });
 
     render() {
         const { classes, product } = this.props;
