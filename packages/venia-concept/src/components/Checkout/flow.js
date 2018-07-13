@@ -31,11 +31,13 @@ class Flow extends Component {
     render() {
         const {
             classes,
+            enterSubflow,
             resetCheckout,
             requestOrder,
             status,
             submitOrder
         } = this.props;
+
         const step = stepMap[status];
         let child = null;
 
@@ -47,7 +49,13 @@ class Flow extends Component {
                 break;
             }
             case 'STEP_2': {
-                child = <Form status={status} submitOrder={submitOrder} />;
+                child = (
+                    <Form
+                        status={status}
+                        enterSubflow={enterSubflow}
+                        submitOrder={submitOrder}
+                    />
+                );
                 break;
             }
             case 'STEP_3': {

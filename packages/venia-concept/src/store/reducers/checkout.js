@@ -1,9 +1,10 @@
 const initialState = {
     order: null,
-    status: 'READY'
+    status: 'READY',
+    subflow: null
 };
 
-const reducer = (state = initialState, { type }) => {
+const reducer = (state = initialState, { payload, type }) => {
     switch (type) {
         case 'REQUEST_ORDER': {
             return {
@@ -15,6 +16,20 @@ const reducer = (state = initialState, { type }) => {
             return {
                 ...state,
                 status: 'MODIFYING'
+            };
+        }
+        case 'ENTER_SUBFLOW': {
+            return {
+                ...state,
+                status: 'MODIFYING',
+                subflow: payload
+            };
+        }
+        case 'EXIT_SUBFLOW': {
+            return {
+                ...state,
+                status: 'MODIFYING',
+                subflow: null
             };
         }
         case 'SUBMIT_ORDER': {

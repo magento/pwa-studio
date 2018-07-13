@@ -1,10 +1,21 @@
 .root {
+    display: block;
+}
+.root:focus {
+    background-image: radial-gradient(circle, rgb(var(--venia-grey)), white);
+    outline: 0 none;
+}
+
+.content {
     align-items: center;
     border-bottom: 1px solid rgb(var(--venia-border));
     display: grid;
     grid-template-columns: 6rem 1fr;
+    justify-items: start;
     margin: 0 1.5rem;
-    padding: 1.5rem 0;
+    min-height: 4.5rem;
+    padding: 1rem 0;
+    text-align: left;
 }
 
 .label {
@@ -14,5 +25,6 @@
 }
 
 .summary {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.5;
 }

@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import { node, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
+import Button from 'src/components/Button';
 import defaultClasses from './section.css';
 
 class Section extends Component {
@@ -15,15 +16,15 @@ class Section extends Component {
     };
 
     render() {
-        const { children, classes, label } = this.props;
+        const { children, classes, label, ...restProps } = this.props;
 
         return (
-            <div className={classes.root}>
-                <div className={classes.label}>
+            <Button classes={classes} {...restProps}>
+                <span className={classes.label}>
                     <span>{label}</span>
-                </div>
-                <div className={classes.summary}>{children}</div>
-            </div>
+                </span>
+                <span className={classes.summary}>{children}</span>
+            </Button>
         );
     }
 }
