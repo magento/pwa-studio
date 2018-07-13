@@ -1,16 +1,32 @@
-import { RestApi } from '@magento/peregrine';
-
 import { toggleDrawer } from 'src/actions/app';
 
-const {
-    Magento2: { request }
-} = RestApi;
-
 const createGuestCart = async dispatch => {
-    const payload = await request({ method: 'POST', path: 'guest-carts' });
+    let payload, error;
+    try {
+        const response = await fetch('/rest/V1/guest-carts', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Accept: 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (!response.ok) {
+            throw new Error(
+                `Failed to create guest cart: ${response.status} ${
+                    response.statusText
+                }`
+            );
+        }
+        payload = await response.json();
+    } catch (e) {
+        payload = e;
+        error = true;
+    }
     dispatch({
         type: 'CREATE_GUEST_CART',
-        payload
+        payload,
+        error
     });
     return payload;
 };
@@ -23,58 +39,112 @@ export const addItemToCart = ({
     if (!guestCartId) {
         guestCartId = await createGuestCart(dispatch);
     }
-    const cartItem = await request({
-        method: 'POST',
-        path: `guest-carts/${guestCartId}/items`,
-        body: JSON.stringify({
-            cartItem: {
-                qty: quantity,
-                sku: item.sku,
-                name: item.name,
-                quote_id: guestCartId
+    let payload, error;
+    try {
+        const response = await fetch(
+            `/rest/V1/guest-carts/${guestCartId}/items`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    Accept: 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    cartItem: {
+                        qty: quantity,
+                        sku: item.sku,
+                        name: item.name,
+                        quote_id: guestCartId
+                    }
+                })
             }
-        })
-    });
-    dispatch({
-        type: 'ADD_ITEM_TO_CART',
-        payload: {
-            cartItem,
+        );
+        if (!response.ok) {
+            throw new Error(
+                `Failed to add item to cart: ${response.status} ${
+                    response.statusText
+                }`
+            );
+        }
+        payload = {
+            cartItem: await response.json(),
             item,
             quantity
-        }
+        };
+    } catch (e) {
+        payload = e;
+        error = true;
+    }
+    dispatch({
+        type: 'ADD_ITEM_TO_CART',
+        payload,
+        error
     });
-    await getCartDetails({ guestCartId, forceRefresh: true })(dispatch);
+    await getCartDetails({ guestCartId })(dispatch);
     await toggleCart()(dispatch);
 };
 
-export const getCartDetails = ({
-    guestCartId,
-    forceRefresh
-} = {}) => async dispatch => {
+const fetchCartDetail = async guestCartId => {
+    const response = await fetch(`/rest/V1/guest-carts/${guestCartId}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Accept: 'application/json'
+        },
+        credentials: 'include'
+    });
+    if (!response.ok) {
+        throw new Error(
+            `Failed to get cart details: ${response.status} ${
+                response.statusText
+            }`
+        );
+    }
+    return response.json();
+};
+
+const fetchCartTotals = async guestCartId => {
+    const response = await fetch(`/rest/V1/guest-carts/${guestCartId}/totals`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Accept: 'application/json'
+        },
+        credentials: 'include'
+    });
+    if (!response.ok) {
+        throw new Error(
+            `Failed to get cart totals: ${response.status} ${
+                response.statusText
+            }`
+        );
+    }
+    return response.json();
+};
+
+export const getCartDetails = ({ guestCartId }) => async dispatch => {
     if (!guestCartId) {
         guestCartId = await createGuestCart(dispatch);
     }
-    const options = {
-        rolling: forceRefresh
-    };
-    const [details, totals] = await Promise.all([
-        request({
-            method: 'GET',
-            path: `guest-carts/${guestCartId}`,
-            ...options
-        }),
-        request({
-            method: 'GET',
-            path: `guest-carts/${guestCartId}/totals`,
-            ...options
-        })
-    ]);
-    dispatch({
-        type: 'GET_CART_DETAILS',
-        payload: {
+    let payload, error;
+    try {
+        const [details, totals] = await Promise.all([
+            fetchCartDetail(guestCartId),
+            fetchCartTotals(guestCartId)
+        ]);
+        payload = {
             details,
             totals
-        }
+        };
+    } catch (e) {
+        payload = e;
+        error = true;
+    }
+    dispatch({
+        type: 'GET_CART_DETAILS',
+        payload,
+        error
     });
 };
 

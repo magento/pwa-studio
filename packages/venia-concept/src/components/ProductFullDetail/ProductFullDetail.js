@@ -1,12 +1,5 @@
 import { Component, createElement } from 'react';
-import {
-    arrayOf,
-    bool,
-    func,
-    number,
-    shape,
-    string
-} from 'prop-types';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
