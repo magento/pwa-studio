@@ -38,7 +38,7 @@
 }
 
 .navTrigger {
-  composes: root from '../button.css';
+  composes: root from '../clickable.css';
   height: 3rem;
   width: 3rem;
 }

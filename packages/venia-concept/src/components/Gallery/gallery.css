@@ -18,10 +18,6 @@
   padding-bottom: 1rem;
 }
 
-.action {
-  composes: button from "../button.css";
-}
-
 .items {
   display: grid;
   grid-area: items;

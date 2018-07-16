@@ -3,6 +3,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
+import Button from 'src/button';
 import Carousel from 'src/components/ProductImageCarousel';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
@@ -11,9 +12,7 @@ import defaultClasses from './productFullDetail.css';
 class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
-            action: string,
             actions: string,
-            addToCart: string,
             cartActions: string,
             description: string,
             descriptionTitle: string,
@@ -82,9 +81,9 @@ class ProductFullDetail extends Component {
                     <Carousel images={product.media_gallery_entries} />
                 </section>
                 <section className={classes.actions}>
-                    <button className={classes.action}>
+                    <Button>
                         <span>Add to Wishlist</span>
-                    </button>
+                    </Button>
                 </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
@@ -96,12 +95,9 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <button
-                        className={classes.addToCart}
-                        onClick={this.addToCart}
-                    >
+                    <Button onClick={this.addToCart}>
                         <span>Add to Cart</span>
-                    </button>
+                    </Button>
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>
