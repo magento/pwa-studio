@@ -25,7 +25,9 @@ class Flow extends Component {
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
         status: oneOf(stepEnum).isRequired,
-        submitOrder: func.isRequired
+        subflow: string,
+        submitOrder: func.isRequired,
+        updateOrder: func.isRequired
     };
 
     render() {
@@ -35,7 +37,9 @@ class Flow extends Component {
             resetCheckout,
             requestOrder,
             status,
-            submitOrder
+            subflow,
+            submitOrder,
+            updateOrder
         } = this.props;
 
         const step = stepMap[status];
@@ -52,8 +56,10 @@ class Flow extends Component {
                 child = (
                     <Form
                         status={status}
+                        subflow={subflow}
                         enterSubflow={enterSubflow}
                         submitOrder={submitOrder}
+                        updateOrder={updateOrder}
                     />
                 );
                 break;

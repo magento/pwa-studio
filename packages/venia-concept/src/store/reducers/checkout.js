@@ -56,6 +56,12 @@ const reducer = (state = initialState, { payload, type }) => {
                 status: 'READY'
             };
         }
+        case 'UPDATE_ORDER': {
+            return {
+                ...state,
+                subflow: 'UPDATING'
+            };
+        }
         default: {
             return state;
         }

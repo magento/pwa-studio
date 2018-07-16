@@ -25,14 +25,21 @@ const submitOrderAction = () => async dispatch => {
     dispatch({ type: 'ACCEPT_ORDER' });
 };
 
+const updateOrderAction = () => async dispatch => {
+    await timeout(delay); // TODO: replace with api call
+    dispatch({ type: 'EXIT_SUBFLOW' });
+};
+
 class CheckoutWrapper extends Component {
     static propTypes = {
         checkout: shape({
             status: string
         }),
+        enterSubflow: func.isRequired,
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
-        submitOrder: func.isRequired
+        submitOrder: func.isRequired,
+        updateOrder: func.isRequired
     };
 
     render() {
@@ -41,7 +48,8 @@ class CheckoutWrapper extends Component {
             enterSubflow,
             resetCheckout,
             requestOrder,
-            submitOrder
+            submitOrder,
+            updateOrder
         } = this.props;
 
         const flowProps = {
@@ -49,7 +57,9 @@ class CheckoutWrapper extends Component {
             resetCheckout,
             requestOrder,
             status: checkout.status,
-            submitOrder
+            subflow: checkout.subflow,
+            submitOrder,
+            updateOrder
         };
 
         return <CheckoutFlow {...flowProps} />;
@@ -62,7 +72,8 @@ const mapDispatchToProps = dispatch => ({
     enterSubflow: payload => dispatch({ type: 'ENTER_SUBFLOW', payload }),
     resetCheckout: () => dispatch(resetCheckoutAction()),
     requestOrder: () => dispatch(requestOrderAction()),
-    submitOrder: () => dispatch(submitOrderAction())
+    submitOrder: () => dispatch(submitOrderAction()),
+    updateOrder: () => dispatch(updateOrderAction())
 });
 
 export default connect(
