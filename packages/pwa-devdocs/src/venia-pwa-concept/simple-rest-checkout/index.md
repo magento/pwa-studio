@@ -57,7 +57,7 @@ The following sections provide the technical details for each step in the checko
     This request also updates the cart information stored on the server.
 3. When the `ADD_ITEM_TO_CART` returns with a successful response, the function calls `getCartDetails` and `toggleCart`.
 
-    The `getCartDetails` action creator makes two simultaneous calls to the `/V1/guest-carts/<cartId>` and `/V1/guest-carts/<cardId>/totals` REST endpoints.
+    The `getCartDetails` action creator makes two simultaneous calls to the `/V1/guest-carts/<cartId>` and `/V1/guest-carts/<cartId>/totals` REST endpoints.
     When the parallel requests return with successful responses, it combines the data to create a payload for the `GET_CART_DETAILS` action.
     This action updates the information displayed on the cart with the new data.
 
