@@ -1,24 +1,24 @@
 import { Component, createElement } from 'react';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
-
-const defaultClasses = {};
+import defaultClasses from './shippingAddress.css';
 
 class ShippingAddress extends Component {
     static propTypes = {
+        busy: bool.isRequired,
         updateOrder: func.isRequired
     };
 
     render() {
-        const { classes, updateOrder } = this.props;
+        const { busy, classes, updateOrder } = this.props;
 
         return (
             <div className={classes.root}>
                 <div className={classes.body}>Shipping Address</div>
                 <div className={classes.footer}>
-                    <Button onClick={updateOrder}>
+                    <Button disabled={busy} onClick={updateOrder}>
                         <span>Save</span>
                     </Button>
                 </div>

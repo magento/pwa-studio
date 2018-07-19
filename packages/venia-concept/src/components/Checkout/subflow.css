@@ -1,11 +1,17 @@
 .root {
     background-color: white;
     bottom: 0;
-    box-shadow: 0 -1px rgb(var(--venia-border)), 0 -1px 6px rgb(0, 0, 0, 0.2);
+    box-shadow: 0 -1px rgb(var(--venia-border));
+    display: grid;
     left: 0;
     min-height: 8rem;
     position: absolute;
     right: 0;
+}
+
+.form {
+    display: grid;
+    grid-template-rows: 1fr min-content;
 }
 
 .body {
@@ -13,7 +19,6 @@
     animation-iteration-count: 1;
     animation-name: enter;
     display: grid;
-    position: relative;
 }
 
 .footer {

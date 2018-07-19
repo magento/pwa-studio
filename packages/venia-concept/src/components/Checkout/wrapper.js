@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import timeout from 'src/util/timeout';
 import CheckoutFlow from './flow';
@@ -25,7 +25,8 @@ const submitOrderAction = () => async dispatch => {
     dispatch({ type: 'ACCEPT_ORDER' });
 };
 
-const updateOrderAction = () => async dispatch => {
+const updateOrderAction = payload => async dispatch => {
+    dispatch({ payload, type: 'UPDATE_ORDER' });
     await timeout(delay); // TODO: replace with api call
     dispatch({ type: 'EXIT_SUBFLOW' });
 };
@@ -33,8 +34,15 @@ const updateOrderAction = () => async dispatch => {
 class CheckoutWrapper extends Component {
     static propTypes = {
         checkout: shape({
-            status: string
-        }),
+            flow: shape({
+                busy: bool.isRequired,
+                step: string.isRequired
+            }).isRequired,
+            subflow: shape({
+                busy: bool.isRequired,
+                step: string.isRequired
+            }).isRequired
+        }).isRequired,
         enterSubflow: func.isRequired,
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
@@ -53,10 +61,11 @@ class CheckoutWrapper extends Component {
         } = this.props;
 
         const flowProps = {
+            busy: checkout.flow.busy,
             enterSubflow,
             resetCheckout,
             requestOrder,
-            status: checkout.status,
+            step: checkout.flow.step,
             subflow: checkout.subflow,
             submitOrder,
             updateOrder

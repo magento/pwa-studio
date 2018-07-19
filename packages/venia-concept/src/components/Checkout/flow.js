@@ -1,61 +1,55 @@
 import { Component, createElement } from 'react';
-import { func, oneOf, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Entrance from './entrance';
 import Exit from './exit';
-import Form from './form';
+import Subflow from './subflow';
 import defaultClasses from './flow.css';
 
-const stepMap = {
-    READY: 'STEP_1',
-    REQUESTING: 'STEP_1',
-    MODIFYING: 'STEP_2',
-    SUBMITTING: 'STEP_2',
-    ACCEPTED: 'STEP_3'
-};
-
-const stepEnum = Object.keys(stepMap);
+const stepEnum = ['CART', 'CHECKOUT', 'CONFIRMATION'];
 
 class Flow extends Component {
     static propTypes = {
+        busy: bool.isRequired,
         classes: shape({
             root: string
         }),
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
-        status: oneOf(stepEnum).isRequired,
-        subflow: string,
+        step: string.isRequired,
+        subflow: shape({
+            busy: bool.isRequired,
+            step: string.isRequired
+        }).isRequired,
         submitOrder: func.isRequired,
         updateOrder: func.isRequired
     };
 
     render() {
         const {
+            busy,
             classes,
             enterSubflow,
             resetCheckout,
             requestOrder,
-            status,
+            step,
             subflow,
             submitOrder,
             updateOrder
         } = this.props;
 
-        const step = stepMap[status];
         let child = null;
 
         switch (step) {
-            case 'STEP_1': {
-                child = (
-                    <Entrance status={status} requestOrder={requestOrder} />
-                );
+            case 'CART': {
+                child = <Entrance busy={busy} requestOrder={requestOrder} />;
                 break;
             }
-            case 'STEP_2': {
+            case 'CHECKOUT': {
                 child = (
-                    <Form
-                        status={status}
+                    <Subflow
+                        busy={busy}
                         subflow={subflow}
                         enterSubflow={enterSubflow}
                         submitOrder={submitOrder}
@@ -64,14 +58,14 @@ class Flow extends Component {
                 );
                 break;
             }
-            case 'STEP_3': {
+            case 'CONFIRMATION': {
                 child = <Exit resetCheckout={resetCheckout} />;
                 break;
             }
             default: {
                 const message =
                     'Checkout is in an invalid state. ' +
-                    'Expected `status` to be one of the following: ' +
+                    'Expected `flow.step` to be one of the following: ' +
                     stepEnum.map(s => `\`${s}\``).join(', ');
 
                 throw new Error(message);

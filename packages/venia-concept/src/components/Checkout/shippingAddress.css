@@ -1,0 +1,11 @@
+.root {
+    composes: form from './subflow.css';
+}
+
+.body {
+    composes: body from './subflow.css';
+}
+
+.footer {
+    composes: footer from './subflow.css';
+}

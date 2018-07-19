@@ -1,25 +1,25 @@
 import { Component, createElement } from 'react';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Section from './section';
 import SubmitButton from './submitButton';
-import defaultClasses from './form.css';
+import defaultClasses from './summary.css';
 
 class Summary extends Component {
     static propTypes = {
+        busy: bool.isRequired,
         classes: shape({
             body: string,
             footer: string,
             root: string
         }),
         enterSubflow: func.isRequired,
-        status: string.isRequired,
         submitOrder: func.isRequired
     };
 
     render() {
-        const { classes, status, submitOrder } = this.props;
+        const { busy, classes, submitOrder } = this.props;
         const today = new Date().toDateString();
 
         return (
@@ -51,7 +51,7 @@ class Summary extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
-                    <SubmitButton status={status} submitOrder={submitOrder} />
+                    <SubmitButton busy={busy} submitOrder={submitOrder} />
                 </div>
             </div>
         );
