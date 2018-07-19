@@ -1,3 +1,5 @@
+test
+
 # PWA Studio
 
 [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master)](https://coveralls.io/github/magento-research/pwa-studio?branch=master)
