@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -13,13 +13,30 @@ class ProductList extends Component {
         }),
         items: arrayOf(
             shape({
-                id: string.isRequired
+                item_id: number.isRequired,
+                name: string.isRequired,
+                price: number.isRequired,
+                product_type: string,
+                qty: number.isRequired,
+                quote_id: string,
+                sku: string.isRequired
             })
-        ).isRequired
+        ).isRequired,
+        currencyCode: string.isRequired
     };
 
     render() {
-        return <List render="ul" renderItem={Product} {...this.props} />;
+        const { currencyCode, ...otherProps } = this.props;
+        return (
+            <List
+                render="ul"
+                getItemKey={item => item.item_id}
+                renderItem={props => (
+                    <Product currencyCode={currencyCode} {...props} />
+                )}
+                {...otherProps}
+            />
+        );
     }
 }
 

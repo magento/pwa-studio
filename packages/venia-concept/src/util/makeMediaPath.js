@@ -5,7 +5,14 @@ export function makePathPrepender(prefix) {
     return (...args) => {
         return (
             normalizedPrefix +
-            args.map(p => p.replace(wrappingSlashRE, '$1')).join('/')
+            args
+                .map(
+                    p =>
+                        typeof p === 'string'
+                            ? p.replace(wrappingSlashRE, '$1')
+                            : ''
+                )
+                .join('/')
         );
     };
 }

@@ -2,6 +2,7 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const { join } = require('path');
 const url = require('url');
 const express = require('express');
+const webpack = require('webpack');
 const GlobalConfig = require('../util/global-config');
 const SSLCertStore = require('../util/ssl-cert-store');
 const optionsValidator = require('../util/options-validator');
@@ -14,6 +15,7 @@ const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
 const PWADevServer = {
+    WEBPACK_DEVTOOL: 'source-map',
     validateConfig: optionsValidator('PWADevServer', {
         id: 'string',
         publicPath: 'string',
@@ -175,6 +177,26 @@ const PWADevServer = {
                 );
             }
         };
+    },
+    async attach(webpackConfig, devServerConfig) {
+        if (
+            !webpackConfig ||
+            typeof webpackConfig !== 'object' ||
+            typeof webpackConfig.output !== 'object' ||
+            !Array.isArray(webpackConfig.plugins)
+        ) {
+            throw new Error(
+                'PWADevServer.attach(webpackConfig, devServerConfig) requires its first argument to be a valid Webpack config object, with an `output` object and a `plugins` array.'
+            );
+        }
+        webpackConfig.devtool = PWADevServer.WEBPACK_DEVTOOL;
+        webpackConfig.devServer = await PWADevServer.configure(devServerConfig);
+        webpackConfig.output.publicPath = webpackConfig.devServer.publicPath;
+        webpackConfig.plugins.push(
+            new webpack.NamedChunksPlugin(),
+            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin()
+        );
     }
 };
 module.exports = PWADevServer;

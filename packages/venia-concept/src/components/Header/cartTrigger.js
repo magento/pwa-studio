@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
+import { toggleCart } from 'src/actions/cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
@@ -12,23 +13,23 @@ class Trigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        openCart: PropTypes.func.isRequired
+        toggleCart: PropTypes.func.isRequired
     };
 
     render() {
-        const { children, classes, openCart } = this.props;
+        const { children, classes, toggleCart } = this.props;
 
         return (
-            <button className={classes.root} onClick={openCart}>
+            <button className={classes.root} onClick={toggleCart}>
                 {children}
             </button>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    openCart: () => dispatch({ type: 'TOGGLE_DRAWER', payload: 'cart' })
-});
+const mapDispatchToProps = {
+    toggleCart
+};
 
 export default compose(
     classify(defaultClasses),
