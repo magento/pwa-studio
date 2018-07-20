@@ -23,6 +23,7 @@
         "feather-icons": "^4.6.0",
         "graphql": "^0.13.2",
         "graphql-tag": "^2.9.2",
+        "lodash.debounce": "^4.0.8",
         "memoize-one": "^4.0.0",
         "react": "^16.2.0",
         "react-apollo": "^2.1.5",

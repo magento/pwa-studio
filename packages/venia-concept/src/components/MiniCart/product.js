@@ -1,9 +1,13 @@
 import { Component, Fragment, createElement } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
+import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './product.css';
+
+const imageWidth = 80;
+const imageHeight = 100;
 
 class Product extends Component {
     static propTypes = {
@@ -20,59 +24,63 @@ class Product extends Component {
             root: string
         }),
         item: shape({
-            name: string,
-            options: arrayOf(
-                shape({
-                    name: string,
-                    value: string
-                })
-            ),
-            price: shape({
-                regularPrice: shape({
-                    amount: shape({
-                        currency: string.isRequired,
-                        value: number.isRequired
-                    }).isRequired
-                }).isRequired
-            }).isRequired
-        })
+            item_id: number.isRequired,
+            name: string.isRequired,
+            price: number.isRequired,
+            product_type: string,
+            qty: number.isRequired,
+            quote_id: string,
+            sku: string.isRequired
+        }).isRequired,
+        currencyCode: string.isRequired
     };
 
     get options() {
         const { classes, item } = this.props;
 
-        return item.options.map(({ name, value }) => (
-            <Fragment key={name}>
-                <dt className={classes.optionName}>{name}</dt>
-                <dd className={classes.optionValue}>{value}</dd>
-            </Fragment>
-        ));
+        return item.options && item.options.length > 0 ? (
+            <dl className={this.props.classes.options}>
+                {item.options.map(({ name, value }) => (
+                    <Fragment key={name}>
+                        <dt className={classes.optionName}>{name}</dt>
+                        <dd className={classes.optionValue}>{value}</dd>
+                    </Fragment>
+                ))}
+            </dl>
+        ) : null;
+    }
+
+    styleImage(image) {
+        return {
+            height: imageHeight,
+            width: imageWidth,
+            backgroundImage: `url(${makeProductMediaPath(image.file)})`
+        };
     }
 
     render() {
         const { options, props } = this;
-        const { classes, item } = props;
-        const amount = item.price.regularPrice.amount;
+        const { classes, item, currencyCode } = props;
 
         return (
             <li className={classes.root}>
-                <div className={classes.image} />
+                <div
+                    className={classes.image}
+                    style={this.styleImage(item.image)}
+                />
                 <div className={classes.name}>{item.name}</div>
-                <dl className={classes.options}>{options}</dl>
+                {options}
                 <div className={classes.quantity}>
                     <select
                         className={classes.quantitySelect}
-                        value="1"
+                        value={item.qty}
                         readOnly
                     >
-                        <option value="1">{'1'}</option>
+                        <option value={item.qty}>{item.qty}</option>
                     </select>
                     <span className={classes.quantityOperator}>{'×'}</span>
                     <span className={classes.price}>
-                        <Price
-                            currencyCode={amount.currency}
-                            value={amount.value}
-                        />
+                        <Price currencyCode={currencyCode} value={item.price} />
                     </span>
                 </div>
             </li>

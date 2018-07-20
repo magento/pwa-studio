@@ -11,16 +11,15 @@ class Quantity extends Component {
         classes: PropTypes.shape({
             inventory: PropTypes.string,
             root: PropTypes.string
-        })
+        }),
+        value: PropTypes.number.isRequired,
+        onChange: PropTypes.func.isRequired
     };
 
-    state = {
-        value: mockData[0].id
-    };
+    handleChange = value => this.props.onChange(Number(value));
 
     render() {
-        const { classes } = this.props;
-        const { value } = this.state;
+        const { classes, value } = this.props;
 
         return (
             <div className={classes.root}>
@@ -35,14 +34,6 @@ class Quantity extends Component {
             </div>
         );
     }
-
-    handleChange = value => {
-        this.setValue(value);
-    };
-
-    setValue = value => {
-        this.setState(() => ({ value }));
-    };
 }
 
 export default classify(defaultClasses)(Quantity);

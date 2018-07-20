@@ -1,9 +1,10 @@
 const initialState = {
     drawer: null,
-    overlay: false
+    overlay: false,
+    pending: {}
 };
 
-const reducer = (state = initialState, { payload, type }) => {
+const reducer = (state = initialState, { error, payload, type }) => {
     switch (type) {
         case 'TOGGLE_DRAWER': {
             return {
@@ -13,6 +14,12 @@ const reducer = (state = initialState, { payload, type }) => {
             };
         }
         default: {
+            if (error) {
+                return {
+                    ...state,
+                    error
+                };
+            }
             return state;
         }
     }
