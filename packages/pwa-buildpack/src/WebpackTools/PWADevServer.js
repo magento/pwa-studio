@@ -4,15 +4,10 @@ const proxy = require('http-proxy-middleware');
 const debug = require('../util/debug').makeFileLogger(__filename);
 const GlobalConfig = require('../util/global-config');
 const SSLCertStore = require('../util/ssl-cert-store');
-const optionsValidator = require('../util/options-validator');
 const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
 const PWADevServer = {
-    validateConfig: optionsValidator('PWADevServer', {
-        'paths.output': 'string',
-        'paths.assets': 'string'
-    }),
     hostnamesById: new GlobalConfig({
         prefix: 'devhostname-byid',
         key: x => x
@@ -119,27 +114,31 @@ const PWADevServer = {
     },
     async configure(config = {}) {
         debug('configure() invoked', config);
-        PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
-            content: [config.paths.assets],
+            content: [config.contentPath],
             clipboard: false,
             hotClient: {
-                logLevel: 'warning',
-                stats: 'minimal'
+                https: true
             },
-            add(app) {
-                app.use(
+            async add(app, middleware) {
+                await middleware.webpack();
+                await middleware.content();
+                await app.use(convert(history()));
+                await app.use(
                     convert(
                         proxy({
                             context: ['/graphql', '/rest', '/media'],
-                            target: config.backendDomain
+                            target: config.backendDomain,
+                            logLevel: 'debug',
+                            secure: false,
+                            changeOrigin: true,
+                            autoRewrite: true,
+                            cookieDomainRewrite: ''
                         })
                     )
                 );
-                app.use(convert(history()));
             }
         };
-        console.log(config);
         if (config.provideUniqueHost) {
             const sanitizedId = config.id
                 .toLowerCase()

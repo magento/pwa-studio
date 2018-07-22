@@ -14,15 +14,13 @@ const path = require('path');
 
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
-const themePaths = {
-    src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
-};
+const dirJoiner = dir => (file = '') => path.resolve(__dirname, dir, file);
+const src = dirJoiner('src');
+const output = dirJoiner('public');
 
 module.exports = async function() {
     const mode = process.env.WEBPACK_SERVE ? 'development' : 'production';
@@ -39,17 +37,19 @@ module.exports = async function() {
         mode,
         context: __dirname, // Node global for the running script's directory
         entry: {
-            client: path.resolve(themePaths.src, 'index.js')
+            client: src('index.js')
         },
         output: {
-            path: themePaths.output,
+            path: output(),
+            publicPath: '/',
             filename: '[name].js',
+            strictModuleExceptionHandling: true,
             chunkFilename: '[name]-[chunkhash].js'
         },
         module: {
             rules: [
                 {
-                    include: [themePaths.src],
+                    include: [src()],
                     test: /\.js$/,
                     use: [
                         {
@@ -87,6 +87,9 @@ module.exports = async function() {
         performance: {
             hints: 'warning'
         },
+        optimization: {
+            noEmitOnErrors: true
+        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
@@ -94,7 +97,6 @@ module.exports = async function() {
         }),
         plugins: [
             new MagentoRootComponentsPlugin(),
-            new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(mode),
                 // Blank the service worker file name to stop the app from
@@ -118,58 +120,71 @@ module.exports = async function() {
             new ServiceWorkerPlugin({
                 env: { mode },
                 enableServiceWorkerDebugging,
-                serviceWorkerFileName,
-                paths: themePaths
+                serviceWorkerFileName
             })
         ]
     };
     if (mode === 'development') {
+        config.optimization.splitChunks = {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 100000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 2,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        };
         config.devtool = 'source-map';
 
         config.output.pathinfo = true;
 
         config.serve = await PWADevServer.configure({
+            id: 'venia-webpack4',
+            provideUniqueHost: true,
+            provideSSLCert: true,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths
+            contentPath: config.output.path
         });
-        // A DevServer generates its own unique output path at startup. It needs
-        // to assign the main outputPath to this value as well.
-
-        config.output.publicPath = config.serve.publicPath;
-
         config.plugins.push(
-            new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer),
+            new DevServerReadyNotifierPlugin(config.serve),
             new HtmlWebpackPlugin({
                 meta: {
                     viewport:
                         'width=device-width, initial-scale=1, shrink-to-fit=no'
                 },
-                title: 'Venia'
+                chunksSortMode: 'none',
+                title: 'Venia',
+                alwaysWriteToDisk: true
             }),
-            new PreloadWebpackPlugin()
+            new HtmlWebpackHarddiskPlugin()
         );
     } else if (mode === 'production') {
-        config.optimization = {
-            splitChunks: {
-                chunks: 'async',
-                minSize: 30000,
-                maxSize: 0,
-                minChunks: 1,
-                maxAsyncRequests: 5,
-                maxInitialRequests: 3,
-                automaticNameDelimiter: '~',
-                name: true,
-                cacheGroups: {
-                    vendors: {
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10
-                    },
-                    default: {
-                        minChunks: 2,
-                        priority: -20,
-                        reuseExistingChunk: true
-                    }
+        config.optimization.splitChunks = {
+            chunks: 'all',
+            minSize: 30000,
+            maxSize: 100000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
                 }
             }
         };
@@ -182,11 +197,11 @@ module.exports = async function() {
                 },
                 title: 'Venia',
                 hash: true,
+                chunksSortMode: 'none',
                 minify: true
             }),
-            new PreloadWebpackPlugin(),
             new FaviconsWebpackPlugin({
-                logo: './src/components/Header/logo.svg',
+                logo: src('components/Header/logo.svg'),
                 title: 'Venia'
             })
         );

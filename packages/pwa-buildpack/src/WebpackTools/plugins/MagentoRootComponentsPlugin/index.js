@@ -46,42 +46,42 @@ class MagentoRootComponentsPlugin {
                 compilation.hooks.normalModuleLoader.tap(
                     'MagentoRootComponentsPlugin',
                     (loaderContext, mod) => {
-                if (!isJsFile(mod.resource)) {
-                    return;
-                }
-                if (seenRootComponents.has(mod.resource)) {
-                    // The module ("mod") has not been assigned an ID yet,
-                    // so we need to keep a reference to it which will allow
-                    // us to grab the ID during the emit phase
-                    moduleByPath.set(mod.resource, mod);
-                }
-                // To create a unique chunk for each RootComponent, we want to inject
-                // a dynamic import() for each RootComponent, within each entry point.
+                        if (!isJsFile(mod.resource)) {
+                            return;
+                        }
+                        if (seenRootComponents.has(mod.resource)) {
+                            // The module ("mod") has not been assigned an ID yet,
+                            // so we need to keep a reference to it which will allow
+                            // us to grab the ID during the emit phase
+                            moduleByPath.set(mod.resource, mod);
+                        }
+                        // To create a unique chunk for each RootComponent, we want to inject
+                        // a dynamic import() for each RootComponent, within each entry point.
 
-                const isAnEntry = compilation.entries.some(entryMod => {
-                    // Check if the module being constructed matches a defined entry point
-                    if (mod === entryMod) return true;
-                    if (!entryMod.identifier().startsWith('multi')) {
-                        return false;
-                    }
+                        const isAnEntry = compilation.entries.some(entryMod => {
+                            // Check if the module being constructed matches a defined entry point
+                            if (mod === entryMod) return true;
+                            if (!entryMod.identifier().startsWith('multi')) {
+                                return false;
+                            }
 
-                    // If a multi-module entry is used (webpack-dev-server creates one), we
-                    // need to try and match against each dependency in the multi module
-                    return entryMod.dependencies.some(
-                        singleDep => singleDep.module === mod
-                    );
-                });
-                if (!isAnEntry) return;
+                            // If a multi-module entry is used (webpack-dev-server creates one), we
+                            // need to try and match against each dependency in the multi module
+                            return entryMod.dependencies.some(
+                                singleDep => singleDep.module === mod
+                            );
+                        });
+                        if (!isAnEntry) return;
 
-                // If this module is an entry module, inject a loader in the pipeline
-                // that will force creation of all our RootComponent chunks
-                mod.loaders.push({
-                    loader: loaderPath,
-                    options: {
-                        rootsDirs: rootComponentsDirsAbs
+                        // If this module is an entry module, inject a loader in the pipeline
+                        // that will force creation of all our RootComponent chunks
+                        mod.loaders.push({
+                            loader: loaderPath,
+                            options: {
+                                rootsDirs: rootComponentsDirsAbs
+                            }
+                        });
                     }
-                    }
-                });
                 );
             }
         );
@@ -89,6 +89,7 @@ class MagentoRootComponentsPlugin {
         compiler.hooks.emit.tap('MagentoRootComponentsPlugin', compilation => {
             // Prepare the manifest that the Magento backend can use
             // to pick root components for a page.
+            debugger;
             const chunks = Array.from(compilation.chunks);
 
             const manifest = chunks.reduce((acc, chunk) => {
