@@ -7,6 +7,7 @@ jest.mock('../middlewares/DevProxy');
 jest.mock('../middlewares/OriginSubstitution');
 jest.mock('../middlewares/StaticRootRoute');
 
+const webpack = require('webpack');
 const { lookup } = require('../../util/promisified/dns');
 const openport = require('../../util/promisified/openport');
 const runAsRoot = require('../../util/run-as-root');
@@ -400,4 +401,74 @@ test('.configure() optionally adds OriginSubstitution middleware', async () => {
     );
 
     expect(app.use).toHaveBeenCalledWith('fakeOriginSubstitution');
+});
+
+test('.attach() creates a server with .configure() and applies it to config', async () => {
+    simulate
+        .hostnameForNextId('coolnewhost.local.pwadev')
+        .portSavedForNextHostname(8765)
+        .hostResolvesLoopback()
+        .certExistsForNextHostname({
+            key: 'fakeKey2',
+            cert: 'fakeCert2'
+        });
+    const webpackConfig = {
+        output: {},
+        plugins: []
+    };
+    const devServerConfig = {
+        id: 'Theme_Unique_Id',
+        paths: {
+            output: 'path/to/static',
+            assets: 'path/to/assets'
+        },
+        publicPath: 'full/path/to/publicPath',
+        serviceWorkerFileName: 'swname.js',
+        backendDomain: 'https://magento.backend.domain',
+        changeOrigin: true
+    };
+    await PWADevServer.attach(webpackConfig, devServerConfig);
+    expect(webpackConfig.devtool).toEqual(PWADevServer.WEBPACK_DEVTOOL);
+    expect(webpackConfig.devServer).toMatchObject({
+        publicPath: expect.stringContaining('full/path/to/publicPath'),
+        hot: true,
+        https: expect.any(Object)
+    });
+    expect(webpackConfig.output.publicPath).toEqual(
+        webpackConfig.devServer.publicPath
+    );
+    const [
+        namedChunksPlugin,
+        namedModulesPlugin,
+        hotModuleReplacementPlugin
+    ] = webpackConfig.plugins.slice(-3);
+    expect(namedChunksPlugin).toBeInstanceOf(webpack.NamedChunksPlugin);
+    expect(namedModulesPlugin).toBeInstanceOf(webpack.NamedModulesPlugin);
+    expect(hotModuleReplacementPlugin).toBeInstanceOf(
+        webpack.HotModuleReplacementPlugin
+    );
+});
+
+test('.attach() errors if it receives invalid arguments', async () => {
+    const firstArgErrorString = '`output` object and a `plugins` array';
+    await expect(PWADevServer.attach()).rejects.toThrowError(
+        firstArgErrorString
+    );
+    await expect(PWADevServer.attach({})).rejects.toThrowError(
+        firstArgErrorString
+    );
+    await expect(PWADevServer.attach({ output: {} })).rejects.toThrowError(
+        firstArgErrorString
+    );
+    await expect(
+        PWADevServer.attach({ output: [], plugins: {} })
+    ).rejects.toThrowError(firstArgErrorString);
+
+    // should pass the .configure() errors through
+    await expect(
+        PWADevServer.attach({ output: {}, plugins: [] })
+    ).rejects.toThrowError();
+    await expect(
+        PWADevServer.attach({ output: {}, plugins: [] }, null)
+    ).rejects.toThrowError();
 });
