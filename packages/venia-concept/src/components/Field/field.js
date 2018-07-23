@@ -1,20 +1,19 @@
 import { Component, Fragment, createElement } from 'react';
-import PropTypes from 'prop-types';
+import { bool, node, shape, string } from 'prop-types';
+
+import classify from 'src/classify';
+import defaultClasses from './field.css';
 
 class Field extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            label: PropTypes.string,
-            message: PropTypes.string,
-            root: PropTypes.string
+        classes: shape({
+            label: string,
+            message: string,
+            root: string
         }),
-        label: PropTypes.node,
-        message: PropTypes.node,
-        singular: PropTypes.bool
-    };
-
-    static defaultProps = {
-        classes: {}
+        group: bool,
+        label: node,
+        message: node
     };
 
     get children() {
@@ -35,12 +34,12 @@ class Field extends Component {
 
     render() {
         const { children, props } = this;
-        const { classes, singular } = props;
-        const elementType = singular ? 'label' : 'div';
+        const { classes, group } = props;
+        const elementType = group ? 'div' : 'label';
         const elementProps = { className: classes.root };
 
         return createElement(elementType, elementProps, children);
     }
 }
 
-export default Field;
+export default classify(defaultClasses)(Field);

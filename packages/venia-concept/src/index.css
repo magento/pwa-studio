@@ -71,3 +71,7 @@ button {
   padding: 0;
   -webkit-appearance: none;
 }
+
+.input {
+  font-family: var(--venia-font);
+}

@@ -9,3 +9,27 @@
 .footer {
     composes: footer from './subflow.css';
 }
+
+.form {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.name,
+.country,
+.thoroughfare,
+.premise,
+.locality,
+.postalCode,
+.administrativeArea {
+    composes: root from '../Field/field.css';
+    grid-column-end: span 2;
+}
+
+.postalCode,
+.administrativeArea {
+    grid-column-end: span 1;
+}

@@ -1,0 +1,18 @@
+.root {
+    display: grid;
+    position: relative;
+}
+
+.label {
+    align-items: center;
+    background-color: white;
+    border-radius: 2px;
+    display: inline-flex;
+    left: 8px;
+    padding: 0 2px;
+    position: absolute;
+    top: 6px;
+    transform: scale(0.75) translate3d(0, -18px, 0);
+    transform-origin: left top;
+    transition: transform 128ms linear;
+}

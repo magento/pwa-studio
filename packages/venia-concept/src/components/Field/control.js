@@ -1,21 +1,24 @@
 import { Component, createElement } from 'react';
-import PropTypes from 'prop-types';
+import { shape, string } from 'prop-types';
+
+import classify from 'src/classify';
+import defaultClasses from './control.css';
 
 const specialInputTypes = ['select', 'textarea'];
 const isInput = type => !specialInputTypes.includes(type);
 
 class Control extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            root: string
         }),
-        name: PropTypes.string,
-        type: PropTypes.string.isRequired
+        name: string,
+        type: string.isRequired
     };
 
-    static defaultProps = {
-        classes: {}
-    };
+    // static defaultProps = {
+    //     type: 'text'
+    // };
 
     get input() {
         const { classes, type, ...restProps } = this.props;
@@ -47,4 +50,4 @@ class Control extends Component {
     };
 }
 
-export default Control;
+export default classify(defaultClasses)(Control);

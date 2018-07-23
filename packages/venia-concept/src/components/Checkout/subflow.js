@@ -2,7 +2,9 @@ import { Component, createElement } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
+import BillingAddress from './billingAddress';
 import ShippingAddress from './shippingAddress';
+import ShippingMethod from './shippingMethod';
 import Summary from './summary';
 import defaultClasses from './subflow.css';
 
@@ -12,9 +14,6 @@ const stepEnum = [
     'SHIPPING_METHOD',
     'SUMMARY'
 ];
-const Stub = () => <div />;
-const BillingAddress = Stub;
-const ShippingMethod = Stub;
 
 class Subflow extends Component {
     static propTypes = {
@@ -42,6 +41,8 @@ class Subflow extends Component {
             submitOrder,
             updateOrder
         } = this.props;
+
+        const subflowProps = { busy, updateOrder };
         let child;
 
         switch (subflow.step) {
@@ -56,20 +57,15 @@ class Subflow extends Component {
                 break;
             }
             case 'SHIPPING_ADDRESS': {
-                child = (
-                    <ShippingAddress
-                        busy={subflow.busy}
-                        updateOrder={updateOrder}
-                    />
-                );
+                child = <ShippingAddress {...subflowProps} />;
                 break;
             }
             case 'BILLING_ADDRESS': {
-                child = <BillingAddress />;
+                child = <BillingAddress {...subflowProps} />;
                 break;
             }
             case 'SHIPPING_METHOD': {
-                child = <ShippingMethod />;
+                child = <ShippingMethod {...subflowProps} />;
                 break;
             }
             default: {
