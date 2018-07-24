@@ -18,7 +18,7 @@ If you experience problems with the project setup, see [Troubleshooting] in the 
 Clone the [PWA Studio] repository into your development environment. 
 
 ``` sh
-git clone git@github.com:magento-research/pwa-studio.git
+git clone https://github.com/magento-research/pwa-studio.git
 ```
 
 {: .bs-callout .bs-callout-info}
