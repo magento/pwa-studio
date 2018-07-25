@@ -10,10 +10,10 @@ const categoryListQuery = gql`
     query category($id: Int!) {
         category(id: $id) {
             children {
-              name
-              url_key
-              url_path
-              image
+                name
+                url_key
+                url_path
+                image
             }
         }
     }
@@ -53,34 +53,40 @@ class CategoryList extends Component {
 
         return (
             <div className={classes.root}>
-                {this.props.title &&
+                {this.props.title && (
                     <div className={classes.header}>
                         <h2 className={classes.title}>
                             <span>{this.props.title}</span>
                         </h2>
                     </div>
-                }
-                <Query query={categoryListQuery} variables={{id}}>
+                )}
+                <Query query={categoryListQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;
-                        if (data.category.children == '') return <div>Here are not any child categories</div>;
+                        if (data.category.children == '')
+                            return <div>Here are not any child categories</div>;
 
                         return (
                             <div className={classes.content}>
                                 {data.category.children.map((item, index) => (
                                     <a
                                         className={classes.item}
-                                        href={`${baseUrl}/${item.url_key}${categoryUrlSuffix}`}
+                                        href={`${baseUrl}/${
+                                            item.url_key
+                                        }${categoryUrlSuffix}`}
                                         key={index}
                                     >
                                         <span className={classes.imageWrapper}>
-                                            {item.image &&
+                                            {item.image && (
                                                 <img
-                                                className={classes.image}
-                                                src={`${mediaUrl}/catalog/category/${item.image}`}
-                                                alt={item.name} />
-                                            }
+                                                    className={classes.image}
+                                                    src={`${mediaUrl}/catalog/category/${
+                                                        item.image
+                                                    }`}
+                                                    alt={item.name}
+                                                />
+                                            )}
                                         </span>
                                         <span className={classes.name}>
                                             {item.name}
