@@ -1,5 +1,5 @@
 export default class M2ApiResponseError extends Error {
-    constructor({ method, resourceUrl, res, bodyText }, ...args) {
+    constructor({ method, resourceUrl, response, bodyText }, ...args) {
         let body = ``;
         try {
             const { message, trace, ...rest } = JSON.parse(bodyText);
@@ -22,13 +22,13 @@ export default class M2ApiResponseError extends Error {
             body = bodyText;
         }
         super(
-            `${method} ${resourceUrl} responded ${res.status} ${
-                res.statusText
+            `${method} ${resourceUrl} responded ${response.status} ${
+                response.statusText
             }: \n\n${body}`,
             ...args
         );
         Error.captureStackTrace(this, M2ApiResponseError);
-        this.response = res;
+        this.response = response;
         this.method = method;
         this.resourceUrl = resourceUrl;
     }

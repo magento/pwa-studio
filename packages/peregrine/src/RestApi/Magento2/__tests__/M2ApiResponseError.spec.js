@@ -4,7 +4,7 @@ test('pretty prints a JSON response', () => {
     const { message } = new M2ApiResponseError({
         method: 'GET',
         resourceUrl: 'bad-path',
-        res: {
+        response: {
             status: 500,
             statusText: 'Just the worst'
         },
@@ -20,7 +20,7 @@ test('handles random extra properties', () => {
     const { message } = new M2ApiResponseError({
         method: 'GET',
         resourceUrl: 'bad-path',
-        res: {
+        response: {
             status: 500,
             statusText: 'Just the worst'
         },
@@ -37,7 +37,7 @@ test('recovers when error properties cannot be parsed', () => {
     const { message } = new M2ApiResponseError({
         method: 'GET',
         resourceUrl: 'bad-path',
-        res: {
+        response: {
             status: 500,
             statusText: 'Just the worst'
         },

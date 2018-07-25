@@ -1,8 +1,8 @@
+import { toggleDrawer, closeDrawer } from 'src/actions/app';
 import { RestApi } from '@magento/peregrine';
 const {
     Magento2: { request }
 } = RestApi;
-import { toggleDrawer, closeDrawer } from 'src/actions/app';
 
 const getGuestCartId = getState => {
     const { cart } = getState();
@@ -128,16 +128,15 @@ export const toggleCart = () => async (...args) => {
         return closeDrawer(...args);
     }
 
-    // if it opens the cart, then update it
-    const gettingCartDetails = getCartDetails()(...args);
+    const preparingCart = [getCartDetails()(...args)];
 
     // if another drawer is open, then close it
     if (drawer) {
-        await closeDrawer(...args);
+        preparingCart.push(closeDrawer(...args));
     }
     // no cart populated? wait to show the drawer so it's not blank
     if (!cart.id) {
-        await gettingCartDetails;
+        await Promise.all(preparingCart);
     }
 
     await toggleDrawer('cart')(...args);

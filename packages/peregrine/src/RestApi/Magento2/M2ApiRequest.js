@@ -11,7 +11,7 @@ const withDefaultHeaders = headerAdditions => {
         if (headerAdditions instanceof Headers) {
             /* istanbul ignore next: current phantomJS doesn't support */
             if (headerAdditions.entries) {
-                for (let [name, value] of headerAdditions.entries()) {
+                for (const [name, value] of headerAdditions) {
                     headers.append(name, value);
                 }
             } else if (headerAdditions.forEach) {
@@ -27,7 +27,7 @@ const withDefaultHeaders = headerAdditions => {
                 );
             }
         } else {
-            for (let [name, value] of Object.entries(headerAdditions)) {
+            for (const [name, value] of Object.entries(headerAdditions)) {
                 headers.append(name, value);
             }
         }
@@ -166,7 +166,7 @@ class M2ApiRequest {
                     throw e;
                 }
             )
-            .then(res => {
+            .then(response => {
                 // WHATWG fetch will only reject in the unlikely event
                 // of an error prior to opening the HTTP request.
                 // It pays no attention to HTTP status codes.
@@ -174,9 +174,9 @@ class M2ApiRequest {
                 // corresponding to status codes in the 2xx range.
                 // An M2ApiRequest will reject, passing server errors
                 // to the client, in the event of an HTTP error code.
-                if (!res.ok) {
+                if (!response.ok) {
                     return (
-                        res
+                        response
                             // The response may or may not be JSON.
                             // Let M2ApiResponseError handle it.
                             .text()
@@ -187,13 +187,13 @@ class M2ApiRequest {
                                 throw new M2ApiResponseError({
                                     method: this.opts.method,
                                     resourceUrl: this.resourceUrl,
-                                    res,
+                                    response,
                                     bodyText
                                 });
                             })
                     );
                 }
-                return res;
+                return response;
             });
     }
     /**
@@ -227,10 +227,10 @@ class M2ApiRequest {
             // swallow the AbortError we expect, and replace it with
             // the promise from our rolling request.
             if (error.name === 'AbortError') {
-                const newInFlightMatch = MulticastCache.match(this);
-                if (newInFlightMatch) {
+                const replacedInFlightMatch = MulticastCache.match(this);
+                if (replacedInFlightMatch) {
                     // There is a rolling request in the cache to override!
-                    return newInFlightMatch.getResponse();
+                    return replacedInFlightMatch.getResponse();
                 }
             }
             throw error;
@@ -255,8 +255,11 @@ export default M2ApiRequest;
  */
 export function request(resourceUrl, opts) {
     const req = new M2ApiRequest(resourceUrl, opts);
+
     req.run();
+
     const promise = req.getResponse();
+
     if (opts && opts.parseJSON === false) {
         return promise;
     }
