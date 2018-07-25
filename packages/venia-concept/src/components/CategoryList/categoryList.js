@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './categoryList.css';
 
+// TODO: get only active categories from graphql when it is ready
 const categoryListQuery = gql`
     query category($id: Int!) {
         category(id: $id) {
