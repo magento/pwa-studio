@@ -19,7 +19,7 @@ title: Filter
 
 On the filter overlay, the filter parameters appear as accordions.
 
-To make the best use of limited screen real estate, only one accordion is open at any give time, so
+To make the best use of limited screen real estate, only one accordion is open at any given time, so
 opening a second accordion closes the current open accordion.
 
 The number of variables within a parameter appears on the right and aligns with the accordion heading.
