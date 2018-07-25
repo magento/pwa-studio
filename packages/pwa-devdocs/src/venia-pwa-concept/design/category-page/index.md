@@ -7,10 +7,6 @@ title: Category page
 This design specification is still in development.
 If have any feedback or would like to join the PWA conversation, please join our [Slack][] channel.
 
-## Layout
-
-See the [interactive mockup] for a preview of the homepage layout.
-
 ## Page states
 
 The category page handles the following [Page][] states:
@@ -46,9 +42,6 @@ The following table shows a visual breakdown of these components.
 | **Show more**                                   | [![Show more image]{:width="400px"}][Show more]             |
 | **Footer**                                      | [![Footer image]{:width="400px"}][Footer]                   |
 {:style="table-layout:auto"}
-
-
-[interactive mockup]: https://magento.invisionapp.com/share/5YMQJXACV6A#/screens
 
 [Header]: {{ site.baseurl }}{% link venia-pwa-concept/component/header/index.md %}
 [Header image]: {{ site.baseurl }}{% link venia-pwa-concept/images/header-menu-collapsed-with-cart-item.png %}
