@@ -2,9 +2,10 @@
 title: Title bar component
 ---
 
-| Description | Reference image              |
-| ----------- | :--------------------------: |
-| Title bar   | ![Title bar]{:width="300px"} |
+| Description         | Reference image                        |
+| ------------------- | :------------------------------------: |
+| Title bar           | ![Title bar]{:width="300px"}           |
+| Title bar - Dresses | ![Title bar - dresses]{:width="300px"} |
 {:style="table-layout:auto"}
 
 ## Visual specifications
@@ -25,3 +26,4 @@ The price is vertically centered in the bar.
 * **Page refresh** - TBD
 
 [Title bar]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar.png %}
+[Title bar - dresses]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar-dresses.png %}
