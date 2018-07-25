@@ -49,7 +49,6 @@ class CategoryList extends Component {
     };
 
     render() {
-        let { data } = this.props;
         const { id, classes } = this.props;
 
         return (
@@ -73,7 +72,7 @@ class CategoryList extends Component {
                                     <a
                                         className={classes.item}
                                         href={`${baseUrl}/${item.url_key}${categoryUrlSuffix}`}
-                                        key={item.name}
+                                        key={index}
                                     >
                                         <span className={classes.imageWrapper}>
                                             {item.image &&
