@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
-import { addItemToCart, getCartDetails, toggleCart } from 'src/actions/cart';
+import { addItemToCart } from 'src/actions/cart';
 import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
@@ -99,7 +99,7 @@ class Product extends Component {
                         return (
                             <ProductFullDetail
                                 product={product}
-                                addToCart={this.addToCart}
+                                addToCart={this.props.addItemToCart}
                             />
                         );
                     }}
@@ -109,14 +109,11 @@ class Product extends Component {
     }
 }
 
-const mapStateToProps = ({ cart: { guestCartId } = {} }) => ({ guestCartId });
 const mapDispatchToProps = {
-    addItemToCart,
-    getCartDetails,
-    toggleCart
+    addItemToCart
 };
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(Product);
