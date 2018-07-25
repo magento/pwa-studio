@@ -1,5 +1,5 @@
 const initialState = {
-    order: null,
+    shippingInformation: false,
     status: 'READY',
     subflow: null
 };
@@ -32,6 +32,12 @@ const reducer = (state = initialState, { payload, type }) => {
                 subflow: null
             };
         }
+        case 'SUBMIT_SHIPPING_INFORMATION': {
+            return {
+                ...state,
+                shippingInformation: true
+            };
+        }
         case 'SUBMIT_ORDER': {
             return {
                 ...state,
@@ -51,10 +57,7 @@ const reducer = (state = initialState, { payload, type }) => {
             };
         }
         case 'RESET_CHECKOUT': {
-            return {
-                ...state,
-                status: 'READY'
-            };
+            return initialState;
         }
         default: {
             return state;

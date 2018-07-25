@@ -1,16 +1,12 @@
-import { toggleDrawer, closeDrawer } from 'src/actions/app';
 import { RestApi } from '@magento/peregrine';
-const {
-    Magento2: { request }
-} = RestApi;
 
-const getGuestCartId = getState => {
-    const { cart } = getState();
-    return cart && cart.guestCartId;
-};
+import { toggleDrawer, closeDrawer } from 'src/actions/app';
+
+const { request } = RestApi.Magento2;
 
 const createGuestCart = async dispatch => {
     let payload, error;
+
     try {
         payload = await request('/rest/V1/guest-carts', {
             method: 'POST'
@@ -19,20 +15,36 @@ const createGuestCart = async dispatch => {
         payload = e;
         error = true;
     }
+
     dispatch({
         type: 'CREATE_GUEST_CART',
         payload,
         error
     });
+
     return payload;
 };
 
-export const addItemToCart = ({ item, quantity }) =>
+const getGuestCartId = async function(dispatch, getState) {
+    const { cart } = getState();
+
+    if (!cart) {
+        throw new Error('Cart state is not ready yet.');
+    }
+
+    if (!cart.guestCartId) {
+        await createGuestCart(...arguments);
+    }
+
+    return cart.guestCartId;
+};
+
+const addItemToCart = ({ item, quantity }) =>
     async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const guestCartId =
-            getGuestCartId(getState) || (await createGuestCart(...args));
+        const [dispatch] = args;
+        const guestCartId = await getGuestCartId(...args);
         let payload, error;
+
         try {
             const cartItem = await request(
                 `/rest/V1/guest-carts/${guestCartId}/items`,
@@ -48,6 +60,7 @@ export const addItemToCart = ({ item, quantity }) =>
                     })
                 }
             );
+
             payload = {
                 cartItem,
                 item,
@@ -60,14 +73,17 @@ export const addItemToCart = ({ item, quantity }) =>
                 // re-execute this thunk
                 return thunk(...args);
             }
+
             payload = e;
             error = true;
         }
+
         dispatch({
             type: 'ADD_ITEM_TO_CART',
             payload,
             error
         });
+
         await Promise.all([
             getCartDetails({ forceRefresh: true })(...args),
             toggleCart()(...args)
@@ -79,12 +95,12 @@ const fetchCartPart = async ({ guestCartId, forceRefresh, subResource = '' }) =>
         cache: forceRefresh ? 'reload' : 'default'
     });
 
-export const getCartDetails = ({ forceRefresh } = {}) =>
+const getCartDetails = ({ forceRefresh } = {}) =>
     async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const guestCartId =
-            getGuestCartId(getState) || (await createGuestCart(...args));
+        const [dispatch] = args;
+        const guestCartId = await getGuestCartId(...args);
         let payload, error;
+
         try {
             const [details, totals] = await Promise.all([
                 fetchCartPart({ guestCartId, forceRefresh }),
@@ -94,6 +110,7 @@ export const getCartDetails = ({ forceRefresh } = {}) =>
                     subResource: 'totals'
                 })
             ]);
+
             payload = {
                 details,
                 totals
@@ -108,6 +125,7 @@ export const getCartDetails = ({ forceRefresh } = {}) =>
             payload = e;
             error = true;
         }
+
         dispatch({
             type: 'GET_CART_DETAILS',
             payload,
@@ -115,12 +133,14 @@ export const getCartDetails = ({ forceRefresh } = {}) =>
         });
     };
 
-export const toggleCart = () => async (...args) => {
+const toggleCart = () => async (...args) => {
     const [, getState] = args;
     const { app, cart } = getState();
+
     if (!app || !cart) {
         return;
     }
+
     const { drawer } = app;
 
     // if this toggle closes the cart, just close the cart
@@ -141,3 +161,5 @@ export const toggleCart = () => async (...args) => {
 
     await toggleDrawer('cart')(...args);
 };
+
+export { addItemToCart, getCartDetails, getGuestCartId, toggleCart };
