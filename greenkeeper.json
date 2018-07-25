@@ -1,0 +1,14 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/peregrine/package.json",
+        "packages/pwa-buildpack/package.json",
+        "packages/pwa-devdocs/package.json",
+        "packages/pwa-module/package.json",
+        "packages/venia-concept/package.json"
+      ]
+    }
+  }
+}
