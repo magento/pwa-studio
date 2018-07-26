@@ -19,12 +19,6 @@ const categoryListQuery = gql`
     }
 `;
 
-// TODO: get baseUrl from graphql when it is ready
-const baseUrl = 'https://magento-venia.local.pwadev:8000';
-
-// TODO: get mediaUrl from graphql when it is ready
-const mediaUrl = 'https://magento-venia.local.pwadev:8000/pub/media';
-
 // TODO: get categoryUrlSuffix from graphql when it is ready
 const categoryUrlSuffix = '.html';
 
@@ -44,22 +38,24 @@ class CategoryList extends Component {
         })
     };
 
-    static defaultProps = {
-        id: 2
-    };
+    get header() {
+        const { title, classes } = this.props;
+
+        return title ? (
+            <div className={classes.header}>
+                <h2 className={classes.title}>
+                    <span>{title}</span>
+                </h2>
+            </div>
+        ) : null;
+    }
 
     render() {
         const { id, classes } = this.props;
 
         return (
             <div className={classes.root}>
-                {this.props.title && (
-                    <div className={classes.header}>
-                        <h2 className={classes.title}>
-                            <span>{this.props.title}</span>
-                        </h2>
-                    </div>
-                )}
+                {this.header}
                 <Query query={categoryListQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
@@ -72,7 +68,7 @@ class CategoryList extends Component {
                                 {data.category.children.map((item, index) => (
                                     <a
                                         className={classes.item}
-                                        href={`${baseUrl}/${
+                                        href={`/${
                                             item.url_key
                                         }${categoryUrlSuffix}`}
                                         key={index}
@@ -81,7 +77,7 @@ class CategoryList extends Component {
                                             {item.image && (
                                                 <img
                                                     className={classes.image}
-                                                    src={`${mediaUrl}/catalog/category/${
+                                                    src={`/pub/media/catalog/category/${
                                                         item.image
                                                     }`}
                                                     alt={item.name}
