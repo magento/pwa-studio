@@ -13,14 +13,23 @@ title: Sort
 
 ## Visual specifications
 
+### Button specifications
+
 A button with the text: **Sort**.
 
-The sort overlay takes up most of the screen real estate.
+### Overlay specifications
+
+The sort overlay is anchored to the bottom, left, and right sides of the screen.
+It masks the content below and should never be taller than 3/4 of the viewport height.
 
 ## Interactions
 
+### Button interactions
+
 * **Tap** - Tapping the **Sort** button pulls up an overlay from the bottom with sort parameters.
 
-  Tapping on the mask dismisses the sorting sheet without applying the parameter.
+### Overlay interactions
 
-* **Click** - Clicking **Apply** makes the sorting sheet lower down and displays the page with the appropriate results.
+* **Tap** - Tapping on the overlay dismisses the sorting sheet without applying the parameter.
+
+  Tapping the **Apply** button in the overlay executes the sort using the parameters and moves the overlay downwards and out of view.

@@ -15,4 +15,4 @@ A button with the text **Show more**.
 
 ## Interactions
 
-* **Scroll** - When the user scrolls past a certain number of items they will need to click this button to load more product listings.
+* **Scroll** - When the user scrolls past a certain number of items they will need to tap this button to load more product listings.

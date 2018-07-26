@@ -32,15 +32,15 @@ The following components make up the category page:
 
 The following table shows a visual breakdown of these components.
 
-| Components                                      | Reference image                                             |
-| ----------------------------------------------- | :---------------------------------------------------------: |
-| **Header**                                      | [![Header image]{:width="400px"}][Header]                   |
-| **Title bar**                                   | [![Title bar image]{:width="400px"}][Title bar]             |
-| **Main image**                                  | [![Main image image]{:width="400px"}][Main image]           |
-| **Filter**<br/>**Sort**<br/>**Number of items** | [![Filter bar]{:width="400px"}][Sort]                       |
-| **Product listing**                             | [![Product listing image]{:width="400px"}][Product listing] |
-| **Show more**                                   | [![Show more image]{:width="400px"}][Show more]             |
-| **Footer**                                      | [![Footer image]{:width="400px"}][Footer]                   |
+| Components                                    | Reference image                                             |
+| :-------------------------------------------: | :---------------------------------------------------------: |
+| **Header**                                    | [![Header image]{:width="250px"}][Header]                   |
+| **Title bar**                                 | [![Title bar image]{:width="250px"}][Title bar]             |
+| **Main image**                                | [![Main image image]{:width="250px"}][Main image]           |
+| **Filter** / **Sort**<br/>**Number of items** | [![Filter bar]{:width="250px"}][Sort]                       |
+| **Product listing**                           | [![Product listing image]{:width="250px"}][Product listing] |
+| **Show more**                                 | [![Show more image]{:width="250px"}][Show more]             |
+| **Footer**                                    | [![Footer image]{:width="250px"}][Footer]                   |
 {:style="table-layout:auto"}
 
 [Header]: {{ site.baseurl }}{% link venia-pwa-concept/component/header/index.md %}

@@ -11,4 +11,6 @@ title: Main image
 
 ## Visual specifications
 
-This component is a static image.
+This component is a static image used in places such as the [Category page][].
+
+[Category page]: {{site.baseurl}}{% link venia-pwa-concept/design/category-page/index.md %}

@@ -4,7 +4,7 @@ title: Product listing
 
 | Description     | Reference image                          |
 | --------------- | :--------------------------------------: |
-| Product listing | ![Product listing image]{:width="300px"} |
+| Product listing | ![Product listing image]{:width="250px"} |
 {:style="table-layout:auto"}
 
 [Product listing image]: {{site.baseurl}}{% link venia-pwa-concept/images/product-listing.png %}
@@ -16,6 +16,6 @@ It can also include a rating where applicable.
 
 ## Interactions
 
-* **Click** - Clicking on this component takes the user to a [Product page][].
+* **Tap** - Tapping on this component takes the user to a [Product page][].
 
 [Product page]: {{site.baseurl}}{% link venia-pwa-concept/design/product-page/index.md %}
