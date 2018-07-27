@@ -2,15 +2,19 @@
 title: Title bar component
 ---
 
-| Description | Reference image              |
-| ----------- | :--------------------------: |
-| Title bar   | ![Title bar]{:width="300px"} |
+| Description         | Pages used        | Reference image                        |
+| ------------------- | ----------------- | :------------------------------------: |
+| Title bar           | [Product][]  | ![Title bar]{:width="300px"}           |
+| Title bar - Dresses | [Category][] | ![Title bar - dresses]{:width="300px"} |
 {:style="table-layout:auto"}
+
+[Category]: {{site.baseurl}}{% link venia-pwa-concept/design/category-page/index.md %}
+[Product]: {{site.baseurl}}{% link venia-pwa-concept/design/product-page/index.md %}
 
 ## Visual specifications
 
-The title is allowed to wrap and become two lines.
-If it is longer than two lines, it is clipped and append with an ellipsis.
+For long titles, the content wraps and becomes two lines.
+If the title is longer than two lines, the content is clipped and appended with an ellipsis.
 
 The price is vertically centered in the bar.
 
@@ -25,3 +29,4 @@ The price is vertically centered in the bar.
 * **Page refresh** - TBD
 
 [Title bar]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar.png %}
+[Title bar - dresses]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar-dresses.png %}

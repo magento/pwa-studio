@@ -37,15 +37,15 @@ The homepage is made up of the following components:
 The following table shows a visual breakdown of these components.
 
 | Components                     | Reference image                                                                   |
-| ------------------------------ | :-------------------------------------------------------------------------------: |
-| **Header**                     | [![Header image]{:width="400px"}][Header]                                         |
-| **Category menu**              | [![Category menu image]{:width="400px"}][Category menu]                           |
-| **Sale banner - small**        | [![Small sale banner image]{:width="400px"}][Sale banner - small]                 |
-| **New arrivals carousel**      | [![New arrivals carousel image]{:width="400px"}][New arrivals carousel]           |
-| **Sale banner - large**        | [![Large sale banner image]{:width="400px"}][Sale banner - large]                 |
-| **Recommended items carousel** | [![Recommended items carousel image]{:width="400px"}][Recommended items carousel] |
-| **Promotional banner**         | [![Promotional banner image]{:width="400px"}][Promotional banner]                 |
-| **Footer**                     | [![Footer image]{:width="400px"}][Footer]                                         |
+| :----------------------------: | :-------------------------------------------------------------------------------: |
+| **Header**                     | [![Header image]{:width="250px"}][Header]                                         |
+| **Category menu**              | [![Category menu image]{:width="250px"}][Category menu]                           |
+| **Sale banner - small**        | [![Small sale banner image]{:width="250px"}][Sale banner - small]                 |
+| **New arrivals carousel**      | [![New arrivals carousel image]{:width="250px"}][New arrivals carousel]           |
+| **Sale banner - large**        | [![Large sale banner image]{:width="250px"}][Sale banner - large]                 |
+| **Recommended items carousel** | [![Recommended items carousel image]{:width="250px"}][Recommended items carousel] |
+| **Promotional banner**         | [![Promotional banner image]{:width="250px"}][Promotional banner]                 |
+| **Footer**                     | [![Footer image]{:width="250px"}][Footer]                                         |
 {:style="table-layout:auto"}
 
 
