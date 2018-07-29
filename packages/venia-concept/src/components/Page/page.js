@@ -9,7 +9,7 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import { selectAppState } from 'src/store/reducers/app';
 import Mask from './mask';
-import defaultClasses from './page.css';
+import defaultClasses from './page.critical.css';
 
 class Page extends Component {
     static propTypes = {
