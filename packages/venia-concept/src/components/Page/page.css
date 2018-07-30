@@ -1,11 +1,11 @@
 .root {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 /* state: masked */
 
 .root_masked {
-  composes: root;
-  height: 100vh;
-  overflow: hidden;
+    composes: root;
+    height: 100vh;
+    overflow: hidden;
 }

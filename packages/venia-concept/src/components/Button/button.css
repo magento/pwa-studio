@@ -1,33 +1,33 @@
 .root {
-  composes: root from "../clickable.css";
-  background-color: white;
-  border: 1px solid currentColor;
-  border-radius: 1.5rem;
-  color: rgb(var(--venia-teal));
-  font-size: 0.875rem;
-  height: 3rem;
-  min-width: 8.75rem;
-  padding: 0 1.5rem;
-  transition: opacity 256ms linear;
+    composes: root from '../clickable.css';
+    background-color: white;
+    border: 1px solid currentColor;
+    border-radius: 1.5rem;
+    color: rgb(var(--venia-teal));
+    font-size: 0.875rem;
+    height: 3rem;
+    min-width: 8.75rem;
+    padding: 0 1.5rem;
+    transition: opacity 256ms linear;
 }
 
 .root:hover {
-  background-color: rgb(var(--venia-teal-alt));
+    background-color: rgb(var(--venia-teal-alt));
 }
 
 .root[disabled] {
-  filter: grayscale(1);
-  opacity: 0.38;
-  pointer-events: none;
+    filter: grayscale(1);
+    opacity: 0.38;
+    pointer-events: none;
 }
 
 .content {
-  align-items: center;
-  display: inline-grid;
-  grid-auto-columns: auto;
-  grid-auto-flow: column;
-  grid-gap: 0.5rem;
-  grid-template-rows: auto;
-  justify-content: center;
-  justify-items: center;
+    align-items: center;
+    display: inline-grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: 0.5rem;
+    grid-template-rows: auto;
+    justify-content: center;
+    justify-items: center;
 }
