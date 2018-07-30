@@ -1,0 +1,48 @@
+.root {
+    padding: 1rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.title {
+    text-transform: uppercase;
+}
+
+.content {
+    display: grid;
+    grid-gap: 3rem 1rem;
+    grid-template-columns: repeat(auto-fit, 6rem);
+    justify-content: center;
+}
+
+.item {
+    display: block;
+    line-height: 1rem;
+    text-align: center;
+    width: 6rem;
+}
+
+.imageWrapper {
+    border-radius: 50%;
+    border: 1px solid rgb(var(--venia-border));
+    display: block;
+    height: 5rem;
+    margin: 0 auto 1rem auto;
+    overflow: hidden;
+    padding: .5rem;
+    width: 5rem;
+}
+
+.image {
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}
+
+.name {
+    display: block;
+}
