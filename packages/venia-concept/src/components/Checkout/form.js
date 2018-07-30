@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Section from './section';
@@ -13,13 +13,14 @@ class Form extends Component {
             footer: string,
             root: string
         }),
+        ready: bool,
         status: string.isRequired,
         submitOrder: func.isRequired
     };
 
     render() {
-        const { classes, status, submitOrder } = this.props;
-        const today = new Date().toDateString();
+        const { classes, ready, status, submitOrder } = this.props;
+        const text = ready ? 'Complete' : 'Click to fill out';
 
         return (
             <div className={classes.root}>
@@ -28,29 +29,27 @@ class Form extends Component {
                         label="Ship To"
                         onClick={this.modifyShippingAddress}
                     >
-                        <span>Veronica Costello</span>
-                        <br />
-                        <span>6146 Honey Bluff Parkway</span>
+                        <span>{text}</span>
                     </Section>
                     <Section
                         label="Pay With"
                         onClick={this.modifyBillingAddress}
                     >
-                        <span>Visa</span>
-                        <br />
-                        <span>*0022</span>
+                        <span>{text}</span>
                     </Section>
                     <Section
                         label="Get It By"
                         onClick={this.modifyShippingMethod}
                     >
-                        <span>{today}</span>
-                        <br />
-                        <span>Free Standard Shipping</span>
+                        <span>{text}</span>
                     </Section>
                 </div>
                 <div className={classes.footer}>
-                    <SubmitButton status={status} submitOrder={submitOrder} />
+                    <SubmitButton
+                        ready={ready}
+                        status={status}
+                        submitOrder={submitOrder}
+                    />
                 </div>
             </div>
         );

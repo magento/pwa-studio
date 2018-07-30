@@ -1,17 +1,26 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
-import { requestOrder, resetCheckout, submitOrder } from 'src/actions/checkout';
+import {
+    enterSubflow,
+    requestOrder,
+    resetCheckout,
+    submitOrder
+} from 'src/actions/checkout';
 import CheckoutFlow from './flow';
+
+const isReady = checkout => !!checkout.shippingInformation;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
         checkout: shape({
+            shippingInformation: bool,
             status: string
         }),
-        resetCheckout: func.isRequired,
+        enterSubflow: func.isRequired,
         requestOrder: func.isRequired,
+        resetCheckout: func.isRequired,
         submitOrder: func.isRequired
     };
 
@@ -19,15 +28,16 @@ class CheckoutWrapper extends Component {
         const {
             checkout = {},
             enterSubflow,
-            resetCheckout,
             requestOrder,
+            resetCheckout,
             submitOrder
         } = this.props;
 
         const flowProps = {
             enterSubflow,
-            resetCheckout,
+            ready: isReady(checkout),
             requestOrder,
+            resetCheckout,
             status: checkout.status,
             submitOrder
         };
@@ -39,9 +49,9 @@ class CheckoutWrapper extends Component {
 const mapStateToProps = ({ checkout }) => ({ checkout });
 
 const mapDispatchToProps = {
-    enterSubflow: payload => dispatch({ type: 'ENTER_SUBFLOW', payload }),
-    resetCheckout,
+    enterSubflow,
     requestOrder,
+    resetCheckout,
     submitOrder
 };
 

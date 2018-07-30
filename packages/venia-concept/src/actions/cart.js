@@ -1,38 +1,43 @@
-import { toggleDrawer, closeDrawer } from 'src/actions/app';
 import { RestApi } from '@magento/peregrine';
-const {
-    Magento2: { request }
-} = RestApi;
 
-const getGuestCartId = getState => {
-    const { cart } = getState();
-    return cart && cart.guestCartId;
-};
+import { closeDrawer, toggleDrawer } from 'src/actions/app';
 
-const createGuestCart = async dispatch => {
-    let payload, error;
-    try {
-        payload = await request('/rest/V1/guest-carts', {
-            method: 'POST'
-        });
-    } catch (e) {
-        payload = e;
-        error = true;
-    }
-    dispatch({
-        type: 'CREATE_GUEST_CART',
-        payload,
-        error
-    });
-    return payload;
-};
+const { request } = RestApi.Magento2;
 
-export const addItemToCart = ({ item, quantity }) =>
+const createGuestCart = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
-        const guestCartId =
-            getGuestCartId(getState) || (await createGuestCart(...args));
-        let payload, error;
+        const { checkout } = getState();
+
+        if (checkout && checkout.status === 'ACCEPTED') {
+            dispatch({ type: 'RESET_CHECKOUT' });
+        }
+
+        try {
+            const response = await request('/rest/V1/guest-carts', {
+                method: 'POST'
+            });
+
+            dispatch({
+                type: 'CREATE_GUEST_CART',
+                payload: response
+            });
+        } catch (error) {
+            dispatch({
+                type: 'CREATE_GUEST_CART',
+                payload: error,
+                error: true
+            });
+        }
+    };
+
+const addItemToCart = payload => {
+    const { item, quantity } = payload;
+
+    return async function thunk(...args) {
+        const [dispatch] = args;
+        const guestCartId = await getGuestCartId(...args);
+
         try {
             const cartItem = await request(
                 `/rest/V1/guest-carts/${guestCartId}/items`,
@@ -48,43 +53,48 @@ export const addItemToCart = ({ item, quantity }) =>
                     })
                 }
             );
-            payload = {
-                cartItem,
-                item,
-                quantity
-            };
-        } catch (e) {
-            if (e.response && e.response.status === 404) {
+
+            dispatch({
+                type: 'ADD_ITEM_TO_CART',
+                payload: {
+                    cartItem,
+                    item,
+                    quantity
+                }
+            });
+        } catch (error) {
+            const { response } = error;
+
+            if (response && response.status === 404) {
                 // guest cart expired!
-                await createGuestCart(...args);
+                await dispatch(createGuestCart());
                 // re-execute this thunk
                 return thunk(...args);
             }
-            payload = e;
-            error = true;
+
+            dispatch({
+                type: 'ADD_ITEM_TO_CART',
+                payload: error,
+                error: true
+            });
         }
-        dispatch({
-            type: 'ADD_ITEM_TO_CART',
-            payload,
-            error
-        });
+
         await Promise.all([
             getCartDetails({ forceRefresh: true })(...args),
             toggleCart()(...args)
         ]);
+
+        return payload;
     };
+};
 
-const fetchCartPart = async ({ guestCartId, forceRefresh, subResource = '' }) =>
-    request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
-        cache: forceRefresh ? 'reload' : 'default'
-    });
+const getCartDetails = (payload = {}) => {
+    const { forceRefresh } = payload;
 
-export const getCartDetails = ({ forceRefresh } = {}) =>
-    async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const guestCartId =
-            getGuestCartId(getState) || (await createGuestCart(...args));
-        let payload, error;
+    return async function thunk(...args) {
+        const [dispatch] = args;
+        const guestCartId = await getGuestCartId(...args);
+
         try {
             const [details, totals] = await Promise.all([
                 fetchCartPart({ guestCartId, forceRefresh }),
@@ -94,50 +104,80 @@ export const getCartDetails = ({ forceRefresh } = {}) =>
                     subResource: 'totals'
                 })
             ]);
-            payload = {
-                details,
-                totals
-            };
-        } catch (e) {
-            if (e.response && e.response.status === 404) {
+
+            dispatch({
+                type: 'GET_CART_DETAILS',
+                payload: { details, totals }
+            });
+        } catch (error) {
+            const { response } = error;
+
+            if (response && response.status === 404) {
                 // guest cart expired!
-                await createGuestCart(...args);
+                await dispatch(createGuestCart());
                 // re-execute this thunk
                 return thunk(...args);
             }
-            payload = e;
-            error = true;
+
+            dispatch({
+                type: 'GET_CART_DETAILS',
+                payload: error,
+                error: true
+            });
         }
-        dispatch({
-            type: 'GET_CART_DETAILS',
-            payload,
-            error
-        });
+
+        return payload;
+    };
+};
+
+const toggleCart = () =>
+    async function thunk(...args) {
+        const [dispatch, getState] = args;
+        const { app, cart } = getState();
+
+        // ensure state slices are present
+        if (!app || !cart) {
+            return;
+        }
+
+        // if the cart drawer is open, close it
+        if (app.drawer === 'cart') {
+            await dispatch(closeDrawer());
+            return;
+        }
+
+        // otherwise open the cart and load its contents
+        await Promise.all([
+            dispatch(getCartDetails()),
+            dispatch(toggleDrawer('cart'))
+        ]);
     };
 
-export const toggleCart = () => async (...args) => {
-    const [, getState] = args;
-    const { app, cart } = getState();
-    if (!app || !cart) {
-        return;
-    }
-    const { drawer } = app;
-
-    // if this toggle closes the cart, just close the cart
-    if (drawer === 'cart') {
-        return closeDrawer(...args);
+async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
+    if (!guestCartId) {
+        return null;
     }
 
-    const preparingCart = [getCartDetails()(...args)];
+    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
+        cache: forceRefresh ? 'reload' : 'default'
+    });
+}
 
-    // if another drawer is open, then close it
-    if (drawer) {
-        preparingCart.push(closeDrawer(...args));
-    }
-    // no cart populated? wait to show the drawer so it's not blank
-    if (!cart.id) {
-        await Promise.all(preparingCart);
+async function getGuestCartId(dispatch, getState) {
+    const { cart } = getState();
+
+    // reducers may be added asynchronously
+    if (!cart) {
+        return null;
     }
 
-    await toggleDrawer('cart')(...args);
-};
+    // create a guest cart if one hasn't been created yet
+    if (!cart.guestCartId) {
+        await dispatch(createGuestCart());
+    }
+
+    // retrieve app state again
+    return getState().cart.guestCartId;
+}
+
+export { addItemToCart, getCartDetails, getGuestCartId, toggleCart };

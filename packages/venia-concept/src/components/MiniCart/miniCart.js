@@ -107,8 +107,8 @@ class MiniCart extends Component {
                 <div className={classes.body}>{productList}</div>
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
-                    {checkout}
                 </div>
+                {checkout}
             </aside>
         );
     }
