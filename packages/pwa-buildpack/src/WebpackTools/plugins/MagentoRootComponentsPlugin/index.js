@@ -1,4 +1,4 @@
-const { isAbsolute, join } = require('path');
+const { isAbsolute, join, extname } = require('path');
 const { RawSource } = require('webpack-sources');
 const {
     rootComponentMap,
@@ -6,6 +6,8 @@ const {
 } = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
+
+const isJSFile = filename => /^\.jsx?$/.test(extname(filename));
 
 /**
  * @description webpack plugin that creates chunks for each
@@ -48,6 +50,9 @@ class MagentoRootComponentsPlugin {
                 }
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
+                if (!isJSFile(mod.resource)) {
+                    return;
+                }
                 const isAnEntry = compilation.entries.some(entryMod => {
                     // Check if the module being constructed matches a defined entry point
                     if (mod === entryMod) return true;

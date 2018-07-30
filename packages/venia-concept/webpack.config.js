@@ -19,7 +19,7 @@ const configureBabel = require('./babel.config.js');
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
     assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
+    output: path.resolve(__dirname, 'web')
 };
 
 // mark dependencies for vendor bundle
@@ -42,12 +42,9 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: path.join(
-                process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-                'js/'
-            ),
-            filename: '[name].js',
-            chunkFilename: '[name]-[chunkhash].js',
+            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
         },
         module: {
@@ -95,16 +92,13 @@ module.exports = async function(env) {
                 }
             ]
         },
-        performance: {
-            hints: 'warning'
-        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
             }
         }),
         plugins: [
-            // new MagentoRootComponentsPlugin(),
+            new MagentoRootComponentsPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(phase),
@@ -140,6 +134,9 @@ module.exports = async function(env) {
         ]
     };
     if (phase === 'development') {
+        config.performance = {
+            hints: 'warning'
+        };
         config.devtool = 'source-map';
 
         config.devServer = await PWADevServer.configure({
