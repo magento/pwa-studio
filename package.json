@@ -21,8 +21,8 @@
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
     "test:dev": "jest --watch",
-    "prettier": "prettier --write 'packages/**/*.js' '*.js'",
-    "prettier:check": "prettier --list-different 'packages/**/*.js' '*.js'"
+    "prettier": "prettier --write 'packages/**/*.@(js|css)' '*.js'",
+    "prettier:check": "prettier --list-different 'packages/**/*.@(js|css)' '*.js'"
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
