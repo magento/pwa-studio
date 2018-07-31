@@ -1,3 +1,3 @@
 .root {
-  composes: root from "../clickable.css";
+    composes: root from '../clickable.css';
 }

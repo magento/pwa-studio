@@ -1,30 +1,30 @@
 .root {
-  border: 1px solid rgb(var(--venia-text));
-  border-radius: 50%;
-  height: 1rem;
-  width: 1rem;
+    border: 1px solid rgb(var(--venia-text));
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
 }
 
-@media(min-width:1024px) {
-  .root {
-    border: 0;
-    border-radius: 0;
-    height: auto;
-    width: auto;
-  }
+@media (min-width: 1024px) {
+    .root {
+        border: 0;
+        border-radius: 0;
+        height: auto;
+        width: auto;
+    }
 }
 
 .image {
-  display: none;
+    display: none;
 }
 
-@media(min-width: 1024px) {
-  .image {
-    background-color: rgb(var(--venia-grey));
-    border-radius: 2px;
-    box-shadow: 0 0 0 1px white;
-    display: block;
-    height: auto;
-    width: 100%;
-  }
+@media (min-width: 1024px) {
+    .image {
+        background-color: rgb(var(--venia-grey));
+        border-radius: 2px;
+        box-shadow: 0 0 0 1px white;
+        display: block;
+        height: auto;
+        width: 100%;
+    }
 }
