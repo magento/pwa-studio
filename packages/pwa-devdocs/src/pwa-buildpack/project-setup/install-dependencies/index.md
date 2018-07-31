@@ -8,11 +8,11 @@ In this topic you will initialize the `package.json` file and install project de
 ## Initialize and define the package configuration file
 
 1. The following command uses `npm` to create your project's `package.json` file using default project values:
-   
+
    ``` bash
    npm init -y
    ```
-   
+
 1. Run the following command to install [peregrine] and [React] as a production dependency:
 
    ``` bash
@@ -80,9 +80,8 @@ Now that you have your project dependencies installed, your `package.json` file 
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "dotenv": "^5.0.1",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "^3.1.3"
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.0"
   }
 }
 ```
