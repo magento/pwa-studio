@@ -42,8 +42,8 @@ class MiniCart extends Component {
             makeCartReducer
         ] = (await Promise.all([
             import('src/components/Checkout'),
-            import('src/store/reducers/checkout'),
-            import('src/store/reducers/cart')
+            import('src/reducers/checkout'),
+            import('src/reducers/cart')
         ])).map(mod => mod.default);
 
         Checkout = CheckoutComponent;
