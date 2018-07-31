@@ -9,3 +9,5 @@ storybook-dist
 test-report.xml
 lerna-debug.log
 .env
+packages/venia-concept/web/js
+packages/venia-concept/public

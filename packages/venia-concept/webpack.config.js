@@ -13,43 +13,43 @@ const {
 const path = require('path');
 
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
-const themePaths = {
-    src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
-};
+const dirJoiner = dir => (file = '') => path.resolve(__dirname, dir, file);
+const src = dirJoiner('src');
+const output = dirJoiner('public');
 
-// mark dependencies for vendor bundle
-const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
+module.exports = async function() {
+    const mode = process.env.WEBPACK_SERVE ? 'development' : 'production';
 
-module.exports = async function(env) {
-    const { phase } = env;
-
-    const babelOptions = configureBabel(phase);
+    const babelOptions = configureBabel(mode);
 
     const enableServiceWorkerDebugging = Boolean(
         process.env.ENABLE_SERVICE_WORKER_DEBUGGING
     );
-    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
+    const serviceWorkerFileName =
+        process.env.SERVICE_WORKER_FILE_NAME || 'sw.js';
 
     const config = {
+        mode,
         context: __dirname, // Node global for the running script's directory
         entry: {
-            client: path.resolve(themePaths.src, 'index.js')
+            client: src('index.js')
         },
         output: {
-            path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            path: output(),
+            publicPath: '/',
             filename: '[name].js',
-            chunkFilename: '[name]-[chunkhash].js',
-            pathinfo: true
+            strictModuleExceptionHandling: true,
+            chunkFilename: '[name]-[chunkhash].js'
         },
         module: {
             rules: [
                 {
-                    include: [themePaths.src],
+                    include: [src()],
                     test: /\.js$/,
                     use: [
                         {
@@ -87,6 +87,9 @@ module.exports = async function(env) {
         performance: {
             hints: 'warning'
         },
+        optimization: {
+            noEmitOnErrors: true
+        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
@@ -94,15 +97,14 @@ module.exports = async function(env) {
         }),
         plugins: [
             new MagentoRootComponentsPlugin(),
-            new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(phase),
+                'process.env.NODE_ENV': JSON.stringify(mode),
                 // Blank the service worker file name to stop the app from
                 // attempting to register a service worker in index.js.
                 // Only register a service worker when in production or in the
                 // special case of debugging the service worker itself.
                 'process.env.SERVICE_WORKER': JSON.stringify(
-                    phase === 'production' || enableServiceWorkerDebugging
+                    mode === 'production' || enableServiceWorkerDebugging
                         ? serviceWorkerFileName
                         : false
                 ),
@@ -116,45 +118,95 @@ module.exports = async function(env) {
                 )
             }),
             new ServiceWorkerPlugin({
-                env,
+                env: { mode },
                 enableServiceWorkerDebugging,
-                serviceWorkerFileName,
-                paths: themePaths
+                serviceWorkerFileName
             })
         ]
     };
-    if (phase === 'development') {
+    if (mode === 'development') {
+        config.optimization.splitChunks = {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 100000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 2,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        };
         config.devtool = 'source-map';
 
-        config.devServer = await PWADevServer.configure({
-            serviceWorkerFileName,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+        config.output.pathinfo = true;
+
+        config.serve = await PWADevServer.configure({
+            id: 'venia-webpack4',
+            provideUniqueHost: true,
+            provideSSLCert: true,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths,
-            id: 'magento-venia'
+            contentPath: config.output.path
         });
-
-        // A DevServer generates its own unique output path at startup. It needs
-        // to assign the main outputPath to this value as well.
-
-        config.output.publicPath = config.devServer.publicPath;
-
         config.plugins.push(
-            new webpack.NamedChunksPlugin(),
-            new webpack.NamedModulesPlugin(),
-            new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer)
-        );
-    } else if (phase === 'production') {
-        config.entry.vendor = libs;
-        config.plugins.push(
-            new webpack.optimize.CommonsChunkPlugin({
-                names: ['vendor']
+            new DevServerReadyNotifierPlugin(config.serve),
+            new HtmlWebpackPlugin({
+                meta: {
+                    viewport:
+                        'width=device-width, initial-scale=1, shrink-to-fit=no'
+                },
+                chunksSortMode: 'none',
+                title: 'Venia',
+                alwaysWriteToDisk: true
             }),
-            new UglifyPlugin()
+            new HtmlWebpackHarddiskPlugin()
+        );
+    } else if (mode === 'production') {
+        config.optimization.splitChunks = {
+            chunks: 'all',
+            minSize: 30000,
+            maxSize: 100000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        };
+        config.plugins.push(
+            new UglifyPlugin(),
+            new HtmlWebpackPlugin({
+                meta: {
+                    viewport:
+                        'width=device-width, initial-scale=1, shrink-to-fit=no'
+                },
+                title: 'Venia',
+                hash: true,
+                chunksSortMode: 'none',
+                minify: true
+            }),
+            new FaviconsWebpackPlugin({
+                logo: src('components/Header/logo.svg'),
+                title: 'Venia'
+            })
         );
     } else {
-        throw Error(`Unsupported environment phase in webpack config: `);
+        throw Error(`Unsupported environment mode in webpack config: `);
     }
     return config;
 };

@@ -64,7 +64,7 @@ test('errors if supplied an object it cannot build a URL with', () => {
     const badArgs = [undefined, {}, { port: 8765 }, { host: 'fake.hostonly' }];
     badArgs.forEach(arg => {
         expect(() => {
-            new DevServerReadyNotifierPlugin(arg);
+            (new DevServerReadyNotifierPlugin(arg)).emitNotification();
         }).toThrow('must be an object with host and port properties');
     });
 });

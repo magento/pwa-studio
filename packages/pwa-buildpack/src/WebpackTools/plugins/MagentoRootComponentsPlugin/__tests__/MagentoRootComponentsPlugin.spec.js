@@ -26,6 +26,7 @@ const compile = async config => {
 
 test('Creates a chunk for each root when multiple roots exist', async () => {
     const config = {
+        mode: 'development',
         context: basic3PageProjectDir,
         entry: {
             main: join(basic3PageProjectDir, 'entry.js')
@@ -52,6 +53,7 @@ test('Creates a chunk for each root when multiple roots exist', async () => {
 
 test('Does not prevent chunk name from being configurable', async () => {
     const config = {
+        mode: 'development',
         context: basic3PageProjectDir,
         entry: {
             main: join(basic3PageProjectDir, 'entry.js')
@@ -76,6 +78,7 @@ test('Does not prevent chunk name from being configurable', async () => {
 
 test('Writes manifest to location specified with "manifestFileName" option', async () => {
     const config = {
+        mode: 'development',
         context: basic3PageProjectDir,
         entry: {
             main: join(basic3PageProjectDir, 'entry.js')
@@ -105,6 +108,7 @@ test('Writes manifest to location specified with "manifestFileName" option', asy
 
 test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
     const config = {
+        mode: 'development',
         context: basic1PageProjectDir,
         entry: {
             main: join(basic1PageProjectDir, 'entry.js')
@@ -131,6 +135,7 @@ test('Creates chunks for all roots when multiple values are provided in "rootCom
 
 test('Works when there is 1 unnamed entry point in the config', async () => {
     const config = {
+        mode: 'development',
         context: basic3PageProjectDir,
         entry: join(basic3PageProjectDir, 'entry.js'),
         output: {
@@ -163,6 +168,7 @@ test('Works when there is 1 unnamed entry point in the config', async () => {
 
 test('Includes RootComponent description, pageTypes, and chunk filename in the manifest', async () => {
     const config = {
+        mode: 'development',
         context: basic1PageProjectDir,
         entry: join(basic1PageProjectDir, 'entry.js'),
         output: {
@@ -187,6 +193,7 @@ test('Includes RootComponent description, pageTypes, and chunk filename in the m
             'utf8'
         )
     );
+
     expect(manifest.SomePage.pageTypes).toEqual(['cms_page']);
     expect(manifest.SomePage.description).toEqual('CMS Page Root Component');
     expect(manifest.SomePage.chunkName).toBe('SomePage.chunk.js');
@@ -195,6 +202,7 @@ test('Includes RootComponent description, pageTypes, and chunk filename in the m
 test('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
     const projectDir = join(__dirname, '__fixtures__/dupe-root-component');
     const config = {
+        mode: 'development',
         context: projectDir,
         entry: join(projectDir, 'entry.js'),
         output: {
@@ -219,6 +227,7 @@ test('Logs warning when RootComponent file has > 1 @RootComponent comment', asyn
 test('Build fails when no @RootComponent directive is found', async () => {
     const projectDir = join(__dirname, '__fixtures__/missing-root-directive');
     const config = {
+        mode: 'development',
         context: projectDir,
         entry: join(projectDir, 'entry.js'),
         output: {
@@ -244,6 +253,7 @@ test('Can resolve dependencies of a RootComponent', async () => {
     // https://github.com/DrewML/webpack-loadmodule-bug
     const projectDir = join(__dirname, '__fixtures__/root-component-dep');
     const config = {
+        mode: 'development',
         context: projectDir,
         entry: join(projectDir, 'entry.js'),
         output: {
@@ -266,8 +276,9 @@ test('Can resolve dependencies of a RootComponent', async () => {
     expect(chunkStr).not.toContain('Cannot find module');
 });
 
-test('Uglify compiles out dynamic imports injected into entry point', async () => {
+test('Uglify compiles out dynamic imports injected into entry point when using production mode', async () => {
     const config = {
+        mode: 'production',
         context: basic1PageProjectDir,
         entry: {
             main: join(basic1PageProjectDir, 'entry.js')
@@ -282,10 +293,6 @@ test('Uglify compiles out dynamic imports injected into entry point', async () =
                 rootComponentsDirs: [
                     join(basic1PageProjectDir, 'RootComponents')
                 ]
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-                keep_fnames: true,
-                mangle: false
             })
         ]
     };

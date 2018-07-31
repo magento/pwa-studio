@@ -3,20 +3,12 @@ jest.mock('../../util/promisified/openport');
 jest.mock('../../util/global-config');
 jest.mock('../../util/ssl-cert-store');
 jest.mock('../../util/run-as-root');
-jest.mock('../middlewares/DevProxy');
-jest.mock('../middlewares/OriginSubstitution');
-jest.mock('../middlewares/StaticRootRoute');
 
 const { lookup } = require('../../util/promisified/dns');
 const openport = require('../../util/promisified/openport');
 const runAsRoot = require('../../util/run-as-root');
 const GlobalConfig = require('../../util/global-config');
 const SSLCertStore = require('../../util/ssl-cert-store');
-const middlewares = {
-    DevProxy: require('../middlewares/DevProxy'),
-    OriginSubstitution: require('../middlewares/OriginSubstitution'),
-    StaticRootRoute: require('../middlewares/StaticRootRoute')
-};
 
 let PWADevServer;
 beforeAll(() => {
@@ -196,15 +188,6 @@ test('.provideDevHost() throws if it got a reserved hostname but could not find 
 });
 
 test('.configure() throws errors on missing config', async () => {
-    await expect(PWADevServer.configure()).rejects.toThrow(
-        'id must be of type string'
-    );
-    await expect(PWADevServer.configure({ id: 'foo' })).rejects.toThrow(
-        'publicPath must be of type string'
-    );
-    await expect(
-        PWADevServer.configure({ id: 'foo', publicPath: 'bar' })
-    ).rejects.toThrow('backendDomain must be of type string');
     await expect(
         PWADevServer.configure({
             id: 'foo',
@@ -221,17 +204,26 @@ test('.configure() throws errors on missing config', async () => {
             paths: { output: 'output' }
         })
     ).rejects.toThrow('paths.assets must be of type string');
-    await expect(
-        PWADevServer.configure({
-            id: 'foo',
-            publicPath: 'bar',
-            backendDomain: 'https://dumb.domain',
-            paths: { output: 'foo', assets: 'bar' }
-        })
-    ).rejects.toThrow('serviceWorkerFileName must be of type string');
 });
 
-test('.configure() gets or creates an SSL cert', async () => {
+test('.configure() gets or creates a new dev hostname if `provideUniqueHost` is true', async () => {
+    simulate
+        .hostnameForNextId('cached-host.local.pwadev')
+        .portSavedForNextHostname(8765)
+        .hostResolvesLoopback();
+
+    expect(await PWADevServer.configure({
+        provideUniqueHost: true,
+        id: 'heckin',
+        paths: {
+            output: 'good',
+            assets: 'boye'
+        },
+        backendDomain: 'growe'
+    })).toHaveProperty('host', 'cached-host.local.pwadev')
+});
+
+test('.configure() gets or creates an SSL cert if `provideSSLCert` is true', async () => {
     simulate
         .hostnameForNextId('coolnewhost.local.pwadev')
         .portSavedForNextHostname(8765)
@@ -241,20 +233,19 @@ test('.configure() gets or creates an SSL cert', async () => {
             cert: 'fakeCert'
         });
     const server = await PWADevServer.configure({
+        provideSSLCert: true,
         id: 'heckin',
         paths: {
             output: 'good',
             assets: 'boye'
         },
-        publicPath: 'bork',
-        serviceWorkerFileName: 'doin',
         backendDomain: 'growe'
     });
     expect(SSLCertStore.provide).toHaveBeenCalled();
     expect(server.https).toHaveProperty('cert', 'fakeCert');
 });
 
-test('.configure() returns a configuration object for the `devServer` property of a webpack config', async () => {
+test('.configure() returns a configuration object for the `serve` property of a webpack config', async () => {
     simulate
         .hostnameForNextId('coolnewhost.local.pwadev')
         .portSavedForNextHostname(8765)
@@ -277,21 +268,7 @@ test('.configure() returns a configuration object for the `devServer` property o
 
     const devServer = await PWADevServer.configure(config);
 
-    expect(devServer).toMatchObject({
-        contentBase: false,
-        compress: true,
-        hot: true,
-        https: {
-            key: 'fakeKey2',
-            cert: 'fakeCert2'
-        },
-        host: 'coolnewhost.local.pwadev',
-        port: 8765,
-        publicPath:
-            'https://coolnewhost.local.pwadev:8765/full/path/to/publicPath',
-        before: expect.any(Function),
-        after: expect.any(Function)
-    });
+    expect(devServer).toMatchSnapshot();
 });
 
 test('.configure() returns a configuration object with before() and after() handlers that add middlewares in order', async () => {
@@ -316,88 +293,10 @@ test('.configure() returns a configuration object with before() and after() hand
     };
 
     const devServer = await PWADevServer.configure(config);
-
     const app = {
         use: jest.fn()
     };
-
-    middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
-
-    devServer.before(app);
-
-    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
-
-    devServer.after(app);
-
-    expect(middlewares.DevProxy).toHaveBeenCalledWith(
-        expect.objectContaining({
-            target: 'https://magento.backend.domain'
-        })
-    );
-
-    expect(middlewares.OriginSubstitution).not.toHaveBeenCalled();
-
-    expect(app.use).toHaveBeenCalledWith('fakeDevProxy');
-
-    expect(middlewares.StaticRootRoute).toHaveBeenCalledWith(
-        'path/to/static/swname.js'
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeStaticRootRoute');
-
-    expect(app.use).toHaveBeenCalledWith(
-        'full/path/to/publicPath',
-        expect.any(Function)
-    );
+    devServer.add(app);
+    expect(app.use).toHaveBeenCalled();
 });
 
-test('.configure() optionally adds OriginSubstitution middleware', async () => {
-    simulate
-        .hostnameForNextId('coolnewhost.local.pwadev')
-        .portSavedForNextHostname(8765)
-        .hostResolvesLoopback()
-        .certExistsForNextHostname({
-            key: 'fakeKey2',
-            cert: 'fakeCert2'
-        });
-
-    const config = {
-        id: 'Theme_Unique_Id',
-        paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain',
-        changeOrigin: true
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    const app = {
-        use: jest.fn()
-    };
-
-    middlewares.OriginSubstitution.mockReturnValueOnce(
-        'fakeOriginSubstitution'
-    );
-    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
-    middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
-
-    devServer.before(app);
-
-    expect(middlewares.OriginSubstitution).toHaveBeenCalledWith(
-        expect.objectContaining({
-            protocol: 'https:',
-            hostname: 'magento.backend.domain'
-        }),
-        expect.objectContaining({
-            protocol: 'https:',
-            hostname: 'coolnewhost.local.pwadev',
-            port: 8765
-        })
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeOriginSubstitution');
-});

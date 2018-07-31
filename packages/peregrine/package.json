@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
+    "watch": "npm run -s build -- --watch",
     "danger": "danger-ci",
     "clean": "rimraf dist",
     "prepare": "npm-merge-driver install",

@@ -1,27 +1,13 @@
+const convert = require('koa-connect');
+const history = require('connect-history-api-fallback');
+const proxy = require('http-proxy-middleware');
 const debug = require('../util/debug').makeFileLogger(__filename);
-const { join } = require('path');
-const url = require('url');
-const express = require('express');
 const GlobalConfig = require('../util/global-config');
 const SSLCertStore = require('../util/ssl-cert-store');
-const optionsValidator = require('../util/options-validator');
-const middlewares = {
-    originSubstitution: require('./middlewares/OriginSubstitution'),
-    devProxy: require('./middlewares/DevProxy'),
-    staticRootRoute: require('./middlewares/StaticRootRoute')
-};
 const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
 const PWADevServer = {
-    validateConfig: optionsValidator('PWADevServer', {
-        id: 'string',
-        publicPath: 'string',
-        backendDomain: 'string',
-        'paths.output': 'string',
-        'paths.assets': 'string',
-        serviceWorkerFileName: 'string'
-    }),
     hostnamesById: new GlobalConfig({
         prefix: 'devhostname-byid',
         key: x => x
@@ -128,53 +114,46 @@ const PWADevServer = {
     },
     async configure(config = {}) {
         debug('configure() invoked', config);
-        PWADevServer.validateConfig('.configure(config)', config);
-        const sanitizedId = config.id
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, '-')
-            .replace(/^-+/, '');
-        const devHost = await PWADevServer.provideDevHost(sanitizedId);
-        const https = await SSLCertStore.provide(devHost.hostname);
-        debug(`https provided:`, https);
-        return {
-            contentBase: false,
-            compress: true,
-            hot: true,
-            https,
-            host: devHost.hostname,
-            port: devHost.port,
-            publicPath: url.format(
-                Object.assign({}, devHost, { pathname: config.publicPath })
-            ),
-            before(app) {
-                if (config.changeOrigin) {
-                    // replace origins in links in returned html
-                    app.use(
-                        middlewares.originSubstitution(
-                            new url.URL(config.backendDomain),
-                            devHost
-                        )
-                    );
-                }
-                // serviceworker root route
-                app.use(
-                    middlewares.staticRootRoute(
-                        join(config.paths.output, config.serviceWorkerFileName)
-                    )
-                );
+        const devServerConfig = {
+            content: [config.contentPath],
+            clipboard: false,
+            hotClient: {
+                https: true
             },
-            after(app) {
-                // set static server to load and serve from different paths
-                app.use(config.publicPath, express.static(config.paths.assets));
-
-                // proxy to backend
-                app.use(
-                    middlewares.devProxy({
-                        target: config.backendDomain
-                    })
+            async add(app, middleware) {
+                await middleware.webpack();
+                await middleware.content();
+                await app.use(convert(history()));
+                await app.use(
+                    convert(
+                        proxy({
+                            context: ['/graphql', '/rest', '/media'],
+                            target: config.backendDomain,
+                            logLevel: 'debug',
+                            secure: false,
+                            changeOrigin: true,
+                            autoRewrite: true,
+                            cookieDomainRewrite: ''
+                        })
+                    )
                 );
             }
         };
+        if (config.provideUniqueHost) {
+            const sanitizedId = config.id
+                .toLowerCase()
+                .replace(/[^a-zA-Z0-9]/g, '-')
+                .replace(/^-+/, '');
+            const devHost = await PWADevServer.provideDevHost(sanitizedId);
+            devServerConfig.host = devHost.hostname;
+            devServerConfig.port = devHost.port;
+        }
+        if (config.provideSSLCert) {
+            devServerConfig.https = await SSLCertStore.provide(
+                devServerConfig.host || 'localhost'
+            );
+        }
+        return devServerConfig;
     }
 };
 module.exports = PWADevServer;
