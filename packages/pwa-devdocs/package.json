@@ -5,7 +5,7 @@
   "description": "A documentation site for Magento PWA",
   "main": "gulpfile.js",
   "dependencies": {
-    "broken-link-checker-local": "^0.1.1",
+    "broken-link-checker-local": "^0.2.0",
     "gulp": "^3.9.1",
     "jekyll-tasks": "^1.2.1",
     "jquery": "^3.3.1"
