@@ -12,12 +12,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "gulp dev",
     "build": "gulp build",
     "build-production": "jekyll build --source src/ --config src/_config.yml,_config-production.yml",
     "deploy": "./scripts/deploy.sh",
-    "tests": "npm run test-links",
-    "test-links": "rm -fr _site && npm run build && node_modules/broken-link-checker-local/out/bin.js _site -rog"
+    "start": "gulp dev",
+    "test-links": "rm -fr _site && npm run build && node_modules/broken-link-checker-local/out/bin.js _site -rog",
+    "tests": "npm run test-links"
   },
   "repository": {
     "type": "git",
