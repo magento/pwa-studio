@@ -16,13 +16,13 @@
     "clean": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run clean",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
-    "postinstall": "lerna bootstrap && npm run build",
     "lint": "eslint 'packages/**/*.js' --ignore-pattern node_modules",
+    "postinstall": "lerna bootstrap && npm run build",
+    "prettier": "prettier --write 'packages/**/*.@(js|css)' '*.js'",
+    "prettier:check": "prettier --list-different 'packages/**/*.@(js|css)' '*.js'",
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
-    "test:dev": "jest --watch",
-    "prettier": "prettier --write 'packages/**/*.@(js|css)' '*.js'",
-    "prettier:check": "prettier --list-different 'packages/**/*.@(js|css)' '*.js'"
+    "test:dev": "jest --watch"
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
