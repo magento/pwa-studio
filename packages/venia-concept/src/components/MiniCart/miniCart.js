@@ -73,7 +73,10 @@ class MiniCart extends Component {
         return cartId && cart.totals && 'subtotal' in cart.totals ? (
             <dl className={classes.totals}>
                 <dt className={classes.subtotalLabel}>
-                    <span>Subtotal{` (${cart.details.items_qty} Items)`}</span>
+                    <span>
+                        Subtotal
+                        {` (${cart.details.items_qty} Items)`}
+                    </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
                     <Price
