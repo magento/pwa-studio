@@ -14,5 +14,6 @@ test('gets the last path segment', () => {
 });
 
 test('uses the window.location object if no argument', () => {
-    expect(getUrlKey()).toMatch(window.location.pathname);
+    // should match pathname except with no leading slash
+    expect(getUrlKey()).toMatch(window.location.pathname.replace(/^\//, ''));
 });
