@@ -25,7 +25,7 @@
         "graphql-tag": "^2.9.2",
         "lodash.debounce": "^4.0.8",
         "memoize-one": "^4.0.0",
-        "react": "^16.2.0",
+        "react": "^16.4.2",
         "react-apollo": "^2.1.5",
         "react-dom": "^16.2.0",
         "react-redux": "^5.0.6",
