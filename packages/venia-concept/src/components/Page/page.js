@@ -7,7 +7,7 @@ import classify from 'src/classify';
 import Main from 'src/components/Main';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
-import { selectAppState } from 'src/store/reducers/app';
+import { selectAppState } from 'src/reducers/app';
 import Mask from './mask';
 import defaultClasses from './page.css';
 

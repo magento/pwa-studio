@@ -4,7 +4,7 @@ import bootstrap from '@magento/peregrine';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-import reducer from 'src/store/reducers/app';
+import reducer from 'src/reducers/app';
 import './index.css';
 
 const { Provider, store } = bootstrap({
