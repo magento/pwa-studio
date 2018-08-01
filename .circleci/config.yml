@@ -3,68 +3,106 @@ workflows:
   version: 2
   build-deploy:
     jobs:
+      # Greenkeeper Lockfile updates package-lock.json in branches created by
+      # greenkeeper-bot. It uses internal logic (currently a branchname prefix)
+      # to determine which branches to run on, so rather than duplicate that
+      # logic in CircleCI config, we just run greenkeeper-lockfile on every
+      # branch before running the rest of the CI process.
+      # On most branches, it will be a no-op.
+      - update_lockfile
       - build:
+          requires:
+            - update_lockfile
           filters:
             branches:
               ignore: master
       - master:
+          requires:
+            - update_lockfile
           filters:
             branches:
               only: master
+
+
+# This key means nothing to CircleCI; it's just a place to keep anchored
+# configuration nodes for reuse.
+common_settings:
+  docker: &docker_setup
+    - image: 'circleci/node:8.11.2'
+  # Cache a bunch of stuff
+  # - npm's local tarball cache
+  # - node_modules for each package (npm is fast at restoring from a partially-outdated tree)
+  save_cache: &savecache
+    paths:
+      - ~/.ssh
+      - ~/.npm
+      - /root/.npm
+      - node_modules
+      - packages/peregrine/node_modules
+      - packages/pwa-buildpack/node_modules
+      - venia-concept/node_modules
+    key: 'v1-npm-cache-{{ .Branch }}'
+
+  # Greenkeeper Lockfile wants to use the latest lockfile format at all times,
+  # and therefore the latest NPM at all times.
+  install_latest_npm: &install_latest_npm
+    name: Ensure NPM is up to date
+    command: sudo npm install -g npm@latest
+
+  # Greenkeeper Lockfile should run before `npm install` runs locally, so
+  # we need to install it globally.
+  install_greenkeeper_lockfile: &install_greenkeeper_lockfile
+    name: Install global lockfile to run before local npm install
+    command: sudo npm install -g greenkeeper-lockfile@2
+
+  # Install root devDependencies and bootstrap packages. We use
+  # --ignore-scripts to prevent building any artifacts to disk prior
+  # to running Jest. This is a safeguard to ensure our tests always operate
+  # on the latest source
+  install_shared_devdeps: &install_shared_devdeps
+    name: Install shared devDependencies
+    command: npm install --ignore-scripts
+
 jobs:
+  update_lockfile:
+    docker: *docker_setup
+    steps:
+      - checkout
+      - run: *install_latest_npm
+      - run: *install_greenkeeper_lockfile
+      - run:
+          name: Greenkeeper Lockfile update on Greenkeeper branches
+          command: greenkeeper-lockfile-update
+      - save_cache: *savecache
   master:
-    docker:
-      - image: circleci/node:8.11.2
+    docker: *docker_setup
     steps:
       - checkout
+      - run: *install_shared_devdeps
       - run:
-          name: Install shared devDependencies
-          command: 'npm install --ignore-scripts'
+          name: Run Lerna Bootstrap in CI mode
+          command: npm run bootstrap
       - run:
-          name: Lerna Bootstrap
-          command: 'npm run bootstrap'
-      - run:
-          name: 'Coveralls'
-          command: 'npm test && npm run coveralls'
-
+          name: Coveralls
+          command: npm test && npm run coveralls
   build:
-    docker:
-      - image: circleci/node:8.11.2
-
+    docker: *docker_setup
     steps:
       - checkout
-
       - restore_cache:
           keys:
-          # Partial match to always find the latest npm tarball cache
-          - v1-npm-cache-{{ .Branch }}
-          - v1-npm-cache-
-
-      # Install root devDependencies and bootstrap packages. We use
-      # --ignore-scripts to prevent building any artifacts to disk prior
-      # to running Jest. This is a safeguard to ensure our tests always operate
-      # on the latest source
+            - 'v1-npm-cache-{{ .Branch }}'
+            - v1-npm-cache-
+      - run: *install_latest_npm
+      - run: *install_greenkeeper_lockfile
+      - run: *install_shared_devdeps
       - run:
-          name: Install shared devDependencies
-          command: 'npm install --ignore-scripts'
-
+          name: Run Lerna Bootstrap and force non-CI mode for Greenkeeper
+          command: npm run bootstrap -- --no-ci
+      - save_cache: *savecache
       - run:
-          name: Lerna Bootstrap
-          command: 'npm run bootstrap'
-
-      # Cache a bunch of stuff
-      # - npm's local tarball cache
-      # - node_modules for each package (npm is fast at restoring from a partially-outdated tree)
-      - save_cache:
-          paths:
-            - ~/.npm
-            - /root/.npm
-            - node_modules
-            - packages/peregrine/node_modules
-            - packages/pwa-buildpack/node_modules
-            - venia-concept/node_modules
-          key: v1-npm-cache-{{ .Branch }}
-
+          name: Greenkeeper Lockfile upload on Greenkeeper branches
+          command: greenkeeper-lockfile-upload
       - run:
           name: DangerCI
-          command: 'npm run danger'
+          command: npm run danger
