@@ -63,6 +63,11 @@ common_settings:
     name: Install shared devDependencies
     command: npm install --ignore-scripts
 
+  test_suites: &test_suites
+
+  test_result_path: &test_result_path
+    path: "test-results"
+
 jobs:
   update_lockfile:
     docker: *docker_setup
@@ -83,8 +88,13 @@ jobs:
           name: Run Lerna Bootstrap in CI mode
           command: npm run bootstrap
       - run:
-          name: Coveralls
-          command: npm test && npm run coveralls
+          name: Test Suites
+          command: 'npm run test:ci'
+      - run:
+          name: Coveralls Coverage Analysis
+          command: npm run coveralls
+      - store_test_results: *test_result_path
+      - store_artifacts: *test_result_path
   build:
     docker: *docker_setup
     steps:
@@ -104,5 +114,17 @@ jobs:
           name: Greenkeeper Lockfile upload on Greenkeeper branches
           command: greenkeeper-lockfile-upload
       - run:
+          name: Test Suites and Coverage
+          # Test failures should not stop Danger, so hide the exit code.
+          command: 'npm run test:ci && npm run coveralls || true'
+      - run:
+          name: Patch CircleCI environment to help detect pull requests
+          command: node .circleci/patch_circleci_environment.js >> $BASH_ENV
+      - run:
           name: DangerCI
           command: npm run danger
+
+      - store_test_results: *test_result_path
+      - store_artifacts: *test_result_path
+
+
