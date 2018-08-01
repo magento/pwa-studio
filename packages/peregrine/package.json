@@ -14,12 +14,13 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "scripts": {
-    "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
+    "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "clean": "rimraf dist",
     "danger": "danger-ci",
     "prepare": "npm-merge-driver install",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist",
+    "watch": "npm run -s build -- --watch"
   },
   "dependencies": {},
   "peerDependencies": {
