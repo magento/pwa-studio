@@ -11,9 +11,11 @@
     },
     "scripts": {
         "build": "webpack --progress --color --env.phase production",
+        "clean": "rimraf web/js",
         "prepare": "npm-merge-driver install",
         "start": "webpack-dev-server --progress --color --env.phase development",
-        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development"
+        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+        "watch": "npm run -s start"
     },
     "dependencies": {
         "@magento/peregrine": "^0.4.0",
@@ -52,6 +54,7 @@
         "identity-obj-proxy": "^3.0.0",
         "npm-merge-driver": "^2.3.5",
         "npm-run-all": "^4.1.2",
+        "rimraf": "^2.6.2",
         "style-loader": "^0.21.0",
         "uglifyjs-webpack-plugin": "^1.0.1",
         "webpack": "3.11.0",
