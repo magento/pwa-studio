@@ -63,13 +63,7 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
  */
 function tempGetWebpackChunkData(pageType, webpackPublicPath) {
-    // In dev mode, `webpackPublicPath` may be a fully qualified URL.
-    // In production mode, it may be a pathname, which makes it unsafe
-    // to use as an API base. Normalize it as a full path using a DOM node
-    // as a native URL parser.
-    const parser = document.createElement('a');
-    parser.setAttribute('href', webpackPublicPath);
-    return fetch(new URL('roots-manifest.json', parser.href))
+    return fetch(new URL('roots-manifest.json', webpackPublicPath))
         .then(res => res.json())
         .then(manifest => {
             const firstCompatibleConfig = Object.values(manifest).find(conf => {
