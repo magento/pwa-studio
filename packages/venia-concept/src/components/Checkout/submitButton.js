@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { bool, func, string } from 'prop-types';
 
 import Button from 'src/components/Button';

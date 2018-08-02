@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, shape, string } from 'prop-types';
 

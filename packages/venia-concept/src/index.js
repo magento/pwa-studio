@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from '@magento/peregrine';
 import ApolloClient from 'apollo-boost';

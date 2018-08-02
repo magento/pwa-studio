@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import React, { Component } from 'react';
 import Page from 'src/components/Page';
 import CategoryList from 'src/components/CategoryList';
 
