@@ -57,7 +57,7 @@
         "rimraf": "^2.6.2",
         "style-loader": "^0.21.0",
         "uglifyjs-webpack-plugin": "^1.0.1",
-        "webpack": "3.11.0",
+        "webpack": "4.16.4",
         "webpack-dev-server": "2.11.0"
     }
 }
