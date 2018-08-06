@@ -10,16 +10,10 @@ If have any feedback or would like to join the PWA conversation, please join our
 This topic provides the global style rules and values used in the Venia theme.
 Use this guide to style components that will fit within the Venia theme.
 
-## General rules
-
-1. Use masks and borders instead of drop shadows to separate different sections and visual components.
-
-    ![Masks and borders][]{:width="450px"}
-
-1. Do not use the Z-Index to re-order items within a layer unless it is absolutely necessary.
-1. Use `rem` for all size definitions, except for images and media queries. See [Root font size][] for more information.
-
 ## Colors
+
+{: .bs-callout .bs-callout-tip}
+***Tip:** Color values are expressed in RGB format because it translates easier to `rgba()` values than HEX format.*
 
 The Venia theme uses the following color classes in its design:
 
@@ -35,12 +29,9 @@ The Venia theme uses the following color classes in its design:
 | `mask.root`       | `rgb(0, 0, 0)` at 50% opacity | Mask overlay     |
 {:style="table-layout:auto"}
 
-{: .bs-callout .bs-callout-tip}
-***Tip:** Color values are expressed in RGB format because it translates easier to `rgba()` values than HEX format.*
-
 ## Font
 
-Venia uses the [Muli font][] in its design.
+Venia uses the open source [Muli font][] from Google in its design.
 
 {: .bs-callout .bs-callout-info}
 ***Note:** If you are developing Venia themed components, you must install this font locally because the Muli font is currently not served by the backend server.*
@@ -51,7 +42,7 @@ If the browser cannot find or use this font, it defaults to the following OS spe
 * **Roboto** for Android users
 * **Segoe** for Windows users
 
-### Root font size
+### Size specifications
 
 The Venia theme uses a root font size of **16px**.
 All other elements, except images and media queries, use this base value to calculate their relative sizes using `rem`.
@@ -68,7 +59,11 @@ Examples using **16px** as the root font size:
 ### Font weights
 
 The Venia theme uses a limited set of font weights in its design.
-Do not use anything other than the following weights:
+For optimal component performance, use no more than 3 font weight variations.
+
+![Muli font weights][]{:width="350px"}
+
+Venia uses the following weights:
 
 | Common weight name | Value | Usage                                  |
 | ------------------ | ----- | -------------------------------------- |
@@ -86,6 +81,11 @@ the gap, or _gutter_, between each grid cell should be in **multiples of `8rem`*
 
 ### Borders
 
+Use masks and borders instead of drop shadows to separate different sections and visual components.
+
+![Masks and borders][]{:width="450px"}
+
+
 Use the following values for borders:
 
 | Property        | Value | Description                                 |
@@ -98,25 +98,54 @@ Use the following values for borders:
 ***Note:** For buttons, the `border-radius` is half the height of the button.
 For example, a button with a height of `3rem` should have a `border-radius` of `1.5rem`.*
 
+### Layers
+
+Regarding layers, do not use the Z-Index to re-order items within a layer unless it is absolutely necessary.
+
 ## Animations
 
 Use the following guidelines to make component animations feel efficient and quick.
 
-* The speed of animations should be **8 or 16 milliseconds**, which is equivalent to **1 frame per second(fps)**.
-* Opening and entrance animations should last **224 milliseconds**.
-* Closing and exit animations are shorter and should only last **192 milliseconds**.
-* For movement-type animations, such as sliding or scrolling, use the `ease-in`, `ease-out`, or `ease-in-out` easing functions.
-* For visual effects, such as color or opacity changes, use the `linear` easing function.
+| Animation property                      | Value                                   |
+| --------------------------------------- | --------------------------------------- |
+| Speed                                   | 8-16 milliseconds or 1 frame per second |
+| Opening and entrance animation duration | 224 milliseconds                        |
+| Closing and exit animation duration     | 192 milliseconds                        |
+{:style="table-layout:auto"}
+
+### Easing functions
+
+Easing functions determine the speed up and slow down of animations.
+They help make component interactions and movements look and feel natural.
+
+Use the following table to determine which easing functions to use in your component animations:
+
+| Function                             | Usage                                                       |
+| ------------------------------------ | ----------------------------------------------------------- |
+| `ease-in`, `ease-out`, `ease-in-out` | Movement-type animations, such as sliding or scrolling      |
+| `linear`                             | Visual effects animations, such as color or opacity changes |
 
 ## Icons
 
 The Venia theme uses the open source [Feather][] icon set.
 
-Each icon has a stroke width of **2px** and fits inside a **24px** square, except in buttons and carets which have a size of **16px**.
+Examples:
 
+| Name          | Icon                    |
+| ------------- | ----------------------- |
+| Search        | ![search-icon][]        |
+| Menu          | ![menu-icon][]          |
+| Shopping cart | ![shopping-cart-icon][] |
+{:style="table-layout:auto"}
+
+Each icon has a stroke width of **2px** and fits inside a **24px** square, except in buttons and carets, which have a size of **16px**.
 
 [Slack]: https:/magentocommeng.slack.com/messages/C71HNKYS2
 [Muli font]: https://fonts.google.com/specimen/Muli
 [Root font size]: #root-font-size
 [Masks and borders]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/borders-and-masks.png %}
+[Muli font weights]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
 [Feather]: https://feathericons.com/
+[search-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/search.svg %}
+[menu-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/menu.svg %}
+[shopping-cart-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/shopping-cart.svg %}
