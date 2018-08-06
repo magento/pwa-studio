@@ -59,12 +59,13 @@ export default class MagentoRouteHandler extends Component {
     }
 
     render() {
+        this.props.customLoader;
         const { location } = this.props;
         const routeInfo = this.state[location.pathname];
 
         if (!routeInfo) {
             // TODO (future iteration): User-defined loading content
-            return <div>Loading</div>;
+            return this.props.customLoader;
         }
 
         const { Component, ...routeProps } = routeInfo;
