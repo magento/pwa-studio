@@ -6,6 +6,7 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Page from 'src/components/Page';
 import defaultClasses from './category.css';
+import Loader from '../Loader';
 
 const categoryQuery = gql`
     query category($id: Int!) {
@@ -56,7 +57,7 @@ class Category extends Component {
                 <Query query={categoryQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
+                        if (loading) return <Loader />;
 
                         return (
                             <article className={classes.root}>
@@ -82,5 +83,7 @@ class Category extends Component {
         );
     }
 }
+
+
 
 export default classify(defaultClasses)(Category);
