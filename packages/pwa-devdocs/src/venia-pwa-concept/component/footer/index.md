@@ -7,8 +7,6 @@ are still important enough to highlight.
 
 | Description                   | Reference image                                  |
 | ----------------------------- | :----------------------------------------------: |
-| Footer collapsed              | ![Footer collapsed]{:width="300px"}              |
-| Footer collapsed notification | ![Footer collapsed notification]{:width="300px"} |
 | Footer full                   | ![Footer]{:width="300px"}                        |
 {:style="table-layout:auto"}
 
@@ -18,5 +16,3 @@ are still important enough to highlight.
 * **Minimal footer** - Appears inside the main menu for access at all times
 
 [Footer]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-full.png %}
-[Footer collapsed]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-scroll.png %}
-[Footer collapsed notification]: {{ site.baseurl }}{% link venia-pwa-concept/images/footer-scroll-notification.png %}

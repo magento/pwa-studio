@@ -1,73 +1,82 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  --venia-border: 224, 224, 224;
-  --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
-  --venia-grey: 246, 246, 246;
-  --venia-teal: 0, 134, 138;
-  --venia-text: 33, 33, 33;
-  --venia-text-alt: 117, 117, 117;
-  --venia-text-hint: 158, 158, 158;
+    --venia-border: 224, 224, 224;
+    --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+    --venia-grey: 246, 246, 246;
+    --venia-teal: 0, 134, 138;
+    --venia-teal-alt: 224, 240, 241;
+    --venia-text: 33, 33, 33;
+    --venia-text-alt: 117, 117, 117;
+    --venia-text-hint: 158, 158, 158;
 }
 
 html {
-  background-color: white;
-  font-family: var(--venia-font);
-  font-size: 100%;
-  font-weight: 400;
-  line-height: 1;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+    background-color: white;
+    font-family: var(--venia-font);
+    font-size: 100%;
+    font-weight: 400;
+    line-height: 1;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background-color: white;
-  color: rgb(var(--venia-text));
-  margin: 0;
-  padding: 0;
+    background-color: white;
+    color: rgb(var(--venia-text));
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-size: 1rem;
-  font-weight: 400;
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
 }
 
 h1 {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 h2 {
-  font-size: 1.25rem;
+    font-size: 1.25rem;
 }
 
 a {
-  color: currentColor;
-  text-decoration: none;
+    color: currentColor;
+    text-decoration: none;
 }
 
 p {
-  margin: 0;
+    margin: 0;
 }
 
-dl, ol, ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+dl,
+ol,
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-dd, dt {
-  margin: 0;
+dd,
+dt {
+    margin: 0;
 }
 
 button {
-  background: none;
-  border: 0;
-  cursor: pointer;
-  font-family: var(--venia-font);
-  font-size: 100%;
-  padding: 0;
-  -webkit-appearance: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--venia-font);
+    font-size: 100%;
+    padding: 0;
+    -webkit-appearance: none;
 }

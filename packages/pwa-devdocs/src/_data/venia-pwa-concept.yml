@@ -17,6 +17,9 @@ entries:
     
     - label: Product page
       url: /venia-pwa-concept/design/product-page/
+
+    - label: Category page
+      url: /venia-pwa-concept/design/category-page/
   
   - label: Component specifications
     entries:
@@ -35,6 +38,9 @@ entries:
 
     - label: Color selector
       url: /venia-pwa-concept/component/color-selector/
+    
+    - label: Filter
+      url: /venia-pwa-concept/component/filter/
 
     - label: Footer
       url: /venia-pwa-concept/component/footer/
@@ -48,11 +54,20 @@ entries:
     - label: Label selector
       url: /venia-pwa-concept/component/label-selector/
 
+    - label: Main image
+      url: /venia-pwa-concept/component/main-image/
+
+    - label: Number of items
+      url: /venia-pwa-concept/component/number-of-items/
+
     - label: Page
       url: /venia-pwa-concept/component/page/
     
     - label: Product description
       url: /venia-pwa-concept/component/product-description/
+
+    - label: Product listing
+      url: /venia-pwa-concept/component/product-listing/
 
     - label: Quantity selector
       url: /venia-pwa-concept/component/quantity-selector/
@@ -68,9 +83,15 @@ entries:
     
     - label: Share
       url: /venia-pwa-concept/component/share/
+    
+    - label: Show more
+      url: /venia-pwa-concept/component/show-more/
 
     - label: Size selector
       url: /venia-pwa-concept/component/size-selector/
+
+    - label: Sort
+      url: /venia-pwa-concept/component/sort/
 
     - label: Title bar
       url: /venia-pwa-concept/component/title-bar/

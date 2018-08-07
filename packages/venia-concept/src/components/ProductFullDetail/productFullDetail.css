@@ -101,11 +101,6 @@
     }
 }
 
-.action {
-    composes: root from '../../components/button.css';
-    height: 3rem;
-}
-
 .options {
     grid-area: options;
 }
@@ -131,10 +126,6 @@
     .cartActions {
         border-bottom-width: 0;
     }
-}
-
-.addToCart {
-    composes: button from '../../components/button.css';
 }
 
 .description {
