@@ -15,10 +15,10 @@ If you experience problems with the project setup, see [Troubleshooting] in the 
 
 ## Clone repository
 
-Clone the [PWA Studio] repository into your development environment. 
+Clone the [PWA Studio] repository into your development environment.
 
 ``` sh
-git clone git@github.com:magento-research/pwa-studio.git
+git clone https://github.com/magento-research/pwa-studio.git
 ```
 
 {: .bs-callout .bs-callout-info}
@@ -27,7 +27,7 @@ For this tutorial, the project location is the `/Users/magedev/pwa-studio` direc
 
 ### Vagrant Box instructions
 
-If you are using a virtual machine, make sure it can access the new project directory and runs Magento 2.3. 
+If you are using a virtual machine, make sure it can access the new project directory and runs Magento 2.3.
 
 For example, if you are using the [Vagrant Box for Magento 2 developers], use the following steps to add a synced folder to the virtual machine and configure it to use Magento 2.3.
 
@@ -39,7 +39,7 @@ For example, if you are using the [Vagrant Box for Magento 2 developers], use th
 If you clone the PWA Studio project repo into the `magento2ce` directory of the Vagrant project, the project folder will already be visible to the Vagrant box and you can skip ahead to Step 3.
 
 1. In the Vagrant box project directory, open the `Vagrantfile` and locate the following line:
-   ``` 
+   ```
    config.vm.synced_folder '.', '/vagrant', disabled: true
    ```
 2. Above this line, add the following entry (substituting the project directory path with your own):
@@ -52,7 +52,15 @@ If you clone the PWA Studio project repo into the `magento2ce` directory of the 
    ```
    to
    ``` yml
-   ce: "git@github.com:magento/magento2.git::2.3-develop"
+   ce: "https://github.com/magento/magento2.git::2.3-develop"
+   ```
+   And if you want to pull the sample data (optional), update:
+   ``` yml
+   ce_sample_data: "git@github.com:magento/magento2-sample-data.git"
+   ```
+   to
+   ``` yml
+   ce_sample_data: "https://github.com/magento/magento2-sample-data.git::2.3-develop"
    ```
 4. In that same file, update the PHP version to 7.1 by updating the following line:
    ``` yml
@@ -83,7 +91,7 @@ npm install
 ## Link module
 
 Navigate to your Magento installation's `app/code/Magento` directory and create a `Pwa` symlink folder linking to the project's `module` directory.
-   
+
 **Example command:**
 ``` sh
 ln -s /Users/magedev/pwa-studio/packages/pwa-module Pwa
@@ -150,7 +158,7 @@ Project is running at https://magento-venia.local.pwadev:8000/
 ```
 
 This is the new address for your PWA frontend.
-You can still use the old address to access the Admin section of Magento, but 
+You can still use the old address to access the Admin section of Magento, but
 for PWA development on the frontend, use this new address.
 
 {: .bs-callout .bs-callout-info}
