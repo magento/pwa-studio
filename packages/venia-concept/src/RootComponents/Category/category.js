@@ -6,7 +6,7 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Page from 'src/components/Page';
 import defaultClasses from './category.css';
-import Loader from '../Loader';
+import Loader from 'src/components/Loader';
 
 const categoryQuery = gql`
     query category($id: Int!) {
