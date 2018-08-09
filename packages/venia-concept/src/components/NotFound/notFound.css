@@ -1,0 +1,21 @@
+.NotFound {
+  margin: 5rem 1rem;
+  text-align: center;
+}
+
+.NotFoundTitle {
+  font-size: 5rem;
+}
+
+.NotFoundLogo {
+  height: 4rem;
+  vertical-align: top;
+}
+
+.NotFoundContent {
+  margin: 1rem 0;
+}
+
+.NotFoundActionsAction {
+  color: rgb(var(--venia-teal));
+}
