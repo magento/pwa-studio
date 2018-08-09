@@ -68,6 +68,9 @@ module.exports = function createDevProxy(config) {
             secure: false,
             changeOrigin: true,
             autoRewrite: true,
+            headers: {
+                'x-node-env': 'development'
+            },
             cookieDomainRewrite: '' // remove any absolute domain on cookies
         },
         config
