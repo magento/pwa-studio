@@ -4,7 +4,8 @@ import bootstrap from '@magento/peregrine';
 import { MagentoRouter } from '@magento/peregrine';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import Loader from './RootComponents/Loader';
+import Loader from 'src/components/Loader';
+import NotFound from 'src/components/NotFound';
 
 import reducer from 'src/reducers/app';
 import './index.css';
@@ -12,7 +13,8 @@ import './index.css';
 const routerProps = {
   apiBase: new URL('/graphql', location.origin).toString(),
   __tmp_webpack_public_path__: __webpack_public_path__,
-  customLoader: <Loader />
+  customLoader: <Loader />,
+  four: <NotFound />
 };
 
 const customRouter = <MagentoRouter {...routerProps} />;

@@ -35,7 +35,8 @@ export default class MagentoRouter extends Component {
             routerProps,
             apiBase,
           __tmp_webpack_public_path__,
-            customLoader
+            customLoader,
+            four
         } = this.props;
 
         return (
@@ -46,6 +47,7 @@ export default class MagentoRouter extends Component {
                             location={location}
                             apiBase={apiBase}
                             customLoader={customLoader}
+                            four={four}
                             __tmp_webpack_public_path__={
                                 this.ensureDirURI(__tmp_webpack_public_path__)
                             }
