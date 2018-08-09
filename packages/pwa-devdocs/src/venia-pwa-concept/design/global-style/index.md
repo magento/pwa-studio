@@ -10,26 +10,63 @@ If have any feedback or would like to join the PWA conversation, please join our
 This topic provides the global style rules and values used in the Venia theme.
 Use this guide to style components that will fit within the Venia theme.
 
+## Layout
+
+### Grids
+
+Grid layouts should be in **multiples of 4** where possible, and
+the gap, or _gutter_, between each grid cell should be in **multiples of `8rem`**.
+
+### Borders
+
+Use masks and borders instead of drop shadows to separate different sections and visual components.
+
+![Masks and borders][]{:width="450px"}
+
+
+Use the following values for borders:
+
+| Property        | Value | Description                                 |
+| --------------- | ----- | ------------------------------------------- |
+| `border-radius` | `2px` | The roundness of an element's corner border |
+| `border-width`  | `1px` | The width of an element's border            |
+{:style="table-layout:auto"}
+
+{: .bs-callout .bs-callout-info}
+***Note:** For buttons, the `border-radius` is half the height of the button.
+For example, a button with a height of `3rem` should have a `border-radius` of `1.5rem`.*
+
+### Layers
+
+Avoid using `z-index` to re-order items; instead, rely on document order where possible.
+If you need to use the `z-index`, ensure that it is only used to re-order sibling elements within a single layer.
+
 ## Colors
 
 {: .bs-callout .bs-callout-tip}
 ***Tip:** Color values are expressed in RGB format because it translates easier to `rgba()` values than HEX format.*
 
-The Venia theme uses the following color classes in its design:
+The Venia theme uses the following [custom properties][] for color in its design:
 
-| CSS class         | RGB value                     | Usage            |
-| ----------------- | ----------------------------- | ---------------- |
-| `black`           | `rgb(0, 0, 0)`                |                  |
-| `venia-border`    | `rgb(224, 224, 224)`          | Border color     |
-| `venia-grey`      | `rgb(246, 246, 246)`          |                  |
-| `venia-teal`      | `rgb(0, 134, 139)`            | Buttons          |
-| `venia-text`      | `rgb(33, 33, 33)`             | General text     |
-| `venia-text-alt`  | `rgb(117, 117, 117)`          | Alternative text |
-| `venia-text-hint` | `rgb(158, 158, 158)`          | Hint text        |
-| `mask.root`       | `rgb(0, 0, 0)` at 50% opacity | Mask overlay     |
+| Custom property     | RGB value            | Usage            |
+| ------------------- | -------------------- | ---------------- |
+| `--venia-border`    | `rgb(224, 224, 224)` | Border color     |
+| `--venia-grey`      | `rgb(246, 246, 246)` |                  |
+| `--venia-teal`      | `rgb(0, 134, 139)`   | Buttons          |
+| `--venia-text`      | `rgb(33, 33, 33)`    | General text     |
+| `--venia-text-alt`  | `rgb(117, 117, 117)` | Alternative text |
+| `--venia-text-hint` | `rgb(158, 158, 158)` | Hint text        |
 {:style="table-layout:auto"}
 
-## Font
+Use the [`var()`][] function to use these custom properties in your style definitions:
+
+``` css
+.myComponent {
+  border-color: rgb(var(--venia-border));
+}
+```
+
+## Typography
 
 Venia uses the open source [Muli font][] from Google in its design.
 
@@ -59,11 +96,11 @@ Examples using **16px** as the root font size:
 ### Font weights
 
 The Venia theme uses a limited set of font weights in its design.
-For optimal component performance, use no more than 3 font weight variations.
+For optimal performance in your components, use no more than 3 font weight variations.
 
-![Muli font weights][]{:width="350px"}
+![Muli font weights][]
 
-Venia uses the following weights:
+Venia uses the following weights in its design:
 
 | Common weight name | Value | Usage                                  |
 | ------------------ | ----- | -------------------------------------- |
@@ -72,45 +109,17 @@ Venia uses the following weights:
 | Bold               | 700   | Use only for the large text in banners |
 {:style="table-layout:auto"}
 
-## Layout
-
-### Grids
-
-Grid layouts should be in **multiples of 4** where possible, and
-the gap, or _gutter_, between each grid cell should be in **multiples of `8rem`**.
-
-### Borders
-
-Use masks and borders instead of drop shadows to separate different sections and visual components.
-
-![Masks and borders][]{:width="450px"}
-
-
-Use the following values for borders:
-
-| Property        | Value | Description                                 |
-| --------------- | ----- | ------------------------------------------- |
-| `border-radius` | `2px` | The roundness of an element's corner border |
-| `border-width`  | `1px` | The width of an element's border            |
-{:style="table-layout:auto"}
-
-{: .bs-callout .bs-callout-info}
-***Note:** For buttons, the `border-radius` is half the height of the button.
-For example, a button with a height of `3rem` should have a `border-radius` of `1.5rem`.*
-
-### Layers
-
-Regarding layers, do not use the Z-Index to re-order items within a layer unless it is absolutely necessary.
-
 ## Animations
 
-Use the following guidelines to make component animations feel efficient and quick.
+Component animations should feel optimal in its current context. 
+This can be achieved by setting the speed of the animation to increments of **16 milliseconds**, which is roughly 1 frame per second.
 
-| Animation property                      | Value                                   |
-| --------------------------------------- | --------------------------------------- |
-| Speed                                   | 8-16 milliseconds or 1 frame per second |
-| Opening and entrance animation duration | 224 milliseconds                        |
-| Closing and exit animation duration     | 192 milliseconds                        |
+Use the following table as a reference for the ideal duration for different animation actions:
+
+| Animation action               | Duration value   |
+| ------------------------------ | ---------------- |
+| Opening and entrance animation | 224 milliseconds |
+| Closing and exit animation     | 192 milliseconds |
 {:style="table-layout:auto"}
 
 ### Easing functions
@@ -128,6 +137,7 @@ Use the following table to determine which easing functions to use in your compo
 ## Icons
 
 The Venia theme uses the open source [Feather][] icon set.
+Each icon has a stroke width of **2px** and fits inside a **24px** square, except in buttons and carets, which have a size of **16px**.
 
 Examples:
 
@@ -138,8 +148,6 @@ Examples:
 | Shopping cart | ![shopping-cart-icon][] |
 {:style="table-layout:auto"}
 
-Each icon has a stroke width of **2px** and fits inside a **24px** square, except in buttons and carets, which have a size of **16px**.
-
 [Slack]: https:/magentocommeng.slack.com/messages/C71HNKYS2
 [Muli font]: https://fonts.google.com/specimen/Muli
 [Root font size]: #root-font-size
@@ -149,3 +157,5 @@ Each icon has a stroke width of **2px** and fits inside a **24px** square, excep
 [search-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/search.svg %}
 [menu-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/menu.svg %}
 [shopping-cart-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/shopping-cart.svg %}
+[custom properties]: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
+[`var()`]: https://developer.mozilla.org/en-US/docs/Web/CSS/var
