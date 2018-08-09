@@ -64,10 +64,17 @@ export default class MagentoRouteHandler extends Component {
         const routeInfo = this.state[location.pathname];
 
         if (this.state.notFound) {
-            return this.props.notFoundComponent;
+            return this.props.notFoundComponent ? (
+                this.props.notFoundComponent
+            ) : (
+                <span> Could not find page</span>
+            );
         } else if (!routeInfo) {
-            // TODO (future iteration): User-defined loading content
-            return this.props.customLoader;
+            return this.props.customLoader ? (
+                this.props.customLoader
+            ) : (
+                <span> Loading...</span>
+            );
         }
 
         const { Component, ...routeProps } = routeInfo;

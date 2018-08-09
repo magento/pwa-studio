@@ -36,7 +36,7 @@ test('Only rendered route is a catch-all', () => {
     expect(routesWrapper.prop('path')).toBeUndefined();
 });
 
-test('Renders component for matching route', cb => {
+test.only('Renders component for matching route', cb => {
     mockUnknownRouteResolverOnce();
     const RouteComponent = () => <div>Route Component</div>;
     mockFetchRootComponentOnce(RouteComponent);
