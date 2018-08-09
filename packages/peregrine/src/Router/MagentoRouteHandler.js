@@ -40,7 +40,7 @@ export default class MagentoRouteHandler extends Component {
                 if (!matched) {
                     // TODO: User-defined 404 page
                     // when the API work is done to support it
-                  this.setState({ notFound: true });
+                    this.setState({ notFound: true });
                 }
                 return fetchRootComponent(rootChunkID, rootModuleID).then(
                     Component => {
@@ -63,9 +63,9 @@ export default class MagentoRouteHandler extends Component {
         const { location } = this.props;
         const routeInfo = this.state[location.pathname];
 
-        if ( this.state.notFound ) {
-          return this.props.notFoundComponent;
-        } else if(!routeInfo) {
+        if (this.state.notFound) {
+            return this.props.notFoundComponent;
+        } else if (!routeInfo) {
             // TODO (future iteration): User-defined loading content
             return this.props.customLoader;
         }

@@ -11,16 +11,16 @@ import reducer from 'src/reducers/app';
 import './index.css';
 
 const routerProps = {
-  apiBase: new URL('/graphql', location.origin).toString(),
-  __tmp_webpack_public_path__: __webpack_public_path__,
-  customLoader: <Loader />,
-  notFoundComponent: <NotFound />
+    apiBase: new URL('/graphql', location.origin).toString(),
+    __tmp_webpack_public_path__: __webpack_public_path__,
+    customLoader: <Loader />,
+    notFoundComponent: <NotFound />
 };
 
 const customRouter = <MagentoRouter {...routerProps} />;
 
 const { Provider, store } = bootstrap({
-  customRouter: customRouter
+    customRouter: customRouter
 });
 
 store.addReducer('app', reducer);

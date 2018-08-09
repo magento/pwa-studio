@@ -9,7 +9,7 @@ export default class MagentoRouter extends Component {
         using: func,
         routerProps: object,
         apiBase: string.isRequired,
-      __tmp_webpack_public_path__: string.isRequired
+        __tmp_webpack_public_path__: string.isRequired
     };
 
     static defaultProps = {
@@ -22,7 +22,7 @@ export default class MagentoRouter extends Component {
      * @param {string} uri
      */
     ensureDirURI(uri) {
-      return uri.endsWith('/') ? uri : uri + '/';
+        return uri.endsWith('/') ? uri : uri + '/';
     }
 
     render() {
@@ -30,7 +30,7 @@ export default class MagentoRouter extends Component {
             using: Router,
             routerProps,
             apiBase,
-          __tmp_webpack_public_path__,
+            __tmp_webpack_public_path__,
             customLoader,
             notFoundComponent
         } = this.props;
@@ -44,9 +44,9 @@ export default class MagentoRouter extends Component {
                             apiBase={apiBase}
                             customLoader={customLoader}
                             notFoundComponent={notFoundComponent}
-                            __tmp_webpack_public_path__={
-                                this.ensureDirURI(__tmp_webpack_public_path__)
-                            }
+                            __tmp_webpack_public_path__={this.ensureDirURI(
+                                __tmp_webpack_public_path__
+                            )}
                         />
                     )}
                 />

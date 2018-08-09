@@ -1,32 +1,32 @@
 .flexCenter {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  flex-direction: column;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
 }
 
 .flexCenter img {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .loadingAnimation {
-  animation-duration: 1s;
-  animation-name: loading;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.87, 0.73, 0.57, 1.49);
-  animation-direction: alternate;
-  position: relative;
+    animation-duration: 1s;
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.87, 0.73, 0.57, 1.49);
+    animation-direction: alternate;
+    position: relative;
 }
 
 @keyframes loading {
-  from {
-    opacity: 0;
-  }
+    from {
+        opacity: 0;
+    }
 
-  to {
-    opacity: 1.0;
-  }
+    to {
+        opacity: 1;
+    }
 }

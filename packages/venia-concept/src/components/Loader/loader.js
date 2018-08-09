@@ -5,36 +5,36 @@ import { string, shape } from 'prop-types';
 import logo from '../../components/Header/logo.svg';
 
 class Loader extends Component {
-  static propTypes = {
-    classes: shape({
-      root: string,
-      title: string,
-      logo: string,
-    })
-  };
+    static propTypes = {
+        classes: shape({
+            root: string,
+            title: string,
+            logo: string
+        })
+    };
 
-  static defaultProps = {
-    classes: defaultClasses
-  };
+    static defaultProps = {
+        classes: defaultClasses
+    };
 
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={ classes.flexCenter }>
-        <img 
-          className={ classes.loadingAnimation }
-          alt="logo"
-          src={logo}
-          height="128px"
-        />
-        <p className={ classes.loadingAnimation }>loading...</p>
-      </div>
-    );
-  }  
+    render() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.flexCenter}>
+                <img
+                    className={classes.loadingAnimation}
+                    alt="logo"
+                    src={logo}
+                    height="128px"
+                />
+                <p className={classes.loadingAnimation}>loading...</p>
+            </div>
+        );
+    }
 }
 
 export default classify(defaultClasses)(Loader);
