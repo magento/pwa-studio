@@ -17,10 +17,6 @@ export default class MagentoRouter extends Component {
         routerProps: {}
     };
 
-    constructor() {
-      super();
-    }
-
     /**
      * Given a URI, will always return the same URI with a trailing slash
      * @param {string} uri
@@ -36,7 +32,7 @@ export default class MagentoRouter extends Component {
             apiBase,
           __tmp_webpack_public_path__,
             customLoader,
-            four
+            notFoundComponent
         } = this.props;
 
         return (
@@ -47,7 +43,7 @@ export default class MagentoRouter extends Component {
                             location={location}
                             apiBase={apiBase}
                             customLoader={customLoader}
-                            four={four}
+                            notFoundComponent={notFoundComponent}
                             __tmp_webpack_public_path__={
                                 this.ensureDirURI(__tmp_webpack_public_path__)
                             }

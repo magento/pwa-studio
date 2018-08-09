@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import { createElement } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import createStore from '../store';
 
@@ -21,7 +21,7 @@ export default function bootstrap({ customRouter }) {
     const store = createStore();
 
     const Provider = () => (
-        React.createElement(ReduxProvider, {store: store}, customRouter)
+        createElement(ReduxProvider, {store: store}, customRouter)
     );
 
     return { store, Provider };

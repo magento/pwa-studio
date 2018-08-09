@@ -57,7 +57,7 @@ class Category extends Component {
                 <Query query={categoryQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <Loader />;
+                        if (loading) return <p> Fetching data </p>;
 
                         return (
                             <article className={classes.root}>

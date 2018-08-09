@@ -14,7 +14,7 @@ const routerProps = {
   apiBase: new URL('/graphql', location.origin).toString(),
   __tmp_webpack_public_path__: __webpack_public_path__,
   customLoader: <Loader />,
-  four: <NotFound />
+  notFoundComponent: <NotFound />
 };
 
 const customRouter = <MagentoRouter {...routerProps} />;
