@@ -59,7 +59,8 @@ class MagentoRootComponentsPlugin {
                 if (this.phase === 'development') {
                     // Unless we're in development mode. In that case,
                     // the best we can do is test if the entry is in node_modules.
-                    isEntrySimpleTest = mod => mod.resource.indexOf('/node_modules/') !== -1;
+                    isEntrySimpleTest = mod =>
+                        mod.resource.indexOf('/node_modules/') !== -1;
                 }
 
                 const isAnEntry =
