@@ -160,7 +160,16 @@ module.exports = async function(env) {
             new UglifyPlugin({
                 parallel: true,
                 uglifyOptions: {
-                    ecma: 8,
+                    parse: {
+                        ecma: 8
+                    },
+                    compress: {
+                        ecma: 6
+                    },
+                    output: {
+                        ecma: 7,
+                        semicolons: false
+                    },
                     keep_fnames: true
                 }
             })
