@@ -218,8 +218,7 @@ which reads an ini-formatted file to set the environment.
 
     const themePaths = {
         src: path.resolve(__dirname, 'src'),
-        assets: path.resolve(__dirname, 'web'),
-        output: path.resolve(__dirname, 'web/js')
+        output: path.resolve(__dirname, 'web')
     };
     ```
 
