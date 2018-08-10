@@ -1,5 +1,5 @@
 .root {
-  composes: root from "./tile.css";
-  background-color: rgb(var(--swatch-color));
-  border-color: rgba(0, 0, 0, 0.1);
+    composes: root from './tile.css';
+    background-color: rgb(var(--swatch-color));
+    border-color: rgba(0, 0, 0, 0.1);
 }

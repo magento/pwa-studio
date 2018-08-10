@@ -8,14 +8,15 @@
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/magento-research/peregrine"
+  "repository": "github:magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
   },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "scripts": {
     "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
-    "danger": "danger-ci",
     "clean": "rimraf dist",
+    "danger": "danger-ci",
     "prepare": "npm-merge-driver install",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"

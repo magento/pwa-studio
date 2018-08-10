@@ -42,8 +42,8 @@ class MiniCart extends Component {
             makeCartReducer
         ] = (await Promise.all([
             import('src/components/Checkout'),
-            import('src/store/reducers/checkout'),
-            import('src/store/reducers/cart')
+            import('src/reducers/checkout'),
+            import('src/reducers/cart')
         ])).map(mod => mod.default);
 
         Checkout = CheckoutComponent;
@@ -73,7 +73,10 @@ class MiniCart extends Component {
         return cartId && cart.totals && 'subtotal' in cart.totals ? (
             <dl className={classes.totals}>
                 <dt className={classes.subtotalLabel}>
-                    <span>Subtotal{` (${cart.details.items_qty} Items)`}</span>
+                    <span>
+                        Subtotal
+                        {` (${cart.details.items_qty} Items)`}
+                    </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
                     <Price
