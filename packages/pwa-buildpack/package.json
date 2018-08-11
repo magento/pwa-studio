@@ -15,10 +15,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/magento-research/pwa-buildpack.git"
-  },
+  "repository": "github:magento-research/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -28,9 +25,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-buildpack/issues"
+    "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-buildpack#readme",
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -44,7 +41,7 @@
     "memory-fs": "^0.4.1",
     "nock": "^9.2.5",
     "npm-run-all": "^4.1.2",
-    "react": "^16.1.1",
+    "react": "^16.4.2",
     "rimraf": "^2.6.2",
     "strip-ansi": "^4.0.0",
     "supertest": "^3.0.0",

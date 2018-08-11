@@ -1,4 +1,5 @@
 coverage
 package-lock.json
 dist
+web/js
 pwa-devdocs

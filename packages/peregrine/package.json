@@ -8,10 +8,11 @@
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/magento-research/peregrine"
+  "repository": "github:magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
   },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "scripts": {
     "build": "babel src -d dist --ignore '*.test.js,*.spec.js'",
     "clean": "rimraf dist",
@@ -23,8 +24,8 @@
   "dependencies": {},
   "peerDependencies": {
     "babel-runtime": "^6.0.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"
@@ -49,8 +50,8 @@
     "jest-fetch-mock": "^1.4.1",
     "npm-merge-driver": "^2.3.5",
     "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
