@@ -5,10 +5,11 @@
     "license": "(OSL-3.0 OR AFL-3.0)",
     "author": "Magento Commerce",
     "main": "src/index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/magento-research/venia-pwa-concept"
+    "repository": "github:magento-research/pwa-studio",
+    "bugs": {
+      "url": "https://github.com/magento-research/pwa-studio/issues"
     },
+    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
     "scripts": {
         "build": "webpack --progress --color --env.phase production",
         "prepare": "npm-merge-driver install",

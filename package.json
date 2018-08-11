@@ -21,6 +21,7 @@
     "prettier": "prettier --write 'packages/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different 'packages/**/*.@(js|css)' '*.js'",
     "test": "jest",
+    "test:ci": "npm run -s test -- -i --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
     "test:dev": "jest --watch"
   },
@@ -38,8 +39,11 @@
     "execa": "^0.10.0",
     "greenkeeper-lockfile": "^2.4.0",
     "jest": "^23.4.0",
+    "jest-junit": "^5.1.0",
     "lerna": "^3.0.0-beta.21",
+    "node-fetch": "^2.2.0",
     "prettier": "^1.13.5",
-    "prettier-check": "^2.0.0"
+    "prettier-check": "^2.0.0",
+    "xml": "^1.0.1"
   }
 }
