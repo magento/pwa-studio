@@ -21,6 +21,24 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="/pub/static/frontend/Magento/venia/en_US/client.js"></script>
+    <?php
+      /**
+       * The proxy server sends a value of "development" for this custom header,
+       * so we know, despite the proxy mimicking a real browser in other ways,
+       * that we are in development mode and no vendor bundle is being generated.
+       * This is a hack that should last only until decoupling of the middle tier.
+       */
+      $nodeEnvHeader = 'HTTP_X_NODE_ENV';
+      $nodeEnv = 'unknown';
+      if (isset($_SERVER[$nodeEnvHeader])) {
+        $nodeEnv = strtolower($_SERVER[$nodeEnvHeader]);
+      }
+      echo "<!-- X_NODE_ENV is '" . $nodeEnv . "' -->\n";
+      if ( $nodeEnv == "development" ) { ?>
+    <!-- Not emitting vendor bundle in development mode -->
+    <?php } else { ?>
+    <script defer src="/static/frontend/Magento/venia/en_US/js/vendor.js"></script>
+    <?php } ?>
+    <script defer src="/static/frontend/Magento/venia/en_US/js/client.js"></script>
   </body>
 </html>
