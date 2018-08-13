@@ -26,6 +26,7 @@ const categoryQuery = gql`
                             }
                         }
                     }
+                    url_key
                 }
             }
         }

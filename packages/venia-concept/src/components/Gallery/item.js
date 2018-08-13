@@ -1,4 +1,5 @@
 import { Component, createElement } from 'react';
+import { Link } from 'react-router-dom';
 import { string, number, shape, func, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
@@ -44,7 +45,8 @@ class GalleryItem extends Component {
                         currency: string.isRequired
                     }).isRequired
                 }).isRequired
-            }).isRequired
+            }).isRequired,
+            url_key: string.isRequired
         }),
         onError: func,
         onLoad: func,
@@ -70,21 +72,23 @@ class GalleryItem extends Component {
         const { name, price } = item;
 
         return (
-            <div className={classes.root}>
-                <div className={classes.images}>
-                    {this.renderImagePlaceholder()}
-                    {this.renderImage()}
+            <Link to={item.url_key + '.html'}>
+                <div className={classes.root}>
+                    <div className={classes.images}>
+                        {this.renderImagePlaceholder()}
+                        {this.renderImage()}
+                    </div>
+                    <div className={classes.name}>
+                        <span>{name}</span>
+                    </div>
+                    <div className={classes.price}>
+                        <Price
+                            value={price.regularPrice.amount.value}
+                            currencyCode={price.regularPrice.amount.currency}
+                        />
+                    </div>
                 </div>
-                <div className={classes.name}>
-                    <span>{name}</span>
-                </div>
-                <div className={classes.price}>
-                    <Price
-                        value={price.regularPrice.amount.value}
-                        currencyCode={price.regularPrice.amount.currency}
-                    />
-                </div>
-            </div>
+            </Link>
         );
     }
 

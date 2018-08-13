@@ -1,4 +1,5 @@
 import { Component, createElement } from 'react';
+import { Link } from 'react-router-dom';
 import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -66,9 +67,9 @@ class CategoryList extends Component {
                         return (
                             <div className={classes.content}>
                                 {data.category.children.map((item, index) => (
-                                    <a
+                                    <Link
                                         className={classes.item}
-                                        href={`/${
+                                        to={`/${
                                             item.url_key
                                         }${categoryUrlSuffix}`}
                                         key={index}
@@ -87,7 +88,7 @@ class CategoryList extends Component {
                                         <span className={classes.name}>
                                             {item.name}
                                         </span>
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         );
