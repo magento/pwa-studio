@@ -57,14 +57,19 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
 
   **REST** APIs will typically have multiple versions - v1, v2, etc. This is because updating endpoints in **REST** will often impact existing queries.
 
-  With **GraphQL**, there is no need for versioning, since new **types** and **fields** and can be added to the **schema** without impacting existing queries. Marking **fields** as `deprecated` will exclude them from the server's response, allowing for easy maintainability.
-```
-  type ExampleType {
-    firstName: String
-    lastName: String
-    name: String @deprecated(reason: "Split this field into two. Use `firstName` and `lastName`")
-}
-```
+  With **GraphQL**, there is no need for versioning, since new **types** and **fields** and can be added to the **schema** without impacting existing queries.
+
+  In addition, "removing" fields can be done through **deprecation** instead of just deleting them from the **schema**. If an old query still tries to read a **deprecated** field, GraphQL can display a customized warning.
+
+  ```
+    type ExampleType {
+      firstName: String
+      lastName: String
+      name: String @deprecated(reason: "Split this field into two. Use `firstName` and `lastName`")
+  }
+  ```
+
+  This prevents old queries from throwing confusing errors when trying to read outdated fields, lending to code maintainability.
 
 - #### Faster and More Efficient
 
