@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "The core runtime of Magento PWA",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -22,7 +22,6 @@
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "watch": "npm run -s build -- --watch"
   },
-  "dependencies": {},
   "peerDependencies": {
     "babel-runtime": "^6.0.0",
     "react": "^16.4.2",

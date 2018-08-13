@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
