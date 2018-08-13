@@ -103,13 +103,12 @@ const {
 
 Add the following content to `webpack.config.js` to define the paths to your theme resources:
 
-``` javascript 
+``` javascript
 const path = require('path');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js'),
+    output: path.resolve(__dirname, 'web'),
 };
 ```
 
@@ -132,8 +131,8 @@ module.exports = async function(env) {
         output: {
             path: themePaths.output,
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            filename: '[name].js',
-            chunkFilename: '[name].js'
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js'
         },
         module: {
             rules: [

@@ -218,15 +218,15 @@ test('.configure() throws errors on missing config', async () => {
             id: 'foo',
             publicPath: 'bar',
             backendDomain: 'https://dumb.domain',
-            paths: { output: 'output' }
+            paths: { output: 1234 }
         })
-    ).rejects.toThrow('paths.assets must be of type string');
+    ).rejects.toThrow('paths.output must be of type string');
     await expect(
         PWADevServer.configure({
             id: 'foo',
             publicPath: 'bar',
             backendDomain: 'https://dumb.domain',
-            paths: { output: 'foo', assets: 'bar' }
+            paths: { output: 'foo' }
         })
     ).rejects.toThrow('serviceWorkerFileName must be of type string');
 });
@@ -243,8 +243,7 @@ test('.configure() gets or creates an SSL cert', async () => {
     const server = await PWADevServer.configure({
         id: 'heckin',
         paths: {
-            output: 'good',
-            assets: 'boye'
+            output: 'good'
         },
         publicPath: 'bork',
         serviceWorkerFileName: 'doin',
@@ -267,8 +266,7 @@ test('.configure() returns a configuration object for the `devServer` property o
     const config = {
         id: 'Theme_Unique_Id',
         paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
+            output: 'path/to/static'
         },
         publicPath: 'full/path/to/publicPath',
         serviceWorkerFileName: 'swname.js',
@@ -307,8 +305,7 @@ test('.configure() returns a configuration object with before() and after() hand
     const config = {
         id: 'Theme_Unique_Id',
         paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
+            output: 'path/to/static'
         },
         publicPath: 'full/path/to/publicPath',
         serviceWorkerFileName: 'swname.js',
@@ -364,8 +361,7 @@ test('.configure() optionally adds OriginSubstitution middleware', async () => {
     const config = {
         id: 'Theme_Unique_Id',
         paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
+            output: 'path/to/static'
         },
         publicPath: 'full/path/to/publicPath',
         serviceWorkerFileName: 'swname.js',
