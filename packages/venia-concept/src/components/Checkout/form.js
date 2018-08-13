@@ -2,10 +2,11 @@ import { Component, Fragment, createElement } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import Button from 'src/components/Button';
 import Section from './section';
 import SubmitButton from './submitButton';
 import defaultClasses from './form.css';
+
+import AddressForm from './address';
 
 class Form extends Component {
     static propTypes = {
@@ -28,25 +29,19 @@ class Form extends Component {
     };
 
     get editableForm() {
-        const { classes, editing, submitting } = this.props;
+        const { cart, editing, submitting } = this.props;
 
         switch (editing) {
             case 'address': {
+                const { details } = cart;
+
                 return (
-                    <Fragment>
-                        <div className={classes.body}>
-                            <p>Address form</p>
-                        </div>
-                        <div className={classes.footer}>
-                            <Button
-                                disabled={submitting}
-                                onClick={this.submitAddress}
-                            >
-                                Save
-                            </Button>
-                            <Button onClick={this.stopEditing}>Cancel</Button>
-                        </div>
-                    </Fragment>
+                    <AddressForm
+                        initialValues={details.billing_address}
+                        submitting={submitting}
+                        cancel={this.stopEditing}
+                        submit={this.submitAddress}
+                    />
                 );
             }
             default: {
@@ -117,8 +112,11 @@ class Form extends Component {
         this.props.editOrder('address');
     };
 
-    submitAddress = () => {
-        this.props.submitInput();
+    submitAddress = formValues => {
+        this.props.submitInput({
+            type: 'address',
+            formValues
+        });
     };
 
     stopEditing = () => {

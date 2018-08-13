@@ -24,6 +24,7 @@
         "feather-icons": "^4.6.0",
         "graphql": "^0.13.2",
         "graphql-tag": "^2.9.2",
+        "informed": "^1.9.0",
         "lodash.debounce": "^4.0.8",
         "memoize-one": "^4.0.0",
         "react": "^16.4.2",
@@ -35,6 +36,7 @@
         "redux-actions": "2.6.1"
     },
     "devDependencies": {
+        "@babel/runtime": "<=7.0.0-beta.55",
         "@magento/pwa-buildpack": "^0.8.2",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
