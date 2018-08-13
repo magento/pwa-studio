@@ -7,8 +7,7 @@ export const name = 'checkout';
 const initialState = {
     editing: null,
     step: 'cart',
-    submitting: false,
-    valid: false
+    submitting: false
 };
 
 const reducerMap = {
@@ -49,8 +48,7 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
-            submitting: false,
-            valid: true
+            submitting: false
         };
     },
     [actions.input.reject]: state => {

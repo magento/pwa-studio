@@ -2,7 +2,7 @@ import { createActions } from 'redux-actions';
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId, getGuestCartId } from 'src/actions/cart';
+import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
 
 const prefix = 'CHECKOUT';
 const actionTypes = ['EDIT', 'RESET'];
@@ -52,16 +52,18 @@ export const submitCart = () =>
     };
 
 export const submitInput = () =>
-    async function thunk(dispatch) {
+    async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
+
+        if (!guestCartId) {
+            throw new Error('Missing required information: guestCartId');
+        }
+
         dispatch(actions.input.submit());
 
         try {
-            const guestCartId = await getGuestCartId(...arguments);
-
-            if (!guestCartId) {
-                throw new Error('Missing required information: guestCartId');
-            }
-
+            const address = formatAddress();
             const response = await request(
                 `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
                 {
@@ -69,8 +71,8 @@ export const submitInput = () =>
                     // TODO: replace with real data from cart state
                     body: JSON.stringify({
                         addressInformation: {
-                            billing_address: getAddress(),
-                            shipping_address: getAddress(),
+                            billing_address: address,
+                            shipping_address: address,
                             shipping_method_code: 'flatrate',
                             shipping_carrier_code: 'flatrate'
                         }
@@ -79,22 +81,24 @@ export const submitInput = () =>
             );
 
             dispatch(actions.input.accept(response));
+            dispatch(getCartDetails({ forceRefresh: true }));
         } catch (error) {
             dispatch(actions.input.reject(error));
         }
     };
 
 export const submitOrder = () =>
-    async function thunk(dispatch) {
+    async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
+
+        if (!guestCartId) {
+            throw new Error('Missing required information: guestCartId');
+        }
+
         dispatch(actions.order.submit());
 
         try {
-            const guestCartId = await getGuestCartId(...arguments);
-
-            if (!guestCartId) {
-                throw new Error('Missing required information: guestCartId');
-            }
-
             const response = await request(
                 `/rest/V1/guest-carts/${guestCartId}/order`,
                 {
@@ -117,7 +121,6 @@ export const submitOrder = () =>
 
 /* helpers */
 
-// TODO: replace with real address data
 const mockAddress = {
     country_id: 'US',
     firstname: 'Veronica',
@@ -132,7 +135,6 @@ const mockAddress = {
     email: 'veronica@example.com'
 };
 
-// TODO: replace with real address data
-function getAddress() {
-    return mockAddress;
+function formatAddress(address = mockAddress) {
+    return address;
 }

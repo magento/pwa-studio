@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
+import classify from 'src/classify';
 import { loadReducers } from 'src/actions/app';
 import { getCartDetails } from 'src/actions/cart';
-import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 
-let Checkout;
+let Checkout = () => null;
 
 class MiniCart extends Component {
     static propTypes = {
@@ -31,17 +31,17 @@ class MiniCart extends Component {
     };
 
     async componentDidMount() {
-        this.props.loadReducers([
+        const { getCartDetails, loadReducers } = this.props;
+
+        loadReducers([
             import('src/reducers/cart'),
             import('src/reducers/checkout')
         ]);
 
         const CheckoutModule = await import('src/components/Checkout');
         Checkout = CheckoutModule.default;
-    }
 
-    get checkout() {
-        return Checkout ? <Checkout /> : null;
+        getCartDetails();
     }
 
     get productList() {
@@ -79,8 +79,8 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { checkout, productList, totalsSummary, props } = this;
-        const { classes, isOpen } = props;
+        const { productList, totalsSummary, props } = this;
+        const { cart, classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
         return (
@@ -97,7 +97,7 @@ class MiniCart extends Component {
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>
-                {checkout}
+                <Checkout cart={cart} />
             </aside>
         );
     }

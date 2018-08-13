@@ -1,5 +1,5 @@
-import { Component, createElement } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { Component, Fragment, createElement } from 'react';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
@@ -9,6 +9,11 @@ import defaultClasses from './form.css';
 
 class Form extends Component {
     static propTypes = {
+        cart: shape({
+            details: object,
+            guestCartId: string,
+            totals: object
+        }).isRequired,
         classes: shape({
             body: string,
             footer: string,
@@ -23,17 +28,26 @@ class Form extends Component {
     };
 
     get editableForm() {
-        const { editing } = this.props;
+        const { classes, editing, submitting } = this.props;
 
         switch (editing) {
             case 'address': {
-                return <span>address</span>;
-            }
-            case 'paymentMethod': {
-                return <span>paymentMethod</span>;
-            }
-            case 'shippingMethod': {
-                return <span>shippingMethod</span>;
+                return (
+                    <Fragment>
+                        <div className={classes.body}>
+                            <p>Address form</p>
+                        </div>
+                        <div className={classes.footer}>
+                            <Button
+                                disabled={submitting}
+                                onClick={this.submitAddress}
+                            >
+                                Save
+                            </Button>
+                            <Button onClick={this.stopEditing}>Cancel</Button>
+                        </div>
+                    </Fragment>
+                );
             }
             default: {
                 return null;
@@ -41,44 +55,44 @@ class Form extends Component {
         }
     }
 
-    render() {
-        const {
-            classes,
-            editing,
-            submitInput,
-            submitOrder,
-            submitting,
-            valid
-        } = this.props;
-        const text = 'Click to edit';
+    get addressSnippet() {
+        const { cart, valid } = this.props;
+        const address = cart.details.billing_address;
 
-        if (editing)
-            return (
-                <div className={classes.root}>
-                    <div className={classes.body}>{this.editableForm}</div>
-                    <div className={classes.footer}>
-                        <Button onClick={this.stopEditing}>Cancel</Button>
-                        <Button disabled={submitting} onClick={submitInput}>
-                            Save
-                        </Button>
-                    </div>
-                </div>
-            );
+        if (!valid) {
+            return <span>Click to edit</span>;
+        }
+
+        const name = `${address.firstname} ${address.lastname}`;
+        const street = `${address.street.join(' ')}`;
 
         return (
-            <div className={classes.root}>
+            <Fragment>
+                <strong>{name}</strong>
+                <br />
+                <span>{street}</span>
+            </Fragment>
+        );
+    }
+
+    get overview() {
+        const { classes, submitOrder, submitting, valid } = this.props;
+
+        return (
+            <Fragment>
                 <div className={classes.body}>
                     <Section label="Ship To" onClick={this.editAddress}>
-                        <span>{text}</span>
+                        {this.addressSnippet}
                     </Section>
-                    <Section label="Pay With" onClick={this.editPaymentMethod}>
-                        <span>{text}</span>
+                    <Section label="Pay With" disabled>
+                        <strong>Check</strong>
+                        <br />
+                        <span>Personal check or money order</span>
                     </Section>
-                    <Section
-                        label="Get It By"
-                        onClick={this.editShippingMethod}
-                    >
-                        <span>{text}</span>
+                    <Section label="Get It By" disabled>
+                        <strong>December 25, 2018</strong>
+                        <br />
+                        <span>Flat Rate Shipping</span>
                     </Section>
                 </div>
                 <div className={classes.footer}>
@@ -88,20 +102,23 @@ class Form extends Component {
                         submitOrder={submitOrder}
                     />
                 </div>
-            </div>
+            </Fragment>
         );
+    }
+
+    render() {
+        const { classes, editing } = this.props;
+        const children = editing ? this.editableForm : this.overview;
+
+        return <div className={classes.root}>{children}</div>;
     }
 
     editAddress = () => {
         this.props.editOrder('address');
     };
 
-    editPaymentMethod = () => {
-        this.props.editOrder('paymentMethod');
-    };
-
-    editShippingMethod = () => {
-        this.props.editOrder('shippingMethod');
+    submitAddress = () => {
+        this.props.submitInput();
     };
 
     stopEditing = () => {

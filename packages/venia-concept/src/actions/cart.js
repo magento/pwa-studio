@@ -31,8 +31,19 @@ export const createGuestCart = () =>
             return;
         }
 
-        // reset checkout, then request a new guest cart
+        // reset the checkout workflow
+        // in case the user has already completed an order this session
         dispatch(checkoutActions.reset());
+
+        const guestCartId = await retrieveGuestCartId();
+
+        // if a guest cart exists in storage, act like we just received it
+        if (guestCartId) {
+            dispatch(actions.receiveGuestCart(guestCartId));
+            return;
+        }
+
+        // otherwise, request a new guest cart
         dispatch(actions.requestGuestCart());
 
         try {
@@ -54,10 +65,15 @@ export const addItemToCart = (payload = {}) => {
 
     writeImageToCache(item);
 
-    return async function thunk(dispatch) {
-        const guestCartId = await getGuestCartId(...arguments);
-
+    return async function thunk(dispatch, getState) {
         try {
+            const { cart } = getState();
+            const { guestCartId } = cart;
+
+            if (!guestCartId) {
+                throw new Error('Missing required information: guestCartId');
+            }
+
             const cartItem = await request(
                 `/rest/V1/guest-carts/${guestCartId}/items`,
                 {
@@ -98,10 +114,18 @@ export const addItemToCart = (payload = {}) => {
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
-    return async function thunk(dispatch) {
-        dispatch(actions.requestDetails());
+    return async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
 
-        const guestCartId = await getGuestCartId(...arguments);
+        dispatch(actions.requestDetails(guestCartId));
+
+        // if there isn't a guest cart, create one
+        // then retry this operation
+        if (!guestCartId) {
+            await dispatch(createGuestCart());
+            return thunk(...arguments);
+        }
 
         try {
             const [imageCache, details, totals] = await Promise.all([
@@ -160,7 +184,7 @@ export const toggleCart = () =>
 
 async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     if (!guestCartId) {
-        return null;
+        throw new Error('Missing required information: guestCartId');
     }
 
     return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
@@ -168,33 +192,12 @@ async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     });
 }
 
-export async function clearGuestCartId() {
-    return storage.removeItem('guestCartId');
+export async function retrieveGuestCartId() {
+    return storage.getItem('guestCartId');
 }
 
-export async function getGuestCartId(dispatch, getState) {
-    const { cart } = getState();
-
-    // ensure state slices are present
-    if (!cart) {
-        return null;
-    }
-
-    if (!cart.guestCartId) {
-        // check for a guest cart in storage
-        const storedGuestCartId = await storage.getItem('guestCartId');
-
-        // if one exists, return it
-        if (storedGuestCartId) {
-            return storedGuestCartId;
-        }
-
-        // otherwise create a guest cart
-        await dispatch(createGuestCart());
-    }
-
-    // retrieve the new guest cart from state
-    return getState().cart.guestCartId;
+export async function clearGuestCartId() {
+    return storage.removeItem('guestCartId');
 }
 
 async function retrieveImageCache() {

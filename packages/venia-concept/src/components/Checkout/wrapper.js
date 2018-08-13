@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
-import { bool, func, oneOf, shape } from 'prop-types';
+import { bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import {
     editOrder,
@@ -13,11 +13,15 @@ import Flow from './flow';
 
 class Wrapper extends Component {
     static propTypes = {
+        cart: shape({
+            details: object,
+            guestCartId: string,
+            totals: object
+        }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
-            submitting: bool.isRequired,
-            valid: bool.isRequired
+            submitting: bool.isRequired
         }),
         editOrder: func.isRequired,
         resetCheckout: func.isRequired,
@@ -37,11 +41,11 @@ class Wrapper extends Component {
             submitOrder
         } = this.props;
 
+        // ensure state slices are present
         if (!(cart && checkout)) {
             return null;
         }
 
-        const ready = !!cart.details.items_count;
         const actions = {
             editOrder,
             resetCheckout,
@@ -50,7 +54,7 @@ class Wrapper extends Component {
             submitOrder
         };
 
-        const flowProps = { actions, checkout, ready };
+        const flowProps = { actions, cart, checkout };
 
         return <Flow {...flowProps} />;
     }
@@ -65,6 +69,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-    ({ cart, checkout }) => ({ cart, checkout }),
+    ({ checkout }) => ({ checkout }),
     mapDispatchToProps
 )(Wrapper);

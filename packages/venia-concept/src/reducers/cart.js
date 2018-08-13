@@ -28,7 +28,7 @@ const reducerMap = {
             ...payload
         };
     },
-    [checkoutActions.acceptOrder]: () => {
+    [checkoutActions.order.accept]: () => {
         return initialState;
     }
 };

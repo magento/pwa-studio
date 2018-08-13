@@ -1,11 +1,20 @@
 import { Component, createElement } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';
 import Form from './form';
 import Receipt from './receipt';
 import defaultClasses from './flow.css';
+
+const stepMap = {
+    cart: 1,
+    form: 2,
+    receipt: 3
+};
+
+const isCartReady = items => items > 0;
+const isAddressValid = address => !!(address && address.email);
 
 class Flow extends Component {
     static propTypes = {
@@ -16,20 +25,23 @@ class Flow extends Component {
             submitInput: func.isRequired,
             submitOrder: func.isRequired
         }).isRequired,
+        cart: shape({
+            details: object,
+            guestCartId: string,
+            totals: object
+        }),
         checkout: shape({
             editing: string,
             step: string,
-            submitting: bool,
-            valid: bool
+            submitting: bool
         }),
         classes: shape({
             root: string
-        }),
-        ready: bool
+        })
     };
 
     get child() {
-        const { actions, checkout, ready } = this.props;
+        const { actions, cart, checkout } = this.props;
         const {
             editOrder,
             resetCheckout,
@@ -37,16 +49,20 @@ class Flow extends Component {
             submitInput,
             submitOrder
         } = actions;
-        const { editing, step, submitting, valid } = checkout;
+        const { editing, step, submitting } = checkout;
+        const { details } = cart;
+        const ready = isCartReady(details.items_count);
+        const valid = isAddressValid(details.billing_address);
 
-        switch (step) {
-            case 'cart': {
+        switch (stepMap[step]) {
+            case 1: {
                 const stepProps = { ready, submitCart, submitting };
 
                 return <Cart {...stepProps} />;
             }
-            case 'form': {
+            case 2: {
                 const stepProps = {
+                    cart,
                     editOrder,
                     editing,
                     submitInput,
@@ -57,7 +73,7 @@ class Flow extends Component {
 
                 return <Form {...stepProps} />;
             }
-            case 'receipt': {
+            case 3: {
                 const stepProps = { resetCheckout };
 
                 return <Receipt {...stepProps} />;
