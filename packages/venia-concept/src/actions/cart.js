@@ -1,42 +1,61 @@
+import { createActions } from 'redux-actions';
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
+import checkoutActions from 'src/actions/checkout';
+import BrowserPersistence from 'src/util/simplePersistence';
+
+const prefix = 'CART';
+const actionTypes = [
+    'ADD_ITEM',
+    'REQUEST_GUEST_CART',
+    'RECEIVE_GUEST_CART',
+    'REQUEST_DETAILS',
+    'UPDATE_DETAILS'
+];
+
+const actions = createActions(...actionTypes, { prefix });
+export default actions;
+
+/* async action creators */
 
 const { request } = RestApi.Magento2;
+const storage = new BrowserPersistence();
 
-const createGuestCart = () =>
-    async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const { checkout } = getState();
+export const createGuestCart = () =>
+    async function thunk(dispatch, getState) {
+        const { cart } = getState();
 
-        if (checkout && checkout.status === 'ACCEPTED') {
-            dispatch({ type: 'RESET_CHECKOUT' });
+        // if a guest cart already exists, exit
+        if (cart.guestCartId) {
+            return;
         }
 
+        // reset checkout, then request a new guest cart
+        dispatch(checkoutActions.reset());
+        dispatch(actions.requestGuestCart());
+
         try {
-            const response = await request('/rest/V1/guest-carts', {
+            const id = await request('/rest/V1/guest-carts', {
                 method: 'POST'
             });
 
-            dispatch({
-                type: 'CREATE_GUEST_CART',
-                payload: response
-            });
+            // write to storage in the background
+            storage.setItem('guestCartId', id);
+
+            dispatch(actions.receiveGuestCart(id));
         } catch (error) {
-            dispatch({
-                type: 'CREATE_GUEST_CART',
-                payload: error,
-                error: true
-            });
+            dispatch(actions.createGuestCart(error));
         }
     };
 
-const addItemToCart = payload => {
+export const addItemToCart = (payload = {}) => {
     const { item, quantity } = payload;
 
-    return async function thunk(...args) {
-        const [dispatch] = args;
-        const guestCartId = await getGuestCartId(...args);
+    writeImageToCache(item);
+
+    return async function thunk(dispatch) {
+        const guestCartId = await getGuestCartId(...arguments);
 
         try {
             const cartItem = await request(
@@ -54,49 +73,39 @@ const addItemToCart = payload => {
                 }
             );
 
-            dispatch({
-                type: 'ADD_ITEM_TO_CART',
-                payload: {
-                    cartItem,
-                    item,
-                    quantity
-                }
-            });
+            dispatch(actions.addItem({ cartItem, item, quantity }));
         } catch (error) {
             const { response } = error;
 
+            // check if the guest cart has expired
             if (response && response.status === 404) {
-                // guest cart expired!
+                // if so, create a new one
                 await dispatch(createGuestCart());
-                // re-execute this thunk
-                return thunk(...args);
+                // then retry this operation
+                return thunk(...arguments);
             }
 
-            dispatch({
-                type: 'ADD_ITEM_TO_CART',
-                payload: error,
-                error: true
-            });
+            dispatch(actions.addItem(error));
         }
 
         await Promise.all([
-            getCartDetails({ forceRefresh: true })(...args),
-            toggleCart()(...args)
+            dispatch(toggleDrawer('cart')),
+            dispatch(getCartDetails({ forceRefresh: true }))
         ]);
-
-        return payload;
     };
 };
 
-const getCartDetails = (payload = {}) => {
+export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
-    return async function thunk(...args) {
-        const [dispatch] = args;
-        const guestCartId = await getGuestCartId(...args);
+    return async function thunk(dispatch) {
+        dispatch(actions.requestDetails());
+
+        const guestCartId = await getGuestCartId(...arguments);
 
         try {
-            const [details, totals] = await Promise.all([
+            const [imageCache, details, totals] = await Promise.all([
+                retrieveImageCache(),
                 fetchCartPart({ guestCartId, forceRefresh }),
                 fetchCartPart({
                     guestCartId,
@@ -105,34 +114,29 @@ const getCartDetails = (payload = {}) => {
                 })
             ]);
 
-            dispatch({
-                type: 'GET_CART_DETAILS',
-                payload: { details, totals }
+            details.items.forEach(item => {
+                item.image = item.image || imageCache[item.sku] || {};
             });
+
+            dispatch(actions.updateDetails({ details, totals }));
         } catch (error) {
             const { response } = error;
 
+            // check if the guest cart has expired
             if (response && response.status === 404) {
-                // guest cart expired!
+                // if so, create a new one
                 await dispatch(createGuestCart());
-                // re-execute this thunk
-                return thunk(...args);
+                // then retry this operation
+                return thunk(...arguments);
             }
 
-            dispatch({
-                type: 'GET_CART_DETAILS',
-                payload: error,
-                error: true
-            });
+            dispatch(actions.updateDetails(error));
         }
-
-        return payload;
     };
 };
 
-const toggleCart = () =>
-    async function thunk(...args) {
-        const [dispatch, getState] = args;
+export const toggleCart = () =>
+    async function thunk(dispatch, getState) {
         const { app, cart } = getState();
 
         // ensure state slices are present
@@ -147,11 +151,12 @@ const toggleCart = () =>
         }
 
         // otherwise open the cart and load its contents
-        await Promise.all([
-            dispatch(getCartDetails()),
-            dispatch(toggleDrawer('cart'))
-        ]);
+        await Promise.all[
+            (dispatch(toggleDrawer('cart')), dispatch(getCartDetails()))
+        ];
     };
+
+/* helpers */
 
 async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     if (!guestCartId) {
@@ -163,21 +168,60 @@ async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     });
 }
 
-async function getGuestCartId(dispatch, getState) {
+export async function clearGuestCartId() {
+    return storage.removeItem('guestCartId');
+}
+
+export async function getGuestCartId(dispatch, getState) {
     const { cart } = getState();
 
-    // reducers may be added asynchronously
+    // ensure state slices are present
     if (!cart) {
         return null;
     }
 
-    // create a guest cart if one hasn't been created yet
     if (!cart.guestCartId) {
+        // check for a guest cart in storage
+        const storedGuestCartId = await storage.getItem('guestCartId');
+
+        // if one exists, return it
+        if (storedGuestCartId) {
+            return storedGuestCartId;
+        }
+
+        // otherwise create a guest cart
         await dispatch(createGuestCart());
     }
 
-    // retrieve app state again
+    // retrieve the new guest cart from state
     return getState().cart.guestCartId;
 }
 
-export { addItemToCart, getCartDetails, getGuestCartId, toggleCart };
+async function retrieveImageCache() {
+    return storage.getItem('imagesBySku') || {};
+}
+
+async function saveImageCache(cache) {
+    return storage.setItem('imagesBySku', cache);
+}
+
+async function writeImageToCache(item) {
+    const { media_gallery_entries: media, sku } = item;
+
+    if (sku) {
+        const image = media.find(m => m.position === 1) || media[0];
+
+        if (image) {
+            const imageCache = await retrieveImageCache();
+
+            // if there is an image and it differs from cache
+            // write to cache and save in the background
+            if (imageCache[sku] !== image) {
+                imageCache[sku] = image;
+                saveImageCache(imageCache);
+
+                return image;
+            }
+        }
+    }
+}

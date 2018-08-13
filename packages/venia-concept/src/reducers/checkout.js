@@ -1,70 +1,85 @@
+import { handleActions } from 'redux-actions';
+
+import actions from 'src/actions/checkout';
+
+export const name = 'checkout';
+
 const initialState = {
-    shippingInformation: false,
-    status: 'READY',
-    subflow: null
+    editing: null,
+    step: 'cart',
+    submitting: false,
+    valid: false
 };
 
-const reducer = (state = initialState, { payload, type }) => {
-    switch (type) {
-        case 'REQUEST_ORDER': {
-            return {
-                ...state,
-                status: 'REQUESTING'
-            };
-        }
-        case 'RECEIVE_ORDER': {
-            return {
-                ...state,
-                status: 'MODIFYING'
-            };
-        }
-        case 'ENTER_SUBFLOW': {
-            return {
-                ...state,
-                status: 'MODIFYING',
-                subflow: payload
-            };
-        }
-        case 'EXIT_SUBFLOW': {
-            return {
-                ...state,
-                status: 'MODIFYING',
-                subflow: null
-            };
-        }
-        case 'SUBMIT_SHIPPING_INFORMATION': {
-            return {
-                ...state,
-                shippingInformation: true
-            };
-        }
-        case 'SUBMIT_ORDER': {
-            return {
-                ...state,
-                status: 'SUBMITTING'
-            };
-        }
-        case 'REJECT_ORDER': {
-            return {
-                ...state,
-                status: 'MODIFYING'
-            };
-        }
-        case 'ACCEPT_ORDER': {
-            return {
-                ...state,
-                status: 'ACCEPTED'
-            };
-        }
-        case 'RESET_CHECKOUT': {
-            return initialState;
-        }
-        default: {
-            return state;
-        }
-    }
+const reducerMap = {
+    [actions.edit]: (state, { payload }) => {
+        return {
+            ...state,
+            editing: payload
+        };
+    },
+    [actions.cart.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.cart.accept]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'form',
+            submitting: false
+        };
+    },
+    [actions.cart.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.input.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.input.accept]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'form',
+            submitting: false,
+            valid: true
+        };
+    },
+    [actions.input.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.order.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.order.accept]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'receipt',
+            submitting: false
+        };
+    },
+    [actions.order.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.reset]: () => initialState
 };
 
-const selectCheckoutState = ({ checkout }) => ({ checkout });
-
-export { reducer as default, selectCheckoutState };
+export default handleActions(reducerMap, initialState);

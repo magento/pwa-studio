@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
-import { store } from 'src';
+import { loadReducers } from 'src/actions/app';
 import { getCartDetails } from 'src/actions/cart';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
@@ -17,7 +17,6 @@ let Checkout;
 class MiniCart extends Component {
     static propTypes = {
         classes: shape({
-            checkout: string,
             body: string,
             header: string,
             footer: string,
@@ -31,27 +30,14 @@ class MiniCart extends Component {
         })
     };
 
-    constructor(...args) {
-        super(...args);
-    }
-
     async componentDidMount() {
-        const [
-            CheckoutComponent,
-            checkoutReducer,
-            makeCartReducer
-        ] = (await Promise.all([
-            import('src/components/Checkout'),
-            import('src/reducers/checkout'),
-            import('src/reducers/cart')
-        ])).map(mod => mod.default);
+        this.props.loadReducers([
+            import('src/reducers/cart'),
+            import('src/reducers/checkout')
+        ]);
 
-        Checkout = CheckoutComponent;
-        store.addReducer('checkout', checkoutReducer);
-        store.addReducer('cart', await makeCartReducer());
-        this.props.getCartDetails({
-            guestCartId: store.getState().cart.guestCartId
-        });
+        const CheckoutModule = await import('src/components/Checkout');
+        Checkout = CheckoutModule.default;
     }
 
     get checkout() {
@@ -117,22 +103,25 @@ class MiniCart extends Component {
     }
 }
 
+const mapStateToProps = ({ cart }) => {
+    const details = cart && cart.details;
+    const cartId = details && details.id;
+    const cartCurrencyCode =
+        details && details.currency && details.currency.quote_currency_code;
+
+    return {
+        cart,
+        cartId,
+        cartCurrencyCode
+    };
+};
+
+const mapDispatchToProps = { getCartDetails, loadReducers };
+
 export default compose(
     classify(defaultClasses),
     connect(
-        ({ cart }) => {
-            const details = cart && cart.details;
-            const cartId = details && details.id;
-            const cartCurrencyCode =
-                details &&
-                details.currency &&
-                details.currency.quote_currency_code;
-            return {
-                cart,
-                cartId,
-                cartCurrencyCode
-            };
-        },
-        { getCartDetails }
+        mapStateToProps,
+        mapDispatchToProps
     )
 )(MiniCart);
