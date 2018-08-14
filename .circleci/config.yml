@@ -119,7 +119,7 @@ jobs:
           command: 'npm run test:ci && npm run coveralls || true'
       - run:
           name: Patch CircleCI environment to help detect pull requests
-          command: node .circleci/patch_circleci_environment.js >> $BASH_ENV
+          command: node scripts/patch_circleci_environment.js >> $BASH_ENV
       - run:
           name: DangerCI
           command: npm run danger
