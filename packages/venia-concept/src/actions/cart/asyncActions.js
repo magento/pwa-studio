@@ -1,23 +1,9 @@
-import { createActions } from 'redux-actions';
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import BrowserPersistence from 'src/util/simplePersistence';
-
-const prefix = 'CART';
-const actionTypes = [
-    'ADD_ITEM',
-    'REQUEST_GUEST_CART',
-    'RECEIVE_GUEST_CART',
-    'REQUEST_DETAILS',
-    'UPDATE_DETAILS'
-];
-
-const actions = createActions(...actionTypes, { prefix });
-export default actions;
-
-/* async action creators */
+import actions from './actions';
 
 const { request } = RestApi.Magento2;
 const storage = new BrowserPersistence();

@@ -1,38 +1,9 @@
-import { createActions } from 'redux-actions';
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
-
-const prefix = 'CHECKOUT';
-const actionTypes = ['EDIT', 'RESET'];
-
-// classify action creators by domain
-// e.g., `actions.order.submit` => CHECKOUT/ORDER/SUBMIT
-// a `null` value corresponds to the default creator function
-const actionMap = {
-    CART: {
-        SUBMIT: null,
-        ACCEPT: null,
-        REJECT: null
-    },
-    INPUT: {
-        SUBMIT: null,
-        ACCEPT: null,
-        REJECT: null
-    },
-    ORDER: {
-        SUBMIT: null,
-        ACCEPT: null,
-        REJECT: null
-    }
-};
-
-const actions = createActions(actionMap, ...actionTypes, { prefix });
-export default actions;
-
-/* async action creators */
+import actions from './actions';
 
 const { request } = RestApi.Magento2;
 

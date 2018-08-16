@@ -1,14 +1,5 @@
-import { createActions } from 'redux-actions';
-
 import { store } from 'src';
-
-const prefix = 'APP';
-const actionTypes = ['TOGGLE_DRAWER'];
-
-const actions = createActions(...actionTypes, { prefix });
-export default actions;
-
-/* async action creators */
+import actions from './actions';
 
 export const loadReducers = payload =>
     async function thunk() {
