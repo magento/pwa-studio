@@ -93,7 +93,12 @@ async function testInProcess(env) {
 async function testOutOfProcess(env) {
     const { stdout, stderr, error } = await execp(patchScript, {
         encoding: 'utf8',
-        env: Object.assign({}, process.env, env)
+        env: Object.assign(
+            {
+                PATH: process.env.PATH
+            },
+            env
+        )
     }).catch(e => e);
     return {
         stdout: stdout.trim(),
