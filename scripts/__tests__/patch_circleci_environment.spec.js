@@ -11,128 +11,171 @@ const patchCircleCIEnvironment = require('../patch_circleci_environment');
 
 const execp = promisify(exec);
 
-const patchScript = resolve(__dirname, '../patch_circleci_environment.js');
-const nodeBinPath = process.argv[0];
+const patchScript = resolve(__dirname, '../patch_circleci_env');
 
-// We must set and mutate these values before mock calls, since
-// `mock-http-server` does not support removing handlers that have been added
-// with `on`, and we need to test multiple outcomes from the same request.
-const mockGithubResponse = jest.fn(() => ({
-    status: 400,
-    body: 'No mock response was set'
-}));
-const mockGithubServer = mockServer(mockGithubResponse);
-let mockGithubEndpoint;
-beforeAll(async () => {
-    mockGithubResponse.mockRestore();
-    mockGithubEndpoint = await mockGithubServer.mount();
-});
-afterAll(mockGithubServer.unmount);
-
-beforeEach(() => mockGithubResponse.mockClear());
-
-async function testScript({ env, githubResponse }) {
-    if (githubResponse) {
-        mockGithubResponse
-            .mockReturnValueOnce(githubResponse)
-            .mockReturnValueOnce(githubResponse);
-    }
-    const mockedEnv = Object.assign(
-        {
-            MOCK_GITHUB_GRAPHQL_ENDPOINT: mockGithubEndpoint
-        },
-        env
-    );
-
-    const mockConfig = {
-        env: mockedEnv,
-        setEnv: jest.fn(),
-        log: jest.fn()
+/**
+ * GitHub API simulation
+ * In order to test in-process and out-of-process, we must expose a real
+ * mock web server which a subprocess can contact, rather than mock with Jest.
+ */
+const GithubMock = (() => {
+    const handler = jest.fn();
+    const server = mockServer(handler);
+    const api = {};
+    api.reset = () => {
+        handler.mockRestore();
+        handler.mockReturnValue({
+            status: 400,
+            body: 'No mock response configured for this test run'
+        });
     };
+    api.start = async () => {
+        api.url = await server.mount();
+    };
+    api.stop = async () => {
+        delete api.url;
+        return server.unmount();
+    };
+    api.responds = values => handler.mockReturnValue(values);
+    api.getCalls = () => {
+        return handler.mock.calls;
+    };
+    return api;
+})();
 
-    // test both in-process functionality and child process functionality
-    // (for code coverage and CI)
+beforeAll(GithubMock.start);
+afterAll(GithubMock.stop);
 
-    await patchCircleCIEnvironment(mockConfig);
-    const { stdout, stderr, status } = await execp(
-        `${nodeBinPath} ${patchScript}`,
-        {
-            encoding: 'utf8',
-            env: mockedEnv
-        }
-    ).catch(e => e);
+beforeEach(GithubMock.reset);
 
-    // return a big object for comparison and snapshotting
+/**
+ * Test the script running in process (this provices code coverage)
+ */
+async function testInProcess(env) {
+    const setEnv = jest.fn();
+    const log = jest.fn();
+    await patchCircleCIEnvironment({
+        env,
+        setEnv,
+        log
+    });
     return {
-        inProcess: {
-            stdout: mockConfig.setEnv.mock.calls,
-            stderr: mockConfig.log.mock.calls
-        },
-        childProcess: {
-            stderr,
-            stdout,
-            status
-        }
+        stdout: setEnv.mock.calls
+            .map(call => call.join('\n'))
+            .join('\n')
+            .trim(),
+        stderr: log.mock.calls
+            .map(call => call.join('\n'))
+            .join('\n')
+            .trim(),
+        status: 0
     };
 }
 
+/**
+ * Test the shell script which passes real OS objects, in a child process.
+ * (this provides a stronger similarity to the way this works in CI)
+ */
+async function testOutOfProcess(env) {
+    const { stdout, stderr, error } = await execp(patchScript, {
+        encoding: 'utf8',
+        env: Object.assign({}, process.env, env)
+    }).catch(e => e);
+    return {
+        stdout: stdout.trim(),
+        stderr: stderr.trim(),
+        status: (error && error.code) || 0
+    };
+}
+
+async function testPatchWithEnv(env) {
+    const mockedEnv = Object.assign(
+        {
+            GITHUB_GRAPHQL_ENDPOINT: GithubMock.url,
+            DANGER_GITHUB_API_TOKEN: '##DANGER_GITHUB_API_TOKEN##'
+        },
+        env
+    );
+    // test both in-process functionality and child process functionality
+    // (for code coverage and CI simulation)
+    // return a big object for comparison and snapshotting
+    return {
+        inProcess: await testInProcess(mockedEnv),
+        childProcess: await testOutOfProcess(mockedEnv)
+    };
+}
+
+test('logs to stderr when graphql and/or github tokens are not in env', async () => {
+    expect(
+        await testPatchWithEnv({
+            GITHUB_GRAPHQL_ENDPOINT: ''
+        })
+    ).toMatchSnapshot();
+    expect(
+        await testPatchWithEnv({
+            DANGER_GITHUB_API_TOKEN: ''
+        })
+    ).toMatchSnapshot();
+});
+
 test('logs to stderr that PR env vars are already set and exits', async () => {
-    const results = await testScript({
-        env: {
-            CIRCLE_PULL_REQUEST:
-                'https://github.com/someOwner/someRepo/pulls/4',
+    for (const envName of [
+        'CIRCLE_PULL_REQUEST',
+        'CIRCLE_PULL_REQUESTS',
+        'CI_PULL_REQUEST',
+        'CI_PULL_REQUESTS'
+    ]) {
+        const results = await testPatchWithEnv({
+            [envName]: 'https://github.com/someOwner/someRepo/pulls/4',
             CIRCLE_PR_USERNAME: 'darkseid'
-        }
-    });
-    expect(results).toMatchSnapshot();
+        });
+        expect(results.childProcess.status).toBe(0);
+        expect(results.inProcess).toEqual(results.childProcess);
+        expect(results).toMatchSnapshot();
+    }
 });
 
 test('logs to stderr some PR env vars exist but not all of them', async () => {
-    const results = await testScript({
-        env: {
-            CIRCLE_PROJECT_USERNAME: 'apokolips',
-            CIRCLE_PROJECT_REPONAME: 'darkseid',
-            CIRCLE_PR_USERNAME: 'new-genesis',
-            CIRCLE_PR_REPONAME: 'orion'
-        },
-        githubResponse: {
-            status: 200,
-            body: {
-                data: {
-                    repository: {
-                        ref: {
-                            associatedPullRequests: {
-                                nodes: []
-                            }
+    GithubMock.responds({
+        status: 200,
+        body: {
+            data: {
+                repository: {
+                    ref: {
+                        associatedPullRequests: {
+                            nodes: []
                         }
                     }
                 }
             }
         }
     });
+    const results = await testPatchWithEnv({
+        CIRCLE_PROJECT_USERNAME: 'apokolips',
+        CIRCLE_PROJECT_REPONAME: 'darkseid',
+        CIRCLE_PR_USERNAME: 'new-genesis',
+        CIRCLE_PR_REPONAME: 'orion',
+        CIRCLE_BRANCH: 'nonexistent/branch'
+    });
+    expect(results.childProcess.status).toBe(0);
+    expect(results.inProcess).toEqual(results.childProcess);
     expect(results).toMatchSnapshot();
-    expect(mockGithubResponse.mock.calls[0]).toMatchSnapshot();
+    expect(GithubMock.getCalls()).toMatchSnapshot();
 });
 
 test('logs to stderr if fetch network-errors', async () => {
-    const results = await testScript({
-        env: {
-            CIRCLE_PROJECT_USERNAME: 'apokolips',
-            CIRCLE_PROJECT_REPONAME: 'darkseid',
-            MOCK_GITHUB_GRAPHQL_ENDPOINT: 'htllnj8 ynot a real url'
-        }
-    });
-    expect(results).toMatchSnapshot();
+    expect(
+        await testPatchWithEnv({
+            GITHUB_GRAPHQL_ENDPOINT: 'a bad url'
+        })
+    ).toMatchSnapshot();
+    expect(GithubMock.getCalls()).toMatchSnapshot();
 });
 
 test('logs to stderr if response comes back non-200', async () => {
-    const results = await testScript({
-        env: {
-            CIRCLE_PROJECT_USERNAME: 'apokolips',
-            CIRCLE_PROJECT_REPONAME: 'darkseid',
-            CIRCLE_BRANCH: 'missing/branch'
-        },
-        githubResponse: {
+    GithubMock.responds({
+        status: 200,
+        body: {
             status: 404,
             body: {
                 data: {
@@ -145,37 +188,44 @@ test('logs to stderr if response comes back non-200', async () => {
             }
         }
     });
+    const results = await testPatchWithEnv({
+        CIRCLE_PROJECT_USERNAME: 'apokolips',
+        CIRCLE_PROJECT_REPONAME: 'darkseid',
+        CIRCLE_BRANCH: 'missing/branch'
+    });
+    expect(results.childProcess.status).toBe(0);
+    expect(results.inProcess).toEqual(results.childProcess);
     expect(results).toMatchSnapshot();
-    expect(mockGithubResponse.mock.calls[0]).toMatchSnapshot();
+    expect(GithubMock.getCalls()).toMatchSnapshot();
 });
 
 test('writes script that sets env vars to stdout if pr exists', async () => {
-    const results = await testScript({
-        env: {
-            CIRCLE_PROJECT_USERNAME: 'apokolips',
-            CIRCLE_PROJECT_REPONAME: 'darkseid',
-            CIRCLE_BRANCH: 'missing/branch'
-        },
-        githubResponse: {
-            status: 200,
-            body: {
-                data: {
-                    repository: {
-                        ref: {
-                            associatedPullRequests: {
-                                nodes: [
-                                    {
-                                        url: 'https://github.com/found/me',
-                                        number: 420
-                                    }
-                                ]
-                            }
+    GithubMock.responds({
+        status: 200,
+        body: {
+            data: {
+                repository: {
+                    ref: {
+                        associatedPullRequests: {
+                            nodes: [
+                                {
+                                    url: 'https://github.com/found/me',
+                                    number: 420
+                                }
+                            ]
                         }
                     }
                 }
             }
         }
     });
+    const results = await testPatchWithEnv({
+        CIRCLE_PROJECT_USERNAME: 'apokolips',
+        CIRCLE_PROJECT_REPONAME: 'darkseid',
+        CIRCLE_BRANCH: 'missing/branch'
+    });
+    expect(results.childProcess.status).toBe(0);
+    expect(results.inProcess).toEqual(results.childProcess);
     expect(results).toMatchSnapshot();
-    expect(mockGithubResponse.mock.calls[0]).toMatchSnapshot();
+    expect(GithubMock.getCalls()).toMatchSnapshot();
 });

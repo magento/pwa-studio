@@ -51,6 +51,8 @@ async function patchEnvironment({ env, setEnv, log }) {
         CIRCLE_BRANCH,
         // The DangerCI token should have the `repo:` permissions we need.
         DANGER_GITHUB_API_TOKEN,
+        // Github API URL must be passed in via env
+        GITHUB_GRAPHQL_ENDPOINT,
         // if these pull request vars are already populated
         // we probably don't need to do anything!
         CIRCLE_PULL_REQUEST,
@@ -78,6 +80,16 @@ async function patchEnvironment({ env, setEnv, log }) {
         owner: CIRCLE_PR_USERNAME
     };
 
+    if (!GITHUB_GRAPHQL_ENDPOINT) {
+        log(`No GITHUB_GRAPHQL_ENDPOINT present in environment.
+Cannot call GitHub to populate missing PR variables.`);
+    }
+
+    if (!DANGER_GITHUB_API_TOKEN) {
+        log(`No DANGER_GITHUB_API_TOKEN present in environment.
+Cannot call GItHub to populate missing PR variables.`);
+    }
+
     if (pullRequest.url) {
         log(
             `No change: CircleCI has already populated pull request variables
@@ -100,11 +112,6 @@ CircleCI "Spin up environment" step to see build environment variables.
 `
         );
     }
-
-    // Settable via environment, for testing.
-    /* istanbul ignore next: never talk to github in test */
-    const githubGraphQLEndpoint =
-        env.MOCK_GITHUB_GRAPHQL_ENDPOINT || 'https://api.github.com/graphql';
 
     // Get a Git ref (in this case the branchname) from the master repository.
     // The Git GraphQL API has a list of `associatedPullRequests` on that ref.
@@ -139,7 +146,7 @@ CircleCI "Spin up environment" step to see build environment variables.
 
     let response;
     try {
-        response = await fetch(githubGraphQLEndpoint, {
+        response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
             method: 'POST',
             headers: {
                 Authorization: `bearer ${token}`
@@ -178,13 +185,19 @@ CircleCI "Spin up environment" step to see build environment variables.
         // https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-shell-command
         // and append this to the script located at $BASH_ENV.
         // This ought to make Danger see the build as a pull request.
-        setEnv(`
+        const newVars = `
 CI_PULL_REQUEST="${url}"
 CI_PULL_REQUESTS="${url}"
 CIRCLE_PULL_REQUEST="${url}"
 CIRCLE_PULL_REQUESTS="${url}"
 CIRCLE_PR_NUMBER="${number}"
-`);
+`;
+        log(
+            'Acquired missing pull request data from GitHub. This is PR #' +
+                number +
+                `.\n URL: ${url}. Added environment variables:\n${newVars}`
+        );
+        setEnv(newVars);
     } catch (e) {
         log(
             `Failed to find and export pull request variables using the GitHub
@@ -201,13 +214,3 @@ ${e.toString()}
 }
 
 module.exports = patchEnvironment;
-
-/* istanbul ignore next: this only runs in a subprocess */
-if (require.main === module) {
-    // We're being run directly as a script
-    patchEnvironment({
-        env: process.env,
-        setEnv: console.log.bind(console),
-        log: console.warn.bind(console)
-    });
-}

@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+require('./patch_circleci_environment')({
+    env: process.env,
+    setEnv: console.log.bind(console),
+    log: console.warn.bind(console)
+}).then(() => process.exit(0), () => process.exit(0));
