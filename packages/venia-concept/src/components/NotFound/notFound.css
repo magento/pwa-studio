@@ -1,21 +1,21 @@
-.NotFound {
+.root {
   margin: 5rem 1rem;
   text-align: center;
 }
 
-.NotFoundTitle {
+.title {
   font-size: 5rem;
 }
 
-.NotFoundLogo {
+.logo {
   height: 4rem;
   vertical-align: top;
 }
 
-.NotFoundContent {
+.message {
   margin: 1rem 0;
 }
 
-.NotFoundActionsAction {
+.actions {
   color: rgb(var(--venia-teal));
 }
