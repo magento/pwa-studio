@@ -1,4 +1,4 @@
-.flexCenter {
+.root {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -8,11 +8,11 @@
     flex-direction: column;
 }
 
-.flexCenter img {
+.root img {
     margin-bottom: 1rem;
 }
 
-.loadingAnimation {
+.loaderAnimation {
     animation-duration: 1s;
     animation-name: loading;
     animation-iteration-count: infinite;

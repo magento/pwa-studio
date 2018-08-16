@@ -10,17 +10,18 @@ import NotFound from 'src/components/NotFound';
 import reducer from 'src/reducers/app';
 import './index.css';
 
-const routerProps = {
+const customRouterProps = {
     apiBase: new URL('/graphql', location.origin).toString(),
     __tmp_webpack_public_path__: __webpack_public_path__,
-    customLoader: <Loader />,
-    notFoundComponent: <NotFound />
+    CustomLoader: Loader,
+    NotFoundComponent: NotFound
 };
 
-const customRouter = <MagentoRouter {...routerProps} />;
+const router = MagentoRouter;
 
 const { Provider, store } = bootstrap({
-    customRouter: customRouter
+    CustomRouter: router,
+    customRouterProps: customRouterProps
 });
 
 store.addReducer('app', reducer);

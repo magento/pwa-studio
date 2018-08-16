@@ -6,7 +6,7 @@ import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import defaultClasses from './header.css';
-import logo from './logo.svg';
+import logo from 'src/shared/logo.svg';
 
 class Header extends Component {
     static propTypes = {

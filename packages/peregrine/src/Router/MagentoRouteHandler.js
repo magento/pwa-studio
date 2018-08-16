@@ -1,5 +1,5 @@
 import { createElement, Component } from 'react';
-import { string, shape } from 'prop-types';
+import { string, shape, func } from 'prop-types';
 import resolveUnknownRoute from './resolveUnknownRoute';
 import fetchRootComponent from './fetchRootComponent';
 
@@ -9,7 +9,9 @@ export default class MagentoRouteHandler extends Component {
         __tmp_webpack_public_path__: string.isRequired,
         location: shape({
             pathname: string.isRequired
-        }).isRequired
+        }).isRequired,
+        CustomLoader: func,
+        NotFoundComponent: func,
     };
 
     state = {};
@@ -59,19 +61,18 @@ export default class MagentoRouteHandler extends Component {
     }
 
     render() {
-        this.props.customLoader;
-        const { location } = this.props;
+        const { CustomLoader, NotFoundComponent, location } = this.props;
         const routeInfo = this.state[location.pathname];
 
         if (this.state.notFound) {
-            return this.props.notFoundComponent ? (
-                this.props.notFoundComponent
+            return this.props.NotFoundComponent ? (
+                <NotFoundComponent />
             ) : (
-                <span> Could not find page</span>
+                <span> Could not find page </span>
             );
         } else if (!routeInfo) {
-            return this.props.customLoader ? (
-                this.props.customLoader
+            return this.props.CustomLoader ? (
+                <CustomLoader />
             ) : (
                 <span> Loading...</span>
             );

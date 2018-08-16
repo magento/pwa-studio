@@ -1,37 +1,28 @@
-import React, { Component, createElement } from 'react';
+import { Component, createElement } from 'react';
 import defaultClasses from './loader.css';
 import classify from 'src/classify';
 import { string, shape } from 'prop-types';
-import logo from '../../components/Header/logo.svg';
+import logo from 'src/shared/logo.svg';
 
 class Loader extends Component {
     static propTypes = {
         classes: shape({
             root: string,
-            title: string,
-            logo: string
+            loaderAnimation: string
         })
     };
-
-    static defaultProps = {
-        classes: defaultClasses
-    };
-
-    constructor() {
-        super();
-    }
 
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.flexCenter}>
+            <div className={classes.root}>
                 <img
-                    className={classes.loadingAnimation}
+                    className={classes.loaderAnimation}
                     alt="logo"
                     src={logo}
-                    height="128px"
+                    height="128"
                 />
-                <p className={classes.loadingAnimation}>loading...</p>
+                <p className={classes.loaderAnimation}>loading...</p>
             </div>
         );
     }

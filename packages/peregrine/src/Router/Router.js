@@ -1,13 +1,14 @@
 import { createElement, Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { string, func, object } from 'prop-types';
+import { string, func } from 'prop-types';
 import MagentoRouteHandler from './MagentoRouteHandler';
 
 export default class MagentoRouter extends Component {
     static propTypes = {
         /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */
         using: func,
-        routerProps: object,
+        CustomLoader: func,
+        NotFoundComponent: func,
         apiBase: string.isRequired,
         __tmp_webpack_public_path__: string.isRequired
     };
@@ -31,8 +32,8 @@ export default class MagentoRouter extends Component {
             routerProps,
             apiBase,
             __tmp_webpack_public_path__,
-            customLoader,
-            notFoundComponent
+            CustomLoader,
+            NotFoundComponent
         } = this.props;
 
         return (
@@ -42,8 +43,8 @@ export default class MagentoRouter extends Component {
                         <MagentoRouteHandler
                             location={location}
                             apiBase={apiBase}
-                            customLoader={customLoader}
-                            notFoundComponent={notFoundComponent}
+                            CustomLoader={CustomLoader}
+                            NotFoundComponent={NotFoundComponent}
                             __tmp_webpack_public_path__={this.ensureDirURI(
                                 __tmp_webpack_public_path__
                             )}
