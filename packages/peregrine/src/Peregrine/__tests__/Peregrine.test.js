@@ -44,7 +44,7 @@ test('Provider includes Redux + Router', () => {
     const { Provider } = bootstrap({
         apiBase: '/graphql',
         __tmp_webpack_public_path__: 'foobar',
-        customRouter: <MagentoRouter />
+        CustomRouter: MagentoRouter
     });
     const wrapper = shallow(<Provider />);
     expect(wrapper.find(ReduxProvider).length).toBe(1);

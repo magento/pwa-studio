@@ -11,7 +11,7 @@ export default class MagentoRouteHandler extends Component {
             pathname: string.isRequired
         }).isRequired,
         CustomLoader: func,
-        NotFoundComponent: func,
+        NotFoundComponent: func
     };
 
     state = {};

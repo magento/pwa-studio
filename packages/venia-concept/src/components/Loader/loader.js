@@ -8,7 +8,7 @@ class Loader extends Component {
     static propTypes = {
         classes: shape({
             root: string,
-            loaderAnimation: string,
+            loaderAnimation: string
         }),
         height: number
     };

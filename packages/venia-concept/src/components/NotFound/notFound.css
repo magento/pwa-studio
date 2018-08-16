@@ -1,21 +1,21 @@
 .root {
-  margin: 5rem 1rem;
-  text-align: center;
+    margin: 5rem 1rem;
+    text-align: center;
 }
 
 .title {
-  font-size: 5rem;
+    font-size: 5rem;
 }
 
 .logo {
-  height: 4rem;
-  vertical-align: top;
+    height: 4rem;
+    vertical-align: top;
 }
 
 .message {
-  margin: 1rem 0;
+    margin: 1rem 0;
 }
 
 .actions {
-  color: rgb(var(--venia-teal));
+    color: rgb(var(--venia-teal));
 }
