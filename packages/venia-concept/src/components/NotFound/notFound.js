@@ -1,46 +1,59 @@
 import { Component, createElement } from 'react';
 import { Link } from 'react-router-dom';
-
-import './notFound.css';
+import Page from 'src/components/Page';
+import logo from 'src/components/Header/logo.svg';
+import defaultClasses from './notFound.css'
+import classify from 'src/classify';
+import PropTypes from 'prop-types';
+import Icon from 'src/components/Icon';
 
 class NotFound extends Component {
+
+  static propTypes = {
+      classes: PropTypes.shape({
+          NotFound: PropTypes.string,
+          NotFoundTitle: PropTypes.string,
+          NotFoundLogo: PropTypes.string,
+          NotFoundContent: PropTypes.string,
+          NotFoundActions: PropTypes.string,
+          NotFoundActionsAction: PropTypes.string
+      })
+  };
+
     render() {
+
+      const { classes } = this.props;
+
+
         return (
-            <article className="NotFound">
-                <h1 className="NotFound-title">
-                    <span>404 Error!</span>
-                </h1>
-                <section className="NotFound-hero">
-                    <h2 className="NotFound-hero-title">
-                        <span>We&rsquo;re Sorry!</span>
-                    </h2>
-                </section>
-                <section className="NotFound-content">
-                    <p>
-                        <span>
-                            We could not find the page you were trying to get
-                            to. Here are some suggestions to help you get back
-                            on track.
-                        </span>
-                    </p>
-                    <div className="NotFound-content-actions">
-                        <Link
-                            className="NotFound-content-actions-action"
-                            to="/cart"
-                        >
-                            <span>Your Cart</span>
-                        </Link>
-                        <Link
-                            className="NotFound-content-actions-action"
-                            to="/history"
-                        >
-                            <span>Recently Viewed</span>
-                        </Link>
-                    </div>
-                </section>
-            </article>
+            <Page>
+              <article className={classes.NotFound}>
+                  <h1 className={classes.NotFoundTitle}>
+                      <div>4<img className={classes.NotFoundLogo} src={logo} alt="Venia" title="Venia" />4</div>
+                      <div>Page Not Found</div>
+                  </h1>
+                  <section className={classes.NotFoundContent}>
+                      <p>
+                          <span className={classes.NotFoundActions}>
+                              <span>We could not find the page you were trying to get to.</span>
+                              <Link
+                                  className={classes.NotFoundActionsAction}
+                                  to="/cart"
+                              > View your cart </Link>
+                               <span>or</span>
+                               <Link
+                                  className={classes.NotFoundActionsAction}
+                                  to="/home"
+                              > go home
+                              </Link>
+                              <span> to get back on track.</span>
+                          </span>
+                      </p>
+                  </section>
+              </article>
+            </Page>
         );
     }
 }
 
-export default NotFound;
+export default classify(defaultClasses)(NotFound);
