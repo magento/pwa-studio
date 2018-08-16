@@ -5,10 +5,10 @@ contributors: Jstein19
 
 ## Overview
 - [What is GraphQL](what-is-graphql)
-- [Benefits Provided by GraphQL](benefits-provided-by-graphql)
-- [Why Use GraphQL Over REST](why-use-graphql-over-rest)
-- [Sample Queries](sample-queries)
-- [Learn More](learn-more)
+- [Benefits provided by GraphQL](benefits-provided-by-graphql)
+- [Why use GraphQL over REST](why-use-graphql-over-rest)
+- [Sample queries](sample-queries)
+- [Learn more](learn-more)
 
 ---
 
@@ -16,17 +16,17 @@ contributors: Jstein19
 
 **GraphQL** is a language for querying and manipulating data. It is widely viewed as more powerful, flexible, and efficient than REST.
 
-## Benefits Provided by GraphQL
+## Benefits provided by GraphQL
 
-- #### Predictable Results from your Queries
+- **Predictable results from your queries**
 
  A **GraphQL** query returns only data the user asks for in their query. No more, no less.
 
-- #### Single Request for Many Results
+- **Single request for many results**
 
  A single request made through **GraphQL** can return any number of resources and their fields by following references between them defined in the **typed schema**.
 
-- #### Organized Data with a Typed Schema
+- **Organized data with a typed schema**
 
  A single **schema** defines how users access data with **GraphQL**. These **schemas**, formatted as JSON objects, let users know exactly how to get the data they need.
 
@@ -34,7 +34,7 @@ contributors: Jstein19
 
  `origin` is a **type** `Planet`, which has a **field** of `name`.
 
- - ##### Schema
+ - **Schema**
 
     ```
     type Species {
@@ -47,17 +47,17 @@ contributors: Jstein19
     }
     ```
 
-  Later we will explore how to utilize **Typed Schemas**.
+  Later we will explore how to utilize **typed schemas**.
 
-## Why Use GraphQL Over REST
+## Why use GraphQL over REST
 
 While **GraphQL** and **REST** are both specifications for constructing and querying APIs, **GraphQL** has some significant advantages over REST.
 
- - #### No Versioning
+ - **No versioning**
 
   **REST** APIs will typically have multiple versions - v1, v2, etc. This is because updating endpoints in **REST** will often impact existing queries.
 
-  With **GraphQL**, there is no need for versioning, since new **types** and **fields** and can be added to the **schema** without impacting existing queries.
+  With **GraphQL**, there is no need for versioning, since new **types** and **fields** can be added to the **schema** without impacting existing queries.
 
   In addition, "removing" fields can be done through **deprecation** instead of just deleting them from the **schema**. If an old query still tries to read a **deprecated** field, GraphQL can display a customized warning.
 
@@ -71,13 +71,13 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
 
   This prevents old queries from throwing confusing errors when trying to read outdated fields, lending to code maintainability.
 
-- #### Faster and More Efficient
+- **Faster and more efficient**
 
   **REST** APIs typically require loading from multiple URLs. Imagine a **REST API** designed to get users and their forum posts. `users/<id>` would return information like `name` and `user/<id>/posts` would have to be queried separately to return the user's `comments`.
 
   With **GraphQL**, these `types` and their `fields` could be returned with one query, saving calls to the API. In this case, a `type` of `User` has a `field` `posts` which is `typed` as an array of `Post`s.
 
-  - ##### Schema
+  - **Schema**
 
     ```
     type Query {
@@ -100,7 +100,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
       author: User
     }
     ```
-  - ##### Query
+  - **Query**
 
     ```
     {
@@ -113,7 +113,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Response
+  - **Response**
 
     ```
     {
@@ -138,15 +138,15 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
   _Hint: the bang (!) next to a field indicates it is `non-nullable`, which means the **GraphQL** service promises to always return a value for this field on a query._
 
 
-## Sample Queries
+## Sample queries
 
- - #### Most Basic Query
+ - **Most basic query**
 
   Imagine a database that simply contains an object `user`, with the fields `name`, `email`, and `phone`.
 
   A simple query to get this data would look like:
 
-  - ##### Schema
+  - **Schema**
 
     ```
     type Query {
@@ -160,7 +160,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Query
+  - **Query**
 
      ```
      {
@@ -172,7 +172,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
      }
      ```
 
-  - ##### Response
+  - **Response**
 
     ```
     {
@@ -186,11 +186,11 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
    }
     ```
 
-- #### Pick and Choose Data
+- **Pick and choose data**
 
   What if you don't need the `phone` number for your `user`? You could rewrite the above query to only return the fields you need.
 
-  - ##### Schema
+  - **Schema**
 
     ```
     type Query {
@@ -204,7 +204,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Query
+  - **Query**
 
     ```
     {
@@ -215,7 +215,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Response
+  - **Response**
 
     ```
     {
@@ -229,11 +229,11 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     ```
 
 
-- #### Passing in Arguments
+- **Passing in arguments**
 
   Now, what if you had multiple users and needed to grab a specific one by `id`? Well, with **GraphQL** you can pass in `args`, like so:
 
-  - ##### Schema
+  - **Schema**
 
     ```
     type Query {
@@ -248,7 +248,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Query
+  - **Query**
 
     ```
     {
@@ -260,7 +260,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Response
+  - **Response**
 
     ```
     {
@@ -276,11 +276,11 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
 
   Notice we are requesting `id` as a `field` in our response. This is completely optional: it is just to demonstrate the correct user being returned.
 
-- #### Getting Additional Resources
+- **Getting additional resources**
 
   In this example, imagine that in our database a `user` can have `hobbies`. We could get an `array` of a user's `hobbies` like so:
 
-  - ##### Schema
+  - **Schema**
 
     ```
     type Query {
@@ -300,7 +300,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Query
+  - **Query**
 
     ```
     {
@@ -316,7 +316,7 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
     }
     ```
 
-  - ##### Response
+  - **Response**
 
     ```
     {
@@ -342,6 +342,6 @@ While **GraphQL** and **REST** are both specifications for constructing and quer
 
   Notice how the user's `hobbies` are returned in an `array`.
 
-## Learn More
+## Learn more
 
 This topic just covers the basics of **GraphQL**. To learn more, visit https://graphql.org/.
