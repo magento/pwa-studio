@@ -45,7 +45,7 @@
     "rimraf": "^2.6.2",
     "strip-ansi": "^4.0.0",
     "supertest": "^3.0.0",
-    "webpack": "3.11.0"
+    "webpack": "4.16.5"
   },
   "dependencies": {
     "@magento/devcert": "^0.7.0",
