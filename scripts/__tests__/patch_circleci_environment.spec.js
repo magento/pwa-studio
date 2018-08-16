@@ -5,7 +5,7 @@
 const { exec } = require('child_process');
 const { promisify } = require('util');
 const { resolve } = require('path');
-const mockServer = require('../__helpers__/mock-http-server');
+const mockServer = require('./__helpers__/mock-http-server');
 
 const patchCircleCIEnvironment = require('../patch_circleci_environment');
 
