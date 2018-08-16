@@ -237,6 +237,171 @@ Pull Request: https://github.com/someOwner/someRepo/pulls/4 from darkseid",
 }
 `;
 
+exports[`logs to stderr that PR env vars are already set and exits 5`] = `
+Object {
+  "childProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+  "inProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+}
+`;
+
+exports[`logs to stderr that PR env vars are already set and exits 6`] = `
+Object {
+  "childProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+  "inProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+}
+`;
+
+exports[`logs to stderr that PR env vars are already set and exits 7`] = `
+Object {
+  "childProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+  "inProcess": Object {
+    "status": 0,
+    "stderr": "Some pull request environment variables are present, and others
+are not. DangerCI may not correctly identify this as a pull request. Check the
+CircleCI \\"Spin up environment\\" step to see build environment variables.
+
+        Pull request from: darkseid/undefined
+        instead of:        undefined/undefined
+
+
+Failed to find and export pull request variables using the GitHub
+API. Check the environment setup step to see what env vars were provided.
+
+Request: {
+  \\"query\\": \\"query getPR($owner: String!, $name: String!, $ref: String!) {\\\\n        repository(owner: $owner, name: $name) {\\\\n          ref(qualifiedName: $ref) {\\\\n            associatedPullRequests(last: 1) {\\\\n              nodes {\\\\n                url\\\\n                number\\\\n              }\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      \\",
+  \\"variables\\": {
+    \\"ref\\": \\"refs/heads/undefined\\"
+  }
+}
+
+Response: No mock response configured for this test run
+
+Error: HTTP 400",
+    "stdout": "",
+  },
+}
+`;
+
 exports[`logs to stderr when graphql and/or github tokens are not in env 1`] = `
 Object {
   "childProcess": Object {

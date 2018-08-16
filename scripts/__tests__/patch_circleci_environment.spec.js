@@ -13,6 +13,20 @@ const execp = promisify(exec);
 
 const patchScript = resolve(__dirname, '../patch_circleci_env');
 
+const possiblePRVars = [
+    'CIRCLE_PULL_REQUEST',
+    'CIRCLE_PULL_REQUESTS',
+    'CI_PULL_REQUEST',
+    'CI_PULL_REQUESTS',
+    'CIRCLE_PR_USERNAME',
+    'CIRCLE_PR_NUMBER',
+    'CIRCLE_PR_REPONAME'
+];
+const blankPRVars = possiblePRVars.reduce((out, name) => {
+    out[name] = '';
+    return out;
+}, {});
+
 /**
  * GitHub API simulation
  * In order to test in-process and out-of-process, we must expose a real
@@ -119,16 +133,28 @@ test('logs to stderr when graphql and/or github tokens are not in env', async ()
 });
 
 test('logs to stderr that PR env vars are already set and exits', async () => {
-    for (const envName of [
-        'CIRCLE_PULL_REQUEST',
-        'CIRCLE_PULL_REQUESTS',
-        'CI_PULL_REQUEST',
-        'CI_PULL_REQUESTS'
-    ]) {
-        const results = await testPatchWithEnv({
-            [envName]: 'https://github.com/someOwner/someRepo/pulls/4',
-            CIRCLE_PR_USERNAME: 'darkseid'
-        });
+    function justOnePRVar(present) {
+        return Object.assign(
+            [
+                'CIRCLE_PULL_REQUEST',
+                'CIRCLE_PULL_REQUESTS',
+                'CI_PULL_REQUEST',
+                'CI_PULL_REQUESTS'
+            ].reduce((out, name) => {
+                out[name] =
+                    name === present
+                        ? 'https://github.com/someOwner/someRepo/pulls/4'
+                        : '';
+                return out;
+            }, {}),
+            {
+                CIRCLE_PR_USERNAME: 'darkseid'
+            }
+        );
+    }
+
+    for (const envName of possiblePRVars) {
+        const results = await testPatchWithEnv(justOnePRVar(envName));
         expect(results.childProcess.status).toBe(0);
         expect(results.inProcess).toEqual(results.childProcess);
         expect(results).toMatchSnapshot();
@@ -150,13 +176,15 @@ test('logs to stderr some PR env vars exist but not all of them', async () => {
             }
         }
     });
-    const results = await testPatchWithEnv({
-        CIRCLE_PROJECT_USERNAME: 'apokolips',
-        CIRCLE_PROJECT_REPONAME: 'darkseid',
-        CIRCLE_PR_USERNAME: 'new-genesis',
-        CIRCLE_PR_REPONAME: 'orion',
-        CIRCLE_BRANCH: 'nonexistent/branch'
-    });
+    const results = await testPatchWithEnv(
+        Object.assign({}, blankPRVars, {
+            CIRCLE_PROJECT_USERNAME: 'apokolips',
+            CIRCLE_PROJECT_REPONAME: 'darkseid',
+            CIRCLE_PR_USERNAME: 'new-genesis',
+            CIRCLE_PR_REPONAME: 'orion',
+            CIRCLE_BRANCH: 'nonexistent/branch'
+        })
+    );
     expect(results.childProcess.status).toBe(0);
     expect(results.inProcess).toEqual(results.childProcess);
     expect(results).toMatchSnapshot();
