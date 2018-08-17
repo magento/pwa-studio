@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
+import { toggleDrawer } from 'src/actions/app';
 import defaultClasses from './navTrigger.css';
 
 class Trigger extends Component {

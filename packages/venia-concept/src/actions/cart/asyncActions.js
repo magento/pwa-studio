@@ -38,11 +38,10 @@ export const createGuestCart = () =>
             });
 
             // write to storage in the background
-            storage.setItem('guestCartId', id);
-
+            saveGuestCartId(id);
             dispatch(actions.receiveGuestCart(id));
         } catch (error) {
-            dispatch(actions.createGuestCart(error));
+            dispatch(actions.receiveGuestCart(error));
         }
     };
 
@@ -182,6 +181,10 @@ export async function retrieveGuestCartId() {
     return storage.getItem('guestCartId');
 }
 
+export async function saveGuestCartId(id) {
+    return storage.setItem('guestCartId', id);
+}
+
 export async function clearGuestCartId() {
     return storage.removeItem('guestCartId');
 }
@@ -194,7 +197,7 @@ async function saveImageCache(cache) {
     return storage.setItem('imagesBySku', cache);
 }
 
-async function writeImageToCache(item) {
+async function writeImageToCache(item = {}) {
     const { media_gallery_entries: media, sku } = item;
 
     if (sku) {

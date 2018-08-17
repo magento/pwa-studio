@@ -8,7 +8,7 @@ export const getCountries = () =>
     async function thunk(dispatch, getState) {
         const { directory } = getState();
 
-        if (directory.countries) {
+        if (directory && directory.countries) {
             return;
         }
 

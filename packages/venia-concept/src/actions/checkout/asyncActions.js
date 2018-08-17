@@ -25,21 +25,25 @@ export const submitCart = () =>
 
 export const submitInput = payload =>
     async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        dispatch(actions.input.submit(payload));
+        await dispatch(getCountries());
+
+        const { cart, directory } = getState();
         const { guestCartId } = cart;
+        const { countries } = directory;
+        let { formValues: address } = payload;
 
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
         }
 
-        dispatch(actions.input.submit(payload));
-        await dispatch(getCountries());
-
-        const { directory } = getState();
-        const { countries } = directory;
+        try {
+            address = formatAddress(address, countries);
+        } catch (error) {
+            throw error;
+        }
 
         try {
-            const address = formatAddress(payload.formValues, countries);
             const response = await request(
                 `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
                 {
@@ -98,7 +102,7 @@ export const submitOrder = () =>
 
 /* helpers */
 
-function formatAddress(address = {}, countries = []) {
+export function formatAddress(address = {}, countries = []) {
     const country = countries.find(({ id }) => id === 'US');
 
     if (!country) {

@@ -1,6 +1,6 @@
 export const mockAddReducer = jest.fn();
 export const mockDispatch = jest.fn();
-export const mockGetState = jest.fn();
+export const mockGetState = jest.fn(() => ({}));
 
 const mock = jest.fn().mockImplementation(() => ({
     addReducer: mockAddReducer,
@@ -8,4 +8,4 @@ const mock = jest.fn().mockImplementation(() => ({
     getState: mockGetState
 }));
 
-export const store = mock;
+export const store = mock();
