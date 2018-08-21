@@ -2,6 +2,7 @@ const testPathRE = /(^\/packages\/[^\/]+\/|\.spec|\/__tests?__)/g;
 const testPathToFilePath = filepath => filepath.replace(testPathRE, '');
 module.exports = {
     projects: [
+        'packages/express-upward',
         'packages/peregrine',
         'packages/pwa-buildpack',
         'packages/venia-concept',
