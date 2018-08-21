@@ -96,18 +96,29 @@ const getCartDetails = (payload = {}) => {
         const guestCartId = await getGuestCartId(...args);
 
         try {
-            const [details, totals] = await Promise.all([
+            const [details, totals, paymentMethod, shippingMethods] = await Promise.all([
                 fetchCartPart({ guestCartId, forceRefresh }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
                     subResource: 'totals'
+                }),
+                fetchCartPart({
+                    guestCartId,
+                    forceRefresh,
+                    subResource: 'payment-methods'
+                }),
+                fetchCartPart({
+                    guestCartId,
+                    forceRefresh: true,
+                    subResource: 'shipping-methods'
                 })
             ]);
 
+
             dispatch({
                 type: 'GET_CART_DETAILS',
-                payload: { details, totals }
+                payload: { details, totals, paymentMethod, shippingMethods }
             });
         } catch (error) {
             const { response } = error;
@@ -161,6 +172,14 @@ async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
         cache: forceRefresh ? 'reload' : 'default'
     });
+}
+
+async function postCartPart(guestCartId, subResource) {
+    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
+        cache: 'default',
+        method: 'POST'
+    });
+
 }
 
 async function getGuestCartId(dispatch, getState) {
