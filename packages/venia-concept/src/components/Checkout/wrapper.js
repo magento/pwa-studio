@@ -27,6 +27,7 @@ class CheckoutWrapper extends Component {
     render() {
         const {
             checkout = {},
+            cart = {},
             enterSubflow,
             requestOrder,
             resetCheckout,
@@ -39,14 +40,16 @@ class CheckoutWrapper extends Component {
             requestOrder,
             resetCheckout,
             status: checkout.status,
-            submitOrder
+            submitOrder,
+            paymentMethod: checkout.paymentTitle,
+            availablePaymentMethods: cart.paymentMethod
         };
 
         return <CheckoutFlow {...flowProps} />;
     }
 }
 
-const mapStateToProps = ({ checkout }) => ({ checkout });
+const mapStateToProps = ({ checkout, cart }) => ({ checkout, cart });
 
 const mapDispatchToProps = {
     enterSubflow,

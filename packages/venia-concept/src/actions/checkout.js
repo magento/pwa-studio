@@ -21,9 +21,11 @@ const mockAddress = {
     email: 'veronica@example.com'
 };
 
-const enterSubflow = () =>
+const enterSubflow = (actionType, payload) =>
     async function thunk(dispatch) {
-        dispatch({ type: 'SUBMIT_SHIPPING_INFORMATION' });
+        dispatch({ type: actionType,
+                   payload
+                 });
 
         try {
             const guestCartId = await getGuestCartId(...arguments);

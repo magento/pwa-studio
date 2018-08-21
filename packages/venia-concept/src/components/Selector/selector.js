@@ -1,5 +1,8 @@
 import { Component, createElement } from 'react';
 import { arrayOf, shape, string, func } from 'prop-types';
+import Section from '../Checkout/section'
+import classify from 'src/classify'
+import defaultClasses from './selector.css'
 
 class Selector extends Component {
     static propTypes = {
@@ -13,19 +16,20 @@ class Selector extends Component {
     };
 
     render() {
-        const { options, handleSelection } = this.props;
+        const { options, handleSelection, classes } = this.props;
         return (
-            <ul>
+            <ul className={classes.root}>
                 {
                     options.map(( props ) => {
                         return (
-                            <li
+                            <Section
                                 value={props.code}
-                                onClick={ev => handleSelection(props.code) }
+                                onClick={ev => handleSelection(props) }
                                 key={props.code}
+                                label={"Select"}
                             >
                                 { props.title }
-                            </li>
+                            </Section>
                         )
                     })
                 }
@@ -35,4 +39,4 @@ class Selector extends Component {
 
 }
 
-export default Selector;
+export default classify(defaultClasses)(Selector);

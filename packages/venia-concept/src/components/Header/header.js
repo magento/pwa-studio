@@ -28,6 +28,7 @@ class Header extends Component {
         return (
             <header className={classes.root}>
                 <div className={classes.toolbar}>
+                  <a href="/">
                     <img
                         className={classes.logo}
                         src={logo}
@@ -35,6 +36,7 @@ class Header extends Component {
                         alt="Venia"
                         title="Venia"
                     />
+                  </a>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
                             <Icon name="menu" />

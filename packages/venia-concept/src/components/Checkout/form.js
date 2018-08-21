@@ -5,8 +5,16 @@ import classify from 'src/classify';
 import Section from './section';
 import SubmitButton from './submitButton';
 import defaultClasses from './form.css';
+import Selector from 'src/components/Selector';
 
 class Form extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        updatePayment: false
+      }
+    }
+
     static propTypes = {
         classes: shape({
             body: string,
@@ -19,11 +27,24 @@ class Form extends Component {
     };
 
     render() {
-        const { classes, ready, status, submitOrder } = this.props;
+        const { classes, ready, status, submitOrder, paymentMethod, availablePaymentMethods } = this.props;
         const text = ready ? 'Complete' : 'Click to fill out';
+        const paymentText = paymentMethod ? paymentMethod : 'Click to fill out';
 
-        return (
-            <div className={classes.root}>
+        let formContent;
+
+        if (this.state.updatePayment) {
+          formContent = (
+                <Selector
+                  options={availablePaymentMethods}
+                  handleSelection={(code) => this.modifyBillingAddress(code)}
+                >
+
+                </Selector>
+          );
+        } else {
+
+        formContent = (
                 <div className={classes.body}>
                     <Section
                         label="Ship To"
@@ -33,9 +54,9 @@ class Form extends Component {
                     </Section>
                     <Section
                         label="Pay With"
-                        onClick={this.modifyBillingAddress}
+                        onClick={this.showBillingSelector}
                     >
-                        <span>{text}</span>
+                        <span>{paymentText}</span>
                     </Section>
                     <Section
                         label="Get It By"
@@ -44,19 +65,28 @@ class Form extends Component {
                         <span>{text}</span>
                     </Section>
                 </div>
-                <div className={classes.footer}>
-                    <SubmitButton
-                        ready={ready}
-                        status={status}
-                        submitOrder={submitOrder}
-                    />
-                </div>
-            </div>
         );
+      }
+
+      return (
+        <div className={classes.root}>
+          {formContent}
+          <div className={classes.footer}>
+              <SubmitButton
+                  ready={ready}
+                  status={status}
+                  submitOrder={submitOrder}
+              />
+          </div>
+        </div>
+      )
     }
 
-    modifyBillingAddress = () => {
-        this.props.enterSubflow('BILLING_ADDRESS');
+    modifyBillingAddress = (paymentMethod) => {
+      this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod)
+      this.setState({
+        updatePayment: false
+      })
     };
 
     modifyShippingAddress = () => {
@@ -66,6 +96,12 @@ class Form extends Component {
     modifyShippingMethod = () => {
         this.props.enterSubflow('SHIPPING_METHOD');
     };
+
+    showBillingSelector = () => {
+      this.setState({
+        updatePayment: true
+      })
+    }
 }
 
 export default classify(defaultClasses)(Form);

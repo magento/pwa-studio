@@ -37,7 +37,9 @@ class Flow extends Component {
             resetCheckout,
             requestOrder,
             status,
-            submitOrder
+            submitOrder,
+            paymentMethod,
+            availablePaymentMethods
         } = this.props;
 
         const step = stepMap[status];
@@ -57,6 +59,8 @@ class Flow extends Component {
                         status={status}
                         enterSubflow={enterSubflow}
                         submitOrder={submitOrder}
+                        paymentMethod={paymentMethod}
+                        availablePaymentMethods={availablePaymentMethods}
                     />
                 );
                 break;

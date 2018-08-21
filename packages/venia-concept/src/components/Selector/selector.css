@@ -1,0 +1,15 @@
+.root {
+  animation-name: enter;
+  animation-duration: .2s;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
