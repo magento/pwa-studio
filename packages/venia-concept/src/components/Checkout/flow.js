@@ -19,9 +19,9 @@ const isAddressValid = address => !!(address && address.email);
 class Flow extends Component {
     static propTypes = {
         actions: shape({
+            beginCheckout: func.isRequired,
             editOrder: func.isRequired,
             resetCheckout: func.isRequired,
-            submitCart: func.isRequired,
             submitInput: func.isRequired,
             submitOrder: func.isRequired
         }).isRequired,
@@ -43,9 +43,9 @@ class Flow extends Component {
     get child() {
         const { actions, cart, checkout } = this.props;
         const {
+            beginCheckout,
             editOrder,
             resetCheckout,
-            submitCart,
             submitInput,
             submitOrder
         } = actions;
@@ -56,7 +56,7 @@ class Flow extends Component {
 
         switch (stepMap[step]) {
             case 1: {
-                const stepProps = { ready, submitCart, submitting };
+                const stepProps = { beginCheckout, ready, submitting };
 
                 return <Cart {...stepProps} />;
             }

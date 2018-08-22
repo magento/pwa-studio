@@ -11,30 +11,17 @@ const initialState = {
 };
 
 const reducerMap = {
+    [actions.begin]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'form'
+        };
+    },
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
             editing: payload
-        };
-    },
-    [actions.cart.submit]: state => {
-        return {
-            ...state,
-            submitting: true
-        };
-    },
-    [actions.cart.accept]: state => {
-        return {
-            ...state,
-            editing: null,
-            step: 'form',
-            submitting: false
-        };
-    },
-    [actions.cart.reject]: state => {
-        return {
-            ...state,
-            submitting: false
         };
     },
     [actions.input.submit]: state => {

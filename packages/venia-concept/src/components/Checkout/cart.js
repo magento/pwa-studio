@@ -7,16 +7,16 @@ import defaultClasses from './cart.css';
 
 class Cart extends Component {
     static propTypes = {
+        beginCheckout: func.isRequired,
         classes: shape({
             root: string
         }),
         ready: bool.isRequired,
-        submitCart: func.isRequired,
         submitting: bool.isRequired
     };
 
     render() {
-        const { classes, ready, submitCart, submitting } = this.props;
+        const { beginCheckout, classes, ready, submitting } = this.props;
 
         return (
             <div className={classes.root}>
@@ -24,7 +24,7 @@ class Cart extends Component {
                     <CheckoutButton
                         ready={ready}
                         submitting={submitting}
-                        submitCart={submitCart}
+                        submit={beginCheckout}
                     />
                 </div>
             </div>

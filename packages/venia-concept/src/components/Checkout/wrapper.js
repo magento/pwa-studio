@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import {
+    beginCheckout,
     editOrder,
     resetCheckout,
-    submitCart,
     submitInput,
     submitOrder
 } from 'src/actions/checkout';
@@ -13,6 +13,7 @@ import Flow from './flow';
 
 class Wrapper extends Component {
     static propTypes = {
+        beginCheckout: func.isRequired,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -25,7 +26,6 @@ class Wrapper extends Component {
         }),
         editOrder: func.isRequired,
         resetCheckout: func.isRequired,
-        submitCart: func.isRequired,
         submitInput: func.isRequired,
         submitOrder: func.isRequired
     };
@@ -34,9 +34,9 @@ class Wrapper extends Component {
         const {
             cart,
             checkout,
+            beginCheckout,
             editOrder,
             resetCheckout,
-            submitCart,
             submitInput,
             submitOrder
         } = this.props;
@@ -47,9 +47,9 @@ class Wrapper extends Component {
         }
 
         const actions = {
+            beginCheckout,
             editOrder,
             resetCheckout,
-            submitCart,
             submitInput,
             submitOrder
         };
@@ -61,9 +61,9 @@ class Wrapper extends Component {
 }
 
 const mapDispatchToProps = {
+    beginCheckout,
     editOrder,
     resetCheckout,
-    submitCart,
     submitInput,
     submitOrder
 };

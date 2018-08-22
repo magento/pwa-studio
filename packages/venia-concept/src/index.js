@@ -1,20 +1,10 @@
 import { createElement } from 'react';
 import ReactDOM from 'react-dom';
-import bootstrap from '@magento/peregrine';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-import appReducer from 'src/reducers/app';
-import directoryReducer from 'src/reducers/directory';
+import { Provider } from './store';
 import './index.css';
-
-const { Provider, store } = bootstrap({
-    apiBase: new URL('/graphql', location.origin).toString(),
-    __tmp_webpack_public_path__: __webpack_public_path__
-});
-
-store.addReducer('app', appReducer);
-store.addReducer('directory', directoryReducer);
 
 const apolloClient = new ApolloClient();
 
@@ -37,5 +27,3 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
             });
     });
 }
-
-export { store };

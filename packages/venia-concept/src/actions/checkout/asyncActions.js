@@ -7,6 +7,11 @@ import actions from './actions';
 
 const { request } = RestApi.Magento2;
 
+export const beginCheckout = () =>
+    async function thunk(dispatch) {
+        dispatch(actions.begin());
+    };
+
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
@@ -16,11 +21,6 @@ export const resetCheckout = () =>
 export const editOrder = section =>
     async function thunk(dispatch) {
         dispatch(actions.edit(section));
-    };
-
-export const submitCart = () =>
-    async function thunk(dispatch) {
-        dispatch(actions.cart.accept());
     };
 
 export const submitInput = payload =>
@@ -110,7 +110,12 @@ export function formatAddress(address = {}, countries = []) {
     }
 
     const { region_code } = address;
-    const regions = country.available_regions || [];
+    const { available_regions: regions } = country;
+
+    if (!(Array.isArray(regions) && regions.length)) {
+        throw new Error('Country "US" does not contain any available regions.');
+    }
+
     const region = regions.find(({ code }) => code === region_code);
 
     if (!region) {

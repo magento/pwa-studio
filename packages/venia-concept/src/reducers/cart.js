@@ -12,13 +12,17 @@ const initialState = {
 };
 
 const reducerMap = {
-    [actions.receiveGuestCart]: (state, { payload }) => {
+    [actions.getGuestCart.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
         return {
             ...state,
             guestCartId: payload
         };
     },
-    [actions.updateDetails]: (state, { payload, error }) => {
+    [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return state;
         }

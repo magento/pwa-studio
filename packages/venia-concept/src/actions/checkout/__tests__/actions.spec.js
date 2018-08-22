@@ -1,7 +1,20 @@
 import actions from '../actions';
 
-const payload = 'FOO';
-const error = new Error('BAR');
+const payload = 'PAYLOAD';
+const error = new Error('ERROR');
+
+test('begin.toString() returns the proper action type', () => {
+    expect(actions.begin.toString()).toBe('CHECKOUT/BEGIN');
+});
+
+test('begin() returns a proper action object', () => {
+    expect(actions.begin(payload)).toEqual({ type: 'CHECKOUT/BEGIN', payload });
+    expect(actions.begin(error)).toEqual({
+        type: 'CHECKOUT/BEGIN',
+        payload: error,
+        error: true
+    });
+});
 
 test('edit.toString() returns the proper action type', () => {
     expect(actions.edit.toString()).toBe('CHECKOUT/EDIT');
@@ -29,49 +42,97 @@ test('reset() returns a proper action object', () => {
     });
 });
 
-test('cart.submit.toString() returns the proper action type', () => {
-    expect(actions.cart.submit.toString()).toBe('CHECKOUT/CART/SUBMIT');
+test('input.submit.toString() returns the proper action type', () => {
+    expect(actions.input.submit.toString()).toBe('CHECKOUT/INPUT/SUBMIT');
 });
 
-test('cart.submit() returns a proper action object', () => {
-    expect(actions.cart.submit(payload)).toEqual({
-        type: 'CHECKOUT/CART/SUBMIT',
+test('input.submit() returns a proper action object', () => {
+    expect(actions.input.submit(payload)).toEqual({
+        type: 'CHECKOUT/INPUT/SUBMIT',
         payload
     });
-    expect(actions.cart.submit(error)).toEqual({
-        type: 'CHECKOUT/CART/SUBMIT',
+    expect(actions.input.submit(error)).toEqual({
+        type: 'CHECKOUT/INPUT/SUBMIT',
         payload: error,
         error: true
     });
 });
 
-test('cart.accept.toString() returns the proper action type', () => {
-    expect(actions.cart.accept.toString()).toBe('CHECKOUT/CART/ACCEPT');
+test('input.accept.toString() returns the proper action type', () => {
+    expect(actions.input.accept.toString()).toBe('CHECKOUT/INPUT/ACCEPT');
 });
 
-test('cart.accept() returns a proper action object', () => {
-    expect(actions.cart.accept(payload)).toEqual({
-        type: 'CHECKOUT/CART/ACCEPT',
+test('input.accept() returns a proper action object', () => {
+    expect(actions.input.accept(payload)).toEqual({
+        type: 'CHECKOUT/INPUT/ACCEPT',
         payload
     });
-    expect(actions.cart.accept(error)).toEqual({
-        type: 'CHECKOUT/CART/ACCEPT',
+    expect(actions.input.accept(error)).toEqual({
+        type: 'CHECKOUT/INPUT/ACCEPT',
         payload: error,
         error: true
     });
 });
 
-test('cart.reject.toString() returns the proper action type', () => {
-    expect(actions.cart.reject.toString()).toBe('CHECKOUT/CART/REJECT');
+test('input.reject.toString() returns the proper action type', () => {
+    expect(actions.input.reject.toString()).toBe('CHECKOUT/INPUT/REJECT');
 });
 
-test('cart.reject() returns a proper action object', () => {
-    expect(actions.cart.reject(payload)).toEqual({
-        type: 'CHECKOUT/CART/REJECT',
+test('input.reject() returns a proper action object', () => {
+    expect(actions.input.reject(payload)).toEqual({
+        type: 'CHECKOUT/INPUT/REJECT',
         payload
     });
-    expect(actions.cart.reject(error)).toEqual({
-        type: 'CHECKOUT/CART/REJECT',
+    expect(actions.input.reject(error)).toEqual({
+        type: 'CHECKOUT/INPUT/REJECT',
+        payload: error,
+        error: true
+    });
+});
+
+test('order.submit.toString() returns the proper action type', () => {
+    expect(actions.order.submit.toString()).toBe('CHECKOUT/ORDER/SUBMIT');
+});
+
+test('order.submit() returns a proper action object', () => {
+    expect(actions.order.submit(payload)).toEqual({
+        type: 'CHECKOUT/ORDER/SUBMIT',
+        payload
+    });
+    expect(actions.order.submit(error)).toEqual({
+        type: 'CHECKOUT/ORDER/SUBMIT',
+        payload: error,
+        error: true
+    });
+});
+
+test('order.accept.toString() returns the proper action type', () => {
+    expect(actions.order.accept.toString()).toBe('CHECKOUT/ORDER/ACCEPT');
+});
+
+test('order.accept() returns a proper action object', () => {
+    expect(actions.order.accept(payload)).toEqual({
+        type: 'CHECKOUT/ORDER/ACCEPT',
+        payload
+    });
+    expect(actions.order.accept(error)).toEqual({
+        type: 'CHECKOUT/ORDER/ACCEPT',
+        payload: error,
+        error: true
+    });
+});
+
+test('order.reject.toString() returns the proper action type', () => {
+    expect(actions.order.reject.toString()).toBe('CHECKOUT/ORDER/REJECT');
+});
+
+test('order.reject() returns a proper action object', () => {
+    expect(actions.order.reject(payload)).toEqual({
+        type: 'CHECKOUT/ORDER/REJECT',
+        payload
+    });
+    expect(actions.order.reject(error)).toEqual({
+        type: 'CHECKOUT/ORDER/REJECT',
         payload: error,
         error: true
     });

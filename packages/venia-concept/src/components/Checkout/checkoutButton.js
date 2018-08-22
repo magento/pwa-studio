@@ -10,16 +10,16 @@ const isDisabled = (busy, valid) => busy || !valid;
 class CheckoutButton extends Component {
     static propTypes = {
         ready: bool.isRequired,
-        submitCart: func.isRequired,
+        submit: func.isRequired,
         submitting: bool.isRequired
     };
 
     render() {
-        const { ready, submitCart, submitting } = this.props;
+        const { ready, submit, submitting } = this.props;
         const disabled = isDisabled(submitting, ready);
 
         return (
-            <Button disabled={disabled} onClick={submitCart}>
+            <Button disabled={disabled} onClick={submit}>
                 <Icon name="lock" attrs={iconDimensions} />
                 <span>Checkout</span>
             </Button>

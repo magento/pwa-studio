@@ -1,19 +1,18 @@
 import { RestApi } from '@magento/peregrine';
 
-import { store } from 'src';
+import { dispatch, getState } from 'src/store';
 import actions from '../actions';
 import {
+    beginCheckout,
     editOrder,
     formatAddress,
     resetCheckout,
-    submitCart,
     submitInput,
     submitOrder
 } from '../asyncActions';
 
-jest.mock('src');
+jest.mock('src/store');
 
-const { dispatch, getState } = store;
 const thunkArgs = [dispatch, getState];
 const { request } = RestApi.Magento2;
 
@@ -51,6 +50,23 @@ afterAll(() => {
     getState.mockRestore();
 });
 
+test('beginCheckout() returns a thunk', () => {
+    expect(beginCheckout()).toBeInstanceOf(Function);
+});
+
+test('beginCheckout thunk returns undefined', async () => {
+    const result = await beginCheckout()(...thunkArgs);
+
+    expect(result).toBeUndefined();
+});
+
+test('beginCheckout thunk dispatches actions', async () => {
+    await beginCheckout()(...thunkArgs);
+
+    expect(dispatch).toHaveBeenCalledWith(actions.begin());
+    expect(dispatch).toHaveBeenCalledTimes(1);
+});
+
 test('resetCheckout() returns a thunk', () => {
     expect(resetCheckout()).toBeInstanceOf(Function);
 });
@@ -84,23 +100,6 @@ test('editOrder thunk dispatches actions', async () => {
     await editOrder(payload)(...thunkArgs);
 
     expect(dispatch).toHaveBeenCalledWith(actions.edit(payload));
-    expect(dispatch).toHaveBeenCalledTimes(1);
-});
-
-test('submitCart() returns a thunk', () => {
-    expect(submitCart()).toBeInstanceOf(Function);
-});
-
-test('submitCart thunk returns undefined', async () => {
-    const result = await submitCart()(...thunkArgs);
-
-    expect(result).toBeUndefined();
-});
-
-test('submitCart thunk dispatches actions', async () => {
-    await submitCart()(...thunkArgs);
-
-    expect(dispatch).toHaveBeenCalledWith(actions.cart.accept());
     expect(dispatch).toHaveBeenCalledTimes(1);
 });
 
@@ -140,6 +139,19 @@ test('submitInput thunk dispatches actions on failure', async () => {
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.input.reject(error));
     expect(dispatch).toHaveBeenCalledTimes(3);
+});
+
+test('submitInput thunk throws if there is no guest cart', async () => {
+    const payload = { type: 'address', formValues: address };
+
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        directory: { countries }
+    }));
+
+    await expect(submitInput(payload)(...thunkArgs)).rejects.toThrow(
+        'guestCartId'
+    );
 });
 
 test('submitInput thunk throws if payload is invalid', async () => {
@@ -183,6 +195,15 @@ test('submitOrder thunk dispatches actions on failure', async () => {
     expect(dispatch).toHaveBeenCalledTimes(2);
 });
 
+test('submitOrder thunk throws if there is no guest cart', async () => {
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        directory: { countries }
+    }));
+
+    await expect(submitOrder()(...thunkArgs)).rejects.toThrow('guestCartId');
+});
+
 test('formatAddress throws if countries does not include country_id', () => {
     const shouldThrow = () => formatAddress();
 
@@ -209,6 +230,14 @@ test('formatAddress throws if country is not found', () => {
     const shouldThrow = () => formatAddress();
 
     expect(shouldThrow).toThrow('country');
+});
+
+test('formatAddress throws if country contains no regions', () => {
+    const values = { region_code: address.region_code };
+    const countries = [{ id: 'US' }];
+    const shouldThrow = () => formatAddress(values, countries);
+
+    expect(shouldThrow).toThrow('regions');
 });
 
 test('formatAddress throws if region is not found', () => {

@@ -7,7 +7,6 @@ module.exports = {
     moduleNameMapper: {
         '\\.css$': 'identity-obj-proxy',
         // Mirrors webpack alias to resolve from 'src'
-        '^src$': '<rootDir>/src',
         '^src/(.+)': '<rootDir>/src/$1',
         // Re-write imports to Peregrine to ensure they're not pulled from the
         // (possibly outdated) build artifacts on disk in `dist`.

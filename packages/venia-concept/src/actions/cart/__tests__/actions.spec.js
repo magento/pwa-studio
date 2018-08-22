@@ -1,83 +1,92 @@
 import actions from '../actions';
 
-const payload = 'FOO';
-const error = new Error('BAR');
+const payload = 'PAYLOAD';
+const error = new Error('ERROR');
 
-test('addItem.toString() returns the proper action type', () => {
-    expect(actions.addItem.toString()).toBe('CART/ADD_ITEM');
+test('addItem.request.toString() returns the proper action type', () => {
+    expect(actions.addItem.request.toString()).toBe('CART/ADD_ITEM/REQUEST');
 });
 
-test('addItem() returns a proper action object', () => {
-    expect(actions.addItem(payload)).toEqual({
-        type: 'CART/ADD_ITEM',
+test('addItem.request() returns a proper action object', () => {
+    expect(actions.addItem.request(payload)).toEqual({
+        type: 'CART/ADD_ITEM/REQUEST',
         payload
     });
-    expect(actions.addItem(error)).toEqual({
-        type: 'CART/ADD_ITEM',
+});
+
+test('addItem.receive.toString() returns the proper action type', () => {
+    expect(actions.addItem.receive.toString()).toBe('CART/ADD_ITEM/RECEIVE');
+});
+
+test('addItem.receive() returns a proper action object', () => {
+    expect(actions.addItem.receive(payload)).toEqual({
+        type: 'CART/ADD_ITEM/RECEIVE',
+        payload
+    });
+    expect(actions.addItem.receive(error)).toEqual({
+        type: 'CART/ADD_ITEM/RECEIVE',
         payload: error,
         error: true
     });
 });
 
-test('requestGuestCart.toString() returns the proper action type', () => {
-    expect(actions.requestGuestCart.toString()).toBe('CART/REQUEST_GUEST_CART');
+test('getGuestCart.request.toString() returns the proper action type', () => {
+    expect(actions.getGuestCart.request.toString()).toBe(
+        'CART/GET_GUEST_CART/REQUEST'
+    );
 });
 
-test('requestGuestCart() returns a proper action object', () => {
-    expect(actions.requestGuestCart(payload)).toEqual({
-        type: 'CART/REQUEST_GUEST_CART',
+test('getGuestCart.request() returns a proper action object', () => {
+    expect(actions.getGuestCart.request(payload)).toEqual({
+        type: 'CART/GET_GUEST_CART/REQUEST',
         payload
     });
-    expect(actions.requestGuestCart(error)).toEqual({
-        type: 'CART/REQUEST_GUEST_CART',
+});
+
+test('getGuestCart.receive.toString() returns the proper action type', () => {
+    expect(actions.getGuestCart.receive.toString()).toBe(
+        'CART/GET_GUEST_CART/RECEIVE'
+    );
+});
+
+test('getGuestCart.receive() returns a proper action object', () => {
+    expect(actions.getGuestCart.receive(payload)).toEqual({
+        type: 'CART/GET_GUEST_CART/RECEIVE',
+        payload
+    });
+    expect(actions.getGuestCart.receive(error)).toEqual({
+        type: 'CART/GET_GUEST_CART/RECEIVE',
         payload: error,
         error: true
     });
 });
 
-test('receiveGuestCart.toString() returns the proper action type', () => {
-    expect(actions.receiveGuestCart.toString()).toBe('CART/RECEIVE_GUEST_CART');
+test('getDetails.request.toString() returns the proper action type', () => {
+    expect(actions.getDetails.request.toString()).toBe(
+        'CART/GET_DETAILS/REQUEST'
+    );
 });
 
-test('receiveGuestCart() returns a proper action object', () => {
-    expect(actions.receiveGuestCart(payload)).toEqual({
-        type: 'CART/RECEIVE_GUEST_CART',
+test('getDetails.request() returns a proper action object', () => {
+    expect(actions.getDetails.request(payload)).toEqual({
+        type: 'CART/GET_DETAILS/REQUEST',
         payload
     });
-    expect(actions.receiveGuestCart(error)).toEqual({
-        type: 'CART/RECEIVE_GUEST_CART',
-        payload: error,
-        error: true
-    });
 });
 
-test('requestDetails.toString() returns the proper action type', () => {
-    expect(actions.requestDetails.toString()).toBe('CART/REQUEST_DETAILS');
+test('getDetails.receive.toString() returns the proper action type', () => {
+    expect(actions.getDetails.receive.toString()).toBe(
+        'CART/GET_DETAILS/RECEIVE'
+    );
 });
 
-test('requestDetails() returns a proper action object', () => {
-    expect(actions.requestDetails(payload)).toEqual({
-        type: 'CART/REQUEST_DETAILS',
+test('getDetails.receive() returns a proper action object', () => {
+    expect(actions.getDetails.receive(payload)).toEqual({
+        type: 'CART/GET_DETAILS/RECEIVE',
         payload
     });
-    expect(actions.requestDetails(error)).toEqual({
-        type: 'CART/REQUEST_DETAILS',
-        payload: error,
-        error: true
-    });
-});
-
-test('updateDetails.toString() returns the proper action type', () => {
-    expect(actions.updateDetails.toString()).toBe('CART/UPDATE_DETAILS');
-});
-
-test('updateDetails() returns a proper action object', () => {
-    expect(actions.updateDetails(payload)).toEqual({
-        type: 'CART/UPDATE_DETAILS',
-        payload
-    });
-    expect(actions.updateDetails(error)).toEqual({
-        type: 'CART/UPDATE_DETAILS',
+    expect(actions.getDetails.receive(error)).toEqual({
+        type: 'CART/GET_DETAILS/RECEIVE',
         payload: error,
         error: true
     });
