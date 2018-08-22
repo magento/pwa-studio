@@ -17,6 +17,9 @@ const ItemPlaceholder = ({ children, classes }) => (
     </div>
 );
 
+// TODO: get categoryUrlSuffix from graphql when it is ready
+const productUrlSuffix = '.html';
+
 class GalleryItem extends Component {
     static propTypes = {
         classes: shape({
@@ -71,6 +74,9 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
+              <a href={`/${
+                  item.url_key
+                }${productUrlSuffix}`}>
                 <div className={classes.images}>
                     {this.renderImagePlaceholder()}
                     {this.renderImage()}
@@ -78,6 +84,7 @@ class GalleryItem extends Component {
                 <div className={classes.name}>
                     <span>{name}</span>
                 </div>
+              </a>
                 <div className={classes.price}>
                     <Price
                         value={price.regularPrice.amount.value}
