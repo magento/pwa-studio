@@ -33,6 +33,7 @@ class Flow extends Component {
         const {
             classes,
             enterSubflow,
+            submitMockShippingAddress,
             ready,
             resetCheckout,
             requestOrder,
@@ -41,7 +42,9 @@ class Flow extends Component {
             paymentMethod,
             availablePaymentMethods,
             shippingMethod,
-            availableShippingMethods
+            availableShippingMethods,
+            isShippingInformationReady,
+            getShippingMethods
         } = this.props;
 
         const step = stepMap[status];
@@ -60,11 +63,14 @@ class Flow extends Component {
                         ready={ready}
                         status={status}
                         enterSubflow={enterSubflow}
+                        submitMockShippingAddress={submitMockShippingAddress}
                         submitOrder={submitOrder}
                         paymentMethod={paymentMethod}
                         availablePaymentMethods={availablePaymentMethods}
                         shippingMethod={shippingMethod}
+                        getShippingMethods={getShippingMethods}
                         availableShippingMethods={availableShippingMethods}
+                        isShippingInformationReady = {isShippingInformationReady}
                     />
                 );
                 break;

@@ -17,7 +17,6 @@ class Section extends Component {
 
     render() {
         const { children, classes, label, ...restProps } = this.props;
-
         return (
             <Button classes={classes} {...restProps}>
                 <span className={classes.label}>

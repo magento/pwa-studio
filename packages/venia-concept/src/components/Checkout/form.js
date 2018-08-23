@@ -12,7 +12,7 @@ class Form extends Component {
       super(props);
       this.state = {
         updatePayment: false,
-        updateShipping: false
+        updateShipping: false,
       }
     }
 
@@ -28,10 +28,23 @@ class Form extends Component {
     };
 
     render() {
-        const { classes, ready, status, submitOrder, paymentMethod, availablePaymentMethods, shippingMethod, availableShippingMethods } = this.props;
-        const text = ready ? 'Complete' : 'Click to fill out';
+      const {
+        classes,
+        ready,
+        status,
+        submitOrder,
+        paymentMethod,
+        availablePaymentMethods,
+        shippingMethod,
+        availableShippingMethods,
+        isShippingInformationReady
+      } = this.props;
+
+        const shippingText = isShippingInformationReady ? 'Complete' : 'Click to fill out';
         const paymentText = paymentMethod ? paymentMethod : 'Click to fill out';
-        const shippingText = shippingMethod ? shippingMethod : 'Click to fill out';
+        let getItByText = ( availableShippingMethods ) ? 'Click to fill out' : 'Enter Ship To address';
+        getItByText = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : getItByText;
+        getItByText = ( shippingMethod && !!getItByText) ? shippingMethod : getItByText;
 
         let formContent;
 
@@ -65,7 +78,7 @@ class Form extends Component {
                         label="Ship To"
                         onClick={this.modifyShippingAddress}
                     >
-                        <span>{text}</span>
+                        <span>{shippingText}</span>
                     </Section>
                     <Section
                         label="Pay With"
@@ -74,10 +87,11 @@ class Form extends Component {
                         <span>{paymentText}</span>
                     </Section>
                     <Section
+                        disabled={!availableShippingMethods}
                         label="Get It By"
                         onClick={this.showShippingSelector}
                     >
-                        <span>{shippingText}</span>
+                        <span>{getItByText}</span>
                     </Section>
                 </div>
         );
@@ -105,7 +119,9 @@ class Form extends Component {
     };
 
     modifyShippingAddress = () => {
-        this.props.enterSubflow('SUBMIT_SHIPPING_INFORMATION');
+       this.props.submitMockShippingAddress().then(res => {
+         this.props.getShippingMethods();
+       });
     };
 
     modifyShippingMethod = (shippingMethod) => {

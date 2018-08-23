@@ -2,16 +2,19 @@ import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, shape, string } from 'prop-types';
 import { shippingMethods } from './mockData';
+import { getShippingMethods } from 'src/actions/cart';
 
 import {
     enterSubflow,
     requestOrder,
     resetCheckout,
-    submitOrder
+    submitOrder,
+    submitMockShippingAddress
 } from 'src/actions/checkout';
 import CheckoutFlow from './flow';
 
-const isReady = checkout => !!checkout.shippingInformation;
+const isReady = checkout => !!checkout.shippingInformation && !!checkout.paymentMethod;
+const isShippingInformationReady = checkout => !!checkout.shippingInformation;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -32,20 +35,25 @@ class CheckoutWrapper extends Component {
             enterSubflow,
             requestOrder,
             resetCheckout,
-            submitOrder
+            submitOrder,
+            submitMockShippingAddress,
+            getShippingMethods
         } = this.props;
 
         const flowProps = {
             enterSubflow,
+            submitMockShippingAddress,
+            getShippingMethods,
             ready: isReady(checkout),
             requestOrder,
             resetCheckout,
             status: checkout.status,
             submitOrder,
             paymentMethod: checkout.paymentTitle,
-            availablePaymentMethods: cart.paymentMethod,
+            availablePaymentMethods: cart.paymentMethods,
             shippingMethod: checkout.shippingMethod,
-            availableShippingMethods: shippingMethods // cart
+            isShippingInformationReady: isShippingInformationReady(checkout),
+            availableShippingMethods: cart.shippingMethods
         };
 
         return <CheckoutFlow {...flowProps} />;
@@ -58,7 +66,9 @@ const mapDispatchToProps = {
     enterSubflow,
     requestOrder,
     resetCheckout,
-    submitOrder
+    submitOrder,
+    getShippingMethods,
+    submitMockShippingAddress
 };
 
 export default connect(

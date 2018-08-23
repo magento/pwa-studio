@@ -38,6 +38,14 @@ export default async function makeCartReducer() {
                     }
                 };
             }
+            case 'GET_SHIPPING_METHODS': {
+
+                return {
+                    ...state,
+                    ...payload
+                };
+            }
+
             case 'ADD_ITEM_TO_CART': {
                 // cart items don't have images in the REST API;
                 // this is the most efficient way to manage that,
