@@ -10,15 +10,18 @@ class Loader extends Component {
             root: string,
             loaderAnimation: string
         }),
-        height: number
+        height: number,
+        text: string,
+        networkState: string
     };
 
     static defaultProps = {
-        height: 128
+        height: 128,
+        text: 'Loading...'
     };
 
     render() {
-        const { classes, height } = this.props;
+        const { classes, height, text } = this.props;
         return (
             <div className={classes.root}>
                 <img
@@ -27,7 +30,7 @@ class Loader extends Component {
                     src={logo}
                     height={height}
                 />
-                <p className={classes.loaderAnimation}>loading...</p>
+                <p className={classes.loaderAnimation}>{text}</p>
             </div>
         );
     }
