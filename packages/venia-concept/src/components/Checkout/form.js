@@ -11,7 +11,8 @@ class Form extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        updatePayment: false
+        updatePayment: false,
+        updateShipping: false
       }
     }
 
@@ -27,9 +28,10 @@ class Form extends Component {
     };
 
     render() {
-        const { classes, ready, status, submitOrder, paymentMethod, availablePaymentMethods } = this.props;
+        const { classes, ready, status, submitOrder, paymentMethod, availablePaymentMethods, shippingMethod, availableShippingMethods } = this.props;
         const text = ready ? 'Complete' : 'Click to fill out';
         const paymentText = paymentMethod ? paymentMethod : 'Click to fill out';
+        const shippingText = shippingMethod ? shippingMethod : 'Click to fill out';
 
         let formContent;
 
@@ -42,7 +44,20 @@ class Form extends Component {
 
                 </Selector>
           );
-        } else {
+        }
+
+        else if (this.state.updateShipping) {
+          formContent = (
+              <Selector
+                options={availableShippingMethods}
+                handleSelection={(code) => this.modifyShippingMethod(code)}
+              >
+
+              </Selector>
+          )
+        }
+
+        else {
 
         formContent = (
                 <div className={classes.body}>
@@ -60,9 +75,9 @@ class Form extends Component {
                     </Section>
                     <Section
                         label="Get It By"
-                        onClick={this.modifyShippingMethod}
+                        onClick={this.showShippingSelector}
                     >
-                        <span>{text}</span>
+                        <span>{shippingText}</span>
                     </Section>
                 </div>
         );
@@ -90,16 +105,25 @@ class Form extends Component {
     };
 
     modifyShippingAddress = () => {
-        this.props.enterSubflow('SHIPPING_ADDRESS');
+        this.props.enterSubflow('SUBMIT_SHIPPING_INFORMATION');
     };
 
-    modifyShippingMethod = () => {
-        this.props.enterSubflow('SHIPPING_METHOD');
+    modifyShippingMethod = (shippingMethod) => {
+        this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
+        this.setState({
+          updateShipping: false
+        })
     };
 
     showBillingSelector = () => {
       this.setState({
         updatePayment: true
+      })
+    }
+
+    showShippingSelector = () => {
+      this.setState({
+        updateShipping: true
       })
     }
 }

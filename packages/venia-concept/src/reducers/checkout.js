@@ -1,5 +1,6 @@
 const initialState = {
     shippingInformation: false,
+    shippingMethod: null,
     paymentMethod: null,
     paymentTitle: null,
     status: 'READY',
@@ -46,6 +47,12 @@ const reducer = (state = initialState, { payload, type }) => {
                 paymentMethod: payload.code,
                 paymentTitle: payload.title
             }
+        }
+        case 'SUBMIT_SHIPPING_METHOD': {
+          return {
+              ...state,
+              shippingMethod: payload.carrier_title
+          }
         }
         case 'SUBMIT_ORDER': {
             return {

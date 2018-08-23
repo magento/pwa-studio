@@ -107,12 +107,12 @@ const getCartDetails = (payload = {}) => {
                     guestCartId,
                     forceRefresh,
                     subResource: 'payment-methods'
-                }),
+                }),/*
                 fetchCartPart({
                     guestCartId,
                     forceRefresh: true,
                     subResource: 'shipping-methods'
-                })
+                })*/
             ]);
 
 

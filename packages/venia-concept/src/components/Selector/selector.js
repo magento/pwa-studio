@@ -9,7 +9,8 @@ class Selector extends Component {
         options: arrayOf(
             shape({
                 code: string,
-                title: string
+                title: string,
+                carrier_title: string
             })
         ),
         handleSelection: func
@@ -17,18 +18,21 @@ class Selector extends Component {
 
     render() {
         const { options, handleSelection, classes } = this.props;
+
         return (
             <ul className={classes.root}>
                 {
                     options.map(( props ) => {
+                      const listValue = (props.carrier_title) ? props.carrier_title : props.code;
+                      const listTitle = (props.carrier_title) ? props.carrier_title : props.title;
                         return (
                             <Section
-                                value={props.code}
+                                value={listValue}
                                 onClick={ev => handleSelection(props) }
-                                key={props.code}
+                                key={listValue}
                                 label={"Select"}
                             >
-                                { props.title }
+                                { listTitle }
                             </Section>
                         )
                     })

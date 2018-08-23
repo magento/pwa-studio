@@ -1,6 +1,7 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, shape, string } from 'prop-types';
+import { shippingMethods } from './mockData';
 
 import {
     enterSubflow,
@@ -42,7 +43,9 @@ class CheckoutWrapper extends Component {
             status: checkout.status,
             submitOrder,
             paymentMethod: checkout.paymentTitle,
-            availablePaymentMethods: cart.paymentMethod
+            availablePaymentMethods: cart.paymentMethod,
+            shippingMethod: checkout.shippingMethod,
+            availableShippingMethods: shippingMethods // cart
         };
 
         return <CheckoutFlow {...flowProps} />;
