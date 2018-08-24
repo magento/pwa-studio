@@ -40,11 +40,11 @@ class Form extends Component {
         isShippingInformationReady
       } = this.props;
 
-        const shippingText = isShippingInformationReady ? 'Complete' : 'Click to fill out';
-        const paymentText = paymentMethod ? paymentMethod : 'Click to fill out';
-        let getItByText = ( availableShippingMethods ) ? 'Click to fill out' : 'Enter Ship To address';
-        getItByText = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : getItByText;
-        getItByText = ( shippingMethod && !!getItByText) ? shippingMethod : getItByText;
+        const shipToText = isShippingInformationReady ? 'Complete' : 'Click to fill out';
+        const paymentMethodText = paymentMethod ? paymentMethod : 'No payment methods available';
+        let shippingMethodtext = ( availableShippingMethods ) ? 'Click to fill out' : 'Enter Ship To address';
+        shippingMethodtext = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : shippingMethodtext;
+        shippingMethodtext = ( shippingMethod && !!shippingMethodtext) ? shippingMethod : shippingMethodtext;
 
         let formContent;
 
@@ -52,9 +52,9 @@ class Form extends Component {
           formContent = (
                 <Selector
                   options={availablePaymentMethods}
-                  handleSelection={(code) => this.modifyBillingAddress(code)}
+                  selectedOption={paymentMethod}
+                  handleSelection={(code) => this.modifyPaymentMethod(code)}
                 >
-
                 </Selector>
           );
         }
@@ -63,9 +63,9 @@ class Form extends Component {
           formContent = (
               <Selector
                 options={availableShippingMethods}
+                selectedOption={shippingMethod}
                 handleSelection={(code) => this.modifyShippingMethod(code)}
               >
-
               </Selector>
           )
         }
@@ -76,22 +76,22 @@ class Form extends Component {
                 <div className={classes.body}>
                     <Section
                         label="Ship To"
-                        onClick={this.modifyShippingAddress}
+                        onClick={this.showShippingAddressSelector}
                     >
-                        <span>{shippingText}</span>
+                        <span>{shipToText}</span>
                     </Section>
                     <Section
                         label="Pay With"
-                        onClick={this.showBillingSelector}
+                        onClick={this.showPaymentMethodSelector}
                     >
-                        <span>{paymentText}</span>
+                        <span>{paymentMethodText}</span>
                     </Section>
                     <Section
                         disabled={!availableShippingMethods}
                         label="Get It By"
-                        onClick={this.showShippingSelector}
+                        onClick={this.showShippingMethodSelector}
                     >
-                        <span>{getItByText}</span>
+                        <span>{shippingMethodtext}</span>
                     </Section>
                 </div>
         );
@@ -111,16 +111,28 @@ class Form extends Component {
       )
     }
 
-    modifyBillingAddress = (paymentMethod) => {
+    componentDidMount() {
+      // Set default payment method
+      this.setDefaultOrderMethod(this.props.availablePaymentMethods, this.modifyPaymentMethod);
+    }
+
+    setDefaultOrderMethod = (orderMethodsAvailable, callback) => {
+      if ( !!orderMethodsAvailable && !!orderMethodsAvailable[0] ) { callback(orderMethodsAvailable[0]) };
+    }
+
+    modifyPaymentMethod = (paymentMethod) => {
       this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod)
       this.setState({
         updatePayment: false
       })
     };
 
-    modifyShippingAddress = () => {
-       this.props.submitMockShippingAddress().then(res => {
-         this.props.getShippingMethods();
+    showShippingAddressSelector = () => {
+       this.props.submitMockShippingAddress().then(() => {
+         this.props.getShippingMethods().then(() => {
+           // Set default shipping method
+           this.setDefaultOrderMethod(this.props.availableShippingMethods, this.modifyShippingMethod);
+         })
        });
     };
 
@@ -131,13 +143,13 @@ class Form extends Component {
         })
     };
 
-    showBillingSelector = () => {
+    showPaymentMethodSelector = () => {
       this.setState({
         updatePayment: true
       })
     }
 
-    showShippingSelector = () => {
+    showShippingMethodSelector = () => {
       this.setState({
         updateShipping: true
       })

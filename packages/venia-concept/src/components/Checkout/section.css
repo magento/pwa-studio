@@ -28,3 +28,8 @@
     font-size: 13px;
     line-height: 1.5;
 }
+
+.icon * {
+    vertical-align: sub;
+    height: 1rem;
+}
