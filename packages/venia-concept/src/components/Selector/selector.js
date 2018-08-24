@@ -13,11 +13,12 @@ class Selector extends Component {
                 carrier_title: string,
             })
         ),
+        selectedOption: string,
         handleSelection: func
     };
 
     render() {
-        const { options, handleSelection, classes } = this.props;
+        const { options, handleSelection, classes, selectedOption } = this.props;
 
         return (
             <ul className={classes.root}>
@@ -31,6 +32,7 @@ class Selector extends Component {
                                 onClick={ev => handleSelection(props) }
                                 key={listValue}
                                 label={"Select"}
+                                selectedOption={selectedOption === listTitle}
                             >
                                 { listTitle }
                             </Section>

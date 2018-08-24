@@ -52,6 +52,7 @@ class Form extends Component {
           formContent = (
                 <Selector
                   options={availablePaymentMethods}
+                  selectedOption={paymentMethod}
                   handleSelection={(code) => this.modifyBillingAddress(code)}
                 >
 
@@ -63,6 +64,7 @@ class Form extends Component {
           formContent = (
               <Selector
                 options={availableShippingMethods}
+                selectedOption={shippingMethod}
                 handleSelection={(code) => this.modifyShippingMethod(code)}
               >
 
