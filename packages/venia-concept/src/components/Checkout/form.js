@@ -27,79 +27,84 @@ class Form extends Component {
         submitOrder: func.isRequired
     };
 
+    get paymentMethodSelector() {
+      const { classes } = this.props;
+      const { paymentMethod, availablePaymentMethods } = this.props;
+
+        return !!this.state.updatePayment ? (
+              <Selector
+                options={availablePaymentMethods}
+                selectedOption={paymentMethod}
+                handleSelection={(code) => this.modifyPaymentMethod(code)}
+              >
+              </Selector>
+        ) : null;
+    }
+
+    get shippingMethodSelector() {
+      const { classes } = this.props;
+      const { shippingMethod, availableShippingMethods } = this.props;
+
+      return !!this.state.updateShipping ? (
+          <Selector
+            options={availableShippingMethods}
+            selectedOption={shippingMethod}
+            handleSelection={(code) => this.modifyShippingMethod(code)}
+          >
+          </Selector>
+      ) : null;
+    }
+
+    get cartOptions() {
+      const { classes } = this.props;
+      const { paymentMethod, shippingMethod, availableShippingMethods, isShippingInformationReady } = this.props;
+
+      const shipToText = this.isShippingInformationReady ? 'Complete' : 'Click to fill out';
+      const paymentMethodText = paymentMethod ? paymentMethod : 'No payment methods available';
+      let shippingMethodtext = !!availableShippingMethods ? 'Click to fill out' : 'Enter Ship To address';
+      shippingMethodtext = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : shippingMethodtext;
+      shippingMethodtext = ( !!shippingMethod && !!shippingMethodtext) ? shippingMethod : shippingMethodtext;
+
+      return !this.state.updatePayment && !this.state.updateShipping ? (
+          <div className={classes.body}>
+              <Section
+                  label="Ship To"
+                  onClick={this.showShippingAddressSelector}
+              >
+                  <span>{shipToText}</span>
+              </Section>
+              <Section
+                  label="Pay With"
+                  onClick={this.showPaymentMethodSelector}
+              >
+                  <span>{paymentMethodText}</span>
+              </Section>
+              <Section
+                  disabled={!availableShippingMethods}
+                  label="Get It By"
+                  onClick={this.showShippingMethodSelector}
+              >
+                  <span>{shippingMethodtext}</span>
+              </Section>
+          </div>
+        ) : null;
+    }
+
     render() {
       const {
         classes,
         ready,
         status,
         submitOrder,
-        paymentMethod,
-        availablePaymentMethods,
-        shippingMethod,
-        availableShippingMethods,
-        isShippingInformationReady
       } = this.props;
 
-        const shipToText = isShippingInformationReady ? 'Complete' : 'Click to fill out';
-        const paymentMethodText = paymentMethod ? paymentMethod : 'No payment methods available';
-        let shippingMethodtext = ( availableShippingMethods ) ? 'Click to fill out' : 'Enter Ship To address';
-        shippingMethodtext = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : shippingMethodtext;
-        shippingMethodtext = ( shippingMethod && !!shippingMethodtext) ? shippingMethod : shippingMethodtext;
-
-        let formContent;
-
-        if (this.state.updatePayment) {
-          formContent = (
-                <Selector
-                  options={availablePaymentMethods}
-                  selectedOption={paymentMethod}
-                  handleSelection={(code) => this.modifyPaymentMethod(code)}
-                >
-                </Selector>
-          );
-        }
-
-        else if (this.state.updateShipping) {
-          formContent = (
-              <Selector
-                options={availableShippingMethods}
-                selectedOption={shippingMethod}
-                handleSelection={(code) => this.modifyShippingMethod(code)}
-              >
-              </Selector>
-          )
-        }
-
-        else {
-
-        formContent = (
-                <div className={classes.body}>
-                    <Section
-                        label="Ship To"
-                        onClick={this.showShippingAddressSelector}
-                    >
-                        <span>{shipToText}</span>
-                    </Section>
-                    <Section
-                        label="Pay With"
-                        onClick={this.showPaymentMethodSelector}
-                    >
-                        <span>{paymentMethodText}</span>
-                    </Section>
-                    <Section
-                        disabled={!availableShippingMethods}
-                        label="Get It By"
-                        onClick={this.showShippingMethodSelector}
-                    >
-                        <span>{shippingMethodtext}</span>
-                    </Section>
-                </div>
-        );
-      }
+      const { shippingMethodSelector, paymentMethodSelector, cartOptions } = this;
 
       return (
         <div className={classes.root}>
-          {formContent}
+          {shippingMethodSelector}
+          {paymentMethodSelector}
+          {cartOptions}
           <div className={classes.footer}>
               <SubmitButton
                   ready={ready}
