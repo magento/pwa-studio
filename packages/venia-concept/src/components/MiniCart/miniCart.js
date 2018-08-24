@@ -2,7 +2,7 @@ import { Component, createElement } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
-import { Price } from '@magento/peregrine';
+import Subtotal from 'src/components/Subtotal';
 
 import { store } from 'src';
 import { getCartDetails } from 'src/actions/cart';
@@ -69,22 +69,12 @@ class MiniCart extends Component {
     }
 
     get totalsSummary() {
-        const { cartId, cartCurrencyCode, cart, classes } = this.props;
+        const { cartId, cartCurrencyCode, cart } = this.props;
         return cartId && cart.totals && 'subtotal' in cart.totals ? (
-            <dl className={classes.totals}>
-                <dt className={classes.subtotalLabel}>
-                    <span>
-                        Subtotal
-                        {` (${cart.details.items_qty} Items)`}
-                    </span>
-                </dt>
-                <dd className={classes.subtotalValue}>
-                    <Price
-                        currencyCode={cartCurrencyCode}
-                        value={cart.totals.subtotal}
-                    />
-                </dd>
-            </dl>
+            <Subtotal
+                items_qty={cart.details.items_qty}
+                currencyCode={cartCurrencyCode}
+                subtotal={cart.totals.subtotal} />
         ) : null;
     }
 
