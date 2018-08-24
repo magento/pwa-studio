@@ -30,5 +30,6 @@
 }
 
 .icon * {
-    vertical-align: middle;
+    vertical-align: sub;
+    height: 1rem;
 }
