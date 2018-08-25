@@ -53,7 +53,8 @@ class CheckoutWrapper extends Component {
             availablePaymentMethods: cart.paymentMethods,
             shippingMethod: checkout.shippingMethod,
             isShippingInformationReady: isShippingInformationReady(checkout),
-            availableShippingMethods: cart.shippingMethods
+            availableShippingMethods: cart.shippingMethods,
+            cart: cart
         };
 
         return <CheckoutFlow {...flowProps} />;

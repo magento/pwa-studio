@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { bool, func, oneOf, shape, string } from 'prop-types';
+import { object, bool, func, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Entrance from './entrance';
@@ -26,7 +26,8 @@ class Flow extends Component {
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
         status: oneOf(stepEnum).isRequired,
-        submitOrder: func.isRequired
+        submitOrder: func.isRequired,
+        cart: object
     };
 
     render() {
@@ -44,7 +45,8 @@ class Flow extends Component {
             shippingMethod,
             availableShippingMethods,
             isShippingInformationReady,
-            getShippingMethods
+            getShippingMethods,
+            cart: cart
         } = this.props;
 
         const step = stepMap[status];
@@ -71,6 +73,7 @@ class Flow extends Component {
                         getShippingMethods={getShippingMethods}
                         availableShippingMethods={availableShippingMethods}
                         isShippingInformationReady = {isShippingInformationReady}
+                        cart={cart}
                     />
                 );
                 break;

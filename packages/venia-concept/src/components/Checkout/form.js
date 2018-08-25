@@ -1,5 +1,6 @@
 import { Component, createElement } from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import Subtotal from 'src/components/Subtotal';
 
 import classify from 'src/classify';
 import Section from './section';
@@ -9,11 +10,11 @@ import Selector from 'src/components/Selector';
 
 class Form extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        updatePayment: false,
-        updateShipping: false,
-      }
+        super(props);
+        this.state = {
+            updatePayment: false,
+            updateShipping: false,
+        }
     }
 
     static propTypes = {
@@ -28,7 +29,6 @@ class Form extends Component {
     };
 
     get paymentMethodSelector() {
-      const { classes } = this.props;
       const { paymentMethod, availablePaymentMethods } = this.props;
 
         return !!this.state.updatePayment ? (
@@ -42,7 +42,6 @@ class Form extends Component {
     }
 
     get shippingMethodSelector() {
-      const { classes } = this.props;
       const { shippingMethod, availableShippingMethods } = this.props;
 
       return !!this.state.updateShipping ? (
@@ -57,7 +56,7 @@ class Form extends Component {
 
     get cartOptions() {
       const { classes } = this.props;
-      const { paymentMethod, shippingMethod, availableShippingMethods, isShippingInformationReady } = this.props;
+      const { paymentMethod, shippingMethod, availableShippingMethods, isShippingInformationReady, cart } = this.props;
 
       const shipToText = this.isShippingInformationReady ? 'Complete' : 'Click to fill out';
       const paymentMethodText = paymentMethod ? paymentMethod : 'No payment methods available';
@@ -86,6 +85,12 @@ class Form extends Component {
               >
                   <span>{shippingMethodtext}</span>
               </Section>
+              <div className={classes.footer}>
+                  <Subtotal
+                      items_qty={cart.details.items_qty}
+                      currencyCode={cart.totals.base_currency_code}
+                      subtotal={cart.totals.subtotal} />
+              </div>
           </div>
         ) : null;
     }
@@ -117,47 +122,47 @@ class Form extends Component {
     }
 
     componentDidMount() {
-      // Set default payment method
-      this.setDefaultOrderMethod(this.props.availablePaymentMethods, this.modifyPaymentMethod);
+        // Set default payment method
+        this.setDefaultOrderMethod(this.props.availablePaymentMethods, this.modifyPaymentMethod);
     }
 
     setDefaultOrderMethod = (orderMethodsAvailable, callback) => {
-      if ( !!orderMethodsAvailable && !!orderMethodsAvailable[0] ) { callback(orderMethodsAvailable[0]) };
+        if ( !!orderMethodsAvailable && !!orderMethodsAvailable[0] ) { callback(orderMethodsAvailable[0]) };
     }
 
     modifyPaymentMethod = (paymentMethod) => {
-      this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod)
-      this.setState({
-        updatePayment: false
-      })
+        this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod)
+        this.setState({
+            updatePayment: false
+        })
     };
 
     showShippingAddressSelector = () => {
-       this.props.submitMockShippingAddress().then(() => {
-         this.props.getShippingMethods().then(() => {
-           // Set default shipping method
-           this.setDefaultOrderMethod(this.props.availableShippingMethods, this.modifyShippingMethod);
-         })
-       });
+        this.props.submitMockShippingAddress().then(() => {
+            this.props.getShippingMethods().then(() => {
+                // Set default shipping method
+                this.setDefaultOrderMethod(this.props.availableShippingMethods, this.modifyShippingMethod);
+            })
+        });
     };
 
     modifyShippingMethod = (shippingMethod) => {
         this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
         this.setState({
-          updateShipping: false
+            updateShipping: false
         })
     };
 
     showPaymentMethodSelector = () => {
-      this.setState({
-        updatePayment: true
-      })
+        this.setState({
+            updatePayment: true
+        })
     }
 
     showShippingMethodSelector = () => {
-      this.setState({
-        updateShipping: true
-      })
+        this.setState({
+            updateShipping: true
+        })
     }
 }
 
