@@ -24,17 +24,16 @@ class Selector extends Component {
             <ul className={classes.root}>
                 {
                     options.map(( props ) => {
-                      const listValue = (props.carrier_title) ? props.carrier_title : props.code;
-                      const listTitle = (props.carrier_title) ? props.carrier_title : props.title;
+                      
                         return (
                             <Section
-                                value={listValue}
+                                value={props.code}
                                 onClick={ev => handleSelection(props) }
-                                key={listValue}
+                                key={props.code}
                                 label={"Select"}
-                                selectedOption={selectedOption === listTitle}
+                                selectedOption={selectedOption === props.title}
                             >
-                                { listTitle }
+                                { props.title }
                             </Section>
                         )
                     })

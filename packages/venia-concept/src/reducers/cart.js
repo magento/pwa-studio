@@ -42,7 +42,15 @@ export default async function makeCartReducer() {
 
                 return {
                     ...state,
-                    ...payload
+                    ...payload,
+                    shippingMethods:
+                        payload.shippingMethods.map( method => ({
+                            ...method,
+                            code: method.carrier_code,
+                            title: method.carrier_title
+                        })
+                  )
+
                 };
             }
 
