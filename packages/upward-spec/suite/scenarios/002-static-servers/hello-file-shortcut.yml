@@ -1,0 +1,8 @@
+status: 201
+headers:
+  inline:
+    content-type:
+      inline: 'text/csv'
+    x-is-cool-swords:
+      inline: 'yep'
+body: './swords.csv'

@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+const path = require('path');
+const fs = require('fs');
+
+const providedScriptPath = path.resolve(process.argv[2]);
+
+/**
+ * Unix permissions Bitmask to check if the script is
+ * readable and executable.
+ */
+const accessible = fs.constants.F_OK | fs.constants.X_OK;
+try {
+    fs.accessSync(providedScriptPath, accessible);
+} catch (e) {
+    throw Error(
+        e.message +
+            `\n\n\tMake sure ${providedScriptPath} exists and has executable permissions.`
+    );
+}
+
+/**
+ * Pass args to node-tap to expose its options.
+ */
+const otherArgs = process.argv.slice(3);
+const hasArg = wanted => otherArgs.some(arg => arg === wanted);
+
+const useXunit = hasArg('--xunit');
+const useTap = hasArg('--tap');
+
+if (useXunit && useTap) {
+    console.error(
+        'Cannot use both --xunit and --tap flags. Please choose either XUnit output, TAP output, or no arguments for default human-readable output.'
+    );
+}
+
+const isPiped = !process.stdout.isTTY;
+
+const raw = useTap || isPiped;
+
+// Run tap and pass stdout.
+const scenariosDir = path.resolve(__dirname, '../suite/scenarios/');
+const testProcess = require('child_process').spawn(
+    path.resolve(__dirname, '../node_modules/.bin/tape'),
+    ['*/tests.js'],
+    {
+        cwd: scenariosDir,
+        env: Object.assign(
+            {
+                UPWARD_SERVER_SCRIPT_PATH: providedScriptPath
+            },
+            process.env
+        )
+    }
+);
+
+if (raw) {
+    testProcess.stdout.pipe(process.stdout);
+} else if (useXunit) {
+    const tapXunit = require('tap-xunit');
+    testProcess.stdout
+        .pipe(tapXunit({ package: 'UPWARD spec' }))
+        .pipe(process.stdout);
+} else {
+    const tapDiff = require('tap-diff');
+    testProcess.stdout.pipe(tapDiff()).pipe(process.stdout);
+}
+testProcess.stderr.pipe(process.stderr);

@@ -1,0 +1,10 @@
+status: 200
+headers:
+  inline:
+    content-type: text/plain
+body:
+  engine: mustache
+  provide:
+    - env
+  template:
+    inline: 'Hello, environment of {{env.ADDRESSEE}}!!'

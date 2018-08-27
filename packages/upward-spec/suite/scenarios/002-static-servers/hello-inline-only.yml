@@ -1,0 +1,12 @@
+status:
+  resolver: inline
+  inline: 200
+headers:
+  resolver: inline
+  inline:
+    content-type:
+      resolver: inline
+      inline: text/plain
+body:
+  resolver: inline
+  inline: 'Hello World!!'

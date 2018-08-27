@@ -1,0 +1,23 @@
+status:
+  resolver: inline
+  inline: 200
+headers:
+  resolver: inline
+  inline:
+    content-type:
+      resolver: inline
+      inline: text/plain
+body:
+  resolver: template
+  engine: mustache
+  provide:
+    - env
+    - communique
+  template:
+    resolver: file
+    file:
+      resolver: inline
+      inline: './context-is-hello-env-is-world.mst'
+communique:
+  resolver: inline
+  inline: 'Hello'
