@@ -8,47 +8,47 @@ See [EXECUTION_SCHEDULING_STRATEGIES.md](EXECUTION_SCHEDULING_STRATEGIES.md) for
 
 See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a need in Magento PWA Studio and Magento 2 frontend development.
 
-- [UPWARD Specification](#upward-specification)
-  - [Quickstart](#quickstart)
-  - [Summary](#summary)
-    - [Simple example](#simple-example)
-  - [Configuration](#configuration)
-  - [Responding to requests](#responding-to-requests)
-    - [Execution scheduling and ordering](#execution-scheduling-and-ordering)
-    - [Cyclic dependencies](#cyclic-dependencies)
-    - [Response flush triggering](#response-flush-triggering)
-  - [Context Reference](#context-reference)
-    - [Initial context](#initial-context)
-      - [Augmenting the initial context](#augmenting-the-initial-context)
-      - [Context persistence and size](#context-persistence-and-size)
-  - [Resolver Reference](#resolver-reference)
-    - [InlineResolver](#inlineresolver)
-      - [InlineResolver Configuration Options](#inlineresolver-configuration-options)
-    - [FileResolver](#fileresolver)
-      - [FileResolver Configuration Options](#fileresolver-configuration-options)
-      - [Parsing](#parsing)
-      - [FileResolver Error Handling](#fileresolver-error-handling)
-      - [FileResolver shorthand](#fileresolver-shorthand)
-    - [ServiceResolver](#serviceresolver)
-      - [ServiceResolver Configuration Options](#serviceresolver-configuration-options)
-      - [Example REST service call](#example-rest-service-call)
-      - [Response Assignment](#response-assignment)
-      - [ServiceResolver Error Handling](#serviceresolver-error-handling)
-    - [TemplateResolver](#templateresolver)
-      - [TemplateResolver Configuration Options](#templateresolver-configuration-options)
-      - [Template Engines](#template-engines)
-        - [Example React DOM Server support](#example-react-dom-server-support)
-      - [TemplateResolver Error Handling](#templateresolver-error-handling)
-    - [ConditionalResolver](#conditionalresolver)
-      - [ConditionalResolver Configuration Options](#conditionalresolver-configuration-options)
-      - [Matchers](#matchers)
-      - [Match context](#match-context)
-      - [ConditionalResolver notes](#conditionalresolver-notes)
-  - [Reducing boilerplate](#reducing-boilerplate)
-    - [Default parameters](#default-parameters)
-    - [Builtin constants](#builtin-constants)
-    - [Resolver type inference](#resolver-type-inference)
-    - [YAML anchors](#yaml-anchors)
+1. [UPWARD Specification](#upward-specification)
+  1. [Quickstart](#quickstart)
+  2. [Summary](#summary)
+    1. [Simple example](#simple-example)
+  3. [Configuration](#configuration)
+  4. [Responding to requests](#responding-to-requests)
+    1. [Execution scheduling and ordering](#execution-scheduling-and-ordering)
+    2. [Cyclic dependencies](#cyclic-dependencies)
+    3. [Response flush triggering](#response-flush-triggering)
+  5. [Context Reference](#context-reference)
+    1. [Initial context](#initial-context)
+      1. [Augmenting the initial context](#augmenting-the-initial-context)
+      2. [Context persistence and size](#context-persistence-and-size)
+  6. [Resolver Reference](#resolver-reference)
+    1. [InlineResolver](#inlineresolver)
+      1. [InlineResolver Configuration Options](#inlineresolver-configuration-options)
+    2. [FileResolver](#fileresolver)
+      1. [FileResolver Configuration Options](#fileresolver-configuration-options)
+      2. [Parsing](#parsing)
+      3. [FileResolver Error Handling](#fileresolver-error-handling)
+      4. [FileResolver shorthand](#fileresolver-shorthand)
+    3. [ServiceResolver](#serviceresolver)
+      1. [ServiceResolver Configuration Options](#serviceresolver-configuration-options)
+      2. [Example REST service call](#example-rest-service-call)
+      3. [Response Assignment](#response-assignment)
+      4. [ServiceResolver Error Handling](#serviceresolver-error-handling)
+    4. [TemplateResolver](#templateresolver)
+      1. [TemplateResolver Configuration Options](#templateresolver-configuration-options)
+      2. [Template Engines](#template-engines)
+        1. [Example React DOM Server support](#example-react-dom-server-support)
+      3. [TemplateResolver Error Handling](#templateresolver-error-handling)
+    5. [ConditionalResolver](#conditionalresolver)
+      1. [ConditionalResolver Configuration Options](#conditionalresolver-configuration-options)
+      2. [Matchers](#matchers)
+      3. [Match context](#match-context)
+      4. [ConditionalResolver notes](#conditionalresolver-notes)
+  7. [Reducing boilerplate](#reducing-boilerplate)
+    1. [Default parameters](#default-parameters)
+    2. [Builtin constants](#builtin-constants)
+    3. [Resolver type inference](#resolver-type-inference)
+    4. [YAML anchors](#yaml-anchors)
 
 ## Quickstart
 
@@ -64,7 +64,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 
 2. Write or obtain a POSIX shell script which:
 
-   - gets the path to an `upward.yml` file from the environment variable `UPWARD_YAML_PATH`
+   - gets the path to an `upward.yml` file from the environment variable `UPWARD_PATH`
    - launches and/or binds the UPWARD server under test and runs it in the foreground (not as a daemon process).
    - prints the hostname and port of the now-running server instance to standard out
    - responds to SIGTERM by gracefully closing the server
@@ -184,7 +184,7 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
     ]
     ```
 
-  - `url`: A [URL record][url spec] as specified by WHATWG, consisting of:
+  - `url`: A [URL record][url spec] as specified by WHATWG, consisting of as many of the following propeties as the server can determine from the request and its own environment:
 
     | Attribute | Example
     | --------- | -------
@@ -200,6 +200,8 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
     | `search`  | `?baby=beluga`
     | `query`   | `{ "baby": "beluga" }`
     | `queryEntries` | `[{ "name": "baby", "value": "beluga" }]`
+
+    Because HTTP servers are sometimes unable to ascertain their own domain names or origins, it is acceptable for one or more of the `href`, `origin`, `protocol`, `username`, `password`, `host`, `hostname`, and `port` properties to be undefined. However, a compliant server MUST provide `pathname`, `search`, `query`, and `queryEntries`.  
 
     The `query` and `queryEntries` properties are not prt of the WHATWG specification, but they must be included in the `url` object nevertheless. Much like the `headers` and `headerEntries` properties, these objects exist for property lookup and iteration, respectively.
 

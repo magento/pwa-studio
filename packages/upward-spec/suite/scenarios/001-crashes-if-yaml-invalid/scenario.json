@@ -1,0 +1,11 @@
+{
+    "env": {},
+    "phases": {
+        "startup": [
+            {
+                "crashed": true,
+                "message": "Crashes if upward.yml cannot be parsed"
+            }
+        ]
+    }
+}

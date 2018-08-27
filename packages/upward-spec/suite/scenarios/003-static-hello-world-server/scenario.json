@@ -1,0 +1,22 @@
+
+{
+    "name": "Static Hello World server",
+    "env": {
+        "ADDRESSEE": "World"
+    },
+    "phases": {
+        "respond": [
+            {
+                "url": "/",
+                "responseProps": {
+                    "status": "200",
+                    "headers": {
+                        "content-type": "text/plain"
+                    }
+                },
+                "responseText": "Hello World!!",
+                "message": "Create a server with no dependency on request attributes"
+            }
+        ]
+    }
+}

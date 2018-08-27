@@ -1,13 +1,20 @@
 {
-  "name": "@magento/express-upward",
+  "name": "@magento/upward-js",
   "version": "0.1.0",
-  "description": "Implementation of the UPWARD spec in NodeJS as an Express middleware",
-  "main": "./lib/express-upward.js",
+  "description": "Implementation of the UPWARD spec as a NodeJS server",
+  "main": "./lib/index.js",
+  "bin": {
+    "upward-js-server": "./bin/server"
+  },
   "files": [
-    "./lib"
+    "./lib",
+    "./bin"
   ],
   "engines": {
     "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "upward-spec ./test_spec.sh"
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -21,15 +28,17 @@
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/express-upward#readme",
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
     "apollo-boost": "^0.1.13",
-    "connect": "^3.6.6",
+    "debug": "^3.1.0",
     "graphql": "^0.13.2",
     "js-yaml": "^3.12.0",
-    "xml2js": "^0.4.19"
+    "morgan": "^1.9.0",
+    "traverse": "^0.6.6"
   },
   "devDependencies": {
+    "@magento/upward-spec": "*",
     "express": "^4.16.3"
   },
   "peerDependencies": {

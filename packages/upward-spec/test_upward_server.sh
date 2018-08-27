@@ -5,4 +5,4 @@
 # as part of its initial logging, and that it will gracefully exit on
 # receiving SIGTERM, which are good # habits for a web server to have anyway.
 
-./path_to_upward_server/bin/upward --config "$UPWARD_YAML_PATH" | grep -ioE '\bhttps?://[a-z0-9][a-z0-9-\.]*\b'
+./path_to_upward_server/bin/upward --config "$UPWARD_PATH" | grep -ioE '\bhttps?://[a-z0-9][a-z0-9-\.]*\b'

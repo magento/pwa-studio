@@ -1,0 +1,103 @@
+#!/usr/bin/env node
+
+const chalk = require('chalk');
+const yargs = require('yargs');
+
+const jUnitStream = outStream => require('tap-xunit')().pipe(outStream);
+
+const calledOut = str => `\n\t${str}\n`;
+const yell = msg => console.error(chalk.red(calledOut(msg)));
+const die = (msg, exitCode = 1, showHelp = true) => {
+    yell(msg);
+    if (showHelp) yargs.showHelp();
+    process.exit(exitCode);
+};
+
+yargs.usage(
+    '$0 [--outputFile <file>] [--runOnlyMatching <pattern>] [--junit] [--serverTimeout <seconds>] <script>',
+    'Test an UPWARD server implementation for compliance with the UPWARD spec, by running a shell script which launches the server under different configurations.',
+    builder => {
+        builder
+            .options({
+                junit: {
+                    alias: 'x',
+                    describe: 'Output results as JUnit XML instead of human-readable text',
+                    boolean: true
+                },
+                runOnlyMatching: {
+                    alias: 'm',
+                    array: true,
+                    describe:
+                        'Only run tests whose labels match a regular expression pattern',
+                    type: 'string'
+                },
+                outputFile: {
+                    alias: 'o',
+                    describe: 'Output results to a file instead of to stdout',
+                    type: 'string',
+                    normalize: true
+                },
+                serverTimeout: {
+                    alias: 't',
+                    describe: 'Set the maximum time in seconds to wait for your server to launch and echo its URL to stdout',
+                    type: 'number',
+                    default: 5
+                }
+            })
+            .positional('script', {
+                describe:
+                    'The shell script the test suite will invoke for each test',
+                normalize: true,
+                type: 'string'
+            })
+            .demandOption(
+                'script',
+                'Provide the path to a shell script to use.'
+            )
+            .example(
+                '$0 ./run_upward_server.sh',
+                'Run the test suite against the server launched by `run-upward-server.sh`.'
+            )
+            .example(
+                "$0 --junit upward-output.xml -m '(graphql|template)' ./launch_upward.sh",
+                'Run only the test scenarios whose names contain '
+            )
+            .epilogue(
+                `For more information, see the "Quick Start" section of ${
+                    require('../package.json').homepage
+                }`
+            )
+            .help()
+            .fail(msg => {
+                if (
+                    (msg || e.toString()).startsWith(
+                        'Not enough non-option arguments'
+                    )
+                ) {
+                    die(
+                        'Provide the path to a shell script as an argument to upward-spec.'
+                    );
+                }
+            });
+    },
+    ({ script, junit, outputFile, serverTimeout, runOnlyMatching, _ }) => {
+        if (_.length > 0) {
+            die(`Unrecognized arguments: ${chalk.bold(_.join())}`);
+        }
+
+        const outputStream = outputFile ?
+            require('fs').createWriteStream(outputFile) :
+            process.stdout;
+        const reporter = junit ?
+            jUnitStream(outputStream) :
+            outputStream;
+
+        const runner = require('../');
+
+        runner({ script, serverTimeout, runOnlyMatching }).then(
+            tap => tap.pipe(reporter)
+        ).catch(e => {
+            const msg = e.stack || e.toString();
+            die(msg, 1, false);
+        })
+    }).argv;
