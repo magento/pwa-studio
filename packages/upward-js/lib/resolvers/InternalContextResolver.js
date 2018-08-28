@@ -1,4 +1,4 @@
-const AbstractResolver = require('../AbstractResolver');
+const AbstractResolver = require('./AbstractResolver');
 
 const illegalContextPropertyCharacters = /(^\.+)|[^\.\w]/;
 class InternalContextResolver extends AbstractResolver {

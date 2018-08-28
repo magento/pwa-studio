@@ -89,13 +89,13 @@ class ServerRunner {
 
             let outText = '';
             child.stdout.on('data', function waitingForUrl(chunk) {
-                outText = trim(outText + chunk.toString('utf8'));
-                try {
+                outText = (outText + chunk.toString('utf8')).trim();
+                if (outText.includes('\n')) {
                     const url = new URL(outText);
                     clearTimeout(launchTimeout);
-                    child.stdout.off(waitingForUrl);
+                    child.stdout.removeListener('data', waitingForUrl);
                     emitLaunchedServer(url);
-                } catch (e) {}
+                }
             });
         });
     }

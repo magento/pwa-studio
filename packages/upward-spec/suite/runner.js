@@ -36,6 +36,5 @@ module.exports = async function runner({
                 .then(() => scenario.runWith(t, serverRunner))
         );
     }
-    Promise.all(allTests).then(() => t.end(), e => t.threw(e));
     return t;
 };

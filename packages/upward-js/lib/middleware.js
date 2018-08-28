@@ -1,23 +1,25 @@
+const debug = require('debug')('upward-js:middleware');
 const { readFile: fsReadFile } = require('fs');
+const networkFetch = require('node-fetch');
+const { resolve: resolvePath } = require('path');
 const { promisify } = require('util');
-const readFile = promisify(fsReadFile);
+const IOAdapter = require('./IOAdapter');
 const jsYaml = require('js-yaml');
 const Context = require('./Context');
 const ResolverTree = require('./ResolverTree');
 const UpwardServerError = require('./UpwardServerError');
-const debug = require('debug')('upward-js:middleware');
+const readFile = promisify(fsReadFile);
 
 class UpwardMiddleware {
-    constructor(upwardPath, fs, fetch) {
+    constructor(upwardPath, io) {
         this.upwardPath = upwardPath;
         debug(`created for path ${upwardPath}`);
-        this.fs = fs;
-        this.fetch = fetch;
+        this.io = io;
     }
     async load() {
         const { upwardPath } = this;
         try {
-            this.yamlTxt = await readFile(upwardPath);
+            this.yamlTxt = await this.io.readFile(upwardPath);
         } catch (e) {
             throw new UpwardServerError(e, `unable to read file ${upwardPath}`);
         }
@@ -31,7 +33,7 @@ class UpwardMiddleware {
             );
         }
         debug(`parsed upward.yml file successfully: %o`, this.yaml);
-        this.resolverTree = new ResolverTree(this.yaml);
+        this.resolverTree = new ResolverTree(this.yaml, this.io);
         debug(`created resolverTree`);
         this.initialContext = Context.forStartup(process.env);
         await this.resolverTree.prepareForRequests(this.initialContext);
@@ -90,8 +92,14 @@ class UpwardMiddleware {
     }
 }
 
-module.exports = async function upwardJSMiddlewareFactory(upwardPath) {
-    const middleware = new UpwardMiddleware(upwardPath);
+module.exports = async function upwardJSMiddlewareFactory(upwardPath, io) {
+    const middleware = new UpwardMiddleware(upwardPath, io);
     await middleware.load();
     return middleware.getHandler();
 };
+
+UpwardMiddleware.DefaultIO = module.exports.DefaultIO = new IOAdapter({
+    readFile,
+    networkFetch,
+    resolvePath
+});

@@ -1,23 +1,33 @@
-const AbstractResolver = require('../AbstractResolver');
-const { createArgumentValidator, Types } = require('./ParameterValidation');
+const AbstractResolver = require('./AbstractResolver');
 
 class InlineResolver extends AbstractResolver {
-    constructor({ inline }) {
-        this.value = inline;
+    static get resolverType() {
+        return 'inline';
+    }
+    static get telltale() {
+        return 'inline';
+    }
+    static get paramTypes() {
+        return {
+            inline: {
+                type: 'any',
+                required: true
+            }
+        };
+    }
+    declareDerivations() {
+        return [];
+    }
+    shouldResolve(path) {
+        return path.pop() !== 'inline';
+    }
+    constructor(...args) {
+        super(...args);
         this.isPrimitive = typeof inline !== 'object';
     }
-    async register() {
-        if (!this.isPrimitive) return this.params.inline;
-    }
     async resolve(resolvedParams) {
-        return this.isPrimitive ? this.value : resolvedParams;
+        return this.isPrimitive ? this.params.inline : resolvedParams;
     }
 }
-
-InlineResolver.prototype.validate = createArgumentValidator({
-    inline: Types.any.isRequired
-});
-
-InlineResolver.telltale = 'inline';
 
 module.exports = InlineResolver;

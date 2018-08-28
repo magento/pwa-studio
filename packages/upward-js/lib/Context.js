@@ -17,26 +17,6 @@ const constants = new Set([
     ...Array.from({ length: 600 }, (_, i) => (i + 100).toString())
 ]);
 
-function dotLookup(obj, path, defaultValue = '') {
-    const segments = path.split('.');
-    const seen = new Set();
-    let node = obj;
-    let prop;
-    while (typeof node === 'object' && (prop = segments.shift())) {
-        if (!node.hasOwnProperty(prop)) {
-            return defaultValue;
-        }
-        if (seen.has(node)) {
-            throw new Error(
-                `Circular reference detected while looking up ${path}`
-            );
-        }
-        seen.add(node);
-        node = node[prop];
-    }
-    return node;
-}
-
 class Context {
     static forStartup(env) {
         return new Context({ env });

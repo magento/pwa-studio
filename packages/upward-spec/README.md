@@ -143,7 +143,7 @@ A spec-compliant UPWARD server should be configurable with a runtime parameter: 
 
 1. **Resolvers must execute only when needed.** If a request handling cycle moves through ConditionalResolver branches in a way that never requires a particular context value, then that context value must never be resolved during that execution cycle.
 
-1. **Resolvers must execute as concurrently as possible**. The maximum concurrency is left to the implementation. A compliant server detects when a Resolver uses a context value, and delays its execution until that context value becomes available, via [topological sorting][topological ordering] of resolver execution. To manually design serial workflows, you must use `after` properties in Resolvers to delay their execution until a given context value is available.
+1. **Resolvers must execute as concurrently as possible**. The maximum concurrency is left to the implementation. A compliant server detects when a Resolver uses a context value, and delays its execution until that context value becomes available, via [topological sorting][topological ordering] of resolver execution.
 
 See [EXECUTION_SCHEDULING_STRATEGIES.md](EXECUTION_SCHEDULING_STRATEGIES.md) for an example of how this could be implemented.
 
@@ -353,13 +353,11 @@ The above expression loads the content of the file `./productDetail.graphql` and
 | -------- | ---------- | ------- | ---------------------------------------------
 | `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the `upward.yml` file.
 | `charset`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
-| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. The values `graphql`, `mustache`, `yaml`, and `json` should force parsing the file as those respective file types.
-| `fallback` | `Resolved<string>` |         | If this value is set, it will be used if there is a problem reading or parsing the file. Errors will be swallowed instead of surfaced.
-| `after`    | `string` |         | Manually override topological sorting. If this value is set to a string, the resolver will not run until the named context value is set, or until all pending Resolvers have run.
+| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. The values `graphql`, `mustache`, and `json` should force parsing the file as those respective file types.
 
 #### Parsing
 
-An UPWARD server must support pre-parsing of `graphql`, `mustache`, `yaml`, and `json` files, but should support as many filetypes as possible and may support custom filetypes.
+An UPWARD server must support pre-parsing of `graphql`, `mustache`, and `json` files, but should support as many filetypes as possible and may support custom filetypes.
 
 #### FileResolver Error Handling
 
@@ -454,7 +452,6 @@ documentResult:
 | `headers`   | `Resolved<Object<string,string>>` |              | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the `headers` configuration can append to headers that can have multiple values.
 | `query`     | `Resolved<Query|string>` |                       | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.
 | `variables` | `Object<string,Resolved<any>>` | `{}`            | Variables to use with the GraphQL query. Must be an object with literal keys; the names of variables cannot be dynamically resolved, since a GraphQL query's possible variables are known ahead of time.
-| `after`    | `string` |         | Manually override topological sorting. If this value is set to a string, the resolver will not run until the named context value is set, or until all pending Resolvers have run.
 
 **ServiceResolvers always use GraphQL.** To obtain data from a non-GraphQL service, an UPWARD server may implement client-side directives which change the behavior of a GraphQL query, such as [apollo-link-rest][apollo-link-rest], and place the directives in the query itself. This should be transparent to the UPWARD server itself, which delegates the service call to a GraphQL client. If an UPWARD server's GraphQL client has no implementation for such a directive, then it must pass the query unmodified to the backing service to handle the directive.
 
@@ -546,7 +543,6 @@ The above configuration resolves into an HTML document displaying content from t
 | `engine`    | `Resolved<string>` |                             | _Required_. The label of the template engine to use.
 | `root`      | `Resolved<any>`    | _[context]_                 | The root value to use as context when rendering the template.
 | `template`   | `Resolved<Template|string>` |              | The template to render. Required by the `mustache` engine.
-| `after`    | `string` |         | Manually override topological sorting. If this value is set to a string, the resolver will not run until the named context value is set, or until all pending Resolvers have run.
 
 #### Template Engines
 
@@ -659,7 +655,6 @@ If some other configuration provides a different `status`, such as `200`, then n
 | --------- | ------------------ | ----------- | ---------------
 | `when`    | `Matcher[]` |      |             | _Required_. The list of matchers to test against context.
 | `default` | `Resolved<any>`    |             | _Required_. The default resolver to use if no matcher succeeds.
-| `after`    | `string` |         | Manually override topological sorting. If this value is set to a string, the resolver will not run until the named context value is set, or until all pending Resolvers have run.
 
 #### Matchers
 

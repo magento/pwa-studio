@@ -29,7 +29,7 @@ class ScenarioHarness {
         }
     }
     async runWith(parentTest, serverRunner) {
-        parentTest.teardown(() => this.teardown(parentTest));
+        parentTest.tearDown(() => this.teardown(parentTest));
         const phaseTester = new PhaseTester(
             this.upwardPath,
             this.env,

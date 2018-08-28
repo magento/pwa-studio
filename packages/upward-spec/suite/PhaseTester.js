@@ -17,7 +17,9 @@ class PhaseTester {
         test.plan(cases.length);
         await Promise.all(
             cases.map(async ({ env, crashed, exitCode, stderr, message }) => {
-                const server = await this.runServer(env);
+                const server = await this.runServer(env).catch(e =>
+                    test.threw(e)
+                );
                 const pattern = { crashed };
                 if (!isNaN(exitCode)) {
                     pattern.exitCode = exitCode;
@@ -27,13 +29,12 @@ class PhaseTester {
                 }
                 test.match(server, pattern, message);
             })
-        );
-        test.end();
+        ).catch(e => test.threw(e));
+        return test;
     }
     async respond(test, cases) {
-        const server = await this.runServer();
-        test.comment(server);
         test.plan(cases.length * 2);
+        const server = await this.runServer().catch(e => test.threw(e));
         await Promise.all(
             cases.map(
                 async ({ url, fetchOpts, responseProps, text, message }) => {
@@ -46,9 +47,9 @@ class PhaseTester {
                     test.match(responseText, text, message);
                 }
             )
-        );
-        await server.close();
-        test.end();
+        ).catch(e => test.threw(e));
+        test.tearDown(() => server.close());
+        return test;
     }
 }
 
