@@ -2,8 +2,8 @@ title: Peregrine
 entries:
   - label: Overview
     url: /peregrine/
-  
-  - label: Component Reference
+
+  - label: Components
     entries:
 
       - label: ContainerChild
@@ -17,6 +17,9 @@ entries:
 
       - label: List
         url: /peregrine/reference/list/
+
+      - label: REST API client
+        url: /peregrine/reference/rest-api-client/
 
       - label: Router
         url: /peregrine/reference/router/
