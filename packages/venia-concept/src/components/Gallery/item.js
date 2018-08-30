@@ -1,6 +1,7 @@
 import { Component, createElement } from 'react';
 import { string, number, shape, func, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
+import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -16,6 +17,9 @@ const ItemPlaceholder = ({ children, classes }) => (
         <div className={classes.price_pending} />
     </div>
 );
+
+// TODO: get productUrlSuffix from graphql when it is ready
+const productUrlSuffix = '.html';
 
 class GalleryItem extends Component {
     static propTypes = {
@@ -37,6 +41,7 @@ class GalleryItem extends Component {
             id: number.isRequired,
             name: string.isRequired,
             small_image: string.isRequired,
+            url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
                     amount: shape({
@@ -67,17 +72,18 @@ class GalleryItem extends Component {
             );
         }
 
-        const { name, price } = item;
+        const { name, price, url_key } = item;
+        const productLink = `/${url_key}${productUrlSuffix}`;
 
         return (
             <div className={classes.root}>
-                <div className={classes.images}>
+                <Link to={productLink} className={classes.images}>
                     {this.renderImagePlaceholder()}
                     {this.renderImage()}
-                </div>
-                <div className={classes.name}>
+                </Link>
+                <Link to={productLink} className={classes.name}>
                     <span>{name}</span>
-                </div>
+                </Link>
                 <div className={classes.price}>
                     <Price
                         value={price.regularPrice.amount.value}
