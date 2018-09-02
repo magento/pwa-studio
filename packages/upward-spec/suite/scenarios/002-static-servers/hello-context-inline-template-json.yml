@@ -1,0 +1,19 @@
+status:
+  resolver: inline
+  inline: 200
+headers:
+  resolver: inline
+  inline:
+    content-type:
+      resolver: inline
+      inline: application/json
+body:
+  resolver: template
+  engine: mustache
+  template:
+    resolver: inline
+    inline: '{ "greeting": "{{ salutation }}", "subject": "World" }'
+
+salutation:
+  resolver: inline
+  inline: 'Hello'

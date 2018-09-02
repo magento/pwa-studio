@@ -1,9 +1,0 @@
-status: 200
-headers:
-  inline:
-    content-type: text/plain
-body:
-  engine: mustache
-  root: env
-  template:
-    inline: 'Hello {{ADDRESSEE}}!!'
