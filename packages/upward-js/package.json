@@ -14,7 +14,8 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "test": "upward-spec ./test_spec.sh"
+    "test": "jest",
+    "test:spec": "upward-spec ./test_spec.sh"
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -43,7 +44,8 @@
   },
   "devDependencies": {
     "@magento/upward-spec": "*",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "jest": "^23.5.0"
   },
   "peerDependencies": {
     "express": "^4.16.3"

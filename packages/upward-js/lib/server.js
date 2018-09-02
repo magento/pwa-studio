@@ -12,10 +12,11 @@ module.exports = async function upwardServer({
     app.use(morgan(loggerConfig));
     app.use(await middleware(upwardPath, middleware.DefaultIO));
     if (bindLocal) {
-        const server = app.listen();
+        const server = app.listen(0, '0.0.0.0');
         if (logUrl) {
             server.on('listening', () => {
-                console.log(`http://${server.address()}:${server.port}`);
+                const { address, port } = server.address();
+                console.log(`http://${address}:${port}/`);
             });
         }
     } else {
