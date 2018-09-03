@@ -45,7 +45,8 @@
   "devDependencies": {
     "@magento/upward-spec": "*",
     "express": "^4.16.3",
-    "jest": "^23.5.0"
+    "jest": "^23.5.0",
+    "supertest": "^3.1.0"
   },
   "peerDependencies": {
     "express": "^4.16.3"

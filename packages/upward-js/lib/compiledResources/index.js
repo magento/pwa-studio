@@ -1,27 +1,23 @@
 const { extname } = require('path');
-const Compilers = {
-    GraphQL: require('./GraphQLCompiler'),
-    JSON: require('./JSONCompiler'),
-    Mustache: require('./MustacheCompiler')
+const CompiledResources = {
+    GraphQLDocument: require('./GraphQLDocument'),
+    JSONObject: require('./JSONObject'),
+    MustacheTemplate: require('./MustacheTemplate')
 };
 
-const passThroughCompiler = {
-    compile: source => source
-};
+const byExtension = new Map();
 
-const compilersByExtension = new Map();
-
-for (const Compiler of Object.values(Compilers)) {
-    for (const extension of Compiler.supportedExtensions) {
-        compilersByExtension.set(extension, Compiler);
+for (const Resource of Object.values(CompiledResources)) {
+    for (const extension of Resource.supportedExtensions) {
+        byExtension.set(extension, Resource);
     }
 }
 
-module.exports = Object.assign(Compilers, {
-    async forFileOfType(filenameOrExtension) {
+module.exports = Object.assign(CompiledResources, {
+    forFileOfType(filenameOrExtension) {
         const extension = filenameOrExtension.startsWith('.')
             ? filenameOrExtension
             : extname(filenameOrExtension);
-        return compilersByExtension.get(extension) || passThroughCompiler;
+        return byExtension.get(extension);
     }
 });

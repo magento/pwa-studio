@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const path = require('path');
 const tap = require('tap');
 
-const runServer = require('../../run-server.js');
+const runServer = require('../../runServer.js');
 
 tap.test('Static servers', async sub => {
     await sub.test('Static Hello World with only inline deps', async t => {

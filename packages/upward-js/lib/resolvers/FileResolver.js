@@ -1,5 +1,5 @@
 const AbstractResolver = require('./AbstractResolver');
-const { forFileOfType } = require('../compilers');
+const { forFileOfType } = require('../compiledResources');
 
 class FileResolver extends AbstractResolver {
     static get resolverType() {

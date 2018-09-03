@@ -48,8 +48,9 @@ const getResolverFor = moize.deep(function getResolverFor(config) {
     );
     if (!Resolver) {
         throw new Error(
-            `Could not detect resolver type from configuration %o`,
-            config
+            `Could not detect resolver type from configuration ${JSON.stringify(
+                config
+            )}`
         );
     }
     debug(`{ ${Resolver.telltale} } => ${Resolver.constructor.name}`);
@@ -60,33 +61,34 @@ const getParamValidatorFor = moize(function getParamValidatorFor(Resolver) {
     return new ParameterValidator(Resolver.paramTypes);
 });
 
-const makeResolverFactory = moize(io =>
-    moize.deep(params => {
-        const Resolver = getResolverFor(params);
-        const paramValidator = getParamValidatorFor(Resolver);
-        debug(`creating ${Resolver.name} with %o`, params);
-        const report = paramValidator.beforeResolved(params);
-        if (report.errors.length > 0) {
-            throw new Error(
-                `Invalid parameters for ${Resolver.name}: \n` +
-                    report.errors.map(
-                        ({ name, errors }) => `Parameter '${name}'
-    - ${errors.join('\n\t- ')}`
-                    )
-            );
-        }
-        return new Resolver({
-            io,
-            params,
-            paramValidator,
-            resolved: report.resolved
-        });
-    })
-);
+// const makeResolverFactory = moize(io =>
+//     moize.deep(params => {
+//         const Resolver = getResolverFor(params);
+//         const paramValidator = getParamValidatorFor(Resolver);
+//         debug(`creating ${Resolver.name} with %o`, params);
+//         const report = paramValidator.beforeResolved(params);
+//         if (report.errors.length > 0) {
+//             throw new Error(
+//                 `Invalid parameters for ${Resolver.name}: \n` +
+//                     report.errors.map(
+//                         ({ name, errors }) => `Parameter '${name}'
+//     - ${errors.join('\n\t- ')}`
+//                     )
+//             );
+//         }
+//         return new Resolver({
+//             io,
+//             params,
+//             paramValidator,
+//             resolved: report.resolved
+//         });
+//     })
+// );
 
-const isResolver = moize(thing => thing instanceof AbstractResolver);
+// const isResolver = moize(thing => thing instanceof AbstractResolver);
 
 module.exports = Object.assign(PublicResolvers, {
-    makeResolverFactory,
-    isResolver
+    detectFromArguments
+    // makeResolverFactory,
+    // isResolver
 });

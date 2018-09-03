@@ -51,10 +51,10 @@ class ConditionalResolver extends AbstractResolver {
         if (match) {
             return match.use;
         }
-        const nextMatcher = this.params.matchers[this.matchIndex];
-        if (nextMatcher) {
-            return {};
-        }
+        // const nextMatcher = this.params.matchers[this.matchIndex];
+        // if (nextMatcher) {
+        //     return {};
+        // }
         return this.default;
     }
 }

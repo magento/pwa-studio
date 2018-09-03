@@ -19,7 +19,7 @@ module.exports = async function upwardServer({
                 console.log(`http://${address}:${port}/`);
             });
         }
-    } else {
-        return app;
+        return { app, server };
     }
+    return { app };
 };

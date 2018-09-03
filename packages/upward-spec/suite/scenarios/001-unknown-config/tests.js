@@ -1,7 +1,7 @@
 const fs = require('fs');
 const tap = require('tap');
 
-const runServer = require('../../run-server.js');
+const runServer = require('../../runServer.js');
 
 tap.test('Unknown or unreadable config', async sub => {
     await Promise.all([

@@ -70,6 +70,7 @@ class ParameterValidator {
                 });
             }
         });
+        return report;
     }
     resolveDependencies(params) {
         return this.validate(params, ({ resolved, param, name, test }) => {
