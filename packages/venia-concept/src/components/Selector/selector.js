@@ -26,11 +26,11 @@ class Selector extends Component {
             <ul className={classes.root}>
                 {
                     options.map(( props ) => {
-                      
+
                         return (
                             <Section
                                 value={props.code}
-                                onClick={ev => handleSelection(props) }
+                                onClick={() => handleSelection(props) }
                                 key={props.code}
                                 label={"Select"}
                                 selectedOption={selectedOption === props.title}
