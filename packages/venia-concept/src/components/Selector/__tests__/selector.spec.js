@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 const classes = { root: 'foo' };
 const options = [
     {
-        code: 'food',
+        code: 'foo',
         title: 'bar'
     },
     {
