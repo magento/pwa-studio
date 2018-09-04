@@ -207,14 +207,6 @@ async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     });
 }
 
-async function postCartPart(guestCartId, subResource) {
-    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
-        cache: 'default',
-        method: 'POST'
-    });
-
-}
-
 async function getGuestCartId(dispatch, getState) {
     const { cart } = getState();
 
