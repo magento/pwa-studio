@@ -10,7 +10,6 @@ class Selector extends Component {
             shape({
                 code: string,
                 title: string,
-                carrier_title: string,
             })
         ),
         classes: shape({
