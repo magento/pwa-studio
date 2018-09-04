@@ -13,8 +13,8 @@ class Form extends Component {
         super(props);
         this.state = {
             updatePayment: false,
-            updateShipping: false,
-        }
+            updateShipping: false
+        };
     }
 
     static propTypes = {
@@ -29,141 +29,165 @@ class Form extends Component {
     };
 
     get paymentMethodSelector() {
-      const { paymentMethod, availablePaymentMethods } = this.props;
+        const { paymentMethod, availablePaymentMethods } = this.props;
 
         return !!this.state.updatePayment ? (
-              <Selector
+            <Selector
                 options={availablePaymentMethods}
                 selectedOption={paymentMethod}
-                handleSelection={(code) => this.modifyPaymentMethod(code)}
-              >
-              </Selector>
+                handleSelection={code => this.modifyPaymentMethod(code)}
+            />
         ) : null;
     }
 
     get shippingMethodSelector() {
-      const { shippingMethod, availableShippingMethods } = this.props;
+        const { shippingMethod, availableShippingMethods } = this.props;
 
-      return !!this.state.updateShipping ? (
-          <Selector
-            options={availableShippingMethods}
-            selectedOption={shippingMethod}
-            handleSelection={(code) => this.modifyShippingMethod(code)}
-          >
-          </Selector>
-      ) : null;
+        return !!this.state.updateShipping ? (
+            <Selector
+                options={availableShippingMethods}
+                selectedOption={shippingMethod}
+                handleSelection={code => this.modifyShippingMethod(code)}
+            />
+        ) : null;
     }
 
     get cartOptions() {
-      const { classes } = this.props;
-      const { paymentMethod, shippingMethod, availableShippingMethods, isShippingInformationReady, cart } = this.props;
+        const { classes } = this.props;
+        const {
+            paymentMethod,
+            shippingMethod,
+            availableShippingMethods,
+            isShippingInformationReady,
+            cart
+        } = this.props;
 
-      const shipToText = this.isShippingInformationReady ? 'Complete' : 'Click to fill out';
-      const paymentMethodText = paymentMethod ? paymentMethod : 'No payment methods available';
-      let shippingMethodtext = !!availableShippingMethods ? 'Click to fill out' : 'Enter Ship To address';
-      shippingMethodtext = ( isShippingInformationReady && !availableShippingMethods ) ? 'Loading shipping methods...' : shippingMethodtext;
-      shippingMethodtext = ( !!shippingMethod && !!shippingMethodtext) ? shippingMethod : shippingMethodtext;
+        const shipToText = this.isShippingInformationReady
+            ? 'Complete'
+            : 'Click to fill out';
+        const paymentMethodText = paymentMethod
+            ? paymentMethod
+            : 'No payment methods available';
+        let shippingMethodtext = !!availableShippingMethods
+            ? 'Click to fill out'
+            : 'Enter Ship To address';
+        shippingMethodtext =
+            isShippingInformationReady && !availableShippingMethods
+                ? 'Loading shipping methods...'
+                : shippingMethodtext;
+        shippingMethodtext =
+            !!shippingMethod && !!shippingMethodtext
+                ? shippingMethod
+                : shippingMethodtext;
 
-      return !this.state.updatePayment && !this.state.updateShipping ? (
-          <div className={classes.body}>
-              <Section
-                  label="Ship To"
-                  onClick={this.showShippingAddressSelector}
-              >
-                  <span>{shipToText}</span>
-              </Section>
-              <Section
-                  label="Pay With"
-                  onClick={this.showPaymentMethodSelector}
-              >
-                  <span>{paymentMethodText}</span>
-              </Section>
-              <Section
-                  disabled={!availableShippingMethods}
-                  label="Shipping Method"
-                  onClick={this.showShippingMethodSelector}
-              >
-                  <span>{shippingMethodtext}</span>
-              </Section>
-              <div className={classes.footer}>
-                  <Subtotal
-                      items_qty={cart.details.items_qty}
-                      currencyCode={cart.totals.base_currency_code}
-                      subtotal={cart.totals.subtotal} />
-              </div>
-          </div>
+        return !this.state.updatePayment && !this.state.updateShipping ? (
+            <div className={classes.body}>
+                <Section
+                    label="Ship To"
+                    onClick={this.showShippingAddressSelector}
+                >
+                    <span>{shipToText}</span>
+                </Section>
+                <Section
+                    label="Pay With"
+                    onClick={this.showPaymentMethodSelector}
+                >
+                    <span>{paymentMethodText}</span>
+                </Section>
+                <Section
+                    disabled={!availableShippingMethods}
+                    label="Shipping Method"
+                    onClick={this.showShippingMethodSelector}
+                >
+                    <span>{shippingMethodtext}</span>
+                </Section>
+                <div className={classes.footer}>
+                    <Subtotal
+                        items_qty={cart.details.items_qty}
+                        currencyCode={cart.totals.base_currency_code}
+                        subtotal={cart.totals.subtotal}
+                    />
+                </div>
+            </div>
         ) : null;
     }
 
     render() {
-      const {
-        classes,
-        ready,
-        status,
-        submitOrder,
-      } = this.props;
+        const { classes, ready, status, submitOrder } = this.props;
 
-      const { shippingMethodSelector, paymentMethodSelector, cartOptions } = this;
+        const {
+            shippingMethodSelector,
+            paymentMethodSelector,
+            cartOptions
+        } = this;
 
-      return (
-        <div className={classes.root}>
-          {shippingMethodSelector}
-          {paymentMethodSelector}
-          {cartOptions}
-          <div className={classes.footer}>
-              <SubmitButton
-                  ready={ready}
-                  status={status}
-                  submitOrder={submitOrder}
-              />
-          </div>
-        </div>
-      )
+        return (
+            <div className={classes.root}>
+                {shippingMethodSelector}
+                {paymentMethodSelector}
+                {cartOptions}
+                <div className={classes.footer}>
+                    <SubmitButton
+                        ready={ready}
+                        status={status}
+                        submitOrder={submitOrder}
+                    />
+                </div>
+            </div>
+        );
     }
 
     componentDidMount() {
         // Set default payment method
-        this.setDefaultOrderMethod(this.props.availablePaymentMethods, this.modifyPaymentMethod);
+        this.setDefaultOrderMethod(
+            this.props.availablePaymentMethods,
+            this.modifyPaymentMethod
+        );
     }
 
     setDefaultOrderMethod = (orderMethodsAvailable, callback) => {
-        if ( !!orderMethodsAvailable && !!orderMethodsAvailable[0] ) { callback(orderMethodsAvailable[0]) };
-    }
+        if (!!orderMethodsAvailable && !!orderMethodsAvailable[0]) {
+            callback(orderMethodsAvailable[0]);
+        }
+    };
 
-    modifyPaymentMethod = (paymentMethod) => {
-        this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod)
+    modifyPaymentMethod = paymentMethod => {
+        this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod);
         this.setState({
             updatePayment: false
-        })
+        });
     };
 
     showShippingAddressSelector = () => {
         this.props.submitMockShippingAddress().then(() => {
             this.props.getShippingMethods().then(() => {
                 // Set default shipping method
-                this.setDefaultOrderMethod(this.props.availableShippingMethods, this.modifyShippingMethod);
-            })
+                this.setDefaultOrderMethod(
+                    this.props.availableShippingMethods,
+                    this.modifyShippingMethod
+                );
+            });
         });
     };
 
-    modifyShippingMethod = (shippingMethod) => {
+    modifyShippingMethod = shippingMethod => {
         this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
         this.setState({
             updateShipping: false
-        })
+        });
     };
 
     showPaymentMethodSelector = () => {
         this.setState({
             updatePayment: true
-        })
-    }
+        });
+    };
 
     showShippingMethodSelector = () => {
         this.setState({
             updateShipping: true
-        })
-    }
+        });
+    };
 }
 
 export default classify(defaultClasses)(Form);

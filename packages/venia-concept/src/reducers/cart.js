@@ -39,18 +39,14 @@ export default async function makeCartReducer() {
                 };
             }
             case 'GET_SHIPPING_METHODS': {
-
                 return {
                     ...state,
                     ...payload,
-                    shippingMethods:
-                        payload.shippingMethods.map( method => ({
-                            ...method,
-                            code: method.carrier_code,
-                            title: method.carrier_title
-                        })
-                  )
-
+                    shippingMethods: payload.shippingMethods.map(method => ({
+                        ...method,
+                        code: method.carrier_code,
+                        title: method.carrier_title
+                    }))
                 };
             }
 

@@ -12,7 +12,8 @@ import {
 } from 'src/actions/checkout';
 import CheckoutFlow from './flow';
 
-const isReady = checkout => !!checkout.shippingInformation && !!checkout.paymentMethod;
+const isReady = checkout =>
+    !!checkout.shippingInformation && !!checkout.paymentMethod;
 const isShippingInformationReady = checkout => !!checkout.shippingInformation;
 
 class CheckoutWrapper extends Component {

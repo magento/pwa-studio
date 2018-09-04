@@ -1,15 +1,15 @@
 import { Component, createElement } from 'react';
 import { arrayOf, shape, string, func } from 'prop-types';
-import Section from '../Checkout/section'
-import classify from 'src/classify'
-import defaultClasses from './selector.css'
+import Section from '../Checkout/section';
+import classify from 'src/classify';
+import defaultClasses from './selector.css';
 
 class Selector extends Component {
     static propTypes = {
         options: arrayOf(
             shape({
                 code: string,
-                title: string,
+                title: string
             })
         ),
         classes: shape({
@@ -20,30 +20,31 @@ class Selector extends Component {
     };
 
     render() {
-        const { options, handleSelection, classes, selectedOption } = this.props;
+        const {
+            options,
+            handleSelection,
+            classes,
+            selectedOption
+        } = this.props;
 
         return (
             <ul className={classes.root}>
-                {
-                    options.map(( props ) => {
-
-                        return (
-                            <Section
-                                value={props.code}
-                                onClick={() => handleSelection(props) }
-                                key={props.code}
-                                label={"Select"}
-                                selectedOption={selectedOption === props.title}
-                            >
-                                { props.title }
-                            </Section>
-                        )
-                    })
-                }
+                {options.map(props => {
+                    return (
+                        <Section
+                            value={props.code}
+                            onClick={() => handleSelection(props)}
+                            key={props.code}
+                            label={'Select'}
+                            selectedOption={selectedOption === props.title}
+                        >
+                            {props.title}
+                        </Section>
+                    );
+                })}
             </ul>
-        )
+        );
     }
-
 }
 
 export default classify(defaultClasses)(Selector);

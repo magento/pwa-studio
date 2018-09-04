@@ -2,7 +2,6 @@ import { createElement } from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Section from '../../Checkout/section'
 import Selector from '../selector';
 
 configure({ adapter: new Adapter() });
@@ -26,7 +25,9 @@ test('renders if `options` is an empty array', () => {
 });
 
 test('renders if `options` is an array of objects', () => {
-    const wrapper = shallow(<Selector classes={classes} options={options} />).dive();
+    const wrapper = shallow(
+        <Selector classes={classes} options={options} />
+    ).dive();
 
     expect(wrapper.hasClass(classes.root)).toBe(true);
 });
@@ -43,19 +44,21 @@ test('renders `Sections` with correct `value` prop', () => {
     const children = wrapper.find('Section');
 
     children.forEach((node, i) => {
-      expect(node.props().value).toEqual(options[i].code)
-    })
+        expect(node.props().value).toEqual(options[i].code);
+    });
 });
 
 test('calls `handleSelection` on `Section` click', () => {
     let handleSelection = jest.fn();
 
-    const wrapper = mount(<Selector options={options} handleSelection={handleSelection} />);
+    const wrapper = mount(
+        <Selector options={options} handleSelection={handleSelection} />
+    );
     const children = wrapper.find('Section');
 
-    children.forEach((node, i) => {
-      node.simulate('click')
-    })
+    children.forEach(node => {
+        node.simulate('click');
+    });
 
     expect(handleSelection).toHaveBeenCalledTimes(children.length);
 });

@@ -23,43 +23,44 @@ const mockAddress = {
 
 const enterSubflow = (actionType, payload) =>
     async function thunk(dispatch) {
-      dispatch({ type: actionType,
-                 payload
-               });
+        dispatch({
+            type: actionType,
+            payload
+        });
     };
 
-const submitMockShippingAddress = () => async function thunk(dispatch) {
-    try {
-        const guestCartId = await getGuestCartId(...arguments);
-        const payload = await request(
-            `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
-            {
-                method: 'POST',
-                // TODO: replace with real data from cart state
-                body: JSON.stringify({
-                    addressInformation: {
-                        billing_address: mockAddress,
-                        shipping_address: mockAddress,
-                        shipping_method_code: 'flatrate',
-                        shipping_carrier_code: 'flatrate'
-                    }
-                })
-            }
-        );
+const submitMockShippingAddress = () =>
+    async function thunk(dispatch) {
+        try {
+            const guestCartId = await getGuestCartId(...arguments);
+            const payload = await request(
+                `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
+                {
+                    method: 'POST',
+                    // TODO: replace with real data from cart state
+                    body: JSON.stringify({
+                        addressInformation: {
+                            billing_address: mockAddress,
+                            shipping_address: mockAddress,
+                            shipping_method_code: 'flatrate',
+                            shipping_carrier_code: 'flatrate'
+                        }
+                    })
+                }
+            );
 
-    dispatch({ type: 'SUBMIT_SHIPPING_INFORMATION',
-               payload
-             });
-
-    } catch (error) {
-        dispatch({
-            type: 'REJECT_SHIPPING_INFORMATION',
-            payload: error,
-            error: true
-        });
-    }
-  }
-
+            dispatch({
+                type: 'SUBMIT_SHIPPING_INFORMATION',
+                payload
+            });
+        } catch (error) {
+            dispatch({
+                type: 'REJECT_SHIPPING_INFORMATION',
+                payload: error,
+                error: true
+            });
+        }
+    };
 
 const resetCheckout = () => async dispatch => {
     await closeDrawer()(dispatch);
@@ -105,4 +106,10 @@ const submitOrder = () =>
         }
     };
 
-export { enterSubflow, requestOrder, resetCheckout, submitOrder, submitMockShippingAddress };
+export {
+    enterSubflow,
+    requestOrder,
+    resetCheckout,
+    submitOrder,
+    submitMockShippingAddress
+};

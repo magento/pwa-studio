@@ -110,7 +110,6 @@ const getCartDetails = (payload = {}) => {
                 })
             ]);
 
-
             dispatch({
                 type: 'GET_CART_DETAILS',
                 payload: { details, totals, paymentMethods }
@@ -141,38 +140,36 @@ const getShippingMethods = () => {
         const [dispatch] = args;
         const guestCartId = await getGuestCartId(...args);
 
-    try {
-      const shippingMethods = await fetchCartPart({
-        guestCartId,
-        forceRefresh: true,
-        subResource: 'shipping-methods'
-      })
+        try {
+            const shippingMethods = await fetchCartPart({
+                guestCartId,
+                forceRefresh: true,
+                subResource: 'shipping-methods'
+            });
 
-      dispatch({
-          type: 'GET_SHIPPING_METHODS',
-          payload: { shippingMethods }
-      });
+            dispatch({
+                type: 'GET_SHIPPING_METHODS',
+                payload: { shippingMethods }
+            });
+        } catch (error) {
+            // THIS IS NOT TESTED
+            const { response } = error;
 
-    } catch (error) { // THIS IS NOT TESTED
-        const { response } = error;
+            if (response && response.status === 404) {
+                // guest cart expired!
+                await dispatch(createGuestCart());
+                // re-execute this thunk
+                return thunk(...args);
+            }
 
-        if (response && response.status === 404) {
-            // guest cart expired!
-            await dispatch(createGuestCart());
-            // re-execute this thunk
-            return thunk(...args);
+            dispatch({
+                type: 'GET_SHIPPING_METHODS',
+                payload: error,
+                error: true
+            });
         }
-
-        dispatch({
-            type: 'GET_SHIPPING_METHODS',
-            payload: error,
-            error: true
-        });
-    }
-  }
-
-
-}
+    };
+};
 
 const toggleCart = () =>
     async function thunk(...args) {
@@ -224,4 +221,10 @@ async function getGuestCartId(dispatch, getState) {
     return getState().cart.guestCartId;
 }
 
-export { addItemToCart, getCartDetails, getGuestCartId, toggleCart, getShippingMethods };
+export {
+    addItemToCart,
+    getCartDetails,
+    getGuestCartId,
+    toggleCart,
+    getShippingMethods
+};

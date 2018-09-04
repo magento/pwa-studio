@@ -74,7 +74,8 @@ class MiniCart extends Component {
             <Subtotal
                 items_qty={cart.details.items_qty}
                 currencyCode={cartCurrencyCode}
-                subtotal={cart.totals.subtotal} />
+                subtotal={cart.totals.subtotal}
+            />
         ) : null;
     }
 

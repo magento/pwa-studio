@@ -72,7 +72,7 @@ class Flow extends Component {
                         shippingMethod={shippingMethod}
                         getShippingMethods={getShippingMethods}
                         availableShippingMethods={availableShippingMethods}
-                        isShippingInformationReady = {isShippingInformationReady}
+                        isShippingInformationReady={isShippingInformationReady}
                         cart={cart}
                     />
                 );

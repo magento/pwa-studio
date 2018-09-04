@@ -1,7 +1,7 @@
 import { Component, createElement } from 'react';
 import { string, number } from 'prop-types';
-import classify from 'src/classify'
-import defaultClasses from './subtotal.css'
+import classify from 'src/classify';
+import defaultClasses from './subtotal.css';
 import { Price } from '@magento/peregrine';
 
 class Subtotal extends Component {
@@ -12,11 +12,7 @@ class Subtotal extends Component {
     };
 
     render() {
-        const {
-            items_qty,
-            currencyCode,
-            subtotal
-        } = this.props;
+        const { items_qty, currencyCode, subtotal } = this.props;
 
         const classes = defaultClasses;
 
@@ -29,15 +25,11 @@ class Subtotal extends Component {
                     </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
-                    <Price
-                        currencyCode={currencyCode}
-                        value={subtotal}
-                    />
+                    <Price currencyCode={currencyCode} value={subtotal} />
                 </dd>
             </dl>
         );
     }
-
 }
 
 export default classify(defaultClasses)(Subtotal);

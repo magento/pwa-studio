@@ -1,6 +1,6 @@
 .root {
-  animation-name: enter;
-  animation-duration: .2s;
+    animation-name: enter;
+    animation-duration: 0.2s;
 }
 
 @keyframes enter {

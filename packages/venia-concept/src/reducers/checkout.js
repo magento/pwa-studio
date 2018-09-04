@@ -46,13 +46,13 @@ const reducer = (state = initialState, { payload, type }) => {
                 ...state,
                 paymentMethod: payload.code,
                 paymentTitle: payload.title
-            }
+            };
         }
         case 'SUBMIT_SHIPPING_METHOD': {
-          return {
-              ...state,
-              shippingMethod: payload.carrier_title
-          }
+            return {
+                ...state,
+                shippingMethod: payload.carrier_title
+            };
         }
         case 'SUBMIT_ORDER': {
             return {
