@@ -13,6 +13,9 @@ class Selector extends Component {
                 carrier_title: string,
             })
         ),
+        classes: shape({
+            root: string
+        }),
         selectedOption: string,
         handleSelection: func
     };

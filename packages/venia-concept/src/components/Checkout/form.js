@@ -80,7 +80,7 @@ class Form extends Component {
               </Section>
               <Section
                   disabled={!availableShippingMethods}
-                  label="Get It By"
+                  label="Shipping Method"
                   onClick={this.showShippingMethodSelector}
               >
                   <span>{shippingMethodtext}</span>
