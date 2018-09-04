@@ -38,11 +38,24 @@ test('renders correct amount of children from `options` as `Sections`', () => {
     expect(children).toHaveLength(options.length);
 });
 
+test('renders `Sections` with correct `value` prop', () => {
+    const wrapper = mount(<Selector options={options} />);
+    const children = wrapper.find('Section');
+
+    children.forEach((node, i) => {
+      expect(node.props().value).toEqual(options[i].code)
+    })
+});
+
 test('calls `handleSelection` on `Section` click', () => {
     let handleSelection = jest.fn();
 
     const wrapper = mount(<Selector options={options} handleSelection={handleSelection} />);
-    const children = wrapper.find('Section').first().simulate('click');
+    const children = wrapper.find('Section');
 
-    expect(handleSelection).toHaveBeenCalledTimes(1);
+    children.forEach((node, i) => {
+      node.simulate('click')
+    })
+
+    expect(handleSelection).toHaveBeenCalledTimes(children.length);
 });
