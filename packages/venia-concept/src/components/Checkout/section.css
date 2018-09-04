@@ -1,5 +1,6 @@
 .root {
     display: block;
+    width: 100%;
 }
 .root:focus {
     background-image: radial-gradient(circle, rgb(var(--venia-grey)), white);

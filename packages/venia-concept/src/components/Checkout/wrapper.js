@@ -1,7 +1,6 @@
 import { Component, createElement } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, shape, string } from 'prop-types';
-import { shippingMethods } from './mockData';
 import { getShippingMethods } from 'src/actions/cart';
 
 import {
