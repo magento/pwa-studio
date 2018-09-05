@@ -60,7 +60,7 @@ test('compiles Mustache ', async () => {
 test('loads Mustache partials using io', async () => {
     const io = {
         readFile: jest.fn(
-            (name, encoding) =>
+            async (name, encoding) =>
                 `<h2>Hello {{addressee}}, I am the template called ${name}!</h2>`
         )
     };
@@ -76,19 +76,19 @@ test('loads Mustache partials using io', async () => {
     await expect(template.render({ addressee: 'unit test' })).resolves
         .toMatchInlineSnapshot(`
 "<h1>Important announcements!</h1>
-        <h2>Hello unit test, I am the template called firstPartial!</h2>        <h2>Hello unit test, I am the template called secondPartial!</h2>"
+        <h2>Hello unit test, I am the template called firstPartial.mst!</h2>        <h2>Hello unit test, I am the template called secondPartial.mst!</h2>"
 `);
     expect(io.readFile).toHaveBeenCalledTimes(2);
     expect(io.readFile.mock.calls).toMatchObject([
-        ['firstPartial', 'utf8'],
-        ['secondPartial', 'utf8']
+        ['firstPartial.mst', 'utf8'],
+        ['secondPartial.mst', 'utf8']
     ]);
 });
 
 test('loads descendent partials using io', async () => {
     const io = {
-        readFile: jest.fn((name, encoding) => {
-            if (name === 'subPartial') {
+        readFile: jest.fn(async (name, encoding) => {
+            if (name.indexOf('subPartial') !== -1) {
                 return `I'm a subpartial, {{addressee}}!!`;
             }
             return `<h2>Hello {{addressee}}, I am the template called ${name}, and I have sub-partials!</h2> {{> subPartial}}`;
@@ -106,12 +106,12 @@ test('loads descendent partials using io', async () => {
     await expect(template.render({ addressee: 'unit test' })).resolves
         .toMatchInlineSnapshot(`
 "<h1>Important announcements!</h1>
-    <h2>Hello unit test, I am the template called firstPartial, and I have sub-partials!</h2> I'm a subpartial, unit test!!    <h2>Hello unit test, I am the template called secondPartial, and I have sub-partials!</h2> I'm a subpartial, unit test!!"
+    <h2>Hello unit test, I am the template called firstPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!    <h2>Hello unit test, I am the template called secondPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!"
 `);
     expect(io.readFile).toHaveBeenCalledTimes(3);
     expect(io.readFile.mock.calls).toMatchObject([
-        ['firstPartial', 'utf8'],
-        ['secondPartial', 'utf8'],
-        ['subPartial', 'utf8']
+        ['firstPartial.mst', 'utf8'],
+        ['secondPartial.mst', 'utf8'],
+        ['subPartial.mst', 'utf8']
     ]);
 });

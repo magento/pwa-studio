@@ -119,12 +119,12 @@ test('handles deep template resolvers, can return json', async () => {
     );
 });
 
-test.skip('makes GQL queries');
+// test.skip('makes GQL queries');
 
-test.skip('conditionally resolves');
+// test.skip('conditionally resolves');
 
-test.skip('conditional resolution falls through in order');
+// test.skip('conditional resolution falls through in order');
 
-test.skip('conditional resolution yields to default');
+// test.skip('conditional resolution yields to default');
 
-test.skip('responds to request data');
+// test.skip('responds to request data');

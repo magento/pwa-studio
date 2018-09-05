@@ -1,11 +1,13 @@
 const { Server } = require('http');
 const supertest = require('supertest');
-const { getScenario } = require('@magento/upward-spec');
+const { getScenarios } = require('@magento/upward-spec');
 const upwardServer = require('../server');
 
 let upwardPath;
 beforeAll(async () => {
-    upwardPath = await getScenario(/static\-servers/, /hello\-inline/);
+    upwardPath = (await getScenarios(/static\-servers/)).getResourcePath(
+        'hello-inline-only.yml'
+    );
 });
 
 test('returns app alone if bindLocal is false', async () => {
