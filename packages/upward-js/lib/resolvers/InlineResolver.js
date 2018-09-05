@@ -1,4 +1,13 @@
+const debug = require('debug')('upward-js:InlineResolver');
+const {
+    fromPairs,
+    isBoolean,
+    isFinite,
+    isString,
+    isPlainObject
+} = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
+const isPrimitive = require('../isPrimitive');
 
 class InlineResolver extends AbstractResolver {
     static get resolverType() {
@@ -7,26 +16,23 @@ class InlineResolver extends AbstractResolver {
     static get telltale() {
         return 'inline';
     }
-    static get paramTypes() {
-        return {
-            inline: {
-                type: 'any',
-                required: true
-            }
-        };
-    }
-    declareDerivations() {
-        return [];
-    }
-    shouldResolve(path) {
-        return path.pop() !== 'inline';
-    }
-    constructor(...args) {
-        super(...args);
-        this.isPrimitive = typeof inline !== 'object';
-    }
-    async resolve(resolvedParams) {
-        return this.isPrimitive ? this.params.inline : resolvedParams;
+    async resolve({ inline }) {
+        if (isPrimitive(inline)) {
+            debug('quick-resolving primitive %s', inline);
+            return inline;
+        } else if (isPlainObject(inline)) {
+            debug('resolving object %o', inline);
+            const resolvedEntries = await Promise.all(
+                Object.keys(inline).map(async key => [
+                    key,
+                    await this.visitor.upward(inline, key)
+                ])
+            );
+            return fromPairs(resolvedEntries);
+        }
+        throw new Error(
+            `Internal error: Invalid value supplied to InlineResolver: ${inline}`
+        );
     }
 }
 

@@ -1,3 +1,4 @@
+const debug = require('debug')('upward-js:AbstractCompiledResource');
 class AbstractCompiledResource {
     static get supportedExtensions() {
         throw new Error(
@@ -12,7 +13,7 @@ class AbstractCompiledResource {
         }
         if (typeof source !== 'string') {
             throw new Error(
-                'Must construct a CompiledResource with string source.'
+                `Must construct a CompiledResource with string source. Was supplied a ${typeof source}: ${source}`
             );
         }
         this.source = source;

@@ -1,7 +1,6 @@
 const { extname } = require('path');
 const CompiledResources = {
     GraphQLDocument: require('./GraphQLDocument'),
-    JSONObject: require('./JSONObject'),
     MustacheTemplate: require('./MustacheTemplate')
 };
 

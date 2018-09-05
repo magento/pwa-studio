@@ -1,14 +1,8 @@
 const debug = require('debug')('upward-js:middleware');
-const { readFile: fsReadFile } = require('fs');
-const networkFetch = require('node-fetch');
-const { resolve: resolvePath } = require('path');
-const { promisify } = require('util');
-const IOAdapter = require('./IOAdapter');
 const jsYaml = require('js-yaml');
-const Context = require('./Context');
-const ResolverTree = require('./ResolverTree');
 const UpwardServerError = require('./UpwardServerError');
-const readFile = promisify(fsReadFile);
+const IOAdapter = require('./IOAdapter');
+const buildResponse = require('./buildResponse');
 
 class UpwardMiddleware {
     constructor(upwardPath, io) {
@@ -25,54 +19,47 @@ class UpwardMiddleware {
         }
         debug(`read upward.yml file successfully`);
         try {
-            this.yaml = await jsYaml.safeLoad(this.yamlTxt);
+            this.definition = await jsYaml.safeLoad(this.yamlTxt);
         } catch (e) {
             throw new UpwardServerError(
                 e,
                 `error parsing ${upwardPath} contents: \n\n${this.yamlTxt}`
             );
         }
-        debug(`parsed upward.yml file successfully: %o`, this.yaml);
-        this.resolverTree = new ResolverTree(this.yaml, this.io);
-        debug(`created resolverTree`);
-        this.initialContext = Context.forStartup(process.env);
-        await this.resolverTree.prepareForRequests(this.initialContext);
-        debug(`resolverTree prepared for requests`);
+        debug(`parsed upward.yml file successfully: %o`, this.definition);
     }
     async getHandler() {
-        debug('returned handler');
         return async (req, res, next) => {
-            const context = Context.forRequest(
-                this.initialContext,
-                req.originalUrl,
-                req.headers
-            );
-            debug('created base request context: %o', context.toJSON());
+            const errors = [];
+            let response;
             try {
-                await this.resolverTree.resolveToResponse(context);
+                response = await buildResponse(
+                    this.io,
+                    process.env,
+                    this.definition,
+                    req
+                );
+                if (isNaN(response.status)) {
+                    errors.push(
+                        `Non-numeric status! Status was '${response.status}'`
+                    );
+                }
+                if (typeof response.headers !== 'object') {
+                    errors.push(
+                        `Resolved with a non-compliant headers object! Headers are: ${
+                            response.headers
+                        }`
+                    );
+                }
+                if (typeof response.body !== 'string') {
+                    errors.push(
+                        `Resolved with a non-string body! Body was '${
+                            response.body
+                        }'`
+                    );
+                }
             } catch (e) {
-                res.status(500).send(e.stack);
-                next();
-            }
-            debug('resolved response context: %o', context.toJSON());
-            let errors = [];
-            const status = Number(context.get('status'));
-            if (isNaN(status)) {
-                errors.push(
-                    `Non-numeric status! Status was '${context.status}'`
-                );
-            }
-            const headers = context.get('headers');
-            if (typeof headers !== 'object') {
-                errors.push(
-                    `Resolved with a non-compliant headers object! Headers are: ${headers}`
-                );
-            }
-            const body = context.get('body');
-            if (typeof body !== 'string') {
-                errors.push(
-                    `Resolved with a non-string body! Body was '${body}'`
-                );
+                errors.push(e);
             }
             if (errors.length > 0) {
                 res.status(500).send(
@@ -82,24 +69,25 @@ class UpwardMiddleware {
                         )}`
                     ).toString()
                 );
-                next();
+            } else {
+                debug('status, headers, and body valid. responding');
+                res.status(response.status)
+                    .set(response.headers)
+                    .send(response.body);
             }
-            debug('status, headers, and body valid. responding');
-            res.status(status)
-                .set(headers)
-                .send(body);
         };
     }
 }
 
-module.exports = async function upwardJSMiddlewareFactory(upwardPath, io) {
+async function upwardJSMiddlewareFactory(
+    upwardPath,
+    io = IOAdapter.default(upwardPath)
+) {
     const middleware = new UpwardMiddleware(upwardPath, io);
     await middleware.load();
     return middleware.getHandler();
-};
+}
 
-UpwardMiddleware.DefaultIO = module.exports.DefaultIO = new IOAdapter({
-    readFile,
-    networkFetch,
-    resolvePath
-});
+upwardJSMiddlewareFactory.UpwardMiddleware = UpwardMiddleware;
+
+module.exports = upwardJSMiddlewareFactory;

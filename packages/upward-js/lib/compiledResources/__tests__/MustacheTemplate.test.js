@@ -9,8 +9,7 @@ test('supported extensions include standard .mst and .mustache', () => {
 
 test('extends AbstractCompiledResource concretely', () => {
     const io = {
-        readFile: () => {},
-        resolvePath: () => {}
+        readFile: () => {}
     };
     const instantiate = () => new MustacheTemplate('', io);
     expect(instantiate).not.toThrow();
@@ -20,9 +19,6 @@ test('extends AbstractCompiledResource concretely', () => {
 test('throws if IOInterface is not present or lacks methods at constructor time', () => {
     expect(() => new MustacheTemplate('')).toThrow(
         'IOInterface as second argument'
-    );
-    expect(() => new MustacheTemplate('', { readFile: () => {} })).toThrow(
-        'IOInterface missing resolvePath'
     );
 });
 
@@ -36,7 +32,7 @@ test('compiles Mustache ', async () => {
             What, you hate Cronenberg?
             {{/existenz}}
         `,
-        { readFile: () => {}, resolvePath: () => {} }
+        { readFile: () => {} }
     );
     await expect(template.compile()).resolves.not.toThrow();
     await expect(
@@ -66,8 +62,7 @@ test('loads Mustache partials using io', async () => {
         readFile: jest.fn(
             (name, encoding) =>
                 `<h2>Hello {{addressee}}, I am the template called ${name}!</h2>`
-        ),
-        resolvePath: jest.fn(x => x)
+        )
     };
     const template = new MustacheTemplate(
         `
@@ -97,8 +92,7 @@ test('loads descendent partials using io', async () => {
                 return `I'm a subpartial, {{addressee}}!!`;
             }
             return `<h2>Hello {{addressee}}, I am the template called ${name}, and I have sub-partials!</h2> {{> subPartial}}`;
-        }),
-        resolvePath: jest.fn(x => x)
+        })
     };
     const template = new MustacheTemplate(
         `

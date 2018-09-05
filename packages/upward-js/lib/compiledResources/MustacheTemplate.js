@@ -1,3 +1,4 @@
+const { inspect } = require('util');
 const AbstractCompiledResource = require('./AbstractCompiledResource');
 const Hogan = require('hogan.js');
 
@@ -11,12 +12,22 @@ class MustacheTemplate extends AbstractCompiledResource {
             throw new Error('IOInterface as second argument');
         }
         if (typeof this.io.readFile !== 'function') {
-            throw new Error('IOInterface missing readFile method');
-        }
-        if (typeof this.io.resolvePath !== 'function') {
-            throw new Error('IOInterface missing resolvePath method');
+            throw new Error(
+                `IOInterface missing readFile method: ${inspect(this.io)}`
+            );
         }
         this._loadedPartials = new Map();
+    }
+    _tryLoadAllExtensions(
+        name,
+        extensions = MustacheTemplate.supportedExtensions
+    ) {
+        return this.io.readFile(name + extensions[0], 'utf8').catch(e => {
+            if (e.code !== 'ENOENT' || extensions.length === 1) {
+                throw e;
+            }
+            return this._tryLoadAllExtensions(name, extensions.slice(1));
+        });
     }
     _findUnloadedPartialNames(template) {
         const partialNames = Object.values(template.partials).map(
@@ -31,7 +42,9 @@ class MustacheTemplate extends AbstractCompiledResource {
         let partial = this._loadedPartials.get(name);
         if (!partial) {
             try {
-                partial = Hogan.compile(await this.io.readFile(name, 'utf8'));
+                partial = Hogan.compile(
+                    (await this._tryLoadAllExtensions(name)).trim()
+                );
                 this._loadedPartials.set(name, partial);
             } catch (error) {
                 return { badPartial: { name, error } };
@@ -50,7 +63,7 @@ class MustacheTemplate extends AbstractCompiledResource {
         if (badPartials.length > 0) {
             const partialErrors = badPartials.map(
                 ({ badPartial: { name, error } }) =>
-                    `'${this.io.resolvePath(name)}: ${error.stack}\n`
+                    `'${name}: ${error.stack}\n`
             );
             throw new Error(`Error in template partials: ${partialErrors}`);
         }
@@ -80,7 +93,7 @@ class MustacheTemplate extends AbstractCompiledResource {
         }
     }
     async render(context) {
-        return this._template.render(context, this._partials).trim();
+        return this._template.render(context, this._partials, '').trim();
     }
 }
 

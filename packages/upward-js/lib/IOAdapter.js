@@ -1,6 +1,32 @@
+const debug = require('debug')('upward-js:IOAdapter');
+const containsPath = require('contains-path');
+const { resolve, dirname } = require('path');
+const { readFile: fsReadFile } = require('fs');
+const { join } = require('path');
+const { promisify } = require('util');
+
+const readFile = promisify(fsReadFile);
 class IOAdapter {
+    static default(upwardPath) {
+        debug(`creating default IO from ${upwardPath}`);
+        const baseDir = dirname(upwardPath);
+        debug(`baseDir ${baseDir}`);
+        return new IOAdapter({
+            networkFetch: require('node-fetch'),
+            readFile: (filePath, enc) => {
+                // prevent path traversal above baseDir
+                const resolvedPath = resolve(baseDir, filePath);
+                if (!containsPath(resolvedPath, baseDir)) {
+                    throw new Error(
+                        `Cannot read ${resolvedPath} because it is outside ${baseDir}`
+                    );
+                }
+                return readFile(resolvedPath, enc);
+            }
+        });
+    }
     constructor(implementations) {
-        const missingImpls = ['resolvePath', 'readFile', 'networkFetch'].reduce(
+        const missingImpls = ['readFile', 'networkFetch'].reduce(
             (missing, method) =>
                 method in implementations
                     ? missing
@@ -14,15 +40,8 @@ class IOAdapter {
         Object.assign(this, implementations);
     }
     /**
-     * Works like Node `path.resolve`, but for the provided filesystem
-     * implementation. (Injected for testability.)
-     * @param {...string} segments Relative path segments to resolve into an absolute path.
-     * @return {string} Resolved path;
-     */
-    resolvePath(...segments) {}
-
-    /**
      * Works like promisified Node `fs.readFile`. (Injected for testability.)
+     * Cannot traverse below working directory.
      * @param {string} path Path of file to read.
      * @param {string} [charset] Character set, e.g. 'utf-8'.
      * @return {Promise<string|Buffer>} Promise for file contents.
