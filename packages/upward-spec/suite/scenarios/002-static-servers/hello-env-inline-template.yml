@@ -1,16 +1,10 @@
-status:
-  resolver: inline
-  inline: 200
+status: 200
 headers:
-  resolver: inline
   inline:
-    content-type:
-      resolver: inline
-      inline: text/plain
+    content-type: text/plain
 body:
-  resolver: template
   engine: mustache
-  root: env
+  provide:
+    - env
   template:
-    resolver: inline
-    inline: 'Hello, environment of {{ADDRESSEE}}!!'
+    inline: 'Hello, environment of {{env.ADDRESSEE}}!!'

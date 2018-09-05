@@ -1,19 +1,15 @@
-status:
-  resolver: inline
-  inline: 200
+status: 200
 headers:
-  resolver: inline
   inline:
-    content-type:
-      resolver: inline
-      inline: application/json
+    content-type: application/json
 body:
-  resolver: template
   engine: mustache
+  provide:
+    - salutation
+    - addressee
   template:
-    resolver: inline
-    inline: '{ "greeting": "{{ salutation }}", "subject": "World" }'
+    inline: '{"greeting":"{{ salutation }}","subject":{{>json-subject}},"shouldYouReallyHandwriteJSON":"no"}'
 
 salutation:
-  resolver: inline
   inline: 'Hello'
+addressee: env.ADDRESSEE

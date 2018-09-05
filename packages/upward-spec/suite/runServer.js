@@ -41,7 +41,9 @@ module.exports = async function runServer(
 
             function terminateClean() {
                 child.removeAllListeners();
-                child.on('error', () => child.kill('SIGKILL'));
+                child.on('error', () => {
+                    child.kill('SIGKILL');
+                });
                 return new Promise((innerResolve, innerReject) => {
                     child.on('close', (_, signal) => {
                         flags.running = false;
@@ -56,6 +58,7 @@ module.exports = async function runServer(
             test.comment(`testing with ${configFile}`);
             try {
                 child = spawn(path.resolve(script), {
+                    cwd: path.dirname(script),
                     env: Object.assign(
                         {},
                         process.env,
@@ -74,16 +77,18 @@ module.exports = async function runServer(
                 stderr += chunk.toString('utf8');
             });
 
-            terminator = setTimeout(() => {
-                const message = `Timed out. Spawning a server with ${script} took over ${timeout} seconds.`;
-                terminateClean()
-                    .then(
-                        signal => ` Killed with ${signal}`,
-                        signal =>
-                            `\n\nAdditionally, the process did not respond to SIGTERM, and had to be killed with ${signal}.`
-                    )
-                    .then(notice => reject(new Error(message + notice)));
-            }, timeout * 1000);
+            if (timeout > 0) {
+                terminator = setTimeout(() => {
+                    const message = `Timed out. Spawning a server with ${script} took over ${timeout} seconds.`;
+                    terminateClean()
+                        .then(
+                            signal => ` Killed with ${signal}`,
+                            signal =>
+                                `\n\nAdditionally, the process did not respond to SIGTERM, and had to be killed with ${signal}.`
+                        )
+                        .then(notice => reject(new Error(message + notice)));
+                }, timeout * 1000);
+            }
 
             function emitServer() {
                 clearTimeout(terminator);
@@ -106,13 +111,20 @@ module.exports = async function runServer(
                     },
                     assert(flag, expected = true, msg) {
                         const extra = msg ? `\n\n${msg}` : '';
-                        const message =
-                            flag === 'crashed'
-                                ? `server ${flag}, emitting stderr ${stderr}`
-                                : `server ${flag} at ${url}`;
+                        let message = 'server ';
+                        if (!flags[flag]) {
+                            message += 'not ';
+                        }
+                        message += flag;
+                        if (url) {
+                            message += `, listening at ${url}`;
+                        }
+                        if (stderr) {
+                            message += `, emitting stderr ${stderr}`;
+                        }
                         const status =
                             flags[flag] === expected ? 'pass' : 'fail';
-                        return test[status](message + extra);
+                        return test[status](message);
                     }
                 });
             }
@@ -123,6 +135,7 @@ module.exports = async function runServer(
                 if (code !== 0) {
                     flags.crashed = true;
                 }
+                emitServer();
             });
 
             let outText = '';

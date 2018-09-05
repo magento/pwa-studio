@@ -10,6 +10,9 @@ headers:
 body:
   resolver: template
   engine: mustache
+  provide:
+    - env
+    - communique
   template:
     resolver: file
     file:
