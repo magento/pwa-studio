@@ -1,6 +1,7 @@
 import bootstrap from '@magento/peregrine';
 
 import appReducer from 'src/reducers/app';
+import catalogReducer from 'src/reducers/catalog';
 import directoryReducer from 'src/reducers/directory';
 
 const { Provider, store } = bootstrap({
@@ -11,6 +12,7 @@ const { Provider, store } = bootstrap({
 const { addReducer, dispatch, getState } = store;
 
 addReducer('app', appReducer);
+addReducer('catalog', catalogReducer);
 addReducer('directory', directoryReducer);
 
 export { Provider, addReducer, dispatch, getState };
