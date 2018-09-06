@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { bool, node, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
@@ -18,7 +18,7 @@ class Label extends Component {
         const elementType = plain ? 'span' : 'label';
         const labelProps = { ...restProps, className: classes.root };
 
-        return createElement(elementType, labelProps, children);
+        return React.createElement(elementType, labelProps, children);
     }
 }
 

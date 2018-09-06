@@ -1,42 +1,44 @@
+import React, { Component, Fragment } from 'react';
+import { func, shape, string } from 'prop-types';
+
 import classify from 'src/classify';
-import React, { Component } from 'react';
-import defaultClasses from './navHeader.css';
-import PropTypes from 'prop-types';
 import Icon from 'src/components/Icon';
-import Trigger from './trigger';
+import Trigger from 'src/components/Trigger';
+import defaultClasses from './navHeader.css';
 
 class NavHeader extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            header: PropTypes.string,
-            title: PropTypes.string
+        classes: shape({
+            header: string,
+            title: string
         }),
-        onBack: PropTypes.func
+        onBack: func.isRequired,
+        onClose: func.isRequired
     };
 
-    get backArrow() {
-        const { onBack } = this.props;
-        return onBack ? (
-            <button onClick={onBack}>
-                <Icon name="arrow-left" />
-            </button>
-        ) : null;
-    }
-
     render() {
-        const { classes, title } = this.props;
-        const { backArrow } = this;
+        const { classes, onBack, onClose, title } = this.props;
 
         return (
-            <div className={classes.header}>
-                {backArrow}
-                <h2 className={classes.title}>
+            <Fragment>
+                <Trigger
+                    key="backButton"
+                    className="classes.backButton"
+                    action={onBack}
+                >
+                    <Icon name="arrow-left" />
+                </Trigger>
+                <h2 key="title" className={classes.title}>
                     <span>{title}</span>
                 </h2>
-                <Trigger>
+                <Trigger
+                    key="closeButton"
+                    className="classes.closeButton"
+                    action={onClose}
+                >
                     <Icon name="x" />
                 </Trigger>
-            </div>
+            </Fragment>
         );
     }
 }

@@ -1,58 +1,56 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React, { PureComponent } from 'react';
+import { bool, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import SignIn from 'src/components/SignIn';
-import CreateAccount from 'src/components/CreateAccount';
-import Tile from './tile';
-import defaultClasses from './navigation.css';
-import NavHeader from './navHeader';
 import Button from 'src/components/Button';
+import CreateAccount from 'src/components/CreateAccount';
 import Icon from 'src/components/Icon';
+import SignIn from 'src/components/SignIn';
+import CategoryTree from './categoryTree';
+import NavHeader from './navHeader';
+import defaultClasses from './navigation.css';
 
-const CATEGORIES = [
-    'dresses',
-    'tops',
-    'bottoms',
-    'skirts',
-    'swim',
-    'outerwear',
-    'shoes',
-    'jewelry',
-    'accessories'
-];
-
-const tiles = CATEGORIES.map(category => (
-    <Tile key={category} text={category} />
-));
-
-class Navigation extends Component {
+class Navigation extends PureComponent {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            accountDrawer: PropTypes.string,
-            userInfo: PropTypes.string,
-            signInClosed: PropTypes.string,
-            signInOpen: PropTypes.string,
-            header: PropTypes.string,
-            title: PropTypes.string,
-            tiles: PropTypes.string,
-            open: PropTypes.string,
-            closed: PropTypes.string,
-            bottomDrawer: PropTypes.string
+        classes: shape({
+            accountDrawer: string,
+            body: string,
+            bottomDrawer: string,
+            header: string,
+            open: string,
+            root: string,
+            root_open: string,
+            signInClosed: string,
+            signInOpen: string,
+            title: string,
+            userInfo: string
         }),
-        isOpen: PropTypes.bool,
-        isSignedIn: PropTypes.bool,
-        signInError: PropTypes.object,
-        firstname: PropTypes.string,
-        lastname: PropTypes.string,
-        email: PropTypes.string
+        firstname: string,
+        email: string,
+        isOpen: bool,
+        isSignedIn: bool,
+        lastname: string,
+        signInError: object
     };
 
+    static getDerivedStateFromProps(props, state) {
+        if (!state.rootNodeId && props.rootCategoryId) {
+            return {
+                ...state,
+                rootNodeId: props.rootCategoryId
+            };
+        }
+
+        return state;
+    }
+
+    componentDidMount() {
+        this.props.getAllCategories();
+    }
+
     state = {
-        isSignInOpen: false
+        isSignInOpen: false,
+        rootNodeId: null
     };
 
     get bottomDrawer() {
@@ -69,11 +67,26 @@ class Navigation extends Component {
                     </p>
                     <p>{email}</p>
                 </div>
-                <button>
+                <button className="">
                     <Icon name="chevron-up" />
                 </button>
             </div>
         );
+    }
+
+    get categoryTree() {
+        const { props, setRootNodeId, state } = this;
+        const { rootNodeId } = state;
+        const { categories, closeDrawer } = props;
+
+        return rootNodeId ? (
+            <CategoryTree
+                nodes={categories}
+                rootNodeId={rootNodeId}
+                onNavigate={closeDrawer}
+                updateRootNodeId={setRootNodeId}
+            />
+        ) : null;
     }
 
     get signInForm() {
@@ -130,42 +143,72 @@ class Navigation extends Component {
     }
 
     showSignInForm = () => {
-        this.setState({
+        this.setState(() => ({
             isSignInOpen: true
-        });
+        }));
     };
 
     hideSignInForm = () => {
-        this.setState({
+        this.setState(() => ({
             isSignInOpen: false
-        });
+        }));
     };
 
-    setDefaultUsername = newDefaultUsername => {
-        this.setState({ defaultUsername: newDefaultUsername });
+    setDefaultUsername = nextDefaultUsername => {
+        this.setState(() => ({ defaultUsername: nextDefaultUsername }));
     };
 
     showCreateAccountForm = () => {
-        this.setState({
+        this.setState(() => ({
             isCreateAccountOpen: true
-        });
+        }));
     };
 
     hideCreateAccountForm = () => {
-        this.setState({
+        this.setState(() => ({
             isCreateAccountOpen: false
-        });
+        }));
+    };
+
+    setRootNodeId = rootNodeId => {
+        this.setState(() => ({ rootNodeId }));
+    };
+
+    setRootNodeIdToParent = () => {
+        const { categories } = this.props;
+
+        this.setState(({ rootNodeId }) => ({
+            rootNodeId: categories[rootNodeId].parentId
+        }));
     };
 
     render() {
-        const { classes, isOpen } = this.props;
-        const className = isOpen ? classes.open : classes.closed;
-        const { bottomDrawer, signInForm, createAccountForm } = this;
+        const {
+            bottomDrawer,
+            categoryTree,
+            createAccountForm,
+            setRootNodeIdToParent,
+            signInForm,
+            props,
+            state
+        } = this;
+
+        const { rootNodeId } = state;
+        const { classes, closeDrawer, isOpen, rootCategoryId } = props;
+        const className = isOpen ? classes.root_open : classes.root;
+        const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
+        const title = isTopLevel ? 'Main Menu' : null;
 
         return (
             <aside className={className}>
-                <NavHeader title={'Main Menu'} />
-                <nav className={classes.tiles}>{tiles}</nav>
+                <div className={classes.header}>
+                    <NavHeader
+                        title={title}
+                        onBack={setRootNodeIdToParent}
+                        onClose={closeDrawer}
+                    />
+                </div>
+                <nav className={classes.body}>{categoryTree}</nav>
                 <div className={classes.bottomDrawer}>{bottomDrawer}</div>
                 {signInForm}
                 {createAccountForm}
@@ -174,19 +217,4 @@ class Navigation extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        isSignedIn: state.user.isSignedIn,
-        firstname: state.user.firstname,
-        lastname: state.user.lastname,
-        email: state.user.email
-    };
-};
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        null
-    )
-)(Navigation);
+export default classify(defaultClasses)(Navigation);
