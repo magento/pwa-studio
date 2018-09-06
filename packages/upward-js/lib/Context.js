@@ -77,6 +77,10 @@ class Context {
         }
         this._data[base] = value;
     }
+
+    forget(base) {
+        delete this._data[base];
+    }
 }
 
 module.exports = Context;

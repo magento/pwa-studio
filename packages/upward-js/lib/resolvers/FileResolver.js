@@ -27,32 +27,8 @@ class FileResolver extends AbstractResolver {
             }
         };
     }
-    declareDerivations() {
-        return [
-            {
-                name: 'fileText',
-                from: ['file', 'charset'],
-                async derive({ file, charset }) {
-                    return await this.io.readFile(file, charset);
-                }
-            },
-            {
-                name: 'compiler',
-                from: ['file', 'parse'],
-                async derive({ file, parse }) {
-                    const Compiler = forFileOfType(
-                        parse === 'auto' ? file : `.${parse}`
-                    );
-                    return new Compiler(this.io);
-                }
-            }
-        ];
-    }
-    shouldResolve() {
-        return true;
-    }
     async resolve(definition) {
-        if (!definition.file) {
+        if (!definition || !definition.file) {
             throw new Error(`File argument is required`);
         }
         const toResolve = [
@@ -102,7 +78,7 @@ class FileResolver extends AbstractResolver {
             }
         }
         debug('parse === %s, found %s to compile', parse, Resource.name);
-        return new Resource(fileText, this.visitor.io).compile(fileText);
+        return new Resource(fileText, this.visitor.io);
     }
 }
 

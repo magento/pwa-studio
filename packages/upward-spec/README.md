@@ -36,9 +36,10 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
       4. [ServiceResolver Error Handling](#serviceresolver-error-handling)
     4. [TemplateResolver](#templateresolver)
       1. [TemplateResolver Configuration Options](#templateresolver-configuration-options)
-      2. [Template Engines](#template-engines)
+      2. [Template Context](#template-context)
+      3. [Template Engines](#template-engines)
         1. [Example React DOM Server support](#example-react-dom-server-support)
-      3. [TemplateResolver Error Handling](#templateresolver-error-handling)
+      4. [TemplateResolver Error Handling](#templateresolver-error-handling)
     5. [ConditionalResolver](#conditionalresolver)
       1. [ConditionalResolver Configuration Options](#conditionalresolver-configuration-options)
       2. [Matchers](#matchers)
@@ -541,12 +542,56 @@ The above configuration resolves into an HTML document displaying content from t
 | Property  | Type               | Default                     | Description
 | --------- | ------------------ | --------------------------- | ---------------
 | `engine`    | `Resolved<string>` |                             | _Required_. The label of the template engine to use.
-| `root`      | `Resolved<any>`    | _[context]_                 | The root value to use as context when rendering the template.
+| `provide`      | `Resolved<string[]|object<string>>`    |                  | A list, or an object mapping, of values to make available in the template.
 | `template`   | `Resolved<Template|string>` |              | The template to render. Required by the `mustache` engine.
+
+#### Template Context
+
+The entire context cannot be available for template render; that would cause an immediate circular dependency, since the template's output is added to context! Instead, use the `provide` argument to select what values the template actually needs. They will be available, at root, inside the template.
+
+The `provide` argument can be a list:
+
+```yaml
+provide:
+  - env
+  - articleResult
+```
+
+The resulting template eval context might look like this:
+
+```json
+"env": {
+  "envVars": "here"
+},
+"articleResult": {
+  "data": {
+    "article": {
+      articleContents: 'here'
+    }
+  }
+}
+```
+
+*Lists may only inject "base" context properties.* The above `articleResult` could not be `articleResult.data.article` when using the list format.
+ 
+The other, more powerful option for the `provide` argument is to provide a `mapping`, as a simple object. A mapping is a plain object of string keys and context values. It might appear as:
+
+```yaml
+provide:
+  article: articleResult.data.article
+```
+
+This would give the template a single root property "article", thus flatting out the template tree and making templates more readable.
+
+```json
+"article": {
+  articleContents: 'here'
+}
+```
 
 #### Template Engines
 
-The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server]. Such a template engine may require additional properties, which can be added to the TemplateResolver object itself.
+The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server]. 
 
 ##### Example React DOM Server support
 
@@ -556,17 +601,17 @@ body:
   engine:
     resolver: inline
     inline: react
-  props:
+  provide:
     document: documentResult.data.document
     query: request.url.query
-  component:
+  template:
     resolver: file
     file:
       resolver: inline
       inline: './build/RootComponents/Document.js'
 ```
 
-The above configuration assumes support for a template engine labeled `react`. Where the `mustache` template engine takes `root` and `template` properties, the `react` template engine takes `props` and `component` properties. The underlying template engine could be a simple Node module:
+The above configuration assumes support for a template engine labeled `react`. The underlying template engine could be a simple Node module:
 
 ```js
 const { createElement } = require('react');
@@ -670,10 +715,10 @@ A `Matcher` is an object which can only be used as an item in a ConditionalResol
 
 During the resolution of a matcher's `use` resolver, properties from the match object are temporarily added to the context. Using these temporary context values, resolvers can extract matching text, or capture groups, from the match itself.
 
-- `match.$0` - The full text of the last matched value.
-- `match.$1` - The string captured in the first backreference the regex declared.
+- `$match.$0` - The full text of the last matched value.
+- `$match.$1` - The string captured in the first backreference the regex declared.
 
-The `match` object must have additional numbered properties for each backreference.
+The `$match` object must have additional numbered properties for each backreference.
 
 #### ConditionalResolver notes
 
@@ -750,14 +795,15 @@ headers:
 body:
   resolver: template
   engine: 'mustache'
-  root: documentResult.data.document
+  provide:
+    model: documentResult.data.document
   template:
     resolver: inline
     inline: |
       {{> headtag}}
       {{> header}}
       <div class="document">
-        <h1>{{title}}</h1>
+        <h1>{{model.title}}</h1>
         <div class="document-body">
           {{& contents}}
         </div>

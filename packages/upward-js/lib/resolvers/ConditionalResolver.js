@@ -7,55 +7,44 @@ class ConditionalResolver extends AbstractResolver {
     static get telltale() {
         return 'when';
     }
-    constructor(...args) {
-        super(...args);
-        if (this.params.when.length === 0) {
+    async resolve(definition) {
+        if (
+            !definition.when ||
+            !Array.isArray(definition.when) ||
+            definition.when.length === 0
+        ) {
             throw new Error(
-                `ConditionalResolver must have at least one matcher in its "when" list.`
+                `ConditionalResolver must a 'when' list, with at least one matcher.`
             );
         }
-        this.matchers = this.params.when.map(matcher =>
-            this.makeMatcher(matcher)
-        );
-        this.matchers.push({
-            doMatch() {
-                return true;
-            },
-            use: this.params.default
-        });
-    }
-    makeMatcher({ matches, pattern, use }) {
-        const regex = new RegExp(pattern);
-        return {
-            matches,
-            use,
-            doMatch(matches) {
-                return matches.match(regex);
-            }
-        };
-    }
-    matchesPropKey() {
-        return `matches${this.matchIndex}`;
-    }
-    async resolve(deps) {
-        const nextMatcher = this.params.matchers[this.matchIndex++];
-        if (nextMatcher) {
-            const propKey = deps.get(this.matchesPropKey());
-            if (propKey)
-                if (deps.get(this.matchesPropKey()))
-                    return {
-                        [this.matchesPropKey()]: nextMatcher.matches
-                    };
+        if (!definition.default) {
+            throw new Error(
+                `ConditionalResolver must have a 'default' condition.`
+            );
         }
-        const match = deps.get('match');
-        if (match) {
-            return match.use;
+        this.default = definition.default;
+
+        return this.tryMatchers(definition.when);
+    }
+    async tryMatchers([top, ...rest]) {
+        const regex = new RegExp(top.pattern);
+        const candidate = await this.visitor.context.get(top.matches);
+        const regexMatch = candidate.match(regex);
+
+        if (regexMatch) {
+            const match = regexMatch.reduce((contextMatch, group, index) => {
+                contextMatch[`$${index}`] = group;
+                return contextMatch;
+            }, {});
+            this.visitor.context.set('$match', match);
+            const yielded = await this.visitor.upward(top, 'use');
+            this.visitor.context.forget('$match');
+            return yielded;
         }
-        // const nextMatcher = this.params.matchers[this.matchIndex];
-        // if (nextMatcher) {
-        //     return {};
-        // }
-        return this.default;
+        if (rest.length === 0) {
+            return this.visitor.upward(this, 'default');
+        }
+        return this.tryMatchers(rest);
     }
 }
 

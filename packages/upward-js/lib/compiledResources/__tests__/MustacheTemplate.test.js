@@ -20,6 +20,9 @@ test('throws if IOInterface is not present or lacks methods at constructor time'
     expect(() => new MustacheTemplate('')).toThrow(
         'IOInterface as second argument'
     );
+    expect(() => new MustacheTemplate('', { networkFetch() {} })).toThrow(
+        'missing readFile'
+    );
 });
 
 test('compiles Mustache ', async () => {
@@ -114,4 +117,29 @@ test('loads descendent partials using io', async () => {
         ['secondPartial.mst', 'utf8'],
         ['subPartial.mst', 'utf8']
     ]);
+});
+
+test('handles missing partials', async () => {
+    const io = {
+        readFile: jest.fn(async () =>
+            Promise.reject(new Error('Everything is very bad'))
+        )
+    };
+    const template = new MustacheTemplate(
+        `{{> aPartial}} will never exist`,
+        io
+    );
+    await expect(template.compile()).rejects.toThrowError(
+        'Error in template partials'
+    );
+});
+
+test('handles partial errors', async () => {
+    const io = {
+        readFile: jest.fn(async name => '{{/katzs}} never closes!i809ula/sn')
+    };
+    const template = new MustacheTemplate(`{{> aPartial }} ought to close`, io);
+    await expect(template.compile()).rejects.toThrowError(
+        'Error in template partials'
+    );
 });

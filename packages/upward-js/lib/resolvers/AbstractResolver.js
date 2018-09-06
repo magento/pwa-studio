@@ -7,7 +7,7 @@ class AbstractResolver {
     constructor(visitor) {
         this.visitor = visitor;
     }
-    async resolve() {
+    resolve() {
         throw new Error(
             'Internal error: Resolvers must define a resolve() method'
         );

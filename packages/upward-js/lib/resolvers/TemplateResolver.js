@@ -1,6 +1,6 @@
 const debug = require('debug')('upward-js:TemplateResolver');
 const { inspect } = require('util');
-const { fromPairs } = require('lodash');
+const { fromPairs, isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const MustacheTemplate = require('../compiledResources/MustacheTemplate');
 const Engines = {
@@ -15,6 +15,7 @@ module.exports = class TemplateResolver extends AbstractResolver {
         return 'engine';
     }
     async resolve(definition) {
+        let providePromise;
         const die = msg => {
             throw new Error(
                 `Invalid arguments to TemplateResolver: ${inspect(definition, {
@@ -28,24 +29,40 @@ module.exports = class TemplateResolver extends AbstractResolver {
         if (!definition.template) {
             die('No template specified.');
         }
-        if (
-            !Array.isArray(definition.provide) ||
-            !definition.provide.every(value => typeof value === 'string')
-        ) {
-            die(`'provide' property must be an array of string context values`);
+        if (!definition.provide) {
+            die(
+                `'provide' property must be an array or object of string context values, was ${definition}`
+            );
+        } else if (Array.isArray(definition.provide)) {
+            if (definition.provide.some(value => typeof value != 'string')) {
+                die(
+                    `'provide' property must be an array or object of string context values, was ${definition}`
+                );
+            } else {
+                providePromise = Promise.all(
+                    definition.provide.map(async name => [
+                        name,
+                        await this.visitor.context.get(name)
+                    ])
+                );
+            }
+        } else if (isPlainObject(definition.provide)) {
+            providePromise = Promise.all(
+                Object.entries(definition.provide).map(
+                    async ([alias, name]) => [
+                        alias,
+                        await this.visitor.context.get(name)
+                    ]
+                )
+            );
+        } else {
+            die(`Unrecognized 'provide' configuration: ${definition.provide}`);
         }
         debug('validated config %o', definition);
         const toResolve = [
             this.visitor.upward(definition, 'engine'),
             this.visitor.upward(definition, 'template'),
-            Promise.all(
-                definition.provide.map(async key => {
-                    debug('getting %s from context', key);
-                    const value = await this.visitor.context.get(key);
-                    debug('got %s: %o from context', key, value);
-                    return [key, value];
-                })
-            )
+            providePromise
         ];
 
         const [engine, template, rootEntries] = await Promise.all(toResolve);
@@ -55,7 +72,7 @@ module.exports = class TemplateResolver extends AbstractResolver {
         const Engine = Engines[engine];
 
         if (!Engine) {
-            throw new Error(`Template engine '${engine} unsupported`);
+            throw new Error(`Template engine '${engine}' unsupported`);
         }
         debug('got template engine %s', Engine.name);
 
