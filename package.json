@@ -16,7 +16,7 @@
     "clean": "lerna --scope '@magento/{pwa-buildpack,peregrine}' exec -- npm run clean",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
-    "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules",
+    "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "postinstall": "lerna bootstrap && npm run build",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
