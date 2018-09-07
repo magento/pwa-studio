@@ -1,0 +1,122 @@
+import { Component, createElement } from 'react';
+import { PropTypes } from 'prop-types';
+import defaultClasses from './input.css';
+import classify from 'src/classify';
+
+class Input extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            helpText: PropTypes.string,
+            errorText: PropTypes.string,
+            successText: PropTypes.string,
+            label: PropTypes.string,
+            labelFocused: PropTypes.string,
+            root: PropTypes.string
+        }),
+
+        value: PropTypes.string,
+        placeholder: PropTypes.string,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        pattern: PropTypes.string,
+        disabled: PropTypes.bool,
+        required: PropTypes.bool,
+
+        helpText: PropTypes.string,
+        errorText: PropTypes.string,
+        successText: PropTypes.string,
+        helpVisible: PropTypes.bool,
+        errorVisible: PropTypes.bool,
+        successVisible: PropTypes.bool,
+
+        onSubmit: PropTypes.func,
+        onChange: PropTypes.func
+    };
+
+    static defaultProps = {
+        disabled: false,
+        helpVisible: true
+    };
+
+    state = {
+        value: '',
+        focused: false,
+        dirty: false
+    };
+
+    get helpText() {
+        const { helpVisible, classes, helpText } = this.props;
+        return helpVisible ? (
+             <div className={classes.helpText}>{helpText}</div>
+        ) : null
+    }
+
+    get errorText() {
+        const { errorVisible, classes, errorText } = this.props;
+        return errorVisible && this.state.dirty ? (
+             <div className={classes.errorText}>{errorText}</div>
+        ) : null
+    }
+
+    get successText() {
+        const { successVisible, classes, successText } = this.props;
+        return successVisible ? (
+             <div className={classes.successText}>{successText}</div>
+        ) : null
+    }
+
+    get labelText() {
+        const { classes, label } = this.props;
+        let className = `${classes.label}`;
+        if (this.state.focused) {className += ` ${classes.labelFocused}`}
+        return <div className={className}>{label}</div>
+    }
+
+    render() {
+        const { helpText, errorText, successText, labelText } = this;
+        const { value, placeholder, type, error, pattern, title, disabled, required, onChange, onSubmit, classes } = this.props;
+
+        return (
+            <form onSubmit={this.handleSubmit} className={classes.root}>
+                {labelText}
+                    <input
+                        value={value}
+                        placeholder={placeholder}
+                        type={type} pattern={pattern}
+                        disabled={disabled}
+                        required={required}
+                        onChange={this.handleChange}
+                        onFocus={this.focusTextInput}
+                        onBlur={this.blurTextInput} />
+                {helpText}
+                {errorText}
+                {successText}
+            </form>
+        );
+    }
+
+    handleChange = event => {
+        this.setState({value: event.target.value});
+        this.props.onChange ? this.props.onChange(event.target.value) : null;
+    }
+
+    handleSubmit = event => {
+        this.props.onSubmit ? this.props.onSubmit(this.state.value) : null;
+        event.preventDefault()
+    }
+
+    focusTextInput = () => {
+        this.setState({focused: true})
+    }
+
+    blurTextInput = () => {
+        this.setState({focused: false})
+        this.makeDirty();
+    }
+
+    makeDirty = () => {
+        if (!this.state.dirty) {this.setState({dirty: true})}
+    }
+}
+
+export default classify(defaultClasses)(Input);
