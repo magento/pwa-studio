@@ -18,6 +18,7 @@ const categoryQuery = gql`
                     id
                     name
                     small_image
+                    url_key
                     price {
                         regularPrice {
                             amount {
