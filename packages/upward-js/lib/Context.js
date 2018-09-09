@@ -1,5 +1,6 @@
 const debug = require('debug')('upward-js:Context');
-const { parse: urlParse } = require('url');
+const { pick } = require('lodash');
+const { URL } = require('url');
 
 const ContextPath = require('./ContextPath');
 
@@ -23,14 +24,29 @@ const constants = new Set([
 class Context {
     static fromRequest(env, request) {
         debug('generating from request: %O', request);
-        const url = urlParse(request.url, true);
+        const hostedUrl = new URL(request.url, `http://${request.get('host')}`);
+        debug('url derived from host is %O', hostedUrl);
+        const url = pick(hostedUrl, [
+            'host',
+            'hostname',
+            'port',
+            'pathname',
+            'path',
+            'search',
+            'searchParams'
+        ]);
+        url.query = request.query;
         return new Context({
             env,
             request: {
                 url,
                 headers: request.headers,
-                headerEntries: Object.entries(request.headers),
-                queryEntries: Object.entries(url.query)
+                headerEntries: Object.entries(request.headers).map(
+                    ([name, value]) => ({ name, value })
+                ),
+                queryEntries: Object.entries(url.query).map(
+                    ([name, value]) => ({ name, value })
+                )
             }
         });
     }

@@ -9,9 +9,6 @@ test('resolve() throws error if no definition provided', async () => {
     expect(new FileResolver().resolve({})).rejects.toThrow(
         'File argument is required'
     );
-    expect(new FileResolver().resolve()).rejects.toThrow(
-        'File argument is required'
-    );
 });
 
 test('resolves filename and uses default charset and parse', async () => {
@@ -230,4 +227,27 @@ test('force parses throws on unrecognized file type', async () => {
             parse: 'aparser'
         })
     ).rejects.toThrow('Unsupported parse type');
+});
+
+test('recognizes file paths', async () => {
+    expect(FileResolver.recognize('not a file')).toBeFalsy();
+    expect(FileResolver.recognize('./a-file')).toBeTruthy();
+    expect(FileResolver.recognize('../../..//a-file')).toBeTruthy();
+    const config = FileResolver.recognize('file:///a-file');
+    const visitor = {
+        upward: jest.fn(() => Promise.resolve('/a-file')),
+        io: {
+            readFile: () =>
+                Promise.resolve('goodness gracious, great text of file')
+        }
+    };
+    await expect(new FileResolver(visitor).resolve(config)).resolves.toEqual(
+        'goodness gracious, great text of file'
+    );
+    expect(visitor.upward).toHaveBeenCalledWith(
+        {
+            file: { inline: '/a-file' }
+        },
+        'file'
+    );
 });

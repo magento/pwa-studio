@@ -27,9 +27,23 @@ class FileResolver extends AbstractResolver {
             }
         };
     }
+    static recognize(value) {
+        const str = value.toString();
+        const derivedConfig = { file: {} };
+        if (str.startsWith('file://')) {
+            derivedConfig.file.inline = str.slice(7);
+        } else if (str.startsWith('./') || str.startsWith('../')) {
+            derivedConfig.file.inline = str;
+        }
+        if (derivedConfig.file.inline) {
+            return derivedConfig;
+        }
+    }
     async resolve(definition) {
-        if (!definition || !definition.file) {
-            throw new Error(`File argument is required`);
+        if (!definition.file) {
+            throw new Error(
+                `File argument is required: ${JSON.stringify(definition)}`
+            );
         }
         const toResolve = [
             this.visitor.upward(definition, 'file'),

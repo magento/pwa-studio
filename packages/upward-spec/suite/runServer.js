@@ -55,7 +55,6 @@ module.exports = async function runServer(
                 });
             }
 
-            test.comment(`testing with ${configFile}`);
             try {
                 child = spawn(path.resolve(script), {
                     cwd: path.dirname(script),
@@ -106,7 +105,7 @@ module.exports = async function runServer(
                     },
                     async close() {
                         if (flags.running) {
-                            return terminateClean().catch(test.threw);
+                            return terminateClean().catch(e => test.error(e));
                         }
                     },
                     assert(flag, expected = true, msg) {
@@ -116,15 +115,19 @@ module.exports = async function runServer(
                             message += 'not ';
                         }
                         message += flag;
-                        if (url) {
+                        if (flag === 'launched' && url) {
                             message += `, listening at ${url}`;
                         }
                         if (stderr) {
-                            message += `, emitting stderr ${stderr}`;
+                            message += `, emitting stderr ${stderr.slice(
+                                0,
+                                50
+                            )}[...]`;
                         }
                         const status =
                             flags[flag] === expected ? 'pass' : 'fail';
-                        return test[status](message);
+                        test[status](message);
+                        return status === 'pass';
                     }
                 });
             }

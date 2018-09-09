@@ -8,54 +8,53 @@ See [EXECUTION_SCHEDULING_STRATEGIES.md](EXECUTION_SCHEDULING_STRATEGIES.md) for
 
 See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a need in Magento PWA Studio and Magento 2 frontend development.
 
-1. [UPWARD Specification](#upward-specification)
-  1. [Quickstart](#quickstart)
-  2. [Summary](#summary)
-    1. [Simple example](#simple-example)
-  3. [Configuration](#configuration)
-  4. [Responding to requests](#responding-to-requests)
-    1. [Execution scheduling and ordering](#execution-scheduling-and-ordering)
-    2. [Cyclic dependencies](#cyclic-dependencies)
-    3. [Response flush triggering](#response-flush-triggering)
-  5. [Context Reference](#context-reference)
-    1. [Initial context](#initial-context)
-      1. [Augmenting the initial context](#augmenting-the-initial-context)
-      2. [Context persistence and size](#context-persistence-and-size)
-  6. [Resolver Reference](#resolver-reference)
-    1. [InlineResolver](#inlineresolver)
-      1. [InlineResolver Configuration Options](#inlineresolver-configuration-options)
-    2. [FileResolver](#fileresolver)
-      1. [FileResolver Configuration Options](#fileresolver-configuration-options)
-      2. [Parsing](#parsing)
-      3. [FileResolver Error Handling](#fileresolver-error-handling)
-      4. [FileResolver shorthand](#fileresolver-shorthand)
-    3. [ServiceResolver](#serviceresolver)
-      1. [ServiceResolver Configuration Options](#serviceresolver-configuration-options)
-      2. [Example REST service call](#example-rest-service-call)
-      3. [Response Assignment](#response-assignment)
-      4. [ServiceResolver Error Handling](#serviceresolver-error-handling)
-    4. [TemplateResolver](#templateresolver)
-      1. [TemplateResolver Configuration Options](#templateresolver-configuration-options)
-      2. [Template Context](#template-context)
-      3. [Template Engines](#template-engines)
-        1. [Example React DOM Server support](#example-react-dom-server-support)
-      4. [TemplateResolver Error Handling](#templateresolver-error-handling)
-    5. [ConditionalResolver](#conditionalresolver)
-      1. [ConditionalResolver Configuration Options](#conditionalresolver-configuration-options)
-      2. [Matchers](#matchers)
-      3. [Match context](#match-context)
-      4. [ConditionalResolver notes](#conditionalresolver-notes)
-  7. [Reducing boilerplate](#reducing-boilerplate)
-    1. [Default parameters](#default-parameters)
-    2. [Builtin constants](#builtin-constants)
-    3. [Resolver type inference](#resolver-type-inference)
-    4. [YAML anchors](#yaml-anchors)
+- [UPWARD Specification](#upward-specification)
+  - [Quickstart](#quickstart)
+  - [Summary](#summary)
+    - [Simple example](#simple-example)
+  - [Configuration](#configuration)
+  - [Responding to requests](#responding-to-requests)
+    - [Execution scheduling and ordering](#execution-scheduling-and-ordering)
+    - [Cyclic dependencies](#cyclic-dependencies)
+    - [Response flush triggering](#response-flush-triggering)
+  - [Context Reference](#context-reference)
+    - [Initial context](#initial-context)
+      - [Context Path Syntax](#context-path-syntax)
+      - [Using context](#using-context)
+      - [Context persistence and size](#context-persistence-and-size)
+  - [Resolver Reference](#resolver-reference)
+    - [InlineResolver](#inlineresolver)
+      - [InlineResolver Configuration Options](#inlineresolver-configuration-options)
+    - [FileResolver](#fileresolver)
+      - [FileResolver Configuration Options](#fileresolver-configuration-options)
+      - [Parsing](#parsing)
+      - [FileResolver Error Handling](#fileresolver-error-handling)
+      - [FileResolver shorthand](#fileresolver-shorthand)
+    - [ServiceResolver](#serviceresolver)
+      - [ServiceResolver Configuration Options](#serviceresolver-configuration-options)
+      - [Example REST service call](#example-rest-service-call)
+      - [Response Assignment](#response-assignment)
+      - [ServiceResolver Error Handling](#serviceresolver-error-handling)
+    - [TemplateResolver](#templateresolver)
+      - [TemplateResolver Configuration Options](#templateresolver-configuration-options)
+      - [Template Context](#template-context)
+      - [Template Engines](#template-engines)
+        - [Example React DOM Server support](#example-react-dom-server-support)
+      - [TemplateResolver Error Handling](#templateresolver-error-handling)
+    - [ConditionalResolver](#conditionalresolver)
+      - [ConditionalResolver Configuration Options](#conditionalresolver-configuration-options)
+      - [Matchers](#matchers)
+      - [Match context](#match-context)
+      - [ConditionalResolver notes](#conditionalresolver-notes)
+  - [Reducing boilerplate](#reducing-boilerplate)
+    - [Default parameters](#default-parameters)
+    - [Builtin constants](#builtin-constants)
+    - [Resolver type inference](#resolver-type-inference)
+    - [YAML anchors](#yaml-anchors)
 
 ## Quickstart
 
 This repository is a test suite for UPWARD compliance, testing several scenarios and features on a live web server. It requires NodeJS v8 LTS or later. To test an UPWARD server:
-
-:warning: _(This feature is not yet implemented.)_
 
 1. Install the `npx` utility to run global NPM commands:
 
@@ -65,7 +64,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 
 2. Write or obtain a POSIX shell script which:
 
-   - gets the path to an `upward.yml` file from the environment variable `UPWARD_PATH`
+   - gets the path to an UPWARD definition file from the environment variable `UPWARD_PATH`
    - launches and/or binds the UPWARD server under test and runs it in the foreground (not as a daemon process).
    - prints the hostname and port of the now-running server instance to standard out
    - responds to SIGTERM by gracefully closing the server
@@ -78,23 +77,25 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
     npx upward-spec ./test_my_upward.sh
     ```
 
-4. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture `upward.yml` file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
+4. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture YAML file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
 
-    The tests run in parallel. When each test suite is over, the script will receive a SIGTERM or SIGKILL.
+    The tests may run in parallel, so the server or launch script should seek open ports to bind to. When each test suite is over, the script will receive a SIGTERM or SIGKILL.
 
-5. The test suite will print results to stdout; the argument `--junit` will make it print JUnit-compatible test result XML to stdout.
+5. By default, the test runner will print human-readable results to stdout; the argument `--xunit` will make it print XUnit-compatible (and therefore JUnit-compatible) test result XML. The argument `--tap` will make it print [Test Anything Protocol](https://testanything.org/)-compatible text. Under the hood, this uses [tape](https://github.com/substack/tape) and it can be piped to [any number of open-source TAP reporters](https://github.com/sindresorhus/awesome-tap#javascript).
+
+:information_source: _(The `npx` tool above is not required; it's a convenience script to avoid installing global NPM dependencies. You can also install `upward-spec` permanently using `npm install -g upward-spec`, and then simply invoke `upward-spec ./test_my_upward.sh` from that point forward.)_
 
 ## Summary
 
-UPWARD files are XML, YAML or JSON files which declare the behavior of an [application shell][application shell] server. An application shell server implements a strict subset of HTTP functionality: it handles an HTTP GET request for a resource and delivers enough code and data to bootstrap a Progressive Web App which displays that resource.
+UPWARD definitions are YAML files which declare the behavior of an [application shell][application shell] server. An application shell server implements a strict subset of HTTP functionality: it handles an HTTP GET request for a resource and delivers enough code and data to bootstrap a Progressive Web App which displays that resource.
 
 An App Shell is purposefully minimal, and so is an UPWARD server. It is meant to initialize or refresh sessions, deliver small HTML documents with enough server-side rendering for initial display and SEO, and then hand off subsequent request handling to the PWA running in the client.
 
-The declarative format of UPWARD means that an UPWARD-compliant server may be written in any programming language and run on any tech stack; therefore, a PWA can declare its own runtime network dependency by including an UPWARD file.
+The declarative format of UPWARD means that an UPWARD-compliant server may be written in any programming language and run on any tech stack; therefore, a PWA can declare the URIs and behavior of the network endpoints it depends on by including an UPWARD file.
 
 ### Simple example
 
-This example `upward.yml` echoes request data as text back to the client.
+This example definition file echoes request data as text back to the client.
 
 ```yaml
 status:
@@ -107,60 +108,78 @@ headers:
 body:
   resolver: template
   engine: mustache
+  provide:
+    - request
   template:
     resolver: inline
     inline: |
       {{#request}}
       Headers:
           {{#headerEntries}}
-          {{key}}: {{value}}
+          {{name}}: {{value}}
           {{/headerEntries}}
       URL:
-          {{#url}}
-          protocol: {{protocol}}
-          host: {{host}}
-          hostname: {{hostname}}
-          port: {{port}}
-          pathname: {{pathname}}
+          {{#url}}{{#?protocol}}protocol: {{protocol}}
+          {{/?protocol}}{{#?host}}host: {{host}}
+          {{/?host}}{{#?hostname}}hostname: {{hostname}}
+          {{/?hostname}}{{#?port}}port: {{port}}
+          {{/?port}}pathname: {{pathname}}
           {{/url}}
       URL Query:
-          {{#url.queryEntries}}
-          {{key}}: {{value}}
-          {{/url.queryEntries}}
+          {{#queryEntries}}
+          {{name}}: {{value}}
+          {{/queryEntries}}
       {{/request}}
+
 ```
 
-This trivial example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties.
+This trivial example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties. An example request to such a server results in:
+
+```sh
+$ curl 'http://localhost:54422/head/shoulders?and=knees&and=toes'
+
+Headers:
+    host: localhost:54422
+    user-agent: curl/7.54.0
+    accept: */*
+URL:
+    host: localhost:54422
+    hostname: localhost
+    port: 54422
+    pathname: /head/shoulders
+URL Query:
+    and: knees,toes
+```
 
 ## Configuration
 
-A spec-compliant UPWARD server should be configurable with a runtime parameter: the location of the `upward.yml` file. The file references external resources using [Resolvers](#resolvers).
+A spec-compliant UPWARD server should be configurable with a runtime parameter: the location of the UPWARD definition YML file. The file references external resources using [Resolvers](#resolvers).
 
 ## Responding to requests
 
-**An `upward.yml` file is an instruction manual for building an HTTP response.** It assembles values in a global namespace hereafter called the **context**. The context object begins with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of `upward.yml` represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the context itself can be considered a decision tree.
+**An UPWARD definition file is an instruction manual for building an HTTP response.** It links values together in a global namespace hereafter called the **context**. Each request handling cycle begins with with a new context object, with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of the definition file represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the definition itself can be considered an abstract decision tree, from which code could be statically generated.
 
 ### Execution scheduling and ordering
 
 1. **Resolvers must execute only when needed.** If a request handling cycle moves through ConditionalResolver branches in a way that never requires a particular context value, then that context value must never be resolved during that execution cycle.
 
-1. **Resolvers must execute as concurrently as possible**. The maximum concurrency is left to the implementation. A compliant server detects when a Resolver uses a context value, and delays its execution until that context value becomes available, via [topological sorting][topological ordering] of resolver execution.
+2. **Resolvers must execute as concurrently as possible**. The maximum concurrency is left to the implementation. A compliant server detects when a Resolver uses a context value, and delays its execution until that context value becomes available, via [topological sorting][topological sorting] of resolver execution.
 
 See [EXECUTION_SCHEDULING_STRATEGIES.md](EXECUTION_SCHEDULING_STRATEGIES.md) for an example of how this could be implemented.
 
 ### Cyclic dependencies
 
-**An UPWARD server must detect cyclic dependencies, and should detect them as soon as possible**. Only bare string literals can be used to reference context objects in `upward.yml`, so it should be possible to detect potential cyclic dependencies upon first processing the configuration file, before any requests are made. If a cyclic dependency is detected in this manner, the server should raise an error on startup. If a cyclic dependency occurs at runtime, the server should return a 500 error.
+**An UPWARD server must detect cyclic dependencies, and should detect them as soon as possible**. Only bare string literals can be used to reference context objects in a definition file, so it should be possible to detect potential cyclic dependencies upon first processing the configuration file, before any requests are made. If a cyclic dependency is detected in this manner, the server should raise an error on startup. If a cyclic dependency occurs at runtime, the server should return a 500 error.
 
 ### Response flush triggering
 
-**The root context must always eventually have `status`, `headers`, and `body` properties.** Once the context has these three properties, the UPWARD-compliant server should immediately use those three values to create an HTTP response and flush it to the client. No streaming or buffering interface should be provided; UPWARD servers should not deal in data large enough to require streaming. **If all resolvers finish executing and the response is lacking any of the `status`, `headers`, or `body` properties, the server should emit a 500 error.** If it is possible at startup time to trace a path through the decision tree where this occurs, the implementation should do so and raise an error on startup.
+**The root context must always eventually have non-null `status`, `headers`, and `body` properties.** Once the resolution path has assigned these three values fo context, the UPWARD-compliant server should immediately use those three values to create an HTTP response and flush it to the client. No streaming or buffering interface should be provided; UPWARD servers should not deal in data large enough to require streaming. **If all resolvers finish executing and the response is lacking any of the `status`, `headers`, or `body` properties, the server should emit a 500 error.** If it is possible at startup time to trace a path through the decision tree where this occurs, the implementation may use static analysis to do so and raise an error on startup.
 
 ## Context Reference
 
 The context is a global namespace created for each request. It is a dictionary of values, like a JSON object. A typical response cycle may append intermediate values to the context, like a query result or a template string. Those values do not emit as part of the response. Only the `status`, `headers`, and `body` properties of the context will be flushed to the client. Since the context is the global namespace and the means of sharing values between resolvers, it may become a large object at some points in the cycle, but this should not affect performance on the client.
 
-Context values cannot be overwritten. A resolver which attempts to overwrite an already-set context value must raise a context conflict error. UPWARD-compliant servers should be able to identify potential context conflict errors during static analysis of the `upward.yml` file and raise an error on launch. UPWARD-compliant servers must be able to identify a context conflict during runtime execution and respond with a 500 error.
+Context values cannot be overwritten. A resolver which attempts to overwrite an already-set context value must raise a context conflict error. UPWARD-compliant servers should be able to identify potential context conflict errors during static analysis of the definition file and raise an error on launch. UPWARD-compliant servers must be able to identify a context conflict during runtime execution and respond with a 500 error.
 
 ### Initial context
 
@@ -185,26 +204,21 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
     ]
     ```
 
-  - `url`: A [URL record][url spec] as specified by WHATWG, consisting of as many of the following propeties as the server can determine from the request and its own environment:
+  - `url`: A subset of a [URL record][url spec] as specified by WHATWG. The following properties should at least be populated; the Host header can be used to infer the origin.
 
     | Attribute | Example
     | --------- | -------
-    | `href`    | `https://admin:12345@example.com:8080/foo/bar?baby=beluga`
-    | `origin`  | `https://example.com:8080`
-    | `protocol`| `https:`
-    | `username`| `admin`
-    | `password`| `12345`
     | `host`    | `example.com:8080`
     | `hostname`| `example.com`
     | `port`    | `8080`
-    | `pathname`| `/foo/bar`
+    | `pathname`| `/deep/blue/sea`
     | `search`  | `?baby=beluga`
     | `query`   | `{ "baby": "beluga" }`
     | `queryEntries` | `[{ "name": "baby", "value": "beluga" }]`
 
     Because HTTP servers are sometimes unable to ascertain their own domain names or origins, it is acceptable for one or more of the `href`, `origin`, `protocol`, `username`, `password`, `host`, `hostname`, and `port` properties to be undefined. However, a compliant server MUST provide `pathname`, `search`, `query`, and `queryEntries`.  
 
-    The `query` and `queryEntries` properties are not prt of the WHATWG specification, but they must be included in the `url` object nevertheless. Much like the `headers` and `headerEntries` properties, these objects exist for property lookup and iteration, respectively.
+    The `query` and `queryEntries` properties are not part of the WHATWG specification, but they must be included in the `url` object nevertheless. Much like the `headers` and `headerEntries` properties, these objects exist for property lookup and iteration in logic-less templates, respectively.
 
 - `env`: an object containing the environment variables set when the server was launched. For instance, if a Dockerfile launches the server through Apache, with an environment variable MAGENTO_GRAPHQL_ENDPOINT:
 
@@ -215,9 +229,11 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
 
     then the context value `env.MAGENTO_GRAPHQL_ENDPOINT` would equal `"https://m2host.com/graphql"`.
 
-- `GET`: the string `'GET'`, included in the global context for convenience, to [reduce boilerplate](#reducing-boilerplate)
+For convenience and concision, frequently used strings should be registered as self-referential top-level context objects. Examples include:
 
-- `POST`: the string `'POST'`, included in the global context for convenience, to [reduce boilerplate](#reducing-boilerplate)
+- `GET`: the string `'GET'` must be included in the global context for convenience, to [reduce boilerplate](#reducing-boilerplate)
+
+- `POST`: the string `'POST'` must be included in the global context for convenience, to [reduce boilerplate](#reducing-boilerplate)
 
 - `mustache`: the string `'mustache'`, included in the global context for convenience, to [reduce boilerplate](#reducing-boilerplate)
 
@@ -232,68 +248,239 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
   - `hex`
   - All valid HTTP response codes, i.e. `200`, `404`, `500`, and all others.
 
-#### Augmenting the initial context
+#### Context Path Syntax
 
-All operations and resolvers augment the initial context. Legal context property names must follow the same rules as [JavaScript identifiers][js identifiers]; they must consist of alphanumeric characters, `$` or `_`, and they must not begin with a number.
+In UPWARD configuration, **a bare string is treated as a context lookup by default.** Some resolver configuration properties must treat bare strings as literal strings, and the default contains many constants for common strings, as mentioned earlier, so a definition file may appear to use many literal strings, but almost all string values are context lookups.
 
-Include context values by simply setting them with inline resolvers at the top level:
+A context lookup resembles "dot lookup" notation in JavaSript or Python, though it has simpler rules and cannot be dynamically generated.
+
+Rules:
+
+- **Valid characters**: A context lookup may contain any UTF-8 characters except control characters, whitespace, or newlines. All characters that are not lookup operators must be treated as part of a property name. _For the sake of easier manipulation in common programming languages, it is a best to use context names which are legal identifiers in those languages.)_
+  - A context lookup cannot begin with the lookup operators: a dot <kbd>.</kbd>, an opening square bracket <kbd>[</kbd>, or a closing square bracket <kbd>]</kbd>.
+- **Lookup operators**: The dot <kbd>.</kbd> denotes a named property lookup on an object. The square brackets surrounding a signed integer <kbd>[int]</kbd> denote array access by index. An index must be a positive integer; it must be specified literally and cannot be derived.
+- A context lookup always starts with a **basename**. This may be any string that can be a valid YAML property name. The basename has special significance; when a top-level resolver completes resolution, it assigns a value to this name in the global context, which should trigger resolution of all paths beginning with that name.
+- **Behavior for undeclared properties**: Undeclared property lookup should silently fail, resolving the empty string. If the **basename** `foo` is assigned, but it is not an object or it does not contain the property `bar`, then the context lookup `foo.bar` should wait until `foo` is assigned, and then yield the empty string.
+
+Parts of a context lookup:
+
+```txt
+         string property names
+basename    |               |
+     |      |  array index  |
+     |      |          |    |
+  uxbridges.characters[0].name
+           |             |
+        named property lookups
+```
+
+The above context lookup behaves at runtime as an instruction to wait until the `uxbridges` basename has been assigned. There must be a definition elsewhere in the definition file which assigns this property, e.g.
 
 ```yaml
-react:
-  resolver: inline
-  inline: react
+uxbridges:
+  resolver: web
+  parse: json
+  method: POST
+    resolver: inline
+      inline: false
+  url:
+    resolver: inline
+      inline: http://stapi.co/api/v1/rest/character/search
+  headers:
+    resolver: inline
+    inline:
+      content-type: application/x-www-form-urlencoded
+  body:
+    resolver: inline
+    inline:
+      name: uxbridge
 ```
 
-Now, you can name the template engine directly instead of resolving the name as a literal string. In UPWARD configuration, **a bare string represents the context value by that name.**
+The above definition would assign an [`HttpResponse`](#http-response) to the `uxbridges` basename once it has run. An HTTP response has no `characters` property, so the example context lookup would resolve to the empty string. However, an HTTP response does have a `body` property, so the lookup `uxbridges.body.characters[0].name` would resolve to `Kevin Uxbridge`.
 
-```diff
-body:
-  resolver: template
-+ engine: react
-- engine:
--   resolver: inline
--   inline: react
-```
+:information_source: _(Array and list handling is intentionally rudimentary in UPWARD, because of the potential for scope confusion, performance and security issues in iteration. The only recommended use case for list lookup is when a web service returns a list of items expected to have only one result, so that the result may be lifted out into a scalar value.)_
 
-THe context may be augmented with complex values as well:
+Since arbitrary property lookups do not through exceptions and instead return a default empty string, use [pattern matching](#conditional-resolver) to test the success or failure of requests and responses:
 
 ```yaml
-customRenderers:
-  resolver: inline
-  inline:
-    react:
-      resolver: inline
-      inline: reactDOMServer
-    vue:
-      resolver: inline
-      inline: vuejs
+matches: uxbridges.body.characters[0].name
+pattern: '.'
 ```
 
-The context will include the property `customRenderers`, whose value matches the JSON object:
+The regex dot character will pass if the string is non-empty, and fail if it is empty. This pattern should be common in UPWARD definitions.
 
-```json
-{
-  "react": "reactDOMServer",
-  "vue": "vuejs"
-}
-```
+#### Using context
 
-In UPWARD configuration, **a bare string with dots, e.g. `customRenderers.react`, should perform lookup on nested context values.** _(In contrast, UPWARD context lookup cannot refer to individual list items.)_
+Anywhere a in the definition file where a resolver is allowed, you may substitute a **context lookup** instead. A context path indicates a dependency on another root context value, which causes the current branch to wait until that value is resolved. In this example:
 
-```diff
+```yaml
 body:
-  resolver: template
-+ engine: customRenderers.react
-- engine:
--   resolver: inline
--   inline: react
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              id: request.url.query.shipmentId
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            url: env.SHIPMENTS_SVC
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              name: request.url.query.shipmentName
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            url: env.SHIPMENTS_SVC
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              trackingNumber: request.url.query.shipmentTrackingNumber
+    default:
+      inline: 'Please provide a query'
 ```
 
-See [Reducing boilerplate](#reducing-boilerplate) for more practices to reduce verbosity in `upward.yml`.
+The matchers use the context lookups `request.url.query.shipmentId`, `request.url.query.shipmentName`, and `request.url.query.shipmentTrackingNumber` to obtain values for comparison. The request object is part of the initial context, but you can also declare dependencies on other context values you have defined. The above definition could be more concisely expressed using intermediate values and more context lookups:
+
+```yaml
+
+body:
+  resolver: conditional
+  when:
+    - matches: gqlVariables
+      pattern: null
+      use:
+        inline: 'Please provide a query'
+  default:
+    resolver: template
+    engine: mustache
+    template:
+      resolver: file
+      file:
+        resolver: inline
+          inline: './renderShipment.mst'
+    provide:
+      shipment:
+        resolver: service
+        url: env.SHIPMENTS_SVC
+        query:
+          resolver: file
+          file:
+            resolver: inline
+              inline: './getShipment.graphql'
+        variables: gqlVariables
+gqlVariables:
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use:
+        resolver: inline
+        inline:
+          id: request.url.query.shipmentId
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use:
+        resolver: inline
+        inline:
+          name: request.url.query.shipmentName
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use:
+        resolver: inline
+        inline:
+          trackingNumber: request.url.query.trackingNumber
+  default: null
+```
+
+The above definition produces a server with identical behavior to the previous query, in 30% fewer lines. This is not the only way to use context values to reduce the first, repetitive definition, but it demonstrates the idea. If the GraphQL service set an order of precedence for the shipment query which used the same priority logic as the ConditionalResolver, the definition could be further reduced to use the same variable set in all cases:
+
+```yaml
+body:
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use: getShipment
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use: getShipment
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use: getShipment
+  default:
+    inline: 'Please provide a query'
+getShipment:
+  resolver: template
+  engine: mustache
+  template:
+    resolver: file
+    file:
+      resolver: inline
+        inline: './renderShipment.mst'
+  provide:
+    shipment:
+      resolver: service
+      url: env.SHIPMENTS_SVC
+      query:
+        resolver: file
+        file:
+          resolver: inline
+            inline: './getShipment.graphql'
+      variables:
+        id: request.url.query.shipmentId
+        name: request.url.query.shipmentName
+        trackingNumber: request.url.query.trackingNumber
+```
+
+Setting top-level context properties for reusable values is an important way to reduce verbosity and code duplication in the definition file. See [Reducing boilerplate](#reducing-boilerplate) for more practices to reduce verbosity in a definition file.
 
 #### Context persistence and size
 
-When writing `upward.yml`, no distinction needs to be made between "persistent" context values that should be the same for each request, and other values that may differ for each request. An UPWARD server must do topological sorting to determine the order in which to run Resolvers, so an efficient implementation can identify the parts of the root context that are not dependent on the incoming request and cache or discard them.
+When writing UPWARD definitions, no distinction needs to be made between "persistent" context values that should be the same for each request, and other values that may differ for each request. An UPWARD server must do topological sorting to determine the order in which to run Resolvers, so an efficient implementation can identify the parts of the root context that are not dependent on the incoming request and cache or discard them.
 
 ## Resolver Reference
 
@@ -305,7 +492,7 @@ A Resolver is an object which describes how a value is obtained. There are five 
 - `TemplateResolver` renders a template string against the context
 - `ConditionalResolver` does branch logic using pattern matching on context values
 
-Each Resolver takes different configuration parameters.
+Each Resolver takes different configuration parameters. Like a context lookup string, a resolver represents an operation which will execute and then deliver its results upward in the tree, until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
 
 ### InlineResolver
 
@@ -346,19 +533,19 @@ query:
     inline: 'utf-8'
 ```
 
-The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the `upward.yml` file. The `charset` property is optional.
+The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the definition file. The `charset` property is optional.
 
 #### FileResolver Configuration Options
 
 | Property | Type       | Default | Description
 | -------- | ---------- | ------- | ---------------------------------------------
-| `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the `upward.yml` file.
+| `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the definition file.
 | `charset`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
-| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. The values `graphql`, `mustache`, and `json` should force parsing the file as those respective file types.
+| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. 
 
 #### Parsing
 
-An UPWARD server must support pre-parsing of `graphql`, `mustache`, and `json` files, but should support as many filetypes as possible and may support custom filetypes.
+An UPWARD server must support pre-parsing of `graphql` and `mustache` files according to their respective specifications, but should support as many filetypes as necessary and may support custom filetypes.
 
 #### FileResolver Error Handling
 
@@ -368,7 +555,7 @@ If the file cannot be found or there were any other failures reading the file, t
 
 #### FileResolver shorthand
 
-Filenames will usually be specified as literals, rather than dynamically resolved out of context. For readability and convenience, a "shorthand syntax" must be available to imply a FileResolver that loads and parses a UTF-8 encoded file from a string filesystem path. Instead of explicitly resolving a filepath as an inline string:
+Filenames are usually not variable; they will usually be specified as literals, rather than dynamically resolved out of context. For readability and convenience, a "shorthand syntax" must be available to imply a FileResolver that loads and parses a UTF-8 encoded file from a string filesystem path. Instead of explicitly resolving a filepath as an inline string:
 
 ```yaml
 query:
@@ -533,7 +720,7 @@ body:
       {{> footer}}
 ```
 
-The above configuration resolves into an HTML document displaying content from the `documentResult.data.document` context value. Its use of [Mustache partials][mustache partials] implies that additional files called `headtag.mst`, `header.mst`, and `footer.mst` exist in the directory containing `upward.yml`. Attempting to include a missing partial should raise an error as soon as the template is resolved, ideally at server startup time.
+The above configuration resolves into an HTML document displaying content from the `documentResult.data.document` context value. Its use of [Mustache partials][mustache partials] implies that additional files called `headtag.mst`, `header.mst`, and `footer.mst` exist in the directory containing the definition file. Attempting to include a missing partial should raise an error as soon as the template is resolved, ideally at server startup time.
 
 :information_source: _(For illustrative purposes, the above uses an InlineResolver where it would be more appropriate to use a FileResolver to obtain the template, as with the query in the ServiceResolver example.)_
 

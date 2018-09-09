@@ -1,49 +1,34 @@
+const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const tap = require('tap');
+const tape = require('tape');
 
 const { getScenarios, runServer } = require('../../');
 
-tap.test('Unknown or unreadable config', async sub => {
-    const scenarios = await getScenarios(/unknown\-config/);
+const gettingScenarios = getScenarios(/unknown\-config/);
 
-    return Promise.all([
-        sub.test('Crashes if config file is missing', async t => {
-            const server = await runServer(
-                t,
-                scenarios.getResourcePath(
-                    './absolutely-no-way-this-file-exists'
-                )
-            );
+tape.test('Crashes if config file is missing', async t => {
+    const scenarios = await gettingScenarios;
+    const server = await runServer(
+        t,
+        scenarios.getResourcePath('./absolutely-no-way-this-file-exists')
+    );
 
-            server.assert('crashed');
+    server.assert('crashed');
 
-            await server.close();
-        }),
+    await server.close();
+    t.end();
+});
 
-        sub.test('Crashes if config file cannot be read', async t => {
-            const unreadable = scenarios.getResourcePath('./unreadable.yml');
+tape.test('Crashes if config file is unparseable', async t => {
+    const scenarios = await gettingScenarios;
+    const server = await runServer(
+        t,
+        scenarios.getResourcePath('./unparseable.yml')
+    );
 
-            fs.chmodSync(unreadable, 0o200);
+    server.assert('crashed');
 
-            const server = await runServer(t, unreadable);
-
-            fs.chmodSync(unreadable, 0o644);
-
-            server.assert('crashed');
-
-            await server.close();
-        }),
-
-        sub.test('Crashes if config file is unparseable', async t => {
-            const server = await runServer(
-                t,
-                scenarios.getResourcePath('./unparseable.yml')
-            );
-
-            server.assert('crashed');
-
-            await server.close();
-        })
-    ]);
+    await server.close();
+    t.end();
 });

@@ -17,44 +17,60 @@ class ResolverVisitor {
     async upward(definition, propertyName) {
         debug('resolving upward: %s from %o', propertyName, definition);
         if (!definition.hasOwnProperty(propertyName)) {
-            throw new Error(`Context value '${propertyName}' not present.`);
+            throw new Error(`Context value '${propertyName}' not defined.`);
         }
         const defined = definition[propertyName];
+
+        const resolver = this.getResolverFor(defined, propertyName);
+
+        if (resolver) {
+            return resolver.resolve(defined);
+        }
 
         if (isPrimitive(defined)) {
             const definedString = defined.toString();
             debug(
-                'defined: %s is primitive, yielding to context.get',
+                'defined: %s is primitive, yielding to context.get("%s")',
                 definedString
             );
             return this.context.get(definedString);
         }
 
-        if (typeof defined !== 'object') {
+        if (typeof defined !== 'object' || !this.getResolverFailure) {
             throw new Error(`Unexpected value in config: ${defined}`);
+        } else {
+            throw new Error(this.getResolverFailure);
         }
-
+    }
+    getResolverFor(defined, propertyName) {
         let Resolver;
+        for (Resolver of ResolverList) {
+            const recognized =
+                Resolver.recognize && Resolver.recognize(defined);
+            if (recognized) {
+                return {
+                    resolve: () => new Resolver(this).resolve(recognized)
+                };
+            }
+        }
         if (defined.resolver) {
             Resolver = ResolversByType[defined.resolver];
             if (!Resolver) {
-                throw new Error(
-                    `Unrecognized resolver type: ${defined.resolver}`
-                );
+                this.getResolverFailure = `Unrecognized resolver type: ${
+                    defined.resolver
+                }`;
             }
         } else {
             Resolver = ResolverList.find(({ telltale }) =>
                 defined.hasOwnProperty(telltale)
             );
             if (!Resolver) {
-                throw new Error(
-                    `Unrecognized configuration. Could not match a resolver to ${propertyName}: ${inspect(
-                        defined
-                    )}`
-                );
+                this.getResolverFailure = `Unrecognized configuration. Could not match a resolver to ${propertyName}: ${inspect(
+                    defined
+                )}`;
             }
         }
-        return new Resolver(this).resolve(defined);
+        if (Resolver) return new Resolver(this);
     }
 }
 

@@ -71,6 +71,7 @@ class UpwardMiddleware {
                 );
             } else {
                 debug('status, headers, and body valid. responding');
+                debugger;
                 res.status(response.status)
                     .set(response.headers)
                     .send(response.body);

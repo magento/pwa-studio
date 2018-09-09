@@ -10,9 +10,16 @@ beforeAll(async () => {
 });
 
 const stubRequest = () => ({
-    url: 'http://example.com/nowhere',
+    url: 'http://example.com/nowhere?special',
+    query: {
+        special: undefined
+    },
     headers: {
-        accept: 'text/html'
+        host: 'example.com',
+        'content-type': 'text/plain'
+    },
+    get(header) {
+        return this.headers[header];
     }
 });
 
