@@ -1,0 +1,60 @@
+status: page.status
+headers: page.headers
+body: page.body
+
+page:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/$'
+      use: gqlRouter
+    - matches: request.url.pathname
+      pattern: '^/.*\.html'
+      use: gqlRouter
+  default: notFound
+
+gqlRouter:
+  when:
+    - matches: urlResolver.type
+      pattern: '.'
+      use: found
+  default: notFound
+
+urlResolver: urlResolverResult.data.urlResolver
+
+urlResolverResult:
+  url: magentoGQL
+  query: './src/queries/urlResolver.graphql'
+  variables:
+    urlKey: request.url.pathname
+
+magentoGQL:
+  engine: mustache
+  template:
+    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}/graphql'
+  provide:
+    - env
+
+found:
+  inline:
+    status: 200
+    headers: htmlDocumentHeaders
+    body: shell
+
+notFound:
+  inline:
+    status: 400
+    headers: htmlDocumentHeaders
+    body: shell
+
+shell:
+  engine: mustache
+  template: './app-shell.mst'
+  provide:
+    - criticalCss
+    - urlResolver
+
+criticalCss: './web/critical.css'
+
+htmlDocumentHeaders:
+  inline:
+    'content-type': 'text/html'

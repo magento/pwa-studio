@@ -1,4 +1,4 @@
-const CssoPlugin = require('csso-webpack-plugin');
+const CssoPlugin = require('csso-webpack-plugin').default;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 class CriticalCssPlugin {
@@ -20,6 +20,7 @@ class CriticalCssPlugin {
         this.pattern = pattern;
         this.filename = filename;
         this.cssLoader = cssLoader;
+        this.nonCriticalPattern = nonCriticalPattern;
         this.extractPlugin = new ExtractTextPlugin({
             filename,
             allChunks: true,
@@ -45,7 +46,7 @@ class CriticalCssPlugin {
     apply(compiler) {
         this.extractPlugin.apply(compiler);
         // if (this.phase === 'production') {
-            (new CssoPlugin(null, this.pattern)).apply(compiler);
+            (new CssoPlugin(this.pattern)).apply(compiler);
         // }
     }
 }

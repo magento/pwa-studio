@@ -4,6 +4,7 @@
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  * @returns {Promise<{matched: boolean, rootChunkID: number | undefined, rootModuleID: number | undefined, id: number }>}
  */
+let preloadDone = false;
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
@@ -22,9 +23,16 @@ export default function resolveUnknownRoute(opts) {
         }));
     }
 
-    const preloaded = document.getElementById('url-resolver');
-    if (preloaded) {
-        return handleResolverResponse(JSON.parse(preloaded.textContent));
+    if (!preloadDone) {
+        const preloaded = document.getElementById('url-resolver');
+        if (preloaded) {
+            try {
+                return handleResolverResponse(
+                    JSON.parse(preloaded.textContent)
+                );
+            } catch (e) {}
+        }
+        preloadDone = true;
     }
 
     return remotelyResolveRoute({

@@ -145,7 +145,10 @@ module.exports = async function(env) {
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new DevServerReadyNotifierPlugin(config.devServer),
-            new UpwardPlugin(config.devServer, { 'critical.css': 'criticalCss' })
+            new UpwardPlugin(
+                config.devServer,
+                path.resolve(__dirname, 'venia-upward.yml')
+            )
         );
     } else if (phase === 'production') {
         config.entry.vendor = libs;
