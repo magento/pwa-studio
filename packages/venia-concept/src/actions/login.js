@@ -25,9 +25,13 @@ const logInUser = credentials =>
 
             setToken(response);
 
+            const userDetails = await request('/rest/V1/customers/me', {
+                method: 'GET'
+            });
+
             dispatch({
                 type: 'LOG_IN',
-                payload: response
+                payload: userDetails
             });
 
         } catch (error) {

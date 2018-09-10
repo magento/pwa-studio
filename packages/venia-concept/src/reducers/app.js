@@ -3,7 +3,8 @@ const initialState = {
     overlay: false,
     pending: {},
     isLoggedIn: false,
-    loginError: {}
+    loginError: {},
+    user: {}
 };
 
 const reducer = (state = initialState, { error, payload, type }) => {
@@ -18,6 +19,9 @@ const reducer = (state = initialState, { error, payload, type }) => {
         case 'LOG_IN': {
             return {
                 ...state,
+                user: {
+                    ...payload
+                },
                 isLoggedIn: true
             };
         }

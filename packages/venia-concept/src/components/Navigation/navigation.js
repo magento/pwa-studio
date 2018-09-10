@@ -15,6 +15,7 @@ import Button from 'src/components/Button';
 // import { login } from 'src/actions/user';
 import { logInUser } from 'src/actions/login';
 import user from './user.svg';
+import chevronUp from './chevronUp.svg';
 
 const CATEGORIES = [
     'dresses',
@@ -49,10 +50,20 @@ class Navigation extends Component {
     }
 
     get loginPrompt() {
+        const { classes, firstname, lastname, email } = this.props;
+
         return !this.props.isLoggedIn ? (
-        <Button onClick={this.showLoginForm}>
-            Login
-        </Button>) : <div><p> <img src={user}/>  Logged in! </p></div>;
+            <Button onClick={this.showLoginForm}>
+                Login
+                </Button>) :
+            <div className={classes.accountDrawer}>
+                <img alt="user icon" src={user}/>
+                <div>
+                    <p> {firstname} {lastname}  </p>
+                    <p>{email}</p>
+                </div>
+                <img alt="chevron up" src={chevronUp}/>
+            </div>;
     }
 
      get loginErrorComponent() {
@@ -152,7 +163,10 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state['app']['isLoggedIn'],
-        loginError: state['app']['loginError']
+        loginError: state['app']['loginError'],
+        firstname: state['app']['user']['firstname'],
+        lastname: state['app']['user']['lastname'],
+        email: state['app']['user']['email']
     }
 }
 

@@ -95,6 +95,18 @@
     visibility: visible;
 }
 
+.accountDrawer {
+    margin: 0 .5rem;
+	grid-template-columns: 1fr 8fr 1fr;
+	display: grid;
+	align-items: center;
+}
+
+.accountDrawer > div:nth-child(2) > p:nth-child(2) {
+    color: rgb(var(--venia-text-alt));
+    font-size: .8rem;
+}
+
 .loginForm {
     background: white;
     position: absolute;
@@ -103,11 +115,31 @@
 }
 
 .loginOpen {
-    top: 0;
-    transition: all .2s ease-in;
+    animation-duration: 244ms;
+    animation-name: slidein;
+    animation-fill-mode: forwards;
 }
 
 .loginClosed {
-    top: 100vh;
-    transition: all .2s ease-in;
+    animation-duration: 244ms;
+    animation-name: slideout;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slidein {
+    from {
+        top: 100%;
+    }
+    to {
+        top: 0;
+    }
+}
+
+@keyframes slideout {
+    from {
+        top: 0;
+    }
+    to {
+        top: 100%;
+    }
 }
