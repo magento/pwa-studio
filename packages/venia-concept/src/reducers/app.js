@@ -2,7 +2,8 @@ const initialState = {
     drawer: null,
     overlay: false,
     pending: {},
-    loggedIn: false
+    isLoggedIn: false,
+    loginError: {}
 };
 
 const reducer = (state = initialState, { error, payload, type }) => {
@@ -15,16 +16,28 @@ const reducer = (state = initialState, { error, payload, type }) => {
             };
         }
         case 'LOG_IN': {
-            debugger;
             return {
                 ...state,
-                loggedIn: true
+                isLoggedIn: true
             };
         }
         case 'LOG_OUT': {
             return {
                 ...state,
-                loggedIn: false
+                isLoggedIn: false
+            };
+        }
+        case 'RESET_LOG_IN_ERROR': {
+            return {
+                ...state,
+                loginError: {}
+            };
+        }
+        case 'LOG_IN_ERROR': {
+            return {
+                ...state,
+                isLoggedIn: false,
+                loginError: payload
             };
         }
         default: {

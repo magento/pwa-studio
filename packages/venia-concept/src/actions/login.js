@@ -1,12 +1,10 @@
 import { RestApi } from '@magento/peregrine';
 
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
-
 const { request } = RestApi.Magento2;
 
 const logInUser = credentials =>
     async function thunk(...args) {
-        const [dispatch, getState] = args;
+        const [dispatch] = args;
 
         const body = {
             username: 'roni_cost@example.com',
@@ -15,11 +13,17 @@ const logInUser = credentials =>
             // credentials.password
         }
 
+        dispatch({
+            type: 'RESET_LOG_IN_ERROR'
+        });
+
         try {
             const response = await request('/rest/V1/integration/customer/token', {
                 method: 'POST',
                 body: JSON.stringify(body)
             });
+
+            setToken(response);
 
             dispatch({
                 type: 'LOG_IN',
@@ -28,14 +32,17 @@ const logInUser = credentials =>
 
         } catch (error) {
             console.warn(error)
-            // dispatch({
-            //     type: 'CREATE_GUEST_CART',
-            //     payload: error,
-            //     error: true
-            // });
+            dispatch({
+                type: 'LOG_IN_ERROR',
+                payload: error
+            });
         }
 
     };
+
+function setToken(token) {
+    localStorage.setItem('login_token', token);
+}
 
 
 

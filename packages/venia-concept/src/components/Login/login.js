@@ -1,14 +1,9 @@
 import { createElement, Component } from 'react';
-import { RestApi } from '@magento/peregrine';
-import { logInUser } from 'src/actions/login';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './login.css';
 import classify from 'src/classify';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-
-const { request } = RestApi.Magento2;
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
     state = ({
@@ -17,34 +12,39 @@ class Login extends Component {
     });
 
     render() {
+        const { classes, onLogin, loginError } = this.props;
         return (
-            <div>
-                <Input
-                onChange={this.updateUsername}
-                helpText={'example help text'}
-                label={'Username or Email'}
-                onSubmit={this.login} />
+            <div className={classes.root}>
+                <form
+                    onSubmit={onLogin}
+                    className={classes.loginSection} >
+                    <Input
+                        onChange={this.updateUsername}
+                        helpText={'example help text'}
+                        label={'Username or Email'}/>
 
-                <Input
-                onChange={this.updatePassword}
-                onSubmit={this.login}
-                errorText={'Password must be at least 3 characters long'}
-                errorVisible={this.passwordError()}
-                label={'Password'}
-                type={'password'} />
+                    <Input
+                        onChange={this.updatePassword}
+                        errorText={'Password must be at least 3 characters long'}
+                        errorVisible={this.passwordError()}
+                        label={'Password'}
+                        type={'password'} />
 
 
-                <Button onClick={this.login}>Log In</Button>
+                    <Button type="submit" onClick={this.login}>Log In</Button>
+                    <div>
+                        <Link to=""> Forgot your username or password? </Link>
+                    </div>
+                    <div>
+                        <p> {loginError.message} </p>
+                    </div>
+                </form>
+                <div className={classes.loginDivider}></div>
+                <div className={classes.loginSection}>
+                    <Button> Create Account </Button>
+                </div>
             </div>
         );
-    }
-
-    login = () => {
-        const credentials = {
-            username: this.state.username,
-            password: this.state.password
-        }
-        this.props.logInUser(credentials);
     }
 
     passwordError() {
@@ -68,6 +68,4 @@ class Login extends Component {
     }
 }
 
-const mapDispatchToProps = {logInUser};
-
-export default compose(classify(defaultClasses), connect(null, mapDispatchToProps))(Login)
+export default classify(defaultClasses)(Login)

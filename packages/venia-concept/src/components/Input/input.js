@@ -29,7 +29,6 @@ class Input extends Component {
         errorVisible: PropTypes.bool,
         successVisible: PropTypes.bool,
 
-        onSubmit: PropTypes.func,
         onChange: PropTypes.func
     };
 
@@ -74,35 +73,38 @@ class Input extends Component {
 
     render() {
         const { helpText, errorText, successText, labelText } = this;
-        const { value, placeholder, type, error, pattern, title, disabled, required, onChange, onSubmit, classes } = this.props;
+        const {
+            value,
+            placeholder,
+            type,
+            pattern,
+            disabled,
+            required,
+            classes
+        } = this.props;
 
         return (
-            <form onSubmit={this.handleSubmit} className={classes.root}>
+            <div className={classes.root}>
                 {labelText}
-                    <input
-                        value={value}
-                        placeholder={placeholder}
-                        type={type} pattern={pattern}
-                        disabled={disabled}
-                        required={required}
-                        onChange={this.handleChange}
-                        onFocus={this.focusTextInput}
-                        onBlur={this.blurTextInput} />
+                <input
+                    value={value}
+                    placeholder={placeholder}
+                    type={type} pattern={pattern}
+                    disabled={disabled}
+                    required={required}
+                    onChange={this.handleChange}
+                    onFocus={this.focusTextInput}
+                    onBlur={this.blurTextInput} />
                 {helpText}
                 {errorText}
                 {successText}
-            </form>
+            </div>
         );
     }
 
     handleChange = event => {
         this.setState({value: event.target.value});
         this.props.onChange ? this.props.onChange(event.target.value) : null;
-    }
-
-    handleSubmit = event => {
-        this.props.onSubmit ? this.props.onSubmit(this.state.value) : null;
-        event.preventDefault()
     }
 
     focusTextInput = () => {
