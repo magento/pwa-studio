@@ -3,5 +3,7 @@ module.exports = {
     ServiceWorkerPlugin: require('./plugins/ServiceWorkerPlugin'),
     DevServerReadyNotifierPlugin: require('./plugins/DevServerReadyNotifierPlugin'),
     MagentoResolver: require('./MagentoResolver'),
-    PWADevServer: require('./PWADevServer')
+    PWADevServer: require('./PWADevServer'),
+    UpwardPlugin: require('./plugins/UpwardPlugin'),
+    CriticalCssPlugin: require('./plugins/CriticalCssPlugin')
 };

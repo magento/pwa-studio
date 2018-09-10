@@ -1,4 +1,4 @@
-const debug = require('../util/debug').makeFileLogger(__filename);
+const debug = require('../../util/debug').makeFileLogger(__filename);
 const https = require('https');
 const { URL } = require('url');
 const fetch = require('node-fetch');

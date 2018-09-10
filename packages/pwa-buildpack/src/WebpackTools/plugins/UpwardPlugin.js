@@ -7,7 +7,9 @@ const fetch = require('node-fetch');
 const createAdminRestClient = require('./createAdminRestClient');
 const express = require('express');
 
-module.exports = () => {
+const middleware = () => {
+    let assets = {};
+
     const Upward = express.Router();
 
     const fetchOptions = {
@@ -34,7 +36,7 @@ module.exports = () => {
         process.env.MAGENTO_ADMIN_PASSWORD
     );
 
-    const tpt = ({ website, shell, resolver }) => `
+    const tpt = ({ website, shell, resolver, assets}) => `
 <!doctype html>
 <html>
   <head>
@@ -42,6 +44,7 @@ module.exports = () => {
     <title>${website.name}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>${assets.criticalCss}</style>
   </head>
   <body>
     <div id="root">${shell}</div>
@@ -63,9 +66,6 @@ module.exports = () => {
     );
 
     Upward.use(proxy);
-
-    //
-    // );
 
     Upward.get(['/', '(/**)?/*.html'], async (req, res) => {
         const sitePromise = adminRestClient('store/websites').then(sites =>
@@ -102,5 +102,42 @@ module.exports = () => {
         }
     });
 
+    Upward.onCompilation = mapped => {
+        assets = mapped;
+    }
+
     return Upward;
 };
+
+class UpwardPlugin {
+    constructor(devServer, inlineAssetMap) {
+        this.devServer = devServer;
+        this.inlineAssetMap = inlineAssetMap;
+        const oldAfter = this.devServer.after;
+        this.middleware = middleware();
+        this.devServer.after = app => {
+            if (oldAfter) oldAfter(app);
+            app.use(this.middleware);
+        }
+    }
+    apply(compiler) {
+        const entryPointNames = Object.keys(compiler.options.entry);
+        compiler.plugin('emit', (compilation, callback) => {
+            const mapped = {};
+            for (const entryName of entryPointNames) {
+                const entryPoint = compilation.entrypoints[entryName];
+                for (const chunk of entryPoint.chunks) {
+                    for (const file of chunk.files) {
+                        if (this.inlineAssetMap[file]) {
+                            mapped[this.inlineAssetMap[file]] = compilation.assets[file].source();
+                        }
+                    }
+                }
+            }
+            this.middleware.onCompilation(mapped);
+            callback();
+        });
+    }
+}
+
+module.exports = UpwardPlugin;

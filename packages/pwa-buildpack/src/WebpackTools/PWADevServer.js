@@ -8,7 +8,6 @@ const optionsValidator = require('../util/options-validator');
 const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
-const UpwardMiddleware = require('./UpwardDevMiddleware');
 const PWADevServer = {
     DEFAULT_NAME: 'my-pwa',
     DEV_DOMAIN: 'local.pwadev',
@@ -147,10 +146,7 @@ const PWADevServer = {
             contentBase: false,
             compress: true,
             hot: true,
-            host: '0.0.0.0',
-            after(app) {
-                app.use(UpwardMiddleware());
-            }
+            host: '0.0.0.0'
         };
         let devHost;
         if (config.id) {

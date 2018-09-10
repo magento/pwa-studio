@@ -7,12 +7,13 @@ const {
         ServiceWorkerPlugin,
         DevServerReadyNotifierPlugin,
         MagentoResolver,
+        UpwardPlugin,
+        CriticalCssPlugin,
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
@@ -41,6 +42,8 @@ module.exports = async function(env) {
     );
     const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
+    const critical = new CriticalCssPlugin({ phase });
+
     const config = {
         context: __dirname, // Node global for the running script's directory
         entry: {
@@ -65,28 +68,7 @@ module.exports = async function(env) {
                         }
                     ]
                 },
-                {
-                    test: /\.css$/,
-                    oneOf: (cssLoaderConfig => [
-                        {
-                            test: /\.critical\.css$/,
-                            use: ExtractTextPlugin.extract({
-                                use: cssLoaderConfig
-                            })
-                        },
-                        {
-                            test: /\.css$/,
-                            use: ['style-loader', cssLoaderConfig]
-                        }
-                    ])({
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1,
-                            localIdentName: '[name]-[local]-[hash:base64:3]',
-                                modules: true
-                            }
-                    })
-                },
+                critical.load(),
                 {
                     test: /\.(jpg|svg)$/,
                     use: [
@@ -129,11 +111,7 @@ module.exports = async function(env) {
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
-            new ExtractTextPlugin({
-                filename: 'critical.css',
-                allChunks: true,
-                ignoreOrder: true
-            }),
+            critical,
             new ServiceWorkerPlugin({
                 env,
                 enableServiceWorkerDebugging,
@@ -166,7 +144,8 @@ module.exports = async function(env) {
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer)
+            new DevServerReadyNotifierPlugin(config.devServer),
+            new UpwardPlugin(config.devServer, { 'critical.css': 'criticalCss' })
         );
     } else if (phase === 'production') {
         config.entry.vendor = libs;
