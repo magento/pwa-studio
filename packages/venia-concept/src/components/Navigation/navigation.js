@@ -13,7 +13,7 @@ import defaultClasses from './navigation.css';
 import Button from 'src/components/Button';
 // import IconButton from 'src/components/IconButton';
 // import { login } from 'src/actions/user';
-import { logInUser } from 'src/actions/login';
+import { login } from 'src/actions/user';
 import user from './user.svg';
 import chevronUp from './chevronUp.svg';
 
@@ -106,7 +106,7 @@ class Navigation extends Component {
 
     onSubmitLogin = (event) => {
         event.preventDefault();
-        this.props.logInUser('roni_cost@example.com', 'roni_cost3@example.com');
+        this.props.login('roni_cost@example.com', 'roni_cost3@example.com');
     }
 
     hideLoginForm = () => {
@@ -138,8 +138,8 @@ class Navigation extends Component {
         );
     }
 
-    logInUser = (payload) => {
-        this.props.logInUser({payload});
+    login = (payload) => {
+        this.props.login({payload});
     };
 
 
@@ -157,16 +157,16 @@ class Navigation extends Component {
 }
 
 const mapDispatchToProps = {
-    logInUser
+    login
 }
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state['app']['isLoggedIn'],
-        loginError: state['app']['loginError'],
-        firstname: state['app']['user']['firstname'],
-        lastname: state['app']['user']['lastname'],
-        email: state['app']['user']['email']
+        isLoggedIn: state['user']['isLoggedIn'],
+        loginError: state['user']['loginError'],
+        firstname: state['user']['firstname'],
+        lastname: state['user']['lastname'],
+        email: state['user']['email']
     }
 }
 

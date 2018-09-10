@@ -2,7 +2,7 @@ import { RestApi } from '@magento/peregrine';
 
 const { request } = RestApi.Magento2;
 
-const logInUser = credentials =>
+const login = credentials =>
     async function thunk(...args) {
         const [dispatch] = args;
 
@@ -50,4 +50,4 @@ function setToken(token) {
 
 
 
-export { logInUser };
+export { login };
