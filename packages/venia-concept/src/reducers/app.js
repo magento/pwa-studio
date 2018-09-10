@@ -1,7 +1,8 @@
 const initialState = {
     drawer: null,
     overlay: false,
-    pending: {}
+    pending: {},
+    loggedIn: false
 };
 
 const reducer = (state = initialState, { error, payload, type }) => {
@@ -11,6 +12,19 @@ const reducer = (state = initialState, { error, payload, type }) => {
                 ...state,
                 drawer: payload,
                 overlay: !!payload
+            };
+        }
+        case 'LOG_IN': {
+            debugger;
+            return {
+                ...state,
+                loggedIn: true
+            };
+        }
+        case 'LOG_OUT': {
+            return {
+                ...state,
+                loggedIn: false
             };
         }
         default: {
