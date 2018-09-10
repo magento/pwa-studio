@@ -1,0 +1,64 @@
+status:
+  when:
+    matches: island.name
+    pattern: '.'
+    use: 200
+  default: 404
+
+headers:
+  inline:
+    content-type: text/plain
+
+body:
+  when:
+    - matches: island.name
+      pattern: '.'
+      use:
+        engine: mustache
+        provide:
+          title: island.name
+          group: island.group
+          body: island.description
+        template: ./island-summary
+  default: notFound
+
+island: islandResult.data.islands:first
+
+islandResult:
+  when:
+    - matches: request.url.pathname
+      pattern: '^\/inmost-sea/([A-Za-z\-]+\/?$'
+      use:
+        url: env.EARTHSEA_API
+        query: './getIslands'
+        variables:
+          group:
+            inline: Inmost Sea
+          nameNormalized: $match.$1
+
+    - matches: request.url.pathname
+      pattern: '^\/north-reach/([A-Za-z\-]+\/?$'
+      use:
+        url: env.EARTHSEA_API
+        query: './getIslands'
+        variables:
+          group:
+            inline: North Reach
+          nameNormalized: $match.$1
+
+    - matches: request.url.pathname
+      pattern: '^\/kargad-lands/([A-Za-z\-]+\/?$'
+      use:
+        url: env.EARTHSEA_API
+        query: './getIslands'
+        variables:
+          group:
+            inline: Kargad Lands
+          nameNormalized: $match.$1
+
+  default:
+    inline: ''
+
+notFound:
+  inline: |
+    No such island exists here.
