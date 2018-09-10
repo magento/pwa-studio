@@ -14,6 +14,7 @@ import Button from 'src/components/Button';
 // import IconButton from 'src/components/IconButton';
 // import { login } from 'src/actions/user';
 import { logInUser } from 'src/actions/login';
+import user from './user.svg';
 
 const CATEGORIES = [
     'dresses',
@@ -51,7 +52,7 @@ class Navigation extends Component {
         return !this.props.isLoggedIn ? (
         <Button onClick={this.showLoginForm}>
             Login
-        </Button>) : <p> Logged in! </p>;
+        </Button>) : <div><p> <img src={user}/>  Logged in! </p></div>;
     }
 
      get loginErrorComponent() {
@@ -65,10 +66,10 @@ class Navigation extends Component {
      }
 
      get loginForm() {
-         const { classes, isOpen, loginError } = this.props;
-         const className = isOpen ? classes.open : classes.closed;
-         return !!this.state.isLoginOpen ? (
-             <aside className={className}>
+         const { classes, loginError } = this.props;
+         const className = (!this.state.isLoginOpen || this.props.isLoggedIn) ? classes.loginClosed : classes.loginOpen;
+         return  (
+             <div className={`${className} ${classes.loginForm}`}>
                  <div className={classes.header}>
                      <h2 className={classes.title}>
                          <span>My Account</span>
@@ -82,8 +83,8 @@ class Navigation extends Component {
                      onLogin={ this.onSubmitLogin }
                      loginError={loginError}
                  />
-             </aside>
-         ) : null;
+             </div>
+         )
      }
 
     showLoginForm = () => {
@@ -105,9 +106,9 @@ class Navigation extends Component {
     get main() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
-        const { loginPrompt } = this;
+        const { loginPrompt, loginForm } = this;
 
-        return !this.state.isLoginOpen ? (
+        return (
             <aside className={className}>
                 <div className={classes.header}>
                     <h2 className={classes.title}>
@@ -121,8 +122,9 @@ class Navigation extends Component {
                 <div className={classes.header}>
                     { loginPrompt }
                 </div>
+                {loginForm}
             </aside>
-        ) : null;
+        );
     }
 
     logInUser = (payload) => {
@@ -132,14 +134,12 @@ class Navigation extends Component {
 
     render() {
         const {
-            main,
-            loginForm
+            main
         } = this;
 
         return (
             <div>
                 {main}
-                {loginForm}
             </div>
         );
     }

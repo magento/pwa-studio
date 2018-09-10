@@ -94,3 +94,20 @@
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     visibility: visible;
 }
+
+.loginForm {
+    background: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.loginOpen {
+    top: 0;
+    transition: all .2s ease-in;
+}
+
+.loginClosed {
+    top: 100vh;
+    transition: all .2s ease-in;
+}
