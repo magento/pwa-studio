@@ -7,10 +7,7 @@
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
-    return remotelyResolveRoute({
-        route,
-        apiBase
-    }).then(res => {
+    function handleResolverResponse(res) {
         if (!(res && res.type)) {
             return { matched: false };
         }
@@ -23,7 +20,17 @@ export default function resolveUnknownRoute(opts) {
             id: res.id,
             matched: true
         }));
-    });
+    }
+
+    const preloaded = document.getElementById('url-resolver');
+    if (preloaded) {
+        return handleResolverResponse(JSON.parse(preloaded.textContent));
+    }
+
+    return remotelyResolveRoute({
+        route,
+        apiBase
+    }).then(handleResolverResponse);
 }
 
 /**

@@ -47,7 +47,7 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            publicPath: '/',
             filename: 'js/[name].js',
             chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
@@ -133,11 +133,12 @@ module.exports = async function(env) {
         config.devtool = 'source-map';
 
         config.devServer = await PWADevServer.configure({
+            publicPath: config.output.publicPath,
             serviceWorkerFileName,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             paths: themePaths,
-            id: 'magento-venia'
+            id: 'magento-venia',
+            provideSSLCert: true
         });
 
         // A DevServer generates its own unique output path at startup. It needs

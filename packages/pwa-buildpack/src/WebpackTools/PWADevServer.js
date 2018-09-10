@@ -2,18 +2,13 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const { join } = require('path');
 const { createHash } = require('crypto');
 const url = require('url');
-const express = require('express');
 const GlobalConfig = require('../util/global-config');
 const SSLCertStore = require('../util/ssl-cert-store');
 const optionsValidator = require('../util/options-validator');
-const middlewares = {
-    originSubstitution: require('./middlewares/OriginSubstitution'),
-    devProxy: require('./middlewares/DevProxy'),
-    staticRootRoute: require('./middlewares/StaticRootRoute')
-};
 const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
+const UpwardMiddleware = require('./UpwardDevMiddleware');
 const PWADevServer = {
     DEFAULT_NAME: 'my-pwa',
     DEV_DOMAIN: 'local.pwadev',
@@ -152,37 +147,9 @@ const PWADevServer = {
             contentBase: false,
             compress: true,
             hot: true,
-            host: 'localhost',
-            before(app) {
-                if (config.changeOrigin) {
-                    // replace origins in links in returned html
-                    app.use(
-                        middlewares.originSubstitution(
-                            new url.URL(config.backendDomain),
-                            {
-                                hostname: devServerConfig.host,
-                                port: devServerConfig.port
-                            }
-                        )
-                    );
-                }
-                // serviceworker root route
-                app.use(
-                    middlewares.staticRootRoute(
-                        join(config.paths.output, config.serviceWorkerFileName)
-                    )
-                );
-            },
+            host: '0.0.0.0',
             after(app) {
-                // set static server to load and serve from different paths
-                app.use(config.publicPath, express.static(config.paths.output));
-
-                // proxy to backend
-                app.use(
-                    middlewares.devProxy({
-                        target: config.backendDomain
-                    })
-                );
+                app.use(UpwardMiddleware());
             }
         };
         let devHost;
