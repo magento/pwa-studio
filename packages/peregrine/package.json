@@ -15,8 +15,8 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "scripts": {
     "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
-    "clean": "rimraf dist",
     "danger": "danger-ci",
+    "clean": "rimraf dist",
     "prepare": "npm-merge-driver install",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",

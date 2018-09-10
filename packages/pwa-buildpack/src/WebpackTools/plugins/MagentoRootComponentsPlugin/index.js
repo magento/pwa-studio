@@ -1,4 +1,4 @@
-const { isAbsolute, join } = require('path');
+const { isAbsolute, join, extname } = require('path');
 const { RawSource } = require('webpack-sources');
 const {
     rootComponentMap,
@@ -6,6 +6,8 @@ const {
 } = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
+
+const isJSFile = filename => /^\.jsx?$/.test(extname(filename));
 
 /**
  * @description webpack plugin that creates chunks for each
@@ -19,12 +21,11 @@ class MagentoRootComponentsPlugin {
      * @param {string} opts.manifestFileName Name of the manifest file to be emitted from the build
      */
     constructor(opts = {}) {
-        const { rootComponentsDirs, manifestFileName, phase } = opts;
+        const { rootComponentsDirs, manifestFileName } = opts;
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
         ];
         this.manifestFileName = manifestFileName || 'roots-manifest.json';
-        this.phase = phase;
     }
 
     apply(compiler) {
@@ -47,32 +48,25 @@ class MagentoRootComponentsPlugin {
                     // us to grab the ID during the emit phase
                     moduleByPath.set(mod.resource, mod);
                 }
-
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
-
+                if (!isJSFile(mod.resource)) {
                 // But identifying entry points is hard!
 
                 // Top-level modules injected by a downstream "issuer" are not
                 // entry points.
                 let isEntrySimpleTest = mod => !mod.issuer;
                 if (this.phase === 'development') {
-                    // Unless we're in development mode. In that case,
-                    // the best we can do is test if the entry is in node_modules.
-                    isEntrySimpleTest = mod =>
-                        mod.resource.indexOf('/node_modules/') !== -1;
+                    return;
                 }
-
-                const isAnEntry =
-                    isEntrySimpleTest(mod) &&
-                    // Otherwise, check if the module being constructed matches a defined entry point
-                    compilation.entries.some(entryMod => {
-                        if (mod === entryMod) {
-                            return true;
-                        }
+                const isAnEntry = compilation.entries.some(entryMod => {
+                    // Check if the module being constructed matches a defined entry point
+                    if (mod === entryMod) return true;
                         if (!entryMod.identifier().startsWith('multi')) {
                             return false;
                         }
+
+                    // If a multi-module entry is used (webpack-dev-server creates one), we
                         // need to try and match against each dependency in the multi module
                         return entryMod.dependencies.some(
                             singleDep => singleDep.module === mod

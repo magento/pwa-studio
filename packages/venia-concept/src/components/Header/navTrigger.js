@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import defaultClasses from './navTrigger.css';
+import defaultClasses from './navTrigger.critical.css';
 
 class Trigger extends Component {
     static propTypes = {

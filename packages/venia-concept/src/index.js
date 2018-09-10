@@ -5,7 +5,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import reducer from 'src/reducers/app';
-import './index.css';
+import './index.critical.css';
 
 const { Provider, store } = bootstrap({
     apiBase: new URL('/graphql', location.origin).toString(),

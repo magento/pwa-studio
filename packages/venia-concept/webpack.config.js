@@ -12,6 +12,7 @@ const {
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
@@ -66,18 +67,25 @@ module.exports = async function(env) {
                 },
                 {
                     test: /\.css$/,
-                    use: [
-                        'style-loader',
+                    oneOf: (cssLoaderConfig => [
                         {
+                            test: /\.critical\.css$/,
+                            use: ExtractTextPlugin.extract({
+                                use: cssLoaderConfig
+                            })
+                        },
+                        {
+                            test: /\.css$/,
+                            use: ['style-loader', cssLoaderConfig]
+                        }
+                    ])({
                             loader: 'css-loader',
                             options: {
                                 importLoaders: 1,
-                                localIdentName:
-                                    '[name]-[local]-[hash:base64:3]',
+                            localIdentName: '[name]-[local]-[hash:base64:3]',
                                 modules: true
                             }
-                        }
-                    ]
+                    })
                 },
                 {
                     test: /\.(jpg|svg)$/,
@@ -121,6 +129,11 @@ module.exports = async function(env) {
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
+            new ExtractTextPlugin({
+                filename: 'critical.css',
+                allChunks: true,
+                ignoreOrder: true
+            }),
             new ServiceWorkerPlugin({
                 env,
                 enableServiceWorkerDebugging,
@@ -130,6 +143,9 @@ module.exports = async function(env) {
         ]
     };
     if (phase === 'development') {
+        config.performance = {
+            hints: 'warning'
+        };
         config.devtool = 'source-map';
 
         config.devServer = await PWADevServer.configure({
