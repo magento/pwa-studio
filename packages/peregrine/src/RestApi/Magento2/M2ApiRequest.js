@@ -59,10 +59,9 @@ class M2ApiRequest {
             method: 'GET',
             signal: this.controller.signal,
             credentials: 'include',
-            authorization: login_token ? `Bearer ${login_token}` : '',
             ...opts,
             // cannot be overridden, only appended to
-            headers: withDefaultHeaders(opts.headers)
+            headers: withDefaultHeaders(new Headers({'authorization': login_token ? `Bearer ${login_token}` : ''}))
         };
     }
     /**
