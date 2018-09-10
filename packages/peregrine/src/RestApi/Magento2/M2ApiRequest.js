@@ -5,7 +5,7 @@ import * as MulticastCache from './MulticastCache';
 const withDefaultHeaders = headerAdditions => {
     const headers = new Headers({
         'Content-type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
     });
     if (headerAdditions) {
         if (headerAdditions instanceof Headers) {
@@ -50,6 +50,7 @@ const withDefaultHeaders = headerAdditions => {
  */
 class M2ApiRequest {
     constructor(resourceUrl, opts = {}) {
+        const login_token = localStorage.getItem('login_token');
         this.controller = new AbortController();
         this.resourceUrl = resourceUrl;
         // merge headers specially
@@ -58,6 +59,7 @@ class M2ApiRequest {
             method: 'GET',
             signal: this.controller.signal,
             credentials: 'include',
+            authorization: login_token ? `Bearer ${login_token}` : '',
             ...opts,
             // cannot be overridden, only appended to
             headers: withDefaultHeaders(opts.headers)
