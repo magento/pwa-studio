@@ -31,6 +31,7 @@ class ResolverVisitor {
             const definedString = defined.toString();
             debug(
                 'defined: %s is primitive, yielding to context.get("%s")',
+                definedString,
                 definedString
             );
             return this.context.get(definedString);

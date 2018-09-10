@@ -1,4 +1,4 @@
-const { extname } = require('path');
+const { extname, normalize } = require('path');
 const CompiledResources = {
     GraphQLDocument: require('./GraphQLDocument'),
     MustacheTemplate: require('./MustacheTemplate')
@@ -14,9 +14,10 @@ for (const Resource of Object.values(CompiledResources)) {
 
 module.exports = Object.assign(CompiledResources, {
     forFileOfType(filenameOrExtension) {
-        const extension = filenameOrExtension.startsWith('.')
-            ? filenameOrExtension
-            : extname(filenameOrExtension);
+        const normalized = normalize(filenameOrExtension);
+        const extension = normalized.startsWith('.')
+            ? normalized
+            : extname(normalized);
         return byExtension.get(extension);
     }
 });

@@ -2,9 +2,9 @@
 const ResolverList = [
     require('./InlineResolver'),
     require('./FileResolver'),
-    require('./TemplateResolver')
-    // require('./ServiceResolver'),
-    // require('./ConditionalResolver')
+    require('./TemplateResolver'),
+    require('./ServiceResolver'),
+    require('./ConditionalResolver')
 ];
 
 const ResolversByType = ResolverList.reduce((out, Resolver) => {

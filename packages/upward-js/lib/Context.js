@@ -84,9 +84,9 @@ class Context {
         return path.getFrom(this._data);
     }
 
-    set(base, value) {
+    set(base, value, override) {
         const isSet = constants.has(base) || this._data.hasOwnProperty(base);
-        if (isSet) {
+        if (isSet && !override) {
             throw new Error(
                 `Attempted to reassign context property '${base}' to '${value}'. Context properties cannot be reassigned.`
             );

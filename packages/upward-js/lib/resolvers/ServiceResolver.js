@@ -2,7 +2,7 @@ const debug = require('debug')('upward-js:ServiceResolver');
 const { inspect } = require('util');
 const { execute, makePromise } = require('apollo-link');
 const { HttpLink } = require('apollo-link-http');
-const { isPlainObject } = require('lodash');
+const { isPlainObject, fromPairs } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const GraphQLDocument = require('../compiledResources/GraphQLDocument');
 class ServiceResolver extends AbstractResolver {
@@ -10,7 +10,7 @@ class ServiceResolver extends AbstractResolver {
         return 'service';
     }
     static get telltale() {
-        return 'endpoint';
+        return 'url';
     }
     async resolve(definition) {
         const die = msg => {
@@ -59,12 +59,18 @@ class ServiceResolver extends AbstractResolver {
                 : {}
         ];
 
-        const [url, query, method, headers, variables] = await Promise.all(
-            toResolve
-        );
+        const [
+            url,
+            query,
+            method,
+            headers,
+            variableEntries
+        ] = await Promise.all(toResolve);
+
+        const variables = fromPairs(variableEntries);
 
         debug(
-            'url retrieved: "%s, query resolved: "%s, creating link',
+            'url retrieved: "%s", query resolved: "%s", creating link',
             url,
             query
         );
@@ -86,9 +92,17 @@ class ServiceResolver extends AbstractResolver {
             throw new Error(`Unknown type passed to 'query'.`);
         }
 
+        debug('running query with %o', variables);
+
         return makePromise(
             execute(link, { query: await parsedQuery.render(), variables })
-        );
+        ).then(({ data, errors }) => {
+            if (errors && errors.length > 0) {
+                throw new Error(errors[0].message);
+            } else {
+                return { data };
+            }
+        });
     }
 }
 

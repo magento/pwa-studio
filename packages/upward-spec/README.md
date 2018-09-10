@@ -278,8 +278,7 @@ The above context lookup behaves at runtime as an instruction to wait until the 
 
 ```yaml
 uxbridges:
-  resolver: web
-  parse: json
+  resolver: service
   method: POST
     resolver: inline
       inline: false
@@ -290,10 +289,11 @@ uxbridges:
     resolver: inline
     inline:
       content-type: application/x-www-form-urlencoded
-  body:
+  query:
     resolver: inline
-    inline:
-      name: uxbridge
+    inline: '{
+      characters @rest(type: "Character", path: )
+    }'
 ```
 
 The above definition would assign an [`HttpResponse`](#http-response) to the `uxbridges` basename once it has run. An HTTP response has no `characters` property, so the example context lookup would resolve to the empty string. However, an HTTP response does have a `body` property, so the lookup `uxbridges.body.characters[0].name` would resolve to `Kevin Uxbridge`.

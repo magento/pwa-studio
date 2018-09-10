@@ -1,3 +1,4 @@
+const debug = require('debug')('upward-js:ConditionalResolver');
 const AbstractResolver = require('./AbstractResolver');
 
 class ConditionalResolver extends AbstractResolver {
@@ -27,8 +28,10 @@ class ConditionalResolver extends AbstractResolver {
         return this.tryMatchers(definition.when);
     }
     async tryMatchers([top, ...rest]) {
+        debug('matching %o with %d left to go', top, rest.length);
         const regex = new RegExp(top.pattern);
         const candidate = await this.visitor.context.get(top.matches);
+        debug('regex is %s, candidate is %s', regex, candidate);
         const regexMatch = candidate.match(regex);
 
         if (regexMatch) {
@@ -36,7 +39,7 @@ class ConditionalResolver extends AbstractResolver {
                 contextMatch[`$${index}`] = group;
                 return contextMatch;
             }, {});
-            this.visitor.context.set('$match', match);
+            this.visitor.context.set('$match', match, true);
             const yielded = await this.visitor.upward(top, 'use');
             this.visitor.context.forget('$match');
             return yielded;

@@ -1,3 +1,4 @@
+const debug = require('debug')('upward-js:ContextPath');
 const illegalPathChars = /(^\.+)|[^\.\w\/]/;
 const contextPathCache = new Map();
 class ContextPath {
@@ -45,7 +46,8 @@ class ContextPath {
     getFrom(obj) {
         let current = obj;
         for (const segment of this._segments) {
-            if (!current.hasOwnProperty(segment)) {
+            debug('traverse %o for %s', current, segment);
+            if (!current || !current.hasOwnProperty(segment)) {
                 return;
             }
             current = current[segment];

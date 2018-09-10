@@ -92,7 +92,9 @@ class FileResolver extends AbstractResolver {
             }
         }
         debug('parse === %s, found %s to compile', parse, Resource.name);
-        return new Resource(fileText, this.visitor.io);
+        const rsrc = new Resource(fileText, this.visitor.io);
+        await rsrc.compile();
+        return rsrc;
     }
 }
 

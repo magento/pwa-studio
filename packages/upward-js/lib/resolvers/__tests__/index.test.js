@@ -10,8 +10,10 @@ test('Resolvers exports', () => {
     ).toBeTruthy();
     expect(ResolversByType).toMatchInlineSnapshot(`
 Object {
+  "conditional": [Function],
   "file": [Function],
   "inline": [Function],
+  "service": [Function],
   "template": [Function],
 }
 `);
