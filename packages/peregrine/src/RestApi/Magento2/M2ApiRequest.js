@@ -5,7 +5,7 @@ import * as MulticastCache from './MulticastCache';
 const withDefaultHeaders = headerAdditions => {
     const headers = new Headers({
         'Content-type': 'application/json',
-        Accept: 'application/json',
+        Accept: 'application/json'
     });
     if (headerAdditions) {
         if (headerAdditions instanceof Headers) {
@@ -61,7 +61,11 @@ class M2ApiRequest {
             credentials: 'include',
             ...opts,
             // cannot be overridden, only appended to
-            headers: withDefaultHeaders(new Headers({'authorization': signin_token ? `Bearer ${signin_token}` : ''}))
+            headers: withDefaultHeaders(
+                new Headers({
+                    authorization: signin_token ? `Bearer ${signin_token}` : ''
+                })
+            )
         };
     }
     /**

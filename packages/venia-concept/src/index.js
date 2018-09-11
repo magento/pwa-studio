@@ -23,7 +23,7 @@ store.addReducer('user', userReducer);
 
 const httpLink = createHttpLink({
     uri: urlBase,
-    __tmp_webpack_public_path__: __webpack_public_path__,
+    __tmp_webpack_public_path__: __webpack_public_path__
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -33,9 +33,9 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            authorization: token ? `Bearer ${token}` : "",
+            authorization: token ? `Bearer ${token}` : ''
         }
-    }
+    };
 });
 
 const apolloClient = new ApolloClient({
@@ -45,7 +45,7 @@ const apolloClient = new ApolloClient({
 
 ReactDOM.render(
     <ApolloProvider client={apolloClient}>
-    <Provider />
+        <Provider />
     </ApolloProvider>,
     document.getElementById('root')
 );
@@ -53,13 +53,13 @@ ReactDOM.render(
 if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
-        .register(process.env.SERVICE_WORKER)
-        .then(registration => {
-            console.log('Service worker registered: ', registration);
-        })
-        .catch(error => {
-            console.log('Service worker registration failed: ', error);
-        });
+            .register(process.env.SERVICE_WORKER)
+            .then(registration => {
+                console.log('Service worker registered: ', registration);
+            })
+            .catch(error => {
+                console.log('Service worker registration failed: ', error);
+            });
     });
 }
 

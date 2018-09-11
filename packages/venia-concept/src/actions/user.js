@@ -11,17 +11,20 @@ const signIn = credentials =>
             // password: 'roni_cost3@example.com'
             username: credentials.username,
             password: credentials.password
-        }
+        };
 
         dispatch({
             type: 'RESET_SIGN_IN_ERROR'
         });
 
         try {
-            const response = await request('/rest/V1/integration/customer/token', {
-                method: 'POST',
-                body: JSON.stringify(body)
-            });
+            const response = await request(
+                '/rest/V1/integration/customer/token',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(body)
+                }
+            );
 
             setToken(response);
 
@@ -33,21 +36,17 @@ const signIn = credentials =>
                 type: 'SIGN_IN',
                 payload: userDetails
             });
-
         } catch (error) {
-            console.warn(error)
+            console.warn(error);
             dispatch({
                 type: 'SIGN_IN_ERROR',
                 payload: error
             });
         }
-
     };
 
 function setToken(token) {
     localStorage.setItem('signin_token', token);
 }
-
-
 
 export { signIn };

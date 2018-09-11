@@ -29,7 +29,6 @@ const tiles = CATEGORIES.map(category => (
     <Tile key={category} text={category} />
 ));
 
-
 class Navigation extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -44,64 +43,66 @@ class Navigation extends Component {
     };
 
     constructor() {
-        super()
+        super();
         this.state = {
             isSignInOpen: false
-        }
+        };
     }
 
     get bottomDrawer() {
         const { classes, firstname, lastname, email } = this.props;
 
         return !this.props.isSignedIn ? (
-            <Button onClick={this.showSignInForm}>
-                Sign In
-            </Button>) :
+            <Button onClick={this.showSignInForm}>Sign In</Button>
+        ) : (
             <div className={classes.accountDrawer}>
                 <Icon name="user" />
                 <div className={classes.userInfo}>
-                    <p> {firstname} {lastname}  </p>
+                    <p>
+                        {' '}
+                        {firstname} {lastname}{' '}
+                    </p>
                     <p>{email}</p>
                 </div>
                 <button>
                     <Icon name="chevron-up" />
                 </button>
-            </div>;
+            </div>
+        );
     }
 
-     get signInForm() {
-         const { classes, signInError, signIn } = this.props;
-         const className = (!this.state.isSignInOpen || this.props.isSignedIn) ? classes.signInClosed : classes.signInOpen;
-         return  (
-             <div className={`${className} ${classes.signInForm}`}>
-                 <div className={classes.header}>
-                     <h2 className={classes.title}>
-                         <span>My Account</span>
-                     </h2>
-                     <button
-                         onClick={this.hideSignInForm}>
-                         <Icon name="x" />
-                     </button>
-                 </div>
-                 <SignIn
-                     signIn={ signIn }
-                     signInError={signInError}
-                 />
-             </div>
-         )
-     }
+    get signInForm() {
+        const { classes, signInError, signIn } = this.props;
+        const className =
+            !this.state.isSignInOpen || this.props.isSignedIn
+                ? classes.signInClosed
+                : classes.signInOpen;
+        return (
+            <div className={`${className} ${classes.signInForm}`}>
+                <div className={classes.header}>
+                    <h2 className={classes.title}>
+                        <span>My Account</span>
+                    </h2>
+                    <button onClick={this.hideSignInForm}>
+                        <Icon name="x" />
+                    </button>
+                </div>
+                <SignIn signIn={signIn} signInError={signInError} />
+            </div>
+        );
+    }
 
     showSignInForm = () => {
         this.setState({
             isSignInOpen: true
-        })
-    }
+        });
+    };
 
     hideSignInForm = () => {
         this.setState({
             isSignInOpen: false
-        })
-    }
+        });
+    };
     get main() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
@@ -118,30 +119,22 @@ class Navigation extends Component {
                     </Trigger>
                 </div>
                 <nav className={classes.tiles}>{tiles}</nav>
-                <div className={classes.bottomDrawer}>
-                    { bottomDrawer }
-                </div>
+                <div className={classes.bottomDrawer}>{bottomDrawer}</div>
                 {signInForm}
             </aside>
         );
     }
 
     render() {
-        const {
-            main
-        } = this;
+        const { main } = this;
 
-        return (
-            <div>
-                {main}
-            </div>
-        );
+        return <div>{main}</div>;
     }
 }
 
 const mapDispatchToProps = {
     signIn
-}
+};
 
 const mapStateToProps = state => {
     return {
@@ -150,8 +143,8 @@ const mapStateToProps = state => {
         firstname: state['user']['firstname'],
         lastname: state['user']['lastname'],
         email: state['user']['email']
-    }
-}
+    };
+};
 
 export default compose(
     classify(defaultClasses),
@@ -160,4 +153,3 @@ export default compose(
         mapDispatchToProps
     )
 )(Navigation);
-

@@ -1,6 +1,8 @@
-.helpText, .errorText, .successText {
-    font-size: .7rem;
-    margin: .4rem 0;
+.helpText,
+.errorText,
+.successText {
+    font-size: 0.7rem;
+    margin: 0.4rem 0;
 }
 
 .helpText {
@@ -23,8 +25,8 @@ input {
 }
 
 .label {
-    font-size: .85rem;
-    margin: .2rem 0;
+    font-size: 0.85rem;
+    margin: 0.2rem 0;
 }
 
 .labelFocused {

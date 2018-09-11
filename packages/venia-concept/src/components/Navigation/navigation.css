@@ -11,7 +11,8 @@
     z-index: 3;
 }
 
-.header, .bottomDrawer {
+.header,
+.bottomDrawer {
     display: flex;
     align-content: center;
     align-items: center;
@@ -97,16 +98,16 @@
 }
 
 .accountDrawer {
-    margin: 0 .5rem;
-	grid-template-columns: 1fr 8fr 1fr;
-	display: grid;
-	align-items: center;
+    margin: 0 0.5rem;
+    grid-template-columns: 1fr 8fr 1fr;
+    display: grid;
+    align-items: center;
     width: 100%;
 }
 
-.userInfo > p:nth-child(2){
+.userInfo > p:nth-child(2) {
     color: rgb(var(--venia-text-alt));
-    font-size: .8rem;
+    font-size: 0.8rem;
 }
 
 .signInForm {

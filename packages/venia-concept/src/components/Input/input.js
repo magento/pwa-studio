@@ -46,29 +46,31 @@ class Input extends Component {
     get helpText() {
         const { helpVisible, classes, helpText } = this.props;
         return helpVisible ? (
-             <div className={classes.helpText}>{helpText}</div>
-        ) : null
+            <div className={classes.helpText}>{helpText}</div>
+        ) : null;
     }
 
     get errorText() {
         const { errorVisible, classes, errorText } = this.props;
         return errorVisible && this.state.dirty ? (
-             <div className={classes.errorText}>{errorText}</div>
-        ) : null
+            <div className={classes.errorText}>{errorText}</div>
+        ) : null;
     }
 
     get successText() {
         const { successVisible, classes, successText } = this.props;
         return successVisible ? (
-             <div className={classes.successText}>{successText}</div>
-        ) : null
+            <div className={classes.successText}>{successText}</div>
+        ) : null;
     }
 
     get labelText() {
         const { classes, label } = this.props;
         let className = `${classes.label}`;
-        if (this.state.focused) {className += ` ${classes.labelFocused}`}
-        return <div className={className}>{label}</div>
+        if (this.state.focused) {
+            className += ` ${classes.labelFocused}`;
+        }
+        return <div className={className}>{label}</div>;
     }
 
     render() {
@@ -89,12 +91,14 @@ class Input extends Component {
                 <input
                     value={value}
                     placeholder={placeholder}
-                    type={type} pattern={pattern}
+                    type={type}
+                    pattern={pattern}
                     disabled={disabled}
                     required={required}
                     onChange={this.handleChange}
                     onFocus={this.focusTextInput}
-                    onBlur={this.blurTextInput} />
+                    onBlur={this.blurTextInput}
+                />
                 {helpText}
                 {errorText}
                 {successText}
@@ -103,22 +107,24 @@ class Input extends Component {
     }
 
     handleChange = event => {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
         this.props.onChange ? this.props.onChange(event.target.value) : null;
-    }
+    };
 
     focusTextInput = () => {
-        this.setState({focused: true})
-    }
+        this.setState({ focused: true });
+    };
 
     blurTextInput = () => {
-        this.setState({focused: false})
+        this.setState({ focused: false });
         this.makeDirty();
-    }
+    };
 
     makeDirty = () => {
-        if (!this.state.dirty) {this.setState({dirty: true})}
-    }
+        if (!this.state.dirty) {
+            this.setState({ dirty: true });
+        }
+    };
 }
 
 export default classify(defaultClasses)(Input);

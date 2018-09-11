@@ -25,7 +25,7 @@
 
 .signInError {
     overflow-y: scroll;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
 }
 
 button {
@@ -36,6 +36,6 @@ button {
 .forgotPassword {
     text-decoration: underline;
     color: rgb(var(--venia-text-spot));
-    font-size: .8rem;
+    font-size: 0.8rem;
     text-align: center;
 }

@@ -1,7 +1,7 @@
 const initialState = {
     drawer: null,
     overlay: false,
-    pending: {},
+    pending: {}
 };
 
 const reducer = (state = initialState, { error, payload, type }) => {
