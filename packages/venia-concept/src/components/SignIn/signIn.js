@@ -1,4 +1,5 @@
 import { createElement, Component } from 'react';
+import PropTypes from 'prop-types';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
@@ -6,6 +7,11 @@ import classify from 'src/classify';
 import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
+    static propTypes = {
+        signInError: PropTypes.object,
+        signIn: PropTypes.function
+    }
+
     state = ({
         password: '',
         username: ''
@@ -13,7 +19,8 @@ class SignIn extends Component {
 
     get errorMessage() {
         const { classes,  signInError } = this.props;
-        return !!signInError ? (
+        const isErrorEmpty = Object.keys(signInError).length === 0;
+        return !isErrorEmpty ? (
             <div className={classes.signInError}>
                 <p> {signInError.message} </p>
             </div>) : null;

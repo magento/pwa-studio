@@ -1,6 +1,6 @@
 const initialState = {
     isSignedIn: false,
-    signInError: false
+    signInError: {}
 };
 
 const userReducer = (state = initialState, { error, payload, type }) => {
@@ -21,7 +21,7 @@ const userReducer = (state = initialState, { error, payload, type }) => {
         case 'RESET_SIGN_IN_ERROR': {
             return {
                 ...state,
-                signInError: false
+                signInError: {}
             };
         }
         case 'SIGN_IN_ERROR': {

@@ -104,7 +104,7 @@
     width: 100%;
 }
 
-.accountDrawer > div:nth-child(2) > p:nth-child(2) {
+.userInfo > p:nth-child(2){
     color: rgb(var(--venia-text-alt));
     font-size: .8rem;
 }

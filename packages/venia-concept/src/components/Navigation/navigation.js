@@ -35,7 +35,12 @@ class Navigation extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        isOpen: PropTypes.bool
+        isOpen: PropTypes.bool,
+        isSignedIn: PropTypes.bool,
+        signInError: PropTypes.object,
+        firstname: PropTypes.string,
+        lastname: PropTypes.string,
+        email: PropTypes.string
     };
 
     constructor() {
@@ -54,7 +59,7 @@ class Navigation extends Component {
             </Button>) :
             <div className={classes.accountDrawer}>
                 <Icon name="user" />
-                <div>
+                <div className={classes.userInfo}>
                     <p> {firstname} {lastname}  </p>
                     <p>{email}</p>
                 </div>
