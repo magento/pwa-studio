@@ -11,20 +11,21 @@
     z-index: 3;
 }
 
-.header {
+.header, .bottomDrawer {
+    display: flex;
     align-content: center;
     align-items: center;
     background-color: rgb(var(--venia-grey));
     box-shadow: 0 1px rgb(var(--venia-border));
-    display: grid;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-auto-rows: 3rem;
-    grid-template-columns: 1fr;
     height: 3.5rem;
-    justify-content: end;
+    justify-content: center;
     padding: 0 1rem;
     position: relative;
+}
+
+.bottomDrawer button {
+    max-width: 4em;
+    height: 2.3em;
 }
 
 .title {
@@ -100,6 +101,7 @@
 	grid-template-columns: 1fr 8fr 1fr;
 	display: grid;
 	align-items: center;
+    width: 100%;
 }
 
 .accountDrawer > div:nth-child(2) > p:nth-child(2) {

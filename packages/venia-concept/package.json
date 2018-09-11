@@ -7,7 +7,7 @@
     "main": "src/index.js",
     "repository": "github:magento-research/pwa-studio",
     "bugs": {
-      "url": "https://github.com/magento-research/pwa-studio/issues"
+        "url": "https://github.com/magento-research/pwa-studio/issues"
     },
     "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
     "scripts": {
@@ -17,7 +17,7 @@
         "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development"
     },
     "dependencies": {
-        "@magento/peregrine": "^0.4.0",
+        "@magento/peregrine": "file:../peregrine",
         "apollo-boost": "^0.1.9",
         "babel-runtime": "^6.26.0",
         "dotenv": "^6.0.0",
@@ -35,6 +35,7 @@
     },
     "devDependencies": {
         "@magento/pwa-buildpack": "^0.8.2",
+        "apollo-link-context": "^1.0.8",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
         "babel-plugin-graphql-tag": "^1.6.0",

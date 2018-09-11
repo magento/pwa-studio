@@ -1,5 +1,6 @@
 .root {
-
+    height: 100%;
+    min-height: 570px;
 }
 
 .loginSection {
@@ -7,10 +8,28 @@
     padding: 1.5rem 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: space-between;
+}
+
+.loginSection div {
+    width: 100%;
 }
 
 .loginDivider {
     border-color: rgb(var(--venia-border));
     border-style: solid;
     border-width: 0 0 1px;
+}
+
+button {
+    max-width: 4em;
+}
+
+.forgotPassword {
+    text-decoration: underline;
+    color: rgb(var(--venia-text-spot));
+    font-size: .8rem;
+    text-align: center;
 }

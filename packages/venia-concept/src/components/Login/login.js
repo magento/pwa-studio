@@ -31,8 +31,8 @@ class Login extends Component {
                         type={'password'} />
 
 
-                    <Button type="submit" onClick={this.login}>Log In</Button>
-                    <div>
+                    <Button type="submit" onClick={this.login}>Sign In</Button>
+                    <div className={classes.forgotPassword}>
                         <Link to=""> Forgot your username or password? </Link>
                     </div>
                     <div>

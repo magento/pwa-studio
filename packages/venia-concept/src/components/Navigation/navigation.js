@@ -11,8 +11,6 @@ import Trigger from './trigger';
 import defaultClasses from './navigation.css';
 
 import Button from 'src/components/Button';
-// import IconButton from 'src/components/IconButton';
-// import { login } from 'src/actions/user';
 import { login } from 'src/actions/user';
 import user from './user.svg';
 import chevronUp from './chevronUp.svg';
@@ -49,13 +47,13 @@ class Navigation extends Component {
         }
     }
 
-    get loginPrompt() {
+    get bottomDrawer() {
         const { classes, firstname, lastname, email } = this.props;
 
         return !this.props.isLoggedIn ? (
             <Button onClick={this.showLoginForm}>
-                Login
-                </Button>) :
+                Sign In
+            </Button>) :
             <div className={classes.accountDrawer}>
                 <img alt="user icon" src={user}/>
                 <div>
@@ -71,7 +69,6 @@ class Navigation extends Component {
          return !!this.state.loginError ? (
              <div>
                  <p> {loginError.message} </p>
-                 <p>SDFSDFSDFSDFSDSDFSDFSDF</p>
              </div>
          ) : <p> hey </p>;
      }
@@ -117,7 +114,7 @@ class Navigation extends Component {
     get main() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
-        const { loginPrompt, loginForm } = this;
+        const { bottomDrawer, loginForm } = this;
 
         return (
             <aside className={className}>
@@ -130,8 +127,8 @@ class Navigation extends Component {
                     </Trigger>
                 </div>
                 <nav className={classes.tiles}>{tiles}</nav>
-                <div className={classes.header}>
-                    { loginPrompt }
+                <div className={classes.bottomDrawer}>
+                    { bottomDrawer }
                 </div>
                 {loginForm}
             </aside>

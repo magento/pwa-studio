@@ -8,7 +8,7 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import reducer from 'src/reducers/app';
-import userReducer from 'src/reducers/app';
+import userReducer from 'src/reducers/user';
 import './index.css';
 
 const urlBase = new URL('/graphql', location.origin).toString();
