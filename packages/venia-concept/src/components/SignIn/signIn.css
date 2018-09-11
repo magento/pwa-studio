@@ -3,7 +3,7 @@
     min-height: 570px;
 }
 
-.loginSection {
+.signInSection {
     margin: 0 1.5rem;
     padding: 1.5rem 0;
     display: flex;
@@ -13,18 +13,24 @@
     justify-content: space-between;
 }
 
-.loginSection div {
+.signInSection div {
     width: 100%;
 }
 
-.loginDivider {
+.signInDivider {
     border-color: rgb(var(--venia-border));
     border-style: solid;
     border-width: 0 0 1px;
 }
 
+.signInError {
+    overflow-y: scroll;
+    margin: .5rem 0;
+}
+
 button {
-    max-width: 4em;
+    max-width: 4rem;
+    min-height: 3rem;
 }
 
 .forgotPassword {

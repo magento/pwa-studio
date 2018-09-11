@@ -2,19 +2,19 @@ import { RestApi } from '@magento/peregrine';
 
 const { request } = RestApi.Magento2;
 
-const login = credentials =>
+const signIn = credentials =>
     async function thunk(...args) {
         const [dispatch] = args;
 
         const body = {
-            username: 'roni_cost@example.com',
-            password: 'roni_cost3@example.com'
-            // credentials.username
-            // credentials.password
+            // username: 'roni_cost@example.com',
+            // password: 'roni_cost3@example.com'
+            username: credentials.username,
+            password: credentials.password
         }
 
         dispatch({
-            type: 'RESET_LOG_IN_ERROR'
+            type: 'RESET_SIGN_IN_ERROR'
         });
 
         try {
@@ -30,14 +30,14 @@ const login = credentials =>
             });
 
             dispatch({
-                type: 'LOG_IN',
+                type: 'SIGN_IN',
                 payload: userDetails
             });
 
         } catch (error) {
             console.warn(error)
             dispatch({
-                type: 'LOG_IN_ERROR',
+                type: 'SIGN_IN_ERROR',
                 payload: error
             });
         }
@@ -45,9 +45,9 @@ const login = credentials =>
     };
 
 function setToken(token) {
-    localStorage.setItem('login_token', token);
+    localStorage.setItem('signin_token', token);
 }
 
 
 
-export { login };
+export { signIn };

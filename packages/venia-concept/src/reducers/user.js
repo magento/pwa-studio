@@ -1,34 +1,34 @@
 const initialState = {
-    isLoggedIn: false,
-    loginError: {}
+    isSignedIn: false,
+    signInError: false
 };
 
 const userReducer = (state = initialState, { error, payload, type }) => {
     switch (type) {
-        case 'LOG_IN': {
+        case 'SIGN_IN': {
             return {
                 ...state,
                 ...payload,
-                isLoggedIn: true
+                isSignedIn: true
             };
         }
-        case 'LOG_OUT': {
+        case 'SIGN_IN': {
             return {
                 ...state,
-                isLoggedIn: false
+                isSignedIn: false
             };
         }
-        case 'RESET_LOG_IN_ERROR': {
+        case 'RESET_SIGN_IN_ERROR': {
             return {
                 ...state,
-                loginError: {}
+                signInError: false
             };
         }
-        case 'LOG_IN_ERROR': {
+        case 'SIGN_IN_ERROR': {
             return {
                 ...state,
-                isLoggedIn: false,
-                loginError: payload
+                isSignedIn: false,
+                signInError: payload
             };
         }
         default: {

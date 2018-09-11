@@ -1,23 +1,33 @@
 import { createElement, Component } from 'react';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
-import defaultClasses from './login.css';
+import defaultClasses from './signIn.css';
 import classify from 'src/classify';
 import { Link } from 'react-router-dom';
 
-class Login extends Component {
+class SignIn extends Component {
     state = ({
         password: '',
         username: ''
     });
 
+    get errorMessage() {
+        const { classes,  signInError } = this.props;
+        return !!signInError ? (
+            <div className={classes.signInError}>
+                <p> {signInError.message} </p>
+            </div>) : null;
+
+    }
+
     render() {
-        const { classes, onLogin, loginError } = this.props;
+        const { classes } = this.props;
+        const { onSignIn, errorMessage } = this;
         return (
             <div className={classes.root}>
                 <form
-                    onSubmit={onLogin}
-                    className={classes.loginSection} >
+                    onSubmit={onSignIn}
+                    className={classes.signInSection} >
                     <Input
                         onChange={this.updateUsername}
                         helpText={'example help text'}
@@ -31,16 +41,14 @@ class Login extends Component {
                         type={'password'} />
 
 
-                    <Button type="submit" onClick={this.login}>Sign In</Button>
+                    <Button type="submit">Sign In</Button>
                     <div className={classes.forgotPassword}>
                         <Link to=""> Forgot your username or password? </Link>
                     </div>
-                    <div>
-                        <p> {loginError.message} </p>
-                    </div>
+                    {errorMessage}
                 </form>
-                <div className={classes.loginDivider}></div>
-                <div className={classes.loginSection}>
+                <div className={classes.signInDivider}></div>
+                <div className={classes.signInSection}>
                     <Button> Create Account </Button>
                 </div>
             </div>
@@ -49,6 +57,12 @@ class Login extends Component {
 
     passwordError() {
         return this.state.password.length < 3;
+    }
+
+    onSignIn = (event) => {
+        event.preventDefault();
+        const { username, password } = this.state;
+        this.props.signIn({ username: username, password: password });
     }
 
     submitPassword = password => {
@@ -68,4 +82,4 @@ class Login extends Component {
     }
 }
 
-export default classify(defaultClasses)(Login)
+export default classify(defaultClasses)(SignIn)

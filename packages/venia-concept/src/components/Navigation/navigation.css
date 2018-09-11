@@ -109,20 +109,20 @@
     font-size: .8rem;
 }
 
-.loginForm {
+.signInForm {
     background: white;
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-.loginOpen {
+.signInOpen {
     animation-duration: 244ms;
     animation-name: slidein;
     animation-fill-mode: forwards;
 }
 
-.loginClosed {
+.signInClosed {
     animation-duration: 244ms;
     animation-name: slideout;
     animation-fill-mode: forwards;

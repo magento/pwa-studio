@@ -5,15 +5,13 @@ import { connect } from 'react-redux';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import Login from 'src/components/Login';
+import SignIn from 'src/components/SignIn';
 import Tile from './tile';
 import Trigger from './trigger';
 import defaultClasses from './navigation.css';
 
 import Button from 'src/components/Button';
-import { login } from 'src/actions/user';
-import user from './user.svg';
-import chevronUp from './chevronUp.svg';
+import { signIn } from 'src/actions/user';
 
 const CATEGORIES = [
     'dresses',
@@ -43,78 +41,66 @@ class Navigation extends Component {
     constructor() {
         super()
         this.state = {
-            isLoginOpen: false
+            isSignInOpen: false
         }
     }
 
     get bottomDrawer() {
         const { classes, firstname, lastname, email } = this.props;
 
-        return !this.props.isLoggedIn ? (
-            <Button onClick={this.showLoginForm}>
+        return !this.props.isSignedIn ? (
+            <Button onClick={this.showSignInForm}>
                 Sign In
             </Button>) :
             <div className={classes.accountDrawer}>
-                <img alt="user icon" src={user}/>
+                <Icon name="user" />
                 <div>
                     <p> {firstname} {lastname}  </p>
                     <p>{email}</p>
                 </div>
-                <img alt="chevron up" src={chevronUp}/>
+                <button>
+                    <Icon name="chevron-up" />
+                </button>
             </div>;
     }
 
-     get loginErrorComponent() {
-         const { loginError } = this.props.loginError;
-         return !!this.state.loginError ? (
-             <div>
-                 <p> {loginError.message} </p>
-             </div>
-         ) : <p> hey </p>;
-     }
-
-     get loginForm() {
-         const { classes, loginError } = this.props;
-         const className = (!this.state.isLoginOpen || this.props.isLoggedIn) ? classes.loginClosed : classes.loginOpen;
+     get signInForm() {
+         const { classes, signInError, signIn } = this.props;
+         const className = (!this.state.isSignInOpen || this.props.isSignedIn) ? classes.signInClosed : classes.signInOpen;
          return  (
-             <div className={`${className} ${classes.loginForm}`}>
+             <div className={`${className} ${classes.signInForm}`}>
                  <div className={classes.header}>
                      <h2 className={classes.title}>
                          <span>My Account</span>
                      </h2>
-                     <div
-                         onClick={this.hideLoginForm}>
+                     <button
+                         onClick={this.hideSignInForm}>
                          <Icon name="x" />
-                     </div>
+                     </button>
                  </div>
-                 <Login
-                     onLogin={ this.onSubmitLogin }
-                     loginError={loginError}
+                 <SignIn
+                     signIn={ signIn }
+                     signInError={signInError}
                  />
              </div>
          )
      }
 
-    showLoginForm = () => {
+    showSignInForm = () => {
         this.setState({
-            isLoginOpen: true
+            isSignInOpen: true
         })
     }
 
-    onSubmitLogin = (event) => {
-        event.preventDefault();
-        this.props.login('roni_cost@example.com', 'roni_cost3@example.com');
-    }
-
-    hideLoginForm = () => {
+    hideSignInForm = () => {
         this.setState({
-            isLoginOpen: false
+            isSignInOpen: false
         })
     }
     get main() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
-        const { bottomDrawer, loginForm } = this;
+        const { bottomDrawer, signInForm } = this;
 
         return (
             <aside className={className}>
@@ -130,15 +116,10 @@ class Navigation extends Component {
                 <div className={classes.bottomDrawer}>
                     { bottomDrawer }
                 </div>
-                {loginForm}
+                {signInForm}
             </aside>
         );
     }
-
-    login = (payload) => {
-        this.props.login({payload});
-    };
-
 
     render() {
         const {
@@ -154,13 +135,13 @@ class Navigation extends Component {
 }
 
 const mapDispatchToProps = {
-    login
+    signIn
 }
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state['user']['isLoggedIn'],
-        loginError: state['user']['loginError'],
+        isSignedIn: state['user']['isSignedIn'],
+        signInError: state['user']['signInError'],
         firstname: state['user']['firstname'],
         lastname: state['user']['lastname'],
         email: state['user']['email']

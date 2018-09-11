@@ -2,9 +2,6 @@ const initialState = {
     drawer: null,
     overlay: false,
     pending: {},
-    isLoggedIn: false,
-    loginError: {},
-    user: {}
 };
 
 const reducer = (state = initialState, { error, payload, type }) => {
