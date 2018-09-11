@@ -50,7 +50,7 @@ const withDefaultHeaders = headerAdditions => {
  */
 class M2ApiRequest {
     constructor(resourceUrl, opts = {}) {
-        const login_token = localStorage.getItem('login_token');
+        const signin_token = localStorage.getItem('signin_token');
         this.controller = new AbortController();
         this.resourceUrl = resourceUrl;
         // merge headers specially
@@ -61,7 +61,7 @@ class M2ApiRequest {
             credentials: 'include',
             ...opts,
             // cannot be overridden, only appended to
-            headers: withDefaultHeaders(new Headers({'authorization': login_token ? `Bearer ${login_token}` : ''}))
+            headers: withDefaultHeaders(new Headers({'authorization': signin_token ? `Bearer ${signin_token}` : ''}))
         };
     }
     /**
