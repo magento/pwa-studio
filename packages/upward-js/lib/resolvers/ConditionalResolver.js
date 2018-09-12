@@ -31,7 +31,7 @@ class ConditionalResolver extends AbstractResolver {
         debug('matching %o with %d left to go', top, rest.length);
         const regex = new RegExp(top.pattern);
         const candidate = await this.visitor.context.get(top.matches);
-        debug('regex is %s, candidate is %s', regex, candidate);
+        debug('regex is %s, %s is %s', regex, top.matches, candidate);
         const regexMatch = candidate.match(regex);
 
         if (regexMatch) {

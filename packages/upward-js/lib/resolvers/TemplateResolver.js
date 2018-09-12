@@ -67,7 +67,7 @@ module.exports = class TemplateResolver extends AbstractResolver {
 
         const [engine, template, rootEntries] = await Promise.all(toResolve);
         debug('template retrieved, "%s"', template);
-        debug('rootEntries retrieved, %o', rootEntries);
+        debug('rootEntries retrieved, %o', rootEntries.map(([name]) => name));
 
         const Engine = Engines[engine];
 

@@ -46,10 +46,10 @@ class ContextPath {
     getFrom(obj) {
         let current = obj;
         for (const segment of this._segments) {
-            debug('traverse %o for %s', current, segment);
             if (!current || !current.hasOwnProperty(segment)) {
-                return;
+                return '';
             }
+            debug('traverse %s yields %s', segment, current[segment]);
             current = current[segment];
         }
         return current;

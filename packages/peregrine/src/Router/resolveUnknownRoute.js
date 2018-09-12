@@ -29,12 +29,11 @@ export default function resolveUnknownRoute(opts) {
             try {
                 return handleResolverResponse(
                     JSON.parse(preloaded.textContent)
-                );
-            } catch (e) {
-                console.error('Unable to read preload!', preloaded.textContent)
+                ).then(x => {
+                    preloadDone = true;
+                    return x;
+                }, e => console.error('Unable to read preload!', preloaded.textContent, e)
             }
-        }
-        preloadDone = true;
     }
 
     return remotelyResolveRoute({
