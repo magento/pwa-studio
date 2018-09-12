@@ -4,7 +4,6 @@ import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
-import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
     static propTypes = {
@@ -88,7 +87,6 @@ class SignIn extends Component {
     updateUsername = newUsername => {
         this.setState({ username: newUsername });
     };
-
 }
 
 export default classify(defaultClasses)(SignIn);
