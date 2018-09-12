@@ -69,11 +69,7 @@ class ServiceResolver extends AbstractResolver {
 
         const variables = fromPairs(variableEntries);
 
-        debug(
-            'url retrieved: "%s", query resolved: "%s", creating link',
-            url,
-            query
-        );
+        debug('url retrieved: "%s", query resolved, creating link', url);
 
         const link = new HttpLink({
             uri: url,
@@ -97,6 +93,7 @@ class ServiceResolver extends AbstractResolver {
         return makePromise(
             execute(link, { query: await parsedQuery.render(), variables })
         ).then(({ data, errors }) => {
+            debug('query %s with %o resulted in %o', definition.query, variables, { data, errors })
             if (errors && errors.length > 0) {
                 throw new Error(errors[0].message);
             } else {

@@ -80,9 +80,6 @@ module.exports = async function(env) {
                 }
             ]
         },
-        performance: {
-            hints: 'warning'
-        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
@@ -121,10 +118,7 @@ module.exports = async function(env) {
         ]
     };
     if (phase === 'development') {
-        config.performance = {
-            hints: 'warning'
-        };
-        config.devtool = 'source-map';
+        config.devtool = 'cheap-module-eval-source-map';
 
         config.devServer = await PWADevServer.configure({
             publicPath: config.output.publicPath,
@@ -134,6 +128,19 @@ module.exports = async function(env) {
             id: 'magento-venia',
             provideSSLCert: true
         });
+
+        config.devServer.stats = {
+            assets: false,
+            children: false,
+            chunks: true,
+            chunkGroups: false,
+            chunkModules: false,
+            chunkOrigins: false,
+            errors: true,
+            errorDetails: true,
+            modules: false,
+            warnings: true
+        };
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -151,6 +158,9 @@ module.exports = async function(env) {
             )
         );
     } else if (phase === 'production') {
+        config.performance = {
+            hints: 'warning'
+        };
         config.entry.vendor = libs;
         config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({

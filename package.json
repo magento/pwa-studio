@@ -17,23 +17,24 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "eslint 'packages/**/*.js' --ignore-pattern node_modules",
     "postinstall": "lerna bootstrap && npm run build",
-    "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
-    "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:dev-server": "nodemon --exec npm --cwd packages/venia-concept start",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd -",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "test": "jest",
     "test:ci": "npm run -s test -- -i --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
     "test:dev": "jest --watch",
-    "watch:all": "concurrently -c yellow.dim,green.dim,cyan.dim -n ␢,℗,☄︎  'npm run watch:buildpack' 'npm run watch:peregrine' 'npm run watch:venia-dev-server'",
-    "watch:venia-dev-server": "nodemon --exec npm --cwd packages/venia-concept start"
+    "watch:all": "concurrently -c yellow.dim,green.dim,cyan.dim -n ␢,℗,☄︎  'npm run watch:buildpack' 'npm run watch:peregrine' 'npm run watch:venia'",
+    "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
+    "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
+    "watch:venia": "nodemon --exec npm --cwd packages/venia-concept start"
   },
   "nodemonConfig": {
     "watch": [
       "packages/pwa-buildpack/dist",
-      "packages/venia-concept/webpack.config.js"
+      "packages/venia-concept/webpack.config.js",
+      "packages/venia-concept/venia-upward.yml",
+      "packages/venia-concept/.babelrc",
+      "packages/venia-concept/babel.config.js"
     ],
     "delay": 1000
   },

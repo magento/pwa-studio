@@ -6,7 +6,7 @@
  */
 let preloadDone = false;
 export default function resolveUnknownRoute(opts) {
-    const { route, apiBase, __tmp_webpack_public_path__ } = opts;
+    const { route, apiBase } = opts;
 
     function handleResolverResponse(res) {
         if (!(res && res.type)) {
@@ -26,13 +26,23 @@ export default function resolveUnknownRoute(opts) {
     if (!preloadDone) {
         const preloaded = document.getElementById('url-resolver');
         if (preloaded) {
+            const rejectPreload = e =>
+                console.error(
+                    'Unable to read preload!',
+                    preloaded.textContent,
+                    e
+                );
             try {
                 return handleResolverResponse(
                     JSON.parse(preloaded.textContent)
-                );
-            } catch (e) {}
+                ).then(x => {
+                    preloadDone = true;
+                    return x;
+                }, rejectPreload);
+            } catch (e) {
+                rejectPreload();
+            }
         }
-        preloadDone = true;
     }
 
     return remotelyResolveRoute({
