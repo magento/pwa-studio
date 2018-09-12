@@ -16,7 +16,7 @@
     top: -21px;
     transition: all 0.25s ease-out;
     transform: scale(0);
-    transform-origin: 100% 0;
+    transform-origin: 100% 50%;
 }
 
 .dropdown.ul:hover {

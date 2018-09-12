@@ -61,9 +61,16 @@ export default async function makeCartReducer() {
                 };
             }
             case 'REMOVE_ITEM_FROM_CART': {
+                if (state.details.items_count == 1) {
+                  storage.removeItem('guestCartId');
+                  return {
+                    ...getInitialState(),
+                    guestCartId: null
+                  }
+                }
                 return {
                     ...state,
-                    guestCartId: payload
+                    guestCartId: payload.guestCartId
                 }
             }
             case 'ACCEPT_ORDER': {

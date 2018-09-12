@@ -14,7 +14,7 @@ class Kebab extends Component {
     render() {
         const { classes, item } = this.props;
         const toggleClass = this.state.isOpen ? classes.dropdown + ' ' + classes.active : classes.dropdown;
-        // const isDropdownOpen = this.state.dropdownMenu;
+
         return (
             <div className={classes.subMenu}>
                 <button onClick={this.openDropdown} onBlur={this.closeDropdown}>...</button>

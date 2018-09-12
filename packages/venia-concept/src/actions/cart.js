@@ -88,16 +88,14 @@ const addItemToCart = payload => {
     };
 };
 
-const removeItemFromCart = payload => {
-  const { item } = payload;
+const removeItemFromCart = item => {
 
   return async function thunk(...args) {
       const [dispatch] = args;
       const guestCartId = await getGuestCartId(...args);
-
       try {
           const cartItem = await request(
-              `/rest/V1/guest-carts/${guestCartId}/items/${payload.item_id}`,
+              `/rest/V1/guest-carts/${guestCartId}/items/${item.item_id}`,
               {
                   method: 'DELETE',
               }
@@ -107,7 +105,7 @@ const removeItemFromCart = payload => {
               type: 'REMOVE_ITEM_FROM_CART',
               payload: {
                   cartItem,
-                  item
+                  guestCartId
               }
           });
       } catch (error) {
@@ -131,7 +129,7 @@ const removeItemFromCart = payload => {
           getCartDetails({ forceRefresh: true })(...args)
       ]);
 
-      return payload;
+      return item;
   };
 }
 
