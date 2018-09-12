@@ -32,7 +32,17 @@ const tiles = CATEGORIES.map(category => (
 class Navigation extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string
+            root: PropTypes.string,
+            accountDrawer: PropTypes.string,
+            userInfo: PropTypes.string,
+            signInClosed: PropTypes.string,
+            signInOpen: PropTypes.string,
+            header: PropTypes.string,
+            title: PropTypes.string,
+            tiles: PropTypes.string,
+            open: PropTypes.string,
+            closed: PropTypes.string,
+            bottomDrawer: PropTypes.string
         }),
         isOpen: PropTypes.bool,
         isSignedIn: PropTypes.bool,

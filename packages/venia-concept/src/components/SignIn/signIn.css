@@ -5,11 +5,10 @@
 
 .signInSection {
     margin: 0 1.5rem;
-    padding: 1.5rem 0;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 50%;
     justify-content: space-between;
 }
 
@@ -25,7 +24,7 @@
 
 .signInError {
     overflow-y: scroll;
-    margin: 0.5rem 0;
+    margin: 1rem 0;
 }
 
 button {
@@ -38,4 +37,5 @@ button {
     color: rgb(var(--venia-text-spot));
     font-size: 0.8rem;
     text-align: center;
+    margin: 2rem 0 0 0;
 }

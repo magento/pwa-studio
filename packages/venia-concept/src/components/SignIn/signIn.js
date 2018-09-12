@@ -8,8 +8,15 @@ import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
     static propTypes = {
+        classes: PropTypes.shape({
+            signInSection: PropTypes.string,
+            signInDivider: PropTypes.string,
+            forgotPassword: PropTypes.string,
+            root: PropTypes.string
+        }),
+
         signInError: PropTypes.object,
-        signIn: PropTypes.function
+        signIn: PropTypes.func
     };
 
     state = {
@@ -42,18 +49,19 @@ class SignIn extends Component {
                     <Input
                         onChange={this.updatePassword}
                         errorText={
-                            'Password must be at least 3 characters long'
+                            'Password must be at least 8 characters long'
                         }
                         errorVisible={this.passwordError()}
                         label={'Password'}
                         type={'password'}
+                        helpText={'example help text'}
                     />
 
                     <Button type="submit">Sign In</Button>
-                    <div className={classes.forgotPassword}>
-                        <Link to=""> Forgot your username or password? </Link>
-                    </div>
                     {errorMessage}
+                    <div className={classes.forgotPassword}>
+                        <a href="/"> Forgot your username or password? </a>
+                    </div>
                 </form>
                 <div className={classes.signInDivider} />
                 <div className={classes.signInSection}>
@@ -64,17 +72,13 @@ class SignIn extends Component {
     }
 
     passwordError() {
-        return this.state.password.length < 3;
+        return this.state.password.length < 8;
     }
 
     onSignIn = event => {
         event.preventDefault();
         const { username, password } = this.state;
         this.props.signIn({ username: username, password: password });
-    };
-
-    submitPassword = password => {
-        console.log(password);
     };
 
     updatePassword = newPassword => {
@@ -85,9 +89,6 @@ class SignIn extends Component {
         this.setState({ username: newUsername });
     };
 
-    logChange = change => {
-        console.log('val', change);
-    };
 }
 
 export default classify(defaultClasses)(SignIn);

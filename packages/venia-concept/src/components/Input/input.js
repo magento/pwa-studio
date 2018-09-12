@@ -18,7 +18,6 @@ class Input extends Component {
         placeholder: PropTypes.string,
         label: PropTypes.string.isRequired,
         type: PropTypes.string,
-        pattern: PropTypes.string,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
 
@@ -79,7 +78,6 @@ class Input extends Component {
             value,
             placeholder,
             type,
-            pattern,
             disabled,
             required,
             classes
@@ -92,7 +90,6 @@ class Input extends Component {
                     value={value}
                     placeholder={placeholder}
                     type={type}
-                    pattern={pattern}
                     disabled={disabled}
                     required={required}
                     onChange={this.handleChange}

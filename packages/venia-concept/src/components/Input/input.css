@@ -17,6 +17,10 @@
     color: green;
 }
 
+.root {
+    margin: 0 0 1rem 0;
+}
+
 input {
     width: 100%;
     height: 1.85rem;
