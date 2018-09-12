@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 class CriticalCssPlugin {
     constructor({
-        phase,
+        mode,
         pattern = /\.critical\.css/,
         filename = 'critical.css',
         cssLoader = {
@@ -16,7 +16,7 @@ class CriticalCssPlugin {
         },
         nonCriticalPattern = /\.css$/
     }) {
-        this.phase = phase;
+        this.mode = mode;
         this.pattern = pattern;
         this.filename = filename;
         this.cssLoader = cssLoader;
@@ -45,7 +45,7 @@ class CriticalCssPlugin {
     }
     apply(compiler) {
         this.extractPlugin.apply(compiler);
-        // if (this.phase === 'production') {
+        // if (this.mode === 'production') {
             (new CssoPlugin(this.pattern)).apply(compiler);
         // }
     }

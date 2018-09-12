@@ -86,11 +86,7 @@ module.exports = async function rootComponentsChunkLoader(src) {
             seenRootComponents.add(rootComponentPath);
         });
 
-        const dynamicImportCalls = generateDynamicImportCode(dirs);
-        const finalSrc = `${src};${EOL}${EOL}${dynamicImportCalls}`;
-        // The entry point source in the graph will now contain the code authored
-        // in the entry point's file + a dynamic import() for each RootComponent
-        cb(null, finalSrc);
+        cb(null, src);
     } catch (err) {
         cb(err);
     }

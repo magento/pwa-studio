@@ -1,13 +1,12 @@
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
+const directiveParser = require('@magento/directive-parser');
 const { isAbsolute, join, extname } = require('path');
-const { RawSource } = require('webpack-sources');
 const {
     rootComponentMap,
     seenRootComponents
 } = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
-
-const isJSFile = filename => /^\.jsx?$/.test(extname(filename));
 
 /**
  * @description webpack plugin that creates chunks for each
@@ -22,11 +21,13 @@ class MagentoRootComponentsPlugin {
      */
     constructor(opts = {}) {
         const { rootComponentsDirs, manifestFileName } = opts;
+        this.manifestPlugin =
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
         ];
-        this.manifestFileName = manifestFileName || 'roots-manifest.json';
     }
+
+    applyManifestPlugin(compiler)
 
     apply(compiler) {
         const { context } = compiler.options;
@@ -40,12 +41,13 @@ class MagentoRootComponentsPlugin {
         );
 
         const moduleByPath = new Map();
-        compiler.plugin('compilation', compilation => {
-            compilation.plugin('normal-module-loader', (loaderContext, mod) => {
+
+        compiler.hooks.compilation.tap("MagentoRootComponentsPlugin", compilation => {
+            compilation.hooks.normalModuleLoader.tap("MagentoRootComponentsPlugin", (loaderContext, mod) => {
                 if (seenRootComponents.has(mod.resource)) {
                     // The module ("mod") has not been assigned an ID yet,
                     // so we need to keep a reference to it which will allow
-                    // us to grab the ID during the emit phase
+                    // us to grab the ID during the emit mode
                     moduleByPath.set(mod.resource, mod);
                 }
                 // To create a unique chunk for each RootComponent, we want to inject
@@ -57,7 +59,7 @@ class MagentoRootComponentsPlugin {
                 // Top-level modules injected by a downstream "issuer" are not
                 // entry points.
                 let isEntrySimpleTest = mod => !mod.issuer;
-                if (this.phase === 'development') {
+                if (this.mode === 'development') {
                     return;
                 }
                 const isAnEntry = compilation.entries.some(entryMod => {

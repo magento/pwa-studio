@@ -74,7 +74,7 @@
     "post-compile-webpack-plugin": "^0.1.2",
     "react-dom": "^16.5.0",
     "through": "^2.3.8",
-    "webpack-sources": "^1.1.0",
+    "webpack-manifest-plugin": "^2.0.4",
     "workbox-webpack-plugin": "^3.0.0-beta.1",
     "write-file-webpack-plugin": "^4.2.0"
   },

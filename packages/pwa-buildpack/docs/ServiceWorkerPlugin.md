@@ -56,7 +56,7 @@ Plugin constructor for the `ServiceWorkerPlugin` class.
 
 `env: Object` **(Required)**
  An object that represents the current environment.
-- `env.phase: String` **(Required)**
+- `env.mode: String` **(Required)**
     Must be either `'development'` or `'production'`.
 
 `paths: Object` **(Required)**

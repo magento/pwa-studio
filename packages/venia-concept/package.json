@@ -11,11 +11,11 @@
     },
     "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
     "scripts": {
-        "build": "webpack --progress --color --env.phase production",
+        "build": "webpack --progress --color --env.mode production",
         "clean": "rimraf web/js",
         "prepare": "npm-merge-driver install",
-        "start": "webpack-dev-server --progress --color --env.phase development",
-        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+        "start": "webpack-dev-server --progress --color --env.mode development",
+        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
         "watch": "npm run -s start"
     },
     "dependencies": {

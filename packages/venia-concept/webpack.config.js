@@ -33,18 +33,19 @@ const libs = [
 ];
 
 module.exports = async function(env) {
-    const { phase } = env;
+    const { mode } = env;
 
-    const babelOptions = configureBabel(phase);
+    const babelOptions = configureBabel(mode);
 
     const enableServiceWorkerDebugging = Boolean(
         process.env.ENABLE_SERVICE_WORKER_DEBUGGING
     );
     const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
-    const critical = new CriticalCssPlugin({ phase });
+    const critical = new CriticalCssPlugin({ mode });
 
     const config = {
+        mode,
         context: __dirname, // Node global for the running script's directory
         entry: {
             client: path.resolve(themePaths.src, 'index.js')
@@ -53,8 +54,8 @@ module.exports = async function(env) {
             path: themePaths.output,
             publicPath: '/',
             filename: 'js/[name].js',
-            chunkFilename: 'js/[name]-[chunkhash].js',
-            pathinfo: true
+            strictModuleExceptionHandling: true,
+            chunkFilename: 'js/[name]-[chunkhash].js'
         },
         module: {
             rules: [
@@ -80,22 +81,44 @@ module.exports = async function(env) {
                 }
             ]
         },
+        optimization: {
+            noEmitOnErrors: true,
+            runtimeChunk: {
+                name: 'shared'
+            },
+            splitChunks: {
+                chunks: 'async',
+                minSize: 30000,
+                maxSize: 100000,
+                minChunks: 1,
+                maxAsyncRequests: 5,
+                maxInitialRequests: 2,
+                automaticNameDelimiter: '~',
+                name: true,
+                cacheGroups: {
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true
+                    }
+                }
+            }
+        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
             }
         }),
         plugins: [
-            new MagentoRootComponentsPlugin({ phase }),
-            new webpack.NoEmitOnErrorsPlugin(),
+            new MagentoRootComponentsPlugin({ mode }),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(phase),
+                'process.env.NODE_ENV': JSON.stringify(mode),
                 // Blank the service worker file name to stop the app from
                 // attempting to register a service worker in index.js.
                 // Only register a service worker when in production or in the
                 // special case of debugging the service worker itself.
                 'process.env.SERVICE_WORKER': JSON.stringify(
-                    phase === 'production' || enableServiceWorkerDebugging
+                    mode === 'production' || enableServiceWorkerDebugging
                         ? serviceWorkerFileName
                         : false
                 ),
@@ -117,7 +140,7 @@ module.exports = async function(env) {
             })
         ]
     };
-    if (phase === 'development') {
+    if (mode === 'development') {
         config.devtool = 'cheap-module-eval-source-map';
 
         config.devServer = await PWADevServer.configure({
@@ -148,8 +171,6 @@ module.exports = async function(env) {
         config.output.publicPath = config.devServer.publicPath;
 
         config.plugins.push(
-            new webpack.NamedChunksPlugin(),
-            new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new DevServerReadyNotifierPlugin(config.devServer),
             new UpwardPlugin(
@@ -157,34 +178,31 @@ module.exports = async function(env) {
                 path.resolve(__dirname, 'venia-upward.yml')
             )
         );
-    } else if (phase === 'production') {
+    } else if (mode === 'production') {
+
+        config.optimization.minimizer = new UglifyPlugin({
+            parallel: true,
+            uglifyOptions: {
+                parse: {
+                    ecma: 8
+                },
+                compress: {
+                    ecma: 6
+                },
+                output: {
+                    ecma: 7,
+                    semicolons: false
+                },
+                keep_fnames: true
+            }
+        });
+
         config.performance = {
             hints: 'warning'
         };
-        config.entry.vendor = libs;
-        config.plugins.push(
-            new webpack.optimize.CommonsChunkPlugin({
-                names: ['vendor']
-            }),
-            new UglifyPlugin({
-                parallel: true,
-                uglifyOptions: {
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        ecma: 6
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
-                }
-            })
-        );
+
     } else {
-        throw Error(`Unsupported environment phase in webpack config: `);
+        throw Error(`Unsupported environment mode in webpack config: `);
     }
     return config;
 };

@@ -1,7 +1,6 @@
 import { createElement, Component } from 'react';
 import { string, shape } from 'prop-types';
 import resolveUnknownRoute from './resolveUnknownRoute';
-import fetchRootComponent from './fetchRootComponent';
 
 export default class MagentoRouteHandler extends Component {
     static propTypes = {

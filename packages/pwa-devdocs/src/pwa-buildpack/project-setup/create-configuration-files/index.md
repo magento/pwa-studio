@@ -22,9 +22,9 @@ Create a `.babelrc` file in your theme’s root directory with the following con
 
 This configuration installs the following [Babel] plugins:
 
-* [`syntax-jsx`] and [`transform-react-jsx`] - Transform [JSX] code into backwards-compatible JavaScript. 
+* [`syntax-jsx`] and [`transform-react-jsx`] - Transform [JSX] code into backwards-compatible JavaScript.
   JSX allows you to write React components using a syntax structure similar to HTML.
-    
+
   See [Introducing JSX] for more information.
 * [`transform-class-properties`] - Transforms class properties and lets you use the following syntax:
   ``` javascript
@@ -169,7 +169,7 @@ module.exports = async function(env) {
              new MagentoRootComponentsPlugin(),
              new webpack.NoEmitOnErrorsPlugin(),
              new webpack.EnvironmentPlugin({
-                 NODE_ENV: env.phase,
+                 NODE_ENV: env.mode,
                  SERVICE_WORKER_FILE_NAME: 'sw.js'
              })
          ]
@@ -192,7 +192,7 @@ Some important things to note in this configuration:
 Add the following development mode configuration before returning the `config` object:
 
 ``` javascript
-if (env.phase === "development") {
+if (env.mode === "development") {
     config.devServer = await PWADevServer.configure({
         publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
         backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
@@ -219,7 +219,7 @@ if (env.phase === "development") {
          new webpack.HotModuleReplacementPlugin()
      );
 } else {
-  throw Error('Only "development" mode is currently supported. Please pass "--env.phase development" on the command line.');
+  throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
 }
 ```
 
@@ -234,15 +234,15 @@ This code block does the following:
 
 Edit the `scripts` section of your `package.json file` so it looks like the following:
 
-``` javascript 
+``` javascript
 "scripts": {
-    "start" : "webpack-dev-server --progress --color --env.phase development",
+    "start" : "webpack-dev-server --progress --color --env.mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
 }
 ```
 
 This allows you to start a development server using the `npm start` command.
-The `--env.phase development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
+The `--env.mode development` argument sets the `mode` property to `development` in the configuration function exported from `webpack.config.js`.
 
 {: .bs-callout .bs-callout-info}
 **Note:**
