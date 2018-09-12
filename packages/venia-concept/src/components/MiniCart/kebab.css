@@ -1,0 +1,49 @@
+.subMenu {
+    position: relative;
+    display: inline-block;
+    grid-column: 4 / span 1;
+}
+
+.subMenu ul {
+    position: absolute;
+    right: 20px;
+    box-shadow: 2px 2px 5px #777;
+}
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: -21px;
+    transition: all 0.25s ease-out;
+    transform: scale(0);
+    transform-origin: 100% 0;
+}
+
+.dropdown.ul:hover {
+    transform: scale(1);
+}
+
+.dropdown li {
+  display: block;
+  width: 100%;
+  background-color: #FFF;
+}
+
+.dropdown li:hover {
+  background-color: #EEE;
+}
+
+.dropdown li a, li button{
+    width: 100%;
+    padding: 8px;
+    display: inline-block;
+    white-space: pre;
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+.active {
+  position: absolute;
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
+}

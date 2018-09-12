@@ -60,6 +60,12 @@ export default async function makeCartReducer() {
                     showError: error
                 };
             }
+            case 'REMOVE_ITEM_FROM_CART': {
+                return {
+                    ...state,
+                    guestCartId: payload
+                }
+            }
             case 'ACCEPT_ORDER': {
                 storage.removeItem('guestCartId');
                 return {

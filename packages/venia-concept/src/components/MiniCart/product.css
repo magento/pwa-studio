@@ -50,6 +50,7 @@
 .quantity {
     align-items: center;
     display: flex;
+    grid-column: 2 / span 1;
     font-size: 13px;
 }
 

@@ -1,6 +1,7 @@
 import { Component, Fragment, createElement } from 'react';
 import { number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
+import Kebab from './kebab';
 
 import classify from 'src/classify';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -10,6 +11,7 @@ const imageWidth = 80;
 const imageHeight = 100;
 
 class Product extends Component {
+
     static propTypes = {
         classes: shape({
             image: string,
@@ -60,7 +62,7 @@ class Product extends Component {
 
     render() {
         const { options, props } = this;
-        const { classes, item, currencyCode } = props;
+        const { classes, item, currencyCode, removeItemFromCart } = props;
 
         return (
             <li className={classes.root}>
@@ -83,6 +85,10 @@ class Product extends Component {
                         <Price currencyCode={currencyCode} value={item.price} />
                     </span>
                 </div>
+                <Kebab
+                    removeItemFromCart={removeItemFromCart}
+                    item={item}
+                />
             </li>
         );
     }

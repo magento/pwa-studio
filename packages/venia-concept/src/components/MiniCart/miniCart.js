@@ -1,11 +1,11 @@
 import { Component, createElement } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { shape, string } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import { store } from 'src';
-import { getCartDetails } from 'src/actions/cart';
+import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
@@ -28,7 +28,8 @@ class MiniCart extends Component {
             summary: string,
             title: string,
             totals: string
-        })
+        }),
+        removeItemFromCart: func.isRequired
     };
 
     constructor(...args) {
@@ -59,9 +60,10 @@ class MiniCart extends Component {
     }
 
     get productList() {
-        const { cartId, cartCurrencyCode, cart } = this.props;
+        const { cartId, cartCurrencyCode, cart, removeItemFromCart } = this.props;
         return cartId ? (
             <ProductList
+                removeItemFromCart={removeItemFromCart}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
             />
@@ -133,6 +135,6 @@ export default compose(
                 cartCurrencyCode
             };
         },
-        { getCartDetails }
+        { getCartDetails, removeItemFromCart }
     )
 )(MiniCart);

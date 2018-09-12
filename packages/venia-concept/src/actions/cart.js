@@ -88,6 +88,53 @@ const addItemToCart = payload => {
     };
 };
 
+const removeItemFromCart = payload => {
+  const { item } = payload;
+
+  return async function thunk(...args) {
+      const [dispatch] = args;
+      const guestCartId = await getGuestCartId(...args);
+
+      try {
+          const cartItem = await request(
+              `/rest/V1/guest-carts/${guestCartId}/items/${payload.item_id}`,
+              {
+                  method: 'DELETE',
+              }
+          );
+
+          dispatch({
+              type: 'REMOVE_ITEM_FROM_CART',
+              payload: {
+                  cartItem,
+                  item
+              }
+          });
+      } catch (error) {
+          const { response } = error;
+
+          if (response && response.status === 404) {
+              // guest cart expired!
+              await dispatch(createGuestCart());
+              // re-execute this thunk
+              // return thunk(...args);
+          }
+
+          dispatch({
+              type: 'REMOVE_ITEM_FROM_CART',
+              payload: error,
+              error: true
+          });
+      }
+
+      await Promise.all([
+          getCartDetails({ forceRefresh: true })(...args)
+      ]);
+
+      return payload;
+  };
+}
+
 const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
@@ -180,4 +227,4 @@ async function getGuestCartId(dispatch, getState) {
     return getState().cart.guestCartId;
 }
 
-export { addItemToCart, getCartDetails, getGuestCartId, toggleCart };
+export { addItemToCart, removeItemFromCart, getCartDetails, getGuestCartId, toggleCart };
