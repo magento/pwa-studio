@@ -6,6 +6,8 @@ const ContextPath = require('./ContextPath');
 
 const statusCodes = Array.from({ length: 600 }, (_, i) => i + 100);
 const constants = new Set([
+    true,
+    false,
     'GET',
     'POST',
     'mustache',

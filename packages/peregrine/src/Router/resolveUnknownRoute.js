@@ -6,7 +6,7 @@
  */
 let preloadDone = false;
 export default function resolveUnknownRoute(opts) {
-    const { route, apiBase, __tmp_webpack_public_path__ } = opts;
+    const { route, apiBase } = opts;
 
     function handleResolverResponse(res) {
         if (!(res && res.type)) {
@@ -30,7 +30,9 @@ export default function resolveUnknownRoute(opts) {
                 return handleResolverResponse(
                     JSON.parse(preloaded.textContent)
                 );
-            } catch (e) {}
+            } catch (e) {
+                console.error('Unable to read preload!', preloaded.textContent)
+            }
         }
         preloadDone = true;
     }

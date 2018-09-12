@@ -6,7 +6,6 @@ import fetchRootComponent from './fetchRootComponent';
 export default class MagentoRouteHandler extends Component {
     static propTypes = {
         apiBase: string.isRequired,
-        __tmp_webpack_public_path__: string.isRequired,
         location: shape({
             pathname: string.isRequired
         }).isRequired
@@ -29,12 +28,11 @@ export default class MagentoRouteHandler extends Component {
     }
 
     getRouteComponent(pathname) {
-        const { apiBase, __tmp_webpack_public_path__ } = this.props;
+        const { apiBase } = this.props;
 
         resolveUnknownRoute({
             route: pathname,
-            apiBase,
-            __tmp_webpack_public_path__
+            apiBase
         })
             .then(({ rootChunkID, rootModuleID, matched, id }) => {
                 if (!matched) {

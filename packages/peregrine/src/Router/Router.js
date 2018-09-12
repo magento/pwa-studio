@@ -8,8 +8,7 @@ export default class MagentoRouter extends Component {
         /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */
         using: func,
         routerProps: object,
-        apiBase: string.isRequired,
-        __tmp_webpack_public_path__: string.isRequired
+        apiBase: string.isRequired
     };
 
     static defaultProps = {
@@ -21,8 +20,7 @@ export default class MagentoRouter extends Component {
         const {
             using: Router,
             routerProps,
-            apiBase,
-            __tmp_webpack_public_path__
+            apiBase
         } = this.props;
 
         return (
@@ -32,9 +30,6 @@ export default class MagentoRouter extends Component {
                         <MagentoRouteHandler
                             location={location}
                             apiBase={apiBase}
-                            __tmp_webpack_public_path__={
-                                __tmp_webpack_public_path__
-                            }
                         />
                     )}
                 />

@@ -21,8 +21,7 @@ export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
 
     const store = createStore();
     const routerProps = {
-        apiBase,
-        __tmp_webpack_public_path__: ensureDirURI(__tmp_webpack_public_path__)
+        apiBase
     };
     const Provider = () => (
         <ReduxProvider store={store}>

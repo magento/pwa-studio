@@ -6,17 +6,37 @@ page:
   when:
     - matches: request.url.pathname
       pattern: '^/$'
-      use: gqlRouter
+      use: appShell
     - matches: request.url.pathname
       pattern: '^/.*\.html'
-      use: gqlRouter
+      use: appShell
   default: notFound
 
-gqlRouter:
+appShell:
+  inline:
+    status: 200
+    headers: htmlDocumentHeaders
+    body:
+      engine: mustache
+      template: './templates/app-shell.mst'
+      provide:
+        - model
+        - criticalCss
+        - urlResolver
+  when:
+    - matches: model.id
+      pattern: '.'
+      use: shellTemplate
+  default: notFound
+
+model:
   when:
     - matches: urlResolver.type
+      pattern: 'PRODUCT'
+      use: product
+    - matches: urlResolver.type
       pattern: '.'
-      use: found
+      use: genericObject
   default: notFound
 
 urlResolver: urlResolverResult.data.urlResolver
@@ -34,24 +54,25 @@ magentoGQL:
   provide:
     - env
 
-found:
+product: productResult.data.products[0]
+productResult:
+  url: magentoGQL
+  query: './src/queries/getProductDetail.graphql'
+  variables:
+    onServer: true
+    urlKey: request.url.pathname
+
+genericObject:
   inline:
-    status: 200
-    headers: htmlDocumentHeaders
-    body: shell
+    name:
+      inline:
+        "Hello world!"
 
 notFound:
   inline:
-    status: 400
+    status: 404
     headers: htmlDocumentHeaders
-    body: shell
-
-shell:
-  engine: mustache
-  template: './app-shell.mst'
-  provide:
-    - criticalCss
-    - urlResolver
+    body:
 
 criticalCss: './web/critical.css'
 

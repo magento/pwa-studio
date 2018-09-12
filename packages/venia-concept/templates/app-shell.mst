@@ -5,6 +5,11 @@
     <title>Venia</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{#model}}
+    <meta name="title" content="{{meta_title}}">
+    <meta name="keywords" content="{{meta_keyword}}">
+    <meta name="description" content="{{meta_description}}">
+    {{/model}}
     <style>{{{criticalCss}}}</style>
   </head>
   <body>
