@@ -1,4 +1,5 @@
 import { RestApi } from '@magento/peregrine';
+import BrowserPersistence from 'src/util/simplePersistence.js';
 
 const { request } = RestApi.Magento2;
 
@@ -45,8 +46,60 @@ const signIn = credentials =>
         }
     };
 
+const createAccount = accountInfo =>
+    async function thunk(...args) {
+        const [dispatch] = args;
+        debugger;
+
+        try {
+            const browserPersistance = new BrowserPersistence();
+            const response = await request(
+                '/rest/V1/customers', {
+                    method: 'POST',
+                    body: JSON.stringify(accountInfo)
+                }
+            );
+
+            const body = {
+                username: accountInfo.customer.email,
+                password: accountInfo.password
+            };
+
+            console.log(response);
+
+        } catch(error) {
+            dispatch({
+                type: 'ACCOUNT_CREATE_ERROR',
+                payload: error,
+                error: true
+            });
+
+        }
+    };
+
+const assignGuestCartToCustomer = () =>
+    async function thunk(...args) {
+        const [ dispatch, getState ] = args;
+
+        try {
+            let guestCartId = browserPersistance.getItem('guestCartId');
+            const payload = {
+                customer : getState().user.id,
+                storeId: getState().user.store_id
+            }
+            const transferCartResponse = await request(
+                `/V1/guest-carts/${guestCartId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(payload)
+                }
+            );
+        } catch(error) {
+            console.log(error);
+        }
+
+    }
 function setToken(token) {
     localStorage.setItem('signin_token', token);
 }
 
-export { signIn };
+export { signIn, createAccount, assignGuestCartToCustomer };

@@ -11,7 +11,7 @@ import Trigger from './trigger';
 import defaultClasses from './navigation.css';
 
 import Button from 'src/components/Button';
-import { signIn } from 'src/actions/user';
+import { signIn, createAccount, assignGuestCartToCustomer } from 'src/actions/user';
 
 const CATEGORIES = [
     'dresses',
@@ -81,7 +81,7 @@ class Navigation extends Component {
     }
 
     get signInForm() {
-        const { classes, signInError, signIn } = this.props;
+        const { classes, signInError, signIn, createAccount, assignGuestCartToCustomer } = this.props;
         const className =
             !this.state.isSignInOpen || this.props.isSignedIn
                 ? classes.signInClosed
@@ -96,7 +96,12 @@ class Navigation extends Component {
                         <Icon name="x" />
                     </button>
                 </div>
-                <SignIn signIn={signIn} signInError={signInError} />
+                <SignIn
+                    signIn={signIn}
+                    signInError={signInError}
+                    createAccount={createAccount}
+                    assignGuestCartToCustomer={assignGuestCartToCustomer}
+                />
             </div>
         );
     }
@@ -137,7 +142,9 @@ class Navigation extends Component {
 }
 
 const mapDispatchToProps = {
-    signIn
+    signIn,
+    createAccount,
+    assignGuestCartToCustomer
 };
 
 const mapStateToProps = state => {
