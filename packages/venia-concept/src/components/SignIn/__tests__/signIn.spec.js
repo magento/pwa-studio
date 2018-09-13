@@ -10,7 +10,7 @@ const props = {
     signInError: { message: 'foo' }
 };
 
-test('call `onSignIn` when button is pressed', () => {
+test('call `onSignIn` when form is submitted', () => {
     const wrapper = shallow(
         <SignIn signIn={props.signIn} signInError={props.signInError} />
     ).dive();
@@ -46,7 +46,7 @@ test('set state `username` to new `username` on `updateUsername`', () => {
     expect(wrapper.state().username).toEqual(newUsername);
 });
 
-test('display error message if `!isErrorEmpty`', () => {
+test('display error message if there is a `signInError`', () => {
     const wrapper = shallow(
         <SignIn signIn={props.signIn} signInError={props.signInError} />
     ).dive();
