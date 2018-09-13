@@ -69,8 +69,7 @@ class Navigation extends Component {
                 <Icon name="user" />
                 <div className={classes.userInfo}>
                     <p>
-                        {' '}
-                        {firstname} {lastname}{' '}
+                        {firstname} {lastname}
                     </p>
                     <p>{email}</p>
                 </div>
@@ -113,7 +112,8 @@ class Navigation extends Component {
             isSignInOpen: false
         });
     };
-    get main() {
+
+    render() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
         const { bottomDrawer, signInForm } = this;
@@ -133,12 +133,6 @@ class Navigation extends Component {
                 {signInForm}
             </aside>
         );
-    }
-
-    render() {
-        const { main } = this;
-
-        return <div>{main}</div>;
     }
 }
 
