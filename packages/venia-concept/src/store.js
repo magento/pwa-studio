@@ -1,18 +1,21 @@
-import bootstrap from '@magento/peregrine';
+import { compose, createStore } from 'redux';
+import { exposeSlices } from '@magento/peregrine';
 
+import applyMiddleware from 'src/middleware';
 import appReducer from 'src/reducers/app';
 import catalogReducer from 'src/reducers/catalog';
 import directoryReducer from 'src/reducers/directory';
 
-const { Provider, store } = bootstrap({
-    apiBase: new URL('/graphql', location.origin).toString(),
-    __tmp_webpack_public_path__: __webpack_public_path__
-});
+const reducer = (state = {}) => state;
+const enhancer = compose(
+    applyMiddleware,
+    exposeSlices
+);
 
-const { addReducer, dispatch, getState } = store;
+const store = createStore(reducer, enhancer);
 
-addReducer('app', appReducer);
-addReducer('catalog', catalogReducer);
-addReducer('directory', directoryReducer);
+store.addReducer('app', appReducer);
+store.addReducer('catalog', catalogReducer);
+store.addReducer('directory', directoryReducer);
 
-export { Provider, addReducer, dispatch, getState };
+export default store;

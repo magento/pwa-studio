@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Footer from 'src/components/Footer';
@@ -8,21 +8,33 @@ import defaultClasses from './main.css';
 
 class Main extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            root_masked: PropTypes.string
+        classes: shape({
+            page: string,
+            page_masked: string,
+            root: string,
+            root_masked: string
         }),
-        isMasked: PropTypes.bool
+        isMasked: bool
     };
 
+    get classes() {
+        const { classes, isMasked } = this.props;
+        const suffix = isMasked ? '_masked' : '';
+
+        return ['page', 'root'].reduce(
+            (r, v) => ({ ...r, [v]: classes[`${v}${suffix}`] }),
+            {}
+        );
+    }
+
     render() {
-        const { children, classes, isMasked } = this.props;
-        const className = isMasked ? classes.root_masked : classes.root;
+        const { classes, props } = this;
+        const { children } = props;
 
         return (
-            <main className={className}>
+            <main className={classes.root}>
                 <Header />
-                {children}
+                <article className={classes.page}>{children}</article>
                 <Footer />
             </main>
         );

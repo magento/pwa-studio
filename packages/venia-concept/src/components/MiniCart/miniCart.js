@@ -5,7 +5,7 @@ import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import { addReducer } from 'src/store';
+import store from 'src/store';
 import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
@@ -38,7 +38,7 @@ class MiniCart extends Component {
         ]);
 
         reducers.forEach(mod => {
-            addReducer(mod.name, mod.default);
+            store.addReducer(mod.name, mod.default);
         });
         await getCartDetails();
 
