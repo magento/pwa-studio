@@ -1,3 +1,4 @@
+const debug = require('../../util/debug').makeFileLogger(__filename);
 const fetch = require('node-fetch');
 const path = require('path');
 const https = require('https');
@@ -36,6 +37,7 @@ const middleware = upwardPath => {
             } catch(e) {}
         },
         async networkFetch(path, options) {
+            debug('networkFetch %s, %o', path, options);
             return fetch(path, Object.assign({ agent }, options));
         }
     }
@@ -83,7 +85,7 @@ const middleware = upwardPath => {
 // `;
 
     const proxy = proxyMiddleware(
-        [process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH, '/graphql', '/rest'],
+        [process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH, '/graphql', '/rest', '/favicon.ico'],
         {
             target: process.env.MAGENTO_BACKEND_DOMAIN,
             secure: false,
@@ -155,8 +157,8 @@ class UpwardPlugin {
         const oldAfter = this.devServer.after;
         this.middleware = middleware(upwardPath);
         this.devServer.after = app => {
-            if (oldAfter) oldAfter(app);
             app.use(this.middleware);
+            if (oldAfter) oldAfter(app);
         }
     }
     apply(compiler) {

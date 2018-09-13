@@ -62,16 +62,13 @@ class UpwardMiddleware {
                 errors.push(e);
             }
             if (errors.length > 0) {
-                res.status(500).send(
-                    new UpwardServerError(
-                        `Request did not evaluate to a valid response, because: \n${errors.join(
-                            '\n'
-                        )}`
-                    ).toString()
-                );
+                next(new UpwardServerError(
+                    `Request did not evaluate to a valid response, because: \n${errors.join(
+                        '\n'
+                    )}`
+                ));
             } else {
                 debug('status, headers, and body valid. responding');
-                debugger;
                 res.status(response.status)
                     .set(response.headers)
                     .send(response.body);

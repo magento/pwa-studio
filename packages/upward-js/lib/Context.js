@@ -25,7 +25,7 @@ const constants = new Set([
 
 class Context {
     static fromRequest(env, request) {
-        debug('generating from request: %O', request);
+        debug('generating from request: %s', request.url);
         const hostedUrl = new URL(request.url, `http://${request.get('host')}`);
         debug('url derived from host is %O', hostedUrl);
         const url = pick(hostedUrl, [
@@ -63,8 +63,8 @@ class Context {
     }
 
     async get(lookup) {
-        debug('lookup %s', lookup);
         const path = ContextPath.from(lookup);
+        debug('lookup %s at path %s', lookup, path);
         if (constants.has(path.toString())) {
             debug('%s is a constant', lookup);
             return lookup;

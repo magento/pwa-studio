@@ -26,13 +26,7 @@ class ServiceResolver extends AbstractResolver {
         if (!definition.query) {
             die('No GraphQL query document specified.');
         }
-        if (
-            definition.variables &&
-            (!isPlainObject(definition.variables) ||
-                Object.values(definition.variables).some(
-                    value => typeof value !== 'string'
-                ))
-        ) {
+        if (!isPlainObject(definition.variables)) {
             die(
                 `Variables must be a simple object of keys to context lookups.`
             );
@@ -48,14 +42,7 @@ class ServiceResolver extends AbstractResolver {
                 ? this.visitor.upward(definition, 'headers')
                 : {},
             definition.variables
-                ? Promise.all(
-                      Object.entries(definition.variables).map(
-                          async ([key, value]) => [
-                              key,
-                              await this.visitor.context.get(value)
-                          ]
-                      )
-                  )
+                ? this.visitor.upward(definition, 'variables')
                 : {}
         ];
 
@@ -64,10 +51,8 @@ class ServiceResolver extends AbstractResolver {
             query,
             method,
             headers,
-            variableEntries
+            variables
         ] = await Promise.all(toResolve);
-
-        const variables = fromPairs(variableEntries);
 
         debug('url retrieved: "%s", query resolved, creating link', url);
 
@@ -93,7 +78,12 @@ class ServiceResolver extends AbstractResolver {
         return makePromise(
             execute(link, { query: await parsedQuery.render(), variables })
         ).then(({ data, errors }) => {
-            debug('query %s with %o resulted in %o', definition.query, variables, { data, errors })
+            debug(
+                'query %s with %o resulted in %o',
+                definition.query,
+                variables,
+                { data, errors }
+            );
             if (errors && errors.length > 0) {
                 throw new Error(errors[0].message);
             } else {

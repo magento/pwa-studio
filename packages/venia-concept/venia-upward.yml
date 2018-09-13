@@ -1,23 +1,57 @@
-status: page.status
-headers: page.headers
-body: page.body
+status: response.status
+headers: response.headers
+body: response.body
 
-page:
-  when:
-    - matches: request.url.pathname
-      pattern: '^/$'
-      use: gqlRouter
-    - matches: request.url.pathname
-      pattern: '^/.*\.html'
-      use: gqlRouter
-  default: notFound
+response: appShell
+  # when:
+  #   - matches: request.url.pathname
+  #     pattern: '^/(graphql|rest/|media/)'
+  #     use: proxy
+  #   - matches: request.headers.accept
+  #     pattern: 'html'
+  #     use: appShell
+  # default: static
 
-gqlRouter:
+# proxy:
+#   target: env.MAGENTO_BACKEND_DOMAIN
+#   trustSelfSignedCert: true
+
+appShell:
+  inline:
+    status:
+      when:
+        - matches: resource.model
+          pattern: '.'
+          use: 200
+      default: 404
+    headers:
+      inline:
+        content-type: 'text/html'
+    body:
+      engine: mustache
+      template: resource.template
+      provide:
+        model: resource.model
+        criticalCss: './web/client.critical.css'
+        urlResolver: urlResolver
+
+resource:
   when:
     - matches: urlResolver.type
+      pattern: 'PRODUCT'
+      use:
+        inline:
+          model: product
+          template: './templates/product-shell.mst'
+    - matches: urlResolver.type
       pattern: '.'
-      use: found
-  default: notFound
+      use:
+        inline:
+          model: genericObject
+          template: './templates/generic-shell.mst'
+  default:
+    inline:
+      template: './templates/notfound-shell.mst'
 
 urlResolver: urlResolverResult.data.urlResolver
 
@@ -25,36 +59,42 @@ urlResolverResult:
   url: magentoGQL
   query: './src/queries/urlResolver.graphql'
   variables:
-    urlKey: request.url.pathname
+    inline:
+      urlKey: request.url.pathname
 
 magentoGQL:
   engine: mustache
   template:
-    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}/graphql'
+    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}graphql'
   provide:
     - env
 
-found:
+product: productResult.data.productDetail.items.0
+productResult:
+  url: magentoGQL
+  query: './src/queries/getProductDetail.graphql'
+  variables:
+    inline:
+      onServer:
+        inline: true
+      urlKey: urlKey
+
+urlKey:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/(?:(.*)\.html)?'
+      use: $match.$1
+  default:
+    inline: ''
+
+genericObject:
   inline:
-    status: 200
-    headers: htmlDocumentHeaders
-    body: shell
+    name:
+      inline:
+        "Hello world!"
 
-notFound:
-  inline:
-    status: 400
-    headers: htmlDocumentHeaders
-    body: shell
+criticalCss: './web/client.critical.css'
 
-shell:
-  engine: mustache
-  template: './app-shell.mst'
-  provide:
-    - criticalCss
-    - urlResolver
-
-criticalCss: './web/critical.css'
-
-htmlDocumentHeaders:
-  inline:
-    'content-type': 'text/html'
+static:
+  directory:
+    inline: './web'

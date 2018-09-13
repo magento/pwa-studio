@@ -17,7 +17,7 @@ class ResolverVisitor {
     async upward(definition, propertyName) {
         debug('resolving upward: %s from %o', propertyName, definition);
         if (!definition.hasOwnProperty(propertyName)) {
-            throw new Error(`Context value '${propertyName}' not defined.`);
+            throw new Error(`Context value '${propertyName}' not defined in ${inspect(definition)}.`);
         }
         const defined = definition[propertyName];
 

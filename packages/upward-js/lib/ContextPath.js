@@ -1,5 +1,6 @@
+const { isPlainObject } = require('lodash');
 const debug = require('debug')('upward-js:ContextPath');
-const illegalPathChars = /(^\.+)|[^\.\w\/]/;
+const illegalPathChars = /(^[\.\[\]])|[^\.\w\$\/]/;
 const contextPathCache = new Map();
 class ContextPath {
     static from(lookup) {
@@ -46,31 +47,38 @@ class ContextPath {
     getFrom(obj) {
         let current = obj;
         for (const segment of this._segments) {
-            if (!current || !current.hasOwnProperty(segment)) {
-                return '';
+            if (Array.isArray(current)) {
+                const index = Number(segment);
+                if (!isNaN(index)) {
+                    debug('array index %d yields %o', segment, current[index]);
+                    if (current.length < index - 1) {
+                        return '';
+                    }
+                    current = current[index];
+                } else {
+                    throw new Error(
+                        `Attempted non-integer lookup on a list: ${current} [${segment}]`
+                    );
+                }
+            } else if (current === undefined) {
+                current = '';
+                break;
+            } else if (current) {
+                current = current[segment];
+            } else {
+                break;
             }
-            debug('traverse %s yields %s', segment, current[segment]);
-            current = current[segment];
         }
+        debug(
+            'traverse %j yielded %j from %j',
+            this._segments,
+            current,
+            obj[this.base()]
+        );
         return current;
     }
-    // contains(otherPath) {
-    //     return this._segments.every((segment, i) => otherPath.keyAt(i) === i);
-    // }
-    // containsSegment(segment) {
-    //     return this._segments.some(mySegment => mySegment === segment);
-    // }
-    // depth() {
-    //     return this._segments.length;
-    // }
-    // keyAt(index) {
-    //     return this._segments[index];
-    // }
-    // relative(ancestor) {
-    //     return this._segments.slice(ancestor.depth());
-    // }
     toString() {
-        return this._segments.join('.');
+        return this._segments.join();
     }
 }
 

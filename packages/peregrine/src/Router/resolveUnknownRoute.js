@@ -6,7 +6,7 @@
  */
 let preloadDone = false;
 export default function resolveUnknownRoute(opts) {
-    const { route, apiBase } = opts;
+    const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
     function handleResolverResponse(res) {
         if (!(res && res.type)) {

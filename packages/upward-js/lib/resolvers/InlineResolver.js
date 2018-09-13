@@ -1,9 +1,6 @@
 const debug = require('debug')('upward-js:InlineResolver');
 const {
     fromPairs,
-    isBoolean,
-    isFinite,
-    isString,
     isPlainObject
 } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');

@@ -1,4 +1,5 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
+const debugErrorMiddleware = require('debug-error-middleware').express;
 const { join } = require('path');
 const { createHash } = require('crypto');
 const url = require('url');
@@ -146,7 +147,10 @@ const PWADevServer = {
             contentBase: false,
             compress: true,
             hot: true,
-            host: '0.0.0.0'
+            host: '0.0.0.0',
+            after(app) {
+                app.use(debugErrorMiddleware());
+            }
         };
         let devHost;
         if (config.id) {
