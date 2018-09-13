@@ -19,8 +19,7 @@ class CmsBlock extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
-            content: PropTypes.string,
-            item: PropTypes.string
+            content: PropTypes.string
         }),
         identifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
     };
