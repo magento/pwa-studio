@@ -2,19 +2,26 @@ status: response.status
 headers: response.headers
 body: response.body
 
-response: appShell
-  # when:
-  #   - matches: request.url.pathname
-  #     pattern: '^/(graphql|rest/|media/)'
-  #     use: proxy
-  #   - matches: request.headers.accept
-  #     pattern: 'html'
-  #     use: appShell
-  # default: static
+response:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/(graphql|rest|media/)'
+      use: proxy
+    - matches: request.url.pathname
+      pattern: '^/favicon.ico'
+      use: favicon
+    - matches: urlKey
+      pattern: '.'
+      use: appShell
+    - matches: request.url.pathname
+      pattern: '^/$'
+      use: appShell
+  default: static
 
-# proxy:
-#   target: env.MAGENTO_BACKEND_DOMAIN
-#   trustSelfSignedCert: true
+proxy:
+  target: env.MAGENTO_BACKEND_DOMAIN
+  ignoreSSLErrors:
+    inline: true
 
 appShell:
   inline:
@@ -93,7 +100,17 @@ genericObject:
       inline:
         "Hello world!"
 
-criticalCss: './web/client.critical.css'
+favicon:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: image/vnd.microsoft.icon
+    body:
+      file:
+        inline: ./media/favicon.ico
+      encoding: binary
 
 static:
   directory:

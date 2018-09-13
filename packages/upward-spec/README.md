@@ -528,19 +528,19 @@ query:
   file:
     resolver: inline
     inline: './productDetail.graphql'
-  charset:
+  encoding:
     resolver: inline
     inline: 'utf-8'
 ```
 
-The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the definition file. The `charset` property is optional.
+The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the definition file. The `encoding` property is optional.
 
 #### FileResolver Configuration Options
 
 | Property | Type       | Default | Description
 | -------- | ---------- | ------- | ---------------------------------------------
 | `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the definition file.
-| `charset`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
+| `encoding`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
 | `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. 
 
 #### Parsing

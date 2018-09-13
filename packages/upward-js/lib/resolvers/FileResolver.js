@@ -15,9 +15,9 @@ class FileResolver extends AbstractResolver {
                 type: 'string',
                 required: true
             },
-            charset: {
+            encoding: {
                 type: 'oneOf',
-                oneOf: ['utf-8', 'utf8', 'latin1', 'base64'],
+                oneOf: ['utf-8', 'utf8', 'latin1', 'binary'],
                 default: 'utf-8'
             },
             parse: {
@@ -47,28 +47,28 @@ class FileResolver extends AbstractResolver {
         }
         const toResolve = [
             this.visitor.upward(definition, 'file'),
-            definition.charset
-                ? this.visitor.upward(definition, 'charset')
+            definition.encoding
+                ? this.visitor.upward(definition, 'encoding')
                 : 'utf8',
             definition.parse ? this.visitor.upward(definition, 'parse') : 'auto'
         ];
-        const [file, charset, parse] = await Promise.all(toResolve);
+        const [file, encoding, parse] = await Promise.all(toResolve);
         debug(
-            'resolved file %s, charset %s, parse mode %s',
+            'resolved file %s, encoding %s, parse mode %s',
             file,
-            charset,
+            encoding,
             parse
         );
         const { paramTypes } = this.constructor;
-        const allowedCharsets = paramTypes.charset.oneOf;
-        if (!allowedCharsets.some(value => charset === value)) {
+        const allowedencodings = paramTypes.encoding.oneOf;
+        if (!allowedencodings.some(value => encoding === value)) {
             throw new Error(
-                `Invalid 'charset': ${charset}. Must be one of ${allowedCharsets}`
+                `Invalid 'encoding': ${encoding}. Must be one of ${allowedencodings}`
             );
         }
-        debug('charset %s is valid', charset);
-        const fileText = await this.visitor.io.readFile(file, charset);
-        debug('retrieved file text %s', fileText);
+        debug('encoding %s is valid', encoding);
+        const fileText = await this.visitor.io.readFile(file, encoding);
+        if (encoding !== 'binary') debug('retrieved file text %s', fileText);
         if (parse === 'text') {
             debug('parse === text, returning file text directly');
             return fileText;

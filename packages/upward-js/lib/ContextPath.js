@@ -1,4 +1,3 @@
-const { isPlainObject } = require('lodash');
 const debug = require('debug')('upward-js:ContextPath');
 const illegalPathChars = /(^[\.\[\]])|[^\.\w\$\/]/;
 const contextPathCache = new Map();
@@ -63,7 +62,7 @@ class ContextPath {
             } else if (current === undefined) {
                 current = '';
                 break;
-            } else if (current) {
+            } else if (typeof current === "object") {
                 current = current[segment];
             } else {
                 break;

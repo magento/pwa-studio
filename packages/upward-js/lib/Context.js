@@ -18,6 +18,7 @@ const constants = new Set([
     'utf8',
     'latin-1',
     'base64',
+    'binary',
     'hex',
     ...statusCodes,
     ...statusCodes.map(code => code.toString())
@@ -76,9 +77,19 @@ class Context {
             let promise = this._promises.get(base);
             if (!promise) {
                 debug('%s has never been requested, visiting from root', base);
-                promise = this.visitor
-                    .downward(base)
-                    .then(value => this.set(base, value));
+                promise = this.visitor.downward([base]).then(value => {
+                    if (typeof value === 'function') {
+                        debug(
+                            '%s assigned to context as function: %o',
+                            base,
+                            value
+                        );
+                        this.set(base, value);
+                    } else {
+                        debug('%s assigned: %o', base, value[base]);
+                        this.set(base, value[base]);
+                    }
+                });
                 this._promises.set(base, promise);
             }
             await promise;

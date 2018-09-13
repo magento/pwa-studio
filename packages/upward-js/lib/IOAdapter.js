@@ -2,7 +2,6 @@ const debug = require('debug')('upward-js:IOAdapter');
 const containsPath = require('contains-path');
 const { resolve, dirname } = require('path');
 const { readFile: fsReadFile } = require('fs');
-const { join } = require('path');
 const { promisify } = require('util');
 
 const readFile = promisify(fsReadFile);
@@ -43,10 +42,10 @@ class IOAdapter {
      * Works like promisified Node `fs.readFile`. (Injected for testability.)
      * Cannot traverse below working directory.
      * @param {string} path Path of file to read.
-     * @param {string} [charset] Character set, e.g. 'utf-8'.
+     * @param {string} [encoding] Character set, e.g. 'utf-8'.
      * @return {Promise<string|Buffer>} Promise for file contents.
      */
-    async readFile(filePath, charset) {}
+    async readFile(filePath, encoding) {}
 
     /**
      * Works like `node-fetch`. (Injected for testability.)

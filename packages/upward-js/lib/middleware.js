@@ -39,6 +39,11 @@ class UpwardMiddleware {
                     this.definition,
                     req
                 );
+                if (typeof response === 'function') {
+                    debug('buildResponse returned function');
+                    response(req, res, next);
+                    return;
+                }
                 if (isNaN(response.status)) {
                     errors.push(
                         `Non-numeric status! Status was '${response.status}'`
@@ -59,7 +64,7 @@ class UpwardMiddleware {
                     );
                 }
             } catch (e) {
-                errors.push(e);
+                errors.push(e.stack);
             }
             if (errors.length > 0) {
                 next(new UpwardServerError(

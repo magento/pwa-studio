@@ -14,12 +14,13 @@
         "build": "webpack --progress --color --env.phase production",
         "clean": "rimraf web/js",
         "prepare": "npm-merge-driver install",
-        "start": "webpack-dev-server --progress --color --env.phase development",
+        "start": "UPWARD_JS_BIND_LOCAL=1 UPWARD_JS_UPWARD_PATH=venia-upward.yml upward-js-server",
         "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
-        "watch": "npm run -s start"
+        "watch": "webpack-dev-server --progress --color --env.phase development"
     },
     "dependencies": {
         "@magento/peregrine": "^0.5.0",
+        "@magento/upward-js": "0.1.0",
         "apollo-boost": "^0.1.9",
         "babel-runtime": "^6.26.0",
         "dotenv": "^6.0.0",

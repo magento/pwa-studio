@@ -40,7 +40,7 @@ class ConditionalResolver extends AbstractResolver {
 
         if (regexMatch) {
             const match = regexMatch.reduce((contextMatch, group, index) => {
-                contextMatch[`$${index}`] = group;
+                contextMatch[`$${index}`] = group || '';
                 return contextMatch;
             }, {});
             this.visitor.context.set('$match', match, true);
