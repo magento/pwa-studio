@@ -27,7 +27,7 @@ class Trigger extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    openNav: () => dispatch({ type: 'TOGGLE_DRAWER', payload: 'nav' })
+    openNav: () => dispatch(toggleDrawer('nav'))
 });
 
 export default compose(

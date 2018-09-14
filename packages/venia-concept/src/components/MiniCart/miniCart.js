@@ -4,20 +4,19 @@ import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
-import { store } from 'src';
-import { getCartDetails } from 'src/actions/cart';
 import classify from 'src/classify';
+import { loadReducers } from 'src/actions/app';
+import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 
-let Checkout;
+let Checkout = () => null;
 
 class MiniCart extends Component {
     static propTypes = {
         classes: shape({
-            checkout: string,
             body: string,
             header: string,
             footer: string,
@@ -31,31 +30,18 @@ class MiniCart extends Component {
         })
     };
 
-    constructor(...args) {
-        super(...args);
-    }
-
     async componentDidMount() {
-        const [
-            CheckoutComponent,
-            checkoutReducer,
-            makeCartReducer
-        ] = (await Promise.all([
-            import('src/components/Checkout'),
-            import('src/reducers/checkout'),
-            import('src/reducers/cart')
-        ])).map(mod => mod.default);
+        const { getCartDetails, loadReducers } = this.props;
 
-        Checkout = CheckoutComponent;
-        store.addReducer('checkout', checkoutReducer);
-        store.addReducer('cart', await makeCartReducer());
-        this.props.getCartDetails({
-            guestCartId: store.getState().cart.guestCartId
-        });
-    }
+        loadReducers([
+            import('src/reducers/cart'),
+            import('src/reducers/checkout')
+        ]);
 
-    get checkout() {
-        return Checkout ? <Checkout /> : null;
+        const CheckoutModule = await import('src/components/Checkout');
+        Checkout = CheckoutModule.default;
+
+        getCartDetails();
     }
 
     get productList() {
@@ -93,8 +79,8 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { checkout, productList, totalsSummary, props } = this;
-        const { classes, isOpen } = props;
+        const { productList, totalsSummary, props } = this;
+        const { cart, classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
         return (
@@ -111,28 +97,31 @@ class MiniCart extends Component {
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>
-                {checkout}
+                <Checkout cart={cart} />
             </aside>
         );
     }
 }
 
+const mapStateToProps = ({ cart }) => {
+    const details = cart && cart.details;
+    const cartId = details && details.id;
+    const cartCurrencyCode =
+        details && details.currency && details.currency.quote_currency_code;
+
+    return {
+        cart,
+        cartId,
+        cartCurrencyCode
+    };
+};
+
+const mapDispatchToProps = { getCartDetails, loadReducers };
+
 export default compose(
     classify(defaultClasses),
     connect(
-        ({ cart }) => {
-            const details = cart && cart.details;
-            const cartId = details && details.id;
-            const cartCurrencyCode =
-                details &&
-                details.currency &&
-                details.currency.quote_currency_code;
-            return {
-                cart,
-                cartId,
-                cartCurrencyCode
-            };
-        },
-        { getCartDetails }
+        mapStateToProps,
+        mapDispatchToProps
     )
 )(MiniCart);
