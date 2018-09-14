@@ -84,6 +84,10 @@ class SignIn extends Component {
         this.props.signIn({ username: username, password: password });
     };
 
+    onCreateAccount = () => {
+        this.props.createAccount(mockAccount);
+    };
+
     updatePassword = newPassword => {
         this.setState({ password: newPassword });
     };

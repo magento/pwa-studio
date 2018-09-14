@@ -10,6 +10,7 @@ import Tile from './tile';
 import defaultClasses from './navigation.css';
 import NavHeader from './navHeader';
 import Button from 'src/components/Button';
+import Icon from 'src/components/Icon';
 import { signIn, createAccount, assignGuestCartToCustomer } from 'src/actions/user';
 
 const CATEGORIES = [

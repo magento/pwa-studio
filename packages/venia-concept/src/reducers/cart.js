@@ -38,6 +38,13 @@ export default async function makeCartReducer() {
                     }
                 };
             }
+            case 'REMOVE_GUEST_CART': {
+                storage.removeItem('guestCartId');
+                return {
+                    ...getInitialState(),
+                    guestCartId: null
+                };
+            }
             case 'ADD_ITEM_TO_CART': {
                 // cart items don't have images in the REST API;
                 // this is the most efficient way to manage that,
