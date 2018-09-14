@@ -155,8 +155,6 @@ class SignIn extends Component {
 
     onCreateAccount = () => {
         this.props.createAccount(mockAccount);
-        this.props.signIn({ username: mockAccount.customer.email, password: mockAccount.password });
-        this.props.assignGuestCartToCustomer();
     };
 
     updatePassword = newPassword => {

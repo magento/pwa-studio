@@ -1,5 +1,5 @@
 const initialState = {
-    isSignedIn: false,
+    isSignedIn: !!localStorage.getItem('signin_token'),
     signInError: {}
 };
 

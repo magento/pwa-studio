@@ -92,7 +92,18 @@ const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
     return async function thunk(...args) {
-        const [dispatch] = args;
+        const [dispatch, getState] = args;
+        const { user } = getState();
+        if (user.isSignedIn) {
+            ///////////////////////////////////////////
+            // Handle if customer is signed in here. //
+            ///////////////////////////////////////////
+            // If a user creates a new account
+            // the guest cart will be transfered to their account.
+            // Once that happens `/rest/V1/guest-carts` will 400 if it
+            // is called.
+            return;
+        }
         const guestCartId = await getGuestCartId(...args);
 
         try {
@@ -129,6 +140,21 @@ const getCartDetails = (payload = {}) => {
         return payload;
     };
 };
+
+const removeGuestCart = () =>
+    async function thunk(...args) {
+        const [dispatch, getState] = args;
+        const { cart } = getState();
+        // ensure state slices are present
+        if ( !cart ) {
+            return;
+        };
+        if (cart['guestCartId']) {
+            dispatch({
+                type: 'REMOVE_GUEST_CART'
+            });
+        }
+    }
 
 const toggleCart = () =>
     async function thunk(...args) {
@@ -180,4 +206,4 @@ async function getGuestCartId(dispatch, getState) {
     return getState().cart.guestCartId;
 }
 
-export { addItemToCart, getCartDetails, getGuestCartId, toggleCart };
+export { addItemToCart, getCartDetails, getGuestCartId, toggleCart, removeGuestCart };

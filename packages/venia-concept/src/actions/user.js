@@ -1,5 +1,6 @@
 import { RestApi } from '@magento/peregrine';
 import BrowserPersistence from 'src/util/simplePersistence.js';
+import { removeGuestCart } from 'src/actions/cart';
 
 const { request } = RestApi.Magento2;
 
@@ -49,21 +50,16 @@ const signIn = credentials =>
 const createAccount = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
-        debugger;
 
         try {
-            const browserPersistance = new BrowserPersistence();
             const response = await request(
                 '/rest/V1/customers', {
                     method: 'POST',
                     body: JSON.stringify(accountInfo)
                 }
             );
-
-            const body = {
-                username: accountInfo.customer.email,
-                password: accountInfo.password
-            };
+            await dispatch(signIn({ username: accountInfo.customer.email, password: accountInfo.password }));
+            dispatch(assignGuestCartToCustomer())
 
             console.log(response);
 
@@ -73,31 +69,35 @@ const createAccount = accountInfo =>
                 payload: error,
                 error: true
             });
-
         }
     };
 
 const assignGuestCartToCustomer = () =>
     async function thunk(...args) {
         const [ dispatch, getState ] = args;
+        const { user } = getState();
 
         try {
-            let guestCartId = browserPersistance.getItem('guestCartId');
+            const storage = new BrowserPersistence();
+            let guestCartId = storage.getItem('guestCartId');
             const payload = {
-                customer : getState().user.id,
-                storeId: getState().user.store_id
+                customerId: user.id,
+                storeId: user.store_id
             }
+            // TODO: Check if guestCartId exists
             const transferCartResponse = await request(
-                `/V1/guest-carts/${guestCartId}`, {
+                `/rest/V1/guest-carts/${guestCartId}`, {
                     method: 'PUT',
                     body: JSON.stringify(payload)
                 }
             );
+            dispatch(removeGuestCart());
         } catch(error) {
             console.log(error);
         }
 
     }
+
 function setToken(token) {
     localStorage.setItem('signin_token', token);
 }
