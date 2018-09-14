@@ -5,6 +5,9 @@ import Button from 'src/components/Button';
 import defaultClasses from './createAccount.css';
 import classify from 'src/classify';
 import Form from 'src/components/Form';
+import { debounce } from 'underscore';
+import { RestApi } from '@magento/peregrine';
+import Icon from 'src/components/Icon';
 
 const mockAccount = {
     customer: {
@@ -79,6 +82,8 @@ const mockAccount = {
   redirectUrl: "string"
 }
 
+const { request } = RestApi.Magento2;
+
 class CreateAccount extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -95,7 +100,9 @@ class CreateAccount extends Component {
         email: '',
         password: '',
         passwordConfirm: '',
-        subscribe: false
+        subscribe: false,
+        checkingEmail: false,
+        emailAvailable: false
     };
 
     get errorMessage() {
@@ -108,9 +115,27 @@ class CreateAccount extends Component {
         ) : null;
     }
 
+    get emailAvailable() {
+        if (this.state.email) {
+            if (!this.state.checkingEmail) {
+                return this.state.emailAvailable ? (
+                    <Icon name="check-circle" />
+                ) : <Icon name="slash" />
+            } else {
+                return (
+                    <div>
+                        <span>Checking....</span>
+                    </div>
+                )
+            }
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const { classes } = this.props;
-        const { onCreateAccount, errorMessage } = this;
+        const { onCreateAccount, errorMessage, emailAvailable} = this;
         return (
             <div className={classes.root}>
                 <Form submitForm={onCreateAccount}>
@@ -125,6 +150,8 @@ class CreateAccount extends Component {
                         helpText={'Use an active email address'}
                         required={true}
                     />
+
+                    {emailAvailable}
 
                     <Input
                         onChange={this.updateName}
@@ -175,12 +202,32 @@ class CreateAccount extends Component {
         this.props.createAccount(mockAccount);
     };
 
+     checkEmail = debounce(async (email) => {
+        try {
+            const body = {
+                customerEmail: email,
+                website_id: 0
+            }
+
+            const response = await request('/rest/V1/customers/isEmailAvailable', {
+                method: 'POST',
+                body: JSON.stringify(body)
+            });
+
+            this.setState({emailAvailable: response, checkingEmail: false})
+
+        } catch (error) {
+            console.warn('err: ', error)
+        }
+    }, 300);
+
     updateName = newName => {
         this.setState({ name: newName });
     };
 
     updateEmail = newEmail => {
-        this.setState({ email: newEmail });
+        this.setState({checkingEmail: true, email: newEmail});
+        this.checkEmail(newEmail);
     };
 
     updatePassword = newPassword => {
