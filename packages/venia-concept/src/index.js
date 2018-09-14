@@ -4,7 +4,8 @@ import bootstrap from '@magento/peregrine';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-import reducer from 'src/reducers/app';
+import appReducer from 'src/reducers/app';
+import directoryReducer from 'src/reducers/directory';
 import './index.css';
 
 const { Provider, store } = bootstrap({
@@ -12,7 +13,8 @@ const { Provider, store } = bootstrap({
     __tmp_webpack_public_path__: __webpack_public_path__
 });
 
-store.addReducer('app', reducer);
+store.addReducer('app', appReducer);
+store.addReducer('directory', directoryReducer);
 
 const apolloClient = new ApolloClient();
 

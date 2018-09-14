@@ -3,6 +3,7 @@ import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
+import { getCountries } from 'src/actions/directory';
 
 const prefix = 'CHECKOUT';
 const actionTypes = ['EDIT', 'RESET'];
@@ -51,7 +52,7 @@ export const submitCart = () =>
         dispatch(actions.cart.accept());
     };
 
-export const submitInput = () =>
+export const submitInput = payload =>
     async function thunk(dispatch, getState) {
         const { cart } = getState();
         const { guestCartId } = cart;
@@ -60,15 +61,18 @@ export const submitInput = () =>
             throw new Error('Missing required information: guestCartId');
         }
 
-        dispatch(actions.input.submit());
+        dispatch(actions.input.submit(payload));
+        await dispatch(getCountries());
+
+        const { directory } = getState();
+        const { countries } = directory;
 
         try {
-            const address = formatAddress();
+            const address = formatAddress(payload.formValues, countries);
             const response = await request(
                 `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
                 {
                     method: 'POST',
-                    // TODO: replace with real data from cart state
                     body: JSON.stringify({
                         addressInformation: {
                             billing_address: address,
@@ -80,8 +84,10 @@ export const submitInput = () =>
                 }
             );
 
+            // refresh cart before returning to checkout overview
+            // to avoid flash of old data and layout thrashing
+            await dispatch(getCartDetails({ forceRefresh: true }));
             dispatch(actions.input.accept(response));
-            dispatch(getCartDetails({ forceRefresh: true }));
         } catch (error) {
             dispatch(actions.input.reject(error));
         }
@@ -121,20 +127,26 @@ export const submitOrder = () =>
 
 /* helpers */
 
-const mockAddress = {
-    country_id: 'US',
-    firstname: 'Veronica',
-    lastname: 'Costello',
-    street: ['6146 Honey Bluff Parkway'],
-    city: 'Calder',
-    postcode: '49628-7978',
-    region_id: 33,
-    region_code: 'MI',
-    region: 'Michigan',
-    telephone: '(555) 229-3326',
-    email: 'veronica@example.com'
-};
+function formatAddress(address = {}, countries = []) {
+    const country = countries.find(({ id }) => id === 'US');
 
-function formatAddress(address = mockAddress) {
-    return address;
+    if (!country) {
+        throw new Error('Country "US" is not an available country.');
+    }
+
+    const { region_code } = address;
+    const regions = country.available_regions || [];
+    const region = regions.find(({ code }) => code === region_code);
+
+    if (!region) {
+        throw new Error(`Region "${region_code}" is not an available region.`);
+    }
+
+    return {
+        country_id: 'US',
+        region_id: region.id,
+        region_code: region.code,
+        region: region.name,
+        ...address
+    };
 }
