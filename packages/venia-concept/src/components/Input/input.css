@@ -5,6 +5,16 @@
     margin: 0.4rem 0;
 }
 
+.requiredSymbol {
+    background-color: rgb(var(--venia-text-spot));;
+    width: .4em;
+    height: .4em;
+    margin-top: 0.1em;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
+
 .helpText {
     color: rgb(var(--venia-text-hint));
 }

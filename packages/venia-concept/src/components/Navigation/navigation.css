@@ -11,7 +11,6 @@
     z-index: 3;
 }
 
-.header,
 .bottomDrawer {
     display: flex;
     align-content: center;
@@ -27,16 +26,6 @@
 .bottomDrawer button {
     max-width: 4em;
     height: 2.3em;
-}
-
-.title {
-    align-items: center;
-    display: inline-flex;
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0 auto 0 0;
-    padding: 0 1rem;
-    text-transform: uppercase;
 }
 
 .navTrigger {
@@ -129,6 +118,18 @@
     animation-fill-mode: forwards;
 }
 
+.createAccountOpen {
+    animation-duration: 244ms;
+    animation-name: slideinSide;
+    animation-fill-mode: forwards;
+}
+
+.createAccountClosed {
+    animation-duration: 244ms;
+    animation-name: slideoutSide;
+    animation-fill-mode: forwards;
+}
+
 @keyframes slidein {
     from {
         top: 100%;
@@ -144,5 +145,23 @@
     }
     to {
         top: 100%;
+    }
+}
+
+@keyframes slideinSide {
+    from {
+        right: 100%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slideoutSide {
+    from {
+        right: 0;
+    }
+    to {
+        right: 100%;
     }
 }

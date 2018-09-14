@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    background-color: rgb(var(--venia-grey));
+    box-shadow: 0 1px rgb(var(--venia-border));
+    height: 3.5rem;
+    justify-content: center;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.title {
+    align-items: center;
+    display: inline-flex;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin: auto;
+    padding: 0 1rem;
+    text-transform: uppercase;
+}

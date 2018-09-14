@@ -4,13 +4,13 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import classify from 'src/classify';
-import Icon from 'src/components/Icon';
 import SignIn from 'src/components/SignIn';
+import CreateAccount from 'src/components/CreateAccount';
 import Tile from './tile';
-import Trigger from './trigger';
 import defaultClasses from './navigation.css';
-
+import NavHeader from './navHeader';
 import Button from 'src/components/Button';
+import Icon from 'src/components/Icon';
 import { signIn, createAccount, assignGuestCartToCustomer } from 'src/actions/user';
 
 const CATEGORIES = [
@@ -24,6 +24,8 @@ const CATEGORIES = [
     'jewelry',
     'accessories'
 ];
+
+const createAccountError = {food: 'bar'};
 
 const tiles = CATEGORIES.map(category => (
     <Tile key={category} text={category} />
@@ -49,7 +51,7 @@ class Navigation extends Component {
         signInError: PropTypes.object,
         firstname: PropTypes.string,
         lastname: PropTypes.string,
-        email: PropTypes.string
+        email: PropTypes.string,
     };
 
     constructor() {
@@ -81,27 +83,29 @@ class Navigation extends Component {
     }
 
     get signInForm() {
-        const { classes, signInError, signIn, createAccount, assignGuestCartToCustomer } = this.props;
+        const { classes, signInError, signIn } = this.props;
         const className =
             !this.state.isSignInOpen || this.props.isSignedIn
                 ? classes.signInClosed
                 : classes.signInOpen;
         return (
             <div className={`${className} ${classes.signInForm}`}>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>
-                        <span>My Account</span>
-                    </h2>
-                    <button onClick={this.hideSignInForm}>
-                        <Icon name="x" />
-                    </button>
-                </div>
-                <SignIn
-                    signIn={signIn}
-                    signInError={signInError}
-                    createAccount={createAccount}
-                    assignGuestCartToCustomer={assignGuestCartToCustomer}
-                />
+                <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
+                <SignIn signIn={signIn} signInError={signInError} showCreateAccountForm={this.showCreateAccountForm}/>
+            </div>
+        );
+    }
+
+    get createAccountForm() {
+        const { classes } = this.props;
+        const className =
+            !this.state.isCreateAccountOpen
+                ? classes.createAccountClosed
+                : classes.createAccountOpen
+        return (
+            <div className={`${className} ${classes.signInForm}`}>
+                <NavHeader onBack={this.hideCreateAccountForm} title={'Create Account'} />
+                <CreateAccount createAccount={createAccount} createAccountError={createAccountError}/>
             </div>
         );
     }
@@ -110,32 +114,38 @@ class Navigation extends Component {
         this.setState({
             isSignInOpen: true
         });
-    };
+    }
 
     hideSignInForm = () => {
         this.setState({
             isSignInOpen: false
         });
-    };
+    }
+
+    showCreateAccountForm = () => {
+        this.setState({
+            isCreateAccountOpen: true
+        });
+    }
+
+    hideCreateAccountForm = () => {
+        this.setState({
+            isCreateAccountOpen: false
+        });
+    }
 
     render() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
-        const { bottomDrawer, signInForm } = this;
+        const { bottomDrawer, signInForm, createAccountForm } = this;
 
         return (
             <aside className={className}>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>
-                        <span>Main Menu</span>
-                    </h2>
-                    <Trigger>
-                        <Icon name="x" />
-                    </Trigger>
-                </div>
+                <NavHeader title={'Main Menu'} />
                 <nav className={classes.tiles}>{tiles}</nav>
                 <div className={classes.bottomDrawer}>{bottomDrawer}</div>
                 {signInForm}
+                {createAccountForm}
             </aside>
         );
     }

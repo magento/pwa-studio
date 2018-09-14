@@ -69,11 +69,18 @@ class Input extends Component {
         if (this.state.focused) {
             className += ` ${classes.labelFocused}`;
         }
-        return <div className={className}>{label}</div>;
+        return <span className={className}>{label}</span>;
+    }
+
+    get requiredSymbol() {
+        const { classes, required } = this.props;
+        return required ? (
+            <div className={classes.requiredSymbol} />
+        ) : null;
     }
 
     render() {
-        const { helpText, errorText, successText, labelText } = this;
+        const { helpText, errorText, successText, labelText, requiredSymbol } = this;
         const {
             value,
             placeholder,
@@ -85,7 +92,7 @@ class Input extends Component {
 
         return (
             <div className={classes.root}>
-                {labelText}
+                {requiredSymbol} {labelText}
                 <input
                     value={value}
                     placeholder={placeholder}
