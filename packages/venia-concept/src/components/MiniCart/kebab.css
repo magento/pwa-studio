@@ -1,10 +1,10 @@
-.subMenu {
+.root {
     position: relative;
     display: inline-block;
     grid-column: 4 / span 1;
 }
 
-.subMenu ul {
+.root ul {
     position: absolute;
     right: 20px;
     box-shadow: 2px 2px 5px #777;

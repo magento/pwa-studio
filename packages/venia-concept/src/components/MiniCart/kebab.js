@@ -16,12 +16,32 @@ class Kebab extends Component {
         const toggleClass = this.state.isOpen ? classes.dropdown + ' ' + classes.active : classes.dropdown;
 
         return (
-            <div className={classes.subMenu}>
-                <button onClick={this.openDropdown} onBlur={this.closeDropdown}>...</button>
-                <ul className={toggleClass} onFocus={this.openDropdown} onBlur={this.closeDropdown}>
-                    <li><a href="/">Add to favorites</a></li>
-                    <li><a href="/">Edit item</a></li>
-                    <li><button onClick={() => this.removeItem(item)}>Remove item</button></li>
+            <div className={classes.root}>
+                <button
+                    onClick={() => this.openDropdown()}
+                    onBlur={() => this.closeDropdown()}
+                >
+                ...
+                </button>
+                <ul
+                    className={toggleClass}
+                    onFocus={() => this.openDropdown()} 
+                    onBlur={() => this.closeDropdown()}
+                >
+                    <li>
+                        <a href="/">Add to favorites</a>
+                    </li>
+                    <li>
+                        <a href="/">Edit item</a>
+                    </li>
+                    <li>
+                        <button
+                            className={classes.buttonRemoveItem}
+                            onClick={() => this.removeItem(item)}
+                        >
+                        Remove item
+                        </button>
+                    </li>
                 </ul>
             </div>
         )
