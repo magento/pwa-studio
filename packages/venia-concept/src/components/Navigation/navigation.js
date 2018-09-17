@@ -11,7 +11,6 @@ import defaultClasses from './navigation.css';
 import NavHeader from './navHeader';
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import { signIn, createAccount, assignGuestCartToCustomer } from 'src/actions/user';
 
 const CATEGORIES = [
     'dresses',
@@ -24,8 +23,6 @@ const CATEGORIES = [
     'jewelry',
     'accessories'
 ];
-
-const createAccountError = {food: 'bar'};
 
 const tiles = CATEGORIES.map(category => (
     <Tile key={category} text={category} />
@@ -83,7 +80,7 @@ class Navigation extends Component {
     }
 
     get signInForm() {
-        const { classes, signInError, signIn } = this.props;
+        const { classes } = this.props;
         const className =
             !this.state.isSignInOpen || this.props.isSignedIn
                 ? classes.signInClosed
@@ -91,7 +88,7 @@ class Navigation extends Component {
         return (
             <div className={`${className} ${classes.signInForm}`}>
                 <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
-                <SignIn signIn={signIn} signInError={signInError} showCreateAccountForm={this.showCreateAccountForm}/>
+                <SignIn showCreateAccountForm={this.showCreateAccountForm}/>
             </div>
         );
     }
@@ -105,7 +102,7 @@ class Navigation extends Component {
         return (
             <div className={`${className} ${classes.signInForm}`}>
                 <NavHeader onBack={this.hideCreateAccountForm} title={'Create Account'} />
-                <CreateAccount createAccount={createAccount} createAccountError={createAccountError}/>
+                <CreateAccount />
             </div>
         );
     }
@@ -151,16 +148,9 @@ class Navigation extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    signIn,
-    createAccount,
-    assignGuestCartToCustomer
-};
-
 const mapStateToProps = state => {
     return {
         isSignedIn: state['user']['isSignedIn'],
-        signInError: state['user']['signInError'],
         firstname: state['user']['firstname'],
         lastname: state['user']['lastname'],
         email: state['user']['email']
@@ -171,6 +161,6 @@ export default compose(
     classify(defaultClasses),
     connect(
         mapStateToProps,
-        mapDispatchToProps
+        null
     )
 )(Navigation);

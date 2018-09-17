@@ -1,0 +1,9 @@
+.root {
+    padding: .5rem 1.5rem;
+    font-size: .85rem;
+    outline:none;
+}
+
+.label {
+    vertical-align: super;
+}

@@ -5,6 +5,7 @@ import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
 import Form from 'src/components/Form';
+import ErrorDisplay from 'src/components/ErrorDisplay';
 
 class SignIn extends Component {
     static propTypes = {
@@ -12,7 +13,8 @@ class SignIn extends Component {
             signInSection: PropTypes.string,
             signInDivider: PropTypes.string,
             forgotPassword: PropTypes.string,
-            root: PropTypes.string
+            root: PropTypes.string,
+            signInError: PropTypes.string
         }),
 
         signInError: PropTypes.object,
@@ -25,13 +27,8 @@ class SignIn extends Component {
     };
 
     get errorMessage() {
-        const { classes, signInError } = this.props;
-        const isErrorEmpty = Object.keys(signInError).length === 0;
-        return !isErrorEmpty ? (
-            <div className={classes.signInError}>
-                <p> {signInError.message} </p>
-            </div>
-        ) : null;
+        const { signInError } = this.props;
+        return <ErrorDisplay error={signInError} />
     }
 
     render() {
@@ -50,10 +47,6 @@ class SignIn extends Component {
 
                     <Input
                         onChange={this.updatePassword}
-                        errorText={
-                            'Password must be at least 8 characters long'
-                        }
-                        errorVisible={this.passwordError()}
                         label={'Password'}
                         type={'password'}
                         helpText={'example help text'}
@@ -62,7 +55,9 @@ class SignIn extends Component {
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>
                     </div>
-                    {errorMessage}
+                    <div className={classes.signInError}>
+                        {errorMessage}
+                    </div>
                     <div className={classes.forgotPassword}>
                         <a href="/"> Forgot your username or password? </a>
                     </div>
@@ -73,10 +68,6 @@ class SignIn extends Component {
                 </div>
             </div>
         );
-    }
-
-    passwordError() {
-        return this.state.password.length < 8;
     }
 
     onSignIn = () => {

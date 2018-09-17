@@ -7,87 +7,16 @@ import classify from 'src/classify';
 import Form from 'src/components/Form';
 import { debounce } from 'underscore';
 import { RestApi } from '@magento/peregrine';
-import Icon from 'src/components/Icon';
-
-const mockAccount = {
-    customer: {
-    id: 0,
-    group_id: 0,
-    default_billing: "string",
-    default_shipping: "string",
-    confirmation: "string",
-    created_at: "2018-09-13T18:26:34.662Z",
-    updated_at: "2018-09-13T18:26:34.662Z",
-    created_in: "string",
-    dob: "1/1/2010",
-    email: "text12@example.com",
-    firstname: "string",
-    lastname: "string",
-    middlename: "string",
-    prefix: "string",
-    suffix: "string",
-    gender: 0,
-    store_id: 0,
-    taxvat: "string",
-    website_id: 0,
-    addresses: [
-      {
-        id: 0,
-        customer_id: 0,
-        region: {
-          region_code: "string",
-          region: "string",
-          region_id: 0,
-          extension_attributes: {}
-        },
-        region_id: 0,
-        country_id: "US",
-        street: [
-          "string"
-        ],
-        company: "string",
-        telephone: "string",
-        fax: "string",
-        postcode: "string",
-        city: "string",
-        firstname: "string",
-        lastname: "string",
-        middlename: "string",
-        prefix: "string",
-        suffix: "string",
-        vat_id: "string",
-        default_shipping: true,
-        default_billing: true,
-        extension_attributes: {},
-        custom_attributes: [
-          {
-            attribute_code: "string",
-            value: "string"
-          }
-        ]
-      }
-    ],
-    disable_auto_group_change: 0,
-    extension_attributes: {
-      is_subscribed: true
-    },
-    custom_attributes: [
-      {
-        attribute_code: "string",
-        value: "string"
-      }
-    ]
-  },
-  password: "passW0rd1",
-  redirectUrl: "string"
-}
+import ErrorDisplay from 'src/components/ErrorDisplay';
+import Checkbox from 'src/components/Checkbox';
 
 const { request } = RestApi.Magento2;
 
 class CreateAccount extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string
+            root: PropTypes.string,
+            createAccountError: PropTypes.string
         }),
 
         createAccountError: PropTypes.object,
@@ -102,40 +31,30 @@ class CreateAccount extends Component {
         passwordConfirm: '',
         subscribe: false,
         checkingEmail: false,
-        emailAvailable: false
+        emailAvailable: false,
+        subscribe: true
     };
 
     get errorMessage() {
-        const { classes, createAccountError } = this.props;
-        const isErrorEmpty = Object.keys(createAccountError).length === 0;
-        return !isErrorEmpty ? (
-            <div className={classes.createAccountError}>
-                <p> {createAccountError.message} </p>
-            </div>
-        ) : null;
+        const { createAccountError } = this.props;
+        return <ErrorDisplay error={createAccountError} />
     }
 
-    get emailAvailable() {
-        if (this.state.email) {
-            if (!this.state.checkingEmail) {
-                return this.state.emailAvailable ? (
-                    <Icon name="check-circle" />
-                ) : <Icon name="slash" />
-            } else {
-                return (
-                    <div>
-                        <span>Checking....</span>
-                    </div>
-                )
-            }
-        } else {
-            return null;
-        }
+    get hasEmailError() {
+        return !!this.state.email && !this.state.emailAvailable && !this.state.checkingEmail;
+    }
+
+    get passwordConfirmError() {
+        return this.state.password !== this.state.passwordConfirm;
+    }
+
+    get disableAccountCreation() {
+        return this.hasEmailError || this.passwordConfirmError || !this.state.email;
     }
 
     render() {
         const { classes } = this.props;
-        const { onCreateAccount, errorMessage, emailAvailable} = this;
+        const { onCreateAccount, errorMessage, hasEmailError, disableAccountCreation, passwordConfirmError } = this;
         return (
             <div className={classes.root}>
                 <Form submitForm={onCreateAccount}>
@@ -146,12 +65,13 @@ class CreateAccount extends Component {
 
                     <Input
                         onChange={this.updateEmail}
+                        selected={true}
                         label={'Email'}
                         helpText={'Use an active email address'}
                         required={true}
+                        errorText={'Email is not available'}
+                        errorVisible={hasEmailError}
                     />
-
-                    {emailAvailable}
 
                     <Input
                         onChange={this.updateName}
@@ -160,62 +80,62 @@ class CreateAccount extends Component {
 
                     <Input
                         onChange={this.updatePassword}
-                        errorText={
-                            'Password must be at least 8 characters long'
-                        }
-                        errorVisible={this.passwordError()}
                         label={'Password'}
                         type={'password'}
                         required={true}
                         placeholder={'Enter a password'}
+                        helpText={'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'}
                     />
 
                     <Input
                         onChange={this.updatePasswordConfirm}
-                        errorText={
-                            'Passwords must match'
-                        }
-                        errorVisible={this.passwordConfirmError()}
                         label={'Confirm Password'}
                         type={'password'}
                         required={true}
                         placeholder={'Enter the password again'}
+                        errorText={'Passwords must match'}
+                        errorVisible={passwordConfirmError}
                     />
+
+                <Checkbox label={'Subscribe to news and updates'} select={this.handleCheckboxChange} initialState={this.state.subscribe} />
                 <div className={classes.createAccountButton}>
-                    <Button type="submit">Create Account</Button>
+                    <Button type="submit" disabled={disableAccountCreation}>Create Account</Button>
                 </div>
-                    {errorMessage}
+                {errorMessage}
                 </Form>
             </div>
         );
     }
 
-    passwordError() {
-        return this.state.password.length < 8;
-    }
-
-    passwordConfirmError() {
-        return this.state.password !== this.state.passwordConfirm;
-    }
-
     onCreateAccount = () => {
-        this.props.createAccount(mockAccount);
+        if (!this.disableAccountCreation) {
+            const newCustomer = {
+                customer: {
+                    firstname: this.state.name,
+                    lastname: this.state.name,
+                    email: this.state.email,
+                },
+                password: this.state.password
+            }
+            this.props.createAccount(newCustomer);
+        }
     };
+
+    handleCheckboxChange = value => {
+        this.setState({subscribe: value})
+    }
 
      checkEmail = debounce(async (email) => {
         try {
             const body = {
                 customerEmail: email,
-                website_id: 0
+                website_id: null
             }
-
             const response = await request('/rest/V1/customers/isEmailAvailable', {
                 method: 'POST',
                 body: JSON.stringify(body)
             });
-
             this.setState({emailAvailable: response, checkingEmail: false})
-
         } catch (error) {
             console.warn('err: ', error)
         }

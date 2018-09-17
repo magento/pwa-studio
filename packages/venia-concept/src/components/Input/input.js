@@ -11,7 +11,9 @@ class Input extends Component {
             successText: PropTypes.string,
             label: PropTypes.string,
             labelFocused: PropTypes.string,
-            root: PropTypes.string
+            root: PropTypes.string,
+            input: PropTypes.string,
+            rootFocused: PropTypes.string
         }),
 
         value: PropTypes.string,
@@ -20,6 +22,7 @@ class Input extends Component {
         type: PropTypes.string,
         disabled: PropTypes.bool,
         required: PropTypes.bool,
+        title: PropTypes.string,
 
         helpText: PropTypes.string,
         errorText: PropTypes.string,
@@ -72,6 +75,15 @@ class Input extends Component {
         return <span className={className}>{label}</span>;
     }
 
+    get rootClass() {
+        const { classes } = this.props;
+        let className = `${classes.root}`;
+        if (this.state.focused) {
+            className += ` ${classes.rootFocused}`;
+        }
+        return className;
+    }
+
     get requiredSymbol() {
         const { classes, required } = this.props;
         return required ? (
@@ -80,25 +92,28 @@ class Input extends Component {
     }
 
     render() {
-        const { helpText, errorText, successText, labelText, requiredSymbol } = this;
+        const { helpText, errorText, successText, labelText, requiredSymbol, rootClass } = this;
         const {
+            classes,
             value,
             placeholder,
             type,
             disabled,
             required,
-            classes
+            title,
         } = this.props;
 
         return (
-            <div className={classes.root}>
+            <div className={rootClass}>
                 {requiredSymbol} {labelText}
                 <input
+                    className={classes.input}
                     value={value}
                     placeholder={placeholder}
                     type={type}
                     disabled={disabled}
                     required={required}
+                    title={title}
                     onChange={this.handleChange}
                     onFocus={this.focusTextInput}
                     onBlur={this.blurTextInput}

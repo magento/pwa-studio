@@ -1,6 +1,5 @@
 .root {
-    margin: 0 1.5rem;
-    padding: 2rem 0 0;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

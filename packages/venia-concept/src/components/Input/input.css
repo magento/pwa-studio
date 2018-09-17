@@ -28,10 +28,10 @@
 }
 
 .root {
-    margin: 0 0 1rem 0;
+    padding: .5rem 1.5rem;
 }
 
-input {
+.input {
     width: 100%;
     height: 1.85rem;
     border: 1px solid black;
@@ -45,5 +45,10 @@ input {
 
 .labelFocused {
     color: rgb(var(--venia-teal));
+    transition: 200ms;
+}
+
+.rootFocused {
+    background-color: rgb(var(--venia-teal-alt));
     transition: 200ms;
 }

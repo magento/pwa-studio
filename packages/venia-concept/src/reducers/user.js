@@ -24,11 +24,23 @@ const userReducer = (state = initialState, { error, payload, type }) => {
                 signInError: {}
             };
         }
+        case 'RESET_CREATE_ACCOUNT_ERROR': {
+            return {
+                ...state,
+                createAccountError: {}
+            };
+        }
         case 'SIGN_IN_ERROR': {
             return {
                 ...state,
                 isSignedIn: false,
                 signInError: payload
+            };
+        }
+        case 'ACCOUNT_CREATE_ERROR': {
+            return {
+                ...state,
+                createAccountError: payload
             };
         }
         default: {

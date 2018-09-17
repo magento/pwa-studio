@@ -51,6 +51,10 @@ const createAccount = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
 
+        dispatch({
+            type: 'RESET_CREATE_ACCOUNT_ERROR'
+        });
+
         try {
             const response = await request(
                 '/rest/V1/customers', {
