@@ -3,6 +3,7 @@ const { join } = require('path');
 module.exports = {
     displayName: 'Venia Concept',
     browser: true,
+    testURL: 'https://localhost/',
     moduleNameMapper: {
         '\\.css$': 'identity-obj-proxy',
         // Mirrors webpack alias to resolve from 'src'

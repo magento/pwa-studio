@@ -1,6 +1,6 @@
 # PWA Studio
 
-[![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master)](https://coveralls.io/github/magento-research/pwa-studio?branch=master)
+[![CircleCI](https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg)](https://circleci.com/gh/magento-research/pwa-studio) [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master)](https://coveralls.io/github/magento-research/pwa-studio?branch=master)
 
 Magento PWA Studio is a collection of tools that enables developers to build complex Progressive Web Applications for Magento 2 stores.
 
@@ -27,6 +27,9 @@ To ease local development, testing, and versioning, the PWA Studio project uses 
 1.  Clone the repository
 2.  Navigate to the root of the repository from the command line
 3.  Run `npm install`
+4.  Watch the bootstrapping take place.
+5.  To run the Venia theme development experience, run `npm run watch:venia` from package root.
+6.  To run the full PWA Studio deeloper experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
 
 ## Things not to do
 

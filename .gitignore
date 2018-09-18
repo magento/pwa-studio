@@ -3,9 +3,12 @@ npm-debug.log
 .DS_Store
 .vscode
 coverage
+test-results
 dist
+packages/venia-concept/web
 storybook-dist
 .idea
 test-report.xml
+test-results.json
 lerna-debug.log
 .env

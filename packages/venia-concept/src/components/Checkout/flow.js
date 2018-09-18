@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { func, oneOf, shape, string } from 'prop-types';
+import { bool, func, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Entrance from './entrance';
@@ -22,6 +22,7 @@ class Flow extends Component {
         classes: shape({
             root: string
         }),
+        ready: bool,
         resetCheckout: func.isRequired,
         requestOrder: func.isRequired,
         status: oneOf(stepEnum).isRequired,
@@ -32,6 +33,7 @@ class Flow extends Component {
         const {
             classes,
             enterSubflow,
+            ready,
             resetCheckout,
             requestOrder,
             status,
@@ -51,6 +53,7 @@ class Flow extends Component {
             case 'STEP_2': {
                 child = (
                     <Form
+                        ready={ready}
                         status={status}
                         enterSubflow={enterSubflow}
                         submitOrder={submitOrder}

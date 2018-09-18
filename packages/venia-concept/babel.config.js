@@ -21,9 +21,9 @@ const defaults = {
 // define preset-env config for production
 const presetEnvConfig = {
     targets: {
-        browsers: ['last 2 versions', 'ie >= 11'],
-        modules: false
-    }
+        browsers: ['> 5%']
+    },
+    modules: false
 };
 
 // group options by environment

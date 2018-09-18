@@ -2,11 +2,11 @@
 title: Header component
 ---
 
-| Description           | Reference image                                            |
-| --------------------- | :--------------------------------------------------------: |
-| Header                | ![Header menu collapsed without cart item]{:width="400px"} |
-| Header with cart item | ![Header menu collapsed with cart item]{:width="400px"}    |
-| Header with search    | ![Header menu with search]{:width="400px"}                 |
+| Description           | Pages used                   | Reference image                                            |
+| --------------------- | ---------------------------- | :--------------------------------------------------------: |
+| Header                | [Product][]<br/>[Category][] | ![Header menu collapsed without cart item]{:width="400px"} |
+| Header with cart item | [Product][]<br/>[Category][] | ![Header menu collapsed with cart item]{:width="400px"}    |
+| Header with search    | [Homepage][]                 | ![Header menu with search]{:width="400px"}                 |
 {:style="table-layout:auto"}
 
 
@@ -31,3 +31,5 @@ title: Header component
 | [Homepage] | Loads with the search bar displayed and open |
 
 [Homepage]: {{site.baseurl}}{% link venia-pwa-concept/design/homepage/index.md %}
+[Product]: {{site.baseurl}}{% link venia-pwa-concept/design/product-page/index.md %}
+[Category]: {{site.baseurl}}{% link venia-pwa-concept/design/category-page/index.md %}

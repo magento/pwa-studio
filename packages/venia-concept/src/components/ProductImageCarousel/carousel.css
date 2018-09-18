@@ -1,24 +1,24 @@
 .root {
-  display: grid;
-  grid-template-areas:
-    "main"
-    "thumbs";
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+    display: grid;
+    grid-template-areas:
+        'main'
+        'thumbs';
+    grid-template-columns: auto;
+    grid-template-rows: auto;
 }
 
-@media(min-width: 1024px) {
-  .root {
-    grid-gap: 1.5rem;
-    grid-template-areas: "thumbs main";
-    grid-template-columns: 17fr 80fr;
-  }
+@media (min-width: 1024px) {
+    .root {
+        grid-gap: 1.5rem;
+        grid-template-areas: 'thumbs main';
+        grid-template-columns: 17fr 80fr;
+    }
 }
 
 .currentImage {
-  background-color: rgb(var(--venia-grey));
-  border-radius: 2px;
-  display: block;
-  grid-area: main;
-  width: 100%;
+    background-color: rgb(var(--venia-grey));
+    border-radius: 2px;
+    display: block;
+    grid-area: main;
+    width: 100%;
 }

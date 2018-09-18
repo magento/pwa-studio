@@ -24,38 +24,38 @@ The product page handles the following page states:
 
 The Product page is made up of the following components:
 
-* [Header]                                          
-* [Title bar]                                       
-* [Image carousel]                                  
-* [Add to wishlist]
-* [Share]               
-* [Size selector]                                   
-* [Color selector]                                  
-* [Label selector]                                  
-* [Quantity selector]
-* [Quantity sync bar] 
-* [Product description]                             
-* [Recommended carousel]                            
-* [Buy now / Buy with]      
-* [Add to cart]
-* [Footer]                                          
+* [Header][]
+* [Title bar][]
+* [Image carousel][]
+* [Add to wishlist][]
+* [Share][]
+* [Size selector][]
+* [Color selector][]
+* [Label selector][]
+* [Quantity selector][]
+* [Quantity sync bar][]
+* [Product description][]
+* [Recommended carousel][]
+* [Buy now / Buy with][]
+* [Add to cart][]
+* [Footer][]
 
 The following table shows a visual breakdown of these components.
 
 | Components                                        | Reference image                                                       |
-| ------------------------------------------------- | :-------------------------------------------------------------------: |
-| **Header**                                        | [![Header image]{:width="400px"}][Header]                             |
-| **Title bar**                                     | [![Title bar image]{:width="400px"}][Title bar]                       |
-| **Image carousel**                                | [![Image carousel image]{:width="400px"}][Image carousel]             |
-| **Add to wishlist** <br/> **Share**               | [![Add to wishlist image]{:width="400px"}][Add to wishlist]           |
-| **Size selector**                                 | [![Size selector image]{:width="400px"}][Size selector]               |
-| **Color selector**                                | [![Color selector image]{:width="400px"}][Color selector]             |
-| **Label selector**                                | [![Label selector image]{:width="400px"}][Label selector]             |
-| **Quantity selector** <br/> **Quantity sync bar** | [![Quantity selector image]{:width="400px"}][Quantity selector]       |
-| **Product description**                           | [![Product description image]{:width="400px"}][Product description]   |
-| **Recommended carousel**                          | [![Recommended carousel image]{:width="400px"}][Recommended carousel] |
-| **Buy now / Buy with** <br/> **Add to cart**      | [![Add to cart image]{:width="400px"}][Add to cart]                   |
-| **Footer**                                       | [![Footer image]{:width="400px"}][Footer]                             |
+| :-----------------------------------------------: | :-------------------------------------------------------------------: |
+| **Header**                                        | [![Header image]{:width="250px"}][Header]                             |
+| **Title bar**                                     | [![Title bar image]{:width="250px"}][Title bar]                       |
+| **Image carousel**                                | [![Image carousel image]{:width="250px"}][Image carousel]             |
+| **Add to wishlist** <br/> **Share**               | [![Add to wishlist image]{:width="250px"}][Add to wishlist]           |
+| **Size selector**                                 | [![Size selector image]{:width="250px"}][Size selector]               |
+| **Color selector**                                | [![Color selector image]{:width="250px"}][Color selector]             |
+| **Label selector**                                | [![Label selector image]{:width="250px"}][Label selector]             |
+| **Quantity selector** <br/> **Quantity sync bar** | [![Quantity selector image]{:width="250px"}][Quantity selector]       |
+| **Product description**                           | [![Product description image]{:width="250px"}][Product description]   |
+| **Recommended carousel**                          | [![Recommended carousel image]{:width="250px"}][Recommended carousel] |
+| **Buy now / Buy with** <br/> **Add to cart**      | [![Add to cart image]{:width="250px"}][Add to cart]                   |
+| **Footer**                                       | [![Footer image]{:width="250px"}][Footer]                             |
 {:style="table-layout:auto"}
 
 

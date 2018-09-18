@@ -63,7 +63,7 @@ After you provide an estimate, the issue is now "in progress", and
 you officially become a member of the [Magento Research] organization.
 
 If you need more time to work on the issue, please contact us as soon as possible.
-We may request an update on your progress, but we are willing to accomodate.
+We may request an update on your progress, but we are willing to accommodate.
 
 If the deadline you provided to us passes and we have not heard from you, we will wait one week before un-assigning you from the issue.
 

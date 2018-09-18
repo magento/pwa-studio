@@ -4,6 +4,10 @@
 
 Build and development tools for Magento Progressive Web Apps
 
+# ⚠️❌ As of 2017-07-30 these instructions are out of date and have been deprecated. Continue at your own risk. ⚠️❌
+# We are working on an update and simplification of Buildpack setup.
+# Visit the [PWA Devdocs](https://magento-research.github.io/pwa-studio/) for future guides and walkthroughs.
+
 ## Quick Setup
 
 ### Prerequisites
