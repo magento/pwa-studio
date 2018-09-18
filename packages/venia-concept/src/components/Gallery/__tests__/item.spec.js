@@ -1,6 +1,7 @@
 import { createElement } from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { BrowserRouter } from 'react-router-dom';
 
 import Item from '../item';
 
@@ -25,6 +26,7 @@ const validItem = {
     id: 1,
     name: 'Test Product',
     small_image: '/foo/bar/pic.png',
+    url_key: 'strive-shoulder-pack',
     price: {
         regularPrice: {
             amount: {
@@ -55,6 +57,24 @@ test('passes classnames to the placeholder item', () => {
         .dive();
 
     expect(wrapper.hasClass(classes.root_pending));
+});
+
+test('renders Anchor elements for navigating to a PDP', () => {
+    const wrapper = mount(
+        <BrowserRouter>
+            <Item classes={classes} item={validItem} />
+        </BrowserRouter>
+    );
+    const expectedSelector = `a[href="/${validItem.url_key}.html"]`;
+    const imageLink = wrapper
+        .find({ className: classes.images })
+        .find(expectedSelector);
+    const nameLink = wrapper
+        .find({ className: classes.name })
+        .find(expectedSelector);
+
+    expect(imageLink).toHaveLength(1);
+    expect(nameLink).toHaveLength(1);
 });
 
 /**
