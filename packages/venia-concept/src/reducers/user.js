@@ -1,5 +1,10 @@
 const initialState = {
     isSignedIn: !!localStorage.getItem('signin_token'),
+    currentUser: {
+        email: '',
+        firstname: '',
+        lastname: ''
+    },
     signInError: {}
 };
 
@@ -9,7 +14,8 @@ const userReducer = (state = initialState, { error, payload, type }) => {
             return {
                 ...state,
                 ...payload,
-                isSignedIn: true
+                isSignedIn: true,
+                currentUser: Object.assign(payload)
             };
         }
         case 'SIGN_OUT': {

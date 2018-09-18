@@ -51,12 +51,9 @@ class Navigation extends Component {
         email: PropTypes.string,
     };
 
-    constructor() {
-        super();
-        this.state = {
-            isSignInOpen: false
-        };
-    }
+    state = {
+        isSignInOpen: false
+    };
 
     get bottomDrawer() {
         const { classes, firstname, lastname, email } = this.props;

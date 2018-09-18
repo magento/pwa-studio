@@ -6,6 +6,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { getUserDetails } from 'src/actions/user';
 
 import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
@@ -20,6 +21,8 @@ const { Provider, store } = bootstrap({
 
 store.addReducer('app', reducer);
 store.addReducer('user', userReducer);
+
+store.dispatch(getUserDetails());
 
 const httpLink = createHttpLink({
     uri: urlBase,

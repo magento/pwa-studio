@@ -47,6 +47,20 @@ const signIn = credentials =>
         }
     };
 
+const getUserDetails = () => async function thunk(...args) {
+    const [ dispatch, getState ] = args;
+    const { user } = getState();
+    if (user.isSignedIn) {
+        const userDetails = await request('/rest/V1/customers/me', {
+            method: 'GET'
+        });
+        dispatch({
+            type: 'SIGN_IN',
+            payload: userDetails
+        });
+    }
+}
+
 const createAccount = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
@@ -56,7 +70,7 @@ const createAccount = accountInfo =>
         });
 
         try {
-            const response = await request(
+            await request(
                 '/rest/V1/customers', {
                     method: 'POST',
                     body: JSON.stringify(accountInfo)
@@ -64,8 +78,6 @@ const createAccount = accountInfo =>
             );
             await dispatch(signIn({ username: accountInfo.customer.email, password: accountInfo.password }));
             dispatch(assignGuestCartToCustomer())
-
-            console.log(response);
 
         } catch(error) {
             dispatch({
@@ -89,7 +101,7 @@ const assignGuestCartToCustomer = () =>
                 storeId: user.store_id
             }
             // TODO: Check if guestCartId exists
-            const transferCartResponse = await request(
+                await request(
                 `/rest/V1/guest-carts/${guestCartId}`, {
                     method: 'PUT',
                     body: JSON.stringify(payload)
@@ -106,4 +118,4 @@ function setToken(token) {
     localStorage.setItem('signin_token', token);
 }
 
-export { signIn, createAccount, assignGuestCartToCustomer };
+export { signIn, createAccount, assignGuestCartToCustomer, getUserDetails };
