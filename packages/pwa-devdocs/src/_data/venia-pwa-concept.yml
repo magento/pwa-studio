@@ -3,7 +3,7 @@ entries:
   - label: Overview
     url: /venia-pwa-concept/
 
-  - label: Setup
+  - label: Venia theme setup
     url: /venia-pwa-concept/setup/
 
   - label: Simple REST checkout flow
