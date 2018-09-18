@@ -146,6 +146,17 @@ const PWADevServer = {
             publicPath: url.format(
                 Object.assign({}, devHost, { pathname: config.publicPath })
             ),
+            stats: {
+                all: false,
+                builtAt: true,
+                colors: true,
+                errors: true,
+                errorDetails: true,
+                moduleTrace: true,
+                timings: true,
+                version: true,
+                warnings: true
+            },
             before(app) {
                 if (config.changeOrigin) {
                     // replace origins in links in returned html
