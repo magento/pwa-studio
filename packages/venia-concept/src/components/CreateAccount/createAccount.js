@@ -1,6 +1,7 @@
 import { createElement, Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'src/components/Input';
+import {HelpTypes} from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './createAccount.css';
 import classify from 'src/classify';
@@ -56,9 +57,33 @@ class CreateAccount extends Component {
         !this.state.lastName;
     }
 
+    get emailHelpText () {
+        return this.hasEmailError ? 'This email is already in use'  : 'Use an active email';
+    }
+
+    get emailHelpType () {
+        return this.hasEmailError ? HelpTypes.error  : HelpTypes.hint;
+    }
+
+    get passwordHelpText () {
+        return this.passwordConfirmError ? 'Passwords do not match'  : '';
+    }
+
+    get passwordHelpType () {
+        return HelpTypes.error;
+    }
+
+
     render() {
         const { classes } = this.props;
-        const { onCreateAccount, errorMessage, hasEmailError, disableAccountCreation, passwordConfirmError } = this;
+        const { onCreateAccount,
+                errorMessage,
+                emailHelpText,
+                emailHelpType,
+                passwordHelpText,
+                passwordHelpType,
+                disableAccountCreation } = this;
+
         return (
             <div className={classes.root}>
                 <Form submitForm={onCreateAccount}>
@@ -71,10 +96,9 @@ class CreateAccount extends Component {
                         onChange={this.updateEmail}
                         selected={true}
                         label={'Email'}
-                        helpText={'Use an active email address'}
+                        helpText={emailHelpText}
+                        helpType={emailHelpType}
                         required={true}
-                        errorText={'Email is not available'}
-                        errorVisible={hasEmailError}
                     />
 
                     <Input
@@ -104,8 +128,8 @@ class CreateAccount extends Component {
                         type={'password'}
                         required={true}
                         placeholder={'Enter the password again'}
-                        errorText={'Passwords must match'}
-                        errorVisible={passwordConfirmError}
+                        helpText={passwordHelpText}
+                        helpType={passwordHelpType}
                     />
 
                 <Checkbox label={'Subscribe to news and updates'} select={this.handleCheckboxChange} initialState={this.state.subscribe} />

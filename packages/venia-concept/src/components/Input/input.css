@@ -1,6 +1,4 @@
-.helpText,
-.errorText,
-.successText {
+.helpText {
     font-size: 0.7rem;
     margin: 0.4rem 0;
 }
@@ -15,15 +13,15 @@
     vertical-align: top;
 }
 
-.helpText {
+.hint {
     color: rgb(var(--venia-text-alt));
 }
 
-.errorText {
+.error {
     color: red;
 }
 
-.successText {
+.success {
     color: green;
 }
 

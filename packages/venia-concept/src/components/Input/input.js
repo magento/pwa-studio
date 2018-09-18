@@ -3,12 +3,19 @@ import { PropTypes } from 'prop-types';
 import defaultClasses from './input.css';
 import classify from 'src/classify';
 
+export const HelpTypes = {
+    hint: 'hint',
+    error: 'error',
+    success: 'success'
+}
+
 class Input extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             helpText: PropTypes.string,
-            errorText: PropTypes.string,
-            successText: PropTypes.string,
+            hint: PropTypes.string,
+            error: PropTypes.string,
+            success: PropTypes.string,
             label: PropTypes.string,
             labelFocused: PropTypes.string,
             root: PropTypes.string,
@@ -25,18 +32,15 @@ class Input extends Component {
         title: PropTypes.string,
 
         helpText: PropTypes.string,
-        errorText: PropTypes.string,
-        successText: PropTypes.string,
-        helpVisible: PropTypes.bool,
-        errorVisible: PropTypes.bool,
-        successVisible: PropTypes.bool,
+        helpType: PropTypes.string,
 
         onChange: PropTypes.func
     };
 
     static defaultProps = {
         disabled: false,
-        helpVisible: true
+        helpVisible: true,
+        helpType: HelpTypes.hint
     };
 
     state = {
@@ -46,23 +50,11 @@ class Input extends Component {
     };
 
     get helpText() {
-        const { helpVisible, classes, helpText } = this.props;
+        const { helpVisible, classes, helpText, helpType } = this.props;
+        let helpTypeClass = `${classes.helpText} ${classes[helpType]}`;
+
         return helpVisible ? (
-            <div className={classes.helpText}>{helpText}</div>
-        ) : null;
-    }
-
-    get errorText() {
-        const { errorVisible, classes, errorText } = this.props;
-        return errorVisible && this.state.dirty ? (
-            <div className={classes.errorText}>{errorText}</div>
-        ) : null;
-    }
-
-    get successText() {
-        const { successVisible, classes, successText } = this.props;
-        return successVisible ? (
-            <div className={classes.successText}>{successText}</div>
+            <div className={helpTypeClass}>{helpText}</div>
         ) : null;
     }
 
@@ -92,7 +84,7 @@ class Input extends Component {
     }
 
     render() {
-        const { helpText, errorText, successText, labelText, requiredSymbol, rootClass } = this;
+        const { helpText, labelText, requiredSymbol, rootClass } = this;
         const {
             classes,
             value,
@@ -119,8 +111,6 @@ class Input extends Component {
                     onBlur={this.blurTextInput}
                 />
                 {helpText}
-                {errorText}
-                {successText}
             </div>
         );
     }
