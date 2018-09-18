@@ -105,7 +105,7 @@ class Input extends Component {
 
         return (
             <div className={rootClass}>
-                {requiredSymbol} {labelText}
+                <span className={classes.label}>{requiredSymbol} {labelText}</span>
                 <input
                     className={classes.input}
                     value={value}
