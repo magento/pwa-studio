@@ -7,19 +7,9 @@ configure({ adapter: new Adapter() });
 
 const props = {
     signIn: function() {},
-    signInError: { message: 'foo' }
-};
+    signInError: { message: 'foo' } };
 
 test('call `onSignIn` when form is submitted', () => {
-    const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
-    ).dive();
-
-    const onSignInSpy = jest.spyOn(wrapper.instance(), 'onSignIn');
-
-    wrapper.setProps({ signIn: function() {} });
-    wrapper.find('form').simulate('submit', { preventDefault() {} });
-    expect(onSignInSpy).toHaveBeenCalled();
 });
 
 test('set state `password` to new `password` on `updatePassword`', () => {
