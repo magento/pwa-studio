@@ -3,7 +3,13 @@ entries:
   - label: Overview
     url: /peregrine/
 
-  - label: Components
+  - label: Utility modules
+    entries:
+
+      - label: REST API client
+        url: /peregrine/reference/rest-api-client/
+
+  - label: React components
     entries:
 
       - label: ContainerChild
@@ -17,9 +23,6 @@ entries:
 
       - label: List
         url: /peregrine/reference/list/
-
-      - label: REST API client
-        url: /peregrine/reference/rest-api-client/
 
       - label: Router
         url: /peregrine/reference/router/

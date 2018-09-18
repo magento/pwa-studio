@@ -2,7 +2,7 @@
 title: REST API client
 ---
 
-The REST API client component provided by Peregrine allows you to work with non-GraphQL web APIs.
+The REST API client utility module provided by Peregrine allows you to work with non-GraphQL web APIs.
 The default implementation is a client that works with the REST API for Magento 2.3 and above.
 
 ## Magento 2 REST API client
@@ -12,7 +12,7 @@ This function is similar to the Web standard [`fetch()`][] function with a few d
 It also contains features to support [multicasting][] and [rolling requests][].
 
 For basic use cases, use the `request()` method.
-For more advanced cases, use the [`Magento2ApiRequest`][] class, which the `request()` method wraps.
+For more advanced cases, use the [`M2ApiRequest`][] class, which the `request()` method wraps.
 
 ### Syntax
 
@@ -98,7 +98,7 @@ request(
 
 ### Error handling
 
-Promoises returned by `request()` are rejected if the server responds with an HTTP error code within the 4xx-5xx range.
+Promises returned by `request()` are rejected if the server responds with an HTTP error code within the 4xx-5xx range.
 This is different from the standard `fetch()` behavior, which ignores HTTP errors so it can resolve the promise and only fails on network connectivity errors.
 
 The Magento REST API uses HTTP error codes to denote failed operations, so
@@ -151,12 +151,12 @@ This feature has no effect on non-multicast requests.
 
 To use a rolling request, set the `cache` configuration option to `reload` or `no-store`.
 
-### The `Magento2ApiRequest` class
+### The `M2ApiRequest` class
 
 The `request()` method is a convenience wrapper on top of the
-`Magento2ApiRequest` class.
+`M2ApiRequest` class.
 
-Use the `Magento2ApiRequest` class if you want more control over your REST requests.
+Use the `M2ApiRequest` class if you want more control over your REST requests.
 
 ```js
 import { RestApi } from '@magento/peregrine';
@@ -181,7 +181,7 @@ function placeCancelable(emitter) {
 
 `new M2ApiRequest(resourceUrl, opts)`
 
-: Creates a new `Magento2ApiRequest` class to a specific `resourceUrl` using the configuration values in `opts`.
+: Creates a new `M2ApiRequest` class to a specific `resourceUrl` using the configuration values in `opts`.
   See `request()` method [parameters][].
 
 `run()`
@@ -221,5 +221,5 @@ function placeCancelable(emitter) {
 [Magento REST endpoint]: https://devdocs.magento.com/guides/v2.3/rest/list.html
 [fetch options]: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
 [`UVString`]: https://developer.mozilla.org/en-US/docs/Web/API/USVString
-[`Magento2ApiRequest`]: #the-magento2apirequest-class
+[`M2ApiRequest`]: #the-m2apirequest-class
 [parameters]: #parameters
