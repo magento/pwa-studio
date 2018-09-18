@@ -1,5 +1,7 @@
 .root {
-    word-break: break-word;
-    padding: 1rem;
+    margin: .8rem;
     color: red;
+    max-height: 3rem;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

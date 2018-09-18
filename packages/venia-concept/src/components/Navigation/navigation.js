@@ -93,7 +93,7 @@ class Navigation extends Component {
     get createAccountForm() {
         const { classes } = this.props;
         const className =
-            !this.state.isCreateAccountOpen
+            !this.state.isCreateAccountOpen || this.props.isSignedIn
                 ? classes.createAccountClosed
                 : classes.createAccountOpen
         return (

@@ -136,7 +136,6 @@ class CreateAccount extends Component {
                 <div className={classes.createAccountButton}>
                     <Button type="submit" disabled={disableAccountCreation}>Create Account</Button>
                 </div>
-                {errorMessage}
                 </Form>
             </div>
         );
