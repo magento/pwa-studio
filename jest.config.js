@@ -4,10 +4,16 @@ module.exports = {
     projects: [
         'packages/peregrine',
         'packages/pwa-buildpack',
-        'packages/venia-concept'
+        'packages/venia-concept',
+        'scripts'
     ],
     collectCoverage: true,
-    collectCoverageFrom: ['src/**/*.js', '!**/__stories__/**'],
+    collectCoverageFrom: [
+        'scripts/**/*.js',
+        'src/**/*.js',
+        '!**/__stories__/**',
+        '!**/__helpers__/**'
+    ],
     reporters: [
         'default',
         [
