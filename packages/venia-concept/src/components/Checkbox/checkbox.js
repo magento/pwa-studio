@@ -8,6 +8,8 @@ class Checkbox extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
+            checkbox: PropTypes.string,
+            highlighted: PropTypes.string,
             label: PropTypes.string
         }),
         select: PropTypes.func,
@@ -26,25 +28,61 @@ class Checkbox extends Component {
         this.props.select(checked);
     }
 
+    handleKeyUp = evt => {
+        if ( evt.key === 'Enter') {
+            this.handleClick();
+        }
+    }
+
+    focus = () => {
+        this.setState({focused: true})
+    }
+
+    blur = () => {
+        this.setState({focused: false})
+    }
+
+    get label() {
+        const { classes, label } = this.props;
+        return (
+            <span className={classes.label}> {label} </span>
+        )
+    }
+
+
     get checkbox() {
-        return this.state.checked ? (
-            <Icon name="check-square"/>
-        ) : <Icon name="square"/>
+        const { classes, label } = this.props;
+        let checkedIcon;
+
+        this.state.checked ? checkedIcon = 'check-square' :  checkedIcon = 'square';
+        return (
+            <span>
+                <Icon name={checkedIcon}/>
+                <span className={classes.label}> { label } </span>
+            </span>
+        )
     }
 
     render() {
-        const { classes, label } = this.props;
+        const { classes } = this.props;
         const { checkbox } = this;
+
+        let rootClass = `${classes.root} `;
+        this.state.focused ? rootClass += `${classes.highlighted}` : null;
+
         return  (
             <div
-                className={classes.root}
+                className={rootClass}
                 onClick={this.handleClick}
-                onKeyUp={this.handleClick}
+                onFocus={this.focus}
+                onBlur={this.blur}
+                onKeyUp={evt => this.handleKeyUp(evt)}
                 aria-checked={this.state.checked}
                 role="checkbox"
                 tabIndex={0}>
-                    {checkbox}
-                    <span className={classes.label}> {label} </span>
+                    <span className={classes.checkbox}>
+                        {checkbox}
+                    </span>
             </div>
         )
     }

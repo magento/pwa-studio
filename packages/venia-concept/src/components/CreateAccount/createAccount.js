@@ -32,7 +32,7 @@ class CreateAccount extends Component {
         subscribe: false,
         checkingEmail: false,
         emailAvailable: false,
-        subscribe: true
+        subscribe: false
     };
 
     get errorMessage() {
@@ -49,7 +49,11 @@ class CreateAccount extends Component {
     }
 
     get disableAccountCreation() {
-        return this.hasEmailError || this.passwordConfirmError || !this.state.email;
+        return this.hasEmailError ||
+        this.passwordConfirmError ||
+        !this.state.email ||
+        !this.state.firstName ||
+        !this.state.lastName;
     }
 
     render() {
@@ -74,8 +78,15 @@ class CreateAccount extends Component {
                     />
 
                     <Input
-                        onChange={this.updateName}
-                        label={'Name'}
+                        onChange={this.updateFirstName}
+                        label={'First Name'}
+                        required={true}
+                    />
+
+                    <Input
+                        onChange={this.updateLastName}
+                        label={'Last Name'}
+                        required={true}
                     />
 
                     <Input
@@ -111,8 +122,8 @@ class CreateAccount extends Component {
         if (!this.disableAccountCreation) {
             const newCustomer = {
                 customer: {
-                    firstname: this.state.name,
-                    lastname: this.state.name,
+                    firstname: this.state.firstName,
+                    lastname: this.state.lastName,
                     email: this.state.email,
                 },
                 password: this.state.password
@@ -141,8 +152,12 @@ class CreateAccount extends Component {
         }
     }, 300);
 
-    updateName = newName => {
-        this.setState({ name: newName });
+    updateLastName = newLastName => {
+        this.setState({ lastName: newLastName });
+    };
+
+    updateFirstName = newFirstName => {
+        this.setState({ firstName: newFirstName });
     };
 
     updateEmail = newEmail => {
