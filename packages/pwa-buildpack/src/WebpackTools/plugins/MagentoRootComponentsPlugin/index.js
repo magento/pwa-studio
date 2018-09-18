@@ -55,13 +55,10 @@ class MagentoRootComponentsPlugin {
 
                 // Top-level modules injected by a downstream "issuer" are not
                 // entry points.
-                let isEntrySimpleTest = mod => !mod.issuer;
-                if (this.phase === 'development') {
-                    // Unless we're in development mode. In that case,
-                    // the best we can do is test if the entry is in node_modules.
-                    isEntrySimpleTest = mod =>
-                        mod.resource.indexOf('/node_modules/') !== -1;
-                }
+                const isEntrySimpleTest =
+                    this.phase === 'development'
+                        ? mod => mod.resource.includes('/node_modules/')
+                        : mod => !mod.issuer;
 
                 const isAnEntry =
                     isEntrySimpleTest(mod) &&
