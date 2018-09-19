@@ -47,8 +47,8 @@ test('recovers when error properties cannot be parsed', () => {
 });
 
 test('does not call Error.captureStackTrace if unavailable', () => {
-	const capture = Error.captureStackTrace;
-	Error.captureStackTrace = null;
+    const capture = Error.captureStackTrace;
+    Error.captureStackTrace = null;
     new M2ApiResponseError({
         method: 'GET',
         resourceUrl: 'bad-path',
@@ -58,5 +58,5 @@ test('does not call Error.captureStackTrace if unavailable', () => {
         },
         bodyText: '<p>I am unparseable</p>'
     });
-	Error.captureStackTrace = capture;
+    Error.captureStackTrace = capture;
 });
