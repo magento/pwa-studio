@@ -46,7 +46,7 @@ module.exports = {
                     process.stdout.write(JSON.stringify(certs));
                 },
                 commonName
-            )
+            );
             return JSON.parse(cert);
         } catch (e) {
             throw Error(
