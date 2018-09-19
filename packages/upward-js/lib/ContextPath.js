@@ -1,5 +1,5 @@
 const debug = require('debug')('upward-js:ContextPath');
-const illegalPathChars = /(^\.+)|[^\.\w\/]/;
+const illegalPathChars = /(^[\.\[\]])|[^\.\w\$\/]/;
 const contextPathCache = new Map();
 class ContextPath {
     static from(lookup) {
@@ -46,12 +46,33 @@ class ContextPath {
     getFrom(obj) {
         let current = obj;
         for (const segment of this._segments) {
-            debug('traverse %o for %s', current, segment);
-            if (!current || !current.hasOwnProperty(segment)) {
-                return;
-            }
-            current = current[segment];
-        }
+            if (Array.isArray(current)) {
+                const index = Number(segment);
+                if (!isNaN(index)) {
+                    debug('array index %d yields %o', segment, current[index]);
+                    if (current.length < index - 1) {
+                        return '';
+                    }
+                    current = current[index];
+                } else {
+                    throw new Error(
+                        `Attempted non-integer lookup on a list: ${current} [${segment}]`
+                    );
+                }            } else if (current === undefined) {
+                current = '';
+                break;
+            } else if (typeof current === "object") {
+            c    urrent = current[segment];
+            } else {
+                break;
+        }    
+
+        }        debug(
+            'traverse %j yielded %j from %j',
+            this._segments,
+            current,
+            obj[this.base()]
+        );
         return current;
     }
     // contains(otherPath) {

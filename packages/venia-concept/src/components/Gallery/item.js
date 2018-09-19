@@ -76,21 +76,21 @@ class GalleryItem extends Component {
         const productLink = `/${url_key}${productUrlSuffix}`;
 
         return (
-            <div className={classes.root}>
+                <div className={classes.root}>
                 <Link to={productLink} className={classes.images}>
-                    {this.renderImagePlaceholder()}
-                    {this.renderImage()}
+                        {this.renderImagePlaceholder()}
+                        {this.renderImage()}
                 </Link>
                 <Link to={productLink} className={classes.name}>
-                    <span>{name}</span>
+                        <span>{name}</span>
                 </Link>
-                <div className={classes.price}>
-                    <Price
-                        value={price.regularPrice.amount.value}
-                        currencyCode={price.regularPrice.amount.currency}
-                    />
+                    <div className={classes.price}>
+                        <Price
+                            value={price.regularPrice.amount.value}
+                            currencyCode={price.regularPrice.amount.currency}
+                        />
+                    </div>
                 </div>
-            </div>
         );
     }
 

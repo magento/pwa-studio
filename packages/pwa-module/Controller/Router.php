@@ -7,7 +7,7 @@ use Magento\Framework\App\Action\Forward;
 use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\RouterInterface;
-use Magento\Pwa\Helper\WebpackConfig;
+use Magento\Pwa\Model\Result\ServiceWorkerResult;
 
 /**
  * Class Router
@@ -21,21 +21,13 @@ class Router implements RouterInterface
     private $actionFactory;
 
     /**
-     * @var WebpackConfig $webpackConfig
-     */
-    private $webpackConfig;
-
-    /**
      * Router constructor.
-     * @param WebpackConfig $webpackConfig
      * @param ActionFactory $actionFactory
      */
     public function __construct(
-        WebpackConfig $webpackConfig,
         ActionFactory $actionFactory
     ) {
         $this->actionFactory = $actionFactory;
-        $this->webpackConfig = $webpackConfig;
     }
 
     /**
@@ -44,18 +36,10 @@ class Router implements RouterInterface
     public function match(RequestInterface $request)
     {
         $rootPath = trim($request->getPathInfo(), '/');
-        if ($rootPath == $this->webpackConfig->getServiceWorkerFileName()) {
+        if ($rootPath == ServiceWorkerResult::SERVICE_WORKER_FILENAME) {
             $request->setModuleName('pwa')
                 ->setControllerName('index')
-                ->setActionName('js');
-            return $this->actionFactory->create(
-                Forward::class
-            );
-        }
-        if ($rootPath == "webpack-config.json") {
-            $request->setModuleName('pwa')
-                ->setControllerName('index')
-                ->setActionName('webpackconfigendpoint');
+                ->setActionName('serviceworker');
             return $this->actionFactory->create(
                 Forward::class
             );

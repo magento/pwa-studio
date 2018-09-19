@@ -11,7 +11,7 @@ test('resolve() throws error if no definition provided', async () => {
     );
 });
 
-test('resolves filename and uses default charset and parse', async () => {
+test('resolves filename and uses default encoding and parse', async () => {
     const visitor = {
         upward: jest.fn(() => 'in-the-way'),
         io: {
@@ -32,7 +32,7 @@ test('resolves filename and uses default charset and parse', async () => {
     expect(visitor.io.readFile).toHaveBeenCalledWith('in-the-way', 'utf8');
 });
 
-test('uses custom charset', async () => {
+test('uses custom encoding', async () => {
     const visitor = {
         upward: jest.fn(),
         io: {
@@ -45,18 +45,18 @@ test('uses custom charset', async () => {
     await expect(
         new FileResolver(visitor).resolve({
             file: 'something',
-            charset: 'hey'
+            encoding: 'hey'
         })
     ).resolves.toEqual('whats going on');
     expect(visitor.upward).toHaveBeenCalledTimes(2);
     expect(visitor.upward.mock.calls).toMatchObject([
-        [{ charset: 'hey', file: 'something' }, 'file'],
-        [{ charset: 'hey', file: 'something' }, 'charset']
+        [{ encoding: 'hey', file: 'something' }, 'file'],
+        [{ encoding: 'hey', file: 'something' }, 'encoding']
     ]);
     expect(visitor.io.readFile).toHaveBeenCalledWith('i-said', 'latin1');
 });
 
-test('throws on invalid charset', async () => {
+test('throws on invalid encoding', async () => {
     const visitor = {
         upward: jest.fn(),
         io: {
@@ -65,13 +65,13 @@ test('throws on invalid charset', async () => {
     };
     visitor.upward
         .mockResolvedValueOnce('i-said')
-        .mockResolvedValueOnce('bad-charset');
+        .mockResolvedValueOnce('bad-encoding');
     await expect(
         new FileResolver(visitor).resolve({
             file: 'something',
-            charset: 'hey'
+            encoding: 'hey'
         })
-    ).rejects.toThrow("Invalid 'charset'");
+    ).rejects.toThrow("Invalid 'encoding'");
 });
 
 test('parse === "text" shortcuts parse', async () => {

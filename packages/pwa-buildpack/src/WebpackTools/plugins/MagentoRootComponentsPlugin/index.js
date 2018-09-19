@@ -1,4 +1,4 @@
-const { isAbsolute, join } = require('path');
+const { isAbsolute, join, extname } = require('path');
 const { RawSource } = require('webpack-sources');
 const {
     rootComponentMap,
@@ -6,6 +6,8 @@ const {
 } = require('./roots-chunk-loader');
 
 const loaderPath = join(__dirname, 'roots-chunk-loader.js');
+
+const isJSFile = filename => /^\.jsx?$/.test(extname(filename));
 
 /**
  * @description webpack plugin that creates chunks for each
@@ -48,33 +50,36 @@ class MagentoRootComponentsPlugin {
                     moduleByPath.set(mod.resource, mod);
                 }
 
+                if (!isJSFile(mod.resource)) {
+                    return;
+                }
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
-
                 // But identifying entry points is hard!
 
-                // Top-level modules injected by a downstream "issuer" are not
-                // entry points.
                 const isEntrySimpleTest =
                     this.phase === 'development'
+                        // Dependencies are not entry points in development.
                         ? mod => mod.resource.includes('/node_modules/')
+                        // Top-level modules injected by a downstream "issuer" are not
+                        // entry points in production.
                         : mod => !mod.issuer;
 
                 const isAnEntry =
                     isEntrySimpleTest(mod) &&
                     // Otherwise, check if the module being constructed matches a defined entry point
                     compilation.entries.some(entryMod => {
+                        // Check if the module being constructed matches a defined entry point
                         if (mod === entryMod) {
                             return true;
                         }
-                        if (!entryMod.identifier().startsWith('multi')) {
-                            return false;
-                        }
-                        // need to try and match against each dependency in the multi module
-                        return entryMod.dependencies.some(
-                            singleDep => singleDep.module === mod
-                        );
-                    });
+
+                    // If a multi-module entry is used (webpack-dev-server creates one), we
+                    // need to try and match against each dependency in the multi module
+                    return entryMod.dependencies.some(
+                        singleDep => singleDep.module === mod
+                    );
+                });
                 if (!isAnEntry) return;
 
                 // If this module is an entry module, inject a loader in the pipeline

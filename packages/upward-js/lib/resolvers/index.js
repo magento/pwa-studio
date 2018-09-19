@@ -4,6 +4,8 @@ const ResolverList = [
     require('./FileResolver'),
     require('./TemplateResolver'),
     require('./ServiceResolver'),
+    require('./ProxyResolver'),
+    require('./DirectoryResolver'),
     require('./ConditionalResolver')
 ];
 

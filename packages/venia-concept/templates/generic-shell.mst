@@ -1,0 +1,12 @@
+{{> templates/doctype-and-head-start}}
+    <title>Venia</title>
+  </head>
+  <body>
+    <div id="root">{{#urlResolver}}
+        {{#type}}Loading {{type}}{{/type}}
+        {{^type}}Not found!{{/type}}
+    {{/urlResolver}}</div>
+{{> templates/preloads}}
+{{> templates/scripts}}
+  </body>
+</html>

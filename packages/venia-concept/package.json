@@ -1,22 +1,22 @@
 {
     "name": "theme-frontend-venia",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Venia PWA Concept Theme for Magento 2",
     "license": "(OSL-3.0 OR AFL-3.0)",
     "author": "Magento Commerce",
     "main": "src/index.js",
     "repository": "github:magento-research/pwa-studio",
     "bugs": {
-      "url": "https://github.com/magento-research/pwa-studio/issues"
+        "url": "https://github.com/magento-research/pwa-studio/issues"
     },
     "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
     "scripts": {
         "build": "webpack --color --env.phase production",
         "clean": "rimraf web/js",
         "prepare": "npm-merge-driver install",
-        "start": "webpack-dev-server --progress --color --env.phase development",
+        "start": "UPWARD_JS_BIND_LOCAL=1 UPWARD_JS_UPWARD_PATH=venia-upward.yml upward-js-server",
         "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
-        "watch": "npm run -s start"
+        "watch": "webpack-dev-server --progress --color --env.phase development"
     },
     "dependencies": {},
     "devDependencies": {

@@ -6,6 +6,8 @@ const ContextPath = require('./ContextPath');
 
 const statusCodes = Array.from({ length: 600 }, (_, i) => i + 100);
 const constants = new Set([
+    true,
+    false,
     'GET',
     'POST',
     'mustache',
@@ -16,6 +18,7 @@ const constants = new Set([
     'utf8',
     'latin-1',
     'base64',
+    'binary',
     'hex',
     ...statusCodes,
     ...statusCodes.map(code => code.toString())
@@ -23,7 +26,7 @@ const constants = new Set([
 
 class Context {
     static fromRequest(env, request) {
-        debug('generating from request: %O', request);
+        debug('generating from request: %s', request.url);
         const hostedUrl = new URL(request.url, `http://${request.get('host')}`);
         debug('url derived from host is %O', hostedUrl);
         const url = pick(hostedUrl, [
@@ -61,8 +64,8 @@ class Context {
     }
 
     async get(lookup) {
-        debug('lookup %s', lookup);
         const path = ContextPath.from(lookup);
+        debug('lookup %s at path %s', lookup, path);
         if (constants.has(path.toString())) {
             debug('%s is a constant', lookup);
             return lookup;
@@ -74,9 +77,19 @@ class Context {
             let promise = this._promises.get(base);
             if (!promise) {
                 debug('%s has never been requested, visiting from root', base);
-                promise = this.visitor
-                    .downward(base)
-                    .then(value => this.set(base, value));
+                promise = this.visitor.downward([base]).then(value => {
+                    if (typeof value === 'function') {
+                        debug(
+                            '%s assigned to context as function: %o',
+                            base,
+                            value
+                        );
+                        this.set(base, value);
+                    } else {
+                        debug('%s assigned: %o', base, value[base]);
+                        this.set(base, value[base]);
+                    }
+                });
                 this._promises.set(base, promise);
             }
             await promise;

@@ -7,6 +7,8 @@ const {
         ServiceWorkerPlugin,
         DevServerReadyNotifierPlugin,
         MagentoResolver,
+        UpwardPlugin,
+        CriticalCssPlugin,
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
@@ -17,8 +19,7 @@ const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
+    output: path.resolve(__dirname, 'web')
 };
 
 // mark dependencies for vendor bundle
@@ -41,6 +42,8 @@ module.exports = async function(env) {
     );
     const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
+    const critical = new CriticalCssPlugin({ phase });
+
     const config = {
         context: __dirname, // Node global for the running script's directory
         entry: {
@@ -48,9 +51,9 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            filename: '[name].js',
-            chunkFilename: '[name]-[chunkhash].js',
+            publicPath: '/',
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
         },
         module: {
@@ -65,21 +68,7 @@ module.exports = async function(env) {
                         }
                     ]
                 },
-                {
-                    test: /\.css$/,
-                    use: [
-                        'style-loader',
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1,
-                                localIdentName:
-                                    '[name]-[local]-[hash:base64:3]',
-                                modules: true
-                            }
-                        }
-                    ]
-                },
+                critical.load(),
                 {
                     test: /\.(jpg|svg)$/,
                     use: [
@@ -119,6 +108,7 @@ module.exports = async function(env) {
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
+            critical,
             new ServiceWorkerPlugin({
                 env,
                 enableServiceWorkerDebugging,
@@ -131,11 +121,12 @@ module.exports = async function(env) {
         config.devtool = 'eval-source-map';
 
         config.devServer = await PWADevServer.configure({
+            publicPath: config.output.publicPath,
             serviceWorkerFileName,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             paths: themePaths,
-            id: 'magento-venia'
+            id: 'magento-venia',
+            provideSSLCert: true
         });
 
         // A DevServer generates its own unique output path at startup. It needs
@@ -147,7 +138,11 @@ module.exports = async function(env) {
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer)
+            new DevServerReadyNotifierPlugin(config.devServer),
+            new UpwardPlugin(
+                config.devServer,
+                path.resolve(__dirname, 'venia-upward.yml')
+            )
         );
     } else if (phase === 'production') {
         config.performance = {
@@ -162,6 +157,16 @@ module.exports = async function(env) {
                 parallel: true,
                 uglifyOptions: {
                     ecma: 8,
+                    parse: {
+                        ecma: 8
+                    },
+                    compress: {
+                        ecma: 6
+                    },
+                    output: {
+                        ecma: 7,
+                        semicolons: false
+                    },
                     keep_fnames: true
                 }
             })
