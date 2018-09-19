@@ -1,6 +1,6 @@
 # PWA Studio
 
-[![CircleCI](https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg)](https://circleci.com/gh/magento-research/pwa-studio) [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master)](https://coveralls.io/github/magento-research/pwa-studio?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/magento-research/pwa-studio.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg)](https://circleci.com/gh/magento-research/pwa-studio) [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master)](https://coveralls.io/github/magento-research/pwa-studio?branch=master)
 
 Magento PWA Studio is a collection of tools that enables developers to build complex Progressive Web Applications for Magento 2 stores.
 

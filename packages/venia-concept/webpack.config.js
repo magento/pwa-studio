@@ -118,7 +118,7 @@ module.exports = async function(env) {
         ]
     };
     if (phase === 'development') {
-        config.devtool = 'cheap-module-eval-source-map';
+        config.devtool = 'eval-source-map';
 
         config.devServer = await PWADevServer.configure({
             publicPath: config.output.publicPath,
@@ -128,19 +128,6 @@ module.exports = async function(env) {
             id: 'magento-venia',
             provideSSLCert: true
         });
-
-        config.devServer.stats = {
-            assets: false,
-            children: false,
-            chunks: true,
-            chunkGroups: false,
-            chunkModules: false,
-            chunkOrigins: false,
-            errors: true,
-            errorDetails: true,
-            modules: false,
-            warnings: true
-        };
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -169,6 +156,7 @@ module.exports = async function(env) {
             new UglifyPlugin({
                 parallel: true,
                 uglifyOptions: {
+                    ecma: 8,
                     parse: {
                         ecma: 8
                     },

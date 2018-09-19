@@ -140,7 +140,7 @@ const PWADevServer = {
             port
         };
     },
-    async configure(config) {
+    async configure(config = {}) {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
@@ -148,6 +148,17 @@ const PWADevServer = {
             compress: true,
             hot: true,
             host: '0.0.0.0',
+            stats: {
+                all: false,
+                builtAt: true,
+                colors: true,
+                errors: true,
+                errorDetails: true,
+                moduleTrace: true,
+                timings: true,
+                version: true,
+                warnings: true
+            },
             after(app) {
                 app.use(debugErrorMiddleware());
             }
