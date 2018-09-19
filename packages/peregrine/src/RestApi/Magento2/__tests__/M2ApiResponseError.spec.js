@@ -45,3 +45,18 @@ test('recovers when error properties cannot be parsed', () => {
     });
     expect(message).toMatchSnapshot();
 });
+
+test('does not call Error.captureStackTrace if unavailable', () => {
+	const capture = Error.captureStackTrace;
+	Error.captureStackTrace = null;
+    new M2ApiResponseError({
+        method: 'GET',
+        resourceUrl: 'bad-path',
+        response: {
+            status: 500,
+            statusText: 'Just the worst'
+        },
+        bodyText: '<p>I am unparseable</p>'
+    });
+	Error.captureStackTrace = capture;
+});
