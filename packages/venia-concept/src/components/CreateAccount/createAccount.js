@@ -1,13 +1,17 @@
 import { createElement, Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'src/components/Input';
+import { HelpTypes } from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './createAccount.css';
 import classify from 'src/classify';
 import Form from 'src/components/Form';
 import { debounce } from 'underscore';
 import { RestApi } from '@magento/peregrine';
+import ErrorDisplay from 'src/components/ErrorDisplay';
 import Checkbox from 'src/components/Checkbox';
+
+const { request } = RestApi.Magento2;
 
 class CreateAccount extends Component {
     static propTypes = {
@@ -29,8 +33,13 @@ class CreateAccount extends Component {
         subscribe: false,
         checkingEmail: false,
         emailAvailable: false,
-        subscribe: true
+        subscribe: false
     };
+
+    get errorMessage() {
+        const { createAccountError } = this.props;
+        return <ErrorDisplay error={createAccountError} />;
+    }
 
     get hasEmailError() {
         return (
@@ -46,17 +55,42 @@ class CreateAccount extends Component {
 
     get disableAccountCreation() {
         return (
-            this.hasEmailError || this.passwordConfirmError || !this.state.email
+            this.hasEmailError ||
+            this.passwordConfirmError ||
+            !this.state.email ||
+            !this.state.firstName ||
+            !this.state.lastName
         );
+    }
+
+    get emailHelpText() {
+        return this.hasEmailError
+            ? 'This email is already in use'
+            : 'Use an active email';
+    }
+
+    get emailHelpType() {
+        return this.hasEmailError ? HelpTypes.error : HelpTypes.hint;
+    }
+
+    get passwordHelpText() {
+        return this.passwordConfirmError ? 'Passwords do not match' : '';
+    }
+
+    get passwordHelpType() {
+        return HelpTypes.error;
     }
 
     render() {
         const { classes } = this.props;
         const {
             onCreateAccount,
-            hasEmailError,
-            disableAccountCreation,
-            passwordConfirmError
+            errorMessage,
+            emailHelpText,
+            emailHelpType,
+            passwordHelpText,
+            passwordHelpType,
+            disableAccountCreation
         } = this;
 
         return (
@@ -70,13 +104,22 @@ class CreateAccount extends Component {
                         onChange={this.updateEmail}
                         selected={true}
                         label={'Email'}
-                        helpText={'Use an active email address'}
+                        helpText={emailHelpText}
+                        helpType={emailHelpType}
                         required={true}
-                        errorText={'Email is not available'}
-                        errorVisible={hasEmailError}
                     />
 
-                    <Input onChange={this.updateName} label={'Name'} />
+                    <Input
+                        onChange={this.updateFirstName}
+                        label={'First Name'}
+                        required={true}
+                    />
+
+                    <Input
+                        onChange={this.updateLastName}
+                        label={'Last Name'}
+                        required={true}
+                    />
 
                     <Input
                         onChange={this.updatePassword}
@@ -95,8 +138,8 @@ class CreateAccount extends Component {
                         type={'password'}
                         required={true}
                         placeholder={'Enter the password again'}
-                        errorText={'Passwords must match'}
-                        errorVisible={passwordConfirmError}
+                        helpText={passwordHelpText}
+                        helpType={passwordHelpType}
                     />
 
                     <Checkbox
@@ -109,6 +152,7 @@ class CreateAccount extends Component {
                             Create Account
                         </Button>
                     </div>
+                    {errorMessage}
                 </Form>
             </div>
         );
@@ -118,8 +162,8 @@ class CreateAccount extends Component {
         if (!this.disableAccountCreation) {
             const newCustomer = {
                 customer: {
-                    firstname: this.state.name,
-                    lastname: this.state.name,
+                    firstname: this.state.firstName,
+                    lastname: this.state.lastName,
                     email: this.state.email
                 },
                 password: this.state.password
@@ -133,7 +177,6 @@ class CreateAccount extends Component {
     };
 
     checkEmail = debounce(async email => {
-        const { request } = RestApi.Magento2;
         try {
             const body = {
                 customerEmail: email,
@@ -152,8 +195,12 @@ class CreateAccount extends Component {
         }
     }, 300);
 
-    updateName = newName => {
-        this.setState({ name: newName });
+    updateLastName = newLastName => {
+        this.setState({ lastName: newLastName });
+    };
+
+    updateFirstName = newFirstName => {
+        this.setState({ firstName: newFirstName });
     };
 
     updateEmail = newEmail => {
