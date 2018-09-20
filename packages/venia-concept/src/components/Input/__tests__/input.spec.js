@@ -13,8 +13,6 @@ const validInput = {
     disabled: false,
     required: false,
     helpText: 'example help text',
-    errorText: 'example error text',
-    successText: 'example success text',
     helpVisible: true,
     errorVisible: true,
     successVisible: true,
@@ -65,33 +63,6 @@ test('displays `helpText` when `helpVisible`', () => {
 
     const helpText = shallow(wrapper.instance().helpText);
     expect(helpText.html()).toContain(validInput.helpText);
-});
-
-test('displays `errorText` when `errorVisible` and form is dirty', () => {
-    const wrapper = shallow(
-        <Input
-            label={validInput.label}
-            errorText={validInput.errorText}
-            errorVisible={validInput.errorVisible}
-        />
-    ).dive();
-
-    wrapper.setState({ dirty: true });
-    let errorText = shallow(wrapper.instance().errorText);
-    expect(errorText.html()).toContain(validInput.errorText);
-});
-
-test('displays `successText` text when `successVisible`', () => {
-    const wrapper = shallow(
-        <Input
-            label={validInput.label}
-            successText={validInput.successText}
-            successVisible={validInput.successVisible}
-        />
-    ).dive();
-
-    const successText = shallow(wrapper.instance().successText);
-    expect(successText.html()).toContain(validInput.successText);
 });
 
 test('set `value` state when text is entered into `input`', () => {

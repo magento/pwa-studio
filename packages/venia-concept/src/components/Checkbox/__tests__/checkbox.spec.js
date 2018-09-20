@@ -1,0 +1,48 @@
+import { createElement } from 'react';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import Checkbox from '../checkbox';
+
+configure({ adapter: new Adapter() });
+
+test('becomes checked and unchecked when clicked', () => {
+    const wrapper = shallow(
+        <Checkbox
+            select={() => {}}
+            initialState={false}
+        />
+    ).dive();
+
+    wrapper.find('div').simulate('click');
+    expect(wrapper.state().checked).toBeTruthy();
+    wrapper.find('div').simulate('click');
+    expect(wrapper.state().checked).toBeFalsy();
+});
+
+test('becomes focused and unfocused correctly', () => {
+    const wrapper = shallow(
+        <Checkbox
+            select={() => {}}
+            initialState={false}
+        />
+    ).dive();
+
+    wrapper.find('div').simulate('focus');
+    expect(wrapper.state().focused).toBeTruthy();
+    wrapper.find('div').simulate('blur');
+    expect(wrapper.state().focused).toBeFalsy();
+});
+
+test('handles click on keyup', () => {
+    const wrapper = shallow(
+        <Checkbox
+            select={() => {}}
+            initialState={false}
+        />
+    ).dive();
+
+    const clickSpy = jest.spyOn(wrapper.instance(), 'makeDirty');
+    wrapper.find('div').simulate('keyup');
+    expect(clickSpy).toHaveBeenCalled();
+    expect(wrapper.state().focused).toBeTruthy();
+});

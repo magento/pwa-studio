@@ -49,7 +49,6 @@ class Checkbox extends Component {
         )
     }
 
-
     get checkbox() {
         const { classes, label } = this.props;
         let checkedIcon;

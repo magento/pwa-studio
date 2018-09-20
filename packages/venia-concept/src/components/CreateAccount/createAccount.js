@@ -77,7 +77,6 @@ class CreateAccount extends Component {
     render() {
         const { classes } = this.props;
         const { onCreateAccount,
-                errorMessage,
                 emailHelpText,
                 emailHelpType,
                 passwordHelpText,
