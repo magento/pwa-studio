@@ -46,6 +46,7 @@ jobs:
     docker: *docker_setup
     steps:
       - checkout
+      - run: *install_latest_npm
       - run: *install_packages
       - run:
           name: Test Suites
