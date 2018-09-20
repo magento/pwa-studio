@@ -37,6 +37,13 @@ class Product extends Component {
         currencyCode: string.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        };
+    }
+
     get options() {
         const { classes, item } = this.props;
 
@@ -63,9 +70,10 @@ class Product extends Component {
     render() {
         const { options, props } = this;
         const { classes, item, currencyCode, removeItemFromCart } = props;
+        const rootClasses = this.state.isOpen ? classes.root + ' ' + classes.root_masked : classes.root;
 
         return (
-            <li className={classes.root}>
+            <li className={rootClasses}>
                 <div
                     className={classes.image}
                     style={this.styleImage(item.image)}
@@ -85,12 +93,31 @@ class Product extends Component {
                         <Price currencyCode={currencyCode} value={item.price} />
                     </span>
                 </div>
-                <Kebab
-                    removeItemFromCart={removeItemFromCart}
-                    item={item}
-                />
+                <div className={this.state.isOpen ? classes.modal : ''}></div>
+                <div className={classes.subMenu}
+                     onFocus={() => this.openDropdown()}
+                     onBlur={() => this.closeDropdown()}
+                >
+                    <Kebab
+                        isOpen={this.state.isOpen}
+                        removeItemFromCart={removeItemFromCart}
+                        item={item}
+                    />
+                </div>
             </li>
         );
+    }
+
+    openDropdown = () => {
+        this.setState({
+            isOpen: true
+        });
+    }
+
+    closeDropdown = () => {
+        this.setState({
+            isOpen: false
+        });
     }
 }
 
