@@ -41,8 +41,8 @@ test('handles click on keyup', () => {
         />
     ).dive();
 
-    const clickSpy = jest.spyOn(wrapper.instance(), 'makeDirty');
-    wrapper.find('div').simulate('keyup');
-    expect(clickSpy).toHaveBeenCalled();
-    expect(wrapper.state().focused).toBeTruthy();
+    const keyUpSpy = jest.spyOn(wrapper.instance(), 'handleClick');
+    wrapper.find('div').simulate('keyUp', {key: 'Enter'});
+    expect(keyUpSpy).toHaveBeenCalled();
+    expect(wrapper.state().checked).toBeTruthy();
 });

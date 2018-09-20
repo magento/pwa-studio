@@ -14,7 +14,8 @@ class SignIn extends Component {
             signInDivider: PropTypes.string,
             forgotPassword: PropTypes.string,
             root: PropTypes.string,
-            signInError: PropTypes.string
+            signInError: PropTypes.string,
+            showCreateAccountButton: PropTypes.string
         }),
 
         signInError: PropTypes.object,
@@ -63,7 +64,7 @@ class SignIn extends Component {
                     </div>
                 </Form>
                 <div className={classes.signInDivider} />
-                <div className={classes.signInButton}>
+                <div className={classes.showCreateAccountButton}>
                     <Button onClick={showCreateAccountForm}> Create an Account </Button>
                 </div>
             </div>

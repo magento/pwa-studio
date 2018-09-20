@@ -17,6 +17,7 @@ class Checkbox extends Component {
     };
 
     state = {
+        focused: false,
         checked: this.props.initialState
     }
 

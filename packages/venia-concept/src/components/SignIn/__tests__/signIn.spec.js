@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SignIn from '../signIn';
 
@@ -7,7 +7,10 @@ configure({ adapter: new Adapter() });
 
 const props = {
     signIn: function() {},
-    signInError: { message: 'foo' }
+    signInError: { message: 'foo' } };
+
+const classes = {
+    signInButton: 'a'
 };
 
 test('set state `password` to new `password` on `updatePassword`', () => {
@@ -41,4 +44,16 @@ test('display error message if there is a `signInError`', () => {
 
     let errorMessage = shallow(wrapper.instance().errorMessage);
     expect(errorMessage.html()).toContain(props.signInError.message);
+});
+
+test('calls `onSignIn` when create account button is pressed', () => {
+    const signInSpy = jest.fn();
+    const wrapper = mount(
+        shallow(
+        <SignIn signIn={signInSpy} classes={classes} />
+        ).get(0)
+    );
+    const signInButton = wrapper.find(`.${classes.signInButton}`);
+    signInButton.simulate('submit');
+    expect(signInSpy).toHaveBeenCalled();
 });

@@ -5,7 +5,7 @@
     margin: 2rem 1rem;
 }
 
-.signInButton {
+.signInButton, .showCreateAccountButton {
     text-align: center;
     margin: 1rem 0 0;
 }
