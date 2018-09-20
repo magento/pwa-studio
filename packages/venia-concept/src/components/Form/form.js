@@ -7,7 +7,7 @@ class Form extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string
-        }),
+        })
     };
 
     render() {

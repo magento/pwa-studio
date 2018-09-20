@@ -29,7 +29,7 @@ class SignIn extends Component {
 
     get errorMessage() {
         const { signInError } = this.props;
-        return <ErrorDisplay error={signInError} />
+        return <ErrorDisplay error={signInError} />;
     }
 
     render() {
@@ -56,16 +56,17 @@ class SignIn extends Component {
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>
                     </div>
-                    <div className={classes.signInError}>
-                        {errorMessage}
-                    </div>
+                    <div className={classes.signInError}>{errorMessage}</div>
                     <div className={classes.forgotPassword}>
                         <a href="/"> Forgot your username or password? </a>
                     </div>
                 </Form>
                 <div className={classes.signInDivider} />
                 <div className={classes.showCreateAccountButton}>
-                    <Button onClick={showCreateAccountForm}> Create an Account </Button>
+                    <Button onClick={showCreateAccountForm}>
+                        {' '}
+                        Create an Account{' '}
+                    </Button>
                 </div>
             </div>
         );

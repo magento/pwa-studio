@@ -6,29 +6,28 @@ import CreateAccount from '../createAccount';
 configure({ adapter: new Adapter() });
 
 let blankState = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        subscribe: false,
-        checkingEmail: false,
-        emailAvailable: false,
-        subscribe: true
-    };
-
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    subscribe: false,
+    checkingEmail: false,
+    emailAvailable: false,
+    subscribe: true
+};
 
 let state = {
-        firstName: 'Test',
-        lastName: 'Test Test',
-        email: 'test@test.com',
-        password: 'test',
-        passwordConfirm: 'test',
-        subscribe: false,
-        checkingEmail: false,
-        emailAvailable: true,
-        subscribe: true
-    };
+    firstName: 'Test',
+    lastName: 'Test Test',
+    email: 'test@test.com',
+    password: 'test',
+    passwordConfirm: 'test',
+    subscribe: false,
+    checkingEmail: false,
+    emailAvailable: true,
+    subscribe: true
+};
 
 jest.mock('@magento/peregrine', () => {
     return {
@@ -44,56 +43,50 @@ jest.mock('@magento/peregrine', () => {
 
 jest.mock('underscore', () => {
     return {
-        debounce: (cb) => {
+        debounce: cb => {
             return cb;
         }
-    }
+    };
 });
 
 const classes = {
     createAccountButton: 'a'
 };
 
-
 // jest.useFakeTimers();
 
 test('correctly checks if password and passwordConfirm match', () => {
-    const wrapper = shallow(
-        <CreateAccount />
-    ).dive();
+    const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(state);
     expect(wrapper.instance().passwordConfirmError).toBe(false);
     let incorrectPassState = Object.assign({}, state);
-    incorrectPassState.passwordConfirm = incorrectPassState.passwordConfirm + 'wrong!';
+    incorrectPassState.passwordConfirm =
+        incorrectPassState.passwordConfirm + 'wrong!';
     wrapper.setState(incorrectPassState);
     expect(wrapper.instance().passwordConfirmError).toBe(true);
 });
 
 test('Enables the create account button when all forms are filled in and passwords match', () => {
-    const wrapper = shallow(
-        <CreateAccount />
-    ).dive();
+    const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(state);
     expect(wrapper.instance().disableAccountCreation).toBe(false);
 });
 
 test('checks if email is available', () => {
-    const wrapper = shallow(
-        <CreateAccount />
-    ).dive();
-    const emailNotAvailable = Object.assign({ emailAvailable: false, state});
+    const wrapper = shallow(<CreateAccount />).dive();
+    const emailNotAvailable = Object.assign({ emailAvailable: false, state });
     wrapper.setState(emailNotAvailable);
-    wrapper.instance().checkEmail('test@test.com').then(() => {
-        const { emailAvailable } = wrapper.instance().state;
-        expect(emailAvailable).toBe(true);
-        }
-    );
+    wrapper
+        .instance()
+        .checkEmail('test@test.com')
+        .then(() => {
+            const { emailAvailable } = wrapper.instance().state;
+            expect(emailAvailable).toBe(true);
+        });
 });
 
 test('account creation to be disabled if not all inputs are filled', () => {
-    const wrapper = shallow(
-        <CreateAccount />
-    ).dive();
+    const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(blankState);
     expect(wrapper.instance().disableAccountCreation).toBe(true);
 });
@@ -102,7 +95,7 @@ test('calls `onCreateAccount` when create account button is pressed', () => {
     const createAccountSpy = jest.fn();
     const wrapper = mount(
         shallow(
-        <CreateAccount createAccount={createAccountSpy} classes={classes} />
+            <CreateAccount createAccount={createAccountSpy} classes={classes} />
         ).get(0)
     );
     wrapper.setState(state);

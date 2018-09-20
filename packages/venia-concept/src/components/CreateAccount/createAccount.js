@@ -33,7 +33,11 @@ class CreateAccount extends Component {
     };
 
     get hasEmailError() {
-        return !!this.state.email && !this.state.emailAvailable && !this.state.checkingEmail;
+        return (
+            !!this.state.email &&
+            !this.state.emailAvailable &&
+            !this.state.checkingEmail
+        );
     }
 
     get passwordConfirmError() {
@@ -41,17 +45,23 @@ class CreateAccount extends Component {
     }
 
     get disableAccountCreation() {
-        return this.hasEmailError || this.passwordConfirmError || !this.state.email;
+        return (
+            this.hasEmailError || this.passwordConfirmError || !this.state.email
+        );
     }
 
     render() {
         const { classes } = this.props;
-        const { onCreateAccount, hasEmailError, disableAccountCreation, passwordConfirmError } = this;
+        const {
+            onCreateAccount,
+            hasEmailError,
+            disableAccountCreation,
+            passwordConfirmError
+        } = this;
 
         return (
             <div className={classes.root}>
                 <Form submitForm={onCreateAccount}>
-
                     <div className={classes.rewards}>
                         <span>An account gives you access to rewards!</span>
                     </div>
@@ -66,35 +76,40 @@ class CreateAccount extends Component {
                         errorVisible={hasEmailError}
                     />
 
-                <Input
-                    onChange={this.updateName}
-                    label={'Name'}
-                />
+                    <Input onChange={this.updateName} label={'Name'} />
 
-            <Input
-                onChange={this.updatePassword}
-                label={'Password'}
-                type={'password'}
-                required={true}
-                placeholder={'Enter a password'}
-                helpText={'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'}
-            />
+                    <Input
+                        onChange={this.updatePassword}
+                        label={'Password'}
+                        type={'password'}
+                        required={true}
+                        placeholder={'Enter a password'}
+                        helpText={
+                            'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'
+                        }
+                    />
 
-        <Input
-            onChange={this.updatePasswordConfirm}
-            label={'Confirm Password'}
-            type={'password'}
-            required={true}
-            placeholder={'Enter the password again'}
-            errorText={'Passwords must match'}
-            errorVisible={passwordConfirmError}
-        />
+                    <Input
+                        onChange={this.updatePasswordConfirm}
+                        label={'Confirm Password'}
+                        type={'password'}
+                        required={true}
+                        placeholder={'Enter the password again'}
+                        errorText={'Passwords must match'}
+                        errorVisible={passwordConfirmError}
+                    />
 
-    <Checkbox label={'Subscribe to news and updates'} select={this.handleCheckboxChange} initialState={this.state.subscribe} />
-    <div className={classes.createAccountButton}>
-        <Button type="submit" disabled={disableAccountCreation}>Create Account</Button>
-    </div>
-</Form>
+                    <Checkbox
+                        label={'Subscribe to news and updates'}
+                        select={this.handleCheckboxChange}
+                        initialState={this.state.subscribe}
+                    />
+                    <div className={classes.createAccountButton}>
+                        <Button type="submit" disabled={disableAccountCreation}>
+                            Create Account
+                        </Button>
+                    </div>
+                </Form>
             </div>
         );
     }
@@ -105,32 +120,35 @@ class CreateAccount extends Component {
                 customer: {
                     firstname: this.state.name,
                     lastname: this.state.name,
-                    email: this.state.email,
+                    email: this.state.email
                 },
                 password: this.state.password
-            }
+            };
             this.props.createAccount(newCustomer);
         }
     };
 
     handleCheckboxChange = value => {
-        this.setState({subscribe: value})
-    }
+        this.setState({ subscribe: value });
+    };
 
-    checkEmail = debounce(async (email) => {
+    checkEmail = debounce(async email => {
         const { request } = RestApi.Magento2;
         try {
             const body = {
                 customerEmail: email,
                 website_id: null
-            }
-            const response = await request('/rest/V1/customers/isEmailAvailable', {
-                method: 'POST',
-                body: JSON.stringify(body)
-            });
-            this.setState({emailAvailable: response, checkingEmail: false})
+            };
+            const response = await request(
+                '/rest/V1/customers/isEmailAvailable',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(body)
+                }
+            );
+            this.setState({ emailAvailable: response, checkingEmail: false });
         } catch (error) {
-            console.warn('err: ', error)
+            console.warn('err: ', error);
         }
     }, 300);
 
@@ -139,7 +157,7 @@ class CreateAccount extends Component {
     };
 
     updateEmail = newEmail => {
-        this.setState({checkingEmail: true, email: newEmail});
+        this.setState({ checkingEmail: true, email: newEmail });
         this.checkEmail(newEmail);
     };
 

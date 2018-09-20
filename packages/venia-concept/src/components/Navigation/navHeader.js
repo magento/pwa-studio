@@ -6,7 +6,6 @@ import Icon from 'src/components/Icon';
 import Trigger from './trigger';
 
 class NavHeader extends Component {
-
     static propTypes = {
         classes: PropTypes.shape({
             header: PropTypes.string,
@@ -16,16 +15,16 @@ class NavHeader extends Component {
     };
 
     get backArrow() {
-        const { onBack } =  this.props;
+        const { onBack } = this.props;
         return onBack ? (
             <button onClick={onBack}>
                 <Icon name="arrow-left" />
             </button>
-        ) : null
+        ) : null;
     }
 
     render() {
-        const { classes, title} = this.props;
+        const { classes, title } = this.props;
         const { backArrow } = this;
 
         return (
@@ -40,7 +39,6 @@ class NavHeader extends Component {
             </div>
         );
     }
-
 }
 
 export default classify(defaultClasses)(NavHeader);

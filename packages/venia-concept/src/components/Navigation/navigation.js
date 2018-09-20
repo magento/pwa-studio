@@ -48,7 +48,7 @@ class Navigation extends Component {
         signInError: PropTypes.object,
         firstname: PropTypes.string,
         lastname: PropTypes.string,
-        email: PropTypes.string,
+        email: PropTypes.string
     };
 
     state = {
@@ -85,7 +85,7 @@ class Navigation extends Component {
         return (
             <div className={`${className} ${classes.signInForm}`}>
                 <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
-                <SignIn showCreateAccountForm={this.showCreateAccountForm}/>
+                <SignIn showCreateAccountForm={this.showCreateAccountForm} />
             </div>
         );
     }
@@ -95,10 +95,13 @@ class Navigation extends Component {
         const className =
             !this.state.isCreateAccountOpen || this.props.isSignedIn
                 ? classes.createAccountClosed
-                : classes.createAccountOpen
+                : classes.createAccountOpen;
         return (
             <div className={`${className} ${classes.signInForm}`}>
-                <NavHeader onBack={this.hideCreateAccountForm} title={'Create Account'} />
+                <NavHeader
+                    onBack={this.hideCreateAccountForm}
+                    title={'Create Account'}
+                />
                 <CreateAccount />
             </div>
         );
@@ -108,25 +111,25 @@ class Navigation extends Component {
         this.setState({
             isSignInOpen: true
         });
-    }
+    };
 
     hideSignInForm = () => {
         this.setState({
             isSignInOpen: false
         });
-    }
+    };
 
     showCreateAccountForm = () => {
         this.setState({
             isCreateAccountOpen: true
         });
-    }
+    };
 
     hideCreateAccountForm = () => {
         this.setState({
             isCreateAccountOpen: false
         });
-    }
+    };
 
     render() {
         const { classes, isOpen } = this.props;

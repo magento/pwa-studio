@@ -7,10 +7,7 @@ configure({ adapter: new Adapter() });
 
 test('becomes checked and unchecked when clicked', () => {
     const wrapper = shallow(
-        <Checkbox
-            select={() => {}}
-            initialState={false}
-        />
+        <Checkbox select={() => {}} initialState={false} />
     ).dive();
 
     wrapper.find('div').simulate('click');
@@ -21,10 +18,7 @@ test('becomes checked and unchecked when clicked', () => {
 
 test('becomes focused and unfocused correctly', () => {
     const wrapper = shallow(
-        <Checkbox
-            select={() => {}}
-            initialState={false}
-        />
+        <Checkbox select={() => {}} initialState={false} />
     ).dive();
 
     wrapper.find('div').simulate('focus');
@@ -35,14 +29,11 @@ test('becomes focused and unfocused correctly', () => {
 
 test('handles click on keyup', () => {
     const wrapper = shallow(
-        <Checkbox
-            select={() => {}}
-            initialState={false}
-        />
+        <Checkbox select={() => {}} initialState={false} />
     ).dive();
 
     const keyUpSpy = jest.spyOn(wrapper.instance(), 'handleClick');
-    wrapper.find('div').simulate('keyUp', {key: 'Enter'});
+    wrapper.find('div').simulate('keyUp', { key: 'Enter' });
     expect(keyUpSpy).toHaveBeenCalled();
     expect(wrapper.state().checked).toBeTruthy();
 });

@@ -7,7 +7,8 @@ configure({ adapter: new Adapter() });
 
 const props = {
     signIn: function() {},
-    signInError: { message: 'foo' } };
+    signInError: { message: 'foo' }
+};
 
 const classes = {
     signInButton: 'a'
@@ -49,9 +50,7 @@ test('display error message if there is a `signInError`', () => {
 test('calls `onSignIn` when create account button is pressed', () => {
     const signInSpy = jest.fn();
     const wrapper = mount(
-        shallow(
-        <SignIn signIn={signInSpy} classes={classes} />
-        ).get(0)
+        shallow(<SignIn signIn={signInSpy} classes={classes} />).get(0)
     );
     const signInButton = wrapper.find(`.${classes.signInButton}`);
     signInButton.simulate('submit');

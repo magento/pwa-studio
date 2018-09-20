@@ -1,18 +1,18 @@
 import { createElement } from 'react';
 import { connect } from 'react-redux';
 import SignIn from './signIn';
-import { signIn, assignGuestCartToCustomer} from 'src/actions/user';
+import { signIn, assignGuestCartToCustomer } from 'src/actions/user';
 
- const mapStateToProps = ({user}) => {
-     const { signInError } = user;
-     return {
+const mapStateToProps = ({ user }) => {
+    const { signInError } = user;
+    return {
         signInError
-     }
+    };
 };
 
- const mapDispatchToProps = { signIn, assignGuestCartToCustomer };
+const mapDispatchToProps = { signIn, assignGuestCartToCustomer };
 
- export default connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(SignIn);

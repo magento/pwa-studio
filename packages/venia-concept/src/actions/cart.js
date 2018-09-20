@@ -146,15 +146,15 @@ const removeGuestCart = () =>
         const [dispatch, getState] = args;
         const { cart } = getState();
         // ensure state slices are present
-        if ( !cart ) {
+        if (!cart) {
             return;
-        };
+        }
         if (cart['guestCartId']) {
             dispatch({
                 type: 'REMOVE_GUEST_CART'
             });
         }
-    }
+    };
 
 const toggleCart = () =>
     async function thunk(...args) {
@@ -206,4 +206,10 @@ async function getGuestCartId(dispatch, getState) {
     return getState().cart.guestCartId;
 }
 
-export { addItemToCart, getCartDetails, getGuestCartId, toggleCart, removeGuestCart };
+export {
+    addItemToCart,
+    getCartDetails,
+    getGuestCartId,
+    toggleCart,
+    removeGuestCart
+};

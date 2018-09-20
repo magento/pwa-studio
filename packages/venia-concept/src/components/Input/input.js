@@ -7,7 +7,7 @@ export const HelpTypes = {
     hint: 'hint',
     error: 'error',
     success: 'success'
-}
+};
 
 class Input extends Component {
     static propTypes = {
@@ -78,9 +78,7 @@ class Input extends Component {
 
     get requiredSymbol() {
         const { classes, required } = this.props;
-        return required ? (
-            <div className={classes.requiredSymbol} />
-        ) : null;
+        return required ? <div className={classes.requiredSymbol} /> : null;
     }
 
     render() {
@@ -92,12 +90,14 @@ class Input extends Component {
             type,
             disabled,
             required,
-            title,
+            title
         } = this.props;
 
         return (
             <div className={rootClass}>
-                <span className={classes.label}>{requiredSymbol} {labelText}</span>
+                <span className={classes.label}>
+                    {requiredSymbol} {labelText}
+                </span>
                 <input
                     className={classes.input}
                     value={value}

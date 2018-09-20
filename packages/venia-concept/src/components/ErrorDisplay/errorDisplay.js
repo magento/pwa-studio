@@ -13,13 +13,13 @@ class ErrorDisplay extends Component {
 
     render() {
         const { classes, error } = this.props;
-        if ( error ) {
+        if (error) {
             const isErrorEmpty = Object.keys(error).length === 0;
             return !isErrorEmpty ? (
                 <div className={classes.root}>
                     <p> {`Error: ${error.message.substring(0, 100)}...`} </p>
                 </div>
-            ) : null
+            ) : null;
         } else {
             return null;
         }
