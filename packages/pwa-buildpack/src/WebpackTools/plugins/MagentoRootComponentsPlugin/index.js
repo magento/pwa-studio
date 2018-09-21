@@ -21,13 +21,12 @@ class MagentoRootComponentsPlugin {
      */
     constructor(opts = {}) {
         const { rootComponentsDirs, manifestFileName } = opts;
-        this.manifestPlugin =
-        this.rootComponentsDirs = rootComponentsDirs || [
+        this.manifestPlugin = this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
         ];
     }
 
-    applyManifestPlugin(compiler)
+    // applyManifestPlugin(compiler)
 
     apply(compiler) {
         const { context } = compiler.options;
@@ -42,51 +41,57 @@ class MagentoRootComponentsPlugin {
 
         const moduleByPath = new Map();
 
-        compiler.hooks.compilation.tap("MagentoRootComponentsPlugin", compilation => {
-            compilation.hooks.normalModuleLoader.tap("MagentoRootComponentsPlugin", (loaderContext, mod) => {
-                if (seenRootComponents.has(mod.resource)) {
-                    // The module ("mod") has not been assigned an ID yet,
-                    // so we need to keep a reference to it which will allow
-                    // us to grab the ID during the emit mode
-                    moduleByPath.set(mod.resource, mod);
-                }
-                // To create a unique chunk for each RootComponent, we want to inject
-                // a dynamic import() for each RootComponent, within each entry point.
-                if (!isJSFile(mod.resource)) {
-                    // But identifying entry points is hard!
-                    return;
-                }
-                // Top-level modules injected by a downstream "issuer" are not
-                // entry points.
-                let isEntrySimpleTest = mod => !mod.issuer;
-                if (this.mode === 'development') {
-                    return;
-                }
-                const isAnEntry = compilation.entries.some(entryMod => {
-                    // Check if the module being constructed matches a defined entry point
-                    if (mod === entryMod) return true;
-                    if (!entryMod.identifier().startsWith('multi')) {
-                        return false;
-                    }
+        compiler.hooks.compilation.tap(
+            'MagentoRootComponentsPlugin',
+            compilation => {
+                compilation.hooks.normalModuleLoader.tap(
+                    'MagentoRootComponentsPlugin',
+                    (loaderContext, mod) => {
+                        if (seenRootComponents.has(mod.resource)) {
+                            // The module ("mod") has not been assigned an ID yet,
+                            // so we need to keep a reference to it which will allow
+                            // us to grab the ID during the emit mode
+                            moduleByPath.set(mod.resource, mod);
+                        }
+                        // To create a unique chunk for each RootComponent, we want to inject
+                        // a dynamic import() for each RootComponent, within each entry point.
+                        if (!isJSFile(mod.resource)) {
+                            // But identifying entry points is hard!
+                            return;
+                        }
+                        // Top-level modules injected by a downstream "issuer" are not
+                        // entry points.
+                        let isEntrySimpleTest = mod => !mod.issuer;
+                        if (this.mode === 'development') {
+                            return;
+                        }
+                        const isAnEntry = compilation.entries.some(entryMod => {
+                            // Check if the module being constructed matches a defined entry point
+                            if (mod === entryMod) return true;
+                            if (!entryMod.identifier().startsWith('multi')) {
+                                return false;
+                            }
 
-                    // If a multi-module entry is used (webpack-dev-server creates one), we
-                    // need to try and match against each dependency in the multi module
-                    return entryMod.dependencies.some(
-                        singleDep => singleDep.module === mod
-                    );
-                });
-                if (!isAnEntry) return;
+                            // If a multi-module entry is used (webpack-dev-server creates one), we
+                            // need to try and match against each dependency in the multi module
+                            return entryMod.dependencies.some(
+                                singleDep => singleDep.module === mod
+                            );
+                        });
+                        if (!isAnEntry) return;
 
-                // If this module is an entry module, inject a loader in the pipeline
-                // that will force creation of all our RootComponent chunks
-                mod.loaders.push({
-                    loader: loaderPath,
-                    options: {
-                        rootsDirs: rootComponentsDirsAbs
+                        // If this module is an entry module, inject a loader in the pipeline
+                        // that will force creation of all our RootComponent chunks
+                        mod.loaders.push({
+                            loader: loaderPath,
+                            options: {
+                                rootsDirs: rootComponentsDirsAbs
+                            }
+                        });
                     }
-                });
-            });
-        });
+                );
+            }
+        );
 
         compiler.plugin('emit', (compilation, cb) => {
             // Prepare the manifest that the Magento backend can use

@@ -39,6 +39,11 @@ class UpwardMiddleware {
                     this.definition,
                     req
                 );
+                if (typeof response === 'function') {
+                    debug('buildResponse returned function');
+                    response(req, res, next);
+                    return;
+                }
                 if (isNaN(response.status)) {
                     errors.push(
                         `Non-numeric status! Status was '${response.status}'`
@@ -59,19 +64,18 @@ class UpwardMiddleware {
                     );
                 }
             } catch (e) {
-                errors.push(e);
+                errors.push(e.stack);
             }
             if (errors.length > 0) {
-                res.status(500).send(
+                next(
                     new UpwardServerError(
                         `Request did not evaluate to a valid response, because: \n${errors.join(
                             '\n'
                         )}`
-                    ).toString()
+                    )
                 );
             } else {
                 debug('status, headers, and body valid. responding');
-                debugger;
                 res.status(response.status)
                     .set(response.headers)
                     .send(response.body);

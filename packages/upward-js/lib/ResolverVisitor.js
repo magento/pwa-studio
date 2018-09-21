@@ -1,6 +1,7 @@
 const debug = require('debug')('upward-js:ResolverVisitor');
 const { inspect } = require('util');
 const { ResolverList, ResolversByType } = require('./resolvers');
+const { zipObject } = require('lodash');
 const isPrimitive = require('./isPrimitive');
 
 class ResolverVisitor {
@@ -10,14 +11,42 @@ class ResolverVisitor {
         this.context = context;
         this.context.setVisitor(this);
     }
-    async downward(contextName) {
-        debug('resolving downward: %s', contextName);
-        return this.upward(this.rootDefinition, contextName);
+    async downward(contextNames) {
+        debug('resolving downward: %o', contextNames);
+        let passedMiddleware = false;
+        const valuePromises = contextNames.map(async name => {
+            const value = await this.upward(this.rootDefinition, name);
+            if (typeof value === 'function') {
+                debug(
+                    '%s request returned a function, we are assuming it is a middleware'
+                );
+                passedMiddleware = value;
+                throw new Error('PASSED_MIDDLEWARE');
+            }
+            return value;
+        });
+        try {
+            const values = await Promise.all(valuePromises);
+            return zipObject(contextNames, values);
+        } catch (e) {
+            if (e.message === 'PASSED_MIDDLEWARE') {
+                debug(
+                    `returning middleware from visitor.downward() instead of object`
+                );
+                return passedMiddleware;
+            } else {
+                throw e;
+            }
+        }
     }
     async upward(definition, propertyName) {
         debug('resolving upward: %s from %o', propertyName, definition);
         if (!definition.hasOwnProperty(propertyName)) {
-            throw new Error(`Context value '${propertyName}' not defined.`);
+            throw new Error(
+                `Context value '${propertyName}' not defined in ${inspect(
+                    definition
+                )}.`
+            );
         }
         const defined = definition[propertyName];
 

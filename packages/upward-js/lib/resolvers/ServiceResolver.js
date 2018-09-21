@@ -48,26 +48,13 @@ class ServiceResolver extends AbstractResolver {
                 ? this.visitor.upward(definition, 'headers')
                 : {},
             definition.variables
-                ? Promise.all(
-                      Object.entries(definition.variables).map(
-                          async ([key, value]) => [
-                              key,
-                              await this.visitor.context.get(value)
-                          ]
-                      )
-                  )
+                ? this.visitor.upward(definition, 'variables')
                 : {}
         ];
 
-        const [
-            url,
-            query,
-            method,
-            headers,
-            variableEntries
-        ] = await Promise.all(toResolve);
-
-        const variables = fromPairs(variableEntries);
+        const [url, query, method, headers, variables] = await Promise.all(
+            toResolve
+        );
 
         debug('url retrieved: "%s", query resolved, creating link', url);
 
@@ -92,14 +79,28 @@ class ServiceResolver extends AbstractResolver {
 
         return makePromise(
             execute(link, { query: await parsedQuery.render(), variables })
-        ).then(({ data, errors }) => {
-            debug('query %s with %o resulted in %o', definition.query, variables, { data, errors })
-            if (errors && errors.length > 0) {
-                throw new Error(errors[0].message);
-            } else {
-                return { data };
-            }
-        });
+        )
+            .then(({ data, errors }) => {
+                debug(
+                    'query %s with %o resulted in %o',
+                    definition.query,
+                    variables,
+                    { data, errors }
+                );
+                if (errors && errors.length > 0) {
+                    throw new Error(errors[0].message);
+                } else {
+                    return { data };
+                }
+            })
+            .catch(e => {
+                if (
+                    e.message.indexOf('Only absolute URLs are supported') !== -1
+                ) {
+                    throw new Error(url.toString() + 'invalid: ' + e.stack);
+                }
+                throw e;
+            });
     }
 }
 

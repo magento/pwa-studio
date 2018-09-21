@@ -31,12 +31,12 @@ module.exports = class TemplateResolver extends AbstractResolver {
         }
         if (!definition.provide) {
             die(
-                `'provide' property must be an array or object of string context values, was ${definition}`
+                `'provide' property must be an array of context values or object of resolvable definitions, was ${definition}`
             );
         } else if (Array.isArray(definition.provide)) {
             if (definition.provide.some(value => typeof value != 'string')) {
                 die(
-                    `'provide' property must be an array or object of string context values, was ${definition}`
+                    `'provide' property must be an array of context values or object of resolvable definitions, was ${definition}`
                 );
             } else {
                 providePromise = Promise.all(
@@ -48,12 +48,10 @@ module.exports = class TemplateResolver extends AbstractResolver {
             }
         } else if (isPlainObject(definition.provide)) {
             providePromise = Promise.all(
-                Object.entries(definition.provide).map(
-                    async ([alias, name]) => [
-                        alias,
-                        await this.visitor.context.get(name)
-                    ]
-                )
+                Object.keys(definition.provide).map(async name => [
+                    name,
+                    await this.visitor.upward(definition.provide, name)
+                ])
             );
         } else {
             die(`Unrecognized 'provide' configuration: ${definition.provide}`);

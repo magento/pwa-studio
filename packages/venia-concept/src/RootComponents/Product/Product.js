@@ -7,7 +7,7 @@ import { addItemToCart } from 'src/actions/cart';
 import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
-import getProductDetail from '../../queries/getProductDetail.graphql'
+import getProductDetail from '../../queries/getProductDetail.graphql';
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.

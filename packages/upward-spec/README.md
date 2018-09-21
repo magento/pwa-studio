@@ -257,8 +257,8 @@ A context lookup resembles "dot lookup" notation in JavaSript or Python, though 
 Rules:
 
 - **Valid characters**: A context lookup may contain any UTF-8 characters except control characters, whitespace, or newlines. All characters that are not lookup operators must be treated as part of a property name. _For the sake of easier manipulation in common programming languages, it is a best to use context names which are legal identifiers in those languages.)_
-  - A context lookup cannot begin with the lookup operators: a dot <kbd>.</kbd>, an opening square bracket <kbd>[</kbd>, or a closing square bracket <kbd>]</kbd>.
-- **Lookup operators**: The dot <kbd>.</kbd> denotes a named property lookup on an object. The square brackets surrounding a signed integer <kbd>[int]</kbd> denote array access by index. An index must be a positive integer; it must be specified literally and cannot be derived.
+  - A context lookup cannot begin with a dot <kbd>.</kbd>, which is the lookup operator.
+- **Lookup operators**: The dot <kbd>.</kbd> denotes a property lookup on an object. A positive integer property name in a context lookup, such as `characters.0.name`, will perform array access by index. Array indices must be positive integers; they must be specified literally, just like the rest of a context lookup string, and cannot be dynamically evaluated.
 - A context lookup always starts with a **basename**. This may be any string that can be a valid YAML property name. The basename has special significance; when a top-level resolver completes resolution, it assigns a value to this name in the global context, which should trigger resolution of all paths beginning with that name.
 - **Behavior for undeclared properties**: Undeclared property lookup should silently fail, resolving the empty string. If the **basename** `foo` is assigned, but it is not an object or it does not contain the property `bar`, then the context lookup `foo.bar` should wait until `foo` is assigned, and then yield the empty string.
 
@@ -269,7 +269,7 @@ Parts of a context lookup:
 basename    |               |
      |      |  array index  |
      |      |          |    |
-  uxbridges.characters[0].name
+  uxbridges.characters.0.name
            |             |
         named property lookups
 ```
@@ -528,19 +528,19 @@ query:
   file:
     resolver: inline
     inline: './productDetail.graphql'
-  charset:
+  encoding:
     resolver: inline
     inline: 'utf-8'
 ```
 
-The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the definition file. The `charset` property is optional.
+The above expression loads the content of the file `./productDetail.graphql` and sets it as the property `query`. The file path is resolved relative to the location of the definition file. The `encoding` property is optional.
 
 #### FileResolver Configuration Options
 
 | Property | Type       | Default | Description
 | -------- | ---------- | ------- | ---------------------------------------------
 | `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the definition file.
-| `charset`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
+| `encoding`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
 | `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. 
 
 #### Parsing

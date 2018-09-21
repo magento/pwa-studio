@@ -26,14 +26,23 @@ export default function resolveUnknownRoute(opts) {
     if (!preloadDone) {
         const preloaded = document.getElementById('url-resolver');
         if (preloaded) {
+            const rejectPreload = e =>
+                console.error(
+                    'Unable to read preload!',
+                    preloaded.textContent,
+                    e
+                );
             try {
                 return handleResolverResponse(
                     JSON.parse(preloaded.textContent)
                 ).then(x => {
                     preloadDone = true;
                     return x;
-                }, e => console.error('Unable to read preload!', preloaded.textContent, e)
+                }, rejectPreload);
+            } catch (e) {
+                rejectPreload();
             }
+        }
     }
 
     return remotelyResolveRoute({

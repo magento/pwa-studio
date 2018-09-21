@@ -86,6 +86,6 @@ test('.downward() calls visitor.upward() with root definition', async () => {
     const context = mockContext();
     context.get.mockResolvedValueOnce('green');
     const visitor = new ResolverVisitor(null, { frog: 'kermit' }, context);
-    await expect(visitor.downward('frog')).resolves.toBe('green');
+    await expect(visitor.downward(['frog'])).resolves.toEqual(['green']);
     expect(context.get).toHaveBeenCalledWith('kermit');
 });

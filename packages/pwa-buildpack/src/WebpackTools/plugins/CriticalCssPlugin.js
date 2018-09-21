@@ -1,11 +1,11 @@
-const CssoPlugin = require('csso-webpack-plugin').default;
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 class CriticalCssPlugin {
     constructor({
         mode,
         pattern = /\.critical\.css/,
-        filename = 'critical.css',
+        filename = '[name].critical.css',
         cssLoader = {
             loader: 'css-loader',
             options: {
@@ -26,6 +26,14 @@ class CriticalCssPlugin {
             allChunks: true,
             ignoreOrder: true
         });
+        this.optimizePlugin = new OptimizeCssAssetsPlugin({
+            assetNameRegExp: this.pattern,
+            cssProcessor: require('cssnano'),
+            cssProcessorPluginOptions: {
+                preset: ['default', { discardComments: { removeAll: true } }]
+            },
+            canPrint: true
+        });
     }
     load() {
         return {
@@ -45,9 +53,7 @@ class CriticalCssPlugin {
     }
     apply(compiler) {
         this.extractPlugin.apply(compiler);
-        // if (this.mode === 'production') {
-            (new CssoPlugin(this.pattern)).apply(compiler);
-        // }
+        this.optimizePlugin.apply(compiler);
     }
 }
 

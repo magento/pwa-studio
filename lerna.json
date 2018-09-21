@@ -1,7 +1,11 @@
 {
-    "lerna": "2.11.0",
     "packages": [
-        "packages/*"
+        "packages/peregrine",
+        "packages/pwa-buildpack",
+        "packages/pwa-devdocs",
+        "packages/upward-js",
+        "packages/upward-spec",
+        "packages/venia-concept"
     ],
     "version": "independent",
     "npmClient": "npm",

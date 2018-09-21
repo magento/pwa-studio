@@ -30,13 +30,17 @@ class ConditionalResolver extends AbstractResolver {
     async tryMatchers([top, ...rest]) {
         debug('matching %o with %d left to go', top, rest.length);
         const regex = new RegExp(top.pattern);
-        const candidate = await this.visitor.context.get(top.matches);
+        let candidate = await this.visitor.context.get(top.matches);
+        if (candidate === null || candidate === undefined) {
+            candidate = '';
+        }
+        candidate = candidate.toString();
         debug('regex is %s, %s is %s', regex, top.matches, candidate);
-        const regexMatch = candidate.match(regex);
+        const regexMatch = candidate.toString().match(regex);
 
         if (regexMatch) {
             const match = regexMatch.reduce((contextMatch, group, index) => {
-                contextMatch[`$${index}`] = group;
+                contextMatch[`$${index}`] = group || '';
                 return contextMatch;
             }, {});
             this.visitor.context.set('$match', match, true);

@@ -141,7 +141,7 @@ module.exports = async function(env) {
         ]
     };
     if (mode === 'development') {
-        config.devtool = 'cheap-module-eval-source-map';
+        config.devtool = 'eval-source-map';
 
         config.devServer = await PWADevServer.configure({
             publicPath: config.output.publicPath,
@@ -179,10 +179,13 @@ module.exports = async function(env) {
             )
         );
     } else if (mode === 'production') {
-
+        config.performance = {
+            hints: 'warning'
+        };
         config.optimization.minimizer = new UglifyPlugin({
             parallel: true,
             uglifyOptions: {
+                ecma: 8,
                 parse: {
                     ecma: 8
                 },
@@ -196,11 +199,6 @@ module.exports = async function(env) {
                 keep_fnames: true
             }
         });
-
-        config.performance = {
-            hints: 'warning'
-        };
-
     } else {
         throw Error(`Unsupported environment mode in webpack config: `);
     }
