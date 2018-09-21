@@ -1,12 +1,23 @@
 .root {
+    position: relative;
+    display: inline-block;
 
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    align-self: center;
 }
 
 .root ul {
     z-index: 3;
     position: absolute;
-    right: 1em;
+    right: 0.5em;
     box-shadow: 2px 2px 5px #777;
+}
+
+.kebab {
+    outline: 0;
 }
 
 .dropdown {
@@ -18,7 +29,6 @@
     transform: scale(0);
     transform-origin: 100% 50%;
     align-items: center;
-
 }
 
 .dropdown.ul:hover {
@@ -35,11 +45,11 @@
     background-color: #EEE;
 }
 
-.dropdown li > a, button > div {
+.dropdown li > button {
     width: 100%;
     padding: 8px;
-    display: grid;
-    grid-template-columns: 1fr 10fr;
+    display: flex;
+    grid-template-columns: min-content;
     white-space: pre;
     box-sizing: border-box;
     text-align: left;
@@ -60,5 +70,6 @@
 
 .text {
     padding-top: 3px;
+    padding-left: 6px;
     font-size: 14px;
 }

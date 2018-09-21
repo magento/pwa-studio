@@ -69,7 +69,7 @@ class Product extends Component {
 
     render() {
         const { options, props } = this;
-        const { classes, item, currencyCode, removeItemFromCart } = props;
+        const { classes, item, currencyCode, removeItemFromCart, showEditPanel } = props;
         const rootClasses = this.state.isOpen ? classes.root + ' ' + classes.root_masked : classes.root;
 
         return (
@@ -94,16 +94,14 @@ class Product extends Component {
                     </span>
                 </div>
                 <div className={this.state.isOpen ? classes.modal : ''}></div>
-                <div className={classes.subMenu}
-                     onFocus={() => this.openDropdown()}
-                     onBlur={() => this.closeDropdown()}
-                >
-                    <Kebab
-                        isOpen={this.state.isOpen}
-                        removeItemFromCart={removeItemFromCart}
-                        item={item}
-                    />
-                </div>
+                <Kebab
+                    onFocus={this.openDropdown}
+                    onBlur={this.closeDropdown}
+                    isOpen={this.state.isOpen}
+                    removeItemFromCart={removeItemFromCart}
+                    showEditPanel={showEditPanel}
+                    item={item}
+                />
             </li>
         );
     }

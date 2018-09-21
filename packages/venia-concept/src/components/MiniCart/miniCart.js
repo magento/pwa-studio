@@ -8,6 +8,7 @@ import { store } from 'src';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import Button from 'src/components/Button';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
@@ -34,6 +35,10 @@ class MiniCart extends Component {
 
     constructor(...args) {
         super(...args);
+        this.state = {
+            isEditPanelOpen: false,
+            focusItem: null
+        }
     }
 
     async componentDidMount() {
@@ -64,6 +69,7 @@ class MiniCart extends Component {
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
+                showEditPanel={this.showEditPanel}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
             />
@@ -90,12 +96,52 @@ class MiniCart extends Component {
         ) : null;
     }
 
+    get editPanel() {
+        const { classes } = this.props;
+        const className = this.state.isEditPanelOpen ? classes.editPanel_open : classes.editPanel;
+        const itemName = this.state.focusItem ? this.state.focusItem.name : null;
+        const itemPrice = this.state.focusItem ? this.state.focusItem.price : null;
+        return (
+            <div className={className}>
+                <div className={classes.header}>
+                    <h2 className={classes.title}>
+                        <span>Edit Cart Item</span>
+                    </h2>
+                    <button onClick={this.hideEditPanel}>
+                        <Icon name="x" />
+                    </button>
+                </div>
+                <div className={classes.content}>
+                    <div className={classes.focusItem}>{itemName} <span>${itemPrice}</span></div>
+                    <div className={classes.options}>Choose a Size:</div>
+                </div>
+                <div className={classes.footer}></div>
+                <div className={classes.save}>
+                    <Button>Save Changes</Button>
+                </div>
+            </div>
+        );
+    }
+
+    showEditPanel = (item) => {
+        this.setState({
+            isEditPanelOpen: true,
+            focusItem: item
+        });
+    }
+
+    hideEditPanel = () => {
+        this.setState({
+            isEditPanelOpen: false
+        })
+    }
+
     render() {
         if (this.props.loading) {
             return <div>Fetching Data</div>;
         }
 
-        const { checkout, productList, totalsSummary, props } = this;
+        const { checkout, productList, totalsSummary, editPanel, props } = this;
         const { classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
@@ -114,6 +160,7 @@ class MiniCart extends Component {
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>
                 {checkout}
+                {editPanel}
             </aside>
         );
     }
