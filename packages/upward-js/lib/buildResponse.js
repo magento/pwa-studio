@@ -4,14 +4,17 @@ const ResolverVisitor = require('./ResolverVisitor');
 const Context = require('./Context');
 
 async function buildResponse(io, env, rootDefinition, request) {
-    const response = new Map();
     debug('creating Context');
     const requestContext = Context.fromRequest(env, request);
     debug('creating ResolverVisitor');
     const visitor = new ResolverVisitor(io, rootDefinition, requestContext);
     debug('visiting for status, headers, and body');
     try {
-        const responseData = await visitor.downward(['status', 'headers', 'body']);
+        const responseData = await visitor.downward([
+            'status',
+            'headers',
+            'body'
+        ]);
         if (isPlainObject(responseData)) {
             debug('successfully built response, %O', responseData);
             return {

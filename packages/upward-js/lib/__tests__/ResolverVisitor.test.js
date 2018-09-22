@@ -19,7 +19,7 @@ test('binds itself to supplied context', async () => {
 test('.upward() errors on a value not found in definition', async () => {
     const visitor = new ResolverVisitor(null, null, mockContext());
     await expect(visitor.upward({}, 'foo')).rejects.toThrow(
-        "Context value 'foo' not defined."
+        "Context value 'foo' not defined"
     );
 });
 
@@ -86,6 +86,8 @@ test('.downward() calls visitor.upward() with root definition', async () => {
     const context = mockContext();
     context.get.mockResolvedValueOnce('green');
     const visitor = new ResolverVisitor(null, { frog: 'kermit' }, context);
-    await expect(visitor.downward(['frog'])).resolves.toEqual(['green']);
+    await expect(visitor.downward(['frog'])).resolves.toEqual({
+        frog: 'green'
+    });
     expect(context.get).toHaveBeenCalledWith('kermit');
 });

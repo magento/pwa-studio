@@ -19,7 +19,11 @@ module.exports = (domain, username, password) => {
             defaultHeaders,
             opts.headers
         );
-        const fetchOptions = Object.assign({ agent, credentials: 'include' }, opts, { headers });
+        const fetchOptions = Object.assign(
+            { agent, credentials: 'include' },
+            opts,
+            { headers }
+        );
         debug('made fetch options: %O', fetchOptions);
         return fetchOptions;
     };

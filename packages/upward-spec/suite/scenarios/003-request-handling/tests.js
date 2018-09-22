@@ -1,6 +1,5 @@
 const { URL } = require('url');
 const fetch = require('node-fetch');
-const path = require('path');
 const tape = require('tape');
 
 const { getScenarios, runServer, assertOnResponse } = require('../../');

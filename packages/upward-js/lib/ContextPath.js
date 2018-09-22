@@ -58,16 +58,17 @@ class ContextPath {
                     throw new Error(
                         `Attempted non-integer lookup on a list: ${current} [${segment}]`
                     );
-                }            } else if (current === undefined) {
+                }
+            } else if (current === undefined) {
                 current = '';
                 break;
-            } else if (typeof current === "object") {
-            c    urrent = current[segment];
+            } else if (typeof current === 'object') {
+                current = current[segment];
             } else {
                 break;
-        }    
-
-        }        debug(
+            }
+        }
+        debug(
             'traverse %j yielded %j from %j',
             this._segments,
             current,

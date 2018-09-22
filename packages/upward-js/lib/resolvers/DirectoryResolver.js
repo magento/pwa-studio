@@ -21,9 +21,11 @@ class DirectoryResolver extends AbstractResolver {
         }
         const directory = await this.visitor.upward(definition, 'directory');
         if (typeof directory !== 'string') {
-            throw new Error(`'directory' argument to DirectoryResolver must be a string, but was a: ${typeof directory}`);
+            throw new Error(
+                `'directory' argument to DirectoryResolver must be a string, but was a: ${typeof directory}`
+            );
         }
-        debug( 'resolved directory %s', directory);
+        debug('resolved directory %s', directory);
 
         let server = this.servers.get(directory);
         if (!server) {

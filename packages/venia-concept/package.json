@@ -20,8 +20,9 @@
     },
     "dependencies": {},
     "devDependencies": {
-      "@magento/peregrine": "*",
-      "@magento/pwa-buildpack": "*",
+        "@magento/peregrine": "*",
+        "@magento/pwa-buildpack": "*",
+        "@magento/upward-js": "*",
         "npm-merge-driver": "^2.3.5",
         "rimraf": "^2.6.2",
         "webpack": "3.11.0",

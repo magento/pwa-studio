@@ -17,7 +17,9 @@ class ResolverVisitor {
         const valuePromises = contextNames.map(async name => {
             const value = await this.upward(this.rootDefinition, name);
             if (typeof value === 'function') {
-                debug('%s request returned a function, we are assuming it is a middleware')
+                debug(
+                    '%s request returned a function, we are assuming it is a middleware'
+                );
                 passedMiddleware = value;
                 throw new Error('PASSED_MIDDLEWARE');
             }
@@ -28,7 +30,9 @@ class ResolverVisitor {
             return zipObject(contextNames, values);
         } catch (e) {
             if (e.message === 'PASSED_MIDDLEWARE') {
-                debug(`returning middleware from visitor.downward() instead of object`);
+                debug(
+                    `returning middleware from visitor.downward() instead of object`
+                );
                 return passedMiddleware;
             } else {
                 throw e;

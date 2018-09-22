@@ -1,9 +1,6 @@
-const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
-const { promisify } = require('util');
 const { URL } = require('url');
-const access = promisify(fs.access);
 
 const script = process.env.UPWARD_SERVER_SCRIPT_PATH;
 
@@ -126,14 +123,14 @@ module.exports = async function runServer(
                         }
                         const status =
                             flags[flag] === expected ? 'pass' : 'fail';
-                        test[status](message);
+                        test[status](message + extra);
                         return status === 'pass';
                     }
                 });
             }
 
             child.on('error', reject);
-            child.on('exit', (code, signal) => {
+            child.on('exit', code => {
                 flags.running = false;
                 if (code !== 0) {
                     flags.crashed = true;

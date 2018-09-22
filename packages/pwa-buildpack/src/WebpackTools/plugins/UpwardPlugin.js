@@ -15,7 +15,7 @@ const upward = require('@magento/upward-js');
 const agent = new https.Agent({ rejectUnauthorized: false });
 
 const middleware = upwardPath => {
-    let assets = {};
+    // let assets = {};
     let compiler;
 
     const app = express.Router();
@@ -24,68 +24,75 @@ const middleware = upwardPath => {
 
     const io = {
         async readFile(filepath, enc) {
-            let contents;
             const absolutePath = path.resolve(filepath);
             try {
-                return compiler.outputFileSystem.readFileSync(absolutePath, enc);
-            } catch(e) {}
+                return compiler.outputFileSystem.readFileSync(
+                    absolutePath,
+                    enc
+                );
+            } catch (e) {}
             try {
                 return defaultIO.readFile(absolutePath, enc);
-            } catch(e) {}
+            } catch (e) {}
             try {
                 return compiler.inputFileSystem.readFileSync(absolutePath, enc);
-            } catch(e) {}
+            } catch (e) {}
         },
         async networkFetch(path, options) {
             debug('networkFetch %s, %o', path, options);
             return fetch(path, Object.assign({ agent }, options));
         }
-    }
+    };
 
-//     const fetchOptions = {
-//         agent: new https.Agent({ rejectUnauthorized: false })
-//     };
+    //     const fetchOptions = {
+    //         agent: new https.Agent({ rejectUnauthorized: false })
+    //     };
 
-//     const gqlClient = new ApolloClient({
-//         fetch,
-//         fetchOptions,
-//         uri: new URL('/graphql', process.env.MAGENTO_BACKEND_DOMAIN).toString()
-//     });
-//     const resolverQuery = gql`
-//         query resolveUrl($urlKey: String!) {
-//             urlResolver(url: $urlKey) {
-//                 type
-//                 id
-//             }
-//         }
-//     `;
+    //     const gqlClient = new ApolloClient({
+    //         fetch,
+    //         fetchOptions,
+    //         uri: new URL('/graphql', process.env.MAGENTO_BACKEND_DOMAIN).toString()
+    //     });
+    //     const resolverQuery = gql`
+    //         query resolveUrl($urlKey: String!) {
+    //             urlResolver(url: $urlKey) {
+    //                 type
+    //                 id
+    //             }
+    //         }
+    //     `;
 
-//     const adminRestClient = createAdminRestClient(
-//         process.env.MAGENTO_BACKEND_DOMAIN,
-//         process.env.MAGENTO_ADMIN_USERNAME,
-//         process.env.MAGENTO_ADMIN_PASSWORD
-//     );
+    //     const adminRestClient = createAdminRestClient(
+    //         process.env.MAGENTO_BACKEND_DOMAIN,
+    //         process.env.MAGENTO_ADMIN_USERNAME,
+    //         process.env.MAGENTO_ADMIN_PASSWORD
+    //     );
 
-//     const tpt = ({ website, shell, resolver }) => `
-// <!doctype html>
-// <html>
-//   <head>
-//     <meta charset="utf-8">
-//     <title>${website.name}</title>
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <style>${assets.criticalCss}</style>
-//   </head>
-//   <body>
-//     <div id="root">${shell}</div>
-//     <script type="application/json" id="url-resolver">${resolver}</script>
-//     <script defer src="/js/client.js"></script>
-//   </body>
-// </html>
-// `;
+    //     const tpt = ({ website, shell, resolver }) => `
+    // <!doctype html>
+    // <html>
+    //   <head>
+    //     <meta charset="utf-8">
+    //     <title>${website.name}</title>
+    //     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //     <style>${assets.criticalCss}</style>
+    //   </head>
+    //   <body>
+    //     <div id="root">${shell}</div>
+    //     <script type="application/json" id="url-resolver">${resolver}</script>
+    //     <script defer src="/js/client.js"></script>
+    //   </body>
+    // </html>
+    // `;
 
     const proxy = proxyMiddleware(
-        [process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH, '/graphql', '/rest', '/favicon.ico'],
+        [
+            process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH,
+            '/graphql',
+            '/rest',
+            '/favicon.ico'
+        ],
         {
             target: process.env.MAGENTO_BACKEND_DOMAIN,
             secure: false,
@@ -100,7 +107,7 @@ const middleware = upwardPath => {
     let upwardMiddleware;
     app.use(async (req, res, next) => {
         if (!upwardMiddleware) {
-            upwardMiddleware = await upward.middleware(upwardPath, io)
+            upwardMiddleware = await upward.middleware(upwardPath, io);
         }
         upwardMiddleware(req, res, next);
     });
@@ -144,7 +151,7 @@ const middleware = upwardPath => {
     //     assets = mapped;
     // }
 
-    app.onBuild = (comp, delivered) => {
+    app.onBuild = comp => {
         compiler = comp;
     };
 
@@ -159,10 +166,10 @@ class UpwardPlugin {
         this.devServer.after = app => {
             app.use(this.middleware);
             if (oldAfter) oldAfter(app);
-        }
+        };
     }
     apply(compiler) {
-        const entryPointNames = Object.keys(compiler.options.entry);
+        // const entryPointNames = Object.keys(compiler.options.entry);
         compiler.plugin('emit', (compilation, callback) => {
             // const mapped = {};
             // for (const entryName of entryPointNames) {
@@ -175,7 +182,7 @@ class UpwardPlugin {
             //         }
             //     }
             // }
-            this.middleware.onBuild(compiler);
+            this.middleware.onBuild(compiler, compilation);
             callback();
         });
     }

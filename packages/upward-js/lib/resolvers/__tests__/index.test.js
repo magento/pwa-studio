@@ -11,8 +11,10 @@ test('Resolvers exports', () => {
     expect(ResolversByType).toMatchInlineSnapshot(`
 Object {
   "conditional": [Function],
+  "directory": [Function],
   "file": [Function],
   "inline": [Function],
+  "proxy": [Function],
   "service": [Function],
   "template": [Function],
 }

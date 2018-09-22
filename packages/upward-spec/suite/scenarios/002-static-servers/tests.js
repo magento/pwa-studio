@@ -1,15 +1,6 @@
 const fetch = require('node-fetch');
-const path = require('path');
 const tape = require('tape');
 const csvParse = require('csv-parse/lib/sync');
-
-// tap-diff needs object keys lexically sorted to be accurate
-const sortKeys = o =>
-    Object.keys(o)
-        .sort()
-        .reduce((acc, key) => ((acc[key] = o[key]), acc), {});
-const deepEqualObj = (t, o1, o2, msg) =>
-    t.deepEqual(sortKeys(o1), sortKeys(o2), msg);
 
 const { getScenarios, runServer, assertOnResponse } = require('../../');
 

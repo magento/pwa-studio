@@ -30,10 +30,10 @@ class CriticalCssPlugin {
             assetNameRegExp: this.pattern,
             cssProcessor: require('cssnano'),
             cssProcessorPluginOptions: {
-              preset: ['default', { discardComments: { removeAll: true } }],
+                preset: ['default', { discardComments: { removeAll: true } }]
             },
             canPrint: true
-          })
+        });
     }
     load() {
         return {

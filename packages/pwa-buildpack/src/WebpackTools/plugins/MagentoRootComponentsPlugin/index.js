@@ -59,11 +59,11 @@ class MagentoRootComponentsPlugin {
 
                 const isEntrySimpleTest =
                     this.phase === 'development'
-                        // Dependencies are not entry points in development.
-                        ? mod => mod.resource.includes('/node_modules/')
-                        // Top-level modules injected by a downstream "issuer" are not
-                        // entry points in production.
-                        : mod => !mod.issuer;
+                        ? // Dependencies are not entry points in development.
+                          mod => mod.resource.includes('/node_modules/')
+                        : // Top-level modules injected by a downstream "issuer" are not
+                          // entry points in production.
+                          mod => !mod.issuer;
 
                 const isAnEntry =
                     isEntrySimpleTest(mod) &&
@@ -74,12 +74,12 @@ class MagentoRootComponentsPlugin {
                             return true;
                         }
 
-                    // If a multi-module entry is used (webpack-dev-server creates one), we
-                    // need to try and match against each dependency in the multi module
-                    return entryMod.dependencies.some(
-                        singleDep => singleDep.module === mod
-                    );
-                });
+                        // If a multi-module entry is used (webpack-dev-server creates one), we
+                        // need to try and match against each dependency in the multi module
+                        return entryMod.dependencies.some(
+                            singleDep => singleDep.module === mod
+                        );
+                    });
                 if (!isAnEntry) return;
 
                 // If this module is an entry module, inject a loader in the pipeline
