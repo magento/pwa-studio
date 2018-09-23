@@ -24,14 +24,30 @@ module.exports = async function upwardServer({
         app.use(debugErrorMiddleware());
     }
     if (bindLocal) {
-        const server = app.listen(port, host);
-        if (logUrl) {
-            server.on('listening', () => {
-                const { address, port } = server.address();
-                console.log(`http://${address}:${port}/`);
-            });
-        }
-        return { app, server };
+        return new Promise((resolve, reject) => {
+            try {
+                const server = app.listen(port, host);
+
+                server.on('listening', () => {
+                    if (logUrl) {
+                        const { address, port } = server.address();
+                        console.log(`http://${address}:${port}/`);
+                    }
+                    resolve({
+                        app,
+                        server,
+                        close() {
+                            return new Promise(resolve => {
+                                server.on('close', resolve);
+                                server.close();
+                            });
+                        }
+                    });
+                });
+            } catch (e) {
+                reject(e);
+            }
+        });
     }
     return { app };
 };
