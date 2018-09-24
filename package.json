@@ -27,7 +27,8 @@
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
     "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
-    "watch:venia-dev-server": "cd packages/venia-concept && nodemon --watch ../pwa-buildpack/dist --watch webpack.config.js --delay 1 --ext js,json --exec npm run-script watch; cd - >/dev/null"
+    "watch:venia-dev-server": "cd packages/venia-concept && nodemon --watch ../pwa-buildpack/dist --watch webpack.config.js --delay 1 --ext js,json --exec npm run-script watch; cd - >/dev/null",
+    "storybook:venia": "cd packages/venia-concept && npm run storybook"
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
