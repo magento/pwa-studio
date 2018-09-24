@@ -1,36 +1,35 @@
-const WebpackManifestPlugin = require('webpack-manifest-plugin');
+const fs = require('../../../util/promisified/fs');
+const readdir = require('readdir-enhanced');
+const optionsValidator = require('../../../util/options-validator');
 const directiveParser = require('@magento/directive-parser');
-const { isAbsolute, join, extname } = require('path');
-const {
-    rootComponentMap,
-    seenRootComponents
-} = require('./roots-chunk-loader');
+const VirtualModulePlugin = require('virtual-module-webpack-plugin');
+const validateConfig = optionsValidator('MagentoResolver', {
+    rootComponentsDirs: 'string[]'
+});
+const { RawSource } = require('webpack-sources');
+const { isAbsolute, join, relative } = require('path');
 
-const loaderPath = join(__dirname, 'roots-chunk-loader.js');
+const toRootComponentMapKey = (type, variant = 'default') =>
+    `RootCmp_${type}__${variant}`;
 
 /**
  * @description webpack plugin that creates chunks for each
- * individual RootComponent in a store, and generates a manifest
- * with data for consumption by the backend.
+ * individual RootComponent in a provided array of directories, and produces a
+ * file which imports each one as a separate chunk.
  */
 class MagentoRootComponentsPlugin {
     /**
      * @param {object} opts
      * @param {string[]} opts.rootComponentsDirs All directories to be searched for RootComponents
-     * @param {string} opts.manifestFileName Name of the manifest file to be emitted from the build
      */
     constructor(opts = {}) {
-        const { rootComponentsDirs, manifestFileName } = opts;
-        this.manifestPlugin = this.rootComponentsDirs = rootComponentsDirs || [
-            './src/RootComponents'
-        ];
+        validateConfig('', opts);
+        this.opts = opts;
     }
-
-    // applyManifestPlugin(compiler)
 
     apply(compiler) {
         const { context } = compiler.options;
-        const { rootComponentsDirs } = this;
+        const { rootComponentsDirs } = this.opts;
 
         // Create a list of absolute paths for root components. When a
         // relative path is found, resolve it from the root context of
@@ -39,90 +38,95 @@ class MagentoRootComponentsPlugin {
             dir => (isAbsolute(dir) ? dir : join(context, dir))
         );
 
-        const moduleByPath = new Map();
-
-        compiler.hooks.compilation.tap(
+        compiler.hooks.beforeRun.tap(
             'MagentoRootComponentsPlugin',
-            compilation => {
-                compilation.hooks.normalModuleLoader.tap(
-                    'MagentoRootComponentsPlugin',
-                    (loaderContext, mod) => {
-                        if (seenRootComponents.has(mod.resource)) {
-                            // The module ("mod") has not been assigned an ID yet,
-                            // so we need to keep a reference to it which will allow
-                            // us to grab the ID during the emit mode
-                            moduleByPath.set(mod.resource, mod);
-                        }
-                        // To create a unique chunk for each RootComponent, we want to inject
-                        // a dynamic import() for each RootComponent, within each entry point.
-                        if (!isJSFile(mod.resource)) {
-                            // But identifying entry points is hard!
-                            return;
-                        }
-                        // Top-level modules injected by a downstream "issuer" are not
-                        // entry points.
-                        let isEntrySimpleTest = mod => !mod.issuer;
-                        if (this.mode === 'development') {
-                            return;
-                        }
-                        const isAnEntry = compilation.entries.some(entryMod => {
-                            // Check if the module being constructed matches a defined entry point
-                            if (mod === entryMod) return true;
-                            if (!entryMod.identifier().startsWith('multi')) {
-                                return false;
+            async () => {
+                const rootComponentImporters = await rootComponentsDirsAbs.reduce(
+                    async (importersPromise, rootComponentDir) => {
+                        const importerSources = await importersPromise;
+                        const rootComponentFiles = await readdir(
+                            rootComponentDir,
+                            {
+                                basePath: rootComponentDir,
+                                deep: true,
+                                filter: /m?[jt]s$/
                             }
+                        );
+                        await Promise.all(
+                            rootComponentFiles.map(async rootComponentFile => {
+                                const rootComponentSource = await fs.readFile(
+                                    rootComponentFile,
+                                    'utf8'
+                                );
+                                const {
+                                    directives = [],
+                                    errors
+                                } = directiveParser(rootComponentSource);
+                                if (errors.length) {
+                                    // for now, errors just mean no directive was found
+                                    return;
+                                }
+                                const rootComponentDirectives = directives.filter(
+                                    d => d.type === 'RootComponent'
+                                );
 
-                            // If a multi-module entry is used (webpack-dev-server creates one), we
-                            // need to try and match against each dependency in the multi module
-                            return entryMod.dependencies.some(
-                                singleDep => singleDep.module === mod
-                            );
-                        });
-                        if (!isAnEntry) return;
+                                if (rootComponentDirectives.length === 0) {
+                                    return;
+                                }
 
-                        // If this module is an entry module, inject a loader in the pipeline
-                        // that will force creation of all our RootComponent chunks
-                        mod.loaders.push({
-                            loader: loaderPath,
-                            options: {
-                                rootsDirs: rootComponentsDirsAbs
-                            }
-                        });
-                    }
+                                if (rootComponentDirectives.length > 1) {
+                                    console.warn(
+                                        `Found more than 1 RootComponent Directive in ${rootComponentFile}. Only the first will be used`
+                                    );
+                                }
+
+                                const {
+                                    pageTypes,
+                                    variant
+                                } = rootComponentDirectives[0];
+
+                                if (!pageTypes || pageTypes.length === 0) {
+                                    console.warn(
+                                        `No pageTypes specified for RootComponent ${rootComponentFile}. RootComponent will never be used.`
+                                    );
+                                }
+
+                                pageTypes.forEach(pageType => {
+                                    const key = toRootComponentMapKey(
+                                        pageType,
+                                        variant
+                                    );
+                                    importerSources[
+                                        key
+                                    ] = `() => import(/* webpackChunkName: "${key}" */'${relative(
+                                        compiler.options.context,
+                                        rootComponentFile
+                                    )}')`;
+                                });
+                            })
+                        );
+                        return importerSources;
+                    },
+                    Promise.resolve({})
                 );
+
+                const contents = `
+const rootComponentsMap = {
+${Object.entries(rootComponentImporters)
+                    .map(entry => entry.join(':'))
+                    .join(',\n')}
+};
+const key = ${toRootComponentMapKey.toString()};
+export default function fetchRootComponent(type, variant = 'default') {
+    return rootComponentsMap[key(type, variant)]();
+};
+`;
+                new VirtualModulePlugin({
+                    moduleName: 'FETCH_ROOT_COMPONENT',
+                    contents
+                }).apply(compiler);
             }
         );
-
-        compiler.plugin('emit', (compilation, cb) => {
-            // Prepare the manifest that the Magento backend can use
-            // to pick root components for a page.
-            const namedChunks = Array.from(
-                Object.values(compilation.namedChunks)
-            );
-            const manifest = namedChunks.reduce((acc, chunk) => {
-                const { rootDirective, rootComponentPath } =
-                    rootComponentMap.get(chunk.name) || {};
-                if (!rootDirective) return acc;
-
-                // Index 0 is always the chunk, but it's an Array because
-                // there could be a source map (which we don't care about)
-                const [rootComponentFilename] = chunk.files;
-                acc[chunk.name] = Object.assign(
-                    {
-                        chunkName: rootComponentFilename,
-                        rootChunkID: chunk.id,
-                        rootModuleID: moduleByPath.get(rootComponentPath).id
-                    },
-                    rootDirective
-                );
-                return acc;
-            }, {});
-
-            compilation.assets[this.manifestFileName] = new RawSource(
-                JSON.stringify(manifest, null, 4)
-            );
-            cb();
-        });
     }
 }
 

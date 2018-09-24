@@ -22,18 +22,8 @@ const themePaths = {
     output: path.resolve(__dirname, 'web')
 };
 
-// mark dependencies for vendor bundle
-const libs = [
-    'apollo-boost',
-    'react',
-    'react-dom',
-    'react-redux',
-    'react-router-dom',
-    'redux'
-];
-
-module.exports = async function(env) {
-    const { mode } = env;
+module.exports = async function() {
+    const mode = process.env.NODE_ENV || 'production';
 
     const babelOptions = configureBabel(mode);
 
@@ -89,7 +79,7 @@ module.exports = async function(env) {
             splitChunks: {
                 chunks: 'async',
                 minSize: 30000,
-                maxSize: 100000,
+                maxSize: 1000000,
                 minChunks: 1,
                 maxAsyncRequests: 5,
                 maxInitialRequests: 2,
@@ -110,7 +100,9 @@ module.exports = async function(env) {
             }
         }),
         plugins: [
-            new MagentoRootComponentsPlugin({ mode }),
+            new MagentoRootComponentsPlugin({
+                rootComponentsDirs: ['./src/RootComponents/']
+            }),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(mode),
                 // Blank the service worker file name to stop the app from
@@ -133,7 +125,7 @@ module.exports = async function(env) {
             }),
             critical,
             new ServiceWorkerPlugin({
-                env,
+                env: { mode },
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
                 paths: themePaths
@@ -182,23 +174,26 @@ module.exports = async function(env) {
         config.performance = {
             hints: 'warning'
         };
-        config.optimization.minimizer = new UglifyPlugin({
-            parallel: true,
-            uglifyOptions: {
-                ecma: 8,
-                parse: {
-                    ecma: 8
-                },
-                compress: {
-                    ecma: 6
-                },
-                output: {
-                    ecma: 7,
-                    semicolons: false
-                },
-                keep_fnames: true
-            }
-        });
+        config.optimization.minimizer = config.optimization.minimizer || [];
+        config.optimization.minimizer.push(
+            new UglifyPlugin({
+                parallel: true,
+                uglifyOptions: {
+                    ecma: 8,
+                    parse: {
+                        ecma: 8
+                    },
+                    compress: {
+                        ecma: 6
+                    },
+                    output: {
+                        ecma: 7,
+                        semicolons: false
+                    },
+                    keep_fnames: true
+                }
+            })
+        );
     } else {
         throw Error(`Unsupported environment mode in webpack config: `);
     }

@@ -9,7 +9,7 @@ module.exports = {
         return {
             modules: [options.paths.root, 'node_modules'],
             mainFiles: ['index'],
-            extensions: ['.js', '.json']
+            extensions: ['.mjs', '.js', '.json']
         };
     }
 };

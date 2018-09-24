@@ -32,7 +32,7 @@ appShell:
           use: 200
       default: 404
     headers:
-  inline:
+      inline:
         content-type: 'text/html'
     body:
       engine: mustache
@@ -67,7 +67,7 @@ urlResolverResult:
   query: './src/queries/urlResolver.graphql'
   variables:
     inline:
-    urlKey: request.url.pathname
+      urlKey: request.url.pathname
 
 magentoGQL:
   engine: mustache
@@ -104,7 +104,7 @@ favicon:
   inline:
     status: 200
     headers:
-  inline:
+      inline:
         content-type:
           inline: image/vnd.microsoft.icon
     body:

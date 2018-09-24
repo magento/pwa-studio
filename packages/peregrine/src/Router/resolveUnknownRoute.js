@@ -1,3 +1,4 @@
+const fetchRootComponent = require('FETCH_ROOT_COMPONENT');
 /**
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
@@ -12,15 +13,7 @@ export default function resolveUnknownRoute(opts) {
         if (!(res && res.type)) {
             return { matched: false };
         }
-        return tempGetWebpackChunkData(
-            res.type,
-            __tmp_webpack_public_path__
-        ).then(({ rootChunkID, rootModuleID }) => ({
-            rootChunkID,
-            rootModuleID,
-            id: res.id,
-            matched: true
-        }));
+        return fetchRootComponent(res.type);
     }
 
     if (!preloadDone) {
@@ -79,37 +72,37 @@ function remotelyResolveRoute(opts) {
         .then(res => res.data.urlResolver);
 }
 
-/**
- * @description This is temporary until we have proper support in the backend
- * and the GraphQL API for storing/retrieving the assigned Root Component for a route.
- * For now, we fetch the manifest manually, and just grab the first RootComponent
- * that is compatible with the current pageType
- * @param {"PRODUCT" | "CATEGORY" | "CMS_PAGE"} pageType
- * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
- */
-function tempGetWebpackChunkData(pageType, webpackPublicPath) {
-    // In dev mode, `webpackPublicPath` may be a fully qualified URL.
-    // In production mode, it may be a pathname, which makes it unsafe
-    // to use as an API base. Normalize it as a full path using a DOM node
-    // as a native URL parser.
-    const parser = document.createElement('a');
-    parser.setAttribute('href', webpackPublicPath);
-    return fetch(new URL('roots-manifest.json', parser.href))
-        .then(res => res.json())
-        .then(manifest => {
-            const firstCompatibleConfig = Object.values(manifest).find(conf => {
-                return conf.pageTypes.some(type => type === pageType);
-            });
+// /**
+//  * @description This is temporary until we have proper support in the backend
+//  * and the GraphQL API for storing/retrieving the assigned Root Component for a route.
+//  * For now, we fetch the manifest manually, and just grab the first RootComponent
+//  * that is compatible with the current pageType
+//  * @param {"PRODUCT" | "CATEGORY" | "CMS_PAGE"} pageType
+//  * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
+//  */
+// function tempGetWebpackChunkData(pageType, webpackPublicPath) {
+//     // In dev mode, `webpackPublicPath` may be a fully qualified URL.
+//     // In production mode, it may be a pathname, which makes it unsafe
+//     // to use as an API base. Normalize it as a full path using a DOM node
+//     // as a native URL parser.
+//     const parser = document.createElement('a');
+//     parser.setAttribute('href', webpackPublicPath);
+//     return fetch(new URL('roots-manifest.json', parser.href))
+//         .then(res => res.json())
+//         .then(manifest => {
+//             const firstCompatibleConfig = Object.values(manifest).find(conf => {
+//                 return conf.pageTypes.some(type => type === pageType);
+//             });
 
-            if (!firstCompatibleConfig) {
-                throw new Error(
-                    `Could not find RootComponent for pageType ${pageType}`
-                );
-            }
+//             if (!firstCompatibleConfig) {
+//                 throw new Error(
+//                     `Could not find RootComponent for pageType ${pageType}`
+//                 );
+//             }
 
-            return {
-                rootChunkID: firstCompatibleConfig.rootChunkID,
-                rootModuleID: firstCompatibleConfig.rootModuleID
-            };
-        });
-}
+//             return {
+//                 rootChunkID: firstCompatibleConfig.rootChunkID,
+//                 rootModuleID: firstCompatibleConfig.rootModuleID
+//             };
+//         });
+// }

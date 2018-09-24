@@ -6,12 +6,14 @@ const optionsValidator = require('../../util/options-validator');
 class ServiceWorkerPlugin {
     static validateOptions = optionsValidator('ServiceWorkerPlugin', {
         'env.mode': 'string',
-        serviceWorkerFileName: 'string',
         'paths.output': 'string'
     });
     constructor(config) {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
         this.config = config;
+        if (!this.config.serviceWorkerFileName) {
+            this.config.serviceWorkerFileName = 'sw.js';
+        }
     }
     applyWorkbox(compiler) {
         const config = {

@@ -11,9 +11,6 @@ test('throws if options are missing', () => {
         'env.mode must be of type string'
     );
     expect(
-        () => new ServiceWorkerPlugin({ env: { mode: 'development' } })
-    ).toThrow('serviceWorkerFileName must be of type string');
-    expect(
         () =>
             new ServiceWorkerPlugin({
                 env: { mode: 'development' },
@@ -42,7 +39,6 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
         env: {
             mode: 'production'
         },
-        serviceWorkerFileName: 'sw.js',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
             output: 'path/to/assets'

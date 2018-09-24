@@ -9,7 +9,7 @@ const plugins = [
     'transform-object-rest-spread',
     ['transform-react-jsx', { pragma: 'createElement' }],
     'graphql-tag',
-    'import-graphql'
+    ['import-graphql', { runtime: true }]
 ];
 
 // define default babel options

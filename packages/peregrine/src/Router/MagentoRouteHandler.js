@@ -33,13 +33,13 @@ export default class MagentoRouteHandler extends Component {
             route: pathname,
             apiBase
         })
-            .then(({ rootChunkID, rootModuleID, matched, id }) => {
-                if (!matched) {
+            .then(({ type, id }) => {
+                if (!type) {
                     // TODO: User-defined 404 page
                     // when the API work is done to support it
                     throw new Error('404');
                 }
-                return fetchRootComponent(rootChunkID, rootModuleID).then(
+                return import(`RootComponents:${type}:default`).then(
                     Component => {
                         this.setState({
                             [pathname]: {
