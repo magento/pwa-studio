@@ -1,5 +1,6 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
+import Option from './option';
 
 import classify from 'src/classify';
 import defaultClasses from './swatch.css';
@@ -11,22 +12,18 @@ class Swatch extends Component {
         }),
         item: PropTypes.shape({
             id: PropTypes.string,
-            name: PropTypes.string
+            name: PropTypes.string,
+            text: PropTypes.string,
+            isDisabled: PropTypes.bool,
+            isSelected: PropTypes.bool
         })
     };
 
     render() {
-        const { classes, item } = this.props;
-        const { id, name } = item;
-        const style = { '--swatch-color': id };
-
         return (
-            <button
-                className={classes.root}
-                title={name}
-                style={style}
-                onClick={this.handleClick}
-            />
+			<Option
+				{...this.props}
+            > </Option>
         );
     }
 

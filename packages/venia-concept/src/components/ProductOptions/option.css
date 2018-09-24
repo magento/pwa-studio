@@ -1,12 +1,11 @@
 .root {
-    border-bottom: 1px solid rgb(var(--venia-border));
-    margin: 0 1.5rem;
-    padding: 1.75rem 0;
+    composes: root from './tile.css';
+    background-color: rgb(var(--background-color));
+    border-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
 }
 
-.title {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
+.selected {
+    background-color: blue;
 }

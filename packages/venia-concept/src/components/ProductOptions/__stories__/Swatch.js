@@ -2,8 +2,6 @@ import { createElement } from 'react';
 import { storiesOf } from '@storybook/react';
 import Swatch from '../swatch';
 import SwatchList from '../swatchList';
-import Option from '../option';
-import Options from '../options';
 
 const stories = storiesOf('Product Options/Swatch', module);
 
@@ -17,6 +15,30 @@ const swatchItem = () => {
     }
 }
 
+
+const swatchItemDisabled = () => {
+    return {
+        id: `${randColor()} ${randColor()} ${randColor()}`,
+        name: 'disabled',
+        onclick: () => console.log('hey'),
+        opts: {
+			'disabled': 'disabled'
+			}
+    }
+}
+
+const swatchItemSelected = () => {
+    return {
+		id: `${randColor()} ${randColor()} ${randColor()}`,
+		name: 'Selected',
+		onclick: () => console.log('hey'),
+		isSelected: true
+    }
+}
+
+
+
+
 const swatchItems = [swatchItem(), swatchItem(), swatchItem(), swatchItem(), swatchItem(), swatchItem(), swatchItem()];
 
 stories.add(
@@ -28,14 +50,25 @@ stories.add(
 stories.add(
     'Swatch disabled', () => (
         <Swatch
-            item={swatchItem()}
+            item={swatchItemDisabled()}
         />
     )
 );
 
+
+stories.add(
+    'Swatch selected', () => (
+        <Swatch
+            item={swatchItemSelected()}
+        />
+    )
+);
+
+
 stories.add(
     'Swatch list', () => (
-        <SwatchList items={swatchItems}
+        <SwatchList
+            items={swatchItems}
         />
     )
 );

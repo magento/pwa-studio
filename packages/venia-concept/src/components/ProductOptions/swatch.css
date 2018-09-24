@@ -1,5 +1,11 @@
 .root {
     composes: root from './tile.css';
-    background-color: rgb(var(--swatch-color));
+    background-color: rgb(var(--background-color));
     border-color: rgba(0, 0, 0, 0.1);
+    width: 4rem;
+    height: 4rem;
+}
+
+.selected {
+    background-color: blue;
 }
