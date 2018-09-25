@@ -1,15 +1,15 @@
 import { createElement } from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
+import Options from '../options';
 import tileClasses from '../tile.css';
 
 const stories = storiesOf('Product Options/Tile', module);
 
-const randColor = () => Math.floor(Math.random()*128);
 
 const tileItem = () => {
     return {
-        backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
+        backgroundColor: '0 0 0',
         name: 'hey',
         onclick: () => console.log('hey')
     }
@@ -17,23 +17,31 @@ const tileItem = () => {
 
 const tileItemDisabled = () => {
     return {
-        backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
-        name: 'disabled',
-        onclick: () => console.log('hey'),
-        opts: {
-			'disabled': 'disabled'
-			}
+        ...tileItem(),
+        isDisabled: true
     }
 }
 
 const tileItemSelected = () => {
     return {
-		backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
-		name: 'Selected',
-		onclick: () => console.log('hey'),
+        ...tileItem(),
 		isSelected: true
     }
 }
+
+const tileListItem = () => {
+    return {
+        item: {
+            ...tileItem(),
+            isSelected: true
+        },
+        classes: tileClasses,
+        children: 'Test'
+    }
+}
+
+
+const tileItems = [tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem() ];
 
 stories.add(
     'Tile', () => (
@@ -61,5 +69,13 @@ stories.add(
             item={tileItemSelected()}
             classes={tileClasses}
         > Test </Option>
+    )
+);
+
+stories.add(
+    'Tile list', () => (
+        <Options
+            options={tileItems}
+        />
     )
 );

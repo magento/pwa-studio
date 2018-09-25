@@ -1,11 +1,9 @@
 .root {
-    background-color: rgb(var(--background-color));
-    border: none;
+    border: 1px solid rgb(var(--background-color));
+    background-color: white;
     width: 4rem;
     height: 4rem;
-    justify-content: center;
-    display: flex;
-    align-items: center;
+    composes: root from './option.css';
 }
 
 .selected {
@@ -16,3 +14,22 @@
 .check {
   display: none;
 }
+
+.disabled > span:after, .disabled > span:before {
+    width: 140%;
+    height: 1px;
+    position: absolute;
+    content: "";
+    background-color: black;
+    z-index: 10;
+    color: black;
+}
+
+.disabled span:before {
+    transform: rotate(45deg);
+}
+
+.disabled span:after {
+    transform: rotate(-45deg);
+}
+

@@ -6,7 +6,17 @@ import swatchClasses from '../swatch.css';
 
 const stories = storiesOf('Product Options/Swatch', module);
 
-const randColor = () => Math.floor(Math.random()*128);
+const randColor = () => Math.floor(Math.random()*255);
+
+const randomSwatchItem = () => {
+    return {
+        item: {
+            ...swatchItem,
+            backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
+        },
+        classes: swatchClasses
+    }
+}
 
 const swatchItem = {
     backgroundColor: '128 0 0',
@@ -14,28 +24,13 @@ const swatchItem = {
     onclick: () => console.log('Swatch')
 }
 
-const randomSwatchItem = () => {
-    return {
-        item: {
-            backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
-            name: 'Swatch',
-            onclick: () => console.log('Swatch')
-        },
-        classes: swatchClasses
-    }
-}
-
 const swatchItemDisabled = {
-    backgroundColor: '128 0 0',
-    name: 'disabled',
-    onclick: () => console.log('Swatch'),
+    ...swatchItem,
     isDisabled: true
 }
 
 const swatchItemSelected = {
-    backgroundColor: '128 0 0',
-    name: 'Selected',
-    onclick: () => console.log('Swatch'),
+    ...swatchItem,
     isSelected: true
 }
 
