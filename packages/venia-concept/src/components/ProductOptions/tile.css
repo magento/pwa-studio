@@ -12,3 +12,7 @@
     background-color: black;
     color: white;
 }
+
+.check {
+  display: none;
+}

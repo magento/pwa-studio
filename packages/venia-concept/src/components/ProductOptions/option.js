@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
-
+import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './option.css';
 
@@ -20,8 +20,18 @@ class Option extends Component {
         })
     };
 
+    get check() {
+      const { item } = this.props;
+      const { isSelected  } = item;
+
+      return isSelected ? (
+        <Icon name="check" />
+      ) : null
+    }
+
     render() {
         const { classes, item, children } = this.props;
+        const { check } =  this;
         const { backgroundColor, name, isSelected, opts } = item;
         const style = { '--background-color': backgroundColor };
 
@@ -35,11 +45,12 @@ class Option extends Component {
 				onClick={this.handleClick}
 				{...opts}
             >
-                <span className={classes.childrenContainer}>
-                    <span className={classes.children}> {children} </span>
-                </span>
-                <div className={classes.overlay} />
-            </button>
+          <span className={classes.childrenContainer}>
+              <span className={classes.children}> {children} </span>
+              <span className={classes.check}> {check} </span>
+          </span>
+          <div className={classes.overlay} />
+        </button>
         );
     }
 
