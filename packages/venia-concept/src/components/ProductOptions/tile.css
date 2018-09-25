@@ -3,6 +3,9 @@
     border: none;
     width: 4rem;
     height: 4rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 .selected {

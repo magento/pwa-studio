@@ -3,6 +3,9 @@
     border-color: rgba(0, 0, 0, 0.1);
     width: 4rem;
     height: 4rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 .selected {
