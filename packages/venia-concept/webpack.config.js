@@ -14,7 +14,7 @@ const {
     }
 } = require('@magento/pwa-buildpack');
 
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const configureBabel = require('./babel.config.js');
@@ -181,52 +181,26 @@ module.exports = async function() {
             hints: 'warning'
         };
         config.plugins.push(new CleanPlugin([themePaths.output]));
-        // config.optimization = {
-        //     minimizer: [],
-        //     noEmitOnErrors: true,
-        //     namedChunks: true,
-        //     runtimeChunk: 'single',
-        //     splitChunks: {
-        //         chunks: 'all',
-        //         maxSize: 0,
-        //         minChunks: 1,
-        //         maxAsyncRequests: 5,
-        //         maxInitialRequests: 1,
-        //         name: true,
-        //         cacheGroups: {
-        //             vendors: {
-        //                 test: /[\\/]node_modules[\\/]/,
-        //                 priority: 10,
-        //                 minChunks: 1
-        //             },
-        //             default: {
-        //                 minChunks: 2,
-        //                 priority: -20
-        //             }
-        //         }
-        //     }
-        // };
-        // if (!process.env.DEBUG_BEAUTIFY) {
-        //     config.optimization.minimizer.push(
-        //         new UglifyPlugin({
-        //             parallel: true,
-        //             uglifyOptions: {
-        //                 ecma: 8,
-        //                 parse: {
-        //                     ecma: 8
-        //                 },
-        //                 compress: {
-        //                     ecma: 6
-        //                 },
-        //                 output: {
-        //                     ecma: 7,
-        //                     semicolons: false
-        //                 },
-        //                 keep_fnames: true
-        //             }
-        //         })
-        //     );
-        // }
+        if (!process.env.DEBUG_BEAUTIFY) {
+            config.optimization = {
+                minimizer: [
+                    new TerserPlugin({
+                        parallel: true,
+                        cache: true,
+                        terserOptions: {
+                            ecma: 8,
+                            compress: {
+                                drop_console: true
+                            },
+                            output: {
+                                ecma: 8,
+                                semicolons: false
+                            }
+                        }
+                    })
+                ]
+            };
+        }
     } else {
         throw Error(`Unsupported environment mode in webpack config: `);
     }
