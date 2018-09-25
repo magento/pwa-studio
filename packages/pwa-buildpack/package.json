@@ -67,7 +67,6 @@
     "write-file-webpack-plugin": "^4.2.0"
   },
   "peerDependencies": {
-    "@magento/upward-js": "*",
     "babel-core": "^6.26.0",
     "babel-loader": "^7"
   }

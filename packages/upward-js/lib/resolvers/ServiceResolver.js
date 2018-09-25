@@ -2,7 +2,7 @@ const debug = require('debug')('upward-js:ServiceResolver');
 const { inspect } = require('util');
 const { execute, makePromise } = require('apollo-link');
 const { HttpLink } = require('apollo-link-http');
-const { isPlainObject, fromPairs } = require('lodash');
+const { isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const GraphQLDocument = require('../compiledResources/GraphQLDocument');
 class ServiceResolver extends AbstractResolver {
@@ -26,17 +26,6 @@ class ServiceResolver extends AbstractResolver {
         if (!definition.query) {
             die('No GraphQL query document specified.');
         }
-        if (
-            definition.variables &&
-            (!isPlainObject(definition.variables) ||
-                Object.values(definition.variables).some(
-                    value => typeof value !== 'string'
-                ))
-        ) {
-            die(
-                `Variables must be a simple object of keys to context lookups.`
-            );
-        }
         debug('validated config %o', definition);
         const toResolve = [
             this.visitor.upward(definition, 'url'),
@@ -55,6 +44,10 @@ class ServiceResolver extends AbstractResolver {
         const [url, query, method, headers, variables] = await Promise.all(
             toResolve
         );
+
+        if (variables && !isPlainObject(variables)) {
+            die(`Variables must resolve to a plain object.`);
+        }
 
         debug('url retrieved: "%s", query resolved, creating link', url);
 
@@ -76,7 +69,6 @@ class ServiceResolver extends AbstractResolver {
         }
 
         debug('running query with %o', variables);
-
         return makePromise(
             execute(link, { query: await parsedQuery.render(), variables })
         )

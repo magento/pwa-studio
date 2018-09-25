@@ -15,7 +15,7 @@ const upward = require('@magento/upward-js');
 const agent = new https.Agent({ rejectUnauthorized: false });
 
 const middleware = upwardPath => {
-    let assets = {};
+    // let assets = {};
     let compiler;
 
     const app = express.Router();
@@ -24,7 +24,6 @@ const middleware = upwardPath => {
 
     const io = {
         async readFile(filepath, enc) {
-            let contents;
             const absolutePath = path.resolve(filepath);
             try {
                 return compiler.outputFileSystem.readFileSync(
@@ -152,7 +151,7 @@ const middleware = upwardPath => {
     //     assets = mapped;
     // }
 
-    app.onBuild = (comp, delivered) => {
+    app.onBuild = comp => {
         compiler = comp;
     };
 
@@ -171,7 +170,7 @@ class UpwardPlugin {
         };
     }
     apply(compiler) {
-        const entryPointNames = Object.keys(compiler.options.entry);
+        // const entryPointNames = Object.keys(compiler.options.entry);
         compiler.plugin('emit', (compilation, callback) => {
             // const mapped = {};
             // for (const entryName of entryPointNames) {
@@ -184,7 +183,7 @@ class UpwardPlugin {
             //         }
             //     }
             // }
-            this.middleware.onBuild(compiler);
+            this.middleware.onBuild(compiler, compilation);
             callback();
         });
     }

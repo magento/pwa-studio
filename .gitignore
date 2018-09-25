@@ -13,3 +13,4 @@ test-results.json
 lerna-debug.log
 .env
 packages/venia-concept/web
+packages/venia-concept/asset-manifest.json

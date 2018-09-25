@@ -120,7 +120,8 @@ test(`context values for match are temporarily present`, async () => {
                     $0: 'blu',
                     $1: 'l',
                     $2: 'u'
-                })
+                }),
+                true
             );
             return 'match set';
         }),

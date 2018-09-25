@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const ServiceResolver = require('../ServiceResolver');
 const GraphQLDocument = require('../../compiledResources/GraphQLDocument');
 
@@ -32,12 +31,22 @@ test('places a server call and returns results', async () => {
         })
     ).resolves.toEqual(res);
 
-    expect(visitor.io.networkFetch).toHaveBeenCalledWith(
-        'https://example.com/graphql',
-        expect.objectContaining({
-            body: expect.stringMatching('"query":')
-        })
-    );
+    const [fetchUri, fetchOptions] = visitor.io.networkFetch.mock.calls[0];
+
+    expect(fetchUri).toBe('https://example.com/graphql');
+
+    expect(JSON.parse(fetchOptions.body)).toMatchInlineSnapshot(`
+Object {
+  "operationName": null,
+  "query": "{
+  foo {
+    bar
+  }
+}
+",
+  "variables": Object {},
+}
+`);
 });
 
 test('places a server call with custom method and headers', async () => {
@@ -69,12 +78,11 @@ test('places a server call with custom method and headers', async () => {
         })
     ).resolves.toEqual(res);
 
-    expect(visitor.io.networkFetch).toHaveBeenCalledWith(
-        expect.stringContaining('https://example.com/graphql?query'),
-        expect.objectContaining({
-            method: 'GET'
-        })
-    );
+    const [fetchUri, fetchOptions] = visitor.io.networkFetch.mock.calls[0];
+
+    expect(fetchUri).toMatch('https://example.com/graphql?query');
+
+    expect(fetchOptions.method).toBe('GET');
 });
 
 test('places a server call with variables', async () => {
@@ -85,18 +93,55 @@ test('places a server call with variables', async () => {
                 ({
                     theUrl: 'https://example.com/graphql',
                     theQuery:
-                        'query getFoo($id: String!) { foo(id: $id) { bar } }'
+                        'query getFoo($id: String!) { foo(id: $id) { bar } }',
+                    'combination.to.my.luggage': {
+                        id: 12345
+                    }
                 }[dfn[name]])
         ),
-        context: {
-            get: jest.fn(() => '12345')
-        },
         io: {
             networkFetch: jest.fn(async () => ({
                 json: async () => res,
                 text: async () => JSON.stringify(res)
             }))
         }
+    };
+
+    await expect(
+        new ServiceResolver(visitor).resolve({
+            url: 'theUrl',
+            query: 'theQuery',
+            variables: 'combination.to.my.luggage'
+        })
+    ).resolves.toEqual(res);
+
+    const fetchOptions = visitor.io.networkFetch.mock.calls[0][1];
+
+    expect(JSON.parse(fetchOptions.body)).toMatchInlineSnapshot(`
+Object {
+  "operationName": "getFoo",
+  "query": "query getFoo($id: String!) {
+  foo(id: $id) {
+    bar
+  }
+}
+",
+  "variables": Object {
+    "id": 12345,
+  },
+}
+`);
+});
+
+test('throws if variables are in an unacceptable format', async () => {
+    const visitor = {
+        io: {
+            networkFetch: jest.fn(async () => ({
+                json: async () => res,
+                text: async () => JSON.stringify(res)
+            }))
+        },
+        upward: jest.fn(async () => 'bleh')
     };
 
     await expect(
@@ -104,17 +149,10 @@ test('places a server call with variables', async () => {
             url: 'theUrl',
             query: 'theQuery',
             variables: {
-                id: 'combination.to.my.luggage'
+                inline: 'bleh'
             }
         })
-    ).resolves.toEqual(res);
-
-    expect(visitor.io.networkFetch).toHaveBeenCalledWith(
-        'https://example.com/graphql',
-        expect.objectContaining({
-            body: expect.stringMatching('12345')
-        })
-    );
+    ).rejects.toThrow('Variables must resolve to a plain object.');
 });
 
 test('throws if variables are in an unacceptable format', async () => {
@@ -124,7 +162,8 @@ test('throws if variables are in an unacceptable format', async () => {
                 json: async () => res,
                 text: async () => JSON.stringify(res)
             }))
-        }
+        },
+        upward: jest.fn(async () => 'bleh')
     };
 
     await expect(
@@ -133,26 +172,7 @@ test('throws if variables are in an unacceptable format', async () => {
             query: 'theQuery',
             variables: 'combination.to.my.luggage'
         })
-    ).rejects.toThrow('Variables must be a simple object');
-});
-
-test('throws if variables are in an unacceptable format', async () => {
-    const visitor = {
-        io: {
-            networkFetch: jest.fn(async () => ({
-                json: async () => res,
-                text: async () => JSON.stringify(res)
-            }))
-        }
-    };
-
-    await expect(
-        new ServiceResolver(visitor).resolve({
-            url: 'theUrl',
-            query: 'theQuery',
-            variables: 'combination.to.my.luggage'
-        })
-    ).rejects.toThrow('Variables must be a simple object');
+    ).rejects.toThrow('Variables must resolve to a plain object.');
 });
 
 test('throws if query is missing', async () => {

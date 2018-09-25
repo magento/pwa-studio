@@ -1,6 +1,3 @@
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
 const tape = require('tape');
 
 const { getScenarios, runServer } = require('../../');

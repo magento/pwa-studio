@@ -4,7 +4,6 @@ const ResolverVisitor = require('./ResolverVisitor');
 const Context = require('./Context');
 
 async function buildResponse(io, env, rootDefinition, request) {
-    const response = new Map();
     debug('creating Context');
     const requestContext = Context.fromRequest(env, request);
     debug('creating ResolverVisitor');

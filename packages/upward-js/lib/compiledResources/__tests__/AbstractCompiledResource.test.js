@@ -13,8 +13,8 @@ test('cannot be directly instantiated', () => {
 test('sets source and io properties from constructor args', () => {
     const source = '';
     const io = {};
-    const compiler = new class extends AbstractCompiledResource {}('', io);
-    expect(compiler.source).toBe('');
+    const compiler = new class extends AbstractCompiledResource {}(source, io);
+    expect(compiler.source).toBe(source);
     expect(compiler.io).toBe(io);
 });
 

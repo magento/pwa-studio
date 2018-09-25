@@ -67,6 +67,15 @@ class FileResolver extends AbstractResolver {
             );
         }
         debug('encoding %s is valid', encoding);
+        if (typeof file !== 'string') {
+            throw new Error(
+                `Definition ${JSON.stringify(
+                    definition
+                )} did not resolve to a string 'file'; instead it resolved to ${typeof file} ${JSON.stringify(
+                    file
+                )}`
+            );
+        }
         const fileText = await this.visitor.io.readFile(file, encoding);
         if (encoding !== 'binary') debug('retrieved file text %s', fileText);
         if (parse === 'text') {
@@ -93,8 +102,7 @@ class FileResolver extends AbstractResolver {
         }
         debug('parse === %s, found %s to compile', parse, Resource.name);
         const rsrc = new Resource(fileText, this.visitor.io);
-        await rsrc.compile();
-        return rsrc;
+        return rsrc.compile();
     }
 }
 

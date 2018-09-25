@@ -6,7 +6,6 @@ const MustacheTemplate = require('../compiledResources/MustacheTemplate');
 const Engines = {
     mustache: MustacheTemplate
 };
-const supportedEngines = new Set(['mustache']);
 module.exports = class TemplateResolver extends AbstractResolver {
     static get resolverType() {
         return 'template';
@@ -23,20 +22,21 @@ module.exports = class TemplateResolver extends AbstractResolver {
                 })}.\n\n${msg}`
             );
         };
-        if (!definition.engine) {
-            die('No template engine specified.');
-        }
         if (!definition.template) {
             die('No template specified.');
         }
         if (!definition.provide) {
             die(
-                `'provide' property must be an array of context values or object of resolvable definitions, was ${definition}`
+                `'provide' property must be an array of context values or object of resolvable definitions, was ${inspect(
+                    definition.provide
+                )}`
             );
         } else if (Array.isArray(definition.provide)) {
             if (definition.provide.some(value => typeof value != 'string')) {
                 die(
-                    `'provide' property must be an array of context values or object of resolvable definitions, was ${definition}`
+                    `'provide' property must be an array of context values or object of resolvable definitions, was ${inspect(
+                        definition.provide
+                    )}`
                 );
             } else {
                 providePromise = Promise.all(
@@ -63,9 +63,13 @@ module.exports = class TemplateResolver extends AbstractResolver {
             providePromise
         ];
 
-        const [engine, template, rootEntries] = await Promise.all(toResolve);
+        let [engine, template, rootEntries] = await Promise.all(toResolve);
         debug('template retrieved, "%s"', template);
         debug('rootEntries retrieved, %o', rootEntries.map(([name]) => name));
+
+        if (!engine) {
+            engine = 'mustache';
+        }
 
         const Engine = Engines[engine];
 

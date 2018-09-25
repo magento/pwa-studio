@@ -1,4 +1,3 @@
-const debug = require('debug')('upward-js:AbstractCompiledResource');
 class AbstractCompiledResource {
     static get supportedExtensions() {
         throw new Error(

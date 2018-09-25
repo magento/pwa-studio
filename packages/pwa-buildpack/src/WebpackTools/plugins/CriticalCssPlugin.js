@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 const setDeep = require('lodash').set;
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -5,34 +6,27 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 class CriticalCssPlugin {
     constructor({
         mode,
-        pattern = /\.critical\.css/,
-        filename = '[name].critical.css',
+        excludeDirs = [],
+        pattern = /\.critical\.css$/,
+        filename = 'critical.css',
         cssLoader = {
             loader: 'css-loader',
             options: {
                 importLoaders: 1,
-                // localIdentName: '[name]-[local]-[hash:base64:3]',
+                localIdentName: '[name]-[local]-[hash:base64:3]',
                 modules: true
             }
-        },
-        nonCriticalPattern = /\.css$/
+        }
     }) {
         this.mode = mode;
+        this.excludeDirs = excludeDirs;
         this.pattern = pattern;
         this.filename = filename;
         this.cssLoader = cssLoader;
-        this.nonCriticalPattern = nonCriticalPattern;
         this.extractPlugin = new MiniCssExtractPlugin({ filename });
-        this.optimizePlugin = new OptimizeCssAssetsPlugin({
-            assetNameRegExp: this.pattern,
-            cssProcessor: require('cssnano'),
-            cssProcessorPluginOptions: {
-                preset: ['default', { discardComments: { removeAll: true } }]
-            },
-            canPrint: true
-        });
     }
-    load() {
+    loaders() {
+        let excludeDirs;
         const defaultLoaderChain = ['style-loader', this.cssLoader];
         const extractLoaderChain = [
             MiniCssExtractPlugin.loader,
@@ -41,29 +35,56 @@ class CriticalCssPlugin {
         return {
             oneOf: [
                 {
+                    sideEffects: true,
                     test: this.pattern,
+                    issuer: resource => {
+                        if (!excludeDirs) {
+                            excludeDirs = this.excludeDirs.map(dir =>
+                                resolve(this.compiler.context, dir)
+                            );
+                        }
+                        return excludeDirs.every(
+                            dir => !resource.startsWith(dir)
+                        );
+                    },
                     use:
                         this.mode === 'development'
                             ? defaultLoaderChain
                             : extractLoaderChain
                 },
                 {
-                    test: this.nonCriticalPattern,
+                    test: /\.css$/,
                     use: defaultLoaderChain
                 }
             ]
         };
     }
     apply(compiler) {
+        this.compiler = compiler;
         compiler.options.optimization = compiler.options.optimization || {};
         const { optimization } = compiler.options;
-        optimization.minimizer = optimization.minimizer || [];
-        optimization.minimizer.push(this.optimizePlugin);
-        setDeep(optimization, 'splitChunks.cacheGroups.styles', {
+        if (this.mode === 'production' && !process.env.DEBUG_BEAUTIFY) {
+            optimization.minimizer = optimization.minimizer || [];
+            optimization.minimizer.push(
+                new OptimizeCssAssetsPlugin({
+                    assetNameRegExp: this.pattern,
+                    cssProcessor: require('cssnano'),
+                    cssProcessorPluginOptions: {
+                        preset: [
+                            'default',
+                            { discardComments: { removeAll: true } }
+                        ]
+                    },
+                    canPrint: true
+                })
+            );
+        }
+        setDeep(optimization, 'splitChunks.cacheGroups.critical', {
             name: 'critical',
             test: this.pattern,
             chunks: 'all',
-            enforce: true
+            enforce: true,
+            priority: 1000
         });
         this.extractPlugin.apply(compiler);
     }

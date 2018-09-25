@@ -1,4 +1,4 @@
-const { resolve, extname } = require('path');
+const { resolve } = require('path');
 const { readdir: fsReaddir, readFile: fsReadFile } = require('fs');
 const { promisify } = require('util');
 const jsYaml = require('js-yaml');

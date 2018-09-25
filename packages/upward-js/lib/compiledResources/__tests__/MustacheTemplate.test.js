@@ -63,7 +63,7 @@ test('compiles Mustache ', async () => {
 test('loads Mustache partials using io', async () => {
     const io = {
         readFile: jest.fn(
-            async (name, encoding) =>
+            async name =>
                 `<h2>Hello {{addressee}}, I am the template called ${name}!</h2>`
         )
     };
@@ -90,7 +90,7 @@ test('loads Mustache partials using io', async () => {
 
 test('loads descendent partials using io', async () => {
     const io = {
-        readFile: jest.fn(async (name, encoding) => {
+        readFile: jest.fn(async name => {
             if (name.indexOf('subPartial') !== -1) {
                 return `I'm a subpartial, {{addressee}}!!`;
             }
@@ -136,7 +136,7 @@ test('handles missing partials', async () => {
 
 test('handles partial errors', async () => {
     const io = {
-        readFile: jest.fn(async name => '{{/katzs}} never closes!i809ula/sn')
+        readFile: jest.fn(async () => '{{/katzs}} never closes!i809ula/sn')
     };
     const template = new MustacheTemplate(`{{> aPartial }} ought to close`, io);
     await expect(template.compile()).rejects.toThrowError(

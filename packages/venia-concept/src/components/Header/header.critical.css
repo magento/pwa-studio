@@ -23,7 +23,7 @@
 .navTrigger,
 .cartTrigger,
 .searchTrigger {
-    composes: root from '../clickable.css';
+    composes: root from '../clickable.critical.css';
     height: 3rem;
     width: 3rem;
 }

@@ -1,5 +1,6 @@
 import { createElement, Component } from 'react';
 import { string, shape } from 'prop-types';
+import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
 import resolveUnknownRoute from './resolveUnknownRoute';
 
 export default class MagentoRouteHandler extends Component {
@@ -39,16 +40,14 @@ export default class MagentoRouteHandler extends Component {
                     // when the API work is done to support it
                     throw new Error('404');
                 }
-                return import(`RootComponents:${type}:default`).then(
-                    Component => {
-                        this.setState({
-                            [pathname]: {
-                                Component,
-                                id
-                            }
-                        });
-                    }
-                );
+                return fetchRootComponent(type).then(Component => {
+                    this.setState({
+                        [pathname]: {
+                            Component,
+                            id
+                        }
+                    });
+                });
             })
             .catch(err => {
                 console.log('Routing resolve failed\n', err);

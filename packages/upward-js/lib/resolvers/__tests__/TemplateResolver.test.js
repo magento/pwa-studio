@@ -6,15 +6,6 @@ test('resolverType is file', () =>
 
 test('telltale exists', () => expect(TemplateResolver.telltale).toBeDefined());
 
-test('throws if no engine specified', async () => {
-    await expect(new TemplateResolver().resolve({})).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
-"Invalid arguments to TemplateResolver: {}.
-
-No template engine specified."
-`);
-});
-
 test('throws if no template specified', async () => {
     await expect(new TemplateResolver().resolve({ engine: 'mustache' })).rejects
         .toThrowErrorMatchingInlineSnapshot(`
@@ -30,9 +21,11 @@ test('throws if no provide arg specified', async () => {
             engine: 'mustache',
             template: './some-template'
         })
-    ).rejects.toThrow(
-        `'provide' property must be an array or object of string context values`
-    );
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`
+"Invalid arguments to TemplateResolver: { engine: 'mustache', template: './some-template' }.
+
+'provide' property must be an array of context values or object of resolvable definitions, was undefined"
+`);
 });
 
 test('throws if provide arg is invalid', async () => {
@@ -42,7 +35,13 @@ test('throws if provide arg is invalid', async () => {
             template: './some-template',
             provide: [{}]
         })
-    ).rejects.toThrow(`'provide' property must be an array or object`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`
+"Invalid arguments to TemplateResolver: { engine: 'mustache',
+  template: './some-template',
+  provide: [ {} ] }.
+
+'provide' property must be an array of context values or object of resolvable definitions, was [ {} ]"
+`);
 });
 
 test('throws if template engine is unsupported', async () => {
@@ -163,21 +162,15 @@ test('"provide" accepts an object mapping of string => contextValue also', async
     const io = { readFile() {} };
     const visitor = {
         upward: jest.fn(
-            (dfn, name) =>
+            async (dfn, name) =>
                 ({
                     anEngine: 'mustache',
-                    aTemplate: 'how {{flavor}} it is to be {{quality}} like you'
+                    aTemplate:
+                        'how {{flavor}} it is to be {{quality}} like you',
+                    'env.ENV_VAR': 'sweet',
+                    'deep.structure.isNot': 'flat'
                 }[dfn[name]])
         ),
-        context: {
-            get: jest.fn(
-                name =>
-                    ({
-                        'env.ENV_VAR': 'sweet',
-                        'deep.structure.isNot': 'flat'
-                    }[name])
-            )
-        },
         io
     };
     await expect(
@@ -190,7 +183,6 @@ test('"provide" accepts an object mapping of string => contextValue also', async
             }
         })
     ).resolves.toEqual('how sweet it is to be flat like you');
-    expect(visitor.context.get).toHaveBeenCalledWith('deep.structure.isNot');
 });
 
 test('throws if "provide" is unrecognized', async () => {

@@ -1,5 +1,5 @@
 .root {
-    composes: root from '../clickable.css';
+    composes: root from '../clickable.critical.css';
     border: 1px solid rgb(var(--venia-text));
     border-radius: 2px;
     height: 3rem;

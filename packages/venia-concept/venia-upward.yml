@@ -39,7 +39,15 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        criticalCss: './web/client.critical.css'
+        criticalCss:
+          when:
+            - matches: assetManifest.criticalCssFile
+              pattern: '.'
+              use:
+                file: assetManifest.criticalCssFile
+          default:
+            inline: ''
+        scripts: assetManifest.scripts
         urlResolver: urlResolver
 
 resource:
@@ -59,6 +67,8 @@ resource:
   default:
     inline:
       template: './templates/notfound-shell.mst'
+
+assetManifest: './asset-manifest.json'
 
 urlResolver: urlResolverResult.data.urlResolver
 

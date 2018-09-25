@@ -3,20 +3,12 @@ jest.mock('../../util/promisified/openport');
 jest.mock('../../util/global-config');
 jest.mock('../../util/ssl-cert-store');
 jest.mock('../../util/run-as-root');
-jest.mock('../middlewares/DevProxy');
-jest.mock('../middlewares/OriginSubstitution');
-jest.mock('../middlewares/StaticRootRoute');
 
 const { lookup } = require('../../util/promisified/dns');
 const openport = require('../../util/promisified/openport');
 const runAsRoot = require('../../util/run-as-root');
 const GlobalConfig = require('../../util/global-config');
 const SSLCertStore = require('../../util/ssl-cert-store');
-const middlewares = {
-    DevProxy: require('../middlewares/DevProxy'),
-    OriginSubstitution: require('../middlewares/OriginSubstitution'),
-    StaticRootRoute: require('../middlewares/StaticRootRoute')
-};
 // Mocking a variable path requires the `.doMock`
 const pkgLocTest = process.cwd() + '/package.json';
 const pkg = jest.fn();
@@ -352,93 +344,4 @@ test('.configure() `id` param overrides `provideUniqueHost` param', async () => 
     expect(devServer).toMatchObject({
         host: 'samiam.local.pwadev'
     });
-});
-
-test('.configure() returns a configuration object with before() and after() handlers that add middlewares in order', async () => {
-    simulate.aFreePortWasFound();
-
-    const config = {
-        paths: {
-            output: 'path/to/static'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    const app = {
-        use: jest.fn()
-    };
-
-    middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
-
-    devServer.before(app);
-
-    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
-
-    devServer.after(app);
-
-    expect(middlewares.DevProxy).toHaveBeenCalledWith(
-        expect.objectContaining({
-            target: 'https://magento.backend.domain'
-        })
-    );
-
-    expect(middlewares.OriginSubstitution).not.toHaveBeenCalled();
-
-    expect(app.use).toHaveBeenCalledWith('fakeDevProxy');
-
-    expect(middlewares.StaticRootRoute).toHaveBeenCalledWith(
-        'path/to/static/swname.js'
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeStaticRootRoute');
-
-    expect(app.use).toHaveBeenCalledWith(
-        'full/path/to/publicPath',
-        expect.any(Function)
-    );
-});
-
-test('.configure() optionally adds OriginSubstitution middleware', async () => {
-    simulate.aFreePortWasFound(8002);
-
-    const config = {
-        paths: {
-            output: 'path/to/static'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain',
-        changeOrigin: true
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    const app = {
-        use: jest.fn()
-    };
-
-    middlewares.OriginSubstitution.mockReturnValueOnce(
-        'fakeOriginSubstitution'
-    );
-    middlewares.DevProxy.mockReturnValueOnce('fakeDevProxy');
-    middlewares.StaticRootRoute.mockReturnValueOnce('fakeStaticRootRoute');
-
-    devServer.before(app);
-
-    expect(middlewares.OriginSubstitution).toHaveBeenCalledWith(
-        expect.objectContaining({
-            protocol: 'https:',
-            hostname: 'magento.backend.domain'
-        }),
-        expect.objectContaining({
-            hostname: 'localhost',
-            port: 8002
-        })
-    );
-
-    expect(app.use).toHaveBeenCalledWith('fakeOriginSubstitution');
 });

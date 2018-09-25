@@ -2,7 +2,7 @@ const Context = require('../Context');
 
 test('promises are cached', async () => {
     const context = new Context({});
-    const downward = jest.fn(async () => 'same');
+    const downward = jest.fn(async () => ({ identity: 'same' }));
     context.setVisitor({ downward });
 
     await Promise.all([
@@ -23,14 +23,14 @@ test('cannot set context property twice', () => {
 
 test('forget() deletes ephemeral data', async () => {
     const context = new Context({ mu: 'table' });
-    const downward = jest.fn(async () => 'nificent');
+    const downward = jest.fn(async () => ({ mu: 'nificent' }));
     context.setVisitor({ downward });
 
     await expect(context.get('mu')).resolves.toBe('table');
     expect(downward).not.toHaveBeenCalled();
     context.forget('mu');
     await expect(context.get('mu')).resolves.toBe('nificent');
-    expect(downward).toHaveBeenCalledWith('mu');
+    expect(downward).toHaveBeenCalledWith(['mu']);
 });
 
 test('constants are always present', async () => {

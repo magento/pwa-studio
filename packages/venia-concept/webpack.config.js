@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const webpack = require('webpack');
 const {
@@ -12,9 +13,10 @@ const {
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
-const path = require('path');
 
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
@@ -22,8 +24,10 @@ const themePaths = {
     output: path.resolve(__dirname, 'web')
 };
 
+const rootComponentsDirs = ['./src/RootComponents/'];
+
 module.exports = async function() {
-    const mode = process.env.NODE_ENV || 'production';
+    const mode = process.env.NODE_ENV || 'development';
 
     const babelOptions = configureBabel(mode);
 
@@ -32,7 +36,10 @@ module.exports = async function() {
     );
     const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
-    const critical = new CriticalCssPlugin({ mode });
+    const critical = new CriticalCssPlugin({
+        mode,
+        excludeDirs: rootComponentsDirs
+    });
 
     const config = {
         mode,
@@ -50,8 +57,8 @@ module.exports = async function() {
         module: {
             rules: [
                 {
-                    include: [themePaths.src],
-                    test: /\.js$/,
+                    include: [themePaths.src, /node_modules.+\.mjs$/],
+                    test: /\.m?js$/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -59,7 +66,11 @@ module.exports = async function() {
                         }
                     ]
                 },
-                critical.load(),
+                {
+                    test: /\.mjs$/,
+                    type: 'javascript/auto'
+                },
+                critical.loaders(),
                 {
                     test: /\.(jpg|svg)$/,
                     use: [
@@ -71,57 +82,37 @@ module.exports = async function() {
                 }
             ]
         },
-        optimization: {
-            noEmitOnErrors: true,
-            runtimeChunk: {
-                name: 'shared'
-            },
-            splitChunks: {
-                chunks: 'async',
-                minSize: 30000,
-                maxSize: 1000000,
-                minChunks: 1,
-                maxAsyncRequests: 5,
-                maxInitialRequests: 2,
-                automaticNameDelimiter: '~',
-                name: true,
-                cacheGroups: {
-                    default: {
-                        minChunks: 2,
-                        priority: -20,
-                        reuseExistingChunk: true
-                    }
-                }
-            }
-        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
             }
         }),
         plugins: [
-            new MagentoRootComponentsPlugin({
-                rootComponentsDirs: ['./src/RootComponents/']
+            await MagentoRootComponentsPlugin.create({
+                rootComponentsDirs,
+                context: __dirname
             }),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(mode),
-                // Blank the service worker file name to stop the app from
-                // attempting to register a service worker in index.js.
-                // Only register a service worker when in production or in the
-                // special case of debugging the service worker itself.
-                'process.env.SERVICE_WORKER': JSON.stringify(
-                    mode === 'production' || enableServiceWorkerDebugging
-                        ? serviceWorkerFileName
-                        : false
-                ),
-                /**
-                 * TODO: This env var can override the hardcoded product media
-                 * path, which we need to hardcode due to
-                 * https://github.com/magento/graphql-ce/issues/88
-                 */
-                'process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH': JSON.stringify(
-                    process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
-                )
+                'process.env': {
+                    NODE_ENV: JSON.stringify(mode),
+                    // Blank the service worker file name to stop the app from
+                    // attempting to register a service worker in index.js.
+                    // Only register a service worker when in production or in the
+                    // special case of debugging the service worker itself.
+                    SERVICE_WORKER: JSON.stringify(
+                        mode === 'production' || enableServiceWorkerDebugging
+                            ? serviceWorkerFileName
+                            : false
+                    ),
+                    /**
+                     * TODO: This env var can override the hardcoded product media
+                     * path, which we need to hardcode due to
+                     * https://github.com/magento/graphql-ce/issues/88
+                     */
+                    MAGENTO_BACKEND_PRODUCT_MEDIA_PATH: JSON.stringify(
+                        process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
+                    )
+                }
             }),
             critical,
             new ServiceWorkerPlugin({
@@ -129,6 +120,21 @@ module.exports = async function() {
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
                 paths: themePaths
+            }),
+            new WebpackAssetsManifest({
+                output: '../asset-manifest.json',
+                publicPath: true,
+                entrypoints: true,
+                transform(assets) {
+                    const { client } = assets.entrypoints;
+                    return {
+                        scripts: client.js,
+                        criticalCssFile:
+                            client.css && client.css[0]
+                                ? path.join(themePaths.output, client.css[0])
+                                : ''
+                    };
+                }
             })
         ]
     };
@@ -174,26 +180,53 @@ module.exports = async function() {
         config.performance = {
             hints: 'warning'
         };
-        config.optimization.minimizer = config.optimization.minimizer || [];
-        config.optimization.minimizer.push(
-            new UglifyPlugin({
-                parallel: true,
-                uglifyOptions: {
-                    ecma: 8,
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        ecma: 6
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
-                }
-            })
-        );
+        config.plugins.push(new CleanPlugin([themePaths.output]));
+        // config.optimization = {
+        //     minimizer: [],
+        //     noEmitOnErrors: true,
+        //     namedChunks: true,
+        //     runtimeChunk: 'single',
+        //     splitChunks: {
+        //         chunks: 'all',
+        //         maxSize: 0,
+        //         minChunks: 1,
+        //         maxAsyncRequests: 5,
+        //         maxInitialRequests: 1,
+        //         name: true,
+        //         cacheGroups: {
+        //             vendors: {
+        //                 test: /[\\/]node_modules[\\/]/,
+        //                 priority: 10,
+        //                 minChunks: 1
+        //             },
+        //             default: {
+        //                 minChunks: 2,
+        //                 priority: -20
+        //             }
+        //         }
+        //     }
+        // };
+        // if (!process.env.DEBUG_BEAUTIFY) {
+        //     config.optimization.minimizer.push(
+        //         new UglifyPlugin({
+        //             parallel: true,
+        //             uglifyOptions: {
+        //                 ecma: 8,
+        //                 parse: {
+        //                     ecma: 8
+        //                 },
+        //                 compress: {
+        //                     ecma: 6
+        //                 },
+        //                 output: {
+        //                     ecma: 7,
+        //                     semicolons: false
+        //                 },
+        //                 keep_fnames: true
+        //             }
+        //         })
+        //     );
+        // }
     } else {
         throw Error(`Unsupported environment mode in webpack config: `);
     }
