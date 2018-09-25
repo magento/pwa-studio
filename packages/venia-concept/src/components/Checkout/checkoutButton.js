@@ -1,24 +1,25 @@
 import { Component, createElement } from 'react';
-import { func, string } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
 
-const isDisabled = status => ['ACCEPTED', 'REQUESTING'].includes(status);
+const iconDimensions = { height: 16, width: 16 };
+const isDisabled = (busy, valid) => busy || !valid;
 
 class CheckoutButton extends Component {
     static propTypes = {
-        requestOrder: func.isRequired,
-        status: string.isRequired
+        ready: bool.isRequired,
+        submit: func.isRequired,
+        submitting: bool.isRequired
     };
 
     render() {
-        const { requestOrder, status } = this.props;
-        const disabled = isDisabled(status);
-        const iconDimensions = { height: 16, width: 16 };
+        const { ready, submit, submitting } = this.props;
+        const disabled = isDisabled(submitting, ready);
 
         return (
-            <Button disabled={disabled} onClick={requestOrder}>
+            <Button disabled={disabled} onClick={submit}>
                 <Icon name="lock" attrs={iconDimensions} />
                 <span>Checkout</span>
             </Button>
