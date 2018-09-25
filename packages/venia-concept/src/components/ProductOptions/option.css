@@ -23,14 +23,16 @@ button:disabled {
     position: absolute;
     width: inherit;
     height: inherit;
-    top: 0;
+    top: .5rem;
     left: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .children {
     position: relative;
     z-index: 2;
-    top: 50%;
 }
 
 button:disabled .overlay {
