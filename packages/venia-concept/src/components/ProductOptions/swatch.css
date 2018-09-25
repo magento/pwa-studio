@@ -16,4 +16,24 @@
   display: block;
   color: white;
   filter: drop-shadow(0px 2px 0px black);
+  z-index: 10;
 }
+
+.disabled span:after, .disabled span:before {
+    width: 140%;
+    height: 1px;
+    position: absolute;
+    content: "";
+    background-color: black;
+    z-index: 10;
+    color: black;
+}
+
+.disabled span:before {
+    transform: rotate(45deg);
+}
+
+.disabled span:after {
+    transform: rotate(-45deg);
+}
+

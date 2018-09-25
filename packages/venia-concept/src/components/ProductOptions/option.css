@@ -1,56 +1,36 @@
 .root {
-    background-color: rgb(var(--background-color));
-    border-radius: 2px;
-    border: none;
     composes: root from '../clickable.css';
-    height: auto;
-    margin: 1rem;
-    outline: none;
-    overflow: hidden;
-    padding: 0 0.75rem;
-    position: relative;
-    width: auto;
 }
 
-button {
-    cursor: pointer;
-}
-
-button div {
+.root div {
     background: inherit;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
     display: inherit;
+    position: relative;
 }
 
-button:disabled span:before, button:disabled span:after {
+.disabled > span:after, .disabled > span:before {
     width: 140%;
     height: 1px;
     position: absolute;
     content: "";
     background-color: black;
     z-index: 10;
-}
-
-button:disabled span:before {
-    transform: rotate(45deg);
-}
-
-button:disabled span:after {
-    transform: rotate(-45deg);
-}
-
-button:disabled {
     color: black;
 }
 
-button {
-  outline: none;
+.disabled span:before {
+    transform: rotate(45deg);
 }
 
-.childrenContainer, button:disabled .overlay, .root {
+.disabled span:after {
+    transform: rotate(-45deg);
+}
+
+.childrenContainer, .root:disabled .overlay, .root {
     min-width: 3rem;
     min-height: 3rem;
 }
@@ -59,7 +39,7 @@ button {
   display: none;
 }
 
-.childrenContainer, button:disabled .overlay, Icon {
+.childrenContainer, .root:disabled .overlay, Icon {
     position: absolute;
     width: inherit;
     height: inherit;
@@ -73,7 +53,7 @@ button {
     z-index: 2;
 }
 
-button:disabled .overlay {
+.root:disabled .overlay {
     z-index: 1;
     background-color: grey;
     opacity: .5;

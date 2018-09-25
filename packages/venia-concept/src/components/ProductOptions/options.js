@@ -18,9 +18,9 @@ class Options extends Component {
 
     select = (item) => {
         this.setState({
-            selected: item.backgroundColor
+            selected: item.id
         });
-        console.log(id);
+        console.log(item);
     }
 
     render() {
@@ -30,11 +30,12 @@ class Options extends Component {
         return (
             <div className={classes.root}>
                 { options.map(
-                    (option) => {
-                        (option.item.backgroundColor === this.state.selected ) ?
+                    (option, id) => {
+                        (option.item.id === this.state.selected ) ?
                             option.item['isSelected'] = true :
                             option.item['isSelected'] = false
-                        return <Option handleClick={select} key={option.id} {...option} />
+                        option.item['id'] = id;
+                        return <Option handleClick={select} key={id} {...option} />
                     })
                 }
             </div>

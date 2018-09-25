@@ -32,10 +32,11 @@ class Option extends Component {
     render() {
         const { classes, item, children } = this.props;
         const { check } =  this;
-        const { backgroundColor, name, isSelected, opts } = item;
+        const { backgroundColor, name, isSelected, isDisabled } = item;
         const style = { '--background-color': backgroundColor };
 
-        const buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
+        let buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
+        buttonClasses = isDisabled ? `${buttonClasses} ${classes.disabled}` : buttonClasses;
 
         return (
 			<button
@@ -43,7 +44,6 @@ class Option extends Component {
 				title={name}
 				style={style}
 				onClick={this.handleClick}
-				{...opts}
             >
           <span className={classes.childrenContainer}>
               <span className={classes.children}> {children} </span>

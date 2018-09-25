@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
+import optionClasses from '../option.css';
 
 const stories = storiesOf('Product Options/Option', module);
 
@@ -20,9 +21,7 @@ const swatchItemDisabled = () => {
         backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
         name: 'disabled',
         onclick: () => console.log('hey'),
-        opts: {
-			'disabled': 'disabled'
-			}
+        isDisabled: true
     }
 }
 
@@ -37,7 +36,10 @@ const swatchItemSelected = () => {
 
 stories.add(
     'Option', () => (
-        <Option item={swatchItem()} />
+        <Option
+            item={swatchItem()}
+            classes={optionClasses}
+        />
     )
 );
 
@@ -45,6 +47,7 @@ stories.add(
     'Option disabled', () => (
         <Option
             item={swatchItemDisabled()}
+            classes={optionClasses}
         />
     )
 );
@@ -54,6 +57,7 @@ stories.add(
     'Option selected', () => (
         <Option
             item={swatchItemSelected()}
+            classes={optionClasses}
         />
     )
 );

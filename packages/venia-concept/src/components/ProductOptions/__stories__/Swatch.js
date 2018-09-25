@@ -29,9 +29,7 @@ const swatchItemDisabled = {
     backgroundColor: '128 0 0',
     name: 'disabled',
     onclick: () => console.log('Swatch'),
-    opts: {
-        'disabled': 'disabled'
-    }
+    isDisabled: true
 }
 
 const swatchItemSelected = {
