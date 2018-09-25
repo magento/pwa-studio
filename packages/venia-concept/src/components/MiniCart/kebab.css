@@ -13,7 +13,7 @@
     z-index: 3;
     position: absolute;
     right: 0.5em;
-    box-shadow: 2px 2px 5px #777;
+    box-shadow: 0 0 1px #999;
 }
 
 .kebab {
@@ -45,19 +45,6 @@
     background-color: #EEE;
 }
 
-.dropdown li > button {
-    width: 100%;
-    padding: 8px;
-    display: flex;
-    grid-template-columns: min-content;
-    white-space: pre;
-    box-sizing: border-box;
-    text-align: left;
-    align-items: center;
-    justify-items: start;
-    column-gap: 10px;
-  }
-
 .dropdown li {
     border-bottom: 1px solid rgb(var(--venia-border));
 }
@@ -66,10 +53,4 @@
     position: absolute;
     transform: scale(1);
     transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
-}
-
-.text {
-    padding-top: 3px;
-    padding-left: 6px;
-    font-size: 14px;
 }

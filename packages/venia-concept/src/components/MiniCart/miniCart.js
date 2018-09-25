@@ -107,9 +107,9 @@ class MiniCart extends Component {
                     <h2 className={classes.title}>
                         <span>Edit Cart Item</span>
                     </h2>
-                    <button onClick={this.hideEditPanel}>
+                    <Trigger>
                         <Icon name="x" />
-                    </button>
+                    </Trigger>
                 </div>
                 <div className={classes.content}>
                     <div className={classes.focusItem}>{itemName} <span>${itemPrice}</span></div>
@@ -117,7 +117,8 @@ class MiniCart extends Component {
                 </div>
                 <div className={classes.footer}></div>
                 <div className={classes.save}>
-                    <Button>Save Changes</Button>
+                    <Button onClick={this.hideEditPanel}>Cancel</Button>
+                    <Button>Update Cart</Button>
                 </div>
             </div>
         );

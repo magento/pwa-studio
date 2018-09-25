@@ -2,6 +2,7 @@ import { Component, Fragment, createElement } from 'react';
 import { number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
+import Section from './section';
 
 import classify from 'src/classify';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -37,10 +38,11 @@ class Product extends Component {
         currencyCode: string.isRequired
     };
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            isOpen: false
+            isOpen: false,
+            isFavorite: false
         };
     }
 
@@ -69,8 +71,9 @@ class Product extends Component {
 
     render() {
         const { options, props } = this;
-        const { classes, item, currencyCode, removeItemFromCart, showEditPanel } = props;
+        const { classes, item, currencyCode } = props;
         const rootClasses = this.state.isOpen ? classes.root + ' ' + classes.root_masked : classes.root;
+        const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
             <li className={rootClasses}>
@@ -98,10 +101,24 @@ class Product extends Component {
                     onFocus={this.openDropdown}
                     onBlur={this.closeDropdown}
                     isOpen={this.state.isOpen}
-                    removeItemFromCart={removeItemFromCart}
-                    showEditPanel={showEditPanel}
-                    item={item}
-                />
+                >
+                    <Section
+                        text="Add to favorites"
+                        onClick={this.favoriteItem}
+                        icon='heart'
+                        iconAttributes={this.state.isFavorite ? favoritesFill : ''}
+                    />
+                    <Section
+                        text="Edit item"
+                        onClick={this.editItem}
+                        icon='edit-2'
+                    />
+                    <Section
+                        text="Remove item"
+                        onClick={this.removeItem}
+                        icon='trash'
+                    />
+                </Kebab>
             </li>
         );
     }
@@ -116,6 +133,21 @@ class Product extends Component {
         this.setState({
             isOpen: false
         });
+    }
+
+    favoriteItem = () => {
+        this.setState({
+            isFavorite: true
+        })
+    }
+
+    editItem = () => {
+        this.props.showEditPanel(this.props.item);
+    }
+
+    removeItem = () => {
+        // TODO: prompt user to confirm this action
+        this.props.removeItemFromCart(this.props.item);
     }
 }
 

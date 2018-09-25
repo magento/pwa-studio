@@ -118,6 +118,11 @@
     padding: 1rem 0;
 }
 
+.save button {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 /* state: open */
 
 .root_open {
