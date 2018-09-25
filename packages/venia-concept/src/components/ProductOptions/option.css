@@ -5,8 +5,7 @@
     composes: root from '../clickable.css';
     height: auto;
     width: auto;
-    margin-left: 1rem;
-    margin-top: 1rem;
+    margin: 1rem;
     min-width: 3rem;
     min-height: 3rem;
     padding: 0 0.75rem;
@@ -19,7 +18,7 @@ button:disabled {
     color: black;
 }
 
-.childrenContainer {
+.childrenContainer, button:disabled .overlay {
     position: absolute;
     width: inherit;
     height: inherit;
@@ -37,11 +36,6 @@ button:disabled {
 
 button:disabled .overlay {
     z-index: 1;
-    position: absolute;
     background-color: grey;
     opacity: .75;
-    width: inherit;
-    height: inherit;
-    top: .5rem;
-    left: .5rem;
 }
