@@ -5,6 +5,7 @@ import defaultClasses from './productEdit.css';
 import ProductOptions from 'src/components/ProductOptions';
 import OptionsHeader from 'src/components/ProductOptions/optionsHeader';
 import swatchClasses from '../ProductOptions/swatch.css';
+import { tileItems } from 'src/components/ProductOptions/mock_data';
 
 class ProductEdit extends Component {
     static propTypes = {
@@ -38,6 +39,8 @@ class ProductEdit extends Component {
 			<div className={classes.root}>
                 <div className={classes.header}>{item.name}</div>
                 <div className={classes.colors}>
+                    <OptionsHeader title='Choose a Size' />
+                    <ProductOptions options={tileItems}/>
                     <OptionsHeader title='Choose a Color' />
                     <ProductOptions options={swatchItems}/>
                 </div>
