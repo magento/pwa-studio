@@ -55,7 +55,7 @@ class Option extends Component {
     }
 
     handleClick = () => {
-        console.log('clicked');
+        this.props.handleClick(this.props.item);
     };
 }
 

@@ -1,0 +1,8 @@
+.root {
+    display: flex;
+    flex-direction: row;
+}
+
+.root > button {
+    margin: .4em;
+}
