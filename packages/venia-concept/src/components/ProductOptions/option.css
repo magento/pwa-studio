@@ -1,5 +1,12 @@
 .root {
     composes: root from '../clickable.css';
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 4%;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .root div {

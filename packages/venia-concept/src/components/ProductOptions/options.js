@@ -10,11 +10,7 @@ class Options extends Component {
         options: PropTypes.arrayOf(PropTypes.object)
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {selected: 0};
-    }
-
+    state = {selected: 0};
 
     select = (item) => {
         this.setState({
@@ -26,7 +22,6 @@ class Options extends Component {
     render() {
         const { options, classes } = this.props;
         const { select } = this;
-
         return (
             <div className={classes.root}>
                 { options.map(

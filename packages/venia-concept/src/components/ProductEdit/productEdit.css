@@ -1,4 +1,12 @@
 .root {
-    margin-top: 1rem;
     padding: 1rem;
+}
+
+.colors, .sizes {
+    box-shadow: 0 -1px rgb(var(--venia-border));
+    padding: 1rem 0;
+}
+
+.header {
+    margin: 1rem 0;
 }

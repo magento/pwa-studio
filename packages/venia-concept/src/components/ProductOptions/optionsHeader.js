@@ -1,10 +1,11 @@
 import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 import defaultClasses from './optionsHeader.css';
+import classify from 'src/classify';
 
 class OptionsHeader extends Component {
     static propTypes = {
-        classes: shape({
+        classes: PropTypes.shape({
             root: PropTypes.string,
         }),
         title: PropTypes.string,

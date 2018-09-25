@@ -78,7 +78,7 @@ class MiniCart extends Component {
         const { classes, isOpen, cart } = this.props;
         const className = isOpen ? classes.root_open : classes.root;
         console.log(this.state.editPanelOpen);
-        return this.state.editPanelOpen ? (
+        return this.state.editPanelOpen && cart.details.items[0] ? (
             <div className={className}>
                 <div className={classes.header}>
                     <h2 className={classes.title}>
