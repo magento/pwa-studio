@@ -1,45 +1,15 @@
 .root {
-    background-color: rgb(var(--background-color));
     border-radius: 2px;
     border: none;
+    outline: none;
     composes: root from '../clickable.css';
     height: auto;
-    margin: 1rem;
-    outline: none;
-    overflow: hidden;
+    width: auto;
+    margin: 1rem 1rem 0 0;
     padding: 0 0.75rem;
     position: relative;
-    width: auto;
-}
-
-button {
-    cursor: pointer;
-}
-
-button div {
-    background: inherit;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: inherit;
-}
-
-button:disabled span:before, button:disabled span:after {
-    width: 140%;
-    height: 1px;
-    position: absolute;
-    content: "";
-    background-color: black;
-    z-index: 10;
-}
-
-button:disabled span:before {
-    transform: rotate(45deg);
-}
-
-button:disabled span:after {
-    transform: rotate(-45deg);
+    overflow: hidden;
+    background-color: rgb(var(--background-color));
 }
 
 button:disabled {

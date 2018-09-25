@@ -1,8 +1,9 @@
 .root {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .root > button {
-    margin: .4em;
+    margin: .8rem .8rem 0 0;
 }

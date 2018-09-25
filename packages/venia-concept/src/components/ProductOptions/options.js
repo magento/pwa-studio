@@ -10,11 +10,7 @@ class Options extends Component {
         options: PropTypes.arrayOf(PropTypes.object)
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {selected: 0};
-    }
-
+    state = {selected: 0};
 
     select = (item) => {
         this.setState({
@@ -26,15 +22,14 @@ class Options extends Component {
     render() {
         const { options, classes } = this.props;
         const { select } = this;
-
         return (
             <div className={classes.root}>
                 { options.map(
-                    (option) => {
+                    (option, i) => {
                         (option.item.backgroundColor === this.state.selected ) ?
                             option.item['isSelected'] = true :
                             option.item['isSelected'] = false
-                        return <Option handleClick={select} key={option.id} {...option} />
+                        return <Option handleClick={select} key={i} {...option} />
                     })
                 }
             </div>
