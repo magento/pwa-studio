@@ -10,18 +10,18 @@ class Option extends Component {
             root: PropTypes.string
         }),
         item: PropTypes.shape({
-            id: PropTypes.string,
+            backgroundColor: PropTypes.string,
             name: PropTypes.string,
             text: PropTypes.string,
-            isDisabled: PropTypes.bool,
+            opts: PropTypes.object,
             isSelected: PropTypes.bool
         })
     };
 
     render() {
-        const { classes, item } = this.props;
-        const { id, name, isSelected, opts } = item;
-        const style = { '--background-color': id };
+        const { classes, item, children } = this.props;
+        const { backgroundColor, name, isSelected, opts } = item;
+        const style = { '--background-color': backgroundColor };
 
         const buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
 
@@ -32,7 +32,10 @@ class Option extends Component {
 				style={style}
 				onClick={this.handleClick}
 				{...opts}
-            > <div> {this.props.children} </div> </button>
+            >
+                <span className={classes.childrenContainer}> <span className={classes.children}>{children}</span> </span>
+                <div className={classes.overlay} />
+            </button>
         );
     }
 

@@ -1,54 +1,11 @@
 .root {
-    border-radius: 2px;
-    border: 1px solid rgb(var(--venia-text));
-    composes: root from '../clickable.css';
-    height: 100%;
-    width: 100%;
-    margin-left: 1rem;
-    margin-top: 1rem;
-    min-width: 3rem;
-    min-height: 3rem;
-    padding: 0 0.75rem;
-    position: relative;
-    overflow: hidden;
+    background-color: rgb(var(--background-color));
+    border: none;
+    width: 4rem;
+    height: 4rem;
 }
 
-@media (min-width: 1024px) {
-    .root {
-        height: 2rem;
-        min-width: 2rem;
-        padding: 0;
-    }
-}
-
-button div {
-    background: inherit;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    display: inherit;
-}
-
-button:disabled div:before, button:disabled div:after {
-    width: 140%;
-    height: 3px;
-    /* height: 100%; */
-    /* clip-path: polygon(53% 0, 53% 100%, 47% 100%, 47% 0); */
-    position: absolute;
-    content: "";
+.selected {
     background-color: black;
-}
-
-button:disabled div:before {
-    transform: rotate(45deg);
-}
-
-button:disabled div:after {
-    transform: rotate(-45deg);
-}
-
-.root_selected {
-    background-color: rgb(var(--venia-text));
     color: white;
 }

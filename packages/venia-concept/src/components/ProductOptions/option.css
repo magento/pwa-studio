@@ -1,11 +1,45 @@
 .root {
-    composes: root from './tile.css';
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    composes: root from '../clickable.css';
+    height: auto;
+    width: auto;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    padding: 0 0.75rem;
+    position: relative;
+    overflow: hidden;
     background-color: rgb(var(--background-color));
-    border-color: rgba(0, 0, 0, 0.1);
-    width: 100%;
-    height: 100%;
 }
 
-.selected {
-    background-color: blue;
+button:disabled {
+    color: black;
+}
+
+.childrenContainer {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    top: 0;
+    left: .5rem;
+}
+
+.children {
+    position: relative;
+    z-index: 2;
+    top: 50%;
+}
+
+button:disabled .overlay {
+    z-index: 1;
+    position: absolute;
+    background-color: grey;
+    opacity: .75;
+    width: inherit;
+    height: inherit;
+    top: .5rem;
+    left: .5rem;
 }

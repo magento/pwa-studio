@@ -1,13 +1,13 @@
 import { createElement } from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
-import swatchClasses from '../swatch.css';
+import tileClasses from '../tile.css';
 
-const stories = storiesOf('Product Options/Swatch', module);
+const stories = storiesOf('Product Options/Tile', module);
 
 const randColor = () => Math.floor(Math.random()*128);
 
-const swatchItem = () => {
+const tileItem = () => {
     return {
         backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
         name: 'hey',
@@ -15,8 +15,7 @@ const swatchItem = () => {
     }
 }
 
-
-const swatchItemDisabled = () => {
+const tileItemDisabled = () => {
     return {
         backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
         name: 'disabled',
@@ -27,7 +26,7 @@ const swatchItemDisabled = () => {
     }
 }
 
-const swatchItemSelected = () => {
+const tileItemSelected = () => {
     return {
 		backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
 		name: 'Selected',
@@ -36,31 +35,31 @@ const swatchItemSelected = () => {
     }
 }
 
-
 stories.add(
-    'Swatch', () => (
+    'Tile', () => (
         <Option
-            item={swatchItem()}
-            classes={swatchClasses}
-        />
+            item={tileItem()}
+            classes={tileClasses}
+        > Test </Option>
     )
 );
 
 stories.add(
-    'Swatch disabled', () => (
+    'Tile disabled', () => (
         <Option
-            item={swatchItemDisabled()}
-            classes={swatchClasses}
-        />
+            name={'test'}
+            item={tileItemDisabled()}
+            classes={tileClasses}
+        > Test </Option>
     )
 );
 
-
 stories.add(
-    'Swatch selected', () => (
+    'Tile selected', () => (
         <Option
-            item={swatchItemSelected()}
-            classes={swatchClasses}
-        />
+            name={'test'}
+            item={tileItemSelected()}
+            classes={tileClasses}
+        > Test </Option>
     )
 );
