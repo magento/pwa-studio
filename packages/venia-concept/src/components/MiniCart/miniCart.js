@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
+import Button from 'src/components/Button';
 
 import { store } from 'src';
 import { getCartDetails } from 'src/actions/cart';
@@ -11,6 +12,7 @@ import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
+import ProductEdit from 'src/components/ProductEdit';
 
 let Checkout;
 
@@ -34,6 +36,10 @@ class MiniCart extends Component {
     constructor(...args) {
         super(...args);
     }
+
+    state = ({
+        editPanelOpen: false
+    })
 
     async componentDidMount() {
         const [
@@ -60,12 +66,40 @@ class MiniCart extends Component {
 
     get productList() {
         const { cartId, cartCurrencyCode, cart } = this.props;
-        return cartId ? (
+        return cartId && !this.state.editPanelOpen ? (
             <ProductList
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
             />
         ) : null;
+    }
+
+    get editPanel() {
+        const { classes, isOpen, cart } = this.props;
+        const className = isOpen ? classes.root_open : classes.root;
+        console.log(this.state.editPanelOpen);
+        return this.state.editPanelOpen ? (
+            <div className={className}>
+                <div className={classes.header}>
+                    <h2 className={classes.title}>
+                        <span>EDIT CART ITEM</span>
+                    </h2>
+                    <Trigger>
+                        <Icon name="x" />
+                    </Trigger>
+                </div>
+                <div className={classes.body}>
+                    <ProductEdit item={cart.details.items[0]} />
+                </div>
+                <div className={classes.footer}>
+                    <div className={classes.summary}>
+                        <Button onClick={() => this.setState({editPanelOpen: false})}>Cancel</Button>
+                        <Button>Save Changes</Button>
+                    </div>
+                </div>
+            </div>
+        ) : null
+
     }
 
     get totalsSummary() {
@@ -93,11 +127,11 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { checkout, productList, totalsSummary, props } = this;
+        const { checkout, productList, totalsSummary, props, editPanel } = this;
         const { classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
-        return (
+        return !this.state.editPanelOpen ? (
             <aside className={className}>
                 <div className={classes.header}>
                     <h2 className={classes.title}>
@@ -108,12 +142,13 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 <div className={classes.body}>{productList}</div>
+                <button onClick={() => this.setState({editPanelOpen: !this.state.editPanelOpen})}>Edit item 1</button>
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>
                 {checkout}
             </aside>
-        );
+        ) : <div>{editPanel}</div>
     }
 }
 

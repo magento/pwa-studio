@@ -46,14 +46,16 @@ button:disabled {
     color: black;
 }
 
+button {
+  outline: none;
+}
+
 .childrenContainer, button:disabled .overlay, .root {
     min-width: 3rem;
     min-height: 3rem;
 }
 
 .check {
-  color: white;
-  filter: drop-shadow(0px 2px 0px black);
   display: none;
 }
 
