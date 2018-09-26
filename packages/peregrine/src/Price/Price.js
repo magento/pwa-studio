@@ -1,4 +1,4 @@
-import { createElement, PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { number, string, shape } from 'prop-types';
 
 export default class Price extends PureComponent {

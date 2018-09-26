@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import ContainerChild from '..';
 import docs from '../__docs__/ContainerChild.md';

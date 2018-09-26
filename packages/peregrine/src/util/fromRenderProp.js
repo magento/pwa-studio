@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 
 // memoization cache
 const cache = new Map();
@@ -31,7 +31,10 @@ const fromRenderProp = (elementType, customProps = []) => {
         // create an SFC that renders a node of type `elementType`
         // and filter any props that shouldn't be written to the DOM
         const Component = props =>
-            createElement(elementType, filterProps(props, uniqueCustomProps));
+            React.createElement(
+                elementType,
+                filterProps(props, uniqueCustomProps)
+            );
 
         Component.displayName = `fromRenderProp(${elementType})`;
         cache.set(key, Component);

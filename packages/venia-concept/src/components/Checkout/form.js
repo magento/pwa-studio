@@ -1,4 +1,4 @@
-import { Component, Fragment, createElement } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';

@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 
 export const mockRequest = jest.fn();
 
