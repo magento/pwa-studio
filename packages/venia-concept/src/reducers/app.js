@@ -1,30 +1,23 @@
+import { handleActions } from 'redux-actions';
+
+import actions from 'src/actions/app';
+
+export const name = 'app';
+
 const initialState = {
     drawer: null,
     overlay: false,
     pending: {}
 };
 
-const reducer = (state = initialState, { error, payload, type }) => {
-    switch (type) {
-        case 'TOGGLE_DRAWER': {
-            return {
-                ...state,
-                drawer: payload,
-                overlay: !!payload
-            };
-        }
-        default: {
-            if (error) {
-                return {
-                    ...state,
-                    error
-                };
-            }
-            return state;
-        }
+const reducerMap = {
+    [actions.toggleDrawer]: (state, { payload }) => {
+        return {
+            ...state,
+            drawer: payload,
+            overlay: !!payload
+        };
     }
 };
 
-const selectAppState = ({ app }) => ({ app });
-
-export { reducer as default, selectAppState };
+export default handleActions(reducerMap, initialState);
