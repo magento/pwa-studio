@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';

@@ -30,7 +30,7 @@
     "watch:venia-dev-server": "cd packages/venia-concept && nodemon --watch ../pwa-buildpack/dist --watch webpack.config.js --delay 1 --ext js,json --exec npm run-script watch; cd - >/dev/null"
   },
   "devDependencies": {
-    "@magento/eslint-config": "1.0.0",
+    "@magento/eslint-config": "^1.2.3",
     "@storybook/addon-actions": "^3.4.2",
     "@storybook/addons": "^3.4.6",
     "@storybook/react": "^3.4.2",
