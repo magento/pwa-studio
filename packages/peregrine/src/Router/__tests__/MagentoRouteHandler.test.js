@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import MagentoRouteHandler from '../MagentoRouteHandler';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
