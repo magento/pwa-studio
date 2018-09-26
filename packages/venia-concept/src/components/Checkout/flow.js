@@ -1,79 +1,92 @@
 import React, { Component } from 'react';
-import { bool, func, oneOf, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import Entrance from './entrance';
-import Exit from './exit';
+import Cart from './cart';
 import Form from './form';
+import Receipt from './receipt';
 import defaultClasses from './flow.css';
 
 const stepMap = {
-    READY: 'STEP_1',
-    REQUESTING: 'STEP_1',
-    MODIFYING: 'STEP_2',
-    SUBMITTING: 'STEP_2',
-    ACCEPTED: 'STEP_3'
+    cart: 1,
+    form: 2,
+    receipt: 3
 };
 
-const stepEnum = Object.keys(stepMap);
+const isCartReady = items => items > 0;
+const isAddressValid = address => !!(address && address.email);
 
 class Flow extends Component {
     static propTypes = {
+        actions: shape({
+            beginCheckout: func.isRequired,
+            editOrder: func.isRequired,
+            resetCheckout: func.isRequired,
+            submitInput: func.isRequired,
+            submitOrder: func.isRequired
+        }).isRequired,
+        cart: shape({
+            details: object,
+            guestCartId: string,
+            totals: object
+        }),
+        checkout: shape({
+            editing: string,
+            step: string,
+            submitting: bool
+        }),
         classes: shape({
             root: string
-        }),
-        ready: bool,
-        resetCheckout: func.isRequired,
-        requestOrder: func.isRequired,
-        status: oneOf(stepEnum).isRequired,
-        submitOrder: func.isRequired
+        })
     };
 
-    render() {
+    get child() {
+        const { actions, cart, checkout } = this.props;
         const {
-            classes,
-            enterSubflow,
-            ready,
+            beginCheckout,
+            editOrder,
             resetCheckout,
-            requestOrder,
-            status,
+            submitInput,
             submitOrder
-        } = this.props;
+        } = actions;
+        const { editing, step, submitting } = checkout;
+        const { details } = cart;
+        const ready = isCartReady(details.items_count);
+        const valid = isAddressValid(details.billing_address);
 
-        const step = stepMap[status];
-        let child = null;
+        switch (stepMap[step]) {
+            case 1: {
+                const stepProps = { beginCheckout, ready, submitting };
 
-        switch (step) {
-            case 'STEP_1': {
-                child = (
-                    <Entrance status={status} requestOrder={requestOrder} />
-                );
-                break;
+                return <Cart {...stepProps} />;
             }
-            case 'STEP_2': {
-                child = (
-                    <Form
-                        ready={ready}
-                        status={status}
-                        enterSubflow={enterSubflow}
-                        submitOrder={submitOrder}
-                    />
-                );
-                break;
+            case 2: {
+                const stepProps = {
+                    cart,
+                    editOrder,
+                    editing,
+                    submitInput,
+                    submitOrder,
+                    submitting,
+                    valid
+                };
+
+                return <Form {...stepProps} />;
             }
-            case 'STEP_3': {
-                child = <Exit resetCheckout={resetCheckout} />;
-                break;
+            case 3: {
+                const stepProps = { resetCheckout };
+
+                return <Receipt {...stepProps} />;
             }
             default: {
-                const message =
-                    'Checkout is in an invalid state. ' +
-                    'Expected `status` to be one of the following: ' +
-                    stepEnum.map(s => `\`${s}\``).join(', ');
-
-                throw new Error(message);
+                return null;
             }
         }
+    }
+
+    render() {
+        const { child, props } = this;
+        const { classes } = props;
 
         return <div className={classes.root}>{child}</div>;
     }

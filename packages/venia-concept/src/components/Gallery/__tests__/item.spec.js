@@ -1,7 +1,7 @@
 import React from 'react';
-import { configure, mount, shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { BrowserRouter } from 'react-router-dom';
+import { Link, MemoryRouter } from 'react-router-dom';
 
 import Item from '../item';
 
@@ -59,22 +59,24 @@ test('passes classnames to the placeholder item', () => {
     expect(wrapper.hasClass(classes.root_pending));
 });
 
-test('renders Anchor elements for navigating to a PDP', () => {
-    const wrapper = mount(
-        <BrowserRouter>
+test('renders Link elements for navigating to a PDP', () => {
+    const wrapper = shallow(
+        <MemoryRouter>
             <Item classes={classes} item={validItem} />
-        </BrowserRouter>
+        </MemoryRouter>
     );
-    const expectedSelector = `a[href="/${validItem.url_key}.html"]`;
-    const imageLink = wrapper
-        .find({ className: classes.images })
-        .find(expectedSelector);
-    const nameLink = wrapper
-        .find({ className: classes.name })
-        .find(expectedSelector);
 
-    expect(imageLink).toHaveLength(1);
-    expect(nameLink).toHaveLength(1);
+    expect(
+        wrapper
+            .childAt(0)
+            .dive()
+            .dive()
+            .findWhere(
+                node =>
+                    node.type() === Link &&
+                    node.prop('to') === `/${validItem.url_key}.html`
+            )
+    ).toHaveLength(2);
 });
 
 /**

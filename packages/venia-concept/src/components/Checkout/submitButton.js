@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { bool, func, string } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import Button from 'src/components/Button';
 
-const isDisabled = (ready, status) =>
-    !ready || ['ACCEPTED', 'SUBMITTING'].includes(status);
+const isDisabled = (busy, valid) => busy || !valid;
 
 class SubmitButton extends Component {
     static propTypes = {
-        ready: bool,
-        status: string.isRequired,
-        submitOrder: func.isRequired
+        submitOrder: func.isRequired,
+        submitting: bool.isRequired,
+        valid: bool.isRequired
     };
 
     render() {
-        const { ready, status, submitOrder } = this.props;
-        const disabled = isDisabled(ready, status);
+        const { submitOrder, submitting, valid } = this.props;
+        const disabled = isDisabled(submitting, valid);
 
         return (
             <Button disabled={disabled} onClick={submitOrder}>

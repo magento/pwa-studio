@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
+import { closeDrawer } from 'src/actions/app';
 import defaultClasses from './trigger.css';
 
 class NavTrigger extends Component {
@@ -12,23 +13,25 @@ class NavTrigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        closeNav: PropTypes.func.isRequired
+        closeDrawer: PropTypes.func.isRequired
     };
 
     render() {
-        const { children, classes, closeNav } = this.props;
+        const { children, classes, closeDrawer } = this.props;
 
         return (
-            <button className={classes.root} type="button" onClick={closeNav}>
+            <button
+                className={classes.root}
+                type="button"
+                onClick={closeDrawer}
+            >
                 {children}
             </button>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    closeNav: () => dispatch({ type: 'TOGGLE_DRAWER', payload: null })
-});
+const mapDispatchToProps = { closeDrawer };
 
 export default compose(
     classify(defaultClasses),
