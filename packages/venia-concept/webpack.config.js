@@ -22,7 +22,14 @@ const themePaths = {
 };
 
 // mark dependencies for vendor bundle
-const libs = ['react', 'react-dom', 'react-redux', 'react-router-dom', 'redux'];
+const libs = [
+    'apollo-boost',
+    'react',
+    'react-dom',
+    'react-redux',
+    'react-router-dom',
+    'redux'
+];
 
 module.exports = async function(env) {
     const { phase } = env;
@@ -84,16 +91,13 @@ module.exports = async function(env) {
                 }
             ]
         },
-        performance: {
-            hints: 'warning'
-        },
         resolve: await MagentoResolver.configure({
             paths: {
                 root: __dirname
             }
         }),
         plugins: [
-            new MagentoRootComponentsPlugin(),
+            new MagentoRootComponentsPlugin({ phase }),
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(phase),
@@ -124,7 +128,7 @@ module.exports = async function(env) {
         ]
     };
     if (phase === 'development') {
-        config.devtool = 'source-map';
+        config.devtool = 'eval-source-map';
 
         config.devServer = await PWADevServer.configure({
             serviceWorkerFileName,
@@ -146,12 +150,21 @@ module.exports = async function(env) {
             new DevServerReadyNotifierPlugin(config.devServer)
         );
     } else if (phase === 'production') {
+        config.performance = {
+            hints: 'warning'
+        };
         config.entry.vendor = libs;
         config.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['vendor']
             }),
-            new UglifyPlugin()
+            new UglifyPlugin({
+                parallel: true,
+                uglifyOptions: {
+                    ecma: 8,
+                    keep_fnames: true
+                }
+            })
         );
     } else {
         throw Error(`Unsupported environment phase in webpack config: `);
