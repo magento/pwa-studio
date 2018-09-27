@@ -1,5 +1,5 @@
 import MagentoRouter from '../Router';
-import { createElement } from 'react';
+import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router-dom';

@@ -1,4 +1,5 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Page from 'src/components/Page';
 import logo from 'src/components/Header/logo.svg';
 import defaultClasses from './notFound.css';
@@ -47,6 +48,19 @@ class NotFound extends Component {
                             </a>
                             <span> to get back on track.</span>
                         </p>
+                    <div className="NotFound-content-actions">
+                        <Link
+                            className="NotFound-content-actions-action"
+                            to="/cart"
+                        >
+                            <span>Your Cart</span>
+                        </Link>
+                        <Link
+                            className="NotFound-content-actions-action"
+                            to="/history"
+                        >
+                            <span>Recently Viewed</span>
+                        </Link>
                     </div>
                 </div>
             </Page>

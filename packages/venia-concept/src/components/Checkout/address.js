@@ -1,4 +1,4 @@
-import { Component, Fragment, createElement } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Form, Text } from 'informed';
 import memoize from 'memoize-one';
 import { func, shape, string } from 'prop-types';

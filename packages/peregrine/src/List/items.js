@@ -1,4 +1,4 @@
-import { Component, Fragment, createElement } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import memoize from '../util/unaryMemoize';
