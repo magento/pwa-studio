@@ -26,10 +26,10 @@ class Options extends Component {
             <div className={classes.root}>
                 { options.map(
                     (option, id) => {
+                        option.item['id'] = id;
                         (option.item.id === this.state.selected ) ?
                             option.item['isSelected'] = true :
                             option.item['isSelected'] = false
-                        option.item['id'] = id;
                         return <Option handleClick={select} key={id} {...option} />
                     })
                 }
