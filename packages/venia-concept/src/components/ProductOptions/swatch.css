@@ -17,7 +17,7 @@
   z-index: 10;
 }
 
-.disabled span:after, .disabled span:before {
+.disabled > span:after, .disabled > span:before {
     width: 140%;
     height: 1px;
     position: absolute;
@@ -27,11 +27,16 @@
     color: black;
 }
 
-.disabled span:before {
+.disabled > span:before {
     transform: rotate(45deg);
 }
 
-.disabled span:after {
+.disabled > span:after {
     transform: rotate(-45deg);
 }
 
+.disabled > .overlay {
+    z-index: 1;
+    background-color: grey;
+    opacity: .5;
+}

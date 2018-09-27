@@ -25,11 +25,11 @@
     color: black;
 }
 
-.disabled span:before {
+.disabled > span:before {
     transform: rotate(45deg);
 }
 
-.disabled span:after {
+.disabled > span:after {
     transform: rotate(-45deg);
 }
 

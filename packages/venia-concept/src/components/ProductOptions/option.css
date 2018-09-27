@@ -9,7 +9,11 @@
     border-radius: 5%;
 }
 
-.root div {
+.childrenContainer {
+    overflow: hidden;
+}
+
+.root > div {
     background: inherit;
     width: 100%;
     height: 100%;
@@ -29,15 +33,15 @@
     color: black;
 }
 
-.disabled span:before {
+.disabled > span:before {
     transform: rotate(45deg);
 }
 
-.disabled span:after {
+.disabled > span:after {
     transform: rotate(-45deg);
 }
 
-.childrenContainer, .root:disabled .overlay, .root {
+.childrenContainer, .disabled .overlay, .root {
     min-width: 3rem;
     min-height: 3rem;
 }
@@ -46,7 +50,7 @@
   display: none;
 }
 
-.childrenContainer, .root:disabled .overlay, Icon {
+.childrenContainer, .disabled .overlay, Icon {
     position: absolute;
     width: inherit;
     height: inherit;
@@ -60,7 +64,7 @@
     z-index: 2;
 }
 
-.root:disabled .overlay {
+.disabled > .overlay {
     z-index: 1;
     background-color: grey;
     opacity: .5;
