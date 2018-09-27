@@ -1,9 +1,10 @@
 import tileClasses from './tile.css';
+import miniTileClasses from './miniTile.css';
 
-export const tileItem = () => {
+export const tileItem = (text='test') => {
     return {
         backgroundColor: '0 0 0',
-        name: 'hey',
+        name: text,
         onclick: () => console.log('hey')
     }
 }
@@ -22,16 +23,53 @@ export const tileItemSelected = () => {
     }
 }
 
-export const tileListItem = () => {
+export const tileListItem = (text='test') => {
     return {
         item: {
-            ...tileItem(),
+            ...tileItem(text),
             isSelected: true
         },
         classes: tileClasses,
-        children: 'Test'
+        children: text
     }
 }
 
 
-export const tileItems = [tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem() ];
+export const tileItems = () => {
+    let items = [];
+    for( let i = 0; i < 20; i+=2) {
+        items.push(tileListItem(i.toString()));
+    }
+    return items;
+}
+
+export const miniTile = {
+    backgroundColor: '0 0 0',
+    name: 'disabled',
+    onclick: () => console.log('hey')
+}
+
+export const miniTileDisabled = {
+    ...miniTile,
+    isDisabled: true
+}
+
+export const miniTileSelected = {
+    ...miniTile,
+    isSelected: true
+}
+
+export const miniTileItem = () => {
+    return (
+        {
+            item: {
+                ...miniTile
+            },
+            classes: miniTileClasses,
+            children: 'Test'
+        }
+    );
+}
+
+export const miniTiles = [miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem() ];
+

@@ -5,6 +5,7 @@
     min-height: 2rem;
     background-color: white;
     composes: root from './option.css';
+    padding: 0 2.2em;
 }
 
 .selected {

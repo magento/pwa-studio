@@ -1,8 +1,8 @@
 .root {
     border: 1px solid rgb(var(--background-color));
     background-color: white;
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     composes: root from './option.css';
 }
 

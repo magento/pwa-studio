@@ -14,11 +14,14 @@ class OptionsHeader extends Component {
     }
 
     render() {
-        const { title, helpText, helpClick, classes } = this.props;
+        const { title, helpText, helpClick, classes, children } = this.props;
         return (
             <div className={classes.root}>
-                <span className={classes.title}> {title} </span>
-                <span className={classes.helpText} onClick={() => helpClick}> {helpText} </span>
+                <div className={classes.header}>
+                    <span className={classes.title}> {title} </span>
+                    <span className={classes.helpText} onClick={() => helpClick()}> {helpText} </span>
+                </div>
+                { children }
             </div>
         );
     }
