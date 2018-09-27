@@ -12,6 +12,7 @@ beforeEach(() => {
         plugin: jest.fn()
     };
     notifier = new DevServerReadyNotifierPlugin({
+        https: true,
         host: 'fake.hostname',
         port: 8765
     });
@@ -39,6 +40,26 @@ test('logs notification to console', () => {
     const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
     expect(consoleOutput).toMatch(
         'PWADevServer ready at https://fake.hostname:8765'
+    );
+});
+
+test('handles unsecure URLs', () => {
+    compiler = {
+        plugin: jest.fn()
+    };
+    notifier = new DevServerReadyNotifierPlugin({
+        https: false,
+        host: 'unsecure.hostname',
+        port: 8765
+    });
+    notifier.apply(compiler);
+    const notifierFn = compiler.plugin.mock.calls[0][1];
+    notifierFn();
+    jest.runAllTimers();
+
+    const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
+    expect(consoleOutput).toMatch(
+        'PWADevServer ready at http://unsecure.hostname:8765'
     );
 });
 

@@ -12,7 +12,7 @@ class DevServerReadyNotifierPlugin {
             );
         }
         this.url = url.format({
-            protocol: 'https',
+            protocol: devServer.https ? 'https:' : 'http:',
             // webpack-dev-server does not comply with the WHATWG URL
             // format specification that `host` includes a port number,
             // and `hostname` does not
