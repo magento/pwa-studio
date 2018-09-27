@@ -1,5 +1,10 @@
 import tileClasses from './tile.css';
 import miniTileClasses from './miniTile.css';
+import swatchClasses from './swatch.css';
+
+///////////////////////
+//Tile Item Mock Data//
+///////////////////////
 
 export const tileItem = (text='test') => {
     return {
@@ -35,13 +40,13 @@ export const tileListItem = (text='test') => {
 }
 
 
-export const tileItems = () => {
-    let items = [];
-    for( let i = 0; i < 20; i+=2) {
-        items.push(tileListItem(i.toString()));
-    }
-    return items;
-}
+///////////////////////
+//Mini Tile Mock Data//
+///////////////////////
+
+export const tileItems = Array(10).fill(undefined).map((item, index) => {
+    return tileListItem(index.toString());
+})
 
 export const miniTile = {
     backgroundColor: '0 0 0',
@@ -71,5 +76,43 @@ export const miniTileItem = () => {
     );
 }
 
-export const miniTiles = [miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem(), miniTileItem() ];
+export const miniTiles = Array(4).fill(undefined).map(() => {
+    return miniTileItem();
+})
+
+////////////////////
+//Swatch Mock Data//
+////////////////////
+
+const randColor = () => Math.floor(Math.random()*255);
+
+const randomSwatchItem = () => {
+    return {
+        item: {
+            ...swatchItem,
+            backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
+        },
+        classes: swatchClasses
+    }
+}
+
+export const swatchItem = {
+    backgroundColor: '128 0 0',
+    name: 'Swatch',
+    onclick: () => console.log('Swatch')
+}
+
+export const swatchItemDisabled = {
+    ...swatchItem,
+    isDisabled: true
+}
+
+export const swatchItemSelected = {
+    ...swatchItem,
+    isSelected: true
+}
+
+export const swatchItems = Array(8).fill(undefined).map(() => {
+    return randomSwatchItem();
+})
 

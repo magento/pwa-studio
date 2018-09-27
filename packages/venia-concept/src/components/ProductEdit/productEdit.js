@@ -4,8 +4,7 @@ import classify from 'src/classify';
 import defaultClasses from './productEdit.css';
 import ProductOptions from 'src/components/ProductOptions';
 import OptionsHeader from 'src/components/ProductOptions/optionsHeader';
-import swatchClasses from '../ProductOptions/swatch.css';
-import { tileItems, miniTiles } from 'src/components/ProductOptions/mock_data';
+import { tileItems, miniTiles, swatchItems } from 'src/components/ProductOptions/mock_data';
 
 class ProductEdit extends Component {
     static propTypes = {
@@ -17,24 +16,8 @@ class ProductEdit extends Component {
         item: PropTypes.object
     };
 
-    randColor = () => Math.floor(Math.random()*128);
-
-    randomSwatchItem = () => {
-        return {
-            item: {
-                backgroundColor: `${this.randColor()} ${this.randColor()} ${this.randColor()}`,
-                name: 'Swatch',
-                onclick: () => console.log('Swatch')
-            },
-            classes: swatchClasses
-        }
-    }
-
-
-
     render() {
         const { classes, item } = this.props;
-        const swatchItems = [this.randomSwatchItem(), this.randomSwatchItem(), this.randomSwatchItem(), this.randomSwatchItem(), this.randomSwatchItem(), this.randomSwatchItem(), this.randomSwatchItem()];
         return (
 			<div className={classes.root}>
                 <div className={classes.header}>{item.name}</div>
@@ -44,7 +27,7 @@ class ProductEdit extends Component {
                         helpText={'Size Guide'}
                         helpClick={() => { window.alert('hello')}}
                     >
-                        <ProductOptions options={tileItems()}/>
+                        <ProductOptions options={tileItems}/>
                     </OptionsHeader>
                     <OptionsHeader title='Choose a Color' >
                         <ProductOptions options={swatchItems}/>

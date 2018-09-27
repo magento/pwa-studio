@@ -3,45 +3,9 @@ import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import Options from '../options';
 import tileClasses from '../tile.css';
+import { tileItem, tileItemDisabled, tileItemSelected, tileItems } from '../mock_data';
 
 const stories = storiesOf('Product Options/Tile', module);
-
-
-const tileItem = () => {
-    return {
-        backgroundColor: '0 0 0',
-        name: 'hey',
-        onclick: () => console.log('hey')
-    }
-}
-
-const tileItemDisabled = () => {
-    return {
-        ...tileItem(),
-        isDisabled: true
-    }
-}
-
-const tileItemSelected = () => {
-    return {
-        ...tileItem(),
-		isSelected: true
-    }
-}
-
-const tileListItem = () => {
-    return {
-        item: {
-            ...tileItem(),
-            isSelected: true
-        },
-        classes: tileClasses,
-        children: 'Test'
-    }
-}
-
-
-const tileItems = [tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem(), tileListItem() ];
 
 stories.add(
     'Tile', () => (

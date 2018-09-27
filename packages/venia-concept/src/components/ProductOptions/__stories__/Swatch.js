@@ -3,38 +3,9 @@ import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import Options from '../options';
 import swatchClasses from '../swatch.css';
+import { swatchItem, swatchItemDisabled, swatchItemSelected, swatchItems } from '../mock_data';
 
 const stories = storiesOf('Product Options/Swatch', module);
-
-const randColor = () => Math.floor(Math.random()*255);
-
-const randomSwatchItem = () => {
-    return {
-        item: {
-            ...swatchItem,
-            backgroundColor: `${randColor()} ${randColor()} ${randColor()}`,
-        },
-        classes: swatchClasses
-    }
-}
-
-const swatchItem = {
-    backgroundColor: '128 0 0',
-    name: 'Swatch',
-    onclick: () => console.log('Swatch')
-}
-
-const swatchItemDisabled = {
-    ...swatchItem,
-    isDisabled: true
-}
-
-const swatchItemSelected = {
-    ...swatchItem,
-    isSelected: true
-}
-
-const swatchItems = [randomSwatchItem(), randomSwatchItem(), randomSwatchItem(), randomSwatchItem(), randomSwatchItem(), randomSwatchItem(), randomSwatchItem()];
 
 stories.add(
     'Swatch', () => (
