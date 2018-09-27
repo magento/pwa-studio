@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { Link, MemoryRouter } from 'react-router-dom';
 
 import Item from '../item';
 
@@ -25,6 +26,7 @@ const validItem = {
     id: 1,
     name: 'Test Product',
     small_image: '/foo/bar/pic.png',
+    url_key: 'strive-shoulder-pack',
     price: {
         regularPrice: {
             amount: {
@@ -55,6 +57,26 @@ test('passes classnames to the placeholder item', () => {
         .dive();
 
     expect(wrapper.hasClass(classes.root_pending));
+});
+
+test('renders Link elements for navigating to a PDP', () => {
+    const wrapper = shallow(
+        <MemoryRouter>
+            <Item classes={classes} item={validItem} />
+        </MemoryRouter>
+    );
+
+    expect(
+        wrapper
+            .childAt(0)
+            .dive()
+            .dive()
+            .findWhere(
+                node =>
+                    node.type() === Link &&
+                    node.prop('to') === `/${validItem.url_key}.html`
+            )
+    ).toHaveLength(2);
 });
 
 /**

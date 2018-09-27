@@ -19,11 +19,12 @@ class MagentoRootComponentsPlugin {
      * @param {string} opts.manifestFileName Name of the manifest file to be emitted from the build
      */
     constructor(opts = {}) {
-        const { rootComponentsDirs, manifestFileName } = opts;
+        const { rootComponentsDirs, manifestFileName, phase } = opts;
         this.rootComponentsDirs = rootComponentsDirs || [
             './src/RootComponents'
         ];
         this.manifestFileName = manifestFileName || 'roots-manifest.json';
+        this.phase = phase;
     }
 
     apply(compiler) {
@@ -46,21 +47,34 @@ class MagentoRootComponentsPlugin {
                     // us to grab the ID during the emit phase
                     moduleByPath.set(mod.resource, mod);
                 }
+
                 // To create a unique chunk for each RootComponent, we want to inject
                 // a dynamic import() for each RootComponent, within each entry point.
-                const isAnEntry = compilation.entries.some(entryMod => {
-                    // Check if the module being constructed matches a defined entry point
-                    if (mod === entryMod) return true;
-                    if (!entryMod.identifier().startsWith('multi')) {
-                        return false;
-                    }
 
-                    // If a multi-module entry is used (webpack-dev-server creates one), we
-                    // need to try and match against each dependency in the multi module
-                    return entryMod.dependencies.some(
-                        singleDep => singleDep.module === mod
-                    );
-                });
+                // But identifying entry points is hard!
+
+                // Top-level modules injected by a downstream "issuer" are not
+                // entry points.
+                const isEntrySimpleTest =
+                    this.phase === 'development'
+                        ? mod => mod.resource.includes('/node_modules/')
+                        : mod => !mod.issuer;
+
+                const isAnEntry =
+                    isEntrySimpleTest(mod) &&
+                    // Otherwise, check if the module being constructed matches a defined entry point
+                    compilation.entries.some(entryMod => {
+                        if (mod === entryMod) {
+                            return true;
+                        }
+                        if (!entryMod.identifier().startsWith('multi')) {
+                            return false;
+                        }
+                        // need to try and match against each dependency in the multi module
+                        return entryMod.dependencies.some(
+                            singleDep => singleDep.module === mod
+                        );
+                    });
                 if (!isAnEntry) return;
 
                 // If this module is an entry module, inject a loader in the pipeline
