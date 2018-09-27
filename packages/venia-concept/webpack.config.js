@@ -135,6 +135,7 @@ module.exports = async function(env) {
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             paths: themePaths,
+            provideSSLCert: true,
             id: 'magento-venia'
         });
 
