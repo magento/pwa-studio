@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.getUniqueSubdomain() logs a warning if it cannot determine a name 1`] = `"package.json does not have a usable \\"name\\" field!"`;
