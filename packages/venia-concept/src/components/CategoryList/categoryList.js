@@ -1,6 +1,6 @@
-import { Component, createElement } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';

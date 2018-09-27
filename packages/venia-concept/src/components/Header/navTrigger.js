@@ -1,9 +1,10 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
+import { toggleDrawer } from 'src/actions/app';
 import defaultClasses from './navTrigger.critical.css';
 
 class Trigger extends Component {
@@ -27,7 +28,7 @@ class Trigger extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    openNav: () => dispatch({ type: 'TOGGLE_DRAWER', payload: 'nav' })
+    openNav: () => dispatch(toggleDrawer('nav'))
 });
 
 export default compose(

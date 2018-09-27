@@ -140,7 +140,7 @@ const PWADevServer = {
             port
         };
     },
-    async configure(config = {}) {
+    async configure(config) {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
