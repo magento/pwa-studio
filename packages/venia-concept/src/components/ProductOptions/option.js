@@ -41,7 +41,7 @@ class Option extends Component {
         return (
 			<button
 				className={buttonClasses}
-				title={name}
+				data-title={name}
 				style={style}
 				onClick={this.handleClick}
             >
