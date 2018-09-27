@@ -30,7 +30,7 @@
     "watch:venia-dev-server": "cd packages/venia-concept && nodemon --watch ../pwa-buildpack/dist --watch webpack.config.js --delay 1 --ext js,json --exec npm run-script watch; cd - >/dev/null"
   },
   "devDependencies": {
-    "@magento/eslint-config": "1.0.0",
+    "@magento/eslint-config": "^1.2.3",
     "@storybook/addon-actions": "^3.4.2",
     "@storybook/addons": "^3.4.6",
     "@storybook/react": "^3.4.2",
@@ -70,6 +70,7 @@
     "graphql": "~0",
     "graphql-tag": "^2.9.2",
     "identity-obj-proxy": "^3.0.0",
+    "informed": "^1.9.0",
     "intl": "^1.2.5",
     "jest": "^23.4.0",
     "jest-fetch-mock": "^1.4.1",
@@ -93,6 +94,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
+    "redux-actions": "2.6.1",
     "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.2",
     "storybook-readme": "^3.3.0",

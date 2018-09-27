@@ -1,4 +1,12 @@
-import { createElement } from 'react';
+import React from 'react';
+
+export const mockRequest = jest.fn();
+
+export const RestApi = {
+    Magento2: {
+        request: mockRequest
+    }
+};
 
 /**
  * the Price component from @magento/peregrine

@@ -1,4 +1,4 @@
-import { Fragment, createElement } from 'react';
+import React, { Fragment } from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

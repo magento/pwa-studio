@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
