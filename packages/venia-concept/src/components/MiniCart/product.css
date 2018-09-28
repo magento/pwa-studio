@@ -1,5 +1,5 @@
 .root {
-  position: relative;
+    position: relative;
     align-content: start;
     display: grid;
     grid-gap: 0.375rem 1rem;
@@ -101,5 +101,4 @@
 }
 
 .subMenu {
-
 }

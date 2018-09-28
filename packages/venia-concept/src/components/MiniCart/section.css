@@ -1,5 +1,5 @@
 .text {
-    padding-top: 3px;
+    padding-top: 2px;
     padding-left: 6px;
     font-size: 11px;
 }
@@ -8,6 +8,7 @@ li > button {
     width: 100%;
     padding: 10px;
     padding-right: 25px;
+    padding-bottom: 11px;
     display: flex;
     grid-template-columns: min-content;
     white-space: pre;
@@ -16,4 +17,4 @@ li > button {
     align-items: center;
     justify-items: start;
     column-gap: 10px;
-  }
+}

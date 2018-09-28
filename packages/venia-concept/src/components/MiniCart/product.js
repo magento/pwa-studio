@@ -12,7 +12,6 @@ const imageWidth = 80;
 const imageHeight = 100;
 
 class Product extends Component {
-
     static propTypes = {
         classes: shape({
             image: string,
@@ -38,6 +37,7 @@ class Product extends Component {
         currencyCode: string.isRequired
     };
 
+    // TODO: Manage favorite items using GraphQL/REST when it is ready
     constructor() {
         super();
         this.state = {
@@ -72,7 +72,9 @@ class Product extends Component {
     render() {
         const { options, props } = this;
         const { classes, item, currencyCode } = props;
-        const rootClasses = this.state.isOpen ? classes.root + ' ' + classes.root_masked : classes.root;
+        const rootClasses = this.state.isOpen
+            ? classes.root + ' ' + classes.root_masked
+            : classes.root;
         const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
@@ -96,7 +98,7 @@ class Product extends Component {
                         <Price currencyCode={currencyCode} value={item.price} />
                     </span>
                 </div>
-                <div className={this.state.isOpen ? classes.modal : ''}></div>
+                <div className={this.state.isOpen ? classes.modal : ''} />
                 <Kebab
                     onFocus={this.openDropdown}
                     onBlur={this.closeDropdown}
@@ -105,18 +107,20 @@ class Product extends Component {
                     <Section
                         text="Add to favorites"
                         onClick={this.favoriteItem}
-                        icon='heart'
-                        iconAttributes={this.state.isFavorite ? favoritesFill : ''}
+                        icon="heart"
+                        iconAttributes={
+                            this.state.isFavorite ? favoritesFill : ''
+                        }
                     />
                     <Section
                         text="Edit item"
                         onClick={this.editItem}
-                        icon='edit-2'
+                        icon="edit-2"
                     />
                     <Section
                         text="Remove item"
                         onClick={this.removeItem}
-                        icon='trash'
+                        icon="trash"
                     />
                 </Kebab>
             </li>
@@ -127,28 +131,28 @@ class Product extends Component {
         this.setState({
             isOpen: true
         });
-    }
+    };
 
     closeDropdown = () => {
         this.setState({
             isOpen: false
         });
-    }
+    };
 
     favoriteItem = () => {
         this.setState({
             isFavorite: true
-        })
-    }
+        });
+    };
 
     editItem = () => {
         this.props.showEditPanel(this.props.item);
-    }
+    };
 
     removeItem = () => {
         // TODO: prompt user to confirm this action
         this.props.removeItemFromCart(this.props.item);
-    }
+    };
 }
 
 export default classify(defaultClasses)(Product);

@@ -18,6 +18,8 @@
 
 .kebab {
     outline: 0;
+    border: none;
+    background-color: #fff;
 }
 
 .dropdown {
@@ -38,19 +40,16 @@
 .dropdown li {
     display: block;
     width: 100%;
-    background-color: #FFF;
+    background-color: #fff;
+    border-bottom: 1px solid rgb(var(--venia-border));
 }
 
 .dropdown li:hover {
-    background-color: #EEE;
-}
-
-.dropdown li {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    background-color: #eee;
 }
 
 .active {
     position: absolute;
     transform: scale(1);
-    transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
+    transition: all 0.25s cubic-bezier(0.5, 1.8, 0.9, 0.8);
 }

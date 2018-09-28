@@ -27,7 +27,12 @@ class ProductList extends Component {
     };
 
     render() {
-        const { currencyCode, removeItemFromCart, showEditPanel, ...otherProps } = this.props;
+        const {
+            currencyCode,
+            removeItemFromCart,
+            showEditPanel,
+            ...otherProps
+        } = this.props;
         return (
             <List
                 render="ul"

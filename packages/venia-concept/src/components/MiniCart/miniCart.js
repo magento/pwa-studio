@@ -38,7 +38,7 @@ class MiniCart extends Component {
         this.state = {
             isEditPanelOpen: false,
             focusItem: null
-        }
+        };
     }
 
     async componentDidMount() {
@@ -65,7 +65,12 @@ class MiniCart extends Component {
     }
 
     get productList() {
-        const { cartId, cartCurrencyCode, cart, removeItemFromCart } = this.props;
+        const {
+            cartId,
+            cartCurrencyCode,
+            cart,
+            removeItemFromCart
+        } = this.props;
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
@@ -98,9 +103,15 @@ class MiniCart extends Component {
 
     get editPanel() {
         const { classes } = this.props;
-        const className = this.state.isEditPanelOpen ? classes.editPanel_open : classes.editPanel;
-        const itemName = this.state.focusItem ? this.state.focusItem.name : null;
-        const itemPrice = this.state.focusItem ? this.state.focusItem.price : null;
+        const className = this.state.isEditPanelOpen
+            ? classes.editPanel_open
+            : classes.editPanel;
+        const itemName = this.state.focusItem
+            ? this.state.focusItem.name
+            : null;
+        const itemPrice = this.state.focusItem
+            ? this.state.focusItem.price
+            : null;
         return (
             <div className={className}>
                 <div className={classes.header}>
@@ -112,10 +123,12 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 <div className={classes.content}>
-                    <div className={classes.focusItem}>{itemName} <span>${itemPrice}</span></div>
+                    <div className={classes.focusItem}>
+                        {itemName} <span>${itemPrice}</span>
+                    </div>
                     <div className={classes.options}>Choose a Size:</div>
                 </div>
-                <div className={classes.footer}></div>
+                <div className={classes.footer} />
                 <div className={classes.save}>
                     <Button onClick={this.hideEditPanel}>Cancel</Button>
                     <Button>Update Cart</Button>
@@ -124,18 +137,18 @@ class MiniCart extends Component {
         );
     }
 
-    showEditPanel = (item) => {
+    showEditPanel = item => {
         this.setState({
             isEditPanelOpen: true,
             focusItem: item
         });
-    }
+    };
 
     hideEditPanel = () => {
         this.setState({
             isEditPanelOpen: false
-        })
-    }
+        });
+    };
 
     render() {
         if (this.props.loading) {
