@@ -48,6 +48,7 @@ class NotFound extends Component {
                             </a>
                             <span> to get back on track.</span>
                         </p>
+                    </div>
                     <div className="NotFound-content-actions">
                         <Link
                             className="NotFound-content-actions-action"
