@@ -58,18 +58,18 @@ const classes = {
 test('correctly checks if password and passwordConfirm match', () => {
     const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(state);
-    expect(wrapper.instance().passwordConfirmError).toBe(false);
+    expect(wrapper.instance().hasPasswordConfirmError).toBe(false);
     let incorrectPassState = Object.assign({}, state);
     incorrectPassState.passwordConfirm =
         incorrectPassState.passwordConfirm + 'wrong!';
     wrapper.setState(incorrectPassState);
-    expect(wrapper.instance().passwordConfirmError).toBe(true);
+    expect(wrapper.instance().hasPasswordConfirmError).toBe(true);
 });
 
 test('Enables the create account button when all forms are filled in and passwords match', () => {
     const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(state);
-    expect(wrapper.instance().disableAccountCreation).toBe(false);
+    expect(wrapper.instance().isIncompleteOrInvalid).toBe(false);
 });
 
 test('checks if email is available', () => {
@@ -88,7 +88,7 @@ test('checks if email is available', () => {
 test('account creation to be disabled if not all inputs are filled', () => {
     const wrapper = shallow(<CreateAccount />).dive();
     wrapper.setState(blankState);
-    expect(wrapper.instance().disableAccountCreation).toBe(true);
+    expect(wrapper.instance().isIncompleteOrInvalid).toBe(true);
 });
 
 test('calls `onCreateAccount` when create account button is pressed', () => {
