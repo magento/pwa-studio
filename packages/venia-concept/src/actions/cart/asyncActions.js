@@ -48,9 +48,10 @@ export const createGuestCart = () =>
 export const addItemToCart = (payload = {}) => {
     const { item, quantity } = payload;
 
-    writeImageToCache(item);
+    const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
+        await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
         try {
@@ -58,7 +59,11 @@ export const addItemToCart = (payload = {}) => {
             const { guestCartId } = cart;
 
             if (!guestCartId) {
-                throw new Error('Missing required information: guestCartId');
+                const missingGuestCartError = new Error(
+                    'Missing required information: guestCartId'
+                );
+                missingGuestCartError.noGuestCartId = true;
+                throw missingGuestCartError;
             }
 
             const cartItem = await request(
@@ -78,13 +83,18 @@ export const addItemToCart = (payload = {}) => {
 
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
         } catch (error) {
-            const { response } = error;
+            const { response, noGuestCartId } = error;
 
             dispatch(actions.addItem.receive(error));
 
             // check if the guest cart has expired
-            if (response && response.status === 404) {
-                // if so, create a new one
+            if (noGuestCartId || (response && response.status === 404)) {
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
                 await dispatch(createGuestCart());
                 // then retry this operation
                 return thunk(...arguments);
@@ -143,7 +153,12 @@ export const getCartDetails = (payload = {}) => {
 
             // check if the guest cart has expired
             if (response && response.status === 404) {
-                // if so, create a new one
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
                 await dispatch(createGuestCart());
                 // then retry this operation
                 return thunk(...arguments);
@@ -176,10 +191,6 @@ export const toggleCart = () =>
 /* helpers */
 
 async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
-    if (!guestCartId) {
-        throw new Error('Missing required information: guestCartId');
-    }
-
     return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
         cache: forceRefresh ? 'reload' : 'default'
     });
@@ -209,7 +220,7 @@ async function writeImageToCache(item = {}) {
     const { media_gallery_entries: media, sku } = item;
 
     if (sku) {
-        const image = media.find(m => m.position === 1) || media[0];
+        const image = media && (media.find(m => m.position === 1) || media[0]);
 
         if (image) {
             const imageCache = await retrieveImageCache();
