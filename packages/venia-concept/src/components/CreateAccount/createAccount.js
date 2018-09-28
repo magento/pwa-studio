@@ -49,14 +49,14 @@ class CreateAccount extends Component {
         );
     }
 
-    get passwordConfirmError() {
+    get hasPasswordConfirmError() {
         return this.state.password !== this.state.passwordConfirm;
     }
 
-    get disableAccountCreation() {
+    get isIncompleteOrInvalid() {
         return (
             this.hasEmailError ||
-            this.passwordConfirmError ||
+            this.hasPasswordConfirmError ||
             !this.state.email ||
             !this.state.firstName ||
             !this.state.lastName
@@ -74,7 +74,7 @@ class CreateAccount extends Component {
     }
 
     get passwordHelpText() {
-        return this.passwordConfirmError ? 'Passwords do not match' : '';
+        return this.hasPasswordConfirmError ? 'Passwords do not match' : '';
     }
 
     get passwordHelpType() {
@@ -90,7 +90,7 @@ class CreateAccount extends Component {
             emailHelpType,
             passwordHelpText,
             passwordHelpType,
-            disableAccountCreation
+            isIncompleteOrInvalid
         } = this;
 
         return (
@@ -153,7 +153,7 @@ class CreateAccount extends Component {
                         initialState={this.state.subscribe}
                     />
                     <div className={classes.createAccountButton}>
-                        <Button type="submit" disabled={disableAccountCreation}>
+                        <Button type="submit" disabled={isIncompleteOrInvalid}>
                             Create Account
                         </Button>
                     </div>
@@ -164,7 +164,7 @@ class CreateAccount extends Component {
     }
 
     onCreateAccount = () => {
-        if (!this.disableAccountCreation) {
+        if (!this.isIncompleteOrInvalid) {
             const newCustomer = {
                 customer: {
                     firstname: this.state.firstName,
