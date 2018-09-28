@@ -29,8 +29,7 @@ class MiniCart extends Component {
             summary: string,
             title: string,
             totals: string
-        }),
-        removeItemFromCart: func.isRequired
+        })
     };
 
     constructor(...args) {

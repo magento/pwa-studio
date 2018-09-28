@@ -22,8 +22,7 @@ class ProductList extends Component {
                 sku: string.isRequired
             })
         ).isRequired,
-        currencyCode: string.isRequired,
-        removeItemFromCart: func
+        currencyCode: string.isRequired
     };
 
     render() {
