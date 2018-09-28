@@ -8,7 +8,6 @@ const {
         DevServerReadyNotifierPlugin,
         MagentoResolver,
         UpwardPlugin,
-        CriticalCssPlugin,
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
@@ -42,8 +41,6 @@ module.exports = async function(env) {
     );
     const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
 
-    const critical = new CriticalCssPlugin({ phase });
-
     const config = {
         context: __dirname, // Node global for the running script's directory
         entry: {
@@ -68,7 +65,21 @@ module.exports = async function(env) {
                         }
                     ]
                 },
-                critical.load(),
+                {
+                    test: /\.css$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                localIdentName:
+                                    '[name]-[local]-[hash:base64:3]',
+                                modules: true
+                            }
+                        }
+                    ]
+                },
                 {
                     test: /\.(jpg|svg)$/,
                     use: [
@@ -108,7 +119,6 @@ module.exports = async function(env) {
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
-            critical,
             new ServiceWorkerPlugin({
                 env,
                 enableServiceWorkerDebugging,

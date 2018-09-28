@@ -9,7 +9,7 @@ import Main from 'src/components/Main';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import Mask from './mask';
-import defaultClasses from './page.critical.css';
+import defaultClasses from './page.css';
 
 class Page extends Component {
     static propTypes = {

@@ -4,6 +4,5 @@ module.exports = {
     DevServerReadyNotifierPlugin: require('./plugins/DevServerReadyNotifierPlugin'),
     MagentoResolver: require('./MagentoResolver'),
     PWADevServer: require('./PWADevServer'),
-    UpwardPlugin: require('./plugins/UpwardPlugin'),
-    CriticalCssPlugin: require('./plugins/CriticalCssPlugin')
+    UpwardPlugin: require('./plugins/UpwardPlugin')
 };

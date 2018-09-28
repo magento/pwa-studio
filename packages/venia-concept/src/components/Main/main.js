@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
-import defaultClasses from './main.critical.css';
+import defaultClasses from './main.css';
 
 class Main extends Component {
     static propTypes = {

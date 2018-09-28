@@ -39,7 +39,6 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        criticalCss: './web/client.critical.css'
         urlResolver: urlResolver
 
 resource:

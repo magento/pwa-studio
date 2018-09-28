@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import defaultClasses from './footer.critical.css';
+import defaultClasses from './footer.css';
 
 class Footer extends Component {
     static propTypes = {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { toggleCart } from 'src/actions/cart';
 import classify from 'src/classify';
-import defaultClasses from './cartTrigger.critical.css';
+import defaultClasses from './cartTrigger.css';
 
 class Trigger extends Component {
     static propTypes = {

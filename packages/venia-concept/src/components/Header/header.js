@@ -6,7 +6,7 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
-import defaultClasses from './header.critical.css';
+import defaultClasses from './header.css';
 import logo from './logo.svg';
 
 class Header extends Component {
