@@ -301,7 +301,10 @@ test('.configure() returns a configuration object for the `devServer` property o
             cert: 'fakeCert2'
         },
         host: expect.stringMatching(/horton\-(\w){4,5}\.local\.pwadev/),
-        port: 8765
+        port: 8765,
+        publicPath: expect.stringMatching(
+            /horton\-(\w){4,5}\.local.pwadev:8765\/full\/path\/to\/publicPath/
+        )
     });
 });
 
@@ -318,6 +321,7 @@ test('.configure() is backwards compatible with `id` param', async () => {
             assets: 'path/to/assets'
         },
         publicPath: 'full/path/to/publicPath',
+        provideSSLCert: true,
         serviceWorkerFileName: 'swname.js',
         backendDomain: 'https://magento.backend.domain'
     };
@@ -325,7 +329,34 @@ test('.configure() is backwards compatible with `id` param', async () => {
     const devServer = await PWADevServer.configure(config);
 
     expect(devServer).toMatchObject({
-        host: 'samiam.local.pwadev'
+        host: 'samiam.local.pwadev',
+        publicPath: 'https://samiam.local.pwadev:8765/full/path/to/publicPath'
+    });
+});
+
+test('.configure() reluctantly handles unsecure http', async () => {
+    simulate
+        .portSavedForNextHostname(8765)
+        .aFreePortWasFound(8765)
+        .hostResolvesLoopback();
+
+    const config = {
+        https: false,
+        id: 'samiam',
+        paths: {
+            output: 'path/to/static',
+            assets: 'path/to/assets'
+        },
+        publicPath: 'full/path/to/publicPath',
+        serviceWorkerFileName: 'swname.js',
+        backendDomain: 'https://magento.backend.domain'
+    };
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer).toMatchObject({
+        host: 'samiam.local.pwadev',
+        publicPath: 'http://samiam.local.pwadev:8765/full/path/to/publicPath'
     });
 });
 
