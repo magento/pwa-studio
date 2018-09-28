@@ -108,6 +108,7 @@
   "dependencies": {
     "@magento/peregrine": "file:packages/peregrine",
     "@magento/pwa-buildpack": "file:packages/pwa-buildpack",
+    "informed": "^1.10.5",
     "pwa-devdocs": "file:packages/pwa-devdocs",
     "pwa-module": "file:packages/pwa-module",
     "theme-frontend-venia": "file:packages/venia-concept"

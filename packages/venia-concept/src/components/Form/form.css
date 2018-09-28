@@ -1,8 +1,0 @@
-.root {
-    padding: 2rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-height: 90vh;
-    overflow-y: auto;
-}

@@ -85,7 +85,7 @@ class Navigation extends Component {
         return (
             <div className={`${className} ${classes.signInForm}`}>
                 <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
-                <SignIn showCreateAccountForm={this.showCreateAccountForm} />
+                <SignIn showCreateAccountForm={this.showCreateAccountForm} setDefaultUsername={this.setDefaultUsername}/>
             </div>
         );
     }
@@ -102,7 +102,7 @@ class Navigation extends Component {
                     onBack={this.hideCreateAccountForm}
                     title={'Create Account'}
                 />
-                <CreateAccount />
+            <CreateAccount defaultUsername={this.state.defaultUsername} />
             </div>
         );
     }
@@ -118,6 +118,10 @@ class Navigation extends Component {
             isSignInOpen: false
         });
     };
+
+    setDefaultUsername = newDefaultUsername => {
+        this.setState({defaultUsername: newDefaultUsername})
+    }
 
     showCreateAccountForm = () => {
         this.setState({

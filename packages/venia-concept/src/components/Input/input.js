@@ -40,11 +40,12 @@ class Input extends Component {
     static defaultProps = {
         disabled: false,
         helpVisible: true,
-        helpType: HelpTypes.hint
+        helpType: HelpTypes.hint,
+        value: ''
     };
 
     state = {
-        value: '',
+        value: this.props.value,
         focused: false,
         dirty: false
     };
@@ -85,16 +86,16 @@ class Input extends Component {
         const { helpText, labelText, requiredSymbol, rootClass } = this;
         const {
             classes,
-            value,
             placeholder,
             type,
             disabled,
             required,
             title,
         } = this.props;
-        let { autoComplete } = this.props;
+        let { value, autoComplete} = this.props;
 
-        !autoComplete ? autoComplete = 'off' : null;
+        value = this.state.dirty ? this.state.value : value;
+        autoComplete = !autoComplete ? 'off' : autoComplete;
 
         return (
             <div className={rootClass}>
@@ -103,7 +104,7 @@ class Input extends Component {
                 </span>
                 <input
                     className={classes.input}
-                    value={value}
+                    defaultValue={value}
                     placeholder={placeholder}
                     type={type}
                     disabled={disabled}

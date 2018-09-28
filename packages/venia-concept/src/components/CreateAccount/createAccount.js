@@ -5,7 +5,7 @@ import { HelpTypes } from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './createAccount.css';
 import classify from 'src/classify';
-import Form from 'src/components/Form';
+import { Form } from 'informed';
 import { debounce } from 'underscore';
 import { RestApi } from '@magento/peregrine';
 import ErrorDisplay from 'src/components/ErrorDisplay';
@@ -82,7 +82,7 @@ class CreateAccount extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, defaultUsername } = this.props;
         const {
             onCreateAccount,
             errorMessage,
@@ -95,7 +95,7 @@ class CreateAccount extends Component {
 
         return (
             <div className={classes.root}>
-                <Form submitForm={onCreateAccount}>
+                <Form onSubmit={onCreateAccount}>
                     <div className={classes.rewards}>
                         <span>An account gives you access to rewards!</span>
                     </div>
@@ -108,6 +108,7 @@ class CreateAccount extends Component {
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
+                        value={defaultUsername}
                     />
 
                     <Input

@@ -4,7 +4,7 @@ import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
-import Form from 'src/components/Form';
+import { Form } from 'informed';
 import ErrorDisplay from 'src/components/ErrorDisplay';
 
 class SignIn extends Component {
@@ -33,12 +33,12 @@ class SignIn extends Component {
     }
 
     render() {
-        const { classes, showCreateAccountForm } = this.props;
+        const { classes } = this.props;
         const { onSignIn, errorMessage } = this;
 
         return (
             <div className={classes.root}>
-                <Form submitForm={onSignIn}>
+                <Form onSubmit={onSignIn}>
                     <Input
                         onChange={this.updateUsername}
                         helpText={'example help text'}
@@ -46,7 +46,6 @@ class SignIn extends Component {
                         required={true}
                         autoComplete={'username'}
                     />
-
                     <Input
                         onChange={this.updatePassword}
                         label={'Password'}
@@ -65,7 +64,7 @@ class SignIn extends Component {
                 </Form>
                 <div className={classes.signInDivider} />
                 <div className={classes.showCreateAccountButton}>
-                    <Button onClick={showCreateAccountForm}>
+                    <Button onClick={this.showCreateAccountForm}>
                         {' '}
                         Create an Account{' '}
                     </Button>
@@ -79,8 +78,9 @@ class SignIn extends Component {
         this.props.signIn({ username: username, password: password });
     };
 
-    onCreateAccount = () => {
-        this.props.createAccount(mockAccount);
+    showCreateAccountForm = () => {
+        this.props.setDefaultUsername(this.state.username);
+        this.props.showCreateAccountForm();
     };
 
     updatePassword = newPassword => {
