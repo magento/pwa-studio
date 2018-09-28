@@ -183,7 +183,7 @@ const PWADevServer = {
             );
         }
         devServerConfig.publicPath = url.format({
-            protocol: 'https:',
+            protocol: config.provideSSLCert ? 'https:' : 'http:',
             hostname: devServerConfig.host,
             port: devServerConfig.port,
             pathname: config.publicPath
