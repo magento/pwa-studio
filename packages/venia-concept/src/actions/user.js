@@ -1,8 +1,9 @@
 import { RestApi } from '@magento/peregrine';
-import BrowserPersistence from 'src/util/simplePersistence.js';
+import { Util } from '@magento/peregrine';
 import { removeGuestCart } from 'src/actions/cart';
 
 const { request } = RestApi.Magento2;
+const { BrowserPersistence } = Util;
 
 const signIn = credentials =>
     async function thunk(...args) {
@@ -115,7 +116,9 @@ const assignGuestCartToCustomer = () =>
     };
 
 function setToken(token) {
-    localStorage.setItem('signin_token', token);
+    const storage = new BrowserPersistence();
+    // TODO: Get correct token expire time from API
+    storage.setItem('signin_token', token, 3600);
 }
 
 export { signIn, createAccount, assignGuestCartToCustomer, getUserDetails };

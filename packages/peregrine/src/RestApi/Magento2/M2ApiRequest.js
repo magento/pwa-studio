@@ -1,5 +1,6 @@
 import M2ApiResponseError from './M2ApiResponseError';
 import * as MulticastCache from './MulticastCache';
+import { BrowserPersistence } from '../../util/';
 
 // TODO: headers are locked right now, add configurability
 const withDefaultHeaders = headerAdditions => {
@@ -50,7 +51,8 @@ const withDefaultHeaders = headerAdditions => {
  */
 class M2ApiRequest {
     constructor(resourceUrl, opts = {}) {
-        const signin_token = localStorage.getItem('signin_token');
+        const storage = new BrowserPersistence();
+        const signin_token = storage.getItem('signin_token');
         this.controller = new AbortController();
         this.resourceUrl = resourceUrl;
         // merge headers specially

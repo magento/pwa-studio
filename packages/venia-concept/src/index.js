@@ -7,12 +7,15 @@ import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getUserDetails } from 'src/actions/user';
+import { Util } from '@magento/peregrine';
 
 import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
 import './index.css';
 
 const urlBase = new URL('/graphql', location.origin).toString();
+
+const { BrowserPersistence } = Util;
 
 const { Provider, store } = bootstrap({
     apiBase: urlBase,
@@ -31,7 +34,10 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('signin_token');
+    const storage = new BrowserPersistence();
+    // TODO: Get correct token expire time from API
+    const token = storage.getItem('signin_token');
+
     // return the headers to the context so httpLink can read them
     return {
         headers: {

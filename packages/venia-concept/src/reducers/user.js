@@ -1,5 +1,10 @@
+import { Util } from '@magento/peregrine';
+const { BrowserPersistence } = Util;
+
+const storage = new BrowserPersistence();
+
 const initialState = {
-    isSignedIn: !!localStorage.getItem('signin_token'),
+    isSignedIn: !!storage.getItem('signin_token'),
     currentUser: {
         email: '',
         firstname: '',

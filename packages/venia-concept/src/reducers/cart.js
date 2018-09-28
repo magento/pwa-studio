@@ -1,6 +1,8 @@
 import debounce from 'lodash.debounce';
 
-import BrowserPersistence from 'src/util/simplePersistence';
+import { Util } from '@magento/peregrine';
+
+const { BrowserPersistence } = Util;
 
 export default async function makeCartReducer() {
     const storage = new BrowserPersistence();
