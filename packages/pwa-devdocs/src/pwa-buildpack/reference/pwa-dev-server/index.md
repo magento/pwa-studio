@@ -117,8 +117,7 @@ module.exports = async env => {
             backendDomain: 'https://magento2.localdomain',
             serviceWorkerFileName: 'sw.js',
             paths: {
-                output: path.resolve(__dirname, 'web/js'),
-                assets: path.resolve(__dirname, 'web')
+                output: path.resolve(__dirname, 'web')
             },
             provideUniqueHost: 'magento-venia',
             provideSSLCert: true
