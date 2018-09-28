@@ -107,18 +107,21 @@ class CreateAccount extends Component {
                         helpText={emailHelpText}
                         helpType={emailHelpType}
                         required={true}
+                        autoComplete={'email'}
                     />
 
                     <Input
                         onChange={this.updateFirstName}
                         label={'First Name'}
                         required={true}
+                        autoComplete={'given-name'}
                     />
 
                     <Input
                         onChange={this.updateLastName}
                         label={'Last Name'}
                         required={true}
+                        autoComplete={'family-name'}
                     />
 
                     <Input
@@ -130,6 +133,7 @@ class CreateAccount extends Component {
                         helpText={
                             'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'
                         }
+                        autoComplete={'new-password'}
                     />
 
                     <Input

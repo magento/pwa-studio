@@ -30,7 +30,7 @@ class Input extends Component {
         disabled: PropTypes.bool,
         required: PropTypes.bool,
         title: PropTypes.string,
-
+        autoComplete: PropTypes.string,
         helpText: PropTypes.string,
         helpType: PropTypes.string,
 
@@ -90,8 +90,11 @@ class Input extends Component {
             type,
             disabled,
             required,
-            title
+            title,
         } = this.props;
+        let { autoComplete } = this.props;
+
+        !autoComplete ? autoComplete = 'off' : null;
 
         return (
             <div className={rootClass}>
@@ -106,6 +109,7 @@ class Input extends Component {
                     disabled={disabled}
                     required={required}
                     title={title}
+                    autoComplete={autoComplete}
                     onChange={this.handleChange}
                     onFocus={this.focusTextInput}
                     onBlur={this.blurTextInput}

@@ -44,6 +44,7 @@ class SignIn extends Component {
                         helpText={'example help text'}
                         label={'Username or Email'}
                         required={true}
+                        autoComplete={'username'}
                     />
 
                     <Input
@@ -52,6 +53,7 @@ class SignIn extends Component {
                         type={'password'}
                         helpText={'example help text'}
                         required={true}
+                        autoComplete={'current-password'}
                     />
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>
