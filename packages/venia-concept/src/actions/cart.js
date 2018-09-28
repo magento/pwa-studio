@@ -96,7 +96,7 @@ const getCartDetails = (payload = {}) => {
         const { user } = getState();
         if (user.isSignedIn) {
             ///////////////////////////////////////////
-            // Handle if customer is signed in here. //
+            // TODO: handle logged-in cart retrieval. //
             ///////////////////////////////////////////
             // If a user creates a new account
             // the guest cart will be transfered to their account.
