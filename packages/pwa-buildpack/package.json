@@ -1,6 +1,9 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "0.8.2",
+  "version": "1.1.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
@@ -24,7 +27,7 @@
     "webpack"
   ],
   "author": "Magento Commerce",
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
