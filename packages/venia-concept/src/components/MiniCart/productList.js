@@ -1,5 +1,5 @@
-import { Component, createElement } from 'react';
-import { arrayOf, number, shape, string, func } from 'prop-types';
+import React, { Component } from 'react';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
