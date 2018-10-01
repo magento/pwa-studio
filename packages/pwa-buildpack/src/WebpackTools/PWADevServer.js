@@ -1,5 +1,6 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { join } = require('path');
+const { createHash } = require('crypto');
 const url = require('url');
 const express = require('express');
 const GlobalConfig = require('../util/global-config');
@@ -14,17 +15,13 @@ const { lookup } = require('../util/promisified/dns');
 const { find: findPort } = require('../util/promisified/openport');
 const runAsRoot = require('../util/run-as-root');
 const PWADevServer = {
+    DEFAULT_NAME: 'my-pwa',
+    DEV_DOMAIN: 'local.pwadev',
     validateConfig: optionsValidator('PWADevServer', {
-        id: 'string',
         publicPath: 'string',
         backendDomain: 'string',
         'paths.output': 'string',
-        'paths.assets': 'string',
         serviceWorkerFileName: 'string'
-    }),
-    hostnamesById: new GlobalConfig({
-        prefix: 'devhostname-byid',
-        key: x => x
     }),
     portsByHostname: new GlobalConfig({
         prefix: 'devport-byhostname',
@@ -61,12 +58,12 @@ const PWADevServer = {
         }
     },
     async findFreePort() {
-        const inUse = await PWADevServer.portsByHostname.values(Number);
-        debug(`findFreePort(): these ports already in use`, inUse);
+        const reserved = await PWADevServer.portsByHostname.values(Number);
+        debug(`findFreePort(): these ports already reserved`, reserved);
         return findPort({
             startingPort: 8000,
             endingPort: 9999,
-            avoid: inUse
+            avoid: reserved
         }).catch(e => {
             throw Error(
                 debug.errorMsg(
@@ -75,77 +72,87 @@ const PWADevServer = {
             );
         });
     },
-    async findFreeHostname(identifier, times = 0) {
-        const maybeHostname =
-            identifier + (times ? times : '') + '.local.pwadev';
-        // if it has a port, it exists
-        const exists = await PWADevServer.portsByHostname.get(maybeHostname);
-        if (!exists) {
-            debug(
-                `findFreeHostname: ${maybeHostname} unbound to port and available`
-            );
-            return maybeHostname;
+    getUniqueSubdomain(customName) {
+        let name = PWADevServer.DEFAULT_NAME;
+        if (typeof customName === 'string') {
+            name = customName;
         } else {
-            debug(`findFreeHostname: ${maybeHostname} bound to port`, exists);
-            if (times > 9) {
-                throw Error(
+            const pkgLoc = join(process.cwd(), 'package.json');
+            try {
+                // eslint-disable-next-line node/no-missing-require
+                const pkg = require(pkgLoc);
+                if (!pkg.name || typeof pkg.name !== 'string') {
+                    throw new Error(
+                        `package.json does not have a usable "name" field!`
+                    );
+                }
+                name = pkg.name;
+            } catch (e) {
+                console.warn(
                     debug.errorMsg(
-                        `findFreeHostname: Unable to find a free hostname after 9 tries. You may want to delete your database file at ${GlobalConfig.getDbFilePath()} to clear out old developer hostname entries. (Soon we will make this easier and more automatic.)`
-                    )
+                        `getUniqueSubdomain(): Using default "${name}" prefix. Could not autodetect theme name from package.json: `
+                    ),
+                    e
                 );
             }
-            return PWADevServer.findFreeHostname(identifier, times + 1);
         }
+        const dirHash = createHash('md4');
+        // Using a hash of the current directory is a natural way of preserving
+        // the same "unique" ID for each project, and changing it only when its
+        // location on disk has changed.
+        dirHash.update(process.cwd());
+        const digest = dirHash.digest('base64');
+        // Base64 truncated to 5 characters, stripped of special characters,
+        // and lowercased to be a valid domain, is about 36^5 unique values.
+        // There is therefore a chance of a duplicate ID and host collision,
+        // specifically a 1 in 60466176 chance.
+        return `${name}-${digest.slice(0, 5)}`
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, '-')
+            .replace(/^-+/, '');
     },
-    async provideDevHost(id) {
-        debug(`provideDevHost('${id}')`);
-        let hostname = await PWADevServer.hostnamesById.get(id);
-        let port;
-        if (!hostname) {
-            [hostname, port] = await Promise.all([
-                PWADevServer.findFreeHostname(id),
-                PWADevServer.findFreePort()
-            ]);
+    async provideUniqueHost(prefix) {
+        debug(`provideUniqueHost ${prefix}`);
+        return PWADevServer.provideCustomHost(
+            PWADevServer.getUniqueSubdomain(prefix)
+        );
+    },
+    async provideCustomHost(subdomain) {
+        debug(`provideUniqueHost ${subdomain}`);
+        const hostname = subdomain + '.' + PWADevServer.DEV_DOMAIN;
 
-            await PWADevServer.hostnamesById.set(id, hostname);
-            await PWADevServer.portsByHostname.set(hostname, port);
-        } else {
-            port = await PWADevServer.portsByHostname.get(hostname);
-            if (!port) {
-                throw Error(
-                    debug.errorMsg(
-                        `Found no port matching the hostname ${hostname}`
-                    )
-                );
-            }
+        const [usualPort, freePort] = await Promise.all([
+            PWADevServer.portsByHostname.get(hostname),
+            PWADevServer.findFreePort()
+        ]);
+        const port = usualPort === freePort ? usualPort : freePort;
+
+        if (!usualPort) {
+            PWADevServer.portsByHostname.set(hostname, port);
+        } else if (usualPort !== freePort) {
+            console.warn(
+                debug.errorMsg(
+                    `This project's dev server normally runs at ${hostname}:${usualPort}, but port ${usualPort} is in use. The dev server will instead run at ${hostname}:${port}, which may cause a blank or unexpected cache and ServiceWorker. Consider fully clearing your browser cache.`
+                )
+            );
         }
+
         PWADevServer.setLoopback(hostname);
+
         return {
             protocol: 'https:',
             hostname,
             port
         };
     },
-    async configure(config = {}) {
+    async configure(config) {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
-        const sanitizedId = config.id
-            .toLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, '-')
-            .replace(/^-+/, '');
-        const devHost = await PWADevServer.provideDevHost(sanitizedId);
-        const https = await SSLCertStore.provide(devHost.hostname);
-        debug(`https provided:`, https);
-        return {
+        const devServerConfig = {
             contentBase: false,
             compress: true,
             hot: true,
-            https,
-            host: devHost.hostname,
-            port: devHost.port,
-            publicPath: url.format(
-                Object.assign({}, devHost, { pathname: config.publicPath })
-            ),
+            host: 'localhost',
             stats: {
                 all: false,
                 builtAt: true,
@@ -163,7 +170,10 @@ const PWADevServer = {
                     app.use(
                         middlewares.originSubstitution(
                             new url.URL(config.backendDomain),
-                            devHost
+                            {
+                                hostname: devServerConfig.host,
+                                port: devServerConfig.port
+                            }
                         )
                     );
                 }
@@ -176,7 +186,7 @@ const PWADevServer = {
             },
             after(app) {
                 // set static server to load and serve from different paths
-                app.use(config.publicPath, express.static(config.paths.assets));
+                app.use(config.publicPath, express.static(config.paths.output));
 
                 // proxy to backend
                 app.use(
@@ -186,6 +196,33 @@ const PWADevServer = {
                 );
             }
         };
+        let devHost;
+        if (config.id) {
+            devHost = await PWADevServer.provideCustomHost(config.id);
+        } else if (config.provideUniqueHost) {
+            devHost = await PWADevServer.provideUniqueHost(
+                config.provideUniqueHost
+            );
+        }
+        if (devHost) {
+            devServerConfig.host = devHost.hostname;
+            devServerConfig.port = devHost.port;
+        } else {
+            devServerConfig.port = await PWADevServer.findFreePort();
+        }
+        if (config.provideSSLCert) {
+            devServerConfig.https = await SSLCertStore.provide(
+                devServerConfig.host
+            );
+        }
+        devServerConfig.publicPath = url.format({
+            protocol: config.provideSSLCert ? 'https:' : 'http:',
+            hostname: devServerConfig.host,
+            port: devServerConfig.port,
+            pathname: config.publicPath
+        });
+
+        return devServerConfig;
     }
 };
 module.exports = PWADevServer;

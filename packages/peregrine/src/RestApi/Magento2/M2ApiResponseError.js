@@ -27,7 +27,9 @@ export default class M2ApiResponseError extends Error {
             }: \n\n${body}`,
             ...args
         );
-        Error.captureStackTrace(this, M2ApiResponseError);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, M2ApiResponseError);
+        }
         this.response = response;
         this.method = method;
         this.resourceUrl = resourceUrl;

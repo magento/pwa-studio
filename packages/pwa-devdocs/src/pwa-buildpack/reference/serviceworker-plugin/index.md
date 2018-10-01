@@ -61,8 +61,7 @@ module.exports = async env => {
                 },
 
                 paths: {
-                    output: path.resolve(__dirname, 'web/js'),
-                    assets: path.resolve(__dirname, 'web')
+                    output: path.resolve(__dirname, 'web')
                 },
                 enableServiceWorkerDebugging: true,
                 serviceWorkerFileName: 'sw.js',

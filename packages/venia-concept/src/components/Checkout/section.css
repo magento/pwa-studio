@@ -26,5 +26,9 @@
 
 .summary {
     font-size: 13px;
+    justify-self: stretch;
     line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

@@ -17,8 +17,7 @@ const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
+    output: path.resolve(__dirname, 'web')
 };
 
 // mark dependencies for vendor bundle
@@ -49,8 +48,8 @@ module.exports = async function(env) {
         output: {
             path: themePaths.output,
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            filename: '[name].js',
-            chunkFilename: '[name]-[chunkhash].js',
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
         },
         module: {
@@ -135,6 +134,7 @@ module.exports = async function(env) {
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             paths: themePaths,
+            provideSSLCert: true,
             id: 'magento-venia'
         });
 

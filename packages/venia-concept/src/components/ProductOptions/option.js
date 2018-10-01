@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';

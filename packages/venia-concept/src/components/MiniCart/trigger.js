@@ -1,9 +1,10 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
+import { closeDrawer } from 'src/actions/app';
 import defaultClasses from './trigger.css';
 
 class Trigger extends Component {
@@ -26,9 +27,7 @@ class Trigger extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    closeDrawer: () => dispatch({ type: 'TOGGLE_DRAWER', payload: null })
-});
+const mapDispatchToProps = { closeDrawer };
 
 export default compose(
     classify(defaultClasses),

@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { arrayOf, string, number, shape } from 'prop-types';
 import fixedObserver from 'src/util/fixedObserver';
 import initObserver from 'src/util/initObserver';

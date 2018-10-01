@@ -1,4 +1,4 @@
-import { Component, Fragment, createElement } from 'react';
+import React, { Component, Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 

@@ -1,6 +1,6 @@
-import { Component, createElement } from 'react';
 import classify from 'src/classify';
 import defaultClasses from './options.css';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Option from './option';
