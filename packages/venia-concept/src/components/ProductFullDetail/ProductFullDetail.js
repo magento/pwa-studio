@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import ProductEdit from 'src/components/ProductEdit';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -66,6 +67,7 @@ class ProductFullDetail extends Component {
 
         return (
             <article className={classes.root}>
+                <ProductEdit item={product} />
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         <span>{product.name}</span>

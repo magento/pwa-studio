@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaultClasses from './optionsHeader.css';
 import classify from 'src/classify';

@@ -32,7 +32,6 @@ export const tileListItem = (text='test') => {
     return {
         item: {
             ...tileItem(text),
-            isSelected: true
         },
         classes: tileClasses,
         children: text
