@@ -52,8 +52,11 @@ test('calls `onSignIn` when sign in button is pressed', () => {
     const wrapper = mount(
         shallow(<SignIn signIn={signInSpy} classes={classes} />).get(0)
     );
-    const signInButton = wrapper.find(`.${classes.signInButton}`);
-    console.log(signInButton)
-    signInButton.simulate('click');
-    expect(signInSpy).toHaveBeenCalled();
+    const signInForm = wrapper.find('form');
+    signInForm
+        .getElement()
+        .props.onSubmit()
+        .then(() => {
+            expect(signInSpy).toHaveBeenCalled();
+        });
 });

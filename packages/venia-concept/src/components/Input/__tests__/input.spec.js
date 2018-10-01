@@ -71,14 +71,18 @@ test('set `value` state when text is entered into `input`', () => {
         target: { value: changeValue }
     };
 
-    const wrapper = shallow(<Input label={validInput.label} field={validInput.field} />).dive();
+    const wrapper = shallow(
+        <Input label={validInput.label} field={validInput.field} />
+    ).dive();
 
     wrapper.find('Text').prop('onChange')(event);
     expect(wrapper.state().value).toBe(changeValue);
 });
 
 test('set state to `focused` on `Text` focus', () => {
-    const wrapper = shallow(<Input label={validInput.label} field={validInput.field} />).dive();
+    const wrapper = shallow(
+        <Input label={validInput.label} field={validInput.field} />
+    ).dive();
 
     expect(wrapper.state().focused).toBeFalsy();
     wrapper.find('Text').simulate('focus');

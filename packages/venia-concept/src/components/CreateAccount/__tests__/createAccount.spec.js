@@ -50,7 +50,8 @@ jest.mock('underscore', () => {
 });
 
 const classes = {
-    createAccountButton: 'a'
+    createAccountButton: 'a',
+    root: 'b'
 };
 
 // jest.useFakeTimers();
@@ -95,11 +96,18 @@ test('calls `onCreateAccount` when create account button is pressed', () => {
     const createAccountSpy = jest.fn();
     const wrapper = mount(
         shallow(
-            <CreateAccount onCreateAccount={createAccountSpy} classes={classes} />
+            <CreateAccount
+                onCreateAccount={createAccountSpy}
+                classes={classes}
+            />
         ).get(0)
     );
     wrapper.setState(state);
-    const createAccountButton = wrapper.find(`.${classes.createAccountButton}`);
-    createAccountButton.simulate('submit');
-    expect(createAccountSpy).toHaveBeenCalled();
+    const createAccountForm = wrapper.find('form');
+    createAccountForm
+        .getElement()
+        .props.onSubmit()
+        .then(() => {
+            expect(createAccountSpy).toHaveBeenCalled();
+        });
 });
