@@ -14,7 +14,7 @@ const initialState = {
 const reducerMap = {
     [actions.getGuestCart.receive]: (state, { payload, error }) => {
         if (error) {
-            return state;
+            return initialState;
         }
 
         return {
