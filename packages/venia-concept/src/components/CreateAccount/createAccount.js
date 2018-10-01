@@ -19,7 +19,6 @@ class CreateAccount extends Component {
             root: PropTypes.string,
             createAccountError: PropTypes.string
         }),
-
         createAccountError: PropTypes.object,
         createAccount: PropTypes.func
     };
@@ -42,6 +41,7 @@ class CreateAccount extends Component {
     }
 
     get hasEmailError() {
+        // Only return true if the email field has a value, and it's not being checked against existing emails
         return (
             !!this.state.email &&
             !this.state.emailAvailable &&
@@ -50,10 +50,12 @@ class CreateAccount extends Component {
     }
 
     get hasPasswordConfirmError() {
+        // Check if passwords match
         return this.state.password !== this.state.passwordConfirm;
     }
 
     get isIncompleteOrInvalid() {
+        // A catch-all to check if the form is valid so the customer can attempt to create an account
         return (
             this.hasEmailError ||
             this.hasPasswordConfirmError ||
@@ -64,20 +66,23 @@ class CreateAccount extends Component {
     }
 
     get emailHelpText() {
+        // Displays under the email Input as help text
         return this.hasEmailError
             ? 'This email is already in use'
             : 'Use an active email';
     }
 
     get emailHelpType() {
+        // If the email has an error, use the 'error' help text
         return this.hasEmailError ? HelpTypes.error : HelpTypes.hint;
     }
 
-    get passwordHelpText() {
+    get passwordConfirmHelpText() {
+        // If passwords do not match, set appropriate text under password Input
         return this.hasPasswordConfirmError ? 'Passwords do not match' : '';
     }
 
-    get passwordHelpType() {
+    get passwordConfirmHelpType() {
         return HelpTypes.error;
     }
 
@@ -88,10 +93,10 @@ class CreateAccount extends Component {
             errorMessage,
             emailHelpText,
             emailHelpType,
-            passwordHelpText,
-            passwordHelpType,
+            passwordConfirmHelpText,
+            passwordConfirmHelpType,
             isIncompleteOrInvalid
-        } = this;
+        } = this; // Uses `getters` defined above
 
         return (
             <div className={classes.root}>
@@ -109,7 +114,7 @@ class CreateAccount extends Component {
                         required={true}
                         autoComplete={'email'}
                         initialValue={defaultUsername}
-                        field='email'
+                        field="email"
                     />
 
                     <Input
@@ -117,7 +122,7 @@ class CreateAccount extends Component {
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
-                        field='first-name'
+                        field="first-name"
                     />
 
                     <Input
@@ -125,7 +130,7 @@ class CreateAccount extends Component {
                         label={'Last Name'}
                         required={true}
                         autoComplete={'family-name'}
-                        field='family-name'
+                        field="family-name"
                     />
 
                     <Input
@@ -138,7 +143,7 @@ class CreateAccount extends Component {
                             'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'
                         }
                         autoComplete={'new-password'}
-                        field='password'
+                        field="password"
                     />
 
                     <Input
@@ -147,9 +152,9 @@ class CreateAccount extends Component {
                         type={'password'}
                         required={true}
                         placeholder={'Enter the password again'}
-                        helpText={passwordHelpText}
-                        helpType={passwordHelpType}
-                        field='confirm-password'
+                        helpText={passwordConfirmHelpText}
+                        helpType={passwordConfirmHelpType}
+                        field="confirm-password"
                     />
 
                     <Checkbox
@@ -192,6 +197,7 @@ class CreateAccount extends Component {
                 customerEmail: email,
                 website_id: null
             };
+            // endpoint returns a boolean, so we set our emailAvailable state to the response
             const response = await request(
                 '/rest/V1/customers/isEmailAvailable',
                 {

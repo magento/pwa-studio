@@ -95,7 +95,9 @@ class Input extends Component {
         } = this.props;
         let { autoComplete, field } = this.props;
 
-        if (!this.state.dirty) { field = initialValue ? initialValue : field };
+        if (!this.state.dirty) {
+            field = initialValue ? initialValue : field;
+        }
         autoComplete = !autoComplete ? 'off' : autoComplete;
 
         return (

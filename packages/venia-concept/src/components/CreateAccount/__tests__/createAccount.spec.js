@@ -95,7 +95,7 @@ test('calls `onCreateAccount` when create account button is pressed', () => {
     const createAccountSpy = jest.fn();
     const wrapper = mount(
         shallow(
-            <CreateAccount createAccount={createAccountSpy} classes={classes} />
+            <CreateAccount onCreateAccount={createAccountSpy} classes={classes} />
         ).get(0)
     );
     wrapper.setState(state);

@@ -85,12 +85,15 @@ class Navigation extends Component {
         return (
             <div className={`${className} ${classes.signInForm}`}>
                 <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
-                <SignIn showCreateAccountForm={this.setCreateAccountForm} setDefaultUsername={this.setDefaultUsername}/>
+                <SignIn
+                    showCreateAccountForm={this.setCreateAccountForm}
+                    setDefaultUsername={this.setDefaultUsername}
+                />
             </div>
         );
     }
 
-    createAccount = () => { }
+    createAccount = () => {};
 
     setCreateAccountForm = () => {
         /*
@@ -101,24 +104,27 @@ class Navigation extends Component {
         Component to show animation.
         */
         this.createAccount = (className, classes) => {
-            return (<div className={`${className} ${classes.signInForm}`}>
-                <NavHeader
-                    onBack={this.hideCreateAccountForm}
-                    title={'Create Account'}
-                />
-                <CreateAccount defaultUsername={this.state.defaultUsername} />
-            </div>
-            )
-        }
+            return (
+                <div className={`${className} ${classes.signInForm}`}>
+                    <NavHeader
+                        onBack={this.hideCreateAccountForm}
+                        title={'Create Account'}
+                    />
+                    <CreateAccount
+                        defaultUsername={this.state.defaultUsername}
+                    />
+                </div>
+            );
+        };
         this.showCreateAccountForm();
-    }
+    };
 
     get createAccountForm() {
         const { classes } = this.props;
         const className =
             !this.state.isCreateAccountOpen || this.props.isSignedIn
-            ? classes.createAccountClosed
-            : classes.createAccountOpen;
+                ? classes.createAccountClosed
+                : classes.createAccountOpen;
 
         return this.createAccount(className, classes);
     }
@@ -136,8 +142,8 @@ class Navigation extends Component {
     };
 
     setDefaultUsername = newDefaultUsername => {
-        this.setState({defaultUsername: newDefaultUsername})
-    }
+        this.setState({ defaultUsername: newDefaultUsername });
+    };
 
     showCreateAccountForm = () => {
         this.setState({

@@ -47,12 +47,13 @@ test('display error message if there is a `signInError`', () => {
     expect(errorMessage.html()).toContain(props.signInError.message);
 });
 
-test('calls `onSignIn` when create account button is pressed', () => {
+test('calls `onSignIn` when sign in button is pressed', () => {
     const signInSpy = jest.fn();
     const wrapper = mount(
         shallow(<SignIn signIn={signInSpy} classes={classes} />).get(0)
     );
     const signInButton = wrapper.find(`.${classes.signInButton}`);
-    signInButton.simulate('submit');
+    console.log(signInButton)
+    signInButton.simulate('click');
     expect(signInSpy).toHaveBeenCalled();
 });

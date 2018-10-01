@@ -45,7 +45,7 @@ class SignIn extends Component {
                         label={'Username or Email'}
                         required={true}
                         autoComplete={'username'}
-                        field='username'
+                        field="username"
                     />
                     <Input
                         onChange={this.updatePassword}
@@ -54,7 +54,7 @@ class SignIn extends Component {
                         helpText={'example help text'}
                         required={true}
                         autoComplete={'current-password'}
-                        field='password'
+                        field="password"
                     />
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>

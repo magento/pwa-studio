@@ -16,28 +16,26 @@ const validInput = {
     helpVisible: true,
     errorVisible: true,
     successVisible: true,
-    onChange: null
+    onChange: null,
+    field: 'value'
 };
 
 test('correctly assigns all props passed to `input` field', () => {
     const wrapper = shallow(
         <Input
-            value={validInput.value}
             label={validInput.label}
             type={validInput.type}
             disabled={validInput.disabled}
             placeholder={validInput.placeholder}
             required={validInput.required}
+            field={validInput.field}
         />
     );
 
     const wrapperProps = wrapper
         .dive()
-        .find('input')
+        .find('Text')
         .props();
-
-    const valueProp = wrapperProps.value;
-    expect(valueProp).toEqual(validInput.value);
 
     const typeProp = wrapperProps.type;
     expect(typeProp).toEqual(validInput.type);
@@ -58,6 +56,7 @@ test('displays `helpText` when `helpVisible`', () => {
             label={validInput.label}
             helpText={validInput.helpText}
             helpVisible={validInput.helpVisible}
+            field={validInput.field}
         />
     ).dive();
 
@@ -72,27 +71,16 @@ test('set `value` state when text is entered into `input`', () => {
         target: { value: changeValue }
     };
 
-    const wrapper = shallow(<Input label={validInput.label} />).dive();
+    const wrapper = shallow(<Input label={validInput.label} field={validInput.field} />).dive();
 
-    wrapper.find('input').prop('onChange')(event);
+    wrapper.find('Text').prop('onChange')(event);
     expect(wrapper.state().value).toBe(changeValue);
 });
 
-test('call `makeDirty` and set state to dirty when `input` is blurred', () => {
-    const wrapper = shallow(<Input label={validInput.label} />).dive();
-
-    const makeDirtySpy = jest.spyOn(wrapper.instance(), 'makeDirty');
-
-    expect(wrapper.state().dirty).toBeFalsy();
-    wrapper.find('input').simulate('blur');
-    expect(makeDirtySpy).toHaveBeenCalled();
-    expect(wrapper.state().dirty).toBeTruthy();
-});
-
-test('set state to `focused` on `input` focus', () => {
-    const wrapper = shallow(<Input label={validInput.label} />).dive();
+test('set state to `focused` on `Text` focus', () => {
+    const wrapper = shallow(<Input label={validInput.label} field={validInput.field} />).dive();
 
     expect(wrapper.state().focused).toBeFalsy();
-    wrapper.find('input').simulate('focus');
+    wrapper.find('Text').simulate('focus');
     expect(wrapper.state().focused).toBeTruthy();
 });
