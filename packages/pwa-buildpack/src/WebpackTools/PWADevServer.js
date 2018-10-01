@@ -85,7 +85,7 @@ const PWADevServer = {
             } catch (e) {
                 console.warn(
                     debug.errorMsg(
-                        `getUniqueSubdomain(): Using default "${name}" prefix. Could not autodetect theme name from package.json: `
+                        `getUniqueSubdomain(): Using default "${name}" prefix. Could not autodetect project name from package.json: `
                     ),
                     e
                 );

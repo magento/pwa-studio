@@ -18,7 +18,7 @@ const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    output: path.resolve(__dirname, 'web')
+    output: path.resolve(__dirname, 'dist')
 };
 
 // mark dependencies for vendor bundle

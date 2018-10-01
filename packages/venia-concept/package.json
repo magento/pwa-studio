@@ -1,30 +1,30 @@
 {
-    "name": "theme-frontend-venia",
+  "name": "@magento/venia-concept",
   "version": "1.1.1",
-    "description": "Venia PWA Concept Theme for Magento 2",
-    "license": "(OSL-3.0 OR AFL-3.0)",
-    "author": "Magento Commerce",
-    "main": "src/index.js",
-    "repository": "github:magento-research/pwa-studio",
-    "bugs": {
-        "url": "https://github.com/magento-research/pwa-studio/issues"
-    },
-    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
-    "scripts": {
-        "build": "webpack --color --env.phase production",
-        "clean": "rimraf web/js",
-        "prepare": "npm-merge-driver install",
-        "start": "UPWARD_JS_BIND_LOCAL=1 UPWARD_JS_UPWARD_PATH=venia-upward.yml upward-js-server",
-        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
-        "watch": "webpack-dev-server --progress --color --env.phase development"
-    },
-    "devDependencies": {
+  "description": "Venia PWA Concept Storefront for Magento 2",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "author": "Magento Commerce",
+  "main": "src/index.js",
+  "repository": "github:magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
+  "scripts": {
+    "build": "webpack --color --env.phase production",
+    "clean": "rimraf web/js",
+    "prepare": "npm-merge-driver install",
+    "start": "UPWARD_JS_BIND_LOCAL=1 UPWARD_JS_UPWARD_PATH=venia-upward.yml upward-js-server",
+    "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+    "watch": "webpack-dev-server --progress --color --env.phase development"
+  },
+  "devDependencies": {
     "@magento/peregrine": "^1.1.1",
     "@magento/pwa-buildpack": "^1.1.1",
-        "@magento/upward-js": "*",
-        "npm-merge-driver": "^2.3.5",
-        "rimraf": "^2.6.2",
-        "webpack": "3.11.0",
-        "webpack-dev-server": "2.11.0"
-    }
+    "@magento/upward-js": "*",
+    "npm-merge-driver": "^2.3.5",
+    "rimraf": "^2.6.2",
+    "webpack": "3.11.0",
+    "webpack-dev-server": "2.11.0"
+  }
 }

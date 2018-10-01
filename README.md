@@ -44,7 +44,7 @@ All packages are versioned in a single repo, but released to `npm` as independen
 
 This repository includes the following packages:
 
-* [venia-concept](packages/venia-concept) - Reference/Concept Theme
+* [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 * [peregrine](packages/peregrine/README.md) - eCommerce Component Library
 * [pwa-module](packages/pwa-module)
@@ -60,7 +60,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 2.  Navigate to the root of the repository from the command line
 3.  Run `npm install`
 4.  Watch the bootstrapping take place.
-5.  To run the Venia theme development experience, run `npm run watch:venia` from package root.
+5.  To run the Venia storefront development experience, run `npm run watch:venia` from package root.
 6.  To run the full PWA Studio developer experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
 
 ## Things not to do
