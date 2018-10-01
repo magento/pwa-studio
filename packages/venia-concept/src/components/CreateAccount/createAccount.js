@@ -108,7 +108,8 @@ class CreateAccount extends Component {
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
-                        value={defaultUsername}
+                        initialValue={defaultUsername}
+                        field='email'
                     />
 
                     <Input
@@ -116,6 +117,7 @@ class CreateAccount extends Component {
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
+                        field='first-name'
                     />
 
                     <Input
@@ -123,6 +125,7 @@ class CreateAccount extends Component {
                         label={'Last Name'}
                         required={true}
                         autoComplete={'family-name'}
+                        field='family-name'
                     />
 
                     <Input
@@ -135,6 +138,7 @@ class CreateAccount extends Component {
                             'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'
                         }
                         autoComplete={'new-password'}
+                        field='password'
                     />
 
                     <Input
@@ -145,6 +149,7 @@ class CreateAccount extends Component {
                         placeholder={'Enter the password again'}
                         helpText={passwordHelpText}
                         helpType={passwordHelpType}
+                        field='confirm-password'
                     />
 
                     <Checkbox

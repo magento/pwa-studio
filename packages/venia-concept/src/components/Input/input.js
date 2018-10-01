@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import { PropTypes } from 'prop-types';
 import defaultClasses from './input.css';
 import classify from 'src/classify';
+import { Text } from 'informed';
 
 export const HelpTypes = {
     hint: 'hint',
@@ -23,7 +24,7 @@ class Input extends Component {
             rootFocused: PropTypes.string
         }),
 
-        value: PropTypes.string,
+        initialValue: PropTypes.string,
         placeholder: PropTypes.string,
         label: PropTypes.string.isRequired,
         type: PropTypes.string,
@@ -33,19 +34,18 @@ class Input extends Component {
         autoComplete: PropTypes.string,
         helpText: PropTypes.string,
         helpType: PropTypes.string,
-
+        field: PropTypes.string.isRequired,
         onChange: PropTypes.func
     };
 
     static defaultProps = {
         disabled: false,
         helpVisible: true,
-        helpType: HelpTypes.hint,
-        value: ''
+        helpType: HelpTypes.hint
     };
 
     state = {
-        value: this.props.value,
+        value: this.props.initialValue,
         focused: false,
         dirty: false
     };
@@ -91,20 +91,20 @@ class Input extends Component {
             disabled,
             required,
             title,
+            initialValue
         } = this.props;
-        let { value, autoComplete} = this.props;
+        let { autoComplete, field } = this.props;
 
-        value = this.state.dirty ? this.state.value : value;
+        if (!this.state.dirty) { field = initialValue ? initialValue : field };
         autoComplete = !autoComplete ? 'off' : autoComplete;
 
         return (
             <div className={rootClass}>
                 <span className={classes.label}>
-                    {requiredSymbol} {labelText}
+                    {requiredSymbol} {labelText} - {field}
                 </span>
-                <input
+                <Text
                     className={classes.input}
-                    defaultValue={value}
                     placeholder={placeholder}
                     type={type}
                     disabled={disabled}
@@ -114,6 +114,7 @@ class Input extends Component {
                     onChange={this.handleChange}
                     onFocus={this.focusTextInput}
                     onBlur={this.blurTextInput}
+                    field={field}
                 />
                 {helpText}
             </div>
@@ -123,6 +124,7 @@ class Input extends Component {
     handleChange = event => {
         this.setState({ value: event.target.value });
         this.props.onChange ? this.props.onChange(event.target.value) : null;
+        this.makeDirty();
     };
 
     focusTextInput = () => {
@@ -131,7 +133,6 @@ class Input extends Component {
 
     blurTextInput = () => {
         this.setState({ focused: false });
-        this.makeDirty();
     };
 
     makeDirty = () => {
