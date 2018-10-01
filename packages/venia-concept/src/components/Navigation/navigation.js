@@ -154,10 +154,10 @@ class Navigation extends Component {
 
 const mapStateToProps = state => {
     return {
-        isSignedIn: state['user']['isSignedIn'],
-        firstname: state['user']['firstname'],
-        lastname: state['user']['lastname'],
-        email: state['user']['email']
+        isSignedIn: state.user.isSignedIn,
+        firstname: state.user.firstname,
+        lastname: state.user.lastname,
+        email: state.user.email
     };
 };
 
