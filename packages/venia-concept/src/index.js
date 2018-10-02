@@ -12,6 +12,7 @@ import { Util } from '@magento/peregrine';
 import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
 import cartReducer from 'src/reducers/cart';
+import checkoutReducer from 'src/reducers/checkout';
 
 import './index.css';
 
@@ -27,6 +28,7 @@ const { Provider, store } = bootstrap({
 store.addReducer('app', reducer);
 store.addReducer('user', userReducer);
 store.addReducer('cart', cartReducer);
+store.addReducer('checkout', checkoutReducer);
 
 store.dispatch(getUserDetails());
 

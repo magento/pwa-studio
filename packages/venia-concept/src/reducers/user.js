@@ -1,7 +1,13 @@
+import { handleActions } from 'redux-actions';
+
 import { Util } from '@magento/peregrine';
 const { BrowserPersistence } = Util;
 
 const storage = new BrowserPersistence();
+
+import actions from 'src/actions/user';
+
+export const name = 'user';
 
 const initialState = {
     isSignedIn: !!storage.getItem('signin_token'),
@@ -13,59 +19,44 @@ const initialState = {
     signInError: {}
 };
 
-const userReducer = (state = initialState, { error, payload, type }) => {
-    switch (type) {
-        case 'SIGN_IN': {
-            return {
-                ...state,
-                ...payload,
-                isSignedIn: true,
-                currentUser: Object.assign(payload)
-            };
+const reducerMap = {
+    [actions.signIn.receive]: (state, { payload, error }) => {
+        if (error) {
+            return initialState;
         }
-        case 'SIGN_OUT': {
-            return {
-                ...state,
-                isSignedIn: false
-            };
-        }
-        case 'RESET_SIGN_IN_ERROR': {
-            return {
-                ...state,
-                signInError: {}
-            };
-        }
-        case 'RESET_CREATE_ACCOUNT_ERROR': {
-            return {
-                ...state,
-                createAccountError: {}
-            };
-        }
-        case 'SIGN_IN_ERROR': {
-            return {
-                ...state,
-                isSignedIn: false,
-                signInError: payload
-            };
-        }
-        case 'ACCOUNT_CREATE_ERROR': {
-            return {
-                ...state,
-                createAccountError: payload
-            };
-        }
-        default: {
-            if (error) {
-                return {
-                    ...state,
-                    error
-                };
-            }
-            return state;
-        }
+
+        return {
+            ...state,
+            ...payload,
+            isSignedIn: true,
+            currentUser: Object.assign(payload)
+        };
+    },
+    [actions.signInError.receive]: (state, { payload }) => {
+        return {
+            ...state,
+            isSignedIn: false,
+            signInError: payload
+        };
+    },
+    [actions.createAccountError.receive]: (state, { payload }) => {
+        return {
+            ...state,
+            createAccountError: payload
+        };
+    },
+    [actions.resetSignInError.receive]: (state) => {
+        return {
+            ...state,
+            signInError: {}
+        };
+    },
+    [actions.resetCreateAccountError.receive]: (state) => {
+        return {
+            ...state,
+            createAccountError: {}
+        };
     }
 };
 
-const selectAppState = ({ user }) => ({ user });
-
-export { userReducer as default, selectAppState };
+export default handleActions(reducerMap, initialState);

@@ -5,7 +5,9 @@ import { removeGuestCart } from 'src/actions/cart';
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 
-const signIn = credentials =>
+import actions from './actions';
+
+export const signIn = credentials =>
     async function thunk(...args) {
         const [dispatch] = args;
 
@@ -16,9 +18,7 @@ const signIn = credentials =>
             password: credentials.password
         };
 
-        dispatch({
-            type: 'RESET_SIGN_IN_ERROR'
-        });
+        dispatch(actions.resetSignInError.request());
 
         try {
             const response = await request(
@@ -35,20 +35,15 @@ const signIn = credentials =>
                 method: 'GET'
             });
 
-            dispatch({
-                type: 'SIGN_IN',
-                payload: userDetails
-            });
+            dispatch(actions.signIn.receive(userDetails))
+
         } catch (error) {
             console.warn(error);
-            dispatch({
-                type: 'SIGN_IN_ERROR',
-                payload: error
-            });
+            dispatch(actions.signInError.receive(error))
         }
     };
 
-const getUserDetails = () =>
+export const getUserDetails = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { user } = getState();
@@ -56,20 +51,15 @@ const getUserDetails = () =>
             const userDetails = await request('/rest/V1/customers/me', {
                 method: 'GET'
             });
-            dispatch({
-                type: 'SIGN_IN',
-                payload: userDetails
-            });
+            dispatch(actions.signIn.receive(userDetails))
         }
     };
 
-const createAccount = accountInfo =>
+export const createAccount = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
 
-        dispatch({
-            type: 'RESET_CREATE_ACCOUNT_ERROR'
-        });
+        dispatch(actions.resetCreateAccountError.request());
 
         try {
             await request('/rest/V1/customers', {
@@ -84,15 +74,17 @@ const createAccount = accountInfo =>
             );
             dispatch(assignGuestCartToCustomer());
         } catch (error) {
-            dispatch({
-                type: 'ACCOUNT_CREATE_ERROR',
-                payload: error,
-                error: true
-            });
+            dispatch(actions.createAccountError.recieve(error))
+            //
+            // dispatch({
+            //     type: 'ACCOUNT_CREATE_ERROR',
+            //     payload: error,
+            //     error: true
+            // });
         }
     };
 
-const assignGuestCartToCustomer = () =>
+export const assignGuestCartToCustomer = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { user } = getState();
@@ -115,10 +107,8 @@ const assignGuestCartToCustomer = () =>
         }
     };
 
-function setToken(token) {
+async function setToken(token) {
     const storage = new BrowserPersistence();
     // TODO: Get correct token expire time from API
     storage.setItem('signin_token', token, 3600);
 }
-
-export { signIn, createAccount, assignGuestCartToCustomer, getUserDetails };

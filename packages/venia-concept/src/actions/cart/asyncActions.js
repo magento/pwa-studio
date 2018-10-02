@@ -55,6 +55,19 @@ export const addItemToCart = (payload = {}) => {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
+        const { user } = getState();
+        if (user.isSignedIn) {
+            console.warn('Can not currently add items to your cart as a non-guest user');
+            ///////////////////////////////////////////
+            // TODO: handle logged-in cart retrieval. //
+            ///////////////////////////////////////////
+            // If a user creates a new account
+            // the guest cart will be transfered to their account.
+            // Once that happens `/rest/V1/guest-carts` will 400 if it
+            // is called.
+            return;
+        }
+
         try {
             const { cart } = getState();
             const { guestCartId } = cart;
