@@ -93,38 +93,51 @@ class MiniCart extends Component {
         ) : null;
     }
 
-    get editPanel() {
+    get checkout() {
+        const { totalsSummary } = this;
+        const { cart } = this.props;
+
+        return (
+            <div>
+                {totalsSummary}
+                <Checkout cart={cart} />
+            </div>
+        );
+    }
+
+    get productOptions() {
         const { classes } = this.props;
-        const className = this.state.isEditPanelOpen
-            ? classes.editPanel_open
-            : classes.editPanel;
+
         const itemName = this.state.focusItem
             ? this.state.focusItem.name
             : null;
         const itemPrice = this.state.focusItem
             ? this.state.focusItem.price
             : null;
+
         return (
-            <div className={className}>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>
-                        <span>Edit Cart Item</span>
-                    </h2>
-                    <Trigger>
-                        <Icon name="x" />
-                    </Trigger>
+            <div className={classes.content}>
+                <div className={classes.focusItem}>
+                    {itemName} <span>${itemPrice}</span>
                 </div>
-                <div className={classes.content}>
-                    <div className={classes.focusItem}>
-                        {itemName} <span>${itemPrice}</span>
-                    </div>
-                    <div className={classes.options}>Choose a Size:</div>
-                </div>
-                <div className={classes.footer} />
-                <div className={classes.save}>
-                    <Button onClick={this.hideEditPanel}>Cancel</Button>
-                    <Button>Update Cart</Button>
-                </div>
+                <div className={classes.options}>Choose a Size:</div>
+            </div>
+        );
+    }
+
+    get productConfirm() {
+        const { totalsSummary } = this;
+        const { classes, cart } = this.props;
+
+        return this.state.isEditPanelOpen ? (
+            <div className={classes.save}>
+                <Button onClick={this.hideEditPanel}>Cancel</Button>
+                <Button>Update Cart</Button>
+            </div>
+        ) : (
+            <div>
+                <div className={classes.summary}>{totalsSummary}</div>
+                <Checkout cart={cart} />
             </div>
         );
     }
@@ -147,25 +160,33 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { checkout, productList, totalsSummary, editPanel, props } = this;
-        const { cart, classes, isOpen } = props;
+        const {
+            checkout,
+            productList,
+            productOptions,
+            productConfirm,
+            props
+        } = this;
+        const { classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
+        const title = this.state.isEditPanelOpen
+            ? 'Edit Cart Item'
+            : 'Shopping Cart';
+        const body = this.state.isEditPanelOpen ? productOptions : productList;
+        const footer = this.state.isEditPanelOpen ? productConfirm : checkout;
 
         return (
             <aside className={className}>
                 <div className={classes.header}>
                     <h2 className={classes.title}>
-                        <span>Shopping Cart</span>
+                        <span>{title}</span>
                     </h2>
                     <Trigger>
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <div className={classes.body}>{productList}</div>
-                <div className={classes.footer}>
-                    <div className={classes.summary}>{totalsSummary}</div>
-                </div>
-                <Checkout cart={cart} />
+                <div className={classes.body}>{body}</div>
+                <div className={classes.footer}>{footer}</div>
             </aside>
         );
     }
@@ -184,7 +205,7 @@ const mapStateToProps = ({ cart }) => {
     };
 };
 
-const mapDispatchToProps = { getCartDetails };
+const mapDispatchToProps = { getCartDetails, removeItemFromCart };
 
 export default compose(
     classify(defaultClasses),

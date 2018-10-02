@@ -32,6 +32,18 @@ const reducerMap = {
             ...payload
         };
     },
+    [actions.removeItem.receive]: (state, { payload, error }) => {
+        if (error) {
+            return initialState;
+        }
+        if (payload.cartItemCount == 1) {
+            return initialState;
+        }
+        return {
+            ...state,
+            ...payload
+        };
+    },
     [checkoutActions.order.accept]: () => {
         return initialState;
     }

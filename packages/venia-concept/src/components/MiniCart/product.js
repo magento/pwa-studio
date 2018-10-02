@@ -151,7 +151,9 @@ class Product extends Component {
 
     removeItem = () => {
         // TODO: prompt user to confirm this action
-        this.props.removeItemFromCart(this.props.item);
+        this.props.removeItemFromCart({
+            item: this.props.item
+        });
     };
 }
 

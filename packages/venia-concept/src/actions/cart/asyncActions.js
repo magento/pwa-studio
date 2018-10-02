@@ -108,6 +108,64 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
+export const removeItemFromCart = payload => {
+    const { item } = payload;
+
+    return async function thunk(dispatch, getState) {
+        dispatch(actions.removeItem.request(payload));
+
+        try {
+            const { cart } = getState();
+            const { guestCartId } = cart;
+            const cartItemCount = cart.details.items_count;
+
+            if (!guestCartId) {
+                const missingGuestCartError = new Error(
+                    'Missing required information: guestCartId'
+                );
+                missingGuestCartError.noGuestCartId = true;
+                throw missingGuestCartError;
+            }
+
+            const cartItem = await request(
+                `/rest/V1/guest-carts/${guestCartId}/items/${item.item_id}`,
+                {
+                    method: 'DELETE'
+                }
+            );
+            // When removing the last item in the cart, perform a reset
+            // to prevent a bug where the next item added to the cart has
+            // a price of 0
+            if (cartItemCount == 1) {
+                await clearGuestCartId();
+            }
+
+            dispatch(
+                actions.removeItem.receive({ cartItem, item, cartItemCount })
+            );
+        } catch (error) {
+            const { response, noGuestCartId } = error;
+
+            dispatch(actions.removeItem.receive(error));
+
+            // check if the guest cart has expired
+            if (noGuestCartId || (response && response.status === 404)) {
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
+                await dispatch(createGuestCart());
+                // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+
+        await Promise.all([dispatch(getCartDetails({ forceRefresh: true }))]);
+    };
+};
+
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
