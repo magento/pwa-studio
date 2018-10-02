@@ -1,4 +1,3 @@
-import { createElement } from 'react';
 import { connect } from 'react-redux';
 import SignIn from './signIn';
 import { signIn, assignGuestCartToCustomer } from 'src/actions/user';

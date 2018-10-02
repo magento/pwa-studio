@@ -57,7 +57,9 @@ export const addItemToCart = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            console.warn('Can not currently add items to your cart as a non-guest user');
+            console.warn(
+                'Can not currently add items to your cart as a non-guest user'
+            );
             ///////////////////////////////////////////
             // TODO: handle logged-in cart retrieval. //
             ///////////////////////////////////////////
@@ -214,14 +216,6 @@ export const toggleCart = () =>
         ]);
     };
 
-/* helpers */
-
-async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
-    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
-        cache: forceRefresh ? 'reload' : 'default'
-    });
-}
-
 export const removeGuestCart = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
@@ -237,23 +231,27 @@ export const removeGuestCart = () =>
         }
     };
 
+/* helpers */
+
+async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
+    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
+        cache: forceRefresh ? 'reload' : 'default'
+    });
+}
+
 export async function getGuestCartId(dispatch, getState) {
     const { cart } = getState();
-
     // reducers may be added asynchronously
     if (!cart) {
         return null;
     }
-
     // create a guest cart if one hasn't been created yet
     if (!cart.guestCartId) {
         await dispatch(createGuestCart());
     }
-
     // retrieve app state again
     return getState().cart.guestCartId;
 }
-
 
 export async function retrieveGuestCartId() {
     return storage.getItem('guestCartId');

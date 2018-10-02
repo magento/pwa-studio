@@ -35,11 +35,10 @@ export const signIn = credentials =>
                 method: 'GET'
             });
 
-            dispatch(actions.signIn.receive(userDetails))
-
+            dispatch(actions.signIn.receive(userDetails));
         } catch (error) {
             console.warn(error);
-            dispatch(actions.signInError.receive(error))
+            dispatch(actions.signInError.receive(error));
         }
     };
 
@@ -51,7 +50,7 @@ export const getUserDetails = () =>
             const userDetails = await request('/rest/V1/customers/me', {
                 method: 'GET'
             });
-            dispatch(actions.signIn.receive(userDetails))
+            dispatch(actions.signIn.receive(userDetails));
         }
     };
 
@@ -74,7 +73,7 @@ export const createAccount = accountInfo =>
             );
             dispatch(assignGuestCartToCustomer());
         } catch (error) {
-            dispatch(actions.createAccountError.recieve(error))
+            dispatch(actions.createAccountError.recieve(error));
             //
             // dispatch({
             //     type: 'ACCOUNT_CREATE_ERROR',

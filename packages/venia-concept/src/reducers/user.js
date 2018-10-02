@@ -45,13 +45,13 @@ const reducerMap = {
             createAccountError: payload
         };
     },
-    [actions.resetSignInError.receive]: (state) => {
+    [actions.resetSignInError.receive]: state => {
         return {
             ...state,
             signInError: {}
         };
     },
-    [actions.resetCreateAccountError.receive]: (state) => {
+    [actions.resetCreateAccountError.receive]: state => {
         return {
             ...state,
             createAccountError: {}

@@ -1,4 +1,3 @@
-import { createElement } from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import CreateAccount from '../createAccount';

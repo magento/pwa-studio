@@ -1,4 +1,3 @@
-import { createElement } from 'react';
 import { connect } from 'react-redux';
 import CreateAccount from './createAccount';
 import { createAccount } from 'src/actions/user';
