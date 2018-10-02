@@ -14,10 +14,10 @@
 .root_masked {
     composes: root;
     filter: grayscale(1);
+    height: 100vh;
+    overflow: hidden;
 }
 
 .page_masked {
     composes: page;
-    height: 100vh;
-    overflow: hidden;
 }
