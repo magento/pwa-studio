@@ -41,8 +41,6 @@ class Wrapper extends Component {
             submitOrder
         } = this.props;
 
-        debugger;
-
         // ensure state slices are present
         if (!(cart && checkout)) {
             return null;
