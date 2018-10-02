@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import bootstrap from '@magento/peregrine';
 import { ApolloProvider } from 'react-apollo';
@@ -11,6 +11,8 @@ import { Util } from '@magento/peregrine';
 
 import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
+import cartReducer from 'src/reducers/cart';
+
 import './index.css';
 
 const urlBase = new URL('/graphql', location.origin).toString();
@@ -24,6 +26,7 @@ const { Provider, store } = bootstrap({
 
 store.addReducer('app', reducer);
 store.addReducer('user', userReducer);
+store.addReducer('cart', cartReducer);
 
 store.dispatch(getUserDetails());
 
@@ -71,5 +74,3 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
             });
     });
 }
-
-export { store };

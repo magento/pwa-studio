@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 
 import classify from 'src/classify';
 import defaultClasses from './richText.css';

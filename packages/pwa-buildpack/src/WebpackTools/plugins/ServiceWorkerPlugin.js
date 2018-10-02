@@ -7,7 +7,7 @@ class ServiceWorkerPlugin {
     static validateOptions = optionsValidator('ServiceWorkerPlugin', {
         'env.phase': 'string',
         serviceWorkerFileName: 'string',
-        'paths.assets': 'string'
+        'paths.output': 'string'
     });
     constructor(config) {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
@@ -17,7 +17,7 @@ class ServiceWorkerPlugin {
         const config = {
             // `globDirectory` and `globPatterns` must match at least 1 file
             // otherwise workbox throws an error
-            globDirectory: this.config.paths.assets,
+            globDirectory: this.config.paths.output,
             // TODO: (feature) autogenerate glob patterns from asset manifest
             globPatterns: ['**/*.{gif,jpg,png,svg}'],
 

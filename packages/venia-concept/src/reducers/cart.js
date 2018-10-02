@@ -1,86 +1,40 @@
-import debounce from 'lodash.debounce';
+import { handleActions } from 'redux-actions';
 
-import { Util } from '@magento/peregrine';
+import actions from 'src/actions/cart';
+import checkoutActions from 'src/actions/checkout';
 
-const { BrowserPersistence } = Util;
+export const name = 'cart';
 
-export default async function makeCartReducer() {
-    const storage = new BrowserPersistence();
-    const imagesBySku = (await storage.getItem('imagesBySku')) || {};
-    const saveImagesBySkuCache = debounce(
-        () => storage.setItem('imagesBySku', imagesBySku),
-        1000
-    );
-    const guestCartId = await storage.getItem('guestCartId');
-    const getInitialState = () => ({
-        guestCartId,
-        details: { items: [] },
-        totals: {}
-    });
-    const reducer = (state = getInitialState(), { error, payload, type }) => {
-        switch (type) {
-            case 'CREATE_GUEST_CART': {
-                // don't await the save, it can happen in the background
-                storage.setItem('guestCartId', payload);
-                return {
-                    ...state,
-                    guestCartId: payload
-                };
-            }
-            case 'GET_CART_DETAILS': {
-                return {
-                    ...state,
-                    ...payload,
-                    details: {
-                        ...payload.details,
-                        items: payload.details.items.map(item => ({
-                            ...item,
-                            image: item.image || imagesBySku[item.sku] || ''
-                        }))
-                    }
-                };
-            }
-            case 'REMOVE_GUEST_CART': {
-                storage.removeItem('guestCartId');
-                return {
-                    ...getInitialState(),
-                    guestCartId: null
-                };
-            }
-            case 'ADD_ITEM_TO_CART': {
-                // cart items don't have images in the REST API;
-                // this is the most efficient way to manage that,
-                // but it should go in a data layer
-                const { item } = payload;
-                const media = item.media_gallery_entries || [];
-                const cartImage =
-                    media.find(image => image.position === 1) || media[0];
-                if (
-                    item.sku &&
-                    cartImage &&
-                    imagesBySku[item.sku] !== cartImage
-                ) {
-                    imagesBySku[item.sku] = cartImage;
-                    // don't await the save, it can happen in the background
-                    saveImagesBySkuCache();
-                }
-                return {
-                    ...state,
-                    showError: error
-                };
-            }
-            case 'ACCEPT_ORDER': {
-                storage.removeItem('guestCartId');
-                return {
-                    ...getInitialState(),
-                    guestCartId: null
-                };
-            }
-            default: {
-                return state;
-            }
+const initialState = {
+    details: {},
+    guestCartId: null,
+    totals: {}
+};
+
+const reducerMap = {
+    [actions.getGuestCart.receive]: (state, { payload, error }) => {
+        if (error) {
+            return initialState;
         }
-    };
-    reducer.selectAppState = ({ cart }) => ({ cart });
-    return reducer;
-}
+
+        return {
+            ...state,
+            guestCartId: payload
+        };
+    },
+    [actions.getDetails.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            ...payload
+        };
+    },
+    [checkoutActions.order.accept]: () => {
+        return initialState;
+    }
+};
+
+export default handleActions(reducerMap, initialState);

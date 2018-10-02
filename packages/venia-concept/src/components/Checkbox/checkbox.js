@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import defaultClasses from './checkbox.css';
 import classify from 'src/classify';

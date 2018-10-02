@@ -1,29 +1,29 @@
 {
-    "name": "theme-frontend-venia",
-    "version": "1.1.1",
-    "description": "Venia PWA Concept Theme for Magento 2",
-    "license": "(OSL-3.0 OR AFL-3.0)",
-    "author": "Magento Commerce",
-    "main": "src/index.js",
-    "repository": "github:magento-research/pwa-studio",
-    "bugs": {
-        "url": "https://github.com/magento-research/pwa-studio/issues"
-    },
-    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
-    "scripts": {
-      "build": "webpack --color --env.phase production",
-      "clean": "rimraf web/js",
-      "prepare": "npm-merge-driver install",
-      "start": "webpack-dev-server --progress --color --env.phase development",
-      "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
-      "watch": "npm run -s start"
-    },
-    "devDependencies": {
-        "@magento/peregrine": "^1.1.1",
-        "@magento/pwa-buildpack": "^1.1.1",
-        "npm-merge-driver": "^2.3.5",
-        "rimraf": "^2.6.2",
-        "webpack": "3.11.0",
-        "webpack-dev-server": "2.11.0"
-    }
+  "name": "theme-frontend-venia",
+  "version": "1.1.1",
+  "description": "Venia PWA Concept Theme for Magento 2",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "author": "Magento Commerce",
+  "main": "src/index.js",
+  "repository": "github:magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
+  "scripts": {
+    "build": "webpack --color --env.phase production",
+    "clean": "rimraf web/js",
+    "prepare": "npm-merge-driver install",
+    "start": "webpack-dev-server --progress --color --env.phase development",
+    "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+    "watch": "npm run -s start"
+  },
+  "devDependencies": {
+    "@magento/peregrine": "^1.1.1",
+    "@magento/pwa-buildpack": "^1.1.1",
+    "npm-merge-driver": "^2.3.5",
+    "rimraf": "^2.6.2",
+    "webpack": "3.11.0",
+    "webpack-dev-server": "2.11.0"
+  }
 }

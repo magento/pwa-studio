@@ -1,9 +1,9 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import ResetButton from './resetButton';
-import defaultClasses from './exit.css';
+import defaultClasses from './receipt.css';
 
 class Exit extends Component {
     static propTypes = {

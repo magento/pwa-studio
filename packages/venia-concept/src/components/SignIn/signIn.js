@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';

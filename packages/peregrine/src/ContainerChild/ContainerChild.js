@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import { Component } from 'react';
 import { func, string } from 'prop-types';
 
 export default class ContainerChild extends Component {

@@ -21,7 +21,6 @@ const PWADevServer = {
         publicPath: 'string',
         backendDomain: 'string',
         'paths.output': 'string',
-        'paths.assets': 'string',
         serviceWorkerFileName: 'string'
     }),
     portsByHostname: new GlobalConfig({
@@ -187,7 +186,7 @@ const PWADevServer = {
             },
             after(app) {
                 // set static server to load and serve from different paths
-                app.use(config.publicPath, express.static(config.paths.assets));
+                app.use(config.publicPath, express.static(config.paths.output));
 
                 // proxy to backend
                 app.use(
