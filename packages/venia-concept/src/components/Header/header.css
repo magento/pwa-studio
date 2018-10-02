@@ -5,7 +5,21 @@
     grid-auto-columns: 100%;
     grid-auto-flow: row;
     grid-auto-rows: auto;
+    transition-property: grid-row-gap;
+}
+
+.open {
+    composes: root;
     grid-row-gap: 0.5rem;
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.closed {
+    composes: root;
+    grid-row-gap: 0;
+    transition-duration: 192ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .toolbar {
@@ -40,24 +54,4 @@
 .secondaryActions {
     grid-area: secondary;
     justify-self: end;
-}
-
-.searchBlock {
-    align-items: center;
-    display: none;
-    flex: none;
-    justify-content: center;
-    order: 1;
-    padding: 0 0.5rem 1rem;
-    width: 100%;
-}
-
-.searchInput {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 6px;
-    font-size: 1rem;
-    height: 3rem;
-    padding: 0 1.5rem;
-    width: 24rem;
-    -webkit-appearance: none;
 }
