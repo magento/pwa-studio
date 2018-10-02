@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
-import { store } from 'src';
 import classify from 'src/classify';
 import { addReducer } from 'src/store';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
@@ -95,11 +94,11 @@ class MiniCart extends Component {
 
     get checkout() {
         const { totalsSummary } = this;
-        const { cart } = this.props;
+        const { classes, cart } = this.props;
 
         return (
             <div>
-                {totalsSummary}
+                <div className={classes.summary}>{totalsSummary}</div>
                 <Checkout cart={cart} />
             </div>
         );
@@ -126,18 +125,12 @@ class MiniCart extends Component {
     }
 
     get productConfirm() {
-        const { totalsSummary } = this;
-        const { classes, cart } = this.props;
+        const { classes } = this.props;
 
-        return this.state.isEditPanelOpen ? (
+        return (
             <div className={classes.save}>
                 <Button onClick={this.hideEditPanel}>Cancel</Button>
                 <Button>Update Cart</Button>
-            </div>
-        ) : (
-            <div>
-                <div className={classes.summary}>{totalsSummary}</div>
-                <Checkout cart={cart} />
             </div>
         );
     }
