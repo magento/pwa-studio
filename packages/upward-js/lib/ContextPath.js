@@ -59,7 +59,7 @@ class ContextPath {
                         `Attempted non-integer lookup on a list: ${current} [${segment}]`
                     );
                 }
-            } else if (current === undefined) {
+            } else if (current === undefined || current === null) {
                 current = '';
                 break;
             } else if (typeof current === 'object') {

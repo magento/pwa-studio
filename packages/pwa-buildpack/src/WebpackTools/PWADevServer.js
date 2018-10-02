@@ -15,8 +15,7 @@ const PWADevServer = {
     validateConfig: optionsValidator('PWADevServer', {
         publicPath: 'string',
         backendDomain: 'string',
-        'paths.output': 'string',
-        serviceWorkerFileName: 'string'
+        'paths.output': 'string'
     }),
     portsByHostname: new GlobalConfig({
         prefix: 'devport-byhostname',

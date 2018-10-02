@@ -2,6 +2,7 @@ const debug = require('debug')('upward-js:DirectoryResolver');
 const serveStatic = require('express').static;
 const AbstractResolver = require('./AbstractResolver');
 
+const AllServers = new Map();
 class DirectoryResolver extends AbstractResolver {
     static get resolverType() {
         return 'directory';
@@ -9,9 +10,8 @@ class DirectoryResolver extends AbstractResolver {
     static get telltale() {
         return 'directory';
     }
-    constructor(...args) {
-        super(...args);
-        this.servers = new Map();
+    static get servers() {
+        return AllServers;
     }
     async resolve(definition) {
         if (!definition.directory) {
@@ -27,14 +27,14 @@ class DirectoryResolver extends AbstractResolver {
         }
         debug('resolved directory %s', directory);
 
-        let server = this.servers.get(directory);
+        let server = DirectoryResolver.servers.get(directory);
         if (!server) {
             debug(`creating new server for ${directory}`);
             server = serveStatic(directory, {
                 fallthrough: false,
                 index: false
             });
-            this.servers.set(directory, server);
+            DirectoryResolver.servers.set(directory, server);
         }
 
         return server;

@@ -112,9 +112,6 @@
     "@magento/peregrine": "file:packages/peregrine",
     "@magento/pwa-buildpack": "file:packages/pwa-buildpack",
     "@magento/upward-js": "file:packages/upward-js",
-    "@magento/upward-spec": "file:packages/upward-spec",
-    "@magento/venia-concept": "file:packages/venia-concept",
-    "pwa-devdocs": "file:packages/pwa-devdocs",
-    "pwa-module": "file:packages/pwa-module"
+    "@magento/upward-spec": "file:packages/upward-spec"
   }
 }

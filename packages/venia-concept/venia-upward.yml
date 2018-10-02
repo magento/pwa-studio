@@ -39,6 +39,14 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
+        isDevelopment:
+          when:
+            - matches: env.NODE_ENV
+              pattern: 'development'
+              use:
+                inline: true
+          default:
+            inline: false
         urlResolver: urlResolver
 
 resource:

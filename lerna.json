@@ -13,7 +13,7 @@
         "publish": {
             "ignoreChanges": [
                 "__tests__/**",
-                "pwa-module"
+                "pwa-devdocs"
             ]
         }
     }

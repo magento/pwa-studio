@@ -13,6 +13,7 @@ const {
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
+const pkg = require(path.resolve(__dirname, 'package.json'));
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
@@ -36,10 +37,12 @@ module.exports = async function(env) {
 
     const babelOptions = configureBabel(phase);
 
-    const enableServiceWorkerDebugging = Boolean(
-        process.env.ENABLE_SERVICE_WORKER_DEBUGGING
-    );
-    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
+    const enableServiceWorkerDebugging =
+        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+
+    const serviceWorkerFileName =
+        process.env.SERVICE_WORKER_FILE_NAME ||
+        pkg.config.serviceWorkerFileName;
 
     const config = {
         context: __dirname, // Node global for the running script's directory
