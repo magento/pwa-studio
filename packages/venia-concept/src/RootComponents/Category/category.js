@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { oneOfType, string, number, shape } from 'prop-types';
+import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
@@ -37,7 +37,7 @@ const categoryQuery = gql`
 
 class Category extends Component {
     static propTypes = {
-        id: oneOfType([number, string]),
+        id: number,
         classes: shape({
             gallery: string,
             root: string,
