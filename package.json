@@ -17,7 +17,7 @@
     "clean:dist": "lerna run clean",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
-    "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules",
+    "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "test": "jest",
@@ -37,6 +37,7 @@
     "@storybook/addons": "^3.4.6",
     "@storybook/react": "^3.4.2",
     "apollo-boost": "^0.1.9",
+    "apollo-link-context": "^1.0.9",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",
@@ -111,6 +112,7 @@
   "dependencies": {
     "@magento/peregrine": "file:packages/peregrine",
     "@magento/pwa-buildpack": "file:packages/pwa-buildpack",
+    "informed": "^1.10.5",
     "pwa-devdocs": "file:packages/pwa-devdocs",
     "pwa-module": "file:packages/pwa-module",
     "theme-frontend-venia": "file:packages/venia-concept"

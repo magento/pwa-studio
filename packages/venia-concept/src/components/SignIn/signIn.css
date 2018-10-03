@@ -1,0 +1,20 @@
+.signInDivider {
+    border-color: rgb(var(--venia-border));
+    border-style: solid;
+    border-width: 0 0 1px;
+    margin: 2rem 1rem;
+}
+
+.signInButton,
+.showCreateAccountButton {
+    text-align: center;
+    margin: 1rem 0 0;
+}
+
+.forgotPassword {
+    text-decoration: underline;
+    color: rgb(var(--venia-text-spot));
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 2rem 0 0 0;
+}
