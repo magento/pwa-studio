@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Button from 'src/components/Button';
-
+import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import { addReducer } from 'src/store';
-import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
@@ -18,18 +14,19 @@ let Checkout = () => null;
 
 class MiniCart extends Component {
     static propTypes = {
-        classes: shape({
-            body: string,
-            header: string,
-            footer: string,
-            root: string,
-            root_open: string,
-            subtotalLabel: string,
-            subtotalValue: string,
-            summary: string,
-            title: string,
-            totals: string
-        })
+        classes: PropTypes.shape({
+            body: PropTypes.string,
+            header: PropTypes.string,
+            footer: PropTypes.string,
+            root: PropTypes.string,
+            root_open: PropTypes.string,
+            subtotalLabel: PropTypes.string,
+            subtotalValue: PropTypes.string,
+            summary: PropTypes.string,
+            title: PropTypes.string,
+            totals: PropTypes.string
+        }),
+        getCartDetails: PropTypes.func
     };
 
     constructor(...args) {
@@ -144,25 +141,6 @@ class MiniCart extends Component {
     }
 }
 
-const mapStateToProps = ({ cart }) => {
-    const details = cart && cart.details;
-    const cartId = details && details.id;
-    const cartCurrencyCode =
-        details && details.currency && details.currency.quote_currency_code;
 
-    return {
-        cart,
-        cartId,
-        cartCurrencyCode
-    };
-};
 
-const mapDispatchToProps = { getCartDetails };
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
-)(MiniCart);
+export default classify(defaultClasses)(MiniCart)
