@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserPersistence } from './util/simplePersistence';
 
 export const mockRequest = jest.fn();
 
@@ -6,6 +7,10 @@ export const RestApi = {
     Magento2: {
         request: mockRequest
     }
+};
+
+export const Util = {
+    BrowserPersistence: BrowserPersistence
 };
 
 /**
