@@ -2,11 +2,11 @@ import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
-import { Util } from '@magento/peregrine';
 import actions from './actions';
+import { Util } from '@magento/peregrine';
 
-const { BrowserPersistence } = Util;
 const { request } = RestApi.Magento2;
+const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
 export const createGuestCart = () =>
@@ -80,6 +80,7 @@ export const addItemToCart = (payload = {}) => {
                 );
                 missingGuestCartError.noGuestCartId = true;
                 throw missingGuestCartError;
+                console.log('Missing required information: guestCartId');
             }
 
             const cartItem = await request(
