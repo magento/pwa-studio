@@ -11,16 +11,16 @@ export const signIn = credentials =>
     async function thunk(...args) {
         const [dispatch] = args;
 
-        const body = {
-            // username: 'roni_cost@example.com',
-            // password: 'roni_cost3@example.com'
-            username: credentials.username,
-            password: credentials.password
-        };
-
         dispatch(actions.resetSignInError.request());
 
         try {
+            const body = {
+                // username: 'roni_cost@example.com',
+                // password: 'roni_cost3@example.com'
+                username: credentials.username,
+                password: credentials.password
+            };
+
             const response = await request(
                 '/rest/V1/integration/customer/token',
                 {
@@ -37,7 +37,6 @@ export const signIn = credentials =>
 
             dispatch(actions.signIn.receive(userDetails));
         } catch (error) {
-            console.warn(error);
             dispatch(actions.signInError.receive(error));
         }
     };
@@ -73,13 +72,7 @@ export const createAccount = accountInfo =>
             );
             dispatch(assignGuestCartToCustomer());
         } catch (error) {
-            dispatch(actions.createAccountError.recieve(error));
-            //
-            // dispatch({
-            //     type: 'ACCOUNT_CREATE_ERROR',
-            //     payload: error,
-            //     error: true
-            // });
+            dispatch(actions.createAccountError.receive(error));
         }
     };
 
@@ -102,6 +95,7 @@ export const assignGuestCartToCustomer = () =>
             });
             dispatch(removeGuestCart());
         } catch (error) {
+            // TODO: Handle error
             console.log(error);
         }
     };
