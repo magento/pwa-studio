@@ -1,26 +1,21 @@
 jest.mock('../../util/promisified/dns');
 jest.mock('../../util/promisified/openport');
 jest.mock('../../util/global-config');
-jest.mock('../../util/ssl-cert-store');
 jest.mock('../../util/run-as-root');
 
 const { lookup } = require('../../util/promisified/dns');
 const openport = require('../../util/promisified/openport');
-const runAsRoot = require('../../util/run-as-root');
 const GlobalConfig = require('../../util/global-config');
-const SSLCertStore = require('../../util/ssl-cert-store');
-// Mocking a variable path requires the `.doMock`
-const pkgLocTest = process.cwd() + '/package.json';
-const pkg = jest.fn();
-jest.doMock(pkgLocTest, pkg, { virtual: true });
 
 let PWADevServer;
+let setupDomain;
 beforeAll(() => {
     GlobalConfig.mockImplementation(({ key }) => ({
         set: jest.fn(key),
         get: jest.fn(),
         values: jest.fn()
     }));
+    setupDomain = require('../../Utilities/setupDomain');
     PWADevServer = require('../').PWADevServer;
 });
 
@@ -53,51 +48,9 @@ const simulate = {
         return simulate;
     },
     certExistsForNextHostname(pair) {
-        SSLCertStore.provide.mockResolvedValueOnce(pair);
-    },
-    noPackageFound() {
-        jest.resetModuleRegistry();
-        pkg.mockImplementationOnce(() => {
-            const error = new Error(process.cwd() + '/package.json not found');
-            error.code = error.errno = 'ENOTFOUND';
-            throw error;
-        });
-        return simulate;
-    },
-    packageNameIs(name) {
-        jest.resetModuleRegistry();
-        pkg.mockImplementationOnce(() => ({ name }));
-        return simulate;
+        setupDomain.userCerts.get.mockResolvedValueOnce(pair);
     }
 };
-
-test('.setLoopback() checks if hostname resolves local, ipv4 or 6', async () => {
-    simulate.hostResolvesLoopback();
-    await PWADevServer.setLoopback('excelsior.com');
-    expect(lookup).toHaveBeenCalledWith('excelsior.com');
-    expect(runAsRoot).not.toHaveBeenCalled();
-
-    simulate.hostResolvesLoopback({ family: 6 });
-    await PWADevServer.setLoopback('excelsior.com');
-    expect(runAsRoot).not.toHaveBeenCalled();
-});
-
-test('.setLoopback() updates /etc/hosts to make hostname local', async () => {
-    lookup.mockRejectedValueOnce({ code: 'ENOTFOUND' });
-    await PWADevServer.setLoopback('excelsior.com');
-    expect(runAsRoot).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.any(Function),
-        'excelsior.com'
-    );
-});
-
-test('.setLoopback() dies under mysterious circumstances', async () => {
-    lookup.mockRejectedValueOnce({ code: 'UNKNOWN' });
-    await expect(PWADevServer.setLoopback('excelsior.com')).rejects.toThrow(
-        'Error trying to check'
-    );
-});
 
 test('.findFreePort() uses openPort to get a free port', async () => {
     simulate.savedPortsAre(8543, 9002, 8765).aFreePortWasFound();
@@ -116,94 +69,6 @@ test('.findFreePort() passes formatted errors from port lookup', async () => {
     await expect(PWADevServer.findFreePort()).rejects.toThrowError(
         /Unable to find an open port.*woah/
     );
-});
-
-test('.getUniqueSubdomain() makes a new hostname for an identifier', async () => {
-    const hostname = await PWADevServer.getUniqueSubdomain('bar');
-    expect(hostname).toMatch(/bar\-(\w){4,5}/);
-});
-
-test('.getUniqueSubdomain() makes a new hostname from the local package name', async () => {
-    simulate.packageNameIs('lorax');
-
-    const hostname = await PWADevServer.getUniqueSubdomain();
-    expect(hostname).toMatch(/lorax\-(\w){4,5}/);
-});
-
-test('.getUniqueSubdomain() logs a warning if it cannot determine a name', async () => {
-    jest.spyOn(console, 'warn').mockImplementation();
-    simulate.packageNameIs(undefined);
-
-    const hostname = await PWADevServer.getUniqueSubdomain();
-    expect(hostname).toMatch(/my\-pwa\-(\w){4,5}/);
-    expect(console.warn).toHaveBeenCalledWith(
-        expect.stringMatching('Could not autodetect'),
-        expect.any(Error)
-    );
-    expect(console.warn.mock.calls[0][1].message).toMatchSnapshot();
-
-    // and even if package cannot be found:
-    simulate.noPackageFound();
-    await PWADevServer.getUniqueSubdomain();
-    expect(console.warn).toHaveBeenLastCalledWith(
-        expect.stringMatching('Could not autodetect'),
-        expect.any(Error)
-    );
-    expect(console.warn.mock.calls[1][1].code).toBe('ENOTFOUND');
-    console.warn.mockRestore();
-});
-
-test('.provideUniqueHost() returns a URL object with a free dev host origin and stores a port', async () => {
-    simulate
-        .noPortSavedForNextHostname()
-        .aFreePortWasFound(8765)
-        .hostDoesNotResolve();
-
-    const { protocol, hostname, port } = await PWADevServer.provideUniqueHost(
-        'woah'
-    );
-
-    expect(protocol).toBe('https:');
-    expect(hostname).toMatch(/woah\-(\w){4,5}\.local\.pwadev/);
-    expect(port).toBe(8765);
-
-    expect(PWADevServer.portsByHostname.get).toHaveBeenCalledWith(hostname);
-    expect(PWADevServer.portsByHostname.set).toHaveBeenCalledWith(
-        hostname,
-        port
-    );
-});
-
-test('.provideUniqueHost() returns a cached port for the hostname', async () => {
-    const warn = jest.spyOn(console, 'warn').mockImplementation();
-    simulate
-        .portSavedForNextHostname(8000)
-        .aFreePortWasFound(8776)
-        .hostResolvesLoopback();
-
-    const { port } = await PWADevServer.provideUniqueHost('woah');
-
-    expect(port).toBe(8776);
-    expect(console.warn).toHaveBeenCalledWith(
-        expect.stringMatching(
-            'port 8000 is in use. The dev server will instead run'
-        )
-    );
-    warn.mockRestore();
-});
-
-test('.provideUniqueHost() warns about reserved port conflict', async () => {
-    const warn = jest.spyOn(console, 'warn').mockImplementation();
-    simulate
-        .portSavedForNextHostname(8888)
-        .aFreePortWasFound(8889)
-        .hostResolvesLoopback();
-
-    const { port } = await PWADevServer.provideUniqueHost('woah');
-
-    expect(port).toBe(8889);
-
-    warn.mockRestore();
 });
 
 test('.configure() throws errors on missing config', async () => {
@@ -247,9 +112,9 @@ test('.configure() gets or creates an SSL cert if `provideSSLCert: true`', async
         publicPath: 'bork',
         serviceWorkerFileName: 'doin',
         backendDomain: 'growe',
+        id: 'flowk',
         provideSSLCert: true
     });
-    expect(SSLCertStore.provide).toHaveBeenCalled();
     expect(server.https).toHaveProperty('cert', 'fakeCert');
 });
 
