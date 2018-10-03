@@ -180,6 +180,10 @@ const PWADevServer = {
             devServerConfig.https = await SSLCertStore.provide(
                 devServerConfig.host
             );
+            // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
+            devServerConfig.https.spdy = {
+                protocols: ['http/1.1']
+            };
         }
         devServerConfig.publicPath = url.format({
             protocol: config.provideSSLCert ? 'https:' : 'http:',

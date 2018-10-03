@@ -229,14 +229,6 @@ test('.configure() throws errors on missing config', async () => {
             paths: { output: 1234 }
         })
     ).rejects.toThrow('paths.output must be of type string');
-    await expect(
-        PWADevServer.configure({
-            id: 'foo',
-            publicPath: 'bar',
-            backendDomain: 'https://dumb.domain',
-            paths: { output: 'foo' }
-        })
-    ).rejects.toThrow('serviceWorkerFileName must be of type string');
 });
 
 test('.configure() gets or creates an SSL cert if `provideSSLCert: true`', async () => {
@@ -304,7 +296,11 @@ test('.configure() is backwards compatible with `id` param', async () => {
     simulate
         .portSavedForNextHostname(8765)
         .aFreePortWasFound(8765)
-        .hostResolvesLoopback();
+        .hostResolvesLoopback()
+        .certExistsForNextHostname({
+            key: 'fakeKey2',
+            cert: 'fakeCert2'
+        });
 
     const config = {
         id: 'samiam',
@@ -375,4 +371,32 @@ test('.configure() `id` param overrides `provideUniqueHost` param', async () => 
     expect(devServer).toMatchObject({
         host: 'samiam.local.pwadev'
     });
+});
+
+test('debugErrorMiddleware attached', async () => {
+    simulate
+        .portSavedForNextHostname(8765)
+        .aFreePortWasFound(8765)
+        .hostResolvesLoopback();
+
+    const config = {
+        id: 'samiam',
+        provideUniqueHost: 'samiam',
+        paths: {
+            output: 'path/to/static',
+            assets: 'path/to/assets'
+        },
+        publicPath: 'full/path/to/publicPath',
+        serviceWorkerFileName: 'swname.js',
+        backendDomain: 'https://magento.backend.domain'
+    };
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer.after).toBeInstanceOf(Function);
+    const app = {
+        use: jest.fn()
+    };
+    devServer.after(app);
+    expect(app.use).toHaveBeenCalledWith(expect.any(Function));
 });

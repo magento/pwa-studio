@@ -13,9 +13,18 @@ class UpwardPlugin {
         // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
         devServer.after = app => {
-            app.use((...args) => this.handleRequest(...args));
+            app.use((req, res, next) => this.handleRequest(req, res, next));
             if (oldAfter) oldAfter(app);
         };
+    }
+    apply(compiler) {
+        this.compiler = compiler;
+        // If a request has run to the devServer before this method has run,
+        // then there is already a Promise pending for the compiler, and this is
+        // its resolver.
+        if (this.resolveCompiler) {
+            this.resolveCompiler(compiler);
+        }
     }
     // Hold the first request (and subsequent requests) until the middleware is
     // created, then swap out `handleRequest` for the simplest stack trace.
@@ -57,7 +66,11 @@ class UpwardPlugin {
 
                 // Next most likely scenario: UPWARD needs a file on disk.
                 try {
-                    return defaultIO.readFile(absolutePath, enc);
+                    const fromDefault = await defaultIO.readFile(
+                        absolutePath,
+                        enc
+                    );
+                    return fromDefault;
                 } catch (e) {}
 
                 // Fallback: Use Webpack's resolution rules.
@@ -86,15 +99,6 @@ class UpwardPlugin {
         }
         // Share the compiler promise.
         return this.compilerPromise;
-    }
-    apply(compiler) {
-        this.compiler = compiler;
-        // If a request has run to the devServer before this method has run,
-        // then there is already a Promise pending for the compiler, and this is
-        // its resolver.
-        if (this.resolveCompiler) {
-            this.resolveCompiler(compiler);
-        }
     }
 }
 
