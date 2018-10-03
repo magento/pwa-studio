@@ -17,7 +17,7 @@
     "build": "webpack --color --env.phase production",
     "clean": "rimraf web/js",
     "prepare": "npm-merge-driver install",
-    "start": "upward-js-server",
+    "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
     "watch": "webpack-dev-server --progress --color --env.phase development"
   },
