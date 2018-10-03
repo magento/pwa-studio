@@ -1,4 +1,7 @@
 const debug = require('debug')('upward-js:ContextPath');
+// Tests for dot-separated strings of "word characters" or slashes.
+// Slashes so that MIME type constants, like "text/html", can be legal values.
+// "Word characters" are [a-zA-Z0-9_].
 const illegalPathChars = /(^[\.\[\]])|[^\.\w\$\/]/;
 const contextPathCache = new Map();
 class ContextPath {
@@ -13,7 +16,7 @@ class ContextPath {
         }
         if (illegalPathChars.test(lookup)) {
             throw new Error(
-                `Illegal context property name found: ${lookup}\nContext properties must be dot-separated strings and contain no special characters, and cannot begin with a dot.`
+                `Illegal context property name found: ${lookup}\nContext properties must be dot-separated strings and contain only letters, numbers, and underscores, and cannot begin with a dot.`
             );
         }
         if (contextPathCache.has(lookup)) {

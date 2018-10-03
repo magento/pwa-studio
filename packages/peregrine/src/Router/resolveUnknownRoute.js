@@ -40,7 +40,7 @@ export default function resolveUnknownRoute(opts) {
                     return x;
                 }, rejectPreload);
             } catch (e) {
-                rejectPreload();
+                rejectPreload(e);
             }
         }
     }
