@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { func, object, shape, string } from 'prop-types';
 
 export const { Consumer, Provider } = createContext();
@@ -23,9 +23,15 @@ export default class MagentoRouter extends Component {
         const { children, config, routerProps, using: Router } = this.props;
 
         return (
-            <Provider value={config}>
-                <Router {...routerProps}>{children}</Router>
-            </Provider>
+            <Router {...routerProps}>
+                <Route>
+                    {routeProps => (
+                        <Provider value={{ ...config, ...routeProps }}>
+                            {children}
+                        </Provider>
+                    )}
+                </Route>
+            </Router>
         );
     }
 }

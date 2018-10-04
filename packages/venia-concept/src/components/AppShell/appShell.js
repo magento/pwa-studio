@@ -9,12 +9,16 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import defaultClasses from './appShell.css';
 
-// export default () => (
-//     <div>
-//         <header>hello world</header>
-//         <Page />
-//     </div>
-// );
+// TODO: make this its own, more sophisticated component
+const ErrorHandler = ({ loading, notFound }) => {
+    const text = loading
+        ? 'Loading...'
+        : notFound
+            ? '404 Not Found'
+            : '500 Internal Server Error';
+
+    return <h1>{text}</h1>;
+};
 
 class AppShell extends Component {
     static propTypes = {
@@ -39,7 +43,7 @@ class AppShell extends Component {
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
-                    <Page />
+                    <Page>{ErrorHandler}</Page>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
