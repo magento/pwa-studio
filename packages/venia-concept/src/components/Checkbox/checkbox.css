@@ -1,0 +1,13 @@
+.root {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.highlighted {
+    background-color: rgb(var(--venia-teal-alt));
+}
+
+.label {
+    vertical-align: super;
+}
