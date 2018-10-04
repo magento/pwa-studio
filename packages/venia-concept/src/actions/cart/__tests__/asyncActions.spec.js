@@ -10,6 +10,7 @@ import {
 import actions from '../actions';
 import {
     addItemToCart,
+    removeItemFromCart,
     createGuestCart,
     getCartDetails,
     toggleCart
@@ -394,6 +395,133 @@ Array [
   ],
 ]
 `);
+});
+
+test('removeItemFromCart() returns a thunk', () => {
+    expect(removeItemFromCart({})).toBeInstanceOf(Function);
+});
+
+test('removeItemFromCart thunk returns undefined', async () => {
+    const result = await removeItemFromCart({})(...thunkArgs);
+
+    expect(result).toBeUndefined();
+});
+
+test('removeItemFromCart thunk dispatches actions on success', async () => {
+    const payload = { item: 'ITEM' };
+    const cartItem = 'CART_ITEM';
+
+    request.mockResolvedValueOnce(cartItem);
+    await removeItemFromCart(payload)(...thunkArgs);
+
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.removeItem.request(payload)
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.removeItem.receive({ cartItem, cartItemCount: 0, ...payload })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+    expect(dispatch).toHaveBeenCalledTimes(3);
+});
+
+test('removeItemFromCart thunk dispatches special failure if guestCartId is not present', async () => {
+    const payload = { item: 'ITEM' };
+    const error = new Error('Missing required information: guestCartId');
+    error.noGuestCartId = true;
+    getState.mockImplementationOnce(() => ({ cart: {} }));
+    await removeItemFromCart(payload)(...thunkArgs);
+    expect(mockRemoveItem).toHaveBeenCalledWith('guestCartId');
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.removeItem.request(payload)
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.removeItem.receive(error)
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+});
+
+test('removeItemFromCart tries to recreate a guest cart on 404 failure', async () => {
+    getState
+        .mockImplementationOnce(() => ({
+            cart: { guestCartId: 'OLD_AND_BUSTED' }
+        }))
+        .mockImplementationOnce(() => ({
+            cart: { guestCartId: 'CACHED_CART' }
+        }));
+    const payload = { item: 'ITEM' };
+    const error = new Error('ERROR');
+    error.response = {
+        status: 404
+    };
+
+    mockGetItem.mockResolvedValueOnce('CACHED_CART');
+
+    request.mockRejectedValueOnce(error);
+
+    await removeItemFromCart(payload)(...thunkArgs);
+
+    expect(dispatch.mock.calls).toMatchInlineSnapshot(`
+Array [
+  Array [
+    Object {
+      "payload": Object {
+        "item": "ITEM",
+      },
+      "type": "CART/REMOVE_ITEM/REQUEST",
+    },
+  ],
+  Array [
+    Object {
+      "error": true,
+      "payload": [Error: ERROR],
+      "type": "CART/REMOVE_ITEM/RECEIVE",
+    },
+  ],
+  Array [
+    [Function],
+  ],
+  Array [
+    Object {
+      "payload": Object {
+        "item": "ITEM",
+      },
+      "type": "CART/REMOVE_ITEM/REQUEST",
+    },
+  ],
+  Array [
+    Object {
+      "payload": Object {
+        "cartItem": undefined,
+        "cartItemCount": 0,
+        "item": "ITEM",
+      },
+      "type": "CART/REMOVE_ITEM/RECEIVE",
+    },
+  ],
+  Array [
+    [Function],
+  ],
+]
+`);
+});
+
+test('removeItemFromCart resets the guest cart when removing the last item in the cart', async () => {
+    getState.mockImplementationOnce(() => ({
+        cart: { guestCartId: 'CART', details: { items_count: 1 } }
+    }));
+    let payload = { item: 'ITEM' };
+
+    // removeItemFromCart() calls storage.removeItem() to clear the guestCartId
+    // but only if there's 1 item left in the cart
+    mockRemoveItem.mockImplementationOnce(() => {});
+
+    await removeItemFromCart(payload)(...thunkArgs);
+
+    expect(mockRemoveItem).toHaveBeenCalled();
 });
 
 test('getCartDetails() returns a thunk', () => {

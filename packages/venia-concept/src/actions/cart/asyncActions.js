@@ -117,7 +117,7 @@ export const removeItemFromCart = payload => {
         try {
             const { cart } = getState();
             const { guestCartId } = cart;
-            const cartItemCount = cart.details.items_count;
+            const cartItemCount = cart.details ? cart.details.items_count : 0;
 
             if (!guestCartId) {
                 const missingGuestCartError = new Error(
