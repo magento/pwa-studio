@@ -46,6 +46,13 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
       - [Matchers](#matchers)
       - [Match context](#match-context)
       - [ConditionalResolver notes](#conditionalresolver-notes)
+    - [ProxyResolver](#proxyresolver)
+      - [ProxyResolver Example](#proxyresolver-example)
+      - [ProxyResolver Configuration Options](#proxyresolver-configuration-options)
+      - [ProxyResolver notes](#proxyresolver-notes)
+    - [DirectoryResolver](#directoryresolver)
+      - [DirectoryResolver Example](#directoryresolver-example)
+      - [DirectoryResolver Configuration Options](#directoryresolver-configuration-options)
   - [Reducing boilerplate](#reducing-boilerplate)
     - [Default parameters](#default-parameters)
     - [Builtin constants](#builtin-constants)
@@ -933,7 +940,7 @@ The ProxyResolver acts as a "passthrough" to another service. It is guaranteed t
 
 A ProxyResolver is an important part of the UPWARD philosophy: a PWA's UPWARD file must describe all of the network behavior that a PWA expects at runtime, and that includes proxies to various backing APIs.
 
-#### Example
+#### ProxyResolver Example
 
 ```yaml
 proxy:
@@ -956,7 +963,7 @@ ProxyResolvers are special targets for static analysis. Using simple techniques,
 
 Like the ProxyResolver, the DirectoryResolver delegates request and response handling to a static server. Unlike the ProxyResolver, it needs access to a local directory, which it will then sere as a public assets folder. Much like the ProxyResolver, this resolver exists to bolster the notion that an UPWARD file can describe the expected behavior of a PWA server-side site, in detail.
 
-#### Example
+#### DirectoryResolver Example
 
 ```yaml
 static:

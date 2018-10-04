@@ -1,5 +1,5 @@
 module.exports = {
-    collectCoverage: true,
-    collectCoverageFrom: ['<rootDir>/lib/**/*.js'],
-    coverageReporters: ['text']
+    displayName: 'Upward JS',
+    clearMocks: true,
+    testEnvironment: 'node'
 };
