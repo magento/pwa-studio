@@ -23,9 +23,9 @@
     "watch": "webpack-dev-server --progress --color --env.phase development"
   },
   "devDependencies": {
-    "@magento/peregrine": "^2.0.0-rc.1",
-    "@magento/pwa-buildpack": "^2.0.0-rc.1",
-    "@magento/upward-js": "*",
+    "@magento/peregrine": "^2.0.0-rc.2",
+    "@magento/pwa-buildpack": "^2.0.0-rc.2",
+    "@magento/upward-js": "^2.0.0-rc.2",
     "npm-merge-driver": "^2.3.5",
     "rimraf": "^2.6.2",
     "webpack": "3.11.0",
