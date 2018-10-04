@@ -1,0 +1,65 @@
+status: page.status
+headers: page.headers
+body: page.body
+
+articleResult:
+  url: env.LIBRARY_SVC
+  query: './getArticle.graphql'
+  variables:
+    articleId: request.url.query.articleID
+
+authorBioResult:
+  url: env.LIBRARY_SVC
+  query: './getAuthor.graphql'
+  variables:
+    authorId: request.url.query.authorID
+
+textHtml:
+  inline:
+    'content-type': 'text/html'
+
+notFound:
+  inline:
+    status: 404
+    headers: textHtml
+    body:
+      engine: mustache
+      template: './notFound.mst'
+
+page:
+  when:
+    - matches: request.url.pathname
+      pattern: '/article'
+      use:
+        when:
+          - matches: articleResult.data.article.id
+            pattern: '.'
+            use:
+              inline:
+                title:
+                  engine: mustache
+                  template: 'Article {{authorBioResult.data.author.name}}'
+                status: 200
+                headers: textHtml
+                body:
+                  engine: mustache
+                  template: './article.mst'
+        default: notFound
+    - matches: request.url.pathname
+      pattern: '/author'
+      use:
+        when:
+          - matches: authorBioResult.data.author.id
+            pattern: '.'
+            use:
+              inline:
+                title:
+                  engine: mustache
+                  template: 'Author {{authorBioResult.data.author.name}}'
+                status: 200
+                headers: textHtml
+                body:
+                  engine: mustache
+                  template: './authorBio.mst'
+        default: notFound
+  default: notFound

@@ -1,0 +1,9 @@
+<!doctype html>
+<html charset="utf8">
+    {{> head}}
+    <body>
+        {{> header}}
+        <h1>404: Not Found</h1>
+        {{> footer }}
+    </body>
+</html>

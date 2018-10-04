@@ -29,6 +29,7 @@ const categoryQuery = gql`
                             }
                         }
                     }
+                    url_key
                 }
             }
         }
@@ -56,7 +57,7 @@ class Category extends Component {
 
         return (
             <Page>
-                <Query query={categoryQuery} variables={{ id }}>
+                <Query query={categoryQuery} variables={{ id: Number(id) }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;

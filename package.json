@@ -12,7 +12,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "build": "lerna --stream --scope '{@magento/pwa-buildpack,@magento/peregrine,theme-frontend-venia}' exec -- npm run build",
+    "build": "lerna --stream --scope '{@magento/pwa-buildpack,@magento/peregrine,@magento/venia-concept}' exec -- npm run build",
     "clean:all": "lerna run clean && lerna clean --yes && rimraf ./node_modules",
     "clean:dist": "lerna run clean",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
@@ -20,9 +20,10 @@
     "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
+    "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
     "test": "jest",
     "test:ci": "npm run -s test -- -i --json --outputFile=test-results.json",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest -i --watch",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i",
     "test:dev": "jest --watch",
     "validate:venia:gql": "cd packages/venia-concept && npm run -s validate-queries; cd - >/dev/null",
     "watch:all": "concurrently -c yellow.dim,green.dim,cyan.dim -n ␢,℗,☄︎  'npm run watch:buildpack' 'npm run watch:peregrine' 'npm run watch:venia-dev-server'",
@@ -43,6 +44,7 @@
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-graphql-tag": "^1.6.0",
+    "babel-plugin-import-graphql": "^2.6.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -113,9 +115,8 @@
   "dependencies": {
     "@magento/peregrine": "file:packages/peregrine",
     "@magento/pwa-buildpack": "file:packages/pwa-buildpack",
-    "informed": "^1.10.5",
     "pwa-devdocs": "file:packages/pwa-devdocs",
-    "pwa-module": "file:packages/pwa-module",
-    "theme-frontend-venia": "file:packages/venia-concept"
+    "@magento/upward-js": "file:packages/upward-js",
+    "@magento/upward-spec": "file:packages/upward-spec"
   }
 }

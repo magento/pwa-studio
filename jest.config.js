@@ -4,6 +4,7 @@ module.exports = {
     projects: [
         'packages/peregrine',
         'packages/pwa-buildpack',
+        'packages/upward-js',
         'packages/venia-concept',
         'scripts'
     ],

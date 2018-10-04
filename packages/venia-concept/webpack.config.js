@@ -7,17 +7,19 @@ const {
         ServiceWorkerPlugin,
         DevServerReadyNotifierPlugin,
         MagentoResolver,
+        UpwardPlugin,
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
+const pkg = require(path.resolve(__dirname, 'package.json'));
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    output: path.resolve(__dirname, 'web')
+    output: path.resolve(__dirname, 'dist')
 };
 
 // mark dependencies for vendor bundle
@@ -35,10 +37,12 @@ module.exports = async function(env) {
 
     const babelOptions = configureBabel(phase);
 
-    const enableServiceWorkerDebugging = Boolean(
-        process.env.ENABLE_SERVICE_WORKER_DEBUGGING
-    );
-    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
+    const enableServiceWorkerDebugging =
+        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+
+    const serviceWorkerFileName =
+        process.env.SERVICE_WORKER_FILE_NAME ||
+        pkg.config.serviceWorkerFileName;
 
     const config = {
         context: __dirname, // Node global for the running script's directory
@@ -47,7 +51,7 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
+            publicPath: '/',
             filename: 'js/[name].js',
             chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
@@ -130,12 +134,12 @@ module.exports = async function(env) {
         config.devtool = 'eval-source-map';
 
         config.devServer = await PWADevServer.configure({
+            publicPath: config.output.publicPath,
             serviceWorkerFileName,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
             paths: themePaths,
-            provideSSLCert: true,
-            id: 'magento-venia'
+            id: 'magento-venia',
+            provideSSLCert: true
         });
 
         // A DevServer generates its own unique output path at startup. It needs
@@ -147,7 +151,11 @@ module.exports = async function(env) {
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer)
+            new DevServerReadyNotifierPlugin(config.devServer),
+            new UpwardPlugin(
+                config.devServer,
+                path.resolve(__dirname, 'venia-upward.yml')
+            )
         );
     } else if (phase === 'production') {
         config.performance = {
@@ -162,6 +170,16 @@ module.exports = async function(env) {
                 parallel: true,
                 uglifyOptions: {
                     ecma: 8,
+                    parse: {
+                        ecma: 8
+                    },
+                    compress: {
+                        ecma: 6
+                    },
+                    output: {
+                        ecma: 7,
+                        semicolons: false
+                    },
                     keep_fnames: true
                 }
             })

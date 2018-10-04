@@ -54,5 +54,5 @@ module.exports = async env => {
 
 #### `options`
 
-- `paths: object`: **Required.** Local absolute paths to theme folders.
-- `root`: Absolute path to the root directory of the theme.
+- `paths: object`: **Required.** Local absolute paths to project folders.
+- `root`: Absolute path to the root directory of the project.

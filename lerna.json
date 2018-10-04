@@ -4,6 +4,8 @@
         "packages/peregrine",
         "packages/pwa-buildpack",
         "packages/pwa-devdocs",
+        "packages/upward-js",
+        "packages/upward-spec",
         "packages/venia-concept"
     ],
     "npmClient": "npm",
@@ -11,7 +13,7 @@
         "publish": {
             "ignoreChanges": [
                 "__tests__/**",
-                "pwa-module"
+                "pwa-devdocs"
             ]
         }
     }
