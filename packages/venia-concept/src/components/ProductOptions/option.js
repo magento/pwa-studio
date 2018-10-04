@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './option.css';
+import swatchStyles from './swatch.css';
+import tileStyles from './tile.css';
+// import miniTileStyles from './miniTile.css';
+
 
 class Option extends Component {
     static propTypes = {
@@ -14,11 +18,15 @@ class Option extends Component {
         item: PropTypes.shape({
             backgroundColor: PropTypes.string,
             name: PropTypes.string,
-            text: PropTypes.string,
-            opts: PropTypes.object,
+            value: PropTypes.string,
             isSelected: PropTypes.bool
         })
     };
+
+    styleOptions = {
+        Color: swatchStyles,
+        Size: tileStyles
+    }
 
     get check() {
       const { item } = this.props;
@@ -30,27 +38,30 @@ class Option extends Component {
     }
 
     render() {
-        const { classes, item, children } = this.props;
+        const { item, children, optionType } = this.props;
+        let { classes } = this.props;
         const { check } =  this;
         const { backgroundColor, name, isSelected, isDisabled } = item;
         const style = { '--background-color': backgroundColor };
+        const additionalClasses = optionType ?  this.styleOptions[optionType] : classes;
+        classes = Object.assign(classes, additionalClasses);
 
         let buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
         buttonClasses = isDisabled ? `${buttonClasses} ${classes.disabled}` : buttonClasses;
 
         return (
-			<button
-				className={buttonClasses}
-				data-title={name}
-				style={style}
-				onClick={this.handleClick}
+            <button
+                className={buttonClasses}
+                data-title={name}
+                style={style}
+                onClick={this.handleClick}
             >
-          <span className={classes.childrenContainer}>
-              <span className={classes.children}> {children} </span>
-              <span className={classes.check}> {check} </span>
-          </span>
-          <div className={classes.overlay} />
-        </button>
+                <span className={classes.childrenContainer}>
+                    <span className={classes.children}> {children} </span>
+                    <span className={classes.check}> {check} </span>
+                </span>
+                <div className={classes.overlay} />
+            </button>
         );
     }
 

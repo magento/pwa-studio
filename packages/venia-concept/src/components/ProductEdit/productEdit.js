@@ -4,55 +4,6 @@ import classify from 'src/classify';
 import defaultClasses from './productEdit.css';
 import ProductOptions from 'src/components/ProductOptions';
 import OptionsHeader from 'src/components/ProductOptions/optionsHeader';
-import { tileItems, miniTiles, swatchItems } from 'src/components/ProductOptions/mock_data';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import swatchClasses from 'src/components/ProductOptions/swatch.css';
-/**
- * As of this writing, there is no single Product query type in the M2.3 schema.
- * The recommended solution is to use filter criteria on a Products query.
- * However, the `id` argument is not supported. See
- * https://github.com/magento/graphql-ce/issues/86
- * TODO: Replace with a single product query when possible.
- */
-const configurableItemQuery = gql`
-    query products($sku: String) {
-        products(
-            pageSize: 10
-            currentPage: 0
-            filter: {
-                sku: {
-                    eq: $sku
-                }
-            }
-            sort: {}
-        ) {
-            items {
-                sku
-                name
-                    ... on ConfigurableProduct {
-                        configurable_options {
-                            label
-                            values{
-                                store_label
-                                value_index
-                            }
-                        }
-                        variants {
-                            product {
-                                sku
-                                id
-                                swatch_image
-                                size
-                                color
-                            }
-                        }
-                    }
-            }
-        }
-    }
-`;
-
 
 class ProductEdit extends Component {
     static propTypes = {
@@ -69,56 +20,69 @@ class ProductEdit extends Component {
             const options = item.values.map((value) => {
                 return {
                     item: {
-                        backgroundColor: value.store_label,
+                        // TODO: Change from label to mock
+                        backgroundColor: value.label,
+                        value: value.label,
+                        value_index: value.value_index,
                         name: value.store_label,
-                        onclick:() => console.log('swatch')
+                        onclick:() => console.log('swatch'),
+                        attributeCode: item.attribute_code,
+                        position: item.position,
                     },
-                    classes: swatchClasses
+                    children: value.label,
+                    optionType: item.label
                 }
             })
             return {
+                attributeCode: item.attribute_code,
                 label: item.label,
                 items: options
             }
         });
     }
 
-    render() {
-        const { classes, item } = this.props;
+    // TODO: Use spread operator to create props object
+    optionsComponent = (option, index) => {
+        const props = {
+            key: index,
+            title: option.label,
+            helpClick: () => { window.alert('hello')},
+            attributeCode: option.attributeCode,
+        }
+        if ( option.attribute_code === 'size' ) {
+            props.helpText = 'Size Guide';
+        }
         return (
-            <Query
-                query={configurableItemQuery}
-                variables={{sku: item.sku}}
+            <OptionsHeader
+                {...props}
             >
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
-                    const mappedData = this.mapData(data.products.items[0].configurable_options);
-                    console.log(mappedData);
-                    const optionsList = data.products.items[0].configurable_options;
-                    console.log(data);
-                    return (
-                        <div className={classes.root}>
-                            <div className={classes.header}>{item.name}</div>
-                            <div className={classes.colors}>
-                                {mappedData.map( (option, index) => {
-                                    return (
-                                        <OptionsHeader
-                                            key={index}
-                                            title={option.label}
-                                            helpText={'Size Guide'}
-                                            helpClick={() => { window.alert('hello')}}
-                                        >
-                                            <ProductOptions options={option.items}/>
-                                        </OptionsHeader>
-                                    )
-                                })}
-                        </div>
-                        </div>
-                    )}
-                }
-            </Query>
-        );
+                <ProductOptions
+                    onSelect={this.props.onOptionChange}
+                    options={option.items}/>
+            </OptionsHeader>
+        )
+    }
+
+    onProductChange = (data) => {
+        const { onProductChange } = this.props;
+        onProductChange(data);
+    }
+
+    render() {
+        const { classes, item, onProductChange } = this.props;
+        const mappedData = this.mapData(item.configurable_options);
+        return (
+            <div
+                onChange={onProductChange}
+                className={classes.root}>
+                <div className={classes.header}>{item.name}</div>
+                <div className={classes.colors}>
+                    {mappedData.map( (option, index) => {
+                        return this.optionsComponent(option, index);
+                    })}
+                </div>
+            </div>
+        )
     }
 }
 

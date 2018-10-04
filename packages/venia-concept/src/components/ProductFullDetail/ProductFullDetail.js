@@ -55,19 +55,30 @@ class ProductFullDetail extends Component {
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = () =>
-        this.props.addToCart({
-            item: this.props.product,
-            quantity: this.state.quantity
-        });
+    addToCart = () => {
+        this.props.addToCart(
+            this.props.product,
+            this.state.quantity
+        );
+    }
+
+    get productEdit() {
+        const { product } = this.props;
+        return product.__typename === 'ConfigurableProduct' ?
+            <ProductEdit
+                onOptionChange={this.props.updateConfigurableItemToCart}
+                item={product} /> :
+            null;
+    }
 
     render() {
         const { classes, product } = this.props;
         const { regularPrice } = product.price;
+        const { productEdit } = this;
 
         return (
             <article className={classes.root}>
-                <ProductEdit item={product} />
+                { productEdit }
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         <span>{product.name}</span>

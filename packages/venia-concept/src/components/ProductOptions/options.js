@@ -2,7 +2,6 @@ import classify from 'src/classify';
 import defaultClasses from './options.css';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Option from './option';
 
 class Options extends Component {
@@ -12,11 +11,24 @@ class Options extends Component {
 
     state = {selected: 0};
 
+    constrcutor() {
+        this.styleOptions = {
+            Color: swatchStyles,
+            Size: tileStyles
+        }
+    }
+
     select = (item) => {
         this.setState({
             selected: item.id
         });
-        console.log(item);
+        const options = { };
+        options[item.attributeCode] = {
+            value: item.value,
+            value_index: item.value_index,
+            position: item.position
+        }
+        this.props.onSelect(options);
     }
 
     render() {

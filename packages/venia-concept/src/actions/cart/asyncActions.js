@@ -45,7 +45,75 @@ export const createGuestCart = () =>
             dispatch(actions.getGuestCart.receive(error));
         }
     };
+export const addConfigurableItemToCart = (payload = {}) => {
+    const { parentSKU, currentItem, quantity } = payload;
 
+    const writingImageToCache = writeImageToCache(currentItem);
+
+    return async function thunk(dispatch, getState) {
+        await writingImageToCache;
+        dispatch(actions.addItem.request(payload));
+
+        try {
+            const { cart } = getState();
+            const { guestCartId } = cart;
+
+            if (!guestCartId) {
+                const missingGuestCartError = new Error(
+                    'Missing required information: guestCartId'
+                );
+                missingGuestCartError.noGuestCartId = true;
+                throw missingGuestCartError;
+            }
+
+            const cartItem = await request(
+                `/rest/V1/guest-carts/${guestCartId}/items`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        cartItem: {
+                            qty: quantity,
+                            sku: parentSKU,
+                            product_type: "configurable",
+                            name: currentItem.name,
+                            quote_id: guestCartId,
+                            product_option: {
+                                extension_attributes: {
+                                    configurable_item_options: currentItem.options
+                                }
+
+                            }
+                        }
+                    })
+                }
+            );
+
+            dispatch(actions.addItem.receive({ cartItem, currentItem, quantity }));
+        } catch (error) {
+            const { response, noGuestCartId } = error;
+
+            dispatch(actions.addItem.receive(error));
+
+            // check if the guest cart has expired
+            if (noGuestCartId || (response && response.status === 404)) {
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
+                await dispatch(createGuestCart());
+                // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+
+        await Promise.all([
+            dispatch(toggleDrawer('cart')),
+            dispatch(getCartDetails({ forceRefresh: true }))
+        ]);
+    };
+}
 export const addItemToCart = (payload = {}) => {
     const { item, quantity } = payload;
 
