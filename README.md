@@ -63,6 +63,18 @@ Follow these steps to install the dependencies for all the packages in the proje
 5.  To run the Venia theme development experience, run `npm run watch:venia` from package root.
 6.  To run the full PWA Studio deeloper experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
 
+## Troubleshooting
+
+### When I run the developer mode, I get validation errors
+
+Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/.env.dist`.
+
+### Venia queries to GraphQL produce validation errors
+
+Venia and its GraphQL queries may be out of sync with the schema of your connected Magento instance. Make sure the Magento instance is up to date with the 2.3 development branch, and your copy of this repository (or your dependency on it) is up to date.
+
+**To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
+
 ## Things not to do
 
 When using a monorepo and lerna, it's important that you break some common habits that are common when developing front-end packages.

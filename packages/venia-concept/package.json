@@ -16,6 +16,7 @@
     "prepare": "npm-merge-driver install",
     "start": "webpack-dev-server --progress --color --env.phase development",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+    "validate-queries": "node ./validate-queries.js",
     "watch": "npm run -s start"
   },
   "devDependencies": {
