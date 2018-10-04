@@ -67,7 +67,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 
 ### When I run the developer mode, I get validation errors
 
-Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/.env.dist`.
+Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/example.env`.
 
 ### Venia queries to GraphQL produce validation errors
 
