@@ -123,6 +123,7 @@ async function setupDomain(customName, opts) {
             );
             if (secure && !certPair) {
                 certPair = JSON.parse(output)[0];
+                await userCerts.set(hostname, certPair);
             }
         } catch (e) {
             throw Error(

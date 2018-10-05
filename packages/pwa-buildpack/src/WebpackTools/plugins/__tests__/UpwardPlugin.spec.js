@@ -216,3 +216,31 @@ test('dev-mode IOAdapter uses fetch', async () => {
         })
     );
 });
+
+test('dev-mode IOAdapter can fetch unsecure URLs', async () => {
+    const devServer = {};
+    const app = {
+        use: jest.fn()
+    };
+
+    upward.middleware.mockResolvedValueOnce(() => {});
+
+    const plugin = new UpwardPlugin(devServer);
+    plugin.apply({});
+    devServer.after(app);
+    const handler = app.use.mock.calls[0][0];
+    handler();
+    await plugin.middlewarePromise;
+
+    const io = upward.middleware.mock.calls[0][1];
+
+    io.networkFetch('http://example.com', { method: 'POST' });
+
+    expect(fetch).toHaveBeenCalledWith(
+        'http://example.com',
+        expect.objectContaining({
+            method: 'POST'
+        })
+    );
+    expect(fetch.mock.calls[0][1]).not.toHaveProperty('agent');
+});
