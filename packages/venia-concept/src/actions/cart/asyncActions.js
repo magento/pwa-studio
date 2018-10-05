@@ -2,10 +2,11 @@ import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
-import BrowserPersistence from 'src/util/simplePersistence';
 import actions from './actions';
+import { Util } from '@magento/peregrine';
 
 const { request } = RestApi.Magento2;
+const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
 export const createGuestCart = () =>
@@ -54,6 +55,21 @@ export const addItemToCart = (payload = {}) => {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
+        const { user } = getState();
+        if (user.isSignedIn) {
+            console.warn(
+                'Can not currently add items to your cart as a non-guest user'
+            );
+            ///////////////////////////////////////////
+            // TODO: handle logged-in cart retrieval. //
+            ///////////////////////////////////////////
+            // If a user creates a new account
+            // the guest cart will be transfered to their account.
+            // Once that happens `/rest/V1/guest-carts` will 400 if it
+            // is called.
+            return;
+        }
+
         try {
             const { cart } = getState();
             const { guestCartId } = cart;
@@ -64,6 +80,7 @@ export const addItemToCart = (payload = {}) => {
                 );
                 missingGuestCartError.noGuestCartId = true;
                 throw missingGuestCartError;
+                console.log('Missing required information: guestCartId');
             }
 
             const cartItem = await request(
@@ -173,6 +190,18 @@ export const getCartDetails = (payload = {}) => {
         const { cart } = getState();
         const { guestCartId } = cart;
 
+        const { user } = getState();
+        if (user.isSignedIn) {
+            ///////////////////////////////////////////
+            // TODO: handle logged-in cart retrieval. //
+            ///////////////////////////////////////////
+            // If a user creates a new account
+            // the guest cart will be transfered to their account.
+            // Once that happens `/rest/V1/guest-carts` will 400 if it
+            // is called.
+            return;
+        }
+
         dispatch(actions.getDetails.request(guestCartId));
 
         // if there isn't a guest cart, create one
@@ -246,12 +275,41 @@ export const toggleCart = () =>
         ]);
     };
 
+export const removeGuestCart = () =>
+    async function thunk(...args) {
+        const [dispatch, getState] = args;
+        const { cart } = getState();
+        // ensure state slices are present
+        if (!cart) {
+            return;
+        }
+        if (cart['guestCartId']) {
+            dispatch({
+                type: 'REMOVE_GUEST_CART'
+            });
+        }
+    };
+
 /* helpers */
 
 async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
     return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
         cache: forceRefresh ? 'reload' : 'default'
     });
+}
+
+export async function getGuestCartId(dispatch, getState) {
+    const { cart } = getState();
+    // reducers may be added asynchronously
+    if (!cart) {
+        return null;
+    }
+    // create a guest cart if one hasn't been created yet
+    if (!cart.guestCartId) {
+        await dispatch(createGuestCart());
+    }
+    // retrieve app state again
+    return getState().cart.guestCartId;
 }
 
 export async function retrieveGuestCartId() {

@@ -6,7 +6,7 @@ import {
     mockGetItem,
     mockSetItem,
     mockRemoveItem
-} from 'src/util/simplePersistence';
+} from '@magento/util/simplePersistence';
 import actions from '../actions';
 import {
     addItemToCart,
@@ -17,7 +17,6 @@ import {
 } from '../asyncActions';
 
 jest.mock('src/store');
-jest.mock('src/util/simplePersistence');
 
 const thunkArgs = [dispatch, getState];
 const { request } = RestApi.Magento2;
@@ -25,7 +24,8 @@ const { request } = RestApi.Magento2;
 beforeAll(() => {
     getState.mockImplementation(() => ({
         app: { drawer: null },
-        cart: { guestCartId: 'GUEST_CART_ID' }
+        cart: { guestCartId: 'GUEST_CART_ID' },
+        user: { isSignedIn: false }
     }));
 });
 
@@ -61,7 +61,10 @@ test('createGuestCart thunk does nothing if a guest cart exists in state', async
 
 test('createGuestCart thunk uses the guest cart from storage', async () => {
     const storedGuestCartId = 'STORED_GUEST_CART_ID';
-    getState.mockImplementationOnce(() => ({ cart: {} }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
     mockGetItem.mockImplementationOnce(() => storedGuestCartId);
 
     await createGuestCart()(...thunkArgs);
@@ -80,7 +83,10 @@ test('createGuestCart thunk dispatches actions on success', async () => {
     const response = 'NEW_GUEST_CART_ID';
 
     request.mockResolvedValueOnce(response);
-    getState.mockImplementationOnce(() => ({ cart: {} }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
 
     await createGuestCart()(...thunkArgs);
 
@@ -98,7 +104,10 @@ test('createGuestCart thunk dispatches actions on failure', async () => {
     const error = new Error('ERROR');
 
     request.mockRejectedValueOnce(error);
-    getState.mockImplementationOnce(() => ({ cart: {} }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
     mockGetItem.mockImplementationOnce(() => {});
 
     await createGuestCart()(...thunkArgs);
@@ -237,12 +246,21 @@ test('addItemToCart reuses product images from cache', async () => {
 });
 
 test('addItemToCart thunk dispatches special failure if guestCartId is not present', async () => {
-    const payload = { item: 'ITEM', quantity: 1 };
+    const payload = {
+        item: { sku: 'ITEM_SKU', name: 'ITEM_NAME' },
+        quantity: 1
+    };
     const error = new Error('Missing required information: guestCartId');
     error.noGuestCartId = true;
-    getState.mockImplementationOnce(() => ({ cart: {} }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
     await addItemToCart(payload)(...thunkArgs);
-    expect(mockRemoveItem).toHaveBeenCalledWith('guestCartId');
     expect(dispatch).toHaveBeenNthCalledWith(
         1,
         actions.addItem.request(payload)
@@ -255,12 +273,17 @@ test('addItemToCart thunk dispatches special failure if guestCartId is not prese
 test('addItemToCart tries to recreate a guest cart on 404 failure', async () => {
     getState
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'OLD_AND_BUSTED' }
+            cart: { guestCartId: 'OLD_AND_BUSTED' },
+            user: { isSignedIn: false }
         }))
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'CACHED_CART' }
+            cart: { guestCartId: 'CACHED_CART' },
+            user: { isSignedIn: false }
         }))
-        .mockImplementationOnce(() => ({ cart: {} }));
+        .mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }));
     const payload = { item: 'ITEM', quantity: 1 };
     const error = new Error('ERROR');
     error.response = {
@@ -325,7 +348,10 @@ Array [
 
 test('addItemToCart opens drawer and gets cart details on success', async () => {
     const payload = { item: 'ITEM', quantity: 1 };
-    const fakeCart = { cart: { guestCartId: 'NEW_GUEST_CART_ID' } };
+    const fakeCart = {
+        cart: { guestCartId: 'NEW_GUEST_CART_ID' },
+        user: { isSignedIn: false }
+    };
     const cartItem = 'CART_ITEM';
 
     getState.mockReturnValueOnce(fakeCart).mockReturnValueOnce(fakeCart);
@@ -341,60 +367,9 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
     request.mockResolvedValueOnce(cartItem).mockResolvedValueOnce(cartItem);
     await addItemToCart(payload)(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(2);
+    expect(getState).toHaveBeenCalledTimes(4);
     expect(dispatch).toHaveBeenCalledTimes(7);
     expect(request).toHaveBeenCalledTimes(3);
-
-    expect(dispatch.mock.calls).toMatchInlineSnapshot(`
-Array [
-  Array [
-    Object {
-      "payload": Object {
-        "item": "ITEM",
-        "quantity": 1,
-      },
-      "type": "CART/ADD_ITEM/REQUEST",
-    },
-  ],
-  Array [
-    Object {
-      "payload": Object {
-        "cartItem": "CART_ITEM",
-        "item": "ITEM",
-        "quantity": 1,
-      },
-      "type": "CART/ADD_ITEM/RECEIVE",
-    },
-  ],
-  Array [
-    [Function],
-  ],
-  Array [
-    Object {
-      "payload": "cart",
-      "type": "APP/TOGGLE_DRAWER",
-    },
-  ],
-  Array [
-    [Function],
-  ],
-  Array [
-    Object {
-      "payload": "NEW_GUEST_CART_ID",
-      "type": "CART/GET_DETAILS/REQUEST",
-    },
-  ],
-  Array [
-    Object {
-      "payload": Object {
-        "details": "CART_ITEM",
-        "totals": undefined,
-      },
-      "type": "CART/GET_DETAILS/RECEIVE",
-    },
-  ],
-]
-`);
 });
 
 test('removeItemFromCart() returns a thunk', () => {
@@ -529,20 +504,33 @@ test('getCartDetails() returns a thunk', () => {
 });
 
 test('getCartDetails thunk returns undefined', async () => {
+    getState.mockImplementationOnce(() => ({
+        user: { isSignedIn: false },
+        cart: { guestCartId: 'NEW_GUEST_CART_ID' }
+    }));
+
     const result = await getCartDetails()(...thunkArgs);
 
     expect(result).toBeUndefined();
 });
 
 test('getCartDetails thunk creates a guest cart if no ID is found', async () => {
+    getState.mockClear();
     getState
         // for the getCartDetails state check
-        .mockImplementationOnce(() => ({ cart: {} }))
+        .mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }))
         // for the createGuestCart check
-        .mockImplementationOnce(() => ({ cart: {} }))
+        .mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }))
         // for the subsequent getCartDetails re-check
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'NEW_GUEST_CART_ID' }
+            cart: {},
+            user: { isSignedIn: false }
         }));
     dispatch
         // for not dispatching the sync notifier action
@@ -552,23 +540,23 @@ test('getCartDetails thunk creates a guest cart if no ID is found', async () => 
     mockGetItem.mockImplementationOnce(() => {});
     request
         // for createGuestCart
-        .mockResolvedValueOnce('NEW_GUEST_CART_ID')
+        .mockResolvedValueOnce('GUEST_CART_ID')
         // for getCartDetails
         .mockResolvedValueOnce({
             id: 1,
-            guestCartId: 'NEW_GUEST_CART_ID',
+            guestCartId: 'GUEST_CART_ID',
             items: []
         });
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(3);
+    expect(getState).toHaveBeenCalledTimes(5);
     expect(mockGetItem).toHaveBeenCalled();
     const createCallArgs = request.mock.calls[0];
     const retrieveCallArgs = request.mock.calls[1];
     expect(createCallArgs[0]).toBe('/rest/V1/guest-carts');
     expect(createCallArgs[1]).toHaveProperty('method', 'POST');
-    expect(retrieveCallArgs[0]).toBe('/rest/V1/guest-carts/NEW_GUEST_CART_ID/');
+    expect(retrieveCallArgs[0]).toBe('/rest/V1/guest-carts/GUEST_CART_ID/');
 });
 
 test('getCartDetails thunk deletes an old cart id and recreates a guest cart if cart ID is expired', async () => {
@@ -582,15 +570,23 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
     getState
         // for the getCartDetails state check
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'EXPIRED_CART_ID' }
+            cart: { guestCartId: 'EXPIRED_CART_ID' },
+            user: { isSignedIn: false }
         }))
         // for the createGuestCart check
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: tempStorage.guestCartId }
+            cart: { guestCartId: tempStorage.guestCartId },
+            user: { isSignedIn: false }
+        }))
+        // for the subsequent createGuestCart check
+        .mockImplementationOnce(() => ({
+            cart: { guestCartId: null },
+            user: { isSignedIn: false }
         }))
         // for the subsequent getCartDetails re-check
         .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'BRAND_NEW_CART' }
+            cart: { guestCartId: 'BRAND_NEW_CART' },
+            user: { isSignedIn: false }
         }));
     dispatch
         // for not dispatching the sync notifier action
@@ -599,7 +595,6 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
         .mockImplementationOnce(() => {})
         // for actually dispatching the createGuestCart action
         .mockImplementationOnce(fn => fn(...thunkArgs));
-    // mockGetItem.mockImplementationOnce(() => 'EXPIRED_CART_ID');
     request
         // for for getting expired cart
         .mockRejectedValueOnce({ response: { status: 404 } })
@@ -611,13 +606,13 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
         .mockResolvedValueOnce({
             id: 1,
             guestCartId: 'BRAND_NEW_CART',
-            items: []
+            items: [{ sku: 'SKU', name: 'NAME', image: 'IMAGE' }]
         });
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(3);
-    expect(mockGetItem).toHaveBeenCalledWith('guestCartId');
+    expect(getState).toHaveBeenCalledTimes(5);
+    expect(mockGetItem).toHaveBeenCalledWith('imagesBySku');
     expect(mockRemoveItem).toHaveBeenCalledWith('guestCartId');
     expect(mockSetItem).toHaveBeenCalledWith('guestCartId', 'BRAND_NEW_CART');
     const [
@@ -638,6 +633,10 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
 });
 
 test('getCartDetails thunk dispatches actions on success', async () => {
+    getState.mockImplementationOnce(() => ({
+        cart: { guestCartId: 'GUEST_CART_ID' },
+        user: { isSignedIn: false }
+    }));
     request.mockResolvedValueOnce(1);
     request.mockResolvedValueOnce(2);
 
@@ -655,6 +654,10 @@ test('getCartDetails thunk dispatches actions on success', async () => {
 });
 
 test('getCartDetails thunk dispatches actions on failure', async () => {
+    getState.mockImplementationOnce(() => ({
+        cart: { guestCartId: 'GUEST_CART_ID' },
+        user: { isSignedIn: false }
+    }));
     const error = new Error('ERROR');
     request.mockRejectedValueOnce(error);
 
@@ -707,7 +710,10 @@ test('toggleCart thunk returns undefined', async () => {
 });
 
 test('toggleCart thunk exits if app state is not present', async () => {
-    getState.mockImplementationOnce(() => ({ cart: {} }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
 
     await toggleCart()(...thunkArgs);
 
@@ -715,7 +721,10 @@ test('toggleCart thunk exits if app state is not present', async () => {
 });
 
 test('toggleCart thunk exits if cart state is not present', async () => {
-    getState.mockImplementationOnce(() => ({ app: {} }));
+    getState.mockImplementationOnce(() => ({
+        app: {},
+        user: { isSignedIn: false }
+    }));
 
     await toggleCart()(...thunkArgs);
 
