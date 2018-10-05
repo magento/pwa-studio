@@ -6,10 +6,10 @@
   "bin": {
     "upward-js-server": "./bin/server"
   },
-  "files": [
-    "./lib",
-    "./bin"
-  ],
+  "directories": {
+    "lib": "./lib",
+    "bin": "./bin"
+  },
   "engines": {
     "node": ">=8.0.0"
   },
