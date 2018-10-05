@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc2.0.1",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -23,9 +23,9 @@
     "watch": "webpack-dev-server --progress --color --env.phase development"
   },
   "devDependencies": {
-    "@magento/peregrine": "^2.0.0-rc.2",
-    "@magento/pwa-buildpack": "^2.0.0-rc.2",
-    "@magento/upward-js": "^2.0.0-rc.2",
+    "@magento/peregrine": "^2.0.0-rc2.0.1",
+    "@magento/pwa-buildpack": "^2.0.0-rc2.0.1",
+    "@magento/upward-js": "^2.0.0-rc2.0.1",
     "npm-merge-driver": "^2.3.5",
     "rimraf": "^2.6.2",
     "webpack": "3.11.0",
