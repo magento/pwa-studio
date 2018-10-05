@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const config = require('../lib/envToConfig')();
 
-require('../lib/server.js')(config).catch(e => {
+require('../lib/createUpwardServer.js')(config).catch(e => {
     console.error(e.stack);
     process.exit(e.errno || 1);
 });
