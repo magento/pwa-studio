@@ -185,7 +185,9 @@ module.exports = async function(env) {
             })
         );
     } else {
-        throw Error(`Unsupported environment phase in webpack config: ${phase}`);
+        throw Error(
+            `Unsupported environment phase in webpack config: ${phase}`
+        );
     }
     return config;
 };
