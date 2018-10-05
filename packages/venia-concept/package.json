@@ -16,8 +16,8 @@
     "prepare": "npm-merge-driver install",
     "start": "webpack-dev-server --progress --color --env.phase development",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
-    "watch": "npm run -s start",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "validate-queries": "node ./validate-queries.js",
+    "watch": "webpack-dev-server --progress --color --env.phase development"
   },
   "devDependencies": {
     "@magento/peregrine": "^1.1.1",
