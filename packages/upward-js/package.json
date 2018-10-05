@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "2.0.0-rc2.0.2",
+  "version": "2.0.0-rc2.0.3",
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -49,7 +49,7 @@
     "traverse": "^0.6.6"
   },
   "devDependencies": {
-    "@magento/upward-spec": "^2.0.0-rc2.0.2",
+    "@magento/upward-spec": "^2.0.0-rc2.0.3",
     "express": "^4.16.3",
     "jest": "^23.5.0",
     "supertest": "^3.1.0"
