@@ -2,10 +2,11 @@ const debug = require('../../util/debug').makeFileLogger(__filename);
 const fetch = require('node-fetch');
 const path = require('path');
 const https = require('https');
+const url = require('url');
 const upward = require('@magento/upward-js');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
-const agent = new https.Agent({ rejectUnauthorized: false });
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class UpwardPlugin {
     constructor(devServer, upwardPath) {
@@ -79,8 +80,15 @@ class UpwardPlugin {
 
             async networkFetch(path, options) {
                 debug('networkFetch %s, %o', path, options);
+                const { protocol } = url.parse(path);
+                if (protocol === 'https:') {
+                    return fetch(
+                        path,
+                        Object.assign({ agent: httpsAgent }, options)
+                    );
+                }
+                return fetch(path, options);
                 // Use the https.Agent to allow self-signed certificates.
-                return fetch(path, Object.assign({ agent }, options));
             }
         };
 
