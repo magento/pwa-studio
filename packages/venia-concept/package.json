@@ -16,7 +16,6 @@
   "scripts": {
     "build": "webpack --color --env.phase production",
     "clean": "rimraf web/js",
-    "prepare": "npm-merge-driver install",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
     "validate-queries": "node ./validate-queries.js",
@@ -26,7 +25,6 @@
     "@magento/peregrine": "^2.0.0-rc2.0.1",
     "@magento/pwa-buildpack": "^2.0.0-rc2.0.1",
     "@magento/upward-js": "^2.0.0-rc2.0.1",
-    "npm-merge-driver": "^2.3.5",
     "rimraf": "^2.6.2",
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.0"
