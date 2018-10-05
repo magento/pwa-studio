@@ -1,5 +1,8 @@
 {
   "name": "@magento/venia-concept",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "2.0.0-rc2.0.2",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
