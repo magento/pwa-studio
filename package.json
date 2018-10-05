@@ -12,6 +12,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
+    "postinstall": "npm run build",
     "build": "lerna --stream --scope '{@magento/pwa-buildpack,@magento/peregrine,@magento/venia-concept}' exec -- npm run build",
     "clean:all": "lerna run clean && lerna clean --yes && rimraf ./node_modules",
     "clean:dist": "lerna run clean",
