@@ -7,6 +7,8 @@
 [ ] `peregrine`
 [ ] `pwa-module`
 [ ] `pwa-devdocs`
+[ ] `upward-js`
+[ ] `upward-spec`
 
 ## This issue is a:
 
