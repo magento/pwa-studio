@@ -181,6 +181,10 @@ test('refreshes an expired cert', async () => {
         key: 'yes',
         cert: 'diggity'
     });
+    expect(setupDomain.userCerts.set).toHaveBeenCalledWith(
+        `custom-823.${setupDomain.DEV_DOMAIN}`,
+        expect.objectContaining({ key: 'yes', cert: 'diggity' })
+    );
 });
 
 test('passes errors from denied root or bad parse', async () => {

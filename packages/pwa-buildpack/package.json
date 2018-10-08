@@ -1,15 +1,15 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.0.0-rc2.0.1",
+  "version": "2.0.0-rc2.0.5",
   "publishConfig": {
     "access": "public"
   },
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "clean": "rimraf dist",
-    "prepublishOnly": "rimraf dist && npm run build",
+    "prepublishOnly": "npx rimraf dist && npm run build",
     "watch": "npm run -s build -- --watch"
   },
   "files": [
