@@ -1,67 +1,40 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const debugErrorMiddleware = require('debug-error-middleware').express;
 const url = require('url');
-const GlobalConfig = require('../util/global-config');
 const optionsValidator = require('../util/options-validator');
-const setupDomain = require('../Utilities/setupDomain');
-const { find: findPort } = require('../util/promisified/openport');
+const chalk = require('chalk');
+const configureHost = require('../Utilities/configureHost');
+const portscanner = require('portscanner');
+
+const secureHostWarning = chalk.redBright(
+    `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
+  highly recommends using the ${chalk.whiteBright(
+      '"provideSecureHost"'
+  )} configuration
+  option of PWADevServer. `
+);
+
+const helpText = `To autogenerate a unique host based on project name
+  and location on disk, simply add:
+    ${chalk.whiteBright('provideSecureHost: true')}
+  to PWADevServer configuration options.
+
+  More options for this feature are described in documentation.
+`;
+
 const PWADevServer = {
     validateConfig: optionsValidator('PWADevServer', {
-        publicPath: 'string',
-        backendDomain: 'string',
-        'paths.output': 'string'
+        publicPath: 'string'
     }),
-    portsByHostname: new GlobalConfig({
-        prefix: 'devport-byhostname',
-        key: x => x
-    }),
-    async findFreePort() {
-        const reserved = await PWADevServer.portsByHostname.values(Number);
-        debug(`findFreePort(): these ports already reserved`, reserved);
-        return findPort({
-            startingPort: 8000,
-            endingPort: 8999,
-            avoid:
-                brandNew && (await PWADevServer.portsByHostname.values(Number))
-        }).catch(e => {
-            throw Error(
-                debug.errorMsg(
-                    `Unable to find an open port. You may want to delete your database file at ${GlobalConfig.getDbFilePath()} to clear out old developer hostname entries. (Soon we will make this easier and more automatic.) Original error: ${e.toString()}`
-                )
-            );
-        });
-    },
-    async getPersistentDevPort(hostname) {
-        // const usualPort = await PWADevServer.portsByHostname.get(hostname);
-
-        // const freePort =
-
-        const [usualPort, freePort] = await Promise.all([
-            ,
-            PWADevServer.findFreePort()
-        ]);
-        const port = usualPort === freePort ? usualPort : freePort;
-
-        if (!usualPort) {
-            PWADevServer.portsByHostname.set(hostname, port);
-        } else if (usualPort !== freePort) {
-            console.warn(
-                debug.errorMsg(
-                    `This project's dev server normally runs at ${hostname}:${usualPort}, but port ${usualPort} is in use. The dev server will instead run at ${hostname}:${port}, which may cause a blank or unexpected cache and ServiceWorker. Consider fully clearing your browser cache.`
-                )
-            );
-        }
-
-        return port;
-    },
     async configure(config) {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
-            contentBase: false,
+            contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
             host: '0.0.0.0',
+            port: await portscanner.findAPortNotInUse(10000),
             stats: {
                 all: false,
                 builtAt: true,
@@ -77,43 +50,88 @@ const PWADevServer = {
                 app.use(debugErrorMiddleware());
             }
         };
-        const { id, provideUniqueHost, provideSSLCert } = config;
-        let uniqueName;
-        if (id || provideUniqueHost) {
-            const domainCustomName =
-                id ||
-                (typeof provideUniqueHost === 'string'
-                    ? provideUniqueHost
-                    : null);
-            const domainSetupConfig = {
-                secure: provideSSLCert,
-                unique: !id
-            };
-            const { hostname, certPair } = await setupDomain(
-                domainCustomName,
-                domainSetupConfig
-            );
-            uniqueName = devServerConfig.host = hostname;
-            devServerConfig.https = certPair;
+        const { id, provideSecureHost } = config;
+        if (id || provideSecureHost) {
+            const hostConf = {};
+            // backwards compatibility
+            if (id) {
+                const desiredDomain = id + '.' + configureHost.DEV_DOMAIN;
+                console.warn(
+                    debug.errorMsg(
+                        chalk.yellowBright(`
+The 'id' configuration option is deprecated and will be removed in upcoming
+releases. It has been replaced by 'provideSecureHost' configuration which can
+be configured to have the same effect as 'id'.
+
+  To create the subdomain ${desiredDomain}, use:
+    ${chalk.whiteBright(
+        `provideSecureHost: { subdomain: "${id}", addUniqueHash: false }`
+    )}
+
+  To omit the default ${
+      configureHost.DEV_DOMAIN
+  } and specify a full alternate domain, use:
+    ${chalk.whiteBright(
+        `provideSecureHost: { exactDomain: "${id}.example.dev" }`
+    )}
+  (or any other top-level domain).
+
+  ${helpText}`)
+                    )
+                );
+
+                hostConf.addUniqueHash = false;
+                hostConf.subdomain = id;
+            } else if (provideSecureHost === true) {
+                hostConf.addUniqueHash = true;
+            } else if (typeof provideSecureHost === 'object') {
+                Object.assign(hostConf, provideSecureHost);
+            } else {
+                throw new Error(
+                    debug.errorMsg(
+                        `Unrecognized argument to 'provideSecureHost'. Must be a boolean or an object with 'addUniqueHash', 'subdomain', and/or 'domain' properties.`
+                    )
+                );
+            }
+            const { hostname, ports, ssl } = await configureHost(hostConf);
+
+            devServerConfig.host = hostname;
+            devServerConfig.https = ssl;
             // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
-            if (devServerConfig.https) {
-                devServerConfig.https.spdy = {
-                    protocols: ['http/1.1']
-                };
+            devServerConfig.https.spdy = {
+                protocols: ['http/1.1']
+            };
+
+            const requestedPort =
+                process.env.PWA_STUDIO_PORTS_DEVELOPMENT || ports.development;
+            if (
+                (await portscanner.checkPortStatus(requestedPort)) === 'closed'
+            ) {
+                devServerConfig.port = requestedPort;
+            } else {
+                console.warn(
+                    chalk.yellowBright(
+                        '\n' +
+                            debug.errorMsg(
+                                `This project's dev server is configured to run at ${hostname}:${requestedPort}, but port ${requestedPort} is in use. The dev server will run temporarily on port ${chalk.underline.whiteBright(
+                                    devServerConfig.port
+                                )}; you may see inconsistent ServiceWorker behavior.`
+                            ) +
+                            '\n'
+                    )
+                );
             }
         } else {
-            uniqueName = setupDomain.getUniqueSubdomain();
+            console.warn(secureHostWarning + helpText);
         }
 
-        devServerConfig.port = await PWADevServer.getPersistentDevPort(
-            uniqueName
-        );
-
+        // Public path must be an absolute URL to enable hot module replacement
         devServerConfig.publicPath = url.format({
-            protocol: provideSSLCert ? 'https:' : 'http:',
+            protocol: devServerConfig.https ? 'https:' : 'http:',
             hostname: devServerConfig.host,
             port: devServerConfig.port,
-            pathname: config.publicPath
+            // ensure trailing slash
+            pathname: config.publicPath.replace(/([^\/])$/, '$1/')
         });
 
         return devServerConfig;

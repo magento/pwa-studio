@@ -18,7 +18,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules --ignore-pattern storybook-dist",
-    "prepare": "node ./scripts/update_repo_environment.js",
+    "prepare": "node ./scripts/update_repo_environment.js; lerna bootstrap && lerna --stream --scope '{@magento/pwa-buildpack,@magento/peregrine}' exec -- npm run build",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
@@ -111,12 +111,5 @@
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.0",
     "xml": "^1.0.1"
-  },
-  "dependencies": {
-    "@magento/peregrine": "file:packages/peregrine",
-    "@magento/pwa-buildpack": "file:packages/pwa-buildpack",
-    "pwa-devdocs": "file:packages/pwa-devdocs",
-    "@magento/upward-js": "file:packages/upward-js",
-    "@magento/upward-spec": "file:packages/upward-spec"
   }
 }
