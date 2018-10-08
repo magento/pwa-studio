@@ -75,7 +75,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 2. Use `npx` to run `upward-spec` on your shell script
 
     ```sh
-    npx upward-spec ./test_my_upward.sh
+    npx upward-spec ./test_upward_server.sh
     ```
 
 3. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture YAML file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
@@ -84,7 +84,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 
 4. By default, the test runner will print human-readable results to stdout; the argument `--xunit` will make it print XUnit-compatible (and therefore JUnit-compatible) test result XML. The argument `--tap` will make it print [Test Anything Protocol](https://testanything.org/)-compatible text. Under the hood, this uses [tape](https://github.com/substack/tape) and it can be piped to [any number of open-source TAP reporters](https://github.com/sindresorhus/awesome-tap#javascript).
 
-:information_source: _(The `npx` tool above is not required; it's a convenience script to avoid installing global NPM dependencies. You can also install `upward-spec` permanently using `npm install -g upward-spec`, and then simply invoke `upward-spec ./test_my_upward.sh` from that point forward.)_
+:information_source: _(The `npx` tool above is not required; it's a convenience script to avoid installing global NPM dependencies. You can also install `upward-spec` permanently using `npm install -g upward-spec`, and then simply invoke `upward-spec ./test_upward_server.sh` from that point forward.)_
 
 ## Summary
 
@@ -1116,7 +1116,7 @@ The YAML specificationsupports an [anchor and reference syntax][yaml anchors] wh
 [pwa def]: <https://developers.google.com/web/progressive-web-apps/>
 [js identifiers]: <https://developer.mozilla.org/en-US/docs/Glossary/Identifier>
 [npx]: <https://github.com/zkat/npx>
-[spec-shell-script]: <./test_my_upward.sh>
+[spec-shell-script]: <./test_upward_server.sh>
 [yaml anchors]: <https://learnxinyminutes.com/docs/yaml/>
 [pcre]: <https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions>
 [graphql spec data property]: <http://facebook.github.io/graphql/June2018/#sec-Data>
