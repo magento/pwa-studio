@@ -14,7 +14,7 @@ You can use `upward-js` from the command line, through the server API, or throug
 
 #### Command Line
 
-The `upward-js-server` command will become globally available if you install globally: `npm install -g upward-js`.
+The `upward-js-server` command will become globally available if you install globally: `npm install -g @magento/upward-js`.
 
 The server takes no arguments; instead it is configured by environment variables. At minimum, the environment variable `UPWARD_JS_UPWARD_PATH` must be set to the path of your definition file, and `UPWARD_JS_BIND_LOCAL` must be set to 1.
 
