@@ -21,7 +21,8 @@ const PWADevServer = {
         return findPort({
             startingPort: 8000,
             endingPort: 8999,
-            avoid: reserved
+            avoid:
+                brandNew && (await PWADevServer.portsByHostname.values(Number))
         }).catch(e => {
             throw Error(
                 debug.errorMsg(
@@ -31,8 +32,12 @@ const PWADevServer = {
         });
     },
     async getPersistentDevPort(hostname) {
+        // const usualPort = await PWADevServer.portsByHostname.get(hostname);
+
+        // const freePort =
+
         const [usualPort, freePort] = await Promise.all([
-            PWADevServer.portsByHostname.get(hostname),
+            ,
             PWADevServer.findFreePort()
         ]);
         const port = usualPort === freePort ? usualPort : freePort;
