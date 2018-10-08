@@ -139,6 +139,10 @@ test('produces a secure domain from exact domain provided', async () => {
 test('warns about sudo prompt if cert needs to be created', async () => {
     simulate.certCreated();
     await configureHost({ subdomain: 'best-boss-i-ever-had' });
+    expect(console.warn).not.toHaveBeenCalled();
+    simulate.certCreated();
+    execa.shell.mockRejectedValueOnce(new Error('wat'));
+    await configureHost({ subdomain: 'bar-none' });
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching('requires temporary administrative privileges')
     );
