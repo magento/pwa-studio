@@ -94,7 +94,7 @@ An App Shell is purposefully minimal, and so is an UPWARD server. It is meant to
 
 The declarative format of UPWARD means that an UPWARD-compliant server may be written in any programming language and run on any tech stack; therefore, a PWA can declare the URIs and behavior of the network endpoints it depends on by including an UPWARD file.
 
-### Simple example
+### Echo Example
 
 This example definition file echoes request data as text back to the client.
 
@@ -134,7 +134,7 @@ body:
 
 ```
 
-This trivial example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties. An example request to such a server results in:
+This example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties. An example request to such a server results in:
 
 ```sh
 $ curl 'http://localhost:54422/head/shoulders?and=knees&and=toes'
