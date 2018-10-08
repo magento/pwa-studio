@@ -77,9 +77,10 @@ Follow these steps to install the dependencies for all the packages in the proje
 4. Watch the bootstrapping take place.
 5. Create a `packages/venia-concept/.env` file (or set environment variables manually)
 6. Set the environment variable `MAGENTO_BACKEND_DOMAIN` to the URL of the backing Magento instance you are using
-7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
-8.  To run the full PWA Studio developer experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
-9.  To run the staging environment, which uses more compressed assets and more closely reflects production, run `npm run stage:venia` from package root. (This requires that you first run `npm run build` to generate the artifacts being served.)
+7. On your first install, run `npm run build` from package root.
+8. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
+9.  To run the full PWA Studio developer experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
+10.  To run the staging environment, which uses more compressed assets and more closely reflects production, run `npm run stage:venia` from package root. (This requires that you first run `npm run build` to generate the artifacts being served.)
 
 ## Troubleshooting
 
