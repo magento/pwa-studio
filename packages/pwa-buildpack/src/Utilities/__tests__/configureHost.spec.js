@@ -5,6 +5,7 @@ const pkg = jest.fn();
 jest.doMock(pkgLocTest, pkg, { virtual: true });
 const devcert = require('devcert');
 const { configureHost } = require('../');
+const execa = require('execa');
 
 const fakeCertPair = {
     key: Buffer.from('fakeKey'),
@@ -52,10 +53,12 @@ const simulate = {
 // intercept and disable console output
 beforeEach(() => {
     jest.spyOn(console, 'warn').mockImplementation();
+    jest.spyOn(execa, 'shell').mockImplementation(() => Promise.resolve());
 });
 
 afterEach(() => {
     console.warn.mockRestore();
+    execa.shell.mockRestore();
 });
 
 const hostRegex = (
