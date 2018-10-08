@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "scripts": {
+    "now-build": "echo No build for now",
     "build": "webpack --color --env.phase production",
     "clean": "rimraf web/js",
     "start": "node server.js",
