@@ -33,6 +33,27 @@ const categoryQuery = gql`
     }
 `;
 
+const searchQuery = gql`
+  query ($inputText: String) {
+    products (search: $inputText) {
+      items {
+        id
+        name
+        small_image
+        url_key
+        price {
+          regularPrice {
+            amount {
+              value
+              currency
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 class Category extends Component {
     static propTypes = {
         id: number,
@@ -50,11 +71,34 @@ class Category extends Component {
     };
 
     render() {
-        const { id, classes } = this.props;
-
+        const { id, classes } = this.props; 
+        let inputText = "none";
+        if (location.search) {
+          inputText = location.search.substring(1);
+        }
         return (
             <Page>
-                <Query query={categoryQuery} variables={{ id }}>
+              {function() {
+                if (id == 99) {
+                return <Query query={searchQuery} variables={{ "inputText" : inputText }}>
+                  {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
+
+                    return (
+                      <article className={classes.root}>
+                        <section className={classes.gallery}>
+                          <Gallery
+                            data={data.products.items}
+                          />
+                        </section>
+                      </article>
+                    );
+                  }}
+                </Query>
+                }
+                else {
+                return <Query query={categoryQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;
@@ -79,6 +123,8 @@ class Category extends Component {
                         );
                     }}
                 </Query>
+                }
+              }.call(this)}  
             </Page>
         );
     }

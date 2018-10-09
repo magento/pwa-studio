@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './searchInput.css';
 
-import Gallery from 'src/components/Gallery';
+import Icon from 'src/components/Icon';
 
 class SearchInput extends Component {
     static propTypes = {
@@ -40,27 +40,6 @@ class SearchInput extends Component {
     render() {
       const { classes, isOpen } = this.props;
 
-      const searchQuery = gql`
-        query ($inputText: String) {
-          products (search : $inputText) {
-            items {
-              id
-              name
-              small_image
-              url_key
-              price {
-                regularPrice {
-                  amount {
-                    value
-                    currency
-                  }
-                }
-              }
-            }
-          }
-        }
-      `;
-
       const searchClass = isOpen ? classes.searchBlock_active: classes.searchBlock; 
 
       //Handle enter key to search!
@@ -69,16 +48,18 @@ class SearchInput extends Component {
               searchInput : event.target.value
             });
           if (event.key === "Enter") {
-            this.props.history.push(`/search.html`)
+            this.props.history.push(`/search?` + String(event.target.value) )
             
           }
       };
       return (
           <div className={searchClass}>   
+              <Icon className={classes.searchIcon} name="search" />
               <input
                 id="searchInput"
                 className={classes.searchInput}
-                type="text"
+                inputMode="search"
+                type="search"
                 placeholder="I'm looking for..."
                 onKeyPress={handleKeyPress}
               />

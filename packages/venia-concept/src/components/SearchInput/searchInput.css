@@ -40,3 +40,10 @@
     width: 24rem;
     -webkit-appearance: none;
 }
+
+.searchIcon {
+    visibility: hidden;
+    position: relative;
+    left: 2rem;
+}
+    

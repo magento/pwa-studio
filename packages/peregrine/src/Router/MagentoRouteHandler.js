@@ -30,7 +30,7 @@ export default class MagentoRouteHandler extends Component {
 
     getRouteComponent(pathname) {
         const { apiBase, __tmp_webpack_public_path__ } = this.props;
-
+ 
         resolveUnknownRoute({
             route: pathname,
             apiBase,

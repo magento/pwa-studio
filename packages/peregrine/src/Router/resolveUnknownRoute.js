@@ -6,24 +6,36 @@
  */
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
-
-    return remotelyResolveRoute({
-        route,
-        apiBase
-    }).then(res => {
-        if (!(res && res.type)) {
-            return { matched: false };
-        }
+    if ( route === '/search'){
         return tempGetWebpackChunkData(
-            res.type,
+            'CATEGORY',
             __tmp_webpack_public_path__
         ).then(({ rootChunkID, rootModuleID }) => ({
             rootChunkID,
             rootModuleID,
-            id: res.id,
+            id: 99,
             matched: true
         }));
-    });
+    }
+    else {
+      return remotelyResolveRoute({
+          route,
+          apiBase
+      }).then(res => {
+          if (!(res && res.type)) {
+              return { matched: false };
+          }
+          return tempGetWebpackChunkData(
+              res.type,
+              __tmp_webpack_public_path__
+          ).then(({ rootChunkID, rootModuleID }) => ({
+              rootChunkID,
+              rootModuleID,
+              id: res.id,
+              matched: true
+          }));
+      });
+  }
 }
 
 /**

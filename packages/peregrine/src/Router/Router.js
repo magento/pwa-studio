@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { string, func, object } from 'prop-types';
 import MagentoRouteHandler from './MagentoRouteHandler';
+
+//import Search from '../../../venia-concept/src/RootComponents/Search';
 
 export default class MagentoRouter extends Component {
     static propTypes = {
@@ -24,10 +26,10 @@ export default class MagentoRouter extends Component {
             apiBase,
             __tmp_webpack_public_path__
         } = this.props;
-
+				
         return (
             <Router {...routerProps}>
-                <Route
+               <Route
                     render={({ location }) => (
                         <MagentoRouteHandler
                             location={location}
@@ -37,7 +39,7 @@ export default class MagentoRouter extends Component {
                             }
                         />
                     )}
-                />
+                /> 
             </Router>
         );
     }
