@@ -8,6 +8,7 @@ import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 import getProductDetail from '../../queries/getProductDetail.graphql';
+import { outOfStockData } from "./mockData";
 
 class Product extends Component {
     static propTypes = {
@@ -120,7 +121,6 @@ class Product extends Component {
 
     render() {
         const { addToCart, addConfigurableToCart } = this;
-        const query = getProductDetail;
         return (
             <Page>
                 <Query
@@ -134,6 +134,7 @@ class Product extends Component {
                         let onAddToCart = addToCart;
 
                         const product = data.productDetail.items[0];
+                        // const product = outOfStockData.data.productDetail.items[0];
                         if ( product.__typename === 'ConfigurableProduct' ) {
                             onAddToCart = addConfigurableToCart;
                         }

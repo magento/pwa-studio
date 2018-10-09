@@ -37,6 +37,7 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         color
                         size
                         color
+                        stock_status
                         media_gallery_entries {
                             label
                             position
