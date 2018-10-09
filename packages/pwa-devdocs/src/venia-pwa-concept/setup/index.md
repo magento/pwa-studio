@@ -160,11 +160,11 @@ cd /Users/magedev/pwa-studio/packages/venia-concept
 cp .env.dist .env
 ```
 
-In the `.env` file set the value of `MAGENTO_BACKEND_DOMAIN` to the URL of your Magento development store.
+In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of your Magento development store.
 
 **Example:**
 ``` text
-MAGENTO_BACKEND_DOMAIN="https://magento.test/"
+MAGENTO_BACKEND_URL="https://magento.test/"
 ```
 
 ## Step 5. Start the server
