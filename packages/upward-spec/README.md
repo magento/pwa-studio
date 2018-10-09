@@ -944,7 +944,7 @@ A ProxyResolver is an important part of the UPWARD philosophy: a PWA's UPWARD fi
 
 ```yaml
 proxy:
-  target: env.MAGENTO_BACKEND_DOMAIN
+  target: env.MAGENTO_BACKEND_URL
   ignoreSSLErrors: true
 ```
 

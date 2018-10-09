@@ -24,7 +24,7 @@ feature to replace components and stylesheets inline.
 The `devServer` acts as a proxy server for API and media requests to Magento. It
 is configured using environment variables.
 
-The `MAGENTO_BACKEND_DOMAIN` environment variable configures the proxy server
+The `MAGENTO_BACKEND_URL` environment variable configures the proxy server
 to accept GraphQL, REST, and media requests and passes them to Magento.
 
 The `MAGENTO_BACKEND_PUBLIC_PATH` environment variable allows the proxy server
