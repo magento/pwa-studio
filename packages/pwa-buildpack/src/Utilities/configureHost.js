@@ -61,7 +61,7 @@ Please enter the password for ${chalk.whiteBright(
     });
 }
 
-function getUniqueDomainAndPorts(customName) {
+function getUniqueDomainAndPorts(customName, addUniqueHash) {
     let name = DEFAULT_NAME;
     if (typeof customName === 'string') {
         name = customName;
@@ -92,6 +92,12 @@ function getUniqueDomainAndPorts(customName) {
     dirHash.update(process.cwd());
     const digest = dirHash.digest('base64');
 
+    const subdomain = addUniqueHash ? `${name}-${digest.slice(0, 5)}` : name;
+    // Base64 truncated to 5 characters, stripped of special characters,
+    // and lowercased to be a valid domain, is about 36^5 unique values.
+    // There is therefore a chance of a duplicate ID and host collision,
+    // specifically a 1 in 60466176 chance.
+
     // Use the same current directory hash to create a "unique" port number.
     // This creates a number from 1 to 1000 that wil stay constant for the
     // current directory. We'll create dev and staging ports for it.
@@ -103,12 +109,6 @@ function getUniqueDomainAndPorts(customName) {
             16
         ) % 1000;
 
-    const uniqueChars = digest.slice(0, 5);
-    // Base64 truncated to 5 characters, stripped of special characters,
-    // and lowercased to be a valid domain, is about 36^5 unique values.
-    // There is therefore a chance of a duplicate ID and host collision,
-    // specifically a 1 in 60466176 chance.
-
     const ports = {
         development: 8000 + uniquePortOffset,
         staging: 9000 + uniquePortOffset
@@ -119,15 +119,11 @@ function getUniqueDomainAndPorts(customName) {
     // development and 9xxx range for staging. Fortunately, unlike domains,
     // ports are easy to rebind at runtime if a collision occurs.
 
-    // Combine human readable name with unique characters and make into a valid
-    // domain name.
-    const uniqueSubdomain = `${name}-${uniqueChars}`
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]/g, '-')
-        .replace(/^-+/, '');
-
     return {
-        uniqueSubdomain,
+        uniqueSubdomain: subdomain
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, '-')
+            .replace(/^-+/, ''),
         ports
     };
 }
@@ -138,14 +134,14 @@ async function configureHost({
     exactDomain
 } = {}) {
     const { uniqueSubdomain, ports } = getUniqueDomainAndPorts(
-        exactDomain || subdomain
+        exactDomain || subdomain,
+        addUniqueHash
     );
     let hostname;
     if (exactDomain) {
         hostname = exactDomain;
     } else {
-        hostname =
-            (addUniqueHash ? uniqueSubdomain : subdomain) + '.' + DEV_DOMAIN;
+        hostname = uniqueSubdomain + '.' + DEV_DOMAIN;
     }
     try {
         return {

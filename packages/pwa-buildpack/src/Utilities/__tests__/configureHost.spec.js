@@ -115,6 +115,7 @@ test('produces a secure domain from custom subdomain', async () => {
         subdomain: 'friends-of-desoto'
     });
     expect(hostname).toMatch(hostRegex('friends-of-desoto'));
+    pkg.mockReset(); // because it was never called
 });
 
 test('produces a secure domain from custom subdomain without unique autogen', async () => {
@@ -125,6 +126,16 @@ test('produces a secure domain from custom subdomain without unique autogen', as
     });
     expect(hostname).toMatch(
         new RegExp(`friends-of-desoto\\.${configureHost.DEV_DOMAIN}$`)
+    );
+});
+
+test('autogenerates a secure domain without unique autogen', async () => {
+    simulate.certCached().packageNameIs('bigdog');
+    const { hostname } = await configureHost({
+        addUniqueHash: false
+    });
+    expect(hostname).toMatch(
+        new RegExp(`bigdog\\.${configureHost.DEV_DOMAIN}$`)
     );
 });
 
