@@ -9,67 +9,6 @@ import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 import getProductDetail from '../../queries/getProductDetail.graphql';
 
-/**
- * As of this writing, there is no single Product query type in the M2.3 schema.
- * The recommended solution is to use filter criteria on a Products query.
- * However, the `id` argument is not supported. See
- * https://github.com/magento/graphql-ce/issues/86
- * TODO: Replace with a single product query when possible.
- */
-const productDetailQuery = gql`
-    query productDetail($urlKey: String) {
-        productDetail: products(filter: { url_key: { eq: $urlKey } }) {
-            items {
-                sku
-                name
-                price {
-                    regularPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-                description
-                media_gallery_entries {
-                    label
-                    position
-                    disabled
-                    file
-                }
-                ... on ConfigurableProduct {
-                    configurable_options {
-                        label
-                        attribute_id
-                        attribute_code
-                        position
-                        values{
-                            label
-                            value_index
-                        }
-                    }
-                    variants {
-                        product {
-                            sku
-                            id
-                            swatch_image
-                            color
-                            size
-                            color
-                            media_gallery_entries {
-                                label
-                                position
-                                disabled
-                                file
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
-
 class Product extends Component {
     static propTypes = {
         data: shape({
@@ -181,10 +120,10 @@ class Product extends Component {
 
     render() {
         const { addToCart, addConfigurableToCart } = this;
+        const query = getProductDetail;
         return (
             <Page>
                 <Query
-                    query={productDetailQuery}
                     onCompleted={this.initOptions}
                     query={getProductDetail}
                     variables={{ urlKey: getUrlKey(), onServer: false }}

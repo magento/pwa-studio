@@ -105,7 +105,6 @@ button {
     z-index: 10;
 }
 
-
 [data-title]:hover::before {
     content: attr(data-title);
     top: -43px;

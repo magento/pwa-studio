@@ -7,6 +7,14 @@
     padding: 1rem 0;
 }
 
+.colors > div {
+    box-shadow: 0 -1px rgb(var(--venia-border));
+}
+
+.colors > div:first-child {
+    box-shadow: none;
+}
+
 .header {
     margin: 1rem 0;
 }

@@ -9,9 +9,9 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
             'images options'
             'images quantity'
+            'images actions'
             'images cart'
             'images .';
         grid-template-columns: 1.5625fr 1fr;
@@ -96,7 +96,7 @@
 }
 
 @media (min-width: 1024px) {
-    .actions {
+    .quantity {
         padding-top: 0;
     }
 }

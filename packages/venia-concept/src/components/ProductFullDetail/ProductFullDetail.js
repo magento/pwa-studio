@@ -78,7 +78,6 @@ class ProductFullDetail extends Component {
 
         return (
             <article className={classes.root}>
-                { productEdit }
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         <span>{product.name}</span>
@@ -93,10 +92,8 @@ class ProductFullDetail extends Component {
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
                 </section>
-                <section className={classes.actions}>
-                    <Button>
-                        <span>Add to Wishlist</span>
-                    </Button>
+                <section className={classes.edit}>
+                    { productEdit }
                 </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
@@ -106,6 +103,11 @@ class ProductFullDetail extends Component {
                         value={this.state.quantity}
                         onChange={this.setQuantity}
                     />
+                </section>
+                <section className={classes.actions}>
+                    <Button>
+                        <span>Add to Wishlist</span>
+                    </Button>
                 </section>
                 <section className={classes.cartActions}>
                     <Button onClick={this.addToCart}>

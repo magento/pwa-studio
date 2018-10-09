@@ -1,7 +1,8 @@
-import { createElement } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import optionClasses from '../option.css';
+import './index.css';
 
 const stories = storiesOf('Product Options/Option', module);
 

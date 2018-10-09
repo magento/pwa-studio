@@ -6,4 +6,5 @@
 
 .root > button {
     margin: .8rem .8rem 0 0;
+    outline: none;
 }

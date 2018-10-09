@@ -18,9 +18,38 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                 disabled
                 file
             }
+            ... on ConfigurableProduct {
+                configurable_options {
+                    label
+                    attribute_id
+                    attribute_code
+                    position
+                    values{
+                        label
+                        value_index
+                    }
+                }
+                variants {
+                    product {
+                        sku
+                        id
+                        swatch_image
+                        color
+                        size
+                        color
+                        media_gallery_entries {
+                            label
+                            position
+                            disabled
+                            file
+                        }
+                    }
+                }
+            }
             meta_title @include(if: $onServer)
             meta_keyword @include(if: $onServer)
             meta_description @include(if: $onServer)
         }
     }
 }
+

@@ -1,9 +1,10 @@
-import { createElement } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import Options from '../options';
 import miniTileClasses from '../miniTile.css';
 import { miniTile, miniTileDisabled, miniTileSelected, miniTiles} from '../mock_data';
+import 'src/index.css';
 
 const stories = storiesOf('Product Options/Mini Tile', module);
 

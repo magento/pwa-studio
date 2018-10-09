@@ -41,7 +41,7 @@ class Option extends Component {
         const { item, children, optionType } = this.props;
         let { classes } = this.props;
         const { check } =  this;
-        const { backgroundColor, name, isSelected, isDisabled } = item;
+        const { backgroundColor, value, isSelected, isDisabled } = item;
         const style = { '--background-color': backgroundColor };
         const additionalClasses = optionType ?  this.styleOptions[optionType] : classes;
         classes = Object.assign(classes, additionalClasses);
@@ -52,7 +52,7 @@ class Option extends Component {
         return (
             <button
                 className={buttonClasses}
-                data-title={name}
+                data-title={value}
                 style={style}
                 onClick={this.handleClick}
             >

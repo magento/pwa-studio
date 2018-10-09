@@ -75,7 +75,6 @@ class ProductEdit extends Component {
             <div
                 onChange={onProductChange}
                 className={classes.root}>
-                <div className={classes.header}>{item.name}</div>
                 <div className={classes.colors}>
                     {mappedData.map( (option, index) => {
                         return this.optionsComponent(option, index);
