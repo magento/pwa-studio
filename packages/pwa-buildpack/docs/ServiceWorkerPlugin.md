@@ -60,7 +60,7 @@ Plugin constructor for the `ServiceWorkerPlugin` class.
     Must be either `'development'` or `'production'`.
 
 `paths: Object` **(Required)**
-The local absolute paths to theme folders.
+The local absolute paths to project folders.
 
 - `paths.output: String`
 
@@ -71,7 +71,7 @@ When `true`, hot reloading is enabled and the ServiceWorker is active in the doc
 When `false`, the ServiceWorker is disabled to prevent cache interruptions when hot reloading assets.
 
 `serviceWorkerFileName: String` **(Required)**
-The name of the ServiceWorker file this theme creates.
+The name of the ServiceWorker file this project creates.
 Example: `'sw.js'`
 
 `runtimeCacheAssetPath: String`

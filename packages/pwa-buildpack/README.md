@@ -422,18 +422,13 @@ or energy setting up their own services layer.
 
 ### Elements
 
--   [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento
-    modules/extensions the ability to inject or remove content blocks in a layout
-    without modifying theme source files
--   [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) --
-    Divides static assets into bundled "chunks" based on components registered
-    with the Magento PWA `RootComponent` interface
--   [`PWADevServer`](docs/PWADevServer.md) -- Autoconfigures local system and
-    theme configuration for local PWA-optimized theme development
--   [`ServiceWorkerPlugin`](docs/ServiceWorkerPlugin.md) -- Creates
-    a ServiceWorker with different settings based on dev scenarios
--   [`MagentoResolver`](docs/MagentoResolver.md) -- Configures Webpack to resolve
-    modules and assets in Magento PWA themes.
+- [`PWADevServer`](docs/PWADevServer.md) -- Autoconfigures local system and theme configuration for local PWA-optimized theme development
+- [`MagentoResolver`](docs/MagentoResolver.md) -- Configures Webpack to resolve modules and assets in PWA Studio projects.
+- [`UpwardPlugin`](docs/UpwardPlugin.md) -- Attaches a hot reloading UPWARD server, powered by [upward-js](../upward-js), to the Webpack dev server
+- [`ServiceWorkerPlugin`](docs/ServiceWorkerPlugin.md) -- Creates a ServiceWorker with different settings based on dev scenarios
+- [`DevServerReadyNotifierPlugin`](docs/DevServerReadyNotifierPlugin.md) -- Displays a prominent link in the console to a running dev environment once it is launched
+- [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) -- Divides static assets into bundled "chunks" based on components registered with the Magento PWA `RootComponent` interface
+- [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento modules/extensions the ability to inject or remove content blocks in a layout without modifying theme source files
 
 ## Afterword
 

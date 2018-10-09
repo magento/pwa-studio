@@ -1,0 +1,3 @@
+{{#urlResolver}}
+<script type="application/json" id="url-resolver">{ "type": "{{type}}", "id": "{{id}}" }</script>
+{{/urlResolver}}

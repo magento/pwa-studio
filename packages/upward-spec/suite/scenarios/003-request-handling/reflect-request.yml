@@ -1,0 +1,32 @@
+status:
+  resolver: inline
+  inline: 200
+headers:
+  resolver: inline
+  inline:
+    content-type: text/plain
+body:
+  resolver: template
+  engine: mustache
+  provide:
+    - request
+  template:
+    resolver: inline
+    inline: |
+      {{#request}}
+      Headers:
+          {{#headerEntries}}
+          {{name}}: {{value}}
+          {{/headerEntries}}
+      URL:
+          {{#url}}{{#?protocol}}protocol: {{protocol}}
+          {{/?protocol}}{{#?host}}host: {{host}}
+          {{/?host}}{{#?hostname}}hostname: {{hostname}}
+          {{/?hostname}}{{#?port}}port: {{port}}
+          {{/?port}}pathname: {{pathname}}
+          {{/url}}
+      URL Query:
+          {{#queryEntries}}
+          {{name}}: {{value}}
+          {{/queryEntries}}
+      {{/request}}

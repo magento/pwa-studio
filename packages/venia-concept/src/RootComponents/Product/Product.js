@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
 import { addItemToCart, addConfigurableItemToCart } from 'src/actions/cart';
 import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
+import getProductDetail from '../../queries/getProductDetail.graphql';
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -185,8 +185,9 @@ class Product extends Component {
             <Page>
                 <Query
                     query={productDetailQuery}
-                    variables={{ urlKey: getUrlKey() }}
                     onCompleted={this.initOptions}
+                    query={getProductDetail}
+                    variables={{ urlKey: getUrlKey(), onServer: false }}
                 >
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;

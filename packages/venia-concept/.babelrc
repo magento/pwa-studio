@@ -6,6 +6,7 @@
                 "transform-class-properties",
                 "transform-es2015-modules-commonjs",
                 "transform-object-rest-spread",
+                "import-graphql",
                 "transform-react-jsx"
             ]
         }
