@@ -76,9 +76,8 @@ Follow these steps to install the dependencies for all the packages in the proje
 3. Run `npm install`
 4. Copy `packages/venia-concept/example.env` to `packages/venia-concept/.env`
 5. Uncomment the line for `MAGENTO_BACKEND_DOMAIN` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_DOMAIN` to the fully-qualified URL of a Magento store running `2.3`.
-6. Set the environment variable `MAGENTO_BACKEND_DOMAIN` to the URL of the backing Magento instance you are using
-7. On your first install, run `npm run build` from package root.
-8. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
+6. On your first install, run `npm run build` from package root.
+7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
 
 ## Troubleshooting
 
