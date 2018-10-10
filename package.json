@@ -30,8 +30,7 @@
     "watch:all": "node scripts/watch-all.js",
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
-    "watch:venia-dev-server": "cd packages/venia-concept && nodemon --watch ../pwa-buildpack/dist --watch webpack.config.js --delay 1 --ext js,json --exec npm run-script watch; cd - >/dev/null"
+    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.2.3",
@@ -111,7 +110,6 @@
     "multispinner": "^0.2.1",
     "nock": "^10.0.0",
     "node-fetch": "^2.2.0",
-    "nodemon": "^1.18.4",
     "npm-run-all": "^4.1.2",
     "one-time": "^0.0.4",
     "portscanner": "^2.2.0",

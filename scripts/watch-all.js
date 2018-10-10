@@ -1,3 +1,5 @@
+require('events').EventEmitter.defaultMaxListeners = 100;
+
 const execa = require('execa');
 const path = require('path');
 const Multispinner = require('multispinner');
@@ -70,7 +72,6 @@ const mustWatch = ['@magento/pwa-buildpack', '@magento/peregrine'];
 
 const restartDevServerOnChange = [
     'packages/pwa-buildpack/dist/**/*.js',
-    'packages/peregrine/dist/**/*.js',
     'packages/upward-js/lib/**/*.js',
     'packages/venia-concept/*.{js,json,yml}',
     'packages/venia-concept/.babelrc',
