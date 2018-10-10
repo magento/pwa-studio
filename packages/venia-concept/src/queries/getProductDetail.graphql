@@ -34,8 +34,8 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         sku
                         id
                         swatch_image
-                        color
                         size
+                        format
                         color
                         stock_status
                         media_gallery_entries {

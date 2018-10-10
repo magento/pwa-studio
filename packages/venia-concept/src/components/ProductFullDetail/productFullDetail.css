@@ -177,3 +177,9 @@
 .relatedTitle {
     composes: sectionTitle;
 }
+
+.stockMessage {
+    min-height: 1em;
+    padding: 0rem 1rem 2rem 1rem;
+    color: red;
+}

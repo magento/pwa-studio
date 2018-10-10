@@ -24,7 +24,7 @@
     "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
     "test": "jest",
     "test:ci": "npm run -s test -- -i --json --outputFile=test-results.json",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest -i",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i --runInBand --no-cache --watch",
     "test:dev": "jest --watch",
     "validate:venia:gql": "cd packages/venia-concept && npm run -s validate-queries; cd - >/dev/null",
     "watch:all": "concurrently -c yellow.dim,green.dim,cyan.dim -n ␢,℗,☄︎  'npm run watch:buildpack' 'npm run watch:peregrine' 'npm run watch:venia-dev-server'",

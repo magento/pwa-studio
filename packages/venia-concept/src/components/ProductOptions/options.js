@@ -1,32 +1,35 @@
 import classify from 'src/classify';
 import defaultClasses from './options.css';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { shape, arrayOf, string, object } from 'prop-types';
 import Option from './option';
 
 class Options extends Component {
     static propTypes = {
-        options: PropTypes.arrayOf(PropTypes.object)
+        options: arrayOf(
+        shape({
+            children: string,
+            item: object.isRequired
+        })
+        )
     };
 
-    state = {selected: 0};
-
-    constrcutor() {
-        this.styleOptions = {
-            Color: swatchStyles,
-            Size: tileStyles
-        }
-    }
+    state = {selected: null};
 
     select = (item) => {
-        this.setState({
-            selected: item.id
-        });
+        if ( this.state.selected === item.id ) {
+            this.setState({
+                selected: null
+            });
+        } else {
+            this.setState({
+                selected: item.id
+            });
+        }
         const options = { };
         options[item.attributeCode] = {
-            value: item.value,
-            value_index: item.value_index,
-            position: item.position
+            label: item.label,
+            value_index: item.value_index
         }
         this.props.onSelect(options);
     }
@@ -39,10 +42,14 @@ class Options extends Component {
                 { options.map(
                     (option, id) => {
                         option.item['id'] = id;
-                        (option.item.id === this.state.selected ) ?
-                            option.item['isSelected'] = true :
+                        (option.item.id === this.state.selected ) ?  option.item['isSelected'] = true :
                             option.item['isSelected'] = false
-                        return <Option handleClick={select} key={id} {...option} />
+                        return (
+                            <Option
+                                className={classes.option}
+                                handleClick={select}
+                                key={id} {...option} />
+                        )
                     })
                 }
             </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, shape, string, object } from 'prop-types';
 import ProductEdit from 'src/components/ProductEdit';
 import { Price } from '@magento/peregrine';
 
@@ -27,7 +27,9 @@ class ProductFullDetail extends Component {
             root: string,
             title: string
         }),
+        // TODO: Update proptypes
         product: shape({
+            __typename: string.isRequired,
             id: number,
             sku: string.isRequired,
             price: shape({
@@ -46,35 +48,149 @@ class ProductFullDetail extends Component {
                     file: string.isRequired
                 })
             ),
+            configurable_options: arrayOf(
+                shape({
+                    label: string,
+                    attribute_id: string,
+                    attribute_code: string,
+                    position: number,
+                    values:	arrayOf(
+                        shape({
+                            label: string,
+                            value_index: number
+                        })
+                    )
+                })
+            ),
+            variants: arrayOf(
+                object
+            ),
             description: string
         }).isRequired,
-        addToCart: func.isRequired
+        addConfigurableItemToCart: func.isRequired,
+        addItemToCart: func.isRequired
     };
 
     state = { quantity: 1 };
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = () => {
-        this.props.addToCart(
-            this.props.product,
-            this.state.quantity
-        );
-    }
+    onOptionChange = (options) => {
+        this.setState({
+            ...this.state,
+            selectedOptions: {
+                ...this.state.selectedOptions,
+                ...options
+            }
+        });
+    };
 
     get productEdit() {
-        const { product } = this.props;
-        return product.__typename === 'ConfigurableProduct' ?
+        let { product } = this.props;
+        const productEdit = product.__typename === 'ConfigurableProduct' ?
             <ProductEdit
-                onOptionChange={this.props.updateConfigurableItemToCart}
+                onOptionChange={this.onOptionChange}
                 item={product} /> :
             null;
+
+        return productEdit;
+    }
+
+    // TODO: Make it obey actual default values, not just the first one
+    initOptions = (product) => {
+        const options = product.configurable_options;
+        const initialState = {};
+        options.sort(this.sortConfigurableOptions);
+        options.forEach((option) => {
+            initialState[option.attribute_code] = { };
+        })
+        this.setState({
+            selectedOptions: {
+                ...initialState,
+            }
+        });
+    }
+
+    sortConfigurableOptions = (a, b) => {
+        const aPosition = a.position;
+        const bPosition = b.position;
+        if (aPosition > bPosition) {
+            return 1;
+        }
+        if (aPosition < bPosition) {
+            return -1;
+        }
+        return 0;
+    }
+
+    componentWillMount() {
+        let { product } = this.props;
+        const isConfigurable = product && product.__typename === 'ConfigurableProduct';
+        if (isConfigurable) {
+            this.initOptions(product);
+        }
+    }
+
+    getCurrentConfiguration(item, selectedOptions) {
+        let currentItem = item.variants;
+        const options = Object.keys(selectedOptions);
+        options.forEach((option) => {
+            currentItem = currentItem.filter((variant) => {
+                const value_index = selectedOptions[option].value_index;
+                const product_index = parseInt(variant.product[option]);
+                let isValuePresent = !!(product_index === value_index);
+                return isValuePresent;
+            });
+        });
+        currentItem = !!currentItem[0] ? currentItem[0].product : null;
+        return currentItem;
+    }
+
+    addConfigurableToCart = async () => {
+        // For REST endpoint
+        // Takes in an an array of option_values and option_ids
+        const { product } = this.props;
+        const { quantity } = this.state;
+
+        const options = product.configurable_options.map((option) => {
+            return {
+                option_value: this.state.selectedOptions[option.attribute_code].value_index,
+                option_id: option.attribute_id
+            };
+        });
+        const currentItem = this.getCurrentConfiguration(product, this.state.selectedOptions);
+        const parentSKU = product.sku;
+        currentItem.options = options;
+        await this.props.addConfigurableItemToCart({ parentSKU, currentItem, quantity});
+    };
+
+    addToCart = async () => {
+        const { product } = this.props;
+        const { quantity } = this.state;
+
+        await this.props.addItemToCart({ product, quantity});
+    };
+
+    get stockMessage() {
+        let { product, classes } = this.props;
+        const currentProduct = this.getCurrentConfiguration(product, this.state.selectedOptions);
+        const stockMessage = (currentProduct && currentProduct.stock_status === 'OUT_OF_STOCK') ?
+            "Product not in stock" :
+            null;
+        return (
+            <p className={classes.stockMessage}> {stockMessage} </p>
+        )
     }
 
     render() {
         const { classes, product } = this.props;
+        const { stockMessage, productEdit, addItemToCart, addConfigurableToCart  } = this;
         const { regularPrice } = product.price;
-        const { productEdit } = this;
+
+        let onAddToCart = addItemToCart;
+        if ( product.__typename === 'ConfigurableProduct' ) {
+            onAddToCart = addConfigurableToCart;
+        }
 
         return (
             <article className={classes.root}>
@@ -94,6 +210,7 @@ class ProductFullDetail extends Component {
                 </section>
                 <section className={classes.edit}>
                     { productEdit }
+                    { stockMessage }
                 </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
@@ -110,7 +227,7 @@ class ProductFullDetail extends Component {
                     </Button>
                 </section>
                 <section className={classes.cartActions}>
-                    <Button onClick={this.addToCart}>
+                    <Button onClick={onAddToCart}>
                         <span>Add to Cart</span>
                     </Button>
                 </section>

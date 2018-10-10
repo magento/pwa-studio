@@ -1,6 +1,6 @@
 .root {
     border: 1px solid rgb(var(--background-color));
-    width: 4rem;
+    width: 5.5rem;
     height: 2rem;
     min-height: 2rem;
     background-color: white;
@@ -28,13 +28,17 @@
 }
 
 .disabled > span:before {
-    transform: rotate(26deg);
+    transform: rotate(20deg);
 }
 
 .disabled > span:after {
-    transform: rotate(-26deg);
+    transform: rotate(-20deg);
 }
 
 .root:disabled {
     color: white;
+}
+
+.selected > span:after, .selected > span:before {
+    background-color: white;
 }

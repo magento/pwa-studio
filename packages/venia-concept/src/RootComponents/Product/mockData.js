@@ -247,7 +247,7 @@ data: {
                         swatch_image: null,
                         color: 58,
                         size: 167,
-                        stock_status: "IN_STOCK",
+                        stock_status: "OUT_OF_STOCK",
                         media_gallery_entries: [
                             {
                                 label: "",
@@ -268,7 +268,7 @@ data: {
                         swatch_image: null,
                         color: 53,
                         size: 168,
-                        stock_status: "IN_STOCK",
+                        stock_status: "OUT_OF_STOCK",
                         media_gallery_entries: [
                             {
                                 label: "",
@@ -345,7 +345,7 @@ data: {
                         swatch_image: null,
                         color: 53,
                         size: 169,
-                        stock_status: "IN_STOCK",
+                        stock_status: "OUT_OF_STOCK",
                         media_gallery_entries: [
                             {
                                 label: "",
@@ -380,7 +380,7 @@ data: {
                         swatch_image: null,
                         color: 56,
                         size: 169,
-                        stock_status: "IN_STOCK",
+                        stock_status: "OUT_OF_STOCK",
                         media_gallery_entries: [
                             {
                                 label: "",
@@ -422,7 +422,7 @@ data: {
                         swatch_image: null,
                         color: 53,
                         size: 170,
-                        stock_status: "IN_STOCK",
+                        stock_status: "OUT_OF_STOCK",
                         media_gallery_entries: [
                             {
                                 label: "",

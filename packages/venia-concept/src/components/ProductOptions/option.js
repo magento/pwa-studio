@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { string, bool, func, number, shape } from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './option.css';
 import swatchStyles from './swatch.css';
 import tileStyles from './tile.css';
-// import miniTileStyles from './miniTile.css';
+import miniTileStyles from './miniTile.css';
 
 
 class Option extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            children: PropTypes.string,
-            childrenContainer: PropTypes.string
+        classes: shape({
+            root: string,
+            children: string,
+            childrenContainer: string
         }),
-        item: PropTypes.shape({
-            backgroundColor: PropTypes.string,
-            name: PropTypes.string,
-            value: PropTypes.string,
-            isSelected: PropTypes.bool
+        item: shape({
+            backgroundColor: string.isRequired,
+            isSelected: bool.isRequired,
+            attributeCode: string.isRequired,
+            isDisabled: bool,
+            label: string.isRequired,
+            onclick: func,
+            value_index: number.isRequired
         })
     };
 
     styleOptions = {
-        Color: swatchStyles,
-        Size: tileStyles
+        color: swatchStyles,
+        size: tileStyles,
+        sleeve: miniTileStyles
     }
 
     get check() {
@@ -38,12 +42,12 @@ class Option extends Component {
     }
 
     render() {
-        const { item, children, optionType } = this.props;
+        const { item, children, attributeCode } = this.props;
         let { classes } = this.props;
         const { check } =  this;
-        const { backgroundColor, value, isSelected, isDisabled } = item;
+        const { backgroundColor, label, isSelected, isDisabled } = item;
         const style = { '--background-color': backgroundColor };
-        const additionalClasses = optionType ?  this.styleOptions[optionType] : classes;
+        const additionalClasses = attributeCode ?  this.styleOptions[attributeCode] : classes;
         classes = Object.assign(classes, additionalClasses);
 
         let buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
@@ -52,7 +56,7 @@ class Option extends Component {
         return (
             <button
                 className={buttonClasses}
-                data-title={value}
+                data-title={label}
                 style={style}
                 onClick={this.handleClick}
             >

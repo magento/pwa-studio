@@ -6,11 +6,6 @@
     composes: root from './option.css';
 }
 
-.selected {
-    background-color: black;
-    color: white;
-}
-
 .check {
   display: none;
 }
@@ -33,3 +28,11 @@
     transform: rotate(-45deg);
 }
 
+.selected {
+    background-color: black;
+    color: white;
+}
+
+.selected > span:after, .selected > span:before {
+    background-color: white;
+}
