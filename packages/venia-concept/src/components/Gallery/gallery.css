@@ -2,8 +2,7 @@
     display: grid;
     grid-template-areas:
         'actions'
-        'items'
-        'pagination';
+        'items';
     grid-template-columns: 1fr;
     line-height: 1;
 }
@@ -29,14 +28,4 @@
     .items {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-
-.pagination {
-    display: grid;
-    grid-area: pagination;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-column-gap: 1rem;
-    justify-content: center;
-    padding-top: 1rem;
 }

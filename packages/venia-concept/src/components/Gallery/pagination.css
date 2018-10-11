@@ -1,0 +1,30 @@
+.items {
+    display: grid;
+    grid-area: items;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pageNav {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    border-radius: 1px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 5px;
+    background-color: rgb(var(--venia-grey));
+    outline: none;
+}
+
+button:hover {
+    background-color: #eee;
+}
+
+button.selected {
+    border-color: rgb(var(--venia-teal));
+    background-color: rgb(var(--venia-teal-alt));
+}
