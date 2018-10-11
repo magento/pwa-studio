@@ -1,0 +1,134 @@
+status: response.status
+headers: response.headers
+body: response.body
+
+response:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/(graphql|rest|media/)'
+      use: proxy
+    - matches: request.url.pathname
+      pattern: '^/favicon.ico'
+      use: favicon
+    - matches: urlKey
+      pattern: '.'
+      use: appShell
+    - matches: request.url.pathname
+      pattern: '^/$'
+      use: appShell
+    - matches: request.url.pathname
+      pattern: '/search'
+      use: appShell
+  default: static
+
+proxy:
+  target: env.MAGENTO_BACKEND_DOMAIN
+  ignoreSSLErrors:
+    inline: true
+
+appShell:
+  inline:
+    status:
+      when:
+        - matches: resource.model
+          pattern: '.'
+          use: 200
+      default: 404
+    headers:
+      inline:
+        content-type: 'text/html'
+    body:
+      engine: mustache
+      template: resource.template
+      provide:
+        model: resource.model
+        isDevelopment:
+          when:
+            - matches: env.NODE_ENV
+              pattern: 'development'
+              use:
+                inline: true
+          default:
+            inline: false
+        urlResolver: urlResolver
+
+resource:
+  when:
+    - matches: urlResolver.type
+      pattern: 'PRODUCT'
+      use:
+        inline:
+          model: product
+          template: './templates/product-shell.mst'
+    - matches: urlResolver.type
+      pattern: '.'
+      use:
+        inline:
+          model: genericObject
+          template: './templates/generic-shell.mst'
+
+    - matches: request.url.pathname
+      pattern: '/search' 
+      use:
+        inline:
+          model: genericObject
+          template: './templates/generic-shell.mst'
+  default:
+    inline:
+      template: './templates/notfound-shell.mst'
+
+urlResolver: urlResolverResult.data.urlResolver
+
+urlResolverResult:
+  url: magentoGQL
+  query: './src/queries/urlResolver.graphql'
+  variables:
+    inline:
+      urlKey: request.url.pathname
+
+magentoGQL:
+  engine: mustache
+  template:
+    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}graphql'
+  provide:
+    - env
+
+product: productResult.data.productDetail.items.0
+productResult:
+  url: magentoGQL
+  query: './src/queries/getProductDetail.graphql'
+  variables:
+    inline:
+      onServer:
+        inline: true
+      urlKey: urlKey
+
+urlKey:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/(?:(.*)\.html)?'
+      use: $match.$1
+  default:
+    inline: ''
+
+genericObject:
+  inline:
+    name:
+      inline:
+        "Hello world!"
+
+favicon:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: image/vnd.microsoft.icon
+    body:
+      file:
+        inline: ./media/favicon.ico
+      encoding: binary
+
+static:
+  directory:
+    inline: './dist'

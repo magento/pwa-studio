@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { toggleSearch } from 'src/actions/app';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
@@ -29,23 +32,28 @@ class Header extends Component {
       super(props);
       this.state = {
         isOpen: false,
-        rootClass: this.props.classes.closed};
+        rootClass: this.props.classes.closed,
+        searchClass: this.props.classes.searchTrigger 
+      };
     }
     
     render() {
-        const { classes } = this.props; 
+        const { app, toggleSearch, classes } = this.props; 
+        const { searchOpen } = app;
 
-        const toggleSearch = () => {
+        const handleSearch = () => {
           if (this.state.isOpen === true) {
             this.setState({
               isOpen : false,
-              rootClass: classes.closed
+              rootClass: classes.closed,
+              searchClass: classes.searchTrigger
             });
           }
           else {
             this.setState({
               isOpen : true,
-              rootClass: classes.open
+              rootClass: classes.open,
+              searchClass: classes.searchTriggerClosed
             });
           }
         };       
@@ -69,8 +77,8 @@ class Header extends Component {
                     </div>
                     <div className={classes.secondaryActions}>
                         <button 
-                         className={classes.searchTrigger} 
-                         onClick={toggleSearch}
+                         className={this.state.searchClass} 
+                         onClick={handleSearch}
                         >
                             <Icon name="search" />
                         </button>
@@ -87,5 +95,12 @@ class Header extends Component {
         );
     }
 }
+const mapDispatchToProps = { toggleSearch };
 
-export default classify(defaultClasses)(Header);
+export default compose(
+    classify(defaultClasses),
+    connect(
+        ({ app }) => ({ app }),
+        mapDispatchToProps
+    )
+)(Header);

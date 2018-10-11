@@ -17,7 +17,9 @@ const categoryQuery = gql`
                 items {
                     id
                     name
-                    small_image
+                    small_image {
+                        path
+                    }
                     url_key
                     price {
                         regularPrice {
@@ -27,6 +29,7 @@ const categoryQuery = gql`
                             }
                         }
                     }
+                    url_key
                 }
             }
         }
@@ -39,7 +42,9 @@ const searchQuery = gql`
       items {
         id
         name
-        small_image
+        small_image {
+          path
+        }
         url_key
         price {
           regularPrice {
@@ -84,6 +89,7 @@ class Category extends Component {
                   {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return <div>Fetching Data</div>;
+                    if (data.products.items.length === 0) return <div>No results found!</div>;
 
                     return (
                       <article className={classes.root}>
@@ -98,11 +104,11 @@ class Category extends Component {
                 </Query>
                 }
                 else {
-                return <Query query={categoryQuery} variables={{ id }}>
+                  return <Query query={categoryQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;
-
+                        
                         return (
                             <article className={classes.root}>
                                 <h1 className={classes.title}>
@@ -122,7 +128,7 @@ class Category extends Component {
                             </article>
                         );
                     }}
-                </Query>
+                  </Query>
                 }
               }.call(this)}  
             </Page>

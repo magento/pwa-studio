@@ -2,9 +2,9 @@
 
 Automagically creates [unique
 chunks](https://webpack.js.org/guides/code-splitting/) for each Root Component
-in a Magento PWA theme and extensions.
+in a Magento PWA project and extensions.
 
-Given a `RootComponents` directory in a theme with the following structure:
+Given a `RootComponents` directory in a project with the following structure:
 
 ```sh
 ├── Page1

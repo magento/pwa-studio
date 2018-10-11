@@ -1,0 +1,16 @@
+status: 200
+headers:
+  inline:
+    content-type:
+      when:
+        matches:
+    content-disposition:
+      when:
+        matches: headers.content-type
+        pattern: text/html
+        use:
+          inline:
+            inline
+      default:
+        inline:
+          attachment

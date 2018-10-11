@@ -7,6 +7,7 @@ export const name = 'app';
 const initialState = {
     drawer: null,
     overlay: false,
+    searchOpen: false,
     pending: {}
 };
 
@@ -16,6 +17,12 @@ const reducerMap = {
             ...state,
             drawer: payload,
             overlay: !!payload
+        };
+    },
+    [actions.toggleSearch]: (state, { payload }) => {
+        return {
+            ...state,
+            searchOpen : !payload
         };
     }
 };

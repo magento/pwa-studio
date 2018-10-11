@@ -16,12 +16,30 @@ Paste the result console output into the issue. Thank you!
 
 ## Common issues
 
+* [Validation errors when running developer mode](#validation-errors)
+* [Venia queries to GraphQL produce validation errors](#graphql-validation-errors)
 * [Browser displays "Cannot proxy to " error and the console displays `ENOTFOUND`](#cannot-proxy)
 * [Webpack hangs for a long time before beginning compilation](#webpack-hangs)
 * [Browser cannot resolve the `.local.pwadev` site](#cannot-resolve-site)
 * [Browser does not trust the generated SSL certificate](#untrusted-ssl-cert)
 
 ## Resolutions
+
+**Validation errors when running developer mode**{:#validation-errors}
+
+Make sure you copied over the `example.env` file into a new `.env` file in the `packages/venia-concept` directory.
+This file should specify variables for your local development environment.
+
+**Venia queries to GraphQL produce validation errors**{:#graphql-validation-errors}
+
+Venia and its GraphQL queries are out of sync with the schema of the connected Magentoi instance.
+Make sure your Magento instance is up to date with the latest from Magento 2.3 development branch.
+
+To test whether your queries are up to date, run the following command in the project root:
+
+``` sh
+npm run validate:venia:gql
+```
 
 **Browser displays "Cannot proxy to " error and the console displays `ENOTFOUND`**{:#cannot-proxy}
 

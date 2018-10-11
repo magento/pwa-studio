@@ -43,25 +43,33 @@ class SearchInput extends Component {
       const searchClass = isOpen ? classes.searchBlock_active: classes.searchBlock; 
 
       //Handle enter key to search!
-      const handleKeyPress = (event) => {
-          this.setState ({
-              searchInput : event.target.value
-            });
-          if (event.key === "Enter") {
-            this.props.history.push(`/search?` + String(event.target.value) )
-            
+      const enterSearch = (event) => {
+          if (event.type === "click" || event.key === "Enter") {
+            this.props.history.push(`/search?` + document.getElementById("searchInput").value);
           }
       };
+
+      const minimizeSearch = () => {
+          console.log("Blur");
+          //some Action here
+      };
+
       return (
           <div className={searchClass}>   
-              <Icon className={classes.searchIcon} name="search" />
+              <span 
+                className={classes.searchIcon}
+                onClick={enterSearch}
+              >
+                <Icon name="search" />
+              </span>
               <input
                 id="searchInput"
                 className={classes.searchInput}
                 inputMode="search"
                 type="search"
                 placeholder="I'm looking for..."
-                onKeyPress={handleKeyPress}
+                onKeyPress={enterSearch}
+                onBlur={minimizeSearch}
               />
           </div>
       );

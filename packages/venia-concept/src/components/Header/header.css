@@ -38,8 +38,14 @@
 .cartTrigger,
 .searchTrigger {
     composes: root from '../clickable.css';
+    visibility: visible;
     height: 3rem;
     width: 3rem;
+}
+
+.searchTriggerClosed{
+    composes: searchTrigger;
+    visibility: hidden;
 }
 
 .logo {
