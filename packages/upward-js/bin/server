@@ -1,36 +1,9 @@
 #!/usr/bin/env node
 require('dotenv').config();
 
-function castValue(value) {
-    const mapping = {
-        false: false,
-        true: true
-    };
-    const lowered = value.toString().toLowerCase();
-    if (mapping.hasOwnProperty(lowered)) {
-        return mapping[lowered];
-    }
-    if (value.match(/^\d*\.?\d+$/)) {
-        return Number(value);
-    }
-    return value;
-}
+const config = require('../lib/envToConfig')();
 
-function envToConfig(envPrefix) {
-    return Object.entries(process.env).reduce((cfg, [key, value]) => {
-        if (key.startsWith(envPrefix)) {
-            const camelCased = key
-                .slice(envPrefix.length)
-                .toLowerCase()
-                .replace(/_[a-z]/g, match => match.charAt(1).toUpperCase());
-            cfg[camelCased] = castValue(value);
-        }
-        return cfg;
-    }, {});
-}
-
-const config = envToConfig('UPWARD_JS_');
-require('../lib/server.js')(config).catch(e => {
+require('../lib/createUpwardServer.js')(config).catch(e => {
     console.error(e.stack);
     process.exit(e.errno || 1);
 });

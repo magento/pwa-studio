@@ -1,0 +1,3 @@
+{{#seedBundles}}
+    <script async src="{{.}}"></script>
+{{/seedBundles}}

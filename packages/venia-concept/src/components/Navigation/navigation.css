@@ -11,30 +11,21 @@
     z-index: 3;
 }
 
-.header {
+.bottomDrawer {
+    display: flex;
     align-content: center;
     align-items: center;
     background-color: rgb(var(--venia-grey));
     box-shadow: 0 1px rgb(var(--venia-border));
-    display: grid;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-auto-rows: 3rem;
-    grid-template-columns: 1fr;
     height: 3.5rem;
-    justify-content: end;
+    justify-content: center;
     padding: 0 1rem;
     position: relative;
 }
 
-.title {
-    align-items: center;
-    display: inline-flex;
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0 auto 0 0;
-    padding: 0 1rem;
-    text-transform: uppercase;
+.bottomDrawer button {
+    max-width: 4em;
+    height: 2.3em;
 }
 
 .navTrigger {
@@ -93,4 +84,84 @@
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     visibility: visible;
+}
+
+.accountDrawer {
+    margin: 0 0.5rem;
+    grid-template-columns: 1fr 8fr 1fr;
+    display: grid;
+    align-items: center;
+    width: 100%;
+}
+
+.userInfo > p:nth-child(2) {
+    color: rgb(var(--venia-text-alt));
+    font-size: 0.8rem;
+}
+
+.signInForm {
+    background: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.signInOpen {
+    animation-duration: 244ms;
+    animation-name: slidein;
+    animation-fill-mode: forwards;
+}
+
+.signInClosed {
+    animation-duration: 244ms;
+    animation-name: slideout;
+    animation-fill-mode: forwards;
+}
+
+.createAccountOpen {
+    animation-duration: 244ms;
+    animation-name: slideinSide;
+    animation-fill-mode: forwards;
+}
+
+.createAccountClosed {
+    animation-duration: 244ms;
+    animation-name: slideoutSide;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slidein {
+    from {
+        top: 100%;
+    }
+    to {
+        top: 0;
+    }
+}
+
+@keyframes slideout {
+    from {
+        top: 0;
+    }
+    to {
+        top: 100%;
+    }
+}
+
+@keyframes slideinSide {
+    from {
+        right: 100%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slideoutSide {
+    from {
+        right: 0;
+    }
+    to {
+        right: 100%;
+    }
 }

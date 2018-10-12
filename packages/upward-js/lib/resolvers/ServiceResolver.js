@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:ServiceResolver');
+const debug = require('../debug')();
 const { inspect } = require('util');
 const { execute, makePromise } = require('apollo-link');
 const { HttpLink } = require('apollo-link-http');

@@ -17,15 +17,11 @@ module.exports = async env => {
         /* webpack entry, output, rules, etc */
 
         devServer: await PWADevServer.configure({
-            publicPath: '/pub/static/frontend/Vendor/theme/en_US/',
-            backendDomain: 'https://magento2.localdomain',
-            serviceWorkerFileName: 'sw.js',
-            paths: {
-                output: path.resolve(__dirname, 'web/'),
-            },
-            id: 'magento-venia'
+            publicPath: '/',
+            provideSecureHost: true
         })
     };
+
 
     config.output.publicPath = config.devServer.publicPath;
 
@@ -56,7 +52,7 @@ they need to proxy backend requests to the backing store in a customized way.
 
 PWADevServer` handles all these needs:
 
-- Creates and caches a custom local hostname for the current theme
+- Creates and caches a custom local hostname for the current project
 - Adds the custom local hostname to `/etc/hosts`   🔐
 - Creates and caches an SSL certificate for the custom local hostname
 - Adds the certificate to the OS-level keychain so browsers trust it  🔐
@@ -79,19 +75,11 @@ configuration.
 
 #### `options`
 
-- `id: string`: **Required.** A unique ID for this project. Theme name is
+- `id: string`: A unique ID for this project. Project name is
    recommended, but you can use any domain-name-safe string. If you're
-   developing several copies of a theme simultaneously, you can use this ID to
+   developing several copies of a project simultaneously, you can use this ID to
    distinguish them in the internal tooling; for example, this id will be used
    to create your dev domain name.
-- `publicPath: string`: **Required.** The public path of theme assets in the
-   backend server, e.g. `'/pub/static/frontend/Vendor/themename/en_US'`.
-- `backendDomain: string`: **Required.** The URL of the backing store.
-- `paths: object`: **Required.** Local absolute paths to theme folders.
-  - `output`: Directory for built JavaScript files.
-  - `assets`: Directory for other public static assets.
-- `serviceWorkerFileName: string`: **Required.** The name of the ServiceWorker
-   file this theme creates, e.g. `'sw.js'`.
-- `changeOrigin: boolean`: ⚠️ **(experimental)** Try to parse any HTML responses
-   from the proxied Magento backend, and replace its domain name with the
-   dev server domain name. Default `false`.
+- `provideSecureHost: object|boolean`: Create and use a unique secure HTTPS host for this project. If an object, can contain properties `subdomain`, `exactDomain`, and `addUniqueHash` to customize.
+- `publicPath: string`: **Required.** The public path of project assets in the
+   backend server, e.g. `'/'`: **Required.** The URL of the backing store.

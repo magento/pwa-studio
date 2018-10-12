@@ -1,7 +1,8 @@
-const debug = require('debug')('upward-js:ProxyResolver');
+const debug = require('../debug')();
 const proxyMiddleware = require('http-proxy-middleware');
 const AbstractResolver = require('./AbstractResolver');
 
+const AllServers = new Map();
 class ProxyResolver extends AbstractResolver {
     static get resolverType() {
         return 'proxy';
@@ -9,9 +10,8 @@ class ProxyResolver extends AbstractResolver {
     static get telltale() {
         return 'target';
     }
-    constructor(...args) {
-        super(...args);
-        this.servers = new Map();
+    static get servers() {
+        return AllServers;
     }
     async resolve(definition) {
         if (!definition.target) {
@@ -36,7 +36,7 @@ class ProxyResolver extends AbstractResolver {
             );
         }
 
-        let server = this.servers.get(target);
+        let server = ProxyResolver.servers.get(target);
         if (!server) {
             debug(`creating new server for ${target}`);
             server = proxyMiddleware({
@@ -46,7 +46,7 @@ class ProxyResolver extends AbstractResolver {
                 autoRewrite: true,
                 cookieDomainRewrite: ''
             });
-            this.servers.set(target, server);
+            ProxyResolver.servers.set(target, server);
         }
 
         return server;

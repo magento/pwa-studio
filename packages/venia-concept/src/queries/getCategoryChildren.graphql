@@ -1,0 +1,10 @@
+query getCategoryChildren($id: Int!) {
+    category(id: $id) {
+        children {
+            name
+            url_key
+            url_path
+            image
+        }
+    }
+}

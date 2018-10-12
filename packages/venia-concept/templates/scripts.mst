@@ -1,3 +1,0 @@
-{{#scripts}}
-    <script async src="{{.}}"></script>
-{{/scripts}}

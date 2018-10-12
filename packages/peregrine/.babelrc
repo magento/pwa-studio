@@ -3,7 +3,7 @@
     "syntax-dynamic-import",
     "transform-object-rest-spread",
     "transform-class-properties",
-    ["transform-react-jsx", { "pragma": "createElement" }],
+    ["transform-react-jsx"],
     ["transform-runtime", {
       "helpers": true,
       "polyfill": false, // polyfills will be handled by preset-env
@@ -24,7 +24,7 @@
         "transform-es2015-modules-commonjs",
         "transform-object-rest-spread",
         "transform-class-properties",
-        ["transform-react-jsx", { "pragma": "createElement" }]
+        ["transform-react-jsx"]
       ]
     }
   }

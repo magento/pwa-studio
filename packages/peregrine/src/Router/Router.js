@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { string, func, object } from 'prop-types';
 import MagentoRouteHandler from './MagentoRouteHandler';

@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { string, shape, arrayOf, number } from 'prop-types';
 
 import classify from 'src/classify';
@@ -19,7 +19,9 @@ class Gallery extends Component {
             shape({
                 id: number.isRequired,
                 name: string.isRequired,
-                small_image: string.isRequired,
+                small_image: shape({
+                    path: string.isRequired
+                }).isRequired,
                 price: shape({
                     regularPrice: shape({
                         amount: shape({

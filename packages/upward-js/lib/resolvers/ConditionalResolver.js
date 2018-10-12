@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:ConditionalResolver');
+const debug = require('../debug')();
 const AbstractResolver = require('./AbstractResolver');
 
 class ConditionalResolver extends AbstractResolver {

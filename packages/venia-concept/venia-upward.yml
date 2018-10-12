@@ -19,7 +19,7 @@ response:
   default: static
 
 proxy:
-  target: env.MAGENTO_BACKEND_DOMAIN
+  target: env.MAGENTO_BACKEND_URL
   ignoreSSLErrors:
     inline: true
 
@@ -47,11 +47,24 @@ appShell:
                 file: assetManifest.criticalCssFile
           default:
             inline: ''
-        scripts: assetManifest.scripts
+        seedBundles: assetManifest.seedBundles
         urlResolver: urlResolver
+        env: env
 
 resource:
   when:
+    - matches: urlResolver.type
+      pattern: 'CMS_PAGE'
+      use:
+        inline:
+          model: cmsPage
+          template: './templates/cmspage-shell.mst'
+    - matches: urlResolver.type
+      pattern: 'CATEGORY'
+      use:
+        inline:
+          model: category
+          template: './templates/category-shell.mst'
     - matches: urlResolver.type
       pattern: 'PRODUCT'
       use:
@@ -62,13 +75,22 @@ resource:
       pattern: '.'
       use:
         inline:
-          model: genericObject
+          model: unknownPageType
           template: './templates/generic-shell.mst'
   default:
     inline:
       template: './templates/notfound-shell.mst'
 
-assetManifest: './asset-manifest.json'
+assetManifest:
+  when:
+    - matches: env.NODE_ENV
+      pattern: 'production'
+      use: ./dist/asset-manifest.json
+  default: ./asset-manifest.json
+
+unknownPageType:
+  inline:
+    title: 'Unknown page type'
 
 urlResolver: urlResolverResult.data.urlResolver
 
@@ -82,19 +104,36 @@ urlResolverResult:
 magentoGQL:
   engine: mustache
   template:
-    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}graphql'
+    inline: '{{env.MAGENTO_BACKEND_URL}}/graphql'
   provide:
     - env
+
+# storeConfig: storeConfigResult.data.storeConfig
 
 product: productResult.data.productDetail.items.0
 productResult:
   url: magentoGQL
   query: './src/queries/getProductDetail.graphql'
-  variables:
-    inline:
-      onServer:
-        inline: true
-      urlKey: urlKey
+  variables: pageQueryVariables
+
+category: categoryResult.data.category
+categoryResult:
+  url: magentoGQL
+  query: './src/queries/getCategory.graphql'
+  variables: pageQueryVariables
+
+cmsPage: cmsPageResult.data.cmsPage
+cmsPageResult:
+  url: magentoGQL
+  query: './src/queries/getCmsPage.graphql'
+  variables: pageQueryVariables
+
+pageQueryVariables:
+  inline:
+    onServer:
+      inline: true
+    urlKey: urlKey
+    id: urlResolver.id
 
 urlKey:
   when:
@@ -103,12 +142,6 @@ urlKey:
       use: $match.$1
   default:
     inline: ''
-
-genericObject:
-  inline:
-    name:
-      inline:
-        "Hello world!"
 
 favicon:
   inline:
@@ -124,4 +157,4 @@ favicon:
 
 static:
   directory:
-    inline: './web'
+    inline: './dist'

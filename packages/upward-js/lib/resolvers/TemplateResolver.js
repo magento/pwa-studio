@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:TemplateResolver');
+const debug = require('../debug')();
 const { inspect } = require('util');
 const { fromPairs, isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
@@ -64,7 +64,6 @@ module.exports = class TemplateResolver extends AbstractResolver {
         ];
 
         let [engine, template, rootEntries] = await Promise.all(toResolve);
-        debug('template retrieved, "%s"', template);
         debug('rootEntries retrieved, %o', rootEntries.map(([name]) => name));
 
         if (!engine) {
@@ -86,7 +85,11 @@ module.exports = class TemplateResolver extends AbstractResolver {
             );
             renderer = template;
         } else if (typeof template === 'string') {
-            debug('template is a string, creating %s', Engine.name);
+            debug(
+                'template is a string %s, creating %s',
+                template,
+                Engine.name
+            );
             renderer = new Engine(template, this.visitor.io);
         } else {
             throw new Error(
@@ -103,6 +106,8 @@ module.exports = class TemplateResolver extends AbstractResolver {
         await renderer.compile();
         debug('renderer compiled');
 
-        return renderer.render(fromPairs(rootEntries));
+        const templateContext = fromPairs(rootEntries);
+
+        return renderer.render(templateContext);
     }
 };

@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:buildResponse');
+const debug = require('./debug')();
 const { isPlainObject } = require('lodash');
 const ResolverVisitor = require('./ResolverVisitor');
 const Context = require('./Context');
@@ -16,7 +16,7 @@ async function buildResponse(io, env, rootDefinition, request) {
             'body'
         ]);
         if (isPlainObject(responseData)) {
-            debug('successfully built response, %O', responseData);
+            debug('successfully built response, %A', responseData);
             return {
                 status: Number(responseData.status),
                 headers: responseData.headers,

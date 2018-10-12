@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:middleware');
+const debug = require('./debug')();
 const jsYaml = require('js-yaml');
 const UpwardServerError = require('./UpwardServerError');
 const IOAdapter = require('./IOAdapter');
@@ -78,6 +78,7 @@ class UpwardMiddleware {
                 debug('status, headers, and body valid. responding');
                 res.status(response.status)
                     .set(response.headers)
+                    .set('X-Courtesy-Of', 'UPWARD')
                     .send(response.body);
             }
         };

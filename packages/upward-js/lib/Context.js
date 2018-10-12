@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:Context');
+const debug = require('./debug')();
 const { pick } = require('lodash');
 const { URL } = require('url');
 
@@ -86,7 +86,7 @@ class Context {
                         );
                         this.set(base, value);
                     } else {
-                        debug('%s assigned: %o', base, value[base]);
+                        debug('%s assigned: %A', base, value[base]);
                         this.set(base, value[base]);
                     }
                 });

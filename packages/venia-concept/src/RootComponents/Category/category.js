@@ -1,38 +1,11 @@
-import { Component, createElement } from 'react';
-import { string, number, shape } from 'prop-types';
+import React, { Component } from 'react';
+import { number, shape, string } from 'prop-types';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Page from 'src/components/Page';
 import defaultClasses from './category.css';
-
-const categoryQuery = gql`
-    query category($id: Int!) {
-        category(id: $id) {
-            description
-            name
-            product_count
-            products {
-                items {
-                    id
-                    name
-                    small_image
-                    url_key
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                                currency
-                            }
-                        }
-                    }
-                    url_key
-                }
-            }
-        }
-    }
-`;
+import categoryQuery from '../../queries/getCategory.graphql';
 
 class Category extends Component {
     static propTypes = {
@@ -44,36 +17,35 @@ class Category extends Component {
         })
     };
 
-    // TODO: Should not be a default here, we just don't have
-    // the wiring in place to map route info down the tree (yet)
-    static defaultProps = {
-        id: 3
-    };
-
     render() {
         const { id, classes } = this.props;
 
         return (
             <Page>
-                <Query query={categoryQuery} variables={{ id: Number(id) }}>
+                <Query
+                    query={categoryQuery}
+                    variables={{ id, onServer: false }}
+                >
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;
-
+                        const { category } = data;
+                        const description =
+                            category.description || category.name;
                         return (
                             <article className={classes.root}>
                                 <h1 className={classes.title}>
                                     {/* TODO: Switch to RichContent component from Peregrine when merged */}
                                     <span
                                         dangerouslySetInnerHTML={{
-                                            __html: data.category.description
+                                            __html: description
                                         }}
                                     />
                                 </h1>
                                 <section className={classes.gallery}>
                                     <Gallery
-                                        data={data.category.products.items}
-                                        title={data.category.description}
+                                        data={category.products.items}
+                                        title={description}
                                     />
                                 </section>
                             </article>

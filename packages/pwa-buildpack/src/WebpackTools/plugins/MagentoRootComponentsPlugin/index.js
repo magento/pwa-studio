@@ -1,4 +1,5 @@
-const fs = require('../../../util/promisified/fs');
+const { readFile: fsReadFile } = require('fs');
+const readFile = require('util').promisify(fsReadFile);
 const readdir = require('readdir-enhanced');
 const optionsValidator = require('../../../util/options-validator');
 const directiveParser = require('@magento/directive-parser');
@@ -70,7 +71,7 @@ class MagentoRootComponentsPlugin {
                 });
                 await Promise.all(
                     rootComponentFiles.map(async rootComponentFile => {
-                        const rootComponentSource = await fs.readFile(
+                        const rootComponentSource = await readFile(
                             rootComponentFile,
                             'utf8'
                         );

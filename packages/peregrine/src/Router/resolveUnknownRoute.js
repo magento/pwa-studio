@@ -4,16 +4,16 @@
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  */
 let preloadDone = false;
-export default function resolveUnknownRoute(opts) {
+export default async function resolveUnknownRoute(opts) {
     const { route, apiBase } = opts;
 
     if (!preloadDone) {
         const preloaded = document.getElementById('url-resolver');
         if (preloaded) {
             try {
-                const preloadedJson = JSON.parse(preloaded.textContent);
+                const preload = JSON.parse(preloaded.textContent);
                 preloadDone = true;
-                return Promise.resolve(preloadedJson);
+                return preload;
             } catch (e) {
                 console.error(
                     'Unable to read preload!',
@@ -23,6 +23,7 @@ export default function resolveUnknownRoute(opts) {
             }
         }
     }
+
     return remotelyResolveRoute({
         route,
         apiBase

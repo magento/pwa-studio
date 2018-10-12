@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:InlineResolver');
+const debug = require('../debug')();
 const { fromPairs, isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const isPrimitive = require('../isPrimitive');

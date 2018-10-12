@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:FileResolver');
+const debug = require('../debug')();
 const AbstractResolver = require('./AbstractResolver');
 const { forFileOfType } = require('../compiledResources');
 

@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:ResolverVisitor');
+const debug = require('./debug')();
 const { inspect } = require('util');
 const { ResolverList, ResolversByType } = require('./resolvers');
 const { zipObject } = require('lodash');

@@ -1,4 +1,4 @@
-import { createElement, Component } from 'react';
+import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
 import resolveUnknownRoute from './resolveUnknownRoute';

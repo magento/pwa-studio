@@ -1,3 +1,4 @@
+const debug = require('../debug')();
 const { inspect } = require('util');
 const AbstractCompiledResource = require('./AbstractCompiledResource');
 const Hogan = require('hogan.js');
@@ -53,6 +54,7 @@ class MustacheTemplate extends AbstractCompiledResource {
         return partial;
     }
     async _loadPartials(partialNames) {
+        debug('loading partials %j', partialNames);
         const loadedPartials = await Promise.all(
             partialNames.map(name => this._loadPartial(name))
         );
@@ -74,9 +76,14 @@ class MustacheTemplate extends AbstractCompiledResource {
         );
 
         if (foundDescendentPartials.length > 0) {
-            return await this._loadPartials([
+            const uniqueDescendentPartials = [
                 ...new Set(foundDescendentPartials)
-            ]);
+            ];
+            debug(
+                'found descendent partials: %j, traversing...',
+                uniqueDescendentPartials
+            );
+            return await this._loadPartials(uniqueDescendentPartials);
         }
     }
     async compile() {
@@ -94,6 +101,7 @@ class MustacheTemplate extends AbstractCompiledResource {
         return this;
     }
     async render(context) {
+        debug('rendering template %s against context %A', this.source, context);
         return this._template.render(context, this._partials, '').trim();
     }
 }

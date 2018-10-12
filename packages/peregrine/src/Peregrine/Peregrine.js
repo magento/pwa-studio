@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import createStore from '../store';
 import MagentoRouter from '../Router';
@@ -6,10 +6,9 @@ import MagentoRouter from '../Router';
 /**
  *
  * @param {string} apiBase Absolute URL pointing to the GraphQL endpoint
- * @param {string} __tmp_webpack_public_path__ Temporary hack. Expects the `__webpack_public_path__` value
  * @returns {{ store: Store, Provider: () => JSX.Element }}
  */
-export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
+export default function bootstrap({ apiBase }) {
     // Remove deprecation warning after 2 version bumps
     if (process.env.NODE_ENV !== 'production' && this instanceof bootstrap) {
         throw new Error(
@@ -30,12 +29,4 @@ export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
     );
 
     return { store, Provider };
-}
-
-/**
- * Given a URI, will always return the same URI with a trailing slash
- * @param {string} uri
- */
-function ensureDirURI(uri) {
-    return uri.endsWith('/') ? uri : uri + '/';
 }

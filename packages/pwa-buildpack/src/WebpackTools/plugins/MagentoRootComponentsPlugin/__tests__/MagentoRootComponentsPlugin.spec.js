@@ -24,7 +24,7 @@ const compile = async config => {
     };
 };
 
-test('Creates a chunk for each root when multiple roots exist', async () => {
+test.skip('Creates a chunk for each root when multiple roots exist', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
@@ -50,7 +50,7 @@ test('Creates a chunk for each root when multiple roots exist', async () => {
     expect(stats.compilation.assets['Page3.chunk.js']).toBeTruthy();
 });
 
-test('Does not prevent chunk name from being configurable', async () => {
+test.skip('Does not prevent chunk name from being configurable', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
@@ -74,7 +74,7 @@ test('Does not prevent chunk name from being configurable', async () => {
     expect(stats.compilation.assets['Page1.foobar.js']).toBeTruthy();
 });
 
-test('Writes manifest to location specified with "manifestFileName" option', async () => {
+test.skip('Writes manifest to location specified with "manifestFileName" option', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
@@ -103,7 +103,7 @@ test('Writes manifest to location specified with "manifestFileName" option', asy
     expect(manifest).toBeTruthy();
 });
 
-test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
+test.skip('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: {
@@ -129,7 +129,7 @@ test('Creates chunks for all roots when multiple values are provided in "rootCom
     expect(stats.compilation.assets['SomePage.chunk.js']).toBeTruthy();
 });
 
-test('Works when there is 1 unnamed entry point in the config', async () => {
+test.skip('Works when there is 1 unnamed entry point in the config', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: join(basic3PageProjectDir, 'entry.js'),
@@ -161,7 +161,7 @@ test('Works when there is 1 unnamed entry point in the config', async () => {
     expect(writtenFiles).toEqual(expectedFiles);
 });
 
-test('Includes RootComponent description, pageTypes, and chunk filename in the manifest', async () => {
+test.skip('Includes RootComponent description, pageTypes, and chunk filename in the manifest', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: join(basic1PageProjectDir, 'entry.js'),
@@ -192,7 +192,7 @@ test('Includes RootComponent description, pageTypes, and chunk filename in the m
     expect(manifest.SomePage.chunkName).toBe('SomePage.chunk.js');
 });
 
-test('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
+test.skip('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
     const projectDir = join(__dirname, '__fixtures__/dupe-root-component');
     const config = {
         context: projectDir,
@@ -216,7 +216,7 @@ test('Logs warning when RootComponent file has > 1 @RootComponent comment', asyn
     console.warn.mockRestore();
 });
 
-test('Build fails when no @RootComponent directive is found', async () => {
+test.skip('Build fails when no @RootComponent directive is found', async () => {
     const projectDir = join(__dirname, '__fixtures__/missing-root-directive');
     const config = {
         context: projectDir,
@@ -240,7 +240,7 @@ test('Build fails when no @RootComponent directive is found', async () => {
     );
 });
 
-test('Can resolve dependencies of a RootComponent', async () => {
+test.skip('Can resolve dependencies of a RootComponent', async () => {
     // https://github.com/DrewML/webpack-loadmodule-bug
     const projectDir = join(__dirname, '__fixtures__/root-component-dep');
     const config = {
@@ -266,7 +266,7 @@ test('Can resolve dependencies of a RootComponent', async () => {
     expect(chunkStr).not.toContain('Cannot find module');
 });
 
-test('Uglify compiles out dynamic imports injected into entry point', async () => {
+test.skip('Uglify compiles out dynamic imports injected into entry point', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: {

@@ -2,190 +2,131 @@ const debug = require('../../util/debug').makeFileLogger(__filename);
 const fetch = require('node-fetch');
 const path = require('path');
 const https = require('https');
-// const https = require('https');
-// const { URL } = require('url');
-const proxyMiddleware = require('http-proxy-middleware');
-// const ApolloClient = require('apollo-boost').default;
-// const gql = require('graphql-tag');
-// const fetch = require('node-fetch');
-// const createAdminRestClient = require('./createAdminRestClient');
-const express = require('express');
+const url = require('url');
 const upward = require('@magento/upward-js');
 
-const agent = new https.Agent({ rejectUnauthorized: false });
-
-const middleware = upwardPath => {
-    // let assets = {};
-    let compiler;
-
-    const app = express.Router();
-
-    const defaultIO = upward.IOAdapter.default(upwardPath);
-
-    const io = {
-        async readFile(filepath, enc) {
-            const absolutePath = path.resolve(filepath);
-            try {
-                return compiler.outputFileSystem.readFileSync(
-                    absolutePath,
-                    enc
-                );
-            } catch (e) {}
-            try {
-                return defaultIO.readFile(absolutePath, enc);
-            } catch (e) {}
-            try {
-                return compiler.inputFileSystem.readFileSync(absolutePath, enc);
-            } catch (e) {}
-        },
-        async networkFetch(path, options) {
-            debug('networkFetch %s, %o', path, options);
-            return fetch(path, Object.assign({ agent }, options));
-        }
-    };
-
-    //     const fetchOptions = {
-    //         agent: new https.Agent({ rejectUnauthorized: false })
-    //     };
-
-    //     const gqlClient = new ApolloClient({
-    //         fetch,
-    //         fetchOptions,
-    //         uri: new URL('/graphql', process.env.MAGENTO_BACKEND_DOMAIN).toString()
-    //     });
-    //     const resolverQuery = gql`
-    //         query resolveUrl($urlKey: String!) {
-    //             urlResolver(url: $urlKey) {
-    //                 type
-    //                 id
-    //             }
-    //         }
-    //     `;
-
-    //     const adminRestClient = createAdminRestClient(
-    //         process.env.MAGENTO_BACKEND_DOMAIN,
-    //         process.env.MAGENTO_ADMIN_USERNAME,
-    //         process.env.MAGENTO_ADMIN_PASSWORD
-    //     );
-
-    //     const tpt = ({ website, shell, resolver }) => `
-    // <!doctype html>
-    // <html>
-    //   <head>
-    //     <meta charset="utf-8">
-    //     <title>${website.name}</title>
-    //     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    //     <style>${assets.criticalCss}</style>
-    //   </head>
-    //   <body>
-    //     <div id="root">${shell}</div>
-    //     <script type="application/json" id="url-resolver">${resolver}</script>
-    //     <script defer src="/js/client.js"></script>
-    //   </body>
-    // </html>
-    // `;
-
-    const proxy = proxyMiddleware(
-        [
-            process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH,
-            '/graphql',
-            '/rest',
-            '/favicon.ico'
-        ],
-        {
-            target: process.env.MAGENTO_BACKEND_DOMAIN,
-            secure: false,
-            changeOrigin: true,
-            autoRewrite: true,
-            cookieDomainRewrite: ''
-        }
-    );
-
-    app.use(proxy);
-
-    let upwardMiddleware;
-    app.use(async (req, res, next) => {
-        if (!upwardMiddleware) {
-            upwardMiddleware = await upward.middleware(upwardPath, io);
-        }
-        upwardMiddleware(req, res, next);
-    });
-
-    // Upward.get(['/', '(/**)?/*.html'], async (req, res) => {
-    //     const sitePromise = adminRestClient('store/websites').then(sites =>
-    //         sites.find(site => site.code === process.env.MAGENTO_WEBSITE_CODE)
-    //     );
-    //     const resolverPromise = gqlClient
-    //         .query({
-    //             query: resolverQuery,
-    //             variables: {
-    //                 urlKey: req.path
-    //             }
-    //         })
-    //         .then(({ data }) => data.urlResolver);
-
-    //     try {
-    //         const [website, resolver] = await Promise.all([
-    //             sitePromise,
-    //             resolverPromise
-    //         ]);
-
-    //         const resolverText = JSON.stringify(resolver, null, 1);
-
-    //         if (resolver && resolver.type) {
-    //             res.status(200).send(
-    //                 tpt({ website, resolver: resolverText, shell: 'Loading!' })
-    //             );
-    //         } else {
-    //             res.status(404).send(
-    //                 tpt({ website, resolver: resolverText, shell: 'Not Found' })
-    //             );
-    //         }
-    //     } catch (e) {
-    //         res.status(500).send(e.stack);
-    //     }
-    // });
-
-    // Upward.onCompilation = mapped => {
-    //     assets = mapped;
-    // }
-
-    app.onBuild = comp => {
-        compiler = comp;
-    };
-
-    return app;
-};
+// To be used with `node-fetch` in order to allow self-signed certificates.
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class UpwardPlugin {
     constructor(devServer, upwardPath) {
-        this.devServer = devServer;
-        const oldAfter = this.devServer.after;
-        this.middleware = middleware(upwardPath);
-        this.devServer.after = app => {
-            app.use(this.middleware);
+        this.upwardPath = upwardPath;
+        // Compose `after` function if something else has defined it.
+        const oldAfter = devServer.after;
+        devServer.after = app => {
+            app.use((req, res, next) => this.handleRequest(req, res, next));
             if (oldAfter) oldAfter(app);
-            app.use(this.middleware);
         };
     }
     apply(compiler) {
-        // const entryPointNames = Object.keys(compiler.options.entry);
-        compiler.plugin('emit', (compilation, callback) => {
-            // const mapped = {};
-            // for (const entryName of entryPointNames) {
-            //     const entryPoint = compilation.entrypoints[entryName];
-            //     for (const chunk of entryPoint.chunks) {
-            //         for (const file of chunk.files) {
-            //             if (this.inlineAssetMap[file]) {
-            //                 mapped[this.inlineAssetMap[file]] = compilation.assets[file].source();
-            //             }
-            //         }
-            //     }
-            // }
-            this.middleware.onBuild(compiler, compilation);
-            callback();
-        });
+        this.compiler = compiler;
+        // If a request has run to the devServer before this method has run,
+        // then there is already a Promise pending for the compiler, and this is
+        // its resolver.
+        if (this.resolveCompiler) {
+            this.resolveCompiler(compiler);
+        }
+    }
+    // Hold the first request (and subsequent requests) until the middleware is
+    // created, then swap out `handleRequest` for the simplest stack trace.
+    async handleRequest(req, res, next) {
+        // Several requests may come in. Only create the middleware once.
+        if (!this.middlewarePromise) {
+            this.middlewarePromise = this.createMiddleware();
+        }
+        await this.middlewarePromise;
+        // When the promise is resolved, `this.middleware` will exist.
+        // Replace this function itself.
+        this.handleRequest = this.middleware;
+        // And then call it to finish the response.
+        this.middleware(req, res, next);
+        // Further requests will go straight to the middleware.
+    }
+    async createMiddleware() {
+        // The compiler is necessary to build the fallback filesystem
+        // so UPWARd can use Webpack-generated assets in dev mode.
+        const compiler = await this.getCompiler();
+
+        // Standard filesystem-and-fetch IO.
+        const defaultIO = upward.IOAdapter.default(this.upwardPath);
+
+        // Use Webpack's in-memory file system for UPWARD file retrieval during
+        // development. Allows for hot reloading of server-side configuration.
+
+        const io = {
+            async readFile(filepath, enc) {
+                const absolutePath = path.resolve(
+                    compiler.options.output.path,
+                    filepath
+                );
+                // Most likely scenario: UPWARD needs an output asset.
+                debug('readFile %s %s', filepath, enc);
+                try {
+                    return compiler.outputFileSystem.readFileSync(
+                        absolutePath,
+                        enc
+                    );
+                } catch (e) {
+                    debug(
+                        'outputFileSystem %s %s. Trying defaultIO...',
+                        filepath,
+                        e.message
+                    );
+                }
+                // Next most likely scenario: UPWARD needs a file on disk.
+                try {
+                    const fromDefault = await defaultIO.readFile(filepath, enc);
+                    return fromDefault;
+                } catch (e) {
+                    debug(
+                        'defaultIO %s %s. Trying inputFileSystem...',
+                        filepath,
+                        e.message
+                    );
+                }
+
+                try {
+                    // Fallback: Use Webpack's resolution rules.
+                    return compiler.inputFileSystem.readFileSync(filepath, enc);
+                } catch (e) {
+                    debug(
+                        'inputFileSystem %s %s. Must throw...',
+                        filepath,
+                        e.message
+                    );
+                    throw e;
+                }
+            },
+
+            async networkFetch(path, options) {
+                debug('networkFetch %s, %o', path, options);
+                const { protocol } = url.parse(path);
+                if (protocol === 'https:') {
+                    return fetch(
+                        path,
+                        Object.assign({ agent: httpsAgent }, options)
+                    );
+                }
+                return fetch(path, options);
+                // Use the https.Agent to allow self-signed certificates.
+            }
+        };
+
+        this.middleware = await upward.middleware(this.upwardPath, io);
+    }
+    async getCompiler() {
+        if (this.compiler) {
+            return this.compiler;
+        }
+        if (!this.compilerPromise) {
+            // Create a promise for the compiler and expose its resolver so it
+            // can be resolved when the `apply` method runs.
+            this.compilerPromise = new Promise(resolve => {
+                this.resolveCompiler = resolve;
+            });
+        }
+        // Share the compiler promise.
+        return this.compilerPromise;
     }
 }
 

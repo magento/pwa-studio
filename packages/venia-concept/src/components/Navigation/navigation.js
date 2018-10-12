@@ -1,11 +1,16 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 import classify from 'src/classify';
-import Icon from 'src/components/Icon';
+import SignIn from 'src/components/SignIn';
+import CreateAccount from 'src/components/CreateAccount';
 import Tile from './tile';
-import Trigger from './trigger';
 import defaultClasses from './navigation.css';
+import NavHeader from './navHeader';
+import Button from 'src/components/Button';
+import Icon from 'src/components/Icon';
 
 const CATEGORIES = [
     'dresses',
@@ -26,46 +31,162 @@ const tiles = CATEGORIES.map(category => (
 class Navigation extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string
+            root: PropTypes.string,
+            accountDrawer: PropTypes.string,
+            userInfo: PropTypes.string,
+            signInClosed: PropTypes.string,
+            signInOpen: PropTypes.string,
+            header: PropTypes.string,
+            title: PropTypes.string,
+            tiles: PropTypes.string,
+            open: PropTypes.string,
+            closed: PropTypes.string,
+            bottomDrawer: PropTypes.string
         }),
-        isOpen: PropTypes.bool
+        isOpen: PropTypes.bool,
+        isSignedIn: PropTypes.bool,
+        signInError: PropTypes.object,
+        firstname: PropTypes.string,
+        lastname: PropTypes.string,
+        email: PropTypes.string
+    };
+
+    state = {
+        isSignInOpen: false
+    };
+
+    get bottomDrawer() {
+        const { classes, firstname, lastname, email } = this.props;
+
+        return !this.props.isSignedIn ? (
+            <Button onClick={this.showSignInForm}>Sign In</Button>
+        ) : (
+            <div className={classes.accountDrawer}>
+                <Icon name="user" />
+                <div className={classes.userInfo}>
+                    <p>
+                        {firstname} {lastname}
+                    </p>
+                    <p>{email}</p>
+                </div>
+                <button>
+                    <Icon name="chevron-up" />
+                </button>
+            </div>
+        );
+    }
+
+    get signInForm() {
+        const { classes } = this.props;
+        const className =
+            !this.state.isSignInOpen || this.props.isSignedIn
+                ? classes.signInClosed
+                : classes.signInOpen;
+        return (
+            <div className={`${className} ${classes.signInForm}`}>
+                <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
+                <SignIn
+                    showCreateAccountForm={this.setCreateAccountForm}
+                    setDefaultUsername={this.setDefaultUsername}
+                />
+            </div>
+        );
+    }
+
+    createAccount = () => {};
+
+    setCreateAccountForm = () => {
+        /*
+        When the CreateAccount component mounts, its email input will be set to
+        the value of the SignIn component's email input.
+        Inform's initialValue is set on component mount.
+        Once the create account button is dirtied, always render the CreateAccount
+        Component to show animation.
+        */
+        this.createAccount = (className, classes) => {
+            return (
+                <div className={`${className} ${classes.signInForm}`}>
+                    <NavHeader
+                        onBack={this.hideCreateAccountForm}
+                        title={'Create Account'}
+                    />
+                    <CreateAccount
+                        defaultUsername={this.state.defaultUsername}
+                    />
+                </div>
+            );
+        };
+        this.showCreateAccountForm();
+    };
+
+    get createAccountForm() {
+        const { classes } = this.props;
+        const className =
+            !this.state.isCreateAccountOpen || this.props.isSignedIn
+                ? classes.createAccountClosed
+                : classes.createAccountOpen;
+
+        return this.createAccount(className, classes);
+    }
+
+    showSignInForm = () => {
+        this.setState({
+            isSignInOpen: true
+        });
+    };
+
+    hideSignInForm = () => {
+        this.setState({
+            isSignInOpen: false
+        });
+    };
+
+    setDefaultUsername = newDefaultUsername => {
+        this.setState({ defaultUsername: newDefaultUsername });
+    };
+
+    showCreateAccountForm = () => {
+        this.setState({
+            isCreateAccountOpen: true
+        });
+    };
+
+    hideCreateAccountForm = () => {
+        this.setState({
+            isCreateAccountOpen: false
+        });
     };
 
     render() {
         const { classes, isOpen } = this.props;
         const className = isOpen ? classes.open : classes.closed;
+        const { bottomDrawer, signInForm, createAccountForm } = this;
 
         return (
             <aside className={className}>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>
-                        <span>Main Menu</span>
-                    </h2>
-                    <Trigger>
-                        <Icon name="x" />
-                    </Trigger>
-                </div>
+                <NavHeader title={'Main Menu'} />
                 <nav className={classes.tiles}>{tiles}</nav>
-                <ul className={classes.items}>
-                    <li className={classes.item}>
-                        <span className={classes.link}>
-                            <Icon name="user" />
-                        </span>
-                    </li>
-                    <li className={classes.item}>
-                        <span className={classes.link}>
-                            <Icon name="heart" />
-                        </span>
-                    </li>
-                    <li className={classes.item}>
-                        <span className={classes.link}>
-                            <Icon name="map-pin" />
-                        </span>
-                    </li>
-                </ul>
+                <div className={classes.bottomDrawer}>{bottomDrawer}</div>
+                {signInForm}
+                {createAccountForm}
             </aside>
         );
     }
 }
 
-export default classify(defaultClasses)(Navigation);
+const mapStateToProps = state => {
+    return {
+        isSignedIn: state.user.isSignedIn,
+        firstname: state.user.firstname,
+        lastname: state.user.lastname,
+        email: state.user.email
+    };
+};
+
+export default compose(
+    classify(defaultClasses),
+    connect(
+        mapStateToProps,
+        null
+    )
+)(Navigation);

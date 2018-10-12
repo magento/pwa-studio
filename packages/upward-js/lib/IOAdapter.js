@@ -1,4 +1,4 @@
-const debug = require('debug')('upward-js:IOAdapter');
+const debug = require('./debug')();
 const containsPath = require('contains-path');
 const { resolve, dirname } = require('path');
 const { readFile: fsReadFile } = require('fs');

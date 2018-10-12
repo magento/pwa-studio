@@ -1,0 +1,3 @@
+.root {
+    composes: footer from './flow.css';
+}

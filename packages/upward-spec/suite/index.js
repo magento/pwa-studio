@@ -1,6 +1,6 @@
 module.exports = {
     assertOnResponse: require('./assertOnResponse'),
     getScenarios: require('./getScenarios'),
-    mockGQLService: require('./mockGQLService'),
+    MockGQLService: require('./MockGQLService'),
     runServer: require('./runServer')
 };

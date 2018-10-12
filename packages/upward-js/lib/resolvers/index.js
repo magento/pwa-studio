@@ -1,4 +1,3 @@
-// const debug = require('debug')('upward-js:resolvers');
 const ResolverList = [
     require('./InlineResolver'),
     require('./FileResolver'),

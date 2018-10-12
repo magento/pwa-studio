@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { string, number, shape, func, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
@@ -40,7 +40,9 @@ class GalleryItem extends Component {
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
-            small_image: string.isRequired,
+            small_image: shape({
+                path: string.isRequired
+            }).isRequired,
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
@@ -109,7 +111,7 @@ class GalleryItem extends Component {
             <img
                 className={className}
                 src={transparentPlaceholder}
-                alt=""
+                alt="Loading..."
                 width={imageWidth}
                 height={imageHeight}
             />
@@ -138,7 +140,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={className}
-                src={makeProductMediaPath(small_image)}
+                src={makeProductMediaPath(small_image.path)}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}

@@ -1,24 +1,10 @@
-import { Component, createElement } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './categoryList.css';
-
-// TODO: get only active categories from graphql when it is ready
-const categoryListQuery = gql`
-    query category($id: Int!) {
-        category(id: $id) {
-            children {
-                name
-                url_key
-                url_path
-                image
-            }
-        }
-    }
-`;
+import getCategoryChildren from '../../queries/getCategoryChildren.graphql';
 
 // TODO: get categoryUrlSuffix from graphql when it is ready
 const categoryUrlSuffix = '.html';
@@ -57,7 +43,7 @@ class CategoryList extends Component {
         return (
             <div className={classes.root}>
                 {this.header}
-                <Query query={categoryListQuery} variables={{ id }}>
+                <Query query={getCategoryChildren} variables={{ id }}>
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;

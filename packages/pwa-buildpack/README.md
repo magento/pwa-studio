@@ -123,7 +123,7 @@ which reads an ini-formatted file to set the environment.
     in it:
 
     ```sh
-    MAGENTO_BACKEND_DOMAIN=https://localhost.magento:8008
+    MAGENTO_BACKEND_URL=https://localhost.magento:8008
     # change the above to your local Magento store's host (with port)
 
     MAGENTO_PATH=~/path/to/magento/rootdir
@@ -189,7 +189,7 @@ which reads an ini-formatted file to set the environment.
     `process.env`.
 
     _If you like, you can prove this is working by adding another line that says
-    `console.log(process.env.MAGENTO_BACKEND_DOMAIN)`. Save the file and then run
+    `console.log(process.env.MAGENTO_BACKEND_URL)`. Save the file and then run
     `node webpack.config.js`._
 
 1.  Add the following lines to `webpack.config.js`:
@@ -307,7 +307,7 @@ which reads an ini-formatted file to set the environment.
     if (env.mode === "development") {
         config.devServer = await PWADevServer.configure({
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+            backendDomain: process.env.MAGENTO_BACKEND_URL,
             serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
             paths: themePaths,
             id: 'magento-my-theme'
@@ -422,18 +422,13 @@ or energy setting up their own services layer.
 
 ### Elements
 
--   [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento
-    modules/extensions the ability to inject or remove content blocks in a layout
-    without modifying theme source files
--   [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) --
-    Divides static assets into bundled "chunks" based on components registered
-    with the Magento PWA `RootComponent` interface
--   [`PWADevServer`](docs/PWADevServer.md) -- Autoconfigures local system and
-    theme configuration for local PWA-optimized theme development
--   [`ServiceWorkerPlugin`](docs/ServiceWorkerPlugin.md) -- Creates
-    a ServiceWorker with different settings based on dev scenarios
--   [`MagentoResolver`](docs/MagentoResolver.md) -- Configures Webpack to resolve
-    modules and assets in Magento PWA themes.
+- [`PWADevServer`](docs/PWADevServer.md) -- Autoconfigures local system and theme configuration for local PWA-optimized theme development
+- [`MagentoResolver`](docs/MagentoResolver.md) -- Configures Webpack to resolve modules and assets in PWA Studio projects.
+- [`UpwardPlugin`](docs/UpwardPlugin.md) -- Attaches a hot reloading UPWARD server, powered by [upward-js](../upward-js), to the Webpack dev server
+- [`ServiceWorkerPlugin`](docs/ServiceWorkerPlugin.md) -- Creates a ServiceWorker with different settings based on dev scenarios
+- [`DevServerReadyNotifierPlugin`](docs/DevServerReadyNotifierPlugin.md) -- Displays a prominent link in the console to a running dev environment once it is launched
+- [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) -- Divides static assets into bundled "chunks" based on components registered with the Magento PWA `RootComponent` interface
+- [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento modules/extensions the ability to inject or remove content blocks in a layout without modifying theme source files
 
 ## Afterword
 

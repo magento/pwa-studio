@@ -14,6 +14,7 @@ const {
     }
 } = require('@magento/pwa-buildpack');
 
+const pkg = require(path.resolve(__dirname, 'package.json'));
 const TerserPlugin = require('terser-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
@@ -21,7 +22,7 @@ const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    output: path.resolve(__dirname, 'web')
+    output: path.resolve(__dirname, 'dist')
 };
 
 const rootComponentsDirs = ['./src/RootComponents/'];
@@ -31,10 +32,12 @@ module.exports = async function() {
 
     const babelOptions = configureBabel(mode);
 
-    const enableServiceWorkerDebugging = Boolean(
-        process.env.ENABLE_SERVICE_WORKER_DEBUGGING
-    );
-    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
+    const enableServiceWorkerDebugging =
+        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+
+    const serviceWorkerFileName =
+        process.env.SERVICE_WORKER_FILE_NAME ||
+        pkg.config.serviceWorkerFileName;
 
     const critical = new CriticalCssPlugin({
         mode,
@@ -50,7 +53,7 @@ module.exports = async function() {
         output: {
             path: themePaths.output,
             publicPath: '/',
-            filename: 'js/[name].js',
+            filename: 'js/[name]-[hash].js',
             strictModuleExceptionHandling: true,
             chunkFilename: 'js/[name]-[chunkhash].js'
         },
@@ -58,7 +61,7 @@ module.exports = async function() {
             rules: [
                 {
                     include: [themePaths.src, /node_modules.+\.mjs$/],
-                    test: /\.m?js$/,
+                    test: /\.(mjs|js|graphql)$/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -122,13 +125,13 @@ module.exports = async function() {
                 paths: themePaths
             }),
             new WebpackAssetsManifest({
-                output: '../asset-manifest.json',
-                publicPath: true,
+                output: 'asset-manifest.json',
                 entrypoints: true,
                 transform(assets) {
                     const { client } = assets.entrypoints;
                     return {
-                        scripts: client.js,
+                        assets,
+                        seedBundles: client.js,
                         criticalCssFile:
                             client.css && client.css[0]
                                 ? path.join(themePaths.output, client.css[0])
@@ -136,32 +139,28 @@ module.exports = async function() {
                     };
                 }
             })
-        ]
+        ],
+        optimization: {
+            runtimeChunk: true
+        }
     };
     if (mode === 'development') {
-        config.devtool = 'eval-source-map';
+        config.devtool = 'inline-source-map';
 
-        config.devServer = await PWADevServer.configure({
-            publicPath: config.output.publicPath,
-            serviceWorkerFileName,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths,
-            id: 'magento-venia',
-            provideSSLCert: true
-        });
-
-        config.devServer.stats = {
-            assets: false,
-            children: false,
-            chunks: true,
-            chunkGroups: false,
-            chunkModules: false,
-            chunkOrigins: false,
-            errors: true,
-            errorDetails: true,
-            modules: false,
-            warnings: true
+        const devServerConfig = {
+            publicPath: config.output.publicPath
         };
+        const provideHost = !!process.env.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
+        if (provideHost) {
+            devServerConfig.provideSecureHost = {
+                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!process.env
+                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+            };
+        }
+        config.devServer = await PWADevServer.configure(devServerConfig);
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -182,27 +181,29 @@ module.exports = async function() {
         };
         config.plugins.push(new CleanPlugin([themePaths.output]));
         if (!process.env.DEBUG_BEAUTIFY) {
-            config.optimization = {
-                minimizer: [
-                    new TerserPlugin({
-                        parallel: true,
-                        cache: true,
-                        terserOptions: {
-                            ecma: 8,
-                            compress: {
-                                drop_console: true
-                            },
-                            output: {
-                                ecma: 8,
-                                semicolons: false
-                            }
-                        }
-                    })
-                ]
-            };
+            config.optimization.minimizer = [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ];
         }
     } else {
-        throw Error(`Unsupported environment mode in webpack config: `);
+        throw Error(`Unsupported environment mode in webpack config: ${mode}`);
     }
     return config;
 };

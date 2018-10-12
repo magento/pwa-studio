@@ -1,6 +1,6 @@
 # UPWARD Specification
 
-**U**nified **P**rogressive **W**eb **A**pp **R**esponder **D**efinitions are simple files describing how a web server delivers and supports a [Progressive Web Application][pwa def]. They denote server behavior in a platform-independent way, so that a PWA client application expecting certain behavior from HTTP endpoints can be deployed on any type of tech stack that implements the UPWARD specification.
+**U**nified **P**rogressive **W**eb **A**pp **R**esponse **D**efinitions are simple files describing how a web server delivers and supports a [Progressive Web Application][pwa def]. They denote server behavior in a platform-independent way, so that a PWA client application expecting certain behavior from HTTP endpoints can be deployed on any type of tech stack that implements the UPWARD specification.
 
 See [RATIONALE.md](RATIONALE.md) for a detailed explanation of the context that led to the introduction of UPWARD, and the problems it intends to solve.
 
@@ -46,6 +46,13 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
       - [Matchers](#matchers)
       - [Match context](#match-context)
       - [ConditionalResolver notes](#conditionalresolver-notes)
+    - [ProxyResolver](#proxyresolver)
+      - [ProxyResolver Example](#proxyresolver-example)
+      - [ProxyResolver Configuration Options](#proxyresolver-configuration-options)
+      - [ProxyResolver notes](#proxyresolver-notes)
+    - [DirectoryResolver](#directoryresolver)
+      - [DirectoryResolver Example](#directoryresolver-example)
+      - [DirectoryResolver Configuration Options](#directoryresolver-configuration-options)
   - [Reducing boilerplate](#reducing-boilerplate)
     - [Default parameters](#default-parameters)
     - [Builtin constants](#builtin-constants)
@@ -71,10 +78,10 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 
    [Example here.][spec-shell-script]
 
-3. Use `npx` to run `upward-spec` on your shell script
+2. Use `npx` to run `upward-spec` on your shell script
 
     ```sh
-    npx upward-spec ./test_my_upward.sh
+    npx upward-spec ./test_upward_server.sh
     ```
 
 4. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture YAML file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
@@ -83,17 +90,17 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 
 5. By default, the test runner will print human-readable results to stdout; the argument `--xunit` will make it print XUnit-compatible (and therefore JUnit-compatible) test result XML. The argument `--tap` will make it print [Test Anything Protocol](https://testanything.org/)-compatible text. Under the hood, this uses [tape](https://github.com/substack/tape) and it can be piped to [any number of open-source TAP reporters](https://github.com/sindresorhus/awesome-tap#javascript).
 
-:information_source: _(The `npx` tool above is not required; it's a convenience script to avoid installing global NPM dependencies. You can also install `upward-spec` permanently using `npm install -g upward-spec`, and then simply invoke `upward-spec ./test_my_upward.sh` from that point forward.)_
+:information_source: _(The `npx` tool above is not required; it's a convenience script to avoid installing global NPM dependencies. You can also install `upward-spec` permanently using `npm install -g upward-spec`, and then simply invoke `upward-spec ./test_upward_server.sh` from that point forward.)_
 
 ## Summary
 
-UPWARD definitions are YAML files which declare the behavior of an [application shell][application shell] server. An application shell server implements a strict subset of HTTP functionality: it handles an HTTP GET request for a resource and delivers enough code and data to bootstrap a Progressive Web App which displays that resource.
+UPWARD definitions are YAML files which declare the behavior of an [application shell][application shell] server. An application shell server implements a strict subset of HTTP functionality: it proxies to API backends, it serves static files, and it handles an HTTP GET request for a resource by delivering a minimal app shell: the code and data to bootstrap a Progressive Web App which displays that resource.
 
 An App Shell is purposefully minimal, and so is an UPWARD server. It is meant to initialize or refresh sessions, deliver small HTML documents with enough server-side rendering for initial display and SEO, and then hand off subsequent request handling to the PWA running in the client.
 
 The declarative format of UPWARD means that an UPWARD-compliant server may be written in any programming language and run on any tech stack; therefore, a PWA can declare the URIs and behavior of the network endpoints it depends on by including an UPWARD file.
 
-### Simple example
+### Echo Example
 
 This example definition file echoes request data as text back to the client.
 
@@ -133,7 +140,7 @@ body:
 
 ```
 
-This trivial example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties. An example request to such a server results in:
+This example demonstrates the initial properties of the context object, populated by the originating HTTP request. describes a server which always returns status 200 with a single header, `content-type`, and a text body which is a plaintext summary of the GET request properties. An example request to such a server results in:
 
 ```sh
 $ curl 'http://localhost:54422/head/shoulders?and=knees&and=toes'
@@ -175,6 +182,8 @@ See [EXECUTION_SCHEDULING_STRATEGIES.md](EXECUTION_SCHEDULING_STRATEGIES.md) for
 
 **The root context must always eventually have non-null `status`, `headers`, and `body` properties.** Once the resolution path has assigned these three values fo context, the UPWARD-compliant server should immediately use those three values to create an HTTP response and flush it to the client. No streaming or buffering interface should be provided; UPWARD servers should not deal in data large enough to require streaming. **If all resolvers finish executing and the response is lacking any of the `status`, `headers`, or `body` properties, the server should emit a 500 error.** If it is possible at startup time to trace a path through the decision tree where this occurs, the implementation may use static analysis to do so and raise an error on startup.
 
+:information_source: _In real-world scenarios, the generation of `status`, `headers`, and `body` will share a lot of logic. The recommended best practice is to use an InlineResolver to create a top-level object, called something like "response", with those properties, and then define the top-level `status`, `headers`, and `body` properties to refer to that object in context, e.g. `status: response.status`.
+
 ## Context Reference
 
 The context is a global namespace created for each request. It is a dictionary of values, like a JSON object. A typical response cycle may append intermediate values to the context, like a query result or a template string. Those values do not emit as part of the response. Only the `status`, `headers`, and `body` properties of the context will be flushed to the client. Since the context is the global namespace and the means of sharing values between resolvers, it may become a large object at some points in the cycle, but this should not affect performance on the client.
@@ -203,6 +212,7 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
       { "name": "host", "value": "example.com" }
     ]
     ```
+  - `queryEntries`: An iterable array version of the URL `query` object, suitable for Mustache like the `headerEntries` property explained above.
 
   - `url`: A subset of a [URL record][url spec] as specified by WHATWG. The following properties should at least be populated; the Host header can be used to infer the origin.
 
@@ -216,7 +226,7 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
     | `query`   | `{ "baby": "beluga" }`
     | `queryEntries` | `[{ "name": "baby", "value": "beluga" }]`
 
-    Because HTTP servers are sometimes unable to ascertain their own domain names or origins, it is acceptable for one or more of the `href`, `origin`, `protocol`, `username`, `password`, `host`, `hostname`, and `port` properties to be undefined. However, a compliant server MUST provide `pathname`, `search`, `query`, and `queryEntries`.  
+    Because HTTP servers are sometimes unable to ascertain their own domain names or origins, it is acceptable for one or more of the `href`, `origin`, `protocol`, `username`, `password`, `host`, `hostname`, and `port` properties to be undefined. However, a compliant server MUST provide `pathname`, `search`, and `query`.
 
     The `query` and `queryEntries` properties are not part of the WHATWG specification, but they must be included in the `url` object nevertheless. Much like the `headers` and `headerEntries` properties, these objects exist for property lookup and iteration in logic-less templates, respectively.
 
@@ -296,14 +306,14 @@ uxbridges:
     }'
 ```
 
-The above definition would assign an [`HttpResponse`](#http-response) to the `uxbridges` basename once it has run. An HTTP response has no `characters` property, so the example context lookup would resolve to the empty string. However, an HTTP response does have a `body` property, so the lookup `uxbridges.body.characters[0].name` would resolve to `Kevin Uxbridge`.
+The above definition would assign an [`HttpResponse`](#http-response) to the `uxbridges` basename once it has run. An HTTP response has no `characters` property, so the example context lookup would resolve to the empty string. However, an HTTP response does have a `body` property, so the lookup `uxbridges.body.characters.0.name` would resolve to `Kevin Uxbridge`.
 
 :information_source: _(Array and list handling is intentionally rudimentary in UPWARD, because of the potential for scope confusion, performance and security issues in iteration. The only recommended use case for list lookup is when a web service returns a list of items expected to have only one result, so that the result may be lifted out into a scalar value.)_
 
 Since arbitrary property lookups do not through exceptions and instead return a default empty string, use [pattern matching](#conditional-resolver) to test the success or failure of requests and responses:
 
 ```yaml
-matches: uxbridges.body.characters[0].name
+matches: uxbridges.body.characters.0..name
 pattern: '.'
 ```
 
@@ -383,7 +393,7 @@ body:
       inline: 'Please provide a query'
 ```
 
-The matchers use the context lookups `request.url.query.shipmentId`, `request.url.query.shipmentName`, and `request.url.query.shipmentTrackingNumber` to obtain values for comparison. The request object is part of the initial context, but you can also declare dependencies on other context values you have defined. The above definition could be more concisely expressed using intermediate values and more context lookups:
+The matchers use the context lookups `request.url.query.shipmentId`, `request.url.query.shipmentName`, and `request.url.query.shipmentTrackingNumber` to asynchronously obtain values for comparison, as soon as they have been derived. The request object is part of the initial context, but you can also declare dependencies on other context values you have defined. The above definition could be more concisely expressed using intermediate values and more context lookups:
 
 ```yaml
 
@@ -491,6 +501,8 @@ A Resolver is an object which describes how a value is obtained. There are five 
 - `ServiceResolver` places GraphQL queries and loads the result set
 - `TemplateResolver` renders a template string against the context
 - `ConditionalResolver` does branch logic using pattern matching on context values
+- `ProxyResolver` delegates request/response handling to a proxy
+- `DirectoryResolver` delegates request/response handling to a static file directory
 
 Each Resolver takes different configuration parameters. Like a context lookup string, a resolver represents an operation which will execute and then deliver its results upward in the tree, until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
 
@@ -545,7 +557,7 @@ The above expression loads the content of the file `./productDetail.graphql` and
 
 #### Parsing
 
-An UPWARD server must support pre-parsing of `graphql` and `mustache` files according to their respective specifications, but should support as many filetypes as necessary and may support custom filetypes.
+An UPWARD server must support pre-parsing of `graphql`, `json`, and `mustache` files according to their respective specifications, but should support as many filetypes as necessary and may support custom filetypes.
 
 #### FileResolver Error Handling
 
@@ -623,9 +635,11 @@ documentResult:
       }
     }'
   variables:
-    # This is a barestring indicating a context lookup. It resolves to the `id`
-    # value in the URL query string of the request, using the builtin `request`
-    # context object.
+    resolver: inline
+    inline:
+      # This is a barestring indicating a context lookup. It resolves to the
+      # `id` value in the URL query string of the request, using the builtin
+      # `request` context object.
     id: request.url.query.id
 ```
 
@@ -639,7 +653,7 @@ documentResult:
 | `method`    | `Resolved<string>` | `POST`                      | The HTTP method to use. While GraphQL queries are typically POSTS, some services expose GraphQL over GET instead.
 | `headers`   | `Resolved<Object<string,string>>` |              | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the `headers` configuration can append to headers that can have multiple values.
 | `query`     | `Resolved<Query|string>` |                       | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.
-| `variables` | `Object<string,Resolved<any>>` | `{}`            | Variables to use with the GraphQL query. Must be an object with literal keys; the names of variables cannot be dynamically resolved, since a GraphQL query's possible variables are known ahead of time.
+| `variables` | `Resolved<Object<any>>` | `{}`            | Variables to use with the GraphQL query. Must resolve to an object with keys and values, almost always with an InlineResolver.
 
 **ServiceResolvers always use GraphQL.** To obtain data from a non-GraphQL service, an UPWARD server may implement client-side directives which change the behavior of a GraphQL query, such as [apollo-link-rest][apollo-link-rest], and place the directives in the query itself. This should be transparent to the UPWARD server itself, which delegates the service call to a GraphQL client. If an UPWARD server's GraphQL client has no implementation for such a directive, then it must pass the query unmodified to the backing service to handle the directive.
 
@@ -657,7 +671,8 @@ documentResult:
   headers:
     # In contrast to the template above, this assumes that en environment
     # variable is already set with the "Bearer <token>" format.
-    authorization: env.BEARER_TOKEN_STRING
+    inline:
+      authorization: env.BEARER_TOKEN_STRING
   query: 'query getDocument($id: String!) {
       document(id: $id) @rest(type: "Document", path: "/documents/{args.id}") {
         title
@@ -669,7 +684,8 @@ documentResult:
       }
     }'
   variables:
-    id: request.url.query.id
+    inline:
+      id: request.url.query.id
 ```
 
 #### Response Assignment
@@ -729,8 +745,8 @@ The above configuration resolves into an HTML document displaying content from t
 | Property  | Type               | Default                     | Description
 | --------- | ------------------ | --------------------------- | ---------------
 | `engine`    | `Resolved<string>` |                             | _Required_. The label of the template engine to use.
-| `provide`      | `Resolved<string[]|object<string>>`    |                  | A list, or an object mapping, of values to make available in the template.
-| `template`   | `Resolved<Template|string>` |              | The template to render. Required by the `mustache` engine.
+| `provide`      | `Resolved<string[]|object<string>>`    |                  | _Required._ A list, or an object mapping, of values to make available in the template. Passing the entire context to a template for evaluation can cause cyclic dependencies.
+| `template`   | `Resolved<Template|string>` |              | The template to render.
 
 #### Template Context
 
@@ -761,11 +777,12 @@ The resulting template eval context might look like this:
 
 *Lists may only inject "base" context properties.* The above `articleResult` could not be `articleResult.data.article` when using the list format.
  
-The other, more powerful option for the `provide` argument is to provide a `mapping`, as a simple object. A mapping is a plain object of string keys and context values. It might appear as:
+The other, more powerful option for the `provide` argument is to provide a `mapping`, as a simple object. A mapping must resolve to a plain object of string keys and context values. It might appear as:
 
 ```yaml
 provide:
-  article: articleResult.data.article
+  inline:
+    article: articleResult.data.article
 ```
 
 This would give the template a single root property "article", thus flatting out the template tree and making templates more readable.
@@ -789,8 +806,9 @@ body:
     resolver: inline
     inline: react
   provide:
-    document: documentResult.data.document
-    query: request.url.query
+    inline:
+      document: documentResult.data.document
+      query: request.url.query
   template:
     resolver: file
     file:
@@ -807,6 +825,8 @@ const { renderToString } = require('react-dom/server');
 module.exports = (props, component) =>
   renderToString(createElement(require(component), props));
 ```
+
+Attaching such a template engine to a Resolver would be trivial.
 
 #### TemplateResolver Error Handling
 
@@ -921,6 +941,51 @@ The `$match` object must have additional numbered properties for each backrefere
 - If the conditional becomes verbose, consult [Reducing Boilerplate](#reducing-boilerplate) for ways to simplify it.
 - Though template engines with logical operators can be also be used to perform branch logic, this is not recommended; it can prevent static analysis of context value dependencies.
 
+### ProxyResolver
+
+The ProxyResolver acts as a "passthrough" to another service. It is guaranteed to resolve into an object with `status`, `headers`, and `body` properties from a logical point of view. In implementation, it may handle request objects more directly, for performance purposes.
+
+A ProxyResolver is an important part of the UPWARD philosophy: a PWA's UPWARD file must describe all of the network behavior that a PWA expects at runtime, and that includes proxies to various backing APIs.
+
+#### ProxyResolver Example
+
+```yaml
+proxy:
+  target: env.MAGENTO_BACKEND_URL
+  ignoreSSLErrors: true
+```
+
+#### ProxyResolver Configuration Options
+
+| Property  | Type               | Default     | Description
+| --------- | ------------------ | ----------- | ---------------
+| `target`    | `Resolved<string>` |      |             | _Required_. The URL that receives proxied requess.
+| `ignoreSSLErrors` | `Resolved<boolean>`    | `false`            | Ignore remnote SSL certificate errors (useful for internal communication among containers).
+
+#### ProxyResolver notes
+
+ProxyResolvers are special targets for static analysis. Using simple techniques, it should be possible for an analysis system to determine proxying rules by walking the UPWARD tree. This is effectively a _declarative proxy config_, and deployment tools can be enhanced to create proxy servers in front of UPWARD where appropriate.
+
+### DirectoryResolver
+
+Like the ProxyResolver, the DirectoryResolver delegates request and response handling to a static server. Unlike the ProxyResolver, it needs access to a local directory, which it will then sere as a public assets folder. Much like the ProxyResolver, this resolver exists to bolster the notion that an UPWARD file can describe the expected behavior of a PWA server-side site, in detail.
+
+#### DirectoryResolver Example
+
+```yaml
+static:
+  directory:
+    inline: './dist'
+
+```
+
+#### DirectoryResolver Configuration Options
+
+| Property  | Type               | Default     | Description
+| --------- | ------------------ | ----------- | ---------------
+| `directory`    | `Resolved<string>` |      |             | _Required_. The local directory path to be served.
+
+
 ## Reducing boilerplate
 
 The above examples are fairly verbose, to make the workings of UPWARD configuration especially clear. The UPWARD specification is intentionally verbose in its canonical format, to enable maximal static analysis. However, An UPWARD-compliant server must also include features to reduce boilerplate.
@@ -1009,6 +1074,8 @@ For any value which must be a Resolver or a context lookup, an UPWARD-compatible
 | `query` | `ServiceResolver`
 | `engine` | `TemplateResolver`
 | `when` | `ConditionalResolver`
+| `target` | `ProxyResolver`
+| `directory` | `DirectoryResolver`
 
 Resolver type inference allows configuration to omit `resolver:` parameters, which makes it possible to be far more terse. The example optimized configuration in [Builtin constants](#builtin-constants) could be further reduced:
 
@@ -1056,7 +1123,7 @@ The YAML specificationsupports an [anchor and reference syntax][yaml anchors] wh
 [pwa def]: <https://developers.google.com/web/progressive-web-apps/>
 [js identifiers]: <https://developer.mozilla.org/en-US/docs/Glossary/Identifier>
 [npx]: <https://github.com/zkat/npx>
-[spec-shell-script]: <./test_my_upward.sh>
+[spec-shell-script]: <./test_upward_server.sh>
 [yaml anchors]: <https://learnxinyminutes.com/docs/yaml/>
 [pcre]: <https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions>
 [graphql spec data property]: <http://facebook.github.io/graphql/June2018/#sec-Data>
