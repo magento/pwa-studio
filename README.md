@@ -65,6 +65,22 @@ PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architec
 
 2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
 
+One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box.](https://github.com/paliarush/magento2-vagrant-for-developers/).
+
+#### Using the Vagrant Box
+
+1. Clone the https://github.com/paliarush/magento2-vagrant-for-developers/ repository and follow the [setup instructions](https://github.com/paliarush/magento2-vagrant-for-developers/#installation-steps).
+
+2. Make sure that all [sample data auto-installation parameters in the config.yaml](https://github.com/paliarush/magento2-vagrant-for-developers/blob/2.0/etc/config.yaml.dist#L49-L51) file are disabled.
+
+3. When installation is complete, then install the Venia sample data. Copy [this shell script](https://gist.github.com/mhhansen/19775bcf93614f5f9db34b90273fa2b8) and save it in your Magento root directory as `installVeniaSampleData.sh`.
+
+4. Run `vagrant ssh` to login to the Magento VM.
+
+5. Run `bash installVeniaSampleData.sh`. The Venia sample data should install, and the Vagrant host is ready to use.
+
+6. Update your `.env` file in PWA Studio to set `MAGENTO_BACKEND_URL` to the URL of the Vagrant box.
+
 ### Install Dependencies
 
 _**Note**: You must have a version of `node.js` >= `8.0.0`, and a version of `npm` >= `5.0.0`. The latest LTS versions of both are recommended._
