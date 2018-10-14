@@ -1,7 +1,13 @@
 jest.mock('portscanner');
+jest.mock('graphql-playground-middleware-express');
 jest.mock('../../Utilities/configureHost');
 
+const { resolve } = require('path');
 const portscanner = require('portscanner');
+const stripAnsi = require('strip-ansi');
+const {
+    default: playgroundMiddleware
+} = require('graphql-playground-middleware-express');
 const configureHost = require('../../Utilities/configureHost');
 const { PWADevServer } = require('../');
 
@@ -32,8 +38,15 @@ const simulate = {
     }
 };
 
-beforeEach(() => jest.spyOn(console, 'warn').mockImplementation());
-afterEach(() => console.warn.mockRestore());
+beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation();
+    jest.spyOn(console, 'log').mockImplementation();
+});
+
+afterEach(() => {
+    console.warn.mockRestore();
+    console.log.mockRestore();
+});
 
 test('.configure() returns a configuration object for the `devServer` property of a webpack config', async () => {
     const devServer = await PWADevServer.configure({
@@ -165,7 +178,7 @@ test('.configure() errors on bad "provideSecureHost" option', async () => {
     ).rejects.toThrowError('Unrecognized argument');
 });
 
-test('debugErrorMiddleware attached', async () => {
+test('debugErrorMiddleware and notifier attached', async () => {
     const config = {
         publicPath: 'full/path/to/publicPath'
     };
@@ -176,6 +189,81 @@ test('debugErrorMiddleware attached', async () => {
     const app = {
         use: jest.fn()
     };
-    devServer.after(app);
+    const waitUntilValid = jest.fn();
+    const server = {
+        middleware: {
+            waitUntilValid
+        }
+    };
+    devServer.after(app, server);
     expect(app.use).toHaveBeenCalledWith(expect.any(Function));
+    expect(waitUntilValid).toHaveBeenCalled();
+    const [notifier] = waitUntilValid.mock.calls[0];
+    expect(notifier).toBeInstanceOf(Function);
+    notifier();
+    const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
+    expect(consoleOutput).toMatch('PWADevServer ready at');
+});
+
+test('graphql-playground middleware attached', async () => {
+    const config = {
+        publicPath: 'full/path/to/publicPath',
+        graphqlPlayground: true
+    };
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer.before).toBeInstanceOf(Function);
+    const app = {
+        get: jest.fn(),
+        use: jest.fn()
+    };
+    const waitUntilValid = jest.fn();
+    const server = {
+        middleware: {
+            waitUntilValid
+        }
+    };
+    devServer.before(app, server);
+    expect(playgroundMiddleware).toHaveBeenCalled();
+    expect(playgroundMiddleware.mock.calls[0][0]).toMatchSnapshot();
+    expect(app.get).toHaveBeenCalled();
+    const [endpoint, middlewareProxy] = app.get.mock.calls[0];
+    expect(endpoint).toBe('/graphiql');
+    expect(middlewareProxy).toBeInstanceOf(Function);
+    const req = {};
+    const res = {};
+    middlewareProxy(req, res);
+    expect(middleware).toHaveBeenCalledWith(req, res, expect.any(Function));
+    devServer.after(app, server);
+    expect(waitUntilValid).toHaveBeenCalled();
+    const [notifier] = waitUntilValid.mock.calls[0];
+    notifier();
+    const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
+    expect(consoleOutput).toMatch('PWADevServer ready at');
+    expect(consoleOutput).toMatch('GraphQL Playground ready at');
+});
+
+test('graphql-playground middleware attached with custom queryDirs', async () => {
+    const config = {
+        publicPath: 'full/path/to/publicPath',
+        graphqlPlayground: {
+            queryDirs: [resolve(__dirname, '__fixtures__/queries')]
+        }
+    };
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer.before).toBeInstanceOf(Function);
+    const app = {
+        get: jest.fn()
+    };
+    devServer.before(app);
+    expect(playgroundMiddleware.mock.calls[0][0]).toMatchSnapshot();
 });

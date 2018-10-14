@@ -17,13 +17,11 @@ module.exports = async env => {
         /* webpack entry, output, rules, etc */
 
         devServer: await PWADevServer.configure({
-            publicPath: '/pub/static/frontend/Vendor/project/en_US/',
-            backendDomain: 'https://magento2.localdomain',
-            serviceWorkerFileName: 'sw.js',
-            paths: {
-                output: path.resolve(__dirname, 'dist/'),
-            },
-            id: 'magento-venia'
+            publicPath: '/',
+            provideSecureHost: true,
+            graphqlPlayground: {
+              queryDirs: ['src/queries']
+            }
         })
     };
 
@@ -54,17 +52,15 @@ PWA development has a couple of particular needs:
 Furthermore, Magento PWAs are Magento 2 themes running on Magento 2 stores, so
 they need to proxy backend requests to the backing store in a customized way.
 
-PWADevServer` handles all these needs:
+PWADevServer handles all these needs:
 
 - Creates and caches a custom local hostname for the current project
 - Adds the custom local hostname to `/etc/hosts`   🔐
 - Creates and caches an SSL certificate for the custom local hostname
 - Adds the certificate to the OS-level keychain so browsers trust it  🔐
-- Customizes the `webpack-dev-server` instance to:
-  - Proxy all asset requests not managed by webpack to the Magento store
-  - Emulate the public path settings of the Magento store
-  - Automatically switch domain names in HTML attributes
-  - Debug or disable ServiceWorkers
+- Adds verbose debugging information to error pages
+- Provides a [GraphQL Playground][graphql-playground] to debug the GraphQL
+  queries in the project
 
 *The 🔐  in the above list indicates that you may be asked for a password at
 this step.*
@@ -77,19 +73,80 @@ configuration.
 
 #### `PWADevServer.configure(options: PWADevServerOptions): Promise<devServer>`
 
-#### `options`
+#### `PWADevServerOptions`
 
-- `id: string`: **Required.** A unique ID for this project. Project name is
-   recommended, but you can use any domain-name-safe string. If you're
-   developing several copies of a project simultaneously, you can use this ID to
-   distinguish them in the internal tooling; for example, this id will be used
-   to create your dev domain name.
 - `publicPath: string`: **Required.** The public path of project assets in the
-   backend server, e.g. `'/'`: **Required.** The URL of the backing store.
-- `paths: object`: **Required.** Local absolute paths to project folders.
-  - `output`: Directory for built JavaScript files.
-- `serviceWorkerFileName: string`: **Required.** The name of the ServiceWorker
-   file this project generates, e.g. `'sw.js'`.
-- `changeOrigin: boolean`: ⚠️ **(experimental)** Try to parse any HTML responses
-   from the proxied Magento backend, and replace its domain name with the
-   dev server domain name. Default `false`.
+   backend server, e.g. `'/'`.
+- `provideSecureHost: boolean | SecureHostOptions`: Use a [secure and unique hostname for the dev server.](#securehostoptions)
+- `graphqlPlayground: GraphQLPlaygroundOptions`: Add a [pre-populated GraphQL Playground to the dev server.](#graphqlplayground)
+- `id: string`: :no_entry_sign: **_Deprecated._** A unique ID for this project. This id will be used to create your dev domain name. Setting `id: 'foo'` is equivalent to:
+
+  ```js
+  provideSecureHost: { subdomain: 'foo', addUniqueHash: false }
+  ```
+
+#### `SecureHostOptions`
+
+Most local development servers run on `http://localhost`, with a constant port
+number like `3000` or `8080`. This common setup is problematic for PWA work:
+
+- Browsers only enable PWA features like ServiceWorkers on secure HTTPS.
+- Browsers cache PWAs by "scope", which is an origin plus a path (usually `/`).
+  Running all local development projects at a common domain, such as
+  `https://localhost:8000`, will cause conflicts between ServiceWorkers.
+  
+To solve these problems, enable autogeneration of a unique secure host using the
+`provideSecureHost` configuration option. PWADevServer generates the unique
+hostname based on the project name in `package.json` if available, or a
+custom name if provided. It also uses a hash of the filesystem path of the
+project to choose a persistent unique port and append a short random sequence
+to the domain name. Since this port and string are derived from the
+filesystem path, they will stay the same unless the project is moved.
+
+:information_source: If PWADevServer detects that the project port is in use,
+it will print a warning and use a different port temporarily.
+
+Configuration options for this feature are:
+
+- `subdomain: string`: A custom subdomain string to use. If provided, this
+  supersedes the name in `package.json`.
+- `exactDomain: string` A fully qualified domain to use. By default,
+  PWADevServer generates all unique hosts as subdomains of `local.pwadev`. Use
+  this option to override this behavior and provide the exact domain to use.
+  The custom host will not have a unique hash, but it will have a unique port.
+- `addUniqueHash: boolean`: Use the filesystem path hash to create a short
+  string of URL-safe characters to append to the subdomain. Ensures total
+  uniqueness of domain. Default `true`. If `exactDomain` is specified, this
+  option has no effect.
+
+:information_source: Default behavior is to use the `package.json` plus hash
+as a subdomain of `local.pwadev`. To use this default behavior, simply set
+`provideUniqueHost: true`.
+
+:information_source: There is no configuration option for disabling unique port
+generation and use. To override the port for one session, use the environment
+variable `PWA_STUDIO_PORTS_DEVELOPMENT` to specify a port.
+  
+:information_source: The first time the DevServer runs, it will prompt you for
+system password. It needs temporary permission to edit the hostfile and trust
+the SSL certificate. Use the login password for your computer.
+
+#### `GraphQLPlaygroundOptions`
+
+[GraphQL Playground][graphql-playground] is an enhanced version of GraphiQL, an
+in-browser GraphQL debugging tool. PWADevServer can provide a Playground
+at the special path `/graphiql`. To enable it, add the `graphqlPlayground`
+configuration option.
+
+Configuration options for this feature are:
+
+- `queryDirs: string[]`: A list of directories containing GraphQL files in your
+  project. If you provide this list, PWADevServer will scan these directories
+  for `.graphql` files, and prepopulate the playground with a new tab for each
+  query it finds.
+  
+:information_source: To enable the feature without providing queryDirs, simply
+set `graphqlPlayground: true`.
+
+
+[graphql-playground]: <https://github.com/prisma/graphql-playground>
