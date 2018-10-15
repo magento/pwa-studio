@@ -133,14 +133,20 @@ module.exports = async function(env) {
     if (phase === 'development') {
         config.devtool = 'eval-source-map';
 
-        config.devServer = await PWADevServer.configure({
-            publicPath: config.output.publicPath,
-            serviceWorkerFileName,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths,
-            id: 'magento-venia',
-            provideSSLCert: true
-        });
+        const devServerConfig = {
+            publicPath: config.output.publicPath
+        };
+        const provideHost = !!process.env.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
+        if (provideHost) {
+            devServerConfig.provideSecureHost = {
+                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!process.env
+                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+            };
+        }
+        config.devServer = await PWADevServer.configure(devServerConfig);
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.

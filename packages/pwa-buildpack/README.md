@@ -123,7 +123,7 @@ which reads an ini-formatted file to set the environment.
     in it:
 
     ```sh
-    MAGENTO_BACKEND_DOMAIN=https://localhost.magento:8008
+    MAGENTO_BACKEND_URL=https://localhost.magento:8008
     # change the above to your local Magento store's host (with port)
 
     MAGENTO_PATH=~/path/to/magento/rootdir
@@ -189,7 +189,7 @@ which reads an ini-formatted file to set the environment.
     `process.env`.
 
     _If you like, you can prove this is working by adding another line that says
-    `console.log(process.env.MAGENTO_BACKEND_DOMAIN)`. Save the file and then run
+    `console.log(process.env.MAGENTO_BACKEND_URL)`. Save the file and then run
     `node webpack.config.js`._
 
 1.  Add the following lines to `webpack.config.js`:
@@ -307,7 +307,7 @@ which reads an ini-formatted file to set the environment.
     if (env.mode === "development") {
         config.devServer = await PWADevServer.configure({
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+            backendDomain: process.env.MAGENTO_BACKEND_URL,
             serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
             paths: themePaths,
             id: 'magento-my-theme'
