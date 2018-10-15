@@ -48,11 +48,11 @@ class ProductEdit extends Component {
             key: index,
             title: option.label,
             helpClick: () => {
-                window.alert('hello');
+                window.alert('Testing');
             },
             attributeCode: option.attributeCode
         };
-        if (option.attribute_code === 'size') {
+        if (option.attributeCode === 'size') {
             props.helpText = 'Size Guide';
         }
         return (

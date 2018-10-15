@@ -19,13 +19,13 @@ class OptionsHeader extends Component {
             <div className={classes.root}>
                 <div className={classes.header}>
                     <span className={classes.title}> {title} </span>
-                    <span
+                    <button
                         className={classes.helpText}
                         onClick={() => helpClick()}
                     >
                         {' '}
                         {helpText}{' '}
-                    </span>
+                    </button>
                 </div>
                 {children}
             </div>
