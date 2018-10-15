@@ -98,7 +98,7 @@ button {
     position: absolute;
     display: inline-block;
     color: #fff;
-    filter: drop-shadow(1px 3px 1px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     animation-duration: 244ms;
     animation-name: fadein;
     animation-fill-mode: forwards;
