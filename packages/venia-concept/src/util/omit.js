@@ -19,7 +19,7 @@
  *   aramis: true
  * };
  *
- * console.lot(omit(musketeers, 'athos'));
+ * console.log(omit(musketeers, 'athos'));
  *
  * {
  *   porthos: true,
