@@ -24,11 +24,12 @@
     position: relative;
 }
 
-.disabled > span:after, .disabled > span:before {
+.disabled > span:after,
+.disabled > span:before {
     width: 140%;
     height: 1px;
     position: absolute;
-    content: "";
+    content: '';
     background-color: black;
     z-index: 10;
     color: black;
@@ -42,16 +43,20 @@
     transform: rotate(-45deg);
 }
 
-.childrenContainer, .disabled .overlay, .root {
+.childrenContainer,
+.disabled .overlay,
+.root {
     min-width: 3rem;
     min-height: 3rem;
 }
 
 .check {
-  display: none;
+    display: none;
 }
 
-.childrenContainer, .disabled .overlay, Icon {
+.childrenContainer,
+.disabled .overlay,
+Icon {
     position: absolute;
     width: inherit;
     height: inherit;
@@ -68,5 +73,5 @@
 .disabled > .overlay {
     z-index: 1;
     background-color: grey;
-    opacity: .5;
+    opacity: 0.5;
 }

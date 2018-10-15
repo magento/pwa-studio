@@ -44,7 +44,7 @@ class Product extends Component {
     };
 
     addToCart = async (item, quantity) => {
-        await this.props.addItemToCart({ item, quantity});
+        await this.props.addItemToCart({ item, quantity });
     };
 
     render() {
@@ -64,7 +64,9 @@ class Product extends Component {
                             <ProductFullDetail
                                 product={product}
                                 addItemToCart={addItemToCart}
-                                addConfigurableItemToCart={addConfigurableItemToCart}
+                                addConfigurableItemToCart={
+                                    addConfigurableItemToCart
+                                }
                             />
                         );
                     }}

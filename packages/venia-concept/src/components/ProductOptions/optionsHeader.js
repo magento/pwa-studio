@@ -6,12 +6,12 @@ import classify from 'src/classify';
 class OptionsHeader extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string,
+            root: PropTypes.string
         }),
         title: PropTypes.string,
         helpText: PropTypes.string,
         helpClick: PropTypes.func
-    }
+    };
 
     render() {
         const { title, helpText, helpClick, classes, children } = this.props;
@@ -19,9 +19,15 @@ class OptionsHeader extends Component {
             <div className={classes.root}>
                 <div className={classes.header}>
                     <span className={classes.title}> {title} </span>
-                    <span className={classes.helpText} onClick={() => helpClick()}> {helpText} </span>
+                    <span
+                        className={classes.helpText}
+                        onClick={() => helpClick()}
+                    >
+                        {' '}
+                        {helpText}{' '}
+                    </span>
                 </div>
-                { children }
+                {children}
             </div>
         );
     }

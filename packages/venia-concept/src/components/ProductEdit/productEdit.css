@@ -2,7 +2,8 @@
     padding: 1rem;
 }
 
-.colors, .sizes {
+.colors,
+.sizes {
     box-shadow: 0 -1px rgb(var(--venia-border));
     padding: 1rem 0;
 }

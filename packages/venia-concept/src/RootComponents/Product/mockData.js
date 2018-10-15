@@ -82,501 +82,529 @@ const data = {
 };
 
 export const outOfStockData = {
-data: {
-    productDetail: {
-        items: [
-        {
-            sku: "MJ02",
-            name: "Hyperion Elements Jacket",
-            price: {
-                regularPrice: {
-                    amount: {
-                        currency: "GBP",
-                        value: 51,
-                        __typename: "Money"
+    data: {
+        productDetail: {
+            items: [
+                {
+                    sku: 'MJ02',
+                    name: 'Hyperion Elements Jacket',
+                    price: {
+                        regularPrice: {
+                            amount: {
+                                currency: 'GBP',
+                                value: 51,
+                                __typename: 'Money'
+                            },
+                            __typename: 'Price'
+                        },
+                        __typename: 'ProductPrices'
                     },
-                    __typename: "Price"
-                },
-                __typename: "ProductPrices"
-            },
-            description: "<p>Boldly face high winds, frigid temps and stormy weather the whole winter through in the Hyperion Elements Jacket. LumaTech&trade; insulating technology helps maintain your core temperature and wick sweat. The smooth shell is water repellent and quilted to retain body heat.<\\/p>\n<p>&bull; Lime 1\\/4 zip pullover.<br \\/>&bull; Split pocket. <br \\/>&bull; Thumb holes. <br \\/>&bull; Machine wash\\/hang to dry.<\\/p>",
-            media_gallery_entries: [
-                {
-                    label: "",
-                    position: 1,
-                    disabled: false,
-                    file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                    __typename: "MediaGalleryEntry"
-                },
-                {
-                    label: "",
-                    position: 2,
-                    disabled: false,
-                    file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                    __typename: "MediaGalleryEntry"
-                },
-                {
-                    label: "",
-                    position: 3,
-                    disabled: false,
-                    file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                    __typename: "MediaGalleryEntry"
-                }
-            ],
-            configurable_options: [
-                {
-                    label: "Color",
-                    attribute_id: "93",
-                    attribute_code: "color",
-                    position: 1,
-                    values: [
+                    description:
+                        '<p>Boldly face high winds, frigid temps and stormy weather the whole winter through in the Hyperion Elements Jacket. LumaTech&trade; insulating technology helps maintain your core temperature and wick sweat. The smooth shell is water repellent and quilted to retain body heat.<\\/p>\n<p>&bull; Lime 1\\/4 zip pullover.<br \\/>&bull; Split pocket. <br \\/>&bull; Thumb holes. <br \\/>&bull; Machine wash\\/hang to dry.<\\/p>',
+                    media_gallery_entries: [
                         {
-                            label: "Green",
-                            value_index: 53,
-                            __typename: "ConfigurableProductOptionsValues"
+                            label: '',
+                            position: 1,
+                            disabled: false,
+                            file: '\\/m\\/j\\/mj02-green_main_1.jpg',
+                            __typename: 'MediaGalleryEntry'
                         },
                         {
-                            label: "Orange",
-                            value_index: 56,
-                            __typename: "ConfigurableProductOptionsValues"
+                            label: '',
+                            position: 2,
+                            disabled: false,
+                            file: '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                            __typename: 'MediaGalleryEntry'
                         },
                         {
-                            label: "Red",
-                            value_index: 58,
-                            __typename: "ConfigurableProductOptionsValues"
+                            label: '',
+                            position: 3,
+                            disabled: false,
+                            file: '\\/m\\/j\\/mj02-green_back_1.jpg',
+                            __typename: 'MediaGalleryEntry'
                         }
                     ],
-                    __typename: "ConfigurableProductOptions"
-                },
-                {
-                    label: "Size",
-                    attribute_id: "142",
-                    attribute_code: "size",
-                    position: 0,
-                    values: [
+                    configurable_options: [
                         {
-                            label: "XS",
-                            value_index: 167,
-                            __typename: "ConfigurableProductOptionsValues"
+                            label: 'Color',
+                            attribute_id: '93',
+                            attribute_code: 'color',
+                            position: 1,
+                            values: [
+                                {
+                                    label: 'Green',
+                                    value_index: 53,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'Orange',
+                                    value_index: 56,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'Red',
+                                    value_index: 58,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                }
+                            ],
+                            __typename: 'ConfigurableProductOptions'
                         },
                         {
-                            label: "S",
-                            value_index: 168,
-                            __typename: "ConfigurableProductOptionsValues"
-                        },
-                        {
-                            label: "M",
-                            value_index: 169,
-                            __typename: "ConfigurableProductOptionsValues"
-                        },
-                        {
-                            label: "L",
-                            value_index: 170,
-                            __typename: "ConfigurableProductOptionsValues"
-                        },
-                        {
-                            label: "XL",
-                            value_index: 171,
-                            __typename: "ConfigurableProductOptionsValues"
+                            label: 'Size',
+                            attribute_id: '142',
+                            attribute_code: 'size',
+                            position: 0,
+                            values: [
+                                {
+                                    label: 'XS',
+                                    value_index: 167,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'S',
+                                    value_index: 168,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'M',
+                                    value_index: 169,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'L',
+                                    value_index: 170,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                },
+                                {
+                                    label: 'XL',
+                                    value_index: 171,
+                                    __typename:
+                                        'ConfigurableProductOptionsValues'
+                                }
+                            ],
+                            __typename: 'ConfigurableProductOptions'
                         }
                     ],
-                    __typename: "ConfigurableProductOptions"
+                    variants: [
+                        {
+                            product: {
+                                sku: 'MJ02-XS-Green',
+                                id: 277,
+                                swatch_image: null,
+                                color: 53,
+                                size: 167,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 2,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 3,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_back_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-XS-Orange',
+                                id: 278,
+                                swatch_image: null,
+                                color: 56,
+                                size: 167,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-orange_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-XS-Red',
+                                id: 279,
+                                swatch_image: null,
+                                color: 58,
+                                size: 167,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file: '\\/m\\/j\\/mj02-red_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-S-Green',
+                                id: 280,
+                                swatch_image: null,
+                                color: 53,
+                                size: 168,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 2,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 3,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_back_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-S-Orange',
+                                id: 281,
+                                swatch_image: null,
+                                color: 56,
+                                size: 168,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-orange_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-S-Red',
+                                id: 282,
+                                swatch_image: null,
+                                color: 58,
+                                size: 168,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file: '\\/m\\/j\\/mj02-red_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-M-Green',
+                                id: 283,
+                                swatch_image: null,
+                                color: 53,
+                                size: 169,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 2,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 3,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_back_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-M-Orange',
+                                id: 284,
+                                swatch_image: null,
+                                color: 56,
+                                size: 169,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-orange_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-M-Red',
+                                id: 285,
+                                swatch_image: null,
+                                color: 58,
+                                size: 169,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file: '\\/m\\/j\\/mj02-red_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-L-Green',
+                                id: 286,
+                                swatch_image: null,
+                                color: 53,
+                                size: 170,
+                                stock_status: 'OUT_OF_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 2,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 3,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_back_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-L-Orange',
+                                id: 287,
+                                swatch_image: null,
+                                color: 56,
+                                size: 170,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-orange_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-L-Red',
+                                id: 288,
+                                swatch_image: null,
+                                color: 58,
+                                size: 170,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file: '\\/m\\/j\\/mj02-red_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-XL-Green',
+                                id: 289,
+                                swatch_image: null,
+                                color: 53,
+                                size: 171,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 2,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_alt1_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    },
+                                    {
+                                        label: '',
+                                        position: 3,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-green_back_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-XL-Orange',
+                                id: 290,
+                                swatch_image: null,
+                                color: 56,
+                                size: 171,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file:
+                                            '\\/m\\/j\\/mj02-orange_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        },
+                        {
+                            product: {
+                                sku: 'MJ02-XL-Red',
+                                id: 291,
+                                swatch_image: null,
+                                color: 58,
+                                size: 171,
+                                stock_status: 'IN_STOCK',
+                                media_gallery_entries: [
+                                    {
+                                        label: '',
+                                        position: 1,
+                                        disabled: false,
+                                        file: '\\/m\\/j\\/mj02-red_main_1.jpg',
+                                        __typename: 'MediaGalleryEntry'
+                                    }
+                                ],
+                                __typename: 'SimpleProduct'
+                            },
+                            __typename: 'ConfigurableVariant'
+                        }
+                    ],
+                    __typename: 'ConfigurableProduct'
                 }
             ],
-            variants: [
-                {
-                    product: {
-                        sku: "MJ02-XS-Green",
-                        id: 277,
-                        swatch_image: null,
-                        color: 53,
-                        size: 167,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 2,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 3,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-XS-Orange",
-                        id: 278,
-                        swatch_image: null,
-                        color: 56,
-                        size: 167,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-orange_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-XS-Red",
-                        id: 279,
-                        swatch_image: null,
-                        color: 58,
-                        size: 167,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-red_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-S-Green",
-                        id: 280,
-                        swatch_image: null,
-                        color: 53,
-                        size: 168,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 2,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 3,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-S-Orange",
-                        id: 281,
-                        swatch_image: null,
-                        color: 56,
-                        size: 168,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-orange_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-S-Red",
-                        id: 282,
-                        swatch_image: null,
-                        color: 58,
-                        size: 168,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-red_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-M-Green",
-                        id: 283,
-                        swatch_image: null,
-                        color: 53,
-                        size: 169,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 2,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 3,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-M-Orange",
-                        id: 284,
-                        swatch_image: null,
-                        color: 56,
-                        size: 169,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-orange_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-M-Red",
-                        id: 285,
-                        swatch_image: null,
-                        color: 58,
-                        size: 169,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-red_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-L-Green",
-                        id: 286,
-                        swatch_image: null,
-                        color: 53,
-                        size: 170,
-                        stock_status: "OUT_OF_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 2,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 3,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-L-Orange",
-                        id: 287,
-                        swatch_image: null,
-                        color: 56,
-                        size: 170,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-orange_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-L-Red",
-                        id: 288,
-                        swatch_image: null,
-                        color: 58,
-                        size: 170,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-red_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-XL-Green",
-                        id: 289,
-                        swatch_image: null,
-                        color: 53,
-                        size: 171,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 2,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_alt1_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            },
-                            {
-                                label: "",
-                                position: 3,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-green_back_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-XL-Orange",
-                        id: 290,
-                        swatch_image: null,
-                        color: 56,
-                        size: 171,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-orange_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                },
-                {
-                    product: {
-                        sku: "MJ02-XL-Red",
-                        id: 291,
-                        swatch_image: null,
-                        color: 58,
-                        size: 171,
-                        stock_status: "IN_STOCK",
-                        media_gallery_entries: [
-                            {
-                                label: "",
-                                position: 1,
-                                disabled: false,
-                                file: "\\/m\\/j\\/mj02-red_main_1.jpg",
-                                __typename: "MediaGalleryEntry"
-                            }
-                        ],
-                        __typename: "SimpleProduct"
-                    },
-                    __typename: "ConfigurableVariant"
-                }
-            ],
-            __typename: "ConfigurableProduct"
+            __typename: 'Products'
         }
-        ],
-        __typename: "Products"
     }
-}
-}
-
+};
 
 export default data;

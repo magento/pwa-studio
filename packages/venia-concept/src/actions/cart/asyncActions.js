@@ -74,21 +74,23 @@ export const addConfigurableItemToCart = (payload = {}) => {
                         cartItem: {
                             qty: quantity,
                             sku: parentSKU,
-                            product_type: "configurable",
+                            product_type: 'configurable',
                             name: currentItem.name,
                             quote_id: guestCartId,
                             product_option: {
                                 extension_attributes: {
-                                    configurable_item_options: currentItem.options
+                                    configurable_item_options:
+                                        currentItem.options
                                 }
-
                             }
                         }
                     })
                 }
             );
 
-            dispatch(actions.addItem.receive({ cartItem, currentItem, quantity }));
+            dispatch(
+                actions.addItem.receive({ cartItem, currentItem, quantity })
+            );
         } catch (error) {
             const { response, noGuestCartId } = error;
 
@@ -113,7 +115,7 @@ export const addConfigurableItemToCart = (payload = {}) => {
             dispatch(getCartDetails({ forceRefresh: true }))
         ]);
     };
-}
+};
 export const addItemToCart = (payload = {}) => {
     const { item, quantity } = payload;
 

@@ -7,17 +7,17 @@ import Option from './option';
 class Options extends Component {
     static propTypes = {
         options: arrayOf(
-        shape({
-            children: string,
-            item: object.isRequired
-        })
+            shape({
+                children: string,
+                item: object.isRequired
+            })
         )
     };
 
-    state = {selected: null};
+    state = { selected: null };
 
-    select = (item) => {
-        if ( this.state.selected === item.id ) {
+    select = item => {
+        if (this.state.selected === item.id) {
             this.setState({
                 selected: null
             });
@@ -26,34 +26,35 @@ class Options extends Component {
                 selected: item.id
             });
         }
-        const options = { };
+        const options = {};
         options[item.attributeCode] = {
             label: item.label,
             value_index: item.value_index
-        }
+        };
         this.props.onSelect(options);
-    }
+    };
 
     render() {
         const { options, classes } = this.props;
         const { select } = this;
         return (
             <div className={classes.root}>
-                { options.map(
-                    (option, id) => {
-                        option.item['id'] = id;
-                        (option.item.id === this.state.selected ) ?  option.item['isSelected'] = true :
-                            option.item['isSelected'] = false
-                        return (
-                            <Option
-                                className={classes.option}
-                                handleClick={select}
-                                key={id} {...option} />
-                        )
-                    })
-                }
+                {options.map((option, id) => {
+                    option.item['id'] = id;
+                    option.item.id === this.state.selected
+                        ? (option.item['isSelected'] = true)
+                        : (option.item['isSelected'] = false);
+                    return (
+                        <Option
+                            className={classes.option}
+                            handleClick={select}
+                            key={id}
+                            {...option}
+                        />
+                    );
+                })}
             </div>
-        )
+        );
     }
 }
 

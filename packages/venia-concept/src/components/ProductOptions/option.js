@@ -7,7 +7,6 @@ import swatchStyles from './swatch.css';
 import tileStyles from './tile.css';
 import miniTileStyles from './miniTile.css';
 
-
 class Option extends Component {
     static propTypes = {
         classes: shape({
@@ -30,28 +29,32 @@ class Option extends Component {
         color: swatchStyles,
         size: tileStyles,
         sleeve: miniTileStyles
-    }
+    };
 
     get check() {
-      const { item } = this.props;
-      const { isSelected  } = item;
+        const { item } = this.props;
+        const { isSelected } = item;
 
-      return isSelected ? (
-        <Icon name="check" />
-      ) : null
+        return isSelected ? <Icon name="check" /> : null;
     }
 
     render() {
         const { item, children, attributeCode } = this.props;
         let { classes } = this.props;
-        const { check } =  this;
+        const { check } = this;
         const { backgroundColor, label, isSelected, isDisabled } = item;
         const style = { '--background-color': backgroundColor };
-        const additionalClasses = attributeCode ?  this.styleOptions[attributeCode] : classes;
+        const additionalClasses = attributeCode
+            ? this.styleOptions[attributeCode]
+            : classes;
         classes = Object.assign(classes, additionalClasses);
 
-        let buttonClasses = isSelected ? `${classes.root} ${classes.selected}` : classes.root;
-        buttonClasses = isDisabled ? `${buttonClasses} ${classes.disabled}` : buttonClasses;
+        let buttonClasses = isSelected
+            ? `${classes.root} ${classes.selected}`
+            : classes.root;
+        buttonClasses = isDisabled
+            ? `${buttonClasses} ${classes.disabled}`
+            : buttonClasses;
 
         return (
             <button

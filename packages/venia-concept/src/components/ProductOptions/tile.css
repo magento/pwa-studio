@@ -7,14 +7,15 @@
 }
 
 .check {
-  display: none;
+    display: none;
 }
 
-.disabled > span:after, .disabled > span:before {
+.disabled > span:after,
+.disabled > span:before {
     width: 140%;
     height: 1px;
     position: absolute;
-    content: "";
+    content: '';
     background-color: black;
     z-index: 10;
     color: black;
@@ -33,6 +34,7 @@
     color: white;
 }
 
-.selected > span:after, .selected > span:before {
+.selected > span:after,
+.selected > span:before {
     background-color: white;
 }

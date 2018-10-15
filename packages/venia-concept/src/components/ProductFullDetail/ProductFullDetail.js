@@ -54,7 +54,7 @@ class ProductFullDetail extends Component {
                     attribute_id: string,
                     attribute_code: string,
                     position: number,
-                    values:	arrayOf(
+                    values: arrayOf(
                         shape({
                             label: string,
                             value_index: number
@@ -62,9 +62,7 @@ class ProductFullDetail extends Component {
                     )
                 })
             ),
-            variants: arrayOf(
-                object
-            ),
+            variants: arrayOf(object),
             description: string
         }).isRequired,
         addConfigurableItemToCart: func.isRequired,
@@ -75,7 +73,7 @@ class ProductFullDetail extends Component {
 
     setQuantity = quantity => this.setState({ quantity });
 
-    onOptionChange = (options) => {
+    onOptionChange = options => {
         this.setState({
             ...this.state,
             selectedOptions: {
@@ -87,29 +85,31 @@ class ProductFullDetail extends Component {
 
     get productEdit() {
         let { product } = this.props;
-        const productEdit = product.__typename === 'ConfigurableProduct' ?
-            <ProductEdit
-                onOptionChange={this.onOptionChange}
-                item={product} /> :
-            null;
+        const productEdit =
+            product.__typename === 'ConfigurableProduct' ? (
+                <ProductEdit
+                    onOptionChange={this.onOptionChange}
+                    item={product}
+                />
+            ) : null;
 
         return productEdit;
     }
 
     // TODO: Make it obey actual default values, not just the first one
-    initOptions = (product) => {
+    initOptions = product => {
         const options = product.configurable_options;
         const initialState = {};
         options.sort(this.sortConfigurableOptions);
-        options.forEach((option) => {
-            initialState[option.attribute_code] = { };
-        })
+        options.forEach(option => {
+            initialState[option.attribute_code] = {};
+        });
         this.setState({
             selectedOptions: {
-                ...initialState,
+                ...initialState
             }
         });
-    }
+    };
 
     sortConfigurableOptions = (a, b) => {
         const aPosition = a.position;
@@ -121,11 +121,12 @@ class ProductFullDetail extends Component {
             return -1;
         }
         return 0;
-    }
+    };
 
     componentWillMount() {
         let { product } = this.props;
-        const isConfigurable = product && product.__typename === 'ConfigurableProduct';
+        const isConfigurable =
+            product && product.__typename === 'ConfigurableProduct';
         if (isConfigurable) {
             this.initOptions(product);
         }
@@ -134,8 +135,8 @@ class ProductFullDetail extends Component {
     getCurrentConfiguration(item, selectedOptions) {
         let currentItem = item.variants;
         const options = Object.keys(selectedOptions);
-        options.forEach((option) => {
-            currentItem = currentItem.filter((variant) => {
+        options.forEach(option => {
+            currentItem = currentItem.filter(variant => {
                 const value_index = selectedOptions[option].value_index;
                 const product_index = parseInt(variant.product[option]);
                 let isValuePresent = !!(product_index === value_index);
@@ -152,43 +153,58 @@ class ProductFullDetail extends Component {
         const { product } = this.props;
         const { quantity } = this.state;
 
-        const options = product.configurable_options.map((option) => {
+        const options = product.configurable_options.map(option => {
             return {
-                option_value: this.state.selectedOptions[option.attribute_code].value_index,
+                option_value: this.state.selectedOptions[option.attribute_code]
+                    .value_index,
                 option_id: option.attribute_id
             };
         });
-        const currentItem = this.getCurrentConfiguration(product, this.state.selectedOptions);
+        const currentItem = this.getCurrentConfiguration(
+            product,
+            this.state.selectedOptions
+        );
         const parentSKU = product.sku;
         currentItem.options = options;
-        await this.props.addConfigurableItemToCart({ parentSKU, currentItem, quantity});
+        await this.props.addConfigurableItemToCart({
+            parentSKU,
+            currentItem,
+            quantity
+        });
     };
 
     addToCart = async () => {
         const { product } = this.props;
         const { quantity } = this.state;
 
-        await this.props.addItemToCart({ product, quantity});
+        await this.props.addItemToCart({ product, quantity });
     };
 
     get stockMessage() {
         let { product, classes } = this.props;
-        const currentProduct = this.getCurrentConfiguration(product, this.state.selectedOptions);
-        const stockMessage = (currentProduct && currentProduct.stock_status === 'OUT_OF_STOCK') ?
-            "Product not in stock" :
-            null;
-        return (
-            <p className={classes.stockMessage}> {stockMessage} </p>
-        )
+        const currentProduct = this.getCurrentConfiguration(
+            product,
+            this.state.selectedOptions
+        );
+        const stockMessage =
+            currentProduct && currentProduct.stock_status === 'OUT_OF_STOCK'
+                ? 'Product not in stock'
+                : null;
+        return <p className={classes.stockMessage}> {stockMessage} </p>;
     }
 
     render() {
         const { classes, product } = this.props;
-        const { stockMessage, productEdit, addItemToCart, addConfigurableToCart  } = this;
+        const {
+            stockMessage,
+            productEdit,
+            addItemToCart,
+            addConfigurableToCart
+        } = this;
         const { regularPrice } = product.price;
 
         let onAddToCart = addItemToCart;
-        if ( product.__typename === 'ConfigurableProduct' ) {
+        if (product.__typename === 'ConfigurableProduct') {
             onAddToCart = addConfigurableToCart;
         }
 
@@ -209,8 +225,8 @@ class ProductFullDetail extends Component {
                     <Carousel images={product.media_gallery_entries} />
                 </section>
                 <section className={classes.edit}>
-                    { productEdit }
-                    { stockMessage }
+                    {productEdit}
+                    {stockMessage}
                 </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>

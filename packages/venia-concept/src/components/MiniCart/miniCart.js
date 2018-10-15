@@ -33,9 +33,9 @@ class MiniCart extends Component {
         super(...args);
     }
 
-    state = ({
+    state = {
         editPanelOpen: false
-    })
+    };
 
     async componentDidMount() {
         const { getCartDetails } = this.props;
@@ -82,13 +82,18 @@ class MiniCart extends Component {
                 </div>
                 <div className={classes.footer}>
                     <div className={classes.summary}>
-                        <Button onClick={() => this.setState({editPanelOpen: false})}>Cancel</Button>
+                        <Button
+                            onClick={() =>
+                                this.setState({ editPanelOpen: false })
+                            }
+                        >
+                            Cancel
+                        </Button>
                         <Button>Save Changes</Button>
                     </div>
                 </div>
             </div>
-        ) : null
-
+        ) : null;
     }
 
     get totalsSummary() {
@@ -131,16 +136,24 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 <div className={classes.body}>{productList}</div>
-                <button onClick={() => this.setState({editPanelOpen: !this.state.editPanelOpen})}>Edit item 1</button>
+                <button
+                    onClick={() =>
+                        this.setState({
+                            editPanelOpen: !this.state.editPanelOpen
+                        })
+                    }
+                >
+                    Edit item 1
+                </button>
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>
                 <Checkout cart={cart} />
             </aside>
-        ) : <div>{editPanel}</div>
+        ) : (
+            <div>{editPanel}</div>
+        );
     }
 }
 
-
-
-export default classify(defaultClasses)(MiniCart)
+export default classify(defaultClasses)(MiniCart);

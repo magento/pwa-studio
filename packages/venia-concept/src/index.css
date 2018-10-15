@@ -88,17 +88,17 @@ button {
     -webkit-appearance: none;
 }
 
-
 [data-title] {
     position: relative;
     cursor: help;
 }
 
-[data-title]:hover::before, [data-title]:hover::after {
+[data-title]:hover::before,
+[data-title]:hover::after {
     position: absolute;
     display: inline-block;
     color: #fff;
-    filter: drop-shadow(1px 3px 1px rgba(0, 0 , 0, 0.3));
+    filter: drop-shadow(1px 3px 1px rgba(0, 0, 0, 0.3));
     animation-duration: 244ms;
     animation-name: fadein;
     animation-fill-mode: forwards;
