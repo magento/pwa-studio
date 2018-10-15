@@ -4,7 +4,7 @@ title: PWADevServer
 
 A utility for configuring a development OS and a `webpack-dev-server` for PWA development.
 
-A typical webpack local development environment uses the [`devServer`] settings in `webpack.config.js` to create a temporary, local HTTP server to show edits in real time.
+A typical webpack local development environment uses the [`devServer`][] settings in `webpack.config.js` to create a temporary, local HTTP server to show edits in real time.
 
 ## Basic Features
 
@@ -14,55 +14,55 @@ The `devServer` provides the following useful features:
 
 ### Hot reload
 
-The hot reload feature refreshes the page or a relevant subsection of the page
-whenever you save a change that affects it. It uses Webpack's
-[Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/)
-feature to replace components and stylesheets inline.
+The hot reload feature refreshes the page or a relevant subsection of the page whenever you save a change that affects it.
+It uses Webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) feature to replace components and stylesheets inline.
 
 ### Proxy server
 
-The `devServer` acts as a proxy server for API and media requests to Magento. It
-is configured using environment variables.
+The `devServer` acts as a proxy server for API and media requests to Magento.
+It is configured using environment variables.
 
-The `MAGENTO_BACKEND_URL` environment variable configures the proxy server
-to accept GraphQL, REST, and media requests and passes them to Magento.
+The `MAGENTO_BACKEND_DOMAIN` environment variable configures the proxy server to accept GraphQL, REST, and media requests and passes them to Magento.
 
-The `MAGENTO_BACKEND_PUBLIC_PATH` environment variable allows the proxy server
-to serve static resources and JavaScript files at the same URL where Magento
-would serve them.
+The `MAGENTO_BACKEND_PUBLIC_PATH` environment variable allows the proxy server to serve static resources and JavaScript files at the same URL where Magento would serve them.
 
-The proxy server also transforms host and referral headers to make them
-compatible with Magento settings.
+The proxy server also transforms host and referral headers to make them compatible with Magento settings.
 
 ### Root level ServiceWorker
 
-The `devServer` serves a JavaScript file at the root path that registers a
-ServiceWorker scoped to the whole website. It can also disable that
-ServiceWorker when caching would interfere with realtime changes.
+The `devServer` serves a JavaScript file at the root path that registers a ServiceWorker scoped to the whole website.
+It can also disable that ServiceWorker when caching would interfere with realtime changes.
+
+### Verbose debugging
+
+The `devServer` adds verbose debugging information to error pages to help with development.
 
 ## Optional Features
 
-The following `devServer` features are optional and are available on the
-initial run and confirmed on subsequent runs. They are configured in the
-`webpack.config.js` file.
+The following `devServer` features are optional and are available on the initial run and confirmed on subsequent runs.
+They are configured in the `webpack.config.js` file.
 
 ### Custom hostname
 
 The custom hostname feature creates a local hostname for the current project.
-An entry in the hostfile is added to resolve the hostname to the local
-machine.
+An entry in the hostfile is added to resolve the hostname to the local machine.
 
-_**Note:** Modifying the hostfile requires elevated permissions, so you may
-be prompted for a password during the setup process._
+{: .bs-callout .bs-callout-info}
+**Note:**
+Modifying the hostfile requires elevated permissions, so you may be prompted for a password during the setup process. 
+
+### GraphQL Playground IDE
+
+The `devServer` can be configured to provide a [GraphQL Playground IDE][GraphQL Playground feature] to debug the GraphQL queries in the project.
 
 ### SSL certificate configuration
 
-The `devServer` can be configured to create and cache a 'self-signed' SSL
-certificate that allow the use of HTTPS-only features during development.
+The `devServer` can be configured to create and cache a 'self-signed' SSL certificate that allow the use of HTTPS-only features during development.
 
-_**Note:** Updating the OS security settings to trust the self-signed
-certificate requires elevated permissions, so you may be prompted for a
-password during the setup process._
+{: .bs-callout .bs-callout-info}
+**Note:**
+Updating the OS security settings to trust the self-signed certificate requires elevated permissions, so
+you may be prompted for a password during the setup process.
 
 ### Content transformation
 
@@ -79,16 +79,13 @@ attributes, replacing it with the development server domain name.
 
 The `PWADevServerOptions` object contains the following properties:
 
-| Property: Type                   | Description                                                                                                      |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `publicPath: string`             | **Required.** The public path to the theme assets in the backend server.                                         |
-| `backendDomain: string`          | **Required.** The URL of the backend store.                                                                      |
-| `paths:`[`LocalProjectLocation`] | **Required.** Describes the location of the public static assets directory and where to deploy JavaScript files. |
-| `serviceWorkerFileName: string`  | **Required.** The name of the ServiceWorker file this theme creates, such as `sw.js`.                            |
-| `provideSSLCert: boolean`        | **Optional.** Toggles the [create SSL certificate] feature. Set `true` to create an SSL certificate for the dev server *and* to configure the OS and browser to trust the certificate if possible.
-| `provideUniqueHost: string|boolean` | **Optional.** Toggles the [create custom hostname] feature. Set `true` to create a unique hostname using the `package.json` `"name"` field. Or, set a custom string, e.g. `"my-special-pwa"`, to override the package name.
-| `id: string`                     | **Optional.** Toggles and customizes the [create custom hostname] feature. Create a custom hostname exactly from the ID string, without adding a hash to ensure uniqueness. Overrides `provideUniqueHost`.
-| `changeOrigin: boolean`          | **Experimental.** Toggles the [change origins in HTML] feature. Defaults to `false`.                                      |
+| Property: Type                                        | Description                                                                                                                                                                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `publicPath: string`                                  | **Required.** The public path to the theme assets in the backend server.                                                                                                                                     |
+| `provideSecureHost: boolean/SecureHostOptions`        | Use a [secure and unique hostname for the dev server][]                                                                                                                                                      |
+| `graphqlPlayground: boolean/GraphQLPlaygroundOptions` | Enable the [GraphQL Playground feature][]                                                                                                                                                                    |
+| `provideSSLCert: boolean`                             | **Optional.** Toggles the [create SSL certificate] feature. Set `true` to create an SSL certificate for the dev server *and* to configure the OS and browser to trust the certificate if possible.           |
+| `id: string`                                          | **Deprecated.** Toggles and customizes the [create custom hostname] feature. Create a custom hostname exactly from the ID string, without adding a hash to ensure uniqueness. Overrides `provideSecureHost`. |
 {:style="table-layout:auto"}
 
 **Return:**
@@ -113,14 +110,11 @@ module.exports = async env => {
         /* webpack entry, output, rules, etc */
 
         devServer: await PWADevServer.configure({
-            publicPath: '/pub/static/frontend/Vendor/theme/en_US/',
-            backendDomain: 'https://magento2.localdomain',
-            serviceWorkerFileName: 'sw.js',
-            paths: {
-                output: path.resolve(__dirname, 'web')
-            },
-            provideUniqueHost: 'magento-venia',
-            provideSSLCert: true
+            publicPath: '/',
+            provideSecureHost: true,
+            graphqlPlayground: {
+              queryDirs: ['src/queries']
+            }
         })
     };
 
@@ -141,71 +135,121 @@ To get the best performance from the ServiceWorker, set `config.output.publicpat
 
 ## Creating an SSL Certificate
 
-PWA features like ServiceWorkers and Push Notifications are only available on
-HTTPS secure domains (though some browsers make exceptions for the domain
-`localhost`. HTTPS development is becoming the norm, but creating a
-self-signed certificate and configuring your server and browser for it can
-still be a complex process. The `PWADevServerOptions.provideSSLCert`
-configuration flag tells PWADevServer to look for a cached SSL certificate,
-or create one for the dev server to use.
+PWA features like ServiceWorkers and Push Notifications are only available on HTTPS secure domains (though some browsers make exceptions for the domain `localhost`.
+HTTPS development is becoming the norm, but creating a self-signed certificate and configuring your server and browser to support this is a complex process.
 
-It also attempts to use OS-level security settings to "trust" this certificate,
-so you don't have to manually override when the browser tells you the
-certificate authority is unknown. Browsers will soon start requiring trust as
-well as SSL itself to enable some features.
 
-**PWADevServer uses OpenSSL to generate these certificates; your operating
-system must have an `openssl` command of version 1.0 or above to use this
-feature.**
+The `PWADevServerOptions.provideSSLCert` configuration flag tells PWADevServer to look for a cached SSL certificate, or create one for the dev server to use.
 
-This feature also requires administrative access, so it may prompt you for
-an administrative password at the command line. It does not permanently
-elevate permissions for the dev process; instead, it launches a privileged
-subprocess to execute one command.
+It uses OS-level security settings to "trust" this certificate and prevents unknown certificate authority errors in the browser.
+In the future, browsers will start requiring trust as well as SSL itself to enable some features.
 
-## Creating a custom hostname
+{: .bs-callout .bs-callout-info}
+**Note:**
+PWADevServer uses OpenSSL to generate these certificates; your operating system must have an `openssl` command of version 1.0 or above to use this feature.
 
-PWA features like ServiceWorkers use the concept of a 'scope' to separate
-installed ServiceWorkers from each other. A scope is a combination of a domain
-name, port, and path. If you use `localhost` for development multiple PWAs,
-you run the risk of their Service Workers overriding or colliding with each
-other.
+This feature requires administrative access, so
+it may prompt you for an administrative password at the command line.
+It does not permanently elevate permissions for the dev process;
+instead, it launches a privileged subprocess to execute one command.
 
-One solution to this is to create a custom local hostname for each project.
-The `PWADevServerOptions.provideUniqueHost` and `PWADevServerOptions.id`
-configuration flags tell PWADevServer to create and route a hostname on first
-run, and verify it on subsequent runs.
+## Creating a secure and unique hostname
 
-Set `provideUniqueHost: true` for the simplest configuration. This option
-detects the project name by looking up the `name` property in `package.json`,
-and combines it with a short hash string derived from the project directory.
-This ensures a consistent domain while working in the same directory, and also
-automatically different URLs for projects at different paths. For example, the
-`name` field in Venia is `theme-frontend-venia`, so an autogenerated unique
-host might look like `https://theme-frontend-venia-a6g2k.local.pwadev`.
+PWA features, such as ServiceWorkers, use the concept of a 'scope' to separate installed ServiceWorkers from each other.
+A scope is a combination of a domain name, port, and path.
+If you use `localhost` for developing multiple PWAs, you run the risk of Service Workers overriding or colliding with each other.
 
-Set `provideUniqueHost` to a string value to partly customize this behavior.
-This option uses the provided string instead of looking up the project name in
-`package.json`. For example, `provideUniqueHost: "kookaburra"` might produce a
-hostname like `https://kookaburra-na87h.local.pwadev`.
+The `PWADevServerOptions.provideSecureHost` configuration option solves this problem by telling the PWADevServer to generate a unique hostname.
+This configuration option expects a boolean value or a [`SecureHostOptions`][] configuration object.
 
-Set `id` to a string value to create a custom domain name, but override both the
-automated name lookup and the hashing behavior to ensure uniqueness.
-For example, `id: "my-special-pwa"` would produce the hostname
-`https://my-special-pwa.local.pwadev`, whereas
-`provideUniqueHost: "my-special-pwa"` might produce the hostname
-`https://my-special-pwa-c712jb.local.pwadev`. *To ensure no collision of Service
-Workers, the `provideUniqueHost` option is recommended.*
+Set `provideSecureHost` to `true` to use the default behavior for setting the hostname.
+The default behavior generates a subdomain for `local.pwadev` using the project name in `package.json` plus a hash.
+It also generates a unique port for the dev server.
+The hash string and port are derived from the filesystem path, so
+the values stay the same unless the project is moved.
 
-## Change Origins In HTML URLs
+For example, the `name` field in the `package.json` file for Venia is `theme-frontend-venia`, so
+an autogenerated, unique host can look like the following:
 
-The `PWADevServerOptions.changeOrigin` property toggles an experimental feature
-that tries to parse HTML responses from the proxied Magento backend and replaces
-its domain name with the dev server domain name.
+``` sh
+https://theme-frontend-venia-a6g2k.local.pwadev.
+```
+
+{: .bs-callout .bs-callout-info}
+**Note:**
+The first time the DevServer runs, it needs temporary permission to edit the hostfile and trust the SSL certificate, so
+it will prompt you for your system password.
+
+### Specifying a port
+
+There is no configuration option for disabling the unique port generation and usage.
+To override the port for one session, use the environment variable `PWA_STUDIO_PORTS_DEVELOPMENT` to specify a port.
+
+{: .bs-callout .bs-callout-info}
+**Note:**
+If PWADevServer detects that the project port is in use, it will print a warning and use a different port temporarily.
+
+### `SecureHostOptions`
+
+You can set the value of `provideSecureHost` to a JavaScript object to explicitly set the hostname for the dev server:
+
+| Property                  | Description                                                                             |
+| ------------------------- | --------------------------------------------------------------------------------------- |
+| [`subdomain: string`][]   | A custom subdomain string to use instead of the name in `package.json`.                 |
+| [`exactDomain: string`][] | A fully qualified domain to use. Ignores `addUniqueHash` if set.                        |
+| `addUniqueHash: boolean`  | Add a short string of URL-safe characters to the subdomain. The default value is `true` |
+{:style="table-layout:auto"}
+
+#### `subdomain`
+
+The `subdomain` property overrides the default behavior of using the project name in `package.json` as part of the subdomain.
+A unique hash is still appended when using this option.
+
+For example, setting `subdomain` to `kookaburra` will generate a hostname that looks like the following:
+
+```sh
+https://kookaburra-na87h.local.pwadev
+```
+
+This is the recommended option for naming a dev server because it guarantees no collisions between Service Workers.
+
+#### `exactDomain`
+
+The `exactDomain` property overrides both `subdomain` and `addUniqueHash` options.
+This lets you specify the exact domain for your dev server.
+The domain will not have a unique hash appended to it, but
+it will still have a unique port.
+
+For example, setting `exactDomain` to `my-special-pwa` will generate a hostname that looks like the following:
+
+```sh
+https://my-special-pwa.local.pwadev
+```
+
+## GraphQL Playground feature
+
+[GraphQL Playground][] is an enhanced version of the in-browser GraphQL debugging tool GraphiQL.
+
+Enable this feature by setting the `PWADevServerOptions.graphqlPlayground` configuration option to `true`.
+
+Browse to the `/graphiql` path on your PWADevServer to use this feature.
+
+### `GraphQLPlaygroundOptions`
+
+Instead of a boolean value, you can specify the following GraphQL Playground options by passing in a JavaScript object:
+
+| Property              | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| `queryDirs: string[]` | A list of directories to scan that contain GraphQL(`.graphql`) files. |
+{:style="table-layout:auto"}
 
 [create SSL certificate]: #creating-an-ssl-certificate
-[create custom hostname]: #creating-a-custom-hostname
-[change origins in HTML]: #change-origins-in-html-urls
+[secure and unique hostname for the dev server]: #creating-a-secure-and-unique-hostname
 [`devServer`]: https://webpack.js.org/configuration/dev-server/
 [Promise]: https://webpack.js.org/configuration/configuration-types/#exporting-a-promise
+[`SecureHostOptions`]: #securehostoptions
+[`subdomain: string`]: #subdomain
+[`exactDomain: string`]: #exactdomain
+[GraphQL Playground feature]: #graphql-playground-feature
+[GraphQL Playground]: https://github.com/prisma/graphql-playground
 [`LocalProjectLocation`]: {{ site.baseurl }}{%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation
