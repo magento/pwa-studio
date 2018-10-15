@@ -35,7 +35,8 @@ class ProductEdit extends Component {
             return {
                 attributeCode: option.attribute_code,
                 items: options,
-                position: option.position
+                position: option.position,
+                label: option.label
             }
         });
         return productOptions;

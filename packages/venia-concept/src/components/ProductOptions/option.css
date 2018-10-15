@@ -7,6 +7,7 @@
     justify-content: center;
     position: relative;
     border-radius: 5%;
+    cursor: pointer;
 }
 
 .childrenContainer {
