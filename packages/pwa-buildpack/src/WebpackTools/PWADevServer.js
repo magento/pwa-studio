@@ -67,7 +67,10 @@ const PWADevServer = {
                         '\n' +
                         chalk.blueBright(
                             `GraphQL Playground ready at ${chalk.blueBright.underline(
-                                devServerConfig.publicPath
+                                new url.URL(
+                                    '/graphiql',
+                                    devServerConfig.publicPath
+                                )
                             )}`
                         );
                 }

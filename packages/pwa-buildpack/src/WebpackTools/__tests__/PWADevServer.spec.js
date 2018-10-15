@@ -243,8 +243,8 @@ test('graphql-playground middleware attached', async () => {
     const [notifier] = waitUntilValid.mock.calls[0];
     notifier();
     const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
-    expect(consoleOutput).toMatch('PWADevServer ready at');
-    expect(consoleOutput).toMatch('GraphQL Playground ready at');
+    expect(consoleOutput).toMatch(/PWADevServer ready at/);
+    expect(consoleOutput).toMatch(/GraphQL Playground ready at .+?\/graphiql/);
 });
 
 test('graphql-playground middleware attached with custom queryDirs', async () => {
