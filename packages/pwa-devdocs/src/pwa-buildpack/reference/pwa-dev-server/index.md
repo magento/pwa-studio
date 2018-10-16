@@ -49,7 +49,7 @@ An entry in the hostfile is added to resolve the hostname to the local machine.
 
 {: .bs-callout .bs-callout-info}
 **Note:**
-Modifying the hostfile requires elevated permissions, so you may be prompted for a password during the setup process. 
+Modifying the hostfile requires elevated permissions, so you may be prompted for a password during the setup process.
 
 ### GraphQL Playground IDE
 
@@ -82,9 +82,8 @@ The `PWADevServerOptions` object contains the following properties:
 | Property: Type                                        | Description                                                                                                                                                                                                  |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `publicPath: string`                                  | **Required.** The public path to the theme assets in the backend server.                                                                                                                                     |
-| `provideSecureHost: boolean/SecureHostOptions`        | Use a [secure and unique hostname for the dev server][]                                                                                                                                                      |
-| `graphqlPlayground: boolean/GraphQLPlaygroundOptions` | Enable the [GraphQL Playground feature][]                                                                                                                                                                    |
-| `provideSSLCert: boolean`                             | **Optional.** Toggles the [create SSL certificate] feature. Set `true` to create an SSL certificate for the dev server *and* to configure the OS and browser to trust the certificate if possible.           |
+| `provideSecureHost: boolean/SecureHostOptions`        | **Optional.** Use a [secure and unique hostname for the dev server][]                                                                                                                                                      |
+| `graphqlPlayground: boolean/GraphQLPlaygroundOptions` | **Optional.** Enable the [GraphQL Playground feature][]                                                                                                                                                                    |
 | `id: string`                                          | **Deprecated.** Toggles and customizes the [create custom hostname] feature. Create a custom hostname exactly from the ID string, without adding a hash to ensure uniqueness. Overrides `provideSecureHost`. |
 {:style="table-layout:auto"}
 
