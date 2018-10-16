@@ -27,12 +27,12 @@ class Receipt extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.body}>
-                    <h2>Thank you for your purchase!</h2>
+                    <h2 className={classes.header}>Thank you for your purchase!</h2>
                     <div className={classes.textBlock}>
                         Your order # is{' '}
                         <span className={classes.orderId}>{orderId}</span>
                         <br />
-                        We\'ll email you an order confirmation with details and
+                        We'll email you an order confirmation with details and
                         tracking info
                     </div>
                     <ReceiptButton onClick={resetCheckout} type="reset">
