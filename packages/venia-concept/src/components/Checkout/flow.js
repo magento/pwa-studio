@@ -42,13 +42,7 @@ class Flow extends Component {
 
     get child() {
         const { actions, cart, checkout } = this.props;
-        const {
-            beginCheckout,
-            editOrder,
-            resetCheckout,
-            submitInput,
-            submitOrder
-        } = actions;
+        const { beginCheckout, editOrder, submitInput, submitOrder } = actions;
         const { editing, step, submitting } = checkout;
         const { details } = cart;
         const ready = isCartReady(details.items_count);
@@ -74,9 +68,7 @@ class Flow extends Component {
                 return <Form {...stepProps} />;
             }
             case 3: {
-                const stepProps = { resetCheckout };
-
-                return <Receipt {...stepProps} />;
+                return <Receipt />;
             }
             default: {
                 return null;

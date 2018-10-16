@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { func, shape, string, number } from 'prop-types';
-
+import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
 import defaultClasses from './receipt.css';
@@ -16,16 +15,25 @@ class Receipt extends Component {
             root: string
         }),
         resetCheckout: func.isRequired,
-        orderId: number
+        order: shape({
+            id: string
+        })
     };
 
     static defaultProps = {
-        //TODO: implement fetching of orderId
-        orderId: 777
+        order: {}
     };
 
+    componentWillUnmount() {
+        this.props.reset();
+    }
+
     render() {
-        const { classes, resetCheckout, orderId } = this.props;
+        const {
+            classes,
+            resetCheckout,
+            order: { id }
+        } = this.props;
 
         return (
             <div className={classes.root}>
@@ -35,7 +43,7 @@ class Receipt extends Component {
                     </h2>
                     <div className={classes.textBlock}>
                         Your order # is{' '}
-                        <span className={classes.orderId}>{orderId}</span>
+                        <span className={classes.orderId}>{id}</span>
                         <br />
                         We'll email you an order confirmation with details and
                         tracking info
@@ -55,5 +63,4 @@ class Receipt extends Component {
         );
     }
 }
-
 export default classify(defaultClasses)(Receipt);

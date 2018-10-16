@@ -180,8 +180,8 @@ test('submitOrder thunk dispatches actions on success', async () => {
     await submitOrder()(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
-    expect(dispatch).toHaveBeenNthCalledWith(2, actions.order.accept(response));
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept(response));
+    expect(dispatch).toHaveBeenCalledTimes(3);
 });
 
 test('submitOrder thunk dispatches actions on failure', async () => {
