@@ -181,16 +181,20 @@ class ProductFullDetail extends Component {
     };
 
     get stockMessage() {
-        let { product, classes } = this.props;
-        const currentProduct = this.getCurrentConfiguration(
-            product,
-            this.state.selectedOptions
-        );
-        const stockMessage =
-            currentProduct && currentProduct.stock_status === 'OUT_OF_STOCK'
-                ? 'Product not in stock'
-                : null;
-        return <p className={classes.stockMessage}> {stockMessage} </p>;
+        if (this.props.product.__typename === 'ConfigurableProduct') {
+            let { product, classes } = this.props;
+            const currentProduct = this.getCurrentConfiguration(
+                product,
+                this.state.selectedOptions
+            );
+            const stockMessage =
+                currentProduct && currentProduct.stock_status === 'OUT_OF_STOCK'
+                    ? 'Product not in stock'
+                    : null;
+            return <p className={classes.stockMessage}> {stockMessage} </p>;
+        } else {
+            return null;
+        }
     }
 
     render() {
