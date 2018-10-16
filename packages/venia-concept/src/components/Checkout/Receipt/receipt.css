@@ -11,7 +11,7 @@
 }
 
 .body {
-    padding: 1.5rem 1rem 1rem;
+    padding: 20px 32px 16px;
 }
 
 .footer {
@@ -20,4 +20,21 @@
     justify-content: center;
     margin: 0 1.5rem;
     padding: 1rem 0;
+}
+
+.textBlock {
+    margin: 24px 0 24px;
+    line-height: 29px;
+    font-size: 14px;
+}
+
+.orderId {
+    color: #22a1a8;
+    text-decoration: underline;
+}
+
+.header {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 20px;
 }
