@@ -1,0 +1,26 @@
+query productDetail($urlKey: String, $onServer: Boolean!) {
+    productDetail: products(filter: { url_key: { eq: $urlKey } }) {
+        items {
+            sku
+            name
+            price {
+                regularPrice {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+            }
+            description
+            media_gallery_entries {
+                label
+                position
+                disabled
+                file
+            }
+            meta_title @include(if: $onServer)
+            meta_keyword @include(if: $onServer)
+            meta_description @include(if: $onServer)
+        }
+    }
+}
