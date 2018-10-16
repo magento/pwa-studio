@@ -3,7 +3,9 @@
     background-color: #00898d;
     border: 1px solid currentColor;
     border-radius: 1.5rem;
-    color: rgb(var(--venia-teal));
+    color: #ffffffff;
+    font-size: 14px;
+    font-weight: 600;
     font-size: 0.875rem;
     height: 3rem;
     min-width: 8.75rem;

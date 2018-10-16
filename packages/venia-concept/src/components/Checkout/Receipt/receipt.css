@@ -31,3 +31,9 @@
     color: #22a1a8;
     text-decoration: underline;
 }
+
+.header {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 20px;
+}
