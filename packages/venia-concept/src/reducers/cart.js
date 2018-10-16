@@ -3,8 +3,6 @@ import { handleActions } from 'redux-actions';
 import actions from 'src/actions/cart';
 import checkoutActions from 'src/actions/checkout';
 
-import omit from 'src/util/omit';
-
 export const name = 'cart';
 
 const initialState = {
@@ -26,7 +24,10 @@ const reducerMap = {
     },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
-            return omit(state, 'guestCartId');
+            return {
+                ...state,
+                guestCartId: null
+            };
         }
 
         return {
