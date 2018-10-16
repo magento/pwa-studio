@@ -4,7 +4,7 @@ import { bool, func, object, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Cart from './cart';
 import Form from './form';
-import Receipt from './receipt';
+import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 
 const stepMap = {

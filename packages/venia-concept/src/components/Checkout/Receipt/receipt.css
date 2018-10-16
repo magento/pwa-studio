@@ -21,3 +21,13 @@
     margin: 0 1.5rem;
     padding: 1rem 0;
 }
+
+.textBlock {
+    margin: 24px 0 24px;
+    line-height: 29px;
+}
+
+.orderId {
+    color: #22a1a8;
+    text-decoration: underline;
+}
