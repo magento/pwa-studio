@@ -1,5 +1,6 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { exposeSlices } from './enhancers';
+import composeEnhancers from './composeEnhancers';
 import middleware from './middleware';
 
 const reducer = (state = {}) => state;
@@ -7,10 +8,7 @@ const reducer = (state = {}) => state;
 const initStore = () =>
     createStore(
         reducer,
-        compose(
-            applyMiddleware(...middleware),
-            exposeSlices
-        )
+        composeEnhancers(applyMiddleware(...middleware), exposeSlices)
     );
 
 export default initStore;

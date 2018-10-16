@@ -5,7 +5,6 @@
 [ ] `venia-concept`
 [ ] `pwa-buildpack`
 [ ] `peregrine`
-[ ] `pwa-module`
 [ ] `pwa-devdocs`
 [ ] `upward-js`
 [ ] `upward-spec`

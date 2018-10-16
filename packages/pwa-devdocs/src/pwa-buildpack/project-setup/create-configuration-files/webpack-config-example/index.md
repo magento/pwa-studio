@@ -81,7 +81,7 @@ module.exports = async function(env) {
     if (env.phase === "development") {
         config.devServer = await PWADevServer.configure({
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+            backendDomain: process.env.MAGENTO_BACKEND_URL,
             serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
             paths: themePaths,
             id: path.basename(__dirname) // Defaults to theme directory name
