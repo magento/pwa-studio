@@ -1,0 +1,18 @@
+type Author {
+  id: Int
+  name: String
+  bio: String
+}
+type Article {
+  id: Int
+  title: String
+  text: String
+  author: Author
+}
+type Query {
+  author(id: Int): Author
+  article(id: ): Article
+}
+schema {
+  query: Query
+}

@@ -1,0 +1,15 @@
+status: 200
+headers:
+  inline:
+    content-type: application/json
+body:
+  engine: mustache
+  provide:
+    - salutation
+    - addressee
+  template:
+    inline: '{"greeting":"{{ salutation }}","subject":{{>json-subject}},"shouldYouReallyHandwriteJSON":"no"}'
+
+salutation:
+  inline: 'Hello'
+addressee: env.ADDRESSEE

@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Link, MemoryRouter } from 'react-router-dom';
@@ -25,7 +25,9 @@ const classes = {
 const validItem = {
     id: 1,
     name: 'Test Product',
-    small_image: '/foo/bar/pic.png',
+    small_image: {
+        path: '/foo/bar/pic.png'
+    },
     url_key: 'strive-shoulder-pack',
     price: {
         regularPrice: {

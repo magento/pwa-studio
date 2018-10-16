@@ -33,8 +33,7 @@ module.exports = async env => {
                 },
 
                 paths: {
-                    output: path.resolve(__dirname, 'web/js'),
-                    assets: path.resolve(__dirname, 'web')
+                    output: path.resolve(__dirname, 'web')
                 },
                 enableServiceWorkerDebugging: true,
                 serviceWorkerFileName: 'sw.js',
@@ -61,18 +60,18 @@ Plugin constructor for the `ServiceWorkerPlugin` class.
     Must be either `'development'` or `'production'`.
 
 `paths: Object` **(Required)**
-The local absolute paths to theme folders.
+The local absolute paths to project folders.
 
-- `paths.assets: String`
+- `paths.output: String`
 
-   The directory for public static assets.
+   The directory for build output.
 
 `enableServiceWorkerDebugging: Boolean`
 When `true`, hot reloading is enabled and the ServiceWorker is active in the document root, regardless of the publicPath value.
 When `false`, the ServiceWorker is disabled to prevent cache interruptions when hot reloading assets.
 
 `serviceWorkerFileName: String` **(Required)**
-The name of the ServiceWorker file this theme creates.
+The name of the ServiceWorker file this project creates.
 Example: `'sw.js'`
 
 `runtimeCacheAssetPath: String`

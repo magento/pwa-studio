@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { arrayOf, string, number, shape } from 'prop-types';
 import fixedObserver from 'src/util/fixedObserver';
 import initObserver from 'src/util/initObserver';
@@ -26,7 +26,9 @@ class GalleryItems extends Component {
             shape({
                 id: number.isRequired,
                 name: string.isRequired,
-                small_image: string.isRequired,
+                small_image: shape({
+                    path: string.isRequired
+                }).isRequired,
                 price: shape({
                     regularPrice: shape({
                         amount: shape({

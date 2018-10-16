@@ -43,7 +43,7 @@ In general, these plugins provide convenience and produce cleaner code in your p
 
 Create a `.env` file and assign values to the following environment variables:
 
-* `MAGENTO_BACKEND_DOMAIN` - Your local Magento store’s host and port.
+* `MAGENTO_BACKEND_URL` - Your local Magento store’s host and port.
 * `MAGENTO_BACKEND_PUBLIC_PATH` - PWA files are served from root during development, but
     this environment variable can later be used to simulate a deployed static path.
 * `SERVICE_WORKER_FILE_NAME` - Set this value to `"sw.js"`.
@@ -51,7 +51,7 @@ Create a `.env` file and assign values to the following environment variables:
 Your file should look like the following:
 
 ``` text
-MAGENTO_BACKEND_DOMAIN=https://localhost.magento:8008
+MAGENTO_BACKEND_URL=https://localhost.magento:8008
 
 MAGENTO_BACKEND_PUBLIC_PATH=/
 
@@ -77,10 +77,10 @@ require('dotenv').config();
 This imports the the contents of the `.env` file as environment variables using the `dotenv` module.
 These environment variables are accessed using the `process.env` global object.
 
-For example, the following code outputs the value of the `MAGENTO_BACKEND_DOMAIN` environment variable:
+For example, the following code outputs the value of the `MAGENTO_BACKEND_URL` environment variable:
 
 ``` javascript
-console.log(process.env.MAGENTO_BACKEND_DOMAIN);
+console.log(process.env.MAGENTO_BACKEND_URL);
 ```
 
 ### Import Webpack and pwa-buildpack libraries
@@ -103,13 +103,12 @@ const {
 
 Add the following content to `webpack.config.js` to define the paths to your theme resources:
 
-``` javascript 
+``` javascript
 const path = require('path');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js'),
+    output: path.resolve(__dirname, 'web'),
 };
 ```
 
@@ -132,8 +131,8 @@ module.exports = async function(env) {
         output: {
             path: themePaths.output,
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            filename: '[name].js',
-            chunkFilename: '[name].js'
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js'
         },
         module: {
             rules: [
@@ -196,7 +195,7 @@ Add the following development mode configuration before returning the `config` o
 if (env.phase === "development") {
     config.devServer = await PWADevServer.configure({
         publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-        backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
+        backendDomain: process.env.MAGENTO_BACKEND_URL,
         serviceWorkerFileName: process.env.SERVICE_WORKER_FILE_NAME,
         paths: themePaths,
         id: path.basename(__dirname) // Defaults to theme directory name

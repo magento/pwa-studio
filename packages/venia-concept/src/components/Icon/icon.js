@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import Feather from 'feather-icons';
 import PropTypes from 'prop-types';
 

@@ -1,0 +1,11 @@
+{{> templates/doctype-and-head-start}}
+    <title>Venia - Not Found</title>
+  </head>
+  <body>
+    <div id="root">
+        <h1>Not found!</h1>
+    </div>
+{{> templates/preloads}}
+{{> templates/scripts}}
+  </body>
+</html>

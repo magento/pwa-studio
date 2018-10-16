@@ -19,7 +19,7 @@ test('throws if options are missing', () => {
                 env: { phase: 'development' },
                 serviceWorkerFileName: 'file.name'
             })
-    ).toThrow('paths.assets must be of type string');
+    ).toThrow('paths.output must be of type string');
 });
 
 test('returns a valid Webpack plugin', () => {
@@ -31,7 +31,7 @@ test('returns a valid Webpack plugin', () => {
             serviceWorkerFileName: 'sw.js',
             runtimeCacheAssetPath: 'https://location/of/assets',
             paths: {
-                assets: 'path/to/assets'
+                output: 'path/to/assets'
             }
         })
     ).toHaveProperty('apply', expect.any(Function));
@@ -45,7 +45,7 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
         serviceWorkerFileName: 'sw.js',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
-            assets: 'path/to/assets'
+            output: 'path/to/assets'
         }
     });
     const workboxApply = jest.fn();
@@ -75,7 +75,7 @@ test('.apply calls nothing but warns in console in dev', () => {
         serviceWorkerFileName: 'sw.js',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
-            assets: 'path/to/assets'
+            output: 'path/to/assets'
         }
     });
     jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
@@ -103,7 +103,7 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
         serviceWorkerFileName: 'sw.js',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
-            assets: 'path/to/assets'
+            output: 'path/to/assets'
         }
     });
 
