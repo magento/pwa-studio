@@ -15,7 +15,8 @@ class Option extends Component {
             childrenContainer: string
         }),
         item: shape({
-            backgroundColor: string.isRequired,
+            backgroundColor: string,
+            swatchColor: string,
             isSelected: bool,
             attributeCode: string.isRequired,
             isDisabled: bool,

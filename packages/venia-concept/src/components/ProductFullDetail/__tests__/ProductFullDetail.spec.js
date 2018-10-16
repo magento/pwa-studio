@@ -13,7 +13,8 @@ configure({ adapter: new Adapter() });
 jest.mock('src/components/MiniCart', () => {});
 
 const classes = {
-    edit: 'a'
+    edit: 'a',
+    cartActions: 'b'
 };
 
 test('properly renders configurable product', async () => {
@@ -90,4 +91,19 @@ test('getCurrentConfiguration returns correct SKU', async () => {
         .instance()
         .getCurrentConfiguration(product, newState);
     expect(currentConfiguration.sku).toBe('MJ01-XS-Orange-Short');
+});
+
+test('`Add to cart` button is disabled when not all configurable options are selected', async () => {
+    const product = configurableWithThreeOptions.data.productDetail.items[0];
+    const mock = jest.fn;
+    let wrapper = shallow(
+        <ProductFullDetail
+            product={product}
+            addItemToCart={mock}
+            addConfigurableItemToCart={mock}
+            classes={classes}
+        />
+    ).dive();
+    const isDisabled = wrapper.instance().isButtonDisabled;
+    expect(isDisabled).toBe(true);
 });

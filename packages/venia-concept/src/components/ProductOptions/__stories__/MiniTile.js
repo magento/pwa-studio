@@ -15,25 +15,25 @@ import 'src/index.css';
 const stories = storiesOf('Product Options/Mini Tile', module);
 
 stories.add('Mini Tile', () => (
-    <Option item={miniTile} {...miniTileOptions()}>
+    <Option item={miniTile()} {...miniTileOptions}>
         Test
     </Option>
 ));
 
 stories.add('Mini Tile disabled', () => (
-    <Option item={miniTileDisabled} {...miniTileOptions()}>
+    <Option item={miniTileDisabled} {...miniTileOptions}>
         Test
     </Option>
 ));
 
 stories.add('Mini Tile selected', () => (
-    <Option item={miniTileSelected} {...miniTileOptions()}>
+    <Option item={miniTileSelected} {...miniTileOptions}>
         Test
     </Option>
 ));
 
 stories.add('Mini Tile disabled and selected', () => (
-    <Option item={miniTileDisabledAndSelected} {...miniTileOptions()}>
+    <Option item={miniTileDisabledAndSelected} {...miniTileOptions}>
         Test
     </Option>
 ));

@@ -43,10 +43,6 @@ class Product extends Component {
         })
     };
 
-    addToCart = async (item, quantity) => {
-        await this.props.addItemToCart({ item, quantity });
-    };
-
     render() {
         const { addItemToCart, addConfigurableItemToCart } = this.props;
         return (

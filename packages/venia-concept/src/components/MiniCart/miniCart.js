@@ -136,15 +136,6 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 <div className={classes.body}>{productList}</div>
-                <button
-                    onClick={() =>
-                        this.setState({
-                            editPanelOpen: !this.state.editPanelOpen
-                        })
-                    }
-                >
-                    Edit item 1
-                </button>
                 <div className={classes.footer}>
                     <div className={classes.summary}>{totalsSummary}</div>
                 </div>

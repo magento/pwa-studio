@@ -177,7 +177,7 @@ class ProductFullDetail extends Component {
         const { product } = this.props;
         const { quantity } = this.state;
 
-        await this.props.addItemToCart({ product, quantity });
+        await this.props.addItemToCart({ item: product, quantity });
     };
 
     get stockMessage() {
@@ -197,17 +197,33 @@ class ProductFullDetail extends Component {
         }
     }
 
+    get isButtonDisabled() {
+        if (this.props.product.__typename === 'ConfigurableProduct') {
+            const options = Object.keys(this.state.selectedOptions);
+            const isDisabled = options.some(option => {
+                const optionEmpty =
+                    Object.keys(this.state.selectedOptions[option]).length ===
+                    0;
+                return optionEmpty;
+            });
+            return isDisabled;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         const { classes, product } = this.props;
         const {
             stockMessage,
             productEdit,
-            addItemToCart,
-            addConfigurableToCart
+            addToCart,
+            addConfigurableToCart,
+            isButtonDisabled
         } = this;
         const { regularPrice } = product.price;
 
-        let onAddToCart = addItemToCart;
+        let onAddToCart = addToCart;
         if (product.__typename === 'ConfigurableProduct') {
             onAddToCart = addConfigurableToCart;
         }
@@ -247,7 +263,7 @@ class ProductFullDetail extends Component {
                     </Button>
                 </section>
                 <section className={classes.cartActions}>
-                    <Button onClick={onAddToCart}>
+                    <Button disabled={isButtonDisabled} onClick={onAddToCart}>
                         <span>Add to Cart</span>
                     </Button>
                 </section>

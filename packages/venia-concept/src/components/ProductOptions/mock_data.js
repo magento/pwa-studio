@@ -12,6 +12,7 @@ export const tileItem = (text = 'test') => {
     return {
         backgroundColor: '0 0 0',
         name: text,
+        attributeCode: 'size',
         ...baseOptions
     };
 };
@@ -40,11 +41,11 @@ export const tileItemDisabledAndSelected = () => {
 
 export const tileOptions = (text = 'test') => {
     return {
-        attributeCode: 'size',
         handleClick: () => {
-            window.alert('hello world');
+            console.log('hello world');
         },
-        children: text
+        children: text,
+        attributeCode: 'size'
     };
 };
 
@@ -61,44 +62,42 @@ export const tileItems = Array(10)
 //Mini Tile Mock Data//
 ///////////////////////
 
-export const miniTile = {
-    backgroundColor: '0 0 0',
-    name: 'disabled',
-    ...baseOptions
+export const miniTile = () => {
+    return {
+        backgroundColor: '0 0 0',
+        name: 'disabled',
+        attributeCode: 'sleeve',
+        ...baseOptions
+    };
 };
 
 export const miniTileDisabled = {
-    ...miniTile,
+    ...miniTile(),
     isDisabled: true
 };
 
 export const miniTileSelected = {
-    ...miniTile,
+    ...miniTile(),
     isSelected: true
 };
 
 export const miniTileDisabledAndSelected = {
-    ...miniTile,
+    ...miniTile(),
     isSelected: true,
     isDisabled: true
 };
 
-export const miniTileOptions = () => {
-    return {
-        handleClick: () => {
-            window.alert('hello world');
-        },
-        attributeCode: 'sleeve',
-        children: 'Test'
-    };
+export const miniTileOptions = {
+    attributeCode: 'sleeve',
+    children: 'Test'
 };
 
 export const miniTiles = Array(4)
     .fill(undefined)
     .map(() => {
         return {
-            item: miniTile,
-            ...miniTileOptions()
+            item: miniTile(),
+            ...miniTileOptions
         };
     });
 
@@ -114,10 +113,7 @@ const randomSwatchItem = () => {
             ...swatchItem,
             swatchColor: `${randColor()} ${randColor()} ${randColor()}`
         },
-        attributeCode: 'color',
-        handleClick: () => {
-            window.alert('hello world');
-        }
+        attributeCode: 'color'
     };
 };
 
@@ -125,6 +121,7 @@ export const swatchItem = {
     swatchColor: `${randColor()} ${randColor()} ${randColor()}`,
     name: 'Swatch',
     onclick: () => console.log('Swatch'),
+    attributeCode: 'size',
     ...baseOptions
 };
 
@@ -139,10 +136,7 @@ export const swatchItemSelected = {
 };
 
 export const swatchOptions = {
-    attributeCode: 'color',
-    handleClick: () => {
-        window.alert('hello world');
-    }
+    attributeCode: 'color'
 };
 
 export const swatchItems = Array(8)

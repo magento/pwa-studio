@@ -17,21 +17,23 @@ class Options extends Component {
     state = { selected: null };
 
     select = item => {
+        const options = {};
         if (this.state.selected === item.id) {
             this.setState({
                 selected: null
             });
+            options[item.attributeCode] = {};
+            this.props.onSelect(options);
         } else {
             this.setState({
                 selected: item.id
             });
+            options[item.attributeCode] = {
+                label: item.label,
+                value_index: item.value_index
+            };
+            this.props.onSelect(options);
         }
-        const options = {};
-        options[item.attributeCode] = {
-            label: item.label,
-            value_index: item.value_index
-        };
-        this.props.onSelect(options);
     };
 
     render() {

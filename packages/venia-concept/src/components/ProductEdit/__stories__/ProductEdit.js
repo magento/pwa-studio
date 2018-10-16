@@ -13,6 +13,7 @@ stories.add(
     withReadme(docs, () => (
         <ProductEdit
             item={configurableWithThreeOptions.data.productDetail.items[0]}
+            onOptionChange={() => {}}
         >
             Test
         </ProductEdit>
