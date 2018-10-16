@@ -121,7 +121,7 @@ Configuration options for this feature are:
 
 :information_source: Default behavior is to use the `package.json` plus hash
 as a subdomain of `local.pwadev`. To use this default behavior, simply set
-`provideUniqueHost: true`.
+`provideSecureHost: true`.
 
 :information_source: There is no configuration option for disabling unique port
 generation and use. To override the port for one session, use the environment
