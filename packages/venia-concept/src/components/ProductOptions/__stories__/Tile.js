@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import Options from '../options';
-import tileClasses from '../tile.css';
 import {
     tileItem,
+    tileOptions,
     tileItemDisabled,
     tileItemSelected,
     tileItemDisabledAndSelected,
@@ -15,21 +15,20 @@ import 'src/index.css';
 const stories = storiesOf('Product Options/Tile', module);
 
 stories.add('Tile', () => (
-    <Option item={tileItem()} classes={tileClasses}>
-        {' '}
-        Test{' '}
+    <Option item={tileItem()} {...tileOptions()}>
+        <p>Test</p>
     </Option>
 ));
 
 stories.add('Tile disabled', () => (
-    <Option name={'test'} item={tileItemDisabled()} classes={tileClasses}>
+    <Option name={'test'} item={tileItemDisabled()} {...tileOptions()}>
         {' '}
         Test{' '}
     </Option>
 ));
 
 stories.add('Tile selected', () => (
-    <Option name={'test'} item={tileItemSelected()} classes={tileClasses}>
+    <Option name={'test'} item={tileItemSelected()} {...tileOptions()}>
         {' '}
         Test{' '}
     </Option>
@@ -39,7 +38,7 @@ stories.add('Tile selected and disabled', () => (
     <Option
         name={'test'}
         item={tileItemDisabledAndSelected()}
-        classes={tileClasses}
+        {...tileOptions()}
     >
         {' '}
         Test{' '}

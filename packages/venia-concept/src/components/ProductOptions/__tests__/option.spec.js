@@ -31,9 +31,8 @@ test('deselelects on second click', async () => {
     let wrapper = mount(
         <Options options={miniTiles} classes={classes} onSelect={mock} />
     );
-    const componentInstance = wrapper
-        .childAt(0) // could also be .find(Foo)
-        .instance();
+    const componentInstance = wrapper.childAt(0).instance();
+
     wrapper
         .find('.a')
         .first()

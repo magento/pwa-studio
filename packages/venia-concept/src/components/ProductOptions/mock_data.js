@@ -12,8 +12,6 @@ export const tileItem = (text = 'test') => {
     return {
         backgroundColor: '0 0 0',
         name: text,
-        onclick: () => console.log('hey'),
-        attributeCode: 'size',
         ...baseOptions
     };
 };
@@ -40,30 +38,32 @@ export const tileItemDisabledAndSelected = () => {
     };
 };
 
-export const tileListItem = (text = 'test') => {
+export const tileOptions = (text = 'test') => {
     return {
-        item: {
-            ...tileItem(text)
+        attributeCode: 'size',
+        handleClick: () => {
+            window.alert('hello world');
         },
-        attributeCode: 'color',
         children: text
     };
 };
+
+export const tileItems = Array(10)
+    .fill(undefined)
+    .map((item, index) => {
+        return {
+            item: tileItem(),
+            ...tileOptions(index.toString())
+        };
+    });
 
 ///////////////////////
 //Mini Tile Mock Data//
 ///////////////////////
 
-export const tileItems = Array(10)
-    .fill(undefined)
-    .map((item, index) => {
-        return tileListItem(index.toString());
-    });
-
 export const miniTile = {
     backgroundColor: '0 0 0',
     name: 'disabled',
-    onclick: () => console.log('hey'),
     ...baseOptions
 };
 
@@ -83,10 +83,10 @@ export const miniTileDisabledAndSelected = {
     isDisabled: true
 };
 
-export const miniTileItem = () => {
+export const miniTileOptions = () => {
     return {
-        item: {
-            ...miniTile
+        handleClick: () => {
+            window.alert('hello world');
         },
         attributeCode: 'sleeve',
         children: 'Test'
@@ -96,7 +96,10 @@ export const miniTileItem = () => {
 export const miniTiles = Array(4)
     .fill(undefined)
     .map(() => {
-        return miniTileItem();
+        return {
+            item: miniTile,
+            ...miniTileOptions()
+        };
     });
 
 ////////////////////
@@ -109,14 +112,17 @@ const randomSwatchItem = () => {
     return {
         item: {
             ...swatchItem,
-            backgroundColor: `${randColor()} ${randColor()} ${randColor()}`
+            swatchColor: `${randColor()} ${randColor()} ${randColor()}`
         },
-        attributeCode: 'color'
+        attributeCode: 'color',
+        handleClick: () => {
+            window.alert('hello world');
+        }
     };
 };
 
 export const swatchItem = {
-    backgroundColor: '128 0 0',
+    swatchColor: `${randColor()} ${randColor()} ${randColor()}`,
     name: 'Swatch',
     onclick: () => console.log('Swatch'),
     ...baseOptions
@@ -130,6 +136,13 @@ export const swatchItemDisabled = {
 export const swatchItemSelected = {
     ...swatchItem,
     isSelected: true
+};
+
+export const swatchOptions = {
+    attributeCode: 'color',
+    handleClick: () => {
+        window.alert('hello world');
+    }
 };
 
 export const swatchItems = Array(8)

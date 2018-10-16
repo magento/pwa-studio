@@ -16,7 +16,7 @@ class Option extends Component {
         }),
         item: shape({
             backgroundColor: string.isRequired,
-            isSelected: bool.isRequired,
+            isSelected: bool,
             attributeCode: string.isRequired,
             isDisabled: bool,
             label: string.isRequired,
@@ -42,8 +42,20 @@ class Option extends Component {
         const { item, children, attributeCode } = this.props;
         let { classes } = this.props;
         const { check } = this;
-        const { backgroundColor, label, isSelected, isDisabled } = item;
-        const style = { '--background-color': backgroundColor };
+        const {
+            swatchColor,
+            backgroundColor,
+            label,
+            isSelected,
+            isDisabled
+        } = item;
+        //
+        // TODO: When swatch_color is implemented in graphQL or if we add swatch_images,
+        // rework the way backgroundColor is set in the parent component
+        const style = !!swatchColor
+            ? { '--background-color': `rgb(${swatchColor})` }
+            : { '--background-color': backgroundColor };
+
         const additionalClasses = attributeCode
             ? this.styleOptions[attributeCode]
             : classes;
@@ -52,6 +64,7 @@ class Option extends Component {
         let buttonClasses = isSelected
             ? `${classes.root} ${classes.selected}`
             : classes.root;
+
         buttonClasses = isDisabled
             ? `${buttonClasses} ${classes.disabled}`
             : buttonClasses;

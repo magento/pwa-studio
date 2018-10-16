@@ -2,7 +2,11 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import ProductFullDetail from '../ProductFullDetail';
-import { mockStockData, productWithThreeOptions } from '../mockData';
+import {
+    nonConfigurableStock,
+    configurableStockData,
+    configurableWithThreeOptions
+} from '../mockData';
 
 configure({ adapter: new Adapter() });
 
@@ -12,8 +16,36 @@ const classes = {
     edit: 'a'
 };
 
+test('properly renders configurable product', async () => {
+    const product = configurableStockData.data.productDetail.items[0];
+    const mock = jest.fn;
+    let wrapper = shallow(
+        <ProductFullDetail
+            product={product}
+            addItemToCart={mock}
+            addConfigurableItemToCart={mock}
+            classes={classes}
+        />
+    ).dive();
+    wrapper.instance().render();
+});
+
+test('properly renders nonconfigurable product', async () => {
+    const product = nonConfigurableStock.data.productDetail.items[0];
+    const mock = jest.fn;
+    let wrapper = shallow(
+        <ProductFullDetail
+            product={product}
+            addItemToCart={mock}
+            addConfigurableItemToCart={mock}
+            classes={classes}
+        />
+    ).dive();
+    wrapper.instance().render();
+});
+
 test('shows `out of stock` message when current configuration is unavailable.', async () => {
-    const product = mockStockData.data.productDetail.items[0];
+    const product = configurableStockData.data.productDetail.items[0];
     const mock = jest.fn;
     let wrapper = shallow(
         <ProductFullDetail
@@ -37,7 +69,7 @@ test('shows `out of stock` message when current configuration is unavailable.', 
 });
 
 test('getCurrentConfiguration returns correct SKU', async () => {
-    const product = productWithThreeOptions.data.productDetail.items[0];
+    const product = configurableWithThreeOptions.data.productDetail.items[0];
     const newState = {};
     product.configurable_options.forEach(option => {
         newState[option.attribute_code] = {

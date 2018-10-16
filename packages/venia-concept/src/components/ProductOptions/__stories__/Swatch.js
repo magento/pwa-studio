@@ -2,27 +2,25 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Option from '../option';
 import Options from '../options';
-import swatchClasses from '../swatch.css';
 import {
     swatchItem,
     swatchItemDisabled,
     swatchItemSelected,
-    swatchItems
+    swatchItems,
+    swatchOptions
 } from '../mock_data';
 import 'src/index.css';
 
 const stories = storiesOf('Product Options/Swatch', module);
 
-stories.add('Swatch', () => (
-    <Option item={swatchItem} classes={swatchClasses} />
-));
+stories.add('Swatch', () => <Option item={swatchItem} {...swatchOptions} />);
 
 stories.add('Swatch disabled', () => (
-    <Option item={swatchItemDisabled} classes={swatchClasses} />
+    <Option item={swatchItemDisabled} {...swatchOptions} />
 ));
 
 stories.add('Swatch selected', () => (
-    <Option item={swatchItemSelected} classes={swatchClasses} />
+    <Option item={swatchItemSelected} {...swatchOptions} />
 ));
 
 stories.add('Swatch options', () => <Options options={swatchItems} />);

@@ -81,7 +81,44 @@ const data = {
     price: '$160.00'
 };
 
-export const outOfStockData = {
+export const nonConfigurableStock = {
+    data: {
+        productDetail: {
+            __typename: 'Products',
+            items: [
+                {
+                    description:
+                        '<p>The sporty Joust Duffle Bag can\'t be beat - not in the gym, not on the luggage carousel, not anywhere. Big enough to haul a basketball or soccer ball and some sneakers with plenty of room to spare, it\'s ideal for athletes with places to go.<p>\n<ul>\n<li>Dual top handles.</li>\n<li>Adjustable shoulder strap.</li>\n<li>Full-length zipper.</li>\n<li>L 29" x W 13" x H 11".</li>\n</ul>',
+                    media_gallery_entries: [
+                        {
+                            __typename: 'MediaGalleryEntry',
+                            file: '/m/b/mb01-blue-0.jpg',
+                            label: 'Image',
+                            disabled: false,
+                            position: 1
+                        }
+                    ],
+                    sku: '24-MB01',
+                    name: 'Joust Duffle Bag',
+                    __typename: 'SimpleProduct',
+                    price: {
+                        __typename: 'ProductPrices',
+                        regularPrice: {
+                            amount: {
+                                __typename: 'Money',
+                                value: 34,
+                                currency: 'GBP'
+                            },
+                            __typename: 'Price'
+                        }
+                    }
+                }
+            ]
+        }
+    }
+};
+
+export const configurableOutOfStockData = {
     data: {
         productDetail: {
             items: [
@@ -607,7 +644,7 @@ export const outOfStockData = {
     }
 };
 
-export const mockStockData = {
+export const configurableStockData = {
     data: {
         productDetail: {
             items: [
@@ -872,7 +909,7 @@ export const mockStockData = {
     }
 };
 
-export const productWithThreeOptions = {
+export const configurableWithThreeOptions = {
     data: {
         productDetail: {
             items: [
