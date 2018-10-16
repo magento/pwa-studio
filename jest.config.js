@@ -4,6 +4,7 @@ module.exports = {
     projects: [
         'packages/peregrine',
         'packages/pwa-buildpack',
+        'packages/upward-js',
         'packages/venia-concept',
         'scripts'
     ],
@@ -11,6 +12,7 @@ module.exports = {
     collectCoverageFrom: [
         'scripts/**/*.js',
         'src/**/*.js',
+        'lib/**/*.js',
         '!**/__stories__/**',
         '!**/__helpers__/**'
     ],

@@ -7,18 +7,19 @@ const {
         ServiceWorkerPlugin,
         DevServerReadyNotifierPlugin,
         MagentoResolver,
+        UpwardPlugin,
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
+const pkg = require(path.resolve(__dirname, 'package.json'));
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
-    assets: path.resolve(__dirname, 'web'),
-    output: path.resolve(__dirname, 'web/js')
+    output: path.resolve(__dirname, 'dist')
 };
 
 // mark dependencies for vendor bundle
@@ -36,10 +37,12 @@ module.exports = async function(env) {
 
     const babelOptions = configureBabel(phase);
 
-    const enableServiceWorkerDebugging = Boolean(
-        process.env.ENABLE_SERVICE_WORKER_DEBUGGING
-    );
-    const serviceWorkerFileName = process.env.SERVICE_WORKER_FILE_NAME;
+    const enableServiceWorkerDebugging =
+        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+
+    const serviceWorkerFileName =
+        process.env.SERVICE_WORKER_FILE_NAME ||
+        pkg.config.serviceWorkerFileName;
 
     const config = {
         context: __dirname, // Node global for the running script's directory
@@ -48,9 +51,9 @@ module.exports = async function(env) {
         },
         output: {
             path: themePaths.output,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            filename: '[name].js',
-            chunkFilename: '[name]-[chunkhash].js',
+            publicPath: '/',
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name]-[chunkhash].js',
             pathinfo: true
         },
         module: {
@@ -130,13 +133,20 @@ module.exports = async function(env) {
     if (phase === 'development') {
         config.devtool = 'eval-source-map';
 
-        config.devServer = await PWADevServer.configure({
-            serviceWorkerFileName,
-            publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths,
-            id: 'magento-venia'
-        });
+        const devServerConfig = {
+            publicPath: config.output.publicPath
+        };
+        const provideHost = !!process.env.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
+        if (provideHost) {
+            devServerConfig.provideSecureHost = {
+                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!process.env
+                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+            };
+        }
+        config.devServer = await PWADevServer.configure(devServerConfig);
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -147,7 +157,11 @@ module.exports = async function(env) {
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer)
+            new DevServerReadyNotifierPlugin(config.devServer),
+            new UpwardPlugin(
+                config.devServer,
+                path.resolve(__dirname, 'venia-upward.yml')
+            )
         );
     } else if (phase === 'production') {
         config.performance = {
@@ -162,12 +176,24 @@ module.exports = async function(env) {
                 parallel: true,
                 uglifyOptions: {
                     ecma: 8,
+                    parse: {
+                        ecma: 8
+                    },
+                    compress: {
+                        ecma: 6
+                    },
+                    output: {
+                        ecma: 7,
+                        semicolons: false
+                    },
                     keep_fnames: true
                 }
             })
         );
     } else {
-        throw Error(`Unsupported environment phase in webpack config: `);
+        throw Error(
+            `Unsupported environment phase in webpack config: ${phase}`
+        );
     }
     return config;
 };

@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -11,7 +11,9 @@ const items = [
     {
         id: 1,
         name: 'Test Product 1',
-        small_image: '/test/product/1.png',
+        small_image: {
+            path: '/test/product/1.png'
+        },
         price: {
             regularPrice: {
                 amount: {
@@ -24,7 +26,9 @@ const items = [
     {
         id: 2,
         name: 'Test Product 2',
-        small_image: '/test/product/2.png',
+        small_image: {
+            path: '/test/product/2.png'
+        },
         price: {
             regularPrice: {
                 amount: {

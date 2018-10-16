@@ -44,39 +44,82 @@ All packages are versioned in a single repo, but released to `npm` as independen
 
 This repository includes the following packages:
 
-* [venia-concept](packages/venia-concept) - Reference/Concept Theme
+* [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 * [peregrine](packages/peregrine/README.md) - eCommerce Component Library
-* [pwa-module](packages/pwa-module)
 * [pwa-devdocs](packages/pwa-devdocs) - Project source for the [documentation site]
+* [upward-js](packages/upward-js) - Reference implementation of the UPWARD specification
+* [upward-spec](packages/upward-spec) - UPWARD specification and test suite
 
-## Install project dependencies
+## Quick Setup
+
+PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architecture means that the Magento instance does not need to be configured to use your project as a theme. Instead, you connect to your Magento instance by simply specifying its URL in your environment.
+
+### Obtain Magento 2.3
+
+1. Make sure the Magento instance you're using is set to development mode, and has the latest 2.3.
+
+   * You need development mode for GraphQL introspection queries to work.
+   * The latest codebase will have the most up-to-date GraphQL schema.
+
+2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
+
+One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box.](https://github.com/paliarush/magento2-vagrant-for-developers/).
+
+#### Using the Vagrant Box
+
+1. Clone the https://github.com/paliarush/magento2-vagrant-for-developers/ repository and follow the [setup instructions](https://github.com/paliarush/magento2-vagrant-for-developers/#installation-steps).
+
+2. Make sure that all [sample data auto-installation parameters in the config.yaml](https://github.com/paliarush/magento2-vagrant-for-developers/blob/2.0/etc/config.yaml.dist#L49-L51) file are disabled.
+
+3. When installation is complete, then install the Venia sample data. Copy [this shell script](https://gist.github.com/mhhansen/19775bcf93614f5f9db34b90273fa2b8) and save it in your Magento root directory as `installVeniaSampleData.sh`.
+
+4. Run `vagrant ssh` to login to the Magento VM.
+
+5. Run `bash installVeniaSampleData.sh`. The Venia sample data should install, and the Vagrant host is ready to use.
+
+6. Update your `.env` file in PWA Studio to set `MAGENTO_BACKEND_URL` to the URL of the Vagrant box.
+
+### Install Dependencies
 
 _**Note**: You must have a version of `node.js` >= `8.0.0`, and a version of `npm` >= `5.0.0`. The latest LTS versions of both are recommended._
 
 Follow these steps to install the dependencies for all the packages in the project:
 
-1.  Clone the repository
-2.  Navigate to the root of the repository from the command line
-3.  Run `npm install`
-4.  Watch the bootstrapping take place.
-5.  To run the Venia theme development experience, run `npm run watch:venia` from package root.
-6.  To run the full PWA Studio deeloper experience, with Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds, run `npm run watch:all` from package root.
+1. Clone the repository.
+2. Navigate to the root of the repository from the command line
+3. Run `npm install`
+4. Copy `packages/venia-concept/example.env` to `packages/venia-concept/.env`
+5. Uncomment the line for `MAGENTO_BACKEND_URL` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_URL` to the fully-qualified URL of a Magento store running `2.3`.
+6. On your first install, run `npm run build` from package root.
+7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
+
+## Troubleshooting
+
+### When I run the developer mode, I get validation errors
+
+Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/example.env`.
+
+### Venia queries to GraphQL produce validation errors
+
+Venia and its GraphQL queries may be out of sync with the schema of your connected Magento instance. Make sure the Magento instance is up to date with the 2.3 development branch, and your copy of this repository (or your dependency on it) is up to date.
+
+**To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
 
 ## Things not to do
 
-When using a monorepo and lerna, it's important that you break some common habits that are common when developing front-end packages.
-
-* Do _not_ run `npm install` to get `node_modules` up to date within any folder under `packages/`.
-  Instead, run `npm install` in the root of the repo, which will ensure all package's dependencies are up-to-date.
-* When adding a new entry to `devDependencies` in a package's `package.json`, ask yourself whether that dependency will be used across multiple packages.
-  If the answer is "yes," the dependency should instead be installed in the root `package.json`. This will speed up runs of `lerna bootstrap`.
+* Our monorepo is set up so that `npm install` can cross-link dependencies (such as Venia's dependency on Buildpack) without any extra tools. Do not run `lerna bootstrap`.
+* All devDependencies are installed in the repository root. This means that **all scripts must be run from repository root**; otherwise, the locally installed CLI commands they use will not be available.
+* Production dependencies are sometimes installed in child packages, but for some projects, such as Venia, it makes no sense to have production dependencies, because of bundling.
+* Don't check in a big change to `package-lock.json`, and don't check in any `package-lock.json` files but the root one.
+* Make sure to run `npm run prettier` and `npm run lint` before any commit you intend to push. You may want to set up a [Git hook] for this.
 
 [documentation site]: https://magento-research.github.io/pwa-studio/
 [CircleCI]: https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg
 [Coverage Status]: https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master
 [Greenkeeper badge]: https://badges.greenkeeper.io/magento-research/pwa-studio.svg
 [Contribution guide]: .github/CONTRIBUTING.md
+[Git hook]: <https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
 
 [mage2pratik]: https://github.com/mage2pratik
 [mage2pratik-image]: https://avatars0.githubusercontent.com/u/33807558?s=120&v=4

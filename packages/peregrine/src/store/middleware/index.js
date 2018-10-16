@@ -1,5 +1,10 @@
 import thunk from 'redux-thunk';
-
 import log from './log';
 
-export default [thunk, log];
+const middleware = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+    middleware.push(log);
+}
+
+export default middleware;

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+UPWARD_JS_BIND_LOCAL=1 \
+UPWARD_JS_LOG_URL=1 \
+UPWARD_JS_UPWARD_PATH="$UPWARD_PATH" exec ./bin/server

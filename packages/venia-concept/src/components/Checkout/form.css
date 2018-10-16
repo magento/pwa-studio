@@ -1,29 +1,12 @@
 .root {
-    background-color: white;
-    bottom: 0;
-    box-shadow: 0 -1px rgb(var(--venia-border)), 0 -1px 6px rgb(0, 0, 0, 0.2);
-    left: 0;
-    min-height: 8rem;
-    position: absolute;
-    right: 0;
 }
 
 .body {
-    animation-duration: 224ms;
-    animation-iteration-count: 1;
-    animation-name: enter;
-    display: grid;
-    position: relative;
+    composes: body from './flow.css';
 }
 
 .footer {
-    align-items: center;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    margin: 0 1.5rem;
-    padding: 1.5rem 0 1rem;
-    position: relative;
+    composes: footer from './flow.css';
 }
 
 @keyframes enter {

@@ -1,6 +1,9 @@
 {
   "name": "@magento/peregrine",
-  "version": "0.4.0",
+  "version": "2.0.0-rc2.0.5",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "The core runtime of Magento PWA",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -17,27 +20,25 @@
     "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "clean": "rimraf dist",
     "danger": "danger-ci",
-    "prepare": "npm-merge-driver install",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "watch": "npm run -s build -- --watch"
   },
   "peerDependencies": {
     "babel-runtime": "^6.26.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0"
   },
   "devDependencies": {
     "@storybook/react": "^3.4.2",
-    "babel-runtime": "^6.26.0",
     "babel-cli": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "danger": "^3.9.0",
-    "npm-merge-driver": "^2.3.5",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
