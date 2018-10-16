@@ -1,7 +1,7 @@
 {
   "name": "pwa-devdocs",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0-rc2.0.5",
   "description": "A documentation site for Magento PWA",
   "main": "gulpfile.js",
   "dependencies": {
@@ -10,7 +10,6 @@
     "jekyll-tasks": "^1.2.1",
     "jquery": "^3.3.1"
   },
-  "devDependencies": {},
   "scripts": {
     "build": "gulp build",
     "build-production": "jekyll build --source src/ --config src/_config.yml,_config-production.yml",

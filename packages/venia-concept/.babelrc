@@ -6,12 +6,8 @@
                 "transform-class-properties",
                 "transform-es2015-modules-commonjs",
                 "transform-object-rest-spread",
-                [
-                    "transform-react-jsx",
-                    {
-                        "pragma": "createElement"
-                    }
-                ]
+                "import-graphql",
+                "transform-react-jsx"
             ]
         }
     }

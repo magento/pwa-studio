@@ -1,0 +1,6 @@
+status: 200
+headers:
+  inline:
+    content-type: text/plain
+body:
+  inline: 'Hello World, concisely!!'

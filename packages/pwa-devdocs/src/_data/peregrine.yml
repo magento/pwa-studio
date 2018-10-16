@@ -2,8 +2,17 @@ title: Peregrine
 entries:
   - label: Overview
     url: /peregrine/
-  
-  - label: Component Reference
+
+  - label: Storybook UI testing
+    url: /peregrine/testing/storybook/
+
+  - label: Utility modules
+    entries:
+
+      - label: REST API client
+        url: /peregrine/reference/rest-api-client/
+
+  - label: React components
     entries:
 
       - label: ContainerChild

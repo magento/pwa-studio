@@ -1,61 +1,37 @@
 {
-    "name": "theme-frontend-venia",
-    "version": "0.1.1",
-    "description": "Venia PWA Concept Theme for Magento 2",
-    "license": "(OSL-3.0 OR AFL-3.0)",
-    "author": "Magento Commerce",
-    "main": "src/index.js",
-    "repository": "github:magento-research/pwa-studio",
-    "bugs": {
-      "url": "https://github.com/magento-research/pwa-studio/issues"
-    },
-    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
-    "scripts": {
-        "build": "webpack --progress --color --env.phase production",
-        "prepare": "npm-merge-driver install",
-        "start": "webpack-dev-server --progress --color --env.phase development",
-        "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development"
-    },
-    "dependencies": {
-        "@magento/peregrine": "^0.4.0",
-        "apollo-boost": "^0.1.9",
-        "babel-runtime": "^6.26.0",
-        "dotenv": "^6.0.0",
-        "feather-icons": "^4.6.0",
-        "graphql": "^0.13.2",
-        "graphql-tag": "^2.9.2",
-        "lodash.debounce": "^4.0.8",
-        "memoize-one": "^4.0.0",
-        "react": "^16.4.2",
-        "react-apollo": "^2.1.5",
-        "react-dom": "^16.4.2",
-        "react-redux": "^5.0.6",
-        "react-router-dom": "^4.2.2",
-        "redux": "^4.0.0"
-    },
-    "devDependencies": {
-        "@magento/pwa-buildpack": "^0.8.2",
-        "babel-core": "^6.26.0",
-        "babel-loader": "^7.1.2",
-        "babel-plugin-graphql-tag": "^1.6.0",
-        "babel-plugin-syntax-dynamic-import": "^6.18.0",
-        "babel-plugin-syntax-jsx": "^6.18.0",
-        "babel-plugin-transform-class-properties": "^6.24.1",
-        "babel-plugin-transform-object-rest-spread": "^6.26.0",
-        "babel-plugin-transform-react-jsx": "^6.24.1",
-        "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
-        "babel-plugin-transform-runtime": "^6.23.0",
-        "babel-preset-env": "^1.6.1",
-        "css-loader": "^1.0.0",
-        "enzyme": "^3.3.0",
-        "enzyme-adapter-react-16": "^1.1.1",
-        "file-loader": "^1.1.9",
-        "identity-obj-proxy": "^3.0.0",
-        "npm-merge-driver": "^2.3.5",
-        "npm-run-all": "^4.1.2",
-        "style-loader": "^0.21.0",
-        "uglifyjs-webpack-plugin": "^1.2.7",
-        "webpack": "3.11.0",
-        "webpack-dev-server": "2.11.0"
-    }
+  "name": "@magento/venia-concept",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "2.0.0-rc2.0.5",
+  "description": "Venia PWA Concept Storefront for Magento 2",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "author": "Magento Commerce",
+  "main": "src/index.js",
+  "repository": "github:magento-research/pwa-studio",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "config": {
+    "serviceWorkerFileName": "sw.js"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
+  "scripts": {
+    "build": "webpack --color --env.phase production",
+    "clean": "rimraf dist",
+    "start": "node server.js",
+    "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
+    "validate-queries": "node ./validate-queries.js",
+    "watch": "webpack-dev-server --progress --color --env.phase development"
+  },
+  "dependencies": {
+    "@magento/pwa-buildpack": "^2.0.0-rc2.0.5",
+    "@magento/upward-js": "^2.0.0-rc2.0.5"
+  },
+  "devDependencies": {
+    "@magento/peregrine": "^2.0.0-rc2.0.5",
+    "rimraf": "^2.6.2",
+    "webpack": "3.11.0",
+    "webpack-dev-server": "2.11.0"
+  }
 }

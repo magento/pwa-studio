@@ -1,15 +1,19 @@
 {
-    "lerna": "2.11.0",
+    "version": "2.0.0-rc2.0.5",
     "packages": [
-        "packages/*"
+        "packages/peregrine",
+        "packages/pwa-buildpack",
+        "packages/pwa-devdocs",
+        "packages/upward-js",
+        "packages/upward-spec",
+        "packages/venia-concept"
     ],
-    "version": "independent",
     "npmClient": "npm",
     "command": {
         "publish": {
             "ignoreChanges": [
                 "__tests__/**",
-                "pwa-module"
+                "pwa-devdocs"
             ]
         }
     }

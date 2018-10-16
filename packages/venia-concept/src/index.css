@@ -11,11 +11,11 @@ html {
     --venia-text: 33, 33, 33;
     --venia-text-alt: 117, 117, 117;
     --venia-text-hint: 158, 158, 158;
+    --venia-text-spot: 255, 99, 51;
 }
 
 html {
     background-color: white;
-    font-family: var(--venia-font);
     font-size: 100%;
     font-weight: 400;
     line-height: 1;
@@ -28,6 +28,13 @@ body {
     color: rgb(var(--venia-text));
     margin: 0;
     padding: 0;
+}
+
+body,
+input,
+select,
+textarea {
+    font-family: var(--venia-font);
 }
 
 h1,
