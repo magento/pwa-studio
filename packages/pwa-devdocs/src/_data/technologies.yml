@@ -16,5 +16,8 @@ entries:
       - label: Container extensibility
         url: /technologies/basic-concepts/container-extensibility/
 
+      - label: CSS modules
+        url: /technologies/basic-concepts/css-modules/
       - label: GraphQL
         url: /technologies/basic-concepts/graphql/
+
