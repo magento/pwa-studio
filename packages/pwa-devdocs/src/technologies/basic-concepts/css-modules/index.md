@@ -1,28 +1,83 @@
 ---
 title: CSS Modules
-
 ---
 
-According to the [CSS Module] repository, *CSS Modules* are
-> CSS files which all class names and animations names are scoped locally by default
+A [CSS Module][] is a CSS file that define class and animations names that are scoped locally by default.
 
-This means that *CSS Modules* isn't an official specification nor a browser's feature. Instead, it's a process (compilation) that you have to execute by yourself within your project in order to convert your CSS Modules (scoped classes and selectors) into CSS files that the browser can parse and *understand*.
+CSS modules let you import your `.css` file into a JavaScript Object with the CSS definitions as properties.
+It also lets you use the `compose` property to extend and modularize style definitions.
 
-To achieve this, you'll need to use a build tool, like [Webpack] (and others).
+CSS modules do not have an official specification nor are they a browser feature.
+They are part of a compilation process that executes against your project to convert scoped classes and selectors into CSS files that the browser can parse and understand.
 
-PWA Studio supports this feature out-of-the-box, we'll see more on this in short.
+Tools such as [Webpack][] are used to perform this compilation process.
 
+PWA Studio supports CSS modules out-of-the-box and is the recommended approach for styling components.
 
-## Why you should use it?
-As you may know, React allows you to split the UI into independent and reusable components, which allows you to update small parts of your UI, instead of the entire *page*.
+## Why you should use CSS modules
 
-As your application starts to grow your components will do the same, and it's important to keep things under control, and also your styles.
+React lets you to split the UI into independent and reusable components, which allows you to update small parts of your UI without refreshing the page.
 
-*CSS Modules* enables you to control your element styles in a granular way, allowing you to build different layers of styles and, while building your , you'll see how easy and fast it is to achieve tasks like: upgrading buttons, headings, grids and so.
+As React applications grow, the amount of components and layers increases.
+Simple style changes can have unintended side effects on different parts of a complex page.
 
+CSS modules gives you the ability to control your element styles in a more granular way.
+They allow you to build different layers of styles while building your application using a modular approach.
+CSS modules make it easy and fast to achieve tasks such as upgrading buttons, headings, grids, etc.
+
+For more information on reusable components and code sharing in front end development see: [Block Element Modifier (BEM)][]
+
+## Webpack configuration
+
+[Webpack][] uses the Webpack [style-loader][] and [css-loader][] modules to bundle CSS styles using a configuration that looks like the following:
+
+``` javascript
+// webpack configuration
+{
+    test: /\.css$/,
+    use: [
+        'style-loader',
+        {
+            loader: 'css-loader',
+            options: {
+                importLoaders: 1,
+                localIdentName: '[name]-[local]-[hash:base64:3]',
+                modules: true
+            }
+        }
+    ]
+},
+```
+
+The following is an explanation of each `css-loader` configuration:
+
+`importLoaders`
+
+: Tells Webpack how many loaders to apply to imported resources before applying `css-loader`.
+
+`localIdentName`
+
+: Defines the format of the generated local ident.
+  In this case, it is a combination of the following values:
+
+  * `[name]` - the component name
+  * `[local]` - the CSS definition name
+  * `[hash:base64:3]` - a random base64 hash of 3 digits
+
+  **Example:** `Subtitle-titleHighlighted-rCN`
+
+`modules`
+
+: Enables or disables CSS modules.
+
+For more information about Webpack configuration, follow these links to the official documentation:
+
+* [Webpack CSS Loader modules documentation][]
+* [Webpack CSS Loader composing documentation][]
 
 ## How it works
-First we'll take a look at basic example of how styles are exposed without modules.
+
+The following is a basic example of how styles are used without modules:
 
 ``` css
 /* styles.css */
@@ -49,54 +104,38 @@ class Subtitle extends Component {
 export default Subtitle;
 ```
 
-In this case, we're not doing anything special. While this is perfectly valid, it has several downsizes as your app starts to grow (in the amount of components and CSS defs). Plus, all your defs will be shared across all components, forcing you to start reference your elements by it's DOM inheritance, creating unique def names and so.
+This approach is perfectly valid, but it has several downsides as the amount of components and CSS definitions grows.
+All your definitions are shared across all components which forces you to reference your elements by its DOM inheritance or create unique definition names.
 
+To avoid this, you can use CSS modules to create a component with locally scoped styles:
 
-### modules, importLoaders and localIdentName
-Instead, you can take advantages of CSS Modules and the local scope.
+``` jsx
+// subtitle.js
 
-CSS styles are bundled using [Webpack] (specifically [Webpack Style Loader] module), and configuring it to use modules, will enable you to structure you styles in a more reusable and modular way
+import React, { Component } from 'react';
+import myStyles from './styles.css';
 
-``` javascript
-// webpack configuration
-{
-    test: /\.css$/,
-    use: [
-        'style-loader',
-        {
-            loader: 'css-loader',
-            options: {
-                importLoaders: 1,
-                localIdentName: '[name]-[local]-[hash:base64:3]',
-                modules: true
-            }
-        }
-    ]
-},
+class Subtitle extends Component {
+  render() {
+    return (
+      <div>
+          <h2 className={ myStyles.heading }>My Title</h2>
+          <h2 className={ myStyles.titleHighlighted }>My Title</h2>
+      </div>
+    );
+  }
+}
+
+export default Subtitle;
 ```
 
-Taking a closer look into the options:
-* `importLoaders` - will tell webpack to interpret `import` directives in order to get the referenced CSS file from your React Component.
+## Creating and composing CSS modules
 
-* `localIdentName` - will change the CSS class name to contain the React Component name, the class name and a unique hash id to avoid name collision.
+Any valid `.css` file can be a CSS module.
+The difference is that the style definitions in that file is scoped to specific components instead of globally.
 
-  Deconstructing the config options:
-  * `[name]` - will render the component name
-  * `[local]` - renders the CSS definition name that's being applied
-  * `[hash:base64:3]` - will render a random base64 hash of 3 digits
-
-  * `[name]-[local]-[hash:base64:3]`, equals for example to: `Subtitle-titleHighlighted-rCN`
-
-
-* `modules` - will enable CSS Modules and scope locally to the Component all your defined styles. You now can import your .css file and get an Object in return, with all your CSS definitions as properties. Plus, you can will be able to use _composes_ property to extend and modularize your definitions even more.
-(more on this at [Webpack CSS Loader modules documentation])
-
-
-## Composing Styles
-**Note:** we're focusing here on how to implement _CSS Modules_, not how to decouple _React Components_.
-
-
-Suppose you have your `subtitle.js` component and the corresponding `styles.css` file in the same folder (pay special attention to the `composes` property)
+The `composes` property is used in CSS module files to combine local style definitions.
+The following example creates a CSS module that applies the `.heading` style definition wherever `.titleHighlighted` is used.
 
 ``` css
 /** ./styles.css */
@@ -112,12 +151,38 @@ Suppose you have your `subtitle.js` component and the corresponding `styles.css`
   text-align: center;
 }
 ```
-You probably noticed that now you can use `composes` to apply `.heading` definitions within `.titleHighlighted`.
 
-### Import and apply your styles
-Now let's see how we should import and implement those styles in our component.
+### Composing from another file
 
-In the next example, we'll create a _Subtitle_ component which gets the `titleHighlighted` class (which inherits `heading` class properties).
+By default, `composes` looks for style definitions in the local file.
+To reuse a definition from another file, use the `from` keyword.
+
+The following example `composes` the `heading` definition with the `baseHeading` definition from the `default_heading.css` file.
+
+``` css
+/* default_heading.css */
+.baseHeading { color: yellow; background-color: blue; margin: 0 0 1rem; }
+
+/* styles.css */
+.heading {
+  composes: baseHeading from './default_heading.css';
+  font-weight: bold;
+}
+```
+
+## Importing and applying styles
+
+The syntax for importing a CSS module is the same as importing a JavaScript module.
+
+``` jsx
+import myStyles from './styles.css';
+```
+
+The style definitions in the CSS module are available as properties of `myStyles`.
+They are used as values in an element's `className` attribute.
+
+The following example defines a `Subtitle` component which uses the `titleHighlighted` style definition:
+
 ``` jsx
 // ./subtitle.js
 import React, { Component } from 'react';
@@ -136,14 +201,9 @@ export Subtitle extends Component
 
 export default Subtitle;
 ```
-We changed how the styles are being imported at the beginning of the file:
-``` jsx
-import myStyles from './styles.css';
-```
 
-Since they're now returned as an `Object` (due to the `modules = true` in webpack  config file we set earlier), you'll have all your CSS class definitions available as properties of `myStyles`, and ready to use in the `className` attribute value.
+This example assigns a style based on component logic:
 
-This is particularly useful, since you can address your style assignment from your component logic, like so:
 ``` jsx
   render() {
     const { isHighlighted, title } = this.props;
@@ -159,34 +219,11 @@ This is particularly useful, since you can address your style assignment from yo
   }
 ```
 
-### Composing from another file
-There's one more feature to highlight, which is the ability to `compose` your styles by reusing definitions from another CSS files.
-
-This can be acomplished by specifying in the `compose` property, which definition you want to reuse, in conjuntion with the `from` keyword and the CSS file where that class lives in.
-
-Let's see an example:
-``` css
-/* default_heading.css */
-.baseHeading { color: yellow; background-color: blue; margin: 0 0 1rem; }
-
-/* styles.css */
-.heading {
-  composes: baseHeading from './default_heading.css';
-  font-weight: bold;
-}
-```
-
-
-## Further reading
-* [Webpack CSS Loader modules documentation]
-* [Webpack CSS Loader composing documentation]
-* [CSS Module] github repository
-* [Block Element Modifier (BEM)](http://getbem.com/)
-
-
 [Webpack]: https://webpack.js.org/
 [BEM]: http://getbem.com/
 [CSS Module]: https://github.com/css-modules/css-modules
-[Webpack Style Loader]: https://github.com/webpack-contrib/style-loader
+[style-loader]: https://github.com/webpack-contrib/style-loader
+[css-loader]: https://github.com/webpack-contrib/css-loader
 [Webpack CSS Loader composing documentation]: https://webpack.js.org/loaders/css-loader/#composing
 [Webpack CSS Loader modules documentation]: https://webpack.js.org/loaders/css-loader/#modules
+[Block Element Modifier (BEM)]: http://getbem.com/

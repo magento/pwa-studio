@@ -47,7 +47,6 @@ This repository includes the following packages:
 * [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 * [peregrine](packages/peregrine/README.md) - eCommerce Component Library
-* [pwa-module](packages/pwa-module)
 * [pwa-devdocs](packages/pwa-devdocs) - Project source for the [documentation site]
 * [upward-js](packages/upward-js) - Reference implementation of the UPWARD specification
 * [upward-spec](packages/upward-spec) - UPWARD specification and test suite

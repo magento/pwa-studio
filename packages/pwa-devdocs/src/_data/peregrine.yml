@@ -3,6 +3,9 @@ entries:
   - label: Overview
     url: /peregrine/
 
+  - label: Storybook UI testing
+    url: /peregrine/testing/storybook/
+
   - label: Utility modules
     entries:
 
