@@ -5,7 +5,6 @@ const {
     WebpackTools: {
         MagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
-        DevServerReadyNotifierPlugin,
         MagentoResolver,
         UpwardPlugin,
         PWADevServer
@@ -134,7 +133,10 @@ module.exports = async function(env) {
         config.devtool = 'eval-source-map';
 
         const devServerConfig = {
-            publicPath: config.output.publicPath
+            publicPath: config.output.publicPath,
+            graphqlPlayground: {
+                queryDirs: [path.resolve(themePaths.src, 'queries')]
+            }
         };
         const provideHost = !!process.env.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
         if (provideHost) {
@@ -157,7 +159,6 @@ module.exports = async function(env) {
             new webpack.NamedChunksPlugin(),
             new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer),
             new UpwardPlugin(
                 config.devServer,
                 path.resolve(__dirname, 'venia-upward.yml')
