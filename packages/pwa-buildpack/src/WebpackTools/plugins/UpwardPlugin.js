@@ -13,9 +13,9 @@ class UpwardPlugin {
         this.upwardPath = upwardPath;
         // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
-        devServer.after = app => {
+        devServer.after = (app, ...rest) => {
             app.use((req, res, next) => this.handleRequest(req, res, next));
-            if (oldAfter) oldAfter(app);
+            if (oldAfter) oldAfter(app, ...rest);
         };
     }
     apply(compiler) {

@@ -1,10 +1,19 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const debugErrorMiddleware = require('debug-error-middleware').express;
+const {
+    default: playgroundMiddleware
+} = require('graphql-playground-middleware-express');
 const url = require('url');
 const optionsValidator = require('../util/options-validator');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
+const { readdir: readdirAsync, readFile: readFileAsync } = require('fs');
+const { promisify } = require('util');
+const readdir = promisify(readdirAsync);
+const readFile = promisify(readFileAsync);
+const { resolve, relative } = require('path');
+const boxen = require('boxen');
 
 const secureHostWarning = chalk.redBright(
     `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
@@ -46,8 +55,36 @@ const PWADevServer = {
                 version: true,
                 warnings: true
             },
-            after(app) {
+            after(app, server) {
                 app.use(debugErrorMiddleware());
+                let readyNotice = chalk.green(
+                    `PWADevServer ready at ${chalk.greenBright.underline(
+                        devServerConfig.publicPath
+                    )}`
+                );
+                if (config.graphqlPlayground) {
+                    readyNotice +=
+                        '\n' +
+                        chalk.blueBright(
+                            `GraphQL Playground ready at ${chalk.blueBright.underline(
+                                new url.URL(
+                                    '/graphiql',
+                                    devServerConfig.publicPath
+                                )
+                            )}`
+                        );
+                }
+                server.middleware.waitUntilValid(() =>
+                    console.log(
+                        boxen(readyNotice, {
+                            borderColor: 'gray',
+                            float: 'center',
+                            align: 'center',
+                            margin: 1,
+                            padding: 1
+                        })
+                    )
+                );
             }
         };
         const { id, provideSecureHost } = config;
@@ -123,6 +160,45 @@ be configured to have the same effect as 'id'.
             }
         } else {
             console.warn(secureHostWarning + helpText);
+        }
+
+        const { graphqlPlayground } = config;
+        if (graphqlPlayground) {
+            const { queryDirs = [] } = config.graphqlPlayground;
+            const endpoint = '/graphql';
+
+            const tabs = await queryDirs.reduce(
+                async (queryTabs, dir) => [
+                    ...(await queryTabs),
+                    ...(await Promise.all(
+                        (await readdir(dir))
+                            .filter(filename => filename.endsWith('.graphql'))
+                            .map(async queryFile => ({
+                                endpoint,
+                                name: relative(
+                                    process.cwd(),
+                                    resolve(dir, queryFile)
+                                ),
+                                query: await readFile(
+                                    resolve(dir, queryFile),
+                                    'utf8'
+                                )
+                            }))
+                    ))
+                ],
+                []
+            );
+
+            devServerConfig.before = app => {
+                // this middleware has a bad habit of calling next() when it
+                // should not, so let's give it a noop next()
+                const noop = () => {};
+                const middleware = playgroundMiddleware({
+                    endpoint,
+                    tabs
+                });
+                app.get('/graphiql', (req, res) => middleware(req, res, noop));
+            };
         }
 
         // Public path must be an absolute URL to enable hot module replacement
