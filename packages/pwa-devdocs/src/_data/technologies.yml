@@ -23,3 +23,13 @@ entries:
 
   - label: UPWARD
     url: /technologies/upward/
+    entries:
+
+        - label: Reference implementation
+          url: /technologies/upward/reference-implementation/
+
+        - label: Echo example
+        - label: Request handling
+        - label: Resolvers
+        - label: Reducing Boilerplate
+        - label: Compliance testing
