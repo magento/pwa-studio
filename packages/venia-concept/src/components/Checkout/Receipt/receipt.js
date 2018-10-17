@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { func, shape, string, number } from 'prop-types';
 
 import classify from 'src/classify';
-import ReceiptButton from './ReceiptButton';
+import Button, { DARK_THEME_CLASSES } from 'src/components/Button';
 import defaultClasses from './receipt.css';
 
 class Receipt extends Component {
@@ -37,14 +37,20 @@ class Receipt extends Component {
                         We'll email you an order confirmation with details and
                         tracking info
                     </div>
-                    <ReceiptButton onClick={resetCheckout} type="reset">
+                    <Button
+                        classes={DARK_THEME_CLASSES}
+                        onClick={resetCheckout}
+                        type="reset"
+                    >
                         Continue Shopping
-                    </ReceiptButton>
+                    </Button>
                     <div className={classes.textBlock}>
                         Track order status and earn rewards for your purchase by
                         creating and account.
                     </div>
-                    <ReceiptButton>Create an Account</ReceiptButton>
+                    <Button classes={DARK_THEME_CLASSES}>
+                        Create an Account
+                    </Button>
                 </div>
             </div>
         );
