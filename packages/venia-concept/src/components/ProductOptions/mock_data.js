@@ -107,12 +107,12 @@ export const miniTiles = Array(4)
 
 const randColor = () => {
     let num = Math.floor(Math.random() * 255);
-    if (num < 10) {
+    let numString = num.toString(16);
+    if (numString.length == 1) {
         // Need to pad 0
-        num.toString(16);
-        return '0' + num;
+        return '0' + numString;
     } else {
-        return num.toString(16);
+        return numString;
     }
 };
 
