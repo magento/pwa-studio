@@ -1,0 +1,46 @@
+{
+  "name": "pwa-e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/protractor/bin/protractor ./bin/config/protractor.conf.js",
+    "pretest": "tsc",
+    "e2e:update": "./node_modules/.bin/webdriver-manager update",
+    "tsc": "tsc",
+    "start:chrome": "./node_modules/.bin/webdriver-manager start --chrome",
+    "update:android": "./node_modules/.bin/webdriver-manager update --android --android-accept-licenses",
+    "start:android": "./node_modules/.bin/webdriver-manager start --android",
+    "docs": "node ./node_modules/typedoc/bin/typedoc --options ./typedoc.js ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/cucumber": "^4.0.4",
+    "@types/faker": "^4.1.4",
+    "@types/node": "^10.9.4",
+    "@types/protractor": "^4.0.0",
+    "@types/selenium-webdriver": "^3.0.10",
+    "chai": "^4.1.2",
+    "cucumber": "^2.3.1",
+    "cucumber-tsflow": "^2.2.0",
+    "protractor": "^5.4.0",
+    "protractor-cucumber-framework": "^6.0.0",
+    "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typedoc": "^0.13.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "appium": "^1.9.1",
+    "axios": "^0.18.0",
+    "di-typescript": "^1.1.4",
+    "faker": "^4.1.0",
+    "reflect-metadata": "^0.1.12",
+    "wd": "^1.10.3",
+    "wd-bridge": "0.0.2"
+  }
+}
