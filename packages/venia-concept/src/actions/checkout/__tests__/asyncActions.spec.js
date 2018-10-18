@@ -10,6 +10,7 @@ import {
     submitInput,
     submitOrder
 } from '../asyncActions';
+import checkoutReceiptActions from 'src/components/Checkout/Receipt/actions';
 
 jest.mock('src/store');
 
@@ -180,6 +181,13 @@ test('submitOrder thunk dispatches actions on success', async () => {
     await submitOrder()(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        checkoutReceiptActions.setOrderInformation({
+            id: response,
+            billing_address: undefined
+        })
+    );
     expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept(response));
     expect(dispatch).toHaveBeenCalledTimes(3);
 });
