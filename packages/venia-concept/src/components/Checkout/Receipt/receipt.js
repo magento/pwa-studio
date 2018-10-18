@@ -5,6 +5,9 @@ import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
 import defaultClasses from './receipt.css';
 
+export const CONTINUE_SHOPPING = 'Continue Shopping';
+export const CREATE_AN_ACCOUNT = 'Create an Account';
+
 class Receipt extends Component {
     static propTypes = {
         classes: shape({
@@ -38,14 +41,14 @@ class Receipt extends Component {
                         tracking info
                     </div>
                     <Button classes={darkThemeClasses} onClick={resetCheckout}>
-                        Continue Shopping
+                        {CONTINUE_SHOPPING}
                     </Button>
                     <div className={classes.textBlock}>
                         Track order status and earn rewards for your purchase by
                         creating and account.
                     </div>
                     <Button classes={darkThemeClasses}>
-                        Create an Account
+                        {CREATE_AN_ACCOUNT}
                     </Button>
                 </div>
             </div>
