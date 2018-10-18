@@ -105,23 +105,32 @@ export const miniTiles = Array(4)
 //Swatch Mock Data//
 ////////////////////
 
-const randColor = () => Math.floor(Math.random() * 255);
+const randColor = () => {
+    let num = Math.floor(Math.random() * 255);
+    if (num < 10) {
+        // Need to pad 0
+        num.toString(16);
+        return '0' + num;
+    } else {
+        return num.toString(16);
+    }
+};
 
 const randomSwatchItem = () => {
     return {
         item: {
             ...swatchItem,
-            swatchColor: `${randColor()} ${randColor()} ${randColor()}`
+            backgroundColor: `#${randColor()}${randColor()}${randColor()}`
         },
         attributeCode: 'color'
     };
 };
 
 export const swatchItem = {
-    swatchColor: `${randColor()} ${randColor()} ${randColor()}`,
+    backgroundColor: `#${randColor()}${randColor()}${randColor()}`,
     name: 'Swatch',
     onclick: () => console.log('Swatch'),
-    attributeCode: 'size',
+    attributeCode: 'color',
     ...baseOptions
 };
 

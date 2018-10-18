@@ -4,6 +4,7 @@ import classify from 'src/classify';
 import defaultClasses from './productEdit.css';
 import ProductOptions from 'src/components/ProductOptions';
 import OptionsHeader from 'src/components/ProductOptions/optionsHeader';
+import { mockColor } from './mockColor';
 
 class ProductEdit extends Component {
     static propTypes = {
@@ -21,8 +22,9 @@ class ProductEdit extends Component {
             const options = option.values.map(value => {
                 return {
                     item: {
-                        // TODO: Change backgroundColor to swatch_color
-                        backgroundColor: value.label,
+                        // TODO: remove mockColor once swatch_color is
+                        // implemented in graphql
+                        backgroundColor: mockColor[value.label],
                         label: value.label,
                         value_index: value.value_index,
                         attributeCode: option.attribute_code,

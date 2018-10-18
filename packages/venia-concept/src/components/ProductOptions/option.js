@@ -16,7 +16,6 @@ class Option extends Component {
         }),
         item: shape({
             backgroundColor: string,
-            swatchColor: string,
             isSelected: bool,
             attributeCode: string.isRequired,
             isDisabled: bool,
@@ -34,33 +33,55 @@ class Option extends Component {
 
     get check() {
         const { item } = this.props;
-        const { isSelected } = item;
+        const { isSelected, backgroundColor, attributeCode } = item;
 
-        return isSelected ? <Icon name="check" /> : null;
+        if (attributeCode === 'color') {
+            let checkmarkColor = 'check--light';
+            if (backgroundColor) {
+                checkmarkColor = this.isLight(backgroundColor)
+                    ? 'check--dark'
+                    : 'check--light';
+            }
+            const classes = this.mergedClasses(attributeCode);
+
+            return isSelected ? (
+                <span className={`${classes.check} ${classes[checkmarkColor]}`}>
+                    <Icon name="check" />
+                </span>
+            ) : null;
+        } else {
+            return null;
+        }
     }
 
-    render() {
-        const { item, children, attributeCode } = this.props;
-        let { classes } = this.props;
-        const { check } = this;
-        const {
-            swatchColor,
-            backgroundColor,
-            label,
-            isSelected,
-            isDisabled
-        } = item;
-        //
-        // TODO: When swatch_color is implemented in graphQL or if we add swatch_images,
-        // rework the way backgroundColor is set in the parent component
-        const style = !!swatchColor
-            ? { '--background-color': `rgb(${swatchColor})` }
-            : { '--background-color': backgroundColor };
+    isLight = color => {
+        color = color.replace('#', '');
+        let sum = parseInt(color[0] + color[1], 16);
+        sum += parseInt(color[2] + color[3], 16);
+        sum += parseInt(color[4] + color[5], 16);
+        return sum > 382.6;
+    };
 
+    mergedClasses = attributeCode => {
+        let { classes } = this.props;
         const additionalClasses = attributeCode
             ? this.styleOptions[attributeCode]
             : classes;
         classes = Object.assign(classes, additionalClasses);
+
+        return classes;
+    };
+
+    render() {
+        const { item, children } = this.props;
+        const { attributeCode } = item;
+        const { check, mergedClasses } = this;
+        const classes = mergedClasses(attributeCode);
+        const { backgroundColor, label, isSelected, isDisabled } = item;
+
+        // TODO: When swatch_color is implemented in graphQL or if we add swatch_images,
+        // rework the way backgroundColor is set in the parent component
+        const style = { '--background-color': `${backgroundColor}` };
 
         let buttonClasses = isSelected
             ? `${classes.root} ${classes.selected}`
@@ -79,7 +100,7 @@ class Option extends Component {
             >
                 <span className={classes.childrenContainer}>
                     <span className={classes.children}> {children} </span>
-                    <span className={classes.check}> {check} </span>
+                    {check}
                 </span>
                 <div className={classes.overlay} />
             </button>
