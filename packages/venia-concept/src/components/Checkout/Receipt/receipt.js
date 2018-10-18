@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { func, shape, string, number } from 'prop-types';
 
 import classify from 'src/classify';
-import ReceiptButton from './ReceiptButton';
+import Button, { darkThemeClasses } from 'src/components/Button';
 import defaultClasses from './receipt.css';
+
+export const CONTINUE_SHOPPING = 'Continue Shopping';
+export const CREATE_AN_ACCOUNT = 'Create an Account';
 
 class Receipt extends Component {
     static propTypes = {
@@ -37,14 +40,16 @@ class Receipt extends Component {
                         We'll email you an order confirmation with details and
                         tracking info
                     </div>
-                    <ReceiptButton onClick={resetCheckout} type="reset">
-                        Continue Shopping
-                    </ReceiptButton>
+                    <Button classes={darkThemeClasses} onClick={resetCheckout}>
+                        {CONTINUE_SHOPPING}
+                    </Button>
                     <div className={classes.textBlock}>
                         Track order status and earn rewards for your purchase by
                         creating and account.
                     </div>
-                    <ReceiptButton>Create an Account</ReceiptButton>
+                    <Button classes={darkThemeClasses}>
+                        {CREATE_AN_ACCOUNT}
+                    </Button>
                 </div>
             </div>
         );
