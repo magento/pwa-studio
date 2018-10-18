@@ -43,16 +43,36 @@
 
 .searchTrigger {
     composes: root from '../clickable.css';
-    transition-property: color;
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    align-items: baseline;
     height: 3rem;
     width: 3rem;
 }
 
+.searchTrigger::before {
+    position: relative;
+    display: inline-block;
+    border-style: solid;
+    border-width: .15rem .15rem 0 0;
+    content: '';
+    height: .45rem;
+    width: .45rem;
+    left: -.15rem;
+    top: -.45rem;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    transition-property: transform;
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
 .searchTriggerOpen { 
     composes: searchTrigger;
-    color: rgb(var(--venia-teal)); 
+}
+
+.searchTriggerOpen::before {
+    transform: rotate(-225deg); 
 }
 
 .logo {

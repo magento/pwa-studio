@@ -13,4 +13,4 @@ const { addReducer, dispatch, getState } = store;
 addReducer('app', appReducer);
 addReducer('directory', directoryReducer);
 
-export { Provider, addReducer, dispatch, getState };
+export { Provider, addReducer, dispatch, getState, store };

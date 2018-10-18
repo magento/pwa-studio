@@ -69,6 +69,7 @@ class Category extends Component {
         })
     };
 
+
     // TODO: Should not be a default here, we just don't have
     // the wiring in place to map route info down the tree (yet)
     static defaultProps = {

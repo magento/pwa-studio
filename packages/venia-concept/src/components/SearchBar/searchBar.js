@@ -5,75 +5,68 @@ import { withRouter } from 'react-router';
 import gql from 'graphql-tag';
 
 import classify from 'src/classify';
-import defaultClasses from './searchInput.css';
+import defaultClasses from './searchBar.css';
 
 import Icon from 'src/components/Icon';
 
-class SearchInput extends Component {
+class SearchBar extends Component {
     static propTypes = {
       classes: PropTypes.shape({
         searchBlock: PropTypes.string,
-        searchBlock_open: PropTypes.string
+        searchBlockOpen: PropTypes.string
       }) 
     };
-
-    constructor(props) {
-      super(props);
-      this.state = {
-        searchInput : ''
-      };
-    }
-
 
     async componentDidMount() {
       if (this.props.isOpen) {        
         document.getElementById("searchInput").focus();
       }
+      if (document.location.pathname === '/search') {
+        document.getElementById("searchInput").value = document.location.search.substring(1);
+      }
     }
 
     componentDidUpdate(prevProps) {
-      if (this.props.isOpen !== prevProps.isOpen && this.props.isOpen == true) {
-        document.getElementById("searchInput").focus();
+      if (this.props.isOpen !== prevProps.isOpen) {
+        if (this.props.isOpen == true) {
+          document.getElementById("searchInput").focus();
+        }
+        else {
+          document.getElementById("searchInput").blur();
+        }
       }
     }
 
     render() {
-      const { classes, isOpen } = this.props;
+      const { classes, isOpen, toggleSearch } = this.props;
 
-      const searchClass = isOpen ? classes.searchBlock_active: classes.searchBlock; 
+      const searchClass = isOpen ? classes.searchBlockOpen: classes.searchBlock; 
 
-      //Handle enter key to search!
       const enterSearch = (event) => {
           if (event.type === "click" || event.key === "Enter") {
             this.props.history.push(`/search?` + document.getElementById("searchInput").value);
           }
       };
 
-      const minimizeSearch = () => {
-          console.log("Blur");
-          //some Action here
-      };
-
       return (
           <div className={searchClass}>   
-              <span 
+              <button
                 className={classes.searchIcon}
                 onClick={enterSearch}
               >
                 <Icon name="search" />
-              </span>
+              </button>
               <input
                 id="searchInput"
-                className={classes.searchInput}
+                className={classes.searchBar}
                 inputMode="search"
                 type="search"
                 placeholder="I'm looking for..."
                 onKeyPress={enterSearch}
-                onBlur={minimizeSearch}
               />
           </div>
       );
     }
 }
 
-export default classify(defaultClasses)(withRouter(SearchInput));
+export default classify(defaultClasses)(withRouter(SearchBar));

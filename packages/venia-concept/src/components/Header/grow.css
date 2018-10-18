@@ -43,7 +43,7 @@
 
 .searchTrigger {
     composes: root from '../clickable.css';
-    transition-property: color;
+    transition-property: transform;
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     height: 3rem;
@@ -52,7 +52,8 @@
 
 .searchTriggerOpen { 
     composes: searchTrigger;
-    color: rgb(var(--venia-teal)); 
+    transform: scale(1.25);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .logo {

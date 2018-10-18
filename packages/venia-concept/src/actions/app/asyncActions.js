@@ -7,4 +7,4 @@ export const closeDrawer = () => async dispatch =>
     dispatch(actions.toggleDrawer(null));
 
 export const toggleSearch = () => async dispatch =>
-    dispatch(actions.toggleSearch(isOpen));
+    dispatch(actions.toggleSearch(null));

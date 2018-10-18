@@ -19,10 +19,10 @@ const reducerMap = {
             overlay: !!payload
         };
     },
-    [actions.toggleSearch]: (state, { payload }) => {
+    [actions.toggleSearch]: (state) => {
         return {
             ...state,
-            searchOpen : !payload
+            searchOpen : !state.searchOpen
         };
     }
 };

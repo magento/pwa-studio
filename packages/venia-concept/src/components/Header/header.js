@@ -9,7 +9,7 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
-import SearchInput from 'src/components/SearchInput';
+import SearchBar from 'src/components/SearchBar';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
@@ -21,45 +21,28 @@ class Header extends Component {
             root: PropTypes.string,
             searchBlock: PropTypes.string,
             searchBlock_active: PropTypes.string,
-            searchInput: PropTypes.string,
+            searchBar: PropTypes.string,
             searchTrigger: PropTypes.string,
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
         })
     };
-
-    constructor(props) {
-      super(props);
-      this.state = {
-        isOpen: false,
-        rootClass: this.props.classes.closed,
-        searchClass: this.props.classes.searchTrigger 
-      };
+    
+  async componentDidMount() {
+    if (document.location.pathname === '/search' && this.props.app.searchOpen !== true) {
+        this.props.toggleSearch();
     }
+  }
     
     render() {
         const { app, toggleSearch, classes } = this.props; 
         const { searchOpen } = app;
 
-        const handleSearch = () => {
-          if (this.state.isOpen === true) {
-            this.setState({
-              isOpen : false,
-              rootClass: classes.closed,
-              searchClass: classes.searchTrigger
-            });
-          }
-          else {
-            this.setState({
-              isOpen : true,
-              rootClass: classes.open,
-              searchClass: classes.searchTriggerClosed
-            });
-          }
-        };       
+        const rootClass = searchOpen ? classes.open : classes.closed;
+        const searchClass = searchOpen ? classes.searchTriggerOpen : classes.searchTrigger;
 
         return (
-            <header className={this.state.rootClass}>
+            <header className={rootClass}>
                 <div className={classes.toolbar}>
                     <Link to="/">
                         <img
@@ -77,8 +60,9 @@ class Header extends Component {
                     </div>
                     <div className={classes.secondaryActions}>
                         <button 
-                         className={this.state.searchClass} 
-                         onClick={handleSearch}
+                         id="searchButton"
+                         className={searchClass} 
+                         onClick={toggleSearch}
                         >
                             <Icon name="search" />
                         </button>
@@ -87,8 +71,9 @@ class Header extends Component {
                         </CartTrigger>
                     </div>
                 </div>
-                <SearchInput
-                  isOpen={this.state.isOpen}
+                  <SearchBar
+                  isOpen={searchOpen}
+                  toggleSearch={toggleSearch}
                   classes={classes}
                 />
             </header>
