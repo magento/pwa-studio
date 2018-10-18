@@ -6,7 +6,30 @@ import Button from 'src/components/Button';
 
 configure({ adapter: new Adapter() });
 
-test('contains two buttons', () => {
-    const wrapper = shallow(<Receipt />).dive();
-    expect(wrapper.find(Button)).toHaveLength(2);
+const classes = {
+    header: 'header',
+    textBlock: 'textBlock'
+};
+
+test('renders correctly', () => {
+    const wrapper = shallow(<Receipt classes={classes} />).dive();
+    expect(
+        wrapper.find(Button).findWhere(x => x.text() === 'Continue Shopping')
+    ).toHaveLength(1);
+    expect(
+        wrapper.find(Button).findWhere(x => x.text() === 'Create an Account')
+    ).toHaveLength(1);
+    expect(wrapper.find(`.${classes.header}`)).toHaveLength(1);
+    expect(wrapper.find(`.${classes.textBlock}`)).toHaveLength(2);
+});
+
+test('pressing `continue shopping` leads to calling handler', () => {
+    const resetCheckout = jest.fn();
+
+    const wrapper = shallow(<Receipt resetCheckout={resetCheckout} />).dive();
+    wrapper
+        .find(Button)
+        .first()
+        .simulate('click');
+    expect(resetCheckout).toBeCalled();
 });
