@@ -13,6 +13,7 @@ const {
 const path = require('path');
 
 const TerserPlugin = require('terser-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const themePaths = {
     images: path.resolve(__dirname, 'images'),
@@ -146,6 +147,30 @@ module.exports = async function(env) {
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }
+            }),
+            new WebpackAssetsManifest({
+                output: 'asset-manifest.json',
+                entrypoints: true,
+                customize(entry, original, manifest, asset) {
+                    debugger;
+                }
+                // transform(assets, manifest) {
+                //     console.log('assets', assets);
+                //     const {
+                //         compiler: { options }
+                //     } = manifest;
+                //     const seedBundles = [];
+                //     const preloads = [];
+                //     Object.entries(assets).forEach(([name, urlPath]) => {
+                //         if (options.entry.hasOwnProperty(name)) {
+                //             seedBundles.push(urlPath);
+                //         } else {
+                //             preloads.push(urlPath);
+                //         }
+                //     });
+                //     manifest.set('seedBundles', seedBundles.reverse());
+                //     manifest.set('prefetchChunks', preloads);
+                // }
             })
         ],
         optimization: {
@@ -156,7 +181,6 @@ module.exports = async function(env) {
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
                         name: true,
-                        filename: 'js/vendor.js',
                         chunks: 'all'
                     }
                 }

@@ -3,25 +3,39 @@
  * with the assigned Root Component (and its owning chunk) from the backend
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  */
+
+// Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
+// cast numbers if they appear to be numbers
 const numRE = /^\d+$/;
+const castDigitsToNum = str =>
+    typeof str === 'string' && numRE.test(str) ? Number(str) : str;
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase } = opts;
 
     if (!resolveUnknownRoute.preloadDone) {
         resolveUnknownRoute.preloadDone = true;
-        const preloaded = document.getElementById('url-resolver');
-        if (preloaded) {
+
+        // Templates may use the new style (data attributes on the body tag),
+        // or the old style (handwritten JSON in a script element).
+
+        // New style:
+        const preloadAttrs = document.body.dataset;
+        if (preloadAttrs && preloadAttrs.modelType) {
+            return {
+                type: preloadAttrs.modelType,
+                id: castDigitsToNum(preloadAttrs.modelId)
+            };
+        }
+
+        // Old style:
+        const preloadScript = document.getElementById('url-resolver');
+        if (preloadScript) {
             try {
                 const preload = JSON.parse(preloaded.textContent);
-                // UPWARD treats most values as strings, so explicitly cast
-                // numbers if they appear to be numbers
-                if (typeof preload.id === 'string' && numRE.test(preload.id)) {
-                    return {
-                        type: preload.type,
-                        id: Number(preload.id)
-                    };
-                }
-                return preload;
+                return {
+                    type: preload.type,
+                    id: castDigitsToNum(preload.id)
+                };
             } catch (e) {
                 // istanbul ignore next: will never happen in test
                 if (process.env.NODE_ENV === 'development') {

@@ -1,0 +1,26 @@
+query getCategory($id: Int!, $onServer: Boolean!) {
+  category(id: $id) {
+    name
+    description
+    url_key
+    products(pageSize: 20) {
+      items {
+        id
+        name
+        url_key
+        small_image
+        price {
+          regularPrice {
+            amount {
+              value
+              currency
+            }
+          }
+        }
+      }
+    }
+    meta_title @include(if: $onServer)
+    meta_keywords @include(if: $onServer)
+    meta_description @include(if: $onServer)
+  }
+}

@@ -4,6 +4,7 @@ body: response.body
 
 response:
   when:
+    # pass through to proxy
     - matches: request.url.pathname
       pattern: '^/img/resize/(\d+)w/(.*())'
       use: imageOpt
@@ -13,9 +14,11 @@ response:
     - matches: request.url.pathname
       pattern: '^/create-account'
       use: index
+    # serve document root (blank urlKey)
     - matches: request.url.pathname
       pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
       use: static
+    # serve anything with a urlKey
     - matches: urlKey
       pattern: '.'
       use: appShell
@@ -63,6 +66,8 @@ isDevelopment:
 
 proxy:
   target: env.MAGENTO_BACKEND_URL
+  # A local Magento install may have SSH configured and untrusted,
+  # which is not a major concern, especially if containerized.
   ignoreSSLErrors:
     inline: true
 
@@ -82,11 +87,25 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        isDevelopment: isDevelopment
+        seedBundles: assetManifest.entrypoints
+        prefetchChunks: assetManifest.prefetchChunks
         urlResolver: urlResolver
+        env: env
 
 resource:
   when:
+    - matches: urlResolver.type
+      pattern: 'CMS_PAGE'
+      use:
+        inline:
+          model: cmsPage
+          template: './templates/cmspage-shell.mst'
+    - matches: urlResolver.type
+      pattern: 'CATEGORY'
+      use:
+        inline:
+          model: category
+          template: './templates/category-shell.mst'
     - matches: urlResolver.type
       pattern: 'PRODUCT'
       use:
@@ -97,7 +116,7 @@ resource:
       pattern: '.'
       use:
         inline:
-          model: genericObject
+          model: unknownPageType
           template: './templates/generic-shell.mst'
     - matches: request.url.pathname
       pattern: '/search.html'
@@ -108,6 +127,17 @@ resource:
   default:
     inline:
       template: './templates/notfound-shell.mst'
+
+assetManifest:
+  when:
+    - matches: env.NODE_ENV
+      pattern: 'development'
+      use: ./asset-manifest.json
+  default: ./dist/asset-manifest.json
+
+unknownPageType:
+  inline:
+    title: 'Unknown page type'
 
 urlResolver: urlResolverResult.data.urlResolver
 
@@ -129,16 +159,31 @@ product: productResult.data.productDetail.items.0
 productResult:
   url: magentoGQL
   query: './src/queries/getProductDetail.graphql'
-  variables:
+  variables: pageQueryVariables
+
+category: categoryResult.data.category
+categoryResult:
+  url: magentoGQL
+  query: './src/queries/getCategory.graphql'
+  variables: pageQueryVariables
+
+cmsPage: cmsPageResult.data.cmsPage
+cmsPageResult:
+  url: magentoGQL
+  query: './src/queries/getCmsPage.graphql'
+  variables: pageQueryVariables
+
+pageQueryVariables:
     inline:
       onServer:
         inline: true
       urlKey: urlKey
+      id: urlResolver.id
 
 urlKey:
   when:
     - matches: request.url.pathname
-      pattern: '^/(.*)\.html'
+      pattern: '^/(?:(.*)\.html)?'
       use: $match.$1
   default:
     inline: ''
