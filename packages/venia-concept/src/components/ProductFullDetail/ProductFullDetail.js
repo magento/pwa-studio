@@ -184,18 +184,23 @@ class ProductFullDetail extends Component {
         const { classes } = this.props;
         const { selectedOptions } = this.state;
         if (this.props.product.__typename === 'ConfigurableProduct') {
-            const labels = this.props.product.configurable_options.reduce((accum, option) => {
-                if ( Object.keys(selectedOptions[option.attribute_code]).length > 0 ) {
-                    return accum;
-                } else {
-                    let label = option.label;
-                    return accum.concat(label);
-                }
-            }, []);
-            const stockMessage =
-                this.isButtonDisabled ?
-                    `Please select an option for: ${labels.join(', ')}`
-                    : null;
+            const labels = this.props.product.configurable_options.reduce(
+                (accum, option) => {
+                    if (
+                        Object.keys(selectedOptions[option.attribute_code])
+                            .length > 0
+                    ) {
+                        return accum;
+                    } else {
+                        let label = option.label;
+                        return accum.concat(label);
+                    }
+                },
+                []
+            );
+            const stockMessage = this.isButtonDisabled
+                ? `Please select an option for: ${labels.join(', ')}`
+                : null;
             return <p className={classes.stockMessage}> {stockMessage} </p>;
         } else {
             return null;

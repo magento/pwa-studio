@@ -107,3 +107,26 @@ test('`Add to cart` button is disabled when not all configurable options are sel
     const isDisabled = wrapper.instance().isButtonDisabled;
     expect(isDisabled).toBe(true);
 });
+
+test('`Add to cart` button is enabled when all configurable options are selected', async () => {
+    const product = configurableWithThreeOptions.data.productDetail.items[0];
+    const newState = { selectedOptions: {} };
+    product.configurable_options.forEach(option => {
+        newState.selectedOptions[option.attribute_code] = {
+            label: option.values[0].label,
+            value_index: option.values[0].value_index
+        };
+    });
+    const mock = jest.fn;
+    let wrapper = shallow(
+        <ProductFullDetail
+            product={product}
+            addItemToCart={mock}
+            addConfigurableItemToCart={mock}
+            classes={classes}
+        />
+    ).dive();
+    wrapper.instance().setState(newState);
+    const isDisabled = wrapper.instance().isButtonDisabled;
+    expect(isDisabled).toBe(false);
+});

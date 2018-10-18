@@ -16,7 +16,7 @@ class ProductEdit extends Component {
         onOptionChange: func.isRequired
     };
 
-    mapData = configurableOptions => {
+    mapOptions = configurableOptions => {
         const productOptions = configurableOptions.map(option => {
             const options = option.values.map(value => {
                 return {
@@ -42,7 +42,6 @@ class ProductEdit extends Component {
         return productOptions;
     };
 
-    // TODO: Use spread operator to create props object
     optionsComponent = (option, index) => {
         const props = {
             key: index,
@@ -72,11 +71,11 @@ class ProductEdit extends Component {
 
     render() {
         const { classes, item, onProductChange } = this.props;
-        const mappedData = this.mapData(item.configurable_options);
+        const options = this.mapOptions(item.configurable_options);
         return (
             <div onChange={onProductChange} className={classes.root}>
                 <div className={classes.colors}>
-                    {mappedData.map((option, index) => {
+                    {options.map((option, index) => {
                         return this.optionsComponent(option, index);
                     })}
                 </div>
