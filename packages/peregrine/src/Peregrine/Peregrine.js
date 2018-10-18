@@ -9,7 +9,11 @@ import MagentoRouter from '../Router';
  * @param {string} __tmp_webpack_public_path__ Temporary hack. Expects the `__webpack_public_path__` value
  * @returns {{ store: Store, Provider: () => JSX.Element }}
  */
-export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
+export default function bootstrap({
+    apiBase,
+    renderRoutes,
+    __tmp_webpack_public_path__
+}) {
     // Remove deprecation warning after 2 version bumps
     if (process.env.NODE_ENV !== 'production' && this instanceof bootstrap) {
         throw new Error(
@@ -22,6 +26,7 @@ export default function bootstrap({ apiBase, __tmp_webpack_public_path__ }) {
     const store = createStore();
     const routerProps = {
         apiBase,
+        renderRoutes,
         __tmp_webpack_public_path__: ensureDirURI(__tmp_webpack_public_path__)
     };
     const Provider = () => (

@@ -8,6 +8,7 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getUserDetails } from 'src/actions/user';
 import { Util } from '@magento/peregrine';
+import renderRoutes from './renderRoutes';
 
 import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
@@ -24,6 +25,7 @@ const { BrowserPersistence } = Util;
 
 const { Provider, store } = bootstrap({
     apiBase: urlBase,
+    renderRoutes,
     __tmp_webpack_public_path__: __webpack_public_path__
 });
 

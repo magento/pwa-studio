@@ -8,6 +8,9 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
+      pattern: '^/create-account'
+      use: index
+    - matches: request.url.pathname
       pattern: '^/favicon.ico'
       use: favicon
     - matches: urlKey
@@ -118,6 +121,26 @@ favicon:
       file:
         inline: ./media/favicon.ico
       encoding: binary
+
+index:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: text/html
+    body:
+      engine: mustache
+      template: './templates/index.mst'
+      provide:
+        isDevelopment:
+          when:
+            - matches: env.NODE_ENV
+              pattern: 'development'
+              use:
+                inline: true
+          default:
+            inline: false
 
 static:
   directory:

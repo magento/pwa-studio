@@ -9,12 +9,14 @@ export default class MagentoRouter extends Component {
         using: func,
         routerProps: object,
         apiBase: string.isRequired,
+        renderRoutes: func,
         __tmp_webpack_public_path__: string.isRequired
     };
 
     static defaultProps = {
         using: BrowserRouter,
-        routerProps: {}
+        routerProps: {},
+        renderRoutes: ({ magentoRoute }) => magentoRoute
     };
 
     render() {
@@ -22,22 +24,27 @@ export default class MagentoRouter extends Component {
             using: Router,
             routerProps,
             apiBase,
+            renderRoutes,
             __tmp_webpack_public_path__
         } = this.props;
 
         return (
             <Router {...routerProps}>
-                <Route
-                    render={({ location }) => (
-                        <MagentoRouteHandler
-                            location={location}
-                            apiBase={apiBase}
-                            __tmp_webpack_public_path__={
-                                __tmp_webpack_public_path__
-                            }
+                {renderRoutes({
+                    magentoRoute: (
+                        <Route
+                            render={({ location }) => (
+                                <MagentoRouteHandler
+                                    location={location}
+                                    apiBase={apiBase}
+                                    __tmp_webpack_public_path__={
+                                        __tmp_webpack_public_path__
+                                    }
+                                />
+                            )}
                         />
-                    )}
-                />
+                    )
+                })}
             </Router>
         );
     }
