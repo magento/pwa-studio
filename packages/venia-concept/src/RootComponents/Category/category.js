@@ -29,8 +29,8 @@ const categoryQuery = gql`
                             }
                         }
                     }
-                    url_key
                 }
+                total_count
             }
         }
     }
@@ -54,7 +54,7 @@ class Category extends Component {
 
     state = {
         currentPage: 1,
-        pageSize: 6
+        pageSize: 4
     };
 
     render() {
@@ -76,7 +76,8 @@ class Category extends Component {
                         if (loading) return <div>Fetching Data</div>;
 
                         const pageCount =
-                            data.category.product_count / this.state.pageSize;
+                            data.category.products.total_count /
+                            this.state.pageSize;
                         const totalPages = Math.ceil(pageCount);
 
                         const pageControl = {
@@ -110,9 +111,9 @@ class Category extends Component {
         );
     }
 
-    setPage = newPageNumber => {
-        newPageNumber = (newPageNumber < 1) ? 1 : newPageNumber;
-        this.setState({
+    setPage = async newPageNumber => {
+        newPageNumber = newPageNumber < 1 ? 1 : newPageNumber;
+        await this.setState({
             currentPage: newPageNumber
         });
     };

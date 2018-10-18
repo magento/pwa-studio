@@ -22,6 +22,17 @@
     grid-area: items;
     grid-gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 10px;
+}
+
+.pagination {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white;
+    bottom: 0;
+    border-top: 1px solid #CCC;
+    width: 100%;
+    margin-top: 10px;
 }
 
 @media (max-width: 640px) {

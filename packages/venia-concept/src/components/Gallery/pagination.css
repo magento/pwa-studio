@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .items {
     display: grid;
     grid-area: items;
@@ -8,23 +12,31 @@
 .pageNav {
     display: flex;
     justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.tile {
+    padding-top: 6px;
+    padding-bottom: 4px;
 }
 
 button {
-    border-radius: 1px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 2px;
+    width: 30px;
     margin-right: 5px;
-    background-color: rgb(var(--venia-grey));
     outline: none;
 }
 
-button:hover {
-    background-color: #eee;
+button.selected {
+    border: 1px solid;
+    border-color: #000;
 }
 
-button.selected {
-    border-color: rgb(var(--venia-teal));
-    background-color: rgb(var(--venia-teal-alt));
+.slider {
+    display: grid;
+}
+
+.slider_inactive {
+    color: #999;
 }
