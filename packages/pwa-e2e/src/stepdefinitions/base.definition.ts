@@ -1,17 +1,20 @@
-import axios from 'axios';
+import { HookScenarioResult, Status } from 'cucumber';
 import { after, before, binding } from 'cucumber-tsflow';
 
-import { readFileSync } from 'fs';
 import { browser } from 'protractor';
 
 @binding()
 export class BaseDefinition {
 
     @after()
-    public static writeLog(): void {
+    public async write(scenario: HookScenarioResult): Promise<void> {
         // some
-        console.dir('after hook');
+        if (scenario.result.status === Status.FAILED) {
+            const base64 = await browser.takeScreenshot();
+            console.dir(`fail test image: ${base64}`);
+        }
     }
+
     @before()
     public setUp(): void {
         // setup

@@ -73,7 +73,5 @@ typings/
 .serverless
 
 bin/
-
 reports/
-
 docs/

@@ -1,10 +1,6 @@
+import { setDefaultTimeout } from 'cucumber';
 import { PerformanceObserver } from 'perf_hooks';
 import { browser, Config } from 'protractor';
-
-import { environment } from './environment';
-
-// tslint:disable-next-line:no-var-requires
-const { setDefaultTimeout } = require('cucumber');
 
 export const obs = new PerformanceObserver((list) => {
     list.getEntries().forEach((entrie) => {
@@ -12,16 +8,19 @@ export const obs = new PerformanceObserver((list) => {
         console.dir(`${casted[0].__proto__.constructor.name}.${entrie.name} ${entrie.duration} ms`);
     });
 });
-
-const { prod, local } = environment;
-
+/*
+The config folder includes all the configuration files
+This example config file displays the basic protractor-cucumber framework configuration
+ts-node compiler is needed for cucumberjs
+tags option for specific scenarios added
+**/
 export let config: Config = {
-    baseUrl: process.env.NODE_ENV === 'production' ? prod.baseUrl : local.baseUrl,
+    baseUrl: 'https://epam.com',
 
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-            args: ['--disable-popup-blocking', '--disable-translate'],
+            args: ['--disable-popup-blocking', '--disable-translate', '--headless'],
             // mobileEmulation: {
             //     deviceName: 'Pixel 2',
             // },
@@ -35,10 +34,20 @@ export let config: Config = {
         require: ['../../src/stepdefinitions/*.ts'],
         // tags help us execute specific scenarios of feature files
         tags: '',
-        strict: true,
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
-
+    // seleniumAddress: `http://${mobileConfig.PROJECT_NAME}:${mobileConfig.API_KEY}@${mobileConfig.APPIUM_HUB}/wd/hub`,
+    // multiCapabilities: [
+    //     {
+    //         autoWebview: true,
+    //         accessKey: mobileConfig.API_KEY,
+    //         username: mobileConfig.PROJECT_NAME,
+    //         browserName: mobileConfig.BROWSER_NAME,
+    //         deviceName: mobileConfig.DEVICE_NAME,
+    //         platformName: mobileConfig.PLATFORM_NAME,
+    //         platformVersion: mobileConfig.PLATFORM_VERSION,
+    //     },
+    // ],
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
     // This utility function helps prepare our scripts with required actions like browser maximize

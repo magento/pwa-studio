@@ -12,6 +12,10 @@ export class HomePage extends Page {
 
     @component('.header-ui') public readonly header!: HeaderComponent;
 
+    public async open(): Promise<void> {
+        return await super.open('https://epam.com');
+    }
+
     @timerify()
     public fill<T extends Model<T>>(model: T): void {
         if (model instanceof UserModel) {

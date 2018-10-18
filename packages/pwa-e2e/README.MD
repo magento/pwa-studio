@@ -1,5 +1,7 @@
 # PWA E2E testing module
 
+## Status: [![CircleCI](https://circleci.com/gh/vitalics/Protractor-CircleCi.svg?style=svg)](https://circleci.com/gh/vitalics/Protractor-CircleCi)
+
 ## how to launch
 
 `npm i`
@@ -131,4 +133,8 @@ import { A } from 'modules/moduleA'
 instead of
 ``` ts
 import { A } from 'modules/moduleA/moduleA'
+```
+or
+``` ts
+import { A } from 'modules/moduleA/moduleA.ts'
 ```

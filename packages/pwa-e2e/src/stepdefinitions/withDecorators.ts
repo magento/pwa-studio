@@ -13,12 +13,11 @@ class Temp extends BaseDefinition {
 
     public constructor() {
         super();
-        this.home.open();
-        browser.driver.toggleAirplaneMode();
     }
 
     @given(/^User open "home" page$/)
-    public someMethod(): void {
-        this.home.open();
+    public async someMethod(): Promise<void> {
+        await this.home.open();
+        await browser.sleep(5000);
     }
 }

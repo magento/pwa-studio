@@ -1,0 +1,46 @@
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/repo # directory where steps will run
+    docker: # run the steps with Docker
+      - image: circleci/node:8.12.0-browsers # ...with this image as the primary container; this is where all `steps` will run
+    steps: # a collection of executable commands 
+      - checkout # special step to check out source code to working directory
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: info
+          command: |
+            lsb_release -a && node -v && npm -v && java -version
+
+      - run:
+          name: install dependencies
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # creatign folder for selenium logs
+          name: create log folder for webdriver
+          command: |
+            mkdir logs && node -v && java -version
+      - run: # updating webdriver
+          name: update webdriver
+          command: npm run e2e:update
+      - run: # start webdriver
+          name: start webdriver
+          command: npm run start:chrome
+          background: true
+      - run: sleep 5
+      - run: # run tests
+          name: ci test
+          command: npm run test:ci
+
+      - store_artifacts:
+          path: ./docs
+
+      - store_artifacts:
+          path: ./logs
+
+      - store_artifacts:
+          path: ./reports
