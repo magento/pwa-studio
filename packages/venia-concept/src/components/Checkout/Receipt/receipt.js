@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
-import defaultClasses from './receipt.css';
+import defaultCssClasses from './receipt.css';
 
-export const CONTINUE_SHOPPING = 'Continue Shopping';
-export const CREATE_AN_ACCOUNT = 'Create an Account';
+const defaultClasses = {
+    ...defaultCssClasses,
+    resetCheckoutButtonClasses: darkThemeClasses,
+    createAccountButtonClasses: darkThemeClasses
+};
 
 class Receipt extends Component {
     static propTypes = {
@@ -14,14 +17,17 @@ class Receipt extends Component {
             footer: string,
             root: string
         }),
-        resetCheckout: func.isRequired,
+        resetCheckout: func,
         order: shape({
             id: string
-        })
+        }),
+        handleCreateAccount: func
     };
 
     static defaultProps = {
-        order: {}
+        order: {},
+        resetCheckout: () => {},
+        handleCreateAccount: () => {}
     };
 
     componentWillUnmount() {
@@ -32,6 +38,7 @@ class Receipt extends Component {
         const {
             classes,
             resetCheckout,
+            handleCreateAccount,
             order: { id }
         } = this.props;
 
@@ -48,15 +55,21 @@ class Receipt extends Component {
                         We'll email you an order confirmation with details and
                         tracking info
                     </div>
-                    <Button classes={darkThemeClasses} onClick={resetCheckout}>
-                        {CONTINUE_SHOPPING}
+                    <Button
+                        classes={classes.resetCheckoutButtonClasses}
+                        onClick={resetCheckout}
+                    >
+                        Continue Shopping
                     </Button>
                     <div className={classes.textBlock}>
                         Track order status and earn rewards for your purchase by
                         creating and account.
                     </div>
-                    <Button classes={darkThemeClasses}>
-                        {CREATE_AN_ACCOUNT}
+                    <Button
+                        classes={classes.createAccountButtonClasses}
+                        onClick={handleCreateAccount}
+                    >
+                        Create an Account
                     </Button>
                 </div>
             </div>
