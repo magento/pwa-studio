@@ -147,7 +147,7 @@ Under the Venia project's `theme-frontend-venia` directory, copy `.env.dist` int
 cd /Users/magedev/pwa-studio/packages/venia-concept
 ```
 ``` sh
-cp .env.dist .env
+cp example.env .env
 ```
 
 ## Step 7. Start the development server
