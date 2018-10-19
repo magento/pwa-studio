@@ -6,30 +6,36 @@ title: UPWARD
 An UPWARD definition file describes how a web server delivers and supports a Progressive Web Application.
 
 UPWARD definition files provide details about server behavior using platform-independent, [declarative][] language.
-This lets a Progressive Web Application run on top of an UPWARD-compliant server in any language on any tech stack because the application is only concerned about HTTP endpoint behavior from the UPWARD server.
+This lets a Progressive Web Application run on top of an UPWARD-compliant server in any language on any tech stack because the application is only concerned about the HTTP endpoint behavior from the UPWARD server.
 
 The main purpose of an UPWARD server is to do the following:
 
-1. Initialize or refresh a session
-2. Deliver small HTML documents with enough server-side rendering for initial display and SEO 
-3. Hand off subsequent request handling to the PWA running in the client
-
-PWA Studio contains an example implementation of an UPWARD server in the [upward-js][] package.
+1. Receive a request from the [application shell][]
+1. Determine the appropriate service or process to handle the request
+1. Get the results from the service or process
+1. Build the HTTP response from the results
+1. Send the response back to the application shell
 
 ## Where UPWARD belongs in the PWA architecture
 
-An UPWARD server sits between a PWA and its resources, which can include a Magento instance.
-It provides a single service for data requests to a PWA by acting as a reverse proxy for its connected services.
-It can also act as a [gateway][] that decomposes complex requests into simple, service-specific requests and combines the results into a single response.
+An UPWARD server sits between a PWA and its resources, such as Magento.
+It acts as the backend service for a PWA frontend that is able to proxy requests to connected services or serve static files.
 
-A PWA can include an UPWARD definition file to define its service dependencies that an UPWARD server can be built around.
-The [`venia-upward.yml`][] file in the Venia package and the [upward-js][] server is an example of this approach.
-
-A PWA can also use an existing definition file to discover services and build against an existing UPWARD server.
-
-An UPWARD server uses this definition file to [choreograph][] the behaviors of its connected services to fulfill the requests from a PWA [application shell][].
+![UPWARD server diagram]({{site.basurl}}{% link technologies/upward/images/upward-server-diagram.png %})
 
 See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server. 
+### UPWARD definition file
+
+An UPWARD server uses a definition file to determine the appropriate process or service for a request from an application shell.
+It describes how the server should handle a request and build the response for it.
+
+A PWA project can include an UPWARD definition file to specify its service dependencies.
+Using this definition file, an UPWARD server can be created using any language.
+The [`venia-upward.yml`][] file in the Venia storefront package is an example of an UPWARD definition file, and
+the [upward-js][] server is JavaScript implementation of that specification.
+
+A PWA project can also use a definition file to discover the services for an existing UPWARD server and build around that specification.
+
 ## Characteristics of an UPWARD server
 
 UPWARD server implementations need to have the following characteristics:
@@ -50,8 +56,13 @@ allows developers to concentrate on using a single, familiar technology.
 ### Contain no business logic
 
 Having business logic spread across multiple architectural layers is an antipattern that harms testability.
-The declarative nature of an UPWARD specification prevents arbitrary business logic in implementations.
-It pushes this logic forward into the frontend or backwards into the backend so it cannot hide in the middle tier.
+The declarative nature of an UPWARD specification prevents the creation of arbitrary business logic on the server.
+It pushes this logic into re-usable templates or queries, the frontend application, or the backend services, so it cannot hide in the middle tier.
+
+### Stateless
+
+Since an UPWARD server cannot contain business logic, it also cannot hold a local state.
+This responsibility is also moved to the frontend or backend layer.
 
 ### Secure
 
@@ -61,7 +72,7 @@ UPWARD server implementations must serve data over [HTTPS][] to protect the info
 
 An UPWARD server itself is not a cache,
 but it must serve static resources from [edge servers][] when possible.
-It should not require many resources that cannot be [cached and reused when offline][].
+This supports the need for content that a PWA can [cache and reuse when offline][].
 
 ---
 
@@ -77,6 +88,6 @@ It should not require many resources that cannot be [cached and reused when offl
 [RATIONALE.md]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/upward-spec/RATIONALE.md
 [`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/venia-upward.yml
 [upward-js]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-js
-[cached and reused when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
+[cache and reuse when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
 [Reference Implementation]: {{ site.baseurl }}{% link technologies/upward/reference-implementation/index.md %}
