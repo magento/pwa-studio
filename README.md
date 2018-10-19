@@ -104,6 +104,10 @@ Make sure you have created a `.env` file in `packages/venia-concept` which speci
 
 Venia and its GraphQL queries may be out of sync with the schema of your connected Magento instance. Make sure the Magento instance is up to date with the 2.3 development branch, and your copy of this repository (or your dependency on it) is up to date.
 
+### My browser complains that the connection is not secure
+
+Generating certificates is handled by [devcert](https://github.com/davewasmer/devcert). If you're on a Linux machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme](https://github.com/davewasmer/devcert#skipcertutil).
+
 **To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
 
 ## Things not to do
