@@ -1,50 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { number, string, shape } from 'prop-types';
-
-// cheap enabler for showstopper bugs in safari et. al.
-// TODO: replace with proper polyfill
-const intlFormats = {
-    USD: {
-        symbol: '$',
-        decimal: '.',
-        groupDelim: ','
-    },
-    GBP: {
-        symbol: '£',
-        decimal: '.',
-        groupDelim: ','
-    },
-    EUR: {
-        symbol: '€',
-        decimal: ',',
-        groupDelim: '.'
-    }
-};
-const toParts =
-    Intl.NumberFormat.prototype.formatToParts ||
-    function(num) {
-        const {
-            currency,
-            maximumFractionDigits,
-            useGrouping
-        } = this.resolvedOptions();
-        const { symbol, decimal, groupDelim } =
-            intlFormats[currency] || intlFormats['USD'];
-        let [integer, fraction] = num
-            .toFixed(maximumFractionDigits)
-            .match(/\d+/g);
-        if (useGrouping) {
-            integer = integer
-                .split('')
-                .reverse()
-                .join('')
-                .replace(/(\d{3})/g, `$1${groupDelim}`)
-                .split('')
-                .reverse()
-                .join('');
-        }
-        return [{ currency: symbol }, { integer }, { decimal }, { fraction }];
-    };
+import patches from '../util/intlPatches';
 
 export default class Price extends PureComponent {
     static propTypes = {
@@ -65,7 +21,7 @@ export default class Price extends PureComponent {
     render() {
         const { value, currencyCode, classes } = this.props;
 
-        const parts = toParts.call(
+        const parts = patches.toParts.call(
             Intl.NumberFormat(undefined, {
                 style: 'currency',
                 currency: currencyCode
