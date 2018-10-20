@@ -68,15 +68,11 @@ You can install higher versions of OpenSSL with [Homebrew] on OSX, [Chocolatey] 
 
 **Browser cannot resolve the `.local.pwadev` site**{:#cannot-resolve-site}
 
-Something has edited your hostfile, and the local PWA Studio dev database is out of sync.
-Regenerate the database file by deleting it with the following command:
-``` sh
-rm ~/.config/pwa-buildpack.db
-```
+Another program or process has edited your [host file] and removed the entry for your project domain. You can [manually edit your hostfile] to add the entry back, but you should examine your other installed software to see what has overwritten the previous change.
 
 **Browser does not trust the generated SSL certificate**{:#untrusted-ssl-cert}
 
-Make sure you have a current version of openssl on your system using the following command:
+Generating certificates is handled by [devcert]. It depends on OpenSSL, so make sure you have a current version of openssl on your system using the following command:
 
 ``` sh
 openssl version
@@ -86,7 +82,13 @@ The version should be 1.0 or above (or LibreSSL 2, in the case of OSX High Sierr
 
 You can install higher versions of OpenSSL with [Homebrew] on OSX, [Chocolatey] on Windows, or your Linux distribution's package manager.
 
+If you're running Linux, machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme].
+
 [create an issue]: https://github.com/magento-research/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
+[host file]: https://en.wikipedia.org/wiki/Hosts_(file)
+[manually edit your hostfile]: https://support.rackspace.com/how-to/modify-your-hosts-file/
 [Homebrew]: https://brew.sh/
 [Chocolatey]: https://chocolatey.org/
+[devcert]: https://github.com/davewasmer/devcert
+[this section of the devcert readme]: https://github.com/davewasmer/devcert#skipcertutil
