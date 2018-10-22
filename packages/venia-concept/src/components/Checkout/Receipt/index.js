@@ -1,1 +1,1 @@
-export { default } from './receipt.js';
+export { default } from './receiptContainer';
