@@ -9,9 +9,7 @@ const mapStateToProps = ({ user }) => {
     };
 };
 
-const mapDispatchToProps = { createAccount };
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(CreateAccount);

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
@@ -21,7 +23,8 @@ class Receipt extends Component {
         order: shape({
             id: string
         }),
-        handleCreateAccount: func
+        handleCreateAccount: func,
+        reset: func
     };
 
     static defaultProps = {
@@ -34,11 +37,14 @@ class Receipt extends Component {
         this.props.reset();
     }
 
+    createAccount = () => {
+        this.props.handleCreateAccount(this.props.history);
+    };
+
     render() {
         const {
             classes,
             resetCheckout,
-            handleCreateAccount,
             order: { id }
         } = this.props;
 
@@ -67,7 +73,7 @@ class Receipt extends Component {
                     </div>
                     <Button
                         classes={classes.createAccountButtonClasses}
-                        onClick={handleCreateAccount}
+                        onClick={this.createAccount}
                     >
                         Create an Account
                     </Button>
@@ -76,4 +82,7 @@ class Receipt extends Component {
         );
     }
 }
-export default classify(defaultClasses)(Receipt);
+export default compose(
+    classify(defaultClasses),
+    withRouter
+)(Receipt);

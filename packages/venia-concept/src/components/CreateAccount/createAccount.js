@@ -20,7 +20,12 @@ class CreateAccount extends Component {
             createAccountError: PropTypes.string
         }),
         createAccountError: PropTypes.object,
-        createAccount: PropTypes.func
+        createAccount: PropTypes.func,
+        initialValues: PropTypes.shape({
+            email: PropTypes.string,
+            firstName: PropTypes.string,
+            lastName: PropTypes.string
+        })
     };
 
     state = {
@@ -87,7 +92,7 @@ class CreateAccount extends Component {
     }
 
     render() {
-        const { classes, defaultUsername } = this.props;
+        const { classes, initialValues } = this.props;
         const {
             onCreateAccount,
             errorMessage,
@@ -113,7 +118,7 @@ class CreateAccount extends Component {
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
-                        initialValue={defaultUsername}
+                        initialValue={initialValues.email}
                         field="email"
                     />
 
@@ -122,6 +127,7 @@ class CreateAccount extends Component {
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
+                        initialValue={initialValues.firstName}
                         field="first-name"
                     />
 
@@ -129,6 +135,7 @@ class CreateAccount extends Component {
                         onChange={this.updateLastName}
                         label={'Last Name'}
                         required={true}
+                        initialValue={initialValues.lastName}
                         autoComplete={'family-name'}
                         field="family-name"
                     />
@@ -183,7 +190,7 @@ class CreateAccount extends Component {
                 },
                 password: this.state.password
             };
-            this.props.createAccount(newCustomer);
+            this.props.onSubmit(newCustomer);
         }
     };
 

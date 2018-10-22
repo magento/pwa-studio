@@ -1,1 +1,1 @@
-export { default } from './createAccountPage';
+export { default } from './createAccountPageContainer';

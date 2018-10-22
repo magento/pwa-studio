@@ -11,6 +11,7 @@ import defaultClasses from './navigation.css';
 import NavHeader from './navHeader';
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
+import { createAccount } from 'src/actions/user';
 
 const CATEGORIES = [
     'dresses',
@@ -111,7 +112,8 @@ class Navigation extends Component {
                         title={'Create Account'}
                     />
                     <CreateAccount
-                        defaultUsername={this.state.defaultUsername}
+                        onSubmit={this.props.createAccount}
+                        initialValues={{ email: this.state.defaultUsername }}
                     />
                 </div>
             );
@@ -187,6 +189,6 @@ export default compose(
     classify(defaultClasses),
     connect(
         mapStateToProps,
-        null
+        { createAccount }
     )
 )(Navigation);
