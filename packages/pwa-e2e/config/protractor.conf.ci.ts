@@ -1,6 +1,8 @@
-import { setDefaultTimeout } from 'cucumber';
 import { PerformanceObserver } from 'perf_hooks';
 import { browser, Config } from 'protractor';
+
+// tslint:disable-next-line:no-var-requires
+const  { setDefaultTimeout } = require('cucumber');
 
 export const obs = new PerformanceObserver((list) => {
     list.getEntries().forEach((entrie) => {

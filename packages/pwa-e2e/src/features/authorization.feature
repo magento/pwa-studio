@@ -35,7 +35,6 @@ Feature: Authorization
         And User submit "forgot password" form
         And User click by "Continue shopping" button
 
-
     Scenario Outline: Many users signing in
         Given Anonimous User
         When User click by "sign in/sign up" button
@@ -49,4 +48,3 @@ Feature: Authorization
             | 1  | user1    | user1_password |
             | 2  | user2    | user2_password |
             | 3  | user3    | user3_password |
-

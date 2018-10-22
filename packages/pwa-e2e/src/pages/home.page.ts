@@ -1,6 +1,6 @@
 import { Page } from './abstract.page';
 
-import { HeaderComponent } from '../components/header.component';
+import { HeaderComponent } from '../components/header/header.component';
 import { Model } from '../models/model';
 import { UserModel } from '../models/user.model';
 import { Injectable } from '../utils/ioc';

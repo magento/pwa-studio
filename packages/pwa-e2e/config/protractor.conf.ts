@@ -1,3 +1,5 @@
+import { readdirSync } from 'fs';
+import { readJsonSync } from 'fs-extra';
 import { PerformanceObserver } from 'perf_hooks';
 import { browser, Config } from 'protractor';
 
@@ -53,6 +55,13 @@ export let config: Config = {
     // tslint:disable-next-line:object-literal-sort-keys
     onComplete: () => {
         obs.disconnect();
+        const files = readdirSync(`${process.cwd()}/reports`);
+        const file = readJsonSync(files[0]);
+        // tslint:disable-next-line:max-line-length
+        fetch('https://app.hiptest.com/import_test_reports/6840272904720785713380742150567002000442111232457875802/202890/cucumber-json', {
+            method: 'POST',
+            body: file,
+        });
         browser.quit();
     },
 

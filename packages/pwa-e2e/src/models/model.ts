@@ -1,3 +1,1 @@
-export type Model<T extends Model<T>> = {
-  [P in keyof T]?: T[P];
-};
+export type Model<T extends Model<T>> = Partial<T>;
