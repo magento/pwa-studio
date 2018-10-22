@@ -19,7 +19,7 @@ response:
   default: static
 
 proxy:
-  target: env.MAGENTO_BACKEND_DOMAIN
+  target: env.MAGENTO_BACKEND_URL
   ignoreSSLErrors:
     inline: true
 
@@ -79,7 +79,7 @@ urlResolverResult:
 magentoGQL:
   engine: mustache
   template:
-    inline: '{{env.MAGENTO_BACKEND_DOMAIN}}graphql'
+    inline: '{{env.MAGENTO_BACKEND_URL}}/graphql'
   provide:
     - env
 

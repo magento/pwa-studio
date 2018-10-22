@@ -1,9 +1,12 @@
-title: Venia Theme (Concept)
+title: Venia Storefront
 entries:
   - label: Overview
     url: /venia-pwa-concept/
 
-  - label: Venia theme setup
+  - label: Directory structure
+    url: /venia-pwa-concept/directory-structure/
+
+  - label: Venia storefront setup
     url: /venia-pwa-concept/setup/
 
   - label: Simple REST checkout flow
