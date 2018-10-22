@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { func, shape, string, number } from 'prop-types';
-
+import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
-import defaultClasses from './receipt.css';
+import defaultCssClasses from './receipt.css';
 
-export const CONTINUE_SHOPPING = 'Continue Shopping';
-export const CREATE_AN_ACCOUNT = 'Create an Account';
+const defaultClasses = {
+    ...defaultCssClasses,
+    resetCheckoutButtonClasses: darkThemeClasses,
+    createAccountButtonClasses: darkThemeClasses
+};
 
 class Receipt extends Component {
     static propTypes = {
@@ -15,17 +17,30 @@ class Receipt extends Component {
             footer: string,
             root: string
         }),
-        resetCheckout: func.isRequired,
-        orderId: number
+        resetCheckout: func,
+        order: shape({
+            id: string
+        }),
+        handleCreateAccount: func
     };
 
     static defaultProps = {
-        //TODO: implement fetching of orderId
-        orderId: 777
+        order: {},
+        resetCheckout: () => {},
+        handleCreateAccount: () => {}
     };
 
+    componentWillUnmount() {
+        this.props.reset();
+    }
+
     render() {
-        const { classes, resetCheckout, orderId } = this.props;
+        const {
+            classes,
+            resetCheckout,
+            handleCreateAccount,
+            order: { id }
+        } = this.props;
 
         return (
             <div className={classes.root}>
@@ -35,25 +50,30 @@ class Receipt extends Component {
                     </h2>
                     <div className={classes.textBlock}>
                         Your order # is{' '}
-                        <span className={classes.orderId}>{orderId}</span>
+                        <span className={classes.orderId}>{id}</span>
                         <br />
                         We'll email you an order confirmation with details and
                         tracking info
                     </div>
-                    <Button classes={darkThemeClasses} onClick={resetCheckout}>
-                        {CONTINUE_SHOPPING}
+                    <Button
+                        classes={classes.resetCheckoutButtonClasses}
+                        onClick={resetCheckout}
+                    >
+                        Continue Shopping
                     </Button>
                     <div className={classes.textBlock}>
                         Track order status and earn rewards for your purchase by
                         creating and account.
                     </div>
-                    <Button classes={darkThemeClasses}>
-                        {CREATE_AN_ACCOUNT}
+                    <Button
+                        classes={classes.createAccountButtonClasses}
+                        onClick={handleCreateAccount}
+                    >
+                        Create an Account
                     </Button>
                 </div>
             </div>
         );
     }
 }
-
 export default classify(defaultClasses)(Receipt);
