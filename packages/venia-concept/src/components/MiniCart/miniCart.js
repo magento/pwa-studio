@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
@@ -8,6 +8,7 @@ import classify from 'src/classify';
 import { addReducer } from 'src/store';
 import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
+import Button from 'src/components/Button';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
@@ -95,11 +96,30 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <div className={classes.body}>{productList}</div>
-                <div className={classes.footer}>
-                    <div className={classes.summary}>{totalsSummary}</div>
-                </div>
-                <Checkout cart={cart} />
+                {cart.details.items && cart.details.items.length ? (
+                    <Fragment>
+                        <div className={classes.body}>{productList}</div>
+                        <div className={classes.footer}>
+                            <div className={classes.summary}>
+                                {totalsSummary}
+                            </div>
+                        </div>
+                        <Checkout cart={cart} />
+                    </Fragment>
+                ) : (
+                    <div className={classes.empty}>
+                        <h3 className={classes.emptyTitle}>
+                            <span>
+                                There are no items in your shopping cart
+                            </span>
+                        </h3>
+                        <Trigger>
+                            <span className={classes.continue}>
+                                Continue Shopping
+                            </span>
+                        </Trigger>
+                    </div>
+                )}
             </aside>
         );
     }
