@@ -1,10 +1,11 @@
+import qs from 'qs';
 import { getAccountInformation } from './selectors';
-import { closeDrawer } from 'src/actions/app/asyncActions';
+import { resetCheckout } from 'src/actions/checkout/asyncActions';
 
-export const handleCreateAccount = history => (dispatch, getState) => {
+export const handleCreateAccount = history => async (dispatch, getState) => {
     const accountInfo = getAccountInformation(getState());
 
-    dispatch(closeDrawer());
+    await dispatch(resetCheckout());
 
-    history.push('/create-account');
+    history.push(`/create-account?${qs.stringify(accountInfo)}`);
 };

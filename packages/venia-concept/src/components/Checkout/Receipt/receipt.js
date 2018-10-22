@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
@@ -30,6 +28,7 @@ class Receipt extends Component {
     static defaultProps = {
         order: {},
         resetCheckout: () => {},
+        reset: () => {},
         handleCreateAccount: () => {}
     };
 
@@ -82,7 +81,4 @@ class Receipt extends Component {
         );
     }
 }
-export default compose(
-    classify(defaultClasses),
-    withRouter
-)(Receipt);
+export default classify(defaultClasses)(Receipt);

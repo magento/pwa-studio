@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "@magento/pwa-buildpack": "^2.0.0-rc2.0.5",
-    "@magento/upward-js": "^2.0.0-rc2.0.5"
+    "@magento/upward-js": "^2.0.0-rc2.0.5",
+    "qs": "^6.5.2"
   },
   "devDependencies": {
     "@magento/peregrine": "^2.0.0-rc2.0.5",

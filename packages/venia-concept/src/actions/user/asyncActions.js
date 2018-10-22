@@ -53,7 +53,7 @@ export const getUserDetails = () =>
         }
     };
 
-export const createAccount = accountInfo =>
+export const handleCreateAccount = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
 
@@ -73,8 +73,16 @@ export const createAccount = accountInfo =>
             dispatch(assignGuestCartToCustomer());
         } catch (error) {
             dispatch(actions.createAccountError.receive(error));
+
+            throw error;
         }
     };
+
+export const createAccount = accountInfo => async dispatch => {
+    try {
+        await dispatch(handleCreateAccount(accountInfo));
+    } catch (e) {}
+};
 
 export const assignGuestCartToCustomer = () =>
     async function thunk(...args) {

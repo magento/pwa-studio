@@ -28,6 +28,10 @@ class CreateAccount extends Component {
         })
     };
 
+    static defaultProps = {
+        initialValues: {}
+    };
+
     state = {
         firstName: '',
         lastName: '',

@@ -1,9 +1,4 @@
 .container {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-}
-
-.formWrapper {
+    margin: 16px auto 0;
     max-width: 360px;
 }
