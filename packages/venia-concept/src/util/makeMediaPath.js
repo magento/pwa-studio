@@ -17,6 +17,10 @@ export function makePathPrepender(prefix) {
     };
 }
 
-const ProductMediaPath =
-    process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH || '/media/catalog/product/';
-export const makeProductMediaPath = makePathPrepender(ProductMediaPath);
+const mediaPath = '/media/catalog/';
+
+export const makeProductMediaPath = makePathPrepender(mediaPath + '/product/');
+
+export const makeCategoryMediaPath = makePathPrepender(
+    mediaPath + '/category/'
+);
