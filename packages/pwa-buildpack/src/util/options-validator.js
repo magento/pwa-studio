@@ -2,7 +2,7 @@
  * Quick and dirty substitute for a proper schematized validator like `joi`.
  * TODO [good first issue]: Replace with a more standard object shape validator.
  */
-const lget = require('lodash.get');
+const lget = require('lodash/get');
 const BLANK_DEFAULT = {};
 
 class BuildpackValidationError extends Error {
