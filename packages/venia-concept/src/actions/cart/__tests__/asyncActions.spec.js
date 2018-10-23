@@ -130,12 +130,56 @@ test('addItemToCart thunk returns undefined', async () => {
     expect(result).toBeUndefined();
 });
 
-test('addItemToCart thunk dispatches actions on success', async () => {
+test('addItemToCart thunk dispatches actions on success (SimpleProduct)', async () => {
     const payload = { item: 'ITEM', quantity: 1 };
     const cartItem = 'CART_ITEM';
-
     request.mockResolvedValueOnce(cartItem);
-    await addItemToCart(payload)(...thunkArgs);
+    await addItemToCart({ ...payload, productType: 'SimpleProduct' })(
+        ...thunkArgs
+    );
+
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.addItem.request({ ...payload, productType: 'SimpleProduct' })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.addItem.receive({ cartItem, ...payload })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+    expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+    expect(dispatch).toHaveBeenCalledTimes(4);
+});
+
+test('addItemToCart thunk dispatches actions on success (ConfigurableProduct)', async () => {
+    const payload = { item: 'ITEM', quantity: 1 };
+    const cartItem = 'CART_ITEM';
+    request.mockResolvedValueOnce(cartItem);
+    await addItemToCart({ ...payload, productType: 'ConfigurableProduct' })(
+        ...thunkArgs
+    );
+
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.addItem.request({
+            ...payload,
+            productType: 'ConfigurableProduct'
+        })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.addItem.receive({ cartItem, ...payload })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+    expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+    expect(dispatch).toHaveBeenCalledTimes(4);
+});
+
+test.only('addItemToCart thunk dispatches throws error when no configuration is selected', async () => {
+    const payload = { item: 'ITEM', quantity: 1 };
+    const cartItem = 'CART_ITEM';
+    request.mockResolvedValueOnce(cartItem);
+    await addItemToCart({ ...payload })(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(
         1,
@@ -143,7 +187,7 @@ test('addItemToCart thunk dispatches actions on success', async () => {
     );
     expect(dispatch).toHaveBeenNthCalledWith(
         2,
-        actions.addItem.receive({ cartItem, ...payload })
+        actions.addItem.receive({ response: '`productType` is not defined' })
     );
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
     expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
@@ -247,7 +291,8 @@ test('addItemToCart reuses product images from cache', async () => {
 test('addItemToCart thunk dispatches special failure if guestCartId is not present', async () => {
     const payload = {
         item: { sku: 'ITEM_SKU', name: 'ITEM_NAME' },
-        quantity: 1
+        quantity: 1,
+        productType: 'SimpleProduct'
     };
     const error = new Error('Missing required information: guestCartId');
     error.noGuestCartId = true;
@@ -283,7 +328,7 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
             cart: {},
             user: { isSignedIn: false }
         }));
-    const payload = { item: 'ITEM', quantity: 1 };
+    const payload = { item: 'ITEM', quantity: 1, productType: 'SimpleProduct' };
     const error = new Error('ERROR');
     error.response = {
         status: 404
@@ -301,6 +346,7 @@ Array [
     Object {
       "payload": Object {
         "item": "ITEM",
+        "productType": "SimpleProduct",
         "quantity": 1,
       },
       "type": "CART/ADD_ITEM/REQUEST",
@@ -320,6 +366,7 @@ Array [
     Object {
       "payload": Object {
         "item": "ITEM",
+        "productType": "SimpleProduct",
         "quantity": 1,
       },
       "type": "CART/ADD_ITEM/REQUEST",
@@ -346,7 +393,7 @@ Array [
 });
 
 test('addItemToCart opens drawer and gets cart details on success', async () => {
-    const payload = { item: 'ITEM', quantity: 1 };
+    const payload = { item: 'ITEM', quantity: 1, productType: 'SimpleProduct' };
     const fakeCart = {
         cart: { guestCartId: 'NEW_GUEST_CART_ID' },
         user: { isSignedIn: false }

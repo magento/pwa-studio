@@ -65,7 +65,6 @@ class ProductFullDetail extends Component {
             variants: arrayOf(object),
             description: string
         }).isRequired,
-        addConfigurableItemToCart: func.isRequired,
         addItemToCart: func.isRequired
     };
 
@@ -96,7 +95,8 @@ class ProductFullDetail extends Component {
         return productEdit;
     }
 
-    // TODO: Make it obey actual default values, not just the first one
+    // Inititialize the possible selected options
+    // sort configurable options
     initOptions = product => {
         const options = product.configurable_options;
         const initialState = {};
@@ -147,7 +147,7 @@ class ProductFullDetail extends Component {
         return currentItem;
     }
 
-    addConfigurableToCart = async () => {
+    getConfigurableProduct = async () => {
         // For REST endpoint
         // Takes in an an array of option_values and option_ids
         const { product } = this.props;
@@ -160,55 +160,39 @@ class ProductFullDetail extends Component {
                 option_id: option.attribute_id
             };
         });
-        const currentItem = this.getCurrentConfiguration(
+        const item = this.getCurrentConfiguration(
             product,
             this.state.selectedOptions
         );
         const parentSKU = product.sku;
-        currentItem.options = options;
-        await this.props.addConfigurableItemToCart({
+        item.options = options;
+        return {
             parentSKU,
-            currentItem,
-            quantity
-        });
+            item,
+            quantity,
+            productType: 'ConfigurableProduct'
+        };
     };
 
     addToCart = async () => {
         const { product } = this.props;
         const { quantity } = this.state;
-
-        await this.props.addItemToCart({ item: product, quantity });
+        if (this.props.product.__typename === 'ConfigurableProduct') {
+            let payload = await this.getConfigurableProduct();
+            await this.props.addItemToCart(payload);
+        } else {
+            let payload = {
+                item: product,
+                quantity,
+                productType: 'SimpleProduct'
+            };
+            await this.props.addItemToCart(payload);
+        }
     };
 
-    get stockMessage() {
-        const { classes } = this.props;
-        const { selectedOptions } = this.state;
-        if (this.props.product.__typename === 'ConfigurableProduct') {
-            const labels = this.props.product.configurable_options.reduce(
-                (accum, option) => {
-                    if (
-                        Object.keys(selectedOptions[option.attribute_code])
-                            .length > 0
-                    ) {
-                        return accum;
-                    } else {
-                        let label = option.label;
-                        return accum.concat(label);
-                    }
-                },
-                []
-            );
-            const stockMessage = this.isButtonDisabled
-                ? `Please select an option for: ${labels.join(', ')}`
-                : null;
-            return <p className={classes.stockMessage}> {stockMessage} </p>;
-        } else {
-            return null;
-        }
-    }
-
     get isButtonDisabled() {
-        if (this.props.product.__typename === 'ConfigurableProduct') {
+        const { product } = this.props;
+        if (product.__typename === 'ConfigurableProduct') {
             const options = Object.keys(this.state.selectedOptions);
             const isDisabled = options.some(option => {
                 const optionEmpty =
@@ -224,19 +208,8 @@ class ProductFullDetail extends Component {
 
     render() {
         const { classes, product } = this.props;
-        const {
-            stockMessage,
-            productEdit,
-            addToCart,
-            addConfigurableToCart,
-            isButtonDisabled
-        } = this;
+        const { productEdit, addToCart, isButtonDisabled } = this;
         const { regularPrice } = product.price;
-
-        let onAddToCart = addToCart;
-        if (product.__typename === 'ConfigurableProduct') {
-            onAddToCart = addConfigurableToCart;
-        }
 
         return (
             <article className={classes.root}>
@@ -254,10 +227,7 @@ class ProductFullDetail extends Component {
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
                 </section>
-                <section className={classes.edit}>
-                    {productEdit}
-                    {stockMessage}
-                </section>
+                <section className={classes.edit}>{productEdit}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>
@@ -273,7 +243,7 @@ class ProductFullDetail extends Component {
                     </Button>
                 </section>
                 <section className={classes.cartActions}>
-                    <Button disabled={isButtonDisabled} onClick={onAddToCart}>
+                    <Button disabled={isButtonDisabled} onClick={addToCart}>
                         <span>Add to Cart</span>
                     </Button>
                 </section>

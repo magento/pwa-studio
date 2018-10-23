@@ -18,12 +18,13 @@ class Options extends Component {
 
     select = item => {
         const options = {};
+        const { onSelect } = this.props;
         if (this.state.selected === item.id) {
             this.setState({
                 selected: null
             });
             options[item.attributeCode] = {};
-            this.props.onSelect(options);
+            onSelect(options);
         } else {
             this.setState({
                 selected: item.id
@@ -32,7 +33,7 @@ class Options extends Component {
                 label: item.label,
                 value_index: item.value_index
             };
-            this.props.onSelect(options);
+            onSelect(options);
         }
     };
 

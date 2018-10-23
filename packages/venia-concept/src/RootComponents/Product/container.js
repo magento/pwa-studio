@@ -1,10 +1,9 @@
 import Product from './Product';
-import { addItemToCart, addConfigurableItemToCart } from 'src/actions/cart';
+import { addItemToCart } from 'src/actions/cart';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = {
-    addItemToCart,
-    addConfigurableItemToCart
+    addItemToCart
 };
 
 export default connect(

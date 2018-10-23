@@ -36,7 +36,7 @@ class ProductEdit extends Component {
             });
             return {
                 attributeCode: option.attribute_code,
-                items: options,
+                options: options,
                 position: option.position,
                 label: option.label
             };
@@ -44,23 +44,23 @@ class ProductEdit extends Component {
         return productOptions;
     };
 
-    optionsComponent = (option, index) => {
+    optionsComponent = (productOption, index) => {
         const props = {
             key: index,
-            title: option.label,
+            title: productOption.label,
             helpClick: () => {
                 window.alert('Testing');
             },
-            attributeCode: option.attributeCode
+            attributeCode: productOption.attributeCode
         };
-        if (option.attributeCode === 'size') {
+        if (productOption.attributeCode === 'size') {
             props.helpText = 'Size Guide';
         }
         return (
             <OptionsHeader {...props}>
                 <ProductOptions
                     onSelect={this.props.onOptionChange}
-                    options={option.items}
+                    options={productOption.options}
                 />
             </OptionsHeader>
         );
@@ -73,12 +73,12 @@ class ProductEdit extends Component {
 
     render() {
         const { classes, item, onProductChange } = this.props;
-        const options = this.mapOptions(item.configurable_options);
+        const productOptions = this.mapOptions(item.configurable_options);
         return (
             <div onChange={onProductChange} className={classes.root}>
                 <div className={classes.colors}>
-                    {options.map((option, index) => {
-                        return this.optionsComponent(option, index);
+                    {productOptions.map((productOption, index) => {
+                        return this.optionsComponent(productOption, index);
                     })}
                 </div>
             </div>

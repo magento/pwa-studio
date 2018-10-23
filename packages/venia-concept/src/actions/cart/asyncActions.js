@@ -45,79 +45,53 @@ export const createGuestCart = () =>
             dispatch(actions.getGuestCart.receive(error));
         }
     };
-export const addConfigurableItemToCart = (payload = {}) => {
-    const { parentSKU, currentItem, quantity } = payload;
 
-    const writingImageToCache = writeImageToCache(currentItem);
-
-    return async function thunk(dispatch, getState) {
-        await writingImageToCache;
-        dispatch(actions.addItem.request(payload));
-
-        try {
-            const { cart } = getState();
-            const { guestCartId } = cart;
-
-            if (!guestCartId) {
-                const missingGuestCartError = new Error(
-                    'Missing required information: guestCartId'
-                );
-                missingGuestCartError.noGuestCartId = true;
-                throw missingGuestCartError;
-            }
-
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        cartItem: {
-                            qty: quantity,
-                            sku: parentSKU,
-                            product_type: 'configurable',
-                            name: currentItem.name,
-                            quote_id: guestCartId,
-                            product_option: {
-                                extension_attributes: {
-                                    configurable_item_options:
-                                        currentItem.options
-                                }
-                            }
+async function addConfigurable(payload, guestCartId) {
+    const { parentSKU, item, quantity } = payload;
+    const cartItem = await request(
+        `/rest/V1/guest-carts/${guestCartId}/items`,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                cartItem: {
+                    qty: quantity,
+                    sku: parentSKU,
+                    product_type: 'configurable',
+                    name: item.name,
+                    quote_id: guestCartId,
+                    product_option: {
+                        extension_attributes: {
+                            configurable_item_options: item.options
                         }
-                    })
+                    }
                 }
-            );
-
-            dispatch(
-                actions.addItem.receive({ cartItem, currentItem, quantity })
-            );
-        } catch (error) {
-            const { response, noGuestCartId } = error;
-
-            dispatch(actions.addItem.receive(error));
-
-            // check if the guest cart has expired
-            if (noGuestCartId || (response && response.status === 404)) {
-                // if so, then delete the cached ID...
-                // in contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
-                // then create a new one
-                await dispatch(createGuestCart());
-                // then retry this operation
-                return thunk(...arguments);
-            }
+            })
         }
+    );
+    return cartItem;
+}
 
-        await Promise.all([
-            dispatch(toggleDrawer('cart')),
-            dispatch(getCartDetails({ forceRefresh: true }))
-        ]);
-    };
-};
-export const addItemToCart = (payload = {}) => {
+async function addSimple(payload, guestCartId) {
     const { item, quantity } = payload;
+    const cartItem = await request(
+        `/rest/V1/guest-carts/${guestCartId}/items`,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                cartItem: {
+                    qty: quantity,
+                    sku: item.sku,
+                    name: item.name,
+                    quote_id: guestCartId
+                }
+            })
+        }
+    );
+    return cartItem;
+}
+
+export const addItemToCart = (payload = {}) => {
+    const { item, quantity, productType } = payload;
 
     const writingImageToCache = writeImageToCache(item);
 
@@ -153,21 +127,17 @@ export const addItemToCart = (payload = {}) => {
                 console.log('Missing required information: guestCartId');
             }
 
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        cartItem: {
-                            qty: quantity,
-                            sku: item.sku,
-                            name: item.name,
-                            quote_id: guestCartId
-                        }
-                    })
-                }
-            );
-
+            let cartItem;
+            if (productType === 'ConfigurableProduct') {
+                cartItem = await addConfigurable(payload, guestCartId);
+            } else if (productType === 'SimpleProduct') {
+                cartItem = await addSimple(payload, guestCartId);
+            } else {
+                const err = {
+                    response: '`productType` is not defined'
+                };
+                throw err;
+            }
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
         } catch (error) {
             const { response, noGuestCartId } = error;

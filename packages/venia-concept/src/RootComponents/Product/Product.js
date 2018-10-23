@@ -44,7 +44,7 @@ class Product extends Component {
     };
 
     render() {
-        const { addItemToCart, addConfigurableItemToCart } = this.props;
+        const { addItemToCart } = this.props;
         return (
             <Page>
                 <Query
@@ -60,9 +60,6 @@ class Product extends Component {
                             <ProductFullDetail
                                 product={product}
                                 addItemToCart={addItemToCart}
-                                addConfigurableItemToCart={
-                                    addConfigurableItemToCart
-                                }
                             />
                         );
                     }}
