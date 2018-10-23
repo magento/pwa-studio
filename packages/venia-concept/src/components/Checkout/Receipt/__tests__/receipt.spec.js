@@ -57,3 +57,15 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
 
     expect(handleCreateAccountMock).toBeCalled();
 });
+
+test('calls `reset` when component was unmounted', () => {
+    const resetHandlerMock = jest.fn();
+
+    const wrapper = shallow(
+        <Receipt reset={resetHandlerMock} classes={classes} />
+    ).dive();
+
+    wrapper.unmount();
+
+    expect(resetHandlerMock).toBeCalled();
+});
