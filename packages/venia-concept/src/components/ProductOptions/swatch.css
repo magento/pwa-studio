@@ -1,8 +1,10 @@
 .root {
     background-color: var(--background-color);
-    border-color: rgba(0, 0, 0, 0.1);
     width: 3rem;
     height: 3rem;
+    border: var(--venia-grey);
+    border-style: solid;
+    border-width: 1px;
     composes: root from './option.css';
 }
 
