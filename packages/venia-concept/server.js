@@ -15,15 +15,22 @@ async function serve() {
     );
 
     if (!config.host) {
-        const { hostname, ports, ssl } = await configureHost({
-            subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
-            exactDomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
-            addUniqueHash: !!process.env
-                .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
-        });
-        config.host = hostname;
-        config.https = ssl;
-        config.port = ports.staging;
+        try {
+            const { hostname, ports, ssl } = await configureHost({
+                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!process.env
+                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+            });
+            config.host = hostname;
+            config.https = ssl;
+            config.port = ports.staging;
+        } catch (e) {
+            console.log(
+                'Could not configure or access custom host. Using loopback...'
+            );
+        }
     }
 
     await createUpwardServer(config);
