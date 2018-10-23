@@ -109,9 +109,7 @@ class MiniCart extends Component {
                 ) : (
                     <div className={classes.empty}>
                         <h3 className={classes.emptyTitle}>
-                            <span>
-                                There are no items in your shopping cart
-                            </span>
+                            There are no items in your shopping cart
                         </h3>
                         <Trigger>
                             <span className={classes.continue}>
