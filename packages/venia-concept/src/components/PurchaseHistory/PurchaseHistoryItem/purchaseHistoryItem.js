@@ -32,7 +32,7 @@ class PurchaseHistoryItem extends Component {
         } = this.props;
 
         return (
-            <Link className={classes.body} to={'/'}>
+            <Link className={classes.body} to={link}>
                 <img
                     src={imageSrc}
                     alt="clothes"
