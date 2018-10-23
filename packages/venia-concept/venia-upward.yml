@@ -8,8 +8,14 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
+      pattern: '^/manifest.webmanifest'
+      use: manifest
+    - matches: request.url.pathname
       pattern: '^/favicon.ico'
       use: favicon
+    - matches: request.url.pathname
+      pattern: '^/homescreen144.png'
+      use: homescreen
     - matches: urlKey
       pattern: '.'
       use: appShell
@@ -118,6 +124,30 @@ favicon:
       file:
         inline: ./media/favicon.ico
       encoding: binary
+
+homescreen:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: 'image/png'
+    body:
+      file:
+        inline: ./media/icons/homescreen144.png
+      encoding: binary
+
+
+manifest:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: application/json
+    body:
+      file:
+        inline: ./manifest.webmanifest
 
 static:
   directory:

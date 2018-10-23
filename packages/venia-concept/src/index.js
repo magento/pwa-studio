@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import bootstrap from '@magento/peregrine';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
+import { persistCache } from 'apollo-cache-persist';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -52,9 +53,16 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+const cache = new InMemoryCache();
+
+persistCache({
+    cache,
+    storage: window.localStorage
+});
+
 const apolloClient = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: cache
 });
 
 ReactDOM.render(

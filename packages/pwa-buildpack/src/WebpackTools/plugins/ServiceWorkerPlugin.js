@@ -30,6 +30,11 @@ class ServiceWorkerPlugin {
 
         if (this.config.runtimeCacheAssetPath) {
             config.runtimeCaching = [
+                // TODO: Make this an argument like this.config.runtimeCacheAssetPath?
+                {
+                    urlPattern: '/',
+                    handler: 'staleWhileRevalidate'
+                },
                 {
                     urlPattern: new RegExp(this.config.runtimeCacheAssetPath),
                     handler: 'staleWhileRevalidate'

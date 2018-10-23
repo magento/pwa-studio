@@ -1,0 +1,13 @@
+{
+  "name": "Venia",
+  "short_name": "Venia",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Shopping",
+  "icons": [{
+    "src": "/venia_circle_144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }]
+}

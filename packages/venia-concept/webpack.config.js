@@ -125,7 +125,8 @@ module.exports = async function(env) {
                 env,
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
-                paths: themePaths
+                paths: themePaths,
+                runtimeCacheAssetPath: '\\.html$'
             })
         ]
     };
