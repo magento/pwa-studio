@@ -1,0 +1,17 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 14px 28px 0;
+}
+
+.itemsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterContainer {
+    margin-bottom: 15px;
+}
