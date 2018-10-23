@@ -8,7 +8,7 @@ import classify from 'src/classify';
 import { addReducer } from 'src/store';
 import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
-import Button from 'src/components/Button';
+import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
@@ -107,16 +107,7 @@ class MiniCart extends Component {
                         <Checkout cart={cart} />
                     </Fragment>
                 ) : (
-                    <div className={classes.empty}>
-                        <h3 className={classes.emptyTitle}>
-                            There are no items in your shopping cart
-                        </h3>
-                        <Trigger>
-                            <span className={classes.continue}>
-                                Continue Shopping
-                            </span>
-                        </Trigger>
-                    </div>
+                    <EmptyMiniCart />
                 )}
             </aside>
         );
