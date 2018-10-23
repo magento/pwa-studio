@@ -40,16 +40,23 @@ For more information about contributing to this repository, see the [Contributio
 To ease local development, testing, and versioning, the PWA Studio project uses a monorepo, with package management orchestrated by [lerna](https://github.com/lerna/lerna#about).
 All packages are versioned in a single repo, but released to `npm` as independent packages.
 
-## Packages
+## Lerna Packages
 
-This repository includes the following packages:
+This repository includes the following packages managed by lerna:
 
 * [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 * [peregrine](packages/peregrine/README.md) - eCommerce Component Library
-* [pwa-devdocs](packages/pwa-devdocs) - Project source for the [documentation site]
 * [upward-js](packages/upward-js) - Reference implementation of the UPWARD specification
 * [upward-spec](packages/upward-spec) - UPWARD specification and test suite
+
+## Other Packages
+
+This repository also includes modules that are not managed by Lerna, because
+they are not meant to be distributed via NPM, and/or they should not have their
+dependencies centrally managed by Lerna.
+
+* [pwa-devdocs](pwa-devdocs) - Project source for the [documentation site]
 
 ## Quick Setup
 
