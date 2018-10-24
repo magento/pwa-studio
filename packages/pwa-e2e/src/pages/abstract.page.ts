@@ -1,6 +1,8 @@
 import { browser } from 'protractor';
 import { Model } from '../models/model';
 
+// import { envConfig } from '../../config/environment';
+
 export abstract class Page {
     public constructor(public url?: string) { }
 

@@ -1,25 +1,13 @@
 Feature: Checkout
 
-  Scenario: Ship To Order Confirmation
-    Given Product in a cart
-    When User click by "checkout" button
-    Then User click by "Ship by" button
+  Scenario: checkout without order details
+    Given Anonimous User
+    When User click by "Accessories" button
+    Then "accessories" list is presented
+    And User click by "Carmina Earrings" button
+    And User click by "Add to cart" button
+    And User click by "Checkout" button
+    And User click by "Ship to" button
+    And "SHIPPING ADDRESS" form is presented
     And User fill "SHIPPING ADDRESS" form
-    And "orderId" is presented
-    And "Continue Shopping" button is presented
-
-  Scenario: Pay with Order Confirmation
-    Given Product in a cart
-    When User click by "checkout" button
-    Then User click by "Pay with" button
-    And User fill "SHIPPING ADDRESS" form
-    And "orderId" is presented
-    And "Continue Shopping" button is presented
-
-  Scenario: Get It By Order Confirmation
-    Given Product in a cart
-    When User click by "checkout" button
-    Then User click by "Get It By" button
-    And User fill "SHIPPING ADDRESS" form
-    And "orderId" is presented
-    And "Continue Shopping" button is presented
+    And User click by "Save" button
