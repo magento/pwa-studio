@@ -4,35 +4,41 @@
 
 ## how to launch
 
-`npm i`
+Install the testing module dependencies using the following command:
 
-`npm test` - from current directory, or 
+`npm install`
 
-`cd packages/pwa-e2e && npm test` - from `pwa-studio` root
+launch the testing module using `test` command:
 
-## how to generate docs
+`npm test`
+
+Or if you want to run on headless mode use the next command:
+
+`npm run test:ci`
+
+## Useful tips and commands
 
 `npm run docs` - generate `docs` folder with you can open in browser locally without server
 
-## how to debug
+### debug tips
 
-vscode.
-
-Go to debug tab and run `launch` command. If you have to breakpoint, you might to stop on them
+if you use `vscode`, you can switch to debug tab and run `launch` command. If you have to breakpoint, you might to stop on them. Feel free to enabling extensions, since is not impact on the result
 
 ## Tech Stack
 
-webdriver + protractor - executing steps for browsers
+[`protractor`](https://www.protractortest.org/#/) - executing steps for browsers
 
-typescript - javascript that scales
+[`typescript`](https://www.typescriptlang.org) - javascript that scales
 
-cucumber - BDD frameword for describing test files
+[`di-typescript`](https://www.npmjs.com/package/di-typescript) - dependency injection for typescript
 
-OOP oriental - for easy scaling
+[`cucumber`](https://github.com/cucumber/cucumber-js) - BDD frameword for describing test files
+
+[`cucumber-tsflow`](https://www.npmjs.com/package/cucumber-tsflow) - describing cucumber scenarios with decorators instead of functions
 
 ## Architecture overview
 
-```
+``` txt
 pwa-e2e
 .
 ├──.vscode
@@ -40,13 +46,15 @@ pwa-e2e
 | ├──tasks.json <-- pre debug hooks
 ├──docs <-- here is result 'npm run docs' command
 ├──config <-- configurations
-| ├──environment.prod.ts
-| ├──environment.dev.ts
-| ├──protractor.conf.ts
+| ├──hooks.ts <-- protractor hooks located here
+| ├──environment.ts
+| ├──protractor.conf.ci.ts <-- ci config with enabled headless option
+| ├──protractor.conf.common.ts <-- config with common configuration
+| ├──protractor.conf.ts <-- config which run locally
 |
 ├──logs <-- webdriver logs located here
 |
-├──reports <-- report here
+├──reports <-- reports here
 |
 ├──src
 |  |

@@ -16,7 +16,7 @@ workflows:
 # configuration nodes for reuse.
 common_settings:
   docker: &docker_setup
-    - image: 'circleci/node:8.11.2'
+    - image: 'circleci/node:8.11.2-browsers'
   # Cache a bunch of stuff
   # - npm's local tarball cache
   save_cache: &savecache
@@ -55,8 +55,35 @@ jobs:
           name: Coveralls Coverage Analysis
           command: npm run coveralls
       - run: *full_build
+      # create webdriver logs manually, or we get an error
+      - run:
+          name: preparing for e2e tests execution
+          command: 'npm run test:ci:e2e:prepare'
+      # e2e update
+      - run:
+          name: Update webdriver-manager locally
+          command: 'npm run test:ci:e2e:update:chrome'
+      # e2e start chrome
+      - run:
+          name: Update webdriver-manager locally
+          command: 'npm run test:ci:e2e:start:chrome'
+          background: true
+
+        - run: sleep 5 # delay for 5 seconds since webdriver starting soo long
+        - run: # run tests
+            name: ci test
+            command: npm run test:ci:e2e
+
+        - run: # generate static documentation
+            name: ci test
+            command: npm run test:ci:e2e:generate:docs
+
+      - store_artifacts: # store html resporter after e2e test execution
+          path: packages/pwa-e2e/reports/report
+
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
+
   build:
     docker: *docker_setup
     steps:

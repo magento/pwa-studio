@@ -1,24 +1,35 @@
 {
   "name": "pwa-e2e",
   "version": "1.0.0",
-  "description": "e2e automation framework for pwa-studio",
+  "description": "e2e test automation framework for pwa-studio",
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/protractor/bin/protractor ./bin/config/protractor.conf.js",
     "test:ci": "npm run pretest && node ./node_modules/protractor/bin/protractor ./bin/config/protractor.conf.ci.js",
-    "pretest": "npm run tsc",
-    "tsc": "tsc",
+    "pretest": "npm run build",
+    "build": "tsc",
     "e2e:update": "./node_modules/.bin/webdriver-manager update --versions.chrome 2.42",
     "update:chrome": "./node_modules/.bin/webdriver-manager update --versions.chrome 2.42",
     "start:chrome": "./node_modules/.bin/webdriver-manager start --chrome --versions.chrome 2.42",
-    "update:android": "./node_modules/.bin/webdriver-manager update --android --android-accept-licenses",
-    "start:android": "./node_modules/.bin/webdriver-manager start --android",
     "docs": "node ./node_modules/typedoc/bin/typedoc --options ./typedoc.js ./src",
     "lint": "./node_modules/.bin/tslint 'src/**/*.ts' "
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": "github:magento-research/pwa-studio",
+  "keywords": [
+    "magento",
+    "pwa",
+    "test automation",
+    "typescript"
+  ],
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-e2e#readme",
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/cucumber": "^3.2.2",
@@ -27,23 +38,23 @@
     "@types/node": "^10.9.4",
     "@types/protractor": "^4.0.0",
     "@types/selenium-webdriver": "^3.0.10",
+    "axios": "^0.18.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.2.0",
     "cucumber": "^2.3.1",
+    "cucumber-tsflow": "^2.2.0",
+    "di-typescript": "^1.1.4",
+    "dotenv": "^6.1.0",
+    "faker": "^4.1.0",
+    "protractor": "^5.4.0",
     "protractor-cucumber-framework": "^6.0.0",
     "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.0",
+    "reflect-metadata": "^0.1.12",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.6.0",
     "tslint": "^5.11.0",
     "typedoc": "^0.13.0",
     "typescript": "^3.0.3"
   },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "protractor": "^5.4.0",
-    "cucumber-tsflow": "^2.2.0",
-    "faker": "^4.1.0",
-    "chai": "^4.1.2",
-    "di-typescript": "^1.1.4",
-    "dotenv": "^6.1.0",
-    "reflect-metadata": "^0.1.12"
-  }
+  "dependencies": {}
 }
