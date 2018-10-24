@@ -1,16 +1,17 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Receipt from '../receipt';
 import Button from 'src/components/Button';
+import Receipt, {
+    CREATE_ACCOUNT_BUTTON_ID,
+    CONTINUE_SHOPPING_BUTTON_ID
+} from '../receipt';
 
 configure({ adapter: new Adapter() });
 
 const classes = {
     header: 'header',
-    textBlock: 'textBlock',
-    resetCheckoutButtonClasses: {},
-    createAccountButtonClasses: {}
+    textBlock: 'textBlock'
 };
 
 test('renders correctly', () => {
@@ -28,10 +29,7 @@ test('calls `resetCheckout` when `Continue Shopping` button is pressed', () => {
         <Receipt resetCheckout={resetCheckout} classes={classes} />
     ).dive();
     wrapper
-        .find(Button)
-        .findWhere(
-            el => el.props().classes === classes.resetCheckoutButtonClasses
-        )
+        .findWhere(el => el.prop('data-id') === CONTINUE_SHOPPING_BUTTON_ID)
         .first()
         .simulate('click');
     expect(resetCheckout).toBeCalled();
@@ -48,10 +46,7 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
     ).dive();
 
     wrapper
-        .find(Button)
-        .findWhere(
-            el => el.props().classes === classes.createAccountButtonClasses
-        )
+        .findWhere(el => el.prop('data-id') === CREATE_ACCOUNT_BUTTON_ID)
         .first()
         .simulate('click');
 

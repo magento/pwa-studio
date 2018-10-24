@@ -74,11 +74,19 @@ export const handleCreateAccount = accountInfo =>
         } catch (error) {
             dispatch(actions.createAccountError.receive(error));
 
+            /*
+             * Throw error again to notify async action which dispatched handleCreateAccount.
+             */
             throw error;
         }
     };
 
 export const createAccount = accountInfo => async dispatch => {
+    /*
+     * Server validation error is handled in handleCreateAccount.
+     * We set createAccountError in Redux and throw error again
+     * to notify redux-thunk action which dispatched handleCreateAccount action.
+     */
     try {
         await dispatch(handleCreateAccount(accountInfo));
     } catch (e) {}

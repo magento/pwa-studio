@@ -21,6 +21,15 @@ response:
       use: appShell
   default: static
 
+isDevelopment:
+  when:
+    - matches: env.NODE_ENV
+      pattern: 'development'
+      use:
+        inline: true
+  default:
+    inline: false
+
 proxy:
   target: env.MAGENTO_BACKEND_URL
   ignoreSSLErrors:
@@ -42,14 +51,7 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        isDevelopment:
-          when:
-            - matches: env.NODE_ENV
-              pattern: 'development'
-              use:
-                inline: true
-          default:
-            inline: false
+        isDevelopment: isDevelopment
         urlResolver: urlResolver
 
 resource:
@@ -133,14 +135,7 @@ index:
       engine: mustache
       template: './templates/index.mst'
       provide:
-        isDevelopment:
-          when:
-            - matches: env.NODE_ENV
-              pattern: 'development'
-              use:
-                inline: true
-          default:
-            inline: false
+        isDevelopment: isDevelopment
 
 static:
   directory:

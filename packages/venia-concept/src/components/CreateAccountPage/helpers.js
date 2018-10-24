@@ -1,4 +1,4 @@
-import qs from 'qs';
+import { queryStringToObject } from 'src/util/queryStringHelpers';
 
 export const getCreateAccountInitialValues = () =>
-    qs.parse(window.location.search, { ignoreQueryPrefix: true });
+    queryStringToObject(window.location.search);
