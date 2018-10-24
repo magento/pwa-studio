@@ -85,5 +85,6 @@ button {
     font-family: var(--venia-font);
     font-size: 100%;
     padding: 0;
+    touch-action: manipulation;
     -webkit-appearance: none;
 }

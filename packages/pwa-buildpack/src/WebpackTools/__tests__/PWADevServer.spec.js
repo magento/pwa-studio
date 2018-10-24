@@ -1,259 +1,186 @@
-jest.mock('../../util/promisified/dns');
-jest.mock('../../util/promisified/openport');
-jest.mock('../../util/global-config');
-jest.mock('../../util/run-as-root');
+jest.mock('portscanner');
+jest.mock('graphql-playground-middleware-express');
+jest.mock('../../Utilities/configureHost');
 
-const { lookup } = require('../../util/promisified/dns');
-const openport = require('../../util/promisified/openport');
-const GlobalConfig = require('../../util/global-config');
+const { resolve } = require('path');
+const portscanner = require('portscanner');
+const stripAnsi = require('strip-ansi');
+const {
+    default: playgroundMiddleware
+} = require('graphql-playground-middleware-express');
+const configureHost = require('../../Utilities/configureHost');
+const { PWADevServer } = require('../');
 
-let PWADevServer;
-let setupDomain;
-beforeAll(() => {
-    GlobalConfig.mockImplementation(({ key }) => ({
-        set: jest.fn(key),
-        get: jest.fn(),
-        values: jest.fn()
-    }));
-    setupDomain = require('../../Utilities/setupDomain');
-    PWADevServer = require('../').PWADevServer;
-});
+portscanner.findAPortNotInUse.mockResolvedValue(10001);
 
 const simulate = {
-    hostResolvesLoopback({ family = 4 } = {}) {
-        lookup.mockReturnValueOnce({
-            address: family === 6 ? '::1' : '127.0.0.1',
-            family
+    uniqueHostProvided(
+        hostname = 'bork.bork.bork',
+        port = 8001,
+        ssl = { key: 'the chickie', cert: 'chop chop' }
+    ) {
+        configureHost.mockResolvedValueOnce({
+            hostname,
+            ports: {
+                development: port
+            },
+            ssl
         });
         return simulate;
     },
-    hostDoesNotResolve() {
-        lookup.mockRejectedValueOnce({ code: 'ENOTFOUND' });
+    portIsFree() {
+        portscanner.checkPortStatus.mockResolvedValueOnce('closed');
         return simulate;
     },
-    noPortSavedForNextHostname() {
-        PWADevServer.portsByHostname.get.mockReturnValueOnce(undefined);
+    portIsInUse() {
+        portscanner.checkPortStatus.mockResolvedValueOnce('open');
         return simulate;
-    },
-    portSavedForNextHostname(n = 8000) {
-        PWADevServer.portsByHostname.get.mockReturnValueOnce(n);
-        return simulate;
-    },
-    savedPortsAre(...ports) {
-        PWADevServer.portsByHostname.values.mockReturnValueOnce(ports);
-        return simulate;
-    },
-    aFreePortWasFound(n = 8000) {
-        openport.find.mockResolvedValueOnce(n);
-        return simulate;
-    },
-    certExistsForNextHostname(pair) {
-        setupDomain.userCerts.get.mockResolvedValueOnce(pair);
     }
 };
 
-test('.findFreePort() uses openPort to get a free port', async () => {
-    simulate.savedPortsAre(8543, 9002, 8765).aFreePortWasFound();
-
-    await PWADevServer.findFreePort();
-    expect(openport.find).toHaveBeenCalledWith(
-        expect.objectContaining({
-            avoid: expect.arrayContaining([8543, 9002, 8765])
-        })
-    );
+beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation();
+    jest.spyOn(console, 'log').mockImplementation();
 });
 
-test('.findFreePort() passes formatted errors from port lookup', async () => {
-    openport.find.mockRejectedValueOnce('woah');
-
-    await expect(PWADevServer.findFreePort()).rejects.toThrowError(
-        /Unable to find an open port.*woah/
-    );
-});
-
-test('.configure() throws errors on missing config', async () => {
-    await expect(PWADevServer.configure({ id: 'foo' })).rejects.toThrow(
-        'publicPath must be of type string'
-    );
-    await expect(
-        PWADevServer.configure({ id: 'foo', publicPath: 'bar' })
-    ).rejects.toThrow('backendDomain must be of type string');
-    await expect(
-        PWADevServer.configure({
-            id: 'foo',
-            publicPath: 'bar',
-            backendDomain: 'https://dumb.domain',
-            paths: {}
-        })
-    ).rejects.toThrow('paths.output must be of type string');
-    await expect(
-        PWADevServer.configure({
-            id: 'foo',
-            publicPath: 'bar',
-            backendDomain: 'https://dumb.domain',
-            paths: { output: 1234 }
-        })
-    ).rejects.toThrow('paths.output must be of type string');
-});
-
-test('.configure() gets or creates an SSL cert if `provideSSLCert: true`', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback()
-        .certExistsForNextHostname({
-            key: 'fakeKey',
-            cert: 'fakeCert'
-        });
-    const server = await PWADevServer.configure({
-        paths: {
-            output: 'good'
-        },
-        publicPath: 'bork',
-        serviceWorkerFileName: 'doin',
-        backendDomain: 'growe',
-        id: 'flowk',
-        provideSSLCert: true
-    });
-    expect(server.https).toHaveProperty('cert', 'fakeCert');
+afterEach(() => {
+    console.warn.mockRestore();
+    console.log.mockRestore();
 });
 
 test('.configure() returns a configuration object for the `devServer` property of a webpack config', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback()
-        .certExistsForNextHostname({
-            key: 'fakeKey2',
-            cert: 'fakeCert2'
-        });
-
-    const config = {
-        provideUniqueHost: 'horton',
-        provideSSLCert: true,
-        paths: {
-            output: 'path/to/static'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
-    };
-
-    const devServer = await PWADevServer.configure(config);
+    const devServer = await PWADevServer.configure({
+        publicPath: 'full/path/to/publicPath'
+    });
 
     expect(devServer).toMatchObject({
         contentBase: false,
         compress: true,
         hot: true,
+        host: '0.0.0.0',
+        port: expect.any(Number),
+        stats: expect.objectContaining({ all: false }),
+        after: expect.any(Function)
+    });
+
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/avoid\s+ServiceWorker\s+collisions/m)
+    );
+});
+
+test('.configure() creates a project-unique host if `provideSecureHost` is set', async () => {
+    simulate.uniqueHostProvided().portIsFree();
+    const server = await PWADevServer.configure({
+        publicPath: 'bork',
+        provideSecureHost: true
+    });
+    expect(server).toMatchObject({
+        contentBase: false,
+        compress: true,
+        hot: true,
+        host: 'bork.bork.bork',
+        port: 8001,
         https: {
-            key: 'fakeKey2',
-            cert: 'fakeCert2'
+            key: 'the chickie',
+            cert: 'chop chop',
+            spdy: {
+                protocols: ['http/1.1']
+            }
         },
-        host: expect.stringMatching(/horton\-(\w){4,5}\.local\.pwadev/),
-        port: 8765,
-        publicPath: expect.stringMatching(
-            /horton\-(\w){4,5}\.local.pwadev:8765\/full\/path\/to\/publicPath/
-        )
+        publicPath: 'https://bork.bork.bork:8001/bork/'
     });
 });
 
-test('.configure() is backwards compatible with `id` param', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback()
-        .certExistsForNextHostname({
-            key: 'fakeKey2',
-            cert: 'fakeCert2'
-        });
-
-    const config = {
-        id: 'samiam',
-        paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
-        },
-        publicPath: 'full/path/to/publicPath',
-        provideSSLCert: true,
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    expect(devServer).toMatchObject({
-        host: 'samiam.local.pwadev',
-        publicPath: 'https://samiam.local.pwadev:8765/full/path/to/publicPath'
+test('.configure() falls back to an open port if desired port is not available, and warns', async () => {
+    simulate.uniqueHostProvided().portIsInUse();
+    const server = await PWADevServer.configure({
+        publicPath: 'bork',
+        provideSecureHost: true
     });
+    expect(server).toMatchObject({
+        host: 'bork.bork.bork',
+        port: 10001,
+        https: {
+            key: 'the chickie',
+            cert: 'chop chop',
+            spdy: {
+                protocols: ['http/1.1']
+            }
+        },
+        publicPath: 'https://bork.bork.bork:10001/bork/'
+    });
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/port\s+8001\s+is\s+in\s+use/m)
+    );
 });
 
-test('.configure() reluctantly handles unsecure http', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback();
-
-    const config = {
-        https: false,
-        id: 'samiam',
-        paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    expect(devServer).toMatchObject({
-        host: 'samiam.local.pwadev',
-        publicPath: 'http://samiam.local.pwadev:8765/full/path/to/publicPath'
+test('.configure() is backwards compatible with "id" option, but warns', async () => {
+    simulate.uniqueHostProvided('flappy.bird', 8002).portIsFree();
+    const server = await PWADevServer.configure({
+        publicPath: 'blorch',
+        id: 'flappy'
     });
+    expect(server).toMatchObject({
+        host: 'flappy.bird',
+        port: 8002,
+        https: {
+            key: 'the chickie',
+            cert: 'chop chop',
+            spdy: {
+                protocols: ['http/1.1']
+            }
+        }
+    });
+    expect(configureHost).toHaveBeenCalledWith(
+        expect.objectContaining({
+            subdomain: 'flappy',
+            addUniqueHash: false
+        })
+    );
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/option\s+is\s+deprecated/m)
+    );
 });
 
-test('.configure() `id` param overrides `provideUniqueHost` param', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback();
-
-    const config = {
-        id: 'samiam',
-        provideUniqueHost: 'samiam',
-        paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
-    };
-
-    const devServer = await PWADevServer.configure(config);
-
-    expect(devServer).toMatchObject({
-        host: 'samiam.local.pwadev'
+test('.configure() allows customization of provided host', async () => {
+    simulate.uniqueHostProvided().portIsFree();
+    await PWADevServer.configure({
+        publicPath: 'bork',
+        provideSecureHost: {
+            exactDomain: 'flippy.bird'
+        }
     });
+    expect(configureHost).toHaveBeenCalledWith(
+        expect.objectContaining({
+            exactDomain: 'flippy.bird'
+        })
+    );
 });
 
-test('debugErrorMiddleware attached', async () => {
-    simulate
-        .portSavedForNextHostname(8765)
-        .aFreePortWasFound(8765)
-        .hostResolvesLoopback();
+test('.configure() allows customization of provided host', async () => {
+    simulate.uniqueHostProvided().portIsFree();
+    await PWADevServer.configure({
+        publicPath: 'bork',
+        provideSecureHost: {
+            exactDomain: 'flippy.bird'
+        }
+    });
+    expect(configureHost).toHaveBeenCalledWith(
+        expect.objectContaining({
+            exactDomain: 'flippy.bird'
+        })
+    );
+});
 
+test('.configure() errors on bad "provideSecureHost" option', async () => {
+    await expect(
+        PWADevServer.configure({ publicPath: '/', provideSecureHost: () => {} })
+    ).rejects.toThrowError('Unrecognized argument');
+});
+
+test('debugErrorMiddleware and notifier attached', async () => {
     const config = {
-        id: 'samiam',
-        provideUniqueHost: 'samiam',
-        paths: {
-            output: 'path/to/static',
-            assets: 'path/to/assets'
-        },
-        publicPath: 'full/path/to/publicPath',
-        serviceWorkerFileName: 'swname.js',
-        backendDomain: 'https://magento.backend.domain'
+        publicPath: 'full/path/to/publicPath'
     };
 
     const devServer = await PWADevServer.configure(config);
@@ -262,6 +189,81 @@ test('debugErrorMiddleware attached', async () => {
     const app = {
         use: jest.fn()
     };
-    devServer.after(app);
+    const waitUntilValid = jest.fn();
+    const server = {
+        middleware: {
+            waitUntilValid
+        }
+    };
+    devServer.after(app, server);
     expect(app.use).toHaveBeenCalledWith(expect.any(Function));
+    expect(waitUntilValid).toHaveBeenCalled();
+    const [notifier] = waitUntilValid.mock.calls[0];
+    expect(notifier).toBeInstanceOf(Function);
+    notifier();
+    const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
+    expect(consoleOutput).toMatch('PWADevServer ready at');
+});
+
+test('graphql-playground middleware attached', async () => {
+    const config = {
+        publicPath: 'full/path/to/publicPath',
+        graphqlPlayground: true
+    };
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer.before).toBeInstanceOf(Function);
+    const app = {
+        get: jest.fn(),
+        use: jest.fn()
+    };
+    const waitUntilValid = jest.fn();
+    const server = {
+        middleware: {
+            waitUntilValid
+        }
+    };
+    devServer.before(app, server);
+    expect(playgroundMiddleware).toHaveBeenCalled();
+    expect(playgroundMiddleware.mock.calls[0][0]).toMatchSnapshot();
+    expect(app.get).toHaveBeenCalled();
+    const [endpoint, middlewareProxy] = app.get.mock.calls[0];
+    expect(endpoint).toBe('/graphiql');
+    expect(middlewareProxy).toBeInstanceOf(Function);
+    const req = {};
+    const res = {};
+    middlewareProxy(req, res);
+    expect(middleware).toHaveBeenCalledWith(req, res, expect.any(Function));
+    devServer.after(app, server);
+    expect(waitUntilValid).toHaveBeenCalled();
+    const [notifier] = waitUntilValid.mock.calls[0];
+    notifier();
+    const consoleOutput = stripAnsi(console.log.mock.calls[0][0]);
+    expect(consoleOutput).toMatch(/PWADevServer ready at/);
+    expect(consoleOutput).toMatch(/GraphQL Playground ready at .+?\/graphiql/);
+});
+
+test('graphql-playground middleware attached with custom queryDirs', async () => {
+    const config = {
+        publicPath: 'full/path/to/publicPath',
+        graphqlPlayground: {
+            queryDirs: [resolve(__dirname, '__fixtures__/queries')]
+        }
+    };
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    const devServer = await PWADevServer.configure(config);
+
+    expect(devServer.before).toBeInstanceOf(Function);
+    const app = {
+        get: jest.fn()
+    };
+    devServer.before(app);
+    expect(playgroundMiddleware.mock.calls[0][0]).toMatchSnapshot();
 });

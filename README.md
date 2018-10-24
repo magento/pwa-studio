@@ -40,17 +40,23 @@ For more information about contributing to this repository, see the [Contributio
 To ease local development, testing, and versioning, the PWA Studio project uses a monorepo, with package management orchestrated by [lerna](https://github.com/lerna/lerna#about).
 All packages are versioned in a single repo, but released to `npm` as independent packages.
 
-## Packages
+## Lerna Packages
 
-This repository includes the following packages:
+This repository includes the following packages managed by lerna:
 
 * [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
 * [peregrine](packages/peregrine/README.md) - eCommerce Component Library
-* [pwa-module](packages/pwa-module)
-* [pwa-devdocs](packages/pwa-devdocs) - Project source for the [documentation site]
 * [upward-js](packages/upward-js) - Reference implementation of the UPWARD specification
 * [upward-spec](packages/upward-spec) - UPWARD specification and test suite
+
+## Other Packages
+
+This repository also includes modules that are not managed by Lerna, because
+they are not meant to be distributed via NPM, and/or they should not have their
+dependencies centrally managed by Lerna.
+
+* [pwa-devdocs](pwa-devdocs) - Project source for the [documentation site]
 
 ## Quick Setup
 
@@ -65,6 +71,22 @@ PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architec
 
 2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
 
+One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box.](https://github.com/paliarush/magento2-vagrant-for-developers/).
+
+#### Using the Vagrant Box
+
+1. Clone the https://github.com/paliarush/magento2-vagrant-for-developers/ repository and follow the [setup instructions](https://github.com/paliarush/magento2-vagrant-for-developers/#installation-steps).
+
+2. Make sure that all [sample data auto-installation parameters in the config.yaml](https://github.com/paliarush/magento2-vagrant-for-developers/blob/2.0/etc/config.yaml.dist#L49-L51) file are disabled.
+
+3. When installation is complete, then install the Venia sample data. Copy [this shell script](https://gist.github.com/mhhansen/19775bcf93614f5f9db34b90273fa2b8) and save it in your Magento root directory as `installVeniaSampleData.sh`.
+
+4. Run `vagrant ssh` to login to the Magento VM.
+
+5. Run `bash installVeniaSampleData.sh`. The Venia sample data should install, and the Vagrant host is ready to use.
+
+6. Update your `.env` file in PWA Studio to set `MAGENTO_BACKEND_URL` to the URL of the Vagrant box.
+
 ### Install Dependencies
 
 _**Note**: You must have a version of `node.js` >= `8.0.0`, and a version of `npm` >= `5.0.0`. The latest LTS versions of both are recommended._
@@ -75,7 +97,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 2. Navigate to the root of the repository from the command line
 3. Run `npm install`
 4. Copy `packages/venia-concept/example.env` to `packages/venia-concept/.env`
-5. Uncomment the line for `MAGENTO_BACKEND_DOMAIN` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_DOMAIN` to the fully-qualified URL of a Magento store running `2.3`.
+5. Uncomment the line for `MAGENTO_BACKEND_URL` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_URL` to the fully-qualified URL of a Magento store running `2.3`.
 6. On your first install, run `npm run build` from package root.
 7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
 
@@ -88,6 +110,10 @@ Make sure you have created a `.env` file in `packages/venia-concept` which speci
 ### Venia queries to GraphQL produce validation errors
 
 Venia and its GraphQL queries may be out of sync with the schema of your connected Magento instance. Make sure the Magento instance is up to date with the 2.3 development branch, and your copy of this repository (or your dependency on it) is up to date.
+
+### My browser complains that the connection is not secure
+
+Generating certificates is handled by [devcert](https://github.com/davewasmer/devcert). If you're on a Linux machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme](https://github.com/davewasmer/devcert#skipcertutil).
 
 **To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
 

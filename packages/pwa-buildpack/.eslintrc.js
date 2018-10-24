@@ -1,6 +1,6 @@
 const rootPkg = require('../../package.json');
 const rootModules = Object.keys(rootPkg.devDependencies).concat(
-    Object.keys(rootPkg.dependencies)
+    rootPkg.dependencies ? Object.keys(rootPkg.dependencies) : []
 );
 const uniqueRootModules = [...new Set(rootModules)];
 

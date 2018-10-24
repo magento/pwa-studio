@@ -1,6 +1,6 @@
 require('dotenv').config();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-const magentoDomainVarName = 'MAGENTO_BACKEND_DOMAIN';
+const magentoDomainVarName = 'MAGENTO_BACKEND_URL';
 const magentoDomain = process.env[magentoDomainVarName];
 if (!magentoDomain) {
     console.error(
