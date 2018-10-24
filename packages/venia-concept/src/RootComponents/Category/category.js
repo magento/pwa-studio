@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
+import Pagination from 'src/components/Pagination';
 import Page from 'src/components/Page';
 import defaultClasses from './category.css';
 
@@ -54,7 +55,8 @@ class Category extends Component {
 
     state = {
         currentPage: 1,
-        pageSize: 4
+        pageSize: 6,
+        lastPageTotal: 0
     };
 
     render() {
@@ -73,37 +75,19 @@ class Category extends Component {
                 >
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
+                        if (loading)
+                            return (this.state.lastPageTotal != 0)
+                            ? this.getCategoryComponent(this.state.lastPageTotal)
+                            : <div className={classes.placeholder}>Fetching Data...</div>;
 
+                        // Retrieve the total page count from GraphQL when ready
                         const pageCount =
                             data.category.products.total_count /
                             this.state.pageSize;
                         const totalPages = Math.ceil(pageCount);
 
-                        const pageControl = {
-                            currentPage: currentPage,
-                            setPage: this.setPage,
-                            totalPages: totalPages
-                        };
-
                         return (
-                            <article className={classes.root}>
-                                <h1 className={classes.title}>
-                                    {/* TODO: Switch to RichContent component from Peregrine when merged */}
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: data.category.description
-                                        }}
-                                    />
-                                </h1>
-                                <section className={classes.gallery}>
-                                    <Gallery
-                                        data={data.category.products.items}
-                                        title={data.category.description}
-                                        pageControl={pageControl}
-                                    />
-                                </section>
-                            </article>
+                            this.getCategoryComponent(totalPages, data)
                         );
                     }}
                 </Query>
@@ -111,12 +95,53 @@ class Category extends Component {
         );
     }
 
-    setPage = async newPageNumber => {
+    setPage = newPageNumber => {
         newPageNumber = newPageNumber < 1 ? 1 : newPageNumber;
-        await this.setState({
+        this.setState({
             currentPage: newPageNumber
         });
     };
+
+    updateTotalPages = newTotal => {
+        this.setState({
+            lastPageTotal: newTotal
+        });
+    }
+
+    getCategoryComponent = (totalPages, data) => {
+        const { classes } = this.props;
+        const items = data ? data.category.products.items : null;
+        const title = data ? data.category.description : null;
+
+        const pageControl = {
+            currentPage: this.state.currentPage,
+            setPage: this.setPage,
+            updateTotalPages: this.updateTotalPages,
+            totalPages: totalPages
+        };
+
+        return (
+            <article className={classes.root}>
+                <h1 className={classes.title}>
+                    {/* TODO: Switch to RichContent component from Peregrine when merged */}
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: title
+                        }}
+                    />
+                </h1>
+                <section className={classes.gallery}>
+                    <Gallery
+                        data={items}
+                        title={title}
+                    />
+                </section>
+                <div className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </div>
+            </article>
+        );
+    }
 }
 
 export default classify(defaultClasses)(Category);

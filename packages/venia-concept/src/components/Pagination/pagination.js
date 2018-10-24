@@ -3,31 +3,23 @@ import classify from 'src/classify';
 import defaultClasses from './pagination.css';
 import Icon from '../Icon';
 
+const tileBuffer = 3;
+
 class Pagination extends Component {
 
-    state = {
-        leadTile: 1,
-        tileBuffer: 3,
-        isAnchoredLeft: true,
-        isAnchoredRight: false
-    };
-
-    componentWillMount() {
-        this.setLeadTile();
+    componentDidMount() {
+        const { updateTotalPages, totalPages } = this.props.pageControl;
+        updateTotalPages(totalPages);
     }
 
     get navigationTiles() {
         const { classes, pageControl } = this.props;
         const { currentPage, totalPages } = pageControl;
 
-        if (totalPages == 1) {
-            return null;
-        }
-
         // Begin building page navigation
         const tiles = [];
-        const buffer = Math.min(this.state.tileBuffer * 2, totalPages - 1);
-        let leadTile = this.state.leadTile;
+        const buffer = Math.min(tileBuffer * 2, totalPages - 1);
+        const leadTile = this.getLeadTile();
 
         for (let i = leadTile; i <= leadTile + buffer; i++) {
             const tile = i;
@@ -36,15 +28,18 @@ class Pagination extends Component {
         // End building page navigation
 
         return tiles.map(tile => {
-            const className = tile == currentPage
-                ? classes.selected + ' ' + classes.tile
-                : classes.tile;
+            const tileMarker = tile == currentPage
+                ? <div
+                    id='tileMarker'
+                    className={classes.tileMarker}
+                  />
+                : null;
             return (
                 <button
-                    className={className}
                     key={tile}
                     onClick={() => this.setPage(tile)}
                 >
+                    {tileMarker}
                     {tile}
                 </button>
             )
@@ -54,14 +49,20 @@ class Pagination extends Component {
     render() {
         const { classes, pageControl } = this.props;
         const { navigationTiles } = this;
+
+        if (!pageControl || pageControl.totalPages == 1) {
+            return null;
+        }
+
         const sliderClassLeft = pageControl.currentPage == 1
             ? classes.slider + ' ' + classes.slider_inactive
             : classes.slider;
         const sliderClassRight = pageControl.currentPage == pageControl.totalPages
             ? classes.slider + ' ' + classes.slider_inactive
             : classes.slider;
+
         return (
-            <div className={classes.pageNav}>
+            <div className={classes.root}>
                 <button className={sliderClassLeft} onClick={this.slideNavLeft}>
                     <Icon name='chevron-left'/>
                 </button>
@@ -77,46 +78,35 @@ class Pagination extends Component {
         this.props.pageControl.setPage(pageNumber);
     };
 
-    slideNavLeft = async () => {
+    slideNavLeft = () => {
         const { setPage, currentPage } = this.props.pageControl;
         if (currentPage > 1) {
-            await setPage(currentPage - 1);
-            this.setLeadTile();
+            setPage(currentPage - 1);
         }
     }
 
-    slideNavRight = async () => {
+    slideNavRight = () => {
         const { setPage, currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            await setPage(currentPage + 1);
-            this.setLeadTile();
+            setPage(currentPage + 1);
         }
     }
 
-    setLeadTile = () => {
+    getLeadTile = () => {
         const { currentPage, totalPages } = this.props.pageControl;
-        const { tileBuffer } = this.state;
 
         const selectedTile = currentPage;
         const leftBound = 1 + tileBuffer;
         const rightBound = totalPages - tileBuffer;
-        let anchorLeft = false;
-        let anchorRight = false;
 
         let leadTile = selectedTile - tileBuffer;
         if (selectedTile < leftBound) {
             leadTile = 1;
-            anchorLeft = true;
         }
         else if (selectedTile > rightBound) {
             leadTile = Math.max(totalPages - (tileBuffer * 2), 1);
-            anchorRight = true;
         }
-        this.setState({
-            leadTile: leadTile,
-            isAnchoredLeft: anchorLeft,
-            isAnchoredRight: anchorRight
-        });
+        return leadTile;
     }
 }
 

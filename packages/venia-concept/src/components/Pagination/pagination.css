@@ -1,5 +1,8 @@
-* {
-    box-sizing: border-box;
+.root {
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .items {
@@ -9,22 +12,16 @@
     grid-template-columns: repeat(3, 1fr);
 }
 
-.pageNav {
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
 .tile {
     padding-top: 6px;
     padding-bottom: 4px;
 }
 
 button {
-    border-radius: 2px;
     width: 30px;
-    margin-right: 5px;
+    height: 30px;
+    margin-left: 2px;
+    margin-right: 2px;
     outline: none;
 }
 
@@ -35,8 +32,18 @@ button.selected {
 
 .slider {
     display: grid;
+    padding-bottom: 3px;
 }
 
 .slider_inactive {
     color: #999;
+}
+
+.tileMarker {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 2px;
+    bottom: 9px;
 }
