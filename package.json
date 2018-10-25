@@ -58,7 +58,7 @@
     "dedent": "^0.7.0",
     "dotenv": "^6.0.0",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.2.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",

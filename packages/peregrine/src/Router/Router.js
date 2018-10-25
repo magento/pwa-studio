@@ -7,8 +7,8 @@ export const { Consumer, Provider } = createContext();
 export default class MagentoRouter extends Component {
     static propTypes = {
         config: shape({
-            apiBase: string.isRequired,
-            __tmp_webpack_public_path__: string.isRequired
+            __tmp_webpack_public_path__: string.isRequired,
+            apiBase: string.isRequired
         }).isRequired,
         routerProps: object,
         using: func // e.g., BrowserRouter, MemoryRouter

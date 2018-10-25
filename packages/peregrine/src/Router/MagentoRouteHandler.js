@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import fetchRootComponent from './fetchRootComponent';
 import resolveUnknownRoute from './resolveUnknownRoute';
@@ -9,8 +9,9 @@ const NotFound = Symbol('NotFound');
 
 export default class MagentoRouteHandler extends Component {
     static propTypes = {
-        apiBase: string.isRequired,
         __tmp_webpack_public_path__: string.isRequired,
+        apiBase: string.isRequired,
+        children: func,
         location: shape({
             pathname: string.isRequired
         }).isRequired
@@ -18,11 +19,15 @@ export default class MagentoRouteHandler extends Component {
 
     state = {
         componentMap: new Map(),
-        errorState: {}
+        errorState: {
+            hasError: false,
+            internalError: false,
+            notFound: false
+        }
     };
 
     componentDidMount() {
-        this.getRouteComponent(this.props.location.pathname);
+        this.getRouteComponent();
     }
 
     componentDidUpdate() {
@@ -31,20 +36,21 @@ export default class MagentoRouteHandler extends Component {
         const isKnown = state.componentMap.has(pathname);
 
         if (!isKnown) {
-            this.getRouteComponent(pathname);
+            this.getRouteComponent();
         }
     }
 
-    async getRouteComponent(pathname) {
-        const { apiBase, __tmp_webpack_public_path__ } = this.props;
+    async getRouteComponent() {
+        const { __tmp_webpack_public_path__, apiBase, location } = this.props;
+        const { pathname } = location;
 
         try {
             // try to resolve the route
             // if this throws, we essentially have a 500 Internal Error
             const resolvedRoute = await resolveUnknownRoute({
-                route: pathname,
+                __tmp_webpack_public_path__,
                 apiBase,
-                __tmp_webpack_public_path__
+                route: pathname
             });
 
             const { id, matched, rootChunkID, rootModuleID } = resolvedRoute;
