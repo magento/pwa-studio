@@ -3,22 +3,14 @@ import { bool, func, shape, string } from 'prop-types';
 import { Page } from '@magento/peregrine';
 
 import classify from 'src/classify';
+import ErrorView from 'src/components/ErrorView';
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import defaultClasses from './appShell.css';
 
-// TODO: make this its own, more sophisticated component
-const ErrorHandler = ({ loading, notFound }) => {
-    const text = loading
-        ? 'Loading...'
-        : notFound
-            ? '404 Not Found'
-            : '500 Internal Server Error';
-
-    return <h1>{text}</h1>;
-};
+const handleRoutingError = props => <ErrorView {...props} />;
 
 class AppShell extends Component {
     static propTypes = {
@@ -43,7 +35,7 @@ class AppShell extends Component {
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
-                    <Page>{ErrorHandler}</Page>
+                    <Page>{handleRoutingError}</Page>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
