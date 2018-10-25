@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { Provider as RouteProvider } from '../../Router/Router';
+import { RouteProvider } from '../../Router';
 import Page from '../Page';
 
 configure({ adapter: new Adapter() });

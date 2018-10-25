@@ -63,13 +63,13 @@ export default class MagentoRouteHandler extends Component {
 
             // at this point we should have a matching RootComponent
             // if this throws, we essentially have a 500 Internal Error
-            const Component = await fetchRootComponent(
+            const RootComponent = await fetchRootComponent(
                 rootChunkID,
                 rootModuleID
             );
 
             // associate the matching RootComponent with this location
-            this.setRouteComponent(pathname, Component, { id });
+            this.setRouteComponent(pathname, RootComponent, { id });
         } catch ({ message }) {
             const symbol = message === '404' ? NotFound : InternalError;
 
@@ -79,16 +79,16 @@ export default class MagentoRouteHandler extends Component {
         }
     }
 
-    setRouteComponent(pathname, Component, meta) {
+    setRouteComponent(pathname, RootComponent, meta) {
         this.setState(({ componentMap }) => ({
             componentMap: new Map(componentMap).set(pathname, {
-                Component,
+                RootComponent,
                 ...meta
             }),
             errorState: {
-                hasError: typeof Component === 'symbol',
-                internalError: Component === InternalError,
-                notFound: Component === NotFound
+                hasError: typeof RootComponent === 'symbol',
+                internalError: RootComponent === InternalError,
+                notFound: RootComponent === NotFound
             }
         }));
     }
@@ -121,8 +121,8 @@ export default class MagentoRouteHandler extends Component {
         }
 
         // otherwise we do have a RootComponent, so render it
-        const { Component, ...routeProps } = componentMap.get(pathname);
+        const { RootComponent, ...routeProps } = componentMap.get(pathname);
 
-        return <Component {...routeProps} />;
+        return <RootComponent {...routeProps} />;
     }
 }
