@@ -12,13 +12,7 @@
 .pagination {
     position: -webkit-sticky;
     position: sticky;
-    background-color: white;
     bottom: 0;
-    border-top: 1px solid #CCC;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
 }
 
 .placeholder {

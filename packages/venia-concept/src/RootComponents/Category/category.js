@@ -76,9 +76,15 @@ class Category extends Component {
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading)
-                            return (this.state.lastPageTotal != 0)
-                            ? this.getCategoryComponent(this.state.lastPageTotal)
-                            : <div className={classes.placeholder}>Fetching Data...</div>;
+                            return this.state.lastPageTotal != 0 ? (
+                                this.getCategoryComponent(
+                                    this.state.lastPageTotal
+                                )
+                            ) : (
+                                <div className={classes.placeholder}>
+                                    Fetching Data...
+                                </div>
+                            );
 
                         // Retrieve the total page count from GraphQL when ready
                         const pageCount =
@@ -86,9 +92,7 @@ class Category extends Component {
                             this.state.pageSize;
                         const totalPages = Math.ceil(pageCount);
 
-                        return (
-                            this.getCategoryComponent(totalPages, data)
-                        );
+                        return this.getCategoryComponent(totalPages, data);
                     }}
                 </Query>
             </Page>
@@ -106,7 +110,7 @@ class Category extends Component {
         this.setState({
             lastPageTotal: newTotal
         });
-    }
+    };
 
     getCategoryComponent = (totalPages, data) => {
         const { classes } = this.props;
@@ -131,17 +135,14 @@ class Category extends Component {
                     />
                 </h1>
                 <section className={classes.gallery}>
-                    <Gallery
-                        data={items}
-                        title={title}
-                    />
+                    <Gallery data={items} title={title} />
                 </section>
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
                 </div>
             </article>
         );
-    }
+    };
 }
 
 export default classify(defaultClasses)(Category);

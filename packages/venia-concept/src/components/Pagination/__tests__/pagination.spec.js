@@ -6,7 +6,7 @@ import Pagination from '../pagination';
 
 configure({ adapter: new Adapter() });
 
-const classes = { root: 'a' }
+const classes = { root: 'a' };
 
 let mockPageControl = {};
 
@@ -15,28 +15,32 @@ const defaultPageControl = {
     setPage: () => {},
     updateTotalPages: () => {},
     totalPages: 3
-}
+};
 
 afterEach(() => {
     mockPageControl = Object.assign({}, defaultPageControl);
 });
 
 test('Pagination component renders when there is more than 1 page', () => {
-    const wrapper = shallow(<Pagination classes={classes} pageControl={defaultPageControl} />).dive();
+    const wrapper = shallow(
+        <Pagination classes={classes} pageControl={defaultPageControl} />
+    ).dive();
     expect(wrapper.hasClass(classes.root)).toBe(true);
 });
 
 test('Pagination component does not render when there is only 1 page', () => {
     const pageControl = Object.assign(mockPageControl, { totalPages: 1 });
-    const wrapper = shallow(<Pagination classes={classes} pageControl={pageControl} />).dive();
+    const wrapper = shallow(
+        <Pagination classes={classes} pageControl={pageControl} />
+    ).dive();
     expect(wrapper.hasClass(classes.root)).toBe(false);
 });
 
 test('clicking a numbered tile returns the appropriate page number', () => {
     let pageTracker;
-    const setPage = (pageNumber) => {
+    const setPage = pageNumber => {
         pageTracker = pageNumber;
-    }
+    };
 
     const pageControl = Object.assign(mockPageControl, { setPage: setPage });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
@@ -51,9 +55,12 @@ test('left arrow navigation', () => {
     let pageTracker = startingPage;
     const setPage = pageNumber => {
         pageTracker = pageNumber;
-    }
+    };
 
-    const pageControl = Object.assign(mockPageControl, {currentPage: startingPage, setPage: setPage});
+    const pageControl = Object.assign(mockPageControl, {
+        currentPage: startingPage,
+        setPage: setPage
+    });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
 
     const leftArrowNav = wrapper.find('button').first();
@@ -68,9 +75,12 @@ test('right arrow navigation', () => {
     let pageTracker = startingPage;
     const setPage = pageNumber => {
         pageTracker = pageNumber;
-    }
+    };
 
-    const pageControl = Object.assign(mockPageControl, {currentPage: startingPage, setPage: setPage});
+    const pageControl = Object.assign(mockPageControl, {
+        currentPage: startingPage,
+        setPage: setPage
+    });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
 
     const rightArrowNav = wrapper.find('button').last();
@@ -83,7 +93,10 @@ test('right arrow navigation', () => {
 test('left bound prevents the lead tile from falling below 1', () => {
     const currentPage = 3;
     const totalPages = 8;
-    const pageControl = Object.assign(mockPageControl, {currentPage: currentPage, totalPages: totalPages});
+    const pageControl = Object.assign(mockPageControl, {
+        currentPage: currentPage,
+        totalPages: totalPages
+    });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile()).toEqual(1);
@@ -92,7 +105,10 @@ test('left bound prevents the lead tile from falling below 1', () => {
 test('right bound prevents the lead tile from exceeding total pages - visible tile buffer', () => {
     const currentPage = 7;
     const totalPages = 9;
-    const pageControl = Object.assign(mockPageControl, {currentPage: currentPage, totalPages: totalPages});
+    const pageControl = Object.assign(mockPageControl, {
+        currentPage: currentPage,
+        totalPages: totalPages
+    });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile()).toEqual(3);

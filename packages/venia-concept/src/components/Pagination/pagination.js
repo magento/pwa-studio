@@ -6,7 +6,6 @@ import Icon from '../Icon';
 const tileBuffer = 3;
 
 class Pagination extends Component {
-
     componentDidMount() {
         const { updateTotalPages, totalPages } = this.props.pageControl;
         updateTotalPages(totalPages);
@@ -28,21 +27,16 @@ class Pagination extends Component {
         // End building page navigation
 
         return tiles.map(tile => {
-            const tileMarker = tile == currentPage
-                ? <div
-                    id='tileMarker'
-                    className={classes.tileMarker}
-                  />
-                : null;
+            const tileMarker =
+                tile == currentPage ? (
+                    <div id="tileMarker" className={classes.tileMarker} />
+                ) : null;
             return (
-                <button
-                    key={tile}
-                    onClick={() => this.setPage(tile)}
-                >
+                <button key={tile} onClick={() => this.setPage(tile)}>
                     {tileMarker}
                     {tile}
                 </button>
-            )
+            );
         });
     }
 
@@ -54,21 +48,26 @@ class Pagination extends Component {
             return null;
         }
 
-        const sliderClassLeft = pageControl.currentPage == 1
-            ? classes.slider + ' ' + classes.slider_inactive
-            : classes.slider;
-        const sliderClassRight = pageControl.currentPage == pageControl.totalPages
-            ? classes.slider + ' ' + classes.slider_inactive
-            : classes.slider;
+        const sliderClassLeft =
+            pageControl.currentPage == 1
+                ? classes.slider + ' ' + classes.slider_inactive
+                : classes.slider;
+        const sliderClassRight =
+            pageControl.currentPage == pageControl.totalPages
+                ? classes.slider + ' ' + classes.slider_inactive
+                : classes.slider;
 
         return (
             <div className={classes.root}>
                 <button className={sliderClassLeft} onClick={this.slideNavLeft}>
-                    <Icon name='chevron-left'/>
+                    <Icon name="chevron-left" />
                 </button>
                 {navigationTiles}
-                <button className={sliderClassRight} onClick={this.slideNavRight}>
-                    <Icon name='chevron-right'/>
+                <button
+                    className={sliderClassRight}
+                    onClick={this.slideNavRight}
+                >
+                    <Icon name="chevron-right" />
                 </button>
             </div>
         );
@@ -83,14 +82,14 @@ class Pagination extends Component {
         if (currentPage > 1) {
             setPage(currentPage - 1);
         }
-    }
+    };
 
     slideNavRight = () => {
         const { setPage, currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
             setPage(currentPage + 1);
         }
-    }
+    };
 
     getLeadTile = () => {
         const { currentPage, totalPages } = this.props.pageControl;
@@ -102,12 +101,11 @@ class Pagination extends Component {
         let leadTile = selectedTile - tileBuffer;
         if (selectedTile < leftBound) {
             leadTile = 1;
-        }
-        else if (selectedTile > rightBound) {
-            leadTile = Math.max(totalPages - (tileBuffer * 2), 1);
+        } else if (selectedTile > rightBound) {
+            leadTile = Math.max(totalPages - tileBuffer * 2, 1);
         }
         return leadTile;
-    }
+    };
 }
 
 export default classify(defaultClasses)(Pagination);

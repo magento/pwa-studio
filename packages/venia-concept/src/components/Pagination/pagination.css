@@ -1,8 +1,11 @@
 .root {
     display: inline-flex;
     justify-content: center;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    padding: 1rem;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    text-align: center;
 }
 
 .items {
@@ -45,5 +48,5 @@ button.selected {
     height: 30px;
     border: 1px solid;
     border-radius: 2px;
-    bottom: 9px;
+    bottom: 17px;
 }
