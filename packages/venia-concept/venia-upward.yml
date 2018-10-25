@@ -14,7 +14,7 @@ response:
       pattern: '^/favicon.ico'
       use: favicon
     - matches: request.url.pathname
-      pattern: '^/homescreen144.png'
+      pattern: '^/venia_circle_144.png'
       use: homescreen
     - matches: urlKey
       pattern: '.'
@@ -134,7 +134,7 @@ homescreen:
           inline: 'image/png'
     body:
       file:
-        inline: ./media/icons/homescreen144.png
+        inline: ./media/icons/venia_circle_144.png
       encoding: binary
 
 
