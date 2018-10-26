@@ -58,6 +58,15 @@ module.exports = async function(env) {
         module: {
             rules: [
                 {
+                    test: /\.graphql$/,
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'graphql-tag/loader'
+                        }
+                    ]
+                },
+                {
                     include: [themePaths.src],
                     test: /\.js$/,
                     use: [
