@@ -1,6 +1,6 @@
 /**
  * @RootComponent
  * description = 'Basic Search'
- * pageTypes = CMS_PAGE
+ * pageTypes = SEARCH
  */
 export { default } from './search';

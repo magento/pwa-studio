@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
 import { withRouter } from 'react-router';
-import gql from 'graphql-tag';
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
 
 import Icon from 'src/components/Icon';
 
-class SearchBar extends Component {
+export class SearchBar extends Component {
     static propTypes = {
       classes: PropTypes.shape({
         searchBlock: PropTypes.string,
@@ -17,12 +15,13 @@ class SearchBar extends Component {
       }) 
     };
 
-    async componentDidMount() {
+    async componentDidMount() { 
       if (this.props.isOpen) {        
         document.getElementById("searchInput").focus();
       }
       if (document.location.pathname === '/search') {
-        document.getElementById("searchInput").value = document.location.search.substring(1);
+        const params = (new URL(document.location)).searchParams;
+        document.getElementById("searchInput").value = params.get("query");
       }
     }
 
@@ -37,22 +36,24 @@ class SearchBar extends Component {
       }
     }
 
+    enterSearch = (event) => {
+        const searchInput = document.getElementById("searchInput").value;
+        if ((event.type === "click" || event.key === "Enter") && searchInput !== "") {
+          this.props.history.push(`/search?query=` + searchInput); 
+        }
+    };
+    
+
     render() {
-      const { classes, isOpen, toggleSearch } = this.props;
+      const { classes, isOpen } = this.props;
 
       const searchClass = isOpen ? classes.searchBlockOpen: classes.searchBlock; 
-
-      const enterSearch = (event) => {
-          if (event.type === "click" || event.key === "Enter") {
-            this.props.history.push(`/search?` + document.getElementById("searchInput").value);
-          }
-      };
 
       return (
           <div className={searchClass}>   
               <button
                 className={classes.searchIcon}
-                onClick={enterSearch}
+                onClick={this.enterSearch}
               >
                 <Icon name="search" />
               </button>
@@ -62,7 +63,7 @@ class SearchBar extends Component {
                 inputMode="search"
                 type="search"
                 placeholder="I'm looking for..."
-                onKeyPress={enterSearch}
+                onKeyPress={this.enterSearch}
               />
           </div>
       );

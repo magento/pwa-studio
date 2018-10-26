@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { string, func, object } from 'prop-types';
 import MagentoRouteHandler from './MagentoRouteHandler';
+import SearchRouteHandler from './SearchRouteHandler';
 
 //import Search from '../../../venia-concept/src/RootComponents/Search';
 
@@ -29,6 +30,19 @@ export default class MagentoRouter extends Component {
 				
         return (
             <Router {...routerProps}>
+              <Switch>
+                <Route
+                  path="/search"
+                  render={({ location }) => (
+                    <SearchRouteHandler
+                        location={location}
+                        apiBase={apiBase}
+                        __tmp_webpack_public_path__={
+                            __tmp_webpack_public_path__
+                        }
+                    />
+                  )}
+                />
                <Route
                     render={({ location }) => (
                         <MagentoRouteHandler
@@ -40,6 +54,7 @@ export default class MagentoRouter extends Component {
                         />
                     )}
                 /> 
+              </Switch>
             </Router>
         );
     }

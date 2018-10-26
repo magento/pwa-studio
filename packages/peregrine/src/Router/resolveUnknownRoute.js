@@ -9,39 +9,24 @@ export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
   function handleResolverResponse(res) {
-      if ( route === '/search'){
+      if (!(res && res.type)) {
+        return { matched: false };
+      }
+
+      return remotelyResolveRoute({
+        route,
+        apiBase
+      }).then(res => {  
         return tempGetWebpackChunkData(
-            'CATEGORY',
+            res.type,
             __tmp_webpack_public_path__
         ).then(({ rootChunkID, rootModuleID }) => ({
             rootChunkID,
             rootModuleID,
-            id: 99,
+            id: res.id,
             matched: true
         }));
-      }
-
-      else {
-
-        if (!(res && res.type)) {
-          return { matched: false };
-        }
-
-        return remotelyResolveRoute({
-          route,
-          apiBase
-        }).then(res => {  
-          return tempGetWebpackChunkData(
-              res.type,
-              __tmp_webpack_public_path__
-          ).then(({ rootChunkID, rootModuleID }) => ({
-              rootChunkID,
-              rootModuleID,
-              id: res.id,
-              matched: true
-          }));
-        });
-      }
+      }); 
   }
 
     if (!preloadDone) {
@@ -108,7 +93,7 @@ function remotelyResolveRoute(opts) {
  * @param {"PRODUCT" | "CATEGORY" | "CMS_PAGE"} pageType
  * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
  */
-function tempGetWebpackChunkData(pageType, webpackPublicPath) {
+export function tempGetWebpackChunkData(pageType, webpackPublicPath) {
     // In dev mode, `webpackPublicPath` may be a fully qualified URL.
     // In production mode, it may be a pathname, which makes it unsafe
     // to use as an API base. Normalize it as a full path using a DOM node

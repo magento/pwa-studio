@@ -13,7 +13,7 @@ import SearchBar from 'src/components/SearchBar';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
-class Header extends Component {
+export class Header extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             logo: PropTypes.string,
@@ -29,7 +29,12 @@ class Header extends Component {
     };
     
   async componentDidMount() {
-    if (document.location.pathname === '/search' && this.props.app.searchOpen !== true) {
+    if (document.location.pathname === '/search') {
+        if (this.props.app.searchOpen !== true) {
+            this.props.toggleSearch();
+        }
+    }
+    else if (this.props.app.searchOpen === true) {
         this.props.toggleSearch();
     }
   }
@@ -72,8 +77,7 @@ class Header extends Component {
                     </div>
                 </div>
                   <SearchBar
-                  isOpen={searchOpen}
-                  toggleSearch={toggleSearch}
+                  isOpen={searchOpen} 
                   classes={classes}
                 />
             </header>

@@ -1,0 +1,7 @@
+.root {
+    padding: 1rem;
+}
+
+.noResult {
+    display: flex; 
+}

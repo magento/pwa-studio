@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 
 import { Query } from 'react-apollo';
 import Page from  'src/components/Page';
@@ -13,7 +13,9 @@ const searchQuery = gql`
       items {
         id
         name
-        small_image
+        small_image {
+          path
+        }
         url_key
         price {
           regularPrice {
@@ -28,31 +30,35 @@ const searchQuery = gql`
   }
 `;
 
-class Search extends Component {
+export class Search extends Component {
  
   render() {    
+    const { classes } = this.props;
+    let inputText = "";
+    if (location.search) {
+      const params = (new URL(document.location)).searchParams;
+      inputText = params.get("query");
+    }
 
     return(
       <Page>
-        <Query query={searchQuery} variables={{ "inputText" : this.state.searchInput }}> 
+        <Query query={searchQuery} variables={{ "inputText" : inputText }}>
           {({ loading, error, data }) => {
-            if (loading) return "Loading";
-            if (error) return `Error ${error.message}`;
+            if (error) return <div>Data Fetch Error</div>;
+            if (loading) return <div>Fetching Data</div>;
+            if (data.products.items.length === 0) return <div className={classes.noResult}>No results found!</div>;
 
-            return (
-              <div>
-                <Gallery
-                  data={data.products.items}
-                />
-                {data.products.items.map(item => (
-                  <span>
-                    {item.name}
-                  </span>
-                ))}
-              </div>
-            );
-          }}
-        </Query>
+              return (
+                <article className={classes.root}>
+                  <section className={classes.gallery}>
+                    <Gallery
+                      data={data.products.items}
+                    />
+                  </section>
+                </article>
+              );
+            }}
+          </Query>
       </Page>
     );
   }
