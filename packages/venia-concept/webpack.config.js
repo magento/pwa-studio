@@ -1,5 +1,14 @@
 require('dotenv').config();
 
+const magentoDomainVarName = 'MAGENTO_BACKEND_URL';
+const magentoDomain = process.env[magentoDomainVarName];
+if (!magentoDomain) {
+    console.error(
+        `No ${magentoDomainVarName} environment variable specified. Have you created a .env file?`
+    );
+    process.exit(1);
+}
+
 const webpack = require('webpack');
 const {
     WebpackTools: {
