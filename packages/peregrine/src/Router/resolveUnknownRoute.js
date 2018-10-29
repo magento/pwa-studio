@@ -8,15 +8,11 @@ let preloadDone = false;
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
 
-  function handleResolverResponse(res) {
-      if (!(res && res.type)) {
-        return { matched: false };
-      }
+    function handleResolverResponse(res) {
+        if (!(res && res.type)) {
+            return { matched: false };
+        }
 
-      return remotelyResolveRoute({
-        route,
-        apiBase
-      }).then(res => {  
         return tempGetWebpackChunkData(
             res.type,
             __tmp_webpack_public_path__
@@ -26,34 +22,33 @@ export default function resolveUnknownRoute(opts) {
             id: res.id,
             matched: true
         }));
-      }); 
-  }
+    }
 
     if (!preloadDone) {
-      const preloaded = document.getElementById('url-resolver');
-      if (preloaded) {
-          const rejectPreload = e =>
-              console.error(
-                  'Unable to read preload!',
-                  preloaded.textContent,
-                  e
-              );
-          try {
-              return handleResolverResponse(
-                  JSON.parse(preloaded.textContent)
-              ).then(x => {
-                  preloadDone = true;
-                  return x;
-              }, rejectPreload);
-          } catch (e) {
-              rejectPreload(e);
-          }
-      }
+        const preloaded = document.getElementById('url-resolver');
+        if (preloaded) {
+            const rejectPreload = e =>
+                console.error(
+                    'Unable to read preload!',
+                    preloaded.textContent,
+                    e
+                );
+            try {
+                return handleResolverResponse(
+                    JSON.parse(preloaded.textContent)
+                ).then(x => {
+                    preloadDone = true;
+                    return x;
+                }, rejectPreload);
+            } catch (e) {
+                rejectPreload(e);
+            }
+        }
     }
 
     return remotelyResolveRoute({
-      route,
-      apiBase
+        route,
+        apiBase
     }).then(handleResolverResponse);
 }
 

@@ -54,12 +54,12 @@
     position: relative;
     display: inline-block;
     border-style: solid;
-    border-width: .15rem .15rem 0 0;
+    border-width: 0.15rem 0.15rem 0 0;
     content: '';
-    height: .45rem;
-    width: .45rem;
-    left: -.15rem;
-    top: -.45rem;
+    height: 0.45rem;
+    width: 0.45rem;
+    left: -0.15rem;
+    top: -0.45rem;
     transform: rotate(-45deg);
     vertical-align: top;
     transition-property: transform;
@@ -67,12 +67,12 @@
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
-.searchTriggerOpen { 
+.searchTriggerOpen {
     composes: searchTrigger;
 }
 
 .searchTriggerOpen::before {
-    transform: rotate(-225deg); 
+    transform: rotate(-225deg);
 }
 
 .logo {

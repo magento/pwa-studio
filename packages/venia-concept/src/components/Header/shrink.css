@@ -50,9 +50,9 @@
     width: 3rem;
 }
 
-.searchTriggerOpen { 
+.searchTriggerOpen {
     composes: searchTrigger;
-    transform: scale(.75);
+    transform: scale(0.75);
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 

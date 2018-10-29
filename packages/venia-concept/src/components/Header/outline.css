@@ -50,7 +50,7 @@
     width: 3rem;
 }
 
-.searchTriggerOpen { 
+.searchTriggerOpen {
     composes: searchTrigger;
     outline: 1px solid rgb(var(--venia-text-alt));
 }

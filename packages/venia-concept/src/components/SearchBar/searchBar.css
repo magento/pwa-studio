@@ -8,7 +8,7 @@
 }
 
 .searchBlock {
-    composes: root; 
+    composes: root;
     opacity: 0;
     height: 0;
     padding: 0 2rem 0 0.5rem;
@@ -18,8 +18,8 @@
     pointer-events: none;
 }
 
-.searchBlockOpen{
-    composes: root; 
+.searchBlockOpen {
+    composes: root;
     opacity: 1;
     height: 4rem;
     padding: 0 2rem 1rem 0.5rem;
@@ -29,7 +29,7 @@
     pointer-events: all;
 }
 
-.searchBar{
+.searchBar {
     border: 1px solid rgb(var(--venia-border));
     border-radius: 6px;
     font-size: 1rem;
@@ -44,4 +44,3 @@
     left: 2.2rem;
     cursor: pointer;
 }
-    

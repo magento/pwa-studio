@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { toggleSearch } from 'src/actions/app';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
@@ -27,23 +24,24 @@ export class Header extends Component {
             toolbar: PropTypes.string
         })
     };
-    
-  async componentDidMount() {
-    if (document.location.pathname === '/search') {
-        if (this.props.searchOpen !== true) {
+
+    async componentDidMount() {
+        if (document.location.pathname === '/search') {
+            if (this.props.searchOpen !== true) {
+                this.props.toggleSearch();
+            }
+        } else if (this.props.searchOpen === true) {
             this.props.toggleSearch();
         }
     }
-    else if (this.props.searchOpen === true) {
-        this.props.toggleSearch();
-    }
-  }
-    
+
     render() {
         const { searchOpen, toggleSearch, classes } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
-        const searchClass = searchOpen ? classes.searchTriggerOpen : classes.searchTrigger;
+        const searchClass = searchOpen
+            ? classes.searchTriggerOpen
+            : classes.searchTrigger;
 
         return (
             <header className={rootClass}>
@@ -63,10 +61,10 @@ export class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <button 
-                         id="searchButton"
-                         className={searchClass} 
-                         onClick={toggleSearch}
+                        <button
+                            id="searchButton"
+                            className={searchClass}
+                            onClick={toggleSearch}
                         >
                             <Icon name="search" />
                         </button>
@@ -75,10 +73,7 @@ export class Header extends Component {
                         </CartTrigger>
                     </div>
                 </div>
-                  <SearchBar
-                  isOpen={searchOpen} 
-                  classes={classes}
-                />
+                <SearchBar isOpen={searchOpen} classes={classes} />
             </header>
         );
     }

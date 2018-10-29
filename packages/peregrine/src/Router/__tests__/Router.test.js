@@ -33,8 +33,12 @@ test('Only rendered route is a catch-all', () => {
         />
     ).find('Route');
     expect(routesWrapper.length).toBe(2);
-  expect(routesWrapper.filterWhere(n => n.prop('path') === undefined).length).toBe(1);
-  expect(routesWrapper.filterWhere(n => n.prop('path') === '/search').length).toBe(1);
+    expect(
+        routesWrapper.filterWhere(n => n.prop('path') === undefined).length
+    ).toBe(1);
+    expect(
+        routesWrapper.filterWhere(n => n.prop('path') === '/search').length
+    ).toBe(1);
 });
 
 test('Renders component for matching route', cb => {

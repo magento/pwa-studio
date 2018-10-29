@@ -50,9 +50,9 @@
     width: 3rem;
 }
 
-.searchTriggerOpen { 
+.searchTriggerOpen {
     composes: searchTrigger;
-    color: rgb(var(--venia-teal)); 
+    color: rgb(var(--venia-teal));
 }
 
 .logo {

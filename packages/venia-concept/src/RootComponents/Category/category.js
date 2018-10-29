@@ -46,7 +46,6 @@ class Category extends Component {
         })
     };
 
-
     // TODO: Should not be a default here, we just don't have
     // the wiring in place to map route info down the tree (yet)
     static defaultProps = {
@@ -54,34 +53,34 @@ class Category extends Component {
     };
 
     render() {
-        const { id, classes } = this.props; 
+        const { id, classes } = this.props;
 
         return (
             <Page>
                 <Query query={categoryQuery} variables={{ id }}>
-                  {({ loading, error, data }) => {
-                      if (error) return <div>Data Fetch Error</div>;
-                      if (loading) return <div>Fetching Data</div>;
-                        
-                      return (
-                          <article className={classes.root}>
-                              <h1 className={classes.title}>
-                                  {/* TODO: Switch to RichContent component from Peregrine when merged */}
-                                  <span
-                                      dangerouslySetInnerHTML={{
-                                          __html: data.category.description
-                                      }}
-                                  />
-                              </h1>
-                              <section className={classes.gallery}>
-                                  <Gallery
-                                      data={data.category.products.items}
-                                      title={data.category.description}
-                                  />
-                              </section>
-                          </article>
-                      );
-                  }}
+                    {({ loading, error, data }) => {
+                        if (error) return <div>Data Fetch Error</div>;
+                        if (loading) return <div>Fetching Data</div>;
+
+                        return (
+                            <article className={classes.root}>
+                                <h1 className={classes.title}>
+                                    {/* TODO: Switch to RichContent component from Peregrine when merged */}
+                                    <span
+                                        dangerouslySetInnerHTML={{
+                                            __html: data.category.description
+                                        }}
+                                    />
+                                </h1>
+                                <section className={classes.gallery}>
+                                    <Gallery
+                                        data={data.category.products.items}
+                                        title={data.category.description}
+                                    />
+                                </section>
+                            </article>
+                        );
+                    }}
                 </Query>
             </Page>
         );

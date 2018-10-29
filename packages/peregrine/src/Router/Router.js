@@ -27,34 +27,34 @@ export default class MagentoRouter extends Component {
             apiBase,
             __tmp_webpack_public_path__
         } = this.props;
-				
+
         return (
             <Router {...routerProps}>
-              <Switch>
-                <Route
-                  path="/search"
-                  render={({ location }) => (
-                    <SearchRouteHandler
-                        location={location}
-                        apiBase={apiBase}
-                        __tmp_webpack_public_path__={
-                            __tmp_webpack_public_path__
-                        }
+                <Switch>
+                    <Route
+                        path="/search"
+                        render={({ location }) => (
+                            <SearchRouteHandler
+                                location={location}
+                                apiBase={apiBase}
+                                __tmp_webpack_public_path__={
+                                    __tmp_webpack_public_path__
+                                }
+                            />
+                        )}
                     />
-                  )}
-                />
-               <Route
-                    render={({ location }) => (
-                        <MagentoRouteHandler
-                            location={location}
-                            apiBase={apiBase}
-                            __tmp_webpack_public_path__={
-                                __tmp_webpack_public_path__
-                            }
-                        />
-                    )}
-                /> 
-              </Switch>
+                    <Route
+                        render={({ location }) => (
+                            <MagentoRouteHandler
+                                location={location}
+                                apiBase={apiBase}
+                                __tmp_webpack_public_path__={
+                                    __tmp_webpack_public_path__
+                                }
+                            />
+                        )}
+                    />
+                </Switch>
             </Router>
         );
     }

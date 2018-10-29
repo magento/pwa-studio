@@ -17,52 +17,41 @@ import { store } from '../../../store';
 const stories = storiesOf('Header', module);
 
 stories.add('Color', () => (
-  <Router>
-    <Provider store={store}>
-      <Header 
-        classes={defaultClasses}
-      />
-    </Provider>
-  </Router>
-  ));
+    <Router>
+        <Provider store={store}>
+            <Header classes={defaultClasses} />
+        </Provider>
+    </Router>
+));
 
 stories.add('Shrink', () => (
-  <Router>
-    <Provider store={store}>
-      <Header
-        classes={shrink}
-      />
-    </Provider>
-  </Router>
-  ));
+    <Router>
+        <Provider store={store}>
+            <Header classes={shrink} />
+        </Provider>
+    </Router>
+));
 
 stories.add('Grow', () => (
-  <Router>
-    <Provider store={store}>
-      <Header
-        classes={grow}
-      />
-    </Provider>
-  </Router>
-  ));
+    <Router>
+        <Provider store={store}>
+            <Header classes={grow} />
+        </Provider>
+    </Router>
+));
 
 stories.add('Outline', () => (
-  <Router>
-    <Provider store={store}>
-      <Header
-        classes={outline}
-      />
-    </Provider>
-  </Router>
-  ));
+    <Router>
+        <Provider store={store}>
+            <Header classes={outline} />
+        </Provider>
+    </Router>
+));
 
 stories.add('Arrow', () => (
-  <Router>
-    <Provider store={store}>
-      <Header
-        classes={arrow}
-      />
-    </Provider>
-  </Router>
-  ));
-
+    <Router>
+        <Provider store={store}>
+            <Header classes={arrow} />
+        </Provider>
+    </Router>
+));

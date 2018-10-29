@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
-import resolveUnknownRoute from './resolveUnknownRoute';
+import resolveSearchRoute from './resolveSearchRoute';
 import fetchRootComponent from './fetchRootComponent';
 
-export default class MagentoRouteHandler extends Component {
+export default class SearchRouteHandler extends Component {
     static propTypes = {
         apiBase: string.isRequired,
         __tmp_webpack_public_path__: string.isRequired,
@@ -18,43 +18,29 @@ export default class MagentoRouteHandler extends Component {
         this.getRouteComponent(this.props.location.pathname);
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { location } = this.props;
-        const changed = nextProps.location.pathname !== location.pathname;
-        const seen = !!this.state[nextProps.location.pathname];
-
-        if (changed && !seen) {
-            this.getRouteComponent(nextProps.location.pathname);
-        }
-    }
+    // Consider if this work needs to be repeated here. Can I just load searchComponent?
 
     getRouteComponent(pathname) {
         const { apiBase, __tmp_webpack_public_path__ } = this.props;
 
-        resolveUnknownRoute({
+        resolveSearchRoute({
             route: pathname,
             apiBase,
             __tmp_webpack_public_path__
         })
-            .then(({ rootChunkID, rootModuleID, matched, id }) => {
-                if (!matched) {
-                    // TODO: User-defined 404 page
-                    // when the API work is done to support it
-                    throw new Error('404');
-                }
+            .then(({ rootChunkID, rootModuleID }) => {
                 return fetchRootComponent(rootChunkID, rootModuleID).then(
                     Component => {
                         this.setState({
                             [pathname]: {
-                                Component,
-                                id
+                                Component
                             }
                         });
                     }
                 );
             })
             .catch(err => {
-                console.log('Routing resolve failed\n', err);
+                console.log('Search Route resolve failed!\n', err);
             });
     }
 
@@ -63,7 +49,6 @@ export default class MagentoRouteHandler extends Component {
         const routeInfo = this.state[location.pathname];
 
         if (!routeInfo) {
-            // TODO (future iteration): User-defined loading content
             return <div>Loading</div>;
         }
 
