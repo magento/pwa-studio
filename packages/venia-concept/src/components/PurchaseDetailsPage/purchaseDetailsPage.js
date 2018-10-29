@@ -47,16 +47,46 @@ class PurchaseDetailsPage extends Component {
             <Page>
                 <div className={classes.root}>
                     <OrderItem />
-                    <h2>Order details</h2>
-                    <DetailsBlock rows={orderDetails} />
-                    <OrderItemsList items={otherItems} />
-                    <h3>Shipment Details</h3>
-                    <DetailsBlock rows={shipmentDetails} />
-                    <Button>Track Order</Button>
-                    <h3>Payment Details</h3>
-                    <DetailsBlock rows={paymentDetails} />
-                    <h3>Order Summary</h3>
-                    <DetailsBlock rows={orderSummary} />
+                    <h2 className={classes.orderDetailsHeaderText}>
+                        Order details
+                    </h2>
+                    <DetailsBlock
+                        rows={orderDetails}
+                        classes={{ root: classes.orderDetailsBlockRoot }}
+                    />
+                    <OrderItemsList
+                        items={otherItems}
+                        title="Other Items in this Order"
+                    />
+                    <h3 className={classes.detailsBlockHeaderText}>
+                        Shipment Details
+                    </h3>
+                    <DetailsBlock
+                        classes={{ root: classes.shipmentBlockRoot }}
+                        rows={shipmentDetails}
+                    />
+                    <Button
+                        classes={{
+                            root: classes.trackButtonRoot,
+                            content: classes.trackButtonContent
+                        }}
+                    >
+                        Track Order
+                    </Button>
+                    <h3 className={classes.detailsBlockHeaderText}>
+                        Payment Details
+                    </h3>
+                    <DetailsBlock
+                        classes={{ root: classes.customDetailsBlock }}
+                        rows={paymentDetails}
+                    />
+                    <h3 className={classes.detailsBlockHeaderText}>
+                        Order Summary
+                    </h3>
+                    <DetailsBlock
+                        classes={{ root: classes.customDetailsBlock }}
+                        rows={orderSummary}
+                    />
                 </div>
             </Page>
         );

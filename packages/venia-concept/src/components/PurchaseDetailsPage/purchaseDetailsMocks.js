@@ -1,3 +1,5 @@
+// TODO: implement data feching, add selectors and remove this file
+
 export const orderDetailsMock = [
     { property: 'Order No', value: 84322 },
     { property: 'Order Date', value: 'June 24, 2018' },
