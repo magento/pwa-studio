@@ -30,18 +30,17 @@ export class Header extends Component {
     
   async componentDidMount() {
     if (document.location.pathname === '/search') {
-        if (this.props.app.searchOpen !== true) {
+        if (this.props.searchOpen !== true) {
             this.props.toggleSearch();
         }
     }
-    else if (this.props.app.searchOpen === true) {
+    else if (this.props.searchOpen === true) {
         this.props.toggleSearch();
     }
   }
     
     render() {
-        const { app, toggleSearch, classes } = this.props; 
-        const { searchOpen } = app;
+        const { searchOpen, toggleSearch, classes } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
         const searchClass = searchOpen ? classes.searchTriggerOpen : classes.searchTrigger;
@@ -84,12 +83,5 @@ export class Header extends Component {
         );
     }
 }
-const mapDispatchToProps = { toggleSearch };
 
-export default compose(
-    classify(defaultClasses),
-    connect(
-        ({ app }) => ({ app }),
-        mapDispatchToProps
-    )
-)(Header);
+export default classify(defaultClasses)(Header);

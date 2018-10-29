@@ -1,10 +1,7 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-//import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from '../header';
-//import toggleSearch from '../../../actions/app';
-//import app from '../../../reducers/app';
 
 configure({ adapter: new Adapter() });
 
@@ -15,19 +12,14 @@ const classes = {
   searchTrigger: 'triggerClosed'
 }
 
-//test('Header should render properly', async () => {
-
-//});
-
 test('When icon is clicked, toggle function is ran', async () => { 
   const searchOpen = false;
   const toggleSearch = jest.fn();
-  const app = { searchOpen };
   let wrapper = shallow( 
       <Header 
-        app={app}
         classes={classes} 
         toggleSearch={toggleSearch}
+        searchOpen={searchOpen}
       />
       );  
   const searchButton = wrapper.find('#searchButton');

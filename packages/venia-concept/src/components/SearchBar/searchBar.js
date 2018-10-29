@@ -15,31 +15,36 @@ export class SearchBar extends Component {
       }) 
     };
 
+    constructor(props) {
+      super(props);
+      this.searchRef = React.createRef();
+    }
+
     async componentDidMount() { 
       if (this.props.isOpen) {        
-        document.getElementById("searchInput").focus();
+        this.searchRef.current.focus();
       }
       if (document.location.pathname === '/search') {
         const params = (new URL(document.location)).searchParams;
-        document.getElementById("searchInput").value = params.get("query");
+        this.searchRef.current.value = params.get("query");
       }
     }
 
     componentDidUpdate(prevProps) {
       if (this.props.isOpen !== prevProps.isOpen) {
         if (this.props.isOpen == true) {
-          document.getElementById("searchInput").focus();
+          this.searchRef.current.focus();
         }
         else {
-          document.getElementById("searchInput").blur();
+          this.searchRef.current.blur();
         }
       }
     }
 
     enterSearch = (event) => {
-        const searchInput = document.getElementById("searchInput").value;
-        if ((event.type === "click" || event.key === "Enter") && searchInput !== "") {
-          this.props.history.push(`/search?query=` + searchInput); 
+        const searchQuery = this.searchRef.current.value;
+        if ((event.type === "click" || event.key === "Enter") && searchQuery !== "") {
+          this.props.history.push(`/search?query=` + searchQuery); 
         }
     };
     
@@ -58,7 +63,7 @@ export class SearchBar extends Component {
                 <Icon name="search" />
               </button>
               <input
-                id="searchInput"
+                ref={this.searchRef}
                 className={classes.searchBar}
                 inputMode="search"
                 type="search"

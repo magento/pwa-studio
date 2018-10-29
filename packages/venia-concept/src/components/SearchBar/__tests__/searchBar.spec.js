@@ -10,32 +10,34 @@ const classes = {
   searchBlock: 'closed'
 };
 
-//test('SearchBar should Render correctly', async () => {
-  //const wrapper = renderer.create(
-    //<SearchBar classes={classes} isOpen={true} />
-    //    ).toJSON();
-  //expect(wrapper).toMatchInlineSnapshot();
-  //});
+test('Input is focused when isOpen is true', async () => {
+  let wrapper = mount(
+    <SearchBar classes={classes} isOpen={true} />
+    );
+  const searchInput = wrapper.find('input').instance(); 
+  spyOn(searchInput, 'focus');
+  wrapper.instance().forceUpdate();
+  wrapper.instance().componentDidMount();
+  expect(searchInput.focus).toHaveBeenCalledTimes(1);
+});
 
-//test('Input is focused when isOpen is true', async () => {
-  //let wrapper = mount(
-    //<SearchBar classes={classes} isOpen={true} />
-    //);
-  //const searchInput = wrapper.find('#searchInput').instance();
-  //spyOn(searchInput, 'focus');
-  //wrapper.instance().forceUpdate();
-  //wrapper.instance().componentDidMount();
-  //expect(searchInput.focus).toHaveBeenCalled();
-//});
+test('Input is blurred when isOpen is false', async() => {
+  let wrapper = mount(
+    <SearchBar classes={classes} isOpen={false} />
+    );
+  const searchInput = wrapper.find('input').instance();
+  const prevProps = {isOpen: true};
+  spyOn(searchInput, 'blur');
+  wrapper.instance().forceUpdate();  
+  wrapper.instance().componentDidUpdate(prevProps);
+  expect(searchInput.blur).toHaveBeenCalledTimes(1);
+});
 
-test('enter key to submit while expanded', async () => {
-  //Need to mock componentDidMount to avoid calling focus()
-  const didMount = jest.spyOn(SearchBar.prototype, 'componentDidMount').mockImplementation( () => {
-  });
+test('Enter key to submit while expanded', async () => {
   let wrapper = mount(
     <SearchBar classes={classes} isOpen={true} />
     );    
-  const searchInput = wrapper.find('#searchInput');  
+  const searchInput = wrapper.find('input');  
   const spy = jest.spyOn(wrapper.instance(), 'enterSearch').mockImplementation((event) => {
     if ((event.type === "click" || event.key === "Enter") && searchInput.instance().value !== ""){
       return true;
@@ -50,11 +52,11 @@ test('enter key to submit while expanded', async () => {
   expect(spy).toHaveReturnedWith(true);
 });
 
-test('search icon to submit when clicked', async () => {
+test('Search icon to submit when clicked', async () => {
   let wrapper = mount(
     <SearchBar classes={classes} isOpen={true} />
     );       
-  const searchInput = wrapper.find('#searchInput');
+  const searchInput = wrapper.find('input');
   const searchButton = wrapper.find('button');
   const spy = jest.spyOn(wrapper.instance(), 'enterSearch').mockImplementation((event) => { 
     if ((event.type === "click" || event.key === "Enter") && searchInput.instance().value !== ""){
@@ -70,11 +72,11 @@ test('search icon to submit when clicked', async () => {
   expect(spy).toHaveReturnedWith(true);
 });
 
-test('search can not submit when search input empty', async () => {
+test('Search can not submit when search input empty', async () => {
   let wrapper = mount(
     <SearchBar classes={classes} isOpen={true} />
   );    
-  const searchInput = wrapper.find('#searchInput');
+  const searchInput = wrapper.find('input');
   const spy = jest.spyOn(wrapper.instance(), 'enterSearch').mockImplementation((event) => {
     if ((event.type === "click" || event.key === "Enter") && searchInput.instance().value !== ""){
       return true;
@@ -88,5 +90,12 @@ test('search can not submit when search input empty', async () => {
   expect(spy).toHaveReturnedWith(false);
 });
 
-//Query results/text input maintained on refresh (should test in RootComponent!)
-
+test('Search gets query from url when provided', async () => {
+  window.history.pushState({}, 'Search', '/search?query=backpack');
+  let wrapper = mount(
+    <SearchBar classes={classes} isOpen={true} />
+  ); 
+  const searchInput = wrapper.find('input');
+  wrapper.instance().forceUpdate();
+  expect(searchInput.instance().value).toBe('backpack');
+});
