@@ -22,7 +22,7 @@
 }
 
 .customDetailsBlock {
-    composes: root from './DetailsBlock/detailsBlock.css';
+    composes: root from '../DetailsBlock/detailsBlock.css';
     margin-bottom: 16px;
 }
 
