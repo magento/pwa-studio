@@ -71,7 +71,7 @@ PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architec
 
 2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
 
-One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box.](https://github.com/paliarush/magento2-vagrant-for-developers/).
+One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box](https://github.com/paliarush/magento2-vagrant-for-developers/).
 
 #### Using the Vagrant Box
 
