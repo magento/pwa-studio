@@ -10,7 +10,7 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import defaultClasses from './appShell.css';
 
-const handleRoutingError = props => <ErrorView {...props} />;
+const renderRoutingError = props => <ErrorView {...props} />;
 
 class AppShell extends Component {
     static propTypes = {
@@ -35,7 +35,7 @@ class AppShell extends Component {
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
-                    <Page>{handleRoutingError}</Page>
+                    <Page>{renderRoutingError}</Page>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />

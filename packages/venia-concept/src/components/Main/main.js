@@ -22,7 +22,7 @@ class Main extends Component {
         const suffix = isMasked ? '_masked' : '';
 
         return ['page', 'root'].reduce(
-            (r, v) => ({ ...r, [v]: classes[`${v}${suffix}`] }),
+            (acc, val) => ({ ...acc, [val]: classes[`${val}${suffix}`] }),
             {}
         );
     }
