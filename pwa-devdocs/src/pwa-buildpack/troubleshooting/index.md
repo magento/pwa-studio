@@ -27,7 +27,7 @@ Paste the result console output into the issue. Thank you!
 
 **Validation errors when running developer mode**{:#validation-errors}
 
-Make sure you copied over the `example.env` file into a new `.env` file in the `packages/venia-concept` directory.
+Make sure you copied over the `env.dist` file into a new `.env` file in the `packages/venia-concept` directory.
 This file should specify variables for your local development environment.
 
 **Venia queries to GraphQL produce validation errors**{:#graphql-validation-errors}
