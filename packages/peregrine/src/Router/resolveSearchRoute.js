@@ -1,8 +1,7 @@
 import { tempGetWebpackChunkData } from './resolveUnknownRoute';
 
-let preloadDone = false;
 export default function resolveSearchRoute(opts) {
-    const { route, apiBase, __tmp_webpack_public_path__ } = opts;
+    const { __tmp_webpack_public_path__ } = opts;
 
     function handleResolverResponse() {
         return tempGetWebpackChunkData(
@@ -12,8 +11,7 @@ export default function resolveSearchRoute(opts) {
             rootChunkID,
             rootModuleID
         }));
-    }
-    //May be unneeded to check preload for search
+    } 
 
     return handleResolverResponse();
 }

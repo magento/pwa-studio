@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +8,8 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
+import SearchTrigger from './searchTrigger';
+
 import SearchBar from 'src/components/SearchBar';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
@@ -25,23 +29,10 @@ export class Header extends Component {
         })
     };
 
-    async componentDidMount() {
-        if (document.location.pathname === '/search') {
-            if (this.props.searchOpen !== true) {
-                this.props.toggleSearch();
-            }
-        } else if (this.props.searchOpen === true) {
-            this.props.toggleSearch();
-        }
-    }
-
     render() {
-        const { searchOpen, toggleSearch, classes } = this.props;
+        const { searchOpen , classes } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
-        const searchClass = searchOpen
-            ? classes.searchTriggerOpen
-            : classes.searchTrigger;
 
         return (
             <header className={rootClass}>
@@ -61,13 +52,11 @@ export class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <button
-                            id="searchButton"
-                            className={searchClass}
-                            onClick={toggleSearch}
+                        <SearchTrigger 
+                          searchOpen={searchOpen}
                         >
                             <Icon name="search" />
-                        </button>
+                        </SearchTrigger>                 
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
