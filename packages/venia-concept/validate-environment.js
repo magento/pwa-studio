@@ -90,5 +90,5 @@ function validateEnvironment(env) {
 module.exports = validateEnvironment;
 
 if (module === require.main) {
-    validateEnvironment(prcoess.env);
+    validateEnvironment(process.env);
 }
