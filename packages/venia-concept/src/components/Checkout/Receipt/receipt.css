@@ -1,6 +1,5 @@
 .root {
     background-color: white;
-    bottom: 0;
     display: grid;
     grid-template-rows: 1fr auto;
     height: 100vh;
@@ -8,10 +7,11 @@
     padding-top: 3.5rem;
     position: absolute;
     right: 0;
+    bottom: 0;
 }
 
 .body {
-    padding: 20px 32px 16px;
+    padding: 20px 1rem 16px;
 }
 
 .footer {

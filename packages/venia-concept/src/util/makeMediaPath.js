@@ -6,10 +6,11 @@ export function makePathPrepender(prefix) {
         return (
             normalizedPrefix +
             args
-                .map(p =>
-                    typeof p === 'string'
-                        ? p.replace(wrappingSlashRE, '$1')
-                        : ''
+                .map(
+                    p =>
+                        typeof p === 'string'
+                            ? p.replace(wrappingSlashRE, '$1')
+                            : ''
                 )
                 .join('/')
         );

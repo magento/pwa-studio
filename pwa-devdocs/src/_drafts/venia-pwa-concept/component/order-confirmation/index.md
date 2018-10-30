@@ -15,6 +15,7 @@ title: OrderConfirmation component
 [Continue shopping button]: {{site.baseurl}}{% link venia-pwa-concept/images/continue-shopping-button.png %}
 [Create an account button]: {{site.baseurl}}{% link venia-pwa-concept/images/create-an-account-button.png %}
 
+
 ## Interactions
 
 * **Continue shopping** button - On tap navigates the user to the page he came from.

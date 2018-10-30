@@ -3,7 +3,8 @@ import { RestApi } from '@magento/peregrine';
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
-import checkoutReceiptActions from 'src/components/Checkout/Receipt/actions';
+import { getOrderInformation } from 'src/selectors/cart';
+import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -137,11 +138,3 @@ export function formatAddress(address = {}, countries = []) {
         ...address
     };
 }
-
-export const getOrderInformation = (
-    { cart: { details: { billing_address } = {} } },
-    orderId
-) => ({
-    id: orderId,
-    billing_address
-});
