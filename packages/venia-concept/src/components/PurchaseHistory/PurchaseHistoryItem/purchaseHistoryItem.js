@@ -34,6 +34,7 @@ class PurchaseHistoryItem extends Component {
         return (
             <Link className={classes.body} to={link}>
                 <img
+                    className={classes.image}
                     src={imageSrc}
                     alt="clothes"
                 />
