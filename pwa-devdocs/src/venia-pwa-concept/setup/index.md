@@ -157,7 +157,7 @@ Under the `packages/venia-concept` directory, copy `.env.dist` into a new `.env`
 cd /Users/magedev/pwa-studio/packages/venia-concept
 ```
 ``` sh
-cp env.dist .env
+cp .env.dist .env
 ```
 
 In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of your Magento development store.

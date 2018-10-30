@@ -30,7 +30,7 @@ function validateEnvironment(env) {
         if (e.code === 'ENOENT') {
             console.log(
                 chalk.redBright(
-                    `\nNo .env file in ${__dirname}\n\tYou may need to copy 'env.dist' to '.env' to begin, or create your own '.env' file manually.`
+                    `\nNo .env file in ${__dirname}\n\tYou may need to copy '.env.dist' to '.env' to begin, or create your own '.env' file manually.`
                 )
             );
         } else {

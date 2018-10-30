@@ -96,7 +96,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 1. Clone the repository.
 2. Navigate to the root of the repository from the command line
 3. Run `npm install`
-4. Copy `packages/venia-concept/env.dist` to `packages/venia-concept/.env`
+4. Copy `packages/venia-concept/.env.dist` to `packages/venia-concept/.env`
 5. Uncomment the line for `MAGENTO_BACKEND_URL` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_URL` to the fully-qualified URL of a Magento store running `2.3`.
 6. On your first install, run `npm run build` from package root.
 7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
@@ -105,7 +105,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 
 ### When I run the developer mode, I get validation errors
 
-Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/env.dist`.
+Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/.env.dist`.
 
 ### Venia queries to GraphQL produce validation errors
 
