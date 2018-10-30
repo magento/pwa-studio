@@ -90,14 +90,18 @@ class Navigation extends PureComponent {
     }
 
     get signInForm() {
-        const { classes } = this.props;
+        const { classes, closeDrawer } = this.props;
         const className =
             !this.state.isSignInOpen || this.props.isSignedIn
                 ? classes.signInClosed
                 : classes.signInOpen;
         return (
             <div className={`${className} ${classes.signInForm}`}>
-                <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
+                <NavHeader
+                    title="My Account"
+                    onBack={this.hideSignInForm}
+                    onClose={closeDrawer}
+                />
                 <SignIn
                     showCreateAccountForm={this.setCreateAccountForm}
                     setDefaultUsername={this.setDefaultUsername}

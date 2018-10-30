@@ -5,9 +5,19 @@
     z-index: 1;
 }
 
+.page {
+    min-height: 100vh;
+}
+
 /* state: masked */
 
 .root_masked {
     composes: root;
-    filter: grayscale(1);
+    filter: blur(4px);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.page_masked {
+    composes: page;
 }
