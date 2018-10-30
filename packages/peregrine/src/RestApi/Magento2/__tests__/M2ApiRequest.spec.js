@@ -17,8 +17,8 @@ function mockFetchReturned({
                 let body = json
                     ? JSON.stringify(typeof json === 'function' ? json() : json)
                     : typeof text === 'function'
-                    ? text()
-                    : text;
+                        ? text()
+                        : text;
                 const timeout = setTimeout(
                     () =>
                         resolve(

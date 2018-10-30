@@ -1,5 +1,5 @@
-import actions from '../actions';
-import reducer from '../reducer';
+import actions from 'src/actions/checkoutReceipt';
+import reducer from '../checkoutReceipt';
 
 const order = { id: 1, billing_address: {} };
 

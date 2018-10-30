@@ -11,8 +11,8 @@ class ErrorView extends Component {
         const message = loading
             ? messages.get('loading')
             : notFound
-            ? messages.get('notFound')
-            : messages.get('internalError');
+                ? messages.get('notFound')
+                : messages.get('internalError');
 
         return <h1>{message}</h1>;
     }

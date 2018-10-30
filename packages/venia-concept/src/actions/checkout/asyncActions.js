@@ -3,7 +3,7 @@ import { RestApi } from '@magento/peregrine';
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
-import checkoutReceiptActions from 'src/components/Checkout/Receipt/actions';
+import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;

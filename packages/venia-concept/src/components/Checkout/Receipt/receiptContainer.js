@@ -1,12 +1,17 @@
 import { connect } from 'react-redux';
-import { resetCheckout } from 'src/actions/checkout';
-import actions from './actions';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import actions, { handleContinueShopping } from 'src/actions/checkoutReceipt';
 import Receipt from './receipt';
-import { getOrderInformation } from './selectors';
+import { getOrderInformation } from 'src/selectors/checkoutReceipt';
 
 const { reset } = actions;
 
-export default connect(
-    state => ({ order: getOrderInformation(state) }),
-    { resetCheckout, reset }
+export default compose(
+    connect(
+        state => ({ order: getOrderInformation(state) }),
+        // TODO: add create account handler
+        { handleContinueShopping, reset }
+    ),
+    withRouter
 )(Receipt);

@@ -10,7 +10,7 @@ import {
     submitInput,
     submitOrder
 } from '../asyncActions';
-import checkoutReceiptActions from 'src/components/Checkout/Receipt/actions';
+import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 
 jest.mock('src/store');
 
