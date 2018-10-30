@@ -9,7 +9,7 @@ test('creates a devServer.after function if it does not exist', () => {
     const app = {
         use: jest.fn()
     };
-    new UpwardPlugin(devServer);
+    new UpwardPlugin(devServer, process.env);
     expect(devServer.after).toBeInstanceOf(Function);
     devServer.after(app);
     expect(app.use).toHaveBeenCalledWith(expect.any(Function));
@@ -21,7 +21,7 @@ test('composes with an existing devServer.after function', () => {
     const app = {
         use: jest.fn()
     };
-    new UpwardPlugin(devServer);
+    new UpwardPlugin(devServer, process.env);
     expect(devServer.after).not.toBe(after);
     devServer.after(app);
     expect(app.use).toHaveBeenCalledWith(expect.any(Function));
@@ -41,11 +41,15 @@ test('applies to a Webpack compiler and resolves any existing devServer requests
 
     upward.middleware.mockResolvedValueOnce(upwardHandler);
 
-    const noRequestsWaiting = new UpwardPlugin({});
+    const noRequestsWaiting = new UpwardPlugin({}, process.env);
     noRequestsWaiting.apply(compiler);
     expect(noRequestsWaiting.compiler).toBe(compiler);
 
-    const hasRequestsWaiting = new UpwardPlugin(devServer, 'path/to/upward');
+    const hasRequestsWaiting = new UpwardPlugin(
+        devServer,
+        process.env,
+        'path/to/upward'
+    );
     devServer.after(app);
     const handler = app.use.mock.calls[0][0];
 
@@ -63,7 +67,8 @@ test('applies to a Webpack compiler and resolves any existing devServer requests
         expect.objectContaining({
             readFile: expect.any(Function),
             networkFetch: expect.any(Function)
-        })
+        }),
+        process.env
     );
     expect(upwardHandler).toHaveBeenCalledWith(req, res, next);
 });
@@ -74,7 +79,7 @@ test('shares compiler promise', async () => {
     const upwardHandler = jest.fn();
 
     upward.middleware.mockResolvedValueOnce(upwardHandler);
-    const plugin = new UpwardPlugin(devServer, 'path/to/upward');
+    const plugin = new UpwardPlugin(devServer, process.env, 'path/to/upward');
 
     const promises = [plugin.getCompiler(), plugin.getCompiler()];
 
@@ -97,7 +102,7 @@ test('shares middleware promise so as not to create multiple middlewares', async
     const upwardHandler = jest.fn();
 
     upward.middleware.mockResolvedValueOnce(upwardHandler);
-    const plugin = new UpwardPlugin(devServer, 'path/to/upward');
+    const plugin = new UpwardPlugin(devServer, process.env, 'path/to/upward');
     devServer.after(app);
     const handler = app.use.mock.calls[0][0];
 
@@ -130,7 +135,7 @@ test('supplies a dev-mode IOAdapter with webpack fs integration', async () => {
     upward.middleware.mockResolvedValueOnce(() => {});
     upward.IOAdapter.default.mockReturnValueOnce(defaultIO);
 
-    const plugin = new UpwardPlugin(devServer);
+    const plugin = new UpwardPlugin(devServer, process.env);
     plugin.apply(compiler);
     devServer.after(app);
     const handler = app.use.mock.calls[0][0];
@@ -197,7 +202,7 @@ test('dev-mode IOAdapter uses fetch', async () => {
 
     upward.middleware.mockResolvedValueOnce(() => {});
 
-    const plugin = new UpwardPlugin(devServer);
+    const plugin = new UpwardPlugin(devServer, process.env);
     plugin.apply({});
     devServer.after(app);
     const handler = app.use.mock.calls[0][0];
@@ -225,7 +230,7 @@ test('dev-mode IOAdapter can fetch unsecure URLs', async () => {
 
     upward.middleware.mockResolvedValueOnce(() => {});
 
-    const plugin = new UpwardPlugin(devServer);
+    const plugin = new UpwardPlugin(devServer, process.env);
     plugin.apply({});
     devServer.after(app);
     const handler = app.use.mock.calls[0][0];

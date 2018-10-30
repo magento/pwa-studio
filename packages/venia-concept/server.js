@@ -1,5 +1,5 @@
-validEnv.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-const validEnv = require('./validate-environment')(validEnv);
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+const validEnv = require('./validate-environment')(process.env);
 const {
     Utilities: { configureHost }
 } = require('@magento/pwa-buildpack');
@@ -11,7 +11,8 @@ async function serve() {
             bindLocal: true,
             logUrl: true
         },
-        envToConfig()
+        envToConfig(validEnv),
+        { env: validEnv }
     );
 
     if (!config.host) {

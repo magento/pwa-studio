@@ -157,8 +157,8 @@ module.exports = async function(passedEnv) {
             new webpack.HotModuleReplacementPlugin(),
             new UpwardPlugin(
                 config.devServer,
-                path.resolve(__dirname, validEnv.UPWARD_JS_UPWARD_PATH),
-                validEnv
+                validEnv,
+                path.resolve(__dirname, validEnv.UPWARD_JS_UPWARD_PATH)
             )
         );
     } else if (phase === 'production') {
