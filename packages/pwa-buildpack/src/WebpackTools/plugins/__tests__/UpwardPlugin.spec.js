@@ -64,11 +64,11 @@ test('applies to a Webpack compiler and resolves any existing devServer requests
     expect(upward.IOAdapter.default).toHaveBeenCalledWith('path/to/upward');
     expect(upward.middleware).toHaveBeenCalledWith(
         'path/to/upward',
+        process.env,
         expect.objectContaining({
             readFile: expect.any(Function),
             networkFetch: expect.any(Function)
-        }),
-        process.env
+        })
     );
     expect(upwardHandler).toHaveBeenCalledWith(req, res, next);
 });
@@ -142,7 +142,7 @@ test('supplies a dev-mode IOAdapter with webpack fs integration', async () => {
     handler();
     await plugin.middlewarePromise;
 
-    const io = upward.middleware.mock.calls[0][1];
+    const io = upward.middleware.mock.calls[0][2];
 
     compiler.outputFileSystem.readFileSync.mockImplementationOnce(() => {
         return 'from output file system';
@@ -209,7 +209,7 @@ test('dev-mode IOAdapter uses fetch', async () => {
     handler();
     await plugin.middlewarePromise;
 
-    const io = upward.middleware.mock.calls[0][1];
+    const io = upward.middleware.mock.calls[0][2];
 
     io.networkFetch('https://example.com', { method: 'POST' });
 
@@ -237,7 +237,7 @@ test('dev-mode IOAdapter can fetch unsecure URLs', async () => {
     handler();
     await plugin.middlewarePromise;
 
-    const io = upward.middleware.mock.calls[0][1];
+    const io = upward.middleware.mock.calls[0][2];
 
     io.networkFetch('http://example.com', { method: 'POST' });
 
