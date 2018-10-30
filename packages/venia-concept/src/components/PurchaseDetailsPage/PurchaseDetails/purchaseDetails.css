@@ -1,0 +1,58 @@
+.root {
+    padding: 16px 28px;
+}
+
+.orderDetailsHeaderText {
+    color: rgb(var(--venia-black));
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.detailsBlockHeaderText {
+    color: rgb(var(--venia-black));
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+
+.customDetailsBlock {
+    composes: root from '../DetailsBlock/detailsBlock.css';
+    margin-bottom: 16px;
+}
+
+.orderDetailsBlockRoot {
+    composes: customDetailsBlock;
+    padding: 16px 10px 8px;
+}
+
+.shipmentBlockRoot {
+    composes: customDetailsBlock;
+    padding: 8px 10px 10px;
+}
+
+.trackButtonRoot {
+    border-radius: 1.5rem;
+    min-width: 8.75rem;
+    background-color: rgb(var(--venia-black));
+    height: auto;
+    padding: 4px 2px;
+    border-color: rgb(var(--venia-black));
+    margin-bottom: 32px;
+}
+
+.trackButtonRoot:hover {
+    background-color: rgb(var(--venia-black));
+}
+
+.trackButtonContent {
+    color: rgb(var(--venia-white));
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+}
