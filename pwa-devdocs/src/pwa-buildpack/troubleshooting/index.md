@@ -38,7 +38,7 @@ Make sure your Magento instance is up to date with the latest from Magento 2.3 d
 To test whether your queries are up to date, run the following command in the project root:
 
 ``` sh
-npm run validate:venia:gql
+npm run validate-queries
 ```
 
 **Browser displays "Cannot proxy to " error and the console displays `ENOTFOUND`**{:#cannot-proxy}

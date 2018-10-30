@@ -115,7 +115,7 @@ Venia and its GraphQL queries may be out of sync with the schema of your connect
 
 Generating certificates is handled by [devcert](https://github.com/davewasmer/devcert). If you're on a Linux machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme](https://github.com/davewasmer/devcert#skipcertutil).
 
-**To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
+**To test whether your queries are up to date, run `npm run validate-queries` at project root.**
 
 ## Things not to do
 
