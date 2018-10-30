@@ -1,10 +1,10 @@
 require('dotenv').config();
 
+const workboxPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
 const {
     WebpackTools: {
         MagentoRootComponentsPlugin,
-        ServiceWorkerPlugin,
         MagentoResolver,
         UpwardPlugin,
         PWADevServer
@@ -17,6 +17,7 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
+    templates: path.resolve(__dirname, 'templates'),
     src: path.resolve(__dirname, 'src'),
     output: path.resolve(__dirname, 'dist')
 };
@@ -121,12 +122,10 @@ module.exports = async function(env) {
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
-            new ServiceWorkerPlugin({
-                env,
-                enableServiceWorkerDebugging,
-                serviceWorkerFileName,
-                paths: themePaths,
-                runtimeCacheAssetPath: '\\.html$'
+            // TODO: Move to ServiceWorkerPlugin in PWA Buildpack
+            new workboxPlugin.InjectManifest({
+                swSrc: `./src/sw.js`,
+                swDest: `sw.js`
             })
         ]
     };
@@ -163,7 +162,12 @@ module.exports = async function(env) {
             new UpwardPlugin(
                 config.devServer,
                 path.resolve(__dirname, 'venia-upward.yml')
-            )
+            ),
+            // TODO: Move to ServiceWorkerPlugin in PWA Buildpack
+            new workboxPlugin.InjectManifest({
+                swSrc: `./src/sw.js`,
+                swDest: `sw.js`
+            })
         );
     } else if (phase === 'production') {
         config.performance = {

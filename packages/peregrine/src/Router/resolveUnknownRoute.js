@@ -52,11 +52,40 @@ export default function resolveUnknownRoute(opts) {
 }
 
 /**
- * @description Calls the GraphQL API for results from the urlResolver query
+ * @description Checks if route is stored in localStorage, if not call `fetchRoute`
  * @param {{ route: string, apiBase: string}} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function remotelyResolveRoute(opts) {
+    let urlResolve = localStorage.getItem('urlResolve')
+    urlResolve = JSON.parse(urlResolve);
+
+    // If it exists in localStorage, use that value
+    // TODO: Use simplePersistence or figure out how to manually add to workbox
+    if (( urlResolve && urlResolve[opts.route] ) || !navigator.onLine) {
+        if (urlResolve && urlResolve[opts.route]) {
+            return new Promise(function(resolve) {
+                resolve(urlResolve[opts.route].data.urlResolver);
+            });
+        } else {
+            return new Promise(function(resolve) {
+                resolve({
+                    type: "NOTFOUND",
+                    id: -1
+                })
+            });
+        }
+    } else {
+        return fetchRoute(opts);
+    }
+}
+
+/**
+ * @description Calls the GraphQL API for results from the urlResolver query
+ * @param {{ route: string, apiBase: string}} opts
+ * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
+ */
+function fetchRoute(opts) {
     const url = new URL('/graphql', opts.apiBase);
     return fetch(url, {
         method: 'POST',
@@ -76,7 +105,15 @@ function remotelyResolveRoute(opts) {
         })
     })
         .then(res => res.json())
-        .then(res => res.data.urlResolver);
+        .then(res => {
+            let urlResolve = localStorage.getItem('urlResolve')
+            urlResolve = JSON.parse(urlResolve);
+            urlResolve = urlResolve ? urlResolve : {};
+            urlResolve[opts.route] = res;
+            localStorage.setItem('urlResolve', JSON.stringify(urlResolve));
+            return res.data.urlResolver
+        });
+
 }
 
 /**
