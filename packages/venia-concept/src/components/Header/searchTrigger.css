@@ -1,4 +1,4 @@
-.root{
+.root {
     composes: root from '../clickable.css';
     transition-property: color;
     transition-duration: 224ms;

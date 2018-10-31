@@ -10,14 +10,19 @@ import Icon from 'src/components/Icon';
 export class SearchBar extends Component {
     static propTypes = {
         classes: PropTypes.shape({
+            root: PropTypes.string,
             searchBlock: PropTypes.string,
-            searchBlockOpen: PropTypes.string
-        })
+            searchBlockOpen: PropTypes.string,
+            searchBar: PropTypes.string,
+            searchIcon: PropTypes.string
+        }),
+        isOpen: PropTypes.bool
     };
 
     constructor(props) {
         super(props);
         this.searchRef = React.createRef();
+        this.clearRef = React.createRef();
     }
 
     async componentDidMount() {
@@ -27,6 +32,7 @@ export class SearchBar extends Component {
         if (document.location.pathname === '/search') {
             const params = new URL(document.location).searchParams;
             this.searchRef.current.value = params.get('query');
+            this.setClearIcon(this.searchRef.current.value);
         }
     }
 
@@ -42,6 +48,7 @@ export class SearchBar extends Component {
 
     enterSearch = event => {
         const searchQuery = this.searchRef.current.value;
+        this.setClearIcon(searchQuery);
         if (
             (event.type === 'click' || event.key === 'Enter') &&
             searchQuery !== ''
@@ -49,6 +56,24 @@ export class SearchBar extends Component {
             this.props.history.push(`/search?query=` + searchQuery);
         }
     };
+
+    clearSearch = () => {
+        this.searchRef.current.value = '';
+        this.searchRef.current.focus();
+        this.setClearIcon(this.searchRef.current.value);
+    };
+
+    setClearIcon(query) {
+        if (query !== '') {
+            this.clearRef.current.style.visiblity = 'visible';
+            this.clearRef.current.style.opacity = '1';
+            this.clearRef.current.style.cursor = 'pointer';
+        } else {
+            this.clearRef.current.style.visiblity = 'hidden';
+            this.clearRef.current.style.opacity = '0';
+            this.clearRef.current.style.cursor = 'auto';
+        }
+    }
 
     render() {
         const { classes, isOpen } = this.props;
@@ -71,8 +96,15 @@ export class SearchBar extends Component {
                     inputMode="search"
                     type="search"
                     placeholder="I'm looking for..."
-                    onKeyPress={this.enterSearch}
+                    onKeyUp={this.enterSearch}
                 />
+                <button
+                    ref={this.clearRef}
+                    className={classes.clearIcon}
+                    onClick={this.clearSearch}
+                >
+                    <Icon name="x" />
+                </button>
             </div>
         );
     }

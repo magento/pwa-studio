@@ -40,7 +40,7 @@ export default class SearchRouteHandler extends Component {
                 );
             })
             .catch(err => {
-                console.log('Search Route resolve failed!\n', err);
+                console.log('Search routing resolve failed!\n', err);
             });
     }
 

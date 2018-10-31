@@ -11,7 +11,7 @@
     composes: root;
     opacity: 0;
     height: 0;
-    padding: 0 2rem 0 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     transform: translate3d(0, -100%, 0);
     transition-duration: 192ms;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
@@ -22,7 +22,7 @@
     composes: root;
     opacity: 1;
     height: 4rem;
-    padding: 0 2rem 1rem 0.5rem;
+    padding: 0 0.5rem 1rem 0.5rem;
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -41,6 +41,20 @@
 
 .searchIcon {
     position: relative;
+    height: 24px;
     left: 2.2rem;
     cursor: pointer;
+}
+
+.clearIcon {
+    visiblity: hidden;
+    opacity: 0;
+    position: relative;
+    height: 24px;
+    color: rgb(var(--venia-text));
+    right: 2.2rem;
+    cursor: pointer;
+    transition-property: opacity;
+    transition-duration: 192ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }

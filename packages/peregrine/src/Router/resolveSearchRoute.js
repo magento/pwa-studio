@@ -11,7 +11,7 @@ export default function resolveSearchRoute(opts) {
             rootChunkID,
             rootModuleID
         }));
-    } 
+    }
 
     return handleResolverResponse();
 }

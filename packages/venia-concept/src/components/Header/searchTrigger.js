@@ -8,17 +8,17 @@ import { toggleSearch } from 'src/actions/app';
 import defaultClasses from './searchTrigger.css';
 
 class Trigger extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    classes: PropTypes.shape({
-      root: PropTypes.string,
-      open: PropTypes.string 
-    }),
-    toggleSearch: PropTypes.func.isRequired
-  };
+    static propTypes = {
+        children: PropTypes.node,
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            open: PropTypes.string
+        }),
+        toggleSearch: PropTypes.func.isRequired,
+        searchOpen: PropTypes.bool
+    };
 
     async componentDidMount() {
-      console.log("mount searchOpen: ", this.props.searchOpen);
         if (document.location.pathname === '/search') {
             if (this.props.searchOpen !== true) {
                 this.props.toggleSearch();
@@ -29,16 +29,15 @@ class Trigger extends Component {
     }
 
     render() {
+        const { children, classes, toggleSearch, searchOpen } = this.props;
+        const searchClass = searchOpen ? classes.open : classes.root;
 
-      const { children, classes, toggleSearch, searchOpen } = this.props;
-      const searchClass = searchOpen ? classes.open : classes.root;
-
-      return (
-          <button className={searchClass} onClick={toggleSearch}>
-              {children}
-          </button>
-      );
-  }
+        return (
+            <button className={searchClass} onClick={toggleSearch}>
+                {children}
+            </button>
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => ({

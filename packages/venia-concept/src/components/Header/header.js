@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -20,17 +18,16 @@ export class Header extends Component {
             logo: PropTypes.string,
             primaryActions: PropTypes.string,
             root: PropTypes.string,
-            searchBlock: PropTypes.string,
-            searchBlock_active: PropTypes.string,
-            searchBar: PropTypes.string,
-            searchTrigger: PropTypes.string,
+            open: PropTypes.string,
+            closed: PropTypes.string,
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
-        })
+        }),
+        searchOpen: PropTypes.bool
     };
 
     render() {
-        const { searchOpen , classes } = this.props;
+        const { searchOpen, classes } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
@@ -52,11 +49,9 @@ export class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <SearchTrigger 
-                          searchOpen={searchOpen}
-                        >
+                        <SearchTrigger searchOpen={searchOpen}>
                             <Icon name="search" />
-                        </SearchTrigger>                 
+                        </SearchTrigger>
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
