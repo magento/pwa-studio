@@ -4,8 +4,6 @@ import { string, func, object } from 'prop-types';
 import MagentoRouteHandler from './MagentoRouteHandler';
 import SearchRouteHandler from './SearchRouteHandler';
 
-//import Search from '../../../venia-concept/src/RootComponents/Search';
-
 export default class MagentoRouter extends Component {
     static propTypes = {
         /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */

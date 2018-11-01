@@ -2,6 +2,13 @@
     padding: 1rem;
 }
 
+.totalPages {
+    display: grid;
+    padding: 0 0 1rem 0;
+    justify-content: center;
+    color: rgb(var(--venia-text-alt));
+}
+
 .noResult {
     display: flex;
 }

@@ -18,8 +18,6 @@ export default class SearchRouteHandler extends Component {
         this.getRouteComponent(this.props.location.pathname);
     }
 
-    // Consider if this work needs to be repeated here. Can I just load searchComponent?
-
     getRouteComponent(pathname) {
         const { apiBase, __tmp_webpack_public_path__ } = this.props;
 

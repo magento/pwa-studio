@@ -26,6 +26,7 @@ const searchQuery = gql`
                     }
                 }
             }
+            total_count
         }
     }
 `;
@@ -54,6 +55,11 @@ export class Search extends Component {
 
                         return (
                             <article className={classes.root}>
+                                <div className={classes.totalPages}>
+                                    <span>
+                                        {data.products.total_count} ITEMS
+                                    </span>
+                                </div>
                                 <section className={classes.gallery}>
                                     <Gallery data={data.products.items} />
                                 </section>
