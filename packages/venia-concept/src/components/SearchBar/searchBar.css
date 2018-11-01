@@ -36,6 +36,7 @@
     height: 3rem;
     padding: 0 2.5rem;
     width: 24rem;
+    border-radius: 2rem;
     -webkit-appearance: none;
 }
 
@@ -45,7 +46,7 @@
 
 .searchIcon {
     position: relative;
-    height: 24px;
+    height: 50%;
     left: 2.2rem;
     cursor: pointer;
 }
@@ -54,7 +55,7 @@
     visiblity: hidden;
     opacity: 0;
     position: relative;
-    height: 24px;
+    height: 50%;
     color: rgb(var(--venia-text));
     right: 2.2rem;
     cursor: pointer;
