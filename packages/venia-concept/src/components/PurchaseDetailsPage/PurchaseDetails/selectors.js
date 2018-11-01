@@ -1,4 +1,5 @@
 // TODO: implement selectors
+import dressPicture from './dress.jpg';
 
 export const getOrderDetails = () => [
     { property: 'Order No', value: 84322 },
@@ -24,4 +25,68 @@ export const getOrderSummary = () => [
     { property: 'Estimated Tax', value: '$7.50' }
 ];
 
-export const getOtherItems = () => [{}, {}];
+export const getItem = () => {
+    return {
+        id: 1,
+        name: 'Joust Duffle Bag',
+        size: '43',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    };
+};
+
+export const getOtherItems = () => [
+    {
+        id: 1,
+        name: 'Joust Duffle Bag',
+        size: '42',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    },
+    {
+        id: 2,
+        name: 'Joust Duffle Bag',
+        size: '40',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    },
+    {
+        id: 3,
+        name: 'Joust Duffle Bag',
+        size: '45',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    },
+    {
+        id: 4,
+        name: 'Joust Duffle Bag',
+        size: '47',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    },
+    {
+        id: 5,
+        name: 'Joust Duffle Bag',
+        size: '39',
+        color: 'Navy Blue',
+        qty: 1,
+        titleImageSrc: dressPicture,
+        price: 27,
+        sku: '24-MB01'
+    }
+];

@@ -4,6 +4,7 @@ import Button from 'src/components/Button';
 import classify from 'src/classify';
 import defaultClasses from './purchaseDetails.css';
 import OrderItem from '../OrderItem';
+import { itemPropType } from '../OrderItem/constants';
 import OrderItemsList from '../OrderItemsList';
 import DetailsBlock from '../DetailsBlock';
 import { getProductPageUrl } from './helpers';
@@ -15,8 +16,9 @@ class PurchaseDetails extends Component {
         paymentDetails: PropTypes.array,
         orderSummary: PropTypes.array,
         classes: PropTypes.shape({}),
-        otherItems: PropTypes.array,
-        addItemToCart: PropTypes.func
+        addItemToCart: PropTypes.func,
+        item: itemPropType,
+        otherItems: PropTypes.arrayOf(itemPropType)
     };
 
     handleShare = item => {
@@ -32,6 +34,7 @@ class PurchaseDetails extends Component {
             paymentDetails,
             orderSummary,
             classes,
+            item,
             otherItems,
             addItemToCart
         } = this.props;
@@ -39,6 +42,7 @@ class PurchaseDetails extends Component {
         return (
             <div className={classes.root}>
                 <OrderItem
+                    item={item}
                     onShare={this.handleShare}
                     onBuyAgain={addItemToCart}
                 />

@@ -8,7 +8,8 @@ import {
     getPaymentDetails,
     getShipmentDetails,
     getOrderSummary,
-    getOtherItems
+    getOtherItems,
+    getItem
 } from './selectors';
 
 export default compose(
@@ -18,7 +19,8 @@ export default compose(
             orderDetails: getOrderDetails(state),
             paymentDetails: getPaymentDetails(state),
             orderSummary: getOrderSummary(state),
-            otherItems: getOtherItems(state)
+            otherItems: getOtherItems(state),
+            item: getItem(state)
         }),
         { addItemToCart }
     ),
