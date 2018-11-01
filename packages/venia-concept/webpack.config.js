@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const {
     WebpackTools: {
         MagentoRootComponentsPlugin,
+        ServiceWorkerPlugin,
         MagentoResolver,
         UpwardPlugin,
         PWADevServer
@@ -120,17 +121,23 @@ module.exports = async function(env) {
                  */
                 'process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH': JSON.stringify(
                     process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
-                )
+                ),
             }),
-            // TODO: Move to ServiceWorkerPlugin in PWA Buildpack
-            new workboxPlugin.InjectManifest({
-                swSrc: `./src/sw.js`,
-                swDest: `sw.js`
+            new ServiceWorkerPlugin({
+                env,
+                enableServiceWorkerDebugging,
+                serviceWorkerFileName,
+                paths: themePaths,
+                injectManifest: true,
+                swPath: {
+                    swSrc: './src/sw.js',
+                    swDest: 'sw.js'
+                }
             })
         ]
     };
-    if (phase === 'development') {
         config.devtool = 'eval-source-map';
+    if (phase === 'development') {
 
         const devServerConfig = {
             publicPath: config.output.publicPath,
@@ -162,12 +169,7 @@ module.exports = async function(env) {
             new UpwardPlugin(
                 config.devServer,
                 path.resolve(__dirname, 'venia-upward.yml')
-            ),
-            // TODO: Move to ServiceWorkerPlugin in PWA Buildpack
-            new workboxPlugin.InjectManifest({
-                swSrc: `./src/sw.js`,
-                swDest: `sw.js`
-            })
+            )
         );
     } else if (phase === 'production') {
         config.performance = {
