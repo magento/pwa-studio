@@ -13,9 +13,9 @@ import defaultClasses from './navigation.css';
 class Navigation extends PureComponent {
     static propTypes = {
         classes: shape({
-            accountDrawer: string,
+            authBar: string,
             body: string,
-            bottomDrawer: string,
+            footer: string,
             header: string,
             open: string,
             root: string,
@@ -23,7 +23,12 @@ class Navigation extends PureComponent {
             signInClosed: string,
             signInOpen: string,
             title: string,
-            userInfo: string
+            userAvatar: string,
+            userChip: string,
+            userEmail: string,
+            userInfo: string,
+            userMore: string,
+            userName: string
         }),
         firstname: string,
         email: string,
@@ -49,30 +54,10 @@ class Navigation extends PureComponent {
     }
 
     state = {
+        isCreateAccountOpen: false,
         isSignInOpen: false,
         rootNodeId: null
     };
-
-    get bottomDrawer() {
-        const { classes, firstname, lastname, email } = this.props;
-
-        return !this.props.isSignedIn ? (
-            <Button onClick={this.showSignInForm}>Sign In</Button>
-        ) : (
-            <div className={classes.accountDrawer}>
-                <Icon name="user" />
-                <div className={classes.userInfo}>
-                    <p>
-                        {firstname} {lastname}
-                    </p>
-                    <p>{email}</p>
-                </div>
-                <button className="">
-                    <Icon name="chevron-up" />
-                </button>
-            </div>
-        );
-    }
 
     get categoryTree() {
         const { props, setRootNodeId, state } = this;
@@ -89,19 +74,39 @@ class Navigation extends PureComponent {
         ) : null;
     }
 
+    get footer() {
+        const { classes, firstname, lastname, email } = this.props;
+
+        return !this.props.isSignedIn ? (
+            <div className={classes.authBar}>
+                <Button onClick={this.showSignInForm}>Sign In</Button>
+            </div>
+        ) : (
+            <div className={classes.userChip}>
+                <div className={classes.userAvatar}>
+                    <Icon name="user" />
+                </div>
+                <div className={classes.userInfo}>
+                    <p className={classes.userName}>
+                        {`${firstname} ${lastname}`}
+                    </p>
+                    <p className={classes.userEmail}>{email}</p>
+                </div>
+                <button className={classes.userMore}>
+                    <Icon name="chevron-up" />
+                </button>
+            </div>
+        );
+    }
+
     get signInForm() {
-        const { classes, closeDrawer } = this.props;
+        const { classes } = this.props;
         const className =
             !this.state.isSignInOpen || this.props.isSignedIn
                 ? classes.signInClosed
                 : classes.signInOpen;
         return (
             <div className={`${className} ${classes.signInForm}`}>
-                <NavHeader
-                    title="My Account"
-                    onBack={this.hideSignInForm}
-                    onClose={closeDrawer}
-                />
                 <SignIn
                     showCreateAccountForm={this.setCreateAccountForm}
                     setDefaultUsername={this.setDefaultUsername}
@@ -123,10 +128,6 @@ class Navigation extends PureComponent {
         this.createAccount = (className, classes) => {
             return (
                 <div className={`${className} ${classes.signInForm}`}>
-                    <NavHeader
-                        onBack={this.hideCreateAccountForm}
-                        title={'Create Account'}
-                    />
                     <CreateAccount
                         defaultUsername={this.state.defaultUsername}
                     />
@@ -188,32 +189,47 @@ class Navigation extends PureComponent {
 
     render() {
         const {
-            bottomDrawer,
             categoryTree,
             createAccountForm,
+            footer,
+            hideCreateAccountForm,
+            hideSignInForm,
             setRootNodeIdToParent,
             signInForm,
             props,
             state
         } = this;
 
-        const { rootNodeId } = state;
+        const { isCreateAccountOpen, isSignInOpen, rootNodeId } = state;
         const { classes, closeDrawer, isOpen, rootCategoryId } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
-        const title = isTopLevel ? 'Main Menu' : null;
+
+        const handleBack = isCreateAccountOpen
+            ? hideCreateAccountForm
+            : isSignInOpen
+                ? hideSignInForm
+                : isTopLevel
+                    ? closeDrawer
+                    : setRootNodeIdToParent;
+
+        const title = isCreateAccountOpen
+            ? 'Create Account'
+            : isSignInOpen
+                ? 'Sign In'
+                : 'Main Menu';
 
         return (
             <aside className={className}>
                 <div className={classes.header}>
                     <NavHeader
                         title={title}
-                        onBack={setRootNodeIdToParent}
+                        onBack={handleBack}
                         onClose={closeDrawer}
                     />
                 </div>
                 <nav className={classes.body}>{categoryTree}</nav>
-                <div className={classes.bottomDrawer}>{bottomDrawer}</div>
+                <div className={classes.footer}>{footer}</div>
                 {signInForm}
                 {createAccountForm}
             </aside>

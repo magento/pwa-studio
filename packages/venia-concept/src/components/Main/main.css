@@ -13,7 +13,6 @@
 
 .root_masked {
     composes: root;
-    filter: blur(4px);
     height: 100vh;
     overflow: hidden;
 }

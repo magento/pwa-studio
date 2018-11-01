@@ -9,7 +9,6 @@ import defaultClasses from './navHeader.css';
 class NavHeader extends Component {
     static propTypes = {
         classes: shape({
-            header: string,
             title: string
         }),
         onBack: func.isRequired,
@@ -21,21 +20,13 @@ class NavHeader extends Component {
 
         return (
             <Fragment>
-                <Trigger
-                    key="backButton"
-                    className="classes.backButton"
-                    action={onBack}
-                >
+                <Trigger key="backButton" action={onBack}>
                     <Icon name="arrow-left" />
                 </Trigger>
                 <h2 key="title" className={classes.title}>
                     <span>{title}</span>
                 </h2>
-                <Trigger
-                    key="closeButton"
-                    className="classes.closeButton"
-                    action={onClose}
-                >
+                <Trigger key="closeButton" action={onClose}>
                     <Icon name="x" />
                 </Trigger>
             </Fragment>
