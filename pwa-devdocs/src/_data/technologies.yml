@@ -21,3 +21,9 @@ entries:
       - label: GraphQL
         url: /technologies/basic-concepts/graphql/
 
+  - label: UPWARD
+    url: /technologies/upward/
+    entries:
+
+        - label: Reference implementation
+          url: /technologies/upward/reference-implementation/

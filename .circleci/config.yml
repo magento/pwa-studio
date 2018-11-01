@@ -36,7 +36,7 @@ common_settings:
 
   full_build: &full_build
     name: Full Build
-    command: 'cp packages/venia-concept/example.env packages/venia-concept/.env && npm run build && npm run clean:dist'
+    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build && npm run clean:dist'
 
   test_result_path: &test_result_path
     path: "test-results"

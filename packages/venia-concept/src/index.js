@@ -13,6 +13,7 @@ import reducer from 'src/reducers/app';
 import userReducer from 'src/reducers/user';
 import cartReducer from 'src/reducers/cart';
 import checkoutReducer from 'src/reducers/checkout';
+import directoryReducer from 'src/reducers/directory';
 
 import './index.css';
 
@@ -29,6 +30,7 @@ store.addReducer('app', reducer);
 store.addReducer('user', userReducer);
 store.addReducer('cart', cartReducer);
 store.addReducer('checkout', checkoutReducer);
+store.addReducer('directory', directoryReducer);
 
 store.dispatch(getUserDetails());
 
