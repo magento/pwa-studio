@@ -39,6 +39,10 @@
     -webkit-appearance: none;
 }
 
+.searchBar::-webkit-search-cancel-button {
+    display: none;
+}
+
 .searchIcon {
     position: relative;
     height: 24px;
