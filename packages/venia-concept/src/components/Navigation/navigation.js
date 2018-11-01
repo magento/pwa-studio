@@ -15,13 +15,15 @@ class Navigation extends PureComponent {
         classes: shape({
             authBar: string,
             body: string,
+            createAccount_closed: string,
+            createAccount_open: string,
             footer: string,
             header: string,
             open: string,
             root: string,
             root_open: string,
-            signInClosed: string,
-            signInOpen: string,
+            signIn_closed: string,
+            signIn_open: string,
             title: string,
             userAvatar: string,
             userChip: string,
@@ -100,13 +102,13 @@ class Navigation extends PureComponent {
     }
 
     get signInForm() {
-        const { classes } = this.props;
-        const className =
-            !this.state.isSignInOpen || this.props.isSignedIn
-                ? classes.signInClosed
-                : classes.signInOpen;
+        const { isSignInOpen } = this.state;
+        const { classes, isSignedIn } = this.props;
+        const isOpen = !isSignedIn && isSignInOpen;
+        const className = isOpen ? classes.signIn_open : classes.signIn_closed;
+
         return (
-            <div className={`${className} ${classes.signInForm}`}>
+            <div className={className}>
                 <SignIn
                     showCreateAccountForm={this.setCreateAccountForm}
                     setDefaultUsername={this.setDefaultUsername}
@@ -125,9 +127,9 @@ class Navigation extends PureComponent {
         Once the create account button is dirtied, always render the CreateAccount
         Component to show animation.
         */
-        this.createAccount = (className, classes) => {
+        this.createAccount = className => {
             return (
-                <div className={`${className} ${classes.signInForm}`}>
+                <div className={className}>
                     <CreateAccount
                         defaultUsername={this.state.defaultUsername}
                     />
@@ -138,13 +140,14 @@ class Navigation extends PureComponent {
     };
 
     get createAccountForm() {
-        const { classes } = this.props;
-        const className =
-            !this.state.isCreateAccountOpen || this.props.isSignedIn
-                ? classes.createAccountClosed
-                : classes.createAccountOpen;
+        const { isCreateAccountOpen } = this.state;
+        const { classes, isSignedIn } = this.props;
+        const isOpen = !isSignedIn && isCreateAccountOpen;
+        const className = isOpen
+            ? classes.createAccount_open
+            : classes.createAccount_closed;
 
-        return this.createAccount(className, classes);
+        return this.createAccount(className);
     }
 
     showSignInForm = () => {

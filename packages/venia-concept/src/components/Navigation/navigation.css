@@ -75,7 +75,9 @@
     width: 3.5rem;
 }
 
-.signInForm {
+.signIn {
+    animation-duration: 244ms;
+    animation-fill-mode: forwards;
     background: white;
     bottom: 0;
     left: 0;
@@ -85,28 +87,24 @@
     top: 0;
 }
 
-.signInOpen {
-    animation-duration: 244ms;
+.signIn_open {
+    composes: signIn;
     animation-name: slidein;
-    animation-fill-mode: forwards;
 }
 
-.signInClosed {
-    animation-duration: 244ms;
+.signIn_closed {
+    composes: signIn;
     animation-name: slideout;
-    animation-fill-mode: forwards;
 }
 
-.createAccountOpen {
-    animation-duration: 244ms;
+.createAccount_open {
+    composes: signIn;
     animation-name: slideinSide;
-    animation-fill-mode: forwards;
 }
 
-.createAccountClosed {
-    animation-duration: 244ms;
+.createAccount_closed {
+    composes: signIn;
     animation-name: slideoutSide;
-    animation-fill-mode: forwards;
 }
 
 /* state: open */
