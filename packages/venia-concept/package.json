@@ -12,12 +12,9 @@
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "config": {
-    "serviceWorkerFileName": "sw.js"
-  },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "scripts": {
-    "build": "webpack --color --progress --profile --env.phase production",
+    "build": "npm run -s validate-queries && webpack --color --progress --profile --env.phase production",
     "clean": "rimraf dist",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
@@ -26,7 +23,9 @@
   },
   "dependencies": {
     "@magento/pwa-buildpack": "^2.0.0-rc2.0.5",
-    "@magento/upward-js": "^2.0.0-rc2.0.5"
+    "@magento/upward-js": "^2.0.0-rc2.0.5",
+    "chalk": "^2.4.1",
+    "envalid": "^4.1.4"
   },
   "devDependencies": {
     "@magento/peregrine": "^2.0.0-rc2.0.5",

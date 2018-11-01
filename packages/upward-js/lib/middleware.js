@@ -5,7 +5,8 @@ const IOAdapter = require('./IOAdapter');
 const buildResponse = require('./buildResponse');
 
 class UpwardMiddleware {
-    constructor(upwardPath, io) {
+    constructor(upwardPath, env, io) {
+        this.env = env;
         this.upwardPath = upwardPath;
         debug(`created for path ${upwardPath}`);
         this.io = io;
@@ -35,7 +36,7 @@ class UpwardMiddleware {
             try {
                 response = await buildResponse(
                     this.io,
-                    process.env,
+                    this.env,
                     this.definition,
                     req
                 );
@@ -86,9 +87,10 @@ class UpwardMiddleware {
 
 async function upwardJSMiddlewareFactory(
     upwardPath,
+    env,
     io = IOAdapter.default(upwardPath)
 ) {
-    const middleware = new UpwardMiddleware(upwardPath, io);
+    const middleware = new UpwardMiddleware(upwardPath, env, io);
     await middleware.load();
     return middleware.getHandler();
 }
