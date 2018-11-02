@@ -1,4 +1,4 @@
-require('dotenv').config();
+const validEnv = require('./validate-environment')(process.env);
 
 const webpack = require('webpack');
 const {
@@ -12,7 +12,6 @@ const {
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
-const pkg = require(path.resolve(__dirname, 'package.json'));
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
@@ -31,17 +30,15 @@ const libs = [
     'redux'
 ];
 
-module.exports = async function(env) {
-    const { phase } = env;
+module.exports = async function(passedEnv) {
+    const { phase } = passedEnv;
 
     const babelOptions = configureBabel(phase);
 
     const enableServiceWorkerDebugging =
-        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+        validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
 
-    const serviceWorkerFileName =
-        process.env.SERVICE_WORKER_FILE_NAME ||
-        pkg.config.serviceWorkerFileName;
+    const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
 
     const config = {
         context: __dirname, // Node global for the running script's directory
@@ -118,11 +115,11 @@ module.exports = async function(env) {
                  * https://github.com/magento/graphql-ce/issues/88
                  */
                 'process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH': JSON.stringify(
-                    process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
+                    validEnv.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
             new ServiceWorkerPlugin({
-                env,
+                env: Object.assign({}, validEnv, passedEnv),
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
                 paths: themePaths
@@ -138,14 +135,13 @@ module.exports = async function(env) {
                 queryDirs: [path.resolve(themePaths.src, 'queries')]
             }
         };
-        const provideHost = !!process.env.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
+        const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
         if (provideHost) {
             devServerConfig.provideSecureHost = {
-                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
                 exactDomain:
-                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
-                addUniqueHash: !!process.env
-                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
             };
         }
         config.devServer = await PWADevServer.configure(devServerConfig);
@@ -161,7 +157,8 @@ module.exports = async function(env) {
             new webpack.HotModuleReplacementPlugin(),
             new UpwardPlugin(
                 config.devServer,
-                path.resolve(__dirname, 'venia-upward.yml')
+                validEnv,
+                path.resolve(__dirname, validEnv.UPWARD_JS_UPWARD_PATH)
             )
         );
     } else if (phase === 'production') {
