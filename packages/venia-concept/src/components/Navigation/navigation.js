@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { bool, object, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
@@ -33,6 +33,7 @@ class Navigation extends PureComponent {
             userName: string
         }),
         firstname: string,
+        getAllCategories: func.isRequired,
         email: string,
         isOpen: bool,
         isSignedIn: bool,
