@@ -9,7 +9,8 @@ const upward = require('@magento/upward-js');
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class UpwardPlugin {
-    constructor(devServer, upwardPath) {
+    constructor(devServer, env, upwardPath) {
+        this.env = env;
         this.upwardPath = upwardPath;
         // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
@@ -92,7 +93,11 @@ class UpwardPlugin {
             }
         };
 
-        this.middleware = await upward.middleware(this.upwardPath, io);
+        this.middleware = await upward.middleware(
+            this.upwardPath,
+            this.env,
+            io
+        );
     }
     async getCompiler() {
         if (this.compiler) {

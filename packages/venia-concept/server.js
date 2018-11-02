@@ -1,5 +1,5 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-require('dotenv').config();
+const validEnv = require('./validate-environment')(process.env);
 const {
     Utilities: { configureHost }
 } = require('@magento/pwa-buildpack');
@@ -11,17 +11,18 @@ async function serve() {
             bindLocal: true,
             logUrl: true
         },
-        envToConfig()
+        envToConfig(validEnv),
+        { env: validEnv }
     );
 
     if (!config.host) {
         try {
             const { hostname, ports, ssl } = await configureHost({
-                subdomain: process.env.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
                 exactDomain:
-                    process.env.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
-                addUniqueHash: !!process.env
-                    .MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash:
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
             });
             config.host = hostname;
             config.https = ssl;

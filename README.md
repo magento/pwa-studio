@@ -71,7 +71,7 @@ PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architec
 
 2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
 
-One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box.](https://github.com/paliarush/magento2-vagrant-for-developers/).
+One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box](https://github.com/paliarush/magento2-vagrant-for-developers/).
 
 #### Using the Vagrant Box
 
@@ -96,7 +96,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 1. Clone the repository.
 2. Navigate to the root of the repository from the command line
 3. Run `npm install`
-4. Copy `packages/venia-concept/example.env` to `packages/venia-concept/.env`
+4. Copy `packages/venia-concept/.env.dist` to `packages/venia-concept/.env`
 5. Uncomment the line for `MAGENTO_BACKEND_URL` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_URL` to the fully-qualified URL of a Magento store running `2.3`.
 6. On your first install, run `npm run build` from package root.
 7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
@@ -105,7 +105,7 @@ Follow these steps to install the dependencies for all the packages in the proje
 
 ### When I run the developer mode, I get validation errors
 
-Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/example.env`.
+Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/.env.dist`.
 
 ### Venia queries to GraphQL produce validation errors
 
@@ -115,7 +115,7 @@ Venia and its GraphQL queries may be out of sync with the schema of your connect
 
 Generating certificates is handled by [devcert](https://github.com/davewasmer/devcert). If you're on a Linux machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme](https://github.com/davewasmer/devcert#skipcertutil).
 
-**To test whether your queries are up to date, run `npm run validate:venia:gql` at project root.**
+**To test whether your queries are up to date, run `npm run validate-queries` at project root.**
 
 ## Things not to do
 

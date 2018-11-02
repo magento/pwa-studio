@@ -40,9 +40,7 @@ class GalleryItem extends Component {
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
-            small_image: shape({
-                path: string.isRequired
-            }).isRequired,
+            small_image: string.isRequired,
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
@@ -135,7 +133,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={className}
-                src={makeProductMediaPath(small_image.path)}
+                src={makeProductMediaPath(small_image)}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
