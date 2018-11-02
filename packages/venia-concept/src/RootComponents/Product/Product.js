@@ -6,6 +6,8 @@ import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 import getProductDetail from '../../queries/getProductDetail.graphql';
+import { addItemToCart } from 'src/actions/cart';
+import { connect } from 'react-redux';
 
 class Product extends Component {
     static propTypes = {
@@ -69,4 +71,11 @@ class Product extends Component {
     }
 }
 
-export default Product;
+const mapDispatchToProps = {
+    addItemToCart
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Product);

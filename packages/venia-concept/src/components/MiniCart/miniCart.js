@@ -33,10 +33,6 @@ class MiniCart extends Component {
         super(...args);
     }
 
-    state = {
-        editPanelOpen: false
-    };
-
     async componentDidMount() {
         const { getCartDetails } = this.props;
         const reducers = await Promise.all([
@@ -55,44 +51,11 @@ class MiniCart extends Component {
 
     get productList() {
         const { cartId, cartCurrencyCode, cart } = this.props;
-        return cartId && !this.state.editPanelOpen ? (
+        return cartId ? (
             <ProductList
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
             />
-        ) : null;
-    }
-
-    get editPanel() {
-        const { classes, isOpen, cart } = this.props;
-        const className = isOpen ? classes.root_open : classes.root;
-        console.log(this.state.editPanelOpen);
-        return this.state.editPanelOpen && cart.details.items[0] ? (
-            <div className={className}>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>
-                        <span>EDIT CART ITEM</span>
-                    </h2>
-                    <Trigger>
-                        <Icon name="x" />
-                    </Trigger>
-                </div>
-                <div className={classes.body}>
-                    <ProductEdit item={cart.details.items[0]} />
-                </div>
-                <div className={classes.footer}>
-                    <div className={classes.summary}>
-                        <Button
-                            onClick={() =>
-                                this.setState({ editPanelOpen: false })
-                            }
-                        >
-                            Cancel
-                        </Button>
-                        <Button>Save Changes</Button>
-                    </div>
-                </div>
-            </div>
         ) : null;
     }
 
@@ -121,11 +84,11 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { productList, totalsSummary, props, editPanel } = this;
+        const { productList, totalsSummary, props } = this;
         const { cart, classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
-        return !this.state.editPanelOpen ? (
+        return (
             <aside className={className}>
                 <div className={classes.header}>
                     <h2 className={classes.title}>
@@ -141,8 +104,6 @@ class MiniCart extends Component {
                 </div>
                 <Checkout cart={cart} />
             </aside>
-        ) : (
-            <div>{editPanel}</div>
         );
     }
 }

@@ -4,4 +4,4 @@
  * pageTypes = PRODUCT
  */
 
-export { default } from './container';
+export { default } from './Product';
