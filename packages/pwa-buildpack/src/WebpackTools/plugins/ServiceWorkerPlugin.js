@@ -48,15 +48,13 @@ class ServiceWorkerPlugin {
     }
 
     applyInjectManifest(compiler) {
-        this.configureInjectManifest().apply(compiler);
+        debugger;
     }
-
 
     apply(compiler) {
         if (this.config.env.phase === 'development') {
             // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
             if (this.config.enableServiceWorkerDebugging && !this.config.injectManifest) {
-                console.log('hey');
                 new WriteFileWebpackPlugin({
                     test: new RegExp(this.config.serviceWorkerFileName + '$'),
                     log: true
@@ -82,7 +80,6 @@ class ServiceWorkerPlugin {
         } else {
             this.applyGenerateSW(compiler);
         }
-
     }
 }
 module.exports = ServiceWorkerPlugin;
