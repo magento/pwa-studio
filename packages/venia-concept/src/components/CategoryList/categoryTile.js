@@ -19,9 +19,7 @@ class CategoryTile extends Component {
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: shape({
-                            path: string
-                        })
+                        small_image: string
                     })
                 )
             }),
@@ -40,7 +38,7 @@ class CategoryTile extends Component {
         if (image) {
             return makeCategoryMediaPath(item.image);
         } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image.path);
+            return makeProductMediaPath(previewProduct.small_image);
         }
     }
     render() {

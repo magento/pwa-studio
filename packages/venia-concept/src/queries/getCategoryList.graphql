@@ -8,9 +8,7 @@ query categoryList($id: Int!) {
             image
             productImagePreview: products(pageSize: 1) {
                 items {
-                    small_image {
-                        path
-                    }
+                    small_image
                 }
             }
         }
