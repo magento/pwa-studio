@@ -1,4 +1,3 @@
-export { default } from './navigation';
+export { default } from './container';
 export { default as NavHeader } from './navHeader';
-export { default as Tile } from './tile';
-export { default as Trigger } from './trigger';
+export { default as Navigation } from './navigation';

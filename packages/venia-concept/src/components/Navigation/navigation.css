@@ -4,79 +4,112 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     left: 0;
+    opacity: 0;
     position: fixed;
     top: 0;
+    transform: translate3d(-100%, 0, 0);
+    transition-duration: 192ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     transition-property: opacity, transform, visibility;
+    visibility: hidden;
     width: 360px;
     z-index: 3;
 }
 
-.bottomDrawer {
+.header {
+    align-content: center;
+    background-color: rgb(var(--venia-grey));
+    box-shadow: 0 1px rgb(var(--venia-border));
+    display: grid;
+    grid-auto-columns: 3.5rem;
+    grid-auto-flow: column;
+    grid-auto-rows: 3.5rem;
+    grid-template-columns: 3.5rem 1fr 3.5rem;
+    height: 3.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.body {
+    min-height: 0;
+    overflow: auto;
+}
+
+.footer {
+    box-shadow: 0 -1px rgb(var(--venia-border));
+}
+
+.authBar {
+    align-items: center;
+    background-color: white;
     display: flex;
+    height: 5.5rem;
+    justify-content: center;
+    padding: 1.5rem 1rem 1rem;
+    width: 100%;
+}
+
+.userChip {
     align-content: center;
     align-items: center;
     background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
-    height: 3.5rem;
-    justify-content: center;
+    display: grid;
+    flex: 0 0 100%;
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 3.5rem;
+    height: 4rem;
     padding: 0 1rem;
-    position: relative;
+    width: 100%;
 }
 
-.bottomDrawer button {
-    max-width: 4em;
-    height: 2.3em;
+.userEmail {
+    color: rgb(var(--venia-text-alt));
+    font-size: 0.8125rem;
+    line-height: 1rem;
 }
 
-.navTrigger {
+.userAvatar,
+.userMore {
     composes: root from '../clickable.css';
-    height: 3rem;
-    width: 3rem;
+    height: 3.5rem;
+    width: 3.5rem;
 }
 
-.tiles {
-    background-color: white;
-    display: grid;
-    grid-gap: 2rem;
-    grid-template-columns: repeat(3, 5rem);
-    justify-content: center;
-    padding: 2rem 0;
+.signIn {
+    animation-duration: 244ms;
+    animation-fill-mode: forwards;
+    background: white;
+    bottom: 0;
+    left: 0;
+    padding-top: 4.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
-.items {
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0px -1px rgb(var(--venia-border));
-    display: grid;
-    grid-auto-columns: 3rem;
-    grid-auto-flow: column;
-    grid-auto-rows: 3rem;
-    grid-gap: 4rem;
-    justify-content: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.signIn_open {
+    composes: signIn;
+    animation-name: slidein;
 }
 
-.item {
-    align-items: center;
-    display: inline-flex;
-    height: 3rem;
-    justify-content: center;
-    width: 3rem;
+.signIn_closed {
+    composes: signIn;
+    animation-name: slideout;
 }
 
-/* state: open,closed */
-
-.closed {
-    composes: root;
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-    transition-duration: 192ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    visibility: hidden;
+.createAccount_open {
+    composes: signIn;
+    animation-name: slideinSide;
 }
 
-.open {
+.createAccount_closed {
+    composes: signIn;
+    animation-name: slideoutSide;
+}
+
+/* state: open */
+
+.root_open {
     composes: root;
     box-shadow: 1px 0 rgb(var(--venia-border));
     opacity: 1;
@@ -86,82 +119,40 @@
     visibility: visible;
 }
 
-.accountDrawer {
-    margin: 0 0.5rem;
-    grid-template-columns: 1fr 8fr 1fr;
-    display: grid;
-    align-items: center;
-    width: 100%;
-}
-
-.userInfo > p:nth-child(2) {
-    color: rgb(var(--venia-text-alt));
-    font-size: 0.8rem;
-}
-
-.signInForm {
-    background: white;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.signInOpen {
-    animation-duration: 244ms;
-    animation-name: slidein;
-    animation-fill-mode: forwards;
-}
-
-.signInClosed {
-    animation-duration: 244ms;
-    animation-name: slideout;
-    animation-fill-mode: forwards;
-}
-
-.createAccountOpen {
-    animation-duration: 244ms;
-    animation-name: slideinSide;
-    animation-fill-mode: forwards;
-}
-
-.createAccountClosed {
-    animation-duration: 244ms;
-    animation-name: slideoutSide;
-    animation-fill-mode: forwards;
-}
+/* keyframes */
 
 @keyframes slidein {
     from {
-        top: 100%;
+        transform: translate3d(0, 100%, 0);
     }
     to {
-        top: 0;
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes slideout {
     from {
-        top: 0;
+        transform: translate3d(0, 0, 0);
     }
     to {
-        top: 100%;
+        transform: translate3d(0, 100%, 0);
     }
 }
 
 @keyframes slideinSide {
     from {
-        right: 100%;
+        transform: translate3d(-100%, 0, 0);
     }
     to {
-        right: 0;
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes slideoutSide {
     from {
-        right: 0;
+        transform: translate3d(0, 0, 0);
     }
     to {
-        right: 100%;
+        transform: translate3d(-100%, 0, 0);
     }
 }
