@@ -33,14 +33,12 @@ class PurchaseHistoryItem extends Component {
 
         return (
             <Link className={classes.body} to={link}>
-                <img
-                    className={classes.image}
-                    src={imageSrc}
-                    alt="clothes"
-                />
+                <img className={classes.image} src={imageSrc} alt="clothes" />
                 <div className={classes.textBlock}>
                     <div className={classes.textBlockTitle}>{title}</div>
-                    <div className={classes.textBlockDate}>{processDate(date)}</div>
+                    <div className={classes.textBlockDate}>
+                        {processDate(date)}
+                    </div>
                 </div>
                 <div className={classes.chevronContainer}>
                     <Icon name="chevron-right" />

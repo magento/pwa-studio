@@ -15,19 +15,21 @@ class PurchaseHistory extends Component {
             filterContainer: string,
             itemsContainer: string
         }),
-        items: arrayOf(shape({
-            id: number,
-            imageSrc: string,
-            title: string,
-            date: date,
-            link: string
-        }))
+        items: arrayOf(
+            shape({
+                id: number,
+                imageSrc: string,
+                title: string,
+                date: date,
+                link: string
+            })
+        )
     };
 
     //TODO: remove this mock items setting
     static defaultProps = {
         items: mockPurchaseHistory
-    }
+    };
 
     render() {
         const { classes, items } = this.props;
@@ -40,11 +42,15 @@ class PurchaseHistory extends Component {
                     items={items}
                     getItemKey={({ id }) => id}
                     render={props => (
-                        <div className={classes.itemsContainer}>
+                        <ul className={classes.itemsContainer}>
                             {props.children}
-                        </div>
+                        </ul>
                     )}
-                    renderItem={PurchaseHistoryItem}
+                    renderItem={props => (
+                        <li>
+                            <PurchaseHistoryItem {...props} />
+                        </li>
+                    )}
                 />
             </div>
         );
