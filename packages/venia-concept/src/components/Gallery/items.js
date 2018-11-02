@@ -9,7 +9,7 @@ const emptyData = Array.from({ length: pageSize }).fill(null);
 const createCollection = initObserver(fixedObserver);
 
 // inline the placeholder elements, since they're constant
-const placeholders = emptyData.map((_, index) => (
+const defaultPlaceholders = emptyData.map((_, index) => (
     <GalleryItem key={index} placeholder={true} />
 ));
 
@@ -57,12 +57,23 @@ class GalleryItems extends Component {
         this.setState(initState);
     }
 
+    get placeholders() {
+        const { pageSize } = this.props;
+        const sizedEmptyData = Array.from({ length: pageSize }).fill(null);
+
+        return pageSize
+            ? sizedEmptyData.map((_, index) => (
+                  <GalleryItem key={index} placeholder={true} />
+              ))
+            : defaultPlaceholders;
+    }
+
     render() {
         const { items } = this.props;
         const { done } = this.state;
 
         if (items === emptyData) {
-            return placeholders;
+            return this.placeholders;
         }
 
         return items.map(item => (

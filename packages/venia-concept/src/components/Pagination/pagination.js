@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import classify from 'src/classify';
 import defaultClasses from './pagination.css';
-import Icon from '../Icon';
+import NavButton from './navButton';
 
-const tileBuffer = 3;
+const tileBuffer = 2;
 
 class Pagination extends Component {
     componentDidMount() {
@@ -15,21 +15,21 @@ class Pagination extends Component {
         const { classes, pageControl } = this.props;
         const { currentPage, totalPages } = pageControl;
 
-        // Begin building page navigation
+        // Begin building page navigation tiles
         const tiles = [];
-        const buffer = Math.min(tileBuffer * 2, totalPages - 1);
-        const leadTile = this.getLeadTile();
+        const visibleBuffer = Math.min(tileBuffer * 2, totalPages - 1);
+        const leadTile = this.getLeadTile(currentPage, totalPages);
 
-        for (let i = leadTile; i <= leadTile + buffer; i++) {
+        for (let i = leadTile; i <= leadTile + visibleBuffer; i++) {
             const tile = i;
             tiles.push(tile);
         }
-        // End building page navigation
+        // End building page navigation tiles
 
         return tiles.map(tile => {
             const tileMarker =
                 tile == currentPage ? (
-                    <div id="tileMarker" className={classes.tileMarker} />
+                    <div className={classes.tileMarker} />
                 ) : null;
             return (
                 <button key={tile} onClick={() => this.setPage(tile)}>
@@ -41,34 +41,48 @@ class Pagination extends Component {
     }
 
     render() {
-        const { classes, pageControl } = this.props;
+        const { classes } = this.props;
+        const { currentPage, totalPages } = this.props.pageControl;
         const { navigationTiles } = this;
 
-        if (!pageControl || pageControl.totalPages == 1) {
+        if (!this.props.pageControl || totalPages == 1) {
             return null;
         }
 
-        const sliderClassLeft =
-            pageControl.currentPage == 1
-                ? classes.slider + ' ' + classes.slider_inactive
-                : classes.slider;
-        const sliderClassRight =
-            pageControl.currentPage == pageControl.totalPages
-                ? classes.slider + ' ' + classes.slider_inactive
-                : classes.slider;
+        const leadTile = this.getLeadTile(currentPage, totalPages);
+
+        const rightSkip = Math.min(
+            totalPages,
+            leadTile + tileBuffer * 2 + (tileBuffer + 1)
+        );
+        const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
+
+        const isActiveLeft = !(currentPage == 1);
+        const isActiveRight = !(currentPage == totalPages);
 
         return (
             <div className={classes.root}>
-                <button className={sliderClassLeft} onClick={this.slideNavLeft}>
-                    <Icon name="chevron-left" />
-                </button>
+                <NavButton
+                    name="rewind"
+                    active={isActiveLeft}
+                    onClick={() => this.setPage(leftSkip)}
+                />
+                <NavButton
+                    name="chevron-left"
+                    active={isActiveLeft}
+                    onClick={this.slideNavLeft}
+                />
                 {navigationTiles}
-                <button
-                    className={sliderClassRight}
+                <NavButton
+                    name="chevron-right"
+                    active={isActiveRight}
                     onClick={this.slideNavRight}
-                >
-                    <Icon name="chevron-right" />
-                </button>
+                />
+                <NavButton
+                    name="fast-forward"
+                    active={isActiveRight}
+                    onClick={() => this.setPage(rightSkip)}
+                />
             </div>
         );
     }
@@ -91,9 +105,7 @@ class Pagination extends Component {
         }
     };
 
-    getLeadTile = () => {
-        const { currentPage, totalPages } = this.props.pageControl;
-
+    getLeadTile = (currentPage, totalPages) => {
         const selectedTile = currentPage;
         const leftBound = 1 + tileBuffer;
         const rightBound = totalPages - tileBuffer;

@@ -3,9 +3,8 @@ import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
-import Gallery from 'src/components/Gallery';
-import Pagination from 'src/components/Pagination';
 import Page from 'src/components/Page';
+import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
 const categoryQuery = gql`
@@ -56,12 +55,18 @@ class Category extends Component {
     state = {
         currentPage: 1,
         pageSize: 6,
-        lastPageTotal: 0
+        prevPageTotal: 0
     };
 
     render() {
         const { id, classes } = this.props;
-        const { pageSize, currentPage } = this.state;
+        const { pageSize, currentPage, prevPageTotal } = this.state;
+        const pageControl = {
+            currentPage: currentPage,
+            setPage: this.setPage,
+            updateTotalPages: this.updateTotalPages,
+            totalPages: prevPageTotal
+        };
 
         return (
             <Page>
@@ -76,10 +81,11 @@ class Category extends Component {
                     {({ loading, error, data }) => {
                         if (error) return <div>Data Fetch Error</div>;
                         if (loading)
-                            return this.state.lastPageTotal != 0 ? (
-                                this.getCategoryComponent(
-                                    this.state.lastPageTotal
-                                )
+                            return this.state.prevPageTotal != 0 ? (
+                                <CategoryContent
+                                    pageControl={pageControl}
+                                    pageSize={pageSize}
+                                />
                             ) : (
                                 <div className={classes.placeholder}>
                                     Fetching Data...
@@ -91,8 +97,18 @@ class Category extends Component {
                             data.category.products.total_count /
                             this.state.pageSize;
                         const totalPages = Math.ceil(pageCount);
+                        const totalWrapper = {
+                            ...pageControl,
+                            totalPages: totalPages
+                        };
 
-                        return this.getCategoryComponent(totalPages, data);
+                        return (
+                            <CategoryContent
+                                classes={classes}
+                                pageControl={totalWrapper}
+                                data={data}
+                            />
+                        );
                     }}
                 </Query>
             </Page>
@@ -100,7 +116,7 @@ class Category extends Component {
     }
 
     setPage = newPageNumber => {
-        newPageNumber = newPageNumber < 1 ? 1 : newPageNumber;
+        newPageNumber = Math.max(1, newPageNumber);
         this.setState({
             currentPage: newPageNumber
         });
@@ -108,40 +124,8 @@ class Category extends Component {
 
     updateTotalPages = newTotal => {
         this.setState({
-            lastPageTotal: newTotal
+            prevPageTotal: newTotal
         });
-    };
-
-    getCategoryComponent = (totalPages, data) => {
-        const { classes } = this.props;
-        const items = data ? data.category.products.items : null;
-        const title = data ? data.category.description : null;
-
-        const pageControl = {
-            currentPage: this.state.currentPage,
-            setPage: this.setPage,
-            updateTotalPages: this.updateTotalPages,
-            totalPages: totalPages
-        };
-
-        return (
-            <article className={classes.root}>
-                <h1 className={classes.title}>
-                    {/* TODO: Switch to RichContent component from Peregrine when merged */}
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: title
-                        }}
-                    />
-                </h1>
-                <section className={classes.gallery}>
-                    <Gallery data={items} title={title} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </div>
-            </article>
-        );
     };
 }
 

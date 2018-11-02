@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Pagination from '../pagination';
@@ -45,7 +45,7 @@ test('clicking a numbered tile returns the appropriate page number', () => {
     const pageControl = Object.assign(mockPageControl, { setPage: setPage });
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
 
-    const tile3 = wrapper.find('button').at(3);
+    const tile3 = wrapper.find('button').at(2);
     tile3.simulate('click');
     expect(pageTracker).toEqual(3);
 });
@@ -61,9 +61,9 @@ test('left arrow navigation', () => {
         currentPage: startingPage,
         setPage: setPage
     });
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
+    const wrapper = mount(<Pagination pageControl={pageControl} />);
 
-    const leftArrowNav = wrapper.find('button').first();
+    const leftArrowNav = wrapper.find('button').at(1);
     // Page 3 -> 2
     expect(pageTracker).toEqual(startingPage);
     leftArrowNav.simulate('click');
@@ -81,9 +81,9 @@ test('right arrow navigation', () => {
         currentPage: startingPage,
         setPage: setPage
     });
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
+    const wrapper = mount(<Pagination pageControl={pageControl} />);
 
-    const rightArrowNav = wrapper.find('button').last();
+    const rightArrowNav = wrapper.find('button').at(5);
     // Page 2 -> 3
     expect(pageTracker).toEqual(startingPage);
     rightArrowNav.simulate('click');
@@ -91,25 +91,59 @@ test('right arrow navigation', () => {
 });
 
 test('left bound prevents the lead tile from falling below 1', () => {
-    const currentPage = 3;
+    const currentPage = 2;
     const totalPages = 8;
-    const pageControl = Object.assign(mockPageControl, {
-        currentPage: currentPage,
-        totalPages: totalPages
-    });
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
+    const wrapper = shallow(
+        <Pagination pageControl={mockPageControl} />
+    ).dive();
     const leadTile = wrapper.instance().getLeadTile;
-    expect(leadTile()).toEqual(1);
+    expect(leadTile(currentPage, totalPages)).toEqual(1);
 });
 
 test('right bound prevents the lead tile from exceeding total pages - visible tile buffer', () => {
     const currentPage = 7;
     const totalPages = 9;
+    const wrapper = shallow(
+        <Pagination pageControl={mockPageControl} />
+    ).dive();
+    const leadTile = wrapper.instance().getLeadTile;
+    expect(leadTile(currentPage, totalPages)).toEqual(5);
+});
+
+test('left skip', () => {
+    const startingPage = 8;
+    const totalPages = 10;
+    let pageTracker = startingPage;
+    const setPage = pageNumber => {
+        pageTracker = pageNumber;
+    };
     const pageControl = Object.assign(mockPageControl, {
-        currentPage: currentPage,
+        currentPage: startingPage,
+        setPage: setPage,
         totalPages: totalPages
     });
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
-    const leadTile = wrapper.instance().getLeadTile;
-    expect(leadTile()).toEqual(3);
+    const wrapper = mount(<Pagination pageControl={pageControl} />);
+
+    const leftSkipButton = wrapper.find('button').first();
+    leftSkipButton.simulate('click');
+    expect(pageTracker).toEqual(3);
+});
+
+test('right skip', () => {
+    const startingPage = 1;
+    const totalPages = 10;
+    let pageTracker = startingPage;
+    const setPage = pageNumber => {
+        pageTracker = pageNumber;
+    };
+    const pageControl = Object.assign(mockPageControl, {
+        currentPage: startingPage,
+        setPage: setPage,
+        totalPages: totalPages
+    });
+    const wrapper = mount(<Pagination pageControl={pageControl} />);
+
+    const rightSkipButton = wrapper.find('button').last();
+    rightSkipButton.simulate('click');
+    expect(pageTracker).toEqual(8);
 });

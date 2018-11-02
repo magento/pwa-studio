@@ -39,7 +39,7 @@ class Gallery extends Component {
     };
 
     render() {
-        const { classes, data } = this.props;
+        const { classes, data, pageSize } = this.props;
         const hasData = Array.isArray(data) && data.length;
         const items = hasData ? data : emptyData;
 
@@ -54,7 +54,7 @@ class Gallery extends Component {
                     </Button>
                 </div>
                 <div className={classes.items}>
-                    <GalleryItems items={items} />
+                    <GalleryItems items={items} pageSize={pageSize} />
                 </div>
             </div>
         );
