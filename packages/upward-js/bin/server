@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 require('dotenv').config();
 
-const config = require('../lib/envToConfig')();
+const config = require('../lib/envToConfig')(process.env);
 
 require('../lib/createUpwardServer.js')(config).catch(e => {
     console.error(e.stack);
