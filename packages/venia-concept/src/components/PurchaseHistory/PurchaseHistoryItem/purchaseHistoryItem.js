@@ -7,6 +7,11 @@ import classify from 'src/classify';
 import defaultClasses from './purchaseHistoryItem.css';
 import { processDate } from './helpers';
 
+const CHEVRON_ICON_ATTRS = {
+    width: 18,
+    'stroke-width': 2
+};
+
 class PurchaseHistoryItem extends Component {
     static propTypes = {
         classes: shape({
@@ -33,7 +38,7 @@ class PurchaseHistoryItem extends Component {
 
         return (
             <Link className={classes.body} to={link}>
-                <img className={classes.image} src={imageSrc} alt="clothes" />
+                <img className={classes.image} src={imageSrc} alt="item" />
                 <div className={classes.textBlock}>
                     <div className={classes.textBlockTitle}>{title}</div>
                     <div className={classes.textBlockDate}>
@@ -41,7 +46,7 @@ class PurchaseHistoryItem extends Component {
                     </div>
                 </div>
                 <div className={classes.chevronContainer}>
-                    <Icon name="chevron-right" />
+                    <Icon name="chevron-right" attrs={CHEVRON_ICON_ATTRS} />
                 </div>
             </Link>
         );
