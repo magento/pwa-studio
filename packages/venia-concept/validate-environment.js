@@ -8,13 +8,15 @@ function validateEnvironment(env) {
     const envPath = path.join(__dirname, '.env');
     try {
         parsedEnv = dotenv.parse(readFileSync(envPath));
-        console.log(
+        // don't use console.log, which writes to stdout. writing to stdout
+        // interferes with webpack json output
+        console.warn(
             chalk.green(
                 `Using environment variables from ${chalk.greenBright('.env')}`
             )
         );
         if (env.DEBUG || env.NODE_DEBUG) {
-            console.log(
+            console.warn(
                 '\n  ' +
                     require('util')
                         .inspect(parsedEnv, {
@@ -28,13 +30,13 @@ function validateEnvironment(env) {
         }
     } catch (e) {
         if (e.code === 'ENOENT') {
-            console.log(
+            console.warn(
                 chalk.redBright(
                     `\nNo .env file in ${__dirname}\n\tYou may need to copy '.env.dist' to '.env' to begin, or create your own '.env' file manually.`
                 )
             );
         } else {
-            console.log(
+            console.warn(
                 chalk.redBright(`\nCould not retrieve and parse ${envPath}.`, e)
             );
         }

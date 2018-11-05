@@ -5,7 +5,7 @@ test('static configure() produces a webpack resolver config', async () => {
     ).resolves.toEqual({
         modules: ['fakeRoot', 'node_modules'],
         mainFiles: ['index'],
-        extensions: ['.js', '.json']
+        extensions: ['.mjs', '.js', '.json', '.graphql']
     });
 });
 test('static configure() throws if required paths are missing', async () => {
