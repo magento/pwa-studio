@@ -1,27 +1,59 @@
 // TODO: implement selectors
+const getPurchaseDetails = state => state.purchaseDetails;
 
-export const getOrderDetails = () => [
-    { property: 'Order No', value: 84322 },
-    { property: 'Order Date', value: 'June 24, 2018' },
-    { property: 'Total', value: '$393.00' },
-    { property: 'Products', value: 3 }
-];
+const getOrderDetails = state => getPurchaseDetails(state).orderDetails;
 
-export const getShipmentDetails = () => [
-    { property: 'Method', value: 'Free Shipping' },
-    { property: 'Delivered', value: 'July 9, 2018' }
-];
+export const getCommonOrderDetails = state => {
+    const orderDetails = getOrderDetails(state);
 
-export const getPaymentDetails = () => [
-    { property: 'Method', value: 'Visa ending in 0022' },
-    { property: 'Billing Address', value: 'Same as Shipping' },
-    { property: 'Shipping Address', value: '6146 Honey Bluff Parkway' }
-];
+    return [
+        { property: 'Order No', value: orderDetails.orderNo },
+        { property: 'Order Date', value: orderDetails.orderDate },
+        { property: 'Total', value: orderDetails.total },
+        { property: 'Products', value: orderDetails.products }
+    ];
+};
 
-export const getOrderSummary = () => [
-    { property: 'Items', value: '$393.00' },
-    { property: 'Shipping and Handling', value: '$0.00' },
-    { property: 'Estimated Tax', value: '$7.50' }
-];
+export const getShipmentDetails = state => {
+    const orderDetails = getOrderDetails(state);
 
-export const getOtherItems = () => [{}, {}];
+    return [
+        { property: 'Method', value: orderDetails.shippingMethod },
+        { property: 'Delivered', value: orderDetails.delivered }
+    ];
+};
+
+export const getPaymentDetails = state => {
+    const orderDetails = getOrderDetails(state);
+
+    return [
+        { property: 'Method', value: orderDetails.paymentMethod },
+        {
+            property: 'Billing Address',
+            value: orderDetails.billingAddress
+        },
+        {
+            property: 'Shipping Address',
+            value: orderDetails.shippingAddress
+        }
+    ];
+};
+
+export const getOrderSummary = state => {
+    const orderDetails = getOrderDetails(state);
+
+    return [
+        { property: 'Items', value: orderDetails.items },
+        {
+            property: 'Shipping and Handling',
+            value: orderDetails.shippingAndHandling
+        },
+        { property: 'Estimated Tax', value: orderDetails.estimatedTax }
+    ];
+};
+
+export const getFetchingStatus = state => getPurchaseDetails(state).isFetching;
+
+export const getItem = state => getPurchaseDetails(state).item;
+
+export const getOtherItems = state => getPurchaseDetails(state).otherItems;
