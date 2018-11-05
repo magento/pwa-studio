@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.imageAndPropsContainer {
+    display: flex;
+}
+
+.titleImage {
+    height: 80px;
+    margin-right: 6px;
+}
+
+.propsColumnContainer {
+    max-width: 160px;
+    font-size: 12px;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.name {
+    font-weight: var(--venia-font-weight-medium);
+}
+
+.priceContainer {
+    font-size: 12px;
+    line-height: 15px;
+}
