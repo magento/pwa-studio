@@ -26,6 +26,7 @@ class OrderItem extends Component {
 
     //TODO: get currencyCode whether from item object or from order or from user cart
     static defaultProps = {
+        item: {},
         currencyCode: 'USD'
     };
     //TODO: make correct mapping from item
@@ -40,7 +41,7 @@ class OrderItem extends Component {
     render() {
         const {
             classes,
-            item: { name, size, color, qty, titleImageSrc, price },
+            item: { titleImageSrc, name, size, color, qty, price },
             currencyCode
         } = this.props;
         //TODO: implement reviewItem handler and use as argument in below function
@@ -66,7 +67,7 @@ class OrderItem extends Component {
                         </div>
                     </div>
                     <div className={classes.priceContainer}>
-                        <Price value={price} currencyCode={currencyCode} />
+                        <Price value={price || 0} currencyCode={currencyCode} />
                     </div>
                 </div>
                 <ButtonGroup buttonGroupItems={buttonGroupItems} />

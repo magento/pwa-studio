@@ -18,8 +18,15 @@ class PurchaseDetails extends Component {
         classes: PropTypes.shape({}),
         addItemToCart: PropTypes.func,
         item: itemPropType,
-        otherItems: PropTypes.arrayOf(itemPropType)
+        otherItems: PropTypes.arrayOf(itemPropType),
+        fetchOrderDetails: PropTypes.func,
+        isFetching: PropTypes.bool
     };
+
+    //TODO: implement executing url params for orderId and itemId
+    componentDidMount() {
+        this.props.fetchOrderDetails({});
+    }
 
     handleShare = item => {
         const { history } = this.props;
@@ -27,7 +34,7 @@ class PurchaseDetails extends Component {
         history.push(getProductPageUrl(item));
     };
 
-    render() {
+    renderComponent = () => {
         const {
             shipmentDetails,
             orderDetails,
@@ -50,8 +57,8 @@ class PurchaseDetails extends Component {
                     Order details
                 </h2>
                 <DetailsBlock
-                    rows={orderDetails}
                     classes={{ root: classes.orderDetailsBlockRoot }}
+                    rows={orderDetails}
                 />
                 <OrderItemsList
                     items={otherItems}
@@ -90,6 +97,12 @@ class PurchaseDetails extends Component {
                 />
             </div>
         );
+    };
+
+    render() {
+        const { isFetching } = this.props;
+
+        return !isFetching ? this.renderComponent() : <div>Loading...</div>;
     }
 }
 
