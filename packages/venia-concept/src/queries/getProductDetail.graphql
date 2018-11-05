@@ -37,6 +37,8 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                             swatch_image
                             fashion_color
                             fashion_size
+                            fashion_material
+                            fashion_style
                             stock_status
                             media_gallery_entries {
                                 label

@@ -27,7 +27,10 @@ class Option extends Component {
 
     styleOptions = {
         fashion_color: swatchStyles,
-        fashion_size: tileStyles
+        fashion_size: tileStyles,
+        fashion_material: miniTileStyles,
+        fashion_style: miniTileStyles
+
     };
 
     get check() {
