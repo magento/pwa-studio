@@ -42,11 +42,15 @@ class PurchaseHistory extends Component {
                     items={items}
                     getItemKey={({ id }) => id}
                     render={props => (
-                        <div className={classes.itemsContainer}>
+                        <ul className={classes.itemsContainer}>
                             {props.children}
-                        </div>
+                        </ul>
                     )}
-                    renderItem={PurchaseHistoryItem}
+                    renderItem={props => (
+                        <li>
+                            <PurchaseHistoryItem {...props} />
+                        </li>
+                    )}
                 />
             </div>
         );
