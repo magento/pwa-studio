@@ -26,31 +26,6 @@
     color: #fff;
 }
 
-.disabled > span:after,
-.disabled > span:before {
-    width: 140%;
-    height: 1px;
-    position: absolute;
-    content: '';
-    background-color: black;
-    z-index: 10;
-    color: black;
-}
-
-.disabled > span:before {
-    transform: rotate(45deg);
-}
-
-.disabled > span:after {
-    transform: rotate(-45deg);
-}
-
-.disabled > .overlay {
-    z-index: 1;
-    background-color: grey;
-    opacity: 0.5;
-}
-
 .children {
     display: none;
 }

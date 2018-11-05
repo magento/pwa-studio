@@ -909,6 +909,438 @@ export const configurableStockData = {
     }
 };
 
+export const VeniaSample = {
+data : {
+    productDetail : {
+        items : [
+            {
+                __typename : "ConfigurableProduct",
+                sku : "VSK11",
+                media_gallery_entries : [
+                    {
+                        position : 1,
+                        __typename : "MediaGalleryEntry",
+                        disabled : false,
+                        label : "Main",
+                        file : "/v/s/vsk11-ly_main_3.jpg"
+                    },
+                    {
+                        file : "/v/s/vsk11-ly_alt_1.jpg",
+                        label : "",
+                        __typename : "MediaGalleryEntry",
+                        disabled : false,
+                        position : 2
+                    },
+                    {
+                        label : "",
+                        file : "/v/s/vsk11-ly_back_1.jpg",
+                        position : 3,
+                        disabled : false,
+                        __typename : "MediaGalleryEntry"
+                    }
+                ],
+                price : {
+                    regularPrice : {
+                        __typename : "Price",
+                        amount : {
+                            value : 98,
+                            currency : "USD",
+                            __typename : "Money"
+                        }
+                    },
+                    __typename : "ProductPrices"
+                },
+                name : "Pomona Skirt",
+                configurable_options : [
+                    {
+                        __typename : "ConfigurableProductOptions",
+                        position : 0,
+                        attribute_code : "fashion_color",
+                        attribute_id : "176",
+                        label : "Color",
+                        values : [
+                            {
+                                label : "Lilac",
+                                value_index : 20,
+                                __typename : "ConfigurableProductOptionsValues"
+                            },
+                            {
+                                label : "Rain",
+                                value_index : 21,
+                                __typename : "ConfigurableProductOptionsValues"
+                            },
+                            {
+                                value_index : 22,
+                                label : "Mint",
+                                __typename : "ConfigurableProductOptionsValues"
+                            },
+                            {
+                                __typename : "ConfigurableProductOptionsValues",
+                                value_index : 23,
+                                label : "Lily"
+                            }
+                        ]
+                    },
+                    {
+                        position : 1,
+                        __typename : "ConfigurableProductOptions",
+                        label : "Size",
+                        values : [
+                            {
+                                __typename : "ConfigurableProductOptionsValues",
+                                label : "L",
+                                value_index : 26
+                            },
+                            {
+                                value_index : 27,
+                                label : "M",
+                                __typename : "ConfigurableProductOptionsValues"
+                            },
+                            {
+                                value_index : 28,
+                                label : "S",
+                                __typename : "ConfigurableProductOptionsValues"
+                            },
+                            {
+                                __typename : "ConfigurableProductOptionsValues",
+                                label : "XS",
+                                value_index : 29
+                            }
+                        ],
+                        attribute_code : "fashion_size",
+                        attribute_id : "179"
+                    }
+                ],
+                description : "<p>The Pomona Skirt lets you appear slightly wild, while still maintaining your composure. You don't need to do much in seeking a companion for this skirt. A simple tank or tee will do.   </p><p>Features:</p><ul><li>Pull on</li><li>Length: 43\"</li><li>Hits below ankle</li><li>Elastic waistband</li><li>Machine wash, line dry</li></ul>",
+                variants : [
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            __typename : "SimpleProduct",
+                            sku : "VSK11-LL-S",
+                            id : 430,
+                            media_gallery_entries : [
+                                {
+                                    label : "Main",
+                                    file : "/v/s/vsk11-ll_main_1.jpg",
+                                    position : 1,
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false
+                                }
+                            ],
+                            color : null,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null
+                        }
+                    },
+                    {
+                        product : {
+                            id : 426,
+                            sku : "VSK11-LY-S",
+                            __typename : "SimpleProduct",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    label : "Main",
+                                    file : "/v/s/vsk11-ly_main_2.jpg",
+                                    position : 1,
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false
+                                }
+                            ],
+                            swatch_image : null,
+                            stock_status : "IN_STOCK"
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        product : {
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1,
+                                    file : "/v/s/vsk11-mt_main_1.jpg",
+                                    label : "Main"
+                                }
+                            ],
+                            swatch_image : null,
+                            stock_status : "IN_STOCK",
+                            sku : "VSK11-MT-S",
+                            id : 422,
+                            __typename : "SimpleProduct"
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            __typename : "SimpleProduct",
+                            id : 418,
+                            sku : "VSK11-RN-S",
+                            media_gallery_entries : [
+                                {
+                                    position : 1,
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    label : "Main",
+                                    file : "/v/s/vsk11-rn_main_1.jpg"
+                                }
+                            ],
+                            color : null,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null
+                        }
+                    },
+                    {
+                        product : {
+                            __typename : "SimpleProduct",
+                            id : 429,
+                            sku : "VSK11-LL-XS",
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-ll_main_1.jpg",
+                                    label : "Main",
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    position : 1
+                                }
+                            ],
+                            color : null,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        product : {
+                            sku : "VSK11-LY-XS",
+                            id : 425,
+                            __typename : "SimpleProduct",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-ly_main_2.jpg",
+                                    label : "Main",
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    position : 1
+                                }
+                            ],
+                            swatch_image : null,
+                            stock_status : "IN_STOCK"
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        product : {
+                            __typename : "SimpleProduct",
+                            id : 421,
+                            sku : "VSK11-MT-XS",
+                            stock_status : "IN_STOCK",
+                            swatch_image : null,
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-mt_main_1.jpg",
+                                    label : "Main",
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    position : 1
+                                }
+                            ],
+                            color : null
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            id : 417,
+                            sku : "VSK11-RN-XS",
+                            __typename : "SimpleProduct",
+                            swatch_image : null,
+                            stock_status : "IN_STOCK",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    position : 1,
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    label : "Main",
+                                    file : "/v/s/vsk11-rn_main_1.jpg"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            sku : "VSK11-LL-M",
+                            id : 431,
+                            __typename : "SimpleProduct",
+                            swatch_image : null,
+                            stock_status : "IN_STOCK",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    position : 1,
+                                    file : "/v/s/vsk11-ll_main_1.jpg",
+                                    label : "Main"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        product : {
+                            __typename : "SimpleProduct",
+                            sku : "VSK11-LY-M",
+                            id : 427,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null,
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-ly_main_2.jpg",
+                                    label : "Main",
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1
+                                }
+                            ],
+                            color : null
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        product : {
+                            __typename : "SimpleProduct",
+                            sku : "VSK11-MT-M",
+                            id : 423,
+                            media_gallery_entries : [
+                                {
+                                    label : "Main",
+                                    file : "/v/s/vsk11-mt_main_1.jpg",
+                                    position : 1,
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry"
+                                }
+                            ],
+                            color : null,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            __typename : "SimpleProduct",
+                            id : 419,
+                            sku : "VSK11-RN-M",
+                            media_gallery_entries : [
+                                {
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1,
+                                    file : "/v/s/vsk11-rn_main_1.jpg",
+                                    label : "Main"
+                                }
+                            ],
+                            color : null,
+                            stock_status : "IN_STOCK",
+                            swatch_image : null
+                        }
+                    },
+                    {
+                        product : {
+                            sku : "VSK11-LL-L",
+                            id : 432,
+                            __typename : "SimpleProduct",
+                            swatch_image : null,
+                            stock_status : "IN_STOCK",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1,
+                                    file : "/v/s/vsk11-ll_main_1.jpg",
+                                    label : "Main"
+                                }
+                            ]
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            stock_status : "IN_STOCK",
+                            swatch_image : null,
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-ly_main_2.jpg",
+                                    label : "Main",
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1
+                                }
+                            ],
+                            color : null,
+                            __typename : "SimpleProduct",
+                            id : 428,
+                            sku : "VSK11-LY-L"
+                        }
+                    },
+                    {
+                        product : {
+                            __typename : "SimpleProduct",
+                            id : 424,
+                            sku : "VSK11-MT-L",
+                            stock_status : "IN_STOCK",
+                            swatch_image : null,
+                            media_gallery_entries : [
+                                {
+                                    __typename : "MediaGalleryEntry",
+                                    disabled : false,
+                                    position : 1,
+                                    file : "/v/s/vsk11-mt_main_1.jpg",
+                                    label : "Main"
+                                }
+                            ],
+                            color : null
+                        },
+                        __typename : "ConfigurableVariant"
+                    },
+                    {
+                        __typename : "ConfigurableVariant",
+                        product : {
+                            id : 420,
+                            sku : "VSK11-RN-L",
+                            __typename : "SimpleProduct",
+                            swatch_image : null,
+                            stock_status : "IN_STOCK",
+                            color : null,
+                            media_gallery_entries : [
+                                {
+                                    file : "/v/s/vsk11-rn_main_1.jpg",
+                                    label : "Main",
+                                    disabled : false,
+                                    __typename : "MediaGalleryEntry",
+                                    position : 1
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        __typename : "Products"
+    }
+}
+}
+
 export const configurableWithThreeOptions = {
     data: {
         productDetail: {

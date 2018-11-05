@@ -12,7 +12,7 @@ export const tileItem = (text = 'test') => {
     return {
         backgroundColor: '0 0 0',
         name: text,
-        attributeCode: 'size',
+        attributeCode: 'fashion_size',
         ...baseOptions
     };
 };
@@ -45,7 +45,7 @@ export const tileOptions = (text = 'test') => {
             console.log('hello world');
         },
         children: text,
-        attributeCode: 'size'
+        attributeCode: 'fashion_size'
     };
 };
 
@@ -66,7 +66,7 @@ export const miniTile = () => {
     return {
         backgroundColor: '0 0 0',
         name: 'disabled',
-        attributeCode: 'sleeve',
+        attributeCode: 'fashion_material',
         ...baseOptions
     };
 };
@@ -88,7 +88,7 @@ export const miniTileDisabledAndSelected = {
 };
 
 export const miniTileOptions = {
-    attributeCode: 'sleeve',
+    attributeCode: 'fashion_material',
     children: 'Test'
 };
 
@@ -122,7 +122,7 @@ const randomSwatchItem = () => {
             ...swatchItem,
             backgroundColor: `#${randColor()}${randColor()}${randColor()}`
         },
-        attributeCode: 'color'
+        attributeCode: 'fashion_color'
     };
 };
 
@@ -130,7 +130,7 @@ export const swatchItem = {
     backgroundColor: `#${randColor()}${randColor()}${randColor()}`,
     name: 'Swatch',
     onclick: () => console.log('Swatch'),
-    attributeCode: 'color',
+    attributeCode: 'fashion_color',
     ...baseOptions
 };
 
@@ -145,7 +145,7 @@ export const swatchItemSelected = {
 };
 
 export const swatchOptions = {
-    attributeCode: 'color'
+    attributeCode: 'fashion_color'
 };
 
 export const swatchItems = Array(8)

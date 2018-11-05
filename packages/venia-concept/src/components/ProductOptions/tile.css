@@ -10,25 +10,6 @@
     display: none;
 }
 
-.disabled > span:after,
-.disabled > span:before {
-    width: 140%;
-    height: 1px;
-    position: absolute;
-    content: '';
-    background-color: black;
-    z-index: 10;
-    color: black;
-}
-
-.disabled > span:before {
-    transform: rotate(45deg);
-}
-
-.disabled > span:after {
-    transform: rotate(-45deg);
-}
-
 .selected {
     background-color: black;
     color: white;
