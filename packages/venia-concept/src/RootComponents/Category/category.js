@@ -3,7 +3,6 @@ import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
-import Page from 'src/components/Page';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -67,49 +66,47 @@ class Category extends Component {
         };
 
         return (
-            <Page>
-                <Query
-                    query={categoryQuery}
-                    variables={{
-                        id: Number(id),
-                        pageSize: Number(pageSize),
-                        currentPage: Number(currentPage)
-                    }}
-                >
-                    {({ loading, error, data }) => {
-                        if (error) return <div>Data Fetch Error</div>;
-                        if (loading)
-                            return this.state.prevPageTotal != 0 ? (
-                                <CategoryContent
-                                    pageControl={pageControl}
-                                    pageSize={pageSize}
-                                />
-                            ) : (
-                                <div className={classes.placeholder}>
-                                    Fetching Data...
-                                </div>
-                            );
-
-                        // Retrieve the total page count from GraphQL when ready
-                        const pageCount =
-                            data.category.products.total_count /
-                            this.state.pageSize;
-                        const totalPages = Math.ceil(pageCount);
-                        const totalWrapper = {
-                            ...pageControl,
-                            totalPages: totalPages
-                        };
-
-                        return (
+            <Query
+                query={categoryQuery}
+                variables={{
+                    id: Number(id),
+                    pageSize: Number(pageSize),
+                    currentPage: Number(currentPage)
+                }}
+            >
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading)
+                        return this.state.prevPageTotal != 0 ? (
                             <CategoryContent
-                                classes={classes}
-                                pageControl={totalWrapper}
-                                data={data}
+                                pageControl={pageControl}
+                                pageSize={pageSize}
                             />
+                        ) : (
+                            <div className={classes.placeholder}>
+                                Fetching Data...
+                            </div>
                         );
-                    }}
-                </Query>
-            </Page>
+
+                    // Retrieve the total page count from GraphQL when ready
+                    const pageCount =
+                        data.category.products.total_count /
+                        this.state.pageSize;
+                    const totalPages = Math.ceil(pageCount);
+                    const totalWrapper = {
+                        ...pageControl,
+                        totalPages: totalPages
+                    };
+
+                    return (
+                        <CategoryContent
+                            classes={classes}
+                            pageControl={totalWrapper}
+                            data={data}
+                        />
+                    );
+                }}
+            </Query>
         );
     }
 
@@ -118,6 +115,7 @@ class Category extends Component {
         this.setState({
             currentPage: newPageNumber
         });
+        window.scrollTo(0, 0);
     };
 
     updateTotalPages = newTotal => {
