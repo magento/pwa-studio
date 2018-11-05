@@ -1,0 +1,37 @@
+.root {
+    display: flex;
+    width: 100%;
+    border: 1px solid rgb(var(--venia-border));
+}
+
+.buttonContent {
+    display: flex;
+    align-items: center;
+}
+
+.buttonGroupItem {
+    flex: 1 1 0;
+    padding: 8px 0px 8px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.buttonGroupItem:not(:first-child) {
+    border-left: 1px solid rgb(var(--venia-border));
+}
+
+.iconContainer {
+    color: rgb(var(--venia-teal));
+    margin-right: 8px;
+}
+
+.textNodeContiner {
+    color: rgb(var(--venia-black));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

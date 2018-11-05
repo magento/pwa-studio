@@ -4,6 +4,7 @@ import Button from 'src/components/Button';
 import classify from 'src/classify';
 import defaultClasses from './purchaseDetails.css';
 import OrderItem from '../OrderItem';
+import { itemPropType } from '../OrderItem/constants';
 import OrderItemsList from '../OrderItemsList';
 import DetailsBlock from '../DetailsBlock';
 import { getProductPageUrl } from './helpers';
@@ -15,9 +16,17 @@ class PurchaseDetails extends Component {
         paymentDetails: PropTypes.array,
         orderSummary: PropTypes.array,
         classes: PropTypes.shape({}),
-        otherItems: PropTypes.array,
-        addItemToCart: PropTypes.func
+        addItemToCart: PropTypes.func,
+        item: itemPropType,
+        otherItems: PropTypes.arrayOf(itemPropType),
+        fetchOrderDetails: PropTypes.func,
+        isFetching: PropTypes.bool
     };
+
+    //TODO: implement executing url params for orderId and itemId
+    componentDidMount() {
+        this.props.fetchOrderDetails({});
+    }
 
     handleShare = item => {
         const { history } = this.props;
@@ -25,13 +34,14 @@ class PurchaseDetails extends Component {
         history.push(getProductPageUrl(item));
     };
 
-    render() {
+    renderComponent = () => {
         const {
             shipmentDetails,
             orderDetails,
             paymentDetails,
             orderSummary,
             classes,
+            item,
             otherItems,
             addItemToCart
         } = this.props;
@@ -39,6 +49,7 @@ class PurchaseDetails extends Component {
         return (
             <div className={classes.root}>
                 <OrderItem
+                    item={item}
                     onShare={this.handleShare}
                     onBuyAgain={addItemToCart}
                 />
@@ -46,8 +57,8 @@ class PurchaseDetails extends Component {
                     Order details
                 </h2>
                 <DetailsBlock
-                    rows={orderDetails}
                     classes={{ root: classes.orderDetailsBlockRoot }}
+                    rows={orderDetails}
                 />
                 <OrderItemsList
                     items={otherItems}
@@ -86,6 +97,12 @@ class PurchaseDetails extends Component {
                 />
             </div>
         );
+    };
+
+    render() {
+        const { isFetching } = this.props;
+
+        return !isFetching ? this.renderComponent() : <div>Loading...</div>;
     }
 }
 
