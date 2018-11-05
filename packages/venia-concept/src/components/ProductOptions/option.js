@@ -30,7 +30,6 @@ class Option extends Component {
         fashion_size: tileStyles,
         fashion_material: miniTileStyles,
         fashion_style: miniTileStyles
-
     };
 
     get check() {
