@@ -1,26 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { List } from '@magento/peregrine';
+
+import { itemPropType } from '../OrderItem/constants';
 import OrderItem from '../OrderItem';
+import classify from 'src/classify';
+import defaultClasses from './orderItemsList.css';
 
-export default class OrderItemsList extends Component {
+class OrderItemsList extends Component {
     static propTypes = {
-        items: PropTypes.array,
-        title: PropTypes.node
-    };
-
-    static defaultProps = {
-        items: []
+        classes: PropTypes.shape({
+            body: PropTypes.string,
+            header: PropTypes.string,
+            defaultItemRoot: PropTypes.string,
+            itemsContainer: PropTypes.string
+        }),
+        title: PropTypes.string,
+        items: PropTypes.arrayOf(itemPropType),
+        onBuyAgain: PropTypes.func,
+        onShare: PropTypes.func
     };
 
     render() {
-        const { title, items } = this.props;
+        const { classes, items, title, onBuyAgain, onShare } = this.props;
         return (
-            <div>
-                <h3>{title}</h3>
-                {items.map((item, index) => (
-                    <OrderItem item={item} key={index} />
-                ))}
+            <div className={classes.body}>
+                <h3 className={classes.header}>{title}</h3>
+                <List
+                    items={items}
+                    getItemKey={({ id }) => id}
+                    render={props => (
+                        <div className={classes.itemsContainer}>
+                            {props.children}
+                        </div>
+                    )}
+                    renderItem={props => (
+                        <OrderItem
+                            {...props}
+                            classes={{ root: classes.defaultItemRoot }}
+                            onBuyAgain={onBuyAgain}
+                            onShare={onShare}
+                        />
+                    )}
+                />
             </div>
         );
     }
 }
+
+export default classify(defaultClasses)(OrderItemsList);
