@@ -26,16 +26,15 @@ class Option extends Component {
     };
 
     styleOptions = {
-        color: swatchStyles,
-        size: tileStyles,
-        sleeve: miniTileStyles
+        fashion_color: swatchStyles,
+        fashion_size: tileStyles
     };
 
     get check() {
         const { item } = this.props;
         const { isSelected, backgroundColor, attributeCode } = item;
 
-        if (attributeCode === 'color') {
+        if (attributeCode === 'fashion_color') {
             let checkmarkColor = 'check--light';
             if (backgroundColor) {
                 checkmarkColor = this.isLight(backgroundColor)

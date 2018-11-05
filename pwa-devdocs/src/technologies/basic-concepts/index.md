@@ -8,7 +8,8 @@ This topic lists the basic concepts you need to know to work with the Magento PW
 ## Application shell
 
 An application shell provides the basic user interface structure for a progressive web application.    
-<sub>[ *[Help write this topic][Application shell]* ]</sub>
+
+For more information, see [Application shell][].
 
 ## Service worker
 
@@ -26,13 +27,15 @@ Progressive web applications use data binding patterns to connect dynamic data w
 
 GraphQL is a specification for a data query language client side and a service layer on the server side.
 It is used to request and push data in a progressive web application.   
-<sub>[ *[Help write this topic][GraphQL]* ]</sub>
+
+For more information, see [GraphQL][].
 
 ## CSS modules
 
 CSS modules are modular and reusable CSS styles.
 This allows you to develop components with styles that do not conflict with external style definitions.   
-<sub>[ *[Help write this topic][CSS modules]* ]</sub>
+
+For more information, see [CSS modules][].
 
 ## Client state, reducers, and actions
 
@@ -70,14 +73,14 @@ Optimizing the critical path is important to get the best performance out of a p
 
 [Redux]: https://redux.js.org/introduction/core-concepts
 
-[Application shell]: {{ site.data.vars.repo }}/issues/8
 [Service worker]: {{ site.data.vars.repo }}/issues/14
 [Component data binding]: {{ site.data.vars.repo }}/issues/9
-[GraphQL]: {{ site.data.vars.repo }}/issues/10
-[CSS modules]: {{ site.data.vars.repo }}/issues/11
 [Client state, reducers, and actions]: {{ site.data.vars.repo }}/issues/12
 [Loading and offline states]: {{ site.data.vars.repo }}/issues/13
 [Container extensibility]: {{ site.baseurl }}{%link technologies/basic-concepts/container-extensibility/index.md %}
 [Performance patterns]: {{ site.data.vars.repo }}/issues/16
 [Root components and routing]: {{ site.data.vars.repo }}/issues/17
 [Critical path]: {{ site.data.vars.repo }}/issues/18
+[GraphQL]: {{ site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
+[CSS modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[Application shell]: {{site.baseurl}}{%link technologies/basic-concepts/app-shell/index.md %}

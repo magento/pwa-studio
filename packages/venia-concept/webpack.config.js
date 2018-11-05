@@ -55,6 +55,15 @@ module.exports = async function(passedEnv) {
         module: {
             rules: [
                 {
+                    test: /\.graphql$/,
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'graphql-tag/loader'
+                        }
+                    ]
+                },
+                {
                     include: [themePaths.src],
                     test: /\.js$/,
                     use: [
@@ -108,14 +117,6 @@ module.exports = async function(passedEnv) {
                     phase === 'production' || enableServiceWorkerDebugging
                         ? serviceWorkerFileName
                         : false
-                ),
-                /**
-                 * TODO: This env var can override the hardcoded product media
-                 * path, which we need to hardcode due to
-                 * https://github.com/magento/graphql-ce/issues/88
-                 */
-                'process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH': JSON.stringify(
-                    validEnv.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
                 )
             }),
             new ServiceWorkerPlugin({

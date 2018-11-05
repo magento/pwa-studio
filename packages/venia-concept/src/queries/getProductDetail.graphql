@@ -29,20 +29,21 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         value_index
                     }
                 }
-                variants {
-                    product {
-                        sku
-                        id
-                        swatch_image
-                        size
-                        format
-                        color
-                        stock_status
-                        media_gallery_entries {
-                            label
-                            position
-                            disabled
-                            file
+                ... on ConfigurableProduct {
+                    variants {
+                        product {
+                            sku
+                            id
+                            swatch_image
+                            fashion_color
+                            fashion_size
+                            stock_status
+                            media_gallery_entries {
+                                label
+                                position
+                                disabled
+                                file
+                            }
                         }
                     }
                 }

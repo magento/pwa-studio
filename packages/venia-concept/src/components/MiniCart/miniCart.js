@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { Price } from '@magento/peregrine';
-import Button from 'src/components/Button';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import { addReducer } from 'src/store';
 import Icon from 'src/components/Icon';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
-import ProductEdit from 'src/components/ProductEdit';
 
 let Checkout = () => null;
 
@@ -35,14 +32,7 @@ class MiniCart extends Component {
 
     async componentDidMount() {
         const { getCartDetails } = this.props;
-        const reducers = await Promise.all([
-            import('src/reducers/cart'),
-            import('src/reducers/checkout')
-        ]);
 
-        reducers.forEach(mod => {
-            addReducer(mod.name, mod.default);
-        });
         await getCartDetails();
 
         const CheckoutModule = await import('src/components/Checkout');

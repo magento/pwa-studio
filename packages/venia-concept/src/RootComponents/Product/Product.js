@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
-import Page from 'src/components/Page';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 import getProductDetail from '../../queries/getProductDetail.graphql';
@@ -48,25 +47,24 @@ class Product extends Component {
     render() {
         const { addItemToCart } = this.props;
         return (
-            <Page>
-                <Query
-                    query={getProductDetail}
-                    variables={{ urlKey: getUrlKey(), onServer: false }}
-                >
-                    {({ loading, error, data }) => {
-                        if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
-                        let product = data.productDetail.items[0];
+            <Query
+                query={getProductDetail}
+                variables={{ urlKey: getUrlKey(), onServer: false }}
+            >
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
 
-                        return (
-                            <ProductFullDetail
-                                product={product}
-                                addItemToCart={addItemToCart}
-                            />
-                        );
-                    }}
-                </Query>
-            </Page>
+                    const product = data.productDetail.items[0];
+
+                    return (
+                        <ProductFullDetail
+                            product={product}
+                            addItemToCart={addItemToCart}
+                        />
+                    );
+                }}
+            </Query>
         );
     }
 }
