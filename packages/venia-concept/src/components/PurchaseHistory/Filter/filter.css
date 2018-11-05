@@ -4,11 +4,13 @@
     height: 40px;
     border: 1px solid #7f7c88;
     border-radius: 100px;
-    padding-left: 17px;
+    padding: 0 15px;
     font-size: 12px;
     line-height: 12px;
 }
 
 .filterIconContainer {
+    display: flex;
+    align-items: center;
     margin-right: 6px;
 }
