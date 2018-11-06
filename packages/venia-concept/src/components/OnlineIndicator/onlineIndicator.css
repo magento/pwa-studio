@@ -6,10 +6,12 @@
     height: 0px;
     background-color: rgb(var(--venia-warning-light));
     margin-bottom: .3em;
+    padding: 0 2.4rem;
     animation-name: slidein;
     animation-duration: 244ms;
     animation-fill-mode: forwards;
     overflow: hidden;
+    font-size: .9em;
 }
 
 .root span {
@@ -18,6 +20,7 @@
 
 .root p {
     margin-left: 1em;
+    line-height: 1.3em;
 }
 
 @keyframes slidein {

@@ -19,7 +19,7 @@ class OnlineIndicator extends Component {
         return (!isOnline
             ? <div className={classes.root}>
                 <Icon name="cloud-off" />
-               <p> You are offline. Some features may be unavailable. </p>
+                <p> You are offline. Some features may be unavailable. </p>
             </div>
             : null)
     }

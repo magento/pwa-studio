@@ -37,7 +37,14 @@ export default class MagentoRouteHandler extends Component {
         const { pathname } = props.location;
         const isKnown = state.componentMap.has(pathname);
 
-        if (!isKnown) {
+        // id of -1 is currently what defines a `NOTFOUND` component
+        const isNotFoundComponent = isKnown
+            ? state.componentMap.get(pathname).id === -1
+            : false;
+
+        const shouldReloadRoute = (isNotFoundComponent && navigator.onLine);
+
+        if (!isKnown || shouldReloadRoute) {
             this.getRouteComponent();
         }
     }
