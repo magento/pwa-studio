@@ -19,7 +19,7 @@ class Trigger extends Component {
     };
 
     async componentDidMount() {
-        if (document.location.pathname === '/search') {
+        if (document.location.pathname === '/search.html') {
             if (this.props.searchOpen !== true) {
                 this.props.toggleSearch();
             }
