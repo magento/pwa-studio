@@ -48,7 +48,7 @@ class ServiceWorkerPlugin {
     }
 
     applyInjectManifest(compiler) {
-        debugger;
+        this.configureInjectManifest().apply(compiler);
     }
 
     apply(compiler) {

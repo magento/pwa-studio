@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const workboxPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const {
     WebpackTools: {
@@ -18,6 +18,7 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
+    media: path.resolve(__dirname, 'media'),
     templates: path.resolve(__dirname, 'templates'),
     src: path.resolve(__dirname, 'src'),
     output: path.resolve(__dirname, 'dist')
@@ -133,7 +134,12 @@ module.exports = async function(env) {
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }
-            })
+            }),
+            new CopyWebpackPlugin([{
+                from: `${themePaths.media}/**/*`,
+                to: themePaths.output,
+                toType: 'dir'
+            }])
         ]
     };
         config.devtool = 'eval-source-map';
