@@ -6,11 +6,10 @@ try {
     config = execa.sync('git', ['config', '--list', '--local']).stdout;
 } catch (e) {
     // assume we're not in a git repo and there is nothing to be done
-    console.error(e);
 }
-const driverLine = config.match(
-    /^merge\.(.+)\.driver\s*=\s*(npx )?npm-merge-driver/m
-);
+const driverLine =
+    config &&
+    config.match(/^merge\.(.+)\.driver\s*=\s*(npx )?npm-merge-driver/m);
 
 if (driverLine) {
     const npmMergeDriver = driverLine[1];

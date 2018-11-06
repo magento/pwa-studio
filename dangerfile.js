@@ -12,8 +12,7 @@ const fromRoot = p => path.relative('', p);
 const packageNames = {
     'venia-concept': 'Venia',
     'pwa-buildpack': 'Buildpack',
-    peregrine: 'Peregrine',
-    'pwa-devdocs': 'Developer Docs'
+    peregrine: 'Peregrine'
 };
 const pathToPackageName = filepath => {
     const packageDir = path
