@@ -18,6 +18,16 @@ class Trigger extends Component {
         searchOpen: PropTypes.bool
     };
 
+    async componentDidMount() {
+        if (document.location.pathname === '/search') {
+            if (this.props.searchOpen !== true) {
+                this.props.toggleSearch();
+            }
+        } else if (this.props.searchOpen === true) {
+            this.props.toggleSearch();
+        }
+    }
+
     render() {
         const { children, classes, toggleSearch, searchOpen } = this.props;
         const searchClass = searchOpen ? classes.open : classes.root;
