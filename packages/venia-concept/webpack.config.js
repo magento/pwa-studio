@@ -147,7 +147,7 @@ module.exports = async function() {
         }
     };
     if (mode === 'development') {
-        config.devtool = 'inline-source-map';
+        config.devtool = 'eval-source-map';
 
         const devServerConfig = {
             publicPath: config.output.publicPath,

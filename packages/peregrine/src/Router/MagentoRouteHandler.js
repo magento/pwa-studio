@@ -45,8 +45,11 @@ export default class MagentoRouteHandler extends Component {
         mountedInstances.delete(this);
     }
 
-    async getRouteComponent(pathname) {
-        const { apiBase } = this.props;
+    async getRouteComponent() {
+        const {
+            apiBase,
+            location: { pathname }
+        } = this.props;
 
         try {
             // try to resolve the route
