@@ -16,9 +16,6 @@ response:
     - matches: request.url.pathname
       pattern: '^/$'
       use: appShell
-    - matches: request.url.pathname
-      pattern: '/search'
-      use: appShell
   default: static
 
 proxy:
@@ -62,13 +59,6 @@ resource:
           template: './templates/product-shell.mst'
     - matches: urlResolver.type
       pattern: '.'
-      use:
-        inline:
-          model: genericObject
-          template: './templates/generic-shell.mst'
-
-    - matches: request.url.pathname
-      pattern: '/search' 
       use:
         inline:
           model: genericObject

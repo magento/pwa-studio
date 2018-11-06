@@ -29,7 +29,7 @@ export class SearchBar extends Component {
         if (this.props.isOpen) {
             this.searchRef.current.focus();
         }
-        if (document.location.pathname === '/search') {
+        if (document.location.pathname === '/search.html') {
             const params = new URL(document.location).searchParams;
             this.searchRef.current.value = params.get('query');
             this.setClearIcon(this.searchRef.current.value);
@@ -53,7 +53,7 @@ export class SearchBar extends Component {
             (event.type === 'click' || event.key === 'Enter') &&
             searchQuery !== ''
         ) {
-            this.props.history.push(`/search?query=` + searchQuery);
+            this.props.history.push(`/search.html?query=` + searchQuery);
         }
     };
 

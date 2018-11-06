@@ -94,10 +94,10 @@ test('Search can not submit when search input empty', async () => {
 });
 
 test('Search gets query from url when provided', async () => {
-    window.history.pushState({}, 'Search', '/search?query=backpack');
+    window.history.pushState({}, 'Search', '/search.html?query=dress');
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
-    expect(searchInput.instance().value).toBe('backpack');
+    expect(searchInput.instance().value).toBe('dress');
 });
 
 test('Clear button removes test from Input', async () => {

@@ -45,7 +45,7 @@ export default function resolveUnknownRoute(opts) {
             }
         }
     }
-    if (route === '/search') {
+    if (route === '/search.html') {
         return handleResolverResponse({
             type: 'SEARCH',
             id: 426
