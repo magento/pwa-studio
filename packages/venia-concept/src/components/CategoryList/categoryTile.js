@@ -19,7 +19,7 @@ class CategoryTile extends Component {
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: string.isRequired
+                        small_image: string
                     })
                 )
             }),
