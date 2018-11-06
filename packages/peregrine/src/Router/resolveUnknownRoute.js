@@ -93,7 +93,7 @@ function remotelyResolveRoute(opts) {
  * @param {"PRODUCT" | "CATEGORY" | "CMS_PAGE"} pageType
  * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
  */
-export function tempGetWebpackChunkData(pageType, webpackPublicPath) {
+function tempGetWebpackChunkData(pageType, webpackPublicPath) {
     // In dev mode, `webpackPublicPath` may be a fully qualified URL.
     // In production mode, it may be a pathname, which makes it unsafe
     // to use as an API base. Normalize it as a full path using a DOM node

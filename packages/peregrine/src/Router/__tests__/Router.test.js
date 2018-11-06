@@ -19,9 +19,7 @@ test('renders a single, catch-all route', () => {
         <MagentoRouter using={MemoryRouter} config={config} />
     ).find('Route');
     expect(routesWrapper.length).toBe(1);
-    expect(
-        routesWrapper.filterWhere(n => n.prop('path') === undefined).length
-    ).toBe(1);
+    expect(routesWrapper.prop('path')).toBeUndefined();
 });
 
 test('passes `config` and route props to context provider', () => {
