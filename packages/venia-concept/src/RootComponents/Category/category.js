@@ -4,7 +4,6 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
-import Page from 'src/components/Page';
 import defaultClasses from './category.css';
 
 const categoryQuery = gql`
@@ -17,9 +16,7 @@ const categoryQuery = gql`
                 items {
                     id
                     name
-                    small_image {
-                        path
-                    }
+                    small_image
                     url_key
                     price {
                         regularPrice {
@@ -56,33 +53,31 @@ class Category extends Component {
         const { id, classes } = this.props;
 
         return (
-            <Page>
-                <Query query={categoryQuery} variables={{ id }}>
-                    {({ loading, error, data }) => {
-                        if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
+            <Query query={categoryQuery} variables={{ id }}>
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
 
-                        return (
-                            <article className={classes.root}>
-                                <h1 className={classes.title}>
-                                    {/* TODO: Switch to RichContent component from Peregrine when merged */}
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: data.category.description
-                                        }}
-                                    />
-                                </h1>
-                                <section className={classes.gallery}>
-                                    <Gallery
-                                        data={data.category.products.items}
-                                        title={data.category.description}
-                                    />
-                                </section>
-                            </article>
-                        );
-                    }}
-                </Query>
-            </Page>
+                    return (
+                        <article className={classes.root}>
+                            <h1 className={classes.title}>
+                                {/* TODO: Switch to RichContent component from Peregrine when merged */}
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: data.category.description
+                                    }}
+                                />
+                            </h1>
+                            <section className={classes.gallery}>
+                                <Gallery
+                                    data={data.category.products.items}
+                                    title={data.category.description}
+                                />
+                            </section>
+                        </article>
+                    );
+                }}
+            </Query>
         );
     }
 }

@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.0-rc2.0.5",
+  "version": "2.0.0-rc.3",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -12,22 +12,23 @@
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "config": {
-    "serviceWorkerFileName": "sw.js"
-  },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "scripts": {
-    "build": "webpack --color --env.phase production",
-    "clean": "rimraf web/js",
+    "build": "npm run -s validate-queries && webpack --color --progress --profile --env.phase production",
+    "clean": "rimraf dist",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.phase development",
     "validate-queries": "node ./validate-queries.js",
     "watch": "webpack-dev-server --progress --color --env.phase development"
   },
+  "dependencies": {
+    "@magento/pwa-buildpack": "^2.0.0-rc.3",
+    "@magento/upward-js": "^2.0.0-rc.3",
+    "chalk": "^2.4.1",
+    "envalid": "^4.1.4"
+  },
   "devDependencies": {
-    "@magento/peregrine": "^2.0.0-rc2.0.5",
-    "@magento/pwa-buildpack": "^2.0.0-rc2.0.5",
-    "@magento/upward-js": "^2.0.0-rc2.0.5",
+    "@magento/peregrine": "^2.0.0-rc.3",
     "rimraf": "^2.6.2",
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.0"

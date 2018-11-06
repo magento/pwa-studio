@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { Query } from 'react-apollo';
-import Page from 'src/components/Page';
 import Gallery from 'src/components/Gallery';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
@@ -13,9 +12,7 @@ const searchQuery = gql`
             items {
                 id
                 name
-                small_image {
-                    path
-                }
+                small_image
                 url_key
                 price {
                     regularPrice {
@@ -41,33 +38,29 @@ export class Search extends Component {
         }
 
         return (
-            <Page>
-                <Query query={searchQuery} variables={{ inputText: inputText }}>
-                    {({ loading, error, data }) => {
-                        if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
-                        if (data.products.items.length === 0)
-                            return (
-                                <div className={classes.noResult}>
-                                    No results found!
-                                </div>
-                            );
-
+            <Query query={searchQuery} variables={{ inputText: inputText }}>
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
+                    if (data.products.items.length === 0)
                         return (
-                            <article className={classes.root}>
-                                <div className={classes.totalPages}>
-                                    <span>
-                                        {data.products.total_count} ITEMS
-                                    </span>
-                                </div>
-                                <section className={classes.gallery}>
-                                    <Gallery data={data.products.items} />
-                                </section>
-                            </article>
+                            <div className={classes.noResult}>
+                                No results found!
+                            </div>
                         );
-                    }}
-                </Query>
-            </Page>
+
+                    return (
+                        <article className={classes.root}>
+                            <div className={classes.totalPages}>
+                                <span>{data.products.total_count} ITEMS</span>
+                            </div>
+                            <section className={classes.gallery}>
+                                <Gallery data={data.products.items} />
+                            </section>
+                        </article>
+                    );
+                }}
+            </Query>
         );
     }
 }

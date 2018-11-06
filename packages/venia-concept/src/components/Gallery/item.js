@@ -40,9 +40,7 @@ class GalleryItem extends Component {
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
-            small_image: shape({
-                path: string.isRequired
-            }).isRequired,
+            small_image: string.isRequired,
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
@@ -121,11 +119,6 @@ class GalleryItem extends Component {
     /**
      * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
      * https://github.com/magento/graphql-ce/issues/88
-     *
-     * When using sample data, which uses symlinks to bypass cache,
-     * you can simply prepend /media/catalog/product/, which we will do by
-     * default, but allow the env var MAGENTO_BACKEND_PRODUCT_MEDIA_PATH to
-     * override.
      */
     renderImage = () => {
         const { classes, item, showImage } = this.props;
@@ -140,7 +133,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={className}
-                src={makeProductMediaPath(small_image.path)}
+                src={makeProductMediaPath(small_image)}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}

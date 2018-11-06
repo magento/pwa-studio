@@ -1,3 +1,3 @@
 module.exports = {
-    setupDomain: require('./setupDomain')
+    configureHost: require('./configureHost')
 };

@@ -45,7 +45,12 @@ export default function resolveUnknownRoute(opts) {
             }
         }
     }
-
+    if (route === '/search') {
+        return handleResolverResponse({
+            type: 'SEARCH',
+            id: 426
+        });
+    }
     return remotelyResolveRoute({
         route,
         apiBase
