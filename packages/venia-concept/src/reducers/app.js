@@ -7,7 +7,8 @@ export const name = 'app';
 const initialState = {
     drawer: null,
     overlay: false,
-    pending: {}
+    pending: {},
+    isOnline: navigator.onLine
 };
 
 const reducerMap = {
@@ -17,6 +18,18 @@ const reducerMap = {
             drawer: payload,
             overlay: !!payload
         };
+    },
+    [actions.setOnline]: (state) => {
+        return {
+            ...state,
+            isOnline: true
+        }
+    },
+    [actions.setOffline]: (state) => {
+        return {
+            ...state,
+            isOnline: false
+        }
     }
 };
 
