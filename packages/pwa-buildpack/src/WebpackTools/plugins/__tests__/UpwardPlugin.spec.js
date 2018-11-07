@@ -118,6 +118,11 @@ test('shares middleware promise so as not to create multiple middlewares', async
 test('supplies a dev-mode IOAdapter with webpack fs integration', async () => {
     const devServer = {};
     const compiler = {
+        options: {
+            output: {
+                path: '/'
+            }
+        },
         outputFileSystem: {
             readFileSync: jest.fn()
         },

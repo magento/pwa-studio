@@ -7,16 +7,14 @@ import MagentoRouter, { Consumer as RouteConsumer } from '../Router';
 
 configure({ adapter: new Adapter() });
 
-const __tmp_webpack_public_path__ = 'https://store.com/pub';
 const apiBase = 'https://store.com';
-const config = { apiBase, __tmp_webpack_public_path__ };
 
 const initialEntries = ['/some-product.html'];
 const routerProps = { initialEntries };
 
 test('renders a single, catch-all route', () => {
     const routesWrapper = shallow(
-        <MagentoRouter using={MemoryRouter} config={config} />
+        <MagentoRouter using={MemoryRouter} apiBase={apiBase} />
     ).find('Route');
     expect(routesWrapper.length).toBe(1);
     expect(routesWrapper.prop('path')).toBeUndefined();
@@ -24,7 +22,7 @@ test('renders a single, catch-all route', () => {
 
 test('passes `config` and route props to context provider', () => {
     const fn = jest.fn();
-    const props = { config, using: MemoryRouter };
+    const props = { apiBase, using: MemoryRouter };
 
     // we need to test context consumer, so we can't shallow render
     mount(
@@ -36,7 +34,6 @@ test('passes `config` and route props to context provider', () => {
     expect(fn).toHaveBeenCalledWith(
         expect.objectContaining({
             apiBase,
-            __tmp_webpack_public_path__,
             history: expect.anything(), // from Route
             location: expect.anything(), // from Route
             match: expect.anything() // from Route
@@ -46,7 +43,7 @@ test('passes `config` and route props to context provider', () => {
 
 test('passes `routerProps` to router, not context provider', () => {
     const fn = jest.fn();
-    const props = { config, routerProps, using: MemoryRouter };
+    const props = { apiBase, routerProps, using: MemoryRouter };
 
     // we need to test context consumer, so we can't shallow render
     const wrapper = mount(
