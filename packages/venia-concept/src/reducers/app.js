@@ -8,6 +8,7 @@ const initialState = {
     drawer: null,
     overlay: false,
     searchOpen: false,
+    query: null,
     pending: {}
 };
 
@@ -23,6 +24,12 @@ const reducerMap = {
         return {
             ...state,
             searchOpen: !state.searchOpen
+        };
+    },
+    [actions.executeSearch]: (state, { payload }) => {
+        return {
+            ...state,
+            query: payload
         };
     }
 };

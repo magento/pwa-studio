@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 
 import classify from 'src/classify';
+import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
 
 import Icon from 'src/components/Icon';
@@ -16,7 +19,8 @@ export class SearchBar extends Component {
             searchBar: PropTypes.string,
             searchIcon: PropTypes.string
         }),
-        isOpen: PropTypes.bool
+        isOpen: PropTypes.bool,
+        executeSearch: PropTypes.func
     };
 
     constructor(props) {
@@ -53,7 +57,7 @@ export class SearchBar extends Component {
             (event.type === 'click' || event.key === 'Enter') &&
             searchQuery !== ''
         ) {
-            this.props.history.push(`/search.html?query=` + searchQuery);
+            this.props.executeSearch(searchQuery, this.props.history);
         }
     };
 
@@ -110,4 +114,15 @@ export class SearchBar extends Component {
     }
 }
 
-export default classify(defaultClasses)(withRouter(SearchBar));
+const mapDispatchToProps = dispatch => ({
+    executeSearch: (query, history) => dispatch(executeSearch(query, history))
+});
+
+export default compose(
+    classify(defaultClasses),
+    withRouter,
+    connect(
+        null,
+        mapDispatchToProps
+    )
+)(SearchBar);

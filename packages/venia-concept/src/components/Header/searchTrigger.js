@@ -7,7 +7,7 @@ import classify from 'src/classify';
 import { toggleSearch } from 'src/actions/app';
 import defaultClasses from './searchTrigger.css';
 
-class Trigger extends Component {
+class SearchTrigger extends Component {
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
@@ -19,11 +19,10 @@ class Trigger extends Component {
     };
 
     async componentDidMount() {
-        if (document.location.pathname === '/search.html') {
-            if (this.props.searchOpen !== true) {
-                this.props.toggleSearch();
-            }
-        } else if (this.props.searchOpen === true) {
+        if (
+            document.location.pathname === '/search.html' &&
+            this.props.searchOpen !== true
+        ) {
             this.props.toggleSearch();
         }
     }
@@ -50,4 +49,4 @@ export default compose(
         null,
         mapDispatchToProps
     )
-)(Trigger);
+)(SearchTrigger);

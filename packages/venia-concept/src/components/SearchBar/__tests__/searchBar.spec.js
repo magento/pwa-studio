@@ -10,7 +10,7 @@ const classes = {
     searchBlock: 'closed'
 };
 
-test('Input is focused when isOpen is true', async () => {
+test('When isOpen is true, the input component is focused.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input').instance();
     spyOn(searchInput, 'focus');
@@ -18,7 +18,7 @@ test('Input is focused when isOpen is true', async () => {
     expect(searchInput.focus).toHaveBeenCalledTimes(1);
 });
 
-test('Input is blurred when isOpen is false', async () => {
+test('When isOpen is false, the input is blurred.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={false} />);
     const searchInput = wrapper.find('input').instance();
     const prevProps = { isOpen: true };
@@ -27,7 +27,7 @@ test('Input is blurred when isOpen is false', async () => {
     expect(searchInput.blur).toHaveBeenCalledTimes(1);
 });
 
-test('Enter key to submit while expanded', async () => {
+test('When the search bar is expanded, pressing the Enter key will submit.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const spy = jest
@@ -49,7 +49,7 @@ test('Enter key to submit while expanded', async () => {
     expect(spy).toHaveReturnedWith(true);
 });
 
-test('Search icon to submit when clicked', async () => {
+test('When the search icon is clicked, the query in the input component will be submitted.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const searchButton = wrapper.find('button').at(0);
@@ -72,7 +72,7 @@ test('Search icon to submit when clicked', async () => {
     expect(spy).toHaveReturnedWith(true);
 });
 
-test('Search can not submit when search input empty', async () => {
+test('When the input component is empty, pressing the enter key will not search.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const spy = jest
@@ -93,14 +93,14 @@ test('Search can not submit when search input empty', async () => {
     expect(spy).toHaveReturnedWith(false);
 });
 
-test('Search gets query from url when provided', async () => {
+test('When url is pointed to search results page, the search input will get its value from the url.', async () => {
     window.history.pushState({}, 'Search', '/search.html?query=dress');
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     expect(searchInput.instance().value).toBe('dress');
 });
 
-test('Clear button removes test from Input', async () => {
+test('When the clear button is pressed, any text in the input component is removed.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const clearButton = wrapper.find('button').at(1);
