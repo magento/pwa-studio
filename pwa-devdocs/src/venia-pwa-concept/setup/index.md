@@ -6,7 +6,7 @@ Venia is a PWA storefront that runs on top of an existing Magento 2 backend.
 Follow the instructions on this page to setup and install the [Venia PWA concept storefront][] in your Magento 2 instance.
 
 At the end of this tutorial, you will have a working copy of the Venia storefront installed and running on top of Magento.
-Use this setup to explore or develop Magento PWA components and themes.
+Use this setup to explore or develop Magento PWA components and storefronts.
 
 If you experience problems with the project setup, see [Troubleshooting][] in the PWA Buildpack section.
 

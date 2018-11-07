@@ -29,7 +29,7 @@ The `PluginOptions` object contains the following properties:
 | `env:`[`EnvironmentObject`]             | **Required.** An object that represents the current environment.                   |
 | `paths:`[`LocalProjectLocation`]        | **Required.** Configuration object that describes where public assets are located. |
 | `enableServiceWorkerDebugging: boolean` | Toggles [service worker debugging].                                                |
-| `serviceWorkerFilename: string`         | **Required.** The name of the ServiceWorker file this theme creates.               |
+| `serviceWorkerFilename: string`         | **Required.** The name of the ServiceWorker file this project creates.             |
 | `runtimeCacheAssetPath: string`         | A remote URL or root path to assets the ServiceWorker should cache during runtime. |
 {:style="table-layout:auto"}
 
