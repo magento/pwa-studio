@@ -38,7 +38,7 @@ The `EnvironmentObject` contains the following properties:
 
 | Property: Type  | Description                                |
 | --------------- | ------------------------------------------ |
-| `phase: string` | Must be **development** or **production**. |
+| `mode: string` | Must be **development** or **production**. |
 {:style="table-layout:auto"}
 
 ## Example
