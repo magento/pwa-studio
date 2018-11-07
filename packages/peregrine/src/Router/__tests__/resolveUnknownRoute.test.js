@@ -1,36 +1,90 @@
 import resolveUnknownRoute from '../resolveUnknownRoute';
 
-const urlResolverRes = type =>
+const urlResolverRes = (type, id) =>
     JSON.stringify({
         data: {
-            urlResolver: { type }
+            urlResolver: { type, id }
         }
     });
 
-test('Happy path: resolves w/ rootChunkID and rootModuleID for first matching component found', async () => {
-    fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(
-        JSON.stringify({
-            Category: {
-                rootChunkID: 2,
-                rootModuleID: 100,
-                pageTypes: ['CATEGORY']
-            },
-            Product: {
-                rootChunkID: 1,
-                rootModuleID: 99,
-                pageTypes: ['PRODUCT'] // match
-            }
-        })
-    );
+beforeEach(() => {
+    document.body.innerHTML = '';
+    resolveUnknownRoute.preloadDone = false;
+    fetch.resetMocks();
+});
 
+test('Preload path: resolves directly from preload element', async () => {
+    document.body.innerHTML =
+        '<script type="application/json" id="url-resolver">{ "type": "PRODUCT", "id": "VA-123" }</script>';
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
-        apiBase: 'https://store.com',
-        __tmp_webpack_public_path__: 'https://dev-server.com/pub'
+        apiBase: 'https://store.com'
     });
+    expect(res).toMatchObject({
+        type: 'PRODUCT',
+        id: 'VA-123'
+    });
+});
 
-    expect(res.rootChunkID).toBe(1);
-    expect(res.rootModuleID).toBe(99);
-    fetch.resetMocks();
+test('urlResolver path: resolve using fetch to GraphQL after one preload', async () => {
+    fetch.mockResponseOnce(urlResolverRes('PRODUCT', 'VA-11'));
+    document.body.innerHTML =
+        '<script type="application/json" id="url-resolver">{ "type": "CMS_PAGE", "id": "1" }</script>';
+    const preloadRes = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+    expect(preloadRes).toMatchObject({
+        type: 'CMS_PAGE',
+        id: 1
+    });
+    expect(fetch).not.toHaveBeenCalled();
+    const res = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+    expect(res).toMatchObject({
+        type: 'PRODUCT',
+        id: 'VA-11'
+    });
+    expect(fetch).toHaveBeenCalledTimes(1);
+});
+
+test('Preload path: skips if preload element not found', async () => {
+    fetch.mockResponseOnce(urlResolverRes('CATEGORY', 2));
+    const res = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+    expect(res).toMatchObject({
+        type: 'CATEGORY',
+        id: 2
+    });
+});
+
+test('Preload path: skips if preload element unparseable', async () => {
+    document.body.innerHTML =
+        '<script type="application/json" id="url-resolver"> "type": "CMS_PAGE", "id": "1" }</script>';
+    fetch.mockResponseOnce(urlResolverRes('CATEGORY', 2));
+    const res = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+    expect(res).toMatchObject({
+        type: 'CATEGORY',
+        id: 2
+    });
+});
+
+test('Preload path: casts numbers to number', async () => {
+    document.body.innerHTML =
+        '<script type="application/json" id="url-resolver">{ "type": "CMS_PAGE", "id": "1" }</script>';
+    const res = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+    expect(res).toMatchObject({
+        type: 'CMS_PAGE',
+        id: 1
+    });
 });

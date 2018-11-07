@@ -106,7 +106,7 @@ function startDevServer() {
     eventBuffer.length = 0;
     devServer = execa(
         'webpack-dev-server',
-        ['--stdin', '--no-progress', '--color', '--env.phase', 'development'],
+        ['--stdin', '--no-progress', '--color', '--env.mode', 'development'],
         {
             cwd: path.join(rootDir, 'packages/venia-concept'),
             localDir: path.join(rootDir, 'node_modules/.bin')
