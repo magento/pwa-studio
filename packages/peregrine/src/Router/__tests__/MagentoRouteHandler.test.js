@@ -3,24 +3,23 @@ import MagentoRouteHandler from '../MagentoRouteHandler';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import resolveUnknownRoute from '../resolveUnknownRoute';
-import fetchRootComponent from '../fetchRootComponent';
+import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
+
+jest.mock('FETCH_ROOT_COMPONENT', () => jest.fn(), { virtual: true });
 
 configure({ adapter: new Adapter() });
 
-jest.mock('../fetchRootComponent', () => jest.fn());
 jest.mock('../resolveUnknownRoute');
 
-const __tmp_webpack_public_path__ = 'https://store.com/pub';
 const apiBase = 'https://store.com';
 const children = jest.fn();
 const location = { pathname: '/foo.html' };
-const props = { __tmp_webpack_public_path__, apiBase, children, location };
+
+const props = { apiBase, children, location };
 
 const resolvedRoute = {
-    id: 1,
-    matched: true,
-    rootChunkID: 0,
-    rootModuleID: 1
+    type: 'CMS_PAGE',
+    id: 2
 };
 
 beforeEach(() => {
@@ -28,8 +27,8 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-    fetchRootComponent.mockRestore();
     resolveUnknownRoute.mockRestore();
+    fetchRootComponent.mockRestore();
 });
 
 test('renders `loading` while loading', () => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import fetchRootComponent from './fetchRootComponent';
+import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
 import resolveUnknownRoute from './resolveUnknownRoute';
 
 const InternalError = Symbol('InternalError');
@@ -10,7 +10,6 @@ const mountedInstances = new WeakSet();
 
 export default class MagentoRouteHandler extends Component {
     static propTypes = {
-        __tmp_webpack_public_path__: string.isRequired,
         apiBase: string.isRequired,
         children: func,
         location: shape({
@@ -29,7 +28,7 @@ export default class MagentoRouteHandler extends Component {
 
     componentDidMount() {
         mountedInstances.add(this);
-        this.getRouteComponent();
+        this.getRouteComponent(this.props.location.pathname);
     }
 
     componentDidUpdate() {
@@ -38,7 +37,7 @@ export default class MagentoRouteHandler extends Component {
         const isKnown = state.componentMap.has(pathname);
 
         if (!isKnown) {
-            this.getRouteComponent();
+            this.getRouteComponent(pathname);
         }
     }
 
@@ -47,32 +46,30 @@ export default class MagentoRouteHandler extends Component {
     }
 
     async getRouteComponent() {
-        const { __tmp_webpack_public_path__, apiBase, location } = this.props;
-        const { pathname } = location;
+        const {
+            apiBase,
+            location: { pathname }
+        } = this.props;
 
         try {
             // try to resolve the route
             // if this throws, we essentially have a 500 Internal Error
             const resolvedRoute = await resolveUnknownRoute({
-                __tmp_webpack_public_path__,
                 apiBase,
                 route: pathname
             });
 
-            const { id, matched, rootChunkID, rootModuleID } = resolvedRoute;
+            const { type, id } = resolvedRoute;
 
             // if resolution and destructuring succeed but return no match
             // then we have a straightforward 404 Not Found
-            if (!matched) {
+            if (!type || !id) {
                 throw new Error('404');
             }
 
             // at this point we should have a matching RootComponent
             // if this throws, we essentially have a 500 Internal Error
-            const RootComponent = await fetchRootComponent(
-                rootChunkID,
-                rootModuleID
-            );
+            const RootComponent = await fetchRootComponent(type);
 
             // associate the matching RootComponent with this location
             this.setRouteComponent(pathname, RootComponent, { id });
