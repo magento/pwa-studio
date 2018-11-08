@@ -8,18 +8,12 @@ configure({ adapter: new Adapter() });
 
 const classes = { root: 'a' };
 
-let mockPageControl = {};
-
 const defaultPageControl = {
     currentPage: 1,
     setPage: () => {},
     updateTotalPages: () => {},
     totalPages: 3
 };
-
-afterEach(() => {
-    mockPageControl = Object.assign({}, defaultPageControl);
-});
 
 test('Pagination component renders when there is more than 1 page', () => {
     const wrapper = shallow(
@@ -29,7 +23,7 @@ test('Pagination component renders when there is more than 1 page', () => {
 });
 
 test('Pagination component does not render when there is only 1 page', () => {
-    const pageControl = Object.assign(mockPageControl, { totalPages: 1 });
+    const pageControl = { ...defaultPageControl, totalPages: 1 };
     const wrapper = shallow(
         <Pagination classes={classes} pageControl={pageControl} />
     ).dive();
@@ -42,7 +36,7 @@ test('clicking a numbered tile returns the appropriate page number', () => {
         pageTracker = pageNumber;
     };
 
-    const pageControl = Object.assign(mockPageControl, { setPage: setPage });
+    const pageControl = { ...defaultPageControl, setPage: setPage };
     const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
 
     const tile3 = wrapper.find('button').at(2);
@@ -57,10 +51,11 @@ test('left arrow navigation', () => {
         pageTracker = pageNumber;
     };
 
-    const pageControl = Object.assign(mockPageControl, {
+    const pageControl = {
+        ...defaultPageControl,
         currentPage: startingPage,
         setPage: setPage
-    });
+    };
     const wrapper = mount(<Pagination pageControl={pageControl} />);
 
     const leftArrowNav = wrapper.find('button').at(1);
@@ -76,11 +71,11 @@ test('right arrow navigation', () => {
     const setPage = pageNumber => {
         pageTracker = pageNumber;
     };
-
-    const pageControl = Object.assign(mockPageControl, {
+    const pageControl = {
+        ...defaultPageControl,
         currentPage: startingPage,
         setPage: setPage
-    });
+    };
     const wrapper = mount(<Pagination pageControl={pageControl} />);
 
     const rightArrowNav = wrapper.find('button').at(5);
@@ -94,7 +89,7 @@ test('left bound prevents the lead tile from falling below 1', () => {
     const currentPage = 2;
     const totalPages = 8;
     const wrapper = shallow(
-        <Pagination pageControl={mockPageControl} />
+        <Pagination pageControl={defaultPageControl} />
     ).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile(currentPage, totalPages)).toEqual(1);
@@ -104,7 +99,7 @@ test('right bound prevents the lead tile from exceeding total pages - visible ti
     const currentPage = 7;
     const totalPages = 9;
     const wrapper = shallow(
-        <Pagination pageControl={mockPageControl} />
+        <Pagination pageControl={defaultPageControl} />
     ).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile(currentPage, totalPages)).toEqual(5);
@@ -117,11 +112,12 @@ test('left skip', () => {
     const setPage = pageNumber => {
         pageTracker = pageNumber;
     };
-    const pageControl = Object.assign(mockPageControl, {
+    const pageControl = {
+        ...defaultPageControl,
         currentPage: startingPage,
         setPage: setPage,
         totalPages: totalPages
-    });
+    };
     const wrapper = mount(<Pagination pageControl={pageControl} />);
 
     const leftSkipButton = wrapper.find('button').first();
@@ -136,11 +132,12 @@ test('right skip', () => {
     const setPage = pageNumber => {
         pageTracker = pageNumber;
     };
-    const pageControl = Object.assign(mockPageControl, {
+    const pageControl = {
+        ...defaultPageControl,
         currentPage: startingPage,
         setPage: setPage,
         totalPages: totalPages
-    });
+    };
     const wrapper = mount(<Pagination pageControl={pageControl} />);
 
     const rightSkipButton = wrapper.find('button').last();

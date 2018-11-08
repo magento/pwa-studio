@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import classify from 'src/classify';
+import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -49,19 +52,21 @@ class Category extends Component {
         id: 3
     };
 
-    state = {
-        currentPage: 1,
-        pageSize: 6,
-        prevPageTotal: 0
-    };
-
     render() {
-        const { id, classes } = this.props;
-        const { pageSize, currentPage, prevPageTotal } = this.state;
+        const {
+            id,
+            classes,
+            currentPage,
+            pageSize,
+            prevPageTotal,
+            setCurrentPage,
+            setPrevPageTotal
+        } = this.props;
+
         const pageControl = {
             currentPage: currentPage,
-            setPage: this.setPage,
-            updateTotalPages: this.updateTotalPages,
+            setPage: setCurrentPage,
+            updateTotalPages: setPrevPageTotal,
             totalPages: prevPageTotal
         };
 
@@ -77,7 +82,7 @@ class Category extends Component {
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading)
-                        return this.state.prevPageTotal != 0 ? (
+                        return pageControl.totalPages ? (
                             <CategoryContent
                                 pageControl={pageControl}
                                 pageSize={pageSize}
@@ -90,8 +95,7 @@ class Category extends Component {
 
                     // Retrieve the total page count from GraphQL when ready
                     const pageCount =
-                        data.category.products.total_count /
-                        this.state.pageSize;
+                        data.category.products.total_count / pageSize;
                     const totalPages = Math.ceil(pageCount);
                     const totalWrapper = {
                         ...pageControl,
@@ -109,20 +113,21 @@ class Category extends Component {
             </Query>
         );
     }
-
-    setPage = newPageNumber => {
-        newPageNumber = Math.max(1, newPageNumber);
-        this.setState({
-            currentPage: newPageNumber
-        });
-        window.scrollTo(0, 0);
-    };
-
-    updateTotalPages = newTotal => {
-        this.setState({
-            prevPageTotal: newTotal
-        });
-    };
 }
 
-export default classify(defaultClasses)(Category);
+const mapStateToProps = ({ catalog }) => {
+    return {
+        currentPage: catalog.currentPage,
+        pageSize: catalog.pageSize,
+        prevPageTotal: catalog.prevPageTotal
+    };
+};
+const mapDispatchToProps = { setCurrentPage, setPrevPageTotal };
+
+export default compose(
+    classify(defaultClasses),
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )
+)(Category);
