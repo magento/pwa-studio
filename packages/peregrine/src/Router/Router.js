@@ -1,43 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { string, func, object } from 'prop-types';
-import MagentoRouteHandler from './MagentoRouteHandler';
+import { func, object, string } from 'prop-types';
+
+export const { Consumer, Provider } = createContext();
 
 export default class MagentoRouter extends Component {
     static propTypes = {
-        /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */
-        using: func,
-        routerProps: object,
         apiBase: string.isRequired,
-        __tmp_webpack_public_path__: string.isRequired
+        routerProps: object,
+        using: func // e.g., BrowserRouter, MemoryRouter
     };
 
     static defaultProps = {
-        using: BrowserRouter,
-        routerProps: {}
+        routerProps: {},
+        using: BrowserRouter
     };
 
     render() {
-        const {
-            using: Router,
-            routerProps,
-            apiBase,
-            __tmp_webpack_public_path__
-        } = this.props;
+        const { apiBase, children, routerProps, using: Router } = this.props;
 
         return (
             <Router {...routerProps}>
-                <Route
-                    render={({ location }) => (
-                        <MagentoRouteHandler
-                            location={location}
-                            apiBase={apiBase}
-                            __tmp_webpack_public_path__={
-                                __tmp_webpack_public_path__
-                            }
-                        />
+                <Route>
+                    {routeProps => (
+                        <Provider value={{ apiBase, ...routeProps }}>
+                            {children}
+                        </Provider>
                     )}
-                />
+                </Route>
             </Router>
         );
     }
