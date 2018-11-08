@@ -5,6 +5,7 @@ module.exports = {
     browser: true,
     testURL: 'https://localhost/',
     moduleNameMapper: {
+        '\\.(jpg|jpeg|png)$': '<rootDir>/__mocks__/fileMock.js',
         '\\.css$': 'identity-obj-proxy',
         // Mirrors webpack alias to resolve from 'src'
         '^src/(.+)': '<rootDir>/src/$1',
