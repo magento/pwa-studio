@@ -80,11 +80,6 @@ class ProductFullDetail extends Component {
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
                 </section>
-                <section className={classes.actions}>
-                    <Button>
-                        <span>Add to Wishlist</span>
-                    </Button>
-                </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>

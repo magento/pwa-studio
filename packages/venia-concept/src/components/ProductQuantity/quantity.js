@@ -28,9 +28,6 @@ class Quantity extends Component {
                     value={value}
                     onChange={this.handleChange}
                 />
-                <div className={classes.inventory}>
-                    <span>17 Available</span>
-                </div>
             </div>
         );
     }
