@@ -133,16 +133,17 @@ module.exports = async function(passedEnv) {
                     swDest: 'sw.js'
                 }
             }),
-            new CopyWebpackPlugin([{
-                from: `${themePaths.media}/**/*`,
-                to: themePaths.output,
-                toType: 'dir'
-            }])
+            new CopyWebpackPlugin([
+                {
+                    from: `${themePaths.media}/**/*`,
+                    to: themePaths.output,
+                    toType: 'dir'
+                }
+            ])
         ]
     };
-        config.devtool = 'eval-source-map';
+    config.devtool = 'eval-source-map';
     if (phase === 'development') {
-
         const devServerConfig = {
             publicPath: config.output.publicPath,
             graphqlPlayground: {

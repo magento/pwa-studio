@@ -57,12 +57,13 @@ export default function resolveUnknownRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function remotelyResolveRoute(opts) {
-    let urlResolve = localStorage.getItem('urlResolve')
+    let urlResolve = localStorage.getItem('urlResolve');
     urlResolve = JSON.parse(urlResolve);
 
     // If it exists in localStorage, use that value
-    // TODO: Use simplePersistence or figure out how to manually add to workbox
-    if (( urlResolve && urlResolve[opts.route] ) || !navigator.onLine) {
+    // TODO: This can be handled by workbox once this issue is resolved in the
+    // graphql repo: https://github.com/magento/graphql-ce/issues/229
+    if ((urlResolve && urlResolve[opts.route]) || !navigator.onLine) {
         if (urlResolve && urlResolve[opts.route]) {
             return new Promise(function(resolve) {
                 resolve(urlResolve[opts.route].data.urlResolver);
@@ -70,9 +71,9 @@ function remotelyResolveRoute(opts) {
         } else {
             return new Promise(function(resolve) {
                 resolve({
-                    type: "NOTFOUND",
+                    type: 'NOTFOUND',
                     id: -1
-                })
+                });
             });
         }
     } else {
@@ -106,14 +107,19 @@ function fetchRoute(opts) {
     })
         .then(res => res.json())
         .then(res => {
-            let urlResolve = localStorage.getItem('urlResolve')
-            urlResolve = JSON.parse(urlResolve);
-            urlResolve = urlResolve ? urlResolve : {};
-            urlResolve[opts.route] = res;
-            localStorage.setItem('urlResolve', JSON.stringify(urlResolve));
-            return res.data.urlResolver
+            storeURLResolveResult(res, opts);
+            return res.data.urlResolver;
         });
+}
 
+// TODO: This can be handled by workbox once this issue is resolved in the
+// graphql repo: https://github.com/magento/graphql-ce/issues/229
+function storeURLResolveResult(res, opts) {
+    let urlResolve = localStorage.getItem('urlResolve');
+    urlResolve = JSON.parse(urlResolve);
+    urlResolve = urlResolve ? urlResolve : {};
+    urlResolve[opts.route] = res;
+    localStorage.setItem('urlResolve', JSON.stringify(urlResolve));
 }
 
 /**

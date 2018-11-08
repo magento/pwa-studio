@@ -27,6 +27,14 @@ export default class MagentoRouteHandler extends Component {
         }
     };
 
+    // TODO: Add the ability to customize the cache name
+    async addToCache(urls) {
+        const myCache = await window.caches.open(
+            `workbox-runtime-${location.origin}/`
+        );
+        await myCache.addAll(urls);
+    }
+
     componentDidMount() {
         mountedInstances.add(this);
         this.getRouteComponent();
@@ -37,12 +45,13 @@ export default class MagentoRouteHandler extends Component {
         const { pathname } = props.location;
         const isKnown = state.componentMap.has(pathname);
 
-        // id of -1 is currently what defines a `NOTFOUND` component
+        // `NOTFOUND` component needs a unique id
+        // currently it is set to -1
         const isNotFoundComponent = isKnown
             ? state.componentMap.get(pathname).id === -1
             : false;
 
-        const shouldReloadRoute = (isNotFoundComponent && navigator.onLine);
+        const shouldReloadRoute = isNotFoundComponent && navigator.onLine;
 
         if (!isKnown || shouldReloadRoute) {
             this.getRouteComponent();
@@ -97,6 +106,8 @@ export default class MagentoRouteHandler extends Component {
             // avoid setState if component is not mounted for any reason
             return;
         }
+
+        this.addToCache([pathname]);
 
         this.setState(({ componentMap }) => ({
             componentMap: new Map(componentMap).set(pathname, {

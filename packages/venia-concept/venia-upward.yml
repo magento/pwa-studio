@@ -8,12 +8,6 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
-      pattern: '^/fallback.html'
-      use: fallback
-    - matches: request.url.pathname
-      pattern: '^/sw.js'
-      use: serviceworker
-    - matches: request.url.pathname
       pattern: '^/manifest.json'
       use: manifest
     - matches: request.url.pathname
@@ -138,32 +132,6 @@ manifest:
     body:
       file:
         inline: ./manifest.json
-
-fallback:
-  inline:
-    status: 200
-    headers:
-      inline:
-        content-type:
-          inline: 'text/html'
-    body:
-      engine: mustache
-      template: ./templates/fallback.mst
-      provide:
-        model: resource.model
-
-serviceworker:
-  inline:
-    status: 200
-    headers:
-      inline:
-        service-worker-allowed:
-          inline: '/'
-        content-type:
-          inline: 'application/javascript'
-    body:
-      file:
-        inline: ./dist/sw.js
 
 static:
   directory:

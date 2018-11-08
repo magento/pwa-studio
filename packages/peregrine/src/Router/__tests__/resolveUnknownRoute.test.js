@@ -8,26 +8,26 @@ const urlResolverRes = type =>
     });
 
 const NotFoundManifest = {
-                NotFound: {
-                    rootChunkID: 3,
-                    rootModuleID: 100,
-                    pageTypes: ['NOTFOUND']
-                }
-            }
+    NotFound: {
+        rootChunkID: 3,
+        rootModuleID: 100,
+        pageTypes: ['NOTFOUND']
+    }
+};
 
 const mockManifest = {
-            Category: {
-                rootChunkID: 2,
-                rootModuleID: 100,
-                pageTypes: ['CATEGORY']
-            },
-            Product: {
-                rootChunkID: 1,
-                rootModuleID: 99,
-                pageTypes: ['PRODUCT']
-            },
-        ...NotFoundManifest
-        }
+    Category: {
+        rootChunkID: 2,
+        rootModuleID: 100,
+        pageTypes: ['CATEGORY']
+    },
+    Product: {
+        rootChunkID: 1,
+        rootModuleID: 99,
+        pageTypes: ['PRODUCT']
+    },
+    ...NotFoundManifest
+};
 
 const cachedResponse = JSON.stringify({
     'foo-bar.html': {
@@ -37,7 +37,7 @@ const cachedResponse = JSON.stringify({
 
 const isOnline = _value => ({
     get: () => _value,
-    set: (v) => _value = v
+    set: v => (_value = v)
 });
 
 Object.defineProperty(navigator, 'onLine', isOnline(true));
@@ -54,9 +54,7 @@ function clearLocalStorage(item) {
 
 test('Happy path: resolves w/ rootChunkID and rootModuleID for first matching component found', async () => {
     fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(
-        JSON.stringify(mockManifest)
-    );
+    fetch.mockResponseOnce(JSON.stringify(mockManifest));
 
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
@@ -71,23 +69,22 @@ test('Happy path: resolves w/ rootChunkID and rootModuleID for first matching co
 test('returns NOTFOUND when offline and requested content is not in cache ', async () => {
     navigator.onLine = false;
 
-    fetch.mockResponseOnce(
-        JSON.stringify(mockManifest)
-    );
+    fetch.mockResponseOnce(JSON.stringify(mockManifest));
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
         apiBase: 'https://store.com',
         __tmp_webpack_public_path__: 'https://dev-server.com/pub'
     });
 
-    expect(res).toHaveProperty('rootChunkID', NotFoundManifest.NotFound.rootChunkID);
+    expect(res).toHaveProperty(
+        'rootChunkID',
+        NotFoundManifest.NotFound.rootChunkID
+    );
 });
 
 test('stores response of urlResolver in cache', async () => {
     fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(
-        JSON.stringify(mockManifest)
-    );
+    fetch.mockResponseOnce(JSON.stringify(mockManifest));
 
     const url = 'foo-bar.html';
 
@@ -97,31 +94,25 @@ test('stores response of urlResolver in cache', async () => {
         __tmp_webpack_public_path__: 'https://dev-server.com/pub'
     });
 
-    expect(localStorage.getItem('urlResolve')).not.toBeNull()
+    expect(localStorage.getItem('urlResolve')).not.toBeNull();
 });
 
 test('does not call fetchRoute when response is cached', async () => {
-
     localStorage.setItem('urlResolve', cachedResponse);
 
-    fetch.mockResponseOnce(
-        JSON.stringify(mockManifest)
-    );
+    fetch.mockResponseOnce(JSON.stringify(mockManifest));
     await resolveUnknownRoute({
         route: 'foo-bar.html',
         apiBase: 'https://store.com',
         __tmp_webpack_public_path__: 'https://dev-server.com/pub'
     });
 
-
     expect(fetch).toHaveBeenCalledTimes(1);
 });
 
 test('calls fetchRoute when response is not cached', async () => {
     fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(
-        JSON.stringify(mockManifest)
-    );
+    fetch.mockResponseOnce(JSON.stringify(mockManifest));
     await resolveUnknownRoute({
         route: 'foo-bar.html',
         apiBase: 'https://store.com',
@@ -130,4 +121,3 @@ test('calls fetchRoute when response is not cached', async () => {
 
     expect(fetch).toHaveBeenCalledTimes(2);
 });
-

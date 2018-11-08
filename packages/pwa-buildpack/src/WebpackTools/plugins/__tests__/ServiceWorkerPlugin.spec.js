@@ -165,8 +165,8 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
 
     expect(WorkboxPlugin.InjectManifest).toHaveBeenCalledWith(
         expect.objectContaining({
-            swDest: "path/to/dest",
-            swSrc: "path/to/sw"
+            swDest: 'path/to/dest',
+            swSrc: 'path/to/sw'
         })
     );
 });

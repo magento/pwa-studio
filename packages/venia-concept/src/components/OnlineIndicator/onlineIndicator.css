@@ -1,10 +1,10 @@
 .root {
     align-items: center;
     display: inline-flex;
-    font-size: .9em;
+    font-size: 0.9em;
     height: 0px;
     justify-content: flex-start;
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
     overflow: hidden;
     padding: 0 2.4rem;
     position: sticky;
@@ -22,7 +22,7 @@
 
 .online {
     composes: root;
-    background-color: rgb(var(--venia-teal-alt));
+    background-color: rgb(var(--venia-teal-light));
     animation-name: slideinandhide;
     animation-duration: 3s;
     animation-fill-mode: forwards;
@@ -53,7 +53,7 @@
 @keyframes slideinandhide {
     0% {
         height: 3rem;
-        opacity: .5;
+        opacity: 0.5;
     }
     10% {
         opacity: 1;
@@ -65,5 +65,3 @@
         height: 0;
     }
 }
-
-

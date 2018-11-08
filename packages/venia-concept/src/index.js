@@ -16,7 +16,6 @@ import AppShell from 'src/components/AppShell';
 import ensureDirURI from 'src/util/ensureDirUri';
 import './index.css';
 
-
 // store.dispatch(getUserDetails());
 
 const { BrowserPersistence } = Util;
@@ -80,5 +79,9 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
     });
 }
 
-window.addEventListener('online',  () => {store.dispatch(app.setOnline())});
-window.addEventListener('offline', () => {store.dispatch(app.setOffline())});
+window.addEventListener('online', () => {
+    store.dispatch(app.setOnline());
+});
+window.addEventListener('offline', () => {
+    store.dispatch(app.setOffline());
+});

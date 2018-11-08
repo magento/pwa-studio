@@ -37,12 +37,14 @@ class ServiceWorkerPlugin {
     configureInjectManifest() {
         let injectManifest;
         if (this.config.swPath) {
-            injectManifest = new WorkboxPlugin.InjectManifest(this.config.swPath);
+            injectManifest = new WorkboxPlugin.InjectManifest(
+                this.config.swPath
+            );
         } else {
             injectManifest = new WorkboxPlugin.InjectManifest({
                 swSrc: this.config.paths.src + '/sw.js',
                 swDest: this.config.paths.dest + '/sw.js'
-            })
+            });
         }
         return injectManifest;
     }
@@ -54,13 +56,19 @@ class ServiceWorkerPlugin {
     apply(compiler) {
         if (this.config.env.phase === 'development') {
             // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
-            if (this.config.enableServiceWorkerDebugging && !this.config.injectManifest) {
+            if (
+                this.config.enableServiceWorkerDebugging &&
+                !this.config.injectManifest
+            ) {
                 new WriteFileWebpackPlugin({
                     test: new RegExp(this.config.serviceWorkerFileName + '$'),
                     log: true
                 }).apply(compiler);
                 this.applyGenerateSW(compiler);
-            } else if (this.config.enableServiceWorkerDebugging && this.config.injectManifest) {
+            } else if (
+                this.config.enableServiceWorkerDebugging &&
+                this.config.injectManifest
+            ) {
                 this.applyInjectManifest(compiler);
             } else {
                 // TODO: (feature) emit a structured { code, severity, resolution } object

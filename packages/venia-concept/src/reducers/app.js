@@ -19,17 +19,17 @@ const reducerMap = {
             overlay: !!payload
         };
     },
-    [actions.setOnline]: (state) => {
+    [actions.setOnline]: state => {
         return {
             ...state,
             isOnline: true
-        }
+        };
     },
-    [actions.setOffline]: (state) => {
+    [actions.setOffline]: state => {
         return {
             ...state,
             isOnline: false
-        }
+        };
     }
 };
 

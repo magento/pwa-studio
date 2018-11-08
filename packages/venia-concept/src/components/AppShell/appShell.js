@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { bool, func, shape, string } from 'prop-types';
 import { Page } from '@magento/peregrine';
 import { connect } from 'react-redux';
@@ -36,22 +35,21 @@ class AppShell extends Component {
         const { isOnline } = this.props;
         const { hasBeenOffline } = this.state;
 
-        if ( !isOnline && !hasBeenOffline) {
+        // Only show online indicator when
+        // online after being offline
+        if (!isOnline && !hasBeenOffline) {
             this.setState({
                 hasBeenOffline: true
             });
         }
 
-        return ( hasBeenOffline
-            ? <OnlineIndicator
-                isOnline={isOnline} />
-            : null)
+        return hasBeenOffline ? <OnlineIndicator isOnline={isOnline} /> : null;
     }
 
     render() {
         const { app, classes, closeDrawer } = this.props;
         const { onlineIndicator } = this;
-        const { drawer, overlay } = app
+        const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
         const className = overlay ? classes.root_masked : classes.root;
@@ -80,5 +78,4 @@ const mapStateToProps = ({ app }) => {
 export default connect(
     mapStateToProps,
     null
-)
-(classify(defaultClasses)(AppShell));
+)(classify(defaultClasses)(AppShell));
