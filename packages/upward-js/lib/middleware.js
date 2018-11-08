@@ -79,8 +79,7 @@ class UpwardMiddleware {
                 debug('status, headers, and body valid. responding');
                 res.status(response.status)
                     .set(response.headers)
-                    // TODO: Issue #408
-                    .send(new Buffer(response.body, 'binary'));
+                    .send(response.body);
             }
         };
     }
