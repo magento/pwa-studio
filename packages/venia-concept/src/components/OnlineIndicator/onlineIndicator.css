@@ -1,21 +1,39 @@
 .root {
     align-items: center;
     display: inline-flex;
-    justify-content: center;
-    width: 100%;
+    font-size: .9em;
     height: 0px;
-    background-color: rgb(var(--venia-warning-light));
+    justify-content: flex-start;
     margin-bottom: .3em;
+    overflow: hidden;
     padding: 0 2.4rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.offline {
+    composes: root;
+    background-color: rgb(var(--venia-warning-light));
     animation-name: slidein;
     animation-duration: 244ms;
     animation-fill-mode: forwards;
-    overflow: hidden;
-    font-size: .9em;
 }
 
-.root span {
+.online {
+    composes: root;
+    background-color: rgb(var(--venia-teal-alt));
+    animation-name: slideinandhide;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+.offline span {
     color: rgb(var(--venia-warning-dark));
+}
+
+.online span {
+    color: rgb(var(--venia-teal));
 }
 
 .root p {
@@ -31,4 +49,21 @@
         height: 3rem;
     }
 }
+
+@keyframes slideinandhide {
+    0% {
+        height: 3rem;
+        opacity: .5;
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        height: 3rem;
+    }
+    100% {
+        height: 0;
+    }
+}
+
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { bool, func, shape, string } from 'prop-types';
 import { Page } from '@magento/peregrine';
 import { connect } from 'react-redux';
@@ -27,9 +28,30 @@ class AppShell extends Component {
         closeDrawer: func.isRequired
     };
 
+    state = {
+        hasBeenOffline: false
+    };
+
+    get onlineIndicator() {
+        const { isOnline } = this.props;
+        const { hasBeenOffline } = this.state;
+
+        if ( !isOnline && !hasBeenOffline) {
+            this.setState({
+                hasBeenOffline: true
+            });
+        }
+
+        return ( hasBeenOffline
+            ? <OnlineIndicator
+                isOnline={isOnline} />
+            : null)
+    }
+
     render() {
-        const { app, classes, closeDrawer, isOnline } = this.props;
-        const { drawer, overlay } = app;
+        const { app, classes, closeDrawer } = this.props;
+        const { onlineIndicator } = this;
+        const { drawer, overlay } = app
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
         const className = overlay ? classes.root_masked : classes.root;
@@ -37,7 +59,7 @@ class AppShell extends Component {
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
-                    <OnlineIndicator isOnline={isOnline} />
+                    {onlineIndicator}
                     <Page>{renderRoutingError}</Page>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
