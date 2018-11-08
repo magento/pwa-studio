@@ -9,7 +9,6 @@ import defaultClasses from './quantity.css';
 class Quantity extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            inventory: PropTypes.string,
             root: PropTypes.string
         }),
         value: PropTypes.number.isRequired,

@@ -12,7 +12,6 @@ import defaultClasses from './productFullDetail.css';
 class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
-            actions: string,
             cartActions: string,
             description: string,
             descriptionTitle: string,

@@ -9,7 +9,6 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
             'images options'
             'images quantity'
             'images cart'
@@ -84,20 +83,6 @@
         margin: 0;
         max-width: 800px;
         padding: 1.5rem 0;
-    }
-}
-
-.actions {
-    composes: section;
-    align-items: center;
-    display: flex;
-    grid-area: actions;
-    justify-content: center;
-}
-
-@media (min-width: 1024px) {
-    .actions {
-        padding-top: 0;
     }
 }
 
