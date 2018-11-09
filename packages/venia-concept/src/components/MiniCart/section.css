@@ -1,20 +1,19 @@
-.text {
-    padding-top: 2px;
-    padding-left: 6px;
-    font-size: 11px;
-}
-
 li > button {
     width: 100%;
-    padding: 10px;
-    padding-right: 25px;
-    padding-bottom: 11px;
+    padding: 0.6rem;
+    padding-right: 1.6rem;
+    padding-bottom: 0.72rem;
     display: flex;
-    grid-template-columns: min-content;
     white-space: pre;
     box-sizing: border-box;
     text-align: left;
     align-items: center;
     justify-items: start;
-    column-gap: 10px;
+    column-gap: 0.7rem;
+}
+
+.text {
+    padding-top: 1px;
+    padding-left: 0.4rem;
+    font-size: 11px;
 }

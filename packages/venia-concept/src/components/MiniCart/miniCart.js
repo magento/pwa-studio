@@ -5,7 +5,6 @@ import { shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import { addReducer } from 'src/store';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import Button from 'src/components/Button';
@@ -41,14 +40,7 @@ class MiniCart extends Component {
 
     async componentDidMount() {
         const { getCartDetails } = this.props;
-        const reducers = await Promise.all([
-            import('src/reducers/cart'),
-            import('src/reducers/checkout')
-        ]);
 
-        reducers.forEach(mod => {
-            addReducer(mod.name, mod.default);
-        });
         await getCartDetails();
 
         const CheckoutModule = await import('src/components/Checkout');
@@ -117,7 +109,10 @@ class MiniCart extends Component {
         return (
             <div className={classes.content}>
                 <div className={classes.focusItem}>
-                    {itemName} <span>${itemPrice}</span>
+                    {itemName}
+                    <div className={classes.price}>
+                        ${itemPrice}
+                    </div>
                 </div>
                 <div className={classes.options}>Choose a Size:</div>
             </div>

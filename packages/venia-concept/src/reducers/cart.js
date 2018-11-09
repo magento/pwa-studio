@@ -39,6 +39,8 @@ const reducerMap = {
         if (error) {
             return initialState;
         }
+        // If we are emptying the cart, perform a reset to prevent
+        // a bug where the next item added to cart would have a price of 0
         if (payload.cartItemCount == 1) {
             return initialState;
         }
