@@ -24,6 +24,7 @@
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
+    "storybook:venia": "cd packages/venia-concept && npm run storybook",
     "test": "jest",
     "test:ci": "npm run -s test -- -i --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i",
