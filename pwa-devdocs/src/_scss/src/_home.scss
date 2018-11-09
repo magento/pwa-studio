@@ -1,0 +1,121 @@
+// General tiles (TODO: move this to a theme)
+$column-gap: 0.75rem !default;
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: (-$column-gap);
+  margin-right: (-$column-gap);
+  margin-top: (-$column-gap);
+  margin-bottom: (-$column-gap);
+}
+
+.column {
+  display: flex;
+
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  padding: $column-gap;
+}
+
+
+// TODO: Move this to a theme and make a component to reuse in other docs websites
+
+a.card {
+  width: 100%;
+  display: block;
+  color: $body-font-color;
+  background: #F2F3F3;
+  border-radius: 2px;
+  border: 2px solid transparent;
+
+  padding: 30px 35px;
+
+  transition: all .2s;
+
+  & a {
+    color: $body-font-color;
+  }
+
+  &:hover {
+    color: $body-font-color;
+    text-decoration: none;
+    border-color: $brand-color;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+
+
+// Home page sections
+
+
+.home-getting-started {
+
+  .column {
+    width: 50%;
+    flex-basis: 50%;
+
+    @media ($small-screen) {
+      width: auto;
+      flex-basis: auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+
+
+
+
+.home-contribute {
+
+  .intro {
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: $font-weight-light;
+
+    @media ($small-screen) {
+      font-size: 34px;
+    }
+  }
+
+  .column {
+    flex-basis: 33%;
+    flex-grow: 0;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media ($medium-screen) {
+      flex-basis: 50%;
+    }
+
+    @media ($small-screen) {
+      width: auto;
+      flex-basis: auto;
+      padding: 0;
+    }
+  }
+}
+
+dl dd {
+    margin-left: 20px;
+}

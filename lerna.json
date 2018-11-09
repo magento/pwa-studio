@@ -1,20 +1,11 @@
 {
-    "version": "2.0.0-rc2.0.5",
+    "version": "2.0.0-rc.4",
     "packages": [
         "packages/peregrine",
         "packages/pwa-buildpack",
-        "packages/pwa-devdocs",
         "packages/upward-js",
         "packages/upward-spec",
         "packages/venia-concept"
     ],
-    "npmClient": "npm",
-    "command": {
-        "publish": {
-            "ignoreChanges": [
-                "__tests__/**",
-                "pwa-devdocs"
-            ]
-        }
-    }
+    "npmClient": "npm"
 }

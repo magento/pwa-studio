@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`graphql-playground middleware attached 1`] = `
+Object {
+  "endpoint": "/graphql",
+  "tabs": Array [],
+}
+`;
+
+exports[`graphql-playground middleware attached with custom queryDirs 1`] = `
+Object {
+  "endpoint": "/graphql",
+  "tabs": Array [
+    Object {
+      "endpoint": "/graphql",
+      "name": "packages/pwa-buildpack/src/WebpackTools/__tests__/__fixtures__/queries/getProductDetail.graphql",
+      "query": "query productDetail($urlKey: String, $onServer: Boolean!) {
+    productDetail: products(filter: { url_key: { eq: $urlKey } }) {
+        items {
+            sku
+            name
+            price {
+                regularPrice {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+            }
+            description
+            media_gallery_entries {
+                label
+                position
+                disabled
+                file
+            }
+            meta_title @include(if: $onServer)
+            meta_keyword @include(if: $onServer)
+            meta_description @include(if: $onServer)
+        }
+    }
+}
+",
+    },
+    Object {
+      "endpoint": "/graphql",
+      "name": "packages/pwa-buildpack/src/WebpackTools/__tests__/__fixtures__/queries/urlResolver.graphql",
+      "query": "query resolveUrl($urlKey: String!) {
+    urlResolver(url: $urlKey) {
+        type
+        id
+    }
+}
+",
+    },
+  ],
+}
+`;

@@ -38,14 +38,15 @@ async function createUpwardServer({
     host = '0.0.0.0',
     https,
     logUrl = false,
-    upwardPath
+    upwardPath,
+    env = process.env
 }) {
     if (!upwardPath) {
         throw new Error(`upwardPath is required`);
     }
     const app = express();
-    const upward = await middleware(resolve(upwardPath));
-    if (process.env.NODE_ENV === 'production') {
+    const upward = await middleware(resolve(upwardPath), env);
+    if (env.NODE_ENV === 'production') {
         app.use(morgan('combined'));
         app.use(upward);
     } else {

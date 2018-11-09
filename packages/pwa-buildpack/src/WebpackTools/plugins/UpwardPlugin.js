@@ -9,13 +9,14 @@ const upward = require('@magento/upward-js');
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class UpwardPlugin {
-    constructor(devServer, upwardPath) {
+    constructor(devServer, env, upwardPath) {
+        this.env = env;
         this.upwardPath = upwardPath;
         // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
-        devServer.after = app => {
+        devServer.after = (app, ...rest) => {
             app.use((req, res, next) => this.handleRequest(req, res, next));
-            if (oldAfter) oldAfter(app);
+            if (oldAfter) oldAfter(app, ...rest);
         };
     }
     apply(compiler) {
@@ -55,27 +56,47 @@ class UpwardPlugin {
 
         const io = {
             async readFile(filepath, enc) {
-                const absolutePath = path.resolve(filepath);
-
+                const absolutePath = path.resolve(
+                    compiler.options.output.path,
+                    filepath
+                );
                 // Most likely scenario: UPWARD needs an output asset.
+                debug('readFile %s %s', filepath, enc);
                 try {
                     return compiler.outputFileSystem.readFileSync(
                         absolutePath,
                         enc
                     );
-                } catch (e) {}
-
+                } catch (e) {
+                    debug(
+                        'outputFileSystem %s %s. Trying defaultIO...',
+                        filepath,
+                        e.message
+                    );
+                }
                 // Next most likely scenario: UPWARD needs a file on disk.
                 try {
-                    const fromDefault = await defaultIO.readFile(
-                        absolutePath,
-                        enc
-                    );
+                    const fromDefault = await defaultIO.readFile(filepath, enc);
                     return fromDefault;
-                } catch (e) {}
+                } catch (e) {
+                    debug(
+                        'defaultIO %s %s. Trying inputFileSystem...',
+                        filepath,
+                        e.message
+                    );
+                }
 
-                // Fallback: Use Webpack's resolution rules.
-                return compiler.inputFileSystem.readFileSync(absolutePath, enc);
+                try {
+                    // Fallback: Use Webpack's resolution rules.
+                    return compiler.inputFileSystem.readFileSync(filepath, enc);
+                } catch (e) {
+                    debug(
+                        'inputFileSystem %s %s. Must throw...',
+                        filepath,
+                        e.message
+                    );
+                    throw e;
+                }
             },
 
             async networkFetch(path, options) {
@@ -92,7 +113,11 @@ class UpwardPlugin {
             }
         };
 
-        this.middleware = await upward.middleware(this.upwardPath, io);
+        this.middleware = await upward.middleware(
+            this.upwardPath,
+            this.env,
+            io
+        );
     }
     async getCompiler() {
         if (this.compiler) {

@@ -66,15 +66,15 @@ test('getDetails.receive: merges payload with state', () => {
     });
 });
 
-test('getDetails.receive: returns same state on error, letting the app slice handle error display', () => {
-    const state = { other: 'stuff', totals: { total: 100 } };
-    expect(
-        cartReducers(state, {
-            type: actions.getDetails.receive,
-            payload: new Error('That did not work at all'),
-            error: true
-        })
-    ).toEqual(state);
+test('getDetails.receive: removes guestCartId on error', () => {
+    const state = { guestCartId: 123, other: 'stuff', totals: { total: 100 } };
+    const nextState = cartReducers(state, {
+        type: actions.getDetails.receive,
+        payload: new Error('That did not work at all'),
+        error: true
+    });
+    expect(nextState).toMatchObject({ other: 'stuff', totals: { total: 100 } });
+    expect(nextState.guestCartId).not.toBeTruthy();
 });
 
 test('checkoutActions.order.accept: cart resets to initial state', () => {

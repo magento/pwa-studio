@@ -135,11 +135,6 @@ which reads an ini-formatted file to set the environment.
     # the locale must be `en_US` for now
 
     SERVICE_WORKER_FILE_NAME="sw.js"
-
-    # TODO: This env var can override the hardcoded product media path, which we
-    # need to hardcode due to https://github.com/magento/graphql-ce/issues/88
-    # By default it is /media/catalog/product/
-    # MAGENTO_BACKEND_PRODUCT_MEDIA_PATH=/media/catalog/product/
     ```
 
 ### V. Install and Configure Developer Tools
@@ -426,7 +421,6 @@ or energy setting up their own services layer.
 - [`MagentoResolver`](docs/MagentoResolver.md) -- Configures Webpack to resolve modules and assets in PWA Studio projects.
 - [`UpwardPlugin`](docs/UpwardPlugin.md) -- Attaches a hot reloading UPWARD server, powered by [upward-js](../upward-js), to the Webpack dev server
 - [`ServiceWorkerPlugin`](docs/ServiceWorkerPlugin.md) -- Creates a ServiceWorker with different settings based on dev scenarios
-- [`DevServerReadyNotifierPlugin`](docs/DevServerReadyNotifierPlugin.md) -- Displays a prominent link in the console to a running dev environment once it is launched
 - [`MagentoRootComponentsPlugin`](docs/MagentoRootComponentsPlugin.md) -- Divides static assets into bundled "chunks" based on components registered with the Magento PWA `RootComponent` interface
 - [`magento-layout-loader`](docs/magento-layout-loader.md) -- Gives Magento modules/extensions the ability to inject or remove content blocks in a layout without modifying theme source files
 
