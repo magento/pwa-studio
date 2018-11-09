@@ -19,6 +19,7 @@
   "scripts": {
     "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "clean": "rimraf dist",
+    "prepublishOnly": "npx rimraf dist && npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "watch": "npm run -s build -- --watch"
