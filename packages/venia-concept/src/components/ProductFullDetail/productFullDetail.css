@@ -87,20 +87,6 @@
     }
 }
 
-.actions {
-    composes: section;
-    align-items: center;
-    display: flex;
-    grid-area: actions;
-    justify-content: center;
-}
-
-@media (min-width: 1024px) {
-    .actions {
-        padding-top: 0;
-    }
-}
-
 .options {
     grid-area: options;
 }

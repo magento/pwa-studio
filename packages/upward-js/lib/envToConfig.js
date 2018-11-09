@@ -16,8 +16,8 @@ function castValue(value) {
 
 const envPrefix = 'UPWARD_JS_';
 // Parse and camelcast all environment variables beginning with a prefix.
-function envToConfig() {
-    return Object.entries(process.env).reduce((cfg, [key, value]) => {
+function envToConfig(env) {
+    return Object.entries(env).reduce((cfg, [key, value]) => {
         if (key.startsWith(envPrefix)) {
             const camelCased = key
                 .slice(envPrefix.length)
@@ -32,7 +32,6 @@ function envToConfig() {
 module.exports = envToConfig;
 
 /**
- * const config = envToConfig('UPWARD_JS_');
  *
  * UPWARD_JS_BIND_LOCAL=true \
  * UPWARD_JS_FOO=FALSE \

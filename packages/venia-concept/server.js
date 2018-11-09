@@ -1,7 +1,7 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-require('dotenv').config();
+const validEnv = require('./validate-environment')(process.env);
 const {
-    Utilities: { setupDomain }
+    Utilities: { configureHost }
 } = require('@magento/pwa-buildpack');
 const { createUpwardServer, envToConfig } = require('@magento/upward-js');
 
@@ -11,30 +11,26 @@ async function serve() {
             bindLocal: true,
             logUrl: true
         },
-        envToConfig()
+        envToConfig(validEnv),
+        { env: validEnv }
     );
 
     if (!config.host) {
-        const { ready, setLoopbacks, makeCerts } = await setupDomain(
-            'magento-venia',
-            {
-                dryRun: true,
-                unique: false
-            }
-        );
-        if (!ready) {
-            if (setLoopbacks.length > 0) {
-                console.warn('No custom host provided.');
-            }
-            if (makeCerts.length > 0) {
-                console.warn('No SSL certificate provided.');
-            }
-        } else {
-            const { hostname, certPair } = await setupDomain('magento-venia', {
-                unique: false
+        try {
+            const { hostname, ports, ssl } = await configureHost({
+                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash:
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
             });
             config.host = hostname;
-            config.https = certPair;
+            config.https = ssl;
+            config.port = ports.staging;
+        } catch (e) {
+            console.log(
+                'Could not configure or access custom host. Using loopback...'
+            );
         }
     }
 

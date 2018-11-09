@@ -12,6 +12,7 @@ module.exports = {
     collectCoverageFrom: [
         'scripts/**/*.js',
         'src/**/*.js',
+        'lib/**/*.js',
         '!**/__stories__/**',
         '!**/__helpers__/**'
     ],

@@ -1,11 +1,11 @@
-require('dotenv').config();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-const magentoDomainVarName = 'MAGENTO_BACKEND_DOMAIN';
-const magentoDomain = process.env[magentoDomainVarName];
+const validEnv = require('./validate-environment')(process.env);
+
+const magentoDomainVarName = 'MAGENTO_BACKEND_URL';
+const magentoDomain = validEnv[magentoDomainVarName];
 if (!magentoDomain) {
-    console.error(
-        `No ${magentoDomainVarName} environment variable specified. Have you created a .env file?`
-    );
+    console.error(`No ${magentoDomainVarName} environment variable specified.`);
+
     process.exit(1);
 }
 

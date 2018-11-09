@@ -1,11 +1,10 @@
-require('dotenv').config();
+const validEnv = require('./validate-environment')(process.env);
 
 const webpack = require('webpack');
 const {
     WebpackTools: {
-        MagentoRootComponentsPlugin,
+        makeMagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
-        DevServerReadyNotifierPlugin,
         MagentoResolver,
         UpwardPlugin,
         PWADevServer
@@ -13,8 +12,7 @@ const {
 } = require('@magento/pwa-buildpack');
 const path = require('path');
 
-const pkg = require(path.resolve(__dirname, 'package.json'));
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
@@ -22,7 +20,7 @@ const themePaths = {
     output: path.resolve(__dirname, 'dist')
 };
 
-// mark dependencies for vendor bundle
+const rootComponentsDirs = ['./src/RootComponents/'];
 const libs = [
     'apollo-boost',
     'react',
@@ -32,19 +30,18 @@ const libs = [
     'redux'
 ];
 
-module.exports = async function(env) {
-    const { phase } = env;
+module.exports = async function() {
+    const mode = process.env.NODE_ENV || 'development';
 
-    const babelOptions = configureBabel(phase);
+    const babelOptions = configureBabel(mode);
 
     const enableServiceWorkerDebugging =
-        Number(process.env.ENABLE_SERVICE_WORKER_DEBUGGING) === 1;
+        validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
 
-    const serviceWorkerFileName =
-        process.env.SERVICE_WORKER_FILE_NAME ||
-        pkg.config.serviceWorkerFileName;
+    const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
 
     const config = {
+        mode,
         context: __dirname, // Node global for the running script's directory
         entry: {
             client: path.resolve(themePaths.src, 'index.js')
@@ -53,14 +50,23 @@ module.exports = async function(env) {
             path: themePaths.output,
             publicPath: '/',
             filename: 'js/[name].js',
-            chunkFilename: 'js/[name]-[chunkhash].js',
-            pathinfo: true
+            strictModuleExceptionHandling: true,
+            chunkFilename: 'js/[name]-[chunkhash].js'
         },
         module: {
             rules: [
                 {
-                    include: [themePaths.src],
-                    test: /\.js$/,
+                    test: /\.graphql$/,
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'graphql-tag/loader'
+                        }
+                    ]
+                },
+                {
+                    include: [themePaths.src, /node_modules.+\.mjs$/],
+                    test: /\.(mjs|js|graphql)$/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -100,47 +106,65 @@ module.exports = async function(env) {
             }
         }),
         plugins: [
-            new MagentoRootComponentsPlugin({ phase }),
-            new webpack.NoEmitOnErrorsPlugin(),
+            await makeMagentoRootComponentsPlugin({
+                rootComponentsDirs,
+                context: __dirname
+            }),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(phase),
-                // Blank the service worker file name to stop the app from
-                // attempting to register a service worker in index.js.
-                // Only register a service worker when in production or in the
-                // special case of debugging the service worker itself.
-                'process.env.SERVICE_WORKER': JSON.stringify(
-                    phase === 'production' || enableServiceWorkerDebugging
-                        ? serviceWorkerFileName
-                        : false
-                ),
-                /**
-                 * TODO: This env var can override the hardcoded product media
-                 * path, which we need to hardcode due to
-                 * https://github.com/magento/graphql-ce/issues/88
-                 */
-                'process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH': JSON.stringify(
-                    process.env.MAGENTO_BACKEND_PRODUCT_MEDIA_PATH
-                )
+                'process.env': {
+                    NODE_ENV: JSON.stringify(mode),
+                    // Blank the service worker file name to stop the app from
+                    // attempting to register a service worker in index.js.
+                    // Only register a service worker when in production or in the
+                    // special case of debugging the service worker itself.
+                    SERVICE_WORKER: JSON.stringify(
+                        mode === 'production' || enableServiceWorkerDebugging
+                            ? serviceWorkerFileName
+                            : false
+                    )
+                }
             }),
             new ServiceWorkerPlugin({
-                env,
+                env: { mode },
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
                 paths: themePaths
             })
-        ]
+        ],
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: new RegExp(
+                            `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
+                        ),
+                        name: 'vendor',
+                        filename: 'js/vendor.js',
+                        chunks: 'all'
+                    }
+                }
+            }
+        }
     };
-    if (phase === 'development') {
+    if (mode === 'development') {
         config.devtool = 'eval-source-map';
 
-        config.devServer = await PWADevServer.configure({
+        const devServerConfig = {
             publicPath: config.output.publicPath,
-            serviceWorkerFileName,
-            backendDomain: process.env.MAGENTO_BACKEND_DOMAIN,
-            paths: themePaths,
-            id: 'magento-venia',
-            provideSSLCert: true
-        });
+            graphqlPlayground: {
+                queryDirs: [path.resolve(themePaths.src, 'queries')]
+            }
+        };
+        const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
+        if (provideHost) {
+            devServerConfig.provideSecureHost = {
+                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
+                exactDomain:
+                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
+                addUniqueHash: !!validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
+            };
+        }
+        config.devServer = await PWADevServer.configure(devServerConfig);
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -148,44 +172,41 @@ module.exports = async function(env) {
         config.output.publicPath = config.devServer.publicPath;
 
         config.plugins.push(
-            new webpack.NamedChunksPlugin(),
-            new webpack.NamedModulesPlugin(),
             new webpack.HotModuleReplacementPlugin(),
-            new DevServerReadyNotifierPlugin(config.devServer),
             new UpwardPlugin(
                 config.devServer,
-                path.resolve(__dirname, 'venia-upward.yml')
+                validEnv,
+                path.resolve(__dirname, validEnv.UPWARD_JS_UPWARD_PATH)
             )
         );
-    } else if (phase === 'production') {
+    } else if (mode === 'production') {
         config.performance = {
             hints: 'warning'
         };
-        config.entry.vendor = libs;
-        config.plugins.push(
-            new webpack.optimize.CommonsChunkPlugin({
-                names: ['vendor']
-            }),
-            new UglifyPlugin({
-                parallel: true,
-                uglifyOptions: {
-                    ecma: 8,
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        ecma: 6
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
-                }
-            })
-        );
+        if (!process.env.DEBUG_BEAUTIFY) {
+            config.optimization.minimizer = [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ];
+        }
     } else {
-        throw Error(`Unsupported environment phase in webpack config: `);
+        throw Error(`Unsupported environment mode in webpack config: ${mode}`);
     }
     return config;
 };

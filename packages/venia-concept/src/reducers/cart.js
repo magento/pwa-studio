@@ -24,7 +24,10 @@ const reducerMap = {
     },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
-            return state;
+            return {
+                ...state,
+                guestCartId: null
+            };
         }
 
         return {

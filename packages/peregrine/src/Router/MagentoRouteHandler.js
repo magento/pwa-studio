@@ -1,74 +1,136 @@
 import React, { Component } from 'react';
-import { string, shape } from 'prop-types';
+import { func, shape, string } from 'prop-types';
+
+import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
 import resolveUnknownRoute from './resolveUnknownRoute';
-import fetchRootComponent from './fetchRootComponent';
+
+const InternalError = Symbol('InternalError');
+const NotFound = Symbol('NotFound');
+const mountedInstances = new WeakSet();
 
 export default class MagentoRouteHandler extends Component {
     static propTypes = {
         apiBase: string.isRequired,
-        __tmp_webpack_public_path__: string.isRequired,
+        children: func,
         location: shape({
             pathname: string.isRequired
         }).isRequired
     };
 
-    state = {};
+    state = {
+        componentMap: new Map(),
+        errorState: {
+            hasError: false,
+            internalError: false,
+            notFound: false
+        }
+    };
 
     componentDidMount() {
+        mountedInstances.add(this);
         this.getRouteComponent(this.props.location.pathname);
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { location } = this.props;
-        const changed = nextProps.location.pathname !== location.pathname;
-        const seen = !!this.state[nextProps.location.pathname];
+    componentDidUpdate() {
+        const { props, state } = this;
+        const { pathname } = props.location;
+        const isKnown = state.componentMap.has(pathname);
 
-        if (changed && !seen) {
-            this.getRouteComponent(nextProps.location.pathname);
+        if (!isKnown) {
+            this.getRouteComponent(pathname);
         }
     }
 
-    getRouteComponent(pathname) {
-        const { apiBase, __tmp_webpack_public_path__ } = this.props;
+    componentWillUnmount() {
+        mountedInstances.delete(this);
+    }
 
-        resolveUnknownRoute({
-            route: pathname,
+    async getRouteComponent() {
+        const {
             apiBase,
-            __tmp_webpack_public_path__
-        })
-            .then(({ rootChunkID, rootModuleID, matched, id }) => {
-                if (!matched) {
-                    // TODO: User-defined 404 page
-                    // when the API work is done to support it
-                    throw new Error('404');
-                }
-                return fetchRootComponent(rootChunkID, rootModuleID).then(
-                    Component => {
-                        this.setState({
-                            [pathname]: {
-                                Component,
-                                id
-                            }
-                        });
-                    }
-                );
-            })
-            .catch(err => {
-                console.log('Routing resolve failed\n', err);
+            location: { pathname }
+        } = this.props;
+
+        try {
+            // try to resolve the route
+            // if this throws, we essentially have a 500 Internal Error
+            const resolvedRoute = await resolveUnknownRoute({
+                apiBase,
+                route: pathname
             });
+
+            const { type, id } = resolvedRoute;
+
+            // if resolution and destructuring succeed but return no match
+            // then we have a straightforward 404 Not Found
+            if (!type || !id) {
+                throw new Error('404');
+            }
+
+            // at this point we should have a matching RootComponent
+            // if this throws, we essentially have a 500 Internal Error
+            const RootComponent = await fetchRootComponent(type);
+
+            // associate the matching RootComponent with this location
+            this.setRouteComponent(pathname, RootComponent, { id });
+        } catch ({ message }) {
+            const symbol = message === '404' ? NotFound : InternalError;
+
+            // we don't have a matching RootComponent, but we've checked for one
+            // so associate the appropriate error case with this location
+            this.setRouteComponent(pathname, symbol);
+        }
+    }
+
+    setRouteComponent(pathname, RootComponent, meta) {
+        if (!mountedInstances.has(this)) {
+            // avoid setState if component is not mounted for any reason
+            return;
+        }
+
+        this.setState(({ componentMap }) => ({
+            componentMap: new Map(componentMap).set(pathname, {
+                RootComponent,
+                ...meta
+            }),
+            errorState: {
+                hasError: typeof RootComponent === 'symbol',
+                internalError: RootComponent === InternalError,
+                notFound: RootComponent === NotFound
+            }
+        }));
+    }
+
+    renderChildren(loading) {
+        const { props, state } = this;
+        const { children } = props;
+        const { errorState } = state;
+
+        return typeof children === 'function'
+            ? children({ ...errorState, loading })
+            : null;
     }
 
     render() {
-        const { location } = this.props;
-        const routeInfo = this.state[location.pathname];
+        const { props, state } = this;
+        const { pathname } = props.location;
+        const { componentMap, errorState } = state;
 
-        if (!routeInfo) {
-            // TODO (future iteration): User-defined loading content
-            return <div>Loading</div>;
+        // if we have no record of this pathname, we're still loading
+        // and we have no RootComponent, so render children
+        if (!componentMap.has(pathname)) {
+            return this.renderChildren(true);
         }
 
-        const { Component, ...routeProps } = routeInfo;
+        // if we're in an error state, we're not loading anymore
+        // but we have no RootComponent, so render children
+        if (errorState.hasError) {
+            return this.renderChildren(false);
+        }
 
-        return <Component {...routeProps} />;
+        // otherwise we do have a RootComponent, so render it
+        const { RootComponent, ...routeProps } = componentMap.get(pathname);
+
+        return <RootComponent {...routeProps} />;
     }
 }
