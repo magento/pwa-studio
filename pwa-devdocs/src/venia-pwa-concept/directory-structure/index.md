@@ -1,41 +1,47 @@
 ---
-title: Venia directory structure
+title: Venia project structure
 ---
 
-This topic is an overview of the directory structure for the Venia theme project.
-It provides information about the different directories and files in the project.
+This topic is an overview of the [`venia-concept`][] project structure.
+It provides overview information about important directories and files to help you understand the different pieces of the project.
 
-## The root directory
+## Root directory files
 
-The majority of files and directories in the Venia root directory are boilerplate directories and files for a standard Magento theme.
+The following is a list of important files in the root directory of the `venia-concept` package.
 
-### Notable Magento theme files
+[`.env.dist`][]
+: A sample configuration file that defines important environment variables.
+  Copy this file into a new `.env` file to use the project default values.
 
-`theme.xml`
+[`deployVeniaSampleData.sh`][]
+: A shell script that installs the Venia sample data.
+  Copy and execute this file in a Magento instance to install the sample data.
 
-: This file contains the basic theme meta-information, such as the name and parent, for the Venia theme.
+[`server.js`][]
+: A node script that runs the UPWARD staging server when the `npm run stage:venia` command is used.
 
-`registration.php`
+[`validate-environment.js`][]
+: A node script that validates the `.env` environment file.
 
-: This file registers Venia as a Magento theme.
+[`validate-queries.js`][]
+: A node script that validates the GraphQL endpoint of the Magento backend.
 
-`Magento_Theme/templates/root.phtml`
+[`venia-upward.yml`][]
+: The [UPWARD server specification][] for the Venia PWA storefront.
+  This file describes the server behavior for the middle tier service between the PWA and Magento.
 
-: This file is a template override for the default `root.phtml` file.
-  In a standard Magento theme, the `root.phtml` file is the base template on which every page is built upon.
+## The [`templates`][] directory
 
-  In Venia, this file provides the bare, skeleton HTML that the PWA theme populates on page load.
+The `templates` directory contains [mustache][] template partials.
+The UPWARD server combines these templates to create an application shell for different page types.
 
-`etc/view.xml`
+## The [`media`][] directory
 
-: This file exists to make Venia compatible with the Magento 2 theme system.
-  The content is mostly a copy of the original file from the Magento source.
+Currently, the `media` directory only contains the `favicon.ico` icon file.
 
-For more information on basic theme structure, see: [Magento theme structure][]
+## The [`src`][] directory
 
-## The `src` directory
-
-The `src` directory contains all the PWA code for the Venia theme.
+The `src` directory contains the PWA source code for the Venia theme, which are split into functional subdirectories.
 
 ### `src/RootComponents`
 
@@ -89,6 +95,13 @@ This allows for component-specific style definitions without side effects on oth
 These CSS files are in the same directory and have the same base name as the components that uses them.
 For example, the styles defined in `Footer/footer.css` are applied only to the component defined in `Footer/footer.js`.
 
+For more information see [CSS modules][].
+
+### `src/middleware`
+
+The `src/middleware` directory contains a component that logs actions and state to the browser console.
+This functionality adheres to the [Redux middleware pattern][].
+
 ### `src/reducers`
 
 The `src/reducers` directory contains [Redux][] reducer definitions.
@@ -120,3 +133,17 @@ The `src/util` directory contain useful JavaScript utility functions used throug
 [Peregrine]: {{site.baseurl}}{% link peregrine/index.md %}
 [official documentation for Redux reducers]: https://redux.js.org/basics/reducers
 [action]: #srcaction
+[CSS modules]: {{site.baseurl}}{%link technologies/basic-concepts/css-modules/index.md %}
+[Redux middleware pattern]: https://redux.js.org/advanced/middleware
+[UPWARD server specification]: {{site.baseurl}}{%link technologies/upward/index.md %}
+[mustache]: https://mustache.github.io/
+[`.env.dist`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/.env.dist
+[`deployVeniaSampleData.sh`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/deployVeniaSampleData.sh
+[`server.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/server.js
+[`validate-environment.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/validate-environment.js
+[`venia-concept`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept
+[`validate-queries.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/validate-queries.js 
+[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/venia-upward.yml
+[`templates`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/templates
+[`media`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/media
+[`src`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/src

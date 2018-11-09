@@ -7,7 +7,7 @@ In its current state, the theme contains examples for Product Details and Catego
 
 ## Getting started
 
-* [Directory structure][] - an overview of the project directory structure
+* [Project structure][] - an overview of the project directory structure
 * [Venia theme setup][] - instructions for setting up a development environment
 * [Simple REST checkout flow][] - a walkthrough of how Venia handles a simple checkout
 
@@ -19,7 +19,7 @@ Visit the [`venia-pwa-concept`][] package in the PWA Studio repository to contri
 [PWA Buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
 
-[Directory structure]: {{site.baseurl}}{% link venia-pwa-concept/directory-structure/index.md %}
+[Project structure]: {{site.baseurl}}{% link venia-pwa-concept/directory-structure/index.md %}
 [Venia theme setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
 [Simple REST checkout flow]: {{site.baseurl}}{% link venia-pwa-concept/simple-rest-checkout/index.md %}
 
