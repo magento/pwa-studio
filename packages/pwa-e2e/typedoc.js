@@ -6,5 +6,5 @@ module.exports = {
     mode: 'file',
     includeDeclarations: true,
     name: 'Megento PWA testing framework documentation',
-    excludeExternals: true,
+    excludeExternals: true
 };
