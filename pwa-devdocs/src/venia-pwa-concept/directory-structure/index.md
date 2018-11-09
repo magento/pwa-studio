@@ -59,7 +59,7 @@ action creator
 : As its name suggests, an action creator is a function that returns an **action** object.
 
 action
-: An action object is a JavaScript object that contains information about the activity being performed. 
+: An action object is a JavaScript object that contains information about the activity being performed.
   It is used by [reducers][] to update the application state through the [Store][].
 
 For more information on actions, see the [official documentation for Redux actions][].
@@ -94,7 +94,7 @@ For example, the styles defined in `Footer/footer.css` are applied only to the c
 The `src/reducers` directory contains [Redux][] reducer definitions.
 A reducer updates the application state given the current state and an [action][] object.
 
-Each file in this directory contains a reducer that manages a specific part of the application state.  
+Each file in this directory contains a reducer that manages a specific part of the application state.
 
 Reducers are written as pure functions.
 This means that when it is given the same set of arguments, it will return the same results.

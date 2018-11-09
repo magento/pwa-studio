@@ -1,104 +1,70 @@
-import MagentoRouter from '../Router';
 import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router-dom';
-import resolveUnknownRoute from '../resolveUnknownRoute';
-import fetchRootComponent from '../fetchRootComponent';
+
+import MagentoRouter, { Consumer as RouteConsumer } from '../Router';
 
 configure({ adapter: new Adapter() });
 
-jest.mock('../fetchRootComponent', () => jest.fn());
-jest.mock('../resolveUnknownRoute');
+const apiBase = 'https://store.com';
 
-const mockUnknownRouteResolverOnce = () =>
-    resolveUnknownRoute.mockReturnValueOnce(
-        Promise.resolve({
-            rootChunkID: 0,
-            rootModuleID: 1,
-            matched: true,
-            id: 1
-        })
-    );
+const initialEntries = ['/some-product.html'];
+const routerProps = { initialEntries };
 
-const mockFetchRootComponentOnce = Component =>
-    fetchRootComponent.mockReturnValueOnce(Promise.resolve(Component));
-
-test('Only rendered route is a catch-all', () => {
+test('renders a single, catch-all route', () => {
     const routesWrapper = shallow(
-        <MagentoRouter
-            using={MemoryRouter}
-            apiBase="https://store.com"
-            __tmp_webpack_public_path__="https://store.com/pub"
-        />
+        <MagentoRouter using={MemoryRouter} apiBase={apiBase} />
     ).find('Route');
     expect(routesWrapper.length).toBe(1);
     expect(routesWrapper.prop('path')).toBeUndefined();
 });
 
-test('Renders component for matching route', cb => {
-    mockUnknownRouteResolverOnce();
-    const RouteComponent = () => <div>Route Component</div>;
-    mockFetchRootComponentOnce(RouteComponent);
-    const wrapper = mount(
-        <MagentoRouter
-            using={MemoryRouter}
-            routerProps={{
-                initialEntries: ['/some-product.html']
-            }}
-            apiBase="https://store.com"
-            __tmp_webpack_public_path__="https://store.com/pub"
-        />
+test('passes `config` and route props to context provider', () => {
+    const fn = jest.fn();
+    const props = { apiBase, using: MemoryRouter };
+
+    // we need to test context consumer, so we can't shallow render
+    mount(
+        <MagentoRouter {...props}>
+            <RouteConsumer>{fn}</RouteConsumer>
+        </MagentoRouter>
     );
 
-    process.nextTick(() => {
-        wrapper.update();
-        expect(wrapper.text()).toBe('Route Component');
-        cb();
-    });
+    expect(fn).toHaveBeenCalledWith(
+        expect.objectContaining({
+            apiBase,
+            history: expect.anything(), // from Route
+            location: expect.anything(), // from Route
+            match: expect.anything() // from Route
+        })
+    );
 });
 
-test('Renders loading content before first route is resolved', () => {
-    mockUnknownRouteResolverOnce();
-    const RouteComponent = () => <div>Route Component</div>;
-    mockFetchRootComponentOnce(RouteComponent);
-    const wrapper = mount(
-        <MagentoRouter
-            using={MemoryRouter}
-            routerProps={{
-                initialEntries: ['/some-product.html']
-            }}
-            apiBase="https://store.com"
-            __tmp_webpack_public_path__="https://store.com/pub"
-        />
-    );
-    expect(wrapper.text()).toBe('Loading');
-});
+test('passes `routerProps` to router, not context provider', () => {
+    const fn = jest.fn();
+    const props = { apiBase, routerProps, using: MemoryRouter };
 
-test('On route change, fetches and renders new route', cb => {
-    mockUnknownRouteResolverOnce();
-    const RouteComponent = () => <div>Route Component</div>;
-    mockFetchRootComponentOnce(RouteComponent);
+    // we need to test context consumer, so we can't shallow render
     const wrapper = mount(
-        <MagentoRouter
-            using={MemoryRouter}
-            routerProps={{
-                initialEntries: ['/some-product.html']
-            }}
-            apiBase="https://store.com"
-            __tmp_webpack_public_path__="https://store.com/pub"
-        />
+        <MagentoRouter {...props}>
+            <RouteConsumer>{fn}</RouteConsumer>
+        </MagentoRouter>
     );
 
-    mockUnknownRouteResolverOnce();
-    const NewPage = () => <div>New Page</div>;
-    mockFetchRootComponentOnce(NewPage);
-    const { history } = wrapper.find('Router').props();
-    history.push('/another-route.html');
-
-    process.nextTick(() => {
-        wrapper.update();
-        expect(wrapper.text()).toBe('New Page');
-        cb();
-    });
+    expect(fn).toHaveBeenCalledWith(
+        expect.not.objectContaining({
+            initialEntries: expect.anything()
+        })
+    );
+    expect(wrapper.find('Router').instance().props).toEqual(
+        expect.objectContaining({})
+    );
+    expect(fn).toHaveBeenCalledWith(
+        expect.objectContaining({
+            history: expect.objectContaining({
+                length: initialEntries.length
+            })
+        })
+    );
 });
