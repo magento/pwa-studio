@@ -7,12 +7,10 @@ import defaultClasses from './kebab.css';
 class Kebab extends Component {
     render() {
         const { classes, isOpen, children, ...restProps } = this.props;
-        const toggleClass = isOpen
-            ? classes.dropdown_active
-            : classes.dropdown;
+        const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
 
         return (
-            <div {...restProps} className={classes.root} >
+            <div {...restProps} className={classes.root}>
                 <button className={classes.kebab}>
                     <Icon
                         name="more-vertical"

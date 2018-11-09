@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 const classes = {
     root: 'a',
     dropdown: 'b',
-    active: 'c'
+    dropdown_active: 'c'
 };
 
 const item = {
@@ -37,13 +37,12 @@ test('list is inactive when kebab is closed', () => {
 
     let menu = wrapper.find('ul');
     expect(menu.hasClass(classes.dropdown)).toBe(true);
-    expect(menu.hasClass(classes.active)).toBe(false);
+    expect(menu.hasClass(classes.dropdown_active)).toBe(false);
 });
 
 test('list gains "active" class when kebab is open', () => {
     const wrapper = shallow(<Kebab classes={classes} isOpen={true} />).dive();
 
     let menu = wrapper.find('ul');
-    expect(menu.hasClass(classes.dropdown)).toBe(true);
-    expect(menu.hasClass(classes.active)).toBe(true);
+    expect(menu.hasClass(classes.dropdown_active)).toBe(true);
 });

@@ -110,9 +110,7 @@ class MiniCart extends Component {
             <div className={classes.content}>
                 <div className={classes.focusItem}>
                     {itemName}
-                    <div className={classes.price}>
-                        ${itemPrice}
-                    </div>
+                    <div className={classes.price}>${itemPrice}</div>
                 </div>
                 <div className={classes.options}>Choose a Size:</div>
             </div>
