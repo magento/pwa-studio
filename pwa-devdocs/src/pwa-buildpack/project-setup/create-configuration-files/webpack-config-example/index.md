@@ -71,14 +71,14 @@ module.exports = async function(env) {
              new MagentoRootComponentsPlugin(),
              new webpack.NoEmitOnErrorsPlugin(),
              new webpack.EnvironmentPlugin({
-                 NODE_ENV: env.phase,
+                 NODE_ENV: env.mode,
                  SERVICE_WORKER_FILE_NAME: 'sw.js'
              })
          ]
 
     };
 
-    if (env.phase === "development") {
+    if (env.mode === "development") {
         config.devServer = await PWADevServer.configure({
             publicPath: process.env.MAGENTO_BACKEND_PUBLIC_PATH,
             backendDomain: process.env.MAGENTO_BACKEND_URL,
@@ -106,9 +106,9 @@ module.exports = async function(env) {
         );
 
     } else {
-        throw Error('Only "development" mode is currently supported. Please pass "--env.phase development" on the command line.');
+        throw Error('Only "development" mode is currently supported. Please pass "--env.mode development" on the command line.');
     }
-    
+
     return config;
 }
 ```

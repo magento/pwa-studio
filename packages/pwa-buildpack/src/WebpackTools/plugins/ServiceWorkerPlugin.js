@@ -5,7 +5,7 @@ const optionsValidator = require('../../util/options-validator');
 
 class ServiceWorkerPlugin {
     static validateOptions = optionsValidator('ServiceWorkerPlugin', {
-        'env.phase': 'string',
+        'env.mode': 'string',
         serviceWorkerFileName: 'string',
         'paths.output': 'string'
     });
@@ -54,7 +54,7 @@ class ServiceWorkerPlugin {
     }
 
     apply(compiler) {
-        if (this.config.env.phase === 'development') {
+        if (this.config.env.mode === 'development') {
             // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
             if (
                 this.config.enableServiceWorkerDebugging &&
@@ -74,7 +74,7 @@ class ServiceWorkerPlugin {
                 // TODO: (feature) emit a structured { code, severity, resolution } object
                 // on Environment that might throw and might not
                 console.warn(
-                    `Emitting no ServiceWorker in development phase. To enable development phase for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` to the ServiceWorkerPlugin configuration.`
+                    `Emitting no ServiceWorker in development mode. To enable development mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` to the ServiceWorkerPlugin configuration.`
                 );
             }
         } else {

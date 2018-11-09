@@ -2,45 +2,35 @@
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
- * @returns {Promise<{matched: boolean, rootChunkID: number | undefined, rootModuleID: number | undefined, id: number }>}
  */
-let preloadDone = false;
-export default function resolveUnknownRoute(opts) {
-    const { route, apiBase, __tmp_webpack_public_path__ } = opts;
+const numRE = /^\d+$/;
+export default async function resolveUnknownRoute(opts) {
+    const { route, apiBase } = opts;
 
-    function handleResolverResponse(res) {
-        if (!(res && res.type)) {
-            return { matched: false };
-        }
-        return tempGetWebpackChunkData(
-            res.type,
-            __tmp_webpack_public_path__
-        ).then(({ rootChunkID, rootModuleID }) => ({
-            rootChunkID,
-            rootModuleID,
-            id: res.id,
-            matched: true
-        }));
-    }
-
-    if (!preloadDone) {
+    if (!resolveUnknownRoute.preloadDone) {
+        resolveUnknownRoute.preloadDone = true;
         const preloaded = document.getElementById('url-resolver');
         if (preloaded) {
-            const rejectPreload = e =>
-                console.error(
-                    'Unable to read preload!',
-                    preloaded.textContent,
-                    e
-                );
             try {
-                return handleResolverResponse(
-                    JSON.parse(preloaded.textContent)
-                ).then(x => {
-                    preloadDone = true;
-                    return x;
-                }, rejectPreload);
+                const preload = JSON.parse(preloaded.textContent);
+                // UPWARD treats most values as strings, so explicitly cast
+                // numbers if they appear to be numbers
+                if (typeof preload.id === 'string' && numRE.test(preload.id)) {
+                    return {
+                        type: preload.type,
+                        id: Number(preload.id)
+                    };
+                }
+                return preload;
             } catch (e) {
-                rejectPreload(e);
+                // istanbul ignore next: will never happen in test
+                if (process.env.NODE_ENV === 'development') {
+                    console.error(
+                        'Unable to read preload!',
+                        preloaded.textContent,
+                        e
+                    );
+                }
             }
         }
     }
@@ -48,7 +38,7 @@ export default function resolveUnknownRoute(opts) {
     return remotelyResolveRoute({
         route,
         apiBase
-    }).then(handleResolverResponse);
+    });
 }
 
 /**
@@ -120,39 +110,4 @@ function storeURLResolveResult(res, opts) {
     urlResolve = urlResolve ? urlResolve : {};
     urlResolve[opts.route] = res;
     localStorage.setItem('urlResolve', JSON.stringify(urlResolve));
-}
-
-/**
- * @description This is temporary until we have proper support in the backend
- * and the GraphQL API for storing/retrieving the assigned Root Component for a route.
- * For now, we fetch the manifest manually, and just grab the first RootComponent
- * that is compatible with the current pageType
- * @param {"PRODUCT" | "CATEGORY" | "CMS_PAGE"} pageType
- * @returns {Promise<{rootChunkID: number, rootModuleID: number}>}
- */
-function tempGetWebpackChunkData(pageType, webpackPublicPath) {
-    // In dev mode, `webpackPublicPath` may be a fully qualified URL.
-    // In production mode, it may be a pathname, which makes it unsafe
-    // to use as an API base. Normalize it as a full path using a DOM node
-    // as a native URL parser.
-    const parser = document.createElement('a');
-    parser.setAttribute('href', webpackPublicPath);
-    return fetch(new URL('roots-manifest.json', parser.href))
-        .then(res => res.json())
-        .then(manifest => {
-            const firstCompatibleConfig = Object.values(manifest).find(conf => {
-                return conf.pageTypes.some(type => type === pageType);
-            });
-
-            if (!firstCompatibleConfig) {
-                throw new Error(
-                    `Could not find RootComponent for pageType ${pageType}`
-                );
-            }
-
-            return {
-                rootChunkID: firstCompatibleConfig.rootChunkID,
-                rootModuleID: firstCompatibleConfig.rootModuleID
-            };
-        });
 }
