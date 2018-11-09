@@ -1,0 +1,27 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding: 34px 44px 42px 8px;
+}
+
+.root:first-child {
+    padding-top: 40px;
+    padding-bottom: 28px;
+}
+
+.title {
+    display: flex;
+    color: rgb(var(--venia-teal));
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 8px;
+}
+
+.body {
+    font-size: 14px;
+    line-height: 26px;
+    margin: 0 0 0 33px;
+}
+
+.iconContainer {
+    margin: 0px 8px;
+}
