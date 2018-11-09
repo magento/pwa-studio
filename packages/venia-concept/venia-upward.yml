@@ -119,7 +119,7 @@ favicon:
           inline: image/vnd.microsoft.icon
     body:
       file:
-        inline: ./media/favicon.ico
+        inline: ./dist/images/favicon.ico
       encoding: binary
 
 manifest:

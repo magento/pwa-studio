@@ -17,7 +17,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
-    media: path.resolve(__dirname, 'media'),
+    images: path.resolve(__dirname, 'images'),
     templates: path.resolve(__dirname, 'templates'),
     src: path.resolve(__dirname, 'src'),
     output: path.resolve(__dirname, 'dist')
@@ -141,7 +141,7 @@ module.exports = async function() {
             }),
             new CopyWebpackPlugin([
                 {
-                    from: `${themePaths.media}/**/*`,
+                    from: `${themePaths.images}/**/*`,
                     to: themePaths.output,
                     toType: 'dir'
                 }
