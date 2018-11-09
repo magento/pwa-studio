@@ -1,27 +1,6 @@
 workbox.skipWaiting();
 workbox.clientsClaim();
 
-function precacheManifest() {
-    fetch('/roots-manifest.json')
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(json) {
-            let toCache = [];
-            Object.keys(json).forEach(key => {
-                toCache.push(json[key].chunkName);
-            });
-            toCache = toCache.concat([
-                'roots-manifest.json',
-                'favicon.ico',
-                '/'
-            ]);
-            workbox.precaching.precache(toCache);
-        });
-}
-
-precacheManifest();
-
 workbox.routing.registerRoute('/', workbox.strategies.staleWhileRevalidate());
 
 workbox.routing.registerRoute(

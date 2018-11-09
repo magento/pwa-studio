@@ -67,7 +67,6 @@ test('Preload path: resolves directly from preload element', async () => {
     });
 });
 
-
 test('returns NOTFOUND when offline and requested content is not in cache ', async () => {
     navigator.onLine = false;
 
@@ -78,10 +77,7 @@ test('returns NOTFOUND when offline and requested content is not in cache ', asy
         __tmp_webpack_public_path__: 'https://dev-server.com/pub'
     });
 
-    expect(res).toHaveProperty(
-        'id',
-        NotFoundManifest.NotFound.rootChunkID
-    );
+    expect(res).toHaveProperty('id', NotFoundManifest.NotFound.rootChunkID);
 });
 
 test('stores response of urlResolver in cache', async () => {

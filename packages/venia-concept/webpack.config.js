@@ -133,7 +133,8 @@ module.exports = async function() {
                 serviceWorkerFileName,
                 paths: themePaths,
                 injectManifest: true,
-                swPath: {
+                injectManifestConfig: {
+                    include: [/\.js$/],
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }
@@ -151,8 +152,8 @@ module.exports = async function() {
                 cacheGroups: {
                     vendor: {
                         test: new RegExp(
-                        `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
-                    ),
+                            `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
+                        ),
                         name: 'vendor',
                         filename: 'js/vendor.js',
                         chunks: 'all'

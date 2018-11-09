@@ -36,9 +36,9 @@ class ServiceWorkerPlugin {
 
     configureInjectManifest() {
         let injectManifest;
-        if (this.config.swPath) {
+        if (this.config.injectManifestConfig) {
             injectManifest = new WorkboxPlugin.InjectManifest(
-                this.config.swPath
+                this.config.injectManifestConfig
             );
         } else {
             injectManifest = new WorkboxPlugin.InjectManifest({

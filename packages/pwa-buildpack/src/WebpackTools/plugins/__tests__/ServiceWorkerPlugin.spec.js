@@ -136,9 +136,13 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
 });
 
 test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
+    const injectManifestConfig = {
+        swSrc: 'path/to/sw',
+        swDest: 'path/to/dest'
+    };
     const plugin = new ServiceWorkerPlugin({
         env: {
-            phase: 'development'
+            mode: 'development'
         },
         enableServiceWorkerDebugging: true,
         serviceWorkerFileName: 'sw.js',
@@ -146,10 +150,7 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
         paths: {
             output: 'path/to/assets'
         },
-        swPath: {
-            swSrc: 'path/to/sw',
-            swDest: 'path/to/dest'
-        }
+        injectManifestConfig
     });
 
     const fakeCompiler = {};
@@ -161,9 +162,6 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
     plugin.apply(fakeCompiler);
 
     expect(WorkboxPlugin.InjectManifest).toHaveBeenCalledWith(
-        expect.objectContaining({
-            swDest: 'path/to/dest',
-            swSrc: 'path/to/sw'
-        })
+        expect.objectContaining(injectManifestConfig)
     );
 });
