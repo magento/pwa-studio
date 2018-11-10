@@ -45,10 +45,6 @@
     background-color: #eee;
 }
 
-.dropdown.ul:hover {
-    transform: scale(1);
-}
-
 .kebab {
     outline: 0;
     border: none;

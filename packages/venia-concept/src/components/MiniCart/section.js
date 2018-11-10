@@ -23,7 +23,7 @@ class Section extends Component {
         const { classes, onClick, text } = this.props;
 
         return (
-            <li>
+            <li className={classes.menuItem}>
                 <button onClick={onClick}>
                     {icon}
                     <span className={classes.text}>{text}</span>
