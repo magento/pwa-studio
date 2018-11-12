@@ -12,7 +12,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production lerna run --stream build -- -s",
+    "build": "lerna run --stream build -- -s",
     "clean:all": "lerna run clean && lerna clean --yes && rimraf ./node_modules",
     "clean:dist": "lerna run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
@@ -64,7 +64,6 @@
     "chokidar": "^2.0.4",
     "contains-path": "^1.0.0",
     "coveralls": "^3.0.1",
-    "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "danger": "^3.9.0",
     "debug": "^3.1.0",
