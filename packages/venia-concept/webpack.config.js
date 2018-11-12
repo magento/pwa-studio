@@ -11,6 +11,7 @@ const {
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
+const babelEnvDeps = require('webpack-babel-env-deps');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const configureBabel = require('./babel.config.js');
@@ -30,8 +31,8 @@ const libs = [
     'redux'
 ];
 
-module.exports = async function() {
-    const mode = process.env.NODE_ENV || 'development';
+module.exports = async function(env) {
+    const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
 
     const babelOptions = configureBabel(mode);
 
@@ -65,7 +66,11 @@ module.exports = async function() {
                     ]
                 },
                 {
-                    include: [themePaths.src, /node_modules.+\.mjs$/],
+                    include: [
+                        themePaths.src,
+                        /peregrine\/src\//,
+                        babelEnvDeps.include()
+                    ],
                     test: /\.(mjs|js|graphql)$/,
                     use: [
                         {
