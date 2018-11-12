@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { Page } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import ErrorView from 'src/components/ErrorView';
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
-import defaultClasses from './appShell.css';
-
-const renderRoutingError = props => <ErrorView {...props} />;
+import defaultClasses from './page.css';
 
 class AppShell extends Component {
     static propTypes = {
@@ -26,7 +22,7 @@ class AppShell extends Component {
     };
 
     render() {
-        const { app, classes, closeDrawer } = this.props;
+        const { app, classes, closeDrawer, children } = this.props;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
@@ -34,9 +30,7 @@ class AppShell extends Component {
 
         return (
             <div className={className}>
-                <Main isMasked={overlay}>
-                    <Page>{renderRoutingError}</Page>
-                </Main>
+                <Main isMasked={overlay}>{children}</Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />

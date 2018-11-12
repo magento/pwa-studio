@@ -12,10 +12,10 @@ configure({ adapter: new Adapter() });
 jest.mock('../resolveUnknownRoute');
 
 const apiBase = 'https://store.com';
-const children = jest.fn();
+const renderRoutingError = jest.fn();
 const location = { pathname: '/foo.html' };
 
-const props = { apiBase, children, location };
+const props = { apiBase, renderRoutingError, location };
 
 const resolvedRoute = {
     type: 'CMS_PAGE',
@@ -23,7 +23,7 @@ const resolvedRoute = {
 };
 
 beforeEach(() => {
-    children.mockClear();
+    renderRoutingError.mockClear();
 });
 
 afterEach(() => {
@@ -34,8 +34,8 @@ afterEach(() => {
 test('renders `loading` while loading', () => {
     shallow(<MagentoRouteHandler {...props} />);
 
-    expect(children).toHaveBeenCalledTimes(1);
-    expect(children).toHaveBeenNthCalledWith(1, {
+    expect(renderRoutingError).toHaveBeenCalledTimes(1);
+    expect(renderRoutingError).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
         loading: true,
@@ -46,10 +46,10 @@ test('renders `loading` while loading', () => {
 test('renders `null` while loading if `children` is not a function', () => {
     const localProps = { ...props };
 
-    delete localProps.children;
+    delete localProps.renderRoutingError;
     shallow(<MagentoRouteHandler {...localProps} />);
 
-    expect(children).not.toHaveBeenCalled();
+    expect(renderRoutingError).not.toHaveBeenCalled();
 });
 
 test('renders `internalError` if `resolveUnknownRoute` fails', async () => {
@@ -58,14 +58,14 @@ test('renders `internalError` if `resolveUnknownRoute` fails', async () => {
 
     await Promise.resolve(); // resolveUnknownRoute
 
-    expect(children).toHaveBeenCalledTimes(2);
-    expect(children).toHaveBeenNthCalledWith(1, {
+    expect(renderRoutingError).toHaveBeenCalledTimes(2);
+    expect(renderRoutingError).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
         loading: true,
         notFound: false
     });
-    expect(children).toHaveBeenNthCalledWith(2, {
+    expect(renderRoutingError).toHaveBeenNthCalledWith(2, {
         hasError: true,
         internalError: true,
         loading: false,
@@ -79,14 +79,14 @@ test('renders `notFound` if resolved route is not matched', async () => {
 
     await Promise.resolve(); // resolveUnknownRoute
 
-    expect(children).toHaveBeenCalledTimes(2);
-    expect(children).toHaveBeenNthCalledWith(1, {
+    expect(renderRoutingError).toHaveBeenCalledTimes(2);
+    expect(renderRoutingError).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
         loading: true,
         notFound: false
     });
-    expect(children).toHaveBeenNthCalledWith(2, {
+    expect(renderRoutingError).toHaveBeenNthCalledWith(2, {
         hasError: true,
         internalError: false,
         loading: false,
@@ -104,14 +104,14 @@ test('renders `internalError` if `fetchRootComponent` fails', async () => {
     await Promise.resolve(); // fetchRootComponent
 
     expect(wrapper.state('componentMap').size).toBe(1);
-    expect(children).toHaveBeenCalledTimes(2);
-    expect(children).toHaveBeenNthCalledWith(1, {
+    expect(renderRoutingError).toHaveBeenCalledTimes(2);
+    expect(renderRoutingError).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
         loading: true,
         notFound: false
     });
-    expect(children).toHaveBeenNthCalledWith(2, {
+    expect(renderRoutingError).toHaveBeenNthCalledWith(2, {
         hasError: true,
         internalError: true,
         loading: false,
@@ -130,8 +130,8 @@ test('renders RootComponent if `fetchRootComponent` succeeds', async () => {
     await Promise.resolve(); // resolveUnknownRoute
     await Promise.resolve(); // fetchRootComponent
 
-    expect(children).toHaveBeenCalledTimes(1);
-    expect(children).toHaveBeenNthCalledWith(1, {
+    expect(renderRoutingError).toHaveBeenCalledTimes(1);
+    expect(renderRoutingError).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
         loading: true,
@@ -163,7 +163,7 @@ test('skips `fetchRootComponent` if path is known', async () => {
     await Promise.resolve(); // resolveUnknownRoute
     await Promise.resolve(); // fetchRootComponent
 
-    expect(children).toHaveBeenCalledTimes(2);
+    expect(renderRoutingError).toHaveBeenCalledTimes(2);
     expect(fetchRootComponent).toHaveBeenCalledTimes(2);
     expect(wrapper.find(RootComponent)).toHaveLength(1);
 });

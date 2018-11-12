@@ -11,7 +11,7 @@ const mountedInstances = new WeakSet();
 export default class MagentoRouteHandler extends Component {
     static propTypes = {
         apiBase: string.isRequired,
-        children: func,
+        renderRoutingError: func,
         location: shape({
             pathname: string.isRequired
         }).isRequired
@@ -101,13 +101,13 @@ export default class MagentoRouteHandler extends Component {
         }));
     }
 
-    renderChildren(loading) {
+    renderRoutingError(loading) {
         const { props, state } = this;
-        const { children } = props;
+        const { renderRoutingError } = props;
         const { errorState } = state;
 
-        return typeof children === 'function'
-            ? children({ ...errorState, loading })
+        return typeof renderRoutingError === 'function'
+            ? renderRoutingError({ ...errorState, loading })
             : null;
     }
 
@@ -117,15 +117,15 @@ export default class MagentoRouteHandler extends Component {
         const { componentMap, errorState } = state;
 
         // if we have no record of this pathname, we're still loading
-        // and we have no RootComponent, so render children
+        // and we have no RootComponent, so render routing error
         if (!componentMap.has(pathname)) {
-            return this.renderChildren(true);
+            return this.renderRoutingError(true);
         }
 
         // if we're in an error state, we're not loading anymore
-        // but we have no RootComponent, so render children
+        // but we have no RootComponent, so render routing error
         if (errorState.hasError) {
-            return this.renderChildren(false);
+            return this.renderRoutingError(false);
         }
 
         // otherwise we do have a RootComponent, so render it

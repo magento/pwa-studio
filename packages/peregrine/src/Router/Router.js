@@ -1,33 +1,49 @@
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { func, object, string } from 'prop-types';
-
-export const { Consumer, Provider } = createContext();
+import MagentoRouteHandler from './MagentoRouteHandler';
 
 export default class MagentoRouter extends Component {
     static propTypes = {
         apiBase: string.isRequired,
         routerProps: object,
-        using: func // e.g., BrowserRouter, MemoryRouter
+        using: func, // e.g., BrowserRouter, MemoryRouter
+        renderRoutes: func,
+        renderMagentoRoutingError: func
     };
 
     static defaultProps = {
         routerProps: {},
-        using: BrowserRouter
+        using: BrowserRouter,
+        renderRoutes: ({ magentoRoute }) => magentoRoute
     };
 
     render() {
-        const { apiBase, children, routerProps, using: Router } = this.props;
+        const {
+            apiBase,
+            routerProps,
+            using: Router,
+            renderRoutes,
+            renderMagentoRoutingError
+        } = this.props;
 
         return (
             <Router {...routerProps}>
-                <Route>
-                    {routeProps => (
-                        <Provider value={{ apiBase, ...routeProps }}>
-                            {children}
-                        </Provider>
-                    )}
-                </Route>
+                {renderRoutes({
+                    magentoRoute: (
+                        <Route>
+                            {routeProps => (
+                                <MagentoRouteHandler
+                                    {...routeProps}
+                                    apiBase={apiBase}
+                                    renderRoutingError={
+                                        renderMagentoRoutingError
+                                    }
+                                />
+                            )}
+                        </Route>
+                    )
+                })}
             </Router>
         );
     }

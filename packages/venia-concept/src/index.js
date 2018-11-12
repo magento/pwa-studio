@@ -5,13 +5,15 @@ import { ApolloProvider } from 'react-apollo';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Router } from '@magento/peregrine';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Router, Util } from '@magento/peregrine';
+import { Util } from '@magento/peregrine';
 
 import store from 'src/store';
 // import { getUserDetails } from 'src/actions/user';
-import AppShell from 'src/components/AppShell';
 import './index.css';
+import renderRoutes from './renderRoutes';
+import renderRoutingError from './renderRoutingError';
 // store.dispatch(getUserDetails());
 
 const { BrowserPersistence } = Util;
@@ -44,9 +46,11 @@ const apolloClient = new ApolloClient({
 ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
-            <Router apiBase={apiBase}>
-                <AppShell />
-            </Router>
+            <Router
+                apiBase={apiBase}
+                renderRoutes={renderRoutes}
+                renderMagentoRoutingError={renderRoutingError}
+            />
         </ReduxProvider>
     </ApolloProvider>,
     document.getElementById('root')
