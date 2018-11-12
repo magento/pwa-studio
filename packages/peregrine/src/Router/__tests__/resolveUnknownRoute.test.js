@@ -59,7 +59,7 @@ test('Preload path: resolves directly from preload element', async () => {
         '<script type="application/json" id="url-resolver">{ "type": "PRODUCT", "id": "VA-123" }</script>';
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
-        apiBase: 'https://store.com'
+        apiBase: 'https://example.com'
     });
     expect(res).toMatchObject({
         type: 'PRODUCT',
