@@ -1,0 +1,5 @@
+.eslintrc.js
+.storybook
+jest.config.js
+/{dist,src}/**/__{docs,helpers,mocks,stories,tests}__/**
+/scripts
