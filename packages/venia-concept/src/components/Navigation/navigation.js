@@ -1,75 +1,101 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React, { PureComponent } from 'react';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import SignIn from 'src/components/SignIn';
-import CreateAccount from 'src/components/CreateAccount';
-import Tile from './tile';
-import defaultClasses from './navigation.css';
-import NavHeader from './navHeader';
 import Button from 'src/components/Button';
+import CreateAccount from 'src/components/CreateAccount';
 import Icon from 'src/components/Icon';
+import SignIn from 'src/components/SignIn';
+import CategoryTree from './categoryTree';
+import NavHeader from './navHeader';
+import defaultClasses from './navigation.css';
 
-const CATEGORIES = [
-    'dresses',
-    'tops',
-    'bottoms',
-    'skirts',
-    'swim',
-    'outerwear',
-    'shoes',
-    'jewelry',
-    'accessories'
-];
-
-const tiles = CATEGORIES.map(category => (
-    <Tile key={category} text={category} />
-));
-
-class Navigation extends Component {
+class Navigation extends PureComponent {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            accountDrawer: PropTypes.string,
-            userInfo: PropTypes.string,
-            signInClosed: PropTypes.string,
-            signInOpen: PropTypes.string,
-            header: PropTypes.string,
-            title: PropTypes.string,
-            tiles: PropTypes.string,
-            open: PropTypes.string,
-            closed: PropTypes.string,
-            bottomDrawer: PropTypes.string
+        classes: shape({
+            authBar: string,
+            body: string,
+            createAccount_closed: string,
+            createAccount_open: string,
+            footer: string,
+            header: string,
+            open: string,
+            root: string,
+            root_open: string,
+            signIn_closed: string,
+            signIn_open: string,
+            title: string,
+            userAvatar: string,
+            userChip: string,
+            userEmail: string,
+            userInfo: string,
+            userMore: string,
+            userName: string
         }),
-        isOpen: PropTypes.bool,
-        isSignedIn: PropTypes.bool,
-        signInError: PropTypes.object,
-        firstname: PropTypes.string,
-        lastname: PropTypes.string,
-        email: PropTypes.string
+        firstname: string,
+        getAllCategories: func.isRequired,
+        email: string,
+        isOpen: bool,
+        isSignedIn: bool,
+        lastname: string,
+        signInError: object
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (!state.rootNodeId && props.rootCategoryId) {
+            return {
+                ...state,
+                rootNodeId: props.rootCategoryId
+            };
+        }
+
+        return state;
+    }
+
+    componentDidMount() {
+        this.props.getAllCategories();
+    }
 
     state = {
-        isSignInOpen: false
+        isCreateAccountOpen: false,
+        isSignInOpen: false,
+        rootNodeId: null
     };
 
-    get bottomDrawer() {
+    get categoryTree() {
+        const { props, setRootNodeId, state } = this;
+        const { rootNodeId } = state;
+        const { categories, closeDrawer } = props;
+
+        return rootNodeId ? (
+            <CategoryTree
+                nodes={categories}
+                rootNodeId={rootNodeId}
+                onNavigate={closeDrawer}
+                updateRootNodeId={setRootNodeId}
+            />
+        ) : null;
+    }
+
+    get footer() {
         const { classes, firstname, lastname, email } = this.props;
 
         return !this.props.isSignedIn ? (
-            <Button onClick={this.showSignInForm}>Sign In</Button>
+            <div className={classes.authBar}>
+                <Button onClick={this.showSignInForm}>Sign In</Button>
+            </div>
         ) : (
-            <div className={classes.accountDrawer}>
-                <Icon name="user" />
-                <div className={classes.userInfo}>
-                    <p>
-                        {firstname} {lastname}
-                    </p>
-                    <p>{email}</p>
+            <div className={classes.userChip}>
+                <div className={classes.userAvatar}>
+                    <Icon name="user" />
                 </div>
-                <button>
+                <div className={classes.userInfo}>
+                    <p className={classes.userName}>
+                        {`${firstname} ${lastname}`}
+                    </p>
+                    <p className={classes.userEmail}>{email}</p>
+                </div>
+                <button className={classes.userMore}>
                     <Icon name="chevron-up" />
                 </button>
             </div>
@@ -77,14 +103,13 @@ class Navigation extends Component {
     }
 
     get signInForm() {
-        const { classes } = this.props;
-        const className =
-            !this.state.isSignInOpen || this.props.isSignedIn
-                ? classes.signInClosed
-                : classes.signInOpen;
+        const { isSignInOpen } = this.state;
+        const { classes, isSignedIn } = this.props;
+        const isOpen = !isSignedIn && isSignInOpen;
+        const className = isOpen ? classes.signIn_open : classes.signIn_closed;
+
         return (
-            <div className={`${className} ${classes.signInForm}`}>
-                <NavHeader onBack={this.hideSignInForm} title={'My Account'} />
+            <div className={className}>
                 <SignIn
                     showCreateAccountForm={this.setCreateAccountForm}
                     setDefaultUsername={this.setDefaultUsername}
@@ -103,13 +128,9 @@ class Navigation extends Component {
         Once the create account button is dirtied, always render the CreateAccount
         Component to show animation.
         */
-        this.createAccount = (className, classes) => {
+        this.createAccount = className => {
             return (
-                <div className={`${className} ${classes.signInForm}`}>
-                    <NavHeader
-                        onBack={this.hideCreateAccountForm}
-                        title={'Create Account'}
-                    />
+                <div className={className}>
                     <CreateAccount
                         defaultUsername={this.state.defaultUsername}
                     />
@@ -120,53 +141,99 @@ class Navigation extends Component {
     };
 
     get createAccountForm() {
-        const { classes } = this.props;
-        const className =
-            !this.state.isCreateAccountOpen || this.props.isSignedIn
-                ? classes.createAccountClosed
-                : classes.createAccountOpen;
+        const { isCreateAccountOpen } = this.state;
+        const { classes, isSignedIn } = this.props;
+        const isOpen = !isSignedIn && isCreateAccountOpen;
+        const className = isOpen
+            ? classes.createAccount_open
+            : classes.createAccount_closed;
 
-        return this.createAccount(className, classes);
+        return this.createAccount(className);
     }
 
     showSignInForm = () => {
-        this.setState({
+        this.setState(() => ({
             isSignInOpen: true
-        });
+        }));
     };
 
     hideSignInForm = () => {
-        this.setState({
+        this.setState(() => ({
             isSignInOpen: false
-        });
+        }));
     };
 
-    setDefaultUsername = newDefaultUsername => {
-        this.setState({ defaultUsername: newDefaultUsername });
+    setDefaultUsername = nextDefaultUsername => {
+        this.setState(() => ({ defaultUsername: nextDefaultUsername }));
     };
 
     showCreateAccountForm = () => {
-        this.setState({
+        this.setState(() => ({
             isCreateAccountOpen: true
-        });
+        }));
     };
 
     hideCreateAccountForm = () => {
-        this.setState({
+        this.setState(() => ({
             isCreateAccountOpen: false
-        });
+        }));
+    };
+
+    setRootNodeId = rootNodeId => {
+        this.setState(() => ({ rootNodeId }));
+    };
+
+    setRootNodeIdToParent = () => {
+        const { categories } = this.props;
+
+        this.setState(({ rootNodeId }) => ({
+            rootNodeId: categories[rootNodeId].parentId
+        }));
     };
 
     render() {
-        const { classes, isOpen } = this.props;
-        const className = isOpen ? classes.open : classes.closed;
-        const { bottomDrawer, signInForm, createAccountForm } = this;
+        const {
+            categoryTree,
+            createAccountForm,
+            footer,
+            hideCreateAccountForm,
+            hideSignInForm,
+            setRootNodeIdToParent,
+            signInForm,
+            props,
+            state
+        } = this;
+
+        const { isCreateAccountOpen, isSignInOpen, rootNodeId } = state;
+        const { classes, closeDrawer, isOpen, rootCategoryId } = props;
+        const className = isOpen ? classes.root_open : classes.root;
+        const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
+
+        const handleBack = isCreateAccountOpen
+            ? hideCreateAccountForm
+            : isSignInOpen
+            ? hideSignInForm
+            : isTopLevel
+            ? closeDrawer
+            : setRootNodeIdToParent;
+
+        const title = isCreateAccountOpen
+            ? 'Create Account'
+            : isSignInOpen
+            ? 'Sign In'
+            : 'Main Menu';
 
         return (
             <aside className={className}>
-                <NavHeader title={'Main Menu'} />
-                <nav className={classes.tiles}>{tiles}</nav>
-                <div className={classes.bottomDrawer}>{bottomDrawer}</div>
+                <div className={classes.header}>
+                    <NavHeader
+                        title={title}
+                        onBack={handleBack}
+                        onClose={closeDrawer}
+                    />
+                </div>
+                <nav className={classes.body}>{categoryTree}</nav>
+                <div className={classes.footer}>{footer}</div>
                 {signInForm}
                 {createAccountForm}
             </aside>
@@ -174,19 +241,4 @@ class Navigation extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        isSignedIn: state.user.isSignedIn,
-        firstname: state.user.firstname,
-        lastname: state.user.lastname,
-        email: state.user.email
-    };
-};
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        null
-    )
-)(Navigation);
+export default classify(defaultClasses)(Navigation);

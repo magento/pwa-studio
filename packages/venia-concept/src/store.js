@@ -1,16 +1,8 @@
-import bootstrap from '@magento/peregrine';
+import { createStore } from 'redux';
 
-import appReducer from 'src/reducers/app';
-import directoryReducer from 'src/reducers/directory';
+import enhancer from 'src/middleware';
+import reducer from 'src/reducers';
 
-const { Provider, store } = bootstrap({
-    apiBase: new URL('/graphql', location.origin).toString(),
-    __tmp_webpack_public_path__: __webpack_public_path__
-});
+import composeEnhancers from './composeEnhancers';
 
-const { addReducer, dispatch, getState } = store;
-
-addReducer('app', appReducer);
-addReducer('directory', directoryReducer);
-
-export { Provider, addReducer, dispatch, getState };
+export default createStore(reducer, composeEnhancers(enhancer));

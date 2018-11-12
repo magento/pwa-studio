@@ -157,7 +157,7 @@ Under the `packages/venia-concept` directory, copy `.env.dist` into a new `.env`
 cd /Users/magedev/pwa-studio/packages/venia-concept
 ```
 ``` sh
-cp example.env .env
+cp .env.dist .env
 ```
 
 In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of your Magento development store.
@@ -168,6 +168,14 @@ MAGENTO_BACKEND_URL="https://magento.test/"
 ```
 
 ## Step 5. Start the server
+
+### Build artifacts
+
+Before you run the server, generate build artifacts for Venia using the following command in the **project root directory**:
+
+`npm run build`
+
+### Run the server
 
 Use any of the following commands from the **project root directory** to start the server:
 

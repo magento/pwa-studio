@@ -1,11 +1,11 @@
-require('dotenv').config();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+const validEnv = require('./validate-environment')(process.env);
+
 const magentoDomainVarName = 'MAGENTO_BACKEND_URL';
-const magentoDomain = process.env[magentoDomainVarName];
+const magentoDomain = validEnv[magentoDomainVarName];
 if (!magentoDomain) {
-    console.error(
-        `No ${magentoDomainVarName} environment variable specified. Have you created a .env file?`
-    );
+    console.error(`No ${magentoDomainVarName} environment variable specified.`);
+
     process.exit(1);
 }
 
@@ -66,6 +66,12 @@ async function getLinterConfig() {
 }
 
 async function validateQueries() {
+    // not using validEnv.isProduction here because envalid sets NODE_ENV
+    // to production by default, which we do want to preserve for build opts
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`NODE_ENV=production, skipping query validation`);
+        process.exit(0);
+    }
     const linterConfig = await getLinterConfig();
     const CLIEngine = require('eslint').CLIEngine;
     const cli = new CLIEngine(linterConfig);

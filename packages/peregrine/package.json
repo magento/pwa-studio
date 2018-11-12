@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "2.0.0-rc2.0.5",
+  "version": "2.0.0-rc.5",
   "publishConfig": {
     "access": "public"
   },
@@ -8,17 +8,17 @@
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
+  "module": "src/index.js",
+  "jsnext:main": "src/index.js",
   "repository": "github:magento-research/pwa-studio",
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "scripts": {
-    "build": "babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
-    "clean": "rimraf dist",
+    "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "clean": "npx rimraf dist",
+    "prepublishOnly": "npx rimraf dist && npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "watch": "npm run -s build -- --watch"
@@ -36,11 +36,11 @@
     "@storybook/react": "^3.4.2",
     "babel-cli": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
-    "redux": "^4.0.0",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-redux": "^5.1.0",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
     "rimraf": "^2.6.2"
   }
 }

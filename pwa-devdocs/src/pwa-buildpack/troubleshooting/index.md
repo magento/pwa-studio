@@ -27,7 +27,7 @@ Paste the result console output into the issue. Thank you!
 
 **Validation errors when running developer mode**{:#validation-errors}
 
-Make sure you copied over the `example.env` file into a new `.env` file in the `packages/venia-concept` directory.
+Make sure you copied over the `.env.dist` file into a new `.env` file in the `packages/venia-concept` directory.
 This file should specify variables for your local development environment.
 
 **Venia queries to GraphQL produce validation errors**{:#graphql-validation-errors}
@@ -38,7 +38,7 @@ Make sure your Magento instance is up to date with the latest from Magento 2.3 d
 To test whether your queries are up to date, run the following command in the project root:
 
 ``` sh
-npm run validate:venia:gql
+npm run validate-queries
 ```
 
 **Browser displays "Cannot proxy to " error and the console displays `ENOTFOUND`**{:#cannot-proxy}
