@@ -14,6 +14,7 @@ import userReducer from 'src/reducers/user';
 import cartReducer from 'src/reducers/cart';
 import checkoutReducer from 'src/reducers/checkout';
 import directoryReducer from 'src/reducers/directory';
+import purchaseHistoryReducer from 'src/reducers/purchaseHistory';
 
 import './index.css';
 
@@ -31,6 +32,7 @@ store.addReducer('user', userReducer);
 store.addReducer('cart', cartReducer);
 store.addReducer('checkout', checkoutReducer);
 store.addReducer('directory', directoryReducer);
+store.addReducer('purchaseHistory', purchaseHistoryReducer);
 
 store.dispatch(getUserDetails());
 

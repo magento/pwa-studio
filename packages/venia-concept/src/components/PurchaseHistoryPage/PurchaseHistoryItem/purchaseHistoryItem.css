@@ -3,11 +3,6 @@
     align-items: center;
     position: relative;
     padding: 10px 34px 10px 0px;
-    border-bottom: 1px solid #ececed;
-}
-
-.body:first-child {
-    border-top: 1px solid #ececed;
 }
 
 .textBlock {
