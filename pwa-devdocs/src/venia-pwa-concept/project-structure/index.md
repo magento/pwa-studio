@@ -99,7 +99,7 @@ For more information see [CSS modules][].
 
 ### `src/middleware`
 
-The `src/middleware` directory contains a component that logs actions and state to the browser console.
+The `src/middleware` directory contains a Redux middleware for development that logs dispatched actions and updated state to the browser console.
 This functionality adheres to the [Redux middleware pattern][].
 
 ### `src/reducers`
