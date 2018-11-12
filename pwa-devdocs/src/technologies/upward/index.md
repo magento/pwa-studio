@@ -21,7 +21,7 @@ The main purpose of an UPWARD server is to do the following:
 An UPWARD server sits between a PWA and its resources, such as Magento.
 It acts as the backend service for a PWA frontend that is able to proxy requests to connected services or serve static files.
 
-![UPWARD server diagram]({{site.basurl}}{% link technologies/upward/images/upward-server-diagram.png %})
+![UPWARD server diagram]({{site.baseurl}}{% link technologies/upward/images/upward-server-diagram.png %})
 
 See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server. 
 ### UPWARD definition file
