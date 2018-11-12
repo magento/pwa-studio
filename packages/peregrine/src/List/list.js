@@ -16,7 +16,10 @@ class List extends Component {
             .isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
         onSelectionChange: PropTypes.func,
-        selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
+        selectionModel: PropTypes.oneOf(['checkbox', 'radio']),
+        isLoading: PropTypes.bool,
+        renderLoadingState: PropTypes.func,
+        renderEmptyState: PropTypes.func
     };
 
     static defaultProps = {
@@ -25,7 +28,8 @@ class List extends Component {
         items: [],
         render: 'div',
         renderItem: 'div',
-        selectionModel: 'radio'
+        selectionModel: 'radio',
+        isLoading: false
     };
 
     render() {
@@ -37,8 +41,19 @@ class List extends Component {
             renderItem,
             onSelectionChange,
             selectionModel,
+            isLoading,
+            renderLoadingState,
+            renderEmptyState,
             ...restProps
         } = this.props;
+
+        if (isLoading && renderLoadingState) {
+            return renderLoadingState();
+        }
+
+        if (items && items.length === 0 && renderEmptyState) {
+            return renderEmptyState();
+        }
 
         const customProps = {
             classes,

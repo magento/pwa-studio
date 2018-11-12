@@ -128,3 +128,21 @@ test('does not throw if `onSelectionChange` is not provided', () => {
     const cb = () => wrapper.instance().handleSelectionChange(selection);
     expect(cb).not.toThrow();
 });
+
+test('renders loading state when list items are loading', () => {
+    const renderLoadingState = jest.fn();
+    const props = { items, isLoading: true, renderLoadingState };
+
+    shallow(<List {...props} />);
+
+    expect(renderLoadingState).toBeCalled();
+});
+
+test('renders empty state when items array is empty', () => {
+    const renderEmptyState = jest.fn();
+    const props = { items: [], renderEmptyState };
+
+    shallow(<List {...props} />);
+
+    expect(renderEmptyState).toBeCalled();
+});
