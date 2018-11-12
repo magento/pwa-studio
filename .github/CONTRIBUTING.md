@@ -13,6 +13,10 @@ To contribute to this repository, start by forking the [official repository] and
 -   To help with reviews, your PR should only create/revise a single feature or fix a single issue.
 -   If your PR fixes a bug, please provide a step-by-step description of how to reproduce the bug.
 -   If your PR addresses an existing issue, please reference that issue in the title or description.
+-   If your PR adds a feature with a public API, please add or update documentation in the README for the relevant package.
+
+**Note:**
+_As a developer, please write developer-facing documentation in README or other Markdown files in the relevant package files. Do not add documentation directly to the `pwa-devdocs` folder. That folder is maintained by the Technical Writing team, who will revise and proofread your documentation and migrate it to the devdocs site._
 
 ## Contribution process
 

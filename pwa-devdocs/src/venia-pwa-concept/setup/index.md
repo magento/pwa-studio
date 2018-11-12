@@ -169,6 +169,14 @@ MAGENTO_BACKEND_URL="https://magento.test/"
 
 ## Step 5. Start the server
 
+### Build artifacts
+
+Before you run the server, generate build artifacts for Venia using the following command in the **project root directory**:
+
+`npm run build`
+
+### Run the server
+
 Use any of the following commands from the **project root directory** to start the server:
 
 `npm run watch:venia`

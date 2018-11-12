@@ -135,11 +135,6 @@ which reads an ini-formatted file to set the environment.
     # the locale must be `en_US` for now
 
     SERVICE_WORKER_FILE_NAME="sw.js"
-
-    # TODO: This env var can override the hardcoded product media path, which we
-    # need to hardcode due to https://github.com/magento/graphql-ce/issues/88
-    # By default it is /media/catalog/product/
-    # MAGENTO_BACKEND_PRODUCT_MEDIA_PATH=/media/catalog/product/
     ```
 
 ### V. Install and Configure Developer Tools
