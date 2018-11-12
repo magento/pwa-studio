@@ -3,4 +3,6 @@ import { createStore } from 'redux';
 import enhancer from 'src/middleware';
 import reducer from 'src/reducers';
 
-export default createStore(reducer, enhancer);
+import composeEnhancers from './composeEnhancers';
+
+export default createStore(reducer, composeEnhancers(enhancer));

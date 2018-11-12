@@ -35,8 +35,8 @@ class MagentoRootComponentsPlugin {
         // Create a list of absolute paths for root components. When a
         // relative path is found, resolve it from the root context of
         // the webpack build
-        const rootComponentsDirsAbs = rootComponentsDirs.map(
-            dir => (isAbsolute(dir) ? dir : join(context, dir))
+        const rootComponentsDirsAbs = rootComponentsDirs.map(dir =>
+            isAbsolute(dir) ? dir : join(context, dir)
         );
         const rootComponentImporters = await rootComponentsDirsAbs.reduce(
             async (importersPromise, rootComponentDir) => {

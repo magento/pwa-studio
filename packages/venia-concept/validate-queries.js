@@ -66,6 +66,12 @@ async function getLinterConfig() {
 }
 
 async function validateQueries() {
+    // not using validEnv.isProduction here because envalid sets NODE_ENV
+    // to production by default, which we do want to preserve for build opts
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`NODE_ENV=production, skipping query validation`);
+        process.exit(0);
+    }
     const linterConfig = await getLinterConfig();
     const CLIEngine = require('eslint').CLIEngine;
     const cli = new CLIEngine(linterConfig);
