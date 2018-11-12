@@ -24,7 +24,7 @@ The following is a list of important files in the root directory of the `venia-c
 : A node script that validates the `.env` environment file.
 
 [`validate-queries.js`][]
-: A node script that validates the GraphQL endpoint of the Magento backend.
+: validates that all `.graphql` query files in the project are valid for the GraphQL schema of the Magento backend instance specified in `.env`.
 
 [`venia-upward.yml`][]
 : The [UPWARD server specification][] for the Venia PWA storefront.
