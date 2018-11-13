@@ -11,6 +11,7 @@ import {
     signIn,
     getUserDetails,
     createAccount,
+    handleCreateAccount,
     assignGuestCartToCustomer
 } from '../asyncActions';
 
@@ -60,6 +61,10 @@ test('getUserDetails() returns a thunk', () => {
 
 test('createAccount() returns a thunk', () => {
     expect(createAccount()).toBeInstanceOf(Function);
+});
+
+test('handleCreateAccount() returns a thunk', () => {
+    expect(handleCreateAccount()).toBeInstanceOf(Function);
 });
 
 test('assignGuestCartToCustomer() returns a thunk', () => {
@@ -131,30 +136,34 @@ test('getUserDetails thunk makes request to get customer details if user is sign
     expect(firstRequest[1]).toHaveProperty('method', 'GET');
 });
 
-test('createAccount thunk dispatches resetCreateAccountError', async () => {
-    await createAccount(accountInfo)(...thunkArgs);
+test('handleCreateAccount thunk dispatches resetCreateAccountError', async () => {
+    await handleCreateAccount(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenCalledWith(
         actions.resetCreateAccountError.request()
     );
 });
 
-test('createAccount thunk dispatches signIn', async () => {
-    await createAccount(accountInfo)(...thunkArgs);
+test('handleCreateAccount thunk dispatches signIn', async () => {
+    await handleCreateAccount(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
 });
 
-test('createAccount thunk dispatches assignGuestCartToCustomer', async () => {
-    await createAccount(accountInfo)(...thunkArgs);
+test('handleCreateAccount thunk dispatches assignGuestCartToCustomer', async () => {
+    await handleCreateAccount(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
 });
 
-test('createAccount thunk dispatches createAccountError on invalid account info', async () => {
+test('handleCreateAccount thunk dispatches createAccountError on invalid account info', async () => {
     const error = new TypeError('ERROR');
     request.mockRejectedValueOnce(error);
-    await createAccount({})(...thunkArgs);
+
+    try {
+        await handleCreateAccount({})(...thunkArgs);
+    } catch (e) {}
+
     expect(dispatch).toHaveBeenNthCalledWith(
         2,
         actions.createAccountError.receive(error)
