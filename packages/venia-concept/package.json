@@ -9,6 +9,9 @@
   "author": "Magento Commerce",
   "main": "src/index.js",
   "repository": "github:magento-research/pwa-studio",
+  "bin": {
+    "venia": "./bin/venia"
+  },
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
@@ -25,11 +28,6 @@
   },
   "dependencies": {
     "@magento/upward-js": "^2.0.0-rc.5",
-    "chalk": "^2.4.1",
-    "dotenv": "^6.1.0",
-    "envalid": "^4.1.4"
-  },
-  "devDependencies": {
     "@magento/eslint-config": "^1.2.3",
     "@magento/peregrine": "^2.0.0-rc.5",
     "@magento/pwa-buildpack": "^2.0.0-rc.5",
@@ -56,6 +54,9 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
+    "chalk": "^2.4.1",
+    "dotenv": "^6.1.0",
+    "envalid": "^4.1.4",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "eslint": "^5.2.0",
