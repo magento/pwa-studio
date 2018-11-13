@@ -3,6 +3,9 @@ entries:
   - label: Overview
     url: /technologies/overview/
 
+  - label: Magento theme vs PWA storefront
+    url: /technologies/theme-vs-storefront/
+
   - label: Tools and libraries
     url: /technologies/tools-libraries/
 
