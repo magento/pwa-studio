@@ -10,7 +10,7 @@
   "main": "src/index.js",
   "repository": "github:magento-research/pwa-studio",
   "bin": {
-    "venia": "./bin/venia"
+    "venia": "./bin/venia.js"
   },
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
