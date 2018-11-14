@@ -155,13 +155,26 @@ test('submitInput thunk throws if there is no guest cart', async () => {
     );
 });
 
-test('submitInput thunk throws if payload is invalid', async () => {
-    const payload = { type: 'address', formValues: {} };
+test('submitInput thunk dispatches action on incorrect state(region code)', async () => {
+    const invalidState = 'any_text';
+    const incorrectAddressMessage = `Region "${invalidState}" is not an available region.`;
+    const incorrectAddressPayload = { incorrectAddressMessage };
+    const submitPayload = {
+        type: 'address',
+        formValues: { region_code: invalidState }
+    };
 
-    await expect(submitInput(payload)(...thunkArgs)).rejects.toThrow();
-    expect(dispatch).toHaveBeenNthCalledWith(1, actions.input.submit(payload));
+    await submitInput(submitPayload)(...thunkArgs);
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.input.submit(submitPayload)
+    );
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenNthCalledWith(
+        3,
+        actions.input.incorrectAddress(incorrectAddressPayload)
+    );
+    expect(dispatch).toHaveBeenCalledTimes(3);
 });
 
 test('submitOrder() returns a thunk', () => {

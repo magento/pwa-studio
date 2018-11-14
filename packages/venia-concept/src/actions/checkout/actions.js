@@ -10,7 +10,8 @@ const actionMap = {
     INPUT: {
         SUBMIT: null,
         ACCEPT: null,
-        REJECT: null
+        REJECT: null,
+        INCORRECT_ADDRESS: null
     },
     ORDER: {
         SUBMIT: null,

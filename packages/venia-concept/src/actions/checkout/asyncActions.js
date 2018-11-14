@@ -43,7 +43,12 @@ export const submitInput = payload =>
         try {
             address = formatAddress(address, countries);
         } catch (error) {
-            throw error;
+            dispatch(
+                actions.input.incorrectAddress({
+                    incorrectAddressMessage: error.message
+                })
+            );
+            return null;
         }
 
         try {
@@ -131,7 +136,6 @@ export function formatAddress(address = {}, countries = []) {
     if (!country) {
         throw new Error('Country "US" is not an available country.');
     }
-
     const { region_code } = address;
     const { available_regions: regions } = country;
 
@@ -142,7 +146,7 @@ export function formatAddress(address = {}, countries = []) {
     const region = regions.find(({ code }) => code === region_code);
 
     if (!region) {
-        throw new Error(`Region "${region_code}" is not an available region.`);
+        throw new Error(`State "${region_code}" is not an valid state abbreviation.`);
     }
 
     return {

@@ -7,7 +7,9 @@ export const name = 'checkout';
 const initialState = {
     editing: null,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
@@ -35,13 +37,28 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
+        };
+    },
+    [actions.input.incorrectAddress]: (
+        state,
+        { payload: { incorrectAddressMessage } }
+    ) => {
+        return {
+            ...state,
+            submitting: false,
+            isAddressIncorrect: true,
+            incorrectAddressMessage
         };
     },
     [actions.input.reject]: state => {
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
     [actions.order.submit]: state => {

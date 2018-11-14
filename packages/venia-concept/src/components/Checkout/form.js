@@ -29,7 +29,13 @@ class Form extends Component {
     };
 
     get editableForm() {
-        const { cart, editing, submitting } = this.props;
+        const {
+            cart,
+            editing,
+            submitting,
+            isAddressIncorrect,
+            incorrectAddressMessage
+        } = this.props;
 
         switch (editing) {
             case 'address': {
@@ -41,6 +47,8 @@ class Form extends Component {
                         submitting={submitting}
                         cancel={this.stopEditing}
                         submit={this.submitAddress}
+                        isAddressIncorrect={isAddressIncorrect}
+                        incorrectAddressMessage={incorrectAddressMessage}
                     />
                 );
             }
