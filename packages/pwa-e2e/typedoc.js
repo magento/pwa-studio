@@ -1,7 +1,7 @@
 module.exports = {
     out: './docs',
     readme: './README.md',
-    media: './docs/media',
+    media: './docs-media',
     tsconfig: './tsconfig.json',
     mode: 'file',
     includeDeclarations: true,

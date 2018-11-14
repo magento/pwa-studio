@@ -1,7 +1,11 @@
-export interface ProductModel {
-  item_id: number;
+import { GraphQL } from 'types';
+
+import { PriceModel } from './price.model';
+
+export type ProductModel = GraphQL<{
+  id: number;
   name: string;
-  count: number;
-  price: number;
-  currencyCode: string;
-}
+  price: PriceModel;
+  small_image: string;
+  url_key: string;
+}>;

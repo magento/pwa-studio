@@ -1,18 +1,54 @@
 import { t } from 'testcafe';
 import { ReactSelector } from 'testcafe-react-selectors';
-import { Page } from './abstract.page';
 
-import { Header, Cart } from '../components/common';
+import { component } from 'components';
+import { Cart, Header } from 'components/common';
 
-export class HomePage extends Page {
-  public readonly header = new Header(ReactSelector('Header'));
-  public readonly root = ReactSelector('Query');
-  public readonly cart = new Cart(ReactSelector('miniCart_MiniCart'));
+import { page } from './abstract.page';
+import { CategoryPage } from './category.page';
 
-  public itemList = this.root.findReact('Classify(undefined)');
-
-  public async toggleFirstItem() {
-    await t
-      .click(this.itemList.nth(0));
-  }
+export enum Categories {
+  ShopTheLook,
+  Bottoms,
+  Tops,
+  Accessories,
+  Dresses,
 }
+
+export const HomePage = (url: string) => {
+  const header = component(Header)(ReactSelector('Header'));
+  const root = ReactSelector('Query');
+  const cart = component(Cart)(ReactSelector('miniCart_MiniCart'));
+
+  const itemList = root.findReact('Classify(undefined)');
+
+  const toggleFirstCategory = async () => {
+    await t
+      .click(itemList.nth(Categories.ShopTheLook));
+
+    return page(CategoryPage)('/shop-the-look');
+  };
+
+  const toggleCategory = async (category: Categories) => {
+    await t.click(itemList.nth(category));
+
+    switch (category) {
+      case Categories.Accessories:
+        return page(CategoryPage)('/venia-accessories');
+
+      case Categories.ShopTheLook:
+        return page(CategoryPage)('/shop-the-look');
+
+      default:
+        return page(CategoryPage)('/venia-accessories');
+    }
+  };
+
+  return Object.freeze({
+    url,
+    cart,
+    itemList,
+    toggleFirstCategory,
+    toggleCategory,
+  });
+};

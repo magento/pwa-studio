@@ -1,8 +1,7 @@
 import { ReactSelector } from 'testcafe-react-selectors';
 
-import { ReactComponent } from 'types';
+import { ReactComponent } from 'types/react';
 
-import { Component } from '../abstract.component';
 import { Menu } from './menu.component';
 
 type MenuProps = { openNav: Function; };
@@ -11,25 +10,30 @@ type MenuComponent = ReactComponent<MenuProps>;
 type CartProps = { toggleCart: Function };
 type CartComponent = ReactComponent<CartProps>;
 
-export class Header extends Component {
-  public readonly menuButton: Selector = this.root.findReact('[class^="header-primaryActions"]').findReact('Trigger');
-  public readonly actions: Selector = this.root.find('[class^="header-secondaryActions"]');
-  public readonly cart: Selector = this.actions.findReact('Trigger');
+export function Header(root: Selector) {
+  const menuButton: Selector = root.findReact('[class^="header-primaryActions"]').findReact('Trigger');
+  const actions: Selector = root.find('[class^="header-secondaryActions"]');
+  const cart: Selector = actions.findReact('Trigger');
 
-  public readonly menu: Menu = new Menu(ReactSelector('Navigation'));
+  const menu = Menu(ReactSelector('Navigation'));
 
-  public async toggleMenu(t: TestController): Promise<void> {
-    const component = await this.menuButton.getReact<MenuComponent>();
+  const toggleMenu = async (t: TestController) => {
+    const comp = await menuButton.getReact<MenuComponent>();
 
     await t
-      .expect(component.props.openNav).typeOf('function')
-      .click(this.menuButton);
-  }
+      .expect(comp.props.openNav).typeOf('function')
+      .click(menuButton);
+  };
 
-  public async toggleCart(t: TestController): Promise<void> {
-    const component = await this.cart.getReact<CartComponent>();
+  const toggleCart = async (t: TestController) => {
+    const comp = await cart.getReact<CartComponent>();
 
-    await t.expect(component.props.toggleCart).typeOf('function')
-      .click(this.cart);
-  }
+    await t.expect(comp.props.toggleCart).typeOf('function')
+      .click(cart);
+  };
+
+  return Object.freeze({
+    toggleMenu,
+    toggleCart,
+  });
 }

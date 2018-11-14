@@ -1,4 +1,4 @@
-import { ClientFunction, Selector, t } from 'testcafe';
+import { ClientFunction, Selector } from 'testcafe';
 import { TypedClientFunction } from 'types/testcafe';
 
 /**
@@ -12,19 +12,17 @@ import { TypedClientFunction } from 'types/testcafe';
  * ```
  */
 const $class = ClientFunction((className: string, root?: Selector) => {
-  return new Promise<Selector>((resove, reject) => {
+  return new Promise<Selector>((resolve, reject) => {
     if (typeof className === 'string') {
-      const classname = `[class^="${className}"]`;
-      const el = root ? root.find(classname) : Selector(classname);
-      resove(el);
+      const classnames = `[class^="${className}"]`;
+      const el = root ? root.find(classnames) : Selector(classnames);
+      resolve(el);
     }
-    reject(new Error('classname is not a string'));
+    reject(new Error('class name is not a string'));
   });
 });
 
-// you need to import {ClientFunction} from "testcafe";
-// this sample will scroll to a label
-// see http://devexpress.github.io/testcafe/example/
+type Offset = { x: number, y: number };
 
 /**
  * @example ``` ts
@@ -32,11 +30,12 @@ const $class = ClientFunction((className: string, root?: Selector) => {
  *   <input type="radio" name="os" id="windows" value="Windows">
  *     Windows
  * </label>
- * await scrollToElement(Selector('label'), {x:20, y:-20})
+ * await scrollTo({x:20, y:-20})
  * ```
  */
-const scrollTo: TypedClientFunction<void, [{ x: number, y: number }]> = ClientFunction(
-  (offset: { x: number, y: number }) => window.scrollTo(offset.x, offset.y));
+const scrollTo: TypedClientFunction<unknown, [Offset]> = ClientFunction(
+  ({ x, y }: Offset) => window.scrollTo(x, y)
+);
 
 export const SelectorUtils = {
   $class,

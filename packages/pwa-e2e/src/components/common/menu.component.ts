@@ -1,5 +1,6 @@
-import { ReactComponent } from 'types';
-import { Component } from '../abstract.component';
+import { ReactComponent } from 'types/react';
+
+import { component } from '../abstract.component';
 
 type MenuProps = {
   categories: object
@@ -25,15 +26,19 @@ type SignInButtonProps = {
 };
 type SignInButtonComponent = ReactComponent<SignInButtonProps>;
 
-export class Menu extends Component {
-  public readonly signInButton: Selector = this.root.find('[class^="navigation-footer"]').findReact('Button');
+export function Menu(root: Selector) {
+  const signInButton: Selector = root.find('[class^="navigation-footer"]').findReact('Button');
 
-  public async toggleSignInButton(t: TestController): Promise<void> {
-    const component = await this.signInButton.getReact() as SignInButtonComponent;
+  const toggleSignInButton = async (t: TestController) => {
+    const comp = await signInButton.getReact() as SignInButtonComponent;
 
     await t
-      .expect(component.props.onClick).typeOf('function')
-      .expect(component.props.type).eql('button')
-      .click(this.signInButton);
-  }
+      .expect(comp.props.onClick).typeOf('function')
+      .expect(comp.props.type).eql('button')
+      .click(signInButton);
+  };
+
+  return Object.freeze({
+    toggleSignInButton,
+  });
 }

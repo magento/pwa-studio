@@ -1,21 +1,31 @@
-import { Constructorable } from 'types';
+/**
+ * High order function, which return a new page with specific url
+ * @param pageLike function with url as input parameter
+ * @example 
+ * const PageWithUrl = (url) =>{
+ * // page logic here
+ * }
+ * const specificPage = page(PageWithUrl)('/some-url')
+ */
+export const page = <T extends (url: string) => any>(pageLike: T) => (url: string): ReturnType<T> => {
+  return pageLike(url);
+};
 
-export abstract class Page extends Function {
-  public readonly fullUrl: string;
+/**
+ * High order function, which return a new page with dynamic url
+ * @param pageLike function with url as input parameter
+ * @example 
+ * const PageWithUrl = (dynamicUrl) =>{
+ * // page logic here
+ * }
+ * const dynamicUrl = await UrlUtils.getUrl() // Promise<string>
+ * const specificPage = dynamicPage(PageWithUrl)(dynamicUrl)
+ */
+export const dynamicPage = <T extends (url: string) => any>
+  (pageLike: T) => async (dynamicUrl: Promise<string>): Promise<Readonly<ReturnType<T>>> => {
+    return pageLike(await dynamicUrl);
+  };
 
-  public constructor(
-    public readonly baseUrl: string,
-    public readonly url: string = '/',
-  ) {
-    super();
-    this.fullUrl = baseUrl + url;
-  }
-
-  static toPage<P>(instance: Constructorable<P>, ...args: any[]): P {
-    return Reflect.construct(instance, args);
-  }
-
-  toPage<P>(instance: Constructorable<P>, ...args: any[]): P {
-    return Reflect.construct(instance, args);
-  }
-}
+// export const page1 = (pageLike: any) => (url: string) => {
+//   return pageLike(url);
+// };

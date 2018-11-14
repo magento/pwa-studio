@@ -1,36 +1,38 @@
 import { Selector, t } from 'testcafe';
 import { ReactSelector } from 'testcafe-react-selectors';
 
-import { ReactComponent } from 'types';
+import { ProductDetailModel } from 'models/product-detail.model';
+import { PropsWithRootClasses, ReactComponent } from 'types/react';
+
+import { Cart, component } from 'components';
 import { SelectorUtils } from 'utils';
 
-import { Page } from './abstract.page';
+type ProductDetailProps = PropsWithRootClasses<{ addToCart: () => Promise<void>; product: ProductDetailModel }>;
+type ProductDetailComponent = ReactComponent<ProductDetailProps, { quantity: number }>;
 
-type AddToCartButtonProps = {
-    children: { props: { children: string; }; };
+export const ProductDetailPage = (url: string) => {
+    const root = ReactSelector('ProductFullDetail_ProductFullDetail');
+
+    const imageCarousel = root.findReact('carousel_Carousel');
+    const carouselImages = ReactSelector('items_Items');
+    const carouselCurrentImage = imageCarousel.find('img[class^="carousel-currentImage"]');
+
+    const addToCartButton = Selector('section[class^="productFullDetail-cartActions"]').find('button');
+
+    const toggleAddToCart = async () => {
+        await SelectorUtils.scrollTo({ x: 0, y: 500 });
+        await t.click(addToCartButton);
+
+        return component(Cart)(ReactSelector('miniCart_MiniCart'));
+    };
+
+    const getProductInfo = async () => {
+        return await root.getReact<ProductDetailComponent>();
+    };
+
+    return Object.freeze({
+        url,
+        toggleAddToCart,
+        getProductInfo,
+    });
 };
-
-type AddToCartButtonComponent = ReactComponent<AddToCartButtonProps>;
-
-export class ProductDetailPage extends Page {
-    public readonly root = ReactSelector('Query').findReact('ProductFullDetail_ProductFullDetail');
-
-    public readonly imageCarousel = this.root.findReact('carousel_Carousel');
-    public readonly carouselImages = ReactSelector('items_Items');
-    public readonly carouselCurrentImage = this.imageCarousel.find('img[class^="carousel-currentImage"]');
-
-    public readonly addToCartButton = ReactSelector('section').nth(4).findReact('button_Button');
-
-    public constructor(baseUrl: string) {
-        super(baseUrl, '/valeria-two-layer-tank');
-    }
-
-    public async toggleAddToCart() {
-        await t.wait(5000);
-
-        SelectorUtils.scrollTo(0, 500);
-
-        await t
-            .click(this.addToCartButton);
-    }
-}

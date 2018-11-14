@@ -2,30 +2,38 @@ import { Role } from 'testcafe';
 import { waitForReact } from 'testcafe-react-selectors';
 
 import { config } from 'configs';
-import { CategoryPage, HomePage, Page, ProductDetailPage, ShopTheLookPage } from 'pages';
+import { Categories, CategoryPage, HomePage, ProductDetailPage, dynamicPage, page } from 'pages';
+import { UrlUtils } from 'utils';
 
-const { baseUrl } = config;
-
-const homePage = new HomePage(baseUrl, '/');
-const categoryPage = Page.toPage<CategoryPage<ShopTheLookPage>>(CategoryPage);
-const shopTheLookPage = categoryPage.toCategory(ShopTheLookPage);
-const productDetail = new ProductDetailPage(baseUrl);
+const homePage = page(HomePage)('/');
 
 fixture`Checkout`
-  .page(homePage.fullUrl)
-  .beforeEach(async () => await waitForReact());
+  .before(async ctx => ctx.config = config)
+  .page(config.baseUrl)
+  .beforeEach(async t => {
+    await t.useRole(Role.anonymous());
+    await waitForReact();
+  });
 
-test('buying product', async t => {
+test.skip('buying configurable product', async t => {
 
-  await t.useRole(Role.anonymous());
-  await homePage.toggleFirstItem();
+  const shopTheLookPage = await homePage.toggleFirstCategory();
 
-  await shopTheLookPage.toggleFirstItem();
+  await shopTheLookPage.toggleFirstCategoryItem();
 
-  // tslint:disable-next-line:no-debugger
-  debugger;
+  const productDetail = await dynamicPage(ProductDetailPage)(UrlUtils.getUrl());
+
   await t.wait(5000);
   await productDetail.toggleAddToCart();
   await homePage.cart.toggleCheckout();
+});
 
+test('buying non-configurable product', async t => {
+  const accessoriesPage = await homePage.toggleCategory(Categories.Accessories);
+  const carminaEarringsDetailPage = await accessoriesPage.toggleFirstCategoryItem();
+
+  const productInfo = (await carminaEarringsDetailPage.getProductInfo()).props.product;
+  const cart = await carminaEarringsDetailPage.toggleAddToCart();
+  
+  await t.wait(5000);
 });

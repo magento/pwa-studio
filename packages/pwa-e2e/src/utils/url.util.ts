@@ -1,6 +1,9 @@
 import { ClientFunction } from 'testcafe';
+import { TypedClientFunction } from 'types/testcafe';
 
-const getUrl = ClientFunction(() => location.href);
+const getFillUrl = ClientFunction(() => location.href);
+
+const getUrl: TypedClientFunction<string, []> = ClientFunction(() => location.pathname);
 
 const getUrlFromBase = ClientFunction((baseUrl?: string) => {
   if (baseUrl) {
@@ -17,5 +20,6 @@ const getUrlFromBase = ClientFunction((baseUrl?: string) => {
 
 export const UrlUtils = {
   getUrl,
+  getFillUrl,
   getUrlFromBase,
 };

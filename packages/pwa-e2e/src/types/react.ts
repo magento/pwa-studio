@@ -14,7 +14,7 @@ export type ReactComponent<
         key?: K;
     };
 
-export type DefautReactComponent = ReactComponent<Props>;
+export type DefaultReactComponent = ReactComponent<Props>;
 
 /** classes types helper */
 type Classes<T> = Pick<T, keyof T>;

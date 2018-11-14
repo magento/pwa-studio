@@ -1,10 +1,14 @@
 import { t } from 'testcafe';
-import { PropsWithClasses, ReactComponent } from 'types';
+import { PropsWithClasses, ReactComponent } from 'types/react';
 
-import { Component } from '../abstract.component';
+import { component } from '../abstract.component';
 
 type CartProps = PropsWithClasses<{
-  cart: object;
+  cart: {
+    details: {},
+    guestCartId: string,
+    totals: {},
+  };
   cartCurrencyCode: string;
   cartId: number
   getCartDetails: Function
@@ -32,40 +36,49 @@ type CartItemsProps = {
 };
 type CartItemsComponent = ReactComponent<CartItemsProps>;
 
-export class Cart extends Component {
+export function Cart(root: Selector) {
+  const closeCartButton = root.findReact('trigger_Trigger');
+  const checkoutButton = root.findReact('checkoutButton_CheckoutButton');
+  const cartItems = root.findReact('productList_ProductList');
 
-  public readonly closeCartButton = this.root.findReact('trigger_Trigger');
-  public readonly checkoutButton = this.root.findReact('checkoutButton_CheckoutButton');
-  public readonly cartItems = this.root.findReact('productList_ProductList');
-
-  public async toggleCloseCart() {
-    const closeComponent = await this.closeCartButton.getReact<CloseCartButtonComponent>();
-    const rootComponent = await this.root.getReact<CartComponent>();
+  const toggleCloseCart = async () => {
+    const closeComponent = await closeCartButton.getReact<CloseCartButtonComponent>();
+    const rootComponent = await root.getReact<CartComponent>();
 
     await t
       .expect(rootComponent.props.isOpen).eql(true)
       .expect(closeComponent.props.closeDrawer).typeOf('function')
-      .click(this.closeCartButton)
-      .expect(this.root.getReact<CartComponent>(({ props }) => props.isOpen)).eql(false);
-  }
+      .click(closeCartButton)
+      .expect(root.getReact<CartComponent>(({ props }) => props.isOpen)).eql(false);
+  };
 
-  public async toggleCheckout() {
-    const checkoutComponent = await this.checkoutButton.getReact<CheckoutButton>();
-    const cartItemsComponent = await this.cartItems.getReact<CartItemsComponent>();
+  const toggleCheckout = async () => {
+    const checkoutComponent = await checkoutButton.getReact<CheckoutButton>();
+    const cartItemsComponent = await cartItems.getReact<CartItemsComponent>();
 
     await t
-      .takeScreenshot('./sceenshots')
       .expect(cartItemsComponent.props.items.length).gt(0)
       .expect(checkoutComponent.props.ready).eql(true)
-      .click(this.checkoutButton);
-  }
+      .click(checkoutButton);
+  };
 
-  public async toggleCheckoutFromReact() {
-    const component = await this.checkoutButton.getReact<CheckoutButton>();
+  const toggleCheckoutFromReact = async () => {
+    const comp = await checkoutButton.getReact<CheckoutButton>();
 
     await t
-      .expect(component.props.ready).eql(true);
+      .expect(comp.props.ready).eql(true);
 
-    component.props.submit.call(this); // test only.
-  }
+    comp.props.submit(); // test only.
+  };
+
+  const getCartInfo = async () => {
+    //
+  };
+
+  return Object.freeze({
+    toggleCloseCart,
+    toggleCheckout,
+    toggleCheckoutFromReact,
+    getCartInfo,
+  });
 }
