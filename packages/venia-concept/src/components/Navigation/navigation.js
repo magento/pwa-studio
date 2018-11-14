@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
+import { Query } from 'react-apollo';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import CreateAccount from 'src/components/CreateAccount';
 import Icon from 'src/components/Icon';
 import SignIn from 'src/components/SignIn';
-import CategoryTree from './categoryTree';
+import CategoryMenu from './categoryMenu';
 import NavHeader from './navHeader';
+import navigationMenu from '../../queries/getNavigationMenu.graphql';
 import defaultClasses from './navigation.css';
 
 class Navigation extends PureComponent {
@@ -59,21 +61,32 @@ class Navigation extends PureComponent {
     state = {
         isCreateAccountOpen: false,
         isSignInOpen: false,
-        rootNodeId: null
+        rootNodeId: null,
+        parentId: null
     };
 
     get categoryTree() {
-        const { props, setRootNodeId, state } = this;
+        const { props, setParentId, setRootNodeId, state } = this;
         const { rootNodeId } = state;
-        const { categories, closeDrawer } = props;
+        const { closeDrawer } = props;
 
         return rootNodeId ? (
-            <CategoryTree
-                nodes={categories}
-                rootNodeId={rootNodeId}
-                onNavigate={closeDrawer}
-                updateRootNodeId={setRootNodeId}
-            />
+            <Query query={navigationMenu} variables={{ id: rootNodeId }}>
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
+
+                    return (
+                        <CategoryMenu
+                            id={state.rootNodeId}
+                            data={data}
+                            onNavigate={closeDrawer}
+                            setRootNodeId={setRootNodeId}
+                            setParentId={setParentId}
+                        />
+                    );
+                }}
+            </Query>
         ) : null;
     }
 
@@ -179,15 +192,19 @@ class Navigation extends PureComponent {
         }));
     };
 
+    setParentId = parentId => {
+        this.setState(() => ({ parentId }));
+    };
+
     setRootNodeId = rootNodeId => {
         this.setState(() => ({ rootNodeId }));
     };
 
     setRootNodeIdToParent = () => {
         const { categories } = this.props;
-
-        this.setState(({ rootNodeId }) => ({
-            rootNodeId: categories[rootNodeId].parentId
+        console.log(this.state.parentId);
+        this.setState(() => ({
+            rootNodeId: this.state.parentId
         }));
     };
 
@@ -207,7 +224,7 @@ class Navigation extends PureComponent {
         const { isCreateAccountOpen, isSignInOpen, rootNodeId } = state;
         const { classes, closeDrawer, isOpen, rootCategoryId } = props;
         const className = isOpen ? classes.root_open : classes.root;
-        const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
+        const isTopLevel = !rootNodeId || rootNodeId == rootCategoryId;
 
         const handleBack = isCreateAccountOpen
             ? hideCreateAccountForm
