@@ -7,6 +7,8 @@ import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Label from './label';
 import defaultClasses from './addressForm.css';
+import { invalidStateMessage } from './constants';
+import { isString } from 'util';
 
 const fields = [
     'city',
@@ -39,10 +41,29 @@ class AddressForm extends Component {
             postcode: string,
             region_code: string,
             street0: string,
-            telephone: string
+            telephone: string,
+            validation: string
         }),
         submit: func.isRequired,
-        submitting: bool
+        submitting: bool,
+        isAddressIncorrect: bool,
+        incorrectAddressMessage: string
+    };
+
+    //TODO: implement appropriate validation for the state field
+    validateState = value => {
+        return isString(value) && value.length > 1 ? null : invalidStateMessage;
+    };
+
+    validationBlock = errors => {
+        const { isAddressIncorrect, incorrectAddressMessage } = this.props;
+        if (errors.region_code) {
+            return errors.region_code;
+        } else if (isAddressIncorrect) {
+            return incorrectAddressMessage;
+        } else {
+            return null;
+        }
     };
 
     render() {
@@ -61,7 +82,7 @@ class AddressForm extends Component {
         );
     }
 
-    children = () => {
+    children = ({ formState }) => {
         const { classes, submitting } = this.props;
 
         return (
@@ -114,6 +135,7 @@ class AddressForm extends Component {
                             id={classes.region_code}
                             field="region_code"
                             className={classes.textInput}
+                            validate={this.validateState}
                         />
                     </div>
                     <div className={classes.telephone}>
@@ -131,6 +153,9 @@ class AddressForm extends Component {
                             field="email"
                             className={classes.textInput}
                         />
+                    </div>
+                    <div className={classes.validation}>
+                        {this.validationBlock(formState.errors)}
                     </div>
                 </div>
                 <div className={classes.footer}>

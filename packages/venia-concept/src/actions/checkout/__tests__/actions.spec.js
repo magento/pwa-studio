@@ -210,6 +210,20 @@ describe('shippingMethod', () => {
     });
 });
 
+test('input.incorrectAddress.toString() returns the proper action type', () => {
+    expect(actions.input.incorrectAddress.toString()).toBe(
+        'CHECKOUT/INPUT/INCORRECT_ADDRESS'
+    );
+});
+
+test('input.incorrectAddress() returns a proper action object', () => {
+    const payload = { incorrectAddressMessage: error.message };
+    expect(actions.input.incorrectAddress(payload)).toEqual({
+        type: 'CHECKOUT/INPUT/INCORRECT_ADDRESS',
+        payload
+    });
+});
+
 test('order.submit.toString() returns the proper action type', () => {
     expect(actions.order.submit.toString()).toBe('CHECKOUT/ORDER/SUBMIT');
 });

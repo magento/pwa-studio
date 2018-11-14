@@ -17,7 +17,9 @@ const initialState = {
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
@@ -89,13 +91,28 @@ const reducerMap = {
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
+        };
+    },
+    [actions.input.incorrectAddress]: (
+        state,
+        { payload: { incorrectAddressMessage } }
+    ) => {
+        return {
+            ...state,
+            submitting: false,
+            isAddressIncorrect: true,
+            incorrectAddressMessage
         };
     },
     [actions.shippingMethod.reject]: state => {
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
     [actions.order.submit]: state => {

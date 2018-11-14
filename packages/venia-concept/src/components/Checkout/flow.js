@@ -35,7 +35,9 @@ class Flow extends Component {
         checkout: shape({
             editing: string,
             step: string,
-            submitting: bool
+            submitting: bool,
+            isAddressIncorrect: bool,
+            incorrectAddressMessage: string
         }),
         classes: shape({
             root: string
@@ -79,7 +81,7 @@ class Flow extends Component {
             submitShippingMethod
         } = actions;
 
-        const { editing, step, submitting } = checkout;
+        const { editing, step, submitting, isAddressIncorrect, incorrectAddressMessage } = checkout;
 
         switch (stepMap[step]) {
             case stepMap.cart: {
@@ -114,7 +116,13 @@ class Flow extends Component {
                     submitting
                 };
 
-                return <Form {...stepProps} />;
+                const formProps = {
+                    ...stepProps,
+                    isAddressIncorrect,
+                    incorrectAddressMessage
+                };
+
+                return <Form {...formProps} />;
             }
             case stepMap.receipt: {
                 return <Receipt />;
