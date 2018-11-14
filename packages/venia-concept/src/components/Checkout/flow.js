@@ -33,7 +33,9 @@ class Flow extends Component {
         checkout: shape({
             editing: string,
             step: string,
-            submitting: bool
+            submitting: bool,
+            isAddressIncorrect: bool,
+            incorrectAddressMessage: string
         }),
         classes: shape({
             root: string
@@ -43,7 +45,13 @@ class Flow extends Component {
     get child() {
         const { actions, cart, checkout } = this.props;
         const { beginCheckout, editOrder, submitInput, submitOrder } = actions;
-        const { editing, step, submitting } = checkout;
+        const {
+            editing,
+            step,
+            submitting,
+            isAddressIncorrect,
+            incorrectAddressMessage
+        } = checkout;
         const { details } = cart;
         const ready = isCartReady(details.items_count);
         const valid = isAddressValid(details.billing_address);
@@ -65,7 +73,13 @@ class Flow extends Component {
                     valid
                 };
 
-                return <Form {...stepProps} />;
+                const formProps = {
+                    ...stepProps,
+                    isAddressIncorrect,
+                    incorrectAddressMessage
+                };
+
+                return <Form {...formProps} />;
             }
             case 3: {
                 return <Receipt />;
