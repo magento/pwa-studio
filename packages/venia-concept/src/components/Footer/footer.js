@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
+import CmsBlock from 'src/components/CmsBlock';
+import FooterTiles from './footerTiles';
+import { footerLinksIdentifier } from './constants';
 import defaultClasses from './footer.css';
 
 class Footer extends Component {
@@ -20,46 +23,9 @@ class Footer extends Component {
 
         return (
             <footer className={classes.root}>
-                <div className={classes.tile}>
-                    <h2 className={classes.tileTitle}>
-                        <span>Your Account</span>
-                    </h2>
-                    <p className={classes.tileBody}>
-                        <span>
-                            Sign up and get access to our wonderful rewards
-                            program.
-                        </span>
-                    </p>
-                </div>
-                <div className={classes.tile}>
-                    <h2 className={classes.tileTitle}>
-                        <span>inquiries@example.com</span>
-                    </h2>
-                    <p className={classes.tileBody}>
-                        <span>
-                            Need to email us? Use the address above and
-                            we&rsquo;ll respond as soon as possible.
-                        </span>
-                    </p>
-                </div>
-                <div className={classes.tile}>
-                    <h2 className={classes.tileTitle}>
-                        <span>Live Chat</span>
-                    </h2>
-                    <p className={classes.tileBody}>
-                        <span>Mon – Fri: 5 a.m. – 10 p.m. PST</span>
-                        <br />
-                        <span>Sat – Sun: 6 a.m. – 9 p.m. PST</span>
-                    </p>
-                </div>
-                <div className={classes.tile}>
-                    <h2 className={classes.tileTitle}>
-                        <span>Help Center</span>
-                    </h2>
-                    <p className={classes.tileBody}>
-                        <span>Get answers from our community online.</span>
-                    </p>
-                </div>
+                <CmsBlock identifiers={footerLinksIdentifier}>
+                    {FooterTiles}
+                </CmsBlock>
                 <div className={classes.copyright}>
                     <span>© Magento 2018. All rights reserved.</span>
                 </div>
