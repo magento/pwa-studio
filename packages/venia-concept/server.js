@@ -1,8 +1,5 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const validEnv = require('./validate-environment')(process.env);
-const {
-    Utilities: { configureHost }
-} = require('@magento/pwa-buildpack');
 const { createUpwardServer, envToConfig } = require('@magento/upward-js');
 
 async function serve() {
@@ -36,6 +33,9 @@ async function serve() {
 
     if (!config.host) {
         try {
+            const {
+                Utilities: { configureHost }
+            } = require('@magento/pwa-buildpack');
             const { hostname, ports, ssl } = await configureHost({
                 interactive: false,
                 subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
