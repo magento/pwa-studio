@@ -97,12 +97,12 @@
     animation-name: slideout;
 }
 
-.createAccount_open {
+.form_open {
     composes: signIn;
     animation-name: slideinSide;
 }
 
-.createAccount_closed {
+.form_closed {
     composes: signIn;
     animation-name: slideoutSide;
 }
