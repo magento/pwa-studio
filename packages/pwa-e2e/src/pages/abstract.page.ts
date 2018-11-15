@@ -8,6 +8,7 @@
  * const specificPage = page(PageWithUrl)('/some-url')
  */
 export const page = <T extends (url: string) => any>(pageLike: T) => (url: string): ReturnType<T> => {
+  console.dir(`load page: ${pageLike.name} with url: ${url}`);
   return pageLike(url);
 };
 

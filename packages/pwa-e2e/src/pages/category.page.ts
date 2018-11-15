@@ -32,7 +32,6 @@ export function CategoryPage(url: string) {
     const toggleCategoryItemByIndex = async (index: number) => {
         const item = categoryItems.nth(index);
         const href = await item.find('a').getAttribute('href');
-        console.dir(href);
         await t.click(item);
 
         return page(ProductDetailPage)(href);

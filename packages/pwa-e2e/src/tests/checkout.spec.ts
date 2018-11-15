@@ -32,7 +32,6 @@ test('buying non-configurable product', async t => {
   const accessoriesPage = await homePage.toggleCategory(Categories.Accessories);
   const carminaEarringsDetailPage = await accessoriesPage.toggleFirstCategoryItem();
 
-  const productInfo = (await carminaEarringsDetailPage.getProductInfo()).props.product;
   const cart = await carminaEarringsDetailPage.toggleAddToCart();
   
   await t.wait(5000);

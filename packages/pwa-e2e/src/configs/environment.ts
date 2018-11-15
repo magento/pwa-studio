@@ -13,4 +13,7 @@ export const config = cleanEnv(dotenv, {
   headless: bool(),
   baseUrl: str(),
   browser: str({ devDefault: 'chrome' }),
-}) as Environment;
+}) as Readonly<Environment>;
+
+// tslint:disable-next-line:no-console
+console.log('env file:', config);

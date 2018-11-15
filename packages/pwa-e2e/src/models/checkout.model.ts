@@ -1,4 +1,4 @@
-// TODO: (vitali) implement payWith and getItBy fields
+// TODO: (vitali) implement payWith and getItBy fields whe prod will be ready
 export interface CheckoutModel {
   shipTo: ShippingInformation;
   payWith?: PaymentInformation;
