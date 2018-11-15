@@ -35,6 +35,17 @@ These pieces can be swapped out to change behavior or even removed entirely.
 
 For an example of a storefront application, read about the [Venia][] storefront, a reference implementation created using PWA Studio tools.
 
+### Components
+
+Both Magento theme and PWA storefront application use pieces that are known as **components**, but
+each approach uses a different definition of this term.
+
+In Magento theme development, _components_ mostly refers to [Magento UI Components][]. 
+These components are standard UI elements, such as tables, buttons, and dialogs, that Magento provides to make theme development easier.
+
+In PWA Studio, _components_ refers to [React][] components.
+React components are modular pieces that make up a React application, such as a Magento PWA storefront.
+
 ## Dependency management
 
 A Magento theme uses a [Composer][] file to specify its dependencies and relies on Magento's file resolution mechanism to make sure the required theme files are available.
