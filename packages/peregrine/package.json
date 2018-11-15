@@ -41,6 +41,7 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "storybook-readme": "^4.0.2"
   }
 }
