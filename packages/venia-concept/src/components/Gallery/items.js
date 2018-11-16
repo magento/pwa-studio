@@ -57,10 +57,9 @@ class GalleryItems extends Component {
 
     get placeholders() {
         const { pageSize } = this.props;
-        const sizedEmptyData = Array.from({ length: pageSize }).fill(null);
 
         return pageSize
-            ? sizedEmptyData.map((_, index) => (
+            ? Array.from({ length: pageSize }).fill(null).map((_, index) => (
                   <GalleryItem key={index} placeholder={true} />
               ))
             : defaultPlaceholders;
