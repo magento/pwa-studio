@@ -10,7 +10,7 @@ import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
 // import { getUserDetails } from 'src/actions/user';
-import AppShell from 'src/components/AppShell';
+import App from 'src/components/App';
 import './index.css';
 // store.dispatch(getUserDetails());
 
@@ -45,7 +45,7 @@ ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
             <Router apiBase={apiBase}>
-                <AppShell />
+                <App />
             </Router>
         </ReduxProvider>
     </ApolloProvider>,

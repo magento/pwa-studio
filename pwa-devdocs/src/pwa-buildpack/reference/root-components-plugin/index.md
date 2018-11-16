@@ -2,9 +2,9 @@
 title: MagentoRootComponentsPlugin
 ---
 
-This plugin creates [unique chunks] for each Root Component in a Magento PWA theme and extension.
+This plugin creates [unique chunks] for each Root Component in a Magento PWA project and extension.
 
-For example, given a `RootComponents` directory in a theme with the following structure:
+For example, given a `RootComponents` directory in a PWA project with the following structure:
 
 ``` sh
 ├── Page1
