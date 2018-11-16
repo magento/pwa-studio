@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
-import { Query } from 'react-apollo';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
@@ -9,7 +8,6 @@ import Icon from 'src/components/Icon';
 import SignIn from 'src/components/SignIn';
 import CategoryMenu from './categoryMenu';
 import NavHeader from './navHeader';
-import navigationMenu from '../../queries/getNavigationMenu.graphql';
 import defaultClasses from './navigation.css';
 
 class Navigation extends PureComponent {
@@ -71,22 +69,13 @@ class Navigation extends PureComponent {
         const { closeDrawer } = props;
 
         return rootNodeId ? (
-            <Query query={navigationMenu} variables={{ id: rootNodeId }}>
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
-
-                    return (
-                        <CategoryMenu
-                            id={state.rootNodeId}
-                            data={data}
-                            onNavigate={closeDrawer}
-                            setRootNodeId={setRootNodeId}
-                            setParentId={setParentId}
-                        />
-                    );
-                }}
-            </Query>
+            <CategoryMenu
+                id={props.rootCategoryId}
+                currentId={rootNodeId}
+                setRootNodeId={setRootNodeId}
+                onNavigate={closeDrawer}
+                setParentId={setParentId}
+            />
         ) : null;
     }
 
@@ -201,8 +190,6 @@ class Navigation extends PureComponent {
     };
 
     setRootNodeIdToParent = () => {
-        const { categories } = this.props;
-        console.log(this.state.parentId);
         this.setState(() => ({
             rootNodeId: this.state.parentId
         }));
