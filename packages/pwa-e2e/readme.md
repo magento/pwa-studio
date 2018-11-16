@@ -64,7 +64,9 @@ pwa-e2e
 [`testcafe-react-selectors`](https://github.com/DevExpress/testcafe-react-selectors) - TestCafe selector extensions for React apps
 
 ## Q&A
-Q: testcafe is a 
+Q: testcafe is a selenium-based framework?
+
+A: testcafe is a not selenium-based framework, so it has own implementation and removes dependencies such as java and selenium server, since testcafe it has own solution and implementation
 
 Q: Why we choose typescript?
 
