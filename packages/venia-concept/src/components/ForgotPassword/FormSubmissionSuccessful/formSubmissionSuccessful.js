@@ -8,8 +8,11 @@ import darkButtonClasses from '../darkButton.css';
 
 class ForgotPassword extends Component {
     static propTypes = {
-        classes: PropTypes.shape({}),
-        text: PropTypes.node,
+        classes: PropTypes.shape({
+            text: PropTypes.string,
+            buttonContainer: PropTypes.string
+        }),
+        email: PropTypes.string,
         onContinue: PropTypes.func
     };
 

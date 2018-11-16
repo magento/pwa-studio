@@ -10,17 +10,24 @@ import darkButtonClasses from '../darkButton.css';
 
 class ForgotPasswordForm extends Component {
     static propTypes = {
-        classes: PropTypes.shape({}),
-        initialValues: PropTypes.shape({}),
-        onSubmit: PropTypes.func
+        classes: PropTypes.shape({
+            form: PropTypes.string,
+            buttonContainer: PropTypes.string
+        }),
+        initialValues: PropTypes.shape({
+            email: PropTypes.string
+        }),
+        onSubmit: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         initialValues: {}
     };
 
+    // There is an issue with handling initial values in Input.
+    // TODO: Pass initial value to email input after fixing this bug.
     render() {
-        const { initialValues, classes, onSubmit } = this.props;
+        const { classes, onSubmit } = this.props;
 
         return (
             <Form className={classes.form} onSubmit={onSubmit}>
@@ -28,7 +35,6 @@ class ForgotPasswordForm extends Component {
                     label="Email Address"
                     autoComplete="email"
                     field="email"
-                    initialValue={initialValues.email}
                     required
                     selected
                 />

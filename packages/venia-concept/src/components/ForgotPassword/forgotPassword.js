@@ -8,8 +8,12 @@ import { resetPasswordRequest } from './api';
 
 class ForgotPassword extends Component {
     static propTypes = {
-        classes: PropTypes.shape({}),
-        initialValues: PropTypes.shape({}),
+        classes: PropTypes.shape({
+            instructions: PropTypes.string
+        }),
+        initialValues: PropTypes.shape({
+            email: PropTypes.string
+        }),
         onClose: PropTypes.func
     };
 
