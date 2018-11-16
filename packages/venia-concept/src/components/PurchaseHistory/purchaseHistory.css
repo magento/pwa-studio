@@ -4,7 +4,7 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    padding: 14px 28px 0;
+    padding: 0.875rem 1.75rem 0;
 }
 
 .itemsContainer {
@@ -13,5 +13,5 @@
 }
 
 .filterContainer {
-    margin-bottom: 15px;
+    margin-bottom: 0.875rem;
 }

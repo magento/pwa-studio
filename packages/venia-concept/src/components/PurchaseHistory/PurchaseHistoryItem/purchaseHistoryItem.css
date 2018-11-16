@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    padding: 10px 34px 10px 0px;
+    padding: 0.625rem 2.125rem 0.625rem 0;
     border-bottom: 1px solid #ececed;
 }
 
@@ -12,15 +12,15 @@
 
 .textBlock {
     display: inline-block;
-    height: 36px;
-    width: 164px;
-    margin-left: 12px;
+    height: 2.25rem;
+    width: 10.25rem;
+    margin-left: 0.75rem;
 }
 
 .textBlockTitle {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 300;
-    line-height: 18px;
+    line-height: 1.125rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -29,14 +29,14 @@
 .textBlockDate {
     font-size: 10px;
     font-weight: 300;
-    line-height: 14px;
+    line-height: 0.875rem;
 }
 
 .chevronContainer {
     position: absolute;
-    right: 20px;
+    right: 1.25rem;
 }
 
 .image {
-    height: 60px;
+    height: 3.75rem;
 }
