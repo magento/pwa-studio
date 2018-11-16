@@ -60,62 +60,13 @@ dependencies centrally managed by Lerna.
 
 ## Quick Setup
 
-PWA Studio 2.0 requires much less setup than PWA Studio 1.0. The UPWARD architecture means that the Magento instance does not need to be configured to use your project as a theme. Instead, you connect to your Magento instance by simply specifying its URL in your environment.
-
-### Obtain Magento 2.3
-
-1. Make sure the Magento instance you're using is set to development mode, and has the latest 2.3.
-
-   * You need development mode for GraphQL introspection queries to work.
-   * The latest codebase will have the most up-to-date GraphQL schema.
-
-2. Ensure that the Venia sample data is installed on the Magento instance. (**TODO: painless instructions for the Composer commands to do that**)
-
-One simple way to obtain Magento 2.3 is using the [Core Contributor Vagrant box](https://github.com/paliarush/magento2-vagrant-for-developers/).
-
-#### Using the Vagrant Box
-
-1. Clone the https://github.com/paliarush/magento2-vagrant-for-developers/ repository and follow the [setup instructions](https://github.com/paliarush/magento2-vagrant-for-developers/#installation-steps).
-
-2. Make sure that all [sample data auto-installation parameters in the config.yaml](https://github.com/paliarush/magento2-vagrant-for-developers/blob/2.0/etc/config.yaml.dist#L49-L51) file are disabled.
-
-3. When installation is complete, then install the Venia sample data. Copy [this shell script](https://gist.github.com/mhhansen/19775bcf93614f5f9db34b90273fa2b8) and save it in your Magento root directory as `installVeniaSampleData.sh`.
-
-4. Run `vagrant ssh` to login to the Magento VM.
-
-5. Run `bash installVeniaSampleData.sh`. The Venia sample data should install, and the Vagrant host is ready to use.
-
-6. Update your `.env` file in PWA Studio to set `MAGENTO_BACKEND_URL` to the URL of the Vagrant box.
-
-### Install Dependencies
-
-_**Note**: You must have a version of `node.js` >= `8.0.0`, and a version of `npm` >= `5.0.0`. The latest LTS versions of both are recommended._
-
-Follow these steps to install the dependencies for all the packages in the project:
-
-1. Clone the repository.
-2. Navigate to the root of the repository from the command line
-3. Run `npm install`
-4. Copy `packages/venia-concept/.env.dist` to `packages/venia-concept/.env`
-5. Uncomment the line for `MAGENTO_BACKEND_URL` in `packages/venia-concept/.env`, and set `MAGENTO_BACKEND_URL` to the fully-qualified URL of a Magento store running `2.3`.
-6. On your first install, run `npm run build` from package root.
-7. To run the Venia storefront development experience, run `npm run watch:venia` from package root.
+See the [Venia storefront setup][] topic for instructions on installing this project's dependencies and running the Venia storefront on top of an existing Magento backend. 
 
 ## Troubleshooting
 
-### When I run the developer mode, I get validation errors
+See our [Troubleshooting][] guide if you run into any problems.
 
-Make sure you have created a `.env` file in `packages/venia-concept` which specifies variables for your local development environment. You can copy from the template `packages/venia-concept/.env.dist`.
-
-### Venia queries to GraphQL produce validation errors
-
-Venia and its GraphQL queries may be out of sync with the schema of your connected Magento instance. Make sure the Magento instance is up to date with the 2.3 development branch, and your copy of this repository (or your dependency on it) is up to date.
-
-### My browser complains that the connection is not secure
-
-Generating certificates is handled by [devcert](https://github.com/davewasmer/devcert). If you're on a Linux machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme](https://github.com/davewasmer/devcert#skipcertutil).
-
-**To test whether your queries are up to date, run `npm run validate-queries` at project root.**
+If you have an issue that cannot be resolved, please [create an issue][].
 
 ## Things not to do
 
@@ -131,6 +82,9 @@ Generating certificates is handled by [devcert](https://github.com/davewasmer/de
 [Greenkeeper badge]: https://badges.greenkeeper.io/magento-research/pwa-studio.svg
 [Contribution guide]: .github/CONTRIBUTING.md
 [Git hook]: <https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
+[Venia storefront setup]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/setup/
+[Troubleshooting]: https://magento-research.github.io/pwa-studio/pwa-buildpack/troubleshooting/
+[create an issue]: https://github.com/magento-research/pwa-studio/issues/new
 
 [mage2pratik]: https://github.com/mage2pratik
 [mage2pratik-image]: https://avatars0.githubusercontent.com/u/33807558?s=120&v=4

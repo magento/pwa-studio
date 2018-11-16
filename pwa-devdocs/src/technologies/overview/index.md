@@ -27,9 +27,9 @@ The Magento PWA Studio project provides the following tools:
 
 * **[pwa-buildpack]** - Contains the main build and development tools for a Magento PWA.
 * **[peregrine]** - Contains a collection of UI components for a Magento PWA.
-* **[Venia theme]** - A proof of concept Magento 2 theme built using the PWA Studio tools.
+* **[Venia storefront]** - A proof of concept Magento 2 storefront built using the PWA Studio tools.
 
 [tools and libraries]: {{ site.baseurl }}{% link technologies/tools-libraries/index.md %}
 [pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
 [peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
-[Venia theme]: {{ site.baseurl }}{% link venia-pwa-concept/index.md %}
+[Venia storefront]: {{ site.baseurl }}{% link venia-pwa-concept/index.md %}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
@@ -8,6 +8,7 @@ import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import Button from 'src/components/Button';
+import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
@@ -153,7 +154,7 @@ class MiniCart extends Component {
             productConfirm,
             props
         } = this;
-        const { classes, isOpen } = props;
+        const { classes, isOpen, cart } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const title = this.state.isEditPanelOpen
             ? 'Edit Cart Item'
@@ -171,8 +172,14 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <div className={classes.body}>{body}</div>
-                <div className={classes.footer}>{footer}</div>
+                {cart.details.items && cart.details.items.length ? (
+                    <Fragment>
+                        <div className={classes.body}>{body}</div>
+                        <div className={classes.footer}>{footer}</div>
+                    </Fragment>
+                ) : (
+                    <EmptyMiniCart />
+                )}
             </aside>
         );
     }
