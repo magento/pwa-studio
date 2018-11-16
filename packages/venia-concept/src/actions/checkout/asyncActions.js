@@ -4,7 +4,8 @@ import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
-import checkoutReceiptActions from '../checkoutReceipt';
+import { getAccountInformation } from 'src/selectors/checkoutReceipt';
+import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -107,6 +108,20 @@ export const submitOrder = () =>
             dispatch(actions.order.reject(error));
         }
     };
+
+export const createAccount = history => async (dispatch, getState) => {
+    const accountInfo = getAccountInformation(getState());
+
+    await dispatch(resetCheckout());
+
+    history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
+};
+
+export const continueShopping = history => async dispatch => {
+    await dispatch(resetCheckout());
+
+    history.push('/');
+};
 
 /* helpers */
 

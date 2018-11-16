@@ -11,7 +11,7 @@
 }
 
 .body {
-    padding: 20px 1rem 16px;
+    padding: 1.5rem 1rem 1rem;
 }
 
 .footer {
@@ -23,9 +23,9 @@
 }
 
 .textBlock {
-    margin: 24px 0 24px;
-    line-height: 29px;
-    font-size: 14px;
+    margin: 1.5rem 0 1.5rem;
+    line-height: 1.875rem;
+    font-size: 0.875rem;
 }
 
 .orderId {
@@ -34,7 +34,7 @@
 }
 
 .header {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 300;
-    line-height: 20px;
+    line-height: 1.25rem;
 }

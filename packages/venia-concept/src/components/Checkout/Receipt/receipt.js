@@ -14,19 +14,19 @@ class Receipt extends Component {
             footer: string,
             root: string
         }),
-        handleContinueShopping: func,
+        continueShopping: func,
         order: shape({
             id: string
         }),
-        handleCreateAccount: func,
+        createAccount: func,
         reset: func
     };
 
     static defaultProps = {
         order: {},
-        handleContinueShopping: () => {},
+        continueShopping: () => {},
         reset: () => {},
-        handleCreateAccount: () => {}
+        createAccount: () => {}
     };
 
     componentWillUnmount() {
@@ -34,11 +34,11 @@ class Receipt extends Component {
     }
 
     createAccount = () => {
-        this.props.handleCreateAccount(this.props.history);
+        this.props.createAccount(this.props.history);
     };
 
     continueShopping = () => {
-        this.props.handleContinueShopping(this.props.history);
+        this.props.continueShopping(this.props.history);
     };
 
     render() {
@@ -57,8 +57,8 @@ class Receipt extends Component {
                         Your order # is{' '}
                         <span className={classes.orderId}>{id}</span>
                         <br />
-                        We'll email you an order confirmation with details and
-                        tracking info
+                        We&rsquo;ll email you an order confirmation with details
+                        and tracking info
                     </div>
                     <Button
                         data-id={CONTINUE_SHOPPING_BUTTON_ID}

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import actions, { handleContinueShopping } from 'src/actions/checkoutReceipt';
+import actions from 'src/actions/checkoutReceipt';
+import { continueShopping } from 'src/actions/checkout';
 import Receipt from './receipt';
 import { getOrderInformation } from 'src/selectors/checkoutReceipt';
 
@@ -11,7 +12,7 @@ const { reset } = actions;
 export default compose(
     connect(
         state => ({ order: getOrderInformation(state) }),
-        { handleContinueShopping, reset }
+        { continueShopping, reset }
     ),
     withRouter
 )(Receipt);

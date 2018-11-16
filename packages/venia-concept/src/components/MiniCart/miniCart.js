@@ -71,13 +71,32 @@ class MiniCart extends Component {
         ) : null;
     }
 
+    get miniCartInner() {
+        const { productList, totalsSummary, props } = this;
+        const { isCartEmpty, classes, cart } = props;
+
+        if (isCartEmpty) {
+            return <EmptyMiniCart />;
+        }
+
+        return (
+            <Fragment>
+                <div className={classes.body}>{productList}</div>
+                <div className={classes.footer}>
+                    <div className={classes.summary}>{totalsSummary}</div>
+                </div>
+                <Checkout cart={cart} />
+            </Fragment>
+        );
+    }
+
     render() {
         if (this.props.loading) {
             return <div>Fetching Data</div>;
         }
 
-        const { productList, totalsSummary, props } = this;
-        const { cart, classes, isOpen, isCartEmpty } = props;
+        const { miniCartInner } = this;
+        const { classes, isOpen } = this.props;
         const className = isOpen ? classes.root_open : classes.root;
 
         return (
@@ -90,19 +109,7 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                {isCartEmpty ? (
-                    <EmptyMiniCart />
-                ) : (
-                    <Fragment>
-                        <div className={classes.body}>{productList}</div>
-                        <div className={classes.footer}>
-                            <div className={classes.summary}>
-                                {totalsSummary}
-                            </div>
-                        </div>
-                        <Checkout cart={cart} />
-                    </Fragment>
-                )}
+                {miniCartInner}
             </aside>
         );
     }

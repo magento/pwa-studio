@@ -1,14 +1,13 @@
 .root {
-    composes: root from 'src/components/clickable.css';
+    composes: root from '../clickable.css';
     background-color: #00898d;
     border: 1px solid currentColor;
     border-radius: 1.5rem;
-    color: rgb(var(--venia-white));
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
+    color: white;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
     height: 3rem;
-    min-width: 180px;
+    min-width: 11.25rem;
     padding: 0 1.5rem;
     transition: opacity 256ms linear;
 }
