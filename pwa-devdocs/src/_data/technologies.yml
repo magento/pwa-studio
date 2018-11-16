@@ -30,3 +30,6 @@ entries:
 
         - label: Reference implementation
           url: /technologies/upward/reference-implementation/
+
+  - label: Contributing to PWA Studio
+    url: /technologies/contribute/

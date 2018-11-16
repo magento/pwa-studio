@@ -8,11 +8,11 @@ import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
-import defaultClasses from './appShell.css';
+import defaultClasses from './app.css';
 
 const renderRoutingError = props => <ErrorView {...props} />;
 
-class AppShell extends Component {
+class App extends Component {
     static propTypes = {
         app: shape({
             drawer: string,
@@ -45,4 +45,4 @@ class AppShell extends Component {
     }
 }
 
-export default classify(defaultClasses)(AppShell);
+export default classify(defaultClasses)(App);

@@ -2,7 +2,7 @@
 title: ContainerChild
 ---
 
-The `ContainerChild` component is the only child allowed within a [Container] in Magento PWA theme.
+The `ContainerChild` component is the only child allowed within a [Container] in Magento PWA storefront.
 This component is responsible for rendering content.
 
 ## Props
