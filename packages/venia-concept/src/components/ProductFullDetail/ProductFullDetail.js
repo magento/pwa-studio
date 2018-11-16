@@ -12,7 +12,6 @@ import defaultClasses from './productFullDetail.css';
 class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
-            actions: string,
             cartActions: string,
             description: string,
             descriptionTitle: string,
@@ -79,11 +78,6 @@ class ProductFullDetail extends Component {
                 </section>
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
-                </section>
-                <section className={classes.actions}>
-                    <Button>
-                        <span>Add to Wishlist</span>
-                    </Button>
                 </section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>

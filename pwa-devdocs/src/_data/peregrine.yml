@@ -3,6 +3,9 @@ entries:
   - label: Overview
     url: /peregrine/
 
+  - label: Routing in PWA Studio
+    url: /peregrine/routing/
+
   - label: Storybook UI testing
     url: /peregrine/testing/storybook/
 
