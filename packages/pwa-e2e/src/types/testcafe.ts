@@ -32,15 +32,16 @@ declare global {
   interface Assertion<E = any> {
     eql(expected: E, message?: string, options?: AssertionOptions): TestControllerPromise;
     contains(expected: E, message?: string, options?: AssertionOptions): TestControllerPromise;
-    typeOf(typeName: TypeofPrimitives | 'regex', message?: string, options?: AssertionOptions): TestControllerPromise;
-    typeOf(typeName: TypeofPrimitives | 'regex', options?: AssertionOptions): TestControllerPromise;
     // tslint:disable-next-line:max-line-length
-    notTypeOf(typeName: TypeofPrimitives | 'regex', message?: string, options?: AssertionOptions): TestControllerPromise;
-    notTypeOf(typeName: TypeofPrimitives | 'regex', options?: AssertionOptions): TestControllerPromise;
+    typeOf(typeName: TypeofPrimitives | 'regex' | 'null', message?: string, options?: AssertionOptions): TestControllerPromise;
+    typeOf(typeName: TypeofPrimitives | 'regex' | 'null', options?: AssertionOptions): TestControllerPromise;
+    // tslint:disable-next-line:max-line-length
+    notTypeOf(typeName: TypeofPrimitives | 'regex' | 'null', message?: string, options?: AssertionOptions): TestControllerPromise;
+    notTypeOf(typeName: TypeofPrimitives | 'regex' | 'null', options?: AssertionOptions): TestControllerPromise;
   }
 }
 
-export interface TypedClientFunction<R, A extends any[]= any[]> extends ClientFunction {
+export interface TypedClientFunction<R = any, A extends any[]= any[]> extends ClientFunction {
   /**
    * Client function
    *

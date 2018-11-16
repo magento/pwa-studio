@@ -6,7 +6,6 @@
     "baseUrl": "./src",
     "declaration": true,
     "declarationDir": "./lib",
-    "emitDeclarationOnly": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "newLine": "LF",

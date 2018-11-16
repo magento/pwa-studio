@@ -14,8 +14,11 @@ export enum Categories {
   Accessories,
   Dresses,
 }
-
-export const HomePage = (url: string) => {
+/**
+ * @url /
+ * @page <img src='../docs-media/home.page.png' alt='Home page' />
+ */
+export const HomePage = () => {
   const header = component(Header)(ReactSelector('Header'));
   const root = ReactSelector('Query');
   const cart = component(Cart)(ReactSelector('miniCart_MiniCart'));
@@ -45,7 +48,6 @@ export const HomePage = (url: string) => {
   };
 
   return Object.freeze({
-    url,
     cart,
     itemList,
     toggleFirstCategory,
