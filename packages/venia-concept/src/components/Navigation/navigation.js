@@ -212,16 +212,16 @@ class Navigation extends PureComponent {
         const handleBack = isCreateAccountOpen
             ? hideCreateAccountForm
             : isSignInOpen
-                ? hideSignInForm
-                : isTopLevel
-                    ? closeDrawer
-                    : setRootNodeIdToParent;
+            ? hideSignInForm
+            : isTopLevel
+            ? closeDrawer
+            : setRootNodeIdToParent;
 
         const title = isCreateAccountOpen
             ? 'Create Account'
             : isSignInOpen
-                ? 'Sign In'
-                : 'Main Menu';
+            ? 'Sign In'
+            : 'Main Menu';
 
         return (
             <aside className={className}>
