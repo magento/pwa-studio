@@ -11,3 +11,6 @@ test-report.xml
 test-results.json
 lerna-debug.log
 .env
+report.html
+lib
+docs

@@ -1,0 +1,28 @@
+{
+  "presets": [
+    "@babel/env",
+    "@babel/typescript"
+  ],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./"
+        ],
+        "alias": {
+          "components": "./src/components",
+          "configs": "./src/configs",
+          "models": "./src/models",
+          "pages": "./src/pages",
+          "testcases": "./src/testcases",
+          "tests": "./src/tests",
+          "types": "./src/types",
+          "utils": "./src/utils"
+        }
+      }
+    ]
+  ]
+}
