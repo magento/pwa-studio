@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import classify from 'src/classify';
 import defaultClasses from './categoryList.css';
 import CategoryTile from './categoryTile';
-import categoryList from '../../queries/getCategoryList.graphql';
+import categoryListQuery from '../../queries/getCategoryList.graphql';
 
 class CategoryList extends Component {
     static propTypes = {
@@ -35,12 +35,9 @@ class CategoryList extends Component {
         return (
             <div className={classes.root}>
                 {this.header}
-                <Query query={categoryList} variables={{ id }}>
+                <Query query={categoryListQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
-                        if (error) {
-                            console.log(error);
-                            return <div>Data Fetch Error</div>;
-                        }
+                        if (error) return <div>Data Fetch Error</div>;
                         if (loading) return <div>Fetching Data</div>;
                         if (data.category.children == '')
                             return <div>Here are not any child categories</div>;
