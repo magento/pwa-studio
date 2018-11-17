@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { closeDrawer } from 'src/actions/app';
-import AppShell from './appShell';
+import App from './app';
 
 const mapStateToProps = ({ app }) => ({ app });
 const mapDispatchToProps = { closeDrawer };
@@ -9,4 +9,4 @@ const mapDispatchToProps = { closeDrawer };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AppShell);
+)(App);

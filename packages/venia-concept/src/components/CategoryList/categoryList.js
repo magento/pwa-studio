@@ -41,6 +41,7 @@ class CategoryList extends Component {
                         if (loading) return <div>Fetching Data</div>;
                         if (data.category.children == '')
                             return <div>Here are not any child categories</div>;
+
                         return (
                             <div className={classes.content}>
                                 {data.category.children.map(item => (
