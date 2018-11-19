@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { shape, string } from 'prop-types';
+import { shape, string, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -11,6 +11,7 @@ import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
+import { isEmptyCartVisible } from 'src/selectors/cart';
 
 let Checkout = () => null;
 
@@ -27,7 +28,8 @@ class MiniCart extends Component {
             summary: string,
             title: string,
             totals: string
-        })
+        }),
+        isCartEmpty: bool
     };
 
     async componentDidMount() {
@@ -69,13 +71,32 @@ class MiniCart extends Component {
         ) : null;
     }
 
+    get miniCartInner() {
+        const { productList, totalsSummary, props } = this;
+        const { isCartEmpty, classes, cart } = props;
+
+        if (isCartEmpty) {
+            return <EmptyMiniCart />;
+        }
+
+        return (
+            <Fragment>
+                <div className={classes.body}>{productList}</div>
+                <div className={classes.footer}>
+                    <div className={classes.summary}>{totalsSummary}</div>
+                </div>
+                <Checkout cart={cart} />
+            </Fragment>
+        );
+    }
+
     render() {
         if (this.props.loading) {
             return <div>Fetching Data</div>;
         }
 
-        const { productList, totalsSummary, props } = this;
-        const { cart, classes, isOpen } = props;
+        const { miniCartInner } = this;
+        const { classes, isOpen } = this.props;
         const className = isOpen ? classes.root_open : classes.root;
 
         return (
@@ -88,25 +109,14 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                {cart.details.items && cart.details.items.length ? (
-                    <Fragment>
-                        <div className={classes.body}>{productList}</div>
-                        <div className={classes.footer}>
-                            <div className={classes.summary}>
-                                {totalsSummary}
-                            </div>
-                        </div>
-                        <Checkout cart={cart} />
-                    </Fragment>
-                ) : (
-                    <EmptyMiniCart />
-                )}
+                {miniCartInner}
             </aside>
         );
     }
 }
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = state => {
+    const { cart } = state;
     const details = cart && cart.details;
     const cartId = details && details.id;
     const cartCurrencyCode =
@@ -115,7 +125,8 @@ const mapStateToProps = ({ cart }) => {
     return {
         cart,
         cartId,
-        cartCurrencyCode
+        cartCurrencyCode,
+        isCartEmpty: isEmptyCartVisible(state)
     };
 };
 
