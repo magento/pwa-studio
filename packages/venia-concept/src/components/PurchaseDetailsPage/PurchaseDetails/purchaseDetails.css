@@ -1,39 +1,39 @@
 .root {
-    padding: 16px 28px;
+    padding: 1rem 1.75rem;
 }
 
 .orderDetailsHeaderText {
     color: rgb(var(--venia-black));
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 300;
-    line-height: 14px;
+    line-height: 0.875rem;
     text-align: center;
     text-transform: uppercase;
-    margin-top: 32px;
-    margin-bottom: 16px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .detailsBlockHeaderText {
     color: rgb(var(--venia-black));
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    line-height: 18px;
-    margin-bottom: 8px;
+    line-height: 1.125rem;
+    margin-bottom: 0.5rem;
 }
 
 .customDetailsBlock {
     composes: root from '../DetailsBlock/detailsBlock.css';
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .orderDetailsBlockRoot {
     composes: customDetailsBlock;
-    padding: 16px 10px 8px;
+    padding: 1rem 0.625rem 0.5rem;
 }
 
 .shipmentBlockRoot {
     composes: customDetailsBlock;
-    padding: 8px 10px 10px;
+    padding: 0.5rem 0.625rem 0.625rem;
 }
 
 .trackButtonRoot {
@@ -41,9 +41,9 @@
     min-width: 8.75rem;
     background-color: rgb(var(--venia-black));
     height: auto;
-    padding: 4px 2px;
+    padding: 0.25rem 0.125rem;
     border-color: rgb(var(--venia-black));
-    margin-bottom: 32px;
+    margin-bottom: 2rem;
 }
 
 .trackButtonRoot:hover {
@@ -52,7 +52,7 @@
 
 .trackButtonContent {
     color: rgb(var(--venia-white));
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
     text-align: center;
 }
