@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { shape, string } from 'prop-types';
+import { shape, string, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -12,6 +12,7 @@ import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
+import { isEmptyCartVisible } from 'src/selectors/cart';
 
 let Checkout = () => null;
 
@@ -28,7 +29,8 @@ class MiniCart extends Component {
             summary: string,
             title: string,
             totals: string
-        })
+        }),
+        isCartEmpty: bool
     };
 
     constructor(...args) {
@@ -67,7 +69,9 @@ class MiniCart extends Component {
 
     get totalsSummary() {
         const { cartId, cartCurrencyCode, cart, classes } = this.props;
-        return cartId && cart.totals && 'subtotal' in cart.totals ? (
+        const hasSubtotal = cartId && cart.totals && 'subtotal' in cart.totals;
+
+        return hasSubtotal ? (
             <dl className={classes.totals}>
                 <dt className={classes.subtotalLabel}>
                     <span>
@@ -86,8 +90,8 @@ class MiniCart extends Component {
     }
 
     get checkout() {
-        const { totalsSummary } = this;
-        const { classes, cart } = this.props;
+        const { props, totalsSummary } = this;
+        const { classes, cart } = props;
 
         return (
             <div>
@@ -142,25 +146,44 @@ class MiniCart extends Component {
         });
     };
 
+    get miniCartInner() {
+        const {
+            checkout,
+            productConfirm,
+            productList,
+            productOptions,
+            props,
+            state
+        } = this;
+        const { classes, isCartEmpty } = props;
+
+        if (isCartEmpty) {
+            return <EmptyMiniCart />;
+        }
+
+        const { isEditPanelOpen } = state;
+        const body = isEditPanelOpen ? productOptions : productList;
+        const footer = isEditPanelOpen ? productConfirm : checkout;
+
+        return (
+            <Fragment>
+                <div className={classes.body}>{body}</div>
+                <div className={classes.footer}>{footer}</div>
+            </Fragment>
+        );
+    }
+
     render() {
         if (this.props.loading) {
             return <div>Fetching Data</div>;
         }
 
-        const {
-            checkout,
-            productList,
-            productOptions,
-            productConfirm,
-            props
-        } = this;
-        const { classes, isOpen, cart } = props;
+        const { miniCartInner, props } = this;
+        const { classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const title = this.state.isEditPanelOpen
             ? 'Edit Cart Item'
             : 'Shopping Cart';
-        const body = this.state.isEditPanelOpen ? productOptions : productList;
-        const footer = this.state.isEditPanelOpen ? productConfirm : checkout;
 
         return (
             <aside className={className}>
@@ -172,20 +195,14 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                {cart.details.items && cart.details.items.length ? (
-                    <Fragment>
-                        <div className={classes.body}>{body}</div>
-                        <div className={classes.footer}>{footer}</div>
-                    </Fragment>
-                ) : (
-                    <EmptyMiniCart />
-                )}
+                {miniCartInner}
             </aside>
         );
     }
 }
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = state => {
+    const { cart } = state;
     const details = cart && cart.details;
     const cartId = details && details.id;
     const cartCurrencyCode =
@@ -194,7 +211,8 @@ const mapStateToProps = ({ cart }) => {
     return {
         cart,
         cartId,
-        cartCurrencyCode
+        cartCurrencyCode,
+        isCartEmpty: isEmptyCartVisible(state)
     };
 };
 
