@@ -3,8 +3,6 @@
 }
 
 html {
-    --venia-white: 255, 255, 255;
-    --venia-black: 0, 0, 0;
     --venia-border: 224, 224, 224;
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
     --venia-font-weight-medium: 500;
