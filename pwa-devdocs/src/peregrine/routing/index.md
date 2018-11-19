@@ -79,7 +79,7 @@ The **fetchRootComponent** helper component uses Webpack to asynchronously load 
 
 To specify the components to render during loading and error handling, specify the component that handles these two states as a child of the **Page** component.
 
-The following code snippets from the Venia storefront project show how [AppShell][] sets the custom [ErrorView][] component as a child of Page.
+The following code snippets from the Venia storefront project show how [App][] component sets the custom [ErrorView][] component as a child of Page.
 This configures the Page component to use ErrorView for displaying the loading and error messages.
 
 **`packages/venia-concept/src/components/ErrorView/errorView.js`**
@@ -108,7 +108,7 @@ class ErrorView extends Component {
 export default ErrorView;
 ```
 
-**`packages/venia-concept/src/components/AppShell/appShell.js`**
+**`packages/venia-concept/src/components/App/app.js`**
 
 ```jsx
 ...
@@ -118,7 +118,7 @@ import ErrorView from 'src/components/ErrorView';
 ...
 const renderRoutingError = props => <ErrorView {...props} />;
 
-class AppShell extends Component {
+class App extends Component {
 ...
     render(){
     ...
@@ -145,5 +145,5 @@ class AppShell extends Component {
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
 [ErrorView]:t://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/ErrorView/errorView.js 
-[AppShell]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/AppShell/appShell.js
+[App]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/App/app.js
 [Loading and error message components]: #loading-and-error-message-components
