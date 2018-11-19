@@ -1,20 +1,20 @@
 .body {
-    margin: 16px 0 18px;
+    margin: 1rem 0 1.125rem;
 }
 
 .defaultItemRoot {
-    padding: 10px 0 16px;
+    padding: 0.625rem 0 2rem;
     border-bottom: 1px solid rgb(var(--venia-border));
 }
 
 .defaultItemRoot:first-child {
-    padding-top: 16px;
+    padding-top: 2rem;
     border-top: 1px solid rgb(var(--venia-border));
 }
 
 .header {
-    margin-bottom: 10px;
-    font-size: 12px;
+    margin-bottom: 0.625rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    line-height: 14px;
+    line-height: 0.875rem;
 }
