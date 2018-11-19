@@ -30,6 +30,37 @@ test('addItem.receive() returns a proper action object', () => {
     });
 });
 
+test('removeItem.request.toString() returns the proper action type', () => {
+    expect(actions.removeItem.request.toString()).toBe(
+        'CART/REMOVE_ITEM/REQUEST'
+    );
+});
+
+test('removeItem.request() returns a proper action object', () => {
+    expect(actions.removeItem.request(payload)).toEqual({
+        type: 'CART/REMOVE_ITEM/REQUEST',
+        payload
+    });
+});
+
+test('removeItem.receive.toString() returns the proper action type', () => {
+    expect(actions.removeItem.receive.toString()).toBe(
+        'CART/REMOVE_ITEM/RECEIVE'
+    );
+});
+
+test('removeItem.receive() returns a proper action object', () => {
+    expect(actions.removeItem.receive(payload)).toEqual({
+        type: 'CART/REMOVE_ITEM/RECEIVE',
+        payload
+    });
+    expect(actions.removeItem.receive(error)).toEqual({
+        type: 'CART/REMOVE_ITEM/RECEIVE',
+        payload: error,
+        error: true
+    });
+});
+
 test('getGuestCart.request.toString() returns the proper action type', () => {
     expect(actions.getGuestCart.request.toString()).toBe(
         'CART/GET_GUEST_CART/REQUEST'
