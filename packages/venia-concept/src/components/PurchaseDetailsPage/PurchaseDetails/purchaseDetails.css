@@ -3,7 +3,7 @@
 }
 
 .orderDetailsHeaderText {
-    color: rgb(var(--venia-black));
+    color: black;
     font-size: 0.875rem;
     font-weight: 300;
     line-height: 0.875rem;
@@ -14,7 +14,7 @@
 }
 
 .detailsBlockHeaderText {
-    color: rgb(var(--venia-black));
+    color: black;
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.125rem;
@@ -39,19 +39,19 @@
 .trackButtonRoot {
     border-radius: 1.5rem;
     min-width: 8.75rem;
-    background-color: rgb(var(--venia-black));
+    background-color: black;
     height: auto;
     padding: 0.25rem 0.125rem;
-    border-color: rgb(var(--venia-black));
+    border-color: black;
     margin-bottom: 2rem;
 }
 
 .trackButtonRoot:hover {
-    background-color: rgb(var(--venia-black));
+    background-color: black;
 }
 
 .trackButtonContent {
-    color: rgb(var(--venia-white));
+    color: white;
     font-size: 0.75rem;
     line-height: 0.75rem;
     text-align: center;

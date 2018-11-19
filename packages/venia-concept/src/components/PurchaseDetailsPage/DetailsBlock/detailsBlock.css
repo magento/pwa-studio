@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     border: 1px solid rgb(var(--venia-silver));
-    color: rgb(var(--venia-black));
+    color: black;
     font-size: 0.75rem;
     font-weight: 300;
     line-height: 1.5rem;
