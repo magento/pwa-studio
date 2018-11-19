@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 
 .imageAndPropsContainer {
@@ -10,14 +10,14 @@
 }
 
 .titleImage {
-    height: 80px;
-    margin-right: 6px;
+    height: 5rem;
+    margin-right: 0.375rem;
 }
 
 .propsColumnContainer {
-    max-width: 160px;
-    font-size: 12px;
-    line-height: 18px;
+    max-width: 10rem;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -28,6 +28,6 @@
 }
 
 .priceContainer {
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
 }

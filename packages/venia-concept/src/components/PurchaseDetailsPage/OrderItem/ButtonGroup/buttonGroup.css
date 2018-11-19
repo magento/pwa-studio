@@ -11,10 +11,10 @@
 
 .buttonGroupItem {
     flex: 1 1 0;
-    padding: 8px 0px 8px 12px;
-    font-size: 10px;
+    padding: 0.5rem 0 0.5rem 0.75rem;
+    font-size: 0.625rem;
     font-weight: 600;
-    line-height: 10px;
+    line-height: 0.625rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -26,7 +26,7 @@
 
 .iconContainer {
     color: rgb(var(--venia-teal));
-    margin-right: 8px;
+    margin-right: 0.5rem;
 }
 
 .textNodeContiner {
