@@ -10,7 +10,7 @@ const urlSuffix = '.html';
 class CategoryMenu extends Component {
     render() {
         const { classes, id, currentId } = this.props;
-        const menuClass = id == currentId ? '' : classes.inactive;
+        const menuClass = id == currentId ? classes.menu : classes.inactive;
 
         return id ? (
             <Query query={navigationMenu} variables={{ id }}>
