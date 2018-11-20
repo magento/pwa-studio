@@ -4,7 +4,9 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    padding: 0.875rem 1.75rem 0;
+    padding: 0 1.75rem;
+    margin: 0 auto;
+    max-width: 60rem;
 }
 
 .itemsContainer {
@@ -13,12 +15,12 @@
 }
 
 .item {
-    border-bottom: 1px solid rgb(var(--venia-athens-gray));
+    border-bottom: 1px solid rgb(var(--venia-border));
 }
 .item:first-child {
-    border-top: 1px solid rgb(var(--venia-athens-gray));
+    border-top: 1px solid rgb(var(--venia-border));
 }
 
 .filterContainer {
-    margin-bottom: 0.875rem;
+    margin: 1rem 0;
 }

@@ -3,6 +3,7 @@
 }
 
 html {
+    --venia-anim-bounce: cubic-bezier(0.5, 1.8, 0.9, 0.8);
     --venia-border: 224, 224, 224;
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
     --venia-grey: 246, 246, 246;
@@ -12,9 +13,6 @@ html {
     --venia-text-alt: 117, 117, 117;
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
-    --venia-anim-bounce: cubic-bezier(0.5, 1.8, 0.9, 0.8);
-    --venia-topaz: 127, 124, 136;
-    --venia-athens-gray: 236, 236, 237;
 }
 
 html {
