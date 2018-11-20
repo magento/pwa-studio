@@ -21,6 +21,9 @@ entries:
     - label: Global style guide
       url: /venia-pwa-concept/design/global-style/
 
+    - label: Colors
+      url: /venia-pwa-concept/design/colors/
+
     - label: Homepage
       url: /venia-pwa-concept/design/homepage/
     
