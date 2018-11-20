@@ -26,18 +26,16 @@ class PurchaseHistoryItem extends Component {
             imageSrc: string,
             title: string,
             date: date,
-            link: string
-        })
+            url: string
+        }).isRequired
     };
 
     render() {
-        const {
-            classes,
-            item: { imageSrc, title, date, link }
-        } = this.props;
+        const { classes, item } = this.props;
+        const { imageSrc, title, date, url } = item || {};
 
         return (
-            <Link className={classes.body} to={link}>
+            <Link className={classes.body} to={url}>
                 <img className={classes.image} src={imageSrc} alt="item" />
                 <div className={classes.textBlock}>
                     <div className={classes.textBlockTitle}>{title}</div>

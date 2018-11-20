@@ -21,7 +21,7 @@ class PurchaseHistory extends Component {
                 imageSrc: string,
                 title: string,
                 date: date,
-                link: string
+                url: string
             })
         )
     };
@@ -47,7 +47,7 @@ class PurchaseHistory extends Component {
                         </ul>
                     )}
                     renderItem={props => (
-                        <li>
+                        <li className={classes.item}>
                             <PurchaseHistoryItem {...props} />
                         </li>
                     )}

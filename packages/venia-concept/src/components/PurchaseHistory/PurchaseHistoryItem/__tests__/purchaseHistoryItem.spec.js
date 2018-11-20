@@ -21,7 +21,7 @@ const item = {
     imageSrc: 'image.jpg',
     title: 'Lorem ipsum dolor sit amet',
     date: new Date(2017, 2, 10),
-    link: '/'
+    url: '/'
 };
 
 test('renders correctly', () => {
@@ -41,5 +41,5 @@ test('contains link to item page', () => {
         <PurchaseHistoryItem classes={classes} item={item} />
     ).dive();
 
-    expect(wrapper.find(`.${classes.body}`).prop('to')).toBe(item.link);
+    expect(wrapper.find(`.${classes.body}`).prop('to')).toBe(item.url);
 });

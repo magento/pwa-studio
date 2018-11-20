@@ -12,6 +12,13 @@
     flex-direction: column;
 }
 
+.item {
+    border-bottom: 1px solid rgb(var(--venia-athens-gray));
+}
+.item:first-child {
+    border-top: 1px solid rgb(var(--venia-athens-gray));
+}
+
 .filterContainer {
     margin-bottom: 0.875rem;
 }

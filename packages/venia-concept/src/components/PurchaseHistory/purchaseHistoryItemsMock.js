@@ -1,33 +1,33 @@
-import dressImage from './dress.jpg';
+const imageSrc = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
 const mockPurchaseHistory = [
     {
         id: 1,
-        imageSrc: dressImage,
+        imageSrc,
         title: 'Lorem ipsum dolor sit amet',
         date: new Date(2018, 3, 20),
-        link: '/'
+        url: '/'
     },
     {
         id: 2,
-        imageSrc: dressImage,
+        imageSrc,
         title: 'Duis aute irure dolor in reprehenderit in voluptate',
         date: new Date(2017, 2, 12),
-        link: '/'
+        url: '/'
     },
     {
         id: 3,
-        imageSrc: dressImage,
+        imageSrc,
         title: 'Ut enim ad minima',
         date: new Date(2016, 1, 1),
-        link: '/'
+        url: '/'
     },
     {
         id: 4,
-        imageSrc: dressImage,
+        imageSrc,
         title: 'Quis autem vel',
         date: new Date(),
-        link: '/'
+        url: '/'
     }
 ];
 

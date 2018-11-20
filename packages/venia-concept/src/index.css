@@ -13,6 +13,8 @@ html {
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
     --venia-anim-bounce: cubic-bezier(0.5, 1.8, 0.9, 0.8);
+    --venia-topaz: 127, 124, 136;
+    --venia-athens-gray: 236, 236, 237;
 }
 
 html {
