@@ -80,7 +80,7 @@ export class SearchBar extends Component {
         if (this.props.isOpen !== prevProps.isOpen) {
             if (this.props.isOpen == true) {
                 this.searchRef.current.focus();
-                this.toggleAutocompleteVisible(false);
+                this.toggleAutocompleteVisible(true);
             } else {
                 this.searchRef.current.blur();
                 this.toggleAutocompleteVisible(false);

@@ -1,6 +1,6 @@
 import React from 'react';
 import classify from 'src/classify';
-
+import { Link } from 'react-router-dom';
 import defaultClasses from './suggestedCategories.css';
 
 const SuggestedCategories = ({
@@ -12,13 +12,13 @@ const SuggestedCategories = ({
     <ul className={classes.root}>
         {categorySuggestions.map(category => (
             <li className={classes.item} key={category.id}>
-                <a
+                <Link
                     onClick={handleCategorySearch}
                     data-id={`${category.id}`}
-                    href={category.url_key}
+                    to={category.url_key}
                 >
                     <strong>{searchQuery}</strong> in {category.name}
-                </a>
+                </Link>
             </li>
         ))}
     </ul>

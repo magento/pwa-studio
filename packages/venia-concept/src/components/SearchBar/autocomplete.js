@@ -77,6 +77,7 @@ class SearchAutocomplete extends Component {
                                 )}
                             />
                             <SuggestedProducts
+                                handleCategorySearch={handleCategorySearch}
                                 items={data.products.items.slice(
                                     0,
                                     suggestedProductsLimit
