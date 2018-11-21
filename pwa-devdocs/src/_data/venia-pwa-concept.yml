@@ -24,6 +24,15 @@ entries:
     - label: Colors
       url: /venia-pwa-concept/design/colors/
 
+    - label: Typography
+      url: /venia-pwa-concept/design/typography/
+
+    - label: Buttons
+      url: /venia-pwa-concept/design/buttons/
+
+    - label: Form fields
+      url: /venia-pwa-concept/design/form-fields/
+
     - label: Homepage
       url: /venia-pwa-concept/design/homepage/
     
