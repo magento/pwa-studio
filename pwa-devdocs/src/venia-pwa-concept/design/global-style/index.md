@@ -7,8 +7,8 @@ title: Global style guide
 This design specification is still in development.
 If have any feedback or would like to join the PWA conversation, please join our [Slack][] channel.
 
-This topic provides the global style rules and values used in the Venia theme.
-Use this guide to style components that will fit within the Venia theme.
+This topic provides the global style rules and values used in the Venia storefront.
+Use this guide to style components that will fit within the Venia storefront.
 
 ## Layout
 
@@ -46,7 +46,7 @@ If you need to use the `z-index`, ensure that it is only used to re-order siblin
 {: .bs-callout .bs-callout-tip}
 ***Tip:** Color values are expressed in RGB format because it translates easier to `rgba()` values than HEX format.*
 
-The Venia theme uses the following [custom properties][] for color in its design:
+The Venia storefront uses the following [custom properties][] for color in its design:
 
 | Custom property     | RGB value            | Usage            |
 | ------------------- | -------------------- | ---------------- |
@@ -71,7 +71,7 @@ Use the [`var()`][] function to use these custom properties in your style defini
 Venia uses the open source [Muli font][] from Google in its design.
 
 {: .bs-callout .bs-callout-info}
-***Note:** If you are developing Venia themed components, you must install this font locally because the Muli font is currently not served by the backend server.*
+***Note:** If you are developing Venia storefront components, you must install this font locally because the Muli font is currently not served by the backend server.*
 
 If the browser cannot find or use this font, it defaults to the following OS specific fonts:
 
@@ -81,7 +81,7 @@ If the browser cannot find or use this font, it defaults to the following OS spe
 
 ### Size specifications
 
-The Venia theme uses a root font size of **16px**.
+The Venia storefront uses a root font size of **16px**.
 All other elements, except images and media queries, use this base value to calculate their relative sizes using `rem`.
 
 Examples using **16px** as the root font size:
@@ -95,7 +95,7 @@ Examples using **16px** as the root font size:
 
 ### Font weights
 
-The Venia theme uses a limited set of font weights in its design.
+The Venia storefront uses a limited set of font weights in its design.
 For optimal performance in your components, use no more than 3 font weight variations.
 
 ![Muli font weights][]
@@ -136,7 +136,7 @@ Use the following table to determine which easing functions to use in your compo
 
 ## Icons
 
-The Venia theme uses the open source [Feather][] icon set.
+The Venia storefront uses the open source [Feather][] icon set.
 Each icon has a stroke width of **2px** and fits inside a **24px** square, except in buttons and carets, which have a size of **16px**.
 
 Examples:
