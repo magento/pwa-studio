@@ -5,16 +5,22 @@ title: Venia project structure
 This topic is an overview of the [`venia-concept`][] project structure.
 It provides overview information about important directories and files to help you understand the different pieces of the project.
 
+The Venia PWA storefront isn't a traditional Magento Theme like the Blank and Luma themes and therefore differs from the traditional [Magento theme structure][].
+It's not part of a Magento code base but a separate instance that communicates with Magento through the [UPWARD][] middleware.
+
 ## Root directory files
 
-The following is a list of important files in the root directory of the `venia-concept` package.
+In addition to the NPM packages.json and Venia specific validation and testing files, the root directory contains the following important files:
 
 [`.env.dist`][]
 : A sample configuration file that defines important environment variables.
   Copy this file into a new `.env` file to use the project default values.
 
+  The first change to make here is adjusting the `MAGENTO_BACKEND_URL` variable to the fully qualified URL of a Magento 2.3 instance.
+  Read more on the [Venia setup][] page.
+
 [`deployVeniaSampleData.sh`][]
-: A shell script that installs the Venia sample data.
+: This file helps you to [Install Venia sample data][] into your Magento installation.
   Copy and execute this file in a Magento instance to install the sample data.
 
 [`server.js`][]
@@ -29,6 +35,10 @@ The following is a list of important files in the root directory of the `venia-c
 [`venia-upward.yml`][]
 : The [UPWARD server specification][] for the Venia PWA storefront.
   This file describes the server behavior for the middle tier service between the PWA and Magento.
+
+[`webpack.config.js`][]
+
+: This file contains all [Webpack][] configuration for bundling Venia static assets for both development and production deploys.
 
 ## The [`templates`][] directory
 
@@ -124,6 +134,10 @@ They are used to simulate API calls or as temporary data for proofs of concepts 
 The `src/util` directory contain useful JavaScript utility functions used throughout the project.
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
+[UPWARD]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec
+[Webpack]: https://webpack.js.org/
+[Install Venia sample data]: {{ site.baseurl }}{% link venia-pwa-concept/install-sample-data/index.md %}
+[Venia setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
 [Peregrine router]: {{ site.baseurl }}{% link peregrine/reference/router/index.md %}
 [official documentation for Redux actions]: https://redux.js.org/basics/actions
 [Redux]: https://redux.js.org/
@@ -147,3 +161,4 @@ The `src/util` directory contain useful JavaScript utility functions used throug
 [`templates`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/templates
 [`media`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/media
 [`src`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/src
+[`webpack.config.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/webpack.config.js
