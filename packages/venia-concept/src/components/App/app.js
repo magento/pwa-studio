@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 import { bool, func, shape, string } from 'prop-types';
 import { Page } from '@magento/peregrine';
@@ -14,7 +14,7 @@ import defaultClasses from './app.css';
 
 const renderRoutingError = props => <ErrorView {...props} />;
 
-class App extends PureComponent {
+class App extends Component {
     static propTypes = {
         app: shape({
             drawer: string,
