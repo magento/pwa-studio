@@ -1,8 +1,5 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const validEnv = require('./validate-environment')(process.env);
-const {
-    Utilities: { configureHost }
-} = require('@magento/pwa-buildpack');
 const { createUpwardServer, envToConfig } = require('@magento/upward-js');
 
 async function serve() {
@@ -15,9 +12,32 @@ async function serve() {
         { env: validEnv }
     );
 
+    if (validEnv.isProduction) {
+        if (process.env.PORT) {
+            console.log(
+                `NODE_ENV=production and PORT set. Binding to localhost:${
+                    process.env.PORT
+                }`
+            );
+            config.port = process.env.PORT;
+        } else {
+            console.log(
+                `NODE_ENV=production and no PORT set. Binding to localhost with random port`
+            );
+            config.port = 0;
+        }
+        await createUpwardServer(config);
+        console.log(`UPWARD Server listening in production mode.`);
+        return;
+    }
+
     if (!config.host) {
         try {
+            const {
+                Utilities: { configureHost }
+            } = require('@magento/pwa-buildpack');
             const { hostname, ports, ssl } = await configureHost({
+                interactive: false,
                 subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
                 exactDomain:
                     validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
@@ -29,13 +49,18 @@ async function serve() {
             config.port = ports.staging;
         } catch (e) {
             console.log(
-                'Could not configure or access custom host. Using loopback...'
+                'Could not configure or access custom host. Using loopback...',
+                e
             );
         }
     }
 
     await createUpwardServer(config);
-    console.log('\nStaging server running at the address above.\n');
+    if (config.logUrl) {
+        console.log('\nStaging server running at the address above.\n');
+    } else {
+        console.log('\nUPWARD server listening in staging mode.\n');
+    }
 }
 
 console.log('Launching staging server...\n');

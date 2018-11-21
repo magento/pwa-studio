@@ -10,19 +10,14 @@ import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
 // import { getUserDetails } from 'src/actions/user';
-import AppShell from 'src/components/AppShell';
-import ensureDirURI from 'src/util/ensureDirUri';
+import App from 'src/components/App';
 import './index.css';
-
 // store.dispatch(getUserDetails());
 
 const { BrowserPersistence } = Util;
-const __tmp_webpack_public_path__ = ensureDirURI(__webpack_public_path__);
 const apiBase = new URL('/graphql', location.origin).toString();
 
-const runtimeConfig = { __tmp_webpack_public_path__, apiBase };
 const httpLink = createHttpLink({
-    __tmp_webpack_public_path__,
     uri: apiBase
 });
 
@@ -49,8 +44,8 @@ const apolloClient = new ApolloClient({
 ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
-            <Router config={runtimeConfig}>
-                <AppShell />
+            <Router apiBase={apiBase}>
+                <App />
             </Router>
         </ReduxProvider>
     </ApolloProvider>,

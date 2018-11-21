@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import { Query } from 'react-apollo';
 import Gallery from 'src/components/Gallery';
@@ -65,4 +66,4 @@ export class Search extends Component {
     }
 }
 
-export default classify(defaultClasses)(Search);
+export default withRouter(classify(defaultClasses)(Search));

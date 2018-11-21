@@ -1,53 +1,8 @@
 function validateEnvironment(env) {
-    const { readFileSync } = require('fs');
-    const path = require('path');
-    const dotenv = require('dotenv');
-    const chalk = require('chalk');
-
-    let parsedEnv;
-    const envPath = path.join(__dirname, '.env');
-    try {
-        parsedEnv = dotenv.parse(readFileSync(envPath));
-        console.log(
-            chalk.green(
-                `Using environment variables from ${chalk.greenBright('.env')}`
-            )
-        );
-        if (env.DEBUG || env.NODE_DEBUG) {
-            console.log(
-                '\n  ' +
-                    require('util')
-                        .inspect(parsedEnv, {
-                            colors: true,
-                            compact: false
-                        })
-                        .replace(/\s*[\{\}]\s*/gm, '')
-                        .replace(/,\n\s+/gm, '\n  ') +
-                    '\n'
-            );
-        }
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            console.log(
-                chalk.redBright(
-                    `\nNo .env file in ${__dirname}\n\tYou may need to copy '.env.dist' to '.env' to begin, or create your own '.env' file manually.`
-                )
-            );
-        } else {
-            console.log(
-                chalk.redBright(`\nCould not retrieve and parse ${envPath}.`, e)
-            );
-        }
-    }
-
     const envalid = require('envalid');
     const { str, bool, url } = envalid;
 
-    return envalid.cleanEnv(env, {
-        MAGENTO_BACKEND_URL: url({
-            desc: 'Public base URL of of Magento 2.3 instance.',
-            example: 'https://magento2.vagrant65'
-        }),
+    const validation = {
         SERVICE_WORKER_FILE_NAME: str({
             desc:
                 'Filename to use when autogenerating a service worker to be served at root.',
@@ -84,7 +39,61 @@ function validateEnvironment(env) {
                 'Tell the upward-js prod server to log the bound URL to stdout. Useful in testing and discovery scenarios, but may be disabled in production.',
             default: true
         })
-    });
+    };
+    if (process.env.NODE_ENV !== 'production') {
+        validation.MAGENTO_BACKEND_URL = url({
+            desc: 'Public base URL of of Magento 2.3 instance.',
+            example: 'https://magento2.vagrant65'
+        });
+        const { readFileSync } = require('fs');
+        const path = require('path');
+        const chalk = require('chalk');
+        const dotenv = require('dotenv');
+        let parsedEnv;
+        const envPath = path.join(__dirname, '.env');
+        try {
+            parsedEnv = dotenv.parse(readFileSync(envPath));
+            // don't use console.log, which writes to stdout. writing to stdout
+            // interferes with webpack json output
+            console.warn(
+                chalk.green(
+                    `Using environment variables from ${chalk.greenBright(
+                        '.env'
+                    )}`
+                )
+            );
+            if (env.DEBUG || env.NODE_DEBUG) {
+                console.warn(
+                    '\n  ' +
+                        require('util')
+                            .inspect(parsedEnv, {
+                                colors: true,
+                                compact: false
+                            })
+                            .replace(/\s*[\{\}]\s*/gm, '')
+                            .replace(/,\n\s+/gm, '\n  ') +
+                        '\n'
+                );
+            }
+        } catch (e) {
+            if (e.code === 'ENOENT') {
+                console.warn(
+                    chalk.redBright(
+                        `\nNo .env file in ${__dirname}\n\tYou may need to copy '.env.dist' to '.env' to begin, or create your own '.env' file manually.`
+                    )
+                );
+            } else {
+                console.warn(
+                    chalk.redBright(
+                        `\nCould not retrieve and parse ${envPath}.`,
+                        e
+                    )
+                );
+            }
+        }
+    }
+
+    return envalid.cleanEnv(env, validation);
 }
 
 module.exports = validateEnvironment;

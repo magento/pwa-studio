@@ -26,16 +26,15 @@ export class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.searchRef = React.createRef();
-        this.clearRef = React.createRef();
+        this.state = {isClearIcon: false};
     }
 
     async componentDidMount() {
         if (this.props.isOpen) {
             this.searchRef.current.focus();
         }
-        if (document.location.pathname === '/search.html') {
-            const params = new URL(document.location).searchParams;
-            this.searchRef.current.value = params.get('query');
+        if (this.props.location.pathname === '/search.html') {
+            this.searchRef.current.value = this.props.location.search.substring(7);
             this.setClearIcon(this.searchRef.current.value);
         }
     }
@@ -69,13 +68,13 @@ export class SearchBar extends Component {
 
     setClearIcon(query) {
         if (query !== '') {
-            this.clearRef.current.style.visiblity = 'visible';
-            this.clearRef.current.style.opacity = '1';
-            this.clearRef.current.style.cursor = 'pointer';
+            this.setState(() => {
+                return {isClearIcon: true};
+            });
         } else {
-            this.clearRef.current.style.visiblity = 'hidden';
-            this.clearRef.current.style.opacity = '0';
-            this.clearRef.current.style.cursor = 'auto';
+            this.setState(() => {
+                return {isClearIcon: false};
+            });
         }
     }
 
@@ -85,6 +84,8 @@ export class SearchBar extends Component {
         const searchClass = isOpen
             ? classes.searchBlockOpen
             : classes.searchBlock;
+
+        const clearIconClass = this.state.isClearIcon ? classes.clearIcon : classes.clearIcon_off;
 
         return (
             <div className={searchClass}>
@@ -103,8 +104,7 @@ export class SearchBar extends Component {
                     onKeyUp={this.enterSearch}
                 />
                 <button
-                    ref={this.clearRef}
-                    className={classes.clearIcon}
+                    className={clearIconClass}
                     onClick={this.clearSearch}
                 >
                     <Icon name="x" />
@@ -114,15 +114,4 @@ export class SearchBar extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    executeSearch: (query, history) => dispatch(executeSearch(query, history))
-});
-
-export default compose(
-    classify(defaultClasses),
-    withRouter,
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(SearchBar);
+export default withRouter(classify(defaultClasses)(SearchBar));

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { shape, string } from 'prop-types';
@@ -7,6 +7,7 @@ import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
+import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
@@ -87,11 +88,19 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                <div className={classes.body}>{productList}</div>
-                <div className={classes.footer}>
-                    <div className={classes.summary}>{totalsSummary}</div>
-                </div>
-                <Checkout cart={cart} />
+                {cart.details.items && cart.details.items.length ? (
+                    <Fragment>
+                        <div className={classes.body}>{productList}</div>
+                        <div className={classes.footer}>
+                            <div className={classes.summary}>
+                                {totalsSummary}
+                            </div>
+                        </div>
+                        <Checkout cart={cart} />
+                    </Fragment>
+                ) : (
+                    <EmptyMiniCart />
+                )}
             </aside>
         );
     }

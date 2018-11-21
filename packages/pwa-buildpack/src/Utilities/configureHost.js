@@ -131,7 +131,8 @@ function getUniqueDomainAndPorts(customName, addUniqueHash) {
 async function configureHost({
     addUniqueHash = true,
     subdomain,
-    exactDomain
+    exactDomain,
+    interactive = true
 } = {}) {
     const { uniqueSubdomain, ports } = getUniqueDomainAndPorts(
         exactDomain || subdomain,
@@ -142,6 +143,9 @@ async function configureHost({
         hostname = exactDomain;
     } else {
         hostname = uniqueSubdomain + '.' + DEV_DOMAIN;
+    }
+    if (!alreadyProvisioned(hostname) && interactive === false) {
+        return false;
     }
     try {
         return {

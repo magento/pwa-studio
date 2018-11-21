@@ -52,8 +52,8 @@
 }
 
 .clearIcon {
-    visiblity: hidden;
-    opacity: 0;
+    visiblity: visible;
+    opacity: 1;
     position: relative;
     height: 50%;
     color: rgb(var(--venia-text));
@@ -62,4 +62,11 @@
     transition-property: opacity;
     transition-duration: 192ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.clearIcon_off {
+    composes: clearIcon;
+    visibility: hidden;
+    opacity: 0;
+    cursor: auto;
 }
