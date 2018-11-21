@@ -4,7 +4,6 @@
     "alias": "magento-venia",
     "public": true,
     "env": {
-        "MAGENTO_BACKEND_URL": "https://venia-test-2-fyyxv2q-zddsyhrdimyra.us-4.magentosite.cloud/",
         "NODE_ENV": "production"
     }
 }
