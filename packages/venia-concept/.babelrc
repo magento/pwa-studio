@@ -2,12 +2,12 @@
     "env": {
         "test": {
             "plugins": [
-                "syntax-dynamic-import",
-                "transform-class-properties",
-                "transform-es2015-modules-commonjs",
-                "transform-object-rest-spread",
-                "import-graphql",
-                "transform-react-jsx"
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-transform-modules-commonjs",
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/plugin-babel-plugin-import-graphql",
+                "@babel/plugin-transform-react-jsx"
             ]
         }
     }

@@ -37,7 +37,6 @@ async function validateQueries(validEnv, log = console.log.bind(console)) {
     async function getSchema() {
         log(`Validating queries based on schema at ${graphQLEndpoint.href}...`);
         const result = await makePromise(execute(link, { query }));
-        console.error({ graphQLEndpoint, result });
         if (result.errors) {
             const errorMessages = `The introspection query to ${
                 graphQLEndpoint.href

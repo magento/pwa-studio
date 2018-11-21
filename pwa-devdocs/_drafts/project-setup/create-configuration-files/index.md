@@ -13,8 +13,8 @@ Create a `.babelrc` file in your theme’s root directory with the following con
 {
     "plugins": [
         "syntax-jsx",
-        "transform-class-properties",
-        "transform-object-rest-spread",
+        "proposal-class-properties",
+        "proposal-object-rest-spread",
         "transform-react-jsx"
     ]
 }
@@ -26,13 +26,13 @@ This configuration installs the following [Babel] plugins:
   JSX allows you to write React components using a syntax structure similar to HTML.
     
   See [Introducing JSX] for more information.
-* [`transform-class-properties`] - Transforms class properties and lets you use the following syntax:
+* [`proposal-class-properties`] - Transforms class properties and lets you use the following syntax:
   ``` javascript
   class Example {
     anInstanceProperty = 52;
   }
   ```
-* [`transform-object-rest-spread`] - Transforms the rest and spread properties for objects to let you use the following syntax:
+* [`proposal-object-rest-spread`] - Transforms the rest and spread properties for objects to let you use the following syntax:
   ``` javascript
   const config = { ...defaultConfig, ...passedConfig };
   ```
@@ -261,5 +261,5 @@ Now that you have created your project configuration files, you can create a [si
 [Babel]: https://babeljs.io/
 [`syntax-jsx`]: https://babeljs.io/docs/plugins/syntax-jsx
 [`transform-react-jsx`]: https://babeljs.io/docs/plugins/transform-react-jsx
-[`transform-class-properties`]: https://babeljs.io/docs/plugins/transform-class-properties/
-[`transform-object-rest-spread`]: https://babeljs.io/docs/plugins/transform-object-rest-spread/
+[`proposal-class-properties`]: https://babeljs.io/docs/plugins/proposal-class-properties/
+[`proposal-object-rest-spread`]: https://babeljs.io/docs/plugins/proposal-object-rest-spread/

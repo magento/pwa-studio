@@ -12,6 +12,7 @@
         ]
     ],
     "plugins": [
-        ["transform-class-properties", { "spec": true }]
+        ["@babel/plugin-proposal-class-properties", { "spec": true }],
+        "@babel/plugin-syntax-jsx"
     ]
 }

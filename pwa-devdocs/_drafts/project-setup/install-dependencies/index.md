@@ -27,8 +27,8 @@ In this topic you will initialize the `package.json` file and install project de
    ``` bash
    npm install --save-dev @magento/pwa-buildpack \
    babel-core babel-loader babel-helper-module-imports \
-   babel-plugin-syntax-jsx babel-plugin-transform-class-properties \
-   babel-plugin-transform-object-rest-spread babel-plugin-transform-react-jsx \
+   babel-plugin-syntax-jsx babel-plugin-proposal-class-properties \
+   babel-plugin-proposal-object-rest-spread babel-plugin-transform-react-jsx \
    webpack@3 webpack-dev-server@2
    ```
 
@@ -76,8 +76,8 @@ Now that you have your project dependencies installed, your `package.json` file 
     "babel-helper-module-imports": "^7.0.0-beta.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-proposal-class-properties": "^6.24.1",
+    "babel-plugin-proposal-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "dotenv": "^5.0.1",
     "webpack": "^3.11.0",

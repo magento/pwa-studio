@@ -3,13 +3,13 @@ const presets = [];
 
 // define default plugin list
 const plugins = [
-    'syntax-dynamic-import',
-    'syntax-jsx',
-    'transform-class-properties',
-    'transform-object-rest-spread',
-    ['transform-react-jsx'],
-    'graphql-tag',
-    'import-graphql'
+    '@babel/plugin-syntax-dynamic-import',
+    '@babel/plugin-syntax-jsx',
+    '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-transform-react-jsx',
+    'babel-plugin-graphql-tag',
+    'babel-plugin-import-graphql'
 ];
 
 // define default babel options
@@ -33,16 +33,15 @@ const options = {
     production: Object.assign({}, defaults, {
         presets: [
             ...(defaults.presets || []),
-            ['babel-preset-env', presetEnvConfig]
+            ['@babel/preset-env', presetEnvConfig]
         ],
         plugins: [
             ...(defaults.plugins || []),
-            'transform-react-remove-prop-types',
+            'babel-plugin-transform-react-remove-prop-types',
             [
-                'transform-runtime',
+                '@babel/plugin-transform-runtime',
                 {
                     helpers: true,
-                    polyfill: false, // polyfills will be handled by preset-env
                     regenerator: false
                 }
             ]

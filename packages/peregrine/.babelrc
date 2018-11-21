@@ -1,17 +1,17 @@
 {
   "plugins": [
-    "syntax-dynamic-import",
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    ["transform-react-jsx"],
-    ["transform-runtime", {
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-syntax-jsx",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-react-jsx",
+    ["@babel/plugin-transform-runtime", {
       "helpers": true,
-      "polyfill": false, // polyfills will be handled by preset-env
       "regenerator": false
     }]
   ],
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "browsers": ["> 5%"]
       },
@@ -21,10 +21,10 @@
   "env": {
     "test": {
       "plugins": [
-        "transform-es2015-modules-commonjs",
-        "transform-object-rest-spread",
-        "transform-class-properties",
-        ["transform-react-jsx"]
+        "@babel/plugin-transform-modules-commonjs",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-react-jsx"
       ]
     }
   }

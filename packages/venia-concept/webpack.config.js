@@ -14,7 +14,7 @@ const path = require('path');
 const babelEnvDeps = require('webpack-babel-env-deps');
 
 const TerserPlugin = require('terser-webpack-plugin');
-const configureBabel = require('./babel.config.js');
+const configureBabel = require('./webpackBabelConfig');
 
 const themePaths = {
     src: path.resolve(__dirname, 'src'),
