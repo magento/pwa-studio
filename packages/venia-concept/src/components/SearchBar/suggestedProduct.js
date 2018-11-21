@@ -11,12 +11,17 @@ const suggestedProduct = ({ classes, url_key, small_image, name, price }) => (
     <li className={classes.root}>
         <a href={`/${url_key}${productUrlSuffix}`}>
             <img
-                className={classes.image}
+                className={classes.productImage}
                 alt={name}
                 src={makeProductMediaPath(small_image)}
             />
         </a>
-        <a href={`/${url_key}${productUrlSuffix}`}>{name}</a>
+        <a
+            className={classes.productName}
+            href={`/${url_key}${productUrlSuffix}`}
+        >
+            {name}
+        </a>
         <a href={`/${url_key}${productUrlSuffix}`}>
             <Price
                 currencyCode={price.regularPrice.amount.currency}

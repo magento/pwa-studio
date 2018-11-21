@@ -43,11 +43,19 @@ class SearchAutocomplete extends Component {
                 {({ loading, error, data }) => {
                     if (error)
                         return (
-                            <div className={classes.root}>Data Fetch Error</div>
+                            <div className={classes.root}>
+                                <div className={classes.statusContent}>
+                                    Data Fetch Error
+                                </div>
+                            </div>
                         );
                     if (loading)
                         return (
-                            <div className={classes.root}>Fetching Data</div>
+                            <div className={classes.root}>
+                                <div className={classes.statusContent}>
+                                    Fetching Data
+                                </div>
+                            </div>
                         );
 
                     const { items } = data.products;

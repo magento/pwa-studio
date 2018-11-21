@@ -9,6 +9,6 @@
 
 .titleText {
     display: block;
-    border-bottom: 1px solid rgb(var(--venia-border));
-    padding: 0.5rem 1rem;
+    border-bottom: 2px solid rgb(var(--venia-border));
+    padding: 0.5rem 1.5rem;
 }
