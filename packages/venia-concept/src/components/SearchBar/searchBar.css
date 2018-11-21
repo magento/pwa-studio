@@ -1,10 +1,7 @@
 .root {
     background-color: rgb(var(--venia-grey));
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 100%;
     transition-property: opacity, transform, height, padding;
+    text-align: center;
 }
 
 .searchBlock {
@@ -16,6 +13,13 @@
     transition-duration: 192ms;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     pointer-events: none;
+}
+
+.searchInner {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .searchBlockOpen {

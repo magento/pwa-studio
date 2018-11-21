@@ -68,7 +68,11 @@ export class SearchBar extends Component {
     };
 
     handleAutocompleteClick = e => {
-        if (this.autocompleteRef.current.contains(e.target)) return;
+        if (
+            this.searchRef.current.contains(e.target) ||
+            this.autocompleteRef.current.contains(e.target)
+        )
+            return;
         this.toggleAutocompleteVisible(false);
     };
 
@@ -136,34 +140,38 @@ export class SearchBar extends Component {
             : classes.searchBlock;
 
         return (
-            <div ref={this.autocompleteRef} className={searchClass}>
-                <button
-                    className={classes.searchIcon}
-                    onClick={this.enterSearch}
-                >
-                    <Icon name="search" />
-                </button>
-                <input
-                    ref={this.searchRef}
-                    className={classes.searchBar}
-                    onFocus={() => this.toggleAutocompleteVisible(true)}
-                    inputMode="search"
-                    type="search"
-                    placeholder="I'm looking for..."
-                    onKeyUp={this.enterSearch}
-                />
-                <button
-                    ref={this.clearRef}
-                    className={classes.clearIcon}
-                    onClick={this.clearSearch}
-                >
-                    <Icon name="x" />
-                </button>
-                <SearchAutocomplete
-                    autocompleteVisible={this.state.autocompleteVisible}
-                    handleCategorySearch={handleCategorySearch}
-                    searchQuery={searchQuery}
-                />
+            <div className={searchClass}>
+                <div className={classes.searchInner}>
+                    <button
+                        className={classes.searchIcon}
+                        onClick={this.enterSearch}
+                    >
+                        <Icon name="search" />
+                    </button>
+                    <input
+                        ref={this.searchRef}
+                        className={classes.searchBar}
+                        onFocus={() => this.toggleAutocompleteVisible(true)}
+                        inputMode="search"
+                        type="search"
+                        placeholder="I'm looking for..."
+                        onKeyUp={this.enterSearch}
+                    />
+                    <button
+                        ref={this.clearRef}
+                        className={classes.clearIcon}
+                        onClick={this.clearSearch}
+                    >
+                        <Icon name="x" />
+                    </button>
+                    <div ref={this.autocompleteRef}>
+                        <SearchAutocomplete
+                            autocompleteVisible={this.state.autocompleteVisible}
+                            handleCategorySearch={handleCategorySearch}
+                            searchQuery={searchQuery}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
