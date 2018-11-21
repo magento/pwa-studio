@@ -48,6 +48,8 @@ appShell:
           default:
             inline: false
         urlResolver: urlResolver
+        veniaClosedImg:
+          inline: 'media/veniaClosed.png'
 
 resource:
   when:
