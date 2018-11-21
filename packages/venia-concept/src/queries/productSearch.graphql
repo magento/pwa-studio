@@ -1,0 +1,24 @@
+query productSearch($inputText: String!, $categoryId: String) {
+    products(search: $inputText, filter: { category_id: { eq: $categoryId } }) {
+        items {
+            id
+            name
+            small_image
+            url_key
+            categories {
+                url_key
+                id
+                name
+            }
+            price {
+                regularPrice {
+                    amount {
+                        value
+                        currency
+                    }
+                }
+            }
+        }
+        total_count
+    }
+}

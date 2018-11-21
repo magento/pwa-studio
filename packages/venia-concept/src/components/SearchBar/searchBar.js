@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import SearchAutocomplete from './autocomplete';
 
 import classify from 'src/classify';
 import { executeSearch } from 'src/actions/app';
@@ -28,6 +29,9 @@ export class SearchBar extends Component {
         this.searchRef = React.createRef();
         this.clearRef = React.createRef();
     }
+    state = {
+        searchQuery: ''
+    };
 
     async componentDidMount() {
         if (this.props.isOpen) {
@@ -52,6 +56,7 @@ export class SearchBar extends Component {
 
     enterSearch = event => {
         const searchQuery = this.searchRef.current.value;
+        this.setState({ searchQuery: searchQuery });
         this.setClearIcon(searchQuery);
         if (
             (event.type === 'click' || event.key === 'Enter') &&
@@ -59,6 +64,13 @@ export class SearchBar extends Component {
         ) {
             this.props.executeSearch(searchQuery, this.props.history);
         }
+    };
+
+    handleCategorySearch = event => {
+        event.preventDefault();
+        const { searchQuery } = this.state;
+        const { id } = event.currentTarget.dataset || event.srcElement.dataset;
+        this.props.executeSearch(searchQuery, this.props.history, id);
     };
 
     clearSearch = () => {
@@ -81,6 +93,8 @@ export class SearchBar extends Component {
 
     render() {
         const { classes, isOpen } = this.props;
+        const { searchQuery } = this.state;
+        const { handleCategorySearch } = this;
 
         const searchClass = isOpen
             ? classes.searchBlockOpen
@@ -109,13 +123,18 @@ export class SearchBar extends Component {
                 >
                     <Icon name="x" />
                 </button>
+                <SearchAutocomplete
+                    handleCategorySearch={handleCategorySearch}
+                    searchQuery={searchQuery}
+                />
             </div>
         );
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    executeSearch: (query, history) => dispatch(executeSearch(query, history))
+    executeSearch: (query, history, id) =>
+        dispatch(executeSearch(query, history, id))
 });
 
 export default compose(

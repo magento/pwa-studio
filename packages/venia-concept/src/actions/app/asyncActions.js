@@ -9,8 +9,12 @@ export const closeDrawer = () => async dispatch =>
 export const toggleSearch = () => async dispatch =>
     dispatch(actions.toggleSearch(null));
 
-export const executeSearch = (query, history) =>
+export const executeSearch = (query, history, categoryId) =>
     async function thunk(dispatch) {
-        history.push(`/search.html?query=` + query);
+        console.log('Category id', categoryId);
+        const searchQuery = categoryId
+            ? `query=${query}&category=${categoryId}`
+            : `query=${query}`;
+        history.push(`/search.html?${searchQuery}`);
         dispatch(actions.executeSearch(query));
     };

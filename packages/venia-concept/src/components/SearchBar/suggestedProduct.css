@@ -1,0 +1,20 @@
+.root {
+    position: relative;
+    align-content: start;
+    display: grid;
+    grid-gap: 0.375rem 1rem;
+    grid-template-areas: 'image name price';
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: min-content;
+    padding-bottom: 1rem;
+}
+
+.root:last-child {
+    padding-bottom: 0;
+}
+
+.image {
+    display: block;
+    height: auto;
+    width: 100%;
+}

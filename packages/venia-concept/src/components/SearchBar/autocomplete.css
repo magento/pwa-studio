@@ -1,0 +1,11 @@
+.root {
+    font-size: 0.8125rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 7px;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 1rem 0;
+}
