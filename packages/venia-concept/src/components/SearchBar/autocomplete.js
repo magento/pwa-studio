@@ -22,10 +22,16 @@ class SearchAutocomplete extends Component {
             );
 
     render() {
-        const { searchQuery, classes, handleCategorySearch } = this.props;
+        const {
+            autocompleteVisible,
+            searchQuery,
+            classes,
+            handleCategorySearch
+        } = this.props;
         const { createCategorySuggestions } = this;
 
-        if (!searchQuery || searchQuery.length < 3) return null;
+        if (!autocompleteVisible || !searchQuery || searchQuery.length < 3)
+            return null;
 
         return (
             <Query

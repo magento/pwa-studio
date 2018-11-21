@@ -11,10 +11,8 @@ export const toggleSearch = () => async dispatch =>
 
 export const executeSearch = (query, history, categoryId) =>
     async function thunk(dispatch) {
-        console.log('Category id', categoryId);
-        const searchQuery = categoryId
-            ? `query=${query}&category=${categoryId}`
-            : `query=${query}`;
+        let searchQuery = `query=${query}`;
+        if (categoryId) searchQuery += `&category=${categoryId}`;
         history.push(`/search.html?${searchQuery}`);
         dispatch(actions.executeSearch(query));
     };

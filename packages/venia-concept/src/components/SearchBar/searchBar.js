@@ -26,30 +26,60 @@ export class SearchBar extends Component {
 
     constructor(props) {
         super(props);
+        this.autocompleteRef = React.createRef();
         this.searchRef = React.createRef();
         this.clearRef = React.createRef();
     }
     state = {
-        searchQuery: ''
+        searchQuery: '',
+        autocompleteVisible: false
+    };
+
+    toggleAutocompleteVisible = visible => {
+        this.setState({
+            autocompleteVisible: visible
+        });
     };
 
     async componentDidMount() {
         if (this.props.isOpen) {
-            this.searchRef.current.focus();
+            this.setState({ autocompleteVisible: true });
         }
         if (document.location.pathname === '/search.html') {
             const params = new URL(document.location).searchParams;
             this.searchRef.current.value = params.get('query');
+            this.setState({ searchQuery: params.get('query') });
             this.setClearIcon(this.searchRef.current.value);
         }
+
+        document.addEventListener(
+            'mousedown',
+            this.handleAutocompleteClick,
+            false
+        );
     }
+
+    componentWillUnmount = () => {
+        document.removeEventListener(
+            'mousedown',
+            this.handleAutocompleteClick,
+            false
+        );
+    };
+
+    handleAutocompleteClick = e => {
+        if (this.autocompleteRef.current.contains(e.target)) return;
+        this.toggleAutocompleteVisible(false);
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.isOpen !== prevProps.isOpen) {
             if (this.props.isOpen == true) {
                 this.searchRef.current.focus();
+                this.toggleAutocompleteVisible(false);
             } else {
                 this.searchRef.current.blur();
+                this.toggleAutocompleteVisible(false);
             }
         }
     }
@@ -62,7 +92,10 @@ export class SearchBar extends Component {
             (event.type === 'click' || event.key === 'Enter') &&
             searchQuery !== ''
         ) {
+            this.toggleAutocompleteVisible(false);
             this.props.executeSearch(searchQuery, this.props.history);
+        } else {
+            this.toggleAutocompleteVisible(true);
         }
     };
 
@@ -70,6 +103,7 @@ export class SearchBar extends Component {
         event.preventDefault();
         const { searchQuery } = this.state;
         const { id } = event.currentTarget.dataset || event.srcElement.dataset;
+        this.toggleAutocompleteVisible(false);
         this.props.executeSearch(searchQuery, this.props.history, id);
     };
 
@@ -77,6 +111,7 @@ export class SearchBar extends Component {
         this.searchRef.current.value = '';
         this.searchRef.current.focus();
         this.setClearIcon(this.searchRef.current.value);
+        this.setState({ searchQuery: '' });
     };
 
     setClearIcon(query) {
@@ -101,7 +136,7 @@ export class SearchBar extends Component {
             : classes.searchBlock;
 
         return (
-            <div className={searchClass}>
+            <div ref={this.autocompleteRef} className={searchClass}>
                 <button
                     className={classes.searchIcon}
                     onClick={this.enterSearch}
@@ -111,6 +146,7 @@ export class SearchBar extends Component {
                 <input
                     ref={this.searchRef}
                     className={classes.searchBar}
+                    onFocus={() => this.toggleAutocompleteVisible(true)}
                     inputMode="search"
                     type="search"
                     placeholder="I'm looking for..."
@@ -124,6 +160,7 @@ export class SearchBar extends Component {
                     <Icon name="x" />
                 </button>
                 <SearchAutocomplete
+                    autocompleteVisible={this.state.autocompleteVisible}
                     handleCategorySearch={handleCategorySearch}
                     searchQuery={searchQuery}
                 />

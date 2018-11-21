@@ -27,7 +27,7 @@ export class Header extends Component {
     };
 
     render() {
-        const { searchOpen, classes } = this.props;
+        const { autocompleteOpen, searchOpen, classes } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
@@ -57,7 +57,11 @@ export class Header extends Component {
                         </CartTrigger>
                     </div>
                 </div>
-                <SearchBar isOpen={searchOpen} classes={classes} />
+                <SearchBar
+                    autocompleteOpen={autocompleteOpen}
+                    isOpen={searchOpen}
+                    classes={classes}
+                />
             </header>
         );
     }
