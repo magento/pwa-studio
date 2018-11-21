@@ -26,13 +26,23 @@ class ProductList extends Component {
     };
 
     render() {
-        const { currencyCode, ...otherProps } = this.props;
+        const {
+            currencyCode,
+            removeItemFromCart,
+            showEditPanel,
+            ...otherProps
+        } = this.props;
         return (
             <List
                 render="ul"
                 getItemKey={item => item.item_id}
                 renderItem={props => (
-                    <Product currencyCode={currencyCode} {...props} />
+                    <Product
+                        currencyCode={currencyCode}
+                        removeItemFromCart={removeItemFromCart}
+                        showEditPanel={showEditPanel}
+                        {...props}
+                    />
                 )}
                 {...otherProps}
             />

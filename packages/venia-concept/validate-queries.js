@@ -1,96 +1,144 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-const validEnv = require('./validate-environment')(process.env);
-
-const magentoDomainVarName = 'MAGENTO_BACKEND_URL';
-const magentoDomain = validEnv[magentoDomainVarName];
-if (!magentoDomain) {
-    console.error(`No ${magentoDomainVarName} environment variable specified.`);
-
-    process.exit(1);
-}
-
 const { URL } = require('url');
-let uri;
-try {
-    uri = new URL('/graphql', magentoDomain);
-} catch (e) {
-    console.error(
-        `Could not build a GraphQL endpoint URL from env var ${magentoDomainVarName}: '${magentoDomain}'.`
+const magentoUrlEnvName = 'MAGENTO_BACKEND_URL';
+let magentoBackendUrl;
+
+async function validateQueries(validEnv, log = console.log.bind(console)) {
+    if (process.env.NODE_ENV === 'production') {
+        log(`NODE_ENV=production, skipping query validation`);
+        return false;
+    }
+    magentoBackendUrl = validEnv[magentoUrlEnvName];
+
+    let graphQLEndpoint;
+    try {
+        magentoBackendUrl = new URL(magentoBackendUrl);
+        graphQLEndpoint = new URL('/graphql', magentoBackendUrl);
+    } catch (e) {
+        throw new Error(
+            `Could not build a GraphQL endpoint URL from env var ${magentoUrlEnvName}: '${magentoBackendUrl}'. ${
+                e.message
+            }`
+        );
+    }
+
+    const { gql, HttpLink, makePromise, execute } = require('apollo-boost');
+    const { getIntrospectionQuery, introspectionQuery } = require('graphql');
+
+    const query = gql(
+        getIntrospectionQuery ? getIntrospectionQuery() : introspectionQuery
     );
-    process.exit(1);
-}
 
-const { gql, HttpLink, makePromise, execute } = require('apollo-boost');
-const { getIntrospectionQuery, introspectionQuery } = require('graphql');
+    const link = new HttpLink({
+        uri: graphQLEndpoint,
+        fetch: require('node-fetch')
+    });
 
-const query = gql(
-    getIntrospectionQuery ? getIntrospectionQuery() : introspectionQuery
-);
-
-const link = new HttpLink({ uri, fetch: require('node-fetch') });
-
-async function getSchema() {
-    console.log(`Validating queries based on schema at ${uri.href}...`);
-    return makePromise(execute(link, { query }));
-}
-
-async function getRuleConfig() {
-    const schemaJson = await getSchema();
-    console.log(`Retrieved introspection query. Configuring validator...`);
-    return [
-        'error',
-        {
-            env: 'apollo',
-            projectName: 'magento',
-            schemaJson
-        },
-        {
-            env: 'literal',
-            projectName: 'magento',
-            schemaJson
+    async function getSchema() {
+        log(`Validating queries based on schema at ${graphQLEndpoint.href}...`);
+        const result = await makePromise(execute(link, { query }));
+        console.error({ graphQLEndpoint, result });
+        if (result.errors) {
+            const errorMessages = `The introspection query to ${
+                graphQLEndpoint.href
+            } failed with the following errors:\n\t- ${result.errors
+                .map(({ message }) => message)
+                .join('\n\t- ')}`;
+            if (
+                errorMessages.includes('GraphQL introspection is not allowed')
+            ) {
+                throw new Error(
+                    `Cannot validate queries because the configured Magento backend ${
+                        magentoBackendUrl.href
+                    } disallows introspection in "production" mode. If you can do so, set this Magento instance to "developer" mode.\n\n${errorMessages}`
+                );
+            } else {
+                throw new Error(errorMessages);
+            }
         }
-    ];
-}
+        return result;
+    }
 
-async function getLinterConfig() {
-    const ruleConfig = await getRuleConfig();
-    console.log(`Validator configured. Running validator...`);
-    return {
-        parser: 'babel-eslint',
-        rules: {
-            'graphql/template-strings': ruleConfig
-        },
-        plugins: ['graphql'],
-        useEslintrc: false
-    };
-}
+    async function getRuleConfig() {
+        const schemaJson = await getSchema();
+        log(`Retrieved introspection query. Configuring validator...`);
+        return [
+            'error',
+            {
+                env: 'apollo',
+                projectName: 'magento',
+                schemaJson
+            },
+            {
+                env: 'literal',
+                projectName: 'magento',
+                schemaJson
+            }
+        ];
+    }
 
-async function validateQueries() {
+    async function getLinterConfig() {
+        const ruleConfig = await getRuleConfig();
+        return {
+            parser: 'babel-eslint',
+            rules: {
+                'graphql/template-strings': ruleConfig
+            },
+            plugins: ['graphql'],
+            useEslintrc: false
+        };
+    }
+    // not using validEnv.isProduction here because envalid sets NODE_ENV
+    // to production by default, which we do want to preserve for build opts
     const linterConfig = await getLinterConfig();
     const CLIEngine = require('eslint').CLIEngine;
     const cli = new CLIEngine(linterConfig);
     const files = cli.resolveFileGlobPatterns(['src/**/*.{js,graphql,gql}']);
     const report = cli.executeOnFiles(files);
     if (report.errorCount > 0) {
-        console.error(`Errors found!`);
         const formatter = cli.getFormatter();
-        process.stderr.write(formatter(report.results));
-        console.error(
-            `
-These errors may indicate:
-  -  an out-of-date Magento 2.3 codebase running at "${magentoDomain}"
+        throw new Error(`Errors found!
+
+ ${formatter(report.results)}
+
+  These errors may indicate:
+  -  an out-of-date Magento 2.3 codebase running at "${magentoBackendUrl}"
   -  an out-of-date project codebase whose queries need updating
 
 Use GraphiQL or another schema exploration tool on the Magento store to learn more.
-  `
-        );
-        process.exit(1);
-    } else {
-        console.log(
-            `Validation passed! All queries found are valid for schema.`
-        );
-        process.exit(0);
+  `);
     }
 }
 
-validateQueries();
+module.exports = validateQueries;
+
+if (module === require.main) {
+    (async () => {
+        try {
+            await validateQueries(
+                require('./validate-environment')(process.env)
+            );
+            console.log('All queries valid against attached GraphQL API.');
+        } catch (e) {
+            try {
+                console.error(e.message);
+                const distEnv = require('dotenv').config({
+                    path: require('path').resolve(__dirname, '.env.dist')
+                });
+                const distBackend = new URL(distEnv.parsed[magentoUrlEnvName]);
+
+                if (distBackend.href !== magentoBackendUrl.href) {
+                    console.error(
+                        `\nThe current default backend for Venia development is:\n\n\t${
+                            distBackend.href
+                        }\n\nThe configured ${magentoUrlEnvName} in the current environment is\n\n\t${
+                            magentoBackendUrl.href
+                        }\n\nConsider updating your .env file or environment variables to resolve the reported issues.`
+                    );
+                }
+            } finally {
+                process.exit(1);
+            }
+        }
+    })();
+}

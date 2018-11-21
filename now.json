@@ -1,5 +1,9 @@
 {
+    "version": 1,
     "name": "magento-venia",
     "alias": "magento-venia",
-    "public": true
+    "public": true,
+    "env": {
+        "NODE_ENV": "production"
+    }
 }
