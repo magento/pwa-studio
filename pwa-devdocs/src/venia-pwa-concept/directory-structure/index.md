@@ -1,37 +1,38 @@
 ---
-title: Venia directory structure
+title: Venia concept directory structure
 ---
 
-This topic is an overview of the directory structure for the Venia theme project.
-It provides information about the different directories and files in the project.
+This topic is an overview of the directory structure for the Venia storefront. It provides information about the different directories and files in the project.
+
+The Venia PWA storefront isn't a traditional Magento Theme like the Blank and Luma themes and therefore differs from the traditional [Magento theme structure][]. It's not part of a Magento code base but a separate instance that communicates with Magento through the [UPWARD][] middleware.
+
 
 ## The root directory
 
-The majority of files and directories in the Venia root directory are boilerplate directories and files for a standard Magento theme.
+The root directory contains, in addition to the NPM packages.json and Venia specific validation and testing files, the following:
 
-### Notable Magento theme files
+`.env.dist` 
 
-`theme.xml`
+: This file contains configuration for the development and production environments. Copy this file into the same root directory and rename to .env .
 
-: This file contains the basic theme meta-information, such as the name and parent, for the Venia theme.
+The first change to make here is adjusting the MAGENTO_BACKEND_URL variable to the fully qualified URL of your M2.3 instance. Read more on the [Venia setup][] page.
 
-`registration.php`
+`server.js`
 
-: This file registers Venia as a Magento theme.
+: This file creates and launches the UPWARD server.
 
-`Magento_Theme/templates/root.phtml`
+`venia-upward.yml`
 
-: This file is a template override for the default `root.phtml` file.
-  In a standard Magento theme, the `root.phtml` file is the base template on which every page is built upon.
+: This is the [UPWARD][] definition file which declares request and response objects for the Venia store front.
 
-  In Venia, this file provides the bare, skeleton HTML that the PWA theme populates on page load.
+`webpack.config.js`
 
-`etc/view.xml`
+: This file contains all [Webpack][] configuration to bundle Venia static assets for both development and production deploys.
 
-: This file exists to make Venia compatible with the Magento 2 theme system.
-  The content is mostly a copy of the original file from the Magento source.
+`deployVeniaSampledata.sh`
 
-For more information on basic theme structure, see: [Magento theme structure][]
+This file helps you to [Install Venia sample data][] into your Magento installation.
+
 
 ## The `src` directory
 
@@ -111,6 +112,12 @@ They are used to simulate API calls or as temporary data for proofs of concepts 
 The `src/util` directory contain useful JavaScript utility functions used throughout the project.
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
+[UPWARD]: 
+https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec
+[Webpack]:
+https://webpack.js.org/
+[Install Venia sample data]: {{ site.baseurl }}{% link venia-pwa-concept/install-sample-data/index.md %}
+[Venia setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
 [Peregrine router]: {{ site.baseurl }}{% link peregrine/reference/router/index.md %}
 [official documentation for Redux actions]: https://redux.js.org/basics/actions
 [Redux]: https://redux.js.org/
