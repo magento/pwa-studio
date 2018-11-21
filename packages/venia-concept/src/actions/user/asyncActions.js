@@ -41,6 +41,12 @@ export const signIn = credentials =>
         }
     };
 
+export const signOut = () => () => {
+    setToken(null);
+
+    location.reload();
+};
+
 export const getUserDetails = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;

@@ -9,8 +9,10 @@ import actions from 'src/actions/user';
 
 export const name = 'user';
 
+const isSignedIn = () => !!storage.getItem('signin_token');
+
 const initialState = {
-    isSignedIn: !!storage.getItem('signin_token'),
+    isSignedIn: isSignedIn(),
     currentUser: {
         email: '',
         firstname: '',
