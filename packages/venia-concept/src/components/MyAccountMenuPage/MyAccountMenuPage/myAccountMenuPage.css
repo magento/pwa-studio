@@ -1,0 +1,12 @@
+.root {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.logoContainer {
+    margin: 2rem auto;
+}
