@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-
+import { compose } from 'redux';
 import { Query } from 'react-apollo';
+import queryString from 'query-string';
 import Gallery from 'src/components/Gallery';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './search.css';
-
+import { withRouter } from 'react-router';
 import productSearchQuery from '../../queries/productSearch.graphql';
 
 const getCategoryName = gql`
@@ -31,22 +32,13 @@ export class Search extends Component {
         const { classes } = this.props;
         const { getCategoryName } = this;
 
-        let inputText = '';
-        let categoryId = '';
-        if (location.search) {
-            const params = new URL(document.location).searchParams;
-            inputText = params.get('query');
-            categoryId = params.get('category');
-        }
+        const params = queryString.parse(this.props.location.search);
+        const { query: inputText, category: categoryId } = params;
 
-        const queryVariables = categoryId
-            ? {
-                  inputText: inputText,
-                  categoryId: categoryId
-              }
-            : {
-                  inputText: inputText
-              };
+        const queryVariables = {
+            inputText,
+            categoryId
+        };
 
         return (
             <Query query={productSearchQuery} variables={queryVariables}>
@@ -79,4 +71,7 @@ export class Search extends Component {
     }
 }
 
-export default classify(defaultClasses)(Search);
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(Search);

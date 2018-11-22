@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import SearchAutocomplete from './autocomplete';
@@ -8,6 +9,8 @@ import classify from 'src/classify';
 import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
 import Icon from 'src/components/Icon';
+
+const searchURL = '/search.html';
 
 export class SearchBar extends Component {
     static propTypes = {
@@ -35,9 +38,9 @@ export class SearchBar extends Component {
     }
 
     async componentDidMount() {
-        if (document.location.pathname === '/search.html') {
-            const params = new URL(document.location).searchParams;
-            this.setState({ searchQuery: params.get('query') });
+        if (this.props.history.location.pathname === searchURL) {
+            const params = queryString.parse(this.props.location.search);
+            this.setState({ searchQuery: params.query });
         }
 
         document.addEventListener(
