@@ -4,12 +4,13 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import SearchAutocomplete from './autocomplete';
-
 import classify from 'src/classify';
 import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
-
+import { debounce } from 'underscore';
 import Icon from 'src/components/Icon';
+
+const debounceTimeout = 200;
 
 export class SearchBar extends Component {
     static propTypes = {
@@ -26,30 +27,24 @@ export class SearchBar extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            autocompleteQuery: '',
+            searchQuery: '',
+            autocompleteVisible: false
+        };
+
         this.autocompleteRef = React.createRef();
         this.searchRef = React.createRef();
-        this.clearRef = React.createRef();
     }
-    state = {
-        searchQuery: '',
-        autocompleteVisible: false
-    };
-
-    toggleAutocompleteVisible = visible => {
-        this.setState({
-            autocompleteVisible: visible
-        });
-    };
 
     async componentDidMount() {
         if (this.props.isOpen) {
-            this.setState({ autocompleteVisible: true });
+            this.updateAutocompleteVisible(true);
         }
         if (document.location.pathname === '/search.html') {
             const params = new URL(document.location).searchParams;
-            this.searchRef.current.value = params.get('query');
-            this.setState({ searchQuery: params.get('query') });
-            this.setClearIcon(this.searchRef.current.value);
+            this.updateSearchState(params.get('query'));
         }
 
         document.addEventListener(
@@ -67,108 +62,136 @@ export class SearchBar extends Component {
         );
     };
 
+    componentDidUpdate(prevProps) {
+        if (this.props.isOpen !== prevProps.isOpen) {
+            if (this.props.isOpen == true) {
+                this.searchRef.current.focus();
+                this.updateAutocompleteVisible(true);
+            } else {
+                this.searchRef.current.blur();
+                this.updateAutocompleteVisible(false);
+            }
+        }
+    }
+
+    updateSearchState = value => {
+        this.setState({ searchQuery: value });
+        this.updateAutocompleteQuery(value);
+    };
+
+    /* Debounce this update in order to avoid multiple autocomplete query calls */
+    updateAutocompleteQuery = debounce(value => {
+        this.setState({
+            autocompleteQuery: value
+        });
+    }, debounceTimeout);
+
+    updateAutocompleteVisible = (visible = true) => {
+        this.setState({
+            autocompleteVisible: visible
+        });
+    };
+
     handleAutocompleteClick = e => {
         if (
             this.searchRef.current.contains(e.target) ||
             this.autocompleteRef.current.contains(e.target)
         )
             return;
-        this.toggleAutocompleteVisible(false);
+        this.updateAutocompleteVisible(false);
     };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.isOpen !== prevProps.isOpen) {
-            if (this.props.isOpen == true) {
-                this.searchRef.current.focus();
-                this.toggleAutocompleteVisible(true);
-            } else {
-                this.searchRef.current.blur();
-                this.toggleAutocompleteVisible(false);
-            }
-        }
-    }
+    handleOnChange = event => {
+        const { value } = event.currentTarget || event.srcElement;
+        this.updateSearchState(value);
+    };
 
-    enterSearch = event => {
-        const searchQuery = this.searchRef.current.value;
-        this.setState({ searchQuery: searchQuery });
-        this.setClearIcon(searchQuery);
-        if (
-            (event.type === 'click' || event.key === 'Enter') &&
-            searchQuery !== ''
-        ) {
-            this.toggleAutocompleteVisible(false);
-            this.props.executeSearch(searchQuery, this.props.history);
+    handleOnKeyDown = event => {
+        const { value } = event.currentTarget || event.srcElement;
+        if (event.key === 'Enter' && value !== '') {
+            this.updateAutocompleteVisible(false);
+            this.props.executeSearch(value, this.props.history, id);
         } else {
-            this.toggleAutocompleteVisible(true);
+            this.updateAutocompleteVisible(true);
         }
+    };
+
+    handleSearchSubmit = () => {
+        this.updateAutocompleteVisible(false);
+        this.props.executeSearch(this.state.searchQuery, this.props.history);
     };
 
     handleCategorySearch = event => {
         event.preventDefault();
-        const { searchQuery } = this.state;
         const { id } = event.currentTarget.dataset || event.srcElement.dataset;
-        this.toggleAutocompleteVisible(false);
-        this.props.executeSearch(searchQuery, this.props.history, id);
+        this.updateAutocompleteVisible(false);
+        this.props.executeSearch(
+            this.state.searchQuery,
+            this.props.history,
+            id
+        );
     };
 
-    clearSearch = () => {
-        this.searchRef.current.value = '';
+    handleOnProductOpen = () => this.updateAutocompleteVisible(false);
+
+    handleClearSearch = () => {
         this.searchRef.current.focus();
-        this.setClearIcon(this.searchRef.current.value);
-        this.setState({ searchQuery: '' });
+        this.updateAutocompleteVisible(false);
+        this.updateSearchState('');
     };
-
-    setClearIcon(query) {
-        if (query !== '') {
-            this.clearRef.current.style.visiblity = 'visible';
-            this.clearRef.current.style.opacity = '1';
-            this.clearRef.current.style.cursor = 'pointer';
-        } else {
-            this.clearRef.current.style.visiblity = 'hidden';
-            this.clearRef.current.style.opacity = '0';
-            this.clearRef.current.style.cursor = 'auto';
-        }
-    }
 
     render() {
         const { classes, isOpen } = this.props;
-        const { searchQuery } = this.state;
-        const { handleCategorySearch } = this;
+
+        const {
+            searchQuery,
+            autocompleteQuery,
+            autocompleteVisible
+        } = this.state;
 
         const searchClass = isOpen
             ? classes.searchBlockOpen
             : classes.searchBlock;
+
+        const clearClass = searchQuery
+            ? classes.clearIconOpen
+            : classes.clearIcon;
 
         return (
             <div className={searchClass}>
                 <div className={classes.searchInner}>
                     <button
                         className={classes.searchIcon}
-                        onClick={this.enterSearch}
+                        onClick={this.handleSearchSubmit}
                     >
                         <Icon name="search" />
                     </button>
                     <input
                         ref={this.searchRef}
+                        value={searchQuery}
                         className={classes.searchBar}
-                        onFocus={() => this.toggleAutocompleteVisible(true)}
+                        onFocus={this.updateAutocompleteVisible}
                         inputMode="search"
                         type="search"
                         placeholder="I'm looking for..."
-                        onKeyUp={this.enterSearch}
+                        onChange={this.handleOnChange}
+                        onKeyDown={this.handleOnKeyDown}
                     />
                     <button
-                        ref={this.clearRef}
-                        className={classes.clearIcon}
-                        onClick={this.clearSearch}
+                        className={clearClass}
+                        onClick={this.handleClearSearch}
                     >
                         <Icon name="x" />
                     </button>
-                    <div ref={this.autocompleteRef}>
+                    <div
+                        className={classes.autocompleteWrapper}
+                        ref={this.autocompleteRef}
+                    >
                         <SearchAutocomplete
-                            autocompleteVisible={this.state.autocompleteVisible}
-                            handleCategorySearch={handleCategorySearch}
-                            searchQuery={searchQuery}
+                            handleOnProductOpen={this.handleOnProductOpen}
+                            autocompleteVisible={autocompleteVisible}
+                            handleCategorySearch={this.handleCategorySearch}
+                            autocompleteQuery={autocompleteQuery}
                         />
                     </div>
                 </div>

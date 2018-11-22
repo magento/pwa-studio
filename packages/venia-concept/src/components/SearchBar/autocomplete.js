@@ -24,20 +24,20 @@ class SearchAutocomplete extends Component {
     render() {
         const {
             autocompleteVisible,
-            searchQuery,
+            autocompleteQuery,
             classes,
-            handleCategorySearch
+            handleCategorySearch,
+            handleOnProductOpen
         } = this.props;
         const { createCategorySuggestions } = this;
 
-        if (!autocompleteVisible || !searchQuery || searchQuery.length < 3)
-            return null;
+        if (!autocompleteVisible || autocompleteQuery.length < 3) return null;
 
         return (
             <Query
                 query={productSearchQuery}
                 variables={{
-                    inputText: searchQuery
+                    inputText: autocompleteQuery
                 }}
             >
                 {({ loading, error, data }) => {
@@ -70,13 +70,14 @@ class SearchAutocomplete extends Component {
                         <div className={classes.root}>
                             <SuggestedCategories
                                 handleCategorySearch={handleCategorySearch}
-                                searchQuery={searchQuery}
+                                autocompleteQuery={autocompleteQuery}
                                 categorySuggestions={categorySuggestions.slice(
                                     0,
                                     suggestedCategoriesLimit
                                 )}
                             />
                             <SuggestedProducts
+                                handleOnProductOpen={handleOnProductOpen}
                                 handleCategorySearch={handleCategorySearch}
                                 items={data.products.items.slice(
                                     0,

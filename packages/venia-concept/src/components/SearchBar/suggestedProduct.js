@@ -8,9 +8,19 @@ import defaultClasses from './suggestedProduct.css';
 
 const productUrlSuffix = '.html';
 
-const suggestedProduct = ({ classes, url_key, small_image, name, price }) => (
+const suggestedProduct = ({
+    handleOnProductOpen,
+    classes,
+    url_key,
+    small_image,
+    name,
+    price
+}) => (
     <li className={classes.root}>
-        <Link to={`/${url_key}${productUrlSuffix}`}>
+        <Link
+            onClick={handleOnProductOpen}
+            to={`/${url_key}${productUrlSuffix}`}
+        >
             <img
                 className={classes.productImage}
                 alt={name}
@@ -18,12 +28,16 @@ const suggestedProduct = ({ classes, url_key, small_image, name, price }) => (
             />
         </Link>
         <Link
+            onClick={handleOnProductOpen}
             className={classes.productName}
             to={`/${url_key}${productUrlSuffix}`}
         >
             {name}
         </Link>
-        <Link to={`/${url_key}${productUrlSuffix}`}>
+        <Link
+            onClick={handleOnProductOpen}
+            to={`/${url_key}${productUrlSuffix}`}
+        >
             <Price
                 currencyCode={price.regularPrice.amount.currency}
                 value={price.regularPrice.amount.value}
