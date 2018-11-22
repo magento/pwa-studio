@@ -59,11 +59,9 @@ export class SearchBar extends Component {
     };
 
     updateAutocompleteVisible = visible => {
-        if (this.state.autocompleteVisible !== visible) {
-            this.setState({
-                autocompleteVisible: visible
-            });
-        }
+        this.setState({
+            autocompleteVisible: visible
+        });
     };
 
     handleOnInputFocus = () => {
