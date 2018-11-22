@@ -76,18 +76,18 @@ export class SearchBar extends Component {
     };
 
     handleOnKeyDown = event => {
-        const { value } = event.currentTarget || event.srcElement;
-        if (event.key === 'Enter' && value !== '') {
-            this.updateAutocompleteVisible(false);
-            this.props.executeSearch(value, this.props.history);
+        if (event.key === 'Enter') {
+            this.handleSearchSubmit();
         } else {
             this.updateAutocompleteVisible(true);
         }
     };
 
     handleSearchSubmit = () => {
+        const { searchQuery } = this.state;
         this.updateAutocompleteVisible(false);
-        this.props.executeSearch(this.state.searchQuery, this.props.history);
+        if (searchQuery !== '')
+            this.props.executeSearch(searchQuery, this.props.history);
     };
 
     handleCategorySearch = event => {
