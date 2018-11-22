@@ -5,6 +5,7 @@ import Icon from 'src/components/Icon';
 import defaultClasses from './myAccountMenuTrigger.css';
 import UserInformation from '../UserInformation';
 import MyAccountMenuPage from '../MyAccountMenuPage';
+import { USER_PROP_TYPES } from '../constants';
 
 class MyAccountMenuTrigger extends Component {
     static propTypes = {
@@ -14,7 +15,7 @@ class MyAccountMenuTrigger extends Component {
             menuOpen: PropTypes.string,
             menuClosed: PropTypes.string
         }),
-        user: PropTypes.shape({})
+        user: PropTypes.shape(USER_PROP_TYPES)
     };
 
     state = {

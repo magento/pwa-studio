@@ -5,6 +5,7 @@ import Trigger from 'src/components/Trigger';
 import Icon from 'src/components/Icon';
 import UserInformation from '../UserInformation';
 import defaultClasses from './header.css';
+import { USER_PROP_TYPES } from '../constants';
 
 class Header extends Component {
     static propTypes = {
@@ -13,7 +14,7 @@ class Header extends Component {
             header: PropTypes.string
         }),
         onClose: PropTypes.func,
-        user: PropTypes.shape({})
+        user: PropTypes.shape(USER_PROP_TYPES)
     };
 
     render() {

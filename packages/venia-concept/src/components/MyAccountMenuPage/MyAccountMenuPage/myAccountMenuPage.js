@@ -5,6 +5,7 @@ import Logo from 'src/components/Logo';
 import MyAccountMenu from '../MyAccountMenu';
 import Header from '../Header';
 import defaultClasses from './myAccountMenuPage.css';
+import { USER_PROP_TYPES } from '../constants';
 
 class MyAccountMenuPage extends Component {
     static propTypes = {
@@ -13,7 +14,8 @@ class MyAccountMenuPage extends Component {
             logoContainer: PropTypes.string
         }),
         signOut: PropTypes.func,
-        onClose: PropTypes.func
+        onClose: PropTypes.func,
+        user: PropTypes.shape(USER_PROP_TYPES)
     };
 
     render() {

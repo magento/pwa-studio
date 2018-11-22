@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import defaultClasses from './userInformation.css';
+import { USER_PROP_TYPES } from '../constants';
 
 const USER_ICON_ATTRS = {
     width: 18
@@ -16,10 +17,7 @@ class UserInformation extends Component {
             userInformationSecondary: PropTypes.string,
             iconContainer: PropTypes.string
         }),
-        user: PropTypes.shape({
-            email: PropTypes.string,
-            fullname: PropTypes.string
-        })
+        user: PropTypes.shape(USER_PROP_TYPES)
     };
 
     render() {
