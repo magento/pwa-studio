@@ -7,10 +7,7 @@ import SearchAutocomplete from './autocomplete';
 import classify from 'src/classify';
 import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
-import { debounce } from 'underscore';
 import Icon from 'src/components/Icon';
-
-const debounceTimeout = 200;
 
 export class SearchBar extends Component {
     static propTypes = {
@@ -29,7 +26,6 @@ export class SearchBar extends Component {
         super(props);
 
         this.state = {
-            autocompleteQuery: '',
             searchQuery: '',
             autocompleteVisible: false
         };
@@ -39,12 +35,9 @@ export class SearchBar extends Component {
     }
 
     async componentDidMount() {
-        if (this.props.isOpen) {
-            this.updateAutocompleteVisible(true);
-        }
         if (document.location.pathname === '/search.html') {
             const params = new URL(document.location).searchParams;
-            this.updateSearchState(params.get('query'));
+            this.setState({ searchQuery: params.get('query') });
         }
 
         document.addEventListener(
@@ -61,30 +54,6 @@ export class SearchBar extends Component {
             false
         );
     };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.isOpen !== prevProps.isOpen) {
-            if (this.props.isOpen == true) {
-                this.searchRef.current.focus();
-                this.updateAutocompleteVisible(true);
-            } else {
-                this.searchRef.current.blur();
-                this.updateAutocompleteVisible(false);
-            }
-        }
-    }
-
-    updateSearchState = value => {
-        this.setState({ searchQuery: value });
-        this.updateAutocompleteQuery(value);
-    };
-
-    /* Debounce this update in order to avoid multiple autocomplete query calls */
-    updateAutocompleteQuery = debounce(value => {
-        this.setState({
-            autocompleteQuery: value
-        });
-    }, debounceTimeout);
 
     updateAutocompleteVisible = (visible = true) => {
         this.setState({
@@ -103,14 +72,14 @@ export class SearchBar extends Component {
 
     handleOnChange = event => {
         const { value } = event.currentTarget || event.srcElement;
-        this.updateSearchState(value);
+        this.setState({ searchQuery: value });
     };
 
     handleOnKeyDown = event => {
         const { value } = event.currentTarget || event.srcElement;
         if (event.key === 'Enter' && value !== '') {
             this.updateAutocompleteVisible(false);
-            this.props.executeSearch(value, this.props.history, id);
+            this.props.executeSearch(value, this.props.history);
         } else {
             this.updateAutocompleteVisible(true);
         }
@@ -137,17 +106,13 @@ export class SearchBar extends Component {
     handleClearSearch = () => {
         this.searchRef.current.focus();
         this.updateAutocompleteVisible(false);
-        this.updateSearchState('');
+        this.setState({ searchQuery: '' });
     };
 
     render() {
         const { classes, isOpen } = this.props;
 
-        const {
-            searchQuery,
-            autocompleteQuery,
-            autocompleteVisible
-        } = this.state;
+        const { searchQuery, autocompleteVisible } = this.state;
 
         const searchClass = isOpen
             ? classes.searchBlockOpen
@@ -188,10 +153,10 @@ export class SearchBar extends Component {
                         ref={this.autocompleteRef}
                     >
                         <SearchAutocomplete
-                            handleOnProductOpen={this.handleOnProductOpen}
+                            searchQuery={searchQuery}
                             autocompleteVisible={autocompleteVisible}
+                            handleOnProductOpen={this.handleOnProductOpen}
                             handleCategorySearch={this.handleCategorySearch}
-                            autocompleteQuery={autocompleteQuery}
                         />
                     </div>
                 </div>

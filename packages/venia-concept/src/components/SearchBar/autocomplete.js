@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-
+import { debounce } from 'underscore';
 import classify from 'src/classify';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
@@ -8,10 +8,16 @@ import productSearchQuery from '../../queries/productSearch.graphql';
 
 import defaultClasses from './autocomplete.css';
 
+const debounceTimeout = 200;
 const suggestedCategoriesLimit = 4;
 const suggestedProductsLimit = 3;
 
 class SearchAutocomplete extends Component {
+    state = {
+        autocompleteQuery: ''
+    };
+
+    /* Flatten categories array & remove duplicate categories */
     createCategorySuggestions = items =>
         items
             .map(item => item.categories)
@@ -21,15 +27,27 @@ class SearchAutocomplete extends Component {
                     categories.indexOf(category) === index
             );
 
+    /* Debounce this update in order to avoid multiple autocomplete query calls */
+    updateAutocompleteQuery = debounce(value => {
+        this.setState({
+            autocompleteQuery: value
+        });
+    }, debounceTimeout);
+
     render() {
         const {
             autocompleteVisible,
-            autocompleteQuery,
+            searchQuery,
             classes,
             handleCategorySearch,
             handleOnProductOpen
         } = this.props;
-        const { createCategorySuggestions } = this;
+
+        const { createCategorySuggestions, updateAutocompleteQuery } = this;
+
+        updateAutocompleteQuery(searchQuery);
+
+        const { autocompleteQuery } = this.state;
 
         if (!autocompleteVisible || autocompleteQuery.length < 3) return null;
 
