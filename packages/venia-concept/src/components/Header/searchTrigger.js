@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import { toggleSearch } from 'src/actions/app';
 import defaultClasses from './searchTrigger.css';
 
 class SearchTrigger extends Component {
@@ -20,7 +18,7 @@ class SearchTrigger extends Component {
 
     async componentDidMount() {
         if (
-            document.location.pathname === '/search.html' &&
+            this.props.location.pathname === '/search.html' &&
             this.props.searchOpen !== true
         ) {
             this.props.toggleSearch();
@@ -39,14 +37,4 @@ class SearchTrigger extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    toggleSearch: () => dispatch(toggleSearch())
-});
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(SearchTrigger);
+export default withRouter(classify(defaultClasses)(SearchTrigger));

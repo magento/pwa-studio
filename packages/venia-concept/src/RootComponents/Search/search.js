@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+import { withRouter } from 'react-router';
 import { Query } from 'react-apollo';
 import queryString from 'query-string';
 import Gallery from 'src/components/Gallery';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './search.css';
-import { withRouter } from 'react-router';
 import productSearchQuery from '../../queries/productSearch.graphql';
 
 const getCategoryName = gql`
@@ -71,7 +70,4 @@ export class Search extends Component {
     }
 }
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(Search);
+export default withRouter(classify(defaultClasses)(Search));

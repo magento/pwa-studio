@@ -12,7 +12,7 @@ import SearchBar from 'src/components/SearchBar';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
-export class Header extends Component {
+class Header extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             logo: PropTypes.string,
@@ -27,7 +27,12 @@ export class Header extends Component {
     };
 
     render() {
-        const { autocompleteOpen, searchOpen, classes } = this.props;
+        const {
+            autocompleteOpen,
+            searchOpen,
+            classes,
+            toggleSearch
+        } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
@@ -49,7 +54,10 @@ export class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <SearchTrigger searchOpen={searchOpen}>
+                        <SearchTrigger
+                            searchOpen={searchOpen}
+                            toggleSearch={toggleSearch}
+                        >
                             <Icon name="search" />
                         </SearchTrigger>
                         <CartTrigger>

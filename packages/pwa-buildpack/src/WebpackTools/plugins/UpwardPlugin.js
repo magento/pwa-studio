@@ -56,27 +56,47 @@ class UpwardPlugin {
 
         const io = {
             async readFile(filepath, enc) {
-                const absolutePath = path.resolve(filepath);
-
+                const absolutePath = path.resolve(
+                    compiler.options.output.path,
+                    filepath
+                );
                 // Most likely scenario: UPWARD needs an output asset.
+                debug('readFile %s %s', filepath, enc);
                 try {
                     return compiler.outputFileSystem.readFileSync(
                         absolutePath,
                         enc
                     );
-                } catch (e) {}
-
+                } catch (e) {
+                    debug(
+                        'outputFileSystem %s %s. Trying defaultIO...',
+                        filepath,
+                        e.message
+                    );
+                }
                 // Next most likely scenario: UPWARD needs a file on disk.
                 try {
-                    const fromDefault = await defaultIO.readFile(
-                        absolutePath,
-                        enc
-                    );
+                    const fromDefault = await defaultIO.readFile(filepath, enc);
                     return fromDefault;
-                } catch (e) {}
+                } catch (e) {
+                    debug(
+                        'defaultIO %s %s. Trying inputFileSystem...',
+                        filepath,
+                        e.message
+                    );
+                }
 
-                // Fallback: Use Webpack's resolution rules.
-                return compiler.inputFileSystem.readFileSync(absolutePath, enc);
+                try {
+                    // Fallback: Use Webpack's resolution rules.
+                    return compiler.inputFileSystem.readFileSync(filepath, enc);
+                } catch (e) {
+                    debug(
+                        'inputFileSystem %s %s. Must throw...',
+                        filepath,
+                        e.message
+                    );
+                    throw e;
+                }
             },
 
             async networkFetch(path, options) {

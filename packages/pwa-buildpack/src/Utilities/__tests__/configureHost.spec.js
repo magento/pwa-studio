@@ -14,19 +14,30 @@ const fakeCertPair = {
 
 const simulate = {
     certCached() {
-        devcert.configuredDomains.mockReturnValueOnce({
-            includes: () => true
-        });
+        devcert.configuredDomains
+            .mockReturnValueOnce({
+                includes: () => true
+            })
+            .mockReturnValueOnce({
+                includes: () => true
+            });
         devcert.certificateFor.mockResolvedValueOnce(fakeCertPair);
         return simulate;
     },
-    certCreated() {
+    certNotCached() {
         devcert.configuredDomains.mockReturnValueOnce([]);
+    },
+    certCreated() {
+        devcert.configuredDomains
+            .mockReturnValueOnce([])
+            .mockReturnValueOnce([]);
         devcert.certificateFor.mockResolvedValueOnce(fakeCertPair);
         return simulate;
     },
     certFailed(message) {
-        devcert.configuredDomains.mockReturnValueOnce([]);
+        devcert.configuredDomains
+            .mockReturnValueOnce([])
+            .mockReturnValueOnce([]);
         devcert.certificateFor.mockRejectedValueOnce(new Error(message));
         return simulate;
     },
@@ -149,14 +160,27 @@ test('produces a secure domain from exact domain provided', async () => {
 
 test('warns about sudo prompt if cert needs to be created', async () => {
     simulate.certCreated();
+    const oldIsTTY = process.stdin.isTTY;
+    process.stdin.isTTY = true;
     await configureHost({ subdomain: 'best-boss-i-ever-had' });
     expect(console.warn).not.toHaveBeenCalled();
     simulate.certCreated();
     execa.shell.mockRejectedValueOnce(new Error('wat'));
     await configureHost({ subdomain: 'bar-none' });
+    process.stdin.isTTY = oldIsTTY;
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching('requires temporary administrative privileges')
     );
+});
+
+test('returns false if not already provisioned and non-interactive specified', async () => {
+    simulate.certNotCached();
+    expect(
+        await configureHost({
+            subdomain: 'no-prod-for-you',
+            interactive: false
+        })
+    ).toBe(false);
 });
 
 test('fails informatively if devcert fails', async () => {

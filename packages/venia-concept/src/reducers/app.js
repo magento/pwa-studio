@@ -8,7 +8,7 @@ const initialState = {
     drawer: null,
     overlay: false,
     searchOpen: false,
-    query: null,
+    query: '',
     pending: {}
 };
 
