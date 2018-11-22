@@ -1,1 +1,1 @@
-export { default } from './myAccountMenuPage';
+export { default } from './myAccountMenuPageContainer';

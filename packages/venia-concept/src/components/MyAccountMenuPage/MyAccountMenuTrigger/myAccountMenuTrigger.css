@@ -21,3 +21,20 @@
     height: 3.5rem;
     width: 3.5rem;
 }
+
+.menuOpen {
+    position: fixed;
+    z-index: 5;
+    background-color: white;
+    transition: top 244ms;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+
+.menuClosed {
+    composes: menuOpen;
+    top: 101%;
+}

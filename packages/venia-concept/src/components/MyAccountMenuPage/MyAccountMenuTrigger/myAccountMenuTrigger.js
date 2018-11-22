@@ -10,7 +10,9 @@ class MyAccountMenuTrigger extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             userChip: PropTypes.string,
-            userMore: PropTypes.string
+            userMore: PropTypes.string,
+            menuOpen: PropTypes.string,
+            menuClosed: PropTypes.string
         }),
         user: PropTypes.shape({})
     };
@@ -20,13 +22,17 @@ class MyAccountMenuTrigger extends Component {
     };
 
     get menu() {
+        const { classes } = this.props;
         const { isMenuOpen } = this.state;
+        const menuContainerClassName = isMenuOpen
+            ? classes.menuOpen
+            : classes.menuClosed;
 
-        if (!isMenuOpen) {
-            return null;
-        }
-
-        return <MyAccountMenuPage onClose={this.closeMenu} />;
+        return (
+            <div className={menuContainerClassName}>
+                <MyAccountMenuPage onClose={this.closeMenu} />
+            </div>
+        );
     }
 
     changeMenuState = value => {

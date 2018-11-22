@@ -1,10 +1,9 @@
 .root {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    z-index: 5;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    height: 100%;
+    width: 100%;
+    background-color: white;
 }
 
 .logoContainer {
