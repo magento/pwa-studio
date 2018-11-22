@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import classify from 'src/classify';
@@ -8,42 +9,61 @@ import defaultClasses from './suggestedProduct.css';
 
 const productUrlSuffix = '.html';
 
-const suggestedProduct = ({
-    handleOnProductOpen,
-    classes,
-    url_key,
-    small_image,
-    name,
-    price
-}) => (
-    <li className={classes.root}>
-        <Link
-            onClick={handleOnProductOpen}
-            to={`/${url_key}${productUrlSuffix}`}
-        >
-            <img
-                className={classes.productImage}
-                alt={name}
-                src={makeProductMediaPath(small_image)}
-            />
-        </Link>
-        <Link
-            onClick={handleOnProductOpen}
-            className={classes.productName}
-            to={`/${url_key}${productUrlSuffix}`}
-        >
-            {name}
-        </Link>
-        <Link
-            onClick={handleOnProductOpen}
-            to={`/${url_key}${productUrlSuffix}`}
-        >
-            <Price
-                currencyCode={price.regularPrice.amount.currency}
-                value={price.regularPrice.amount.value}
-            />
-        </Link>
-    </li>
-);
+class suggestedProduct extends Component {
+    static propTypes = {
+        handleOnProductOpen: PropTypes.func.isRequired,
+        url_key: PropTypes.string.isRequired,
+        small_image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.object.isRequired,
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            productName: PropTypes.string,
+            productImage: PropTypes.string
+        })
+    };
+
+    render() {
+        const {
+            handleOnProductOpen,
+            classes,
+            url_key,
+            small_image,
+            name,
+            price
+        } = this.props;
+
+        return (
+            <li className={classes.root}>
+                <Link
+                    onClick={handleOnProductOpen}
+                    to={`/${url_key}${productUrlSuffix}`}
+                >
+                    <img
+                        className={classes.productImage}
+                        alt={name}
+                        src={makeProductMediaPath(small_image)}
+                    />
+                </Link>
+                <Link
+                    onClick={handleOnProductOpen}
+                    className={classes.productName}
+                    to={`/${url_key}${productUrlSuffix}`}
+                >
+                    {name}
+                </Link>
+                <Link
+                    onClick={handleOnProductOpen}
+                    to={`/${url_key}${productUrlSuffix}`}
+                >
+                    <Price
+                        currencyCode={price.regularPrice.amount.currency}
+                        value={price.regularPrice.amount.value}
+                    />
+                </Link>
+            </li>
+        );
+    }
+}
 
 export default classify(defaultClasses)(suggestedProduct);

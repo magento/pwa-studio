@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { debounce } from 'underscore';
 import classify from 'src/classify';
@@ -13,8 +14,29 @@ const suggestedCategoriesLimit = 4;
 const suggestedProductsLimit = 3;
 
 class SearchAutocomplete extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            statusContent: PropTypes.string
+        }),
+        searchQuery: PropTypes.string.isRequired,
+        autocompleteVisible: PropTypes.bool,
+        handleOnProductOpen: PropTypes.func.isRequired,
+        handleCategorySearch: PropTypes.func.isRequired
+    };
+
     state = {
         autocompleteQuery: ''
+    };
+
+    componentDidUpdate = prevProps => {
+        const { searchQuery } = this.props;
+        if (
+            prevProps.searchQuery !== searchQuery &&
+            this.props.searchQuery !== this.state.autocompleteQuery
+        ) {
+            this.updateAutocompleteQuery(searchQuery);
+        }
     };
 
     /* Flatten categories array & remove duplicate categories */
@@ -37,15 +59,12 @@ class SearchAutocomplete extends Component {
     render() {
         const {
             autocompleteVisible,
-            searchQuery,
             classes,
             handleCategorySearch,
             handleOnProductOpen
         } = this.props;
 
-        const { createCategorySuggestions, updateAutocompleteQuery } = this;
-
-        updateAutocompleteQuery(searchQuery);
+        const { createCategorySuggestions } = this;
 
         const { autocompleteQuery } = this.state;
 

@@ -58,10 +58,16 @@ export class SearchBar extends Component {
         );
     };
 
-    updateAutocompleteVisible = (visible = true) => {
-        this.setState({
-            autocompleteVisible: visible
-        });
+    updateAutocompleteVisible = visible => {
+        if (this.state.autocompleteVisible !== visible) {
+            this.setState({
+                autocompleteVisible: visible
+            });
+        }
+    };
+
+    handleOnInputFocus = () => {
+        this.updateAutocompleteVisible(true);
     };
 
     handleAutocompleteClick = e => {
@@ -138,7 +144,7 @@ export class SearchBar extends Component {
                         ref={this.searchRef}
                         value={searchQuery}
                         className={classes.searchBar}
-                        onFocus={this.updateAutocompleteVisible}
+                        onFocus={this.handleOnInputFocus}
                         inputMode="search"
                         type="search"
                         placeholder="I'm looking for..."
