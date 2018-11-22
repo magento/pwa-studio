@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import MenuItem from './MenuItem';
+import MenuItem from '../MenuItem/index';
 import defaultClasses from './myAccountMenu.css';
 
 class MyAccountMenu extends Component {
