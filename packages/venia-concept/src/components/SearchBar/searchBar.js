@@ -79,18 +79,12 @@ export class SearchBar extends Component {
 
     handleOnChange = event => {
         const { value } = event.currentTarget || event.srcElement;
+        this.updateAutocompleteVisible(true);
         this.setState({ searchQuery: value });
     };
 
-    handleOnKeyDown = event => {
-        if (event.key === 'Enter') {
-            this.handleSearchSubmit();
-        } else {
-            this.updateAutocompleteVisible(true);
-        }
-    };
-
-    handleSearchSubmit = () => {
+    handleSearchSubmit = event => {
+        event.preventDefault();
         const { searchQuery } = this.state;
         this.updateAutocompleteVisible(false);
         if (searchQuery !== '')
@@ -131,11 +125,11 @@ export class SearchBar extends Component {
 
         return (
             <div className={searchClass}>
-                <div className={classes.searchInner}>
-                    <button
-                        className={classes.searchIcon}
-                        onClick={this.handleSearchSubmit}
-                    >
+                <form
+                    onSubmit={this.handleSearchSubmit}
+                    className={classes.searchInner}
+                >
+                    <button type="submit" className={classes.searchIcon}>
                         <Icon name="search" />
                     </button>
                     <input
@@ -147,7 +141,6 @@ export class SearchBar extends Component {
                         type="search"
                         placeholder="I'm looking for..."
                         onChange={this.handleOnChange}
-                        onKeyDown={this.handleOnKeyDown}
                     />
                     <button
                         className={clearClass}
@@ -166,7 +159,7 @@ export class SearchBar extends Component {
                             handleCategorySearch={this.handleCategorySearch}
                         />
                     </div>
-                </div>
+                </form>
             </div>
         );
     }
