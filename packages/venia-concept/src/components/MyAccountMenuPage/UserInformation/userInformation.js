@@ -30,8 +30,8 @@ class UserInformation extends Component {
                     <Icon name="user" attrs={USER_ICON_ATTRS} />
                 </div>
                 <div className={classes.userInformationContainer}>
-                    <p>{fullname}</p>
-                    <p className={classes.userInformationSecondary}>{email}</p>
+                    <p className={classes.fullName}>{fullname}</p>
+                    <p className={classes.email}>{email}</p>
                 </div>
             </div>
         );

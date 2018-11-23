@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const withOpenState = (initialState = false)=> WrappedComponent =>
+const withOpenState = (initialState = false) => WrappedComponent =>
     class extends Component {
         state = {
             isOpen: initialState
