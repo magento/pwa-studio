@@ -19,7 +19,7 @@ class SearchAutocomplete extends Component {
             root: PropTypes.string,
             statusContent: PropTypes.string
         }),
-        searchQuery: PropTypes.string.isRequired,
+        searchQuery: PropTypes.string,
         autocompleteVisible: PropTypes.bool,
         handleOnProductOpen: PropTypes.func.isRequired,
         handleCategorySearch: PropTypes.func.isRequired
