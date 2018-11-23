@@ -36,7 +36,7 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return makeCategoryMediaPath(item.image);
+            return makeCategoryMediaPath(image);
         } else if (previewProduct) {
             return makeProductMediaPath(previewProduct.small_image);
         }
