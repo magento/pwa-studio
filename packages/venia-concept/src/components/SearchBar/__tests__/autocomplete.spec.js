@@ -28,7 +28,7 @@ test('Autocomplete query update should be debounced', () => {
 
     wrapper.setProps({ searchQuery: testString });
 
-    /* Expect component to not to update right away (debounce) */
+    /* Expect component not to update right away (debounce) */
     expect(wrapper.instance().state.autocompleteQuery).toEqual(initialState);
 
     jest.advanceTimersByTime(debounceTimer);
