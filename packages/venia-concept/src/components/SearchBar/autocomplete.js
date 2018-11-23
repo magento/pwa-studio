@@ -9,7 +9,7 @@ import productSearchQuery from '../../queries/productSearch.graphql';
 
 import defaultClasses from './autocomplete.css';
 
-const debounceTimeout = 300;
+const debounceTimeout = 200;
 const suggestedCategoriesLimit = 4;
 const suggestedProductsLimit = 3;
 
@@ -19,7 +19,7 @@ class SearchAutocomplete extends Component {
             root: PropTypes.string,
             statusContent: PropTypes.string
         }),
-        searchQuery: PropTypes.string,
+        searchQuery: PropTypes.string.isRequired,
         autocompleteVisible: PropTypes.bool,
         handleOnProductOpen: PropTypes.func.isRequired,
         handleCategorySearch: PropTypes.func.isRequired
@@ -29,15 +29,11 @@ class SearchAutocomplete extends Component {
         autocompleteQuery: ''
     };
 
-    shouldComponentUpdate = nextProps => {
-        const { searchQuery } = nextProps;
-        if (
-            searchQuery !== this.props.searchQuery &&
-            this.props.searchQuery !== this.state.autocompleteQuery
-        ) {
+    componentDidUpdate = prevProps => {
+        const { searchQuery } = this.props;
+        if (prevProps.searchQuery !== searchQuery) {
             this.updateAutocompleteQuery(searchQuery);
         }
-        return true;
     };
 
     /* Flatten categories array & remove duplicate categories */

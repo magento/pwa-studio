@@ -42,7 +42,7 @@ test('Autocomplete should not render if autocompleteVisible is set to false', ()
     const handleCategorySearch = jest.fn().mockImplementationOnce(() => {});
     const initialState = '';
     const testString = 'test';
-    const debounceTimer = 200;
+    const debounceTimer = 300;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -64,9 +64,9 @@ test('Autocomplete should not render if autocompleteVisible is set to false', ()
 test('Autocomplete should not render if searchQuery is null or less than 3 chars long', () => {
     const handleOnProductOpen = jest.fn().mockImplementationOnce(() => {});
     const handleCategorySearch = jest.fn().mockImplementationOnce(() => {});
-    const initialState = null;
+    const initialState = '';
     const testString = 'ab';
-    const debounceTimer = 200;
+    const debounceTimer = 300;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -90,9 +90,9 @@ test('Autocomplete should not render if searchQuery is null or less than 3 chars
 test('Autocomplete should render if searchQuery and autocompleteVisible props result in true', () => {
     const handleOnProductOpen = jest.fn().mockImplementationOnce(() => {});
     const handleCategorySearch = jest.fn().mockImplementationOnce(() => {});
-    const initialState = null;
+    const initialState = '';
     const testString = 'test';
-    const debounceTimer = 200;
+    const debounceTimer = 300;
 
     const wrapper = shallow(
         <SearchAutocomplete
