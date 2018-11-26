@@ -33,7 +33,8 @@
     "watch:all": "node scripts/watch-all.js",
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
+    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
+    "lh": "lighthouse-ci"
   },
   "devDependencies": {
     "@magento/directive-parser": "^0.1.1",
@@ -99,6 +100,7 @@
     "js-yaml": "^3.12.0",
     "keypress": "^0.2.1",
     "lerna": "^3.4.0",
+    "lighthouse-ci": "^1.3.0",
     "lodash.debounce": "^4.0.8",
     "memoize-one": "^4.0.3",
     "memory-fs": "^0.4.1",
