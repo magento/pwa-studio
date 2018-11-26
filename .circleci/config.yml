@@ -82,7 +82,8 @@ jobs:
           command: npm run danger
       - run:
           name: Run lighthouse-ci
-          command: 'npm run lh -- https://magento-venia.now.sh/'
+          command: 'npm run lh -- https://magento-venia.now.sh/ -- --report=./lighthouse'
+          store_artifacts: *test_result_path
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
