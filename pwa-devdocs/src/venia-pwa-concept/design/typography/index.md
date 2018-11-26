@@ -4,6 +4,8 @@ title: Typography
 
 Venia uses the open source [Muli font][] from Google in its design.
 
+![Typography][];
+
 {: .bs-callout .bs-callout-info}
 **Note:**
 *If you are developing Venia storefront components, you must install this font locally because the Muli font is currently not served by the backend server.*
@@ -45,3 +47,5 @@ Venia uses the following weights in its design:
 {:style="table-layout:auto"}
 
 [Muli font]: https://fonts.google.com/specimen/Muli
+[Muli font weights]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
+[Typography]: {{site.baseurl}}{%link venia-pwa-concept/design/typography/images/typography.png %}
