@@ -16,7 +16,7 @@ workflows:
 # configuration nodes for reuse.
 common_settings:
   docker: &docker_setup
-    - image: 'circleci/node:8.11.2'
+    - image: 'circleci/node:8.11.2-browsers'
   # Cache a bunch of stuff
   # - npm's local tarball cache
   save_cache: &savecache
