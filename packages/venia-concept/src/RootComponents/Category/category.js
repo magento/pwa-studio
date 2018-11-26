@@ -47,7 +47,6 @@ class Category extends Component {
         currentPage: number,
         pageSize: number,
         prevPageTotal: number,
-        setPrevPageTotal: func
     };
 
     // TODO: Should not be a default here, we just don't have
