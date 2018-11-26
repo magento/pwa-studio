@@ -29,7 +29,8 @@ class Gallery extends Component {
                     }).isRequired
                 }).isRequired
             })
-        )
+        ),
+        pageSize: number
     };
 
     static defaultProps = {

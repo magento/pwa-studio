@@ -35,7 +35,8 @@ class GalleryItems extends Component {
                     }).isRequired
                 }).isRequired
             })
-        ).isRequired
+        ).isRequired,
+        pageSize: number
     };
 
     constructor(props) {

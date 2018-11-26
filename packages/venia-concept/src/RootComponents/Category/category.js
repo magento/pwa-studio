@@ -43,7 +43,11 @@ class Category extends Component {
             gallery: string,
             root: string,
             title: string
-        })
+        }),
+        currentPage: number,
+        pageSize: number,
+        prevPageTotal: number,
+        setPrevPageTotal: func
     };
 
     // TODO: Should not be a default here, we just don't have
