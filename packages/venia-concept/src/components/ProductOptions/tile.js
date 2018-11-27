@@ -1,38 +1,39 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { bool, number, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './tile.css';
 
 class Tile extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            root: string
         }),
-        item: PropTypes.shape({
-            id: PropTypes.string,
-            name: PropTypes.string
+        hasFocus: bool,
+        isSelected: bool,
+        item: shape({
+            id: oneOfType([number, string]),
+            label: string
         })
     };
 
     render() {
-        const { classes, item } = this.props;
-        const { name } = item;
+        const {
+            classes,
+            hasFocus, // eslint-disable-line
+            isSelected,
+            item,
+            ...restProps
+        } = this.props;
+        const className = isSelected ? classes.root_selected : classes.root;
+        const { label } = item;
 
         return (
-            <button
-                className={classes.root}
-                title={name}
-                onClick={this.handleClick}
-            >
-                <span>{name}</span>
+            <button {...restProps} className={className}>
+                <span>{label}</span>
             </button>
         );
     }
-
-    handleClick = () => {
-        console.log('clicked');
-    };
 }
 
 export default classify(defaultClasses)(Tile);

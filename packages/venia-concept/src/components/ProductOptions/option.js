@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import SwatchList from './swatchList';
 import TileList from './tileList';
 import defaultClasses from './option.css';
 
-const optionTypes = ['color', 'string'];
+const getItemKey = ({ value_index }) => value_index;
 
 class Option extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        attribute_id: string,
+        attribute_code: string.isRequired,
+        classes: shape({
+            root: string,
+            title: string
         }),
-        name: PropTypes.node.isRequired,
-        type: PropTypes.oneOf(optionTypes).isRequired,
-        values: PropTypes.arrayOf(PropTypes.object).isRequired
+        label: string.isRequired,
+        onSelectionChange: func,
+        values: arrayOf(object).isRequired
     };
 
-    static defaultProps = {
-        type: 'string'
+    handleSelectionChange = selection => {
+        const { attribute_id, onSelectionChange } = this.props;
+
+        if (onSelectionChange) {
+            onSelectionChange(attribute_id, selection);
+        }
     };
 
     get listComponent() {
-        return this.props.type === 'color' ? SwatchList : TileList;
+        const { attribute_code } = this.props;
+
+        return attribute_code === 'fashion_color' ? SwatchList : TileList;
     }
 
     render() {
-        const { classes, name, values } = this.props;
-        const ValueList = this.listComponent;
+        const { handleSelectionChange, listComponent: ValueList, props } = this;
+        const { classes, label, values } = props;
 
         return (
             <div className={classes.root}>
                 <h3 className={classes.title}>
-                    <span>{name}</span>
+                    <span>{label}</span>
                 </h3>
-                <ValueList items={values} />
+                <ValueList
+                    getItemKey={getItemKey}
+                    items={values}
+                    onSelectionChange={handleSelectionChange}
+                />
             </div>
         );
     }

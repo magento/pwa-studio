@@ -5,6 +5,7 @@ import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Carousel from 'src/components/ProductImageCarousel';
+import Options from 'src/components/ProductOptions';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
@@ -49,18 +50,85 @@ class ProductFullDetail extends Component {
         addToCart: func.isRequired
     };
 
-    state = { quantity: 1 };
+    state = { optionSelections: new Map(), quantity: 1 };
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = () =>
-        this.props.addToCart({
-            item: this.props.product,
-            quantity: this.state.quantity
-        });
+    addToCart = () => {
+        const { props, state } = this;
+        const { optionSelections, quantity } = state;
+        const { addToCart, product } = props;
+        const {
+            __typename: productType,
+            configurable_options,
+            variants
+        } = product;
+
+        const payload = {
+            item: product,
+            productType,
+            quantity
+        };
+
+        if (productType === 'ConfigurableProduct') {
+            const options = Array.from(optionSelections, ([id, value]) => ({
+                option_id: id,
+                option_value: value
+            }));
+
+            const item = variants.find(({ product: variant }) => {
+                for (const [id, value] of optionSelections) {
+                    const { attribute_code: code } = configurable_options.find(
+                        ({ attribute_id }) => attribute_id === id
+                    );
+
+                    if (variant[code] !== value) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            Object.assign(payload, {
+                options,
+                parentSku: product.sku,
+                item: Object.assign({}, item.product)
+            });
+        }
+
+        addToCart(payload);
+    };
+
+    handleSelectionChange = (optionId, selection) => {
+        this.setState(({ optionSelections }) => ({
+            optionSelections: new Map(optionSelections).set(
+                optionId,
+                Array.from(selection).pop()
+            )
+        }));
+    };
+
+    get productOptions() {
+        const { handleSelectionChange, props } = this;
+        const { __typename: type, configurable_options } = props.product;
+        const isConfigurable = type === 'ConfigurableProduct';
+
+        if (!isConfigurable) {
+            return null;
+        }
+
+        return (
+            <Options
+                options={configurable_options}
+                onSelectionChange={handleSelectionChange}
+            />
+        );
+    }
 
     render() {
-        const { classes, product } = this.props;
+        const { productOptions, props } = this;
+        const { classes, product } = props;
         const { regularPrice } = product.price;
 
         return (
@@ -79,6 +147,7 @@ class ProductFullDetail extends Component {
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
                 </section>
+                <section className={classes.options}>{productOptions}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>

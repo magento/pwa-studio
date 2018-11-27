@@ -47,8 +47,7 @@ export const createGuestCart = () =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, quantity } = payload;
-
+    const { item, options, parentSku, productType, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -80,7 +79,25 @@ export const addItemToCart = (payload = {}) => {
                 );
                 missingGuestCartError.noGuestCartId = true;
                 throw missingGuestCartError;
-                console.log('Missing required information: guestCartId');
+            }
+
+            const itemPayload = {
+                qty: quantity,
+                sku: item.sku,
+                name: item.name,
+                quote_id: guestCartId
+            };
+
+            if (productType === 'ConfigurableProduct') {
+                Object.assign(itemPayload, {
+                    sku: parentSku,
+                    product_type: 'configurable',
+                    product_option: {
+                        extension_attributes: {
+                            configurable_item_options: options
+                        }
+                    }
+                });
             }
 
             const cartItem = await request(
@@ -88,12 +105,7 @@ export const addItemToCart = (payload = {}) => {
                 {
                     method: 'POST',
                     body: JSON.stringify({
-                        cartItem: {
-                            qty: quantity,
-                            sku: item.sku,
-                            name: item.name,
-                            quote_id: guestCartId
-                        }
+                        cartItem: itemPayload
                     })
                 }
             );

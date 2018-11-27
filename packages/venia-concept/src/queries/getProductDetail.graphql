@@ -18,6 +18,21 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                 disabled
                 file
             }
+            ... on ConfigurableProduct {
+                configurable_options {
+                    attribute_code
+                    attribute_id
+                    id
+                    label
+                    values {
+                        default_label
+                        label
+                        store_label
+                        use_default_value
+                        value_index
+                    }
+                }
+            }
             meta_title @include(if: $onServer)
             meta_keyword @include(if: $onServer)
             meta_description @include(if: $onServer)
