@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Carousel from 'src/components/ProductImageCarousel';
-import Options from 'src/components/ProductOptions';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
+
+const Options = React.lazy(() => import('../ProductOptions'));
 
 class ProductFullDetail extends Component {
     static propTypes = {
@@ -129,8 +130,12 @@ class ProductFullDetail extends Component {
         }));
     };
 
+    get fallback() {
+        return <div>Loading...</div>;
+    }
+
     get productOptions() {
-        const { handleSelectionChange, props } = this;
+        const { fallback, handleSelectionChange, props } = this;
         const { configurable_options } = props.product;
         const isConfigurable = Array.isArray(configurable_options);
 
@@ -139,10 +144,12 @@ class ProductFullDetail extends Component {
         }
 
         return (
-            <Options
-                options={configurable_options}
-                onSelectionChange={handleSelectionChange}
-            />
+            <Suspense fallback={fallback}>
+                <Options
+                    options={configurable_options}
+                    onSelectionChange={handleSelectionChange}
+                />
+            </Suspense>
         );
     }
 
