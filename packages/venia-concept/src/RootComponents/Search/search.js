@@ -6,7 +6,7 @@ import Gallery from 'src/components/Gallery';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
 import defaultClasses from './search.css';
-import productSearchQuery from '../../queries/productSearch.graphql';
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
 const getCategoryName = gql`
     query getCategoryName($id: Int!) {
@@ -40,7 +40,7 @@ export class Search extends Component {
         };
 
         return (
-            <Query query={productSearchQuery} variables={queryVariables}>
+            <Query query={PRODUCT_SEARCH} variables={queryVariables}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return <div>Fetching Data</div>;

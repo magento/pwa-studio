@@ -33,12 +33,11 @@ class suggestedProduct extends Component {
             price
         } = this.props;
 
+        const productLink = `/${url_key}${productUrlSuffix}`;
+
         return (
             <li className={classes.root}>
-                <Link
-                    onClick={handleOnProductOpen}
-                    to={`/${url_key}${productUrlSuffix}`}
-                >
+                <Link onClick={handleOnProductOpen} to={productLink}>
                     <img
                         className={classes.productImage}
                         alt={name}
@@ -48,14 +47,11 @@ class suggestedProduct extends Component {
                 <Link
                     onClick={handleOnProductOpen}
                     className={classes.productName}
-                    to={`/${url_key}${productUrlSuffix}`}
+                    to={productLink}
                 >
                     {name}
                 </Link>
-                <Link
-                    onClick={handleOnProductOpen}
-                    to={`/${url_key}${productUrlSuffix}`}
-                >
+                <Link onClick={handleOnProductOpen} to={productLink}>
                     <Price
                         currencyCode={price.regularPrice.amount.currency}
                         value={price.regularPrice.amount.value}

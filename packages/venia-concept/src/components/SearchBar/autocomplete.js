@@ -5,7 +5,7 @@ import { debounce } from 'underscore';
 import classify from 'src/classify';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
-import productSearchQuery from '../../queries/productSearch.graphql';
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
 import defaultClasses from './autocomplete.css';
 
@@ -69,7 +69,7 @@ class SearchAutocomplete extends Component {
 
         return (
             <Query
-                query={productSearchQuery}
+                query={PRODUCT_SEARCH}
                 variables={{
                     inputText: autocompleteQuery
                 }}

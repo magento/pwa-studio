@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import { Link } from 'react-router-dom';
+import { List } from '@magento/peregrine';
 import defaultClasses from './suggestedCategories.css';
 
 class SuggestedCategories extends Component {
@@ -30,20 +31,23 @@ class SuggestedCategories extends Component {
         } = this.props;
 
         return (
-            <ul className={classes.root}>
-                {categorySuggestions.map(category => (
-                    <li className={classes.item} key={category.id}>
+            <List
+                render="ul"
+                className={classes.root}
+                items={categorySuggestions}
+                getItemKey={item => item.id}
+                renderItem={({ item }) => (
+                    <li className={classes.item}>
                         <Link
                             onClick={handleCategorySearch}
-                            data-id={`${category.id}`}
-                            to={category.url_key}
+                            data-id={`${item.id}`}
+                            to={item.url_key}
                         >
-                            <strong>{autocompleteQuery}</strong> in{' '}
-                            {category.name}
+                            <strong>{autocompleteQuery}</strong> in {item.name}
                         </Link>
                     </li>
-                ))}
-            </ul>
+                )}
+            />
         );
     }
 }
