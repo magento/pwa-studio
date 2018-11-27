@@ -16,7 +16,7 @@ import Flow from './flow';
 
 const isReady = checkout =>
     !!checkout.shippingInformation && !!checkout.paymentMethod;
-const isShippingInformationReady = checkout => !!checkout.shippingInformation;
+const isShippingInfoReady = checkout => !!checkout.shippingInformation;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -81,11 +81,11 @@ class CheckoutWrapper extends Component {
         } = checkout;
 
         const ready = isReady(checkout);
-        const isShippingInfoReady = isShippingInformationReady(checkout);
+        const isShippingInformationReady = isShippingInfoReady(checkout);
         const miscProps = {
             availablePaymentMethods,
             availableShippingMethods,
-            isShippingInformationReady: isShippingInfoReady,
+            isShippingInformationReady,
             paymentMethod,
             ready,
             shippingMethod,

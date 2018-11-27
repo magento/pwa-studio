@@ -10,6 +10,20 @@ import actions from './actions';
 
 const { request } = RestApi.Magento2;
 
+const mockAddress = {
+    country_id: 'US',
+    firstname: 'Veronica',
+    lastname: 'Costello',
+    street: ['6146 Honey Bluff Parkway'],
+    city: 'Calder',
+    postcode: '49628-7978',
+    region_id: 33,
+    region_code: 'MI',
+    region: 'Michigan',
+    telephone: '(555) 229-3326',
+    email: 'veronica@example.com'
+};
+
 export const beginCheckout = () =>
     async function thunk(dispatch) {
         dispatch(actions.begin());
@@ -81,9 +95,10 @@ export const enterSubflow = (actionType, payload) => {
 }
 
 export const submitMockShippingAddress = () => {
-    return async function thunk(dispatch) {
+    return async function thunk(dispatch, getState) {
         try {
-            const guestCartId = await getGuestCartId(...arguments);
+            const { cart } = getState();
+            const { guestCartId } = cart;
             const payload = await request(
                 `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
                 {
