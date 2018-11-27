@@ -18,6 +18,10 @@ const actionMap = {
     GET_DETAILS: {
         REQUEST: null,
         RECEIVE: null
+    },
+    GET_SHIPPING_METHODS: {
+        REQUEST: null,
+        RECEIVE: null,
     }
 };
 

@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, object, oneOf, shape, string } from 'prop-types';
+import { getShippingMethods } from 'src/actions/cart';
 
 import {
     beginCheckout,
     editOrder,
     resetCheckout,
     submitInput,
-    submitOrder
+    submitMockShippingAddress,
+    submitOrder,
 } from 'src/actions/checkout';
 import Flow from './flow';
 
-class Wrapper extends Component {
+const isReady = checkout =>
+    !!checkout.shippingInformation && !!checkout.paymentMethod;
+const isShippingInformationReady = checkout => !!checkout.shippingInformation;
+
+class CheckoutWrapper extends Component {
     static propTypes = {
         beginCheckout: func.isRequired,
         cart: shape({
@@ -34,11 +40,6 @@ class Wrapper extends Component {
         const {
             cart,
             checkout,
-            beginCheckout,
-            editOrder,
-            resetCheckout,
-            submitInput,
-            submitOrder
         } = this.props;
 
         // ensure state slices are present
@@ -51,24 +52,56 @@ class Wrapper extends Component {
             editOrder,
             resetCheckout,
             submitInput,
-            submitOrder
+            submitOrder,
+            enterSubflow,
+            requestOrder,
+            resetCheckout,
+            submitOrder,
+            submitMockShippingAddress,
+            getShippingMethods
+        } = this.props;
+
+        const {
+            paymentMethods: availablePaymentMethods,
+            shippingMethods: availableShippingMethods,
+        } = cart;
+        const {
+            paymentTitle: paymentMethod,
+            shippingMethod,
+            status
+        } = checkout;
+
+        const ready = isReady(checkout);
+        const isShippingInformationReady = isShippingInformationReady(checkout);
+        const miscProps = {
+            availablePaymentMethods,
+            availableShippingMethods,
+            isShippingInformationReady,
+            paymentMethod,
+            ready,
+            shippingMethod,
+            status,
         };
 
-        const flowProps = { actions, cart, checkout };
+        const flowProps = { actions, cart, checkout, ...miscProps };
 
         return <Flow {...flowProps} />;
     }
 }
 
+const mapStateToProps = ({ checkout, cart }) => ({ checkout, cart });
+
 const mapDispatchToProps = {
     beginCheckout,
     editOrder,
+    getShippingMethods,
     resetCheckout,
     submitInput,
-    submitOrder
+    submitMockShippingAddress,
+    submitOrder,
 };
 
 export default connect(
-    ({ checkout }) => ({ checkout }),
+    mapStateToProps,
     mapDispatchToProps
-)(Wrapper);
+)(CheckoutWrapper);

@@ -1,0 +1,15 @@
+.totals {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.subtotalLabel {
+    color: rgb(var(--venia-text-alt));
+}
+
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
+}

@@ -212,14 +212,19 @@ export const getCartDetails = (payload = {}) => {
         }
 
         try {
-            const [imageCache, details, totals] = await Promise.all([
+            const [imageCache, details, paymentMethods, totals] = await Promise.all([
                 retrieveImageCache(),
                 fetchCartPart({ guestCartId, forceRefresh }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
                     subResource: 'totals'
-                })
+                }),
+                fetchCartPart({
+                    guestCartId,
+                    forceRefresh,
+                    subResource: 'payment-methods',
+                }),
             ]);
 
             const { items } = details;
@@ -232,7 +237,7 @@ export const getCartDetails = (payload = {}) => {
                 });
             }
 
-            dispatch(actions.getDetails.receive({ details, totals }));
+            dispatch(actions.getDetails.receive({ details, paymentMethods, totals }));
         } catch (error) {
             const { response } = error;
 
@@ -250,6 +255,42 @@ export const getCartDetails = (payload = {}) => {
                 // then retry this operation
                 return thunk(...arguments);
             }
+        }
+    };
+};
+
+export const getShippingMethods = () => {
+    return async function thunk(...args) {
+        const [dispatch] = args;
+        const guestCartId = await getGuestCartId(...args);
+
+        try {
+            const shippingMethods = await fetchCartPart({
+                guestCartId,
+                forceRefresh: true,
+                subResource: 'shipping-methods'
+            });
+
+            dispatch({
+                type: 'GET_SHIPPING_METHODS',
+                payload: { shippingMethods }
+            });
+        } catch (error) {
+            // THIS IS NOT TESTED
+            const { response } = error;
+
+            if (response && response.status === 404) {
+                // guest cart expired!
+                await dispatch(createGuestCart());
+                // re-execute this thunk
+                return thunk(...args);
+            }
+
+            dispatch({
+                type: 'GET_SHIPPING_METHODS',
+                payload: error,
+                error: true
+            });
         }
     };
 };

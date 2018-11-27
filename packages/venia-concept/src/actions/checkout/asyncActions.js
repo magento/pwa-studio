@@ -71,6 +71,49 @@ export const submitInput = payload =>
         }
     };
 
+export const enterSubflow = (actionType, payload) => {
+    return async function thunk(dispatch) {
+        dispatch({
+            type: actionType,
+            payload
+        });
+    };
+}
+
+export const submitMockShippingAddress = () => {
+    return async function thunk(dispatch) {
+        try {
+            const guestCartId = await getGuestCartId(...arguments);
+            const payload = await request(
+                `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
+                {
+                    method: 'POST',
+                    // TODO: replace with real data from cart state
+                    body: JSON.stringify({
+                        addressInformation: {
+                            billing_address: mockAddress,
+                            shipping_address: mockAddress,
+                            shipping_method_code: 'flatrate',
+                            shipping_carrier_code: 'flatrate'
+                        }
+                    })
+                }
+            );
+
+            dispatch({
+                type: 'SUBMIT_SHIPPING_INFORMATION',
+                payload
+            });
+        } catch (error) {
+            dispatch({
+                type: 'REJECT_SHIPPING_INFORMATION',
+                payload: error,
+                error: true
+            });
+        }
+    };
+}
+
 export const submitOrder = () =>
     async function thunk(dispatch, getState) {
         const { cart } = getState();

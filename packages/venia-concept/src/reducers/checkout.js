@@ -7,7 +7,13 @@ export const name = 'checkout';
 const initialState = {
     editing: null,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    shippingInformation: false,
+    shippingMethod: null,
+    paymentMethod: null,
+    paymentTitle: null,
+    status: 'READY',
+    subflow: null,
 };
 
 const reducerMap = {
@@ -64,7 +70,41 @@ const reducerMap = {
             submitting: false
         };
     },
-    [actions.reset]: () => initialState
+    [actions.reset]: () => initialState,
+
+    'ENTER_SUBFLOW': (state, { payload }) => {
+        return {
+            ...state,
+            status: 'MODIFYING',
+            subflow: payload
+        };
+    },
+    'EXIT_SUBFLOW': state => {
+        return {
+            ...state,
+            status: 'MODIFYING',
+            subflow: null
+        };
+    },
+    'SUBMIT_SHIPPING_INFORMATION': state => {
+        return {
+            ...state,
+            shippingInformation: true
+        };
+    },
+    'SUBMIT_PAYMENT_INFORMATION': (state, { payload }) => {
+        return {
+            ...state,
+            paymentMethod: payload.code,
+            paymentTitle: payload.title
+        };
+    },
+    'SUBMIT_SHIPPING_METHOD': (state, { payload }) => {
+        return {
+            ...state,
+            shippingMethod: payload.carrier_title
+        };
+    },
 };
 
 export default handleActions(reducerMap, initialState);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';
@@ -21,10 +21,14 @@ class Flow extends Component {
         actions: shape({
             beginCheckout: func.isRequired,
             editOrder: func.isRequired,
+            getShippingMethods: func.isRequired,
             resetCheckout: func.isRequired,
             submitInput: func.isRequired,
-            submitOrder: func.isRequired
+            submitMockShippingAddress: func.isRequired,
+            submitOrder: func.isRequired,
         }).isRequired,
+        availablePaymentMethods: array,
+        availableShippingMethods: array,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -37,29 +41,64 @@ class Flow extends Component {
         }),
         classes: shape({
             root: string
-        })
+        }),
+        enterSubflow: string,
+        isShippingInformationReady: bool,
+        paymentMethod: string,
+        shippingMethod: string,
+        status: string,
     };
 
     get child() {
-        const { actions, cart, checkout } = this.props;
-        const { beginCheckout, editOrder, submitInput, submitOrder } = actions;
+        const {
+            actions,
+            availablePaymentMethods,
+            availableShippingMethods,
+            cart,
+            checkout,
+            enterSubflow,
+            isShippingInformationReady,
+            paymentMethod,
+            shippingMethod,
+            status,
+        } = this.props;
+
+        const {
+            beginCheckout,
+            editOrder,
+            getShippingMethods,
+            submitInput,
+            submitMockShippingAddress,
+            submitOrder
+        } = actions;
+
         const { editing, step, submitting } = checkout;
         const { details } = cart;
         const ready = isCartReady(details.items_count);
         const valid = isAddressValid(details.billing_address);
 
         switch (stepMap[step]) {
-            case 1: {
+            case stepMap.cart: {
                 const stepProps = { beginCheckout, ready, submitting };
 
                 return <Cart {...stepProps} />;
             }
-            case 2: {
+            case stepMap.form: {
                 const stepProps = {
+                    availablePaymentMethods,
+                    availableShippingMethods,
                     cart,
                     editOrder,
                     editing,
+                    enterSubflow,
+                    getShippingMethods,
+                    isShippingInformationReady,
+                    paymentMethod,
+                    ready,
+                    shippingMethod,
+                    status,
                     submitInput,
+                    submitMockShippingAddress,
                     submitOrder,
                     submitting,
                     valid
@@ -67,7 +106,7 @@ class Flow extends Component {
 
                 return <Form {...stepProps} />;
             }
-            case 3: {
+            case stepMap.receipt: {
                 return <Receipt />;
             }
             default: {
