@@ -10,31 +10,14 @@ const classes = {
     searchBlock: 'closed'
 };
 
-test('When isOpen is true, the input component is focused.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
-    const searchInput = wrapper.find('input').instance();
-    spyOn(searchInput, 'focus');
-    wrapper.instance().componentDidMount();
-    expect(searchInput.focus).toHaveBeenCalledTimes(1);
-});
-
-test('When isOpen is false, the input is blurred.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={false} />);
-    const searchInput = wrapper.find('input').instance();
-    const prevProps = { isOpen: true };
-    spyOn(searchInput, 'blur');
-    wrapper.instance().componentDidUpdate(prevProps);
-    expect(searchInput.blur).toHaveBeenCalledTimes(1);
-});
-
 test('When the search bar is expanded, pressing the Enter key will submit.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const spy = jest
-        .spyOn(wrapper.instance(), 'enterSearch')
+        .spyOn(wrapper.instance(), 'handleSearchSubmit')
         .mockImplementation(event => {
             if (
-                (event.type === 'click' || event.key === 'Enter') &&
+                event.type === 'submit' &&
                 searchInput.instance().value !== ''
             ) {
                 return true;
@@ -45,19 +28,19 @@ test('When the search bar is expanded, pressing the Enter key will submit.', asy
     wrapper.instance().forceUpdate();
     searchInput.instance().value = 'a';
     searchInput.simulate('change');
-    searchInput.simulate('keyUp', { key: 'Enter' });
+    searchInput.simulate('submit');
     expect(spy).toHaveReturnedWith(true);
 });
 
 test('When the search icon is clicked, the query in the input component will be submitted.', async () => {
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
-    const searchButton = wrapper.find('button').at(0);
+    const searchButton = wrapper.find('button[type="submit"]').at(0);
     const spy = jest
-        .spyOn(wrapper.instance(), 'enterSearch')
+        .spyOn(wrapper.instance(), 'handleSearchSubmit')
         .mockImplementation(event => {
             if (
-                (event.type === 'click' || event.key === 'Enter') &&
+                event.type === 'submit' &&
                 searchInput.instance().value !== ''
             ) {
                 return true;
@@ -68,7 +51,7 @@ test('When the search icon is clicked, the query in the input component will be 
     wrapper.instance().forceUpdate();
     searchInput.instance().value = 'a';
     searchInput.simulate('change');
-    searchButton.simulate('click');
+    searchButton.simulate('submit');
     expect(spy).toHaveReturnedWith(true);
 });
 
@@ -76,10 +59,10 @@ test('When the input component is empty, pressing the enter key will not search.
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     const searchInput = wrapper.find('input');
     const spy = jest
-        .spyOn(wrapper.instance(), 'enterSearch')
+        .spyOn(wrapper.instance(), 'handleSearchSubmit')
         .mockImplementation(event => {
             if (
-                (event.type === 'click' || event.key === 'Enter') &&
+                event.type === 'submit' &&
                 searchInput.instance().value !== ''
             ) {
                 return true;
@@ -89,13 +72,23 @@ test('When the input component is empty, pressing the enter key will not search.
         });
     wrapper.instance().forceUpdate();
     searchInput.simulate('change');
-    searchInput.simulate('keyUp', { key: 'Enter' });
+    searchInput.simulate('submit');
     expect(spy).toHaveReturnedWith(false);
 });
 
 test('When url is pointed to search results page, the search input will get its value from the url.', async () => {
     window.history.pushState({}, 'Search', '/search.html?query=dress');
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    wrapper.setProps({
+        history: {
+            location: { pathname: '/search.html', search: '?query=dress' }
+        },
+        location: {
+            pathname: '/search.html',
+            search: '?query=dress'
+        }
+    });
+    wrapper.instance().componentDidMount();
     const searchInput = wrapper.find('input');
     expect(searchInput.instance().value).toBe('dress');
 });
