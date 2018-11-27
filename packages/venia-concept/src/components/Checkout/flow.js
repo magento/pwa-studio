@@ -21,6 +21,7 @@ class Flow extends Component {
         actions: shape({
             beginCheckout: func.isRequired,
             editOrder: func.isRequired,
+            enterSubflow: func.isRequired,
             getShippingMethods: func.isRequired,
             resetCheckout: func.isRequired,
             submitInput: func.isRequired,
@@ -42,7 +43,6 @@ class Flow extends Component {
         classes: shape({
             root: string
         }),
-        enterSubflow: string,
         isShippingInformationReady: bool,
         paymentMethod: string,
         shippingMethod: string,
@@ -56,7 +56,6 @@ class Flow extends Component {
             availableShippingMethods,
             cart,
             checkout,
-            enterSubflow,
             isShippingInformationReady,
             paymentMethod,
             shippingMethod,
@@ -66,6 +65,7 @@ class Flow extends Component {
         const {
             beginCheckout,
             editOrder,
+            enterSubflow,
             getShippingMethods,
             submitInput,
             submitMockShippingAddress,

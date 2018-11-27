@@ -1,12 +1,12 @@
 import React, { Component, Fragment, createElement } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
-import Subtotal from 'src/components/Subtotal';
 
 import classify from 'src/classify';
 import Section from './section';
 import SubmitButton from './submitButton';
 import defaultClasses from './form.css';
 import Selector from 'src/components/Selector';
+import Subtotal from 'src/components/Subtotal';
 
 import AddressForm from './address';
 
@@ -26,10 +26,13 @@ class Form extends Component {
         }),
         editing: string,
         editOrder: func.isRequired,
+        enterSubflow: func.isRequired,
+        getShippingMethods: func.isRequired,
         isShippingInformationReady: bool,
         paymentMethod: string,
         shippingMethod: string,
         submitInput: func.isRequired,
+        submitMockShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
         submitting: bool.isRequired,
         valid: bool.isRequired
@@ -87,7 +90,7 @@ class Form extends Component {
             : 'Add Shipping Method';
         shippingMethodtext =
             isShippingInformationReady && !availableShippingMethods
-                ? 'Loading shipping methods...'
+                ? 'Loading...'
                 : shippingMethodtext;
         shippingMethodtext =
             !!shippingMethod && !!shippingMethodtext
@@ -183,14 +186,13 @@ class Form extends Component {
         );
     }
     
-    render() {
-        const { classes, editing } = this.props;
-        const children = editing ? this.editableForm : this.overview;
+    // render() {
+    //     const { classes, editing } = this.props;
+    //     const children = editing ? this.editableForm : this.overview;
 
-        return <div className={classes.root}>{children}</div>;
-    }
+    //     return <div className={classes.root}>{children}</div>;
+    // }
 
-    
     render() {
         const { classes, submitOrder, submitting, valid } = this.props;
 
@@ -224,14 +226,14 @@ class Form extends Component {
     };
 
     modifyPaymentMethod = paymentMethod => {
-        //this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod);
+        this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod);
         this.setState({
             updatePayment: false
         });
     };
 
     modifyShippingMethod = shippingMethod => {
-        //this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
+        this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
         this.setState({
             updateShipping: false
         });
@@ -252,6 +254,7 @@ class Form extends Component {
      *  Helper Functions.
      */
     setDefaultOrderMethod = (orderMethodsAvailable, callback) => {
+        // Just default it to the first available option.
         if (!!orderMethodsAvailable && !!orderMethodsAvailable[0]) {
             callback(orderMethodsAvailable[0]);
         }
@@ -264,15 +267,17 @@ class Form extends Component {
     };
 
     showShippingAddressSelector = () => {
-        this.props.submitMockShippingAddress().then(() => {
-            this.props.getShippingMethods().then(() => {
-                // Set default shipping method
-                this.setDefaultOrderMethod(
-                    this.props.availableShippingMethods,
-                    this.modifyShippingMethod
-                );
+        this.props.submitMockShippingAddress()
+            .then(() => {
+                this.props.getShippingMethods()
+                    .then(() => {
+                        // Default the shipping method to the first available one.
+                        this.setDefaultOrderMethod(
+                            this.props.availableShippingMethods,
+                            this.modifyShippingMethod
+                        );
+                    });
             });
-        });
     };
 
     showShippingMethodSelector = () => {

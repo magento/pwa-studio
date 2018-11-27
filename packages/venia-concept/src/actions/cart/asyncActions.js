@@ -260,37 +260,39 @@ export const getCartDetails = (payload = {}) => {
 };
 
 export const getShippingMethods = () => {
-    return async function thunk(...args) {
-        const [dispatch] = args;
-        const guestCartId = await getGuestCartId(...args);
+    return async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
 
         try {
+            // if there isn't a guest cart, create one
+            // then retry this operation
+            if (!guestCartId) {
+                await dispatch(createGuestCart());
+                return thunk(...arguments);
+            }
+
+            dispatch(actions.getShippingMethods.request(guestCartId));
+
             const shippingMethods = await fetchCartPart({
                 guestCartId,
                 forceRefresh: true,
                 subResource: 'shipping-methods'
             });
 
-            dispatch({
-                type: 'GET_SHIPPING_METHODS',
-                payload: { shippingMethods }
-            });
+            dispatch(actions.getShippingMethods.receive({ shippingMethods }));
         } catch (error) {
-            // THIS IS NOT TESTED
             const { response } = error;
 
-            if (response && response.status === 404) {
-                // guest cart expired!
-                await dispatch(createGuestCart());
-                // re-execute this thunk
-                return thunk(...args);
-            }
+            dispatch(actions.getShippingMethods.receive(error));
 
-            dispatch({
-                type: 'GET_SHIPPING_METHODS',
-                payload: error,
-                error: true
-            });
+            // check if the guest cart has expired
+            if (response && response.status === 404) {
+                // if so, clear it out, get a new one, and retry.
+                await clearGuestCartId();
+                await dispatch(createGuestCart());
+                return thunk(...arguments);
+            }
         }
     };
 };
