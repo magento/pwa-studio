@@ -47,6 +47,11 @@ class Swatch extends Component {
         const className = isSelected ? classes.root_selected : classes.root;
         const { label, value_index } = item;
 
+        // We really want to avoid specifying presentation within JS.
+        // Swatches are unusual in that their color is data, not presentation,
+        // but applying color *is* presentational.
+        // So we merely provide the color data here, and let the CSS decide
+        // how to use that color (e.g., background, border).
         const finalStyle = Object.assign({}, style, {
             '--venia-swatch-bg': memoizedGetRandomColor(value_index)
         });

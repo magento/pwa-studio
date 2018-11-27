@@ -19,6 +19,7 @@ class ProductFullDetail extends Component {
             details: string,
             detailsTitle: string,
             imageCarousel: string,
+            options: string,
             productName: string,
             productPrice: string,
             quantity: string,
