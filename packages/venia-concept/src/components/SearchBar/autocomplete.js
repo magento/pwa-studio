@@ -21,8 +21,7 @@ class SearchAutocomplete extends Component {
         }),
         searchQuery: PropTypes.string.isRequired,
         autocompleteVisible: PropTypes.bool,
-        handleOnProductOpen: PropTypes.func.isRequired,
-        handleCategorySearch: PropTypes.func.isRequired
+        updateAutocompleteVisible: PropTypes.func.isRequired
     };
 
     state = {
@@ -31,6 +30,7 @@ class SearchAutocomplete extends Component {
 
     componentDidUpdate = prevProps => {
         const { searchQuery } = this.props;
+
         if (prevProps.searchQuery !== searchQuery) {
             this.updateAutocompleteQuery(searchQuery);
         }
@@ -53,15 +53,27 @@ class SearchAutocomplete extends Component {
         });
     }, debounceTimeout);
 
-    render() {
-        const {
-            autocompleteVisible,
-            classes,
-            handleCategorySearch,
-            handleOnProductOpen
-        } = this.props;
+    handleCategorySearch = event => {
+        event.preventDefault();
+        const { id } = event.currentTarget.dataset || event.srcElement.dataset;
+        this.props.updateAutocompleteVisible(false);
+        this.props.executeSearch(
+            this.state.autocompleteQuery,
+            this.props.history,
+            id
+        );
+    };
 
-        const { createCategorySuggestions } = this;
+    handleOnProductOpen = () => this.props.updateAutocompleteVisible(false);
+
+    render() {
+        const { classes, autocompleteVisible } = this.props;
+
+        const {
+            createCategorySuggestions,
+            handleOnProductOpen,
+            handleCategorySearch
+        } = this;
 
         const { autocompleteQuery } = this.state;
 

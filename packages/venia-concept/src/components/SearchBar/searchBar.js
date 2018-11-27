@@ -68,6 +68,12 @@ export class SearchBar extends Component {
         this.updateAutocompleteVisible(true);
     };
 
+    handleOnChange = event => {
+        const { value } = event.currentTarget || event.srcElement;
+        this.updateAutocompleteVisible(true);
+        this.setState({ searchQuery: value });
+    };
+
     handleAutocompleteClick = e => {
         if (
             this.searchRef.current.contains(e.target) ||
@@ -75,12 +81,6 @@ export class SearchBar extends Component {
         )
             return;
         this.updateAutocompleteVisible(false);
-    };
-
-    handleOnChange = event => {
-        const { value } = event.currentTarget || event.srcElement;
-        this.updateAutocompleteVisible(true);
-        this.setState({ searchQuery: value });
     };
 
     handleSearchSubmit = event => {
@@ -91,19 +91,6 @@ export class SearchBar extends Component {
             this.props.executeSearch(searchQuery, this.props.history);
     };
 
-    handleCategorySearch = event => {
-        event.preventDefault();
-        const { id } = event.currentTarget.dataset || event.srcElement.dataset;
-        this.updateAutocompleteVisible(false);
-        this.props.executeSearch(
-            this.state.searchQuery,
-            this.props.history,
-            id
-        );
-    };
-
-    handleOnProductOpen = () => this.updateAutocompleteVisible(false);
-
     handleClearSearch = () => {
         this.searchRef.current.focus();
         this.updateAutocompleteVisible(false);
@@ -111,7 +98,7 @@ export class SearchBar extends Component {
     };
 
     render() {
-        const { classes, isOpen } = this.props;
+        const { classes, isOpen, executeSearch, history } = this.props;
 
         const { searchQuery, autocompleteVisible } = this.state;
 
@@ -149,14 +136,17 @@ export class SearchBar extends Component {
                         <Icon name="x" />
                     </button>
                     <div
-                        className={classes.autocompleteWrapper}
+                        className={classes.SearchAutocompleteWrapper}
                         ref={this.autocompleteRef}
                     >
                         <SearchAutocomplete
                             searchQuery={searchQuery}
+                            updateAutocompleteVisible={
+                                this.updateAutocompleteVisible
+                            }
                             autocompleteVisible={autocompleteVisible}
-                            handleOnProductOpen={this.handleOnProductOpen}
-                            handleCategorySearch={this.handleCategorySearch}
+                            executeSearch={executeSearch}
+                            history={history}
                         />
                     </div>
                 </form>

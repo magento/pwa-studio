@@ -78,7 +78,7 @@
     pointer-events: all;
 }
 
-.autocompleteWrapper {
+.SearchAutocompleteWrapper {
     text-align: left;
     margin: 0.5rem 0;
     position: absolute;
