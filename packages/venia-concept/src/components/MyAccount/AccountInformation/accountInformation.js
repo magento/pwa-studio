@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import classify from 'src/classify';
 
 class AccountInformation extends Component {
+    static propTypes = {
+        customer: PropTypes.shape({}).isRequired
+    };
+
     get subscriptionStatusText() {
         const { customer } = this.props;
 
         return customer.isSubscribed
             ? 'You are subscribed to our newsletter.'
-            : 'You aren\'t subscribed to our newsletter.';
+            : "You aren't subscribed to our newsletter.";
     }
 
     render() {

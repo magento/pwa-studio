@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import AccountInformation from './AccountInformation';
+import AddressBook from './AddressBook';
 
 class MyAccount extends Component {
     static propTypes = {
@@ -17,10 +18,11 @@ class MyAccount extends Component {
         const { customer } = this.props;
 
         return (
-            <div>
+            <section>
                 <h1>My Account</h1>
                 <AccountInformation customer={customer} />
-            </div>
+                <AddressBook />
+            </section>
         );
     }
 }
