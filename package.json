@@ -109,7 +109,6 @@
     "prettier": "^1.13.5",
     "prettier-check": "^2.0.0",
     "prop-types": "^15.6.2",
-    "query-string": "^6.2.0",
     "react": "^16.6.1",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.1",
