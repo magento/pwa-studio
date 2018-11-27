@@ -218,12 +218,12 @@ export const getCartDetails = (payload = {}) => {
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
-                    subResource: 'totals'
+                    subResource: 'payment-methods',
                 }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
-                    subResource: 'payment-methods',
+                    subResource: 'totals'
                 }),
             ]);
 

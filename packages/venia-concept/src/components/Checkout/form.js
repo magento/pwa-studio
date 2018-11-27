@@ -78,13 +78,13 @@ class Form extends Component {
 
         const shipToText = this.isShippingInformationReady
             ? 'Complete'
-            : 'Click to fill out';
+            : 'Add Shipping Information';
         const paymentMethodText = paymentMethod
             ? paymentMethod
             : 'No payment methods available';
         let shippingMethodtext = !!availableShippingMethods
             ? 'Click to fill out'
-            : 'Enter Ship To address';
+            : 'Add Shipping Method';
         shippingMethodtext =
             isShippingInformationReady && !availableShippingMethods
                 ? 'Loading shipping methods...'
@@ -192,7 +192,7 @@ class Form extends Component {
 
     
     render() {
-        const { classes, ready, status, submitOrder } = this.props;
+        const { classes, submitOrder, submitting, valid } = this.props;
 
         const {
             shippingMethodSelector,
@@ -207,9 +207,9 @@ class Form extends Component {
                 {cartOptions}
                 <div className={classes.footer}>
                     <SubmitButton
-                        ready={ready}
-                        status={status}
                         submitOrder={submitOrder}
+                        submitting={submitting}
+                        valid={valid}
                     />
                 </div>
             </div>
@@ -224,14 +224,14 @@ class Form extends Component {
     };
 
     modifyPaymentMethod = paymentMethod => {
-        this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod);
+        //this.props.enterSubflow('SUBMIT_PAYMENT_INFORMATION', paymentMethod);
         this.setState({
             updatePayment: false
         });
     };
 
     modifyShippingMethod = shippingMethod => {
-        this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
+        //this.props.enterSubflow('SUBMIT_SHIPPING_METHOD', shippingMethod);
         this.setState({
             updateShipping: false
         });

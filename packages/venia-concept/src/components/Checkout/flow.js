@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, oneOf, shape, string } from 'prop-types';
+import { array, bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';

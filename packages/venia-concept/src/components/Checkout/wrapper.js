@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, object, oneOf, shape, string } from 'prop-types';
-import { getShippingMethods } from 'src/actions/cart';
 
+import { getShippingMethods } from 'src/actions/cart';
 import {
     beginCheckout,
     editOrder,
@@ -11,6 +11,7 @@ import {
     submitMockShippingAddress,
     submitOrder,
 } from 'src/actions/checkout';
+
 import Flow from './flow';
 
 const isReady = checkout =>
@@ -40,6 +41,16 @@ class CheckoutWrapper extends Component {
         const {
             cart,
             checkout,
+
+            beginCheckout,
+            editOrder,
+            enterSubflow,
+            getShippingMethods,
+            requestOrder,
+            resetCheckout,
+            submitInput,
+            submitMockShippingAddress,
+            submitOrder,
         } = this.props;
 
         // ensure state slices are present
@@ -50,16 +61,14 @@ class CheckoutWrapper extends Component {
         const actions = {
             beginCheckout,
             editOrder,
-            resetCheckout,
-            submitInput,
-            submitOrder,
             enterSubflow,
+            getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitOrder,
+            submitInput,
             submitMockShippingAddress,
-            getShippingMethods
-        } = this.props;
+            submitOrder,       
+        };
 
         const {
             paymentMethods: availablePaymentMethods,
@@ -72,11 +81,11 @@ class CheckoutWrapper extends Component {
         } = checkout;
 
         const ready = isReady(checkout);
-        const isShippingInformationReady = isShippingInformationReady(checkout);
+        const isShippingInfoReady = isShippingInformationReady(checkout);
         const miscProps = {
             availablePaymentMethods,
             availableShippingMethods,
-            isShippingInformationReady,
+            isShippingInformationReady: isShippingInfoReady,
             paymentMethod,
             ready,
             shippingMethod,

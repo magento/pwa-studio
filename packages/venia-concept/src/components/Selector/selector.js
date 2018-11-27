@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import { arrayOf, shape, string, func } from 'prop-types';
 import Section from '../Checkout/section';
 import classify from 'src/classify';
