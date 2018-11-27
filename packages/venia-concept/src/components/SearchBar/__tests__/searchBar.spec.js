@@ -77,7 +77,6 @@ test('When the input component is empty, pressing the enter key will not search.
 });
 
 test('When url is pointed to search results page, the search input will get its value from the url.', async () => {
-    window.history.pushState({}, 'Search', '/search.html?query=dress');
     let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
     wrapper.setProps({
         history: {
@@ -102,4 +101,44 @@ test('When the clear button is pressed, any text in the input component is remov
     searchInput.simulate('change');
     clearButton.simulate('click');
     expect(searchInput.instance().value).toBe('');
+});
+
+test('Autocomplete popup should be visible if input has focus on it', async () => {
+    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const searchInput = wrapper.find('input');
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(false);
+    searchInput.simulate('focus');
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(true);
+});
+
+test('Autocomplete popup should not be visible if input has been cleared by button click', async () => {
+    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const searchInput = wrapper.find('input');
+    const clearButton = wrapper.find('button').at(1);
+    searchInput.simulate('focus');
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(true);
+    wrapper.instance().forceUpdate();
+    searchInput.instance().value = 'text';
+    searchInput.simulate('change');
+    clearButton.simulate('click');
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(false);
+});
+
+test('Autocomplete popup should not be visible if form has been submitted', async () => {
+    const executeSearch = jest.fn().mockImplementationOnce(() => {});
+    let wrapper = mount(
+        <SearchBar
+            executeSearch={executeSearch}
+            classes={classes}
+            isOpen={true}
+        />
+    );
+    const searchInput = wrapper.find('input');
+    wrapper.instance().forceUpdate();
+    searchInput.simulate('focus');
+    searchInput.instance().value = 'text';
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(true);
+    searchInput.simulate('change');
+    searchInput.simulate('submit');
+    expect(wrapper.instance().state.autocompleteVisible).toEqual(false);
 });
