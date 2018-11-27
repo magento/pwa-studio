@@ -49,6 +49,7 @@ export const getUserDetails = () =>
             const userDetails = await request('/rest/V1/customers/me', {
                 method: 'GET'
             });
+
             dispatch(actions.signIn.receive(userDetails));
         }
     };

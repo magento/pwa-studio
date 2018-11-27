@@ -2,7 +2,6 @@ import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
-import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
@@ -29,7 +28,6 @@ export const editOrder = section =>
 export const submitInput = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.input.submit(payload));
-        await dispatch(getCountries());
 
         const { cart, directory } = getState();
         const { guestCartId } = cart;

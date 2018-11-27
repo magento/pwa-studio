@@ -4,7 +4,7 @@ import classify from 'src/classify';
 
 class AddressBlock extends Component {
     static propTypes = {
-        address: PropTypes.shape({}).isRequired,
+        address: PropTypes.shape({}),
         title: PropTypes.string
     };
 
@@ -13,11 +13,12 @@ class AddressBlock extends Component {
         const {
             firstname,
             lastname,
-            street,
+            street = [],
             country,
             telephone,
             postcode,
-            city
+            city,
+            region: { region } = {}
         } = address || {};
 
         return (
@@ -28,7 +29,7 @@ class AddressBlock extends Component {
                 </div>
                 <div>{street[0]}</div>
                 <div>
-                    {city}, {state}, {postcode}
+                    {city}, {region}, {postcode}
                 </div>
                 <div>{country}</div>
                 <div>T: {telephone}</div>

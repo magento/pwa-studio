@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import get from 'lodash/get';
 import classify from 'src/classify';
 
 class AccountInformation extends Component {
     static propTypes = {
-        customer: PropTypes.shape({}).isRequired
+        user: PropTypes.shape({}).isRequired
     };
 
     get subscriptionStatusText() {
-        const { customer } = this.props;
+        const { user } = this.props;
 
-        return customer.isSubscribed
+        return get(user, 'extension_attributes.is_subscribed')
             ? 'You are subscribed to our newsletter.'
             : "You aren't subscribed to our newsletter.";
     }
 
     render() {
-        const { customer } = this.props;
+        const { user } = this.props;
         const { subscriptionStatusText } = this;
-        const { fullname, email } = customer;
+        const { firstname, lastname, email } = user;
 
         return (
             <section>
                 <h2>Account information</h2>
                 <div>
                     <h3>Contact information</h3>
-                    <div>{fullname}</div>
+                    <div>
+                        {firstname} {lastname}
+                    </div>
                     <div>{email}</div>
                     <div>
                         <button>Edit</button>

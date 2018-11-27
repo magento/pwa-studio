@@ -5,13 +5,7 @@ import actions from './actions';
 const { request } = RestApi.Magento2;
 
 export const getCountries = () =>
-    async function thunk(dispatch, getState) {
-        const { directory } = getState();
-
-        if (directory && directory.countries) {
-            return;
-        }
-
+    async function thunk(dispatch) {
         try {
             const response = await request('/rest/V1/directory/countries');
 

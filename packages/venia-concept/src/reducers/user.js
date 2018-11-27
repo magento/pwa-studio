@@ -14,7 +14,8 @@ const initialState = {
     currentUser: {
         email: '',
         firstname: '',
-        lastname: ''
+        lastname: '',
+        addresses: []
     },
     signInError: {}
 };
@@ -27,9 +28,8 @@ const reducerMap = {
 
         return {
             ...state,
-            ...payload,
             isSignedIn: true,
-            currentUser: Object.assign(payload)
+            currentUser: payload
         };
     },
     [actions.signInError.receive]: (state, { payload }) => {

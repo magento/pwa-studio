@@ -1,1 +1,1 @@
-export { default } from './myAccount';
+export { default } from './myAccountContainer';

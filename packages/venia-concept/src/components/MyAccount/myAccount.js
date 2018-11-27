@@ -6,22 +6,18 @@ import AddressBook from './AddressBook';
 
 class MyAccount extends Component {
     static propTypes = {
-        customer: PropTypes.shape({})
-    };
-
-    // TODO: remove this
-    static defaultProps = {
-        customer: {}
+        customer: PropTypes.shape({}),
+        addresses: PropTypes.arrayOf(PropTypes.shape({}))
     };
 
     render() {
-        const { customer } = this.props;
+        const { user, addresses } = this.props;
 
         return (
             <section>
                 <h1>My Account</h1>
-                <AccountInformation customer={customer} />
-                <AddressBook />
+                <AccountInformation user={user} />
+                <AddressBook addresses={addresses} />
             </section>
         );
     }
