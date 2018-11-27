@@ -51,19 +51,40 @@ class ProductFullDetail extends Component {
         addToCart: func.isRequired
     };
 
-    state = { optionSelections: new Map(), quantity: 1 };
+    static getDerivedStateFromProps(props, state) {
+        const { configurable_options } = props.product;
+        const optionCodes = new Map(state.optionCodes);
+
+        // if this is a simple product, do nothing
+        if (!Array.isArray(configurable_options)) {
+            return;
+        }
+
+        // otherwise, cache attribute codes to avoid lookup cost later
+        for (const option of configurable_options) {
+            optionCodes.set(option.attribute_id, option.attribute_code);
+        }
+
+        return { optionCodes };
+    }
+
+    state = {
+        optionCodes: new Map(),
+        optionSelections: new Map(),
+        quantity: 1
+    };
 
     setQuantity = quantity => this.setState({ quantity });
 
     addToCart = () => {
         const { props, state } = this;
-        const { optionSelections, quantity } = state;
+        const { optionCodes, optionSelections, quantity } = state;
         const { addToCart, product } = props;
-        const {
-            __typename: productType,
-            configurable_options,
-            variants
-        } = product;
+        const { configurable_options, variants } = product;
+        const isConfigurable = Array.isArray(configurable_options);
+        const productType = isConfigurable
+            ? 'ConfigurableProduct'
+            : 'SimpleProduct';
 
         const payload = {
             item: product,
@@ -79,9 +100,7 @@ class ProductFullDetail extends Component {
 
             const item = variants.find(({ product: variant }) => {
                 for (const [id, value] of optionSelections) {
-                    const { attribute_code: code } = configurable_options.find(
-                        ({ attribute_id }) => attribute_id === id
-                    );
+                    const code = optionCodes.get(id);
 
                     if (variant[code] !== value) {
                         return false;
@@ -112,8 +131,8 @@ class ProductFullDetail extends Component {
 
     get productOptions() {
         const { handleSelectionChange, props } = this;
-        const { __typename: type, configurable_options } = props.product;
-        const isConfigurable = type === 'ConfigurableProduct';
+        const { configurable_options } = props.product;
+        const isConfigurable = Array.isArray(configurable_options);
 
         if (!isConfigurable) {
             return null;

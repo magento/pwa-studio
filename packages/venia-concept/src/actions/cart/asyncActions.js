@@ -56,16 +56,10 @@ export const addItemToCart = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            console.warn(
-                'Can not currently add items to your cart as a non-guest user'
-            );
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 
@@ -81,6 +75,8 @@ export const addItemToCart = (payload = {}) => {
                 throw missingGuestCartError;
             }
 
+            // TODO: change to GraphQL mutation
+            // for now, manually transform the payload for REST
             const itemPayload = {
                 qty: quantity,
                 sku: item.sku,
@@ -204,13 +200,10 @@ export const getCartDetails = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 

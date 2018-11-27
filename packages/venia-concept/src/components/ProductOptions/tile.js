@@ -4,6 +4,9 @@ import { bool, number, oneOfType, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import defaultClasses from './tile.css';
 
+const getClassName = (name, isSelected, hasFocus) =>
+    `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
+
 class Tile extends Component {
     static propTypes = {
         classes: shape({
@@ -20,12 +23,12 @@ class Tile extends Component {
     render() {
         const {
             classes,
-            hasFocus, // eslint-disable-line
+            hasFocus,
             isSelected,
             item,
             ...restProps
         } = this.props;
-        const className = isSelected ? classes.root_selected : classes.root;
+        const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label } = item;
 
         return (

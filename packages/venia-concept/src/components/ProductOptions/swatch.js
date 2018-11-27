@@ -15,6 +15,9 @@ const getRandomColor = () =>
     Array.from({ length: 3 }, () => Math.floor(Math.random() * 255)).join(',');
 const memoizedGetRandomColor = memoize(getRandomColor);
 
+const getClassName = (name, isSelected, hasFocus) =>
+    `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
+
 class Swatch extends Component {
     static propTypes = {
         classes: shape({
@@ -38,13 +41,13 @@ class Swatch extends Component {
         const { icon, props } = this;
         const {
             classes,
-            hasFocus, // eslint-disable-line
+            hasFocus,
             isSelected,
             item,
             style,
             ...restProps
         } = props;
-        const className = isSelected ? classes.root_selected : classes.root;
+        const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label, value_index } = item;
 
         // We really want to avoid specifying presentation within JS.

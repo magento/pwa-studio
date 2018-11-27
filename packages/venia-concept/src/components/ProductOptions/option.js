@@ -32,6 +32,8 @@ class Option extends Component {
     get listComponent() {
         const { attribute_code } = this.props;
 
+        // TODO: get an explicit field from the API
+        // that identifies an attribute as a swatch
         return attribute_code === 'fashion_color' ? SwatchList : TileList;
     }
 
