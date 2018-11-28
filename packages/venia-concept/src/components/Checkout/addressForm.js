@@ -6,7 +6,7 @@ import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Label from './label';
-import defaultClasses from './address.css';
+import defaultClasses from './addressForm.css';
 
 const fields = [
     'city',
@@ -147,6 +147,7 @@ class AddressForm extends Component {
     };
 
     submit = values => {
+        console.log('address values', values);
         this.props.submit(values);
     };
 }

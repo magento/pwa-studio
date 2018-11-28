@@ -1,7 +1,7 @@
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId, getCartDetails } from 'src/actions/cart';
+import { clearGuestCartId, getCartDetails, getShippingMethods } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
@@ -9,20 +9,6 @@ import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
-
-const mockAddress = {
-    country_id: 'US',
-    firstname: 'Veronica',
-    lastname: 'Costello',
-    street: ['6146 Honey Bluff Parkway'],
-    city: 'Calder',
-    postcode: '49628-7978',
-    region_id: 33,
-    region_code: 'MI',
-    region: 'Michigan',
-    telephone: '(555) 229-3326',
-    email: 'veronica@example.com'
-};
 
 export const beginCheckout = () =>
     async function thunk(dispatch) {
@@ -40,9 +26,9 @@ export const editOrder = section =>
         dispatch(actions.edit(section));
     };
 
-export const submitInput = payload =>
+export const submitAddress = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.input.submit(payload));
+        dispatch(actions.address.submit(payload));
         await dispatch(getCountries());
 
         const { cart, directory } = getState();
@@ -76,14 +62,39 @@ export const submitInput = payload =>
                 }
             );
 
+            // TODO: we may not actually want to do this here,
+            // but once we have POSTed our shipping information
+            // we can fetch the available shipping methods.
+            await dispatch(getShippingMethods());
+
             // refresh cart before returning to checkout overview
             // to avoid flash of old data and layout thrashing
             await dispatch(getCartDetails({ forceRefresh: true }));
-            dispatch(actions.input.accept(response));
+            dispatch(actions.address.accept(response));
         } catch (error) {
-            dispatch(actions.input.reject(error));
+            dispatch(actions.address.reject(error));
         }
     };
+
+export const submitPaymentMethod = payload => 
+    async function thunk(dispatch, getState) {
+        dispatch(actions.paymentMethod.submit(payload));
+
+        // refresh cart before returning to checkout overview
+        // to avoid flash of old data and layout thrashing
+        await dispatch(getCartDetails({ forceRefresh: true }));
+        dispatch(actions.paymentMethod.accept());
+    }
+
+export const submitShippingMethod = payload =>
+    async function thunk(dispatch, getState) {
+        dispatch(actions.shippingMethod.submit(payload));
+
+        // refresh cart before returning to checkout overview
+        // to avoid flash of old data and layout thrashing
+        await dispatch(getCartDetails({ forceRefresh: true }));
+        dispatch(actions.shippingMethod.accept());
+    }
 
 export const enterSubflow = (actionType, payload) => {
     return async function thunk(dispatch) {
@@ -91,41 +102,6 @@ export const enterSubflow = (actionType, payload) => {
             type: actionType,
             payload
         });
-    };
-}
-
-export const submitMockShippingAddress = () => {
-    return async function thunk(dispatch, getState) {
-        try {
-            const { cart } = getState();
-            const { guestCartId } = cart;
-            const payload = await request(
-                `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
-                {
-                    method: 'POST',
-                    // TODO: replace with real data from cart state
-                    body: JSON.stringify({
-                        addressInformation: {
-                            billing_address: mockAddress,
-                            shipping_address: mockAddress,
-                            shipping_method_code: 'flatrate',
-                            shipping_carrier_code: 'flatrate'
-                        }
-                    })
-                }
-            );
-
-            dispatch({
-                type: 'SUBMIT_SHIPPING_INFORMATION',
-                payload
-            });
-        } catch (error) {
-            dispatch({
-                type: 'REJECT_SHIPPING_INFORMATION',
-                payload: error,
-                error: true
-            });
-        }
     };
 }
 

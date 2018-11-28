@@ -7,7 +7,7 @@ import {
     editOrder,
     formatAddress,
     resetCheckout,
-    submitInput,
+    submitAddress,
     submitOrder
 } from '../asyncActions';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
@@ -104,23 +104,23 @@ test('editOrder thunk dispatches actions', async () => {
     expect(dispatch).toHaveBeenCalledTimes(1);
 });
 
-test('submitInput() returns a thunk', () => {
-    expect(submitInput()).toBeInstanceOf(Function);
+test('submitAddress() returns a thunk', () => {
+    expect(submitAddress()).toBeInstanceOf(Function);
 });
 
-test('submitInput thunk returns undefined', async () => {
+test('submitAddress thunk returns undefined', async () => {
     const payload = { type: 'address', formValues: address };
-    const result = await submitInput(payload)(...thunkArgs);
+    const result = await submitAddress(payload)(...thunkArgs);
 
     expect(result).toBeUndefined();
 });
 
-test('submitInput thunk dispatches actions on success', async () => {
+test('submitAddress thunk dispatches actions on success', async () => {
     const payload = { type: 'address', formValues: address };
     const response = true;
 
     request.mockResolvedValueOnce(response);
-    await submitInput(payload)(...thunkArgs);
+    await submitAddress(payload)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.input.submit(payload));
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
@@ -129,12 +129,12 @@ test('submitInput thunk dispatches actions on success', async () => {
     expect(dispatch).toHaveBeenCalledTimes(4);
 });
 
-test('submitInput thunk dispatches actions on failure', async () => {
+test('submitAddress thunk dispatches actions on failure', async () => {
     const payload = { type: 'address', formValues: address };
     const error = new Error('ERROR');
 
     request.mockRejectedValueOnce(error);
-    await submitInput(payload)(...thunkArgs);
+    await submitAddress(payload)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.input.submit(payload));
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
@@ -142,7 +142,7 @@ test('submitInput thunk dispatches actions on failure', async () => {
     expect(dispatch).toHaveBeenCalledTimes(3);
 });
 
-test('submitInput thunk throws if there is no guest cart', async () => {
+test('submitAddress thunk throws if there is no guest cart', async () => {
     const payload = { type: 'address', formValues: address };
 
     getState.mockImplementationOnce(() => ({
@@ -150,15 +150,15 @@ test('submitInput thunk throws if there is no guest cart', async () => {
         directory: { countries }
     }));
 
-    await expect(submitInput(payload)(...thunkArgs)).rejects.toThrow(
+    await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow(
         'guestCartId'
     );
 });
 
-test('submitInput thunk throws if payload is invalid', async () => {
+test('submitAddress thunk throws if payload is invalid', async () => {
     const payload = { type: 'address', formValues: {} };
 
-    await expect(submitInput(payload)(...thunkArgs)).rejects.toThrow();
+    await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow();
     expect(dispatch).toHaveBeenNthCalledWith(1, actions.input.submit(payload));
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
     expect(dispatch).toHaveBeenCalledTimes(2);

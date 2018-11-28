@@ -24,9 +24,10 @@ class Flow extends Component {
             enterSubflow: func.isRequired,
             getShippingMethods: func.isRequired,
             resetCheckout: func.isRequired,
-            submitInput: func.isRequired,
-            submitMockShippingAddress: func.isRequired,
+            submitAddress: func.isRequired,
             submitOrder: func.isRequired,
+            submitPaymentMethod: func.isRequired,
+            submitShippingMethod: func.isRequired,
         }).isRequired,
         availablePaymentMethods: array,
         availableShippingMethods: array,
@@ -67,9 +68,10 @@ class Flow extends Component {
             editOrder,
             enterSubflow,
             getShippingMethods,
-            submitInput,
-            submitMockShippingAddress,
-            submitOrder
+            submitAddress,
+            submitOrder,
+            submitPaymentMethod,
+            submitShippingMethod,
         } = actions;
 
         const { editing, step, submitting } = checkout;
@@ -97,9 +99,10 @@ class Flow extends Component {
                     ready,
                     shippingMethod,
                     status,
-                    submitInput,
-                    submitMockShippingAddress,
+                    submitAddress,
                     submitOrder,
+                    submitPaymentMethod,
+                    submitShippingMethod,
                     submitting,
                     valid
                 };

@@ -8,9 +8,10 @@ import {
     editOrder,
     enterSubflow,
     resetCheckout,
-    submitInput,
-    submitMockShippingAddress,
+    submitAddress,
     submitOrder,
+    submitPaymentMethod,
+    submitShippingMethod,
 } from 'src/actions/checkout';
 
 import Flow from './flow';
@@ -35,8 +36,10 @@ class CheckoutWrapper extends Component {
         editOrder: func.isRequired,
         enterSubflow: func.isRequired,
         resetCheckout: func.isRequired,
-        submitInput: func.isRequired,
-        submitOrder: func.isRequired
+        submitAddress: func.isRequired,
+        submitOrder: func.isRequired,
+        submitPaymentMethod: func.isRequired,
+        submitShippingMethod: func.isRequired,
     };
 
     render() {
@@ -50,9 +53,10 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitInput,
-            submitMockShippingAddress,
+            submitAddress,
             submitOrder,
+            submitPaymentMethod,
+            submitShippingMethod,
         } = this.props;
 
         // ensure state slices are present
@@ -67,9 +71,10 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitInput,
-            submitMockShippingAddress,
-            submitOrder,       
+            submitAddress,
+            submitOrder,
+            submitPaymentMethod, 
+            submitShippingMethod,    
         };
 
         const {
@@ -108,9 +113,10 @@ const mapDispatchToProps = {
     enterSubflow,
     getShippingMethods,
     resetCheckout,
-    submitInput,
-    submitMockShippingAddress,
+    submitAddress,
     submitOrder,
+    submitPaymentMethod,
+    submitShippingMethod,
 };
 
 export default connect(

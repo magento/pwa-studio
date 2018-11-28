@@ -30,13 +30,13 @@ const reducerMap = {
             editing: payload
         };
     },
-    [actions.input.submit]: state => {
+    [actions.address.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.input.accept]: state => {
+    [actions.address.accept]: state => {
         return {
             ...state,
             editing: null,
@@ -44,7 +44,47 @@ const reducerMap = {
             submitting: false
         };
     },
-    [actions.input.reject]: state => {
+    [actions.address.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.paymentMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.paymentMethod.accept]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'form',
+            submitting: false
+        };
+    },
+    [actions.paymentMethod.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.shippingMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.shippingMethod.accept]: state => {
+        return {
+            ...state,
+            editing: null,
+            step: 'form',
+            submitting: false
+        };
+    },
+    [actions.shippingMethod.reject]: state => {
         return {
             ...state,
             submitting: false
