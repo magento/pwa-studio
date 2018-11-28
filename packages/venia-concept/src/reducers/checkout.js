@@ -8,7 +8,6 @@ const initialState = {
     editing: null,
     paymentMethod: null,
     paymentTitle: null,
-    shippingInformation: false,
     shippingMethod: null,
     shippingTitle: null,
     status: 'READY',
@@ -41,7 +40,6 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
-            shippingInformation: true,
             submitting: false
         };
     },

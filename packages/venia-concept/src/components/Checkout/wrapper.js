@@ -22,9 +22,8 @@ const isCheckoutReady = (cart, checkout) =>
     isShippingInfoReady(cart, checkout) &&
     isShippingMethodReady(checkout);
 const isPaymentMethodReady = checkout => !!checkout.paymentMethod;
-const isShippingInfoReady = (cart, checkout) =>
-    isAddressValid(cart.details.billing_address) &&
-    !!checkout.shippingInformation;
+const isShippingInfoReady = cart => isAddressValid(cart.details.billing_address);
+    
 const isShippingMethodReady = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {
@@ -39,7 +38,6 @@ class CheckoutWrapper extends Component {
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             paymentMethod: string,
             paymentTitle: string,
-            shippingInformation: bool,
             shippingMethod: string,
             shippingTitle: string,
             status: string,
@@ -105,7 +103,7 @@ class CheckoutWrapper extends Component {
             isCartReady: isCartReady(cart),
             isCheckoutReady: isCheckoutReady(cart, checkout),
             isPaymentMethodReady: isPaymentMethodReady(checkout),
-            isShippingInformationReady: isShippingInfoReady(cart, checkout),
+            isShippingInformationReady: isShippingInfoReady(cart),
             isShippingMethodReady: isShippingMethodReady(checkout),
             paymentMethod,
             paymentTitle,
