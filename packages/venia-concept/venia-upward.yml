@@ -8,15 +8,15 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
-      pattern: '^/favicon.ico'
-      use: favicon
+      pattern: '^/(favicon.ico|veniaClosed.png)'
+      use: media
     - matches: urlKey
       pattern: '.'
       use: appShell
     - matches: request.url.pathname
       pattern: '^/$'
       use: appShell
-  default: static
+  default: bundles
 
 proxy:
   target: env.MAGENTO_BACKEND_URL
@@ -107,18 +107,10 @@ genericObject:
       inline:
         "Hello world!"
 
-favicon:
-  inline:
-    status: 200
-    headers:
-      inline:
-        content-type:
-          inline: image/vnd.microsoft.icon
-    body:
-      file:
-        inline: ./media/favicon.ico
-      encoding: binary
-
-static:
+bundles:
   directory:
     inline: './dist'
+
+media:
+  directory:
+    inline: './media'

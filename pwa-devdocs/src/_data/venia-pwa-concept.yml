@@ -3,8 +3,8 @@ entries:
   - label: Overview
     url: /venia-pwa-concept/
 
-  - label: Directory structure
-    url: /venia-pwa-concept/directory-structure/
+  - label: Project structure
+    url: /venia-pwa-concept/project-structure/
 
   - label: Venia storefront setup
     url: /venia-pwa-concept/setup/

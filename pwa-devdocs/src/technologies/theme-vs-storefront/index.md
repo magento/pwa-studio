@@ -117,7 +117,7 @@ The following table is a summary of general skills needed for PWA storefront dev
 | [NPM][]                               | JS package and dependency manager                   |
 {:style="table-layout: auto;"}
 
-[progressive web app]: {{site.baseur}}{%link technologies/overview/index.md %}
+[progressive web app]: {{site.baseurl}}{%link technologies/overview/index.md %}
 [Venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
 [middle tier service layer]: {{site.baseurl}}{%link technologies/upward/index.md %}
 [GraphQL]: {{site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
