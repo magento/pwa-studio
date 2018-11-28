@@ -13,11 +13,18 @@
     .root {
         height: 2rem;
         min-width: 2rem;
-        padding: 0;
+        padding: 0 0.5rem;
     }
 }
 
 .root_selected {
+    composes: root;
     background-color: rgb(var(--venia-text));
     color: white;
+}
+.root_focused {
+    composes: root;
+}
+.root_selected_focused {
+    composes: root_selected;
 }

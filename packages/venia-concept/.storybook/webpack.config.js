@@ -2,7 +2,6 @@ const path = require('path');
 
 const configureBabel = require('../babel.config.js');
 const babelOptions = configureBabel('development');
-console.log(babelOptions);
 
 const base_config = require('./webpack.config.js');
 
@@ -12,8 +11,6 @@ const themePaths = {
     output: path.resolve(__dirname, '../web/js'),
     node: path.resolve(__dirname, '../../../')
 };
-
-console.log(themePaths.node);
 
 const testPath = path.resolve('../');
 
