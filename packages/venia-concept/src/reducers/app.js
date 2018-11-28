@@ -6,10 +6,10 @@ export const name = 'app';
 
 const initialState = {
     drawer: null,
-    overlay: false,
-    pending: {},
+    hasBeenOffline: !navigator.onLine,
     isOnline: navigator.onLine,
-    hasBeenOffline: false || !navigator.onLine
+    overlay: false,
+    pending: {}
 };
 
 const reducerMap = {

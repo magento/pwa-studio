@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { Page } from '@magento/peregrine';
-import { connect } from 'react-redux';
 
 import classify from 'src/classify';
 import ErrorView from 'src/components/ErrorView';
@@ -9,8 +8,8 @@ import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
-import defaultClasses from './app.css';
 import OnlineIndicator from 'src/components/OnlineIndicator';
+import defaultClasses from './app.css';
 
 const renderRoutingError = props => <ErrorView {...props} />;
 

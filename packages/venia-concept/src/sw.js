@@ -1,4 +1,4 @@
-const thirtyDays = 30 * 24 * 60 * 60
+const thirtyDays = 30 * 24 * 60 * 60;
 workbox.skipWaiting();
 workbox.clientsClaim();
 
@@ -26,7 +26,6 @@ workbox.routing.registerRoute(
         ]
     })
 );
-
 
 workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,

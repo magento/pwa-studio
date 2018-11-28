@@ -14,3 +14,7 @@
 .page {
     min-height: 100vh;
 }
+
+.page_masked {
+    composes: page;
+}

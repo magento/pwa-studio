@@ -101,9 +101,9 @@ function fetchRoute(opts) {
 // TODO: This can be handled by workbox once this issue is resolved in the
 // graphql repo: https://github.com/magento/graphql-ce/issues/229
 function storeURLResolveResult(res, opts) {
-	const storedRoute = localStorage.getItem('urlResolve');
-	const item = JSON.parse(storedRoute) || {};
+    const storedRoute = localStorage.getItem('urlResolve');
+    const item = JSON.parse(storedRoute) || {};
 
-	item[opts.route] = res;
-	localStorage.setItem('urlResolve', JSON.stringify(item));
+    item[opts.route] = res;
+    localStorage.setItem('urlResolve', JSON.stringify(item));
 }
