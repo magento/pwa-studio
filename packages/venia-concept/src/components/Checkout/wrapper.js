@@ -6,7 +6,6 @@ import { getShippingMethods } from 'src/actions/cart';
 import {
     beginCheckout,
     editOrder,
-    enterSubflow,
     resetCheckout,
     submitAddress,
     submitOrder,
@@ -34,7 +33,6 @@ class CheckoutWrapper extends Component {
             submitting: bool.isRequired
         }),
         editOrder: func.isRequired,
-        enterSubflow: func.isRequired,
         resetCheckout: func.isRequired,
         submitAddress: func.isRequired,
         submitOrder: func.isRequired,
@@ -49,7 +47,6 @@ class CheckoutWrapper extends Component {
 
             beginCheckout,
             editOrder,
-            enterSubflow,
             getShippingMethods,
             requestOrder,
             resetCheckout,
@@ -67,7 +64,6 @@ class CheckoutWrapper extends Component {
         const actions = {
             beginCheckout,
             editOrder,
-            enterSubflow,
             getShippingMethods,
             requestOrder,
             resetCheckout,
@@ -110,7 +106,6 @@ const mapStateToProps = ({ checkout, cart }) => ({ checkout, cart });
 const mapDispatchToProps = {
     beginCheckout,
     editOrder,
-    enterSubflow,
     getShippingMethods,
     resetCheckout,
     submitAddress,

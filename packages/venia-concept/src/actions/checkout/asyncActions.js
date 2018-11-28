@@ -100,15 +100,6 @@ export const submitShippingMethod = payload =>
         dispatch(actions.shippingMethod.accept());
     };
 
-export const enterSubflow = (actionType, payload) => {
-    return async function thunk(dispatch) {
-        dispatch({
-            type: actionType,
-            payload
-        });
-    };
-};
-
 export const submitOrder = () =>
     async function thunk(dispatch, getState) {
         const { cart } = getState();

@@ -28,7 +28,6 @@ class Form extends Component {
         }),
         editing: string,
         editOrder: func.isRequired,
-        enterSubflow: func.isRequired,
         getShippingMethods: func.isRequired,
         isShippingInformationReady: bool,
         paymentMethod: string,
