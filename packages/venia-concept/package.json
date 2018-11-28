@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.0-rc.11",
+  "version": "2.0.0-rc.13",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
