@@ -90,6 +90,15 @@ export const submitPaymentMethod = payload =>
         const { guestCartId } = cart;
         const billingAddress = cart.details.billing_address;
         const { countries } = directory;
+
+        // If we were able to skip submitting an address (ex: this cart already had one),
+        // we must be sure to fetch the countries so we can format the billing address.
+        if (!countries) {
+            await dispatch(getCountries());
+            // then retry this operation
+            return thunk(...arguments);
+        }
+
         let address;
 
         try {
@@ -112,6 +121,11 @@ export const submitPaymentMethod = payload =>
                     })
                 }
             );
+
+            // If we don't have shipping methods yet, we need to fetch them now.
+            if (!cart.shippingMethods) {
+                await dispatch(getShippingMethods());
+            }
 
             dispatch(actions.paymentMethod.accept(desiredPaymentMethod));
         } catch (error) {
@@ -178,8 +192,6 @@ export const submitOrder = () =>
                 {
                     method: 'PUT',
                     body: JSON.stringify({
-                        // TODO: this results in a 400 Bad Request complaining about billingAddress.
-                        billingAddress: address,
                         paymentMethod: {
                             method: paymentMethod
                         }
