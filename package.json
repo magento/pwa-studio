@@ -19,7 +19,7 @@
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/*.js' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "now-build": "cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run -s build",
-    "now-start": "UPWARD_JS_HOST=0.0.0.0 npm run -s stage:venia",
+    "now-start": "npm run -s stage:venia",
     "prepare": "node ./scripts/update_repo_environment.js && npx lerna bootstrap --hoist",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
