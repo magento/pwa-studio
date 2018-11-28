@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserPersistence } from './util/simplePersistence';
 
-export const mockRequest = jest.fn();
+const peregrine = jest.requireActual('../../../peregrine/src');
 
-export const RestApi = {
+const mockRequest = jest.fn();
+
+const RestApi = {
     Magento2: {
         request: mockRequest
     }
 };
 
-export const Util = {
+const Util = {
     BrowserPersistence: BrowserPersistence
 };
 
@@ -18,4 +20,12 @@ export const Util = {
  * has browser-specific functionality and cannot
  * currently by rendered in the test environment
  */
-export const Price = () => <div />;
+const Price = () => <div />;
+
+module.exports = {
+    ...peregrine,
+    mockRequest,
+    RestApi,
+    Util,
+    Price
+};

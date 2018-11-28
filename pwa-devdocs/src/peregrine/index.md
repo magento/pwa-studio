@@ -3,7 +3,7 @@ title: Peregrine
 ---
 
 The Peregrine project is a collection of UI components for Magento PWA projects.
-Use, extend, or remix these components to create a unique Magento PWA theme.
+Use, extend, or remix these components to create a unique Magento PWA storefront.
 
 Visit the [`peregrine`] repository to contribute to this project.
 
