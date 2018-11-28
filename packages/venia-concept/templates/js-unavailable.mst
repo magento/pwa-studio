@@ -1,0 +1,49 @@
+<link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">
+<noscript>
+    <div class="container">
+        <img class="veniaClosed" src="./veniaClosed.png">
+        <div class="textBlock">
+            <h2 class="header">Oops! JavaScript is disabled</h2>
+            <div class="main">
+                <div class="textTile1">
+                    To continue using the Venia store
+                </div>
+                    <a class="enableLink" href="https://www.enable-javascript.com/">enable JavaScript in your browser</a>
+            </div>
+        </div>
+    </div>
+    <style>
+        #root {
+            display: none;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2.5rem;
+            font-family: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .veniaClosed {
+            width: 7.5625rem;
+        }
+        .textBlock {
+            width: 18.25rem;
+        }
+        .textTile1 {
+            white-space: nowrap;
+        }
+        .header {
+            font-size: 1.25rem;
+            margin: 2.125rem 0 2.5rem;
+        }
+        .main {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.75rem;
+        }
+        .header, .main, .enableLink {
+            text-align: center;
+            color: #444444;
+        }
+    </style>
+</noscript>
