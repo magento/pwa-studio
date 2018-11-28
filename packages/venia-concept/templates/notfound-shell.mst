@@ -1,4 +1,5 @@
 {{> templates/doctype-and-head-start}}
+{{> templates/js-unavailable}}
     <title>Venia - Not Found</title>
   </head>
   <body>
