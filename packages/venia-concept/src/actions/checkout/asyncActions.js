@@ -81,23 +81,76 @@ export const submitAddress = payload =>
     };
 
 export const submitPaymentMethod = payload =>
-    async function thunk(dispatch) {
+    async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit(payload));
 
-        // refresh cart before returning to checkout overview
-        // to avoid flash of old data and layout thrashing
-        await dispatch(getCartDetails({ forceRefresh: true }));
-        dispatch(actions.paymentMethod.accept());
+        const desiredPaymentMethod = payload.formValues.paymentMethod;
+
+        const { cart, directory } = getState();
+        const { guestCartId } = cart;
+        const billingAddress = cart.details.billing_address;
+        const { countries } = directory;
+        let address;
+
+        try {
+            address = formatAddress(billingAddress, countries);
+        } catch (error) {
+            throw error;
+        }
+
+        try {
+            await request(
+                `/rest/V1/guest-carts/${guestCartId}/set-payment-information`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: address.email,
+                        paymentMethod: {
+                            method: desiredPaymentMethod.code
+                        },
+                        billingAddress: address
+                    })
+                }
+            );
+
+            dispatch(actions.paymentMethod.accept(desiredPaymentMethod));
+        } catch (error) {
+            dispatch(actions.paymentMethod.reject(error));
+        }
     };
 
 export const submitShippingMethod = payload =>
-    async function thunk(dispatch) {
+    async function thunk(dispatch, getState) {
         dispatch(actions.shippingMethod.submit(payload));
 
-        // refresh cart before returning to checkout overview
-        // to avoid flash of old data and layout thrashing
-        await dispatch(getCartDetails({ forceRefresh: true }));
-        dispatch(actions.shippingMethod.accept());
+        console.log('submitShippingMethod received payload', payload);
+
+        const desiredShippingMethod = payload.formValues.shippingMethod;
+
+        const { cart, checkout } = getState();
+        const { guestCartId } = cart;
+        const { paymentMethod } = checkout;
+
+        try {
+            await request(
+                `/rest/V1/guest-carts/${guestCartId}/collect-totals`,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        paymentMethod: {
+                            method: paymentMethod
+                        },
+                        shippingCarrierCode: desiredShippingMethod.carrier_code,
+                        shippingMethodCode: desiredShippingMethod.method_code
+                    })
+                }
+            );
+
+            // TODO: also update the total price from the response
+            dispatch(actions.shippingMethod.accept(desiredShippingMethod));
+        } catch (error) {
+            dispatch(actions.shippingMethod.reject(error));
+        }
     };
 
 export const submitOrder = () =>

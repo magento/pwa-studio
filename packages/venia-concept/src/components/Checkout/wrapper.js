@@ -15,9 +15,17 @@ import {
 
 import Flow from './flow';
 
-const isReady = checkout =>
-    !!checkout.shippingInformation && !!checkout.paymentMethod;
-const isShippingInfoReady = checkout => !!checkout.shippingInformation;
+const isAddressValid = address => !!(address && address.email);
+const isCartReady = cart => cart.details.items_count > 0;
+const isCheckoutReady = (cart, checkout) =>
+    isPaymentMethodReady(checkout) &&
+    isShippingInfoReady(cart, checkout) &&
+    isShippingMethodReady(checkout);
+const isPaymentMethodReady = checkout => !!checkout.paymentMethod;
+const isShippingInfoReady = (cart, checkout) =>
+    isAddressValid(cart.details.billing_address) &&
+    !!checkout.shippingInformation;
+const isShippingMethodReady = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -29,6 +37,12 @@ class CheckoutWrapper extends Component {
         }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
+            paymentMethod: string,
+            paymentTitle: string,
+            shippingInformation: bool,
+            shippingMethod: string,
+            shippingTitle: string,
+            status: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool.isRequired
         }),
@@ -78,20 +92,25 @@ class CheckoutWrapper extends Component {
             shippingMethods: availableShippingMethods
         } = cart;
         const {
-            paymentTitle: paymentMethod,
+            paymentMethod,
+            paymentTitle,
             shippingMethod,
+            shippingTitle,
             status
         } = checkout;
 
-        const ready = isReady(checkout);
-        const isShippingInformationReady = isShippingInfoReady(checkout);
         const miscProps = {
             availablePaymentMethods,
             availableShippingMethods,
-            isShippingInformationReady,
+            isCartReady: isCartReady(cart),
+            isCheckoutReady: isCheckoutReady(cart, checkout),
+            isPaymentMethodReady: isPaymentMethodReady(checkout),
+            isShippingInformationReady: isShippingInfoReady(cart, checkout),
+            isShippingMethodReady: isShippingMethodReady(checkout),
             paymentMethod,
-            ready,
+            paymentTitle,
             shippingMethod,
+            shippingTitle,
             status
         };
 

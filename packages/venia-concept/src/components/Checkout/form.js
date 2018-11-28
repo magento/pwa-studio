@@ -24,20 +24,25 @@ class Form extends Component {
             body: string,
             footer: string,
             informationPrompt: string,
+            'informationPrompt--disabled': string,
             root: string
         }),
         editing: string,
         editOrder: func.isRequired,
         getShippingMethods: func.isRequired,
+        isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
+        isShippingMethodReady: bool,
         paymentMethod: string,
+        paymentTitle: string,
+        ready: bool,
         shippingMethod: string,
+        shippingTitle: string,
         submitAddress: func.isRequired,
         submitOrder: func.isRequired,
         submitPaymentMethod: func.isRequired,
         submitShippingMethod: func.isRequired,
-        submitting: bool.isRequired,
-        valid: bool.isRequired
+        submitting: bool.isRequired
     };
 
     constructor(...args) {
@@ -52,10 +57,10 @@ class Form extends Component {
      *  Class Properties.
      */
     get addressSummary() {
-        const { cart, valid } = this.props;
+        const { cart, classes, isShippingInformationReady } = this.props;
         const address = cart.details.billing_address;
 
-        if (!valid) {
+        if (!isShippingInformationReady) {
             return (
                 <span className={classes.informationPrompt}>
                     Add Shipping Information
@@ -124,7 +129,15 @@ class Form extends Component {
     }
 
     get overview() {
-        const { cart, classes, submitOrder, submitting, valid } = this.props;
+        const {
+            cart,
+            classes,
+            isShippingInformationReady,
+            isPaymentMethodReady,
+            ready,
+            submitOrder,
+            submitting
+        } = this.props;
 
         return (
             <Fragment>
@@ -132,10 +145,15 @@ class Form extends Component {
                     <Section label="Ship To" onClick={this.editAddress}>
                         {this.addressSummary}
                     </Section>
-                    <Section label="Pay With" onClick={this.editPaymentMethod}>
+                    <Section
+                        disabled={!isShippingInformationReady}
+                        label="Pay With"
+                        onClick={this.editPaymentMethod}
+                    >
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
+                        disabled={!isPaymentMethodReady}
                         label="Get It By"
                         onClick={this.editShippingMethod}
                     >
@@ -153,7 +171,7 @@ class Form extends Component {
                 <div className={classes.footer}>
                     <SubmitButton
                         submitting={submitting}
-                        valid={valid}
+                        valid={ready}
                         submitOrder={submitOrder}
                     />
                 </div>
@@ -162,37 +180,47 @@ class Form extends Component {
     }
 
     get paymentMethodSummary() {
-        const { classes, paymentMethod } = this.props;
+        const {
+            classes,
+            isPaymentMethodReady,
+            isShippingInformationReady,
+            paymentTitle
+        } = this.props;
 
-        if (!paymentMethod) {
-            return (
-                <span className={classes.informationPrompt}>
-                    Add Billing Information
-                </span>
-            );
+        if (!isPaymentMethodReady) {
+            const promptClass = isShippingInformationReady
+                ? classes.informationPrompt
+                : classes['informationPrompt--disabled'];
+            return <span className={promptClass}>Add Billing Information</span>;
         }
 
         return (
             <Fragment>
-                <strong>{paymentMethod}</strong>
+                <strong>{paymentTitle}</strong>
             </Fragment>
         );
     }
 
     get shippingMethodSummary() {
-        const { classes, shippingMethod } = this.props;
+        const {
+            classes,
+            isPaymentMethodReady,
+            isShippingMethodReady,
+            shippingTitle
+        } = this.props;
 
-        if (!shippingMethod) {
+        if (!isShippingMethodReady) {
+            const promptClass = isPaymentMethodReady
+                ? classes.informationPrompt
+                : classes['informationPrompt--disabled'];
             return (
-                <span className={classes.informationPrompt}>
-                    Add Shipping Information
-                </span>
+                <span className={promptClass}>Add Shipping Information</span>
             );
         }
 
         return (
             <Fragment>
-                <strong>{shippingMethod}</strong>
+                <strong>{shippingTitle}</strong>
             </Fragment>
         );
     }
@@ -235,7 +263,6 @@ class Form extends Component {
     };
 
     submitPaymentMethod = formValues => {
-        //console.log('submitting payment method. form values', formValues);
         this.props.submitPaymentMethod({
             type: 'paymentMethod',
             formValues
@@ -243,7 +270,6 @@ class Form extends Component {
     };
 
     submitShippingMethod = formValues => {
-        //console.log('submitting shipping method. form values', formValues);
         this.props.submitShippingMethod({
             type: 'shippingMethod',
             formValues

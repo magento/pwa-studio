@@ -13,6 +13,10 @@
     color: orangered;
     text-transform: capitalize;
 }
+.informationPrompt--disabled {
+    color: silver;
+    text-transform: capitalize;
+}
 
 @keyframes enter {
     from {

@@ -6,14 +6,14 @@ export const name = 'checkout';
 
 const initialState = {
     editing: null,
-    step: 'cart',
-    submitting: false,
-    shippingInformation: false,
-    shippingMethod: null,
     paymentMethod: null,
     paymentTitle: null,
+    shippingInformation: false,
+    shippingMethod: null,
+    shippingTitle: null,
     status: 'READY',
-    subflow: null
+    step: 'cart',
+    submitting: false
 };
 
 const reducerMap = {
@@ -41,6 +41,7 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
+            shippingInformation: true,
             submitting: false
         };
     },
@@ -56,10 +57,12 @@ const reducerMap = {
             submitting: true
         };
     },
-    [actions.paymentMethod.accept]: state => {
+    [actions.paymentMethod.accept]: (state, { payload }) => {
         return {
             ...state,
             editing: null,
+            paymentMethod: payload.code,
+            paymentTitle: payload.title,
             step: 'form',
             submitting: false
         };
@@ -76,10 +79,12 @@ const reducerMap = {
             submitting: true
         };
     },
-    [actions.shippingMethod.accept]: state => {
+    [actions.shippingMethod.accept]: (state, { payload }) => {
         return {
             ...state,
             editing: null,
+            shippingMethod: payload.carrier_code,
+            shippingTitle: payload.carrier_title,
             step: 'form',
             submitting: false
         };
@@ -110,41 +115,7 @@ const reducerMap = {
             submitting: false
         };
     },
-    [actions.reset]: () => initialState,
-
-    ENTER_SUBFLOW: (state, { payload }) => {
-        return {
-            ...state,
-            status: 'MODIFYING',
-            subflow: payload
-        };
-    },
-    EXIT_SUBFLOW: state => {
-        return {
-            ...state,
-            status: 'MODIFYING',
-            subflow: null
-        };
-    },
-    SUBMIT_SHIPPING_INFORMATION: state => {
-        return {
-            ...state,
-            shippingInformation: true
-        };
-    },
-    SUBMIT_PAYMENT_INFORMATION: (state, { payload }) => {
-        return {
-            ...state,
-            paymentMethod: payload.code,
-            paymentTitle: payload.title
-        };
-    },
-    SUBMIT_SHIPPING_METHOD: (state, { payload }) => {
-        return {
-            ...state,
-            shippingMethod: payload.carrier_title
-        };
-    }
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);

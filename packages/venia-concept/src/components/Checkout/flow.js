@@ -13,9 +13,6 @@ const stepMap = {
     receipt: 3
 };
 
-const isCartReady = items => items > 0;
-const isAddressValid = address => !!(address && address.email);
-
 class Flow extends Component {
     static propTypes = {
         actions: shape({
@@ -43,9 +40,15 @@ class Flow extends Component {
         classes: shape({
             root: string
         }),
+        isCartReady: bool,
+        isCheckoutReady: bool,
+        isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
+        isShippingMethodReady: bool,
         paymentMethod: string,
+        paymentTitle: string,
         shippingMethod: string,
+        shippingTitle: string,
         status: string
     };
 
@@ -56,9 +59,15 @@ class Flow extends Component {
             availableShippingMethods,
             cart,
             checkout,
+            isCartReady,
+            isCheckoutReady,
+            isPaymentMethodReady,
             isShippingInformationReady,
+            isShippingMethodReady,
             paymentMethod,
+            paymentTitle,
             shippingMethod,
+            shippingTitle,
             status
         } = this.props;
 
@@ -73,13 +82,14 @@ class Flow extends Component {
         } = actions;
 
         const { editing, step, submitting } = checkout;
-        const { details } = cart;
-        const ready = isCartReady(details.items_count);
-        const valid = isAddressValid(details.billing_address);
 
         switch (stepMap[step]) {
             case stepMap.cart: {
-                const stepProps = { beginCheckout, ready, submitting };
+                const stepProps = {
+                    beginCheckout,
+                    ready: isCartReady,
+                    submitting
+                };
 
                 return <Cart {...stepProps} />;
             }
@@ -91,17 +101,20 @@ class Flow extends Component {
                     editOrder,
                     editing,
                     getShippingMethods,
+                    ready: isCheckoutReady,
+                    isPaymentMethodReady,
                     isShippingInformationReady,
+                    isShippingMethodReady,
                     paymentMethod,
-                    ready,
+                    paymentTitle,
                     shippingMethod,
+                    shippingTitle,
                     status,
                     submitAddress,
                     submitOrder,
                     submitPaymentMethod,
                     submitShippingMethod,
-                    submitting,
-                    valid
+                    submitting
                 };
 
                 return <Form {...stepProps} />;
