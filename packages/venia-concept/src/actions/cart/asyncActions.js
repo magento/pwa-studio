@@ -47,8 +47,7 @@ export const createGuestCart = () =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, quantity } = payload;
-
+    const { item, options, parentSku, productType, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -57,16 +56,10 @@ export const addItemToCart = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            console.warn(
-                'Can not currently add items to your cart as a non-guest user'
-            );
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 
@@ -80,7 +73,27 @@ export const addItemToCart = (payload = {}) => {
                 );
                 missingGuestCartError.noGuestCartId = true;
                 throw missingGuestCartError;
-                console.log('Missing required information: guestCartId');
+            }
+
+            // TODO: change to GraphQL mutation
+            // for now, manually transform the payload for REST
+            const itemPayload = {
+                qty: quantity,
+                sku: item.sku,
+                name: item.name,
+                quote_id: guestCartId
+            };
+
+            if (productType === 'ConfigurableProduct') {
+                Object.assign(itemPayload, {
+                    sku: parentSku,
+                    product_type: 'configurable',
+                    product_option: {
+                        extension_attributes: {
+                            configurable_item_options: options
+                        }
+                    }
+                });
             }
 
             const cartItem = await request(
@@ -88,12 +101,7 @@ export const addItemToCart = (payload = {}) => {
                 {
                     method: 'POST',
                     body: JSON.stringify({
-                        cartItem: {
-                            qty: quantity,
-                            sku: item.sku,
-                            name: item.name,
-                            quote_id: guestCartId
-                        }
+                        cartItem: itemPayload
                     })
                 }
             );
@@ -192,13 +200,10 @@ export const getCartDetails = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 
