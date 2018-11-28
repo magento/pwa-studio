@@ -134,3 +134,34 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
         })
     );
 });
+
+test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
+    const injectManifestConfig = {
+        swSrc: 'path/to/sw',
+        swDest: 'path/to/dest'
+    };
+    const plugin = new ServiceWorkerPlugin({
+        env: {
+            mode: 'development'
+        },
+        enableServiceWorkerDebugging: true,
+        serviceWorkerFileName: 'sw.js',
+        injectManifest: true,
+        paths: {
+            output: 'path/to/assets'
+        },
+        injectManifestConfig
+    });
+
+    const fakeCompiler = {};
+    const workboxApply = jest.fn();
+    WorkboxPlugin.InjectManifest.mockImplementationOnce(() => ({
+        apply: workboxApply
+    }));
+
+    plugin.apply(fakeCompiler);
+
+    expect(WorkboxPlugin.InjectManifest).toHaveBeenCalledWith(
+        expect.objectContaining(injectManifestConfig)
+    );
+});
