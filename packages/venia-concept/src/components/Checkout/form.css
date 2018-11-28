@@ -9,6 +9,11 @@
     composes: footer from './flow.css';
 }
 
+.informationPrompt {
+    color: orangered;
+    text-transform: capitalize;
+}
+
 @keyframes enter {
     from {
         opacity: 0;

@@ -1,14 +1,15 @@
 import React, { Component, Fragment, createElement } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import Section from './section';
-import SubmitButton from './submitButton';
-import defaultClasses from './form.css';
-import Selector from 'src/components/Selector';
-import Subtotal from 'src/components/Subtotal';
-
+import { Price } from '@magento/peregrine';
 import AddressForm from './address';
+import PaymentsForm from './payments';
+import Section from './section';
+import Selector from 'src/components/Selector';
+import SubmitButton from './submitButton';
+
+import classify from 'src/classify';
+import defaultClasses from './form.css';
 
 class Form extends Component {
     static propTypes = {
@@ -22,6 +23,7 @@ class Form extends Component {
         classes: shape({
             body: string,
             footer: string,
+            informationPrompt: string,
             root: string
         }),
         editing: string,
@@ -38,8 +40,8 @@ class Form extends Component {
         valid: bool.isRequired
     };
 
-    constructor(props) {
-        super(props);
+    constructor(...args) {
+        super(...args);
         this.state = {
             updatePayment: false,
             updateShipping: false
@@ -49,12 +51,12 @@ class Form extends Component {
     /*
      *  Class Properties.
      */
-    get addressSnippet() {
+    get addressSummary() {
         const { cart, valid } = this.props;
         const address = cart.details.billing_address;
 
         if (!valid) {
-            return <span>Click to edit</span>;
+            return <span>Add Shipping Information</span>;
         }
 
         const name = `${address.firstname} ${address.lastname}`;
@@ -67,66 +69,6 @@ class Form extends Component {
                 <span>{street}</span>
             </Fragment>
         );
-    }
-
-    get cartOptions() {
-        const { classes } = this.props;
-        const {
-            paymentMethod,
-            shippingMethod,
-            availableShippingMethods,
-            isShippingInformationReady,
-            cart
-        } = this.props;
-
-        const shipToText = this.isShippingInformationReady
-            ? 'Complete'
-            : 'Add Shipping Information';
-        const paymentMethodText = paymentMethod
-            ? paymentMethod
-            : 'No payment methods available';
-        let shippingMethodtext = !!availableShippingMethods
-            ? 'Click to fill out'
-            : 'Add Shipping Method';
-        shippingMethodtext =
-            isShippingInformationReady && !availableShippingMethods
-                ? 'Loading...'
-                : shippingMethodtext;
-        shippingMethodtext =
-            !!shippingMethod && !!shippingMethodtext
-                ? shippingMethod
-                : shippingMethodtext;
-
-        return !this.state.updatePayment && !this.state.updateShipping ? (
-            <div className={classes.body}>
-                <Section
-                    label="Ship To"
-                    onClick={this.showShippingAddressSelector}
-                >
-                    <span>{shipToText}</span>
-                </Section>
-                <Section
-                    label="Pay With"
-                    onClick={this.showPaymentMethodSelector}
-                >
-                    <span>{paymentMethodText}</span>
-                </Section>
-                <Section
-                    disabled={!availableShippingMethods}
-                    label="Shipping Method"
-                    onClick={this.showShippingMethodSelector}
-                >
-                    <span>{shippingMethodtext}</span>
-                </Section>
-                <div className={classes.footer}>
-                    <Subtotal
-                        items_qty={cart.details.items_qty}
-                        currencyCode={cart.totals.base_currency_code}
-                        subtotal={cart.totals.subtotal}
-                    />
-                </div>
-            </div>
-        ) : null;
     }
 
     get editableForm() {
@@ -145,10 +87,81 @@ class Form extends Component {
                     />
                 );
             }
+            case 'paymentMethod': {
+                return <span>Payment Method Form Here</span>;
+            }
+            case 'shippingMethod': {
+                return <span>Shipping Method Form Here</span>;
+            }
             default: {
                 return null;
             }
         }
+    }
+    
+    get overview() {
+        const { cart, classes, submitOrder, submitting, valid } = this.props;
+
+        console.log('cart', cart);
+
+        return (
+            <Fragment>
+                <div className={classes.body}>
+                    <Section label="Ship To" onClick={this.editAddress}>
+                        {this.addressSummary}
+                    </Section>
+                    <Section label="Pay With" disabled>
+                        {this.paymentMethodSummary}
+                    </Section>
+                    <Section label="Get It By" disabled>
+                        {this.shippingMethodSummary}
+                    </Section>
+                    <Section label="TOTAL">
+                        <Price
+                            currencyCode={cart.totals.quote_currency_code}
+                            value={cart.totals.subtotal}
+                        ></Price>
+                        <br />
+                        <span>{cart.details.items_qty} Items</span>
+                    </Section>
+                </div>
+                <div className={classes.footer}>
+                    <SubmitButton
+                        submitting={submitting}
+                        valid={valid}
+                        submitOrder={submitOrder}
+                    />
+                </div>
+            </Fragment>
+        );
+    }
+
+    get paymentMethodSummary() {
+        const { classes, paymentMethod } = this.props;
+
+        if (!paymentMethod) {
+            return <span className={classes.informationPrompt}>Add Billing Information</span>;
+        }
+
+        return (
+            <Fragment>
+                <strong>{paymentMethod}</strong>
+            </Fragment>
+        );
+    }
+
+    get shippingMethodSummary() {
+        const { classes, shippingMethod } = this.props;
+
+        if (!shippingMethod) {
+            return <span className={classes.informationPrompt}>Add Shipping Information</span>
+        }
+
+        return (
+            <Fragment>
+                <strong>{shippingMethod}</strong>
+            </Fragment>
+        );
     }
 
     get paymentMethodSelector() {
@@ -175,6 +188,66 @@ class Form extends Component {
         ) : null;
     }
 
+    // get cartOptions() {
+    //     const { classes } = this.props;
+    //     const {
+    //         paymentMethod,
+    //         shippingMethod,
+    //         availableShippingMethods,
+    //         isShippingInformationReady,
+    //         cart
+    //     } = this.props;
+
+    //     const shipToText = this.isShippingInformationReady
+    //         ? 'Complete'
+    //         : 'Add Shipping Information';
+    //     const paymentMethodText = paymentMethod
+    //         ? paymentMethod
+    //         : 'No payment methods available';
+    //     let shippingMethodtext = !!availableShippingMethods
+    //         ? 'Click to fill out'
+    //         : 'Add Shipping Method';
+    //     shippingMethodtext =
+    //         isShippingInformationReady && !availableShippingMethods
+    //             ? 'Loading...'
+    //             : shippingMethodtext;
+    //     shippingMethodtext =
+    //         !!shippingMethod && !!shippingMethodtext
+    //             ? shippingMethod
+    //             : shippingMethodtext;
+
+    //     return !this.state.updatePayment && !this.state.updateShipping ? (
+    //         <div className={classes.body}>
+    //             <Section
+    //                 label="Ship To"
+    //                 onClick={this.showShippingAddressSelector}
+    //             >
+    //                 <span>{shipToText}</span>
+    //             </Section>
+    //             <Section
+    //                 label="Pay With"
+    //                 onClick={this.showPaymentMethodSelector}
+    //             >
+    //                 <span>{paymentMethodText}</span>
+    //             </Section>
+    //             <Section
+    //                 disabled={!availableShippingMethods}
+    //                 label="Shipping Method"
+    //                 onClick={this.showShippingMethodSelector}
+    //             >
+    //                 <span>{shippingMethodtext}</span>
+    //             </Section>
+    //             <div className={classes.footer}>
+    //                 <Subtotal
+    //                     items_qty={cart.details.items_qty}
+    //                     currencyCode={cart.totals.base_currency_code}
+    //                     subtotal={cart.totals.subtotal}
+    //                 />
+    //             </div>
+    //         </div>
+    //     ) : null;
+    // }
+
     /*
      *  Component Lifecycle Methods.
      */
@@ -186,37 +259,38 @@ class Form extends Component {
         );
     }
     
-    // render() {
-    //     const { classes, editing } = this.props;
-    //     const children = editing ? this.editableForm : this.overview;
-
-    //     return <div className={classes.root}>{children}</div>;
-    // }
-
     render() {
-        const { classes, submitOrder, submitting, valid } = this.props;
+        const { classes, editing } = this.props;
+        //const children = editing ? this.editableForm : this.overview;
+        const children = this.overview;
 
-        const {
-            shippingMethodSelector,
-            paymentMethodSelector,
-            cartOptions
-        } = this;
-
-        return (
-            <div className={classes.root}>
-                {shippingMethodSelector}
-                {paymentMethodSelector}
-                {cartOptions}
-                <div className={classes.footer}>
-                    <SubmitButton
-                        submitOrder={submitOrder}
-                        submitting={submitting}
-                        valid={valid}
-                    />
-                </div>
-            </div>
-        );
+        return <div className={classes.root}>{children}</div>;
     }
+
+    // render() {
+    //     const { classes, submitOrder, submitting, valid } = this.props;
+
+    //     const {
+    //         shippingMethodSelector,
+    //         paymentMethodSelector,
+    //         cartOptions
+    //     } = this;
+
+    //     return (
+    //         <div className={classes.root}>
+    //             {shippingMethodSelector}
+    //             {paymentMethodSelector}
+    //             {cartOptions}
+    //             <div className={classes.footer}>
+    //                 <SubmitButton
+    //                     submitOrder={submitOrder}
+    //                     submitting={submitting}
+    //                     valid={valid}
+    //                 />
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     /*
      *  Event Handlers.
