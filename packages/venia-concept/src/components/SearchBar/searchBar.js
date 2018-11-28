@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 
 import classify from 'src/classify';
-import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
 
 import Icon from 'src/components/Icon';
@@ -26,16 +23,17 @@ export class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.searchRef = React.createRef();
-        this.state = {isClearIcon: false};
+        this.state = { isClearIcon: false };
     }
 
     async componentDidMount() {
-        if (this.props.isOpen) {
-            this.searchRef.current.focus();
-        }
-        if (this.props.location.pathname === '/search.html') {
-            this.searchRef.current.value = this.props.location.search.substring(7);
-            this.setClearIcon(this.searchRef.current.value);
+        if (this.props.location) {
+            if (this.props.location.pathname === '/search.html') {
+                this.searchRef.current.value = this.props.location.search.substring(
+                    7
+                );
+                this.setClearIcon(this.searchRef.current.value);
+            }
         }
     }
 
@@ -53,6 +51,7 @@ export class SearchBar extends Component {
         const searchQuery = this.searchRef.current.value;
         this.setClearIcon(searchQuery);
         if (
+            this.props.isOpen &&
             (event.type === 'click' || event.key === 'Enter') &&
             searchQuery !== ''
         ) {
@@ -69,11 +68,11 @@ export class SearchBar extends Component {
     setClearIcon(query) {
         if (query !== '') {
             this.setState(() => {
-                return {isClearIcon: true};
+                return { isClearIcon: true };
             });
         } else {
             this.setState(() => {
-                return {isClearIcon: false};
+                return { isClearIcon: false };
             });
         }
     }
@@ -85,7 +84,9 @@ export class SearchBar extends Component {
             ? classes.searchBlockOpen
             : classes.searchBlock;
 
-        const clearIconClass = this.state.isClearIcon ? classes.clearIcon : classes.clearIcon_off;
+        const clearIconClass = this.state.isClearIcon
+            ? classes.clearIcon
+            : classes.clearIcon_off;
 
         return (
             <div className={searchClass}>
@@ -103,10 +104,7 @@ export class SearchBar extends Component {
                     placeholder="I'm looking for..."
                     onKeyUp={this.enterSearch}
                 />
-                <button
-                    className={clearIconClass}
-                    onClick={this.clearSearch}
-                >
+                <button className={clearIconClass} onClick={this.clearSearch}>
                     <Icon name="x" />
                 </button>
             </div>

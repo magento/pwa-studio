@@ -49,7 +49,7 @@ The following table shows a visual breakdown of these components.
 {:style="table-layout:auto"}
 
 
-[interactive mockup]: https://magento.invisionapp.com/share/5YMQJXACV6A#/screens
+[interactive mockup]: https://magento.invisionapp.com/share/WQN5F7BYBPG#/screens/310613558
 
 [Header]: {{ site.baseurl }}{% link venia-pwa-concept/component/header/index.md %}
 [Header image]: {{ site.baseurl }}{% link venia-pwa-concept/images/header-menu-with-search.png %}

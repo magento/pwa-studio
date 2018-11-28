@@ -49,8 +49,8 @@ class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <SearchTrigger 
-                            searchOpen={searchOpen} 
+                        <SearchTrigger
+                            searchOpen={searchOpen}
                             toggleSearch={toggleSearch}
                         >
                             <Icon name="search" />
