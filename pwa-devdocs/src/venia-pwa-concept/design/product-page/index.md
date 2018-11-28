@@ -60,7 +60,7 @@ The following table shows a visual breakdown of these components.
 
 
 [Product page]: {{ site.baseurl }}{% link venia-pwa-concept/images/PD-docs-preview.jpg %}
-[interactive mockup]: https://magento.invisionapp.com/share/FVK8N2XAX7Q#/screens
+[interactive mockup]: https://magento.invisionapp.com/share/WQN5F7BYBPG#/screens/322904233
 
 [Page image]: {{ site.baseurl }}{% link venia-pwa-concept/images/offline-notification-bar.png %}
 [Page]: {{ site.baseurl }}{% link venia-pwa-concept/component/page/index.md %}

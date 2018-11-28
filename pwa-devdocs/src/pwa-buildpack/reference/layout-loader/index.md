@@ -7,7 +7,7 @@ title: magento-layout-loader
 
 
 The `magento-layout-loader` is a [webpack loader] that transforms [JSX] during compilation.
-It gives Magento modules and extensions the ability to inject or remove content blocks in a layout without modifying the theme source files.
+It gives Magento modules and extensions the ability to inject or remove content blocks in a layout without modifying the source files.
 
 ## Properties
 

@@ -1,12 +1,71 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
 import { addItemToCart } from 'src/actions/cart';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
-import getProductDetail from '../../queries/getProductDetail.graphql';
+
+const query = gql`
+    query productDetail($urlKey: String, $onServer: Boolean!) {
+        productDetail: products(filter: { url_key: { eq: $urlKey } }) {
+            items {
+                sku
+                name
+                price {
+                    regularPrice {
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                }
+                description
+                media_gallery_entries {
+                    label
+                    position
+                    disabled
+                    file
+                }
+                ... on ConfigurableProduct {
+                    configurable_options {
+                        attribute_code
+                        attribute_id
+                        id
+                        label
+                        values {
+                            default_label
+                            label
+                            store_label
+                            use_default_value
+                            value_index
+                        }
+                    }
+                    variants {
+                        product {
+                            fashion_color
+                            fashion_size
+                            id
+                            media_gallery_entries {
+                                disabled
+                                file
+                                label
+                                position
+                            }
+                            sku
+                            stock_status
+                        }
+                    }
+                }
+                meta_title @include(if: $onServer)
+                meta_keyword @include(if: $onServer)
+                meta_description @include(if: $onServer)
+            }
+        }
+    }
+`;
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -59,7 +118,7 @@ class Product extends Component {
     render() {
         return (
             <Query
-                query={getProductDetail}
+                query={query}
                 variables={{ urlKey: getUrlKey(), onServer: false }}
             >
                 {({ loading, error, data }) => {
