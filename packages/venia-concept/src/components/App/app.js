@@ -27,22 +27,12 @@ class App extends Component {
         closeDrawer: func.isRequired
     };
 
-    state = {
-        hasBeenOffline: false
-    };
-
     get onlineIndicator() {
-        const { isOnline } = this.props;
-        const { hasBeenOffline } = this.state;
+        const { app } = this.props;
+        const { hasBeenOffline, isOnline } = app;
 
         // Only show online indicator when
         // online after being offline
-        if (!isOnline && !hasBeenOffline) {
-            this.setState({
-                hasBeenOffline: true
-            });
-        }
-
         return hasBeenOffline ? <OnlineIndicator isOnline={isOnline} /> : null;
     }
 
@@ -68,14 +58,4 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ app }) => {
-    const { isOnline } = app;
-    return {
-        isOnline
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    null
-)(classify(defaultClasses)(App));
+export default classify(defaultClasses)(App);

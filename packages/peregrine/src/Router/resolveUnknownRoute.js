@@ -55,15 +55,11 @@ function remotelyResolveRoute(opts) {
     // graphql repo: https://github.com/magento/graphql-ce/issues/229
     if ((urlResolve && urlResolve[opts.route]) || !navigator.onLine) {
         if (urlResolve && urlResolve[opts.route]) {
-            return new Promise(function(resolve) {
-                resolve(urlResolve[opts.route].data.urlResolver);
-            });
+            return Promise.resolve(urlResolve[opts.route].data.urlResolver);
         } else {
-            return new Promise(function(resolve) {
-                resolve({
-                    type: 'NOTFOUND',
-                    id: -1
-                });
+            return Promise.resolve({
+                type: 'NOTFOUND',
+                id: -1
             });
         }
     } else {
@@ -105,9 +101,9 @@ function fetchRoute(opts) {
 // TODO: This can be handled by workbox once this issue is resolved in the
 // graphql repo: https://github.com/magento/graphql-ce/issues/229
 function storeURLResolveResult(res, opts) {
-    let urlResolve = localStorage.getItem('urlResolve');
-    urlResolve = JSON.parse(urlResolve);
-    urlResolve = urlResolve ? urlResolve : {};
-    urlResolve[opts.route] = res;
-    localStorage.setItem('urlResolve', JSON.stringify(urlResolve));
+	const storedRoute = localStorage.getItem('urlResolve');
+	const item = JSON.parse(storedRoute) || {};
+
+	item[opts.route] = res;
+	localStorage.setItem('urlResolve', JSON.stringify(item));
 }

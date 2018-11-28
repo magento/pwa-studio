@@ -1,3 +1,4 @@
+const thirtyDays = 30 * 24 * 60 * 60
 workbox.skipWaiting();
 workbox.clientsClaim();
 
@@ -14,13 +15,27 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
+    /\/media\/catalog.*\.(?:png|gif|jpg|jpeg|svg)$/,
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'catalog',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 60,
+                maxAgeSeconds: thirtyDays // 30 Days
+            })
+        ]
+    })
+);
+
+
+workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,
     workbox.strategies.cacheFirst({
         cacheName: 'images',
         plugins: [
             new workbox.expiration.Plugin({
                 maxEntries: 60,
-                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+                maxAgeSeconds: thirtyDays // 30 Days
             })
         ]
     })

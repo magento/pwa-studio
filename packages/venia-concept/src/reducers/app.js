@@ -8,7 +8,8 @@ const initialState = {
     drawer: null,
     overlay: false,
     pending: {},
-    isOnline: navigator.onLine
+    isOnline: navigator.onLine,
+    hasBeenOffline: false || !navigator.onLine
 };
 
 const reducerMap = {
@@ -28,7 +29,8 @@ const reducerMap = {
     [actions.setOffline]: state => {
         return {
             ...state,
-            isOnline: false
+            isOnline: false,
+            hasBeenOffline: true
         };
     }
 };
