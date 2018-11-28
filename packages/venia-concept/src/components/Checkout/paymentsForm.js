@@ -81,13 +81,12 @@ class PaymentsForm extends Component {
     };
 
     modifyPaymentMethod = paymentMethod => {
-        console.log('payment method modified:', paymentMethod);
         this.setState({ paymentMethod });
     }
 
     submit = () => {
         const { paymentMethod } = this.state;
-        console.log('SUBMIT payment method', paymentMethod);
+
         this.props.submit({ paymentMethod });
     };
 }

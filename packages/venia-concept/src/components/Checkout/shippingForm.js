@@ -81,13 +81,12 @@ class ShippingForm extends Component {
     };
 
     modifyShippingMethod = shippingMethod => {
-        console.log('shipping method modified:', shippingMethod);
         this.setState({ shippingMethod });
     }
 
     submit = () => {
         const { shippingMethod } = this.state;
-        console.log('SUBMIT shipping method', shippingMethod);
+
         this.props.submit({ shippingMethod });
     };
 }

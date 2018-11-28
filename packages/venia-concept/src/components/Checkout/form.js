@@ -75,8 +75,6 @@ class Form extends Component {
     get editableForm() {
         const { cart, editing, submitting } = this.props;
 
-        console.log('editing value is', editing);
-
         switch (editing) {
             case 'address': {
                 const { details } = cart;
@@ -190,7 +188,6 @@ class Form extends Component {
      */    
     render() {
         const { classes, editing } = this.props;
-        console.log('render. editing', editing);
         const children = editing ? this.editableForm : this.overview;
 
         return <div className={classes.root}>{children}</div>;
@@ -223,7 +220,7 @@ class Form extends Component {
     };
 
     submitPaymentMethod = formValues => {
-        console.log('submitting payment method. form values', formValues);
+        //console.log('submitting payment method. form values', formValues);
         this.props.submitPaymentMethod({
             type: 'paymentMethod',
             formValues,
@@ -231,7 +228,7 @@ class Form extends Component {
     }
 
     submitShippingMethod = formValues => {
-        console.log('submitting shipping method. form values', formValues);
+        //console.log('submitting shipping method. form values', formValues);
         this.props.submitShippingMethod({
             type: 'shippingMethod',
             formValues,
