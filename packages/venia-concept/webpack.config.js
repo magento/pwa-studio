@@ -10,7 +10,6 @@ const {
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const babelEnvDeps = require('webpack-babel-env-deps');
 
@@ -135,16 +134,7 @@ module.exports = async function(env) {
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
                 paths: themePaths
-            }),
-            new CopyWebpackPlugin(
-                [
-                    { from: '*.png', to: 'media' },
-                    { from: '*.jpg', to: 'media' }
-                ],
-                {
-                    context: path.resolve(__dirname, 'media')
-                }
-            )
+            })
         ],
         optimization: {
             splitChunks: {

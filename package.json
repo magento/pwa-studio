@@ -64,7 +64,6 @@
     "chalk": "^2.4.1",
     "chokidar": "^2.0.4",
     "contains-path": "^1.0.0",
-    "copy-webpack-plugin": "^4.6.0",
     "coveralls": "^3.0.1",
     "css-loader": "^1.0.0",
     "danger": "^3.9.0",
