@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func, shape, string } from 'prop-types';
 
 import Option from './option';
 
 class Options extends Component {
     static propTypes = {
-        options: PropTypes.arrayOf(PropTypes.object)
+        onSelectionChange: func,
+        options: arrayOf(
+            shape({
+                attribute_id: string.isRequired
+            })
+        )
+    };
+
+    handleSelectionChange = (optionId, selection) => {
+        const { onSelectionChange } = this.props;
+
+        if (onSelectionChange) {
+            onSelectionChange(optionId, selection);
+        }
     };
 
     render() {
-        const { options } = this.props;
+        const { handleSelectionChange, props } = this;
+        const { options } = props;
 
-        return options.map(option => <Option key={option.id} {...option} />);
+        return options.map(option => (
+            <Option
+                {...option}
+                key={option.attribute_id}
+                onSelectionChange={handleSelectionChange}
+            />
+        ));
     }
 }
 

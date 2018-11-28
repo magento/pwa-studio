@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.0-rc.10",
+  "version": "2.0.0-rc.13",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@magento/eslint-config": "^1.2.3",
-    "@magento/peregrine": "^2.0.0-rc.5",
-    "@magento/pwa-buildpack": "^2.0.0-rc.5",
-    "@magento/upward-js": "^2.0.0-rc.5",
+    "@magento/peregrine": "^2.0.0-rc.11",
+    "@magento/pwa-buildpack": "^2.0.0-rc.11",
+    "@magento/upward-js": "^2.0.0-rc.11",
     "@storybook/react": "^3.4.2",
     "apollo-boost": "^0.1.20",
     "apollo-cache-inmemory": "^1.3.9",
@@ -76,7 +76,7 @@
     "react": "^16.6.1",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.1",
-    "react-redux": "^5.1.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",

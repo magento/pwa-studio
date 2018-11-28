@@ -15,7 +15,7 @@ Currently, MagentoResolver does very little, but it's likely that the Magento de
 
 **Parameters:**
 
-* `options:`[`LocalProjectLocation`] - Configuration object that describes where the theme folders are located.
+* `options:`[`LocalProjectLocation`] - Configuration object that describes where the PWA storefront folders are located.
 
 **Return:**
 

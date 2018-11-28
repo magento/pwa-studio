@@ -29,7 +29,7 @@ class App extends Component {
 
     componentDidUpdate(prev) {
         if (prev !== this.props) {
-            console.log("didUpdate");
+            console.log('didUpdate');
         }
     }
 
@@ -40,18 +40,22 @@ class App extends Component {
         const cartIsOpen = drawer === 'cart';
         const className = overlay ? classes.root_masked : classes.root;
 
-        console.log("In Render props: ");
+        console.log('In Render props: ');
 
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
                     <Switch>
-                        <Route exact path="/search.html" render={props => (
-                            <Search {...props} />
-                        )} />
-                        <Route render={props => (
-                            <Page {...props}>{renderRoutingError}</Page>
-                        )} />
+                        <Route
+                            exact
+                            path="/search.html"
+                            render={props => <Search {...props} />}
+                        />
+                        <Route
+                            render={props => (
+                                <Page {...props}>{renderRoutingError}</Page>
+                            )}
+                        />
                     </Switch>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />

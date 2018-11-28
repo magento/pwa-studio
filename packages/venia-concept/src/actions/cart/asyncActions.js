@@ -47,8 +47,7 @@ export const createGuestCart = () =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, quantity } = payload;
-
+    const { item, options, parentSku, productType, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -57,16 +56,10 @@ export const addItemToCart = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            console.warn(
-                'Can not currently add items to your cart as a non-guest user'
-            );
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 
@@ -80,7 +73,27 @@ export const addItemToCart = (payload = {}) => {
                 );
                 missingGuestCartError.noGuestCartId = true;
                 throw missingGuestCartError;
-                console.log('Missing required information: guestCartId');
+            }
+
+            // TODO: change to GraphQL mutation
+            // for now, manually transform the payload for REST
+            const itemPayload = {
+                qty: quantity,
+                sku: item.sku,
+                name: item.name,
+                quote_id: guestCartId
+            };
+
+            if (productType === 'ConfigurableProduct') {
+                Object.assign(itemPayload, {
+                    sku: parentSku,
+                    product_type: 'configurable',
+                    product_option: {
+                        extension_attributes: {
+                            configurable_item_options: options
+                        }
+                    }
+                });
             }
 
             const cartItem = await request(
@@ -88,12 +101,7 @@ export const addItemToCart = (payload = {}) => {
                 {
                     method: 'POST',
                     body: JSON.stringify({
-                        cartItem: {
-                            qty: quantity,
-                            sku: item.sku,
-                            name: item.name,
-                            quote_id: guestCartId
-                        }
+                        cartItem: itemPayload
                     })
                 }
             );
@@ -125,6 +133,64 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
+export const removeItemFromCart = payload => {
+    const { item } = payload;
+
+    return async function thunk(dispatch, getState) {
+        dispatch(actions.removeItem.request(payload));
+
+        try {
+            const { cart } = getState();
+            const { guestCartId } = cart;
+            const cartItemCount = cart.details ? cart.details.items_count : 0;
+
+            if (!guestCartId) {
+                const missingGuestCartError = new Error(
+                    'Missing required information: guestCartId'
+                );
+                missingGuestCartError.noGuestCartId = true;
+                throw missingGuestCartError;
+            }
+
+            const cartItem = await request(
+                `/rest/V1/guest-carts/${guestCartId}/items/${item.item_id}`,
+                {
+                    method: 'DELETE'
+                }
+            );
+            // When removing the last item in the cart, perform a reset
+            // to prevent a bug where the next item added to the cart has
+            // a price of 0
+            if (cartItemCount == 1) {
+                await clearGuestCartId();
+            }
+
+            dispatch(
+                actions.removeItem.receive({ cartItem, item, cartItemCount })
+            );
+        } catch (error) {
+            const { response, noGuestCartId } = error;
+
+            dispatch(actions.removeItem.receive(error));
+
+            // check if the guest cart has expired
+            if (noGuestCartId || (response && response.status === 404)) {
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
+                await dispatch(createGuestCart());
+                // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+
+        await Promise.all([dispatch(getCartDetails({ forceRefresh: true }))]);
+    };
+};
+
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
@@ -134,13 +200,10 @@ export const getCartDetails = (payload = {}) => {
 
         const { user } = getState();
         if (user.isSignedIn) {
-            ///////////////////////////////////////////
-            // TODO: handle logged-in cart retrieval. //
-            ///////////////////////////////////////////
-            // If a user creates a new account
-            // the guest cart will be transfered to their account.
-            // Once that happens `/rest/V1/guest-carts` will 400 if it
-            // is called.
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
             return;
         }
 
