@@ -1,0 +1,36 @@
+.body {
+    align-items: center;
+    column-gap: 0.75rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: min-content 1fr min-content;
+    padding: 0.75rem 0;
+}
+
+.textBlock {
+    font-size: 0.875rem;
+    line-height: 1rem;
+    min-width: 0;
+}
+
+.textBlockTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.textBlockDate {
+    color: rgb(var(--venia-text-alt));
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.chevronContainer {
+    display: inline-flex;
+    margin-right: 0.5rem;
+}
+
+.image {
+    background-color: rgb(var(--venia-grey));
+    height: 3.75rem;
+}
