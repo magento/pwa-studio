@@ -104,11 +104,11 @@ export const submitPaymentMethod = payload =>
                 {
                     method: 'POST',
                     body: JSON.stringify({
+                        billingAddress: address,
                         email: address.email,
                         paymentMethod: {
                             method: desiredPaymentMethod.code
-                        },
-                        billingAddress: address
+                        }
                     })
                 }
             );
@@ -122,8 +122,6 @@ export const submitPaymentMethod = payload =>
 export const submitShippingMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingMethod.submit(payload));
-
-        console.log('submitShippingMethod received payload', payload);
 
         const desiredShippingMethod = payload.formValues.shippingMethod;
 
@@ -155,24 +153,35 @@ export const submitShippingMethod = payload =>
 
 export const submitOrder = () =>
     async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        dispatch(actions.order.submit());
+
+        const { cart, checkout, directory } = getState();
         const { guestCartId } = cart;
+        const billingAddress = cart.details.billing_address;
+        const { paymentMethod } = checkout;
+        const { countries } = directory;
+        let address;
 
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
         }
 
-        dispatch(actions.order.submit());
+        try {
+            address = formatAddress(billingAddress, countries);
+        } catch (error) {
+            throw error;
+        }
 
         try {
             const response = await request(
                 `/rest/V1/guest-carts/${guestCartId}/order`,
                 {
                     method: 'PUT',
-                    // TODO: replace with real data from cart state
                     body: JSON.stringify({
+                        // TODO: this results in a 400 Bad Request complaining about billingAddress.
+                        billingAddress: address,
                         paymentMethod: {
-                            method: 'checkmo'
+                            method: paymentMethod
                         }
                     })
                 }
