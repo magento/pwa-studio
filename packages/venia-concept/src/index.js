@@ -9,10 +9,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
-// import { getUserDetails } from 'src/actions/user';
+import { getUserDetails } from 'src/actions/user';
 import App from 'src/components/App';
 import './index.css';
-// store.dispatch(getUserDetails());
+
+store.dispatch(getUserDetails());
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
