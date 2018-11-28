@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
@@ -9,16 +9,18 @@ import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
 
+const Options = React.lazy(() => import('../ProductOptions'));
+
 class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
-            actions: string,
             cartActions: string,
             description: string,
             descriptionTitle: string,
             details: string,
             detailsTitle: string,
             imageCarousel: string,
+            options: string,
             productName: string,
             productPrice: string,
             quantity: string,
@@ -50,18 +52,110 @@ class ProductFullDetail extends Component {
         addToCart: func.isRequired
     };
 
-    state = { quantity: 1 };
+    static getDerivedStateFromProps(props, state) {
+        const { configurable_options } = props.product;
+        const optionCodes = new Map(state.optionCodes);
+
+        // if this is a simple product, do nothing
+        if (!Array.isArray(configurable_options)) {
+            return;
+        }
+
+        // otherwise, cache attribute codes to avoid lookup cost later
+        for (const option of configurable_options) {
+            optionCodes.set(option.attribute_id, option.attribute_code);
+        }
+
+        return { optionCodes };
+    }
+
+    state = {
+        optionCodes: new Map(),
+        optionSelections: new Map(),
+        quantity: 1
+    };
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = () =>
-        this.props.addToCart({
-            item: this.props.product,
-            quantity: this.state.quantity
-        });
+    addToCart = () => {
+        const { props, state } = this;
+        const { optionCodes, optionSelections, quantity } = state;
+        const { addToCart, product } = props;
+        const { configurable_options, variants } = product;
+        const isConfigurable = Array.isArray(configurable_options);
+        const productType = isConfigurable
+            ? 'ConfigurableProduct'
+            : 'SimpleProduct';
+
+        const payload = {
+            item: product,
+            productType,
+            quantity
+        };
+
+        if (productType === 'ConfigurableProduct') {
+            const options = Array.from(optionSelections, ([id, value]) => ({
+                option_id: id,
+                option_value: value
+            }));
+
+            const item = variants.find(({ product: variant }) => {
+                for (const [id, value] of optionSelections) {
+                    const code = optionCodes.get(id);
+
+                    if (variant[code] !== value) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            Object.assign(payload, {
+                options,
+                parentSku: product.sku,
+                item: Object.assign({}, item.product)
+            });
+        }
+
+        addToCart(payload);
+    };
+
+    handleSelectionChange = (optionId, selection) => {
+        this.setState(({ optionSelections }) => ({
+            optionSelections: new Map(optionSelections).set(
+                optionId,
+                Array.from(selection).pop()
+            )
+        }));
+    };
+
+    get fallback() {
+        return <div>Loading...</div>;
+    }
+
+    get productOptions() {
+        const { fallback, handleSelectionChange, props } = this;
+        const { configurable_options } = props.product;
+        const isConfigurable = Array.isArray(configurable_options);
+
+        if (!isConfigurable) {
+            return null;
+        }
+
+        return (
+            <Suspense fallback={fallback}>
+                <Options
+                    options={configurable_options}
+                    onSelectionChange={handleSelectionChange}
+                />
+            </Suspense>
+        );
+    }
 
     render() {
-        const { classes, product } = this.props;
+        const { productOptions, props } = this;
+        const { classes, product } = props;
         const { regularPrice } = product.price;
 
         return (
@@ -80,11 +174,7 @@ class ProductFullDetail extends Component {
                 <section className={classes.imageCarousel}>
                     <Carousel images={product.media_gallery_entries} />
                 </section>
-                <section className={classes.actions}>
-                    <Button>
-                        <span>Add to Wishlist</span>
-                    </Button>
-                </section>
+                <section className={classes.options}>{productOptions}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>

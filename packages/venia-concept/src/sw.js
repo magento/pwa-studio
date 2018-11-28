@@ -14,11 +14,6 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    new RegExp('roots-manifest.json'),
-    workbox.strategies.staleWhileRevalidate()
-);
-
-workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,
     workbox.strategies.cacheFirst({
         cacheName: 'images',

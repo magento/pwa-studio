@@ -1,0 +1,40 @@
+.root {
+    background-color: white;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: 100vh;
+    left: 0;
+    padding-top: 3.5rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.body {
+    padding: 1.5rem 1rem 1rem;
+}
+
+.footer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 1.5rem;
+    padding: 1rem 0;
+}
+
+.textBlock {
+    margin: 1.5rem 0 1.5rem;
+    line-height: 1.875rem;
+    font-size: 0.875rem;
+}
+
+.orderId {
+    color: #22a1a8;
+    text-decoration: underline;
+}
+
+.header {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.25rem;
+}

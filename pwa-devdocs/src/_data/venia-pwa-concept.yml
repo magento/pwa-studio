@@ -3,11 +3,14 @@ entries:
   - label: Overview
     url: /venia-pwa-concept/
 
-  - label: Directory structure
-    url: /venia-pwa-concept/directory-structure/
+  - label: Project structure
+    url: /venia-pwa-concept/project-structure/
 
   - label: Venia storefront setup
     url: /venia-pwa-concept/setup/
+
+  - label: Install Venia sample data
+    url: /venia-pwa-concept/install-sample-data/
 
   - label: Simple REST checkout flow
     url: /venia-pwa-concept/simple-rest-checkout/

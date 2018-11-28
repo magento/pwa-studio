@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.0.0-rc.4",
+  "version": "2.0.0-rc.11",
   "publishConfig": {
     "access": "public"
   },
@@ -8,14 +8,11 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
-    "clean": "rimraf dist",
-    "prepublishOnly": "npx rimraf dist && npm run build",
+    "clean": "npx rimraf dist",
+    "prebuild": "npm run -s clean",
+    "prepublishOnly": "npm run -s build",
     "watch": "npm run -s build -- --watch"
   },
-  "files": [
-    "dist",
-    "buildpack-logo.icns"
-  ],
   "engines": {
     "node": ">=8.0.0"
   },
@@ -34,7 +31,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "^0.1.1",
-    "@magento/upward-js": "^2.0.0-rc.4",
+    "@magento/upward-js": "^2.0.0-rc.11",
     "ajv": "^6.1.1",
     "babel-helper-module-imports": "^7.0.0-beta.3",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -47,7 +44,7 @@
     "express": "^4.16.3",
     "graphql-playground-middleware-express": "^1.7.3",
     "lodash": "^4.17.11",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.2.1",
     "portscanner": "^2.2.0",
     "readdir-enhanced": "^2.2.2",
     "virtual-module-webpack-plugin": "^0.4.0",

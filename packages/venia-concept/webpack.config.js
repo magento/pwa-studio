@@ -1,6 +1,5 @@
 const validEnv = require('./validate-environment')(process.env);
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const {
     WebpackTools: {
@@ -12,6 +11,7 @@ const {
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
+const babelEnvDeps = require('webpack-babel-env-deps');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const configureBabel = require('./babel.config.js');
@@ -33,8 +33,8 @@ const libs = [
     'redux'
 ];
 
-module.exports = async function() {
-    const mode = process.env.NODE_ENV || 'development';
+module.exports = async function(env) {
+    const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
 
     const babelOptions = configureBabel(mode);
 
@@ -68,7 +68,11 @@ module.exports = async function() {
                     ]
                 },
                 {
-                    include: [themePaths.src, /node_modules.+\.mjs$/],
+                    include: [
+                        themePaths.src,
+                        /peregrine\/src\//,
+                        babelEnvDeps.include()
+                    ],
                     test: /\.(mjs|js|graphql)$/,
                     use: [
                         {
@@ -138,14 +142,7 @@ module.exports = async function() {
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }
-            }),
-            new CopyWebpackPlugin([
-                {
-                    from: `${themePaths.images}/**/*`,
-                    to: themePaths.output,
-                    toType: 'dir'
-                }
-            ])
+            })
         ],
         optimization: {
             splitChunks: {
@@ -154,7 +151,7 @@ module.exports = async function() {
                         test: new RegExp(
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
-                        name: 'vendor',
+                        name: true,
                         filename: 'js/vendor.js',
                         chunks: 'all'
                     }
