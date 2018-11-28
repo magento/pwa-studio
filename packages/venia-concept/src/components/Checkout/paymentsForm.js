@@ -17,11 +17,11 @@ class PaymentsForm extends Component {
             body: string,
             footer: string,
             heading: string,
-            paymentMethod: string,
+            paymentMethod: string
         }),
         paymentMethod: string,
         submit: func,
-        submitting: bool,
+        submitting: bool
     };
 
     constructor(...args) {
@@ -41,24 +41,30 @@ class PaymentsForm extends Component {
     }
 
     render() {
-        const { availablePaymentMethods, classes, paymentMethod, submitting } = this.props;
+        const {
+            availablePaymentMethods,
+            classes,
+            paymentMethod,
+            submitting
+        } = this.props;
 
         // TODO: fix this hack that gets around React warnings about items having unique keys.
         // We have to add a 'value' prop due to the Select component's getItemKey function.
-        const selectablePaymentMethods = availablePaymentMethods.map(method => ({
-            ...method,
-            value: method.title,
-        }));
+        const selectablePaymentMethods = availablePaymentMethods.map(
+            method => ({
+                ...method,
+                value: method.title
+            })
+        );
 
         return (
-            <Form
-                className={classes.root}
-                onSubmit={this.submit}
-            >
+            <Form className={classes.root} onSubmit={this.submit}>
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Billing Information</h2>
                     <div className={classes.paymentMethod}>
-                        <Label htmlFor={classes.paymentMethod}>Payment Method</Label>
+                        <Label htmlFor={classes.paymentMethod}>
+                            Payment Method
+                        </Label>
                         <Select
                             items={selectablePaymentMethods}
                             value={paymentMethod}
@@ -82,7 +88,7 @@ class PaymentsForm extends Component {
 
     modifyPaymentMethod = paymentMethod => {
         this.setState({ paymentMethod });
-    }
+    };
 
     submit = () => {
         const { paymentMethod } = this.state;

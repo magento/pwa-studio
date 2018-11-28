@@ -64,19 +64,18 @@ class MiniCart extends Component {
     get cartCurrencyCode() {
         const { cart } = this.props;
 
-        return cart && cart.details && cart.details.currency && cart.details.currency.quote_currency_code;
+        return (
+            cart &&
+            cart.details &&
+            cart.details.currency &&
+            cart.details.currency.quote_currency_code
+        );
     }
 
     get productList() {
-        const {
-            cart,
-            removeItemFromCart,
-        } = this.props;
+        const { cart, removeItemFromCart } = this.props;
 
-        const {
-            cartCurrencyCode,
-            cartId,
-        } = this;
+        const { cartCurrencyCode, cartId } = this;
 
         return cartId ? (
             <ProductList

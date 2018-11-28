@@ -15,12 +15,12 @@ const actionMap = {
     PAYMENT_METHOD: {
         SUBMIT: null,
         ACCEPT: null,
-        REJECT: null,
+        REJECT: null
     },
     SHIPPING_METHOD: {
         SUBMIT: null,
         ACCEPT: null,
-        REJECT: null,
+        REJECT: null
     },
     ORDER: {
         SUBMIT: null,

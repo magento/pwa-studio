@@ -11,7 +11,7 @@ import {
     submitAddress,
     submitOrder,
     submitPaymentMethod,
-    submitShippingMethod,
+    submitShippingMethod
 } from 'src/actions/checkout';
 
 import Flow from './flow';
@@ -39,7 +39,7 @@ class CheckoutWrapper extends Component {
         submitAddress: func.isRequired,
         submitOrder: func.isRequired,
         submitPaymentMethod: func.isRequired,
-        submitShippingMethod: func.isRequired,
+        submitShippingMethod: func.isRequired
     };
 
     render() {
@@ -56,7 +56,7 @@ class CheckoutWrapper extends Component {
             submitAddress,
             submitOrder,
             submitPaymentMethod,
-            submitShippingMethod,
+            submitShippingMethod
         } = this.props;
 
         // ensure state slices are present
@@ -73,13 +73,13 @@ class CheckoutWrapper extends Component {
             resetCheckout,
             submitAddress,
             submitOrder,
-            submitPaymentMethod, 
-            submitShippingMethod,    
+            submitPaymentMethod,
+            submitShippingMethod
         };
 
         const {
             paymentMethods: availablePaymentMethods,
-            shippingMethods: availableShippingMethods,
+            shippingMethods: availableShippingMethods
         } = cart;
         const {
             paymentTitle: paymentMethod,
@@ -96,7 +96,7 @@ class CheckoutWrapper extends Component {
             paymentMethod,
             ready,
             shippingMethod,
-            status,
+            status
         };
 
         const flowProps = { actions, cart, checkout, ...miscProps };
@@ -116,7 +116,7 @@ const mapDispatchToProps = {
     submitAddress,
     submitOrder,
     submitPaymentMethod,
-    submitShippingMethod,
+    submitShippingMethod
 };
 
 export default connect(

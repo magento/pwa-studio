@@ -212,19 +212,24 @@ export const getCartDetails = (payload = {}) => {
         }
 
         try {
-            const [imageCache, details, paymentMethods, totals] = await Promise.all([
+            const [
+                imageCache,
+                details,
+                paymentMethods,
+                totals
+            ] = await Promise.all([
                 retrieveImageCache(),
                 fetchCartPart({ guestCartId, forceRefresh }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
-                    subResource: 'payment-methods',
+                    subResource: 'payment-methods'
                 }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
                     subResource: 'totals'
-                }),
+                })
             ]);
 
             const { items } = details;
@@ -237,7 +242,9 @@ export const getCartDetails = (payload = {}) => {
                 });
             }
 
-            dispatch(actions.getDetails.receive({ details, paymentMethods, totals }));
+            dispatch(
+                actions.getDetails.receive({ details, paymentMethods, totals })
+            );
         } catch (error) {
             const { response } = error;
 

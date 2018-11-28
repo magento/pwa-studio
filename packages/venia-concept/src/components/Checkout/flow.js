@@ -27,7 +27,7 @@ class Flow extends Component {
             submitAddress: func.isRequired,
             submitOrder: func.isRequired,
             submitPaymentMethod: func.isRequired,
-            submitShippingMethod: func.isRequired,
+            submitShippingMethod: func.isRequired
         }).isRequired,
         availablePaymentMethods: array,
         availableShippingMethods: array,
@@ -47,7 +47,7 @@ class Flow extends Component {
         isShippingInformationReady: bool,
         paymentMethod: string,
         shippingMethod: string,
-        status: string,
+        status: string
     };
 
     get child() {
@@ -60,7 +60,7 @@ class Flow extends Component {
             isShippingInformationReady,
             paymentMethod,
             shippingMethod,
-            status,
+            status
         } = this.props;
 
         const {
@@ -71,7 +71,7 @@ class Flow extends Component {
             submitAddress,
             submitOrder,
             submitPaymentMethod,
-            submitShippingMethod,
+            submitShippingMethod
         } = actions;
 
         const { editing, step, submitting } = checkout;

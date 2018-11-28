@@ -57,7 +57,11 @@ class Form extends Component {
         const address = cart.details.billing_address;
 
         if (!valid) {
-            return <span className={classes.informationPrompt}>Add Shipping Information</span>;
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Shipping Information
+                </span>
+            );
         }
 
         const name = `${address.firstname} ${address.lastname}`;
@@ -99,7 +103,7 @@ class Form extends Component {
                         submit={this.submitPaymentMethod}
                         submitting={submitting}
                     />
-                )
+                );
             }
             case 'shippingMethod': {
                 const { availableShippingMethods, shippingMethod } = this.props;
@@ -119,7 +123,7 @@ class Form extends Component {
             }
         }
     }
-    
+
     get overview() {
         const { cart, classes, submitOrder, submitting, valid } = this.props;
 
@@ -132,14 +136,17 @@ class Form extends Component {
                     <Section label="Pay With" onClick={this.editPaymentMethod}>
                         {this.paymentMethodSummary}
                     </Section>
-                    <Section label="Get It By" onClick={this.editShippingMethod}>
+                    <Section
+                        label="Get It By"
+                        onClick={this.editShippingMethod}
+                    >
                         {this.shippingMethodSummary}
                     </Section>
                     <Section label="TOTAL">
                         <Price
                             currencyCode={cart.totals.quote_currency_code}
                             value={cart.totals.subtotal}
-                        ></Price>
+                        />
                         <br />
                         <span>{cart.details.items_qty} Items</span>
                     </Section>
@@ -159,7 +166,11 @@ class Form extends Component {
         const { classes, paymentMethod } = this.props;
 
         if (!paymentMethod) {
-            return <span className={classes.informationPrompt}>Add Billing Information</span>;
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Billing Information
+                </span>
+            );
         }
 
         return (
@@ -173,7 +184,11 @@ class Form extends Component {
         const { classes, shippingMethod } = this.props;
 
         if (!shippingMethod) {
-            return <span className={classes.informationPrompt}>Add Shipping Information</span>
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Shipping Information
+                </span>
+            );
         }
 
         return (
@@ -185,7 +200,8 @@ class Form extends Component {
 
     /*
      *  Component Lifecycle Methods.
-     */    
+     */
+
     render() {
         const { classes, editing } = this.props;
         const children = editing ? this.editableForm : this.overview;
@@ -202,15 +218,15 @@ class Form extends Component {
 
     editPaymentMethod = () => {
         this.props.editOrder('paymentMethod');
-    }
+    };
 
     editShippingMethod = () => {
         this.props.editOrder('shippingMethod');
-    }
+    };
 
     stopEditing = () => {
         this.props.editOrder(null);
-    }
+    };
 
     submitAddress = formValues => {
         this.props.submitAddress({
@@ -223,17 +239,17 @@ class Form extends Component {
         //console.log('submitting payment method. form values', formValues);
         this.props.submitPaymentMethod({
             type: 'paymentMethod',
-            formValues,
+            formValues
         });
-    }
+    };
 
     submitShippingMethod = formValues => {
         //console.log('submitting shipping method. form values', formValues);
         this.props.submitShippingMethod({
             type: 'shippingMethod',
-            formValues,
-        });   
-    }
+            formValues
+        });
+    };
 }
 
 export default classify(defaultClasses)(Form);

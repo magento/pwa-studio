@@ -46,8 +46,8 @@ const reducerMap = {
             shippingMethods: payload.shippingMethods.map(method => ({
                 ...method,
                 code: method.carrier_code,
-                title: method.carrier_title,
-            })),
+                title: method.carrier_title
+            }))
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {

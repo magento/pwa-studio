@@ -1,7 +1,11 @@
 import { RestApi } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId, getCartDetails, getShippingMethods } from 'src/actions/cart';
+import {
+    clearGuestCartId,
+    getCartDetails,
+    getShippingMethods
+} from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
@@ -76,7 +80,7 @@ export const submitAddress = payload =>
         }
     };
 
-export const submitPaymentMethod = payload => 
+export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit(payload));
 
@@ -84,7 +88,7 @@ export const submitPaymentMethod = payload =>
         // to avoid flash of old data and layout thrashing
         await dispatch(getCartDetails({ forceRefresh: true }));
         dispatch(actions.paymentMethod.accept());
-    }
+    };
 
 export const submitShippingMethod = payload =>
     async function thunk(dispatch, getState) {
@@ -94,7 +98,7 @@ export const submitShippingMethod = payload =>
         // to avoid flash of old data and layout thrashing
         await dispatch(getCartDetails({ forceRefresh: true }));
         dispatch(actions.shippingMethod.accept());
-    }
+    };
 
 export const enterSubflow = (actionType, payload) => {
     return async function thunk(dispatch) {
@@ -103,7 +107,7 @@ export const enterSubflow = (actionType, payload) => {
             payload
         });
     };
-}
+};
 
 export const submitOrder = () =>
     async function thunk(dispatch, getState) {

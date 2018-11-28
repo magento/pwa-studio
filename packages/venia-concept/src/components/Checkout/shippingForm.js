@@ -17,11 +17,11 @@ class ShippingForm extends Component {
             body: string,
             footer: string,
             heading: string,
-            shippingMethod: string,
+            shippingMethod: string
         }),
         shippingMethod: string,
         submit: func,
-        submitting: bool,
+        submitting: bool
     };
 
     constructor(...args) {
@@ -41,24 +41,30 @@ class ShippingForm extends Component {
     }
 
     render() {
-        const { availableShippingMethods, classes, shippingMethod, submitting } = this.props;
+        const {
+            availableShippingMethods,
+            classes,
+            shippingMethod,
+            submitting
+        } = this.props;
 
         // TODO: fix this hack that gets around React warnings about items having unique keys.
         // We have to add a 'value' prop due to the Select component's getItemKey function.
-        const selectableShippingMethods = availableShippingMethods.map(method => ({
-            ...method,
-            value: method.title,
-        }));
+        const selectableShippingMethods = availableShippingMethods.map(
+            method => ({
+                ...method,
+                value: method.title
+            })
+        );
 
         return (
-            <Form
-                className={classes.root}
-                onSubmit={this.submit}
-            >
+            <Form className={classes.root} onSubmit={this.submit}>
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Shipping Information</h2>
                     <div className={classes.shippingMethod}>
-                        <Label htmlFor={classes.shippingMethod}>Shipping Method</Label>
+                        <Label htmlFor={classes.shippingMethod}>
+                            Shipping Method
+                        </Label>
                         <Select
                             items={selectableShippingMethods}
                             value={shippingMethod}
@@ -82,7 +88,7 @@ class ShippingForm extends Component {
 
     modifyShippingMethod = shippingMethod => {
         this.setState({ shippingMethod });
-    }
+    };
 
     submit = () => {
         const { shippingMethod } = this.state;

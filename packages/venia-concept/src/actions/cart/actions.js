@@ -21,7 +21,7 @@ const actionMap = {
     },
     GET_SHIPPING_METHODS: {
         REQUEST: null,
-        RECEIVE: null,
+        RECEIVE: null
     }
 };
 
