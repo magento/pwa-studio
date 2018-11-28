@@ -44,9 +44,11 @@ test('reset() returns a proper action object', () => {
 
 describe('address', () => {
     test('address.submit.toString() returns the proper action type', () => {
-        expect(actions.address.submit.toString()).toBe('CHECKOUT/ADDRESS/SUBMIT');
+        expect(actions.address.submit.toString()).toBe(
+            'CHECKOUT/ADDRESS/SUBMIT'
+        );
     });
-    
+
     test('address.submit() returns a proper action object', () => {
         expect(actions.address.submit(payload)).toEqual({
             type: 'CHECKOUT/ADDRESS/SUBMIT',
@@ -58,11 +60,13 @@ describe('address', () => {
             error: true
         });
     });
-    
+
     test('address.accept.toString() returns the proper action type', () => {
-        expect(actions.address.accept.toString()).toBe('CHECKOUT/ADDRESS/ACCEPT');
+        expect(actions.address.accept.toString()).toBe(
+            'CHECKOUT/ADDRESS/ACCEPT'
+        );
     });
-    
+
     test('address.accept() returns a proper action object', () => {
         expect(actions.address.accept(payload)).toEqual({
             type: 'CHECKOUT/ADDRESS/ACCEPT',
@@ -74,11 +78,13 @@ describe('address', () => {
             error: true
         });
     });
-    
+
     test('address.reject.toString() returns the proper action type', () => {
-        expect(actions.address.reject.toString()).toBe('CHECKOUT/ADDRESS/REJECT');
+        expect(actions.address.reject.toString()).toBe(
+            'CHECKOUT/ADDRESS/REJECT'
+        );
     });
-    
+
     test('address.reject() returns a proper action object', () => {
         expect(actions.address.reject(payload)).toEqual({
             type: 'CHECKOUT/ADDRESS/REJECT',
@@ -94,9 +100,11 @@ describe('address', () => {
 
 describe('paymentMethod', () => {
     test('paymentMethod.submit.toString() returns the proper action type', () => {
-        expect(actions.paymentMethod.submit.toString()).toBe('CHECKOUT/PAYMENT_METHOD/SUBMIT');
+        expect(actions.paymentMethod.submit.toString()).toBe(
+            'CHECKOUT/PAYMENT_METHOD/SUBMIT'
+        );
     });
-    
+
     test('paymentMethod.submit() returns a proper action object', () => {
         expect(actions.paymentMethod.submit(payload)).toEqual({
             type: 'CHECKOUT/PAYMENT_METHOD/SUBMIT',
@@ -108,11 +116,13 @@ describe('paymentMethod', () => {
             error: true
         });
     });
-    
+
     test('paymentMethod.accept.toString() returns the proper action type', () => {
-        expect(actions.paymentMethod.accept.toString()).toBe('CHECKOUT/PAYMENT_METHOD/ACCEPT');
+        expect(actions.paymentMethod.accept.toString()).toBe(
+            'CHECKOUT/PAYMENT_METHOD/ACCEPT'
+        );
     });
-    
+
     test('paymentMethod.accept() returns a proper action object', () => {
         expect(actions.paymentMethod.accept(payload)).toEqual({
             type: 'CHECKOUT/PAYMENT_METHOD/ACCEPT',
@@ -124,11 +134,13 @@ describe('paymentMethod', () => {
             error: true
         });
     });
-    
+
     test('paymentMethod.reject.toString() returns the proper action type', () => {
-        expect(actions.paymentMethod.reject.toString()).toBe('CHECKOUT/PAYMENT_METHOD/REJECT');
+        expect(actions.paymentMethod.reject.toString()).toBe(
+            'CHECKOUT/PAYMENT_METHOD/REJECT'
+        );
     });
-    
+
     test('paymentMethod.reject() returns a proper action object', () => {
         expect(actions.paymentMethod.reject(payload)).toEqual({
             type: 'CHECKOUT/PAYMENT_METHOD/REJECT',
@@ -144,9 +156,11 @@ describe('paymentMethod', () => {
 
 describe('shippingMethod', () => {
     test('shippingMethod.submit.toString() returns the proper action type', () => {
-        expect(actions.shippingMethod.submit.toString()).toBe('CHECKOUT/SHIPPING_METHOD/SUBMIT');
+        expect(actions.shippingMethod.submit.toString()).toBe(
+            'CHECKOUT/SHIPPING_METHOD/SUBMIT'
+        );
     });
-    
+
     test('shippingMethod.submit() returns a proper action object', () => {
         expect(actions.shippingMethod.submit(payload)).toEqual({
             type: 'CHECKOUT/SHIPPING_METHOD/SUBMIT',
@@ -158,11 +172,13 @@ describe('shippingMethod', () => {
             error: true
         });
     });
-    
+
     test('shippingMethod.accept.toString() returns the proper action type', () => {
-        expect(actions.shippingMethod.accept.toString()).toBe('CHECKOUT/SHIPPING_METHOD/ACCEPT');
+        expect(actions.shippingMethod.accept.toString()).toBe(
+            'CHECKOUT/SHIPPING_METHOD/ACCEPT'
+        );
     });
-    
+
     test('shippingMethod.accept() returns a proper action object', () => {
         expect(actions.shippingMethod.accept(payload)).toEqual({
             type: 'CHECKOUT/SHIPPING_METHOD/ACCEPT',
@@ -174,11 +190,13 @@ describe('shippingMethod', () => {
             error: true
         });
     });
-    
+
     test('shippingMethod.reject.toString() returns the proper action type', () => {
-        expect(actions.shippingMethod.reject.toString()).toBe('CHECKOUT/SHIPPING_METHOD/REJECT');
+        expect(actions.shippingMethod.reject.toString()).toBe(
+            'CHECKOUT/SHIPPING_METHOD/REJECT'
+        );
     });
-    
+
     test('shippingMethod.reject() returns a proper action object', () => {
         expect(actions.shippingMethod.reject(payload)).toEqual({
             type: 'CHECKOUT/SHIPPING_METHOD/REJECT',

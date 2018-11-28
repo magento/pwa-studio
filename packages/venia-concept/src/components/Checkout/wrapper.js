@@ -22,8 +22,9 @@ const isCheckoutReady = (cart, checkout) =>
     isShippingInfoReady(cart, checkout) &&
     isShippingMethodReady(checkout);
 const isPaymentMethodReady = checkout => !!checkout.paymentMethod;
-const isShippingInfoReady = cart => isAddressValid(cart.details.billing_address);
-    
+const isShippingInfoReady = cart =>
+    isAddressValid(cart.details.billing_address);
+
 const isShippingMethodReady = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {

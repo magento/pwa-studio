@@ -179,19 +179,10 @@ export const submitOrder = () =>
 
         const { cart, checkout, directory } = getState();
         const { guestCartId } = cart;
-        const billingAddress = cart.details.billing_address;
         const { paymentMethod } = checkout;
-        const { countries } = directory;
-        let address;
 
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
-        }
-
-        try {
-            address = formatAddress(billingAddress, countries);
-        } catch (error) {
-            throw error;
         }
 
         try {
