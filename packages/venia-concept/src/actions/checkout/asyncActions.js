@@ -101,6 +101,10 @@ export const submitPaymentMethod = payload =>
 
         let address;
 
+        if (!guestCartId) {
+            throw new Error('Missing required information: guestCartId');
+        }
+
         try {
             address = formatAddress(billingAddress, countries);
         } catch (error) {
@@ -142,6 +146,10 @@ export const submitShippingMethod = payload =>
         const { cart, checkout } = getState();
         const { guestCartId } = cart;
         const { paymentMethod } = checkout;
+
+        if (!guestCartId) {
+            throw new Error('Missing required information: guestCartId');
+        }
 
         try {
             await request(

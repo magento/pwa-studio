@@ -147,7 +147,6 @@ class AddressForm extends Component {
     };
 
     submit = values => {
-        console.log('address values', values);
         this.props.submit(values);
     };
 }
