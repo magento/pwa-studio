@@ -81,7 +81,7 @@ export const submitAddress = payload =>
     };
 
 export const submitPaymentMethod = payload =>
-    async function thunk(dispatch, getState) {
+    async function thunk(dispatch) {
         dispatch(actions.paymentMethod.submit(payload));
 
         // refresh cart before returning to checkout overview
@@ -91,7 +91,7 @@ export const submitPaymentMethod = payload =>
     };
 
 export const submitShippingMethod = payload =>
-    async function thunk(dispatch, getState) {
+    async function thunk(dispatch) {
         dispatch(actions.shippingMethod.submit(payload));
 
         // refresh cart before returning to checkout overview
