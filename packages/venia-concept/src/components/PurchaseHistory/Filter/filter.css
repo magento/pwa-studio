@@ -1,0 +1,16 @@
+.root {
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 100px;
+    padding: 0 0.875rem;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+}
+
+.filterIconContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 0.375rem;
+}

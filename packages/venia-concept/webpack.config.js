@@ -143,7 +143,7 @@ module.exports = async function(env) {
                         test: new RegExp(
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
-                        name: 'vendor',
+                        name: true,
                         filename: 'js/vendor.js',
                         chunks: 'all'
                     }
