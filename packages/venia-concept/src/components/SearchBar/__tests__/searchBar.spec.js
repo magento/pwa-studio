@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { SearchBar } from '../searchBar';
 
@@ -56,7 +56,16 @@ test('When the search icon is clicked, the query in the input component will be 
 });
 
 test('When the input component is empty, pressing the enter key will not search.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const mockExecuteSearch = jest.fn();
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            executeSearch={mockExecuteSearch}
+        />
+    );
+
+    wrapper.instance().searchRef = { current: { value: '' } };
     const searchInput = wrapper.find('input');
     const spy = jest
         .spyOn(wrapper.instance(), 'handleSearchSubmit')
@@ -93,14 +102,51 @@ test('When url is pointed to search results page, the search input will get its 
 });
 
 test('When the clear button is pressed, any text in the input component is removed.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const mockFocus = jest.fn();
+    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+
     const searchInput = wrapper.find('input');
     const clearButton = wrapper.find('button').at(1);
-    wrapper.instance().forceUpdate();
-    searchInput.instance().value = 'text';
+    wrapper.instance().searchRef = {
+        current: { value: 'test', focus: mockFocus }
+    };
     searchInput.simulate('change');
     clearButton.simulate('click');
-    expect(searchInput.instance().value).toBe('');
+    expect(wrapper.instance().searchRef.current.value).toBe('');
+});
+
+test('When the input component is empty, the clear button is not displayed.', async () => {
+    const mockFocus = jest.fn();
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            location={{ pathname: '/search.html', search: '' }}
+        />,
+        { disableLifecycleMethods: true }
+    );
+
+    wrapper.instance().searchRef = { current: { value: '', focus: mockFocus } };
+    wrapper.instance().componentDidMount();
+    expect(wrapper.instance().state.isClearIcon).toBeFalsy();
+});
+
+test('When text is added to the input component, the clear button will be displayed.', async () => {
+    const mockFocus = jest.fn();
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            location={{ pathname: '/search.html', search: '?query=display' }}
+        />,
+        { disableLifecycleMethods: true }
+    );
+
+    wrapper.instance().searchRef = {
+        current: { value: 'display', focus: mockFocus }
+    };
+    wrapper.instance().componentDidMount();
+    expect(wrapper.instance().state.isClearIcon).toBeTruthy();
 });
 
 test('Autocomplete popup should be visible if input has focus on it', async () => {

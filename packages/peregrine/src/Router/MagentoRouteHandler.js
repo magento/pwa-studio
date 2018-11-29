@@ -27,16 +27,20 @@ export default class MagentoRouteHandler extends Component {
     };
 
     componentDidMount() {
+        const { pathname } = this.props.location;
+        const isSearch = pathname === '/search.html';
         mountedInstances.add(this);
-        this.getRouteComponent(this.props.location.pathname);
+        if (!isSearch) {
+            this.getRouteComponent(pathname);
+        }
     }
 
     componentDidUpdate() {
         const { props, state } = this;
         const { pathname } = props.location;
         const isKnown = state.componentMap.has(pathname);
-
-        if (!isKnown) {
+        const isSearch = pathname === '/search.html';
+        if (!isKnown && !isSearch) {
             this.getRouteComponent(pathname);
         }
     }
