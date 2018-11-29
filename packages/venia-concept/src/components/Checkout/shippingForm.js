@@ -24,22 +24,6 @@ class ShippingForm extends Component {
         submitting: bool
     };
 
-    constructor(...args) {
-        super(...args);
-
-        this.state = {
-            shippingMethod: this.props.shippingMethod
-        };
-    }
-
-    componentDidMount() {
-        // If we don't have a shipping method, default to the first available one.
-        const { availableShippingMethods, shippingMethod } = this.props;
-        if (!shippingMethod) {
-            this.modifyShippingMethod(availableShippingMethods[0]);
-        }
-    }
-
     render() {
         const {
             availableShippingMethods,
@@ -48,13 +32,11 @@ class ShippingForm extends Component {
             submitting
         } = this.props;
 
-        // We have to add a 'value' prop due to the Select component's getItemKey function.
         const selectableShippingMethods = availableShippingMethods.map(
-            method => ({
-                ...method,
-                value: method.title
-            })
+            ({ code, title }) => ({ label: title, value: code })
         );
+        const initialValue =
+            shippingMethod || availableShippingMethods[0] || {};
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
@@ -65,9 +47,9 @@ class ShippingForm extends Component {
                             Shipping Method
                         </Label>
                         <Select
+                            field="shippingMethod"
+                            initialValue={initialValue.code}
                             items={selectableShippingMethods}
-                            value={shippingMethod}
-                            onChange={this.modifyShippingMethod}
                         />
                     </div>
                 </div>
@@ -89,10 +71,12 @@ class ShippingForm extends Component {
         this.setState({ shippingMethod });
     };
 
-    submit = () => {
-        const { shippingMethod } = this.state;
+    submit = ({ shippingMethod }) => {
+        const selectedShippingMethod = this.props.availableShippingMethods.find(
+            ({ code }) => code === shippingMethod
+        );
 
-        this.props.submit({ shippingMethod });
+        this.props.submit({ shippingMethod: selectedShippingMethod });
     };
 }
 
