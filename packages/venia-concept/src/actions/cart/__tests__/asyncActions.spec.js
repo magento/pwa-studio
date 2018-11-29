@@ -661,7 +661,11 @@ test('getCartDetails thunk merges cached item images into details', async () => 
 
     expect(dispatch).toHaveBeenNthCalledWith(
         2,
-        actions.getDetails.receive({ details: { items: expected }, paymentMethods: 2, totals: 3 })
+        actions.getDetails.receive({
+            details: { items: expected },
+            paymentMethods: 2,
+            totals: 3
+        })
     );
 });
 

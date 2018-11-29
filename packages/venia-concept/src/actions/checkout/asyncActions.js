@@ -177,7 +177,7 @@ export const submitOrder = () =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
-        const { cart, checkout, directory } = getState();
+        const { cart, checkout } = getState();
         const { guestCartId } = cart;
         const { paymentMethod } = checkout;
 
