@@ -24,22 +24,6 @@ class PaymentsForm extends Component {
         submitting: bool
     };
 
-    constructor(...args) {
-        super(...args);
-
-        this.state = {
-            paymentMethod: this.props.paymentMethod
-        };
-    }
-
-    componentDidMount() {
-        // If we don't have a payment method, default to the first available one.
-        const { availablePaymentMethods, paymentMethod } = this.props;
-        if (!paymentMethod) {
-            this.modifyPaymentMethod(availablePaymentMethods[0]);
-        }
-    }
-
     render() {
         const {
             availablePaymentMethods,
@@ -48,13 +32,10 @@ class PaymentsForm extends Component {
             submitting
         } = this.props;
 
-        // We have to add a 'value' prop due to the Select component's getItemKey function.
         const selectablePaymentMethods = availablePaymentMethods.map(
-            method => ({
-                ...method,
-                value: method.title
-            })
+            ({ code, title }) => ({ label: title, value: code })
         );
+        const initialValue = paymentMethod || availablePaymentMethods[0] || {};
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
@@ -65,9 +46,9 @@ class PaymentsForm extends Component {
                             Payment Method
                         </Label>
                         <Select
+                            field="paymentMethod"
+                            initialValue={initialValue.code}
                             items={selectablePaymentMethods}
-                            value={paymentMethod}
-                            onChange={this.modifyPaymentMethod}
                         />
                     </div>
                 </div>
@@ -85,14 +66,12 @@ class PaymentsForm extends Component {
         this.props.cancel();
     };
 
-    modifyPaymentMethod = paymentMethod => {
-        this.setState({ paymentMethod });
-    };
+    submit = ({ paymentMethod }) => {
+        const selectedPaymentMethod = this.props.availablePaymentMethods.find(
+            ({ code }) => code === paymentMethod
+        );
 
-    submit = () => {
-        const { paymentMethod } = this.state;
-
-        this.props.submit({ paymentMethod });
+        this.props.submit({ paymentMethod: selectedPaymentMethod });
     };
 }
 
