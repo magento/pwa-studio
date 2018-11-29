@@ -48,7 +48,6 @@ class ShippingForm extends Component {
             submitting
         } = this.props;
 
-        // TODO: fix this hack that gets around React warnings about items having unique keys.
         // We have to add a 'value' prop due to the Select component's getItemKey function.
         const selectableShippingMethods = availableShippingMethods.map(
             method => ({

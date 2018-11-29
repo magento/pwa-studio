@@ -10,11 +10,11 @@
 }
 
 .informationPrompt {
-    color: orangered;
+    color: rgb(var(--venia-orange));
     text-transform: capitalize;
 }
 .informationPrompt--disabled {
-    color: silver;
+    color: rgb(var(--venia-text-hint));
     text-transform: capitalize;
 }
 
