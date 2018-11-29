@@ -1,37 +1,11 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
+import getCategory from 'src/queries/getCategory';
 import defaultClasses from './category.css';
-
-const categoryQuery = gql`
-    query category($id: Int!) {
-        category(id: $id) {
-            description
-            name
-            product_count
-            products {
-                items {
-                    id
-                    name
-                    small_image
-                    url_key
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                                currency
-                            }
-                        }
-                    }
-                    url_key
-                }
-            }
-        }
-    }
-`;
 
 class Category extends Component {
     static propTypes = {
@@ -53,7 +27,7 @@ class Category extends Component {
         const { id, classes } = this.props;
 
         return (
-            <Query query={categoryQuery} variables={{ id }}>
+            <Query query={getCategory} variables={{ id }}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return <div>Fetching Data</div>;
