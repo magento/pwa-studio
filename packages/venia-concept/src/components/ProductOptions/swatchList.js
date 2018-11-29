@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, object, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -8,10 +8,10 @@ import defaultClasses from './swatchList.css';
 
 class SwatchList extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            root: string
         }),
-        items: PropTypes.arrayOf(PropTypes.object)
+        items: arrayOf(object)
     };
 
     render() {
