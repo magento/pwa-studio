@@ -71,7 +71,7 @@ urlResolver: urlResolverResult.data.urlResolver
 
 urlResolverResult:
   url: magentoGQL
-  query: './src/queries/urlResolver.graphql'
+  query: './src/queries/urlResolver.js'
   variables:
     inline:
       urlKey: request.url.pathname
@@ -86,7 +86,7 @@ magentoGQL:
 product: productResult.data.productDetail.items.0
 productResult:
   url: magentoGQL
-  query: './src/queries/getProductDetail.graphql'
+  query: './src/queries/getProductDetail.js'
   variables:
     inline:
       onServer:

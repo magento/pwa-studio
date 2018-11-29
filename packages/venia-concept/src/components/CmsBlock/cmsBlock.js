@@ -3,9 +3,9 @@ import { array, func, oneOfType, shape, string } from 'prop-types';
 import { Query } from 'react-apollo';
 
 import classify from 'src/classify';
+import getCmsBlocks from 'src/queries/getCmsBlocks';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
-import getCmsBlocks from '../../queries/getCmsBlocks.graphql';
 
 class CmsBlockGroup extends Component {
     static propTypes = {

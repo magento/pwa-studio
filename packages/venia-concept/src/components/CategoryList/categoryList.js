@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
+
 import classify from 'src/classify';
-import defaultClasses from './categoryList.css';
+import categoryListQuery from 'src/queries/getCategoryList';
 import CategoryTile from './categoryTile';
-import categoryListQuery from '../../queries/getCategoryList.graphql';
+import defaultClasses from './categoryList.css';
 
 class CategoryList extends Component {
     static propTypes = {
