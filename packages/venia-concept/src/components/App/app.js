@@ -13,6 +13,7 @@ import Navigation from 'src/components/Navigation';
 import defaultClasses from './app.css';
 
 const renderRoutingError = props => <ErrorView {...props} />;
+const search = () => <Search />;
 
 class App extends Component {
     static propTypes = {
@@ -27,12 +28,6 @@ class App extends Component {
         closeDrawer: func.isRequired
     };
 
-    componentDidUpdate(prev) {
-        if (prev !== this.props) {
-            console.log('didUpdate');
-        }
-    }
-
     render() {
         const { app, classes, closeDrawer } = this.props;
         const { drawer, overlay } = app;
@@ -40,22 +35,16 @@ class App extends Component {
         const cartIsOpen = drawer === 'cart';
         const className = overlay ? classes.root_masked : classes.root;
 
-        console.log('In Render props: ');
-
         return (
             <div className={className}>
                 <Main isMasked={overlay}>
                     <Switch>
-                        <Route
-                            exact
-                            path="/search.html"
-                            render={props => <Search {...props} />}
-                        />
-                        <Route
-                            render={props => (
-                                <Page {...props}>{renderRoutingError}</Page>
-                            )}
-                        />
+                        <Route exact path="/search.html">
+                            <Page>{search}</Page>
+                        </Route>
+                        <Route>
+                            <Page>{renderRoutingError}</Page>
+                        </Route>
                     </Switch>
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />

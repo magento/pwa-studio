@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import SearchAutocomplete from './autocomplete';
 import classify from 'src/classify';
-import { executeSearch } from 'src/actions/app';
 import defaultClasses from './searchBar.css';
 import Icon from 'src/components/Icon';
 
@@ -155,16 +152,4 @@ export class SearchBar extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    executeSearch: (query, history, id) =>
-        dispatch(executeSearch(query, history, id))
-});
-
-export default compose(
-    classify(defaultClasses),
-    withRouter,
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(SearchBar);
+export default withRouter(classify(defaultClasses)(SearchBar));
