@@ -106,7 +106,14 @@ class SearchAutocomplete extends Component {
 
                     const { items } = data.products;
 
-                    if (items.length <= 0) return null;
+                    if (items.length <= 0)
+                        return (
+                            <div className={classes.root}>
+                                <div className={classes.statusContent}>
+                                    No results found, try a different search
+                                </div>
+                            </div>
+                        );
 
                     const categorySuggestions = createCategorySuggestions(
                         items
