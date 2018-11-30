@@ -3,7 +3,7 @@ import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';
-import Form from './form';
+import Form from './formContainer';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 
@@ -45,13 +45,7 @@ class Flow extends Component {
     get child() {
         const { actions, cart, checkout } = this.props;
         const { beginCheckout, editOrder, submitInput, submitOrder } = actions;
-        const {
-            editing,
-            step,
-            submitting,
-            isAddressIncorrect,
-            incorrectAddressMessage
-        } = checkout;
+        const { editing, step, submitting } = checkout;
         const { details } = cart;
         const ready = isCartReady(details.items_count);
         const valid = isAddressValid(details.billing_address);
@@ -73,13 +67,7 @@ class Flow extends Component {
                     valid
                 };
 
-                const formProps = {
-                    ...stepProps,
-                    isAddressIncorrect,
-                    incorrectAddressMessage
-                };
-
-                return <Form {...formProps} />;
+                return <Form {...stepProps} />;
             }
             case 3: {
                 return <Receipt />;

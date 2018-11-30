@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
 import { Form } from 'informed';
 import ErrorDisplay from 'src/components/ErrorDisplay';
+
+const fields = {
+    username: 'username',
+    password: 'password'
+};
 
 class SignIn extends Component {
     static propTypes = {
@@ -17,44 +23,48 @@ class SignIn extends Component {
             signInError: PropTypes.string,
             showCreateAccountButton: PropTypes.string
         }),
-
         signInError: PropTypes.object,
         signIn: PropTypes.func
     };
 
-    state = {
-        password: '',
-        username: ''
-    };
+    constructor(props) {
+        super(props);
+        this.formState = {};
+    }
 
     get errorMessage() {
         const { signInError } = this.props;
         return <ErrorDisplay error={signInError} />;
     }
 
+    getFieldValue = field => get(this.formState, `values.${field}`, '');
+
+    handleFormState = formState => {
+        this.formState = formState;
+    };
+
     render() {
         const { classes } = this.props;
         const { onSignIn, errorMessage } = this;
+        const { username, password } = fields;
 
         return (
             <div className={classes.root}>
-                <Form onSubmit={onSignIn}>
+                <Form onSubmit={onSignIn} onChange={this.handleFormState}>
                     <Input
-                        onChange={this.updateUsername}
                         helpText={'example help text'}
                         label={'Username or Email'}
-                        required={true}
+                        required
                         autoComplete={'username'}
-                        field="username"
+                        field={username}
                     />
                     <Input
-                        onChange={this.updatePassword}
                         label={'Password'}
                         type={'password'}
                         helpText={'example help text'}
-                        required={true}
+                        required
                         autoComplete={'current-password'}
-                        field="password"
+                        field={password}
                     />
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>
@@ -76,21 +86,14 @@ class SignIn extends Component {
     }
 
     onSignIn = () => {
-        const { username, password } = this.state;
-        this.props.signIn({ username: username, password: password });
+        const username = this.getFieldValue(fields.username);
+        const password = this.getFieldValue(fields.password);
+        this.props.signIn({ username, password });
     };
 
     showCreateAccountForm = () => {
-        this.props.setDefaultUsername(this.state.username);
+        this.props.setDefaultUsername(this.getFieldValue(fields.username));
         this.props.showCreateAccountForm();
-    };
-
-    updatePassword = newPassword => {
-        this.setState({ password: newPassword });
-    };
-
-    updateUsername = newUsername => {
-        this.setState({ username: newUsername });
     };
 }
 

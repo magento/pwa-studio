@@ -14,30 +14,6 @@ const classes = {
     signInButton: 'a'
 };
 
-test('set state `password` to new `password` on `updatePassword`', () => {
-    const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
-    ).dive();
-
-    const newPassword = 'foo';
-
-    expect(wrapper.state().password).toEqual('');
-    wrapper.instance().updatePassword(newPassword);
-    expect(wrapper.state().password).toEqual(newPassword);
-});
-
-test('set state `username` to new `username` on `updateUsername`', () => {
-    const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
-    ).dive();
-
-    const newUsername = 'bar';
-
-    expect(wrapper.state().username).toEqual('');
-    wrapper.instance().updateUsername(newUsername);
-    expect(wrapper.state().username).toEqual(newUsername);
-});
-
 test('display error message if there is a `signInError`', () => {
     const wrapper = shallow(
         <SignIn signIn={props.signIn} signInError={props.signInError} />

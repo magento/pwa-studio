@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import CreateAccount from '../createAccount';
+import { fields } from '../constants';
 
 configure({ adapter: new Adapter() });
 
@@ -18,15 +19,16 @@ let blankState = {
 };
 
 let state = {
-    firstName: 'Test',
-    lastName: 'Test Test',
-    email: 'test@test.com',
-    password: 'test',
-    passwordConfirm: 'test',
-    subscribe: false,
     checkingEmail: false,
     emailAvailable: true,
-    subscribe: true
+    subscribe: false,
+    formFields: {
+        [fields.firstName]: 'Test',
+        [fields.familyName]: 'Test Test',
+        [fields.email]: 'test@test.com',
+        [fields.password]: 'test',
+        [fields.confirmPassword]: 'test'
+    }
 };
 
 jest.mock('@magento/peregrine', () => {
@@ -53,19 +55,6 @@ const classes = {
     createAccountButton: 'a',
     root: 'b'
 };
-
-// jest.useFakeTimers();
-
-test('correctly checks if password and passwordConfirm match', () => {
-    const wrapper = shallow(<CreateAccount />).dive();
-    wrapper.setState(state);
-    expect(wrapper.instance().hasPasswordConfirmError).toBe(false);
-    let incorrectPassState = Object.assign({}, state);
-    incorrectPassState.passwordConfirm =
-        incorrectPassState.passwordConfirm + 'wrong!';
-    wrapper.setState(incorrectPassState);
-    expect(wrapper.instance().hasPasswordConfirmError).toBe(true);
-});
 
 test('Enables the create account button when all forms are filled in and passwords match', () => {
     const wrapper = shallow(<CreateAccount />).dive();

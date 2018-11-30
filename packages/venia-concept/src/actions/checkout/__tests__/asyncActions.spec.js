@@ -157,7 +157,7 @@ test('submitInput thunk throws if there is no guest cart', async () => {
 
 test('submitInput thunk dispatches action on incorrect state(region code)', async () => {
     const invalidState = 'any_text';
-    const incorrectAddressMessage = `Region "${invalidState}" is not an available region.`;
+    const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
     const incorrectAddressPayload = { incorrectAddressMessage };
     const submitPayload = {
         type: 'address',
@@ -265,5 +265,5 @@ test('formatAddress throws if region is not found', () => {
     const values = { region_code: '|||' };
     const shouldThrow = () => formatAddress(values, countries);
 
-    expect(shouldThrow).toThrow('region');
+    expect(shouldThrow).toThrow('state');
 });

@@ -146,7 +146,9 @@ export function formatAddress(address = {}, countries = []) {
     const region = regions.find(({ code }) => code === region_code);
 
     if (!region) {
-        throw new Error(`State "${region_code}" is not an valid state abbreviation.`);
+        throw new Error(
+            `State "${region_code}" is not an valid state abbreviation.`
+        );
     }
 
     return {

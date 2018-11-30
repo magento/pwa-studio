@@ -1,29 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { compose } from 'redux';
 import { PropTypes } from 'prop-types';
+import { BasicText, asField } from 'informed';
 import defaultClasses from './input.css';
 import classify from 'src/classify';
-import { Text } from 'informed';
+import Icon from 'src/components/Icon';
+import { resetButtonIcon, HelpTypes } from './constants';
 
-export const HelpTypes = {
-    hint: 'hint',
-    error: 'error',
-    success: 'success'
-};
-
-class Input extends Component {
+//TODO: try to incapsulate default validatorRequired in Input component
+// so you don't need to pass validator apart from required prop
+export class Input extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            helpText: PropTypes.string,
             hint: PropTypes.string,
             error: PropTypes.string,
             success: PropTypes.string,
+            helpTextBlock: PropTypes.string,
             label: PropTypes.string,
             labelFocused: PropTypes.string,
             root: PropTypes.string,
             input: PropTypes.string,
-            rootFocused: PropTypes.string
+            inputContainer: PropTypes.string,
+            rootFocused: PropTypes.string,
+            resetInput: PropTypes.string
         }),
-
+        selected: PropTypes.bool,
         initialValue: PropTypes.string,
         placeholder: PropTypes.string,
         label: PropTypes.string.isRequired,
@@ -32,48 +33,76 @@ class Input extends Component {
         required: PropTypes.bool,
         title: PropTypes.string,
         autoComplete: PropTypes.string,
-        helpText: PropTypes.string,
         helpType: PropTypes.string,
+        helpText: PropTypes.string,
         field: PropTypes.string.isRequired,
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        validate: PropTypes.func,
+        validateOnChange: PropTypes.bool,
+        fieldState: PropTypes.object,
+        fieldApi: PropTypes.object
     };
 
     static defaultProps = {
+        selected: false,
+        initialValue: '',
         disabled: false,
-        helpVisible: true,
-        helpType: HelpTypes.hint
+        helpType: HelpTypes.hint,
+        helpText: ''
     };
 
-    state = {
-        value: this.props.initialValue,
-        focused: false,
-        dirty: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            focused: false
+        };
+        this.inputRef = React.createRef();
+    }
 
-    get helpText() {
-        const { helpVisible, classes, helpText, helpType } = this.props;
-        let helpTypeClass = `${classes.helpText} ${classes[helpType]}`;
+    componentDidMount() {
+        const {
+            props: { selected },
+            inputRef
+        } = this;
+        selected && inputRef.current.focus();
+    }
 
-        return helpVisible ? (
-            <div className={helpTypeClass}>{helpText}</div>
-        ) : null;
+    getValidationError = errorText => (
+        <div className={this.props.classes[HelpTypes.error]}>{errorText}</div>
+    );
+
+    getHelpText = ({ helpText, helpType }) => (
+        <div className={this.props.classes[helpType]}>{helpText}</div>
+    );
+
+    get helpTextSection() {
+        const {
+            helpText,
+            helpType,
+            fieldState: { error }
+        } = this.props;
+
+        return (
+            <Fragment>
+                {helpText ? this.getHelpText({ helpText, helpType }) : null}
+                {error ? this.getValidationError(error) : null}
+            </Fragment>
+        );
     }
 
     get labelText() {
         const { classes, label } = this.props;
-        let className = `${classes.label}`;
-        if (this.state.focused) {
-            className += ` ${classes.labelFocused}`;
-        }
+        const className = !this.state.focused
+            ? classes.label
+            : classes.labelFocused;
         return <span className={className}>{label}</span>;
     }
 
     get rootClass() {
         const { classes } = this.props;
-        let className = `${classes.root}`;
-        if (this.state.focused) {
-            className += ` ${classes.rootFocused}`;
-        }
+        let className = !this.state.focused
+            ? classes.root
+            : classes.rootFocused;
         return className;
     }
 
@@ -82,22 +111,53 @@ class Input extends Component {
         return required ? <div className={classes.requiredSymbol} /> : null;
     }
 
+    get resetButton() {
+        const { classes, fieldState } = this.props;
+        const { name, attrs } = resetButtonIcon;
+
+        return fieldState.value ? (
+            <button
+                type="button"
+                className={classes.resetInput}
+                onClick={this.resetValue}
+            >
+                <Icon name={name} attrs={attrs} />
+            </button>
+        ) : null;
+    }
+
+    //TODO: setValue doesn't trigger onChange of the field, so callbacks from outside
+    // don't know about value changing when clicking reset button,
+    // on other hand if manually triggering onChange callback
+    // setValue sets value in async way and at the moment of calling onChange callback
+    // value of a field in the formState is old
+    resetValue = () => {
+        const { fieldApi } = this.props;
+        fieldApi.setValue(null);
+        this.handleChange();
+    };
+
     render() {
-        const { helpText, labelText, requiredSymbol, rootClass } = this;
+        const {
+            helpTextSection,
+            labelText,
+            requiredSymbol,
+            rootClass,
+            resetButton
+        } = this;
         const {
             classes,
             placeholder,
             type,
             disabled,
-            required,
             title,
-            initialValue
+            initialValue,
+            field,
+            fieldApi,
+            fieldState
         } = this.props;
-        let { autoComplete, field } = this.props;
+        let { autoComplete } = this.props;
 
-        if (!this.state.dirty) {
-            field = initialValue ? initialValue : field;
-        }
         autoComplete = !autoComplete ? 'off' : autoComplete;
 
         return (
@@ -105,29 +165,36 @@ class Input extends Component {
                 <span className={classes.label}>
                     {requiredSymbol} {labelText}
                 </span>
-                <Text
-                    initialValue={initialValue}
-                    className={classes.input}
-                    placeholder={placeholder}
-                    type={type}
-                    disabled={disabled}
-                    required={required}
-                    title={title}
-                    autoComplete={autoComplete}
-                    onChange={this.handleChange}
-                    onFocus={this.focusTextInput}
-                    onBlur={this.blurTextInput}
-                    field={field}
-                />
-                {helpText}
+                <div className={classes.inputContainer}>
+                    <BasicText
+                        fieldApi={fieldApi}
+                        fieldState={fieldState}
+                        forwardedRef={this.inputRef}
+                        initialValue={initialValue}
+                        className={classes.input}
+                        placeholder={placeholder}
+                        type={type}
+                        disabled={disabled}
+                        title={title}
+                        autoComplete={autoComplete}
+                        onChange={this.handleChange}
+                        onFocus={this.focusTextInput}
+                        onBlur={this.blurTextInput}
+                        field={field}
+                    />
+                    {resetButton}
+                </div>
+                {helpTextSection}
             </div>
         );
     }
 
-    handleChange = event => {
-        this.setState({ value: event.target.value });
-        this.props.onChange ? this.props.onChange(event.target.value) : null;
-        this.makeDirty();
+    handleChange = () => {
+        const {
+            onChange,
+            fieldState: { value }
+        } = this.props;
+        onChange && onChange(value);
     };
 
     focusTextInput = () => {
@@ -137,12 +204,9 @@ class Input extends Component {
     blurTextInput = () => {
         this.setState({ focused: false });
     };
-
-    makeDirty = () => {
-        if (!this.state.dirty) {
-            this.setState({ dirty: true });
-        }
-    };
 }
 
-export default classify(defaultClasses)(Input);
+export default compose(
+    classify(defaultClasses),
+    asField
+)(Input);

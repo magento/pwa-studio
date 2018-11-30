@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'src/components/Input';
 import { HelpTypes } from 'src/components/Input';
@@ -10,29 +10,32 @@ import { debounce } from 'underscore';
 import { RestApi } from '@magento/peregrine';
 import ErrorDisplay from 'src/components/ErrorDisplay';
 import Checkbox from 'src/components/Checkbox';
+import { fields } from './constants';
 
 const { request } = RestApi.Magento2;
 
-class CreateAccount extends Component {
+class CreateAccount extends PureComponent {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
             createAccountError: PropTypes.string
         }),
         createAccountError: PropTypes.object,
-        createAccount: PropTypes.func
+        createAccount: PropTypes.func,
+        defaultUsername: PropTypes.string
     };
 
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
         subscribe: false,
         checkingEmail: false,
         emailAvailable: false,
-        subscribe: false
+        formFields: {
+            [fields.firstName]: '',
+            [fields.familyName]: '',
+            [fields.email]: '',
+            [fields.password]: '',
+            [fields.confirmPassword]: ''
+        }
     };
 
     get errorMessage() {
@@ -43,7 +46,7 @@ class CreateAccount extends Component {
     get hasEmailError() {
         // Only return true if the email field has a value, and it's not being checked against existing emails
         return (
-            !!this.state.email &&
+            !!this.getFieldValue(fields.email) &&
             !this.state.emailAvailable &&
             !this.state.checkingEmail
         );
@@ -51,7 +54,10 @@ class CreateAccount extends Component {
 
     get hasPasswordConfirmError() {
         // Check if passwords match
-        return this.state.password !== this.state.passwordConfirm;
+        return (
+            this.getFieldValue(fields.password) !==
+            this.getFieldValue(fields.confirmPassword)
+        );
     }
 
     get isIncompleteOrInvalid() {
@@ -59,9 +65,9 @@ class CreateAccount extends Component {
         return (
             this.hasEmailError ||
             this.hasPasswordConfirmError ||
-            !this.state.email ||
-            !this.state.firstName ||
-            !this.state.lastName
+            !this.getFieldValue(fields.email) ||
+            !this.getFieldValue(fields.firstName) ||
+            !this.getFieldValue(fields.familyName)
         );
     }
 
@@ -86,6 +92,16 @@ class CreateAccount extends Component {
         return HelpTypes.error;
     }
 
+    getFieldValue = field => this.state.formFields[field];
+
+    handleFormState = formState => {
+        const mergedFormFields = {
+            ...this.state.formFields,
+            ...formState.values
+        };
+        this.setState({ formFields: mergedFormFields });
+    };
+
     render() {
         const { classes, defaultUsername } = this.props;
         const {
@@ -97,44 +113,47 @@ class CreateAccount extends Component {
             passwordConfirmHelpType,
             isIncompleteOrInvalid
         } = this; // Uses `getters` defined above
+        const {
+            email,
+            firstName,
+            familyName,
+            password,
+            confirmPassword
+        } = fields;
 
         return (
             <div className={classes.root}>
-                <Form onSubmit={onCreateAccount}>
+                <Form
+                    onSubmit={onCreateAccount}
+                    onChange={this.handleFormState}
+                >
                     <div className={classes.rewards}>
                         <span>An account gives you access to rewards!</span>
                     </div>
-
                     <Input
                         onChange={this.updateEmail}
-                        selected={true}
+                        selected
                         label={'Email'}
                         helpText={emailHelpText}
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
                         initialValue={defaultUsername}
-                        field="email"
+                        field={email}
                     />
-
                     <Input
-                        onChange={this.updateFirstName}
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
-                        field="first-name"
+                        field={firstName}
                     />
-
                     <Input
-                        onChange={this.updateLastName}
                         label={'Last Name'}
                         required={true}
                         autoComplete={'family-name'}
-                        field="family-name"
+                        field={familyName}
                     />
-
                     <Input
-                        onChange={this.updatePassword}
                         label={'Password'}
                         type={'password'}
                         required={true}
@@ -143,20 +162,17 @@ class CreateAccount extends Component {
                             'Password must be at least 8 characters long and contain 3 or more of the following: Lowercase, Uppercase, Digits, or Special Characters. (ex. Password1)'
                         }
                         autoComplete={'new-password'}
-                        field="password"
+                        field={password}
                     />
-
                     <Input
-                        onChange={this.updatePasswordConfirm}
                         label={'Confirm Password'}
                         type={'password'}
                         required={true}
                         placeholder={'Enter the password again'}
                         helpText={passwordConfirmHelpText}
                         helpType={passwordConfirmHelpType}
-                        field="confirm-password"
+                        field={confirmPassword}
                     />
-
                     <Checkbox
                         label={'Subscribe to news and updates'}
                         select={this.handleCheckboxChange}
@@ -174,14 +190,15 @@ class CreateAccount extends Component {
     }
 
     onCreateAccount = () => {
+        const { getFieldValue } = this;
         if (!this.isIncompleteOrInvalid) {
             const newCustomer = {
                 customer: {
-                    firstname: this.state.firstName,
-                    lastname: this.state.lastName,
-                    email: this.state.email
+                    firstname: getFieldValue(fields.firstName),
+                    lastname: getFieldValue(fields.familyName),
+                    email: getFieldValue(fields.email)
                 },
-                password: this.state.password
+                password: getFieldValue(fields.password)
             };
             this.props.createAccount(newCustomer);
         }
@@ -191,7 +208,8 @@ class CreateAccount extends Component {
         this.setState({ subscribe: value });
     };
 
-    checkEmail = debounce(async email => {
+    checkEmail = debounce(async () => {
+        const email = this.getFieldValue(fields.email);
         try {
             const body = {
                 customerEmail: email,
@@ -211,25 +229,9 @@ class CreateAccount extends Component {
         }
     }, 300);
 
-    updateLastName = newLastName => {
-        this.setState({ lastName: newLastName });
-    };
-
-    updateFirstName = newFirstName => {
-        this.setState({ firstName: newFirstName });
-    };
-
-    updateEmail = newEmail => {
-        this.setState({ checkingEmail: true, email: newEmail });
-        this.checkEmail(newEmail);
-    };
-
-    updatePassword = newPassword => {
-        this.setState({ password: newPassword });
-    };
-
-    updatePasswordConfirm = newPasswordConfirm => {
-        this.setState({ passwordConfirm: newPasswordConfirm });
+    updateEmail = () => {
+        this.setState({ checkingEmail: true });
+        this.checkEmail();
     };
 }
 
