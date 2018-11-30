@@ -3,7 +3,6 @@ const purchaseHistoryMock = {
         {
             item_id: 27,
             name: 'Crown Summit Backpack',
-            date: new Date(),
             image: {
                 file: '/image.jpg'
             }
@@ -11,7 +10,6 @@ const purchaseHistoryMock = {
         {
             item_id: 28,
             name: 'Crown Summit Backpack',
-            date: new Date(),
             image: {
                 file: '/image.jpg'
             }
