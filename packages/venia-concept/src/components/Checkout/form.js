@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
 import Section from './section';
 import SubmitButton from './submitButton';
-import defaultClasses from './form.css';
 
 import AddressForm from './address';
 
@@ -132,4 +130,4 @@ class Form extends Component {
     };
 }
 
-export default classify(defaultClasses)(Form);
+export default Form;

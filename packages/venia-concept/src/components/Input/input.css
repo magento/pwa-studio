@@ -1,16 +1,8 @@
-.helpText {
+.hint,
+.error,
+.success {
     font-size: 0.7rem;
     margin: 0.4rem 0;
-}
-
-.requiredSymbol {
-    background-color: rgb(var(--venia-text-spot));
-    width: 0.4em;
-    height: 0.4em;
-    margin-top: 0.1em;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: top;
 }
 
 .hint {
@@ -25,16 +17,52 @@
     color: green;
 }
 
+.requiredSymbol {
+    background-color: rgb(var(--venia-text-spot));
+    width: 0.4em;
+    height: 0.4em;
+    margin-top: 0.1em;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
+
 .root {
     padding: 0.5rem 1.5rem;
+    --input-right-padding: 1rem;
+}
+
+.rootFocused {
+    composes: root;
+    background-color: rgb(var(--venia-teal-alt));
+    transition: 200ms;
+}
+
+.inputContainer {
+    position: relative;
 }
 
 .input {
+    --default-reset-button-width: 24px;
     width: 100%;
     height: 1.85rem;
     border: 1px solid black;
-    padding: 1rem;
+    padding: var(--input-right-padding);
+    padding-right: calc(
+        var(--input-right-padding) + var(--default-reset-button-width)
+    );
     margin: 0.2rem 0 0 0;
+    outline: none;
+}
+
+.resetInput {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    right: var(--input-right-padding);
+    transform: translateY(-50%);
+    background-color: transparent;
     outline: none;
 }
 
@@ -43,11 +71,7 @@
 }
 
 .labelFocused {
+    composes: label;
     color: rgb(var(--venia-teal));
-    transition: 200ms;
-}
-
-.rootFocused {
-    background-color: rgb(var(--venia-teal-alt));
     transition: 200ms;
 }

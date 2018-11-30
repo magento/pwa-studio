@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
+import { Form } from 'informed';
+import SignInFooter from './signInFooter';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
-import { Form } from 'informed';
 import ErrorDisplay from 'src/components/ErrorDisplay';
+import { fields } from './constants';
 
 class SignIn extends Component {
     static propTypes = {
@@ -17,80 +20,71 @@ class SignIn extends Component {
             signInError: PropTypes.string,
             showCreateAccountButton: PropTypes.string
         }),
-
         signInError: PropTypes.object,
-        signIn: PropTypes.func
+        signIn: PropTypes.func,
+        setDefaultUsername: PropTypes.func,
+        showCreateAccountForm: PropTypes.func
     };
 
-    state = {
-        password: '',
-        username: ''
-    };
+    constructor(props) {
+        super(props);
+        this.formState = {};
+    }
 
     get errorMessage() {
         const { signInError } = this.props;
         return <ErrorDisplay error={signInError} />;
     }
 
+    getFieldValue = field => get(this.formState, `values.${field}`, '');
+
+    handleFormState = formState => {
+        this.formState = formState;
+    };
+
     render() {
-        const { classes } = this.props;
+        const {
+            classes,
+            setDefaultUsername,
+            showCreateAccountForm
+        } = this.props;
         const { onSignIn, errorMessage } = this;
+        const { username, password } = fields;
 
         return (
             <div className={classes.root}>
-                <Form onSubmit={onSignIn}>
+                <Form onSubmit={onSignIn} onChange={this.handleFormState}>
                     <Input
-                        onChange={this.updateUsername}
                         helpText={'example help text'}
                         label={'Username or Email'}
-                        required={true}
+                        required
                         autoComplete={'username'}
-                        field="username"
+                        field={username}
                     />
                     <Input
-                        onChange={this.updatePassword}
                         label={'Password'}
                         type={'password'}
                         helpText={'example help text'}
-                        required={true}
+                        required
                         autoComplete={'current-password'}
-                        field="password"
+                        field={password}
                     />
                     <div className={classes.signInButton}>
                         <Button type="submit">Sign In</Button>
                     </div>
                     <div className={classes.signInError}>{errorMessage}</div>
-                    <div className={classes.forgotPassword}>
-                        <a href="/"> Forgot your username or password? </a>
-                    </div>
+                    <SignInFooter
+                        classes={classes}
+                        setDefaultUsername={setDefaultUsername}
+                        showCreateAccountForm={showCreateAccountForm}
+                    />
                 </Form>
-                <div className={classes.signInDivider} />
-                <div className={classes.showCreateAccountButton}>
-                    <Button onClick={this.showCreateAccountForm}>
-                        {' '}
-                        Create an Account{' '}
-                    </Button>
-                </div>
             </div>
         );
     }
 
-    onSignIn = () => {
-        const { username, password } = this.state;
-        this.props.signIn({ username: username, password: password });
-    };
-
-    showCreateAccountForm = () => {
-        this.props.setDefaultUsername(this.state.username);
-        this.props.showCreateAccountForm();
-    };
-
-    updatePassword = newPassword => {
-        this.setState({ password: newPassword });
-    };
-
-    updateUsername = newUsername => {
-        this.setState({ username: newUsername });
+    onSignIn = ({ username, password }) => {
+        this.props.signIn({ username, password });
     };
 }
 
