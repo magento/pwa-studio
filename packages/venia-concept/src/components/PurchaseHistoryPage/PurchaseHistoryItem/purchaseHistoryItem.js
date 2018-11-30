@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { shape, string } from 'prop-types';
+import { number, oneOfType, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './purchaseHistoryItem.css';
 import { processDate } from './helpers';
-import { PURCHASE_HISTORY_ITEM_PROP_TYPES } from '../PurchaseHistory/constants';
 
 const CHEVRON_ICON_ATTRS = {
     width: 18,
@@ -22,7 +21,13 @@ class PurchaseHistoryItem extends Component {
             textBlockDate: string,
             chevronContainer: string
         }),
-        item: shape(PURCHASE_HISTORY_ITEM_PROP_TYPES).isRequired
+        item: shape({
+            id: number.isRequired,
+            imageSrc: string.isRequired,
+            title: string.isRequired,
+            date: oneOfType([number, string]),
+            url: string
+        }).isRequired
     };
 
     render() {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { shape, string, arrayOf } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import PurchaseHistoryItem from '../PurchaseHistoryItem';
 import classify from 'src/classify';
 import defaultClasses from './purchaseHistory.css';
 import Filter from '../Filter';
-import { PURCHASE_HISTORY_ITEM_PROP_TYPES } from './constants';
 
 class PurchaseHistory extends Component {
     static propTypes = {
@@ -16,7 +15,11 @@ class PurchaseHistory extends Component {
             filterContainer: string,
             itemsContainer: string
         }),
-        items: arrayOf(shape(PURCHASE_HISTORY_ITEM_PROP_TYPES))
+        items: arrayOf(
+            shape({
+                id: number.isRequired
+            })
+        )
     };
 
     componentDidMount() {
