@@ -19,4 +19,5 @@
         Apple Icons for Homescreen
         Sizes: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
     }}
+    <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
