@@ -9,13 +9,7 @@ test('telltale exists', () => expect(TemplateResolver.telltale).toBeDefined());
 test('throws if no template specified', async () => {
     await expect(
         new TemplateResolver().resolve({ engine: 'mustache' })
-    ).rejects.toThrow(
-        `Invalid arguments to TemplateResolver: {
-  engine: 'mustache'
-}.
-
-No template specified.`
-    );
+    ).rejects.toThrow('No template specified.');
 });
 
 test('throws if no provide arg specified', async () => {
@@ -24,14 +18,7 @@ test('throws if no provide arg specified', async () => {
             engine: 'mustache',
             template: './some-template'
         })
-    ).rejects.toThrow(
-        `Invalid arguments to TemplateResolver: {
-  engine: 'mustache',
-  template: './some-template'
-}.
-
-'provide' property must be an array of context values or object of resolvable definitions, was undefined`
-    );
+    ).rejects.toThrow('Invalid arguments');
 });
 
 test('throws if provide arg is invalid', async () => {
@@ -41,17 +28,7 @@ test('throws if provide arg is invalid', async () => {
             template: './some-template',
             provide: [{}]
         })
-    ).rejects.toThrow(
-        `Invalid arguments to TemplateResolver: {
-  engine: 'mustache',
-  template: './some-template',
-  provide: [
-    {}
-  ]
-}.
-
-'provide' property must be an array of context values or object of resolvable definitions, was [ {} ]`
-    );
+    ).rejects.toThrow('Invalid arguments');
 });
 
 test('throws if template engine is unsupported', async () => {
