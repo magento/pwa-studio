@@ -7,14 +7,15 @@ test('resolverType is file', () =>
 test('telltale exists', () => expect(TemplateResolver.telltale).toBeDefined());
 
 test('throws if no template specified', async () => {
-    await expect(new TemplateResolver().resolve({ engine: 'mustache' })).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
-"Invalid arguments to TemplateResolver: {
+    await expect(
+        new TemplateResolver().resolve({ engine: 'mustache' })
+    ).rejects.toThrow(
+        `Invalid arguments to TemplateResolver: {
   engine: 'mustache'
 }.
 
-No template specified."
-`);
+No template specified.`
+    );
 });
 
 test('throws if no provide arg specified', async () => {
@@ -23,14 +24,14 @@ test('throws if no provide arg specified', async () => {
             engine: 'mustache',
             template: './some-template'
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`
-"Invalid arguments to TemplateResolver: {
+    ).rejects.toThrow(
+        `Invalid arguments to TemplateResolver: {
   engine: 'mustache',
   template: './some-template'
 }.
 
-'provide' property must be an array of context values or object of resolvable definitions, was undefined"
-`);
+'provide' property must be an array of context values or object of resolvable definitions, was undefined`
+    );
 });
 
 test('throws if provide arg is invalid', async () => {
@@ -40,8 +41,8 @@ test('throws if provide arg is invalid', async () => {
             template: './some-template',
             provide: [{}]
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`
-"Invalid arguments to TemplateResolver: {
+    ).rejects.toThrow(
+        `Invalid arguments to TemplateResolver: {
   engine: 'mustache',
   template: './some-template',
   provide: [
@@ -49,8 +50,8 @@ test('throws if provide arg is invalid', async () => {
   ]
 }.
 
-'provide' property must be an array of context values or object of resolvable definitions, was [ {} ]"
-`);
+'provide' property must be an array of context values or object of resolvable definitions, was [ {} ]`
+    );
 });
 
 test('throws if template engine is unsupported', async () => {
@@ -162,8 +163,8 @@ test('throws if template argument is not an enging instance or a string', async 
             template: 'aTemplate',
             provide: ['env']
         })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Expected string or MustacheTemplate-compatible template and received a foreign object Array!"`
+    ).rejects.toThrow(
+        `Expected string or MustacheTemplate-compatible template and received a foreign object Array!`
     );
 });
 
