@@ -23,15 +23,15 @@
 	},
 	"homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec#readme",
 	"dependencies": {
-		"apollo-server": "^2.0.5",
-		"chalk": "^2.4.1",
-		"csv-parse": "^3.0.0",
-		"graphql": "^0.13.2",
-		"graphql-tag": "^2.10.0",
-		"js-yaml": "^3.12.0",
-		"node-fetch": "^2.2.1",
-		"tap-diff": "^0.1.1",
-		"tap-xunit": "^2.3.0",
-		"tape": "^4.9.1"
+		"apollo-server": "~2.0.5",
+		"chalk": "~2.4.1",
+		"csv-parse": "~3.0.0",
+		"graphql": "~0.13.2",
+		"graphql-tag": "~2.10.0",
+		"js-yaml": "~3.12.0",
+		"node-fetch": "~2.2.1",
+		"tap-diff": "~0.1.1",
+		"tap-xunit": "~2.3.0",
+		"tape": "~4.9.1"
 	}
 }
