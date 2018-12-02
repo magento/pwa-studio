@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { Price } from '@magento/peregrine';
+import { Price, Util } from '@magento/peregrine';
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import Section from './section';
@@ -10,6 +10,9 @@ import SubmitButton from './submitButton';
 
 import classify from 'src/classify';
 import defaultClasses from './form.css';
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
 class Form extends Component {
     static propTypes = {
@@ -57,8 +60,8 @@ class Form extends Component {
      *  Class Properties.
      */
     get addressSummary() {
-        const { cart, classes, isShippingInformationReady } = this.props;
-        const address = cart.details.billing_address;
+        const { classes, isShippingInformationReady } = this.props;
+        const address = storage.getItem('address');
 
         if (!isShippingInformationReady) {
             return (
@@ -81,15 +84,15 @@ class Form extends Component {
     }
 
     get editableForm() {
-        const { cart, editing, submitting } = this.props;
+        const { editing, submitting } = this.props;
 
         switch (editing) {
             case 'address': {
-                const { details } = cart;
+                const address = storage.getItem('address') || {};
 
                 return (
                     <AddressForm
-                        initialValues={details.billing_address}
+                        initialValues={address}
                         submitting={submitting}
                         cancel={this.stopEditing}
                         submit={this.submitAddress}

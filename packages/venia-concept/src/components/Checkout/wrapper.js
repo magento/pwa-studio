@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func, object, oneOf, shape, string } from 'prop-types';
 
+import { Util } from '@magento/peregrine';
 import { getShippingMethods } from 'src/actions/cart';
 import {
     beginCheckout,
@@ -15,17 +16,34 @@ import {
 
 import Flow from './flow';
 
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
 const isAddressValid = address => !!(address && address.email);
 const isCartReady = cart => cart.details.items_count > 0;
-const isCheckoutReady = (cart, checkout) =>
-    isPaymentMethodReady(checkout) &&
-    isShippingInfoReady(cart, checkout) &&
-    isShippingMethodReady(checkout);
-const isPaymentMethodReady = checkout => !!checkout.paymentMethod;
-const isShippingInfoReady = cart =>
-    isAddressValid(cart.details.billing_address);
+const isCheckoutReady = checkout => {
+    const pm = isPaymentMethodReady();
+    const si = isShippingInfoReady();
+    const sm = isShippingMethodReady(checkout);
 
-const isShippingMethodReady = checkout => !!checkout.shippingMethod;
+    return pm && si && sm;
+}
+// const isCheckoutReady = (checkout) => 
+//     isPaymentMethodReady() &&
+//     isShippingInfoReady() &&
+//     isShippingMethodReady(checkout);
+const isPaymentMethodReady = () => {
+    const paymentMethod = storage.getItem('paymentMethod');
+    return !!paymentMethod;
+}
+const isShippingInfoReady = () => {
+    const address = storage.getItem('address');
+    return isAddressValid(address);
+}
+// const isShippingMethodReady = checkout => !!checkout.shippingMethod;
+const isShippingMethodReady = checkout => {
+    return !!checkout.shippingMethod;
+}
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -102,9 +120,9 @@ class CheckoutWrapper extends Component {
             availablePaymentMethods,
             availableShippingMethods,
             isCartReady: isCartReady(cart),
-            isCheckoutReady: isCheckoutReady(cart, checkout),
-            isPaymentMethodReady: isPaymentMethodReady(checkout),
-            isShippingInformationReady: isShippingInfoReady(cart),
+            isCheckoutReady: isCheckoutReady(checkout),
+            isPaymentMethodReady: isPaymentMethodReady(),
+            isShippingInformationReady: isShippingInfoReady(),
             isShippingMethodReady: isShippingMethodReady(checkout),
             paymentMethod,
             paymentTitle,
@@ -119,7 +137,10 @@ class CheckoutWrapper extends Component {
     }
 }
 
-const mapStateToProps = ({ checkout, cart }) => ({ checkout, cart });
+// const mapStateToProps = ({ cart, checkout }) => ({ cart, checkout });
+const mapStateToProps = ({ cart, checkout }) => {
+    return { cart, checkout };
+}
 
 const mapDispatchToProps = {
     beginCheckout,

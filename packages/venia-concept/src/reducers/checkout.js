@@ -1,13 +1,18 @@
 import { handleActions } from 'redux-actions';
 
+import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
 export const name = 'checkout';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+const storedPaymentMethod = storage.getItem('paymentMethod');
 
 const initialState = {
     editing: null,
-    paymentMethod: null,
-    paymentTitle: null,
+    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
+    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
     shippingMethod: null,
     shippingTitle: null,
     status: 'READY',
@@ -78,6 +83,7 @@ const reducerMap = {
         };
     },
     [actions.shippingMethod.accept]: (state, { payload }) => {
+        console.log('accepted a shipping method', payload);
         return {
             ...state,
             editing: null,

@@ -286,13 +286,20 @@ export const getShippingMethods = () => {
 
             dispatch(actions.getShippingMethods.request(guestCartId));
 
-            const shippingMethods = await fetchCartPart({
-                guestCartId,
-                forceRefresh: true,
-                subResource: 'shipping-methods'
-            });
+            const response = await request(
+                `/rest/V1/guest-carts/${guestCartId}/estimate-shipping-methods`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        address: {
+                            country_id: "US",
+                            postcode: null
+                        }
+                    })
+                }
+            );
 
-            dispatch(actions.getShippingMethods.receive({ shippingMethods }));
+            dispatch(actions.getShippingMethods.receive(response));
         } catch (error) {
             const { response } = error;
 

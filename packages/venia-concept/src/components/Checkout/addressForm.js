@@ -47,6 +47,7 @@ class AddressForm extends Component {
     render() {
         const { children, props } = this;
         const { classes, initialValues } = props;
+        console.log('the initial values are', initialValues);
         const values = filterInitialValues(initialValues);
 
         return (

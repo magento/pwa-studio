@@ -36,7 +36,7 @@ class ShippingForm extends Component {
             ({ code, title }) => ({ label: title, value: code })
         );
         const initialValue =
-            shippingMethod || availableShippingMethods[0] || {};
+            shippingMethod || availableShippingMethods[0].carrier_code || '';
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
@@ -48,7 +48,7 @@ class ShippingForm extends Component {
                         </Label>
                         <Select
                             field="shippingMethod"
-                            initialValue={initialValue.code}
+                            initialValue={initialValue}
                             items={selectableShippingMethods}
                         />
                     </div>
