@@ -83,7 +83,7 @@ class Product extends Component {
                     <dl className={this.props.classes.options} key={item_id}>
                         {JSON.parse(options).map( option  => (
                             <Fragment key={`${item_id}_${option.label}`}>
-                                <dt className={classes.optionLabel}>{option.label}</dt>
+                                <dt className={classes.optionLabel}>{option.label}:&nbsp;</dt>
                                 <dd className={classes.optionValue}>{option.value}</dd>
                             </Fragment>
                         ))}
@@ -94,7 +94,7 @@ class Product extends Component {
 
     styleImage(image) {
         return {
-            height: imageHeight,
+            minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
             backgroundImage: `url(${makeProductMediaPath(image.file)})`
         };
