@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
 import Section from './section';
@@ -16,7 +16,7 @@ class Product extends Component {
         classes: shape({
             image: string,
             name: string,
-            optionName: string,
+            optionLabel: string,
             optionValue: string,
             options: string,
             price: string,
@@ -34,7 +34,32 @@ class Product extends Component {
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string.isRequired,
+        totalsItems: arrayOf(
+            shape({
+                base_discount_amount: number,
+                base_price: number,
+                base_price_incl_tax: number,
+                base_row_total: number,
+                base_row_total_incl_tax: number,
+                base_tax_amount: number,
+                discount_amount: number,
+                discount_percent: number,
+                item_id: number.isRequired,
+                name: string.isRequired,
+                options: string,
+                price: number.isRequired,
+                price_incl_tax: number,
+                qty: number.isRequired,
+                row_total: number.isRequired,
+                row_total_incl_tax: number,
+                row_total_with_discount: number,
+                tax_amount: number,
+                tax_percent: number,
+                weee_tax_applied: bool,
+                weee_tax_applied_amount: number
+            })
+        ).isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -47,10 +72,10 @@ class Product extends Component {
     }
 
     get options() {
-        const { classes, item, totals } = this.props;
+        const { classes, item, totalsItems } = this.props;
         const { item_id } = item;
-        const regex = /[\[\]']+/g; // remove [] from empty options so we can check for length
-        return totals.items
+        const regex = /[\[\]']+/g; // regex to to remove [] , use it to check if options are really empty
+        return totalsItems
             .filter(totalsItem => totalsItem.item_id === item_id)
             .map( totalsItem => {
                 const { options } = totalsItem;
