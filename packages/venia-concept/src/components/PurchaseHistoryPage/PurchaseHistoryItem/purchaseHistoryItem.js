@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { number, shape, string, date } from 'prop-types';
+import { number, oneOfType, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Icon from 'src/components/Icon';
@@ -22,10 +22,10 @@ class PurchaseHistoryItem extends Component {
             chevronContainer: string
         }),
         item: shape({
-            id: number,
-            imageSrc: string,
-            title: string,
-            date: date,
+            id: number.isRequired,
+            imageSrc: string.isRequired,
+            title: string.isRequired,
+            date: oneOfType([number, string]),
             url: string
         }).isRequired
     };

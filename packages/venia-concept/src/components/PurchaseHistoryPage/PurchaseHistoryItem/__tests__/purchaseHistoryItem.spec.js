@@ -20,7 +20,7 @@ const item = {
     id: 1,
     imageSrc: 'image.jpg',
     title: 'Lorem ipsum dolor sit amet',
-    date: new Date(2017, 2, 10),
+    date: Date.now(),
     url: '/'
 };
 
