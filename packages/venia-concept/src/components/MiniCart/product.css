@@ -55,13 +55,13 @@
     grid-area: options;
     grid-auto-rows: min-content;
     grid-gap: 0 0.5rem;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: minmax(6.25rem, max-content) 1fr; /* 100px */
     justify-items: start;
     line-height: 1.5;
     margin: 0;
 }
 
-.optionName {
+.optionLabel {
     color: rgb(var(--venia-text-alt));
     grid-column: 1 / span 1;
 }

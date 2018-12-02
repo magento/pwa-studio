@@ -81,6 +81,7 @@ class MiniCart extends Component {
                 showEditPanel={this.showEditPanel}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
+                totals={cart.totals}
             />
         ) : null;
     }

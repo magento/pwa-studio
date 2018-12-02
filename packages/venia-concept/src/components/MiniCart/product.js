@@ -47,18 +47,24 @@ class Product extends Component {
     }
 
     get options() {
-        const { classes, item } = this.props;
-
-        return item.options && item.options.length > 0 ? (
-            <dl className={this.props.classes.options}>
-                {item.options.map(({ name, value }) => (
-                    <Fragment key={name}>
-                        <dt className={classes.optionName}>{name}</dt>
-                        <dd className={classes.optionValue}>{value}</dd>
-                    </Fragment>
-                ))}
-            </dl>
-        ) : null;
+        const { classes, item, totals } = this.props;
+        const { item_id } = item;
+        const regex = /[\[\]']+/g; // remove [] from empty options so we can check for length
+        return totals.items
+            .filter(totalsItem => totalsItem.item_id === item_id)
+            .map( totalsItem => {
+                const { options } = totalsItem;
+                return options && options.replace(regex,'').length > 0 ? ( 
+                    <dl className={this.props.classes.options} key={item_id}>
+                        {JSON.parse(options).map( option  => (
+                            <Fragment key={`${item_id}_${option.label}`}>
+                                <dt className={classes.optionLabel}>{option.label}</dt>
+                                <dd className={classes.optionValue}>{option.value}</dd>
+                            </Fragment>
+                        ))}
+                    </dl>
+                ) : null;
+            })            
     }
 
     styleImage(image) {
