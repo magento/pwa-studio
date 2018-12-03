@@ -85,7 +85,7 @@ jobs:
           command: npm run danger
       - run: # https://github.com/nodejs/node-gyp/wiki/Updating-npm's-bundled-node-gyp
           name: install bundlesize and node-gyp
-          command: sudo npm explore npm -g -- npm install node-gyp@latest && npm i bundlesize --no-save
+          command: npm i iltorb --no-save
       - run:
           name: Bundle size analysis
           command: npx bundlesize
