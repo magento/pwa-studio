@@ -7,6 +7,9 @@ workflows:
           filters:
             branches:
               ignore: master
+           environment:
+            BUNDLESIZE_GITHUB_TOKEN: 128d7a84192912e81725dde65395994be29011f3
+
       - master:
           filters:
             branches:
@@ -17,8 +20,7 @@ workflows:
 common_settings:
   docker: &docker_setup
     - image: 'circleci/node:8.11.2'
-    environment:
-      BUNDLESIZE_GITHUB_TOKEN: 128d7a84192912e81725dde65395994be29011f3
+
   # Cache a bunch of stuff
   # - npm's local tarball cache
   save_cache: &savecache
