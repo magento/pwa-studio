@@ -18,8 +18,6 @@ import {
     submitOrder,
     submitShippingMethod
 } from '../asyncActions';
-import * as cartActions from 'src/actions/cart';
-import * as directoryActions from 'src/actions/directory';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 
 jest.mock('src/store');
@@ -152,10 +150,7 @@ describe('submitAddress', () => {
             1,
             actions.address.submit(payload)
         );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.address.accept()
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(2, actions.address.accept());
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
@@ -234,7 +229,10 @@ describe('submitPaymentMethod', () => {
 
         await submitPaymentMethod(payload)(...thunkArgs);
 
-        expect(mockSetItem).toHaveBeenCalledWith('paymentMethod', paymentMethod);
+        expect(mockSetItem).toHaveBeenCalledWith(
+            'paymentMethod',
+            paymentMethod
+        );
     });
 
     test('submitPaymentMethod thunk throws if there is no guest cart', async () => {
@@ -386,6 +384,35 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
     });
 
+    test('submitOrder thunk clears local storage on success', async () => {
+        const mockState = {
+            cart: {
+                details: {
+                    billing_address: address
+                },
+                guestCartId: 'GUEST_CART_ID'
+            },
+            directory: { countries }
+        };
+        getState.mockImplementationOnce(() => mockState);
+        getState.mockImplementationOnce(() => mockState);
+
+        // get address from storage.
+        mockGetItem.mockImplementationOnce(() => address);
+        // get payment method from storage.
+        mockGetItem.mockImplementationOnce(() => ({ code: 'checkmo' }));
+
+        const response = 1;
+        request.mockResolvedValueOnce(response);
+
+        await submitOrder()(...thunkArgs);
+
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'guestCartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
+        expect(mockRemoveItem).toHaveBeenCalledTimes(3);
+    });
+
     test('submitOrder thunk dispatches actions on failure', async () => {
         // get address from storage.
         mockGetItem.mockImplementationOnce(() => address);
@@ -410,9 +437,9 @@ describe('submitOrder', () => {
             cart: {}
         }));
 
-        await expect(
-            submitOrder()(...thunkArgs)
-        ).rejects.toThrow('guestCartId');
+        await expect(submitOrder()(...thunkArgs)).rejects.toThrow(
+            'guestCartId'
+        );
     });
 });
 

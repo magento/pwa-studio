@@ -35,7 +35,8 @@ class PaymentsForm extends Component {
         const selectablePaymentMethods = availablePaymentMethods.map(
             ({ code, title }) => ({ label: title, value: code })
         );
-        const initialValue = paymentMethod || availablePaymentMethods[0].code || '';
+        const initialValue =
+            paymentMethod || availablePaymentMethods[0].code || '';
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
@@ -72,12 +73,14 @@ class PaymentsForm extends Component {
         );
 
         if (!selectedPaymentMethod) {
-            console.warn(`Could not find the selected payment method ${selectedPaymentMethod} in the list of available payment methods.`);
+            console.warn(
+                `Could not find the selected payment method ${selectedPaymentMethod} in the list of available payment methods.`
+            );
             this.cancel();
             return;
         }
 
-        this.props.submit({ paymentMethod: selectedPaymentMethod });        
+        this.props.submit({ paymentMethod: selectedPaymentMethod });
     };
 }
 

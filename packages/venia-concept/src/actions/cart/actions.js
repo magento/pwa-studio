@@ -22,7 +22,7 @@ const actionMap = {
     REMOVE_ITEM: {
         REQUEST: null,
         RECEIVE: null
-    },
+    }
 };
 
 export default createActions(actionMap, { prefix });

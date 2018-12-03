@@ -685,9 +685,9 @@ describe('getShippingMethods', () => {
         // Mock the estimate-shipping-methods response.
         const MOCK_RESPONSE = [];
         request.mockResolvedValueOnce(MOCK_RESPONSE);
-    
+
         await getShippingMethods()(...thunkArgs);
-    
+
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.getShippingMethods.request('GUEST_CART_ID')
@@ -696,7 +696,7 @@ describe('getShippingMethods', () => {
             2,
             actions.getShippingMethods.receive(MOCK_RESPONSE)
         );
-        expect(dispatch).toHaveBeenCalledTimes(2); 
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
     test('getShippingMethods thunk dispatches actions on failure', async () => {
@@ -714,7 +714,7 @@ describe('getShippingMethods', () => {
             2,
             actions.getShippingMethods.receive(error)
         );
-        expect(dispatch).toHaveBeenCalledTimes(2); 
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 

@@ -22,28 +22,21 @@ const storage = new BrowserPersistence();
 const isAddressValid = address => !!(address && address.email);
 const isCartReady = cart => cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
-    const pm = isPaymentMethodReady();
-    const si = isShippingInfoReady();
-    const sm = isShippingMethodReady(checkout);
-
-    return pm && si && sm;
-}
-// const isCheckoutReady = (checkout) => 
-//     isPaymentMethodReady() &&
-//     isShippingInfoReady() &&
-//     isShippingMethodReady(checkout);
+    return (
+        isPaymentMethodReady() &&
+        isShippingInfoReady() &&
+        isShippingMethodReady(checkout)
+    );
+};
 const isPaymentMethodReady = () => {
     const paymentMethod = storage.getItem('paymentMethod');
     return !!paymentMethod;
-}
+};
 const isShippingInfoReady = () => {
     const address = storage.getItem('address');
     return isAddressValid(address);
-}
-// const isShippingMethodReady = checkout => !!checkout.shippingMethod;
-const isShippingMethodReady = checkout => {
-    return !!checkout.shippingMethod;
-}
+};
+const isShippingMethodReady = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -137,10 +130,7 @@ class CheckoutWrapper extends Component {
     }
 }
 
-// const mapStateToProps = ({ cart, checkout }) => ({ cart, checkout });
-const mapStateToProps = ({ cart, checkout }) => {
-    return { cart, checkout };
-}
+const mapStateToProps = ({ cart, checkout }) => ({ cart, checkout });
 
 const mapDispatchToProps = {
     beginCheckout,

@@ -39,7 +39,7 @@ export const submitAddress = payload =>
         dispatch(actions.address.submit(payload));
 
         const { cart, directory } = getState();
-        
+
         const { guestCartId } = cart;
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
@@ -96,8 +96,10 @@ export const submitShippingMethod = payload =>
                         addressInformation: {
                             billing_address: address,
                             shipping_address: address,
-                            shipping_carrier_code: desiredShippingMethod.carrier_code,
-                            shipping_method_code: desiredShippingMethod.method_code
+                            shipping_carrier_code:
+                                desiredShippingMethod.carrier_code,
+                            shipping_method_code:
+                                desiredShippingMethod.method_code
                         }
                     })
                 }
@@ -225,5 +227,3 @@ async function retrievePaymentMethod() {
 async function savePaymentMethod(method) {
     return storage.setItem('paymentMethod', method);
 }
-
-

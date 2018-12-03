@@ -292,7 +292,7 @@ export const getShippingMethods = () => {
                     method: 'POST',
                     body: JSON.stringify({
                         address: {
-                            country_id: "US",
+                            country_id: 'US',
                             postcode: null
                         }
                     })
