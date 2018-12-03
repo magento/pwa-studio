@@ -85,7 +85,7 @@ jobs:
           command: npm run danger
       - run:
           name: Bundle size analysis
-          command: npm run bundlesize >> $BASH_ENV
+          command: npm run bundlesize
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
