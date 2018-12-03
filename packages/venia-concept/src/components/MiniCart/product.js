@@ -77,19 +77,23 @@ class Product extends Component {
         const regex = /[\[\]']+/g; // regex to to remove [] , use it to check if options are really empty
         return totalsItems
             .filter(totalsItem => totalsItem.item_id === item_id)
-            .map( totalsItem => {
+            .map(totalsItem => {
                 const { options } = totalsItem;
-                return options && options.replace(regex,'').length > 0 ? ( 
+                return options && options.replace(regex, '').length > 0 ? (
                     <dl className={this.props.classes.options} key={item_id}>
-                        {JSON.parse(options).map( option  => (
+                        {JSON.parse(options).map(option => (
                             <Fragment key={`${item_id}_${option.label}`}>
-                                <dt className={classes.optionLabel}>{option.label}:&nbsp;</dt>
-                                <dd className={classes.optionValue}>{option.value}</dd>
+                                <dt className={classes.optionLabel}>
+                                    {option.label}:&nbsp;
+                                </dt>
+                                <dd className={classes.optionValue}>
+                                    {option.value}
+                                </dd>
                             </Fragment>
                         ))}
                     </dl>
                 ) : null;
-            })            
+            });
     }
 
     styleImage(image) {
