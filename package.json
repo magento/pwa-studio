@@ -33,8 +33,15 @@
     "watch:all": "node scripts/watch-all.js",
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
+    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
+    "bundlesize": "bundlesize"
   },
+  "bundlesize": [
+    {
+      "path": "./packages/venia-concept/dist/js/*.js",
+      "maxSize": "4 kB"
+    }
+  ],
   "devDependencies": {
     "@magento/directive-parser": "^0.1.1",
     "@magento/eslint-config": "^1.2.3",
@@ -64,6 +71,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
+    "bundlesize": "^0.17.0",
     "chalk": "^2.4.1",
     "chokidar": "^2.0.4",
     "contains-path": "^1.0.0",
