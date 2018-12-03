@@ -58,7 +58,7 @@
     grid-template-columns: min-content 1fr;
     justify-items: start;
     line-height: 1.5;
-    margin-top: .25rem;
+    margin-top: 0.25rem;
     max-height: 54px;
     overflow-y: auto;
 }

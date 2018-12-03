@@ -56,7 +56,9 @@ class Product extends Component {
             <dl className={this.props.classes.options}>
                 {options.map(({ label, value }) => (
                     <Fragment key={`${name}${value}`}>
-                        <dt className={classes.optionName}>{label} : {value}</dt>
+                        <dt className={classes.optionName}>
+                            {label} : {value}
+                        </dt>
                     </Fragment>
                 ))}
             </dl>
@@ -65,9 +67,7 @@ class Product extends Component {
 
     get modal() {
         const { classes } = this.props;
-        return this.state.isOpen ? (
-            <div className={classes.modal} />
-        ) : null
+        return this.state.isOpen ? <div className={classes.modal} /> : null;
     }
 
     styleImage(image) {
@@ -105,7 +105,10 @@ class Product extends Component {
                         </select>
                         <span className={classes.quantityOperator}>{'×'}</span>
                         <span className={classes.price}>
-                            <Price currencyCode={currencyCode} value={item.price} />
+                            <Price
+                                currencyCode={currencyCode}
+                                value={item.price}
+                            />
                         </span>
                     </div>
                 </div>
