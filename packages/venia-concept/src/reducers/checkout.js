@@ -8,13 +8,14 @@ const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
 const storedPaymentMethod = storage.getItem('paymentMethod');
+const storedShippingMethod = storage.getItem('shippingMethod');
 
 const initialState = {
     editing: null,
     paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
     paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
-    shippingMethod: null,
-    shippingTitle: null,
+    shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
+    shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     status: 'READY',
     step: 'cart',
     submitting: false
@@ -83,7 +84,6 @@ const reducerMap = {
         };
     },
     [actions.shippingMethod.accept]: (state, { payload }) => {
-        console.log('accepted a shipping method', payload);
         return {
             ...state,
             editing: null,

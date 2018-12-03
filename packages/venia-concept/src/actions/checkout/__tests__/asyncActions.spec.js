@@ -298,6 +298,23 @@ describe('submitShippingMethod', () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
     });
 
+    test('submitShippingMethod saves shipping method to local storage on success', async () => {
+        const payload = {
+            type: 'shippingMethod',
+            formValues: { shippingMethod }
+        };
+        const response = true;
+
+        request.mockResolvedValueOnce(response);
+        await submitShippingMethod(payload)(...thunkArgs);
+
+        expect(mockSetItem).toHaveBeenCalledWith(
+            'shippingMethod',
+            shippingMethod
+        );
+        expect(mockSetItem).toHaveBeenCalledTimes(1);
+    });
+
     test('submitShippingMethod thunk dispatches actions on failure', async () => {
         const payload = {
             type: 'shippingMethod',
@@ -410,7 +427,8 @@ describe('submitOrder', () => {
         expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'guestCartId');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
-        expect(mockRemoveItem).toHaveBeenCalledTimes(3);
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shippingMethod');
+        expect(mockRemoveItem).toHaveBeenCalledTimes(4);
     });
 
     test('submitOrder thunk dispatches actions on failure', async () => {

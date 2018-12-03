@@ -109,6 +109,8 @@ export const submitShippingMethod = payload =>
             // to avoid flash of old data and layout thrashing
             await dispatch(getCartDetails({ forceRefresh: true }));
 
+            await saveShippingMethod(desiredShippingMethod);
+
             dispatch(actions.shippingMethod.accept(desiredShippingMethod));
         } catch (error) {
             dispatch(actions.shippingMethod.reject(error));
@@ -150,10 +152,13 @@ export const submitOrder = () =>
                 )
             );
 
-            dispatch(actions.order.accept(response));
+            // Clear out everything we've saved about this cart from local storage.
             await clearGuestCartId();
             await clearAddress();
             await clearPaymentMethod();
+            await clearShippingMethod();
+
+            dispatch(actions.order.accept(response));
         } catch (error) {
             dispatch(actions.order.reject(error));
         }
@@ -226,4 +231,12 @@ async function retrievePaymentMethod() {
 
 async function savePaymentMethod(method) {
     return storage.setItem('paymentMethod', method);
+}
+
+async function clearShippingMethod() {
+    return storage.removeItem('shippingMethod');
+}
+
+async function saveShippingMethod(method) {
+    return storage.setItem('shippingMethod', method);
 }
