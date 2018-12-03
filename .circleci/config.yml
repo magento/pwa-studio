@@ -93,6 +93,9 @@ jobs:
           name: check gcc
           command: gcc --version
       - run:
+          name: check make
+          command: make -v
+      - run:
           name: Bundle size analysis
           command: npm run bundlesize
 
