@@ -93,5 +93,3 @@ jobs:
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
-
-
