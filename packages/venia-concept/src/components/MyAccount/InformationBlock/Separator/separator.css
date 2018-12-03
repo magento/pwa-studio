@@ -1,0 +1,9 @@
+.root {
+    display: inline-block;
+    margin: 0 0.5rem;
+    color: black;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+    text-align: center;
+}

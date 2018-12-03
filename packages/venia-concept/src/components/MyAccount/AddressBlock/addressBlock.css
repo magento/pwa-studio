@@ -1,0 +1,11 @@
+.telephoneLink {
+    color: rgb(var(--venia-teal));
+}
+
+.title {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.625rem;
+}

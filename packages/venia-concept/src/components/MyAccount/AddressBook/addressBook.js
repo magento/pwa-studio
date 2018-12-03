@@ -1,22 +1,28 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
-import classify from 'src/classify';
 import AddressBlock from '../AddressBlock';
+import Section from '../Section';
+import ActionButton from '../ActionButton';
+import { ADDRESS_PROP_TYPES } from '../constants';
 
 class AddressBook extends Component {
     static propTypes = {
-        addresses: PropTypes.arrayOf(PropTypes.shape({}))
+        addresses: PropTypes.arrayOf(
+            PropTypes.shape({
+                title: PropTypes.string,
+                address: PropTypes.shape(ADDRESS_PROP_TYPES)
+            })
+        )
     };
 
     render() {
         const { addresses } = this.props;
         return (
-            <section>
-                <div>
-                    <h2>Address Book</h2>
-                    <button>Manage Addresses</button>
-                </div>
+            <Section
+                title="Addresses"
+                rightTitle={<ActionButton>Manage</ActionButton>}
+            >
                 <List
                     items={addresses}
                     getItemKey={({ title }) => title}
@@ -25,9 +31,9 @@ class AddressBook extends Component {
                         <AddressBlock title={title} address={address} />
                     )}
                 />
-            </section>
+            </Section>
         );
     }
 }
 
-export default classify()(AddressBook);
+export default AddressBook;

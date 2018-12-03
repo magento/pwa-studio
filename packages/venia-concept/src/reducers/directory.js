@@ -4,9 +4,7 @@ import actions from 'src/actions/directory';
 
 export const name = 'directory';
 
-const initialState = {
-    countries: []
-};
+const initialState = {};
 
 const reducerMap = {
     [actions.getCountries]: (state, { payload, error }) => {

@@ -107,7 +107,6 @@ test('signIn thunk makes request to get customer details after sign in', async (
     const secondRequest = request.mock.calls[1];
 
     expect(secondRequest[0]).toBe('/rest/V1/customers/me');
-    expect(secondRequest[1]).toHaveProperty('method', 'GET');
 });
 
 test('getUserDetails thunk makes request to get customer details if user is signed in', async () => {
@@ -128,7 +127,6 @@ test('getUserDetails thunk makes request to get customer details if user is sign
     const firstRequest = request.mock.calls[0];
 
     expect(firstRequest[0]).toBe('/rest/V1/customers/me');
-    expect(firstRequest[1]).toHaveProperty('method', 'GET');
 });
 
 test('createAccount thunk dispatches resetCreateAccountError', async () => {

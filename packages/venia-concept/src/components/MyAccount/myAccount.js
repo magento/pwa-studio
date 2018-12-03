@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import AccountInformation from './AccountInformation';
+import ContactInformation from './ContactInformation';
 import AddressBook from './AddressBook';
+import Newsletter from './Newsletter';
+import defaultClasses from './myAccount.css';
 
 class MyAccount extends Component {
     static propTypes = {
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            title: PropTypes.string
+        }),
         customer: PropTypes.shape({}),
         addresses: PropTypes.arrayOf(PropTypes.shape({}))
     };
 
     render() {
-        const { user, addresses } = this.props;
+        const { user, addresses, classes } = this.props;
 
         return (
-            <section>
-                <h1>My Account</h1>
-                <AccountInformation user={user} />
+            <section className={classes.root}>
+                <h1 className={classes.title}>My Account</h1>
+                <ContactInformation user={user} />
                 <AddressBook addresses={addresses} />
+                <Newsletter user={user} />
             </section>
         );
     }
 }
 
-export default classify()(MyAccount);
+export default classify(defaultClasses)(MyAccount);

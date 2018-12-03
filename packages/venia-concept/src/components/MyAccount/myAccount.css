@@ -1,0 +1,10 @@
+.root {
+    padding: 1.5rem;
+}
+
+.title {
+    line-height: 1.875rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}

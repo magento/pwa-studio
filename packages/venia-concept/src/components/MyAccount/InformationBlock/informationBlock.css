@@ -1,0 +1,8 @@
+.root:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.actions {
+    display: inline-block;
+    margin-top: 0.75rem;
+}

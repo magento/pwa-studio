@@ -6,6 +6,7 @@ const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 
 import actions from './actions';
+import { fetchUserDetails } from './api';
 
 export const signIn = credentials =>
     async function thunk(...args) {
@@ -31,9 +32,7 @@ export const signIn = credentials =>
 
             setToken(response);
 
-            const userDetails = await request('/rest/V1/customers/me', {
-                method: 'GET'
-            });
+            const userDetails = await fetchUserDetails();
 
             dispatch(actions.signIn.receive(userDetails));
         } catch (error) {
@@ -46,9 +45,7 @@ export const getUserDetails = () =>
         const [dispatch, getState] = args;
         const { user } = getState();
         if (user.isSignedIn) {
-            const userDetails = await request('/rest/V1/customers/me', {
-                method: 'GET'
-            });
+            const userDetails = await fetchUserDetails();
 
             dispatch(actions.signIn.receive(userDetails));
         }
