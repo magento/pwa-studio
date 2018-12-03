@@ -84,6 +84,9 @@ jobs:
           name: DangerCI
           command: npm run danger
       - run:
+          name: check node-gyp
+          command: npx node-gyp -h
+      - run:
           name: Bundle size analysis
           command: npm run bundlesize
 
