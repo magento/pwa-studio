@@ -52,10 +52,6 @@
 .options {
     font-size: 13px;
     grid-area: options;
-    grid-auto-rows: min-content;
-    grid-gap: 0 0.5rem;
-    grid-template-columns: minmax(6.25rem, max-content) 1fr; /* 100px */
-    justify-items: start;
     line-height: 1.5;
     margin: 0;
 }
@@ -70,6 +66,7 @@
     display: flex;
     grid-column: 2 / span 1;
     font-size: 13px;
+    align-self: end;
 }
 
 .quantityOperator {
@@ -99,7 +96,4 @@
     background-color: rgb(var(--venia-teal));
     opacity: 0.1;
     z-index: 2;
-}
-
-.subMenu {
 }
