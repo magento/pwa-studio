@@ -627,8 +627,8 @@ test('getCartDetails thunk merges cached item images into details', async () => 
     ];
     const expected = [
         items[0],
-        { ...items[1], image: cache.SKU_1 },
-        { ...items[2], image: {} }
+        { ...items[1], image: cache.SKU_1, options: [] },
+        { ...items[2], image: {}, options: [] }
     ];
 
     mockGetItem.mockResolvedValueOnce(cache);

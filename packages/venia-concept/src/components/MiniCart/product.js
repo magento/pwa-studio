@@ -22,12 +22,14 @@ class Product extends Component {
             price: string,
             quantity: string,
             quantityOperator: string,
+            quantityRow: string,
             quantitySelect: string,
             root: string
         }),
         item: shape({
             item_id: number.isRequired,
             name: string.isRequired,
+            options: string,
             price: number.isRequired,
             product_type: string,
             qty: number.isRequired,
@@ -48,17 +50,24 @@ class Product extends Component {
 
     get options() {
         const { classes, item } = this.props;
+        const options = item.options ? JSON.parse(item.options) : [];
 
-        return item.options && item.options.length > 0 ? (
+        return options && options.length > 0 ? (
             <dl className={this.props.classes.options}>
-                {item.options.map(({ name, value }) => (
-                    <Fragment key={name}>
-                        <dt className={classes.optionName}>{name}</dt>
-                        <dd className={classes.optionValue}>{value}</dd>
+                {options.map(({ label, value }) => (
+                    <Fragment key={`${name}${value}`}>
+                        <dt className={classes.optionName}>{label} : {value}</dt>
                     </Fragment>
                 ))}
             </dl>
         ) : null;
+    }
+
+    get modal() {
+        const { classes } = this.props;
+        return this.state.isOpen ? (
+            <div className={classes.modal} />
+        ) : null
     }
 
     styleImage(image) {
@@ -70,7 +79,7 @@ class Product extends Component {
     }
 
     render() {
-        const { options, props } = this;
+        const { options, props, modal } = this;
         const { classes, item, currencyCode } = props;
         const rootClasses = this.state.isOpen
             ? classes.root + ' ' + classes.root_masked
@@ -86,19 +95,21 @@ class Product extends Component {
                 <div className={classes.name}>{item.name}</div>
                 {options}
                 <div className={classes.quantity}>
-                    <select
-                        className={classes.quantitySelect}
-                        value={item.qty}
-                        readOnly
-                    >
-                        <option value={item.qty}>{item.qty}</option>
-                    </select>
-                    <span className={classes.quantityOperator}>{'×'}</span>
-                    <span className={classes.price}>
-                        <Price currencyCode={currencyCode} value={item.price} />
-                    </span>
+                    <div className={classes.quantityRow}>
+                        <select
+                            className={classes.quantitySelect}
+                            value={item.qty}
+                            readOnly
+                        >
+                            <option value={item.qty}>{item.qty}</option>
+                        </select>
+                        <span className={classes.quantityOperator}>{'×'}</span>
+                        <span className={classes.price}>
+                            <Price currencyCode={currencyCode} value={item.price} />
+                        </span>
+                    </div>
                 </div>
-                <div className={this.state.isOpen ? classes.modal : ''} />
+                {modal}
                 <Kebab
                     onFocus={this.openDropdown}
                     onBlur={this.closeDropdown}
