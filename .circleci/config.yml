@@ -60,6 +60,8 @@ jobs:
       - store_artifacts: *test_result_path
   build:
     docker: *docker_setup
+    environment:
+      BUNDLESIZE_GITHUB_TOKEN: 128d7a84192912e81725dde65395994be29011f3
     steps:
       - checkout
       - restore_cache:
@@ -83,14 +85,7 @@ jobs:
           command: npm run danger
       - run:
           name: Bundle size analysis
-          command: npm run bundlesize
-
-      - run:
-          name: Bundle size analysis
-          command: npm run bundlesize
-          environment:
-            BUNDLESIZE_GITHUB_TOKEN: 128d7a84192912e81725dde65395994be29011f3
-            TEMP: temp
+          command: npm run bundlesize >> $BASH_ENV
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
