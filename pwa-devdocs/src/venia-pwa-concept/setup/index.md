@@ -63,12 +63,12 @@ MAGENTO_BACKEND_URL="https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.
 
 The Venia storefront runs on top of any Magento 2.3 instance. 
 
-The currently recommended Magento version to use with PWA Studio is **2.3.0-beta32** which can be installed using composer. 
+The currently recommended Magento version to use with PWA Studio is **2.3.0** which can be installed using composer. 
 
 **Example:**
 
 ```sh
-composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.3.0-beta32 [destination directory]
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.3.0 [destination directory]
 ```
 
 Use the default cloud instance as the backend or set up your own [local development instance][].
