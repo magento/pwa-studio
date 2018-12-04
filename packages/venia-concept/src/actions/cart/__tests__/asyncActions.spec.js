@@ -297,54 +297,46 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
 
     await addItemToCart(payload)(...thunkArgs);
 
-    expect(dispatch.mock.calls).toMatchInlineSnapshot(`
-Array [
-  Array [
-    Object {
-      "payload": Object {
-        "item": "ITEM",
-        "quantity": 1,
-      },
-      "type": "CART/ADD_ITEM/REQUEST",
-    },
-  ],
-  Array [
-    Object {
-      "error": true,
-      "payload": [Error: ERROR],
-      "type": "CART/ADD_ITEM/RECEIVE",
-    },
-  ],
-  Array [
-    [Function],
-  ],
-  Array [
-    Object {
-      "payload": Object {
-        "item": "ITEM",
-        "quantity": 1,
-      },
-      "type": "CART/ADD_ITEM/REQUEST",
-    },
-  ],
-  Array [
-    Object {
-      "payload": Object {
-        "cartItem": undefined,
-        "item": "ITEM",
-        "quantity": 1,
-      },
-      "type": "CART/ADD_ITEM/RECEIVE",
-    },
-  ],
-  Array [
-    [Function],
-  ],
-  Array [
-    [Function],
-  ],
-]
-`);
+    expect(dispatch.mock.calls).toMatchObject([
+        [
+            {
+                payload: {
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/ADD_ITEM/REQUEST'
+            }
+        ],
+        [
+            {
+                error: true,
+                payload: expect.any(Error),
+                type: 'CART/ADD_ITEM/RECEIVE'
+            }
+        ],
+        [expect.any(Function)],
+        [
+            {
+                payload: {
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/ADD_ITEM/REQUEST'
+            }
+        ],
+        [
+            {
+                payload: {
+                    cartItem: undefined,
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/ADD_ITEM/RECEIVE'
+            }
+        ],
+        [expect.any(Function)],
+        [expect.any(Function)]
+    ]);
 });
 
 test('addItemToCart opens drawer and gets cart details on success', async () => {
