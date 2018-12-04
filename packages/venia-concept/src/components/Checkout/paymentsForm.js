@@ -11,8 +11,8 @@ import defaultClasses from './paymentsForm.css';
 
 class PaymentsForm extends Component {
     static propTypes = {
-        availablePaymentMethods: array,
-        cancel: func,
+        availablePaymentMethods: array.isRequired,
+        cancel: func.isRequired,
         classes: shape({
             body: string,
             footer: string,
@@ -20,8 +20,12 @@ class PaymentsForm extends Component {
             paymentMethod: string
         }),
         paymentMethod: string,
-        submit: func,
+        submit: func.isRequired,
         submitting: bool
+    };
+
+    static defaultProps = {
+        availablePaymentMethods: [{}]
     };
 
     render() {

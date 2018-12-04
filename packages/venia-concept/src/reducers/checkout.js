@@ -16,7 +16,6 @@ const initialState = {
     paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
-    status: 'READY',
     step: 'cart',
     submitting: false
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bool, func, object, oneOf, shape, string } from 'prop-types';
+import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import { Util } from '@magento/peregrine';
 import { getShippingMethods } from 'src/actions/cart';
@@ -44,6 +44,8 @@ class CheckoutWrapper extends Component {
         cart: shape({
             details: object,
             guestCartId: string,
+            paymentMethods: array,
+            shippingMethods: array,
             totals: object
         }),
         checkout: shape({
@@ -52,7 +54,6 @@ class CheckoutWrapper extends Component {
             paymentTitle: string,
             shippingMethod: string,
             shippingTitle: string,
-            status: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool.isRequired
         }),
@@ -105,8 +106,7 @@ class CheckoutWrapper extends Component {
             paymentMethod,
             paymentTitle,
             shippingMethod,
-            shippingTitle,
-            status
+            shippingTitle
         } = checkout;
 
         const miscProps = {
@@ -120,8 +120,7 @@ class CheckoutWrapper extends Component {
             paymentMethod,
             paymentTitle,
             shippingMethod,
-            shippingTitle,
-            status
+            shippingTitle
         };
 
         const flowProps = { actions, cart, checkout, ...miscProps };

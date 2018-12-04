@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Text } from 'informed';
 import memoize from 'memoize-one';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
@@ -28,7 +28,7 @@ const filterInitialValues = memoize(values =>
 
 class AddressForm extends Component {
     static propTypes = {
-        cancel: func,
+        cancel: func.isRequired,
         classes: shape({
             body: string,
             city: string,
@@ -41,13 +41,13 @@ class AddressForm extends Component {
             street0: string,
             telephone: string
         }),
-        submit: func
+        submit: func.isRequired,
+        submitting: bool
     };
 
     render() {
         const { children, props } = this;
         const { classes, initialValues } = props;
-        console.log('the initial values are', initialValues);
         const values = filterInitialValues(initialValues);
 
         return (

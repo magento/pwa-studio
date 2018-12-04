@@ -11,8 +11,8 @@ import defaultClasses from './shippingForm.css';
 
 class ShippingForm extends Component {
     static propTypes = {
-        availableShippingMethods: array,
-        cancel: func,
+        availableShippingMethods: array.isRequired,
+        cancel: func.isRequired,
         classes: shape({
             body: string,
             footer: string,
@@ -20,8 +20,12 @@ class ShippingForm extends Component {
             shippingMethod: string
         }),
         shippingMethod: string,
-        submit: func,
+        submit: func.isRequired,
         submitting: bool
+    };
+
+    static defaultProps = {
+        availableShippingMethods: [{}]
     };
 
     render() {
@@ -67,14 +71,18 @@ class ShippingForm extends Component {
         this.props.cancel();
     };
 
-    modifyShippingMethod = shippingMethod => {
-        this.setState({ shippingMethod });
-    };
-
     submit = ({ shippingMethod }) => {
         const selectedShippingMethod = this.props.availableShippingMethods.find(
             ({ code }) => code === shippingMethod
         );
+
+        if (!selectedShippingMethod) {
+            console.warn(
+                `Could not find the selected shipping method ${selectedShippingMethod} in the list of available shipping methods.`
+            );
+            this.cancel();
+            return;
+        }
 
         this.props.submit({ shippingMethod: selectedShippingMethod });
     };

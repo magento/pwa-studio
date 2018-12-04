@@ -48,14 +48,6 @@ class Form extends Component {
         submitting: bool.isRequired
     };
 
-    constructor(...args) {
-        super(...args);
-        this.state = {
-            updatePayment: false,
-            updateShipping: false
-        };
-    }
-
     /*
      *  Class Properties.
      */

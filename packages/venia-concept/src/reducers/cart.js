@@ -8,6 +8,7 @@ export const name = 'cart';
 const initialState = {
     details: {},
     guestCartId: null,
+    shippingMethods: [],
     totals: {}
 };
 

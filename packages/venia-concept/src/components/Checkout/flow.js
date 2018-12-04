@@ -48,8 +48,7 @@ class Flow extends Component {
         paymentMethod: string,
         paymentTitle: string,
         shippingMethod: string,
-        shippingTitle: string,
-        status: string
+        shippingTitle: string
     };
 
     get child() {
@@ -67,8 +66,7 @@ class Flow extends Component {
             paymentMethod,
             paymentTitle,
             shippingMethod,
-            shippingTitle,
-            status
+            shippingTitle
         } = this.props;
 
         const {
@@ -109,7 +107,6 @@ class Flow extends Component {
                     paymentTitle,
                     shippingMethod,
                     shippingTitle,
-                    status,
                     submitAddress,
                     submitOrder,
                     submitPaymentMethod,
