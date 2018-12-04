@@ -6,7 +6,7 @@ import Button from 'src/components/Button';
 import defaultClasses from './createAccount.css';
 import classify from 'src/classify';
 import { Form } from 'informed';
-import { debounce } from 'underscore';
+import debounce from 'lodash.debounce';
 import { RestApi } from '@magento/peregrine';
 import ErrorDisplay from 'src/components/ErrorDisplay';
 import Checkbox from 'src/components/Checkbox';

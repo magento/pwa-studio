@@ -69,6 +69,7 @@
     "identity-obj-proxy": "~3.0.0",
     "informed": "~1.10.8",
     "jest": "~23.6.0",
+    "lodash.debounce": "~4.0.8",
     "memoize-one": "~4.0.3",
     "node-fetch": "~2.2.1",
     "prop-types": "~15.6.2",
@@ -81,7 +82,6 @@
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
     "terser-webpack-plugin": "~1.1.0",
-    "underscore": "~1.9.1",
     "webpack": "~4.25.1",
     "webpack-babel-env-deps": "~1.4.3",
     "webpack-cli": "~3.1.2"
