@@ -35,14 +35,13 @@ class Leaf extends Component {
     };
 
     render() {
-        const { children, classes, nodeId, nodes } = this.props;
-        const node = nodes[nodeId];
-        const text = children ? children({ node }) : node.name;
+        const { classes, name, urlPath } = this.props;
+        const text = name;
 
         return (
             <Link
                 className={classes.root}
-                to={`/${node.urlPath}${urlSuffix}`}
+                to={`/${urlPath}${urlSuffix}`}
                 onClick={this.handleClick}
             >
                 <span className={classes.text}>{text}</span>

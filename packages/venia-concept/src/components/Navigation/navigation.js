@@ -6,7 +6,7 @@ import Button from 'src/components/Button';
 import CreateAccount from 'src/components/CreateAccount';
 import Icon from 'src/components/Icon';
 import SignIn from 'src/components/SignIn';
-import CategoryMenu from './categoryMenu';
+import CategoryTree from './categoryTree';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 
@@ -66,13 +66,14 @@ class Navigation extends PureComponent {
     get categoryTree() {
         const { props, setParentId, setRootNodeId, state } = this;
         const { rootNodeId } = state;
-        const { closeDrawer } = props;
+        const { closeDrawer, categories } = props;
 
         return rootNodeId ? (
-            <CategoryMenu
-                id={props.rootCategoryId}
+            <CategoryTree
+                rootNodeId={props.rootCategoryId}
+                nodes={categories}
                 currentId={rootNodeId}
-                setRootNodeId={setRootNodeId}
+                updateRootNodeId={setRootNodeId}
                 onNavigate={closeDrawer}
                 setParentId={setParentId}
             />

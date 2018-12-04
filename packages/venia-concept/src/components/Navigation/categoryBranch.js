@@ -30,9 +30,9 @@ class Branch extends Component {
     };
 
     render() {
-        const { children, classes, nodeId, nodes } = this.props;
-        const node = nodes[nodeId];
-        const text = children ? children({ node }) : node.name;
+        const { classes, name } = this.props;
+        //const node = nodes[nodeId];
+        const text = name;
 
         return (
             <button className={classes.root} onClick={this.handleClick}>

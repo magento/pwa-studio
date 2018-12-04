@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
+import { Query } from 'react-apollo';
+import navigationMenu from '../../queries/getNavigationMenu.graphql';
 
 import classify from 'src/classify';
 import Branch from './categoryBranch';
@@ -26,40 +28,51 @@ class Tree extends Component {
 
     get leaves() {
         const { nodes, onNavigate, rootNodeId, updateRootNodeId } = this.props;
-        const { childrenData: childNodeIds } = nodes[rootNodeId];
 
-        const leaves = childNodeIds.reduce((elements, id) => {
-            const childNode = nodes[id];
-            const { childrenData, position } = childNode;
-            const isLeaf = !childrenData.length;
-            const elementProps = { nodeId: id, nodes };
+        return rootNodeId ? (
+            <Query query={navigationMenu} variables={{ id: rootNodeId }}>
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return null;
+                    //const { childrenData: childNodeIds } = nodes[rootNodeId];
+                    //const childNodeIds = data.category.children.map(({ id }) => id);
+                    //console.log(childNodeIds);
+                    //console.log(childNodeIds);
+                    const children = data.category.children.sort((a, b) => {
+                        if (a.position > b.position) return 1;
+                        else return -1;
+                    });
+                    const leaves = children.map(node => {
+                        const { children_count, position } = node;
+                        const isLeaf = children_count == 0;
+                        const elementProps = { nodeId: node.id, name: node.name, urlPath: node.url_path };
+                        console.log(node.url_path);
+                        const element = isLeaf ? (
+                            <Leaf {...elementProps} onNavigate={onNavigate} />
+                        ) : (
+                            <Branch {...elementProps} onDive={updateRootNodeId} />
+                        );
 
-            const element = isLeaf ? (
-                <Leaf {...elementProps} onNavigate={onNavigate} />
-            ) : (
-                <Branch {...elementProps} onDive={updateRootNodeId} />
-            );
+                        return <li key={node.id}>{element}</li>;
+                    });
 
-            elements[position - 1] = <li key={id}>{element}</li>;
-
-            return elements;
-        }, []);
-
-        if (nodes[rootNodeId].urlPath) {
-            leaves.push(
-                <li key={rootNodeId}>
-                    <Leaf
-                        nodeId={rootNodeId}
-                        nodes={nodes}
-                        onNavigate={onNavigate}
-                    >
-                        {({ node }) => `All ${node.name}`}
-                    </Leaf>
-                </li>
-            );
-        }
-
-        return leaves;
+                    if (nodes[rootNodeId].urlPath) {
+                        leaves.push(
+                            <li key={rootNodeId}>
+                                <Leaf
+                                    nodeId={rootNodeId}
+                                    nodes={nodes}
+                                    onNavigate={onNavigate}
+                                >
+                                    {({ node }) => `All ${node.name}`}
+                                </Leaf>
+                            </li>
+                        );
+                    }
+                    return leaves;
+                }}
+            </Query>
+        ) : null;
     }
 
     render() {
