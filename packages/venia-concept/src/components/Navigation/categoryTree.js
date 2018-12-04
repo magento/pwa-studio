@@ -43,14 +43,21 @@ class Tree extends Component {
                         else return -1;
                     });
                     const leaves = children.map(node => {
-                        const { children_count, position } = node;
+                        const { children_count } = node;
                         const isLeaf = children_count == 0;
-                        const elementProps = { nodeId: node.id, name: node.name, urlPath: node.url_path };
+                        const elementProps = {
+                            nodeId: node.id,
+                            name: node.name,
+                            urlPath: node.url_path
+                        };
                         console.log(node.url_path);
                         const element = isLeaf ? (
                             <Leaf {...elementProps} onNavigate={onNavigate} />
                         ) : (
-                            <Branch {...elementProps} onDive={updateRootNodeId} />
+                            <Branch
+                                {...elementProps}
+                                onDive={updateRootNodeId}
+                            />
                         );
 
                         return <li key={node.id}>{element}</li>;
