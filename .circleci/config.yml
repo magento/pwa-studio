@@ -88,7 +88,7 @@ jobs:
           command: npm i iltorb --no-save
       - run:
           name: Bundle size analysis
-          command: npx bundlesize
+          command: npx bundlesize && ls -l
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
