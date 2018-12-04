@@ -84,11 +84,14 @@ jobs:
           name: DangerCI
           command: npm run danger
       - run: # https://github.com/nodejs/node-gyp/wiki/Updating-npm's-bundled-node-gyp
-          name: install bundlesize and node-gyp
+          name: install iltorb without writing on package.json
           command: npm i iltorb --no-save
       - run:
+          name: get folder structure
+          command: ls -l
+      - run:
           name: Bundle size analysis
-          command: npx bundlesize && ls -l
+          command: npx bundlesize 
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
