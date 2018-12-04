@@ -44,6 +44,11 @@ class Input extends Component {
         helpType: HelpTypes.hint
     };
 
+    componentDidMount() {
+        const { initialValue, onChange } = this.props;
+        initialValue && onChange(initialValue);
+    }
+
     state = {
         value: this.props.initialValue,
         focused: false,
