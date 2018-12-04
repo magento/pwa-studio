@@ -1,4 +1,4 @@
-import { handleCreateAccount } from 'src/actions/user';
+import { createNewUserRequest } from 'src/actions/user';
 
 export const createAccount = ({ accountInfo, history }) => async dispatch => {
     /*
@@ -7,7 +7,7 @@ export const createAccount = ({ accountInfo, history }) => async dispatch => {
      * to notify redux-thunk action which dispatched handleCreateAccount action.
      */
     try {
-        await dispatch(handleCreateAccount(accountInfo));
+        await dispatch(createNewUserRequest(accountInfo));
         history.push('/');
     } catch (e) {}
 };

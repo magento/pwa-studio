@@ -8,7 +8,6 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import OnlineIndicator from 'src/components/OnlineIndicator';
 import defaultClasses from './app.css';
-
 import renderRoutes from './renderRoutes';
 
 class App extends Component {

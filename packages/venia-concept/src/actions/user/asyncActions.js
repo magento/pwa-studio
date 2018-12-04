@@ -53,7 +53,7 @@ export const getUserDetails = () =>
         }
     };
 
-export const handleCreateAccount = accountInfo =>
+export const createNewUserRequest = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
 
@@ -88,7 +88,7 @@ export const createAccount = accountInfo => async dispatch => {
      * to notify redux-thunk action which dispatched handleCreateAccount action.
      */
     try {
-        await dispatch(handleCreateAccount(accountInfo));
+        await dispatch(createNewUserRequest(accountInfo));
     } catch (e) {}
 };
 

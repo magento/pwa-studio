@@ -11,7 +11,7 @@ import {
     signIn,
     getUserDetails,
     createAccount,
-    handleCreateAccount,
+    createNewUserRequest,
     assignGuestCartToCustomer
 } from '../asyncActions';
 
@@ -63,8 +63,8 @@ test('createAccount() returns a thunk', () => {
     expect(createAccount()).toBeInstanceOf(Function);
 });
 
-test('handleCreateAccount() returns a thunk', () => {
-    expect(handleCreateAccount()).toBeInstanceOf(Function);
+test('createNewUserRequest() returns a thunk', () => {
+    expect(createNewUserRequest()).toBeInstanceOf(Function);
 });
 
 test('assignGuestCartToCustomer() returns a thunk', () => {
@@ -136,32 +136,32 @@ test('getUserDetails thunk makes request to get customer details if user is sign
     expect(firstRequest[1]).toHaveProperty('method', 'GET');
 });
 
-test('handleCreateAccount thunk dispatches resetCreateAccountError', async () => {
-    await handleCreateAccount(accountInfo)(...thunkArgs);
+test('createNewUserRequest thunk dispatches resetCreateAccountError', async () => {
+    await createNewUserRequest(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenCalledWith(
         actions.resetCreateAccountError.request()
     );
 });
 
-test('handleCreateAccount thunk dispatches signIn', async () => {
-    await handleCreateAccount(accountInfo)(...thunkArgs);
+test('createNewUserRequest thunk dispatches signIn', async () => {
+    await createNewUserRequest(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
 });
 
-test('handleCreateAccount thunk dispatches assignGuestCartToCustomer', async () => {
-    await handleCreateAccount(accountInfo)(...thunkArgs);
+test('createNewUserRequest thunk dispatches assignGuestCartToCustomer', async () => {
+    await createNewUserRequest(accountInfo)(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
 });
 
-test('handleCreateAccount thunk dispatches createAccountError on invalid account info', async () => {
+test('createNewUserRequest thunk dispatches createAccountError on invalid account info', async () => {
     const error = new TypeError('ERROR');
     request.mockRejectedValueOnce(error);
 
     try {
-        await handleCreateAccount({})(...thunkArgs);
+        await createNewUserRequest({})(...thunkArgs);
     } catch (e) {}
 
     expect(dispatch).toHaveBeenNthCalledWith(

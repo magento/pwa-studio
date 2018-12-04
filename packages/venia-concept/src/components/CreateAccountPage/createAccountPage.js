@@ -20,7 +20,9 @@ class CreateAccountPage extends Component {
     };
 
     render() {
-        const initialValues = getCreateAccountInitialValues();
+        const initialValues = getCreateAccountInitialValues(
+            window.location.search
+        );
         return (
             <div className={this.props.classes.container}>
                 <CreateAccountForm

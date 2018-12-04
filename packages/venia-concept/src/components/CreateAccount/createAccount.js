@@ -20,7 +20,7 @@ class CreateAccount extends Component {
             createAccountError: PropTypes.string
         }),
         createAccountError: PropTypes.object,
-        createAccount: PropTypes.func,
+        onSubmit: PropTypes.func,
         initialValues: PropTypes.shape({
             email: PropTypes.string,
             firstName: PropTypes.string,
@@ -109,7 +109,7 @@ class CreateAccount extends Component {
 
         return (
             <div className={classes.root}>
-                <Form onSubmit={onCreateAccount}>
+                <Form onSubmit={onCreateAccount} initialValues={initialValues}>
                     <div className={classes.rewards}>
                         <span>An account gives you access to rewards!</span>
                     </div>
@@ -122,7 +122,6 @@ class CreateAccount extends Component {
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
-                        initialValue={initialValues.email}
                         field="email"
                     />
 
@@ -131,17 +130,15 @@ class CreateAccount extends Component {
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
-                        initialValue={initialValues.firstName}
-                        field="first-name"
+                        field="firstName"
                     />
 
                     <Input
                         onChange={this.updateLastName}
                         label={'Last Name'}
                         required={true}
-                        initialValue={initialValues.lastName}
                         autoComplete={'family-name'}
-                        field="family-name"
+                        field="lastName"
                     />
 
                     <Input
@@ -165,7 +162,7 @@ class CreateAccount extends Component {
                         placeholder={'Enter the password again'}
                         helpText={passwordConfirmHelpText}
                         helpType={passwordConfirmHelpType}
-                        field="confirm-password"
+                        field="confirmPassword"
                     />
 
                     <Checkbox
