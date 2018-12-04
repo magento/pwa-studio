@@ -28,6 +28,11 @@ export default class MagentoRouteHandler extends Component {
 
     // TODO: Add the ability to customize the cache name
     async addToCache(urls) {
+        if (!window.caches) {
+            throw new Error(
+                'Current environment does not support CacheStorage at window.caches.'
+            );
+        }
         const myCache = await window.caches.open(
             `workbox-runtime-${location.origin}/`
         );
@@ -104,7 +109,11 @@ export default class MagentoRouteHandler extends Component {
             return;
         }
 
-        this.addToCache([pathname]);
+        this.addToCache([pathname]).catch(e => {
+            if (process.env.NODE_ENV === 'development') {
+                console.warn(`Could not add ${pathname} to cache:`, e);
+            }
+        });
 
         this.setState(({ componentMap }) => ({
             componentMap: new Map(componentMap).set(pathname, {
