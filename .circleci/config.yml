@@ -87,8 +87,8 @@ jobs:
           name: install iltorb without writing on package.json
           command: npm i iltorb --no-save
       - run:
-          name: get folder structure
-          command: ls -l
+          name: get folder structure for venia
+          command: cd packages/venia-concept ls -l
       - run:
           name: Bundle size analysis
           command: npx bundlesize 
