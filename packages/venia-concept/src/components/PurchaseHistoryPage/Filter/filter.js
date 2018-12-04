@@ -7,13 +7,14 @@ import defaultClasses from './filter.css';
 
 const FILTER_ICON_ATTRS = {
     width: 16,
-    color: '#208990'
+    color: 'rgb(0, 134, 138)'
 };
 
 class Filter extends Component {
     static propTypes = {
         classes: shape({
-            root: string
+            root: string,
+            filterIconContainer: string
         })
     };
 

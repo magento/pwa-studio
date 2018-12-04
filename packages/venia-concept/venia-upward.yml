@@ -8,8 +8,8 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
-      pattern: '^/(favicon.ico|veniaClosed.png)'
-      use: media
+      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
+      use: static
     - matches: urlKey
       pattern: '.'
       use: appShell
@@ -111,6 +111,6 @@ bundles:
   directory:
     inline: './dist'
 
-media:
+static:
   directory:
-    inline: './media'
+    inline: './static'
