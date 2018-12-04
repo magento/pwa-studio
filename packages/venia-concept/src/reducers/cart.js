@@ -5,7 +5,7 @@ import checkoutActions from 'src/actions/checkout';
 
 export const name = 'cart';
 
-const initialState = {
+export const initialState = {
     details: {},
     guestCartId: null,
     shippingMethods: [],
