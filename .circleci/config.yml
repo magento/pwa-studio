@@ -85,13 +85,10 @@ jobs:
           name: install iltorb without writing on package.json
           command: npm i iltorb --no-save
       - run:
-          name: get folder structure for venia
-          command: cd packages/venia-concept && ls -l
-      - run:
           name: Bundle size analysis
           command: npx bundlesize
           environment:
-            BUNDLESIZE_GITHUB_TOKEN: 49d34f9fd7e005fdd4092c25b50bf427ddf20f1d
+            BUNDLESIZE_GITHUB_TOKEN: 49dc21a6bcae523ea39c0c76c5638d47064f5b6b
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
