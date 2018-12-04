@@ -2,7 +2,7 @@ import { RestApi } from '@magento/peregrine';
 
 const { request } = RestApi.Magento2;
 
-const getCountryName = (countries, countryId) => {
+export const getCountryName = (countries, countryId) => {
     const country = countries.find(country => country.id === countryId);
 
     return country ? country.full_name_locale : '';
