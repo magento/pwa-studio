@@ -1,63 +1,43 @@
-const path = require('path');
+const webpack = require('webpack');
+const path = require("path");
 
-const configureBabel = require('../babel.config.js');
-const babelOptions = configureBabel('development');
-console.log(babelOptions);
-
-const base_config = require('./webpack.config.js');
+const base_config  = require('../webpack.config.js')
 
 const themePaths = {
     src: path.resolve(__dirname, '../src'),
     assets: path.resolve(__dirname, '../web'),
     output: path.resolve(__dirname, '../web/js'),
-    node: path.resolve(__dirname, '../../../')
+    node: path.resolve(__dirname, '../../../'),
+    root: path.resolve(__dirname, '../')
+
 };
 
-console.log(themePaths.node);
+const {
+    WebpackTools: {
+        makeMagentoRootComponentsPlugin,
+        MagentoResolver
+    }
+} = require('@magento/pwa-buildpack');
 
-const testPath = path.resolve('../');
+const rootComponentsDirs = ['./src/RootComponents/'];
 
-module.exports = (storybookBaseConfig, configType) => {
-    storybookBaseConfig.module.rules.push({
-        include: [themePaths.src],
-        test: /\.js$/,
-        use: [
-            {
-                loader: 'babel-loader',
-                options: { ...babelOptions, cacheDirectory: true }
-            }
-        ]
+module.exports = async (storybookBaseConfig, configType) => {
+
+    const conf = await base_config();
+
+    storybookBaseConfig.resolve = await MagentoResolver.configure({
+        paths: {
+            root: themePaths.root
+        }
     });
 
-    storybookBaseConfig.module.rules.push({
-        test: /\.css$/,
-        use: [
-            'style-loader',
-            {
-                loader: 'css-loader',
-                options: {
-                    importLoaders: 1,
-                    localIdentName: '[name]-[local]-[hash:base64:3]',
-                    modules: true
-                }
-            }
-        ]
-    });
+    storybookBaseConfig.module.rules = conf.module.rules;
 
-    storybookBaseConfig.module.rules.push({
-        test: /\.(jpg|svg)$/,
-        use: [
-            {
-                loader: 'file-loader',
-                options: {}
-            }
-        ]
-    });
-
-    storybookBaseConfig.resolve.alias = {
-        src: themePaths.src
-    };
-    storybookBaseConfig.resolve.modules = ['node_modules'];
+    storybookBaseConfig.plugins = [await makeMagentoRootComponentsPlugin({
+        rootComponentsDirs,
+        context: themePaths.root
+    })
+    ]
 
     return storybookBaseConfig;
 };

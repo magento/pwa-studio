@@ -33,14 +33,15 @@
     "watch:all": "node scripts/watch-all.js",
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
+    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
+    "storybook:venia": "cd packages/venia-concept && npm run storybook - >/dev/null"
   },
   "devDependencies": {
     "@magento/directive-parser": "~0.1.1",
     "@magento/eslint-config": "~1.2.3",
-    "@storybook/addon-actions": "~3.4.2",
-    "@storybook/addons": "~3.4.6",
-    "@storybook/react": "~3.4.2",
+    "@storybook/addon-actions": "~4.0.11",
+    "@storybook/addons": "~4.0.11",
+    "@storybook/react": "~4.0.11",
     "apollo-boost": "~0.1.20",
     "apollo-cache-inmemory": "~1.3.9",
     "apollo-cache-persist": "~0.1.1",
