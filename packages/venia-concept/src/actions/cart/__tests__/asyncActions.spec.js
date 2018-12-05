@@ -13,6 +13,7 @@ import {
     removeItemFromCart,
     createGuestCart,
     getCartDetails,
+    getShippingMethods,
     toggleCart
 } from '../asyncActions';
 
@@ -361,7 +362,7 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
 
     expect(getState).toHaveBeenCalledTimes(4);
     expect(dispatch).toHaveBeenCalledTimes(7);
-    expect(request).toHaveBeenCalledTimes(3);
+    expect(request).toHaveBeenCalledTimes(4);
 });
 
 test('removeItemFromCart() returns a thunk', () => {
@@ -542,6 +543,8 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
     request
         // for for getting expired cart
         .mockRejectedValueOnce({ response: { status: 404 } })
+        // for getting expired cart payment methods
+        .mockRejectedValueOnce({ response: { status: 404 } })
         // for for getting expired cart totals
         .mockRejectedValueOnce({ response: { status: 404 } })
         // for createNewCart
@@ -561,12 +564,16 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
     expect(mockSetItem).toHaveBeenCalledWith('guestCartId', 'BRAND_NEW_CART');
     const [
         retrieveExpiredCallArgs,
+        retrieveExpiredPaymentMethodsArgs,
         retrieveExpiredTotalsArgs,
         createCallArgs,
         retrieveCallArgs
     ] = request.mock.calls;
     expect(retrieveExpiredCallArgs[0]).toBe(
         '/rest/V1/guest-carts/EXPIRED_CART_ID/'
+    );
+    expect(retrieveExpiredPaymentMethodsArgs[0]).toBe(
+        '/rest/V1/guest-carts/EXPIRED_CART_ID/payment-methods'
     );
     expect(retrieveExpiredTotalsArgs[0]).toBe(
         '/rest/V1/guest-carts/EXPIRED_CART_ID/totals'
@@ -581,8 +588,12 @@ test('getCartDetails thunk dispatches actions on success', async () => {
         cart: { guestCartId: 'GUEST_CART_ID' },
         user: { isSignedIn: false }
     }));
+    // For getting details.
     request.mockResolvedValueOnce(1);
+    // For getting payment methods.
     request.mockResolvedValueOnce(2);
+    // For getting totals.
+    request.mockResolvedValueOnce(3);
 
     await getCartDetails()(...thunkArgs);
 
@@ -592,7 +603,7 @@ test('getCartDetails thunk dispatches actions on success', async () => {
     );
     expect(dispatch).toHaveBeenNthCalledWith(
         2,
-        actions.getDetails.receive({ details: 1, totals: 2 })
+        actions.getDetails.receive({ details: 1, paymentMethods: 2, totals: 3 })
     );
     expect(dispatch).toHaveBeenCalledTimes(2);
 });
@@ -632,15 +643,71 @@ test('getCartDetails thunk merges cached item images into details', async () => 
     ];
 
     mockGetItem.mockResolvedValueOnce(cache);
+    // For getting details.
     request.mockResolvedValueOnce({ items });
+    // For getting payment methods.
     request.mockResolvedValueOnce(2);
+    // For getting totals.
+    request.mockResolvedValueOnce(3);
 
     await getCartDetails()(...thunkArgs);
 
     expect(dispatch).toHaveBeenNthCalledWith(
         2,
-        actions.getDetails.receive({ details: { items: expected }, totals: 2 })
+        actions.getDetails.receive({
+            details: { items: expected },
+            paymentMethods: 2,
+            totals: 3
+        })
     );
+});
+
+describe('getShippingMethods', () => {
+    test('getShippingMethods() returns a thunk', () => {
+        expect(getShippingMethods()).toBeInstanceOf(Function);
+    });
+
+    test('getShippingMethods thunk returns undefined', async () => {
+        const result = await getShippingMethods()(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('getShippingMethods thunk dispatches actions on success', async () => {
+        // Mock the estimate-shipping-methods response.
+        const MOCK_RESPONSE = [];
+        request.mockResolvedValueOnce(MOCK_RESPONSE);
+
+        await getShippingMethods()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getShippingMethods.request('GUEST_CART_ID')
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getShippingMethods.receive(MOCK_RESPONSE)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test('getShippingMethods thunk dispatches actions on failure', async () => {
+        // Mock the estimate-shipping-methods response.
+        const error = new Error('ERROR');
+        request.mockRejectedValueOnce(error);
+
+        await getShippingMethods()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getShippingMethods.request('GUEST_CART_ID')
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getShippingMethods.receive(error)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
+    });
 });
 
 test('toggleCart() returns a thunk', () => {

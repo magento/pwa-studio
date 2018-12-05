@@ -217,9 +217,19 @@ export const getCartDetails = (payload = {}) => {
         }
 
         try {
-            const [imageCache, details, totals] = await Promise.all([
+            const [
+                imageCache,
+                details,
+                paymentMethods,
+                totals
+            ] = await Promise.all([
                 retrieveImageCache(),
                 fetchCartPart({ guestCartId, forceRefresh }),
+                fetchCartPart({
+                    guestCartId,
+                    forceRefresh,
+                    subResource: 'payment-methods'
+                }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
@@ -233,13 +243,20 @@ export const getCartDetails = (payload = {}) => {
             // and merge it into the item object
             // then assign its options from the totals subResource
             if (imageCache && Array.isArray(items) && items.length) {
-                items.forEach((item, i) => {
+                items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};
-                    item.options = totals.items ? totals.items[i].options : [];
+
+                    item.options =
+                        totals && totals.items
+                            ? totals.items.find(t => t.item_id === item.item_id)
+                                  .options
+                            : [];
                 });
             }
 
-            dispatch(actions.getDetails.receive({ details, totals }));
+            dispatch(
+                actions.getDetails.receive({ details, paymentMethods, totals })
+            );
         } catch (error) {
             const { response } = error;
 
@@ -255,6 +272,51 @@ export const getCartDetails = (payload = {}) => {
                 // then create a new one
                 await dispatch(createGuestCart());
                 // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+    };
+};
+
+export const getShippingMethods = () => {
+    return async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
+
+        try {
+            // if there isn't a guest cart, create one
+            // then retry this operation
+            if (!guestCartId) {
+                await dispatch(createGuestCart());
+                return thunk(...arguments);
+            }
+
+            dispatch(actions.getShippingMethods.request(guestCartId));
+
+            const response = await request(
+                `/rest/V1/guest-carts/${guestCartId}/estimate-shipping-methods`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        address: {
+                            country_id: 'US',
+                            postcode: null
+                        }
+                    })
+                }
+            );
+
+            dispatch(actions.getShippingMethods.receive(response));
+        } catch (error) {
+            const { response } = error;
+
+            dispatch(actions.getShippingMethods.receive(error));
+
+            // check if the guest cart has expired
+            if (response && response.status === 404) {
+                // if so, clear it out, get a new one, and retry.
+                await clearGuestCartId();
+                await dispatch(createGuestCart());
                 return thunk(...arguments);
             }
         }

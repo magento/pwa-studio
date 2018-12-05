@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { shape, string, bool } from 'prop-types';
-import { Price } from '@magento/peregrine';
+import { bool, object, shape, string } from 'prop-types';
 
+import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
@@ -18,6 +18,11 @@ let Checkout = () => null;
 
 class MiniCart extends Component {
     static propTypes = {
+        cart: shape({
+            details: object,
+            guestCartId: string,
+            totals: object
+        }),
         classes: shape({
             body: string,
             header: string,
@@ -50,13 +55,28 @@ class MiniCart extends Component {
         Checkout = CheckoutModule.default;
     }
 
+    get cartId() {
+        const { cart } = this.props;
+
+        return cart && cart.details && cart.details.id;
+    }
+
+    get cartCurrencyCode() {
+        const { cart } = this.props;
+
+        return (
+            cart &&
+            cart.details &&
+            cart.details.currency &&
+            cart.details.currency.quote_currency_code
+        );
+    }
+
     get productList() {
-        const {
-            cartId,
-            cartCurrencyCode,
-            cart,
-            removeItemFromCart
-        } = this.props;
+        const { cart, removeItemFromCart } = this.props;
+
+        const { cartCurrencyCode, cartId } = this;
+
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
@@ -68,7 +88,8 @@ class MiniCart extends Component {
     }
 
     get totalsSummary() {
-        const { cartId, cartCurrencyCode, cart, classes } = this.props;
+        const { cart, classes } = this.props;
+        const { cartCurrencyCode, cartId } = this;
         const hasSubtotal = cartId && cart.totals && 'subtotal' in cart.totals;
 
         return hasSubtotal ? (
@@ -203,15 +224,9 @@ class MiniCart extends Component {
 
 const mapStateToProps = state => {
     const { cart } = state;
-    const details = cart && cart.details;
-    const cartId = details && details.id;
-    const cartCurrencyCode =
-        details && details.currency && details.currency.quote_currency_code;
 
     return {
         cart,
-        cartId,
-        cartCurrencyCode,
         isCartEmpty: isEmptyCartVisible(state)
     };
 };

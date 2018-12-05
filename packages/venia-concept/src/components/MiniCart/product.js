@@ -15,10 +15,11 @@ class Product extends Component {
     static propTypes = {
         classes: shape({
             image: string,
+            modal: string,
             name: string,
             optionName: string,
-            optionValue: string,
             options: string,
+            optionValue: string,
             price: string,
             quantity: string,
             quantityOperator: string,
@@ -53,9 +54,9 @@ class Product extends Component {
         const options = item.options ? JSON.parse(item.options) : [];
 
         return options && options.length > 0 ? (
-            <dl className={this.props.classes.options}>
+            <dl className={classes.options}>
                 {options.map(({ label, value }) => (
-                    <Fragment key={`${name}${value}`}>
+                    <Fragment key={`${label}${value}`}>
                         <dt className={classes.optionName}>
                             {label} : {value}
                         </dt>
