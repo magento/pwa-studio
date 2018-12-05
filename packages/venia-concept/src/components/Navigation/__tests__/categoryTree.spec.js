@@ -3,7 +3,7 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
 import { MockedProvider } from 'react-apollo/test-utils';
-import CategoryMenu from '../categoryMenu';
+import CategoryTree from '../categoryTree';
 
 configure({ adapter: new Adapter() });
 
@@ -144,39 +144,46 @@ beforeAll(() => {
 });
 
 test('renders with product data', async () => {
+    const rootNodeId = 1;
+    const currentId = 1;
+    const updateRootNodeId = () => {};
     const wrapper = mount(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryMenu id={1} currentId={1} classes={classes} />
+            <CategoryTree
+                rootNodeId={rootNodeId}
+                currentId={currentId}
+                updateRootNodeId={updateRootNodeId}
+                classes={classes}
+            />
         </MockedProvider>
     );
     wait();
     jest.runAllTimers();
     wrapper.update();
-    // There will be exactly one button for each child category (2),
-    // and one mocked link for each leaf node (3)
-    const buttons = wrapper.find('button');
-    const links = wrapper.find('h6');
-    expect(buttons.length).toBe(2);
-    expect(links.length).toBe(3);
+    // The mocked data above has exactly 2 branch categories,
+    // and 3 leaf categories
+    const branches = wrapper.find('Branch');
+    const leaves = wrapper.find('Leaf');
+    expect(branches.length).toBe(2);
+    expect(leaves.length).toBe(3);
 });
 
 test('child node correctly sets new root and parent ids', () => {
-    let selectedId = 1;
-    let parentId = 0;
-    const setSelectedId = id => {
-        selectedId = id;
+    let currentPath = '1';
+    const setCurrentPath = path => {
+        currentPath = path;
     };
-    const setParentId = id => {
-        parentId = id;
-    };
+
+    const rootNodeId = 1;
+    const currentId = 1;
+
     const wrapper = mount(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryMenu
-                id={1}
-                currentId={selectedId}
+            <CategoryTree
+                rootNodeId={rootNodeId}
+                currentId={currentId}
+                updateRootNodeId={setCurrentPath}
                 classes={classes}
-                setRootNodeId={setSelectedId}
-                setParentId={setParentId}
             />
         </MockedProvider>
     );
@@ -185,6 +192,5 @@ test('child node correctly sets new root and parent ids', () => {
     wrapper.update();
     const leaf3 = wrapper.find('button').last();
     leaf3.simulate('click');
-    expect(selectedId).toEqual(3);
-    expect(parentId).toEqual(1);
+    expect(currentPath).toEqual('1/3');
 });
