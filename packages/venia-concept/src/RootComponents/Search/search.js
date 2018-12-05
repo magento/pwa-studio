@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Query } from 'react-apollo';
 import queryString from 'query-string';
-import Gallery from 'src/components/Gallery';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import gql from 'graphql-tag';
+import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
+import Icon from 'src/components/Icon';
+import { executeSearch } from 'src/actions/app';
+
 import defaultClasses from './search.css';
+
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
 const getCategoryName = gql`
@@ -17,15 +23,42 @@ const getCategoryName = gql`
 `;
 
 export class Search extends Component {
-    getCategoryName = categoryId => (
-        <Query query={getCategoryName} variables={{ id: categoryId }}>
-            {({ loading, error, data }) => {
-                if (loading || error) return null;
-
-                return `in ${data.category.name}`;
-            }}
-        </Query>
+    getCategoryName = (categoryId, classes) => (
+        <div className={classes.categoryFilters}>
+            <button
+                className={classes.categoryFilter}
+                onClick={this.handleClearCategoryFilter}
+            >
+                <small className={classes.categoryFilterText}>
+                    <Query
+                        query={getCategoryName}
+                        variables={{ id: categoryId }}
+                    >
+                        {({ loading, error, data }) => {
+                            if (error) return null;
+                            if (loading) return 'Loading...';
+                            return data.category.name;
+                        }}
+                    </Query>
+                </small>
+                <Icon
+                    name="x"
+                    attrs={{
+                        width: '13px',
+                        height: '13px'
+                    }}
+                />
+            </button>
+        </div>
     );
+
+    handleClearCategoryFilter = () => {
+        const params = queryString.parse(this.props.location.search);
+        const { query: inputText } = params;
+
+        if (inputText !== '')
+            this.props.executeSearch(inputText, this.props.history);
+    };
 
     render() {
         const { classes } = this.props;
@@ -34,13 +67,8 @@ export class Search extends Component {
         const params = queryString.parse(this.props.location.search);
         const { query: inputText, category: categoryId } = params;
 
-        const queryVariables = {
-            inputText,
-            categoryId
-        };
-
         return (
-            <Query query={PRODUCT_SEARCH} variables={queryVariables}>
+            <Query query={PRODUCT_SEARCH} variables={{ inputText, categoryId }}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return <div>Fetching Data</div>;
@@ -53,11 +81,12 @@ export class Search extends Component {
 
                     return (
                         <article className={classes.root}>
-                            <div className={classes.totalPages}>
-                                <span>
+                            <div className={classes.categoryTop}>
+                                <div className={classes.totalPages}>
                                     {data.products.total_count} items{' '}
-                                    {categoryId && getCategoryName(categoryId)}
-                                </span>
+                                </div>
+                                {categoryId &&
+                                    getCategoryName(categoryId, classes)}
                             </div>
                             <section className={classes.gallery}>
                                 <Gallery data={data.products.items} />
@@ -70,4 +99,13 @@ export class Search extends Component {
     }
 }
 
-export default withRouter(classify(defaultClasses)(Search));
+const mapDispatchToProps = { executeSearch };
+
+export default compose(
+    withRouter,
+    connect(
+        null,
+        mapDispatchToProps
+    ),
+    classify(defaultClasses)
+)(Search);
