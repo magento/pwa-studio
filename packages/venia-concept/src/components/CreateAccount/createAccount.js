@@ -107,9 +107,10 @@ class CreateAccount extends Component {
             isIncompleteOrInvalid
         } = this; // Uses `getters` defined above
 
+        // TODO: Pass initialValues to Form component after refactoring common Input
         return (
             <div className={classes.root}>
-                <Form onSubmit={onCreateAccount} initialValues={initialValues}>
+                <Form onSubmit={onCreateAccount}>
                     <div className={classes.rewards}>
                         <span>An account gives you access to rewards!</span>
                     </div>
@@ -123,6 +124,7 @@ class CreateAccount extends Component {
                         required={true}
                         autoComplete={'email'}
                         field="email"
+                        initialValue={initialValues.email}
                     />
 
                     <Input
@@ -131,6 +133,7 @@ class CreateAccount extends Component {
                         required={true}
                         autoComplete={'given-name'}
                         field="firstName"
+                        initialValue={initialValues.firstName}
                     />
 
                     <Input
@@ -139,6 +142,7 @@ class CreateAccount extends Component {
                         required={true}
                         autoComplete={'family-name'}
                         field="lastName"
+                        initialValue={initialValues.lastName}
                     />
 
                     <Input
