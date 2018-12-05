@@ -5,16 +5,14 @@
     z-index: 1;
 }
 
-.page {
-    min-height: 100vh;
-}
-
-/* state: masked */
-
 .root_masked {
     composes: root;
     height: 100vh;
     overflow: hidden;
+}
+
+.page {
+    min-height: 100vh;
 }
 
 .page_masked {

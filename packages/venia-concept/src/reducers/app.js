@@ -6,6 +6,8 @@ export const name = 'app';
 
 const initialState = {
     drawer: null,
+    hasBeenOffline: !navigator.onLine,
+    isOnline: navigator.onLine,
     overlay: false,
     pending: {}
 };
@@ -16,6 +18,19 @@ const reducerMap = {
             ...state,
             drawer: payload,
             overlay: !!payload
+        };
+    },
+    [actions.setOnline]: state => {
+        return {
+            ...state,
+            isOnline: true
+        };
+    },
+    [actions.setOffline]: state => {
+        return {
+            ...state,
+            isOnline: false,
+            hasBeenOffline: true
         };
     }
 };
