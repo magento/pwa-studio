@@ -36,16 +36,6 @@ class SearchAutocomplete extends Component {
         }
     };
 
-    /* Flatten categories array & remove duplicate categories */
-    createCategorySuggestions = items =>
-        items
-            .map(item => item.categories)
-            .reduce((categories, category) => categories.concat(category), [])
-            .filter(
-                (category, index, categories) =>
-                    categories.indexOf(category) === index
-            );
-
     /* Debounce this update in order to avoid multiple autocomplete query calls */
     updateAutocompleteQuery = debounce(value => {
         this.setState({
@@ -68,13 +58,7 @@ class SearchAutocomplete extends Component {
 
     render() {
         const { classes, autocompleteVisible } = this.props;
-
-        const {
-            createCategorySuggestions,
-            handleOnProductOpen,
-            handleCategorySearch
-        } = this;
-
+        const { handleOnProductOpen, handleCategorySearch } = this;
         const { autocompleteQuery } = this.state;
 
         if (!autocompleteVisible || autocompleteQuery.length < 3) return null;
@@ -104,7 +88,7 @@ class SearchAutocomplete extends Component {
                             </div>
                         );
 
-                    const { items } = data.products;
+                    const { filters, items } = data.products;
 
                     if (items.length <= 0)
                         return (
@@ -115,27 +99,25 @@ class SearchAutocomplete extends Component {
                             </div>
                         );
 
-                    const categorySuggestions = createCategorySuggestions(
-                        items
+                    const categoryFilter = filters.find(
+                        filter => filter.name === 'Category'
                     );
+
+                    const categorySuggestions = categoryFilter[
+                        'filter_items'
+                    ].slice(0, suggestedCategoriesLimit);
 
                     return (
                         <div className={classes.root}>
                             <SuggestedCategories
                                 handleCategorySearch={handleCategorySearch}
                                 autocompleteQuery={autocompleteQuery}
-                                categorySuggestions={categorySuggestions.slice(
-                                    0,
-                                    suggestedCategoriesLimit
-                                )}
+                                categorySuggestions={categorySuggestions}
                             />
                             <SuggestedProducts
                                 handleOnProductOpen={handleOnProductOpen}
                                 handleCategorySearch={handleCategorySearch}
-                                items={data.products.items.slice(
-                                    0,
-                                    suggestedProductsLimit
-                                )}
+                                items={items.slice(0, suggestedProductsLimit)}
                             />
                         </div>
                     );

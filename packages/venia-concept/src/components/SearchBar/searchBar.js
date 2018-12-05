@@ -37,7 +37,7 @@ export class SearchBar extends Component {
     async componentDidMount() {
         if (this.props.history.location.pathname === searchURL) {
             const params = queryString.parse(this.props.location.search);
-            this.setState({ searchQuery: params.query });
+            this.setState({ searchQuery: params.query ? params.query : '' });
         }
 
         document.addEventListener(
