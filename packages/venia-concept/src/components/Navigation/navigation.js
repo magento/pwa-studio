@@ -210,7 +210,7 @@ class Navigation extends PureComponent {
             closeDrawer,
             isOpen,
             isSignedIn,
-            rootCategoryId,
+            rootCategoryId
         } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
