@@ -74,26 +74,22 @@ class Product extends Component {
     get options() {
         const { classes, item, totalsItems } = this.props;
         const { item_id } = item;
-        const regex = /[\[\]']+/g; // regex to to remove [] , use it to check if options are really empty
-        return totalsItems
-            .filter(totalsItem => totalsItem.item_id === item_id)
-            .map(totalsItem => {
-                const { options } = totalsItem;
-                return options && options.replace(regex, '').length > 0 ? (
-                    <dl className={this.props.classes.options} key={item_id}>
-                        {JSON.parse(options).map(option => (
-                            <Fragment key={`${item_id}_${option.label}`}>
-                                <dt className={classes.optionLabel}>
-                                    {option.label}:&nbsp;
-                                </dt>
-                                <dd className={classes.optionValue}>
-                                    {option.value}
-                                </dd>
-                            </Fragment>
-                        ))}
-                    </dl>
-                ) : null;
-            });
+        const totalsItem = totalsItems.find(
+            totalsItem => totalsItem.item_id === item_id
+        );
+        const { options } = totalsItem;
+        return options && options !== '[]' ? ( // REST API returns options string
+            <dl className={this.props.classes.options} key={item_id}>
+                {JSON.parse(options).map(option => (
+                    <Fragment key={`${item_id}_${option.label}`}>
+                        <dt className={classes.optionLabel}>
+                            {option.label}:&nbsp;
+                        </dt>
+                        <dd className={classes.optionValue}>{option.value}</dd>
+                    </Fragment>
+                ))}
+            </dl>
+        ) : null;
     }
 
     styleImage(image) {
