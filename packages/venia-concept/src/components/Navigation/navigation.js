@@ -53,6 +53,7 @@ class Navigation extends PureComponent {
     }
 
     componentDidMount() {
+        this.props.getUserDetails();
         this.props.getAllCategories();
     }
 
