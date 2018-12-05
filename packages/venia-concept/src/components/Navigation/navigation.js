@@ -60,22 +60,20 @@ class Navigation extends PureComponent {
         isCreateAccountOpen: false,
         isSignInOpen: false,
         rootNodeId: null,
-        parentId: null
+        currentPath: null
     };
 
     get categoryTree() {
-        const { props, setParentId, setRootNodeId, state } = this;
+        const { props, setCurrentPath, state } = this;
         const { rootNodeId } = state;
-        const { closeDrawer, categories } = props;
+        const { closeDrawer } = props;
 
         return rootNodeId ? (
             <CategoryTree
                 rootNodeId={props.rootCategoryId}
-                nodes={categories}
                 currentId={rootNodeId}
-                updateRootNodeId={setRootNodeId}
+                updateRootNodeId={setCurrentPath}
                 onNavigate={closeDrawer}
-                setParentId={setParentId}
             />
         ) : null;
     }
@@ -182,17 +180,23 @@ class Navigation extends PureComponent {
         }));
     };
 
-    setParentId = parentId => {
-        this.setState(() => ({ parentId }));
-    };
-
-    setRootNodeId = rootNodeId => {
-        this.setState(() => ({ rootNodeId }));
+    setCurrentPath = currentPath => {
+        const path = currentPath.split('/');
+        const rootNodeId = parseInt(path[path.length - 1]);
+        this.setState(() => ({
+            rootNodeId: rootNodeId,
+            currentPath: path
+        }));
     };
 
     setRootNodeIdToParent = () => {
+        const path = this.state.currentPath;
+        path.pop();
+        const parentId = parseInt(path[path.length - 1]);
+
         this.setState(() => ({
-            rootNodeId: this.state.parentId
+            rootNodeId: parentId,
+            currentPath: path
         }));
     };
 
@@ -212,7 +216,7 @@ class Navigation extends PureComponent {
         const { isCreateAccountOpen, isSignInOpen, rootNodeId } = state;
         const { classes, closeDrawer, isOpen, rootCategoryId } = props;
         const className = isOpen ? classes.root_open : classes.root;
-        const isTopLevel = !rootNodeId || rootNodeId == rootCategoryId;
+        const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
 
         const handleBack = isCreateAccountOpen
             ? hideCreateAccountForm

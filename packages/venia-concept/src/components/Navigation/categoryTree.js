@@ -6,6 +6,7 @@ import navigationMenu from '../../queries/getNavigationMenu.graphql';
 import classify from 'src/classify';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
+import CategoryTree from './categoryTree';
 import defaultClasses from './categoryTree.css';
 
 class Tree extends Component {
@@ -23,34 +24,56 @@ class Tree extends Component {
         ),
         onNavigate: func,
         rootNodeId: number.isRequired,
-        updateRootNodeId: func.isRequired
+        updateRootNodeId: func.isRequired,
+        currentId: number.isRequired
     };
 
     get leaves() {
-        const { nodes, onNavigate, rootNodeId, updateRootNodeId } = this.props;
+        const {
+            classes,
+            onNavigate,
+            rootNodeId,
+            updateRootNodeId,
+            currentId
+        } = this.props;
 
         return rootNodeId ? (
             <Query query={navigationMenu} variables={{ id: rootNodeId }}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return null;
-                    //const { childrenData: childNodeIds } = nodes[rootNodeId];
-                    //const childNodeIds = data.category.children.map(({ id }) => id);
-                    //console.log(childNodeIds);
-                    //console.log(childNodeIds);
+
+                    const branches = [];
+
                     const children = data.category.children.sort((a, b) => {
                         if (a.position > b.position) return 1;
+                        else if (a.position == b.position && a.id > b.id)
+                            return 1;
                         else return -1;
                     });
+
                     const leaves = children.map(node => {
                         const { children_count } = node;
                         const isLeaf = children_count == 0;
                         const elementProps = {
                             nodeId: node.id,
                             name: node.name,
-                            urlPath: node.url_path
+                            urlPath: node.url_path,
+                            path: node.path
                         };
-                        console.log(node.url_path);
+
+                        if (!isLeaf) {
+                            branches.push(
+                                <CategoryTree
+                                    key={node.id}
+                                    rootNodeId={node.id}
+                                    updateRootNodeId={updateRootNodeId}
+                                    onNavigate={onNavigate}
+                                    currentId={currentId}
+                                />
+                            );
+                        }
+
                         const element = isLeaf ? (
                             <Leaf {...elementProps} onNavigate={onNavigate} />
                         ) : (
@@ -63,20 +86,16 @@ class Tree extends Component {
                         return <li key={node.id}>{element}</li>;
                     });
 
-                    if (nodes[rootNodeId].urlPath) {
-                        leaves.push(
-                            <li key={rootNodeId}>
-                                <Leaf
-                                    nodeId={rootNodeId}
-                                    nodes={nodes}
-                                    onNavigate={onNavigate}
-                                >
-                                    {({ node }) => `All ${node.name}`}
-                                </Leaf>
-                            </li>
-                        );
-                    }
-                    return leaves;
+                    const branchClass =
+                        currentId == rootNodeId
+                            ? classes.branch
+                            : classes.inactive;
+                    return (
+                        <div>
+                            <div className={branchClass}>{leaves}</div>
+                            {branches}
+                        </div>
+                    );
                 }}
             </Query>
         ) : null;
