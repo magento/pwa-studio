@@ -21,10 +21,11 @@ const item = {
 const totalsItems = [
     {
         item_id: 1,
-        name: "Product 1",
-        options: '[{\"value\":\"Peach\",\"label\":\"Fashion Color\"},{\"value\":\"M\",\"label\":\"Fashion Size\"}]'
+        name: 'Product 1',
+        options:
+            '[{"value":"Peach","label":"Fashion Color"},{"value":"M","label":"Fashion Size"}]'
         // REST API returns options as string
-    },
+    }
 ];
 
 test('passed functions are called from nested `Section` components', () => {
@@ -62,7 +63,7 @@ test('passed functions are called from nested `Section` components', () => {
 //
 // test('Product variants are rendered', () => {
 //     const wrapper = shallow(
-//         <Product 
+//         <Product
 //             item={item}
 //             currencyCode={'EUR'}
 //             totalsItems={totalsItems} />
