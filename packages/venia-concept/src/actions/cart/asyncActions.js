@@ -243,14 +243,14 @@ export const getCartDetails = (payload = {}) => {
             // and merge it into the item object
             // then assign its options from the totals subResource
             if (imageCache && Array.isArray(items) && items.length) {
+                const validTotals = totals && totals.items;
                 items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};
 
-                    item.options =
-                        totals && totals.items
-                            ? totals.items.find(t => t.item_id === item.item_id)
-                                  .options
-                            : [];
+                    item.options = validTotals
+                        ? totals.items.find(t => t.item_id === item.item_id)
+                              .options
+                        : [];
                 });
             }
 
