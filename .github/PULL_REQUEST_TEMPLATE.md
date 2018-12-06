@@ -2,12 +2,12 @@
 
 ## This PR is a:
 
-[ ] New feature
-[ ] Enhancement/Optimization
-[ ] Refactor
-[ ] Bugfix
-[ ] Test for existing code
-[ ] Documentation
+- [ ] New feature
+- [ ] Enhancement/Optimization
+- [ ] Refactor
+- [ ] Bugfix
+- [ ] Test for existing code
+- [ ] Documentation
 
 <!-- (REQUIRED) What does this PR change? -->
 
@@ -28,7 +28,7 @@ https://github.com/magento-research/pwa-studio/blob/master/.github/CONTRIBUTION.
 Please fill out as much information as you can about your PR to help speed up the review process.
 If your PR addresses an existing GitHub Issue, please refer to it in the title or Additional Information section to make the connection.
 
-We may ask you for changes in your PR in order to meet the standards set in our Contribution Guidelines. PR's that do not comply with our guidelines may be closed at the maintainers' discretion.
+We may ask you for changes in your PR in order to meet the standards set in our Contribution Guidelines. PRs that do not comply with our guidelines may be closed at the maintainers' discretion.
 
 Feel free to remove this section before creating this PR.
 -->
