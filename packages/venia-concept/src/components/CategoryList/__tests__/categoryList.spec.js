@@ -47,8 +47,10 @@ test('displays category tiles', async () => {
             result: {
                 data: {
                     category: {
+                        id: 2,
                         children: [
                             {
+                                id: 15,
                                 name: 'foo',
                                 url_key: 'foo-url.html',
                                 url_path: '/foo-url.html',
@@ -62,6 +64,7 @@ test('displays category tiles', async () => {
                                 }
                             },
                             {
+                                id: 16,
                                 name: 'bar',
                                 url_key: 'bar-url.html',
                                 url_path: '/bar-url.html',
@@ -75,6 +78,7 @@ test('displays category tiles', async () => {
                                 }
                             },
                             {
+                                id: 17,
                                 name: 'baz',
                                 url_key: 'baz-url.html',
                                 url_path: '/bar-url.html',
@@ -120,6 +124,7 @@ test('displays zero results', async () => {
             result: {
                 data: {
                     category: {
+                        id: 3,
                         children: []
                     }
                 }
