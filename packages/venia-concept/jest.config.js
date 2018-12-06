@@ -23,8 +23,6 @@ module.exports = {
     setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
     testPathIgnorePatterns: ['dist', 'node_modules'],
     testURL: 'https://localhost/',
-    // Have Jest use Babel to transpile Peregrine imports in tests, since
-    // our cross-package tests in the monorepo should all operate on `src`
     transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)'],
     testPathIgnorePatterns: [
         'dist',
@@ -35,5 +33,7 @@ module.exports = {
         '\\.(gql|graphql)$': 'jest-transform-graphql',
         '.*': 'babel-jest'
     },
-    setupTestFrameworkScriptFile: '<rootDir>/src/__tests__/jest-setup.js'
+    // Have Jest use Babel to transpile Peregrine imports in tests, since
+    // our cross-package tests in the monorepo should all operate on `src`
+    setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js'
 };
