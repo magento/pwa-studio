@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { Page } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import ErrorView from 'src/components/ErrorView';
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import OnlineIndicator from 'src/components/OnlineIndicator';
 import defaultClasses from './app.css';
-
-const renderRoutingError = props => <ErrorView {...props} />;
+import renderRoutes from './renderRoutes';
 
 class App extends Component {
     static propTypes = {
@@ -47,7 +44,7 @@ class App extends Component {
             <div className={className}>
                 <Main isMasked={overlay}>
                     {onlineIndicator}
-                    <Page>{renderRoutingError}</Page>
+                    {renderRoutes()}
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import CreateAccount from './createAccount';
-import { createAccount } from 'src/actions/user';
 
 const mapStateToProps = ({ user }) => {
     const { createAccountError } = user;
@@ -9,9 +8,4 @@ const mapStateToProps = ({ user }) => {
     };
 };
 
-const mapDispatchToProps = { createAccount };
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CreateAccount);
+export default connect(mapStateToProps)(CreateAccount);
