@@ -37,10 +37,27 @@ class CategoryList extends Component {
                 {this.header}
                 <Query query={categoryListQuery} variables={{ id }}>
                     {({ loading, error, data }) => {
-                        if (error) return <div>Data Fetch Error</div>;
-                        if (loading) return <div>Fetching Data</div>;
-                        if (data.category.children == '')
-                            return <div>Here are not any child categories</div>;
+                        if (error) {
+                            return (
+                                <div className={classes.fetchError}>
+                                    Data Fetch Error: <pre>{error.message}</pre>
+                                </div>
+                            );
+                        }
+                        if (loading) {
+                            return (
+                                <div className={classes.fetchingData}>
+                                    Fetching Data
+                                </div>
+                            );
+                        }
+                        if (data.category.children.length === 0) {
+                            return (
+                                <div className={classes.noResults}>
+                                    No child categories found.
+                                </div>
+                            );
+                        }
 
                         return (
                             <div className={classes.content}>
