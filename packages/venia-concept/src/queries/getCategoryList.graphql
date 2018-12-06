@@ -1,6 +1,7 @@
 # TODO: get only active categories from graphql when it is ready
 query categoryList($id: Int!) {
     category(id: $id) {
+        id
         children {
             name
             url_key
