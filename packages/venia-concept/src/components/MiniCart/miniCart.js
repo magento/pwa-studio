@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { bool, object, shape, string } from 'prop-types';
@@ -8,13 +8,14 @@ import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import Button from 'src/components/Button';
+import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible } from 'src/selectors/cart';
 
-let Checkout = () => null;
+const CheckoutModule = React.lazy(() => import('src/components/Checkout'));
 
 class MiniCart extends Component {
     static propTypes = {
@@ -25,10 +26,11 @@ class MiniCart extends Component {
         }),
         classes: shape({
             body: string,
-            header: string,
             footer: string,
-            root: string,
+            header: string,
+            placeholderButton: string,
             root_open: string,
+            root: string,
             subtotalLabel: string,
             subtotalValue: string,
             summary: string,
@@ -48,11 +50,7 @@ class MiniCart extends Component {
 
     async componentDidMount() {
         const { getCartDetails } = this.props;
-
         await getCartDetails();
-
-        const CheckoutModule = await import('src/components/Checkout');
-        Checkout = CheckoutModule.default;
     }
 
     get cartId() {
@@ -110,14 +108,25 @@ class MiniCart extends Component {
         ) : null;
     }
 
+    get placeholderButton() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.placeholderButton}>
+                <CheckoutButton ready={false} />
+            </div>
+        );
+    }
+
     get checkout() {
-        const { props, totalsSummary } = this;
+        const { props, totalsSummary, placeholderButton } = this;
         const { classes, cart } = props;
 
         return (
             <div>
                 <div className={classes.summary}>{totalsSummary}</div>
-                <Checkout cart={cart} />
+                <Suspense fallback={placeholderButton}>
+                    <CheckoutModule cart={cart} />
+                </Suspense>
             </div>
         );
     }
