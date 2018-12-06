@@ -3,7 +3,9 @@ const testPathRE = /(^\/packages\/[^\/]+\/|\.spec|\/__tests?__)/g;
 const testPathToFilePath = filepath => filepath.replace(testPathRE, '');
 const testGlob = '/**/__tests__/*.(test|spec).js';
 const packagePath = (...segments) =>
-    path.join(__dirname, 'packages', ...segments);
+    path.join('<rootDir>', 'packages', ...segments);
+// const packageAbsolutePath = (...segments) =>
+//     path.join(__dirname, 'packages', ...segments);
 const packageTestMatch = pkg => [packagePath(pkg, testGlob)];
 module.exports = {
     projects: [
@@ -82,7 +84,6 @@ module.exports = {
         }
     ],
     browser: true,
-    clearMocks: true,
     collectCoverage: true,
     collectCoverageFrom: [
         'scripts/**/*.js',
