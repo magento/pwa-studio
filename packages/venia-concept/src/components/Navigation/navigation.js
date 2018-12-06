@@ -135,7 +135,8 @@ class Navigation extends PureComponent {
             return (
                 <div className={className}>
                     <CreateAccount
-                        defaultUsername={this.state.defaultUsername}
+                        onSubmit={this.props.createAccount}
+                        initialValues={{ email: this.state.defaultUsername }}
                     />
                 </div>
             );
