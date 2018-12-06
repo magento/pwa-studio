@@ -181,8 +181,9 @@ class Navigation extends PureComponent {
     };
 
     setCurrentPath = currentPath => {
-        const path = currentPath.split('/');
-        const rootNodeId = parseInt(path[path.length - 1]);
+        const path = currentPath.split('/').reverse();
+        const rootNodeId = parseInt(path[0]);
+
         this.setState(() => ({
             rootNodeId: rootNodeId,
             currentPath: path
@@ -191,8 +192,9 @@ class Navigation extends PureComponent {
 
     setRootNodeIdToParent = () => {
         const path = this.state.currentPath;
-        path.pop();
-        const parentId = parseInt(path[path.length - 1]);
+        const parentId =
+            path.length > 1 ? parseInt(path[1]) : this.props.rootCategoryId;
+        path.shift();
 
         this.setState(() => ({
             rootNodeId: parentId,
