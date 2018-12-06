@@ -14,10 +14,8 @@ test('promises are cached', async () => {
 
 test('cannot set context property twice', () => {
     const context = new Context({ immu: 'table' });
-    expect(() =>
-        context.set('immu', 'nized')
-    ).toThrowErrorMatchingInlineSnapshot(
-        `"Attempted to reassign context property 'immu' to 'nized'. Context properties cannot be reassigned."`
+    expect(() => context.set('immu', 'nized')).toThrow(
+        "Attempted to reassign context property 'immu' to 'nized'. Context properties cannot be reassigned."
     );
 });
 

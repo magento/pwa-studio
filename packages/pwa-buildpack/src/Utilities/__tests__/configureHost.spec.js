@@ -201,13 +201,14 @@ test('fails if process is not connected to tty', async () => {
 });
 
 test('fails after a timeout if devcert never fulfills', async () => {
+    simulate.certNotCached();
+    simulate.certNotCached();
     jest.useFakeTimers();
-    devcert.configuredDomains.mockReturnValueOnce([]);
     let resolveHangingPromise;
     let promise = new Promise(resolve => (resolveHangingPromise = resolve));
     devcert.certificateFor.mockReturnValueOnce(promise);
     const certPromise = configureHost({ subdomain: 'no-hurry' });
-    jest.runAllTimers();
+    jest.advanceTimersByTime(35000);
     await expect(certPromise).rejects.toThrowError(
         'Timed out waiting for SSL certificate generation and trust.'
     );

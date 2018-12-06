@@ -2,19 +2,19 @@
 
 ## This issue is for the following packages:
 
-[ ] `venia-concept`
-[ ] `pwa-buildpack`
-[ ] `peregrine`
-[ ] `pwa-devdocs`
-[ ] `upward-js`
-[ ] `upward-spec`
+- [ ] `venia-concept`
+- [ ] `pwa-buildpack`
+- [ ] `peregrine`
+- [ ] `pwa-devdocs`
+- [ ] `upward-js`
+- [ ] `upward-spec`
 
 ## This issue is a:
 
-[ ] Bug
-[ ] Feature suggestion
-[ ] Documentation issue
-[ ] Other (Please Specify)
+- [ ] Bug
+- [ ] Feature suggestion
+- [ ] Documentation issue
+- [ ] Other (Please Specify)
 
 ### Environment
 

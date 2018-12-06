@@ -20,67 +20,61 @@ test('compiles GraphQL documents', async () => {
             }
         `);
     await expect(doc.compile()).resolves.not.toThrow();
-    await expect(doc.render()).resolves.toMatchInlineSnapshot(`
-Object {
-  "definitions": Array [
-    Object {
-      "directives": Array [],
-      "kind": "OperationDefinition",
-      "name": undefined,
-      "operation": "query",
-      "selectionSet": Object {
-        "kind": "SelectionSet",
-        "selections": Array [
-          Object {
-            "alias": undefined,
-            "arguments": Array [
-              Object {
-                "kind": "Argument",
-                "name": Object {
-                  "kind": "Name",
-                  "value": "bar",
-                },
-                "value": Object {
-                  "kind": "IntValue",
-                  "value": "1",
-                },
-              },
-            ],
-            "directives": Array [],
-            "kind": "Field",
-            "name": Object {
-              "kind": "Name",
-              "value": "foos",
-            },
-            "selectionSet": Object {
-              "kind": "SelectionSet",
-              "selections": Array [
-                Object {
-                  "alias": undefined,
-                  "arguments": Array [],
-                  "directives": Array [],
-                  "kind": "Field",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "mahna",
-                  },
-                  "selectionSet": undefined,
-                },
-              ],
-            },
-          },
+    await expect(doc.render()).resolves.toMatchObject({
+        kind: 'Document',
+        definitions: [
+            {
+                kind: 'OperationDefinition',
+                operation: 'query',
+                variableDefinitions: [],
+                directives: [],
+                selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                        {
+                            kind: 'Field',
+                            name: {
+                                kind: 'Name',
+                                value: 'foos'
+                            },
+                            arguments: [
+                                {
+                                    kind: 'Argument',
+                                    name: {
+                                        kind: 'Name',
+                                        value: 'bar'
+                                    },
+                                    value: {
+                                        kind: 'IntValue',
+                                        value: '1'
+                                    }
+                                }
+                            ],
+                            directives: [],
+                            selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                    {
+                                        kind: 'Field',
+                                        name: {
+                                            kind: 'Name',
+                                            value: 'mahna'
+                                        },
+                                        arguments: [],
+                                        directives: []
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
         ],
-      },
-      "variableDefinitions": Array [],
-    },
-  ],
-  "kind": "Document",
-  "loc": Object {
-    "end": 112,
-    "start": 0,
-  },
-}
-`);
+        loc: {
+            end: 112,
+            start: 0
+        }
+    });
 });
 
 test('fails on illegal graphql documents', async () => {
@@ -91,7 +85,5 @@ test('fails on illegal graphql documents', async () => {
                 }
             }
         `);
-    await expect(compiler.compile()).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Syntax Error: Unexpected Name \\"foos\\""`
-    );
+    await expect(compiler.compile()).rejects.toThrow('Syntax Error');
 });
