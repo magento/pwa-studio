@@ -1,8 +1,7 @@
 /**
  * @fileoverview Extracts out common test setup steps.
- * Jest will require this file for each test.
+ * Jest will run this file before executing each test file.
  */
-
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

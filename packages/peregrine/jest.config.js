@@ -6,7 +6,7 @@ module.exports = {
         '<rootDir>/scripts/shim.js',
         '<rootDir>/scripts/fetch-mock.js'
     ],
-    setupTestFrameworkScriptFile: '<rootDir>/scripts/jest-setup.js',
+    setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
     testPathIgnorePatterns: ['dist', 'node_modules'],
     testURL: 'https://localhost/'
 };
