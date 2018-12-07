@@ -12,7 +12,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 
 ## Prerequisites
 
-* [NodeJS 8.x LTS][]
+* [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 * [Node Package Manager][] (NPM)
 * [A running instance of Magento 2.3](#choosing-the-magento-23-backend)
 

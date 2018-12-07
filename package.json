@@ -9,7 +9,7 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.14.1"
   },
   "scripts": {
     "build": "npx lerna run --stream build -- -s",
