@@ -1,4 +1,5 @@
 import React from 'react';
+import wait from 'waait';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
@@ -132,12 +133,6 @@ const classes = {
     root: 'a',
     inactive: 'b'
 };
-
-function wait(callback) {
-    setTimeout(() => {
-        callback && callback();
-    }, 1000);
-}
 
 beforeAll(() => {
     jest.useFakeTimers();
