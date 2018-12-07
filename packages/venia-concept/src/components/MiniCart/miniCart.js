@@ -15,7 +15,7 @@ import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible } from 'src/selectors/cart';
 
-const CheckoutModule = React.lazy(() => import('src/components/Checkout'));
+const Checkout = React.lazy(() => import('src/components/Checkout'));
 
 class MiniCart extends Component {
     static propTypes = {
@@ -125,7 +125,7 @@ class MiniCart extends Component {
             <div>
                 <div className={classes.summary}>{totalsSummary}</div>
                 <Suspense fallback={placeholderButton}>
-                    <CheckoutModule cart={cart} />
+                    <Checkout cart={cart} />
                 </Suspense>
             </div>
         );
