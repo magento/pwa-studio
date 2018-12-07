@@ -1,8 +1,15 @@
 .root {
     border: 1px solid rgb(var(--venia-text));
     border-radius: 50%;
-    height: 1rem;
-    width: 1rem;
+    height: 0.875rem;
+    width: 0.875rem;
+    box-shadow: 0 0 0 1px #ffffff;
+    outline: none;
+}
+
+.rootSelected {
+    composes: root;
+    background-color: rgb(var(--venia-text));
 }
 
 @media (min-width: 1024px) {

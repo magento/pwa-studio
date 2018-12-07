@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     display: grid;
     grid-template-areas:
         'main'
@@ -21,4 +22,27 @@
     display: block;
     grid-area: main;
     width: 100%;
+}
+
+.chevron-left,
+.chevron-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    outline: none;
+}
+
+.chevron-left {
+    left: 1.625rem;
+}
+
+.chevron-right {
+    right: 1.625rem;
+}
+
+@media (min-width: 1024px) {
+    .chevron-left,
+    .chevron-right {
+        display: none;
+    }
 }

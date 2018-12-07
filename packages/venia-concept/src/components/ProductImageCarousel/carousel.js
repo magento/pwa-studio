@@ -2,23 +2,35 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 
+import Icon from 'src/components/Icon';
 import classify from 'src/classify';
+import { imageItemPropType } from './constants';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import { transparentPlaceholder } from 'src/shared/images';
 
+const chevronAttrs = {
+    width: 40
+};
+
+const chevronDirs = {
+    left: 'left',
+    right: 'right'
+};
+
 class Carousel extends Component {
     static propTypes = {
         classes: PropTypes.objectOf(PropTypes.string),
-        images: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.string,
-                position: PropTypes.number,
-                disabled: PropTypes.bool,
-                file: PropTypes.string.isRequired
-            })
-        ).isRequired
+        images: PropTypes.arrayOf(imageItemPropType).isRequired
+    };
+
+    state = {
+        activeItemIndex: 0
+    };
+
+    updateActiveItemIndex = index => {
+        this.setState({ activeItemIndex: index });
     };
 
     // The spec does not guarantee a position parameter,
@@ -37,12 +49,42 @@ class Carousel extends Component {
             })
     );
 
+    get sortedImages() {
+        const { images } = this.props;
+        return this.sortAndFilterImages(images);
+    }
+
+    leftChevronHandler = () => {
+        const sortedImages = this.sortedImages;
+        const { activeItemIndex } = this.state;
+        activeItemIndex > 0
+            ? this.setState({ activeItemIndex: activeItemIndex - 1 })
+            : this.setState({ activeItemIndex: sortedImages.length - 1 });
+    };
+
+    rightChevronHandler = () => {
+        const sortedImages = this.sortedImages;
+        const { activeItemIndex } = this.state;
+        this.setState({
+            activeItemIndex: (activeItemIndex + 1) % sortedImages.length
+        });
+    };
+
+    getChevron = direction => (
+        <button
+            onClick={this[`${direction}ChevronHandler`]}
+            className={this.props.classes[`chevron-${direction}`]}
+        >
+            <Icon name={`chevron-${direction}`} attrs={chevronAttrs} />
+        </button>
+    );
+
     render() {
-        const { classes, images } = this.props;
+        const { classes } = this.props;
 
-        const sortedImages = this.sortAndFilterImages(images);
+        const sortedImages = this.sortedImages;
 
-        const mainImage = sortedImages[0] || {};
+        const mainImage = sortedImages[this.state.activeItemIndex] || {};
         const src = mainImage.file
             ? makeProductMediaPath(mainImage.file)
             : transparentPlaceholder;
@@ -50,7 +92,16 @@ class Carousel extends Component {
         return (
             <div className={classes.root}>
                 <img className={classes.currentImage} src={src} alt={alt} />
-                <ThumbnailList getItemKey={i => i.file} items={sortedImages} />
+                {this.getChevron(chevronDirs.left)}
+                {this.getChevron(chevronDirs.right)}
+                <ThumbnailList
+                    getItemKey={i => i.file}
+                    items={sortedImages}
+                    activeItemSrc={
+                        sortedImages[this.state.activeItemIndex].file
+                    }
+                    updateActiveItemIndex={this.updateActiveItemIndex}
+                />
             </div>
         );
     }

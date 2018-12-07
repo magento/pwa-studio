@@ -6,6 +6,7 @@
     grid-template-columns: repeat(auto-fit, 1rem);
     justify-content: center;
     margin-top: -3rem;
+    z-index: 1;
 }
 
 @media (min-width: 1024px) {
