@@ -4,13 +4,13 @@ title: Tools and libraries
 
 To work with the utilities provided by the Magento PWA Studio project, you should be familiar with the tools and libraries listed in the following table:
 
-{:style="table-layout:auto"}
 |                     |                  Contributor                  |              Frontend developer               |       Sysadmin/Devops/Backend developer       |
 | ------------------- | :-------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: |
 | [webpack](#webpack) | <i class="material-icons green">check_box</i> |                                               |                                               |
 | [React](#react)     | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> |                                               |
 | [Redux](#redux)     | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> |                                               |
 | [GraphQL](#graphql) | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> |
+{:style="table-layout:auto"}
 
 ## webpack
 
