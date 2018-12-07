@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+
 import classify from 'src/classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
@@ -14,11 +15,11 @@ class ForgotPassword extends Component {
         initialValues: PropTypes.shape({
             email: PropTypes.string
         }),
-        onClose: PropTypes.func
+        onClose: PropTypes.func.isRequired
     };
 
     state = {
-        email: '',
+        submittedEmail: '',
         submitSucceeded: false
     };
 
@@ -26,14 +27,14 @@ class ForgotPassword extends Component {
         await resetPasswordRequest({ email });
 
         this.setState({
-            email,
+            submittedEmail: email,
             submitSucceeded: true
         });
     };
 
     handleContinue = () => {
         this.setState({
-            email: '',
+            submittedEmail: '',
             submitSucceeded: false
         });
 
@@ -41,13 +42,13 @@ class ForgotPassword extends Component {
     };
 
     render() {
-        const { submitSucceeded, email } = this.state;
+        const { submitSucceeded, submittedEmail } = this.state;
         const { initialValues, classes } = this.props;
 
         if (submitSucceeded) {
             return (
                 <FormSubmissionSuccessful
-                    email={email}
+                    email={submittedEmail}
                     onContinue={this.handleContinue}
                 />
             );
@@ -56,7 +57,7 @@ class ForgotPassword extends Component {
         return (
             <Fragment>
                 <p className={classes.instructions}>
-                    Enter you email below to receive a password reset link
+                    Enter your email below to receive a password reset link
                 </p>
                 <ForgotPasswordForm
                     initialValues={initialValues}

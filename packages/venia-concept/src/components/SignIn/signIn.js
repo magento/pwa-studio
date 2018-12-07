@@ -20,7 +20,7 @@ class SignIn extends Component {
 
         signInError: PropTypes.object,
         signIn: PropTypes.func,
-        onForgotPassword: PropTypes.func
+        onForgotPassword: PropTypes.func.isRequired
     };
 
     state = {

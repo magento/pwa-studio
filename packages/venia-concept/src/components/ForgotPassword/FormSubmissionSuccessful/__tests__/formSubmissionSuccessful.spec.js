@@ -1,7 +1,8 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
-import Button from 'src/components/Button/index';
 import Adapter from 'enzyme-adapter-react-16';
+
+import Button from 'src/components/Button';
 import FormSubmissionSuccessful from '../formSubmissionSuccessful';
 
 configure({ adapter: new Adapter() });

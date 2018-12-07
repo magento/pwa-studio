@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './formSubmissionSuccessful.css';
 // TODO: remove after merging dark theme button classes
 import darkButtonClasses from '../darkButton.css';
 
-class ForgotPassword extends Component {
+class FormSubmissionSuccessful extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             text: PropTypes.string,
             buttonContainer: PropTypes.string
         }),
         email: PropTypes.string,
-        onContinue: PropTypes.func
+        onContinue: PropTypes.func.isRequired
     };
 
     get textMessage() {
@@ -41,4 +42,4 @@ class ForgotPassword extends Component {
     }
 }
 
-export default classify(defaultClasses)(ForgotPassword);
+export default classify(defaultClasses)(FormSubmissionSuccessful);

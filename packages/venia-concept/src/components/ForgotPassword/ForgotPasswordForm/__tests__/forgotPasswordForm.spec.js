@@ -1,8 +1,9 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import { Form } from 'informed';
-import Button from 'src/components/Button';
 import Adapter from 'enzyme-adapter-react-16';
+
+import Button from 'src/components/Button';
 import ForgotPasswordForm from '../forgotPasswordForm';
 
 configure({ adapter: new Adapter() });

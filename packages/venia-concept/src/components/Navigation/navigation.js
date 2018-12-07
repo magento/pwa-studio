@@ -146,6 +146,11 @@ class Navigation extends PureComponent {
 
     forgotPassword = () => {};
 
+    /*
+     * When the ForgotPassword component is mounted, its email input will be set to
+     * the value of the SignIn component's email input.
+     * Our common Input component handles initialValue only when component is mounted.
+     */
     setForgotPasswordForm = () => {
         this.forgotPassword = className => {
             return (
