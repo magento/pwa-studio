@@ -1,0 +1,34 @@
+.root {
+    display: grid;
+    grid-auto-columns: 1.75rem;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0.25rem;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+button {
+    grid-row-start: 1;
+    width: 1fr;
+    height: 1fr;
+    outline: none;
+}
+
+button.selected {
+    border: 1px solid;
+    border-color: #000;
+}
+
+.tileMarker {
+    position: absolute;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid;
+    border-radius: 2px;
+    bottom: 0.75rem;
+    margin-bottom: 2px;
+}
