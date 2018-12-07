@@ -59,28 +59,21 @@ test('passed functions are called from nested `Section` components', () => {
     expect(removeItem).toHaveBeenCalled();
 });
 
-// Commented out, need to fix test because assertion returns false
+test('Product variants are rendered', () => {
+    const wrapper = shallow(
+        <Product
+            item={item}
+            currencyCode={'EUR'}
+            totalsItems={totalsItems} />
+    ).dive();
 
-// test('Product variants are rendered', () => {
-//     const wrapper = shallow(
-//         <Product
-//             item={item}
-//             currencyCode={'EUR'}
-//             totalsItems={totalsItems} />
-//     ).dive();
-//     console.log(wrapper.debug());
-//     expect(
-//         wrapper.contains(
-//             // 1. this passes test, but obviously not what we want to test
-//             <div>
-//                 Product 1
-//             </div>
-//             // 2. this won't pass test, dunno why, maybe because <Fragment /> ?
-//             // <dl>
-//             //     <dt>Fashion Color: </dt>
-//             //     <dd>Peach</dd>
-//             //     <dt>Fashion Size: </dt> 
-//             //     <dd>M</dd>
-//             // </dl>
-//         )).toBe(true);
-// });
+    // The product's name is in the div at index 1.
+    expect(wrapper.find('div').at(1).text()).toEqual(item.name);
+
+    // The product variants are rendered.
+    const expectedOptions = JSON.parse(totalsItems[0].options);
+    expectedOptions.forEach((option, index) => {
+        expect(wrapper.find('dt').at(index).text()).toContain(option.label);
+        expect(wrapper.find('dd').at(index).text()).toEqual(option.value);
+    });
+});
