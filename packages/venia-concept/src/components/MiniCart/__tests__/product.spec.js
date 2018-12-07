@@ -22,9 +22,11 @@ const totalsItems = [
     {
         item_id: 1,
         name: 'Product 1',
-        options:
-            '[{"value":"Peach","label":"Fashion Color"},{"value":"M","label":"Fashion Size"}]'
         // REST API returns options as string
+        options: JSON.stringify([
+            { value: 'Peach', label: 'Fashion Color' },
+            { value: 'M', label: 'Fashion Size' }
+        ])
     }
 ];
 
