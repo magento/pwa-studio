@@ -16,6 +16,9 @@ module.exports = {
         '!**/__stories__/**',
         '!**/__helpers__/**'
     ],
+    moduleNameMapper: {
+        '\\.css$': 'identity-obj-proxy'
+    },
     reporters: [
         'default',
         [
