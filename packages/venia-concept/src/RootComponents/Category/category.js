@@ -12,6 +12,7 @@ import defaultClasses from './category.css';
 const categoryQuery = gql`
     query category($id: Int!, $pageSize: Int!, $currentPage: Int!) {
         category(id: $id) {
+            id
             description
             name
             product_count
