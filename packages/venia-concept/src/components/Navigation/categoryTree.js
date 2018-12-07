@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
 import { Query } from 'react-apollo';
 import navigationMenu from '../../queries/getNavigationMenu.graphql';
@@ -90,11 +90,12 @@ class Tree extends Component {
                         currentId == rootNodeId
                             ? classes.branch
                             : classes.inactive;
+
                     return (
-                        <div>
+                        <Fragment>
                             <div className={branchClass}>{leaves}</div>
                             {branches}
-                        </div>
+                        </Fragment>
                     );
                 }}
             </Query>
