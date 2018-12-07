@@ -54,6 +54,9 @@ test('displays category tiles', async () => {
                                 name: 'foo',
                                 url_key: 'foo-url.html',
                                 url_path: '/foo-url.html',
+                                product_count: 0,
+                                children_count: 0,
+                                path: '1/2/15',
                                 image: 'media/foo.png',
                                 productImagePreview: {
                                     items: [
@@ -68,6 +71,9 @@ test('displays category tiles', async () => {
                                 name: 'bar',
                                 url_key: 'bar-url.html',
                                 url_path: '/bar-url.html',
+                                product_count: 0,
+                                children_count: 0,
+                                path: '1/2/16',
                                 image: null,
                                 productImagePreview: {
                                     items: [
@@ -82,6 +88,9 @@ test('displays category tiles', async () => {
                                 name: 'baz',
                                 url_key: 'baz-url.html',
                                 url_path: '/bar-url.html',
+                                product_count: 1,
+                                children_count: 0,
+                                path: '1/2/17',
                                 image: null,
                                 productImagePreview: {
                                     items: []
