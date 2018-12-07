@@ -59,20 +59,21 @@ class Navigation extends PureComponent {
     state = {
         isCreateAccountOpen: false,
         isSignInOpen: false,
-        rootNodeId: null
+        rootNodeId: null,
+        currentPath: null
     };
 
     get categoryTree() {
-        const { props, setRootNodeId, state } = this;
+        const { props, setCurrentPath, state } = this;
         const { rootNodeId } = state;
-        const { categories, closeDrawer } = props;
+        const { closeDrawer } = props;
 
         return rootNodeId ? (
             <CategoryTree
-                nodes={categories}
-                rootNodeId={rootNodeId}
+                rootNodeId={props.rootCategoryId}
+                currentId={rootNodeId}
+                updateRootNodeId={setCurrentPath}
                 onNavigate={closeDrawer}
-                updateRootNodeId={setRootNodeId}
             />
         ) : null;
     }
@@ -180,15 +181,25 @@ class Navigation extends PureComponent {
         }));
     };
 
-    setRootNodeId = rootNodeId => {
-        this.setState(() => ({ rootNodeId }));
+    setCurrentPath = currentPath => {
+        const path = currentPath.split('/').reverse();
+        const rootNodeId = parseInt(path[0]);
+
+        this.setState(() => ({
+            rootNodeId: rootNodeId,
+            currentPath: path
+        }));
     };
 
     setRootNodeIdToParent = () => {
-        const { categories } = this.props;
+        const path = this.state.currentPath;
+        const parentId =
+            path.length > 1 ? parseInt(path[1]) : this.props.rootCategoryId;
+        path.shift();
 
-        this.setState(({ rootNodeId }) => ({
-            rootNodeId: categories[rootNodeId].parentId
+        this.setState(() => ({
+            rootNodeId: parentId,
+            currentPath: path
         }));
     };
 
