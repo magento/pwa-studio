@@ -1,0 +1,8 @@
+.arrow {
+    display: grid;
+    padding-bottom: 1px;
+}
+
+.inactive {
+    color: #999;
+}

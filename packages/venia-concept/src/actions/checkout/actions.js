@@ -7,7 +7,17 @@ const actionTypes = ['BEGIN', 'EDIT', 'RESET'];
 // e.g., `actions.order.submit` => CHECKOUT/ORDER/SUBMIT
 // a `null` value corresponds to the default creator function
 const actionMap = {
-    INPUT: {
+    ADDRESS: {
+        SUBMIT: null,
+        ACCEPT: null,
+        REJECT: null
+    },
+    PAYMENT_METHOD: {
+        SUBMIT: null,
+        ACCEPT: null,
+        REJECT: null
+    },
+    SHIPPING_METHOD: {
         SUBMIT: null,
         ACCEPT: null,
         REJECT: null

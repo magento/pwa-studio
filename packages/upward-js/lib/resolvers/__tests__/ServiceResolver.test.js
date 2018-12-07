@@ -35,18 +35,16 @@ test('places a server call and returns results', async () => {
 
     expect(fetchUri).toBe('https://example.com/graphql');
 
-    expect(JSON.parse(fetchOptions.body)).toMatchInlineSnapshot(`
-Object {
-  "operationName": null,
-  "query": "{
+    expect(JSON.parse(fetchOptions.body)).toMatchObject({
+        operationName: null,
+        query: `{
   foo {
     bar
   }
 }
-",
-  "variables": Object {},
-}
-`);
+`,
+        variables: {}
+    });
 });
 
 test('places a server call with custom method and headers', async () => {
@@ -117,20 +115,18 @@ test('places a server call with variables', async () => {
 
     const fetchOptions = visitor.io.networkFetch.mock.calls[0][1];
 
-    expect(JSON.parse(fetchOptions.body)).toMatchInlineSnapshot(`
-Object {
-  "operationName": "getFoo",
-  "query": "query getFoo($id: String!) {
+    expect(JSON.parse(fetchOptions.body)).toMatchObject({
+        operationName: 'getFoo',
+        query: `query getFoo($id: String!) {
   foo(id: $id) {
     bar
   }
 }
-",
-  "variables": Object {
-    "id": 12345,
-  },
-}
-`);
+`,
+        variables: {
+            id: 12345
+        }
+    });
 });
 
 test('throws if variables are in an unacceptable format', async () => {

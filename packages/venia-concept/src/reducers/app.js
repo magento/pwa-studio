@@ -6,6 +6,8 @@ export const name = 'app';
 
 const initialState = {
     drawer: null,
+    hasBeenOffline: !navigator.onLine,
+    isOnline: navigator.onLine,
     overlay: false,
     searchOpen: false,
     query: '',
@@ -30,6 +32,19 @@ const reducerMap = {
         return {
             ...state,
             query: payload
+        };
+    },
+    [actions.setOnline]: state => {
+        return {
+            ...state,
+            isOnline: true
+        };
+    },
+    [actions.setOffline]: state => {
+        return {
+            ...state,
+            isOnline: false,
+            hasBeenOffline: true
         };
     }
 };

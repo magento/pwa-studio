@@ -40,7 +40,7 @@ test('compiles Mustache ', async () => {
     await expect(template.compile()).resolves.not.toThrow();
     await expect(
         template.render({ existenz: { status: 'paused' } })
-    ).resolves.toMatchInlineSnapshot(`"Existenz is paused!"`);
+    ).resolves.toEqual('Existenz is paused!');
     await expect(
         template.render({
             existenz: [
@@ -48,15 +48,15 @@ test('compiles Mustache ', async () => {
                 { status: 'overshadowed by The Matrix' }
             ]
         })
-    ).resolves.toMatchInlineSnapshot(`
-"Existenz is a movie with a weird goop gun in it!
-                Existenz is overshadowed by The Matrix!"
-`);
-    await expect(template.render({})).resolves.toMatchInlineSnapshot(
-        `"What, you hate Cronenberg?"`
+    ).resolves.toEqual(
+        `Existenz is a movie with a weird goop gun in it!
+                Existenz is overshadowed by The Matrix!`
     );
-    await expect(template.render()).resolves.toMatchInlineSnapshot(
-        `"What, you hate Cronenberg?"`
+    await expect(template.render({})).resolves.toEqual(
+        'What, you hate Cronenberg?'
+    );
+    await expect(template.render()).resolves.toEqual(
+        'What, you hate Cronenberg?'
     );
 });
 
@@ -76,11 +76,10 @@ test('loads Mustache partials using io', async () => {
         io
     );
     await expect(template.compile()).resolves.not.toThrow();
-    await expect(template.render({ addressee: 'unit test' })).resolves
-        .toMatchInlineSnapshot(`
-"<h1>Important announcements!</h1>
-        <h2>Hello unit test, I am the template called firstPartial.mst!</h2>        <h2>Hello unit test, I am the template called secondPartial.mst!</h2>"
-`);
+    await expect(template.render({ addressee: 'unit test' })).resolves.toEqual(
+        `<h1>Important announcements!</h1>
+        <h2>Hello unit test, I am the template called firstPartial.mst!</h2>        <h2>Hello unit test, I am the template called secondPartial.mst!</h2>`
+    );
     expect(io.readFile).toHaveBeenCalledTimes(2);
     expect(io.readFile.mock.calls).toMatchObject([
         ['firstPartial.mst', 'utf8'],
@@ -106,11 +105,10 @@ test('loads descendent partials using io', async () => {
         io
     );
     await expect(template.compile()).resolves.not.toThrow();
-    await expect(template.render({ addressee: 'unit test' })).resolves
-        .toMatchInlineSnapshot(`
-"<h1>Important announcements!</h1>
-    <h2>Hello unit test, I am the template called firstPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!    <h2>Hello unit test, I am the template called secondPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!"
-`);
+    await expect(template.render({ addressee: 'unit test' })).resolves.toEqual(
+        `<h1>Important announcements!</h1>
+    <h2>Hello unit test, I am the template called firstPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!    <h2>Hello unit test, I am the template called secondPartial.mst, and I have sub-partials!</h2> I'm a subpartial, unit test!!`
+    );
     expect(io.readFile).toHaveBeenCalledTimes(3);
     expect(io.readFile.mock.calls).toMatchObject([
         ['firstPartial.mst', 'utf8'],
