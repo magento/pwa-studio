@@ -60,7 +60,7 @@ test('passed functions are called from nested `Section` components', () => {
 });
 
 // Commented out, need to fix test because assertion returns false
-//
+
 // test('Product variants are rendered', () => {
 //     const wrapper = shallow(
 //         <Product
@@ -71,20 +71,16 @@ test('passed functions are called from nested `Section` components', () => {
 //     console.log(wrapper.debug());
 //     expect(
 //         wrapper.contains(
-//             <Fragment>
-//                 <dt>
-//                     Fashion Color:
-//                 </dt>
-//                 <dd>
-//                     Peach
-//                 </dd>
-//                 <dt>
-//                     Fashion Size:
-//                 </dt>
-//                 <dd>
-//                     M
-//                 </dd>
-//             </Fragment>
-//             )
-//         ).toBe(true);
+//             // 1. this passes test, but obviously not what we want to test
+//             <div>
+//                 Product 1
+//             </div>
+//             // 2. this won't pass test, dunno why, maybe because <Fragment /> ?
+//             // <dl>
+//             //     <dt>Fashion Color: </dt>
+//             //     <dd>Peach</dd>
+//             //     <dt>Fashion Size: </dt> 
+//             //     <dd>M</dd>
+//             // </dl>
+//         )).toBe(true);
 // });
