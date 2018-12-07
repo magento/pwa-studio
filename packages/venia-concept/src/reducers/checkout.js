@@ -1,11 +1,21 @@
 import { handleActions } from 'redux-actions';
 
+import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
 export const name = 'checkout';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+const storedPaymentMethod = storage.getItem('paymentMethod');
+const storedShippingMethod = storage.getItem('shippingMethod');
 
 const initialState = {
     editing: null,
+    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
+    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
+    shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
+    shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
     submitting: false
 };
@@ -24,13 +34,13 @@ const reducerMap = {
             editing: payload
         };
     },
-    [actions.input.submit]: state => {
+    [actions.address.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.input.accept]: state => {
+    [actions.address.accept]: state => {
         return {
             ...state,
             editing: null,
@@ -38,7 +48,51 @@ const reducerMap = {
             submitting: false
         };
     },
-    [actions.input.reject]: state => {
+    [actions.address.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.paymentMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.paymentMethod.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            editing: null,
+            paymentMethod: payload.code,
+            paymentTitle: payload.title,
+            step: 'form',
+            submitting: false
+        };
+    },
+    [actions.paymentMethod.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.shippingMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.shippingMethod.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            editing: null,
+            shippingMethod: payload.carrier_code,
+            shippingTitle: payload.carrier_title,
+            step: 'form',
+            submitting: false
+        };
+    },
+    [actions.shippingMethod.reject]: state => {
         return {
             ...state,
             submitting: false

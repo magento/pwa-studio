@@ -102,7 +102,7 @@ For more information on components, see the [official documentation for React co
 CSS modules are style definitions that are scoped to a specific component.
 This allows for component-specific style definitions without side effects on other pieces of the page.
 
-These CSS files are in the same directory and have the same base name as the components that uses them.
+These CSS files are in the same directory and have the same base name as the components that use them.
 For example, the styles defined in `Footer/footer.css` are applied only to the component defined in `Footer/footer.js`.
 
 For more information see [CSS modules][].

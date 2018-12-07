@@ -23,13 +23,13 @@ Use the following instructions to build a local instance of the documentation.
     ```
     cd pwa-studio
     ```
-3.  Run the following command to install the required node modules for the project:
-    ```
-    npm install
-    ```
-4.  Change into the **pwa-devdocs** directory using the following command:
+3.  Change into the **pwa-devdocs** directory using the following command:
     ```
     cd packages/pwa-devdocs
+    ```
+4.  Run the following command to install the required node modules for the project:
+    ```
+    npm install
     ```
 5.  Run the following command to install the required Ruby libraries:
     ```
