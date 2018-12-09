@@ -63,19 +63,31 @@ test('passed functions are called from nested `Section` components', () => {
 
 test('Product variants are rendered', () => {
     const wrapper = shallow(
-        <Product
-            item={item}
-            currencyCode={'EUR'}
-            totalsItems={totalsItems} />
+        <Product item={item} currencyCode={'EUR'} totalsItems={totalsItems} />
     ).dive();
 
     // The product's name is in the div at index 1.
-    expect(wrapper.find('div').at(1).text()).toEqual(item.name);
+    expect(
+        wrapper
+            .find('div')
+            .at(1)
+            .text()
+    ).toEqual(item.name);
 
     // The product variants are rendered.
     const expectedOptions = JSON.parse(totalsItems[0].options);
     expectedOptions.forEach((option, index) => {
-        expect(wrapper.find('dt').at(index).text()).toContain(option.label);
-        expect(wrapper.find('dd').at(index).text()).toEqual(option.value);
+        expect(
+            wrapper
+                .find('dt')
+                .at(index)
+                .text()
+        ).toContain(option.label);
+        expect(
+            wrapper
+                .find('dd')
+                .at(index)
+                .text()
+        ).toEqual(option.value);
     });
 });
