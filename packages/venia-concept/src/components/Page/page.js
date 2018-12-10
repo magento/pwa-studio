@@ -4,9 +4,9 @@ import { bool, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
-import defaultClasses from './main.css';
+import defaultClasses from './page.css';
 
-class Main extends Component {
+class Page extends Component {
     static propTypes = {
         classes: shape({
             page: string,
@@ -21,7 +21,7 @@ class Main extends Component {
         const { classes, isMasked } = this.props;
         const suffix = isMasked ? '_masked' : '';
 
-        return ['page', 'root'].reduce(
+        return ['main', 'root'].reduce(
             (acc, val) => ({ ...acc, [val]: classes[`${val}${suffix}`] }),
             {}
         );
@@ -32,13 +32,13 @@ class Main extends Component {
         const { children } = props;
 
         return (
-            <main className={classes.root}>
+            <div className={classes.root}>
                 <Header />
-                <article className={classes.page}>{children}</article>
+                <main className={classes.main}>{children}</main>
                 <Footer />
-            </main>
+            </div>
         );
     }
 }
 
-export default classify(defaultClasses)(Main);
+export default classify(defaultClasses)(Page);

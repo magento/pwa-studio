@@ -44,7 +44,10 @@ class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <button className={classes.searchTrigger}>
+                        <button
+                            className={classes.searchTrigger}
+                            aria-label="Search"
+                        >
                             <Icon name="search" />
                         </button>
                         <CartTrigger>

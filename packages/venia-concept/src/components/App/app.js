@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import Main from 'src/components/Main';
+import Page from 'src/components/Page';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
@@ -42,10 +42,10 @@ class App extends Component {
 
         return (
             <div className={className}>
-                <Main isMasked={overlay}>
+                <Page isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}
-                </Main>
+                </Page>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />
