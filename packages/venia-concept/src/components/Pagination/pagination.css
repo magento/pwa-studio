@@ -11,16 +11,9 @@
     text-align: center;
 }
 
-button {
+.tileButton {
     grid-row-start: 1;
-    width: 1fr;
-    height: 1fr;
     outline: none;
-}
-
-button.selected {
-    border: 1px solid;
-    border-color: #000;
 }
 
 .tileMarker {
