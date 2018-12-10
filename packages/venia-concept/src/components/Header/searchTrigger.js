@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
@@ -16,25 +16,41 @@ class SearchTrigger extends Component {
         searchOpen: PropTypes.bool
     };
 
-    async componentDidMount() {
-        if (
-            this.props.location.pathname === '/search.html' &&
-            this.props.searchOpen !== true
-        ) {
-            this.props.toggleSearch();
-        }
+    state = {
+        isMounted: false
+    };
+
+    componentDidMount () {
+        this.setState({ isMounted: true });
     }
 
     render() {
         const { children, classes, toggleSearch, searchOpen } = this.props;
+        const { isMounted } = this.state;
         const searchClass = searchOpen ? classes.open : classes.root;
 
         return (
-            <button className={searchClass} onClick={toggleSearch}>
-                {children}
-            </button>
+            <Fragment>
+                <button className={searchClass} onClick={toggleSearch}>
+                    {children}
+                </button>
+
+                {!isMounted && (
+                    <Route exact path="/search.html" render={() => {
+                        // If the app loads on the search page - via bookmark or similar -
+                        // force the search bar to be open.
+                        if (this.props.searchOpen !== true) {
+                            this.props.toggleSearch();
+                        }
+
+                        // This Route should never render anything additional.
+                        return null;
+                    }}>
+                    </Route>
+                )}
+            </Fragment>
         );
     }
 }
 
-export default withRouter(classify(defaultClasses)(SearchTrigger));
+export default classify(defaultClasses)(SearchTrigger);
