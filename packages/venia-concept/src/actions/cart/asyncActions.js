@@ -248,8 +248,10 @@ export const getCartDetails = (payload = {}) => {
                     item.image = item.image || imageCache[item.sku] || {};
 
                     item.options = validTotals
-                        ? totals.items.find(t => t.item_id === item.item_id)
-                              .options
+                        ? JSON.parse(
+                              totals.items.find(t => t.item_id === item.item_id)
+                                  .options
+                          )
                         : [];
                 });
             }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
 import Section from './section';
@@ -17,9 +17,8 @@ class Product extends Component {
             image: string,
             modal: string,
             name: string,
-            optionName: string,
+            optionLabel: string,
             options: string,
-            optionValue: string,
             price: string,
             quantity: string,
             quantityOperator: string,
@@ -30,14 +29,44 @@ class Product extends Component {
         item: shape({
             item_id: number.isRequired,
             name: string.isRequired,
-            options: string,
+            options: arrayOf(
+                shape({
+                    label: string,
+                    value: string
+                })
+            ),
             price: number.isRequired,
             product_type: string,
             qty: number.isRequired,
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string.isRequired,
+        totalsItems: arrayOf(
+            shape({
+                base_discount_amount: number,
+                base_price: number,
+                base_price_incl_tax: number,
+                base_row_total: number,
+                base_row_total_incl_tax: number,
+                base_tax_amount: number,
+                discount_amount: number,
+                discount_percent: number,
+                item_id: number.isRequired,
+                name: string,
+                options: string,
+                price: number,
+                price_incl_tax: number,
+                qty: number,
+                row_total: number,
+                row_total_incl_tax: number,
+                row_total_with_discount: number,
+                tax_amount: number,
+                tax_percent: number,
+                weee_tax_applied: bool,
+                weee_tax_applied_amount: number
+            })
+        ).isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -51,13 +80,13 @@ class Product extends Component {
 
     get options() {
         const { classes, item } = this.props;
-        const options = item.options ? JSON.parse(item.options) : [];
+        const options = item.options;
 
         return options && options.length > 0 ? (
             <dl className={classes.options}>
                 {options.map(({ label, value }) => (
                     <Fragment key={`${label}${value}`}>
-                        <dt className={classes.optionName}>
+                        <dt className={classes.optionLabel}>
                             {label} : {value}
                         </dt>
                     </Fragment>
@@ -73,7 +102,7 @@ class Product extends Component {
 
     styleImage(image) {
         return {
-            height: imageHeight,
+            minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
             backgroundImage: `url(${makeProductMediaPath(image.file)})`
         };

@@ -37,7 +37,11 @@ class Pagination extends Component {
                     <div className={classes.tileMarker} />
                 ) : null;
             return (
-                <button key={tile} onClick={() => this.setPage(tile)}>
+                <button
+                    className={classes.tileButton}
+                    key={tile}
+                    onClick={() => this.setPage(tile)}
+                >
                     {tileMarker}
                     {tile}
                 </button>

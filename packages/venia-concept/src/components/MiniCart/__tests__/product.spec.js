@@ -7,7 +7,7 @@ import Section from '../section';
 
 configure({ adapter: new Adapter() });
 
-const classes = { firstSection: 'a' };
+const classes = { firstSection: 'a', optionLabel: 'b', name: 'c' };
 
 const item = {
     item_id: 1,
@@ -15,8 +15,30 @@ const item = {
     price: 10,
     qty: 1,
     sku: 'TEST1',
-    image: 'test.jpg'
+    image: 'test.jpg',
+    options: [
+        {
+            label: 'testLabel',
+            value: 'testValue'
+        },
+        {
+            label: 'testLabel2',
+            value: 'testValue2'
+        }
+    ]
 };
+
+const totalsItems = [
+    {
+        item_id: 1,
+        name: 'Product 1',
+        // REST API returns options as string
+        options: JSON.stringify([
+            { value: 'testValue', label: 'testLabel' },
+            { value: 'testValue2', label: 'testLabel2' }
+        ])
+    }
+];
 
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
@@ -28,6 +50,7 @@ test('passed functions are called from nested `Section` components', () => {
             currencyCode={'NZD'}
             removeItemFromCart={removeItemFromCart}
             showEditPanel={showEditPanel}
+            totalsItems={totalsItems}
         />
     ).dive();
 
@@ -46,4 +69,38 @@ test('passed functions are called from nested `Section` components', () => {
     expect(favoriteItem).toHaveBeenCalled();
     expect(editItem).toHaveBeenCalled();
     expect(removeItem).toHaveBeenCalled();
+});
+
+test('Product name is rendered', () => {
+    const wrapper = shallow(
+        <Product
+            item={item}
+            currencyCode={'EUR'}
+            totalsItems={totalsItems}
+            classes={classes}
+        />
+    ).dive();
+
+    expect(
+        wrapper
+            .find(`.${classes.name}`)
+            .at(0)
+            .text()
+    ).toContain(item.name);
+});
+
+test('Product variants are rendered', () => {
+    const wrapper = shallow(
+        <Product
+            item={item}
+            currencyCode={'EUR'}
+            totalsItems={totalsItems}
+            classes={classes}
+        />
+    ).dive();
+
+    wrapper.find(`.${classes.optionLabel}`).forEach((l, i) => {
+        expect(l.text()).toContain(item.options[i].label);
+        expect(l.text()).toContain(item.options[i].value);
+    });
 });
