@@ -12,21 +12,12 @@ class SearchTrigger extends Component {
             root: PropTypes.string,
             open: PropTypes.string
         }),
-        toggleSearch: PropTypes.func.isRequired,
-        searchOpen: PropTypes.bool
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func.isRequired
     };
-
-    state = {
-        isMounted: false
-    };
-
-    componentDidMount () {
-        this.setState({ isMounted: true });
-    }
 
     render() {
         const { children, classes, toggleSearch, searchOpen } = this.props;
-        const { isMounted } = this.state;
         const searchClass = searchOpen ? classes.open : classes.root;
 
         return (
@@ -34,23 +25,35 @@ class SearchTrigger extends Component {
                 <button className={searchClass} onClick={toggleSearch}>
                     {children}
                 </button>
+                <Route exact path="/search.html" render={() => {
+                    const { searchOpen, toggleSearch } = this.props;
+                    const props = { searchOpen, toggleSearch };
 
-                {!isMounted && (
-                    <Route exact path="/search.html" render={() => {
-                        // If the app loads on the search page - via bookmark or similar -
-                        // force the search bar to be open.
-                        if (this.props.searchOpen !== true) {
-                            this.props.toggleSearch();
-                        }
-
-                        // This Route should never render anything additional.
-                        return null;
-                    }}>
-                    </Route>
-                )}
+                    return <EnsureOpenSearch {...props} />
+                }}>
+                </Route>
             </Fragment>
         );
     }
-}
+};
+
+class EnsureOpenSearch extends Component {
+    static propTypes = {
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func.isRequired
+    };
+
+    componentDidMount () {
+        const { searchOpen, toggleSearch } = this.props;
+        if (searchOpen !== true) {
+            toggleSearch();
+        }
+    }
+
+    render () {
+        // Do not render anything.
+        return null;
+    }
+};
 
 export default classify(defaultClasses)(SearchTrigger);
