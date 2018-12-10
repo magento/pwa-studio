@@ -10,8 +10,8 @@ const isDisabled = (busy, valid) => busy || !valid;
 class CheckoutButton extends Component {
     static propTypes = {
         ready: bool.isRequired,
-        submit: func.isRequired,
-        submitting: bool.isRequired
+        submit: func,
+        submitting: bool
     };
 
     render() {

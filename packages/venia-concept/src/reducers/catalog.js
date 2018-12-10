@@ -6,7 +6,10 @@ export const name = 'catalog';
 
 const initialState = {
     categories: null,
-    rootCategoryId: null
+    rootCategoryId: null,
+    currentPage: 1,
+    pageSize: 6,
+    prevPageTotal: null
 };
 
 const reducerMap = {
@@ -19,6 +22,26 @@ const reducerMap = {
             ...state,
             categories: getNormalizedCategories(payload),
             rootCategoryId: payload.id
+        };
+    },
+    [actions.setCurrentPage.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            currentPage: payload
+        };
+    },
+    [actions.setPrevPageTotal.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            prevPageTotal: payload
         };
     }
 };

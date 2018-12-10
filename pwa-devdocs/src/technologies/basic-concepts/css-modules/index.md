@@ -2,7 +2,7 @@
 title: CSS Modules
 ---
 
-A [CSS Module][] is a CSS file that define class and animations names that are scoped locally by default.
+A [CSS Module][] is a CSS file that defines class and animation names that are scoped locally by default.
 
 CSS modules let you import your `.css` file into a JavaScript Object with the CSS definitions as properties.
 It also lets you use the `compose` property to extend and modularize style definitions.
@@ -12,16 +12,16 @@ They are part of a compilation process that executes against your project to con
 
 Tools such as [Webpack][] are used to perform this compilation process.
 
-PWA Studio supports CSS modules out-of-the-box and is the recommended approach for styling components.
+PWA Studio supports CSS modules out-of-the-box and using them is the recommended approach for styling components.
 
 ## Why you should use CSS modules
 
-React lets you to split the UI into independent and reusable components, which allows you to update small parts of your UI without refreshing the page.
+React lets you split the UI into independent and reusable components, which allows you to update small parts of your UI without refreshing the page.
 
 As React applications grow, the amount of components and layers increases.
 Simple style changes can have unintended side effects on different parts of a complex page.
 
-CSS modules gives you the ability to control your element styles in a more granular way.
+CSS modules give you the ability to control your element styles in a more granular way.
 They allow you to build different layers of styles while building your application using a modular approach.
 CSS modules make it easy and fast to achieve tasks such as upgrading buttons, headings, grids, etc.
 
@@ -132,7 +132,7 @@ export default Subtitle;
 ## Creating and composing CSS modules
 
 Any valid `.css` file can be a CSS module.
-The difference is that the style definitions in that file is scoped to specific components instead of globally.
+The difference is that the style definitions in that file are scoped to specific components instead of globally.
 
 The `composes` property is used in CSS module files to combine local style definitions.
 The following example creates a CSS module that applies the `.heading` style definition wherever `.titleHighlighted` is used.
