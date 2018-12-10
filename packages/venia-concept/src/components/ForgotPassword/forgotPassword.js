@@ -5,7 +5,6 @@ import classify from 'src/classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 import defaultClasses from './forgotPassword.css';
-import { resetPasswordRequest } from './api';
 
 class ForgotPassword extends Component {
     static propTypes = {
@@ -15,7 +14,8 @@ class ForgotPassword extends Component {
         initialValues: PropTypes.shape({
             email: PropTypes.string
         }),
-        onClose: PropTypes.func.isRequired
+        onClose: PropTypes.func.isRequired,
+        resetPassword: PropTypes.func.isRequired
     };
 
     state = {
@@ -24,7 +24,7 @@ class ForgotPassword extends Component {
     };
 
     handleFormSubmit = async ({ email }) => {
-        await resetPasswordRequest({ email });
+        await this.props.resetPassword({ email });
 
         this.setState({
             submittedEmail: email,

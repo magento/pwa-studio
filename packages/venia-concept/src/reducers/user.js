@@ -56,7 +56,9 @@ const reducerMap = {
             ...state,
             createAccountError: {}
         };
-    }
+    },
+    // TODO: handle the reset password response from the API.
+    [actions.resetPassword.receive]: state => state
 };
 
 export default handleActions(reducerMap, initialState);

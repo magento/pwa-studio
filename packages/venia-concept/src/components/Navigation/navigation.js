@@ -33,13 +33,15 @@ class Navigation extends PureComponent {
             userMore: string,
             userName: string
         }),
+        email: string,
         firstname: string,
         getAllCategories: func.isRequired,
-        email: string,
+        getUserDetails: func.isRequired,
         isOpen: bool,
         isSignedIn: bool,
         lastname: string,
-        signInError: object
+        signInError: object,
+        resetPassword: func.isRequired
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -54,6 +56,7 @@ class Navigation extends PureComponent {
     }
 
     componentDidMount() {
+        this.props.getUserDetails();
         this.props.getAllCategories();
     }
 
@@ -158,6 +161,7 @@ class Navigation extends PureComponent {
                     <ForgotPassword
                         initialValues={{ email: this.state.defaultUsername }}
                         onClose={this.closeForgotPassword}
+                        resetPassword={this.props.resetPassword}
                     />
                 </div>
             );

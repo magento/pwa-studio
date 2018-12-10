@@ -22,6 +22,10 @@ const actionMap = {
     CREATE_ACCOUNT_ERROR: {
         REQUEST: null,
         RECEIVE: null
+    },
+    RESET_PASSWORD: {
+        REQUEST: null,
+        RECEIVE: null
     }
 };
 

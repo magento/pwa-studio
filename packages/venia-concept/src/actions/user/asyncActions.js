@@ -116,6 +116,19 @@ export const assignGuestCartToCustomer = () =>
         }
     };
 
+export const resetPassword = ({ email }) =>
+    async function thunk(...args) {
+        const [dispatch] = args;
+
+        dispatch(actions.resetPassword.request(email));
+
+        // TODO: actually make the call to the API.
+        // For now, just return a resolved promise.
+        const response = await Promise.resolve(email);
+
+        dispatch(actions.resetPassword.receive(response));
+    };
+
 async function setToken(token) {
     const storage = new BrowserPersistence();
     // TODO: Get correct token expire time from API
