@@ -153,3 +153,36 @@ test('resetSignInError.receive() returns a proper action object', () => {
         error: true
     });
 });
+
+describe('resetPassword', () => {
+    test('resetPassword.request.toString() returns the proper action type', () => {
+        expect(actions.resetPassword.request.toString()).toBe(
+            'USER/RESET_PASSWORD/REQUEST'
+        );
+    });
+
+    test('resetPassword.request() returns a proper action object', () => {
+        expect(actions.resetPassword.request(payload)).toEqual({
+            type: 'USER/RESET_PASSWORD/REQUEST',
+            payload
+        });
+    });
+
+    test('resetPassword.receive.toString() returns the proper action type', () => {
+        expect(actions.resetPassword.receive.toString()).toBe(
+            'USER/RESET_PASSWORD/RECEIVE'
+        );
+    });
+
+    test('resetPassword.receive() returns a proper action object', () => {
+        expect(actions.resetPassword.receive(payload)).toEqual({
+            type: 'USER/RESET_PASSWORD/RECEIVE',
+            payload
+        });
+        expect(actions.resetPassword.receive(error)).toEqual({
+            type: 'USER/RESET_PASSWORD/RECEIVE',
+            payload: error,
+            error: true
+        });
+    });
+});
