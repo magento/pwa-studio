@@ -3,9 +3,9 @@ import { string, number, shape, func, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
-import { transparentPlaceholder } from 'src/shared/images';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
+import Image from 'src/components/Image';
 
 const imageWidth = '300';
 const imageHeight = '372';
@@ -62,7 +62,8 @@ class GalleryItem extends Component {
     };
 
     render() {
-        const { classes, item } = this.props;
+        const { classes, item, showImage } = this.props;
+        const { small_image } = item;
 
         if (!item) {
             return (
@@ -78,8 +79,15 @@ class GalleryItem extends Component {
         return (
             <div className={classes.root}>
                 <Link to={productLink} className={classes.images}>
-                    {this.renderImagePlaceholder()}
-                    {this.renderImage()}
+                    <Image
+                        src={makeProductMediaPath(small_image)}
+                        alt={name}
+                        width={imageWidth}
+                        height={imageHeight}
+                        onLoad={this.handleLoad}
+                        onError={this.handleError}
+                        showImage={showImage}
+                    />
                 </Link>
                 <Link to={productLink} className={classes.name}>
                     <span>{name}</span>
@@ -93,55 +101,6 @@ class GalleryItem extends Component {
             </div>
         );
     }
-
-    renderImagePlaceholder = () => {
-        const { classes, item, showImage } = this.props;
-
-        if (showImage) {
-            return null;
-        }
-
-        const className = item
-            ? classes.imagePlaceholder
-            : classes.imagePlaceholder_pending;
-
-        return (
-            <img
-                className={className}
-                src={transparentPlaceholder}
-                alt=""
-                width={imageWidth}
-                height={imageHeight}
-            />
-        );
-    };
-
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
-    renderImage = () => {
-        const { classes, item, showImage } = this.props;
-
-        if (!item) {
-            return null;
-        }
-
-        const { small_image, name } = item;
-        const className = showImage ? classes.image : classes.image_pending;
-
-        return (
-            <img
-                className={className}
-                src={makeProductMediaPath(small_image)}
-                alt={name}
-                width={imageWidth}
-                height={imageHeight}
-                onLoad={this.handleLoad}
-                onError={this.handleError}
-            />
-        );
-    };
 
     handleLoad = () => {
         const { item, onLoad } = this.props;

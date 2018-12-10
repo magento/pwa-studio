@@ -1,0 +1,33 @@
+.root {
+    composes: root from '../clickable.css';
+    position: relative;
+}
+
+.image {
+    display: block;
+    height: auto;
+    opacity: 1;
+    transition-duration: 512ms;
+    transition-property: opacity, visibility;
+    transition-timing-function: ease-out;
+    visibility: visible;
+    width: 100%;
+}
+
+.image_pending {
+    composes: image;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.imagePlaceholder {
+    composes: image;
+    position: absolute;
+    opacity: 0;
+}
+
+.imagePlaceholder_pending {
+    position: absolute;
+    background-color: rgb(var(--venia-grey));
+    composes: image;
+}
