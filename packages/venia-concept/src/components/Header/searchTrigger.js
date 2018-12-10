@@ -25,17 +25,20 @@ class SearchTrigger extends Component {
                 <button className={searchClass} onClick={toggleSearch}>
                     {children}
                 </button>
-                <Route exact path="/search.html" render={() => {
-                    const { searchOpen, toggleSearch } = this.props;
-                    const props = { searchOpen, toggleSearch };
+                <Route
+                    exact
+                    path="/search.html"
+                    render={() => {
+                        const { searchOpen, toggleSearch } = this.props;
+                        const props = { searchOpen, toggleSearch };
 
-                    return <EnsureOpenSearch {...props} />
-                }}>
-                </Route>
+                        return <EnsureOpenSearch {...props} />;
+                    }}
+                />
             </Fragment>
         );
     }
-};
+}
 
 class EnsureOpenSearch extends Component {
     static propTypes = {
@@ -43,17 +46,17 @@ class EnsureOpenSearch extends Component {
         toggleSearch: PropTypes.func.isRequired
     };
 
-    componentDidMount () {
+    componentDidMount() {
         const { searchOpen, toggleSearch } = this.props;
         if (searchOpen !== true) {
             toggleSearch();
         }
     }
 
-    render () {
+    render() {
         // Do not render anything.
         return null;
     }
-};
+}
 
 export default classify(defaultClasses)(SearchTrigger);
