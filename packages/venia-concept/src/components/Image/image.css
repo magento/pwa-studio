@@ -3,6 +3,9 @@
     position: relative;
 }
 
+.image_error {
+}
+
 .image {
     display: block;
     height: auto;

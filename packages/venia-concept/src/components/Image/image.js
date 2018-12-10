@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { string, shape, func, bool } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './image.css';
@@ -7,6 +7,21 @@ import { transparentPlaceholder } from 'src/shared/images';
 
 class Image extends Component {
     static propTypes = {
+        classes: shape({
+            image_error: string,
+            image_pending: string,
+            image: string,
+            imagePlaceholder_pending: string,
+            imagePlaceholder: string,
+            root: string
+        }),
+        height: string,
+        name: string,
+        onError: func,
+        onLoad: func,
+        showImage: bool,
+        src: string,
+        width: string
     };
 
     state = {
@@ -19,33 +34,32 @@ class Image extends Component {
     };
 
     handleError = () => {
-
         const { onError } = this.props;
         this.setState({
             isError: true
-        })
+        });
         onError();
-    }
+    };
 
     get error() {
+        const { classes } = this.props;
         return (
-            <div>HEY</div>
-            );
+            <div className={classes.image_error}>
+                <img
+                    src="https://www.bargreen.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/placeholder/default/Sorrynoimagesmall.jpg"
+                    alt="error"
+                />
+            </div>
+        );
     }
 
     get placeholder() {
-        const {
-            width,
-            height,
-            showImage,
-            classes
-        } = this.props;
+        const { width, height, showImage, classes } = this.props;
 
         const className = showImage
             ? classes.imagePlaceholder
             : classes.imagePlaceholder_pending;
 
-        console.log("rendered");
         return (
             <img
                 className={className}
@@ -54,25 +68,12 @@ class Image extends Component {
                 width={width}
                 height={height}
             />
-
-        )
-
+        );
     }
     get image() {
-        const {
-            name,
-            width,
-            height,
-            src,
-            showImage,
-            classes
-        } = this.props;
+        const { name, width, height, src, showImage, classes } = this.props;
 
-        const {
-            placeholder,
-            handleLoad,
-            handleError
-        } = this;
+        const { placeholder, handleLoad, handleError } = this;
 
         const className = showImage ? classes.image : classes.image_pending;
 
@@ -88,34 +89,18 @@ class Image extends Component {
                     onError={handleError}
                 />
                 {placeholder}
-                {/* showImage ?
-                        null :
-                        placeholder
-
-*/}
             </Fragment>
-
         );
-
     }
 
     render() {
-        const {
-            classes
-        } = this.props;
+        const { classes } = this.props;
 
-        const {
-            error,
-            image
-        } = this;
+        const { error, image } = this;
 
         return (
             <div className={classes.root}>
-                {
-                    this.state.isError ?
-                    error
-                    : image
-                }
+                {this.state.isError ? error : image}
             </div>
         );
     }
