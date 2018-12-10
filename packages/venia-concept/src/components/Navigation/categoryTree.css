@@ -6,3 +6,11 @@
 
 .leaf {
 }
+
+.branch {
+}
+
+.inactive {
+    position: fixed;
+    visibility: hidden;
+}

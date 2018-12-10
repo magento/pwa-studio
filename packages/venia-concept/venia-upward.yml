@@ -8,8 +8,11 @@ response:
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
-      pattern: '^/(favicon.ico|veniaClosed.png)'
-      use: media
+      pattern: '^/create-account'
+      use: index
+    - matches: request.url.pathname
+      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
+      use: static
     - matches: urlKey
       pattern: '.'
       use: appShell
@@ -17,6 +20,15 @@ response:
       pattern: '^/$'
       use: appShell
   default: bundles
+
+isDevelopment:
+  when:
+    - matches: env.NODE_ENV
+      pattern: 'development'
+      use:
+        inline: true
+  default:
+    inline: false
 
 proxy:
   target: env.MAGENTO_BACKEND_URL
@@ -39,14 +51,7 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        isDevelopment:
-          when:
-            - matches: env.NODE_ENV
-              pattern: 'development'
-              use:
-                inline: true
-          default:
-            inline: false
+        isDevelopment: isDevelopment
         urlResolver: urlResolver
 
 resource:
@@ -111,6 +116,19 @@ bundles:
   directory:
     inline: './dist'
 
-media:
+index:
+  inline:
+    status: 200
+    headers:
+      inline:
+        content-type:
+          inline: text/html
+    body:
+      engine: mustache
+      template: './templates/index.mst'
+      provide:
+        isDevelopment: isDevelopment
+
+static:
   directory:
-    inline: './media'
+    inline: './static'

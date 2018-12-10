@@ -1,53 +1,38 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { List } from '@magento/peregrine';
+import { arrayOf, number, oneOfType, shape, string } from 'prop-types';
+import { Option, Select } from 'informed';
 
 import classify from 'src/classify';
-import Option from './option';
 import defaultClasses from './select.css';
 
-const noop = () => {};
-const getItemKey = ({ value }) => value;
-
-class Select extends Component {
+class SelectList extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            root: string
         }),
-        items: PropTypes.arrayOf(PropTypes.object),
-        onChange: PropTypes.func
-    };
-
-    state = {
-        value: ''
+        field: string.isRequired,
+        items: arrayOf(
+            shape({
+                label: string,
+                value: oneOfType([number, string])
+            })
+        )
     };
 
     render() {
-        const { props, state } = this;
-        const isControlled = !!props.onChange;
-        const { value } = isControlled ? props : state;
+        const { classes, items, ...restProps } = this.props;
+        const options = items.map(({ label, value }) => (
+            <Option key={value} value={value}>
+                {label || (value != null ? value : '')}
+            </Option>
+        ));
 
         return (
-            <List
-                {...props}
-                render="select"
-                renderItem={Option}
-                getItemKey={getItemKey}
-                value={value}
-                onChange={this.handleChange}
-            />
+            <Select {...restProps} className={classes.root}>
+                {options}
+            </Select>
         );
-    }
-
-    handleChange = event => {
-        this.setValue(event.target.value);
-    };
-
-    setValue(value) {
-        const onChange = this.props.onChange || noop;
-
-        this.setState(() => ({ value }), () => onChange(value));
     }
 }
 
-export default classify(defaultClasses)(Select);
+export default classify(defaultClasses)(SelectList);
