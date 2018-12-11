@@ -1,6 +1,8 @@
+import querystring from 'querystring';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
@@ -107,9 +109,62 @@ export class SearchBar extends Component {
                 <button className={clearIconClass} onClick={this.clearSearch}>
                     <Icon name="x" />
                 </button>
+                <Route
+                    exact
+                    path="/search.html"
+                    render={({ location }) => {
+                        const { searchRef, setClearIcon } = this;
+                        const props = {
+                            location,
+                            searchRef,
+                            setClearIcon: setClearIcon.bind(this)
+                        };
+
+                        return <SeedSearchInput {...props} />;
+                    }}
+                />
             </div>
         );
     }
-}
+};
 
-export default withRouter(classify(defaultClasses)(SearchBar));
+/**
+ * This class seeds the value of the given input ref with the search query from the URL.
+ */
+class SeedSearchInput extends Component {
+    static propTypes = {
+        // A React Router location.
+        // @see https://reacttraining.com/react-router/core/api/location.
+        location: PropTypes.object.isRequired,
+        // This is a React ref to the search input element,
+        searchRef: PropTypes.any.isRequired,
+        setClearIcon: PropTypes.func.isRequired
+    };
+
+    componentDidMount() {
+        const { location, searchRef, setClearIcon } = this.props;
+
+        // Ignore the "?" at the beginning of location.search.
+        const search = location.search.substr(1);
+
+        // @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options.
+        // Note that this object does not prototypically inherit from JavaScript's `Object`.
+        const parsedSearch = querystring.parse(search);
+
+        // But we can still get the value of the query property.
+        const value = parsedSearch.query || '';
+
+        // Set the value of the search input element to that of the search query.
+        searchRef.current.value = value;
+
+        // And update the icon.
+        setClearIcon(value);
+    }
+
+    render() {
+        // Do not render anything.
+        return null;
+    }
+};
+
+export default classify(defaultClasses)(SearchBar);
