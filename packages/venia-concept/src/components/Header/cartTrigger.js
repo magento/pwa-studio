@@ -13,28 +13,31 @@ class Trigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        toggleCart: PropTypes.func.isRequired
+        toggleCart: PropTypes.func.isRequired,
+        //.isRequired fails at first render because 
+        // itemsQuantity undefined ...
+        itemsQuantity: PropTypes.number
     };
 
-
     /**
-     * Get items quantity from cart state
-     * This is total number of items in cart 
-     * (e.g. 1 x item A + 2 x item B = 3).
-     * Which is not the same as items count 
-     * (total number of different products).
+     * - Cart counter only shows when items have
+     *   been added to cart.
+     * - Counter shows total number of items in cart 
+     *   e.g. 1 x item A + 2 x item B = 3 .
      * 
-     * @returns number || null
+     * @returns { (number|null) }
      */
-    get itemsQuantity() {
-        const { cart } = this.props;
-        const itemQty = cart.details.items_qty;
-        return itemQty > 0 ? itemQty : null;
+    get cartCounter() {
+        const itemsQty = this.props.itemsQuantity || 0;
+        const  { classes } = this.props;
+        return itemsQty && itemsQty > 0 ? (
+            <span className={classes.counter}>{itemsQty}</span>   
+        ) : null;
     }
 
     render() {
         const { children, classes, toggleCart } = this.props;
-        const { itemsQuantity } = this;
+        const { cartCounter } = this;
 
         return (
             <button
@@ -43,7 +46,7 @@ class Trigger extends Component {
                 onClick={toggleCart}
             >
                 {children}
-                <span className={classes.counter}>{itemsQuantity}</span>
+                {cartCounter}
             </button>
         );
     }
@@ -53,11 +56,17 @@ const mapDispatchToProps = {
     toggleCart
 };
 
+/**
+ * Get items quantity from cart state
+ * 
+ * @param state
+ * @returns { number } 
+ */
 const mapStateToProps = state => {
-    const { cart } = state;
+    const itemsQuantity = state.cart.details.items_qty;
 
     return {
-        cart
+        itemsQuantity
     };
 };
 
