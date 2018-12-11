@@ -12,8 +12,11 @@ entries:
   - label: Install Venia sample data
     url: /venia-pwa-concept/install-sample-data/
 
-  - label: Simple REST checkout flow
-    url: /venia-pwa-concept/simple-rest-checkout/
+  - label: Features
+    entries:
+
+    - label: Simple REST checkout flow
+      url: /venia-pwa-concept/features/checkout/
 
   - label: Design
     entries:
