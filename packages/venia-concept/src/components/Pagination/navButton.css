@@ -1,0 +1,10 @@
+.buttonArrow {
+    composes: tileButton from './pagination.css';
+    display: grid;
+    padding-bottom: 1px;
+}
+
+.buttonInactive {
+    composes: buttonArrow;
+    color: #999;
+}

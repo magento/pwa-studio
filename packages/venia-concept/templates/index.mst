@@ -1,0 +1,9 @@
+{{> templates/doctype-and-head-start}}
+    <title>Venia</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    {{> templates/preloads}}
+    {{> templates/scripts}}
+  </body>
+</html>

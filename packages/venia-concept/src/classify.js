@@ -4,7 +4,8 @@ const merge = (...args) => Object.assign({}, ...args);
 
 const classify = defaultClasses => WrappedComponent =>
     class extends Component {
-        static displayName = `Classify(${WrappedComponent.displayName})`;
+        static displayName = `Classify(${WrappedComponent.displayName ||
+            WrappedComponent.name})`;
 
         render() {
             const { className, classes, ...restProps } = this.props;

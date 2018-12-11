@@ -1,5 +1,6 @@
 .root {
     display: block;
+    width: 100%;
 }
 .root:focus {
     background-image: radial-gradient(circle, rgb(var(--venia-grey)), white);
@@ -31,4 +32,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.icon * {
+    vertical-align: sub;
+    height: 1rem;
 }
