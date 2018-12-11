@@ -85,7 +85,7 @@ test('displays category tiles', async () => {
                                 id: 17,
                                 name: 'baz',
                                 url_key: 'baz-url.html',
-                                url_path: '/bar-url.html',
+                                url_path: '/baz-url.html',
                                 children_count: 0,
                                 path: '1/2/17',
                                 image: null,
