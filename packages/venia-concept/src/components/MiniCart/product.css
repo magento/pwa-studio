@@ -50,24 +50,15 @@
 }
 
 .options {
-    display: grid;
     font-size: 13px;
     grid-area: options;
-    grid-auto-rows: min-content;
-    grid-gap: 0 0.5rem;
-    grid-template-columns: min-content 1fr;
-    justify-items: start;
     line-height: 1.5;
     margin: 0;
 }
 
-.optionName {
-    color: rgb(var(--venia-text-alt));
-    grid-column: 1 / span 1;
-}
-
+.optionLabel,
 .optionValue {
-    grid-column: 2 / span 1;
+    display: inline-block;
 }
 
 .quantity {
@@ -75,6 +66,7 @@
     display: flex;
     grid-column: 2 / span 1;
     font-size: 13px;
+    align-self: end;
 }
 
 .quantityOperator {
@@ -82,6 +74,12 @@
     color: rgb(var(--venia-text-alt));
     display: inline-flex;
     margin: 0 0.375rem;
+}
+
+.quantitySelect {
+    background: transparent;
+    width: 3.125rem;
+    padding: 0.3125rem;
 }
 
 .price {
@@ -98,7 +96,4 @@
     background-color: rgb(var(--venia-teal));
     opacity: 0.1;
     z-index: 2;
-}
-
-.subMenu {
 }
