@@ -29,17 +29,6 @@ export class SearchBar extends Component {
         this.state = { isClearIcon: false };
     }
 
-    async componentDidMount() {
-        if (this.props.location) {
-            if (this.props.location.pathname === '/search.html') {
-                this.searchRef.current.value = this.props.location.search.substring(
-                    7
-                );
-                this.setClearIcon(this.searchRef.current.value);
-            }
-        }
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.isOpen !== prevProps.isOpen) {
             if (this.props.isOpen == true) {
