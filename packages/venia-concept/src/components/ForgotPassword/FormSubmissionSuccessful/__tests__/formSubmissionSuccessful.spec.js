@@ -10,10 +10,15 @@ configure({ adapter: new Adapter() });
 const classes = {
     text: 'text'
 };
+const email = 'test@example.com';
 
 test('renders correctly', () => {
     const wrapper = shallow(
-        <FormSubmissionSuccessful classes={classes} />
+        <FormSubmissionSuccessful
+            classes={classes}
+            email={email}
+            onContinue={() => {}}
+        />
     ).dive();
 
     expect(wrapper.find(`.${classes.text}`)).toHaveLength(1);
@@ -21,9 +26,12 @@ test('renders correctly', () => {
 });
 
 test('text message contains email', () => {
-    const email = 'test@example.com';
     const wrapper = shallow(
-        <FormSubmissionSuccessful classes={classes} email={email} />
+        <FormSubmissionSuccessful
+            classes={classes}
+            email={email}
+            onContinue={() => {}}
+        />
     ).dive();
 
     expect(wrapper.find(`.${classes.text}`).text()).toEqual(
@@ -35,7 +43,11 @@ test('handles continue button click', () => {
     const onContinue = jest.fn();
 
     const wrapper = shallow(
-        <FormSubmissionSuccessful classes={classes} onContinue={onContinue} />
+        <FormSubmissionSuccessful
+            classes={classes}
+            email={email}
+            onContinue={onContinue}
+        />
     ).dive();
     wrapper.find(Button).simulate('click');
 
