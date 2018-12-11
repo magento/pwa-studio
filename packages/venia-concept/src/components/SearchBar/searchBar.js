@@ -3,7 +3,7 @@ import querystring from 'querystring';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
@@ -127,7 +127,7 @@ export class SearchBar extends Component {
             </div>
         );
     }
-};
+}
 
 /**
  * This class seeds the value of the given input ref with the search query from the URL.
@@ -166,6 +166,6 @@ class SeedSearchInput extends Component {
         // Do not render anything.
         return null;
     }
-};
+}
 
 export default withRouter(classify(defaultClasses)(SearchBar));
