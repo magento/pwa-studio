@@ -10,11 +10,7 @@
     display: block;
     grid-area: main;
     height: auto;
-    opacity: 1;
-    transition-duration: 512ms;
-    transition-property: opacity, visibility;
-    transition-timing-function: ease-out;
-    visibility: visible;
+    animation: fadein 0.512ms;
     width: 100%;
 }
 
@@ -37,27 +33,17 @@
     composes: root;
 }
 
-.images_pending {
-    composes: images;
-}
-
-.image_pending {
-    composes: image;
-    opacity: 0;
-    visibility: hidden;
-}
-
 .imagePlaceholder_pending {
     composes: imagePlaceholder;
+    opacity: 0;
+    display: none;
 }
 
-.name_pending {
-    composes: name;
-    background-color: rgb(var(--venia-grey));
-}
-
-.price_pending {
-    composes: price;
-    background-color: rgb(var(--venia-grey));
-    width: 3rem;
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

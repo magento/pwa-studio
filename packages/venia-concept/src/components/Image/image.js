@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { string, shape, func, bool } from 'prop-types';
-
+import errorImg from './hanger.svg';
 import classify from 'src/classify';
 import defaultClasses from './image.css';
-import { transparentPlaceholder } from 'src/shared/images';
 
 class Image extends Component {
     static propTypes = {
@@ -16,6 +15,7 @@ class Image extends Component {
             root: string
         }),
         height: string,
+        iconHeight: string,
         name: string,
         onError: func,
         onLoad: func,
@@ -42,39 +42,18 @@ class Image extends Component {
     };
 
     get error() {
-        const { classes } = this.props;
+        const { classes, iconHeight } = this.props;
+
         return (
-            <div className={classes.image_error}>
-                <img
-                    src="https://www.bargreen.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/placeholder/default/Sorrynoimagesmall.jpg"
-                    alt="error"
-                />
-            </div>
+            <span className={classes.image_error}>
+                <img src={errorImg} alt="error" height={`${iconHeight}px`} />
+            </span>
         );
     }
 
-    get placeholder() {
-        const { width, height, showImage, classes } = this.props;
-
-        const className = showImage
-            ? classes.imagePlaceholder
-            : classes.imagePlaceholder_pending;
-
-        return (
-            <img
-                className={className}
-                src={transparentPlaceholder}
-                alt=""
-                width={width}
-                height={height}
-            />
-        );
-    }
     get image() {
         const { name, width, height, src, showImage, classes } = this.props;
-
-        const { placeholder, handleLoad, handleError } = this;
-
+        const { handleLoad, handleError } = this;
         const className = showImage ? classes.image : classes.image_pending;
 
         return (
@@ -88,7 +67,6 @@ class Image extends Component {
                     onLoad={handleLoad}
                     onError={handleError}
                 />
-                {placeholder}
             </Fragment>
         );
     }
