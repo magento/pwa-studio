@@ -3,6 +3,7 @@ import querystring from 'querystring';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router'
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
@@ -167,4 +168,4 @@ class SeedSearchInput extends Component {
     }
 };
 
-export default classify(defaultClasses)(SearchBar);
+export default withRouter(classify(defaultClasses)(SearchBar));
