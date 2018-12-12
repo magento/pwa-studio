@@ -17,8 +17,12 @@ const inactiveFill = {
 };
 
 class NavButton extends Component {
+    static defaultProps = {
+        buttonLabel: 'move to another page'
+    };
+
     render() {
-        const { classes, name, active, onClick } = this.props;
+        const { classes, name, active, onClick, buttonLabel } = this.props;
         let attrs;
         // The chevron icon does not have a fill or any sizing issues that
         // need to be handled with attributes in props
@@ -30,13 +34,14 @@ class NavButton extends Component {
                 : { ...defaultSkipAttributes, ...inactiveFill };
         }
 
-        const className = [classes.arrow];
-        if (!active) {
-            className.push(classes.inactive);
-        }
+        const className = active ? classes.buttonArrow : classes.buttonInactive;
 
         return (
-            <button className={className.join(' ')} onClick={onClick}>
+            <button
+                className={className}
+                aria-label={buttonLabel}
+                onClick={onClick}
+            >
                 <Icon name={name} attrs={attrs} />
             </button>
         );
