@@ -38,8 +38,12 @@
   },
   "bundlesize": [
     {
-      "path": "./packages/venia-concept/dist/js/*.js",
+      "path": "./packages/venia-concept/dist/js/{client,vendor}.js",
       "maxSize": "150 kB"
+    },
+    {
+      "path": "./packages/venia-concept/dist/js/[0-9]-*.js",
+      "maxSize": "21kB"
     }
   ],
   "devDependencies": {
