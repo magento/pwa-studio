@@ -3,6 +3,12 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SearchAutocomplete from '../autocomplete';
 
+const debounceTimer = 200;
+
+jest.mock('lodash/debounce', debounceTimer =>
+    jest.fn(fn => setTimeout(() => fn, debounceTimer))
+);
+
 configure({ adapter: new Adapter() });
 
 jest.useFakeTimers();
@@ -30,10 +36,13 @@ test('Autocomplete query update should be debounced', () => {
     /* Expect component not to update right away (debounce) */
     expect(wrapper.instance().state.autocompleteQuery).toEqual(initialState);
 
-    jest.runAllTimers();
-
-    /* Expect component to update after debounce timer finishes */
-    expect(wrapper.instance().state.autocompleteQuery).toEqual(testString);
+    setTimeout(
+        () =>
+            expect(wrapper.instance().state.autocompleteQuery).toEqual(
+                testString
+            ),
+        debounceTimer
+    );
 });
 
 test('Autocomplete should not render if autocompleteVisible is set to false', () => {
@@ -53,10 +62,10 @@ test('Autocomplete should not render if autocompleteVisible is set to false', ()
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.runAllTimers();
-
-    /* Expect component to return null if autocompleteVisible is set to "false" */
-    expect(wrapper.instance().render()).toBeNull();
+    setTimeout(
+        () => expect(wrapper.instance().render()).toBeNull(),
+        debounceTimer
+    );
 });
 
 test('Autocomplete should not render if searchQuery is null or less than 3 chars long', () => {
@@ -78,10 +87,10 @@ test('Autocomplete should not render if searchQuery is null or less than 3 chars
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.runAllTimers();
-
-    /* Expect component to return null if search query length is less than 2 chars" */
-    expect(wrapper.instance().render()).toBeNull();
+    setTimeout(
+        () => expect(wrapper.instance().render()).toBeNull(),
+        debounceTimer
+    );
 });
 
 test('Autocomplete should render if searchQuery and autocompleteVisible props result in true', () => {
@@ -101,7 +110,8 @@ test('Autocomplete should render if searchQuery and autocompleteVisible props re
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.runAllTimers();
-
-    expect(wrapper.instance().render()).not.toBeNull();
+    setTimeout(
+        () => expect(wrapper.instance().render()).not.toBeNull(),
+        debounceTimer
+    );
 });
