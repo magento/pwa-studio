@@ -42,7 +42,6 @@
 
 .footer {
     box-shadow: 0 -1px rgb(var(--venia-border));
-    margin: 0 1.5rem;
     padding: 1.5rem 0 0.5rem;
 }
 
@@ -107,4 +106,9 @@
 .subtotalValue {
     font-weight: 600;
     margin-left: 0.5rem;
+}
+
+.placeholderButton {
+    text-align: center;
+    margin: 1.5rem 0 1rem 0;
 }
