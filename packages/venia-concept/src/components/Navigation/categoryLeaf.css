@@ -6,6 +6,11 @@
     width: 100%;
 }
 
+.inactive {
+    position: fixed;
+    visibility: hidden;
+}
+
 .text {
     align-items: center;
     border-bottom: 1px solid rgb(var(--venia-border));
