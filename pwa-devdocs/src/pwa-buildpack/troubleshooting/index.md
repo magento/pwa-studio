@@ -82,7 +82,7 @@ The version should be 1.0 or above (or LibreSSL 2, in the case of OSX High Sierr
 
 You can install higher versions of OpenSSL with [Homebrew] on OSX, [Chocolatey] on Windows, or your Linux distribution's package manager.
 
-If you're running Linux, machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme][].
+If you're running Linux, make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme][].
 
 Some users have suggested deleting the `devcert` folder to trigger certificate regeneration.  
 
