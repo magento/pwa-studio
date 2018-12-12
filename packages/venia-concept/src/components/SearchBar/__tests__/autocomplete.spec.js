@@ -13,7 +13,6 @@ test('Autocomplete query update should be debounced', () => {
         .mockImplementationOnce(() => {});
     const initialState = '';
     const testString = 'test';
-    const debounceTimer = 200;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -31,7 +30,7 @@ test('Autocomplete query update should be debounced', () => {
     /* Expect component not to update right away (debounce) */
     expect(wrapper.instance().state.autocompleteQuery).toEqual(initialState);
 
-    jest.advanceTimersByTime(debounceTimer);
+    jest.runAllTimers();
 
     /* Expect component to update after debounce timer finishes */
     expect(wrapper.instance().state.autocompleteQuery).toEqual(testString);
@@ -43,7 +42,6 @@ test('Autocomplete should not render if autocompleteVisible is set to false', ()
         .mockImplementationOnce(() => {});
     const initialState = '';
     const testString = 'test';
-    const debounceTimer = 200;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -55,7 +53,7 @@ test('Autocomplete should not render if autocompleteVisible is set to false', ()
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.advanceTimersByTime(debounceTimer);
+    jest.runAllTimers();
 
     /* Expect component to return null if autocompleteVisible is set to "false" */
     expect(wrapper.instance().render()).toBeNull();
@@ -67,7 +65,6 @@ test('Autocomplete should not render if searchQuery is null or less than 3 chars
         .mockImplementationOnce(() => {});
     const initialState = '';
     const testString = 'ab';
-    const debounceTimer = 200;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -81,7 +78,7 @@ test('Autocomplete should not render if searchQuery is null or less than 3 chars
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.advanceTimersByTime(debounceTimer);
+    jest.runAllTimers();
 
     /* Expect component to return null if search query length is less than 2 chars" */
     expect(wrapper.instance().render()).toBeNull();
@@ -93,7 +90,6 @@ test('Autocomplete should render if searchQuery and autocompleteVisible props re
         .mockImplementationOnce(() => {});
     const initialState = '';
     const testString = 'test';
-    const debounceTimer = 200;
 
     const wrapper = shallow(
         <SearchAutocomplete
@@ -105,7 +101,7 @@ test('Autocomplete should render if searchQuery and autocompleteVisible props re
 
     wrapper.setProps({ searchQuery: testString });
 
-    jest.advanceTimersByTime(debounceTimer);
+    jest.runAllTimers();
 
     expect(wrapper.instance().render()).not.toBeNull();
 });
