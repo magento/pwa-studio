@@ -39,7 +39,7 @@
   "bundlesize": [
     {
       "path": "./packages/venia-concept/dist/js/*.js",
-      "maxSize": "4 kB"
+      "maxSize": "150 kB"
     }
   ],
   "devDependencies": {
