@@ -234,10 +234,6 @@ class Navigation extends PureComponent {
         }));
     };
 
-    setRootNodeId = rootNodeId => {
-        this.setState(() => ({ rootNodeId }));
-    }
-
     setCurrentPath = currentPath => {
         const path = currentPath.split('/').reverse();
         const rootNodeId = parseInt(path[0]);
