@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './footer.css';
+import storeConfigDataQuery from '../../queries/getStoreConfigData.graphql';
+import { Query } from 'react-apollo';
 
 class Footer extends Component {
     static propTypes = {
@@ -17,6 +19,7 @@ class Footer extends Component {
 
     render() {
         const { classes } = this.props;
+        const year = new Date().getFullYear();
 
         return (
             <footer className={classes.root}>
@@ -61,7 +64,34 @@ class Footer extends Component {
                     </p>
                 </div>
                 <div className={classes.copyright}>
-                    <span>© Magento 2018. All rights reserved.</span>
+                    <Query query={storeConfigDataQuery}>
+                        {({ loading, error, data }) => {
+                            if (error) {
+                                return (
+                                    <span className={classes.fetchError}>
+                                        Data Fetch Error: <pre>{error.message}</pre>
+                                    </span>
+                                );
+                            }
+                            if (loading) {
+                                return (
+                                    <span className={classes.fetchingData}>
+                                        Fetching Data
+                                    </span>
+                                );
+                            }
+                            if (data.storeConfig.name == null || data.storeConfig.name.length === 0) {
+                                return (
+                                    <span>© Magento {year}. All rights reserved.</span>
+                                );
+                            }
+
+                            return (
+                                <span>© {data.storeConfig.name} {year}. All rights reserved.</span>
+                            );
+                        }}
+                    </Query>
+
                 </div>
             </footer>
         );
