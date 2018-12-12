@@ -101,15 +101,16 @@
 }
 
 .cartActions {
-    composes: section;
-    align-items: center;
-    display: flex;
-    grid-area: cart;
-    justify-content: center;
+    display: none;
 }
 
 @media (min-width: 1024px) {
     .cartActions {
+        composes: section;
+        align-items: center;
+        display: flex;
+        grid-area: cart;
+        justify-content: center;
         border-bottom-width: 0;
     }
 }
@@ -136,6 +137,7 @@
 
 .details {
     composes: section;
+    border-bottom: 0;
     grid-column: 2 / span 1;
     grid-row: fold / span 1;
 }
@@ -162,4 +164,15 @@
 
 .relatedTitle {
     composes: sectionTitle;
+}
+
+.stickyFooter {
+    position: sticky;
+    bottom: 0;
+}
+
+@media (min-width: 1024px) {
+    .stickyFooter {
+        display: none;
+    }
 }

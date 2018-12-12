@@ -5,7 +5,8 @@ const prefix = 'CART';
 const actionMap = {
     ADD_ITEM: {
         REQUEST: null,
-        RECEIVE: null
+        RECEIVE: null,
+        COMPLETE: null
     },
     GET_GUEST_CART: {
         REQUEST: null,

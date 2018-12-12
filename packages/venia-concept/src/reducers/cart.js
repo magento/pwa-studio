@@ -9,7 +9,9 @@ export const initialState = {
     details: {},
     guestCartId: null,
     shippingMethods: [],
-    totals: {}
+    totals: {},
+    addToCartActiveRequest: false,
+    recentAddItemHadError: false
 };
 
 const reducerMap = {
@@ -49,6 +51,31 @@ const reducerMap = {
                 code: method.carrier_code,
                 title: method.carrier_title
             }))
+        };
+    },
+    [actions.addItem.request]: state => {
+        return {
+            ...state,
+            addToCartActiveRequest: true
+        };
+    },
+    [actions.addItem.receive]: (state, { error }) => {
+        if (error) {
+            return {
+                ...state,
+                recentAddItemHadError: true
+            };
+        }
+
+        return {
+            ...state,
+            recentAddItemHadError: false
+        };
+    },
+    [actions.addItem.complete]: state => {
+        return {
+            ...state,
+            addToCartActiveRequest: false
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {

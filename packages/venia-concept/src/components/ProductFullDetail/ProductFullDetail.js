@@ -8,6 +8,7 @@ import Button from 'src/components/Button';
 import Carousel from 'src/components/ProductImageCarousel';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
+import ProductStickyFooter from 'src/components/ProductStickyFooter';
 import defaultClasses from './productFullDetail.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -119,7 +120,7 @@ class ProductFullDetail extends Component {
             });
         }
 
-        addToCart(payload);
+        return addToCart(payload);
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -201,6 +202,9 @@ class ProductFullDetail extends Component {
                         <span>SKU</span>
                     </h2>
                     <strong>{product.sku}</strong>
+                </section>
+                <section className={classes.stickyFooter}>
+                    <ProductStickyFooter addToCartHandler={this.addToCart} />
                 </section>
             </Form>
         );

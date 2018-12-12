@@ -149,7 +149,8 @@ test('addItemToCart thunk dispatches actions on success', async () => {
     );
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
     expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
-    expect(dispatch).toHaveBeenCalledTimes(4);
+    expect(dispatch).toHaveBeenNthCalledWith(5, actions.addItem.complete());
+    expect(dispatch).toHaveBeenCalledTimes(5);
 });
 
 test('addItemToCart thunk skips image cache if no sku or image', async () => {
@@ -335,7 +336,12 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
             }
         ],
         [expect.any(Function)],
-        [expect.any(Function)]
+        [expect.any(Function)],
+        [
+            {
+                type: 'CART/ADD_ITEM/COMPLETE'
+            }
+        ]
     ]);
 });
 
@@ -361,7 +367,7 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
     await addItemToCart(payload)(...thunkArgs);
 
     expect(getState).toHaveBeenCalledTimes(4);
-    expect(dispatch).toHaveBeenCalledTimes(7);
+    expect(dispatch).toHaveBeenCalledTimes(8);
     expect(request).toHaveBeenCalledTimes(4);
 });
 

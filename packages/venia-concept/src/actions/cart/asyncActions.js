@@ -130,6 +130,8 @@ export const addItemToCart = (payload = {}) => {
             dispatch(toggleDrawer('cart')),
             dispatch(getCartDetails({ forceRefresh: true }))
         ]);
+
+        dispatch(actions.addItem.complete());
     };
 };
 
