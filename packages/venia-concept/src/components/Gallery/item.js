@@ -39,7 +39,12 @@ class GalleryItem extends Component {
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
-            small_image: string.isRequired,
+            small_image: shape(
+                shape({
+                    url: string,
+                    label: string
+                })
+            ),
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
@@ -103,10 +108,15 @@ class GalleryItem extends Component {
         );
     };
 
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
+    get imageLabel() {
+        const { small_image, name } = this.props.item;
+        if (small_image && small_image.label) {
+            return small_image.label;
+        } else {
+            return name;
+        }
+    }
+
     renderImage = () => {
         const { classes, item } = this.props;
 
@@ -119,7 +129,7 @@ class GalleryItem extends Component {
         return (
             <img
                 className={classes.image}
-                src={resourceUrl(small_image, {
+                src={resourceUrl(small_image.url, {
                     type: 'image-product',
                     width: imageWidth
                 })}
