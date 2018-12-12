@@ -30,13 +30,10 @@ class NavButton extends Component {
                 : { ...defaultSkipAttributes, ...inactiveFill };
         }
 
-        const className = [classes.arrow];
-        if (!active) {
-            className.push(classes.inactive);
-        }
+        const className = active ? classes.buttonArrow : classes.buttonInactive;
 
         return (
-            <button className={className.join(' ')} onClick={onClick}>
+            <button className={className} onClick={onClick}>
                 <Icon name={name} attrs={attrs} />
             </button>
         );
