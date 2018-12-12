@@ -96,7 +96,7 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.input.incorrectAddress]: (
+    [actions.shippingMethod.incorrectAddress]: (
         state,
         { payload: { incorrectAddressMessage } }
     ) => {

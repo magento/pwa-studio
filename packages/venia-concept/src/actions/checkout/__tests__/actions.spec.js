@@ -210,16 +210,16 @@ describe('shippingMethod', () => {
     });
 });
 
-test('input.incorrectAddress.toString() returns the proper action type', () => {
-    expect(actions.input.incorrectAddress.toString()).toBe(
-        'CHECKOUT/INPUT/INCORRECT_ADDRESS'
+test('shippingMethod.incorrectAddress.toString() returns the proper action type', () => {
+    expect(actions.shippingMethod.incorrectAddress.toString()).toBe(
+        'CHECKOUT/SHIPPING_METHOD/INCORRECT_ADDRESS'
     );
 });
 
-test('input.incorrectAddress() returns a proper action object', () => {
+test('shippingMethod.incorrectAddress() returns a proper action object', () => {
     const payload = { incorrectAddressMessage: error.message };
-    expect(actions.input.incorrectAddress(payload)).toEqual({
-        type: 'CHECKOUT/INPUT/INCORRECT_ADDRESS',
+    expect(actions.shippingMethod.incorrectAddress(payload)).toEqual({
+        type: 'CHECKOUT/SHIPPING_METHOD/INCORRECT_ADDRESS',
         payload
     });
 });

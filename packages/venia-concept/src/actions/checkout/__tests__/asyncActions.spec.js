@@ -173,7 +173,7 @@ describe('submitAddress', () => {
             'guestCartId'
         );
     });
-    test('submitInput thunk dispatches action on incorrect state(region code)', async () => {
+    test('submitAddress thunk dispatches action on incorrect state(region code)', async () => {
         const invalidState = 'any_text';
         const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
         const incorrectAddressPayload = { incorrectAddressMessage };
@@ -182,28 +182,16 @@ describe('submitAddress', () => {
             formValues: { region_code: invalidState }
         };
 
-        await submitInput(submitPayload)(...thunkArgs);
+        await submitAddress(submitPayload)(...thunkArgs);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.input.submit(submitPayload)
+            actions.address.submit(submitPayload)
         );
-        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
         expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            actions.input.incorrectAddress(incorrectAddressPayload)
+            2,
+            actions.shippingMethod.incorrectAddress(incorrectAddressPayload)
         );
-        expect(dispatch).toHaveBeenCalledTimes(3);
-    });
-
-    test('submitAddress thunk throws if payload is invalid', async () => {
-        const payload = { type: 'address', formValues: {} };
-
-        await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow();
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.address.submit(payload)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 

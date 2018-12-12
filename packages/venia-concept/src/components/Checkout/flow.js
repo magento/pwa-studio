@@ -81,7 +81,13 @@ class Flow extends Component {
             submitShippingMethod
         } = actions;
 
-        const { editing, step, submitting, isAddressIncorrect, incorrectAddressMessage } = checkout;
+        const {
+            editing,
+            step,
+            submitting,
+            isAddressIncorrect,
+            incorrectAddressMessage
+        } = checkout;
 
         switch (stepMap[step]) {
             case stepMap.cart: {
