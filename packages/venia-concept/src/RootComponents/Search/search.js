@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { Query } from 'react-apollo';
-import queryString from 'query-string';
+import querystring from 'querystring';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import gql from 'graphql-tag';
@@ -53,7 +53,8 @@ export class Search extends Component {
     );
 
     handleClearCategoryFilter = () => {
-        const params = queryString.parse(this.props.location.search);
+        const locationQuery = this.props.location.search.substr(1);
+        const params = querystring.parse(locationQuery);
         const { query: inputText } = params;
 
         if (inputText !== '')
@@ -64,8 +65,11 @@ export class Search extends Component {
         const { classes } = this.props;
         const { getCategoryName } = this;
 
-        const params = queryString.parse(this.props.location.search);
+        const locationQuery = this.props.location.search.substr(1);
+        const params = querystring.parse(locationQuery);
         const { query: inputText, category: categoryId } = params;
+
+        if (!inputText) return <Redirect to="/" />;
 
         return (
             <Query query={PRODUCT_SEARCH} variables={{ inputText, categoryId }}>

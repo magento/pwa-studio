@@ -40,7 +40,9 @@ class CategoryTile extends Component {
         if (image) {
             return makeCategoryMediaPath(image);
         } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image.url);
+            return makeProductMediaPath(previewProduct.small_image);
+        } else {
+            return null;
         }
     }
 

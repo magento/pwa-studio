@@ -151,55 +151,53 @@ test('force parses a specific file type', async () => {
         render: expect.any(Function)
     });
     expect(gqlDoc.compile()).resolves.not.toThrow();
-    expect(gqlDoc.render()).resolves.toMatchInlineSnapshot(`
-Object {
-  "definitions": Array [
-    Object {
-      "directives": Array [],
-      "kind": "OperationDefinition",
-      "name": undefined,
-      "operation": "query",
-      "selectionSet": Object {
-        "kind": "SelectionSet",
-        "selections": Array [
-          Object {
-            "alias": undefined,
-            "arguments": Array [],
-            "directives": Array [],
-            "kind": "Field",
-            "name": Object {
-              "kind": "Name",
-              "value": "foo",
-            },
-            "selectionSet": Object {
-              "kind": "SelectionSet",
-              "selections": Array [
-                Object {
-                  "alias": undefined,
-                  "arguments": Array [],
-                  "directives": Array [],
-                  "kind": "Field",
-                  "name": Object {
-                    "kind": "Name",
-                    "value": "bar",
-                  },
-                  "selectionSet": undefined,
+    expect(gqlDoc.render()).resolves.toMatchObject({
+        definitions: [
+            {
+                directives: [],
+                kind: 'OperationDefinition',
+                name: undefined,
+                operation: 'query',
+                selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                        {
+                            alias: undefined,
+                            arguments: [],
+                            directives: [],
+                            kind: 'Field',
+                            name: {
+                                kind: 'Name',
+                                value: 'foo'
+                            },
+                            selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                    {
+                                        alias: undefined,
+                                        arguments: [],
+                                        directives: [],
+                                        kind: 'Field',
+                                        name: {
+                                            kind: 'Name',
+                                            value: 'bar'
+                                        },
+                                        selectionSet: undefined
+                                    }
+                                ]
+                            }
+                        }
+                    ]
                 },
-              ],
-            },
-          },
+                variableDefinitions: []
+            }
         ],
-      },
-      "variableDefinitions": Array [],
-    },
-  ],
-  "kind": "Document",
-  "loc": Object {
-    "end": 15,
-    "start": 0,
-  },
-}
-`);
+        kind: 'Document',
+        loc: {
+            end: 15,
+            start: 0
+        }
+    });
 });
 
 test('force parses throws on unrecognized file type', async () => {

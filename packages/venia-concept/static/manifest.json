@@ -1,0 +1,23 @@
+{
+  "name": "Venia",
+  "short_name": "Venia",
+  "start_url": "/",
+  "theme_color": "#ff6334",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Shop the look",
+  "icons": [{
+    "src": "/icons/venia_circle_144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  },{
+    "src": "/icons/venia_circle_192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },{
+    "src": "/icons/venia_circle_512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+  ]
+}

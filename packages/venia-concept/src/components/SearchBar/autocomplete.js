@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import { debounce } from 'underscore';
+import debounce from 'lodash.debounce';
 import classify from 'src/classify';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
