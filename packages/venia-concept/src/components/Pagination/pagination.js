@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classify from 'src/classify';
 import defaultClasses from './pagination.css';
 import NavButton from './navButton';
+import { navButtons } from './constants';
 
 const tileBuffer = 2;
 
@@ -72,25 +73,29 @@ class Pagination extends Component {
         return (
             <div className={classes.root}>
                 <NavButton
-                    name="rewind"
+                    name={navButtons.firstPage.name}
                     active={isActiveLeft}
                     onClick={() => this.setPage(leftSkip)}
+                    buttonLabel={navButtons.firstPage.buttonLabel}
                 />
                 <NavButton
-                    name="chevron-left"
+                    name={navButtons.prevPage.name}
                     active={isActiveLeft}
                     onClick={this.slideNavLeft}
+                    buttonLabel={navButtons.prevPage.buttonLabel}
                 />
                 {navigationTiles}
                 <NavButton
-                    name="chevron-right"
+                    name={navButtons.nextPage.name}
                     active={isActiveRight}
                     onClick={this.slideNavRight}
+                    buttonLabel={navButtons.nextPage.buttonLabel}
                 />
                 <NavButton
-                    name="fast-forward"
+                    name={navButtons.lastPage.name}
                     active={isActiveRight}
                     onClick={() => this.setPage(rightSkip)}
+                    buttonLabel={navButtons.lastPage.buttonLabel}
                 />
             </div>
         );
