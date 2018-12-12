@@ -36,7 +36,6 @@ class Navigation extends PureComponent {
         email: string,
         firstname: string,
         getAllCategories: func.isRequired,
-        getUserDetails: func.isRequired,
         isOpen: bool,
         isSignedIn: bool,
         lastname: string,
@@ -56,7 +55,6 @@ class Navigation extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getUserDetails();
         this.props.getAllCategories();
     }
 
