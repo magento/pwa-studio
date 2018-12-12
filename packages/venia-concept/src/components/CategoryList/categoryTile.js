@@ -12,12 +12,21 @@ const previewImageSize = 480;
 class CategoryTile extends Component {
     static propTypes = {
         item: shape({
-            image: string,
+            image: arrayOf(
+                shape({
+                    url: string,
+                    label: string
+                })
+            ),
             name: string.isRequired,
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: string
+                        small_image: shape(
+                            shape({
+                                url: string
+                            })
+                        ),
                     })
                 )
             }),
@@ -35,12 +44,12 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return resourceUrl(image, {
+            return resourceUrl(image.url, {
                 type: 'image-category',
                 width: previewImageSize
             });
         } else if (previewProduct) {
-            return resourceUrl(previewProduct.small_image, {
+            return resourceUrl(previewProduct.small_image.url, {
                 type: 'image-product',
                 width: previewImageSize
             });
@@ -49,8 +58,17 @@ class CategoryTile extends Component {
         }
     }
 
+    get imageLabel() {
+        const { image, name } = this.props.item;
+        if (image && image.label) {
+            return image.label;
+        } else {
+            return name;
+        }
+    }
+
     render() {
-        const { imagePath, props } = this;
+        const { imagePath, imageLabel, props } = this;
         const { classes, item } = props;
 
         // interpolation doesn't work inside `url()` for legacy reasons
@@ -60,7 +78,7 @@ class CategoryTile extends Component {
 
         // render an actual image element for accessibility
         const imagePreview = imagePath ? (
-            <img className={classes.image} src={imagePath} alt={item.name} />
+            <img className={classes.image} src={imagePath} alt={imageLabel} />
         ) : null;
 
         return (

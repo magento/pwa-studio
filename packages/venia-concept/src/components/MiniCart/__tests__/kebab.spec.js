@@ -12,7 +12,9 @@ const classes = {
 const item = {
     id: 1,
     name: 'Test Product 1',
-    small_image: '/test/product/1.png',
+    small_image: {
+        url: '/test/product/1.png'
+    },
     price: {
         regularPrice: {
             amount: {
