@@ -158,6 +158,6 @@ export default class MagentoRouteHandler extends Component {
         // otherwise we do have a RootComponent, so render it
         const { RootComponent, ...routeProps } = componentMap.get(pathname);
 
-        return <RootComponent {...routeProps} />;
+        return <RootComponent {...routeProps} key={pathname} />;
     }
 }
