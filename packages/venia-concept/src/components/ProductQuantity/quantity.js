@@ -18,12 +18,21 @@ class Quantity extends Component {
         )
     };
 
+    static defaultProps = {
+        selectLabel: "product's quantity"
+    };
+
     render() {
-        const { classes, ...restProps } = this.props;
+        const { classes, selectLabel, ...restProps } = this.props;
 
         return (
             <div className={classes.root}>
-                <Select {...restProps} field="quantity" items={mockData} />
+                <Select
+                    {...restProps}
+                    field="quantity"
+                    aria-label={selectLabel}
+                    items={mockData}
+                />
             </div>
         );
     }
