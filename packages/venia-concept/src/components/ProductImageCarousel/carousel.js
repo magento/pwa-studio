@@ -21,7 +21,13 @@ const chevronDirs = {
 
 class Carousel extends Component {
     static propTypes = {
-        classes: PropTypes.objectOf(PropTypes.string),
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            currentImage: PropTypes.string,
+            imageContainer: PropTypes.string,
+            'chevron-left': PropTypes.string,
+            'chevron-right': PropTypes.string
+        }),
         images: PropTypes.arrayOf(imageItemPropType).isRequired
     };
 
@@ -91,9 +97,11 @@ class Carousel extends Component {
         const alt = mainImage.label || 'product';
         return (
             <div className={classes.root}>
-                <img className={classes.currentImage} src={src} alt={alt} />
-                {this.getChevron(chevronDirs.left)}
-                {this.getChevron(chevronDirs.right)}
+                <div className={classes.imageContainer}>
+                    {this.getChevron(chevronDirs.left)}
+                    <img className={classes.currentImage} src={src} alt={alt} />
+                    {this.getChevron(chevronDirs.right)}
+                </div>
                 <ThumbnailList
                     getItemKey={i => i.file}
                     items={sortedImages}
