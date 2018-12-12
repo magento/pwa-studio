@@ -3,10 +3,6 @@ import { arrayOf, string, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import classify from 'src/classify';
-import {
-    makeCategoryMediaPath,
-    makeProductMediaPath
-} from 'src/util/makeMediaPath';
 import defaultClasses from './categoryTile.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
@@ -15,12 +11,21 @@ const categoryUrlSuffix = '.html';
 class CategoryTile extends Component {
     static propTypes = {
         item: shape({
-            image: string,
+            image: arrayOf(
+                shape({
+                    url: string,
+                    label: string
+                })
+            ),
             name: string.isRequired,
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: string
+                        small_image: shape(
+                            shape({
+                                url: string
+                            })
+                        ),
                     })
                 )
             }),
@@ -38,16 +43,25 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return makeCategoryMediaPath(image);
+            return image.url;
         } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image);
+            return previewProduct.small_image.url;
         } else {
             return null;
         }
     }
 
+    get imageLabel() {
+        const { image, name } = this.props.item;
+        if (image && image.label) {
+            return image.label;
+        } else {
+            return name;
+        }
+    }
+
     render() {
-        const { imagePath, props } = this;
+        const { imagePath, imageLabel, props } = this;
         const { classes, item } = props;
 
         // interpolation doesn't work inside `url()` for legacy reasons
@@ -57,7 +71,7 @@ class CategoryTile extends Component {
 
         // render an actual image element for accessibility
         const imagePreview = imagePath ? (
-            <img className={classes.image} src={imagePath} alt={item.name} />
+            <img className={classes.image} src={imagePath} alt={imageLabel} />
         ) : null;
 
         return (

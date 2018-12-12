@@ -60,7 +60,9 @@ test('displays category tiles', async () => {
                                 productImagePreview: {
                                     items: [
                                         {
-                                            small_image: 'media/foo-product.jpg'
+                                            small_image: {
+                                                url: 'media/foo-product.jpg'
+                                            }
                                         }
                                     ]
                                 }
@@ -76,7 +78,9 @@ test('displays category tiles', async () => {
                                 productImagePreview: {
                                     items: [
                                         {
-                                            small_image: 'media/bar-product.jpg'
+                                            small_image: {
+                                                url: 'media/bar-product.jpg'
+                                            }
                                         }
                                     ]
                                 }

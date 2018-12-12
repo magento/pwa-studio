@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { string, number, shape, func, bool } from 'prop-types';
+import {string, number, shape, func, bool, arrayOf} from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 
 const imageWidth = '300';
@@ -40,7 +39,12 @@ class GalleryItem extends Component {
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
-            small_image: string.isRequired,
+            small_image: shape(
+                shape({
+                    url: string,
+                    label: string
+                })
+            ),
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
@@ -116,25 +120,30 @@ class GalleryItem extends Component {
         );
     };
 
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
+    get imageLabel() {
+        const { small_image, name } = this.props.item;
+        if (small_image && small_image.label) {
+            return small_image.label;
+        } else {
+            return name;
+        }
+    }
+
     renderImage = () => {
-        const { classes, item, showImage } = this.props;
+        const { classes, item, showImage, imageLabel } = this.props;
 
         if (!item) {
             return null;
         }
 
-        const { small_image, name } = item;
+        const { small_image } = item;
         const className = showImage ? classes.image : classes.image_pending;
 
         return (
             <img
                 className={className}
-                src={makeProductMediaPath(small_image)}
-                alt={name}
+                src={small_image.url}
+                alt={imageLabel}
                 width={imageWidth}
                 height={imageHeight}
                 onLoad={this.handleLoad}

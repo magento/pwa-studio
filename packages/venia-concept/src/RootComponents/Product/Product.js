@@ -22,7 +22,9 @@ const query = gql`
                         }
                     }
                 }
-                description
+                description {
+                    html
+                }
                 media_gallery_entries {
                     label
                     position
@@ -101,7 +103,11 @@ class Product extends Component {
                                 file: string.isRequired
                             })
                         ),
-                        description: string,
+                        description: arrayOf(
+                            shape({
+                                html: string
+                            })
+                        ),
                         short_description: string,
                         canonical_url: string
                     })
