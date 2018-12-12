@@ -1,0 +1,7 @@
+# TODO: get only active categories from graphql when it is ready
+query currentSessionLastOrder {
+    currentSessionLastOrder {
+        id
+        increment_id
+    }
+}

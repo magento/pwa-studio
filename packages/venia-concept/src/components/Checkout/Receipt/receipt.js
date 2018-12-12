@@ -3,6 +3,8 @@ import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button, { darkThemeClasses } from 'src/components/Button';
 import defaultClasses from './receipt.css';
+import currentSessionLastOrderQuery from "../../../queries/getCurrentSessionLastOrder.graphql";
+import {Query} from "react-apollo";
 
 export const CONTINUE_SHOPPING_BUTTON_ID = 'continue-shopping-button';
 export const CREATE_ACCOUNT_BUTTON_ID = 'create-account-button';
@@ -55,7 +57,37 @@ class Receipt extends Component {
                     </h2>
                     <div className={classes.textBlock}>
                         Your order # is{' '}
-                        <span className={classes.orderId}>{id}</span>
+                        <Query query={currentSessionLastOrderQuery}>
+                            {({ loading, error, data }) => {
+                                if (error) {
+                                    return (
+                                        <span className={classes.fetchError}>
+                                            Data Fetch Error: <pre>{error.message}</pre>
+                                        </span>
+                                    );
+                                }
+                                if (loading) {
+                                    return (
+                                        <span className={classes.fetchingData}>
+                                            Fetching Data
+                                        </span>
+                                    );
+                                }
+                                if (data.currentSessionLastOrder.increment_id === null) {
+                                    return (
+                                        <div className={classes.noResults}>
+                                            Order data unavailable
+                                        </div>
+                                    );
+                                }
+
+                                return (
+                                    <span className={classes.orderId}>
+                                        {data.currentSessionLastOrder.increment_id}
+                                    </span>
+                                );
+                            }}
+                        </Query>
                         <br />
                         We&rsquo;ll email you an order confirmation with details
                         and tracking info
