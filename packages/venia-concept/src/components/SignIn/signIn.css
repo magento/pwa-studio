@@ -8,13 +8,13 @@
 .signInButton,
 .showCreateAccountButton {
     text-align: center;
-    margin: 1rem 0 0;
+    margin: 1rem 0;
 }
 
 .forgotPassword {
+    display: block;
     text-decoration: underline;
     color: rgb(var(--venia-text-spot));
     font-size: 0.8rem;
-    text-align: center;
-    margin: 2rem 0 0 0;
+    margin: 2rem auto 0;
 }
