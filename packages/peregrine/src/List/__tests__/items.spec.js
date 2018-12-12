@@ -83,6 +83,7 @@ test('passes correct props to each child', () => {
         expect(node.key()).toEqual(key);
         expect(node.props()).toMatchObject({
             item,
+            itemIndex: i,
             render: props.renderItem,
             hasFocus: false,
             isSelected: false,
