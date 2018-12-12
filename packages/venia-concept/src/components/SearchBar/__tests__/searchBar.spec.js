@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { SearchBar, SeedSearchInput } from '../searchBar';
+import { Router } from '@magento/peregrine';
 
 configure({ adapter: new Adapter() });
 
@@ -12,12 +13,23 @@ const classes = {
     clearIconOpen: 'visible'
 };
 
-/* Using mount to simulate event propagation - submitting via native form onsubmit event */
+/* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the search bar is expanded, pressing the Enter key will submit.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const historyMock = { location: { pathname: '' } };
+    const mockExecuteSearch = jest.fn();
+    let wrapper = mount(
+        <Router apiBase="">
+            <SearchBar
+                executeSearch={mockExecuteSearch}
+                history={historyMock}
+                classes={classes}
+                isOpen={true}
+            />
+        </Router>
+    ).find(SearchBar);
     const searchInput = wrapper.find('input');
     const spy = jest
-        .spyOn(wrapper.instance(), 'handleSearchSubmit')
+        .spyOn(wrapper.instance(), 'enterSearch')
         .mockImplementation(event => {
             if (
                 event.type === 'submit' &&
@@ -29,19 +41,30 @@ test('When the search bar is expanded, pressing the Enter key will submit.', asy
             }
         });
     wrapper.instance().forceUpdate();
-    searchInput.instance().value = 'a';
+    searchInput.instance().value = 'test';
     searchInput.simulate('change');
     searchInput.simulate('submit');
     expect(spy).toHaveReturnedWith(true);
 });
 
-/* Using mount to simulate event propagation - submitting via native button with type submit */
+/* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the search icon is clicked, the query in the input component will be submitted.', async () => {
-    let wrapper = mount(<SearchBar classes={classes} isOpen={true} />);
+    const historyMock = { location: { pathname: '' } };
+    const mockExecuteSearch = jest.fn();
+    let wrapper = mount(
+        <Router apiBase="">
+            <SearchBar
+                executeSearch={mockExecuteSearch}
+                history={historyMock}
+                classes={classes}
+                isOpen={true}
+            />
+        </Router>
+    ).find(SearchBar);
     const searchInput = wrapper.find('input');
     const searchButton = wrapper.find('button[type="submit"]').at(0);
     const spy = jest
-        .spyOn(wrapper.instance(), 'handleSearchSubmit')
+        .spyOn(wrapper.instance(), 'enterSearch')
         .mockImplementation(event => {
             if (
                 event.type === 'submit' &&
@@ -53,7 +76,7 @@ test('When the search icon is clicked, the query in the input component will be 
             }
         });
     wrapper.instance().forceUpdate();
-    searchInput.instance().value = 'a';
+    searchInput.instance().value = 'test';
     searchInput.simulate('change');
     searchButton.simulate('submit');
     expect(spy).toHaveReturnedWith(true);
@@ -61,17 +84,21 @@ test('When the search icon is clicked, the query in the input component will be 
 
 /* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the input component is empty, search submit will not be called.', async () => {
+    const historyMock = { location: { pathname: '' } };
     const mockExecuteSearch = jest.fn();
     let wrapper = mount(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+        <Router apiBase="">
+            <SearchBar
+                executeSearch={mockExecuteSearch}
+                history={historyMock}
+                classes={classes}
+                isOpen={true}
+            />
+        </Router>
+    ).find(SearchBar);
 
     const spy = jest
-        .spyOn(wrapper.instance(), 'handleSearchSubmit')
+        .spyOn(wrapper.instance(), 'enterSearch')
         .mockImplementation(event => {
             if (
                 event.type === 'submit' &&
@@ -91,9 +118,21 @@ test('When the input component is empty, search submit will not be called.', asy
     expect(spy).toHaveReturnedWith(false);
 });
 
+/* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the clear button is pressed, any text in the input component is removed.', async () => {
     const mockFocus = jest.fn();
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    const mockExecuteSearch = jest.fn();
+    const historyMock = { location: { pathname: '' } };
+    let wrapper = mount(
+        <Router apiBase="">
+            <SearchBar
+                executeSearch={mockExecuteSearch}
+                history={historyMock}
+                classes={classes}
+                isOpen={true}
+            />
+        </Router>
+    ).find(SearchBar);
 
     const searchInput = wrapper.find('input');
     const clearButton = wrapper.find('button').at(1);
@@ -102,27 +141,47 @@ test('When the clear button is pressed, any text in the input component is remov
     };
     wrapper.instance().forceUpdate();
     searchInput.simulate('change', { currentTarget: { value: 'test' } });
-    clearButton.simulate('click');
+    clearButton.simulate('click', { preventDefault: () => {} });
     expect(searchInput.props().value).toBe('');
 });
 
 test('When the input component is empty, the clear button is not displayed.', async () => {
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    const mockEvent = { currentTarget: { value: '' } };
+    const historyMock = { location: { pathname: '' } };
+    const mockExecuteSearch = jest.fn();
+    let wrapper = shallow(
+        <SearchBar
+            executeSearch={mockExecuteSearch}
+            history={historyMock}
+            classes={classes}
+            isOpen={true}
+        />
+    );
+    wrapper.instance().inputChange(mockEvent);
 
-    wrapper.instance().searchRef = { current: { value: '' } };
+    const clearButton = wrapper.find('button').at(1);
 
-    expect(wrapper.state('showClearIcon')).toBe(false);
+    expect(clearButton.props().className).toBe(classes.clearIcon);
 });
 
 test('When the input element has text, the clear button is displayed.', async () => {
-    const mockEvent = { type: 'keyUp' };
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    const mockEvent = { currentTarget: { value: 'test' } };
+    const mockExecuteSearch = jest.fn();
+    const historyMock = { location: { pathname: '' } };
+    let wrapper = shallow(
+        <SearchBar
+            executeSearch={mockExecuteSearch}
+            history={historyMock}
+            classes={classes}
+            isOpen={true}
+        />
+    );
 
-    wrapper.instance().searchRef = { current: { value: 'test' } };
-    // Call the onKeyUp event handler directly since we can't alter the ref.
-    wrapper.instance().enterSearch(mockEvent);
+    wrapper.instance().inputChange(mockEvent);
 
-    expect(wrapper.state('showClearIcon')).toBe(true);
+    const clearButton = wrapper.find('button').at(1);
+
+    expect(clearButton.props().className).toBe(classes.clearIconOpen);
 });
 
 describe('SeedSearchInput', () => {
