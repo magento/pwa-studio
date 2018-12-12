@@ -70,7 +70,7 @@ class GalleryItem extends Component {
     componentDidUpdate(previousProps) {
         const { item: previousItem } = previousProps;
         const { item, onLoad } = this.props;
-        
+
         if (item !== previousItem) {
             // if the item has already loaded, fire off its event.
             if (this.imageRef.current.complete) {

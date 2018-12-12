@@ -26,7 +26,7 @@ export class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.searchRef = React.createRef();
-        this.state = { isClearIcon: false };
+        this.state = { showClearIcon: false };
     }
 
     componentDidUpdate(prevProps) {
@@ -58,15 +58,8 @@ export class SearchBar extends Component {
     };
 
     setClearIcon(query) {
-        if (query !== '') {
-            this.setState(() => {
-                return { isClearIcon: true };
-            });
-        } else {
-            this.setState(() => {
-                return { isClearIcon: false };
-            });
-        }
+        const showClearIcon = query !== '';
+        this.setState({ showClearIcon });
     }
 
     render() {
@@ -76,7 +69,7 @@ export class SearchBar extends Component {
             ? classes.searchBlockOpen
             : classes.searchBlock;
 
-        const clearIconClass = this.state.isClearIcon
+        const clearIconClass = this.state.showClearIcon
             ? classes.clearIcon
             : classes.clearIcon_off;
 
@@ -121,7 +114,7 @@ export class SearchBar extends Component {
 /**
  * This class seeds the value of the given input ref with the search query from the URL.
  */
-class SeedSearchInput extends Component {
+export class SeedSearchInput extends Component {
     static propTypes = {
         // A React Router location.
         // @see https://reacttraining.com/react-router/core/api/location.
