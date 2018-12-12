@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Price from '../Price';
 import IntlPolyfill from 'intl';
-
-configure({ adapter: new Adapter() });
 
 if (!global.Intl.NumberFormat.prototype.formatToParts) {
     global.Intl = IntlPolyfill;

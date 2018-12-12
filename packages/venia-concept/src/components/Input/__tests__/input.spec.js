@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Input from '../input';
-
-configure({ adapter: new Adapter() });
 
 const validInput = {
     value: 'example value',
