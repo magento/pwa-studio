@@ -273,27 +273,35 @@ class Navigation extends PureComponent {
             isForgotPasswordOpen,
             rootNodeId
         } = state;
-        const { classes, closeDrawer, isOpen, rootCategoryId } = props;
+        const {
+            classes,
+            closeDrawer,
+            isOpen,
+            isSignedIn,
+            rootCategoryId
+        } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const isTopLevel = !rootNodeId || rootNodeId === rootCategoryId;
 
-        const handleBack = isCreateAccountOpen
-            ? hideCreateAccountForm
-            : isForgotPasswordOpen
-            ? hideForgotPasswordForm
-            : isSignInOpen
-            ? hideSignInForm
-            : isTopLevel
-            ? closeDrawer
-            : setRootNodeIdToParent;
+        const handleBack =
+            isCreateAccountOpen && !isSignedIn
+                ? hideCreateAccountForm
+                : isForgotPasswordOpen
+                ? hideForgotPasswordForm
+                : isSignInOpen && !isSignedIn
+                ? hideSignInForm
+                : isTopLevel
+                ? closeDrawer
+                : setRootNodeIdToParent;
 
-        const title = isCreateAccountOpen
-            ? 'Create Account'
-            : isForgotPasswordOpen
-            ? 'Forgot password'
-            : isSignInOpen
-            ? 'Sign In'
-            : 'Main Menu';
+        const title =
+            isCreateAccountOpen && !isSignedIn
+                ? 'Create Account'
+                : isForgotPasswordOpen
+                ? 'Forgot password'
+                : isSignInOpen && !isSignedIn
+                ? 'Sign In'
+                : 'Main Menu';
 
         return (
             <aside className={className}>
