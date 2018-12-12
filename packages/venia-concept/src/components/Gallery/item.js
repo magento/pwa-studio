@@ -61,6 +61,24 @@ class GalleryItem extends Component {
         onLoad: () => {}
     };
 
+    constructor(...args) {
+        super(...args);
+
+        this.imageRef = React.createRef();
+    }
+
+    componentDidUpdate(previousProps) {
+        const { item: previousItem } = previousProps;
+        const { item, onLoad } = this.props;
+
+        if (item !== previousItem) {
+            // if the item has already loaded, fire off its event.
+            if (this.imageRef.current.complete) {
+                onLoad(item.id);
+            }
+        }
+    }
+
     render() {
         const { classes, item } = this.props;
 
@@ -139,6 +157,7 @@ class GalleryItem extends Component {
                 height={imageHeight}
                 onLoad={this.handleLoad}
                 onError={this.handleError}
+                ref={this.imageRef}
             />
         );
     };

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
@@ -12,29 +12,51 @@ class SearchTrigger extends Component {
             root: PropTypes.string,
             open: PropTypes.string
         }),
-        toggleSearch: PropTypes.func.isRequired,
-        searchOpen: PropTypes.bool
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func.isRequired
     };
-
-    async componentDidMount() {
-        if (
-            this.props.location.pathname === '/search.html' &&
-            this.props.searchOpen !== true
-        ) {
-            this.props.toggleSearch();
-        }
-    }
 
     render() {
         const { children, classes, toggleSearch, searchOpen } = this.props;
         const searchClass = searchOpen ? classes.open : classes.root;
 
         return (
-            <button className={searchClass} onClick={toggleSearch}>
-                {children}
-            </button>
+            <Fragment>
+                <button className={searchClass} onClick={toggleSearch}>
+                    {children}
+                </button>
+                <Route
+                    exact
+                    path="/search.html"
+                    render={() => {
+                        const { searchOpen, toggleSearch } = this.props;
+                        const props = { searchOpen, toggleSearch };
+
+                        return <EnsureOpenSearch {...props} />;
+                    }}
+                />
+            </Fragment>
         );
     }
 }
 
-export default withRouter(classify(defaultClasses)(SearchTrigger));
+class EnsureOpenSearch extends Component {
+    static propTypes = {
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func.isRequired
+    };
+
+    componentDidMount() {
+        const { searchOpen, toggleSearch } = this.props;
+        if (searchOpen !== true) {
+            toggleSearch();
+        }
+    }
+
+    render() {
+        // Do not render anything.
+        return null;
+    }
+}
+
+export default classify(defaultClasses)(SearchTrigger);

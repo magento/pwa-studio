@@ -41,13 +41,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('underscore', () => {
-    return {
-        debounce: cb => {
-            return cb;
-        }
-    };
-});
+jest.mock('lodash.debounce', () => fn => fn);
 
 const classes = {
     createAccountButton: 'a',

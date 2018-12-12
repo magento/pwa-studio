@@ -7,12 +7,16 @@ html {
     --venia-border: 224, 224, 224;
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
     --venia-grey: 246, 246, 246;
+    --venia-orange: 241, 99, 33;
     --venia-teal: 0, 134, 138;
     --venia-teal-alt: 224, 240, 241;
+    --venia-teal-light: 212, 246, 241;
     --venia-text: 33, 33, 33;
     --venia-text-alt: 117, 117, 117;
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
+    --venia-warning-dark: 249, 93, 94;
+    --venia-warning-light: 254, 229, 232;
 }
 
 html {
