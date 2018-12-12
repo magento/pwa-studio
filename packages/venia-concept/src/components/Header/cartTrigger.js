@@ -7,7 +7,8 @@ import { toggleCart } from 'src/actions/cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
-class Trigger extends Component {
+// named export for testing purposes
+export class Trigger extends Component {
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
@@ -16,7 +17,7 @@ class Trigger extends Component {
         toggleCart: PropTypes.func.isRequired,
         //.isRequired fails at first render because 
         // itemsQuantity undefined ...
-        itemsQuantity: PropTypes.number
+        itemsQty: PropTypes.number
     };
 
     /**
@@ -28,10 +29,10 @@ class Trigger extends Component {
      * @returns { (number|null) }
      */
     get cartCounter() {
-        const itemsQty = this.props.itemsQuantity || 0;
+        const counter = this.props.itemsQty || 0;
         const  { classes } = this.props;
-        return itemsQty && itemsQty > 0 ? (
-            <span className={classes.counter}>{itemsQty}</span>   
+        return counter && counter > 0 ? (
+            <span className={classes.counter}>{counter}</span> 
         ) : null;
     }
 
@@ -63,10 +64,10 @@ const mapDispatchToProps = {
  * @returns { number } 
  */
 const mapStateToProps = state => {
-    const itemsQuantity = state.cart.details.items_qty;
+    const itemsQty = state.cart.details.items_qty;
 
     return {
-        itemsQuantity
+        itemsQty
     };
 };
 
