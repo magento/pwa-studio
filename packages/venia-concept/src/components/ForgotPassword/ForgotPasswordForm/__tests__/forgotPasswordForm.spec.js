@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 test('renders correctly', () => {
     const emailInputProps = { field: 'email' };
-    const wrapper = shallow(<ForgotPasswordForm />).dive();
+    const wrapper = shallow(<ForgotPasswordForm onSubmit={() => {}} />).dive();
 
     expect(wrapper.find(emailInputProps)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);

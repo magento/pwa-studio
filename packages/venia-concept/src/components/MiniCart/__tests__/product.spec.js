@@ -1,11 +1,8 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import Product from '../product';
 import Section from '../section';
-
-configure({ adapter: new Adapter() });
 
 const classes = { firstSection: 'a' };
 
@@ -18,6 +15,18 @@ const item = {
     image: 'test.jpg'
 };
 
+const totalsItems = [
+    {
+        item_id: 1,
+        name: 'Product 1',
+        // REST API returns options as string
+        options: JSON.stringify([
+            { value: 'Peach', label: 'Fashion Color' },
+            { value: 'M', label: 'Fashion Size' }
+        ])
+    }
+];
+
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
     const showEditPanel = jest.fn();
@@ -28,6 +37,7 @@ test('passed functions are called from nested `Section` components', () => {
             currencyCode={'NZD'}
             removeItemFromCart={removeItemFromCart}
             showEditPanel={showEditPanel}
+            totalsItems={totalsItems}
         />
     ).dive();
 
@@ -46,4 +56,35 @@ test('passed functions are called from nested `Section` components', () => {
     expect(favoriteItem).toHaveBeenCalled();
     expect(editItem).toHaveBeenCalled();
     expect(removeItem).toHaveBeenCalled();
+});
+
+test('Product variants are rendered', () => {
+    const wrapper = shallow(
+        <Product item={item} currencyCode={'EUR'} totalsItems={totalsItems} />
+    ).dive();
+
+    // The product's name is in the div at index 1.
+    expect(
+        wrapper
+            .find('div')
+            .at(1)
+            .text()
+    ).toEqual(item.name);
+
+    // The product variants are rendered.
+    const expectedOptions = JSON.parse(totalsItems[0].options);
+    expectedOptions.forEach((option, index) => {
+        expect(
+            wrapper
+                .find('dt')
+                .at(index)
+                .text()
+        ).toContain(option.label);
+        expect(
+            wrapper
+                .find('dd')
+                .at(index)
+                .text()
+        ).toEqual(option.value);
+    });
 });
