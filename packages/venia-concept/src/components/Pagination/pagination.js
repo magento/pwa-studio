@@ -12,8 +12,9 @@ class Pagination extends Component {
     }
 
     componentWillUnmount() {
-        const { updateTotalPages } = this.props.pageControl;
+        const { updateTotalPages, setPage } = this.props.pageControl;
         updateTotalPages(null);
+        setPage(1);
     }
 
     get navigationTiles() {

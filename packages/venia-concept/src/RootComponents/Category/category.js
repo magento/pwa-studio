@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import classify from 'src/classify';
-import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import actions, { setCurrentPage } from 'src/actions/catalog';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -126,7 +126,10 @@ const mapStateToProps = ({ catalog }) => {
         prevPageTotal: catalog.prevPageTotal
     };
 };
-const mapDispatchToProps = { setCurrentPage, setPrevPageTotal };
+const mapDispatchToProps = {
+    setCurrentPage,
+    setPrevPageTotal: actions.setPrevPageTotal.receive
+};
 
 export default compose(
     classify(defaultClasses),
