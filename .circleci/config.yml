@@ -87,8 +87,6 @@ jobs:
       - run:
           name: Bundle size analysis
           command: npx bundlesize --debug
-          environment:
-            BUNDLESIZE_GITHUB_TOKEN: 49dc21a6bcae523ea39c0c76c5638d47064f5b6b
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
