@@ -95,7 +95,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default compose( 
+export default compose(
     classify(defaultClasses),
     connect(
         mapStateToProps,
