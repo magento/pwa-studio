@@ -6,7 +6,6 @@ import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
 import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTree from '../categoryTree';
 
-
 jest.mock('react-router-dom/Link', () => () => <h6>link</h6>);
 jest.mock('react-router-dom/NavLink', () => 'navlink');
 
