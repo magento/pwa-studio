@@ -65,6 +65,7 @@ class Items extends Component {
                 <ListItem
                     key={key}
                     item={item}
+                    itemIndex={index}
                     render={renderItem}
                     hasFocus={hasFocus && cursor === index}
                     isSelected={selection.has(key)}
