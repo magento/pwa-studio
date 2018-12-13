@@ -6,7 +6,9 @@
 .image {
     display: block;
     height: auto;
-    animation: fadein 0.512ms;
+    transition-duration: 512ms;
+    transition-property: opacity, visibility;
+    transition-timing-function: ease-out;
     width: 100%;
 }
 
@@ -28,13 +30,4 @@
 
 .root_pending {
     composes: root;
-}
-
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }

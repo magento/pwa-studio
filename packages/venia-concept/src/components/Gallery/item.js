@@ -18,15 +18,9 @@ class GalleryItem extends Component {
     static propTypes = {
         classes: shape({
             image: string,
-            image_pending: string,
-            imagePlaceholder: string,
-            imagePlaceholder_pending: string,
             images: string,
-            images_pending: string,
             name: string,
-            name_pending: string,
             price: string,
-            price_pending: string,
             root: string,
             root_pending: string
         }),
@@ -74,14 +68,12 @@ class GalleryItem extends Component {
         const { classes, item, showImage } = this.props;
         const { renderImagePlaceholder } = this;
 
-        const { small_image, name } = item;
-
         return (
             <Fragment>
                 <Image
                     className={classes.image}
-                    src={makeProductMediaPath(small_image)}
-                    alt={name}
+                    src={makeProductMediaPath(item.small_image)}
+                    alt={item.name}
                     onLoad={this.handleLoad}
                     onError={this.handleError}
                     showImage={showImage}
