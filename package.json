@@ -27,7 +27,7 @@
     "storybook:venia": "cd packages/venia-concept && npm run storybook",
     "test": "jest",
     "test:ci": "jest --no-cache -i --json --outputFile=test-results.json",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest -i --no-coverage",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i --no-cache",
     "test:dev": "jest --watch",
     "validate-queries": "npx lerna run validate-queries -- -s",
     "watch:all": "node scripts/watch-all.js",
