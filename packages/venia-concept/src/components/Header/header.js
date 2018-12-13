@@ -35,6 +35,7 @@ class Header extends Component {
 
     get searchIcon() {
         return <Icon src={SearchIcon} />;
+
     }
 
     render() {
