@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { closeDrawer } from 'src/actions/app';
 import { getAllCategories } from 'src/actions/catalog';
-import { createAccount, resetPassword } from 'src/actions/user';
+import { createAccount, getUserDetails, resetPassword } from 'src/actions/user';
 import Navigation from './navigation';
 
 const mapStateToProps = ({ catalog, user }) => {
@@ -23,6 +23,7 @@ const mapDispatchToProps = {
     closeDrawer,
     createAccount,
     getAllCategories,
+    getUserDetails,
     resetPassword
 };
 

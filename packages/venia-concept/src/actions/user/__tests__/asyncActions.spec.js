@@ -137,6 +137,29 @@ test('getUserDetails thunk makes request to get customer details if user is sign
     expect(firstRequest[1]).toHaveProperty('method', 'GET');
 });
 
+test('getUserDetails thunk dispatches resetSignInError', async () => {
+    getState.mockImplementationOnce(() => ({
+        user: { isSignedIn: true }
+    }));
+
+    await getUserDetails()(...thunkArgs);
+
+    expect(dispatch).toHaveBeenCalledWith(actions.resetSignInError.request());
+});
+
+test('getUserDetails thunk dispatches signInError on failed request', async () => {
+    const error = new Error('ERROR');
+    getState.mockImplementationOnce(() => ({
+        user: { isSignedIn: true }
+    }));
+    request.mockRejectedValueOnce(error);
+    await getUserDetails()(...thunkArgs);
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.signInError.receive(error)
+    );
+});
+
 test('createNewUserRequest thunk dispatches resetCreateAccountError', async () => {
     await createNewUserRequest(accountInfo)(...thunkArgs);
 
