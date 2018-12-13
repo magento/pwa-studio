@@ -247,12 +247,16 @@ export const getCartDetails = (payload = {}) => {
                 items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};
 
-                    item.options = validTotals
-                        ? JSON.parse(
-                              totals.items.find(t => t.item_id === item.item_id)
-                                  .options
-                          )
-                        : [];
+                    let options = [];
+                    if (validTotals) {
+                        const matchingItem = totals.items.find(
+                            t => t.item_id === item.item_id
+                        );
+                        if (matchingItem && matchingItem.options) {
+                            options = JSON.parse(matchingItem.options);
+                        }
+                    }
+                    item.options = options;
                 });
             }
 

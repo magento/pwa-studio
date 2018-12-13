@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, bool, number, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
 import Section from './section';
@@ -41,32 +41,7 @@ class Product extends Component {
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired,
-        totalsItems: arrayOf(
-            shape({
-                base_discount_amount: number,
-                base_price: number,
-                base_price_incl_tax: number,
-                base_row_total: number,
-                base_row_total_incl_tax: number,
-                base_tax_amount: number,
-                discount_amount: number,
-                discount_percent: number,
-                item_id: number.isRequired,
-                name: string,
-                options: string,
-                price: number,
-                price_incl_tax: number,
-                qty: number,
-                row_total: number,
-                row_total_incl_tax: number,
-                row_total_with_discount: number,
-                tax_amount: number,
-                tax_percent: number,
-                weee_tax_applied: bool,
-                weee_tax_applied_amount: number
-            })
-        ).isRequired
+        currencyCode: string.isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready

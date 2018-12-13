@@ -28,18 +28,6 @@ const item = {
     ]
 };
 
-const totalsItems = [
-    {
-        item_id: 1,
-        name: 'Product 1',
-        // REST API returns options as string
-        options: JSON.stringify([
-            { value: 'testValue', label: 'testLabel' },
-            { value: 'testValue2', label: 'testLabel2' }
-        ])
-    }
-];
-
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
     const showEditPanel = jest.fn();
@@ -50,7 +38,6 @@ test('passed functions are called from nested `Section` components', () => {
             currencyCode={'NZD'}
             removeItemFromCart={removeItemFromCart}
             showEditPanel={showEditPanel}
-            totalsItems={totalsItems}
         />
     ).dive();
 
@@ -73,12 +60,7 @@ test('passed functions are called from nested `Section` components', () => {
 
 test('Product name is rendered', () => {
     const wrapper = shallow(
-        <Product
-            item={item}
-            currencyCode={'EUR'}
-            totalsItems={totalsItems}
-            classes={classes}
-        />
+        <Product item={item} currencyCode={'EUR'} classes={classes} />
     ).dive();
 
     expect(
@@ -91,16 +73,11 @@ test('Product name is rendered', () => {
 
 test('Product variants are rendered', () => {
     const wrapper = shallow(
-        <Product
-            item={item}
-            currencyCode={'EUR'}
-            totalsItems={totalsItems}
-            classes={classes}
-        />
+        <Product item={item} currencyCode={'EUR'} classes={classes} />
     ).dive();
 
-    wrapper.find(`.${classes.optionLabel}`).forEach((l, i) => {
-        expect(l.text()).toContain(item.options[i].label);
-        expect(l.text()).toContain(item.options[i].value);
+    wrapper.find(`.${classes.optionLabel}`).forEach((optionLabel, i) => {
+        expect(optionLabel.text()).toContain(item.options[i].label);
+        expect(optionLabel.text()).toContain(item.options[i].value);
     });
 });
