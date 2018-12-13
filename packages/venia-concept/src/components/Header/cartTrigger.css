@@ -3,9 +3,3 @@
     height: 3rem;
     width: 3rem;
 }
-
-.counter {
-    display: inline-block;
-    padding: 3px;
-    color: rgb(var(--venia-text));
-}
