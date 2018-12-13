@@ -24,7 +24,7 @@ const renderImagePlaceholder = props => {
 const validImage = {
     className: classes.image,
     src: 'foo/bar/test.png',
-    alt: 'alt',
+    name: 'alt',
     onLoad: handleLoad,
     onError: handleError,
     showImage: true,
@@ -43,13 +43,12 @@ test('renders a placeholder image while awaiting image', () => {
     const wrapper = shallow(
         <Image
             classes={classes}
+            {...validImage}
             showImage={false}
             placeholder={renderImagePlaceholder}
         />
     ).dive();
     const child = wrapper.find(`.${classes.imagePlaceholder}`);
-
-    debugger;
 
     expect(child).toHaveLength(1);
 });
