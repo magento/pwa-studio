@@ -134,6 +134,9 @@ export const resetPassword = ({ email }) =>
         dispatch(actions.resetPassword.receive(response));
     };
 
+export const completePasswordReset = email => async dispatch =>
+    dispatch(actions.completePasswordReset(email));
+
 async function setToken(token) {
     const storage = new BrowserPersistence();
     // TODO: Get correct token expire time from API

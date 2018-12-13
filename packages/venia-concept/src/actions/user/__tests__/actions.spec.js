@@ -186,3 +186,23 @@ describe('resetPassword', () => {
         });
     });
 });
+
+describe('completePasswordReset', () => {
+    test('completePasswordReset.toString() returns the proper action type', () => {
+        expect(actions.completePasswordReset.toString()).toBe(
+            'USER/COMPLETE_PASSWORD_RESET'
+        );
+    });
+
+    test('completePasswordReset() returns a proper action object', () => {
+        expect(actions.completePasswordReset(payload)).toEqual({
+            type: 'USER/COMPLETE_PASSWORD_RESET',
+            payload
+        });
+        expect(actions.completePasswordReset(error)).toEqual({
+            type: 'USER/COMPLETE_PASSWORD_RESET',
+            payload: error,
+            error: true
+        });
+    });
+});
