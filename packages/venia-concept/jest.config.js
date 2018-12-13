@@ -1,9 +1,8 @@
 const { join } = require('path');
 
 module.exports = {
-    displayName: 'Venia Concept',
     browser: true,
-    testURL: 'https://localhost/',
+    displayName: 'Venia Concept',
     moduleNameMapper: {
         // Peregrine imports a virtual module that must be mocked.
         // It would be nice if Venia respected a mock in Peregrine,
@@ -22,6 +21,9 @@ module.exports = {
         // improves
         '^@magento/peregrine(/*(?:.+)*)': join(__dirname, '../peregrine/src/$1')
     },
+    setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
+    testPathIgnorePatterns: ['dist', 'node_modules'],
+    testURL: 'https://localhost/',
     // Have Jest use Babel to transpile Peregrine imports in tests, since
     // our cross-package tests in the monorepo should all operate on `src`
     transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)'],
