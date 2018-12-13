@@ -16,12 +16,19 @@ class Image extends Component {
         }),
         height: string,
         iconHeight: string,
-        name: string,
+        name: string.isRequired,
         onError: func,
         onLoad: func,
         showImage: bool,
-        src: string,
+        src: string.isRequired,
         width: string
+    };
+
+    static defaultProps = {
+        onError: () => {},
+        onLoad: () => {},
+        showImage: true,
+        iconHeight: '32'
     };
 
     state = {
