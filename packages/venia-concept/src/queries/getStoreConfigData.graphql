@@ -1,7 +1,6 @@
 query storeConfigData {
     storeConfig {
         id
-        code,
         name
     }
 }

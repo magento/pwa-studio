@@ -80,14 +80,10 @@ class Footer extends Component {
                                     </span>
                                 );
                             }
-                            if (!data.storeConfig.name) {
-                                return (
-                                    <span>© Magento {year}. All rights reserved.</span>
-                                );
-                            }
+                            const storeName = data.storeConfig.name ? data.storeConfig.name : 'Magento';
 
                             return (
-                                <span>© {data.storeConfig.name} {year}. All rights reserved.</span>
+                                <span>© {storeName} {year}. All rights reserved.</span>
                             );
                         }}
                     </Query>
