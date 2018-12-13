@@ -3,9 +3,6 @@
     position: relative;
 }
 
-.image_error {
-}
-
 .image {
     display: block;
     height: auto;
@@ -17,20 +14,18 @@
     width: 100%;
 }
 
+.image_error {
+    composes: image;
+    background-color: rgb(var(--venia-grey));
+    display: flex;
+    align-items: center;
+}
+
+.image_error img {
+    width: 100%;
+}
+
 .image_pending {
     composes: image;
     opacity: 0;
-    visibility: hidden;
-}
-
-.imagePlaceholder {
-    composes: image;
-    position: absolute;
-    opacity: 0;
-}
-
-.imagePlaceholder_pending {
-    position: absolute;
-    background-color: rgb(var(--venia-grey));
-    composes: image;
 }
