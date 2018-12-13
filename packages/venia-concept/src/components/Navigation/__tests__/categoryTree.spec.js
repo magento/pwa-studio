@@ -1,12 +1,11 @@
 import React from 'react';
 import wait from 'waait';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
+
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
 import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTree from '../categoryTree';
 
-configure({ adapter: new Adapter() });
 
 jest.mock('react-router-dom/Link', () => () => <h6>link</h6>);
 jest.mock('react-router-dom/NavLink', () => 'navlink');

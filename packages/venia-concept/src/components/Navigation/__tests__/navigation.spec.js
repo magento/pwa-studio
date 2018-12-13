@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Navigation from '../navigation';
-
-configure({ adapter: new Adapter() });
 
 test('getUserDetails() should be called when navigation component mounts', async () => {
     const getUserDetails = jest.fn();
