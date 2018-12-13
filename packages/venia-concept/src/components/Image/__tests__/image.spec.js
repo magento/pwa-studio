@@ -74,6 +74,27 @@ test('renders both images when `showImage: false`', () => {
     expect(placeholderImage).toHaveLength(1);
 });
 
+test('renders error image when error is thrown', () => {
+    const handleError = jest.fn();
+    const wrapper = shallow(
+        <Image
+            classes={classes}
+            {...validImage}
+            showImage={false}
+            onError={handleError}
+        />
+    ).dive();
+
+    wrapper
+        .find({ className: classes.image_pending })
+        .first()
+        .simulate('error');
+
+    expect(handleError).toBeCalled();
+    const error = wrapper.find({ className: classes.image_error }).first();
+    expect(error).toHaveLength(1);
+});
+
 test('handles `load` and `error` events', () => {
     const wrapper = shallow(
         <Image classes={classes} {...validImage} showImage={false} />
