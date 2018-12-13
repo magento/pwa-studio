@@ -1,12 +1,9 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { List } from '@magento/peregrine';
 
 import PurchaseHistory from '../purchaseHistory';
 import Filter from '../../Filter';
-
-configure({ adapter: new Adapter() });
 
 test('renders correctly', () => {
     const wrapper = shallow(

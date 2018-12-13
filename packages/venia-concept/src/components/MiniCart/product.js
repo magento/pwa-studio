@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
 import Section from './section';
@@ -16,7 +16,7 @@ class Product extends Component {
         classes: shape({
             image: string,
             name: string,
-            optionName: string,
+            optionLabel: string,
             optionValue: string,
             options: string,
             price: string,
@@ -34,7 +34,32 @@ class Product extends Component {
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string.isRequired,
+        totalsItems: arrayOf(
+            shape({
+                base_discount_amount: number,
+                base_price: number,
+                base_price_incl_tax: number,
+                base_row_total: number,
+                base_row_total_incl_tax: number,
+                base_tax_amount: number,
+                discount_amount: number,
+                discount_percent: number,
+                item_id: number.isRequired,
+                name: string,
+                options: string,
+                price: number,
+                price_incl_tax: number,
+                qty: number,
+                row_total: number,
+                row_total_incl_tax: number,
+                row_total_with_discount: number,
+                tax_amount: number,
+                tax_percent: number,
+                weee_tax_applied: bool,
+                weee_tax_applied_amount: number
+            })
+        ).isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -47,14 +72,20 @@ class Product extends Component {
     }
 
     get options() {
-        const { classes, item } = this.props;
-
-        return item.options && item.options.length > 0 ? (
-            <dl className={this.props.classes.options}>
-                {item.options.map(({ name, value }) => (
-                    <Fragment key={name}>
-                        <dt className={classes.optionName}>{name}</dt>
-                        <dd className={classes.optionValue}>{value}</dd>
+        const { classes, item, totalsItems } = this.props;
+        const { item_id } = item;
+        const totalsItem = totalsItems.find(
+            totalsItem => totalsItem.item_id === item_id
+        );
+        const { options } = totalsItem;
+        return options && options !== '[]' ? ( // REST API returns options string
+            <dl className={this.props.classes.options} key={item_id}>
+                {JSON.parse(options).map(option => (
+                    <Fragment key={`${item_id}_${option.label}`}>
+                        <dt className={classes.optionLabel}>
+                            {option.label}:&nbsp;
+                        </dt>
+                        <dd className={classes.optionValue}>{option.value}</dd>
                     </Fragment>
                 ))}
             </dl>
@@ -63,7 +94,7 @@ class Product extends Component {
 
     styleImage(image) {
         return {
-            height: imageHeight,
+            minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
             backgroundImage: `url(${makeProductMediaPath(image.file)})`
         };

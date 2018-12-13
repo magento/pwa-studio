@@ -20,7 +20,16 @@ class CreateAccount extends Component {
             createAccountError: PropTypes.string
         }),
         createAccountError: PropTypes.object,
-        createAccount: PropTypes.func
+        onSubmit: PropTypes.func,
+        initialValues: PropTypes.shape({
+            email: PropTypes.string,
+            firstName: PropTypes.string,
+            lastName: PropTypes.string
+        })
+    };
+
+    static defaultProps = {
+        initialValues: {}
     };
 
     state = {
@@ -87,7 +96,7 @@ class CreateAccount extends Component {
     }
 
     render() {
-        const { classes, defaultUsername } = this.props;
+        const { classes, initialValues } = this.props;
         const {
             onCreateAccount,
             errorMessage,
@@ -98,6 +107,7 @@ class CreateAccount extends Component {
             isIncompleteOrInvalid
         } = this; // Uses `getters` defined above
 
+        // TODO: Pass initialValues to Form component after refactoring common Input
         return (
             <div className={classes.root}>
                 <Form onSubmit={onCreateAccount}>
@@ -113,8 +123,8 @@ class CreateAccount extends Component {
                         helpType={emailHelpType}
                         required={true}
                         autoComplete={'email'}
-                        initialValue={defaultUsername}
                         field="email"
+                        initialValue={initialValues.email}
                     />
 
                     <Input
@@ -122,7 +132,8 @@ class CreateAccount extends Component {
                         label={'First Name'}
                         required={true}
                         autoComplete={'given-name'}
-                        field="first-name"
+                        field="firstName"
+                        initialValue={initialValues.firstName}
                     />
 
                     <Input
@@ -130,7 +141,8 @@ class CreateAccount extends Component {
                         label={'Last Name'}
                         required={true}
                         autoComplete={'family-name'}
-                        field="family-name"
+                        field="lastName"
+                        initialValue={initialValues.lastName}
                     />
 
                     <Input
@@ -154,7 +166,7 @@ class CreateAccount extends Component {
                         placeholder={'Enter the password again'}
                         helpText={passwordConfirmHelpText}
                         helpType={passwordConfirmHelpType}
-                        field="confirm-password"
+                        field="confirmPassword"
                     />
 
                     <Checkbox
@@ -183,7 +195,7 @@ class CreateAccount extends Component {
                 },
                 password: this.state.password
             };
-            this.props.createAccount(newCustomer);
+            this.props.onSubmit(newCustomer);
         }
     };
 
