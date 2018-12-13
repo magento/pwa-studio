@@ -80,7 +80,7 @@ class Footer extends Component {
                                     </span>
                                 );
                             }
-                            if (data.storeConfig.name == null || data.storeConfig.name.length === 0) {
+                            if (!data.storeConfig.name) {
                                 return (
                                     <span>© Magento {year}. All rights reserved.</span>
                                 );
