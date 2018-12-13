@@ -38,3 +38,8 @@
     font-weight: 300;
     line-height: 1.25rem;
 }
+
+.button {
+    composes: root from 'src/components/Button/darkTheme.css';
+    min-width: 11.25rem;
+}

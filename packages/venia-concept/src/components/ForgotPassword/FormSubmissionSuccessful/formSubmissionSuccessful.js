@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import Button from 'src/components/Button';
+import Button, { darkThemeClasses } from 'src/components/Button';
 import defaultClasses from './formSubmissionSuccessful.css';
-// TODO: remove after merging dark theme button classes
-import darkButtonClasses from '../darkButton.css';
 
 class FormSubmissionSuccessful extends Component {
     static propTypes = {
@@ -33,7 +31,7 @@ class FormSubmissionSuccessful extends Component {
             <div>
                 <p className={classes.text}>{textMessage}</p>
                 <div className={classes.buttonContainer}>
-                    <Button classes={darkButtonClasses} onClick={onContinue}>
+                    <Button classes={darkThemeClasses} onClick={onContinue}>
                         Continue Shopping
                     </Button>
                 </div>

@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Form } from 'informed';
 
 import Input from 'src/components/Input';
-import Button from 'src/components/Button';
+import Button, { darkThemeClasses } from 'src/components/Button';
 import classify from 'src/classify';
 import defaultClasses from './forgotPasswordForm.css';
-// TODO: remove after merging common dark theme button classes
-import darkButtonClasses from '../darkButton.css';
 
 class ForgotPasswordForm extends Component {
     static propTypes = {
@@ -40,7 +38,7 @@ class ForgotPasswordForm extends Component {
                     selected
                 />
                 <div className={classes.buttonContainer}>
-                    <Button type="submit" classes={darkButtonClasses}>
+                    <Button type="submit" classes={darkThemeClasses}>
                         Submit
                     </Button>
                 </div>
