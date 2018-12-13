@@ -4,7 +4,7 @@
 }
 
 .image {
-    display: block;
+    display: flex;
     height: auto;
     opacity: 1;
     transition-duration: 512ms;
@@ -16,16 +16,28 @@
 
 .image_error {
     composes: image;
-    background-color: rgb(var(--venia-grey));
-    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.image_error img {
-    width: 100%;
+.image_error img:nth-child(2) {
+    position: absolute;
 }
 
 .image_pending {
     composes: image;
     opacity: 0;
+    position: absolute;
+}
+
+.imagePlaceholder {
+    composes: image;
+    background-color: rgb(var(--venia-grey));
+    position: relative;
+}
+
+.imagePlaceholder_pending {
+    composes: imagePlaceholder;
+    opacity: 0;
+    display: none;
 }

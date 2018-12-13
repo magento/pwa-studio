@@ -1,21 +1,18 @@
 .root {
-}
-
-.images {
-    display: grid;
-    grid-template-areas: 'main';
+    display: flex;
+    flex-direction: column;
 }
 
 .image {
     display: block;
-    grid-area: main;
     height: auto;
     animation: fadein 0.512ms;
     width: 100%;
 }
 
-.imagePlaceholder {
-    composes: image;
+.root a:first-child {
+    align-items: center;
+    justify-content: center;
     background-color: rgb(var(--venia-grey));
 }
 
@@ -31,12 +28,6 @@
 
 .root_pending {
     composes: root;
-}
-
-.imagePlaceholder_pending {
-    composes: imagePlaceholder;
-    opacity: 0;
-    display: none;
 }
 
 @keyframes fadein {

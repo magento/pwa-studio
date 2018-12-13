@@ -41,23 +41,35 @@ class Image extends Component {
         onError();
     };
 
+    get imagePlaceholder() {
+        const { placeholder, showImage, classes } = this.props;
+
+        const className = !showImage
+            ? classes.imagePlaceholder
+            : classes.imagePlaceholder_pending;
+
+        return placeholder({ className: className });
+    }
+
     get error() {
-        const { classes, iconHeight } = this.props;
+        const { classes, iconHeight, placeholder } = this.props;
 
         return (
-            <span className={classes.image_error}>
-                <img src={errorImg} alt="error" height={`${iconHeight}px`} />
-            </span>
+            <div className={classes.image_error}>
+                {placeholder({ className: classes.imagePlaceholder })}
+                <img src={errorImg} alt="error" height={iconHeight} />
+            </div>
         );
     }
 
     get image() {
         const { name, width, height, src, showImage, classes } = this.props;
-        const { handleLoad, handleError } = this;
+        const { handleLoad, handleError, imagePlaceholder } = this;
         const className = showImage ? classes.image : classes.image_pending;
 
         return (
             <Fragment>
+                {imagePlaceholder}
                 <img
                     className={className}
                     src={src}

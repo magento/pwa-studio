@@ -54,20 +54,14 @@ class GalleryItem extends Component {
         onLoad: () => {}
     };
 
-    get renderImagePlaceholder() {
-        const { classes, showImage } = this.props;
-
-        const className = !showImage
-            ? classes.imagePlaceholder
-            : classes.imagePlaceholder_pending;
-
+    renderImagePlaceholder(props) {
         return (
             <img
-                className={className}
                 src={transparentPlaceholder}
                 alt=""
                 width={imageWidth}
                 height={imageHeight}
+                {...props}
             />
         );
     }
@@ -84,17 +78,15 @@ class GalleryItem extends Component {
 
         return (
             <Fragment>
-                {renderImagePlaceholder}
                 <Image
                     className={classes.image}
                     src={makeProductMediaPath(small_image)}
                     alt={name}
-                    width={imageWidth}
-                    height={imageHeight}
                     onLoad={this.handleLoad}
                     onError={this.handleError}
                     showImage={showImage}
                     iconHeight={iconHeight}
+                    placeholder={renderImagePlaceholder}
                 />
             </Fragment>
         );
