@@ -35,6 +35,7 @@ class Navigation extends PureComponent {
         }),
         firstname: string,
         getAllCategories: func.isRequired,
+        getUserDetails: func.isRequired,
         email: string,
         isOpen: bool,
         isSignedIn: bool,
