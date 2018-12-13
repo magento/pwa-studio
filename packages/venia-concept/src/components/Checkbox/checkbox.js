@@ -1,90 +1,62 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import defaultClasses from './checkbox.css';
+import React, { Component, Fragment } from 'react';
+import { bool, node, shape, string } from 'prop-types';
+import { BasicCheckbox, asField } from 'informed';
+import { compose } from 'redux';
+
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import defaultClasses from './checkbox.css';
 
-class Checkbox extends Component {
+/* TODO: change lint config to use `label-has-associated-control` */
+/* eslint-disable jsx-a11y/label-has-for */
+
+export class Checkbox extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            checkbox: PropTypes.string,
-            highlighted: PropTypes.string,
-            label: PropTypes.string
+        classes: shape({
+            icon: string,
+            input: string,
+            label: string,
+            message: string,
+            root: string
         }),
-        select: PropTypes.func,
-        initialState: PropTypes.bool
+        fieldState: shape({
+            value: bool
+        }),
+        label: node.isRequired
     };
-
-    state = {
-        focused: false,
-        checked: this.props.initialState
-    };
-
-    handleClick = () => {
-        const checked = !this.state.checked;
-        this.setState({
-            checked: checked
-        });
-        this.props.select(checked);
-    };
-
-    handleKeyUp = evt => {
-        if (evt.key === 'Enter') {
-            this.handleClick();
-        }
-    };
-
-    focus = () => {
-        this.setState({ focused: true });
-    };
-
-    blur = () => {
-        this.setState({ focused: false });
-    };
-
-    get label() {
-        const { classes, label } = this.props;
-        return <span className={classes.label}> {label} </span>;
-    }
-
-    get checkbox() {
-        const { classes, label } = this.props;
-        let checkedIcon;
-
-        this.state.checked
-            ? (checkedIcon = 'check-square')
-            : (checkedIcon = 'square');
-        return (
-            <span>
-                <Icon name={checkedIcon} />
-                <span className={classes.label}> {label} </span>
-            </span>
-        );
-    }
 
     render() {
-        const { classes } = this.props;
-        const { checkbox } = this;
+        const { classes, fieldState, id, label, ...rest } = this.props;
+        const { value: checked } = fieldState;
 
-        let rootClass = `${classes.root} `;
-        this.state.focused ? (rootClass += `${classes.highlighted}`) : null;
+        const iconAttrs = {
+            height: 18,
+            width: 18
+        };
 
         return (
-            <div
-                className={rootClass}
-                onClick={this.handleClick}
-                onFocus={this.focus}
-                onBlur={this.blur}
-                onKeyUp={evt => this.handleKeyUp(evt)}
-                aria-checked={this.state.checked}
-                role="checkbox"
-                tabIndex={0}
-            >
-                <span className={classes.checkbox}>{checkbox}</span>
-            </div>
+            <Fragment>
+                <label className={classes.root} htmlFor={id}>
+                    <span className={classes.icon}>
+                        {checked && <Icon name="check" attrs={iconAttrs} />}
+                    </span>
+                    <BasicCheckbox
+                        {...rest}
+                        className={classes.input}
+                        fieldState={fieldState}
+                        id={id}
+                    />
+                    <span className={classes.label}>{label}</span>
+                </label>
+                <p className={classes.message}>{fieldState.error}</p>
+            </Fragment>
         );
     }
 }
 
-export default classify(defaultClasses)(Checkbox);
+/* eslint-enable jsx-a11y/label-has-for */
+
+export default compose(
+    classify(defaultClasses),
+    asField
+)(Checkbox);
