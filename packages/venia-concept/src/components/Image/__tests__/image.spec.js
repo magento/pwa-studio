@@ -7,11 +7,12 @@ configure({ adapter: new Adapter() });
 
 const classes = {
     image_error: 'a',
-    image_pending: 'b',
-    image: 'c',
+    image: 'b',
+    imagePlaceholder: 'c',
     imagePlaceholder_pending: 'd',
-    imagePlaceholder: 'e',
-    root: 'f'
+    image_error: 'e',
+    image_pending: 'f',
+    root: 'g'
 };
 
 const handleLoad = () => {};
@@ -53,14 +54,14 @@ test('renders a placeholder image while awaiting image', () => {
     expect(child).toHaveLength(1);
 });
 
-test('renders invisible placeholder when item is loaded', () => {
+test('renders placeholder pending after item is loaded', () => {
     const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
     const child = wrapper.find(`.${classes.imagePlaceholder_pending}`);
 
     expect(child).toHaveLength(1);
 });
 
-test('renders both images when `showImage: false`', () => {
+test('renders imagePlaceholder and imagePending when `showImage: false`', () => {
     const wrapper = shallow(
         <Image classes={classes} {...validImage} showImage={false} />
     ).dive();

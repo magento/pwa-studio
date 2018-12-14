@@ -20,7 +20,7 @@
     align-items: center;
 }
 
-.image_error img:nth-child(2) {
+.iconImage {
     position: absolute;
 }
 

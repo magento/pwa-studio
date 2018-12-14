@@ -7,11 +7,12 @@ import defaultClasses from './image.css';
 class Image extends Component {
     static propTypes = {
         classes: shape({
+            iconImage: string,
+            image: string,
+            imagePlaceholder: string,
+            imagePlaceholder_pending: string,
             image_error: string,
             image_pending: string,
-            image: string,
-            imagePlaceholder_pending: string,
-            imagePlaceholder: string,
             root: string
         }),
         height: string,
@@ -64,7 +65,7 @@ class Image extends Component {
         return (
             <div className={classes.image_error}>
                 {placeholder({ className: classes.imagePlaceholder })}
-                <img src={errorImg} alt="error" height={iconHeight} />
+                <img className={classes.iconImage} src={errorImg} alt="error" height={iconHeight} />
             </div>
         );
     }

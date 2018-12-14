@@ -12,22 +12,10 @@
     width: 100%;
 }
 
-.root a:first-child {
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(var(--venia-grey));
-}
-
 .name,
 .price {
     font-size: 0.875rem;
     line-height: 1rem;
     margin: 0.5rem 0;
     min-height: 1rem;
-}
-
-/* state: pending */
-
-.root_pending {
-    composes: root;
 }
