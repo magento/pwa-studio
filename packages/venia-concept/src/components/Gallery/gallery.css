@@ -1,8 +1,8 @@
 .root {
     display: grid;
     grid-template-areas:
-        'items'
-        'pagination';
+        'actions'
+        'items';
     grid-template-columns: 1fr;
     line-height: 1;
 }
@@ -12,16 +12,7 @@
     grid-area: items;
     grid-gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
-}
-
-.pagination {
-    display: grid;
-    grid-area: pagination;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-column-gap: 1rem;
-    justify-content: center;
-    padding-top: 1rem;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 640px) {

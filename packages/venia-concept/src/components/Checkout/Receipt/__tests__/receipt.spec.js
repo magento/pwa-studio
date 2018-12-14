@@ -1,13 +1,10 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Button from 'src/components/Button';
 import Receipt, {
     CREATE_ACCOUNT_BUTTON_ID,
     CONTINUE_SHOPPING_BUTTON_ID
 } from '../receipt';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     header: 'header',
