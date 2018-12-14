@@ -14,7 +14,7 @@ class MyAccountMenu extends Component {
         signOut: PropTypes.func
     };
 
-    // TODO: add all meu items, use Badge component. Add purchase history page url.
+    // TODO: add all menu items, use Badge component. Add purchase history page url.
     render() {
         const { classes, signOut } = this.props;
 

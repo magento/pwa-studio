@@ -20,6 +20,8 @@ const alreadyProvisioned = hostname =>
     devcert.configuredDomains().includes(hostname);
 
 function getCert(hostname) {
+    // Manually create a Promise here to obtain a "reject" function in closure,
+    // so we can use a setTimeout to reject the promise after 30 seconds.
     return new Promise(async (resolve, reject) => {
         const timeout = setTimeout(
             () =>
@@ -30,34 +32,36 @@ function getCert(hostname) {
                 ),
             30000
         );
-        if (!alreadyProvisioned(hostname)) {
-            if (process.stdin.isTTY) {
-                if (!(await isSudoSession())) {
-                    console.warn(
-                        chalk.greenBright(`Creating a local development domain requires temporary administrative privileges.
+        try {
+            if (!alreadyProvisioned(hostname)) {
+                if (process.stdin.isTTY) {
+                    if (!(await isSudoSession())) {
+                        console.warn(
+                            chalk.greenBright(`Creating a local development domain requires temporary administrative privileges.
 Please enter the password for ${chalk.whiteBright(
-                            username
-                        )} on ${chalk.whiteBright(os.hostname())}.`)
+                                username
+                            )} on ${chalk.whiteBright(os.hostname())}.`)
+                        );
+                    }
+                } else {
+                    clearTimeout(timeout);
+                    return reject(
+                        new Error(
+                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `npm run watch:venia`) by itself in the terminal to continue.'
+                        )
                     );
                 }
-            } else {
-                return reject(
-                    new Error(
-                        'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `npm run watch:venia`) by itself in the terminal to continue.'
-                    )
-                );
             }
+            const certBuffers = await devcert.certificateFor(hostname);
+            clearTimeout(timeout);
+            resolve({
+                key: certBuffers.key.toString('utf8'),
+                cert: certBuffers.cert.toString('utf8')
+            });
+        } catch (e) {
+            clearTimeout(timeout);
+            reject(e);
         }
-        return devcert
-            .certificateFor(hostname)
-            .then(certBuffers => {
-                clearTimeout(timeout);
-                resolve({
-                    key: certBuffers.key.toString('utf8'),
-                    cert: certBuffers.cert.toString('utf8')
-                });
-            })
-            .catch(reject);
     });
 }
 

@@ -58,6 +58,12 @@ const reducerMap = {
             ...state,
             createAccountError: {}
         };
+    },
+    [actions.signIn.reset]: () => {
+        return {
+            ...initialState,
+            isSignedIn: isSignedIn()
+        };
     }
 };
 

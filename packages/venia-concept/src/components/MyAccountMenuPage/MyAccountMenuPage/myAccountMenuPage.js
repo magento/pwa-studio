@@ -15,16 +15,23 @@ class MyAccountMenuPage extends Component {
         }),
         signOut: PropTypes.func,
         onClose: PropTypes.func,
+        history: PropTypes.shape({}),
         user: PropTypes.shape(USER_PROP_TYPES)
     };
 
+    handleSignOut = () => {
+        const { signOut, history } = this.props;
+
+        signOut({ history });
+    };
+
     render() {
-        const { classes, user, signOut, onClose } = this.props;
+        const { classes, user, onClose } = this.props;
 
         return (
             <div className={classes.root}>
                 <Header user={user} onClose={onClose} />
-                <MyAccountMenu signOut={signOut} />
+                <MyAccountMenu signOut={this.handleSignOut} />
                 <div className={classes.logoContainer}>
                     <Logo height={32} />
                 </div>

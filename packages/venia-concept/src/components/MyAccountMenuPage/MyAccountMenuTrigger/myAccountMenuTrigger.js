@@ -11,8 +11,7 @@ import { USER_PROP_TYPES } from '../constants';
 
 class MyAccountMenuTrigger extends Component {
     static propTypes = {
-        isOpen: PropTypes.bool,
-        on: PropTypes.func,
+        on: PropTypes.bool,
         setOff: PropTypes.func,
         setOn: PropTypes.func,
         classes: PropTypes.shape({

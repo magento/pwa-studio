@@ -5,9 +5,10 @@ import checkoutActions from 'src/actions/checkout';
 
 export const name = 'cart';
 
-const initialState = {
+export const initialState = {
     details: {},
     guestCartId: null,
+    shippingMethods: [],
     totals: {}
 };
 
@@ -33,6 +34,21 @@ const reducerMap = {
         return {
             ...state,
             ...payload
+        };
+    },
+    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            ...payload,
+            shippingMethods: payload.map(method => ({
+                ...method,
+                code: method.carrier_code,
+                title: method.carrier_title
+            }))
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {

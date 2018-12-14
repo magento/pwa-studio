@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import CreateAccount from '../createAccount';
-
-configure({ adapter: new Adapter() });
 
 let blankState = {
     firstName: '',
@@ -41,13 +38,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('underscore', () => {
-    return {
-        debounce: cb => {
-            return cb;
-        }
-    };
-});
+jest.mock('lodash.debounce', () => fn => fn);
 
 const classes = {
     createAccountButton: 'a',
