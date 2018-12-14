@@ -10,6 +10,7 @@
     position: sticky;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 .offline {
@@ -18,7 +19,6 @@
     animation-name: slidein;
     animation-duration: 244ms;
     animation-fill-mode: forwards;
-    z-index: 1;
 }
 
 .online {

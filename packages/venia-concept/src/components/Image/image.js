@@ -43,7 +43,7 @@ class Image extends Component {
         if (isOnline && hasBeenOffline) {
             return { isError: false };
         } else {
-            return null
+            return null;
         }
     }
 
