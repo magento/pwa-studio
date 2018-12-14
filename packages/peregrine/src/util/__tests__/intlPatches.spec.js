@@ -1,7 +1,18 @@
 import patches from '../intlPatches';
 import IntlPolyfill from 'intl';
 
-const patchedFormatter = cfg => Intl.NumberFormat(undefined, cfg);
+const patchedFormatter = cfg =>
+    new Proxy(Intl.NumberFormat(undefined, cfg), {
+        get(target, prop) {
+            if (prop === 'formatToParts') {
+                return false;
+            }
+            if (prop === 'resolvedOptions') {
+                return () => target.resolvedOptions();
+            }
+            return target[prop];
+        }
+    });
 const standardFormatter = cfg => IntlPolyfill.NumberFormat(undefined, cfg);
 require('intl/locale-data/jsonp/en.js');
 
