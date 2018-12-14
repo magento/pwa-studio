@@ -28,7 +28,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    /\.(?:png|gif|jpg|jpeg|svg)$/,
+    /\/icons\/\.(?:png|gif|jpg|jpeg)$/,
     workbox.strategies.cacheFirst({
         cacheName: 'images',
         plugins: [

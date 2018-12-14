@@ -15,9 +15,10 @@ class Image extends Component {
             image_pending: string,
             root: string
         }),
+        placeholder: func,
         height: string,
         iconHeight: string,
-        name: string.isRequired,
+        alt: string.isRequired,
         onError: func,
         onLoad: func,
         showImage: bool,
@@ -76,7 +77,7 @@ class Image extends Component {
     }
 
     get image() {
-        const { name, width, height, src, showImage, classes } = this.props;
+        const { alt, width, height, src, showImage, classes } = this.props;
         const { handleLoad, handleError, imagePlaceholder } = this;
         const className = showImage ? classes.image : classes.image_pending;
 
@@ -86,7 +87,7 @@ class Image extends Component {
                 <img
                     className={className}
                     src={src}
-                    alt={name}
+                    alt={alt}
                     width={width}
                     height={height}
                     onLoad={handleLoad}

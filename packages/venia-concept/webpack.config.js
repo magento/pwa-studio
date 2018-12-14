@@ -138,7 +138,7 @@ module.exports = async function(env) {
                 paths: themePaths,
                 injectManifest: true,
                 injectManifestConfig: {
-                    include: [/\.js$/],
+                    include: [/\.js$/, /\.svg$/],
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }

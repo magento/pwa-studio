@@ -18,6 +18,7 @@
     animation-name: slidein;
     animation-duration: 244ms;
     animation-fill-mode: forwards;
+    z-index: 1;
 }
 
 .online {

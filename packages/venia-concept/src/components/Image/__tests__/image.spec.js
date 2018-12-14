@@ -25,7 +25,7 @@ const renderImagePlaceholder = props => {
 const validImage = {
     className: classes.image,
     src: 'foo/bar/test.png',
-    name: 'alt',
+    alt: 'alt',
     onLoad: handleLoad,
     onError: handleError,
     showImage: true,
