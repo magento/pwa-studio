@@ -1,7 +1,10 @@
 const ResolverVisitor = require('../ResolverVisitor');
+const File = require('../File');
+const stringToStream = require('from2-string');
 
 const mockIO = () => ({
-    readFile: jest.fn(),
+    createReadFileStream: jest.fn(),
+    getFileSize: jest.fn(),
     networkFetch: jest.fn()
 });
 
@@ -27,12 +30,19 @@ test('.upward() derives resolvers from shortcut strings', async () => {
     const io = mockIO();
     const context = mockContext();
     context.get.mockRejectedValue('Should have resolved FileResolver shortcut');
-    io.readFile.mockReturnValueOnce('sepia');
+    io.createReadFileStream.mockResolvedValueOnce(stringToStream('sepia'));
     const visitor = new ResolverVisitor(io, null, context);
-    await expect(
-        visitor.upward({ cuttlefish: './ink' }, 'cuttlefish')
-    ).resolves.toEqual('sepia');
-    expect(io.readFile).toHaveBeenCalledWith('./ink', 'utf8');
+    const file = await visitor.upward(
+        { cuttlefish: './ink.txt' },
+        'cuttlefish'
+    );
+    expect(file).toBeInstanceOf(File);
+    const buf = await file.asBuffer();
+    await expect(buf.toString('utf8')).toBe('sepia');
+    expect(io.createReadFileStream).toHaveBeenCalledWith(
+        './ink.txt',
+        undefined
+    );
     expect(context.get).not.toHaveBeenCalled();
 });
 

@@ -1,0 +1,6 @@
+status: 200
+headers:
+  inline:
+    content-type:
+      inline: 'image/jpg'
+body: './sanic.jpg'

@@ -38,6 +38,10 @@ common_settings:
     name: Full Build
     command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build && npm run clean:dist'
 
+  upward_spec: &upward_spec
+    name: Run upward-spec suite on upward-js
+    command: 'cd packages/upward-js && npm run -s test:spec -- --xunit > ../../test-results/upward_spec.xml && cd ../../'
+
   test_result_path: &test_result_path
     path: "test-results"
 
@@ -55,6 +59,7 @@ jobs:
           name: Coveralls Coverage Analysis
           command: npm run coveralls
       - run: *full_build
+      - run: *upward_spec
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
   build:
@@ -72,6 +77,7 @@ jobs:
           # Test failures should not stop Danger, so hide the exit code.
           command: 'npm run test:ci && npm run coveralls || true'
       - run: *full_build
+      - run: *upward_spec
       - run:
           name: DangerCI
           command: npm run danger

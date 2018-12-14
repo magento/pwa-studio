@@ -4,6 +4,7 @@ const path = require('path');
 const https = require('https');
 const url = require('url');
 const upward = require('@magento/upward-js');
+const stringToStream = require('from2-string');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
@@ -53,62 +54,86 @@ class UpwardPlugin {
 
         // Use Webpack's in-memory file system for UPWARD file retrieval during
         // development. Allows for hot reloading of server-side configuration.
-
-        const io = {
-            async readFile(filepath, enc) {
+        const tryWebpackFs = (method, handleWebpackOutput) => async (
+            ...allArgs
+        ) => {
+            const [filepath, ...rest] = allArgs;
+            let ioError;
+            // Most likely scenario: UPWARD needs an output asset.
+            debug(
+                '%s trying Webpack outputFileSystem: %s %o',
+                method,
+                filepath,
+                ...rest
+            );
+            try {
                 const absolutePath = path.resolve(
                     compiler.options.output.path,
                     filepath
                 );
-                // Most likely scenario: UPWARD needs an output asset.
-                debug('readFile %s %s', filepath, enc);
-                try {
-                    return compiler.outputFileSystem.readFileSync(
+                const output = await handleWebpackOutput(
+                    compiler.outputFileSystem.readFileSync(
                         absolutePath,
-                        enc
-                    );
-                } catch (e) {
-                    debug(
-                        'outputFileSystem %s %s. Trying defaultIO...',
-                        filepath,
-                        e.message
-                    );
-                }
-                // Next most likely scenario: UPWARD needs a file on disk.
-                try {
-                    const fromDefault = await defaultIO.readFile(filepath, enc);
-                    return fromDefault;
-                } catch (e) {
-                    debug(
-                        'defaultIO %s %s. Trying inputFileSystem...',
-                        filepath,
-                        e.message
-                    );
-                }
+                        ...rest
+                    ),
+                    ...allArgs
+                );
+                return output;
+            } catch (e) {
+                debug(
+                    '%s Webpack outputFileSystem %s %s. Trying defaultIO...',
+                    method,
+                    filepath,
+                    e.message
+                );
+            }
+            try {
+                const output = await defaultIO[method](...allArgs);
+                return output;
+            } catch (e) {
+                ioError = e;
+                debug(
+                    'defaultIO.%s %s %s. Trying Webpack inputFileSystem...',
+                    method,
+                    filepath,
+                    e.message
+                );
+            }
+            try {
+                const output = await handleWebpackOutput(
+                    compiler.inputFileSystem.readFileSync(...allArgs),
+                    ...allArgs
+                );
+                return output;
+            } catch (e) {
+                debug(
+                    '%s Webpack inputFileSystem %s %s. Must throw now.',
+                    method,
+                    filepath,
+                    e.message
+                );
+            }
+            throw ioError;
+        };
 
-                try {
-                    // Fallback: Use Webpack's resolution rules.
-                    return compiler.inputFileSystem.readFileSync(filepath, enc);
-                } catch (e) {
-                    debug(
-                        'inputFileSystem %s %s. Must throw...',
-                        filepath,
-                        e.message
-                    );
-                    throw e;
-                }
-            },
-
-            async networkFetch(path, options) {
-                debug('networkFetch %s, %o', path, options);
-                const { protocol } = url.parse(path);
+        const io = {
+            createReadFileStream: tryWebpackFs(
+                'createReadFileStream',
+                stringToStream
+            ),
+            getFileSize: tryWebpackFs('getFileSize', (str, filePath, enc) =>
+                Buffer.byteLength(str, enc)
+            ),
+            async networkFetch(uri, options) {
+                debug('networkFetch %s, %o', uri, options);
+                const { protocol } = url.parse(uri);
                 if (protocol === 'https:') {
                     return fetch(
-                        path,
+                        uri,
                         Object.assign({ agent: httpsAgent }, options)
                     );
                 }
-                return fetch(path, options);
+                return fetch(uri, options);
                 // Use the https.Agent to allow self-signed certificates.
             }
         };

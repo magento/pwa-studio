@@ -42,32 +42,34 @@ module.exports = async (t, response, expected) => {
             t.ok(value.startsWith(start), `header ${header} is ${value}`);
         }
     });
-    try {
-        const body = await response.clone().text();
-        if (expected.text) {
-            const msg = `body should match '${expected.text}': ${body}`;
-            if (body.includes(expected.text)) {
-                t.pass(msg);
-            } else {
-                t.fail(msg);
+    if (expected.text || expected.json) {
+        try {
+            const body = await response.clone().text();
+            if (expected.text) {
+                const msg = `body should match '${expected.text}': ${body}`;
+                if (body.includes(expected.text)) {
+                    t.pass(msg);
+                } else {
+                    t.fail(msg);
+                }
             }
-        }
-        if (expected.json) {
-            let parsed;
-            try {
-                parsed = JSON.parse(body);
-            } catch (e) {
-                t.fail(e.message);
+            if (expected.json) {
+                let parsed;
+                try {
+                    parsed = JSON.parse(body);
+                } catch (e) {
+                    t.fail(e.message);
+                }
+                Object.entries(expected.json).forEach(([name, value]) =>
+                    t.equal(
+                        value,
+                        parsed[name],
+                        `JSON ${name} === ${JSON.stringify(parsed[name])}`
+                    )
+                );
             }
-            Object.entries(expected.json).forEach(([name, value]) =>
-                t.equal(
-                    value,
-                    parsed[name],
-                    `JSON ${name} === ${JSON.stringify(parsed[name])}`
-                )
-            );
+        } catch (e) {
+            t.error(e);
         }
-    } catch (e) {
-        t.error(e);
     }
 };

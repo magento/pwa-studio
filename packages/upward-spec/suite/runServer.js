@@ -8,8 +8,14 @@ module.exports = async function runServer(
     test,
     configFile,
     env,
-    customTimeout
+    customTimeout,
+    callback
 ) {
+    if (arguments.length === 3) {
+        callback = env;
+    } else if (arguments.length === 4) {
+        callback = customTimeout;
+    }
     let terminator;
     let timeout = Number(customTimeout || process.env.TAP_TIMEOUT);
     if (isNaN(timeout)) {
@@ -86,47 +92,60 @@ module.exports = async function runServer(
                 }, timeout * 1000);
             }
 
-            function emitServer() {
+            function runCallback() {
                 clearTimeout(terminator);
-                resolve({
-                    stderr,
-                    url,
-                    hasCrashed() {
-                        return flags.crashed;
-                    },
-                    hasLaunched() {
-                        return flags.launched;
-                    },
-                    isRunning() {
-                        return flags.running;
-                    },
-                    async close() {
-                        if (flags.running) {
-                            return terminateClean().catch(e => test.error(e));
-                        }
-                    },
-                    assert(flag, expected = true, msg) {
-                        const extra = msg ? `\n\n${msg}` : '';
-                        let message = 'server ';
-                        if (!flags[flag]) {
-                            message += 'not ';
-                        }
-                        message += flag;
-                        if (flag === 'launched' && url) {
-                            message += `, listening at ${url}`;
-                        }
-                        if (stderr) {
-                            message += `, emitting stderr ${stderr.slice(
-                                0,
-                                50
-                            )}[...]`;
-                        }
-                        const status =
-                            flags[flag] === expected ? 'pass' : 'fail';
-                        test[status](message + extra);
-                        return status === 'pass';
+                async function close() {
+                    if (flags.running) {
+                        return terminateClean().catch(e => test.threw(e));
                     }
-                });
+                }
+                async function run() {
+                    return callback({
+                        stderr,
+                        url,
+                        hasCrashed() {
+                            return flags.crashed;
+                        },
+                        hasLaunched() {
+                            return flags.launched;
+                        },
+                        isRunning() {
+                            return flags.running;
+                        },
+                        assert(flag, expected = true, msg) {
+                            const extra = msg ? `\n\n${msg}` : '';
+                            let message = 'server ';
+                            if (!flags[flag]) {
+                                message += 'not ';
+                            }
+                            message += flag;
+                            if (flag === 'launched' && url) {
+                                message += `, listening at ${url}`;
+                            }
+                            if (stderr) {
+                                message += `, emitting stderr ${stderr.slice(
+                                    0,
+                                    50
+                                )}[...]`;
+                            }
+                            const status =
+                                flags[flag] === expected ? 'pass' : 'fail';
+                            test[status](message + extra);
+                            return status === 'pass';
+                        }
+                    });
+                }
+                run().then(
+                    async r => {
+                        await close();
+                        test.end();
+                        resolve(r);
+                    },
+                    async e => {
+                        await close();
+                        reject(e);
+                    }
+                );
             }
 
             child.on('error', reject);
@@ -135,7 +154,7 @@ module.exports = async function runServer(
                 if (code !== 0) {
                     flags.crashed = true;
                 }
-                emitServer();
+                runCallback();
             });
 
             let outText = '';
@@ -148,7 +167,7 @@ module.exports = async function runServer(
                         url = new URL(outText.trim());
                         flags.launched = true;
                         flags.running = true;
-                        emitServer();
+                        runCallback();
                     } catch (e) {
                         reject(
                             new Error(

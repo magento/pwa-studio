@@ -252,5 +252,5 @@ test('throws if the query is neither a string nor a GraphQLDocument', async () =
             url: 'theUrl',
             query: 'theQuery'
         })
-    ).rejects.toThrowError('Unknown type');
+    ).rejects.toThrowError('must be a File, Buffer, or string');
 });

@@ -1,6 +1,7 @@
 const debug = require('debug')('upward-js:FileResolver');
 const AbstractResolver = require('./AbstractResolver');
 const { forFileOfType } = require('../compiledResources');
+const File = require('../File');
 
 class FileResolver extends AbstractResolver {
     static get resolverType() {
@@ -49,7 +50,7 @@ class FileResolver extends AbstractResolver {
             this.visitor.upward(definition, 'file'),
             definition.encoding
                 ? this.visitor.upward(definition, 'encoding')
-                : 'utf8',
+                : undefined,
             definition.parse ? this.visitor.upward(definition, 'parse') : 'auto'
         ];
         const [file, encoding, parse] = await Promise.all(toResolve);
@@ -59,30 +60,32 @@ class FileResolver extends AbstractResolver {
             encoding,
             parse
         );
-        const { paramTypes } = this.constructor;
-        const allowedencodings = paramTypes.encoding.oneOf;
-        if (!allowedencodings.some(value => encoding === value)) {
-            throw new Error(
-                `Invalid 'encoding': ${encoding}. Must be one of ${allowedencodings}`
-            );
+
+        if (encoding) {
+            const allowedencodings = FileResolver.paramTypes.encoding.oneOf;
+            if (!allowedencodings.some(value => encoding === value)) {
+                throw new Error(
+                    `Invalid 'encoding': ${encoding}. Must be one of ${allowedencodings}`
+                );
+            }
+            debug('encoding %s is valid', encoding);
         }
-        debug('encoding %s is valid', encoding);
-        const fileText = await this.visitor.io.readFile(file, encoding);
-        if (encoding !== 'binary') debug('retrieved file text %s', fileText);
+
         if (parse === 'text') {
-            debug('parse === text, returning file text directly');
-            return fileText;
+            debug('parse === text, will parse file as %s text only', encoding);
+            return File.create(this.visitor.io, file, encoding || 'utf8');
         }
+
         let Resource;
         if (parse === 'auto') {
             debug('parse === auto, detecting from filename %s\n\n\n\n', file);
             Resource = forFileOfType(file);
             if (!Resource) {
                 debug(
-                    'autoparse found no parser for %s, returning text instead',
+                    'autoparse found no parser for %s, returning buffer stream instead',
                     file
                 );
-                return fileText;
+                return File.create(this.visitor.io, file, encoding);
             }
         } else {
             const extension = parse.startsWith('.') ? parse : '.' + parse;
@@ -91,10 +94,11 @@ class FileResolver extends AbstractResolver {
                 throw new Error(`Unsupported parse type '${parse}'`);
             }
         }
+        const fileObject = await File.create(this.visitor.io, file, encoding);
+        debug('created file stream to %s', file);
         debug('parse === %s, found %s to compile', parse, Resource.name);
-        const rsrc = new Resource(fileText, this.visitor.io);
-        await rsrc.compile();
-        return rsrc;
+        const rsrc = new Resource(fileObject, this.visitor.io);
+        return rsrc.compile();
     }
 }
 

@@ -1,6 +1,7 @@
-const { inspect } = require('util');
+const debug = require('debug')('upward-js:MustacheTemplate');
 const AbstractCompiledResource = require('./AbstractCompiledResource');
 const Hogan = require('hogan.js');
+const File = require('../File');
 
 class MustacheTemplate extends AbstractCompiledResource {
     static get supportedExtensions() {
@@ -9,11 +10,8 @@ class MustacheTemplate extends AbstractCompiledResource {
     constructor(...args) {
         super(...args);
         if (!this.io) {
-            throw new Error('IOInterface as second argument');
-        }
-        if (typeof this.io.readFile !== 'function') {
             throw new Error(
-                `IOInterface missing readFile method: ${inspect(this.io)}`
+                'MustacheTemplate requires IOAdapter as second argument'
             );
         }
         this._loadedPartials = new Map();
@@ -22,12 +20,14 @@ class MustacheTemplate extends AbstractCompiledResource {
         name,
         extensions = MustacheTemplate.supportedExtensions
     ) {
-        return this.io.readFile(name + extensions[0], 'utf8').catch(e => {
-            if (e.code !== 'ENOENT' || extensions.length === 1) {
-                throw e;
-            }
-            return this._tryLoadAllExtensions(name, extensions.slice(1));
-        });
+        return File.create(this.io, name + extensions[0], 'utf8')
+            .then(file => file.asBuffer())
+            .catch(e => {
+                if (e.code !== 'ENOENT' || extensions.length === 1) {
+                    throw e;
+                }
+                return this._tryLoadAllExtensions(name, extensions.slice(1));
+            });
     }
     _findUnloadedPartialNames(template) {
         const partialNames = Object.values(template.partials).map(
@@ -43,7 +43,9 @@ class MustacheTemplate extends AbstractCompiledResource {
         if (!partial) {
             try {
                 partial = Hogan.compile(
-                    (await this._tryLoadAllExtensions(name)).trim()
+                    (await this._tryLoadAllExtensions(name))
+                        .toString('utf8')
+                        .trim()
                 );
                 this._loadedPartials.set(name, partial);
             } catch (error) {
@@ -74,13 +76,18 @@ class MustacheTemplate extends AbstractCompiledResource {
         );
 
         if (foundDescendentPartials.length > 0) {
-            return await this._loadPartials([
+            const uniqueDescendentPartials = [
                 ...new Set(foundDescendentPartials)
-            ]);
+            ];
+            debug(
+                'found descendent partials: %j, traversing...',
+                uniqueDescendentPartials
+            );
+            return await this._loadPartials(uniqueDescendentPartials);
         }
     }
     async compile() {
-        this._template = Hogan.compile(this.source);
+        this._template = Hogan.compile(await this.getSource('utf8'));
 
         // recursively load all descendent partials ahead of time
         await this._loadPartials(
@@ -91,8 +98,10 @@ class MustacheTemplate extends AbstractCompiledResource {
         for (const [name, tpt] of this._loadedPartials.entries()) {
             this._partials[name] = tpt;
         }
+        return this;
     }
     async render(context) {
+        debug('rendering template %s against context %A', this.source, context);
         return this._template.render(context, this._partials, '').trim();
     }
 }

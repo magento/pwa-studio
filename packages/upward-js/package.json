@@ -48,7 +48,7 @@
     "node-fetch": "~2.2.1"
   },
   "devDependencies": {
-    "@magento/upward-spec": "^2.0.0-rc.15",
+    "@magento/upward-spec": "~2.0.0-rc.15",
     "express": "~4.16.3",
     "jest": "~23.6.0",
     "supertest": "~3.1.0"

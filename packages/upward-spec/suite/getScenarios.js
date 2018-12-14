@@ -1,5 +1,9 @@
 const { resolve } = require('path');
-const { readdir: fsReaddir, readFile: fsReadFile } = require('fs');
+const {
+    createReadStream,
+    readdir: fsReaddir,
+    readFile: fsReadFile
+} = require('fs');
 const { promisify } = require('util');
 const jsYaml = require('js-yaml');
 const readdir = promisify(fsReaddir);
@@ -20,29 +24,32 @@ function getOneMatch(candidates, pattern) {
     return matching[0];
 }
 
-async function getScenarios(pattern) {
+function getScenarios(pattern) {
     if (!pattern || typeof pattern.test !== 'function') {
         throw new Error(
             `UpwardSpec.getScenarios() requires a regular expression, or an object with a 'test' method`
         );
     }
-    const baseDir = await resolve(
-        __dirname,
-        './scenarios',
-        getOneMatch(await dirsPromise, pattern)
+    const baseDir = dirsPromise.then(candidates =>
+        resolve(__dirname, './scenarios', getOneMatch(candidates, pattern))
     );
 
-    function getResourcePath(name) {
-        return resolve(baseDir, name);
+    async function getResourcePath(name) {
+        return resolve(await baseDir, name);
     }
 
-    function getResource(name, enc = 'utf8') {
-        return readFile(getResourcePath(name), enc);
+    async function getResource(name, enc = 'utf8') {
+        return readFile(await getResourcePath(name), enc);
+    }
+
+    async function getResourceStream(name, enc = 'utf8') {
+        return createReadStream(await getResourcePath(name), enc);
     }
     return {
         baseDir,
-        getResourcePath,
         getResource,
+        getResourcePath,
+        getResourceStream,
         async getDefinition(name) {
             return jsYaml.safeLoad(await getResource(name + '.yml'));
         }

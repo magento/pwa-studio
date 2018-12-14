@@ -58,15 +58,10 @@ class ServiceResolver extends AbstractResolver {
             useGETForQueries: method === 'GET'
         });
 
-        let parsedQuery;
-        if (typeof query === 'string') {
-            parsedQuery = new GraphQLDocument(query, this.visitor.io);
-            await parsedQuery.compile();
-        } else if (query instanceof GraphQLDocument) {
-            parsedQuery = query;
-        } else {
-            throw new Error(`Unknown type passed to 'query'.`);
-        }
+        const parsedQuery =
+            query instanceof GraphQLDocument
+                ? query
+                : new GraphQLDocument(query, this.visitor.io);
 
         debug('running query with %o', variables);
         return makePromise(

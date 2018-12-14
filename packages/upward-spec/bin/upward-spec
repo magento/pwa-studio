@@ -21,8 +21,9 @@ try {
 /**
  * Pass args to node-tap to expose its options.
  */
+const stripQuotes = str => str.replace(/^(["'])(.*)\1$/, '$2');
 const otherArgs = process.argv.slice(3);
-const hasArg = wanted => otherArgs.some(arg => arg === wanted);
+const hasArg = wanted => otherArgs.some(arg => stripQuotes(arg) === wanted);
 
 const useXunit = hasArg('--xunit');
 const useTap = hasArg('--tap');
@@ -53,13 +54,13 @@ const testProcess = require('child_process').spawn(
     }
 );
 
-if (raw) {
-    testProcess.stdout.pipe(process.stdout);
-} else if (useXunit) {
+if (useXunit) {
     const tapXunit = require('tap-xunit');
     testProcess.stdout
         .pipe(tapXunit({ package: 'UPWARD spec' }))
         .pipe(process.stdout);
+} else if (raw) {
+    testProcess.stdout.pipe(process.stdout);
 } else {
     const tapDiff = require('tap-diff');
     testProcess.stdout.pipe(tapDiff()).pipe(process.stdout);

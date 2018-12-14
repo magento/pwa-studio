@@ -5,7 +5,10 @@ let scenarios, mockIO;
 beforeAll(async () => {
     scenarios = await getScenarios(/static\-servers/);
     mockIO = {
-        readFile: jest.fn(scenarios.getResource)
+        createReadFileStream: jest.fn(scenarios.getResourceStream),
+        getFileSize: async filePath => ({
+            size: Buffer.byteLength(await scenarios.getResource(filePath))
+        })
     };
 });
 

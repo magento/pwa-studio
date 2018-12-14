@@ -6,7 +6,7 @@ const createUpwardServer = require('../createUpwardServer');
 
 let upwardPath;
 beforeAll(async () => {
-    upwardPath = (await getScenarios(/static\-servers/)).getResourcePath(
+    upwardPath = await getScenarios(/static\-servers/).getResourcePath(
         'hello-inline-only.yml'
     );
 });

@@ -3,6 +3,7 @@ const jsYaml = require('js-yaml');
 const UpwardServerError = require('./UpwardServerError');
 const IOAdapter = require('./IOAdapter');
 const buildResponse = require('./buildResponse');
+const File = require('./File');
 
 class UpwardMiddleware {
     constructor(upwardPath, env, io) {
@@ -14,7 +15,11 @@ class UpwardMiddleware {
     async load() {
         const { upwardPath } = this;
         try {
-            this.yamlTxt = await this.io.readFile(upwardPath);
+            this.yamlTxt = await (await File.create(
+                this.io,
+                upwardPath,
+                'utf8'
+            )).asBuffer();
         } catch (e) {
             throw new UpwardServerError(e, `unable to read file ${upwardPath}`);
         }
@@ -57,9 +62,12 @@ class UpwardMiddleware {
                         }`
                     );
                 }
-                if (typeof response.body !== 'string') {
+                if (
+                    typeof response.body !== 'string' &&
+                    typeof response.body.asStream !== 'function'
+                ) {
                     errors.push(
-                        `Resolved with a non-string body! Body was '${
+                        `Resolved with an unrecognized body object! Body was '${
                             response.body
                         }'`
                     );
@@ -77,9 +85,14 @@ class UpwardMiddleware {
                 );
             } else {
                 debug('status, headers, and body valid. responding');
-                res.status(response.status)
-                    .set(response.headers)
-                    .send(response.body);
+
+                res.status(response.status).set(response.headers);
+
+                if (response.body instanceof File) {
+                    (await response.body.asStream()).pipe(res);
+                } else {
+                    res.send(response.body);
+                }
             }
         };
     }

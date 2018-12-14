@@ -20,7 +20,7 @@ test('sets source and io properties from constructor args', () => {
 
 test('throws if it receives no source argument', () => {
     expect(() => new class extends AbstractCompiledResource {}()).toThrow(
-        'string source'
+        'source'
     );
 });
 
