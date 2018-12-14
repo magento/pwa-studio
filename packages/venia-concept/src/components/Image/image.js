@@ -37,6 +37,16 @@ class Image extends Component {
         isError: false
     };
 
+    static getDerivedStateFromProps(props) {
+        const { isOnline, hasBeenOffline } = props;
+        console.log(isOnline);
+        if (isOnline && hasBeenOffline) {
+            return { isError: false };
+        } else {
+            return null
+        }
+    }
+
     handleLoad = () => {
         const { onLoad } = this.props;
         onLoad();
