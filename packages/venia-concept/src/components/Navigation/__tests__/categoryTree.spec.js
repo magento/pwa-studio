@@ -1,6 +1,7 @@
 import React from 'react';
 import wait from 'waait';
 import { mount } from 'enzyme';
+
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
 import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTree from '../categoryTree';
