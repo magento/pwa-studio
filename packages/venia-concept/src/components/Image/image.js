@@ -65,7 +65,12 @@ class Image extends Component {
         return (
             <div className={classes.image_error}>
                 {placeholder({ className: classes.imagePlaceholder })}
-                <img className={classes.iconImage} src={errorImg} alt="error" height={iconHeight} />
+                <img
+                    className={classes.iconImage}
+                    src={errorImg}
+                    alt="error"
+                    height={iconHeight}
+                />
             </div>
         );
     }
