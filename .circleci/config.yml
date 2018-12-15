@@ -40,7 +40,7 @@ common_settings:
 
   upward_spec: &upward_spec
     name: Run upward-spec suite on upward-js
-    command: 'cd packages/upward-js && npm run -s test:spec -- --xunit > ../../test-results/upward_spec.xml && cd ../../'
+    command: 'mkdir -p test-results/upward-spec && cd packages/upward-js && npm run -s test:spec -- --xunit > ../../test-results/upward-spec/results.xml && cd ../../'
 
   test_result_path: &test_result_path
     path: "test-results"
