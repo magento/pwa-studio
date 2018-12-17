@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { SearchBar, SeedSearchInput } from '../searchBar';
-
-configure({ adapter: new Adapter() });
+import { shallow } from 'enzyme';
+import { SearchBar } from '../searchBar';
 
 const classes = {
     searchBlockOpen: 'open',
@@ -109,28 +106,4 @@ test('When the input element has text, the clear button is displayed.', async ()
     wrapper.instance().enterSearch(mockEvent);
 
     expect(wrapper.state('showClearIcon')).toBe(true);
-});
-
-describe('SeedSearchInput', () => {
-    test('SeedSearchInput sets the ref to the value from the location', async () => {
-        const setValueMock = jest.fn();
-        const mockRef = {
-            current: {
-                value: ''
-            }
-        };
-        Object.defineProperty(mockRef.current, 'value', {
-            set: setValueMock
-        });
-
-        shallow(
-            <SeedSearchInput
-                location={{ search: '?query=dress' }}
-                searchRef={mockRef}
-                setClearIcon={jest.fn()}
-            />
-        );
-
-        expect(setValueMock).toBeCalledWith('dress');
-    });
 });

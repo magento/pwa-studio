@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -7,8 +7,8 @@ import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
+const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
-import SearchBar from 'src/components/SearchBar';
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
@@ -25,6 +25,10 @@ class Header extends Component {
         }),
         searchOpen: PropTypes.bool
     };
+
+    get searchPlaceholder() {
+        return <Icon name="search" />;
+    }
 
     render() {
         const { searchOpen, classes, toggleSearch } = this.props;
@@ -60,7 +64,9 @@ class Header extends Component {
                         </CartTrigger>
                     </div>
                 </div>
-                <SearchBar isOpen={searchOpen} classes={classes} />
+                <Suspense fallback={this.searchPlaceholder}>
+                    <SearchBar isOpen={searchOpen} />
+                </Suspense>
             </header>
         );
     }

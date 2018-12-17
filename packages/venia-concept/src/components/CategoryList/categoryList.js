@@ -31,6 +31,7 @@ class CategoryList extends Component {
 
     render() {
         const { id, classes } = this.props;
+
         return (
             <div className={classes.root}>
                 {this.header}

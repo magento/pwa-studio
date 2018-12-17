@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import EnsureOpenSearch from './ensureOpenSearch';
+
 import classify from 'src/classify';
 import defaultClasses from './searchTrigger.css';
 
@@ -37,25 +39,6 @@ class SearchTrigger extends Component {
                 />
             </Fragment>
         );
-    }
-}
-
-class EnsureOpenSearch extends Component {
-    static propTypes = {
-        searchOpen: PropTypes.bool,
-        toggleSearch: PropTypes.func.isRequired
-    };
-
-    componentDidMount() {
-        const { searchOpen, toggleSearch } = this.props;
-        if (searchOpen !== true) {
-            toggleSearch();
-        }
-    }
-
-    render() {
-        // Do not render anything.
-        return null;
     }
 }
 

@@ -32,9 +32,10 @@ const searchQuery = gql`
 export class Search extends Component {
     render() {
         const { classes } = this.props;
+
         let inputText = '';
         if (location.search) {
-            const params = new URL(document.location).searchParams;
+            const params = new URLSearchParams(location.search);
             inputText = params.get('query');
         }
 
@@ -53,7 +54,9 @@ export class Search extends Component {
                     return (
                         <article className={classes.root}>
                             <div className={classes.totalPages}>
-                                <span>{data.products.total_count} ITEMS</span>
+                                <span>{`${
+                                    data.products.total_count
+                                } items`}</span>
                             </div>
                             <section className={classes.gallery}>
                                 <Gallery data={data.products.items} />

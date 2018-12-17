@@ -7,7 +7,7 @@ export const closeDrawer = () => async dispatch =>
     dispatch(actions.toggleDrawer(null));
 
 export const toggleSearch = () => async dispatch =>
-    dispatch(actions.toggleSearch(null));
+    dispatch(actions.toggleSearch());
 
 export const executeSearch = (query, history) =>
     async function thunk(dispatch) {
