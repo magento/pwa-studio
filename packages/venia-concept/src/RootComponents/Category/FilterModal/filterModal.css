@@ -1,0 +1,87 @@
+.root {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    overflow: auto;
+    padding: 2.375rem 1.75rem 0 1.75rem;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.875rem;
+}
+
+.headerTitle {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+}
+
+/* TODO: find out how to place buttons on desktop layout */
+.footer {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1.5rem 0;
+    box-shadow: 0 1px 2px 0 rgba(69, 66, 75, 0.23);
+}
+
+.footerButton {
+    height: 2.125rem;
+    width: 9rem;
+    border: 1px solid black;
+    border-radius: 100px;
+    color: black;
+    outline: none;
+}
+
+.footerButtonDisabled {
+    composes: footerButton;
+    height: 3rem;
+    border: 1px solid #d1d1d1;
+    color: #d1d1d1;
+}
+
+.resetButton {
+    composes: footerButton;
+}
+
+.resetButtonDisabled {
+    composes: footerButtonDisabled;
+    background-color: white;
+}
+
+.applyButton {
+    composes: footerButton;
+    color: white;
+    background-color: black;
+}
+
+.applyButtonDisabled {
+    composes: footerButtonDisabled;
+    color: white;
+    background-color: #d1d1d1;
+}
+
+.filterOptionItem:first-child {
+    border-top: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.filterOptionItem {
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.searchFilterContainer {
+    margin-bottom: 1.125rem;
+}

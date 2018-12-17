@@ -2,11 +2,13 @@
     display: flex;
     align-items: center;
     height: 2.5rem;
+    width: 100%;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 100px;
     padding: 0 0.875rem;
     font-size: 0.75rem;
     line-height: 0.75rem;
+    outline: none;
 }
 
 .filterIconContainer {

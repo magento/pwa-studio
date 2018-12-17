@@ -35,6 +35,10 @@ body {
     padding: 0;
 }
 
+.modalIsOpen {
+    overflow: hidden;
+}
+
 body,
 input,
 select,

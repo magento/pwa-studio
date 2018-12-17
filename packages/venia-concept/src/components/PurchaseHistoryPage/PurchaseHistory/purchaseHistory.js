@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
-
-import PurchaseHistoryItem from '../PurchaseHistoryItem';
+import Filter from 'src/components/Filter';
 import classify from 'src/classify';
+import PurchaseHistoryItem from '../PurchaseHistoryItem';
 import defaultClasses from './purchaseHistory.css';
-import Filter from '../Filter';
 
 class PurchaseHistory extends Component {
     static propTypes = {
