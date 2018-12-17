@@ -15,7 +15,7 @@ entries:
   - label: Features
     entries:
 
-    - label: Simple REST checkout flow
+    - label: Checkout
       url: /venia-pwa-concept/features/checkout/
 
   - label: Design
