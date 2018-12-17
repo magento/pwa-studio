@@ -11,14 +11,8 @@
     margin: 0.5rem;
 }
 
-.root:active,
-.root:focus-within {
-    font-weight: 600;
-}
-
 .icon {
     align-items: center;
-    color: white;
     display: inline-flex;
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
@@ -40,12 +34,10 @@
     -webkit-appearance: none;
 }
 
-.input:checked {
-    background-color: rgb(var(--venia-text));
-}
-
 .input:focus {
-    box-shadow: 0 2px rgba(0, 0, 0, 0.2);
+    border-color: rgb(var(--venia-teal));
+    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
+        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
     outline: none;
 }
 

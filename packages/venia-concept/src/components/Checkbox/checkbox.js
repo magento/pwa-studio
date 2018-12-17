@@ -7,6 +7,11 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import defaultClasses from './checkbox.css';
 
+const iconAttrs = {
+    height: 18,
+    width: 18
+};
+
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -21,18 +26,14 @@ export class Checkbox extends Component {
         }),
         fieldState: shape({
             value: bool
-        }),
+        }).isRequired,
+        id: string,
         label: node.isRequired
     };
 
     render() {
         const { classes, fieldState, id, label, ...rest } = this.props;
         const { value: checked } = fieldState;
-
-        const iconAttrs = {
-            height: 18,
-            width: 18
-        };
 
         return (
             <Fragment>
