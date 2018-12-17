@@ -33,6 +33,7 @@ class ProductList extends Component {
             totalsItems,
             ...otherProps
         } = this.props;
+
         return (
             <List
                 render="ul"

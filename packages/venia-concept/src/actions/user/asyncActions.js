@@ -46,10 +46,15 @@ export const getUserDetails = () =>
         const [dispatch, getState] = args;
         const { user } = getState();
         if (user.isSignedIn) {
-            const userDetails = await request('/rest/V1/customers/me', {
-                method: 'GET'
-            });
-            dispatch(actions.signIn.receive(userDetails));
+            dispatch(actions.resetSignInError.request());
+            try {
+                const userDetails = await request('/rest/V1/customers/me', {
+                    method: 'GET'
+                });
+                dispatch(actions.signIn.receive(userDetails));
+            } catch (error) {
+                dispatch(actions.signInError.receive(error));
+            }
         }
     };
 

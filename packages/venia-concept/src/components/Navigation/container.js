@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-
+import { getUserDetails } from 'src/actions/user';
 import { closeDrawer } from 'src/actions/app';
 import { getAllCategories } from 'src/actions/catalog';
 import { createAccount } from 'src/actions/user';
@@ -19,7 +19,12 @@ const mapStateToProps = ({ catalog, user }) => {
     };
 };
 
-const mapDispatchToProps = { closeDrawer, getAllCategories, createAccount };
+const mapDispatchToProps = {
+    closeDrawer,
+    getAllCategories,
+    createAccount,
+    getUserDetails
+};
 
 export default connect(
     mapStateToProps,

@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.0-rc.15",
+  "version": "2.0.0-rc.16",
   "description": "Venia PWA Concept Storefront for Magento 2",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@magento/eslint-config": "~1.2.3",
-    "@magento/peregrine": "^2.0.0-rc.15",
-    "@magento/pwa-buildpack": "^2.0.0-rc.15",
-    "@magento/upward-js": "^2.0.0-rc.15",
+    "@magento/peregrine": "^2.0.0-rc.16",
+    "@magento/pwa-buildpack": "^2.0.0-rc.16",
+    "@magento/upward-js": "^2.0.0-rc.16",
     "@storybook/react": "~3.4.2",
     "apollo-boost": "~0.1.20",
     "apollo-cache-inmemory": "~1.3.9",
