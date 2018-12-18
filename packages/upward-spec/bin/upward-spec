@@ -39,8 +39,12 @@ const raw = useTap || isPiped;
 
 // Run tap and pass stdout.
 const scenariosDir = path.resolve(__dirname, '../suite/scenarios/');
+const tapePath = path.resolve(
+    path.dirname(require.resolve('tape')),
+    './bin/tape'
+);
 const testProcess = require('child_process').spawn(
-    path.resolve(__dirname, '../node_modules/.bin/tape'),
+    tapePath,
     ['*/tests.js'],
     {
         cwd: scenariosDir,
