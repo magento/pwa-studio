@@ -20,8 +20,11 @@ export class SearchBar extends Component {
             searchBar: PropTypes.string,
             searchIcon: PropTypes.string
         }),
+        executeSearch: PropTypes.func.isRequired,
+        history: PropTypes.object,
         isOpen: PropTypes.bool,
-        executeSearch: PropTypes.func
+        location: PropTypes.object,
+        match: PropTypes.object
     };
 
     constructor(props) {
@@ -43,6 +46,7 @@ export class SearchBar extends Component {
     enterSearch = event => {
         const searchQuery = this.searchRef.current.value;
         this.setClearIcon(searchQuery);
+
         if (
             this.props.isOpen &&
             (event.type === 'click' || event.key === 'Enter') &&

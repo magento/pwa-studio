@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Footer from 'src/components/Footer';
@@ -14,7 +14,8 @@ class Main extends Component {
             root: string,
             root_masked: string
         }),
-        isMasked: bool
+        isMasked: bool,
+        location: object
     };
 
     get classes() {
@@ -29,11 +30,11 @@ class Main extends Component {
 
     render() {
         const { classes, props } = this;
-        const { children } = props;
+        const { children, location } = props;
 
         return (
             <main className={classes.root}>
-                <Header />
+                <Header location={location} />
                 <article className={classes.page}>{children}</article>
                 <Footer />
             </main>

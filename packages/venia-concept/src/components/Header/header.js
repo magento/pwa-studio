@@ -1,12 +1,14 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
+import EnsureOpenSearch from './ensureOpenSearch';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
+
 const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
 import defaultClasses from './header.css';
@@ -23,10 +25,12 @@ class Header extends Component {
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
         }),
-        searchOpen: PropTypes.bool
+        location: PropTypes.object,
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func
     };
 
-    get searchPlaceholder() {
+    get searchIcon() {
         return <Icon name="search" />;
     }
 
@@ -57,14 +61,24 @@ class Header extends Component {
                             searchOpen={searchOpen}
                             toggleSearch={toggleSearch}
                         >
-                            <Icon name="search" />
+                            {this.searchIcon}
                         </SearchTrigger>
+                        <Route
+                            exact
+                            path="/search.html"
+                            render={() => {
+                                const { searchOpen, toggleSearch } = this.props;
+                                const props = { searchOpen, toggleSearch };
+
+                                return <EnsureOpenSearch {...props} />;
+                            }}
+                        />
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
                     </div>
                 </div>
-                <Suspense fallback={this.searchPlaceholder}>
+                <Suspense fallback={this.searchIcon}>
                     <SearchBar isOpen={searchOpen} />
                 </Suspense>
             </header>

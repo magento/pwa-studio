@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Main from 'src/components/Main';
@@ -20,7 +20,10 @@ class App extends Component {
             root: string,
             root_masked: string
         }),
-        closeDrawer: func.isRequired
+        closeDrawer: func.isRequired,
+        history: object,
+        location: object,
+        match: object
     };
 
     get onlineIndicator() {
@@ -33,7 +36,7 @@ class App extends Component {
     }
 
     render() {
-        const { app, classes, closeDrawer } = this.props;
+        const { app, classes, closeDrawer, location } = this.props;
         const { onlineIndicator } = this;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
@@ -42,7 +45,7 @@ class App extends Component {
 
         return (
             <div className={className}>
-                <Main isMasked={overlay}>
+                <Main isMasked={overlay} location={location}>
                     {onlineIndicator}
                     {renderRoutes()}
                 </Main>

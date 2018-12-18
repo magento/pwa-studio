@@ -76,8 +76,15 @@ test('When the input component is empty, pressing the enter key will not search.
 });
 
 test('When the clear button is pressed, any text in the input component is removed.', async () => {
+    const mockExecuteSearch = jest.fn();
     const mockFocus = jest.fn();
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            executeSearch={mockExecuteSearch}
+        />
+    );
 
     const searchInput = wrapper.find('input');
     const clearButton = wrapper.find('button').at(1);
@@ -90,7 +97,14 @@ test('When the clear button is pressed, any text in the input component is remov
 });
 
 test('When the input component is empty, the clear button is not displayed.', async () => {
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    const mockExecuteSearch = jest.fn();
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            executeSearch={mockExecuteSearch}
+        />
+    );
 
     wrapper.instance().searchRef = { current: { value: '' } };
 
@@ -98,8 +112,15 @@ test('When the input component is empty, the clear button is not displayed.', as
 });
 
 test('When the input element has text, the clear button is displayed.', async () => {
+    const mockExecuteSearch = jest.fn();
     const mockEvent = { type: 'keyUp' };
-    let wrapper = shallow(<SearchBar classes={classes} isOpen={true} />);
+    let wrapper = shallow(
+        <SearchBar
+            classes={classes}
+            isOpen={true}
+            executeSearch={mockExecuteSearch}
+        />
+    );
 
     wrapper.instance().searchRef = { current: { value: 'test' } };
     // Call the onKeyUp event handler directly since we can't alter the ref.
