@@ -43,7 +43,7 @@ const PWADevServer = {
             compress: true,
             hot: true,
             host: '0.0.0.0',
-            port: await portscanner.findAPortNotInUse(10000),
+            port: config.port || await portscanner.findAPortNotInUse(10000),
             stats: {
                 all: false,
                 builtAt: true,
