@@ -1,6 +1,8 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { RouteConsumer } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
@@ -25,7 +27,6 @@ class Header extends Component {
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
         }),
-        location: PropTypes.object,
         searchOpen: PropTypes.bool,
         toggleSearch: PropTypes.func
     };
@@ -63,16 +64,21 @@ class Header extends Component {
                         >
                             {this.searchIcon}
                         </SearchTrigger>
-                        <Route
-                            exact
-                            path="/search.html"
-                            render={() => {
-                                const { searchOpen, toggleSearch } = this.props;
-                                const props = { searchOpen, toggleSearch };
+                        <RouteConsumer>
+                            {({ location }) => {
+                                if (location.pathname === '/search.html') {
+                                    const {
+                                        searchOpen,
+                                        toggleSearch
+                                    } = this.props;
+                                    const props = { searchOpen, toggleSearch };
 
-                                return <EnsureOpenSearch {...props} />;
+                                    return <EnsureOpenSearch {...props} />;
+                                }
+
+                                return null;
                             }}
-                        />
+                        </RouteConsumer>
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>

@@ -36,7 +36,7 @@ class App extends Component {
     }
 
     render() {
-        const { app, classes, closeDrawer, location } = this.props;
+        const { app, classes, closeDrawer } = this.props;
         const { onlineIndicator } = this;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
@@ -45,7 +45,7 @@ class App extends Component {
 
         return (
             <div className={className}>
-                <Main isMasked={overlay} location={location}>
+                <Main isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}
                 </Main>
