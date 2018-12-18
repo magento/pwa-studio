@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloClient } from 'apollo-client';
+import { persistCache } from 'apollo-cache-persist';
 import { ApolloProvider } from 'react-apollo';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
@@ -9,10 +10,10 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
-// import { getUserDetails } from 'src/actions/user';
+
+import app from 'src/actions/app';
 import App from 'src/components/App';
 import './index.css';
-// store.dispatch(getUserDetails());
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
@@ -36,9 +37,16 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+const cache = new InMemoryCache();
+
+persistCache({
+    cache,
+    storage: window.localStorage
+});
+
 const apolloClient = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: cache
 });
 
 ReactDOM.render(
@@ -64,3 +72,10 @@ if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
             });
     });
 }
+
+window.addEventListener('online', () => {
+    store.dispatch(app.setOnline());
+});
+window.addEventListener('offline', () => {
+    store.dispatch(app.setOffline());
+});

@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import CreateAccount from '../createAccount';
-
-configure({ adapter: new Adapter() });
 
 let blankState = {
     firstName: '',
@@ -41,13 +38,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('underscore', () => {
-    return {
-        debounce: cb => {
-            return cb;
-        }
-    };
-});
+jest.mock('lodash.debounce', () => fn => fn);
 
 const classes = {
     createAccountButton: 'a',
@@ -96,7 +87,7 @@ test('calls `onCreateAccount` when create account button is pressed', () => {
     const createAccountSpy = jest.fn();
     const wrapper = mount(
         shallow(
-            <CreateAccount createAccount={createAccountSpy} classes={classes} />
+            <CreateAccount onSubmit={createAccountSpy} classes={classes} />
         ).get(0)
     );
     wrapper.setState(state);
