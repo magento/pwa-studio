@@ -15,6 +15,9 @@ test('calls callback function with test value', () => {
 
     expect(mockCallback).toHaveBeenCalledTimes(1);
     expect(mockCallback).toHaveBeenNthCalledWith(1, 'test');
+
+    // Should never render anything.
+    expect(wrapper.html()).toBeNull();
 });
 
 test('sets ref value to empty string when no "query" query parameter', () => {
