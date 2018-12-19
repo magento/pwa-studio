@@ -1,10 +1,7 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { SearchBar, SeedSearchInput } from '../searchBar';
+import { shallow, mount } from 'enzyme';
+import { SearchBar } from '../searchBar';
 import { Router } from '@magento/peregrine';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     searchBlockOpen: 'open',
@@ -120,6 +117,7 @@ test('When the input component is empty, search submit will not be called.', asy
 
 /* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the clear button is pressed, any text in the input component is removed.', async () => {
+    const mockExecuteSearch = jest.fn();
     const mockFocus = jest.fn();
     const mockExecuteSearch = jest.fn();
     const historyMock = { location: { pathname: '' } };
@@ -182,28 +180,4 @@ test('When the input element has text, the clear button is displayed.', async ()
     const clearButton = wrapper.find('button').at(1);
 
     expect(clearButton.props().className).toBe(classes.clearIconOpen);
-});
-
-describe('SeedSearchInput', () => {
-    test('SeedSearchInput sets the ref to the value from the location', async () => {
-        const setValueMock = jest.fn();
-        const mockRef = {
-            current: {
-                value: ''
-            }
-        };
-        Object.defineProperty(mockRef.current, 'value', {
-            set: setValueMock
-        });
-
-        shallow(
-            <SeedSearchInput
-                location={{ search: '?query=dress' }}
-                searchRef={mockRef}
-                setClearIcon={jest.fn()}
-            />
-        );
-
-        expect(setValueMock).toBeCalledWith('dress');
-    });
 });

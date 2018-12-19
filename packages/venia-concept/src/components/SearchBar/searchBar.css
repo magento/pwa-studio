@@ -1,7 +1,10 @@
 .root {
     background-color: rgb(var(--venia-grey));
-    transition-property: opacity, transform, height, padding;
-    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition-property: opacity, transform;
 }
 
 .searchBlock {

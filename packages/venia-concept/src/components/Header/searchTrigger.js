@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
@@ -25,37 +24,8 @@ class SearchTrigger extends Component {
                 <button className={searchClass} onClick={toggleSearch}>
                     {children}
                 </button>
-                <Route
-                    exact
-                    path="/search.html"
-                    render={() => {
-                        const { searchOpen, toggleSearch } = this.props;
-                        const props = { searchOpen, toggleSearch };
-
-                        return <EnsureOpenSearch {...props} />;
-                    }}
-                />
             </Fragment>
         );
-    }
-}
-
-class EnsureOpenSearch extends Component {
-    static propTypes = {
-        searchOpen: PropTypes.bool,
-        toggleSearch: PropTypes.func.isRequired
-    };
-
-    componentDidMount() {
-        const { searchOpen, toggleSearch } = this.props;
-        if (searchOpen !== true) {
-            toggleSearch();
-        }
-    }
-
-    render() {
-        // Do not render anything.
-        return null;
     }
 }
 
