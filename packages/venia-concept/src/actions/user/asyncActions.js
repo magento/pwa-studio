@@ -1,6 +1,12 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
-import { removeGuestCart } from 'src/actions/cart';
+
+import {
+    removeGuestCart,
+    createCartRequest,
+    getCartDetails
+} from 'src/actions/cart';
+import authorizationService from 'src/services/authorization';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
@@ -29,13 +35,17 @@ export const signIn = credentials =>
                 }
             );
 
-            setToken(response);
+            authorizationService.setAuthorizationToken(response);
 
             const userDetails = await request('/rest/V1/customers/me', {
                 method: 'GET'
             });
 
             dispatch(actions.signIn.receive(userDetails));
+
+            await dispatch(createCartRequest());
+
+            await dispatch(getCartDetails());
         } catch (error) {
             dispatch(actions.signInError.receive(error));
         }
@@ -120,9 +130,3 @@ export const assignGuestCartToCustomer = () =>
             console.log(error);
         }
     };
-
-async function setToken(token) {
-    const storage = new BrowserPersistence();
-    // TODO: Get correct token expire time from API
-    storage.setItem('signin_token', token, 3600);
-}

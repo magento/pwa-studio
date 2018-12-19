@@ -13,6 +13,7 @@ import store from 'src/store';
 
 import app from 'src/actions/app';
 import App from 'src/components/App';
+import authorizationService from 'src/services/authorization';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -22,20 +23,9 @@ const httpLink = createHttpLink({
     uri: apiBase
 });
 
-const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    const storage = new BrowserPersistence();
-    // TODO: Get correct token expire time from API
-    const token = storage.getItem('signin_token');
-
-    // return the headers to the context so httpLink can read them
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : ''
-        }
-    };
-});
+const authLink = setContext((_, { headers }) => ({
+    headers: authorizationService.appendTokenToHeaders(headers)
+}));
 
 const cache = new InMemoryCache();
 

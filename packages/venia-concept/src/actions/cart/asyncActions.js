@@ -5,11 +5,31 @@ import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
 import { Util } from '@magento/peregrine';
 
+import * as api from './api';
+
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-export const createGuestCart = () =>
+export const createCartRequest = () => async dispatch => {
+    await clearGuestCartId();
+
+    dispatch(actions.getGuestCart.request());
+
+    try {
+        const id = await api.createCart();
+
+        // write to storage in the background
+        saveGuestCartId(id);
+        dispatch(actions.getGuestCart.receive(id));
+    } catch (error) {
+        dispatch(actions.getGuestCart.receive(error));
+    }
+};
+
+// TODO: rename guestCartId to just cartId in state.
+// We are going to use guestCartId for storing cartId for authorized user too.
+export const createCart = () =>
     async function thunk(dispatch, getState) {
         const { cart } = getState();
 
@@ -30,38 +50,16 @@ export const createGuestCart = () =>
             return;
         }
 
-        // otherwise, request a new guest cart
-        dispatch(actions.getGuestCart.request());
-
-        try {
-            const id = await request('/rest/V1/guest-carts', {
-                method: 'POST'
-            });
-
-            // write to storage in the background
-            saveGuestCartId(id);
-            dispatch(actions.getGuestCart.receive(id));
-        } catch (error) {
-            dispatch(actions.getGuestCart.receive(error));
-        }
+        return dispatch(createCartRequest());
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, options, parentSku, productType, quantity } = payload;
+    const { item, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
-
-        const { user } = getState();
-        if (user.isSignedIn) {
-            // TODO: handle authed carts
-            // if a user creates an account,
-            // then the guest cart will be transferred to their account
-            // causing `/guest-carts` to 400
-            return;
-        }
 
         try {
             const { cart } = getState();
@@ -75,36 +73,7 @@ export const addItemToCart = (payload = {}) => {
                 throw missingGuestCartError;
             }
 
-            // TODO: change to GraphQL mutation
-            // for now, manually transform the payload for REST
-            const itemPayload = {
-                qty: quantity,
-                sku: item.sku,
-                name: item.name,
-                quote_id: guestCartId
-            };
-
-            if (productType === 'ConfigurableProduct') {
-                Object.assign(itemPayload, {
-                    sku: parentSku,
-                    product_type: 'configurable',
-                    product_option: {
-                        extension_attributes: {
-                            configurable_item_options: options
-                        }
-                    }
-                });
-            }
-
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        cartItem: itemPayload
-                    })
-                }
-            );
+            const cartItem = await api.addItemToCart(guestCartId, payload);
 
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
         } catch (error) {
@@ -120,7 +89,7 @@ export const addItemToCart = (payload = {}) => {
                 // upstream action to try and reuse the known-bad ID.
                 await clearGuestCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -181,7 +150,7 @@ export const removeItemFromCart = payload => {
                 // upstream action to try and reuse the known-bad ID.
                 await clearGuestCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -198,21 +167,12 @@ export const getCartDetails = (payload = {}) => {
         const { cart } = getState();
         const { guestCartId } = cart;
 
-        const { user } = getState();
-        if (user.isSignedIn) {
-            // TODO: handle authed carts
-            // if a user creates an account,
-            // then the guest cart will be transferred to their account
-            // causing `/guest-carts` to 400
-            return;
-        }
-
         dispatch(actions.getDetails.request(guestCartId));
 
         // if there isn't a guest cart, create one
         // then retry this operation
         if (!guestCartId) {
-            await dispatch(createGuestCart());
+            await dispatch(createCart());
             return thunk(...arguments);
         }
 
@@ -224,14 +184,14 @@ export const getCartDetails = (payload = {}) => {
                 totals
             ] = await Promise.all([
                 retrieveImageCache(),
-                fetchCartPart({ guestCartId, forceRefresh }),
-                fetchCartPart({
-                    guestCartId,
+                api.fetchCartPart({ cartId: guestCartId, forceRefresh }),
+                api.fetchCartPart({
+                    cartId: guestCartId,
                     forceRefresh,
                     subResource: 'payment-methods'
                 }),
-                fetchCartPart({
-                    guestCartId,
+                api.fetchCartPart({
+                    cartId: guestCartId,
                     forceRefresh,
                     subResource: 'totals'
                 })
@@ -276,7 +236,7 @@ export const getCartDetails = (payload = {}) => {
                 // upstream action to try and reuse the known-bad ID.
                 await clearGuestCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -293,7 +253,7 @@ export const getShippingMethods = () => {
             // if there isn't a guest cart, create one
             // then retry this operation
             if (!guestCartId) {
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 return thunk(...arguments);
             }
 
@@ -322,7 +282,7 @@ export const getShippingMethods = () => {
             if (response && response.status === 404) {
                 // if so, clear it out, get a new one, and retry.
                 await clearGuestCartId();
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 return thunk(...arguments);
             }
         }
@@ -367,12 +327,6 @@ export const removeGuestCart = () =>
 
 /* helpers */
 
-async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
-    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
-        cache: forceRefresh ? 'reload' : 'default'
-    });
-}
-
 export async function getGuestCartId(dispatch, getState) {
     const { cart } = getState();
     // reducers may be added asynchronously
@@ -381,7 +335,7 @@ export async function getGuestCartId(dispatch, getState) {
     }
     // create a guest cart if one hasn't been created yet
     if (!cart.guestCartId) {
-        await dispatch(createGuestCart());
+        await dispatch(createCart());
     }
     // retrieve app state again
     return getState().cart.guestCartId;
