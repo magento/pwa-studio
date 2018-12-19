@@ -1,17 +1,8 @@
 .input {
-    background: white;
-    border: 1px solid rgb(var(--venia-text-alt));
-    border-radius: 2px;
-    color: rgb(var(--venia-text));
-    display: inline-flex;
-    flex: 0 0 100%;
-    font-size: 1rem;
-    margin: 0;
+    composes: input from '../Field/field.css';
+    height: auto;
     max-width: 100%;
     min-width: 100%;
-    padding: calc(0.375rem - 1px) calc(0.625rem - 1px);
-    width: 100%;
-    -webkit-appearance: none;
 }
 
 .input:focus {

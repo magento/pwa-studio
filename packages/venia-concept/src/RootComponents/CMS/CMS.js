@@ -4,6 +4,7 @@ import { Form } from 'informed';
 import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
 import RadioGroup from 'src/components/RadioGroup';
+import Select from 'src/components/Select';
 import TextArea from 'src/components/TextArea';
 import TextInput from 'src/components/TextInput';
 
@@ -11,21 +12,39 @@ const handleSubmit = values => {
     console.log(values);
 };
 
-const registerOptions = [
+const deliveryOptions = [
     {
-        label: 'Yes',
+        label: 'Delivery',
         value: 'yes'
     },
     {
-        label: 'No',
+        label: 'Pickup',
         value: 'no'
     }
 ];
 
-const validateTitle = value =>
+const sizeOptions = [
+    {
+        label: 'Small',
+        value: 's'
+    },
+    {
+        label: 'Medium',
+        value: 'm'
+    },
+    {
+        label: 'Large',
+        value: 'l'
+    }
+];
+
+const validateName = value =>
     !value || value.length < 5
-        ? 'Title must be at least five characters long.'
+        ? 'Name must be at least five characters long.'
         : null;
+
+const validateSize = value =>
+    value !== 'l' ? 'Come on, you know you want a large!' : null;
 
 export default class CMS extends Component {
     render() {
@@ -39,24 +58,38 @@ export default class CMS extends Component {
                         width: '480px'
                     }}
                 >
-                    <Field label="Title">
+                    <Field label="Name">
                         <TextInput
-                            field="title"
-                            validate={validateTitle}
+                            field="name"
+                            validate={validateName}
                             message="Enter at least 5 characters."
                         />
                     </Field>
-                    <Field label="Description">
-                        <TextArea field="description" />
+                    <Field label="Instructions">
+                        <TextArea field="instructions" />
                     </Field>
-                    <Field label="Register">
-                        <RadioGroup field="register" items={registerOptions} />
+                    <Field label="Size">
+                        <Select
+                            field="size"
+                            items={sizeOptions}
+                            validate={validateSize}
+                            validateOnChange
+                        />
                     </Field>
-                    <Field label="Contact Preference">
+                    <Field label="Toppings">
                         <div>
-                            <Checkbox field="pref.phone" label="Phone" />
-                            <Checkbox field="pref.email" label="Email" />
+                            <Checkbox
+                                field="toppings.pepperoni"
+                                label="Pepperoni"
+                            />
+                            <Checkbox
+                                field="toppings.pineapple"
+                                label="Pineapple"
+                            />
                         </div>
+                    </Field>
+                    <Field label="Delivery">
+                        <RadioGroup field="delivery" items={deliveryOptions} />
                     </Field>
                 </div>
                 <button type="submit">Submit</button>

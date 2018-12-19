@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import { node, shape, string } from 'prop-types';
 import { BasicText, asField } from 'informed';
 import { compose } from 'redux';
 
@@ -14,7 +14,8 @@ export class TextInput extends Component {
         }),
         fieldState: shape({
             value: string
-        })
+        }),
+        message: node
     };
 
     render() {
