@@ -76,6 +76,9 @@ Use the default cloud instance as the backend or set up your own [local developm
 The Venia storefront has been verified to be compatible with the following local setups:
 
 * Magento 2 installed using [valet-plus][]
+
+  **Note:** If you are having `Magento2ValetDriver` problems, try downgrading to version **1.0.21**.
+
 * [Vagrant Box for Magento 2 developers][]
 
 Don't forget to install the [Venia sample data][]!

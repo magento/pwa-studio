@@ -2,7 +2,7 @@
     position: relative;
     align-content: start;
     display: grid;
-    grid-gap: 0.375rem 1rem;
+    grid-gap: 0 1rem;
     grid-template-areas:
         'image name'
         'image options'
@@ -53,16 +53,21 @@
     font-size: 13px;
     grid-area: options;
     line-height: 1.5;
-    margin: 0;
+    margin-top: 0.25rem;
+    max-height: 54px;
+    overflow-y: auto;
 }
 
-.optionLabel,
-.optionValue {
+.quantityRow {
+    align-items: center;
+}
+
+.optionLabel {
     display: inline-block;
 }
 
 .quantity {
-    align-items: center;
+    align-items: flex-end;
     display: flex;
     grid-column: 2 / span 1;
     font-size: 13px;
