@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, node, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { Message } from 'src/components/Field';
 import Radio from './radio';
 import defaultClasses from './radioGroup.css';
 
@@ -21,11 +22,12 @@ export class RadioGroup extends Component {
                 label: string,
                 value: string
             })
-        )
+        ),
+        message: node
     };
 
     render() {
-        const { classes, fieldState, items, ...rest } = this.props;
+        const { classes, fieldState, items, message, ...rest } = this.props;
 
         const options = items.map(({ label, value }) => (
             <Radio key={value} label={label} value={value} />
@@ -38,7 +40,7 @@ export class RadioGroup extends Component {
                         {options}
                     </BasicRadioGroup>
                 </div>
-                <p className={classes.message}>{fieldState.error}</p>
+                <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
         );
     }

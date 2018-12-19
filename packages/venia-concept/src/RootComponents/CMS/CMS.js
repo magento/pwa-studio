@@ -40,7 +40,11 @@ export default class CMS extends Component {
                     }}
                 >
                     <Field label="Title">
-                        <TextInput field="title" validate={validateTitle} />
+                        <TextInput
+                            field="title"
+                            validate={validateTitle}
+                            message="Enter at least 5 characters."
+                        />
                     </Field>
                     <Field label="Description">
                         <TextArea field="description" />

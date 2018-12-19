@@ -4,6 +4,7 @@ import { BasicCheckbox, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { Message } from 'src/components/Field';
 import Icon from 'src/components/Icon';
 import defaultClasses from './checkbox.css';
 
@@ -28,11 +29,12 @@ export class Checkbox extends Component {
             value: bool
         }).isRequired,
         id: string,
-        label: node.isRequired
+        label: node.isRequired,
+        message: node
     };
 
     render() {
-        const { classes, fieldState, id, label, ...rest } = this.props;
+        const { classes, fieldState, id, label, message, ...rest } = this.props;
         const { value: checked } = fieldState;
 
         return (
@@ -49,7 +51,7 @@ export class Checkbox extends Component {
                     />
                     <span className={classes.label}>{label}</span>
                 </label>
-                <p className={classes.message}>{fieldState.error}</p>
+                <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
         );
     }

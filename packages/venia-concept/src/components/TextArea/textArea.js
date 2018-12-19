@@ -4,13 +4,13 @@ import { BasicTextArea, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { Message } from 'src/components/Field';
 import defaultClasses from './textArea.css';
 
 export class TextArea extends Component {
     static propTypes = {
         classes: shape({
-            input: string,
-            message: string
+            input: string
         }),
         cols: oneOfType([number, string]),
         fieldState: shape({
@@ -26,8 +26,17 @@ export class TextArea extends Component {
         wrap: 'hard'
     };
 
+    get message() {
+        const { classes, fieldState, message } = this.props;
+        const { asyncError, error } = fieldState;
+        const errorMessage = error || asyncError;
+        const className = errorMessage ? classes.error : classes.message;
+
+        return <p className={className}>{errorMessage || message || ''}</p>;
+    }
+
     render() {
-        const { classes, fieldState, ...rest } = this.props;
+        const { classes, fieldState, message, ...rest } = this.props;
 
         return (
             <Fragment>
@@ -36,7 +45,7 @@ export class TextArea extends Component {
                     fieldState={fieldState}
                     className={classes.input}
                 />
-                <p className={classes.message}>{fieldState.error}</p>
+                <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
         );
     }

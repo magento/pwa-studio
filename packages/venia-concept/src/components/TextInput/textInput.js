@@ -4,13 +4,13 @@ import { BasicText, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { Message } from 'src/components/Field';
 import defaultClasses from './textInput.css';
 
 export class TextInput extends Component {
     static propTypes = {
         classes: shape({
-            input: string,
-            message: string
+            input: string
         }),
         fieldState: shape({
             value: string
@@ -18,8 +18,7 @@ export class TextInput extends Component {
     };
 
     render() {
-        const { props } = this;
-        const { classes = {}, fieldState, ...rest } = props;
+        const { classes, fieldState, message, ...rest } = this.props;
 
         return (
             <Fragment>
@@ -28,7 +27,7 @@ export class TextInput extends Component {
                     fieldState={fieldState}
                     className={classes.input}
                 />
-                <p className={classes.message}>{fieldState.error}</p>
+                <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
         );
     }

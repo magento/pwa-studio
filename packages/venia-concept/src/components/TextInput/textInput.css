@@ -19,7 +19,3 @@
         0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
     outline: none;
 }
-
-.message {
-    composes: message from '../Field/field.css';
-}

@@ -68,7 +68,7 @@ test('renders an error message if it exists', () => {
     ).root;
 
     api.setError(field, error);
-    const messageInstance = instance.findByProps({ className: 'message' });
+    const messageInstance = instance.findByProps({ children: error });
 
     expect(messageInstance.props.children).toBe(error);
 });
