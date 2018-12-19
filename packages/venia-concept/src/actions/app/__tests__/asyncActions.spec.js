@@ -50,14 +50,14 @@ test('toggleSearch() to return a thunk ', () => {
     expect(toggleSearch()).toBeInstanceOf(Function);
 });
 
-test('closeDrawer thunk returns undefined', async () => {
+test('toggleSearch thunk returns undefined', async () => {
     const result = await toggleSearch()(...thunkArgs);
 
     expect(result).toBeUndefined();
 });
 
-test('closeDrawer thunk dispatches actions', async () => {
-    await closeDrawer()(...thunkArgs);
+test('toggleSearch thunk dispatches actions', async () => {
+    await toggleSearch()(...thunkArgs);
 
     expect(dispatch).toHaveBeenCalledTimes(1);
 });

@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import { RouteConsumer } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
+import EnsureOpenSearch from './ensureOpenSearch';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 
-import SearchBar from 'src/components/SearchBar';
+const SearchBar = React.lazy(() => import('src/components/SearchBar'));
+
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
@@ -23,8 +27,13 @@ class Header extends Component {
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
         }),
-        searchOpen: PropTypes.bool
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func
     };
+
+    get searchIcon() {
+        return <Icon name="search" />;
+    }
 
     render() {
         const {
@@ -58,18 +67,35 @@ class Header extends Component {
                             searchOpen={searchOpen}
                             toggleSearch={toggleSearch}
                         >
-                            <Icon name="search" />
+                            {this.searchIcon}
                         </SearchTrigger>
+                        <RouteConsumer>
+                            {({ location }) => {
+                                if (location.pathname === '/search.html') {
+                                    const {
+                                        searchOpen,
+                                        toggleSearch
+                                    } = this.props;
+                                    const props = { searchOpen, toggleSearch };
+
+                                    return <EnsureOpenSearch {...props} />;
+                                }
+
+                                return null;
+                            }}
+                        </RouteConsumer>
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
                     </div>
                 </div>
-                <SearchBar
-                    autocompleteOpen={autocompleteOpen}
-                    isOpen={searchOpen}
-                    classes={classes}
-                />
+                <Suspense fallback={this.searchIcon}>
+                    <SearchBar
+                        autocompleteOpen={autocompleteOpen}
+                        isOpen={searchOpen}
+                        classes={classes}
+                    />
+                </Suspense>
             </header>
         );
     }

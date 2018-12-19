@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import { Query } from 'react-apollo';
-import querystring from 'querystring';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { getSearchParams } from 'src/util/getSearchParams';
 import gql from 'graphql-tag';
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
@@ -53,29 +53,28 @@ export class Search extends Component {
     );
 
     handleClearCategoryFilter = () => {
-        const locationQuery = this.props.location.search.substr(1);
-        const params = querystring.parse(locationQuery);
-        const { query: inputText } = params;
-
-        if (inputText !== '')
-            this.props.executeSearch(inputText, this.props.history);
+        const { inputText } = getSearchParams();
+        if (inputText) this.props.executeSearch(inputText, this.props.history);
     };
 
     render() {
         const { classes } = this.props;
         const { getCategoryName } = this;
 
-        const locationQuery = this.props.location.search.substr(1);
-        const params = querystring.parse(locationQuery);
-        const { query: inputText, category: categoryId } = params;
+        const { inputText, categoryId } = getSearchParams();
 
         if (!inputText) return <Redirect to="/" />;
 
+        const queryVariable = categoryId
+            ? { inputText, categoryId }
+            : { inputText };
+
         return (
-            <Query query={PRODUCT_SEARCH} variables={{ inputText, categoryId }}>
+            <Query query={PRODUCT_SEARCH} variables={queryVariable}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return <div>Fetching Data</div>;
+
                     if (data.products.items.length === 0)
                         return (
                             <div className={classes.noResult}>
