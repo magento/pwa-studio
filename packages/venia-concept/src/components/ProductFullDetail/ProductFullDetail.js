@@ -154,8 +154,34 @@ class ProductFullDetail extends Component {
         );
     }
 
+    get mediaGalleryEntries() {
+        const { props, state } = this;
+        const { product } = props;
+        const { optionCodes, optionSelections } = state;
+        const { configurable_options, media_gallery_entries, variants } = product;
+        const isConfigurable = Array.isArray(configurable_options);
+
+        if (!isConfigurable || isConfigurable && optionSelections.size === 0) {
+            return media_gallery_entries;
+        }
+
+        const item = variants.find(({ product: variant }) => {
+            for (const [id, value] of optionSelections) {
+                const code = optionCodes.get(id);
+
+                if (variant[code] !== value) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        return item.product.media_gallery_entries;
+    }
+
     render() {
-        const { productOptions, props } = this;
+        const { productOptions, props, mediaGalleryEntries } = this;
         const { classes, product } = props;
         const { regularPrice } = product.price;
 
@@ -173,7 +199,7 @@ class ProductFullDetail extends Component {
                     </p>
                 </section>
                 <section className={classes.imageCarousel}>
-                    <Carousel images={product.media_gallery_entries} />
+                    <Carousel images={mediaGalleryEntries} />
                 </section>
                 <section className={classes.options}>{productOptions}</section>
                 <section className={classes.quantity}>
