@@ -53,7 +53,7 @@ export class Search extends Component {
     );
 
     handleClearCategoryFilter = () => {
-        const { inputText } = getSearchParams();
+        const { inputText } = getSearchParams(location);
         if (inputText) this.props.executeSearch(inputText, this.props.history);
     };
 
@@ -61,7 +61,7 @@ export class Search extends Component {
         const { classes } = this.props;
         const { getCategoryName } = this;
 
-        const { inputText, categoryId } = getSearchParams();
+        const { inputText, categoryId } = getSearchParams(location);
 
         if (!inputText) return <Redirect to="/" />;
 

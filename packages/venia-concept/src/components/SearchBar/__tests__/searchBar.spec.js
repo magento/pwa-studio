@@ -117,7 +117,6 @@ test('When the input component is empty, search submit will not be called.', asy
 
 /* Using mount to simulate event propagation - submitting via pressing enter in search input */
 test('When the clear button is pressed, any text in the input component is removed.', async () => {
-    const mockExecuteSearch = jest.fn();
     const mockFocus = jest.fn();
     const mockExecuteSearch = jest.fn();
     const historyMock = { location: { pathname: '' } };

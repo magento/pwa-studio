@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import SearchAutocomplete from './autocomplete';
-import { getSearchParams } from 'src/util/getSearchParams';
 
 import Icon from 'src/components/Icon';
-getSearchParams;
+
 import SeedSearchInput from './seedSearchInput';
 
 import classify from 'src/classify';
@@ -42,8 +41,6 @@ export class SearchBar extends Component {
 
     componentDidMount = () => {
         document.addEventListener('mousedown', this.autocompleteClick, false);
-        const { inputText } = getSearchParams();
-        if (inputText) this.setState({ searchQuery: inputText });
     };
 
     componentWillUnmount = () => {
@@ -73,6 +70,8 @@ export class SearchBar extends Component {
         this.updateAutocompleteVisible(false);
     };
 
+    setSearchQuery = value => this.setState({ searchQuery: value });
+
     enterSearch = event => {
         event.preventDefault();
         const { searchQuery } = this.state;
@@ -86,14 +85,14 @@ export class SearchBar extends Component {
     inputChange = event => {
         const { value } = event.currentTarget || event.srcElement;
         this.updateAutocompleteVisible(true);
-        this.setState({ searchQuery: value });
+        this.setSearchQuery(value);
     };
 
     clearSearch = event => {
         event.preventDefault();
         this.searchRef.current.focus();
         this.updateAutocompleteVisible(false);
-        this.setState({ searchQuery: '' });
+        this.setSearchQuery('');
     };
 
     render() {
@@ -137,13 +136,12 @@ export class SearchBar extends Component {
                         exact
                         path="/search.html"
                         render={({ location }) => {
-                            const { searchRef } = this;
-                            const props = {
-                                location,
-                                searchRef
-                            };
-
-                            return <SeedSearchInput {...props} />;
+                            return (
+                                <SeedSearchInput
+                                    location={location}
+                                    callback={this.setSearchQuery}
+                                />
+                            );
                         }}
                     />
                     <div

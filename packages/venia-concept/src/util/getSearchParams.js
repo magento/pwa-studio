@@ -1,10 +1,10 @@
-export const getSearchParams = () => {
+export const getSearchParams = location => {
     let inputText,
         categoryId = '';
 
     if (location.search) {
         const params = new URLSearchParams(location.search);
-        inputText = params.get('query');
+        inputText = params.get('query') || '';
         categoryId = params.get('category');
     }
 
