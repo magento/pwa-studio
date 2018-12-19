@@ -158,10 +158,17 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { product } = props;
         const { optionCodes, optionSelections } = state;
-        const { configurable_options, media_gallery_entries, variants } = product;
+        const {
+            configurable_options,
+            media_gallery_entries,
+            variants
+        } = product;
         const isConfigurable = Array.isArray(configurable_options);
 
-        if (!isConfigurable || isConfigurable && optionSelections.size === 0) {
+        if (
+            !isConfigurable ||
+            (isConfigurable && optionSelections.size === 0)
+        ) {
             return media_gallery_entries;
         }
 
