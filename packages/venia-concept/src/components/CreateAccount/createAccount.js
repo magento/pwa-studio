@@ -16,20 +16,27 @@ class CreateAccount extends Component {
             error: string,
             root: string
         }),
+        createAccountError: shape({
+            message: string
+        }),
         initialValues: shape({
-            firstName: string,
             email: string,
+            firstName: string,
             lastName: string
         }),
         onSubmit: func
     };
 
+    static defaultProps = {
+        initialValues: {}
+    };
+
     get initialValues() {
         const { initialValues } = this.props;
-        const { firstName, email, lastName, ...rest } = initialValues;
+        const { email, firstName, lastName, ...rest } = initialValues;
 
         return {
-            customer: { firstname: firstName, email, lastname: lastName },
+            customer: { email, firstname: firstName, lastname: lastName },
             ...rest
         };
     }

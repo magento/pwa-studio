@@ -24,9 +24,6 @@ export const validators = new Map()
     .set('confirm', (value, values) => {
         return value !== values.password ? 'Passwords must match.' : null;
     })
-    .set('firstName', value => {
-        return !(value || '').trim() ? 'A first name is required.' : null;
-    })
     .set('email', value => {
         const trimmed = (value || '').trim();
 
@@ -34,6 +31,9 @@ export const validators = new Map()
         if (!trimmed.includes('@')) return 'A valid email address is required.';
 
         return null;
+    })
+    .set('firstName', value => {
+        return !(value || '').trim() ? 'A first name is required.' : null;
     })
     .set('lastName', value => {
         return !(value || '').trim() ? 'A last name is required.' : null;
