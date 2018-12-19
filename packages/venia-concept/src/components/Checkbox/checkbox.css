@@ -9,6 +9,7 @@
     grid-template-columns: auto min-content;
     justify-items: center;
     margin: 0.5rem;
+    vertical-align: top;
 }
 
 .icon {

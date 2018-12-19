@@ -8,6 +8,7 @@
     grid-auto-flow: column;
     grid-template-columns: auto min-content;
     margin: 0.5rem;
+    vertical-align: top;
 }
 
 .input {
