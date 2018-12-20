@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import Header from './header';
 import { toggleSearch } from 'src/actions/app';
 

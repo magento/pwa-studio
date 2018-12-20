@@ -1,13 +1,10 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-import { RouteConsumer } from '@magento/peregrine';
+import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
-import EnsureOpenSearch from './ensureOpenSearch';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 
@@ -28,7 +25,7 @@ class Header extends Component {
             toolbar: PropTypes.string
         }),
         searchOpen: PropTypes.bool,
-        toggleSearch: PropTypes.func
+        toggleSearch: PropTypes.func.isRequired
     };
 
     get searchIcon() {
@@ -69,21 +66,18 @@ class Header extends Component {
                         >
                             {this.searchIcon}
                         </SearchTrigger>
-                        <RouteConsumer>
-                            {({ location }) => {
-                                if (location.pathname === '/search.html') {
-                                    const {
-                                        searchOpen,
-                                        toggleSearch
-                                    } = this.props;
-                                    const props = { searchOpen, toggleSearch };
-
-                                    return <EnsureOpenSearch {...props} />;
+                        <Route
+                            exact
+                            path="/search.html"
+                            render={() => {
+                                const { searchOpen, toggleSearch } = this.props;
+                                if (!searchOpen) {
+                                    toggleSearch();
                                 }
 
                                 return null;
                             }}
-                        </RouteConsumer>
+                        />
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
