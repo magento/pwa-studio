@@ -28,7 +28,8 @@ class Swatch extends Component {
         item: shape({
             id: oneOfType([number, string]),
             label: string
-        })
+        }),
+        itemIndex: number
     };
 
     get icon() {
@@ -44,6 +45,8 @@ class Swatch extends Component {
             hasFocus,
             isSelected,
             item,
+            // eslint-disable-next-line
+            itemIndex,
             style,
             ...restProps
         } = props;

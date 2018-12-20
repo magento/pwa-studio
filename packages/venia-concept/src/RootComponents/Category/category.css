@@ -8,3 +8,13 @@
     margin: 0 0 1rem;
     padding: 0.5rem;
 }
+
+.pagination {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+}
+
+.placeholder {
+    height: 100vh;
+}

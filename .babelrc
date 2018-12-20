@@ -1,0 +1,31 @@
+{
+    "plugins": [
+      "syntax-dynamic-import",
+      "transform-object-rest-spread",
+      "transform-class-properties",
+      "transform-react-jsx",
+      ["transform-runtime", {
+        "helpers": true,
+        "polyfill": false, // polyfills will be handled by preset-env
+        "regenerator": false
+      }]
+    ],
+    "presets": [
+      ["env", {
+        "targets": {
+          "browsers": ["> 5%"]
+        },
+        "modules": false
+      }]
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs",
+          "transform-object-rest-spread",
+          "transform-class-properties",
+          "transform-react-jsx"
+        ]
+      }
+    }
+  }

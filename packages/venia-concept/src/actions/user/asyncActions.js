@@ -46,14 +46,19 @@ export const getUserDetails = () =>
         const [dispatch, getState] = args;
         const { user } = getState();
         if (user.isSignedIn) {
-            const userDetails = await request('/rest/V1/customers/me', {
-                method: 'GET'
-            });
-            dispatch(actions.signIn.receive(userDetails));
+            dispatch(actions.resetSignInError.request());
+            try {
+                const userDetails = await request('/rest/V1/customers/me', {
+                    method: 'GET'
+                });
+                dispatch(actions.signIn.receive(userDetails));
+            } catch (error) {
+                dispatch(actions.signInError.receive(error));
+            }
         }
     };
 
-export const createAccount = accountInfo =>
+export const createNewUserRequest = accountInfo =>
     async function thunk(...args) {
         const [dispatch] = args;
 
@@ -73,8 +78,24 @@ export const createAccount = accountInfo =>
             dispatch(assignGuestCartToCustomer());
         } catch (error) {
             dispatch(actions.createAccountError.receive(error));
+
+            /*
+             * Throw error again to notify async action which dispatched handleCreateAccount.
+             */
+            throw error;
         }
     };
+
+export const createAccount = accountInfo => async dispatch => {
+    /*
+     * Server validation error is handled in handleCreateAccount.
+     * We set createAccountError in Redux and throw error again
+     * to notify redux-thunk action which dispatched handleCreateAccount action.
+     */
+    try {
+        await dispatch(createNewUserRequest(accountInfo));
+    } catch (e) {}
+};
 
 export const assignGuestCartToCustomer = () =>
     async function thunk(...args) {

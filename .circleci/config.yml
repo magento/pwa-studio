@@ -73,11 +73,6 @@ jobs:
           command: 'npm run test:ci && npm run coveralls || true'
       - run: *full_build
       - run:
-          name: Patch CircleCI environment to help detect pull requests
-          command: chmod u+x scripts/patch_circleci_env && scripts/patch_circleci_env >> $BASH_ENV
-          environment:
-            GITHUB_GRAPHQL_ENDPOINT: https://api.github.com/graphql
-      - run:
           name: DangerCI
           command: npm run danger
 
