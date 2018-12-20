@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Form } from 'informed';
 
+import getQueryParameterValue from '../../util/getQueryParameterValue';
+import { SEARCH_QUERY_PARAMETER } from '../../RootComponents/Search/consts';
+import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import SeedSearchInput from './seedSearchInput';
+import TextInput from 'src/components/TextInput';
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
 
+const initialValues = {
+    search_query: ''
+};
+
+// TODO: remove export here (update story and test)
 export class SearchBar extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -21,48 +29,50 @@ export class SearchBar extends Component {
         }),
         executeSearch: PropTypes.func.isRequired,
         history: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
         isOpen: PropTypes.bool
     };
 
-    constructor(props) {
-        super(props);
-        this.searchRef = React.createRef();
-        this.state = { showClearIcon: false };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.isOpen !== prevProps.isOpen) {
-            if (this.props.isOpen == true) {
-                this.searchRef.current.focus();
-            } else {
-                this.searchRef.current.blur();
-            }
-        }
-    }
-
-    enterSearch = event => {
-        const searchQuery = this.searchRef.current.value;
-        this.setClearIcon(searchQuery);
-
-        if (
-            this.props.isOpen &&
-            (event.type === 'click' || event.key === 'Enter') &&
-            searchQuery !== ''
-        ) {
-            this.props.executeSearch(searchQuery, this.props.history);
-        }
+    state = {
+        dirty: false
     };
 
-    clearSearch = () => {
-        this.searchRef.current.value = '';
-        this.searchRef.current.focus();
-        this.setClearIcon(this.searchRef.current.value);
+    componentDidMount() {
+        const searchValueFromQueryString = getQueryParameterValue({
+            location: this.props.location,
+            queryParameter: SEARCH_QUERY_PARAMETER
+        });
+
+        this.formApi.setValue('search_query', searchValueFromQueryString);
+    }
+
+    get resetButton() {
+        const { props, resetForm, state } = this;
+        const { classes } = props;
+
+        return state.dirty ? (
+            <Button className={classes.clearIcon} onClick={resetForm}>
+                <Icon name="x" />
+            </Button>
+        ) : null;
+    }
+
+    handleChange = ({ values }) => {
+        const dirty = !!values.search_query;
+        this.setState({ dirty });
     };
 
-    setClearIcon(query) {
-        const showClearIcon = query !== '';
-        this.setState({ showClearIcon });
-    }
+    handleSubmit = ({ search_query }) => {
+        this.props.executeSearch(search_query, this.props.history);
+    };
+
+    resetForm = () => {
+        this.formApi.reset();
+    };
+
+    setApi = formApi => {
+        this.formApi = formApi;
+    };
 
     render() {
         const { classes, isOpen } = this.props;
@@ -71,44 +81,19 @@ export class SearchBar extends Component {
             ? classes.searchBlock_open
             : classes.searchBlock;
 
-        const clearIconClass = this.state.showClearIcon
-            ? classes.clearIcon
-            : classes.clearIcon_off;
-
         return (
-            <div className={searchClass}>
-                <button
-                    className={classes.searchIcon}
-                    onClick={this.enterSearch}
-                >
+            <Form
+                getApi={this.setApi}
+                initialValues={initialValues}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+            >
+                <div className={searchClass}>
                     <Icon name="search" />
-                </button>
-                <input
-                    ref={this.searchRef}
-                    className={classes.searchBar}
-                    inputMode="search"
-                    type="search"
-                    placeholder="I'm looking for..."
-                    onKeyUp={this.enterSearch}
-                />
-                <button className={clearIconClass} onClick={this.clearSearch}>
-                    <Icon name="x" />
-                </button>
-                <Route
-                    exact
-                    path="/search.html"
-                    render={({ location }) => {
-                        const { searchRef, setClearIcon } = this;
-                        const props = {
-                            location,
-                            searchRef,
-                            setClearIcon: setClearIcon.bind(this)
-                        };
-
-                        return <SeedSearchInput {...props} />;
-                    }}
-                />
-            </div>
+                    <TextInput id={classes.searchBar} field="search_query" />
+                    {this.resetButton}
+                </div>
+            </Form>
         );
     }
 }

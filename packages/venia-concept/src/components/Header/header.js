@@ -68,8 +68,12 @@ class Header extends Component {
                 </div>
                 <Suspense fallback={this.searchIcon}>
                     <Route
-                        render={({ history }) => (
-                            <SearchBar isOpen={searchOpen} history={history} />
+                        render={({ history, location }) => (
+                            <SearchBar
+                                isOpen={searchOpen}
+                                history={history}
+                                location={location}
+                            />
                         )}
                     />
                 </Suspense>
