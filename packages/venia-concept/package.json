@@ -22,11 +22,11 @@
     "prebuild": "npm run -s clean",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "test": "jest src",
     "validate-queries": "node ./validate-queries.js",
-    "watch": "webpack-dev-server --progress --color --env.mode development",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+    "watch": "webpack-dev-server --progress --color --env.mode development"
   },
   "dependencies": {
     "@magento/eslint-config": "~1.2.3",
