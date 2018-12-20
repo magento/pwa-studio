@@ -1,0 +1,13 @@
+.input {
+    composes: input from '../Field/field.css';
+    height: auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.input:focus {
+    border-color: rgb(var(--venia-teal));
+    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
+        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
+    outline: none;
+}

@@ -1,36 +1,70 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import { Form } from 'informed';
+
 import Checkbox from '../checkbox';
 
-test('becomes checked and unchecked when clicked', () => {
-    const wrapper = shallow(
-        <Checkbox select={() => {}} initialState={false} />
-    ).dive();
+const field = 'a';
+const label = 'b';
+const classes = ['icon', 'input', 'label', 'message', 'root'].reduce(
+    (acc, key) => ({ ...acc, [key]: key }),
+    {}
+);
 
-    wrapper.find('div').simulate('click');
-    expect(wrapper.state().checked).toBeTruthy();
-    wrapper.find('div').simulate('click');
-    expect(wrapper.state().checked).toBeFalsy();
+const props = { classes, field, label };
+
+test('renders the correct tree', () => {
+    const tree = TestRenderer.create(
+        <Form>
+            <Checkbox {...props} />
+        </Form>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
 });
 
-test('becomes focused and unfocused correctly', () => {
-    const wrapper = shallow(
-        <Checkbox select={() => {}} initialState={false} />
-    ).dive();
+test('applies `props.id` to both label and input', () => {
+    const id = 'c';
 
-    wrapper.find('div').simulate('focus');
-    expect(wrapper.state().focused).toBeTruthy();
-    wrapper.find('div').simulate('blur');
-    expect(wrapper.state().focused).toBeFalsy();
+    const { root } = TestRenderer.create(
+        <Form>
+            <Checkbox {...props} id={id} />
+        </Form>
+    );
+
+    const labelInstance = root.findByProps({ className: 'root' });
+    const checkboxInstance = root.findByProps({ className: 'input' });
+
+    expect(checkboxInstance.props.id).toBe(id);
+    expect(labelInstance.props.htmlFor).toBe(id);
+    expect(labelInstance.props.id).toBeUndefined();
 });
 
-test('handles click on keyup', () => {
-    const wrapper = shallow(
-        <Checkbox select={() => {}} initialState={false} />
-    ).dive();
+test('applies `checked` based on `initialValue`', () => {
+    const { root } = TestRenderer.create(
+        <Form>
+            <Checkbox {...props} field={'a.x'} initialValue={true} />
+            <Checkbox {...props} field={'a.y'} initialValue={false} />
+        </Form>
+    );
 
-    const keyUpSpy = jest.spyOn(wrapper.instance(), 'handleClick');
-    wrapper.find('div').simulate('keyUp', { key: 'Enter' });
-    expect(keyUpSpy).toHaveBeenCalled();
-    expect(wrapper.state().checked).toBeTruthy();
+    const [x, y] = root.findAllByType('input');
+
+    expect(x.props.checked).toBe(true);
+    expect(y.props.checked).toBe(false);
+});
+
+test('renders an error message if it exists', () => {
+    const error = 'error';
+    const { root } = TestRenderer.create(
+        <Form>
+            <Checkbox {...props} />
+        </Form>
+    );
+
+    root.instance.controller.setError(field, error);
+
+    const messageInstance = root.findByProps({ children: error });
+
+    expect(messageInstance.props.children).toBe(error);
 });

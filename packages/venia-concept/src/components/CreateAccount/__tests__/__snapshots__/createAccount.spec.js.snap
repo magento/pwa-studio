@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <h3>
+    An account gives you access to rewards!
+  </h3>
+  <div>
+    <span>
+      Email
+    </span>
+    <input
+      autoComplete="email"
+      name="customer.email"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value=""
+    />
+    <p />
+  </div>
+  <div>
+    <span>
+      First Name
+    </span>
+    <input
+      autoComplete="given-name"
+      name="customer.firstname"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value=""
+    />
+    <p />
+  </div>
+  <div>
+    <span>
+      Last Name
+    </span>
+    <input
+      autoComplete="family-name"
+      name="customer.lastname"
+      onBlur={[Function]}
+      onChange={[Function]}
+      value=""
+    />
+    <p />
+  </div>
+  <div>
+    <span>
+      Password
+    </span>
+    <input
+      autoComplete="new-password"
+      name="password"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <p />
+  </div>
+  <div>
+    <span>
+      Confirm Password
+    </span>
+    <input
+      name="confirm"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <p />
+  </div>
+  <div>
+    <button
+      type="submit"
+    >
+      <span>
+        Submit
+      </span>
+    </button>
+  </div>
+</form>
+`;
