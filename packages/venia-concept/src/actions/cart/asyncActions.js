@@ -121,12 +121,10 @@ export const removeItemFromCart = payload => {
                 throw missingGuestCartError;
             }
 
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items/${item.item_id}`,
-                {
-                    method: 'DELETE'
-                }
-            );
+            const cartItem = await api.removeCartItem({
+                cartId: guestCartId,
+                itemId: item.item_id
+            });
             // When removing the last item in the cart, perform a reset
             // to prevent a bug where the next item added to the cart has
             // a price of 0
@@ -156,7 +154,7 @@ export const removeItemFromCart = payload => {
             }
         }
 
-        await Promise.all([dispatch(getCartDetails({ forceRefresh: true }))]);
+        await dispatch(getCartDetails({ forceRefresh: true }));
     };
 };
 

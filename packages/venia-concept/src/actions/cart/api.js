@@ -83,3 +83,13 @@ export const fetchCartPart = ({ cartId, forceRefresh, subResource = '' }) => {
         cache
     });
 };
+
+export const removeCartItem = ({ cartId, itemId }) => {
+    const url = isSignedIn()
+        ? `/rest/V1/carts/mine/items/${itemId}`
+        : `/rest/V1/guest-carts/${cartId}/items/${itemId}`;
+
+    return request(url, {
+        method: 'DELETE'
+    });
+};
