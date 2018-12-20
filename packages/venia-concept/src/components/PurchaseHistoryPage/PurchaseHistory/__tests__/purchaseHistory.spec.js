@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { List } from '@magento/peregrine';
 
 import PurchaseHistory from '../purchaseHistory';
-import Filter from '../../Filter';
+import Filter from 'src/components/Filter';
 
 test('renders correctly', () => {
     const wrapper = shallow(

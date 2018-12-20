@@ -9,7 +9,8 @@ const initialState = {
     rootCategoryId: null,
     currentPage: 1,
     pageSize: 6,
-    prevPageTotal: null
+    prevPageTotal: null,
+    chosenFilterOptions: {}
 };
 
 const reducerMap = {
@@ -43,6 +44,25 @@ const reducerMap = {
             ...state,
             prevPageTotal: payload
         };
+    },
+    [actions.updateChosenFilterOptions]: (
+        state,
+        { payload: { optionName, optionItems } }
+    ) => {
+        return optionName
+            ? {
+                  ...state,
+                  chosenFilterOptions: {
+                      ...state.chosenFilterOptions,
+                      [optionName]: {
+                          chosenItems: optionItems
+                      }
+                  }
+              }
+            : {
+                  ...state,
+                  chosenFilterOptions: {}
+              };
     }
 };
 

@@ -10,11 +10,28 @@
 }
 
 .pagination {
-    position: -webkit-sticky;
     position: sticky;
     bottom: 0;
 }
 
 .placeholder {
     height: 100vh;
+}
+
+.headerButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.filterButton {
+    width: 9rem;
+    height: 3rem;
+    border: 1px solid rgb(var(--venia-teal));
+    border-radius: 100px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    color: rgb(var(--venia-teal));
+    outline: none;
 }

@@ -1,4 +1,5 @@
 import actions from './actions';
+import mockData from './mockData';
 
 export const getAllCategories = () =>
     async function thunk(dispatch) {
@@ -7,9 +8,10 @@ export const getAllCategories = () =>
         try {
             // TODO: implement rest or graphql call for categories
             // `/rest/V1/categories` requires auth for some reason
-            const { default: payload } = await import('./mockData');
+            // TODO: we need to configure Jest to support dynamic imports
+            // const { default: payload } = await import('./mockData');
 
-            dispatch(actions.getAllCategories.receive(payload));
+            dispatch(actions.getAllCategories.receive(mockData));
         } catch (error) {
             dispatch(actions.getAllCategories.receive(error));
         }
