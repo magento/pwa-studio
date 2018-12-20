@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { withRouter } from 'react-router';
 
 import Icon from 'src/components/Icon';
 import SeedSearchInput from './seedSearchInput';
@@ -16,15 +15,13 @@ export class SearchBar extends Component {
             clearIcon_off: PropTypes.string,
             root: PropTypes.string,
             searchBlock: PropTypes.string,
-            searchBlockOpen: PropTypes.string,
+            searchBlock_open: PropTypes.string,
             searchBar: PropTypes.string,
             searchIcon: PropTypes.string
         }),
         executeSearch: PropTypes.func.isRequired,
-        history: PropTypes.object,
-        isOpen: PropTypes.bool,
-        location: PropTypes.object,
-        match: PropTypes.object
+        history: PropTypes.object.isRequired,
+        isOpen: PropTypes.bool
     };
 
     constructor(props) {
@@ -71,7 +68,7 @@ export class SearchBar extends Component {
         const { classes, isOpen } = this.props;
 
         const searchClass = isOpen
-            ? classes.searchBlockOpen
+            ? classes.searchBlock_open
             : classes.searchBlock;
 
         const clearIconClass = this.state.showClearIcon
@@ -116,4 +113,4 @@ export class SearchBar extends Component {
     }
 }
 
-export default withRouter(classify(defaultClasses)(SearchBar));
+export default classify(defaultClasses)(SearchBar);

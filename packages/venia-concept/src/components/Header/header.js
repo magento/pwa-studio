@@ -61,25 +61,17 @@ class Header extends Component {
                         >
                             {this.searchIcon}
                         </SearchTrigger>
-                        <Route
-                            exact
-                            path="/search.html"
-                            render={() => {
-                                const { searchOpen, toggleSearch } = this.props;
-                                if (!searchOpen) {
-                                    toggleSearch();
-                                }
-
-                                return null;
-                            }}
-                        />
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
                     </div>
                 </div>
                 <Suspense fallback={this.searchIcon}>
-                    <SearchBar isOpen={searchOpen} />
+                    <Route
+                        render={({ history }) => (
+                            <SearchBar isOpen={searchOpen} history={history} />
+                        )}
+                    />
                 </Suspense>
             </header>
         );

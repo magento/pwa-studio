@@ -18,7 +18,7 @@
     pointer-events: none;
 }
 
-.searchBlockOpen {
+.searchBlock_open {
     composes: root;
     opacity: 1;
     height: 4rem;
