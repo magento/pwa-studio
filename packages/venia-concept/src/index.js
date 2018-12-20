@@ -7,7 +7,7 @@ import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Router, Util } from '@magento/peregrine';
+import { Router } from '@magento/peregrine';
 
 import store from 'src/store';
 
@@ -16,7 +16,6 @@ import App from 'src/components/App';
 import authorizationService from 'src/services/authorization';
 import './index.css';
 
-const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
 const httpLink = createHttpLink({

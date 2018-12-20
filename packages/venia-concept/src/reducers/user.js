@@ -1,11 +1,6 @@
 import { handleActions } from 'redux-actions';
-import { Util } from '@magento/peregrine';
 
 import authorizationService from 'src/services/authorization';
-
-const { BrowserPersistence } = Util;
-
-const storage = new BrowserPersistence();
 
 import actions from 'src/actions/user';
 

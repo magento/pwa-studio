@@ -11,9 +11,7 @@ const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-export const createCartRequest = () => async dispatch => {
-    await clearGuestCartId();
-
+const createCartRequest = () => async dispatch => {
     dispatch(actions.getGuestCart.request());
 
     try {
@@ -52,6 +50,12 @@ export const createCart = () =>
 
         return dispatch(createCartRequest());
     };
+
+export const recreateCart = () => async dispatch => {
+    await dispatch(resetCart());
+
+    return dispatch(createCart());
+};
 
 export const addItemToCart = (payload = {}) => {
     const { item, quantity } = payload;
@@ -308,19 +312,13 @@ export const toggleCart = () =>
         ]);
     };
 
-export const removeGuestCart = () =>
+export const resetCart = () =>
     async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const { cart } = getState();
-        // ensure state slices are present
-        if (!cart) {
-            return;
-        }
-        if (cart['guestCartId']) {
-            dispatch({
-                type: 'REMOVE_GUEST_CART'
-            });
-        }
+        const [dispatch] = args;
+
+        await clearGuestCartId();
+
+        dispatch(actions.cart.reset());
     };
 
 /* helpers */

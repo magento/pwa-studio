@@ -10,6 +10,7 @@ import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
+import authorizationService from 'src/services/authorization';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -18,6 +19,12 @@ const storage = new BrowserPersistence();
 
 export const beginCheckout = () =>
     async function thunk(dispatch) {
+        if (authorizationService.isSignedIn()) {
+            throw new Error(
+                'TODO: handle begin checkout for authorized users.'
+            );
+        }
+
         dispatch(actions.begin());
         dispatch(getShippingMethods());
         dispatch(getCountries());

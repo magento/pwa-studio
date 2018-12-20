@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { handleActions, combineActions } from 'redux-actions';
 
 import actions from 'src/actions/cart';
 import checkoutActions from 'src/actions/checkout';
@@ -65,7 +65,7 @@ const reducerMap = {
             ...payload
         };
     },
-    [checkoutActions.order.accept]: () => {
+    [combineActions(actions.cart.reset, checkoutActions.order.accept)]: () => {
         return initialState;
     }
 };

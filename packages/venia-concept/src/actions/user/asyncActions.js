@@ -1,11 +1,7 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
 
-import {
-    removeGuestCart,
-    createCartRequest,
-    getCartDetails
-} from 'src/actions/cart';
+import { resetCart, recreateCart, getCartDetails } from 'src/actions/cart';
 import authorizationService from 'src/services/authorization';
 
 const { request } = RestApi.Magento2;
@@ -43,7 +39,7 @@ export const signIn = credentials =>
 
             dispatch(actions.signIn.receive(userDetails));
 
-            await dispatch(createCartRequest());
+            await dispatch(recreateCart());
 
             await dispatch(getCartDetails());
         } catch (error) {
@@ -79,13 +75,16 @@ export const createNewUserRequest = accountInfo =>
                 method: 'POST',
                 body: JSON.stringify(accountInfo)
             });
+
+            // TODO: merge the guest cart with the user cart
             await dispatch(
                 signIn({
                     username: accountInfo.customer.email,
                     password: accountInfo.password
                 })
             );
-            dispatch(assignGuestCartToCustomer());
+
+            // TODO: assign the guest cart to the user
         } catch (error) {
             dispatch(actions.createAccountError.receive(error));
 
@@ -124,7 +123,7 @@ export const assignGuestCartToCustomer = () =>
                 method: 'PUT',
                 body: JSON.stringify(payload)
             });
-            dispatch(removeGuestCart());
+            await dispatch(resetCart());
         } catch (error) {
             // TODO: Handle error
             console.log(error);
