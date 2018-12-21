@@ -15,6 +15,12 @@
     transition-property: opacity, transform, visibility;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
+    /**
+     * TODO: height: 100vh is necessary because Safari uses the "traditional"
+     * specification of relative height which requires a parent to specify
+     * height. See https://stackoverflow.com/a/33644245
+     */
+    height: 100vh;
     width: 360px;
     z-index: 4;
 }
