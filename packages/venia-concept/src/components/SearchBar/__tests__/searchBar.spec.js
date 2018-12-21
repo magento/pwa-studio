@@ -101,6 +101,7 @@ test('the reset button clears the input', () => {
     expect(input.props.value).toBe('');
 });
 
+// TODO: test fails because mock isn't called ... but it is?
 test.skip('submitting the form executes the search', () => {
     const renderer = TestRenderer.create(<SearchBar {...props} />);
     const instance = renderer.root;
