@@ -90,20 +90,22 @@ class MiniCart extends Component {
         const { cart, classes } = this.props;
         const { cartCurrencyCode, cartId } = this;
         const hasSubtotal = cartId && cart.totals && 'subtotal' in cart.totals;
+        const itemsQuantity = cart.details.items_qty;
+        const totalPrice = cart.totals.subtotal;
 
         return hasSubtotal ? (
             <dl className={classes.totals}>
                 <dt className={classes.subtotalLabel}>
                     <span>
-                        Subtotal
-                        {` (${cart.details.items_qty} Items)`}
+                        Cart Total :&nbsp;
+                        <Price
+                            currencyCode={cartCurrencyCode}
+                            value={totalPrice}
+                        />
                     </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
-                    <Price
-                        currencyCode={cartCurrencyCode}
-                        value={cart.totals.subtotal}
-                    />
+                    &nbsp;(${itemsQuantity} Items)
                 </dd>
             </dl>
         ) : null;

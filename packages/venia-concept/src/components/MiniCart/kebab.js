@@ -12,10 +12,7 @@ class Kebab extends Component {
         return (
             <div {...restProps} className={classes.root}>
                 <button className={classes.kebab}>
-                    <Icon
-                        name="more-vertical"
-                        attrs={{ color: 'rgb(var(--venia-teal))' }}
-                    />
+                    <Icon name="more-vertical" attrs={{ color: 'black' }} />
                 </button>
                 <ul className={toggleClass}>{children}</ul>
             </div>

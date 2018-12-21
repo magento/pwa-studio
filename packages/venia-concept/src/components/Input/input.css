@@ -4,7 +4,7 @@
 }
 
 .requiredSymbol {
-    background-color: rgb(var(--venia-text-spot));
+    background-color: black;
     width: 0.4em;
     height: 0.4em;
     margin-top: 0.1em;
