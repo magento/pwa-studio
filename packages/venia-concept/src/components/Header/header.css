@@ -5,21 +5,15 @@
     grid-auto-columns: 100%;
     grid-auto-flow: row;
     grid-auto-rows: auto;
-    transition-property: grid-row-gap;
+    grid-row-gap: 0.5rem;
 }
 
 .open {
     composes: root;
-    grid-row-gap: 0.5rem;
-    transition-duration: 224ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .closed {
     composes: root;
-    grid-row-gap: 0;
-    transition-duration: 192ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .toolbar {

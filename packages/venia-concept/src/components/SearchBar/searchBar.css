@@ -1,65 +1,18 @@
 .root {
-    background-color: rgb(var(--venia-grey));
     align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    transition-property: opacity, transform;
-}
-
-.searchBlock {
-    composes: root;
-    opacity: 0;
-    height: 0;
-    padding: 0 0.5rem 0 0.5rem;
-    transform: translate3d(0, -100%, 0);
-    transition-duration: 192ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    pointer-events: none;
-}
-
-.searchBlock_open {
-    composes: root;
-    opacity: 1;
-    height: 4rem;
-    padding: 0 0.5rem 1rem 0.5rem;
-    transform: translate3d(0, 0, 0);
-    transition-duration: 224ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    pointer-events: all;
-}
-
-.searchBar {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 6px;
-    font-size: 1rem;
-    height: 3rem;
-    padding: 0 2.5rem;
-    width: 24rem;
-    border-radius: 2rem;
-    -webkit-appearance: none;
-}
-
-.searchBar::-webkit-search-cancel-button {
     display: none;
+    justify-content: center;
 }
 
-.searchIcon {
-    position: relative;
-    height: 50%;
-    left: 2.2rem;
-    cursor: pointer;
+.root_open {
+    composes: root;
+    display: flex;
 }
 
-.clearIcon {
-    visiblity: visible;
-    opacity: 1;
-    position: relative;
-    height: 50%;
-    color: rgb(var(--venia-text));
-    right: 2.2rem;
-    cursor: pointer;
-    transition-property: opacity;
-    transition-duration: 192ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+.form {
+    align-items: center;
+    display: grid;
+    justify-items: stretch;
+    margin-bottom: 0.5rem;
+    width: 22.5rem;
 }

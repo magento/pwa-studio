@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import getQueryParameterValue from '../../util/getQueryParameterValue';
 import { SEARCH_QUERY_PARAMETER } from '../../RootComponents/Search/consts';
-import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
 import TextInput from 'src/components/TextInput';
+import Trigger from 'src/components/Trigger';
 
 import classify from 'src/classify';
 import defaultClasses from './searchBar.css';
@@ -15,22 +15,21 @@ const initialValues = {
     search_query: ''
 };
 
+const clearIcon = <Icon name="x" attrs={{ height: 18, width: 18 }} />;
+const searchIcon = <Icon name="search" attrs={{ height: 18, width: 18 }} />;
+
 // TODO: remove export here (update story and test)
 export class SearchBar extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            clearIcon: PropTypes.string,
-            clearIcon_off: PropTypes.string,
-            root: PropTypes.string,
-            searchBlock: PropTypes.string,
-            searchBlock_open: PropTypes.string,
-            searchBar: PropTypes.string,
-            searchIcon: PropTypes.string
+        classes: shape({
+            form: string,
+            root: string,
+            root_open: string
         }),
-        executeSearch: PropTypes.func.isRequired,
-        history: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        isOpen: PropTypes.bool
+        executeSearch: func.isRequired,
+        history: object.isRequired,
+        location: object.isRequired,
+        isOpen: bool
     };
 
     state = {
@@ -47,13 +46,10 @@ export class SearchBar extends Component {
     }
 
     get resetButton() {
-        const { props, resetForm, state } = this;
-        const { classes } = props;
+        const { resetForm, state } = this;
 
         return state.dirty ? (
-            <Button className={classes.clearIcon} onClick={resetForm}>
-                <Icon name="x" />
-            </Button>
+            <Trigger action={resetForm}>{clearIcon}</Trigger>
         ) : null;
     }
 
@@ -75,25 +71,26 @@ export class SearchBar extends Component {
     };
 
     render() {
-        const { classes, isOpen } = this.props;
-
-        const searchClass = isOpen
-            ? classes.searchBlock_open
-            : classes.searchBlock;
+        const { props, resetButton } = this;
+        const { classes, isOpen } = props;
+        const className = isOpen ? classes.root_open : classes.root;
 
         return (
-            <Form
-                getApi={this.setApi}
-                initialValues={initialValues}
-                onChange={this.handleChange}
-                onSubmit={this.handleSubmit}
-            >
-                <div className={searchClass}>
-                    <Icon name="search" />
-                    <TextInput id={classes.searchBar} field="search_query" />
-                    {this.resetButton}
-                </div>
-            </Form>
+            <div className={className}>
+                <Form
+                    className={classes.form}
+                    getApi={this.setApi}
+                    initialValues={initialValues}
+                    onChange={this.handleChange}
+                    onSubmit={this.handleSubmit}
+                >
+                    <TextInput
+                        field="search_query"
+                        after={resetButton}
+                        before={searchIcon}
+                    />
+                </Form>
+            </div>
         );
     }
 }
