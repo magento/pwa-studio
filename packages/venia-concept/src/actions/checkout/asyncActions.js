@@ -51,7 +51,7 @@ export const submitAddress = payload =>
             address = formatAddress(address, countries);
         } catch (error) {
             dispatch(
-                actions.shippingMethod.incorrectAddress({
+                actions.address.reject({
                     incorrectAddressMessage: error.message
                 })
             );

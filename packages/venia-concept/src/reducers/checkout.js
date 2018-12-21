@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-
+import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
@@ -33,7 +33,8 @@ const reducerMap = {
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
-            editing: payload
+            editing: payload,
+            incorrectAddressMessage: ''
         };
     },
     [actions.address.submit]: state => {
@@ -47,13 +48,23 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: state => {
+    [actions.address.reject]: (state, actionArgs) => {
+        const incorrectAddressMessage = get(
+            actionArgs,
+            'payload.incorrectAddressMessage',
+            ''
+        );
+
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: incorrectAddressMessage ? true : false,
+            incorrectAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -96,23 +107,10 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.shippingMethod.incorrectAddress]: (
-        state,
-        { payload: { incorrectAddressMessage } }
-    ) => {
-        return {
-            ...state,
-            submitting: false,
-            isAddressIncorrect: true,
-            incorrectAddressMessage
-        };
-    },
     [actions.shippingMethod.reject]: state => {
         return {
             ...state,
-            submitting: false,
-            isAddressIncorrect: false,
-            incorrectAddressMessage: ''
+            submitting: false
         };
     },
     [actions.order.submit]: state => {

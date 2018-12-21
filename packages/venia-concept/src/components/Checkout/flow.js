@@ -34,10 +34,10 @@ class Flow extends Component {
         }),
         checkout: shape({
             editing: string,
-            step: string,
-            submitting: bool,
+            incorrectAddressMessage: string,
             isAddressIncorrect: bool,
-            incorrectAddressMessage: string
+            step: string,
+            submitting: bool
         }),
         classes: shape({
             root: string
@@ -124,8 +124,8 @@ class Flow extends Component {
 
                 const formProps = {
                     ...stepProps,
-                    isAddressIncorrect,
-                    incorrectAddressMessage
+                    incorrectAddressMessage,
+                    isAddressIncorrect
                 };
 
                 return <Form {...formProps} />;

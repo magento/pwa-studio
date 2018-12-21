@@ -189,7 +189,7 @@ describe('submitAddress', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.shippingMethod.incorrectAddress(incorrectAddressPayload)
+            actions.address.reject(incorrectAddressPayload)
         );
         expect(dispatch).toHaveBeenCalledTimes(2);
     });

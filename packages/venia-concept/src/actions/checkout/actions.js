@@ -20,8 +20,7 @@ const actionMap = {
     SHIPPING_METHOD: {
         SUBMIT: null,
         ACCEPT: null,
-        REJECT: null,
-        INCORRECT_ADDRESS: null
+        REJECT: null
     },
     ORDER: {
         SUBMIT: null,

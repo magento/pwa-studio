@@ -210,20 +210,6 @@ describe('shippingMethod', () => {
     });
 });
 
-test('shippingMethod.incorrectAddress.toString() returns the proper action type', () => {
-    expect(actions.shippingMethod.incorrectAddress.toString()).toBe(
-        'CHECKOUT/SHIPPING_METHOD/INCORRECT_ADDRESS'
-    );
-});
-
-test('shippingMethod.incorrectAddress() returns a proper action object', () => {
-    const payload = { incorrectAddressMessage: error.message };
-    expect(actions.shippingMethod.incorrectAddress(payload)).toEqual({
-        type: 'CHECKOUT/SHIPPING_METHOD/INCORRECT_ADDRESS',
-        payload
-    });
-});
-
 test('order.submit.toString() returns the proper action type', () => {
     expect(actions.order.submit.toString()).toBe('CHECKOUT/ORDER/SUBMIT');
 });

@@ -44,10 +44,10 @@ class AddressForm extends Component {
             telephone: string,
             validation: string
         }),
-        submit: func.isRequired,
-        submitting: bool,
+        incorrectAddressMessage: string,
         isAddressIncorrect: bool,
-        incorrectAddressMessage: string
+        submit: func.isRequired,
+        submitting: bool
     };
 
     //TODO: implement appropriate validation for the state field
