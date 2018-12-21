@@ -1,130 +1,115 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { SearchBar } from '../searchBar';
+import TestRenderer from 'react-test-renderer';
 
-const classes = {
-    searchBlockOpen: 'open',
-    searchBlock: 'closed'
+import SearchBar from '../searchBar';
+
+const buttonTypes = el => el.type === 'button';
+const formTypes = el => el.type === 'form';
+const inputTypes = el => el.type === 'input';
+
+const executeSearchMock = jest.fn();
+const props = {
+    executeSearch: executeSearchMock,
+    history: {},
+    location: { search: '?query=test' },
+    isOpen: true
 };
 
-test('When the search bar is expanded, pressing the Enter key will submit.', async () => {
-    const mockExecuteSearch = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
-
-    wrapper.instance().searchRef = { current: { value: 'test' } };
-    const searchInput = wrapper.find('input');
-    searchInput.simulate('focus');
-    searchInput.simulate('keyUp', { key: 'Enter' });
-    expect(mockExecuteSearch).toHaveBeenCalled();
+afterEach(() => {
+    executeSearchMock.mockReset();
 });
 
-test('When the search bar is minimized, pressing the Enter key will not submit.', async () => {
-    const mockExecuteSearch = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={false}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+test('renders the correct tree', () => {
+    const tree = TestRenderer.create(<SearchBar {...props} />).toJSON();
 
-    wrapper.instance().searchRef = { current: { value: 'test' } };
-    const searchInput = wrapper.find('input');
-    searchInput.simulate('focus');
-    searchInput.simulate('keyUp', { key: 'Enter' });
-    expect(mockExecuteSearch).toHaveBeenCalledTimes(0);
+    expect(tree).toMatchSnapshot();
 });
 
-test('When the search icon is clicked, the query in the input component will be submitted.', async () => {
-    const mockExecuteSearch = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+test('the input field is seeded from the location', () => {
+    const expected = 'test';
 
-    wrapper.instance().searchRef = { current: { value: 'test' } };
-    const searchButton = wrapper.find('button').at(0);
-    searchButton.simulate('focus');
-    searchButton.simulate('click', { type: 'click' }, { button: '0' });
-    expect(mockExecuteSearch).toHaveBeenCalled();
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
+
+    const input = instance.find(inputTypes);
+
+    expect(input.props.value).toBe(expected);
 });
 
-test('When the input component is empty, pressing the enter key will not search.', async () => {
-    const mockExecuteSearch = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+test('the reset button is visible when the input field is not empty', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
 
-    wrapper.instance().searchRef = { current: { value: '' } };
-    const searchInput = wrapper.find('input');
-    searchInput.simulate('focus');
-    searchInput.simulate('keyUp', { key: 'Enter' });
-    expect(mockExecuteSearch).toHaveBeenCalledTimes(0);
+    const buttons = instance.findAll(buttonTypes);
+
+    expect(buttons).toHaveLength(1);
 });
 
-test('When the clear button is pressed, any text in the input component is removed.', async () => {
-    const mockExecuteSearch = jest.fn();
-    const mockFocus = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
-
-    const searchInput = wrapper.find('input');
-    const clearButton = wrapper.find('button').at(1);
-    wrapper.instance().searchRef = {
-        current: { value: 'test', focus: mockFocus }
+test('the reset button is not visible when the input field is empty', () => {
+    // Force the input field to be empty.
+    const testProps = {
+        ...props,
+        location: { search: '' }
     };
-    searchInput.simulate('change');
-    clearButton.simulate('click');
-    expect(wrapper.instance().searchRef.current.value).toBe('');
+
+    const renderer = TestRenderer.create(<SearchBar {...testProps} />);
+    const instance = renderer.root;
+
+    const buttons = instance.findAll(buttonTypes);
+
+    expect(buttons).toHaveLength(0);
 });
 
-test('When the input component is empty, the clear button is not displayed.', async () => {
-    const mockExecuteSearch = jest.fn();
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+test('entering text in the input causes the reset button to appear', () => {
+    // Start with an empty input field.
+    const testProps = {
+        ...props,
+        location: { search: '' }
+    };
 
-    wrapper.instance().searchRef = { current: { value: '' } };
+    const renderer = TestRenderer.create(<SearchBar {...testProps} />);
+    const instance = renderer.root;
 
-    expect(wrapper.state('showClearIcon')).toBe(false);
+    // Confirm that the button is not present.
+    const preChangeButtons = instance.findAll(buttonTypes);
+    expect(preChangeButtons).toHaveLength(0);
+
+    // Simulate entering text in the input field.
+    const input = instance.find(inputTypes);
+    input.props.onChange({
+        target: { value: 'some text' }
+    });
+
+    // Test that the button appears.
+    const postChangeButtons = instance.findAll(buttonTypes);
+    expect(postChangeButtons).toHaveLength(1);
 });
 
-test('When the input element has text, the clear button is displayed.', async () => {
-    const mockExecuteSearch = jest.fn();
-    const mockEvent = { type: 'keyUp' };
-    let wrapper = shallow(
-        <SearchBar
-            classes={classes}
-            isOpen={true}
-            executeSearch={mockExecuteSearch}
-        />
-    );
+test('the reset button clears the input', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
 
-    wrapper.instance().searchRef = { current: { value: 'test' } };
-    // Call the onKeyUp event handler directly since we can't alter the ref.
-    wrapper.instance().enterSearch(mockEvent);
+    // Test that there is some text in the input to start.
+    const input = instance.find(inputTypes);
+    expect(input.props.value).toBe('test');
 
-    expect(wrapper.state('showClearIcon')).toBe(true);
+    // Simulate clicking the reset button.
+    const button = instance.find(buttonTypes);
+    button.props.onClick();
+
+    // Test that the input has been cleared.
+    expect(input.props.value).toBe('');
+});
+
+test.skip('submitting the form executes the search', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
+
+    // Simulate form submit.
+    const form = instance.find(formTypes);
+    form.props.onSubmit();
+
+    // Test that executeSearch was called.
+    expect(executeSearchMock).toHaveBeenCalledTimes(1);
+    expect(executeSearchMock).toHaveBeenNthCalledWith(1, 'test', props.history);
 });

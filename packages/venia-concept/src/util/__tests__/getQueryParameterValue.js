@@ -2,7 +2,7 @@ import getQueryParameterValue from '../getQueryParameterValue';
 
 const MOCK_LOCATION = { search: '?param=test' };
 
-beforeEach(() => {
+beforeAll(() => {
     // Mock a window.location.search for these tests.
     window.history.replaceState({}, 'Unit Test', '/unittest.html?query=test');
 });
