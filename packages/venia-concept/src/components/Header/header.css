@@ -1,4 +1,8 @@
 .root {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background-color: rgb(var(--venia-grey));
     box-shadow: 0 1px rgb(var(--venia-border));
     display: grid;
