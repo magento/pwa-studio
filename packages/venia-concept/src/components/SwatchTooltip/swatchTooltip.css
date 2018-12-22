@@ -1,0 +1,39 @@
+.root {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    position: relative;
+    --tooltip-display: none;
+}
+
+.root:hover {
+    --tooltip-display: inline-flex;
+}
+
+.tooltip {
+    display: var(--tooltip-display);
+    align-items: center;
+    position: absolute;
+    --tooltip-height: 2rem;
+    top: calc((var(--tooltip-height) + 0.8rem) * -1);
+    left: 0;
+    height: var(--tooltip-height);
+    width: auto;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.15);
+    background-color: black;
+    color: white;
+    padding: 0.5rem 1.25rem;
+}
+
+.tooltip:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    height: 0;
+    width: 0;
+    border-top: 0.5rem solid black;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+}

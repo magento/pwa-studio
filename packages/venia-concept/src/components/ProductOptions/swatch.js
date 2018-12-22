@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { bool, number, oneOfType, shape, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import SwatchTooltip from 'src/components/SwatchTooltip';
 import defaultClasses from './swatch.css';
 
 // TODO: replace with actual swatch colors or images from API
@@ -20,16 +21,17 @@ const getClassName = (name, isSelected, hasFocus) =>
 
 class Swatch extends Component {
     static propTypes = {
-        classes: shape({
-            root: string
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            tooltip: PropTypes.string
         }),
-        hasFocus: bool,
-        isSelected: bool,
-        item: shape({
-            id: oneOfType([number, string]),
-            label: string
+        hasFocus: PropTypes.bool,
+        isSelected: PropTypes.bool,
+        item: PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+            label: PropTypes.string
         }),
-        itemIndex: number
+        itemIndex: PropTypes.number
     };
 
     get icon() {
@@ -61,16 +63,23 @@ class Swatch extends Component {
         const finalStyle = Object.assign({}, style, {
             '--venia-swatch-bg': memoizedGetRandomColor(value_index)
         });
-
+        {
+            /* TODO: currently backend doesn't provide graphql schemas for colors,
+            so in future when they will be available(if any)
+            it's need to use actual color name here instead of 'Color'
+        */
+        }
         return (
-            <button
-                {...restProps}
-                className={className}
-                style={finalStyle}
-                title={label}
-            >
-                {icon}
-            </button>
+            <SwatchTooltip tooltipText="Color">
+                <button
+                    {...restProps}
+                    className={className}
+                    style={finalStyle}
+                    title={label}
+                >
+                    {icon}
+                </button>
+            </SwatchTooltip>
         );
     }
 }
