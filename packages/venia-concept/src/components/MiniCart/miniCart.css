@@ -65,6 +65,7 @@
 .options {
     padding: 1rem;
     font-weight: bold;
+    height: 80%;
 }
 
 .price {
@@ -89,6 +90,7 @@
 }
 
 .save {
+    composes: footer;
     justify-content: center;
     display: flex;
     padding: 1rem 0;

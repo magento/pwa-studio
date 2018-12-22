@@ -22,6 +22,10 @@ const actionMap = {
     REMOVE_ITEM: {
         REQUEST: null,
         RECEIVE: null
+    },
+    UPDATE_ITEM: {
+        REQUEST: null,
+        RECEIVE: null
     }
 };
 

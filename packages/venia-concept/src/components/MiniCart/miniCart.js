@@ -5,7 +5,7 @@ import { bool, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
-import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
+import { getCartDetails, updateItemInCart, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
@@ -14,6 +14,8 @@ import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible } from 'src/selectors/cart';
+
+import EditMenu from './editMenu';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
@@ -134,33 +136,25 @@ class MiniCart extends Component {
 
     get productOptions() {
         const { classes } = this.props;
+        const { focusItem } = this.state;
 
-        const itemName = this.state.focusItem
-            ? this.state.focusItem.name
+        const itemName = focusItem
+            ? focusItem.name
             : null;
-        const itemPrice = this.state.focusItem
-            ? this.state.focusItem.price
+        const itemPrice = focusItem
+            ? focusItem.price
             : null;
+        console.log(focusItem);
 
         return (
-            <div className={classes.content}>
-                <div className={classes.focusItem}>
-                    {itemName}
-                    <div className={classes.price}>${itemPrice}</div>
-                </div>
-                <div className={classes.options}>Choose a Size:</div>
-            </div>
-        );
-    }
+            <Fragment>
+                <EditMenu
+                    item={focusItem}
+                    hideEditPanel={this.hideEditPanel}
+                    updateCart={this.props.updateItemInCart}
+                />
 
-    get productConfirm() {
-        const { classes } = this.props;
-
-        return (
-            <div className={classes.save}>
-                <Button onClick={this.hideEditPanel}>Cancel</Button>
-                <Button>Update Cart</Button>
-            </div>
+            </Fragment>
         );
     }
 
@@ -192,14 +186,10 @@ class MiniCart extends Component {
             return <EmptyMiniCart />;
         }
 
-        const { isEditPanelOpen } = state;
-        const body = isEditPanelOpen ? productOptions : productList;
-        const footer = isEditPanelOpen ? productConfirm : checkout;
-
         return (
             <Fragment>
-                <div className={classes.body}>{body}</div>
-                <div className={classes.footer}>{footer}</div>
+                <div className={classes.body}>{productList}</div>
+                <div className={classes.footer}>{checkout}</div>
             </Fragment>
         );
     }
@@ -209,10 +199,13 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { miniCartInner, props } = this;
+        const { miniCartInner, productOptions, props, state } = this;
         const { classes, isOpen } = props;
+        const { isEditPanelOpen } = state;
         const className = isOpen ? classes.root_open : classes.root;
-        const title = this.state.isEditPanelOpen
+
+        const body = isEditPanelOpen ? productOptions : miniCartInner;
+        const title = isEditPanelOpen
             ? 'Edit Cart Item'
             : 'Shopping Cart';
 
@@ -226,7 +219,7 @@ class MiniCart extends Component {
                         <Icon name="x" />
                     </Trigger>
                 </div>
-                {miniCartInner}
+                {body}
             </aside>
         );
     }
@@ -241,7 +234,7 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = { getCartDetails, removeItemFromCart };
+const mapDispatchToProps = { getCartDetails, updateItemInCart, removeItemFromCart };
 
 export default compose(
     classify(defaultClasses),
