@@ -3,7 +3,9 @@ import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import SwatchTooltip from 'src/components/SwatchTooltip';
 import CheckIcon from 'react-feather/dist/icons/check';
+
 import defaultClasses from './swatch.css';
 
 import { memoizedGetRandomColor } from 'src/util/getRandomColor';
@@ -44,13 +46,15 @@ class Swatch extends Component {
             hasFocus,
             isSelected,
             item,
-            // eslint-disable-next-line
-            itemIndex,
             style,
             ...restProps
         } = props;
+
         const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label, value_index } = item;
+
+        // TODO: use the colors from graphQL when they become available.
+        const randomColor = memoizedGetRandomColor(value_index);
 
         // We really want to avoid specifying presentation within JS.
         // Swatches are unusual in that their color is data, not presentation,
@@ -58,18 +62,20 @@ class Swatch extends Component {
         // So we merely provide the color data here, and let the CSS decide
         // how to use that color (e.g., background, border).
         const finalStyle = Object.assign({}, style, {
-            '--venia-swatch-bg': memoizedGetRandomColor(value_index)
+            '--venia-swatch-bg': randomColor
         });
 
         return (
-            <button
-                {...restProps}
-                className={className}
-                style={finalStyle}
-                title={label}
-            >
-                {icon}
-            </button>
+            <SwatchTooltip text={label}>
+                <button
+                    {...restProps}
+                    className={className}
+                    style={finalStyle}
+                    title={label}
+                >
+                    {icon}
+                </button>
+            </SwatchTooltip>
         );
     }
 }
