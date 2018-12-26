@@ -1,11 +1,12 @@
 import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { bool, object, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
+import checkoutActions from 'src/actions/checkout';
 import Icon from 'src/components/Icon';
 import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
@@ -13,12 +14,14 @@ import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
-import { isEmptyCartVisible } from 'src/selectors/cart';
+import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
+import Mask from 'src/components/Mask';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
 class MiniCart extends Component {
     static propTypes = {
+        cancelCheckout: func,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -27,6 +30,7 @@ class MiniCart extends Component {
         classes: shape({
             body: string,
             footer: string,
+            footerMaskOpen: string,
             header: string,
             placeholderButton: string,
             root_open: string,
@@ -37,7 +41,8 @@ class MiniCart extends Component {
             title: string,
             totals: string
         }),
-        isCartEmpty: bool
+        isCartEmpty: bool,
+        isMiniCartMaskOpen: bool
     };
 
     constructor(...args) {
@@ -186,7 +191,7 @@ class MiniCart extends Component {
             props,
             state
         } = this;
-        const { classes, isCartEmpty } = props;
+        const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
 
         if (isCartEmpty) {
             return <EmptyMiniCart />;
@@ -195,11 +200,14 @@ class MiniCart extends Component {
         const { isEditPanelOpen } = state;
         const body = isEditPanelOpen ? productOptions : productList;
         const footer = isEditPanelOpen ? productConfirm : checkout;
+        const footerClassName = isMiniCartMaskOpen
+            ? classes.footerMaskOpen
+            : classes.footer;
 
         return (
             <Fragment>
                 <div className={classes.body}>{body}</div>
-                <div className={classes.footer}>{footer}</div>
+                <div className={footerClassName}>{footer}</div>
             </Fragment>
         );
     }
@@ -210,7 +218,7 @@ class MiniCart extends Component {
         }
 
         const { miniCartInner, props } = this;
-        const { classes, isOpen } = props;
+        const { classes, isOpen, isMiniCartMaskOpen, cancelCheckout } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const title = this.state.isEditPanelOpen
             ? 'Edit Cart Item'
@@ -227,6 +235,7 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 {miniCartInner}
+                <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );
     }
@@ -237,11 +246,17 @@ const mapStateToProps = state => {
 
     return {
         cart,
-        isCartEmpty: isEmptyCartVisible(state)
+        isCartEmpty: isEmptyCartVisible(state),
+        isMiniCartMaskOpen: isMiniCartMaskOpen(state)
     };
 };
 
-const mapDispatchToProps = { getCartDetails, removeItemFromCart };
+const { cancelCheckout } = checkoutActions;
+const mapDispatchToProps = {
+    getCartDetails,
+    removeItemFromCart,
+    cancelCheckout
+};
 
 export default compose(
     classify(defaultClasses),

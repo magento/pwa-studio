@@ -34,6 +34,12 @@ const reducerMap = {
             editing: payload
         };
     },
+    [actions.cancelCheckout]: state => {
+        return {
+            ...state,
+            step: 'cart'
+        };
+    },
     [actions.address.submit]: state => {
         return {
             ...state,
