@@ -36,7 +36,7 @@ class GalleryItems extends Component {
             ? Array.from({ length: pageSize })
                   .fill(null)
                   .map((_, index) => (
-                      <GalleryItem key={index} placeholder={true} />
+                      <GalleryItem key={index} item={null} />
                   ))
             : defaultPlaceholders;
     }

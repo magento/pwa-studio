@@ -15,9 +15,6 @@ const classes = {
     root: 'g'
 };
 
-const handleLoad = () => {};
-const handleError = () => {};
-
 const renderImagePlaceholder = props => {
     return <img src="foo.png" alt="" width="300px" height="372px" {...props} />;
 };
@@ -26,15 +23,14 @@ const validImage = {
     className: classes.image,
     src: 'foo/bar/test.png',
     alt: 'alt',
-    onLoad: handleLoad,
-    onError: handleError,
-    showImage: true,
     iconHeight: '32',
     placeholder: renderImagePlaceholder
 };
 
 test('renders an image when showImage is true', () => {
     const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+    wrapper.setState({ showImage: true });
+
     const child = wrapper.find(`.${classes.image}`);
 
     expect(child).toHaveLength(1);
@@ -45,10 +41,11 @@ test('renders a placeholder image while awaiting image', () => {
         <Image
             classes={classes}
             {...validImage}
-            showImage={false}
             placeholder={renderImagePlaceholder}
         />
     ).dive();
+    wrapper.setState({ showImage: false });
+
     const child = wrapper.find(`.${classes.imagePlaceholder}`);
 
     expect(child).toHaveLength(1);
@@ -56,15 +53,17 @@ test('renders a placeholder image while awaiting image', () => {
 
 test('renders placeholder pending after item is loaded', () => {
     const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+    wrapper.setState({ showImage: true });
+
     const child = wrapper.find(`.${classes.imagePlaceholder_pending}`);
 
     expect(child).toHaveLength(1);
 });
 
 test('renders imagePlaceholder and imagePending when `showImage: false`', () => {
-    const wrapper = shallow(
-        <Image classes={classes} {...validImage} showImage={false} />
-    ).dive();
+    const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+    wrapper.setState({ showImage: false });
+
     const realImage = wrapper.find({ className: classes.image_pending });
     const placeholderImage = wrapper.find({
         className: classes.imagePlaceholder
@@ -75,22 +74,17 @@ test('renders imagePlaceholder and imagePending when `showImage: false`', () => 
 });
 
 test('renders error image when error is thrown', () => {
-    const handleError = jest.fn();
-    const wrapper = shallow(
-        <Image
-            classes={classes}
-            {...validImage}
-            showImage={false}
-            onError={handleError}
-        />
-    ).dive();
+    const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+
+    const handleError = jest.spyOn(wrapper.instance(), 'handleError');
+    wrapper.instance().forceUpdate();
 
     wrapper
         .find({ className: classes.image_pending })
         .first()
         .simulate('error');
 
-    expect(handleError).toBeCalled();
+    expect(handleError).toHaveBeenCalled();
     const error = wrapper.find({ className: classes.image_error }).first();
     expect(error).toHaveLength(1);
 });
@@ -106,39 +100,29 @@ test('handles `load` and `error` events', () => {
 });
 
 test('calls `onLoad` on image `load`', () => {
-    const handleLoad = jest.fn();
-    const wrapper = shallow(
-        <Image
-            classes={classes}
-            {...validImage}
-            showImage={false}
-            onLoad={handleLoad}
-        />
-    ).dive();
+    const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+
+    const handleLoad = jest.spyOn(wrapper.instance(), 'handleLoad');
+    wrapper.instance().forceUpdate();
 
     wrapper
         .find({ className: classes.image_pending })
         .first()
         .simulate('load');
 
-    expect(handleLoad).toBeCalled();
+    expect(handleLoad).toHaveBeenCalled();
 });
 
 test('calls `onError` on image `error`', () => {
-    const handleError = jest.fn();
-    const wrapper = shallow(
-        <Image
-            classes={classes}
-            {...validImage}
-            showImage={false}
-            onError={handleError}
-        />
-    ).dive();
+    const wrapper = shallow(<Image classes={classes} {...validImage} />).dive();
+
+    const handleError = jest.spyOn(wrapper.instance(), 'handleError');
+    wrapper.instance().forceUpdate();
 
     wrapper
         .find({ className: classes.image_pending })
         .first()
         .simulate('error');
 
-    expect(handleError).toBeCalled();
+    expect(handleError).toHaveBeenCalled();
 });

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { string, shape, func, bool } from 'prop-types';
+import { string, shape, func } from 'prop-types';
 import errorImg from './hanger.svg';
 import classify from 'src/classify';
 import defaultClasses from './image.css';
@@ -19,22 +19,17 @@ class Image extends Component {
         height: string,
         iconHeight: string,
         alt: string.isRequired,
-        onError: func,
-        onLoad: func,
-        showImage: bool,
         src: string.isRequired,
         width: string
     };
 
     static defaultProps = {
-        onError: () => {},
-        onLoad: () => {},
-        showImage: true,
         iconHeight: '32'
     };
 
     state = {
-        isError: false
+        isError: false,
+        showImage: false
     };
 
     static getDerivedStateFromProps(props) {
@@ -47,20 +42,21 @@ class Image extends Component {
     }
 
     handleLoad = () => {
-        const { onLoad } = this.props;
-        onLoad();
+        this.setState({
+            showImage: true
+        });
     };
 
     handleError = () => {
-        const { onError } = this.props;
         this.setState({
-            isError: true
+            isError: true,
+            showImage: false
         });
-        onError();
     };
 
     get imagePlaceholder() {
-        const { placeholder, showImage, classes } = this.props;
+        const { placeholder, classes } = this.props;
+        const { showImage } = this.state;
 
         const className = !showImage
             ? classes.imagePlaceholder
@@ -86,8 +82,10 @@ class Image extends Component {
     }
 
     get image() {
-        const { alt, width, height, src, showImage, classes } = this.props;
+        const { alt, width, height, src, classes } = this.props;
         const { handleLoad, handleError, imagePlaceholder } = this;
+        const { showImage } = this.state;
+
         const className = showImage ? classes.image : classes.image_pending;
 
         return (

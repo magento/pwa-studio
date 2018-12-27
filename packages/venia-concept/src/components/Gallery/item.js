@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { string, number, shape, func, bool } from 'prop-types';
+import { string, number, shape, bool } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
@@ -57,7 +57,7 @@ class GalleryItem extends Component {
      * https://github.com/magento/graphql-ce/issues/88
      */
     get renderImage() {
-        const { classes, item, showImage } = this.props;
+        const { classes, item } = this.props;
         const { renderImagePlaceholder } = this;
 
         return (
@@ -66,9 +66,6 @@ class GalleryItem extends Component {
                     className={classes.image}
                     src={makeProductMediaPath(item.small_image)}
                     alt={item.name}
-                    onLoad={this.handleLoad}
-                    onError={this.handleError}
-                    showImage={showImage}
                     iconHeight={iconHeight}
                     placeholder={renderImagePlaceholder}
                 />
@@ -78,6 +75,16 @@ class GalleryItem extends Component {
 
     render() {
         const { classes, item } = this.props;
+        const { renderImagePlaceholder } = this;
+
+        if (!item) {
+            return (
+                <div className={classes.root}>
+                    {renderImagePlaceholder}
+                </div>
+            );
+        }
+
         const { renderImage } = this;
         const { name, price, url_key } = item;
         const productLink = `/${url_key}${productUrlSuffix}`;
@@ -99,18 +106,6 @@ class GalleryItem extends Component {
             </div>
         );
     }
-
-    handleLoad = () => {
-        const { item, onLoad } = this.props;
-
-        onLoad(item.id);
-    };
-
-    handleError = () => {
-        const { item, onError } = this.props;
-
-        onError(item.id);
-    };
 }
 
 export default classify(defaultClasses)(GalleryItem);
