@@ -76,7 +76,8 @@ class Flow extends Component {
             submitAddress,
             submitOrder,
             submitPaymentMethod,
-            submitShippingMethod
+            submitShippingMethod,
+            closeCheckoutForm
         } = actions;
 
         const { editing, step, submitting } = checkout;
@@ -111,7 +112,8 @@ class Flow extends Component {
                     submitOrder,
                     submitPaymentMethod,
                     submitShippingMethod,
-                    submitting
+                    submitting,
+                    closeCheckoutForm
                 };
 
                 return <Form {...stepProps} />;

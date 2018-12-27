@@ -1,18 +1,20 @@
 .root {
     composes: root from '../clickable.css';
     background-color: white;
-    border: 1px solid currentColor;
-    border-radius: 1.5rem;
-    color: rgb(var(--venia-teal));
+    border: 1px solid black;
+    border-radius: 6.25rem;
+    color: black;
     font-size: 0.875rem;
-    height: 3rem;
-    min-width: 8.75rem;
+    height: 2.125rem;
+    min-width: 9rem;
     padding: 0 1.5rem;
     transition: opacity 256ms linear;
 }
 
-.root:hover {
-    background-color: rgb(var(--venia-teal-alt));
+.rootFilled {
+    composes: root;
+    background-color: black;
+    color: white;
 }
 
 .root[disabled] {

@@ -6,6 +6,11 @@ import Button from 'src/components/Button';
 import defaultClasses from './section.css';
 import Icon from 'src/components/Icon';
 
+const editIconAttrs = {
+    color: 'black',
+    width: 18
+};
+
 class Section extends Component {
     static propTypes = {
         classes: shape({
@@ -15,7 +20,12 @@ class Section extends Component {
             icon: string
         }),
         label: node,
-        selectedOption: bool
+        selectedOption: bool,
+        filledOption: bool
+    };
+
+    defaultProps = {
+        filledOption: false
     };
 
     render() {
@@ -24,6 +34,7 @@ class Section extends Component {
             classes,
             label,
             selectedOption,
+            filledOption,
             ...restProps
         } = this.props;
         return (
@@ -37,6 +48,11 @@ class Section extends Component {
                         {' '}
                         {selectedOption && <Icon name="check" />}{' '}
                     </span>
+                </span>
+                <span className={classes.editIconContainer}>
+                    {filledOption ? (
+                        <Icon name="edit-2" attrs={editIconAttrs} />
+                    ) : null}
                 </span>
             </Button>
         );

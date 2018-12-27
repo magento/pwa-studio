@@ -4,7 +4,7 @@ import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import { Util } from '@magento/peregrine';
 import { getShippingMethods } from 'src/actions/cart';
-import {
+import actions, {
     beginCheckout,
     editOrder,
     resetCheckout,
@@ -78,7 +78,8 @@ class CheckoutWrapper extends Component {
             submitAddress,
             submitOrder,
             submitPaymentMethod,
-            submitShippingMethod
+            submitShippingMethod,
+            closeCheckoutForm
         } = this.props;
 
         // ensure state slices are present
@@ -95,7 +96,8 @@ class CheckoutWrapper extends Component {
             submitAddress,
             submitOrder,
             submitPaymentMethod,
-            submitShippingMethod
+            submitShippingMethod,
+            closeCheckoutForm
         };
 
         const {
@@ -124,7 +126,6 @@ class CheckoutWrapper extends Component {
         };
 
         const flowProps = { actions, cart, checkout, ...miscProps };
-
         return <Flow {...flowProps} />;
     }
 }
@@ -139,7 +140,8 @@ const mapDispatchToProps = {
     submitAddress,
     submitOrder,
     submitPaymentMethod,
-    submitShippingMethod
+    submitShippingMethod,
+    closeCheckoutForm: actions.reset
 };
 
 export default connect(
