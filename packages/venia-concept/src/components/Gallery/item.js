@@ -37,15 +37,7 @@ class GalleryItem extends Component {
                     }).isRequired
                 }).isRequired
             }).isRequired
-        }),
-        onError: func,
-        onLoad: func,
-        showImage: bool
-    };
-
-    static defaultProps = {
-        onError: () => {},
-        onLoad: () => {}
+        })
     };
 
     renderImagePlaceholder(props) {
