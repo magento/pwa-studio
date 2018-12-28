@@ -7,6 +7,7 @@ import { transparentPlaceholder } from 'src/shared/images';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 import Image from 'src/components/Image';
+
 const imageWidth = '300';
 const imageHeight = '372';
 const iconHeight = '32';
@@ -40,6 +41,7 @@ class GalleryItem extends Component {
         })
     };
 
+    // used as an argument for <Image />
     renderImagePlaceholder(props) {
         return (
             <img
@@ -73,19 +75,34 @@ class GalleryItem extends Component {
         );
     }
 
+    // Runs before images begin to load
+    get imagePreLoad() {
+        const { classes } = this.props;
+        const { renderImagePlaceholder } = this;
+        return (
+            <div className={classes.root}>
+                <Image
+                    className={classes.image}
+                    alt='placeholder'
+                    src={null}
+                    iconHeight={iconHeight}
+                    placeholder={renderImagePlaceholder}
+                />
+                <div className={classes.name_pending} />
+                <div className={classes.price_pending} />
+            </div>
+        )
+    }
+
     render() {
         const { classes, item } = this.props;
-        const { renderImagePlaceholder } = this;
+        const { imagePreLoad } = this;
 
-        if (!item) {
-            return (
-                <div className={classes.root}>
-                    {renderImagePlaceholder}
-                </div>
-            );
-        }
+        // If no item, return imagePreload
+        if (!item) { return imagePreLoad }
 
         const { renderImage } = this;
+
         const { name, price, url_key } = item;
         const productLink = `/${url_key}${productUrlSuffix}`;
 

@@ -19,7 +19,7 @@ class Image extends Component {
         height: string,
         iconHeight: string,
         alt: string.isRequired,
-        src: string.isRequired,
+        src: string,
         width: string
     };
 

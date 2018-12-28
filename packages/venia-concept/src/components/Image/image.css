@@ -26,6 +26,7 @@
 
 .image_pending {
     composes: image;
+    height: 0; /* if not set, paginator will jump off-screen */
     opacity: 0;
     position: absolute;
 }
