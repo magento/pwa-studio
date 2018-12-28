@@ -149,5 +149,11 @@
     "workbox-webpack-plugin": "~3.6.1",
     "write-file-webpack-plugin": "~4.2.0",
     "xml": "~1.0.1"
+  },
+  "dependencies": {
+    "envalid": "^4.1.4",
+    "graphql-playground-middleware-express": "^1.7.8",
+    "readdir-enhanced": "^2.2.4",
+    "virtual-module-webpack-plugin": "^0.4.1"
   }
 }
