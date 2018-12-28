@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { string, number, shape, bool } from 'prop-types';
+import { string, number, shape } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
@@ -83,7 +83,7 @@ class GalleryItem extends Component {
             <div className={classes.root}>
                 <Image
                     className={classes.image}
-                    alt='placeholder'
+                    alt="placeholder"
                     src={null}
                     iconHeight={iconHeight}
                     placeholder={renderImagePlaceholder}
@@ -91,7 +91,7 @@ class GalleryItem extends Component {
                 <div className={classes.name_pending} />
                 <div className={classes.price_pending} />
             </div>
-        )
+        );
     }
 
     render() {
@@ -99,7 +99,9 @@ class GalleryItem extends Component {
         const { imagePreLoad } = this;
 
         // If no item, return imagePreload
-        if (!item) { return imagePreLoad }
+        if (!item) {
+            return imagePreLoad;
+        }
 
         const { renderImage } = this;
 
