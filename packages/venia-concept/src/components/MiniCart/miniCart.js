@@ -135,23 +135,16 @@ class MiniCart extends Component {
     }
 
     get productOptions() {
-        const { classes } = this.props;
-        const { focusItem } = this.state;
-
-        const itemName = focusItem
-            ? focusItem.name
-            : null;
-        const itemPrice = focusItem
-            ? focusItem.price
-            : null;
-        console.log(focusItem);
+        const { props, state, hideEditPanel } = this;
+        const { updateItemInCart } = props;
+        const { focusItem } = state;
 
         return (
             <Fragment>
                 <EditMenu
                     item={focusItem}
-                    hideEditPanel={this.hideEditPanel}
-                    updateCart={this.props.updateItemInCart}
+                    hideEditPanel={hideEditPanel}
+                    updateCart={updateItemInCart}
                 />
 
             </Fragment>
@@ -174,11 +167,8 @@ class MiniCart extends Component {
     get miniCartInner() {
         const {
             checkout,
-            productConfirm,
             productList,
-            productOptions,
             props,
-            state
         } = this;
         const { classes, isCartEmpty } = props;
 

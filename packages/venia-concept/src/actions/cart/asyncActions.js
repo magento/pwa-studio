@@ -182,7 +182,7 @@ export const updateItemInCart = (payload, targetItemId) => {
                     }
                 });
             }
-            console.log(item.id);
+            
             const cartItem = await request(
                 `/rest/V1/guest-carts/${guestCartId}/items/${targetItemId}`,
                 {

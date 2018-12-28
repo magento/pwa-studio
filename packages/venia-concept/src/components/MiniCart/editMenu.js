@@ -1,10 +1,11 @@
 import React, { Component, Suspense } from 'react';
 import { Query } from 'react-apollo';
+import { Form } from 'informed';
 import gql from 'graphql-tag';
-import getUrlKey from 'src/util/getUrlKey';
 import classify from 'src/classify';
 import defaultClasses from './miniCart.css';
 import Button from 'src/components/Button';
+import Quantity from 'src/components/ProductQuantity';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -72,15 +73,16 @@ class EditMenu extends Component {
 
     state = {
         optionSelections: new Map(),
-        quantity: 1
+        quantity: this.props.item.qty,
+        isLoading: false
     }
 
     get fallback() {
         return <div>Loading...</div>;
     }
 
-    handleClick = (targetItem) => {
-        const { updateCart } = this.props;
+    handleClick = async (targetItem) => {
+        const { updateCart, hideEditPanel } = this.props;
         const { optionSelections, quantity } = this.state;
         const { configurable_options, variants } = targetItem;
         const isConfigurable = Array.isArray(configurable_options);
@@ -98,7 +100,7 @@ class EditMenu extends Component {
         const payload = {
             item: product,
             productType,
-            quantity
+            quantity: quantity
         }
 
         if (productType === 'ConfigurableProduct') {
@@ -125,9 +127,17 @@ class EditMenu extends Component {
                 item: Object.assign({}, item.product)
             });
         }
-        console.log('target id: ' + this.props.item.item_id);
-        updateCart(payload, this.props.item.item_id);
+        this.setState({
+            isLoading: true
+        });
+        await updateCart(payload, this.props.item.item_id);
+        this.setState({
+            isLoading: false
+        });
+        hideEditPanel();
     };
+
+    setQuantity = quantity => this.setState({ quantity });
 
     handleSelectionChange = (optionId, selection) => {
         this.setState(({ optionSelections }) => ({
@@ -142,6 +152,7 @@ class EditMenu extends Component {
         const { fallback, handleSelectionChange, props } = this;
         const { classes, item } = props;
         const { name, price } = item;
+        const modalClass = this.state.isLoading ? classes.modal_active : classes.modal;
 
         return(
             <Query
@@ -160,24 +171,36 @@ class EditMenu extends Component {
                     }
 
                     return (
-                        <div className={classes.content}>
+                        <Form className={classes.content}>
                             <Suspense fallback={fallback}>
-                                <div className={classes.focusItem}>
+                                <section className={classes.focusItem}>
                                     {name}
                                     <div className={classes.price}>${price}</div>
-                                </div>
-                                <div className={classes.options}>
+                                </section>
+                                <section className={classes.options}>
                                     <Options
                                         options={configurable_options}
                                         onSelectionChange={handleSelectionChange}
                                     />
-                                </div>
+                                </section>
+                                <section className={classes.quantity}>
+                                    <h2 className={classes.quantityTitle}>
+                                        <span>Quantity</span>
+                                    </h2>
+                                    <Quantity
+                                        initialValue={props.item.qty}
+                                        onValueChange={this.setQuantity}
+                                    />
+                                </section>
                             </Suspense>
                             <div className={classes.save}>
                                 <Button onClick={this.props.hideEditPanel}>Cancel</Button>
                                 <Button onClick={() => this.handleClick(item)}>Update Cart</Button>
                             </div>
-                        </div>
+                            <div className={modalClass}>
+                                <span className={classes.modalText}>Processing...</span>
+                            </div>
+                        </Form>
                     );
                 }}
             </Query>

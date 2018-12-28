@@ -62,14 +62,74 @@
     z-index: 1;
 }
 
-.options {
-    padding: 1rem;
+.modal {
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: #CCC;
+    text-align: center;
+    position: absolute;
+    top: 0;
+}
+
+.modalText {
+    color: #FFF;
     font-weight: bold;
-    height: 80%;
+    text-shadow: 0px 1px 3px #000;
+    position: absolute;
+    top: 20rem;
+    right: 8rem;
+}
+
+.modal_active {
+    visibility: visible;
+    composes: modal;
+    opacity: 0.7;
+}
+
+.options {
+    font-weight: bold;
 }
 
 .price {
     float: right;
+}
+
+.quantity {
+    border-color: rgb(var(--venia-border));
+    border-style: solid;
+    border-width: 0 0 1px;
+    margin: 0 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.quantityTitle {
+    composes: title from '../../components/ProductOptions/option.css';
+}
+
+.save {
+    composes: footer;
+    justify-content: center;
+    display: flex;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.save button {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.subtotalLabel {
+    color: rgb(var(--venia-text-alt));
+}
+
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
 }
 
 .title {
@@ -87,27 +147,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.save {
-    composes: footer;
-    justify-content: center;
-    display: flex;
-    padding: 1rem 0;
-}
-
-.save button {
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-.subtotalLabel {
-    color: rgb(var(--venia-text-alt));
-}
-
-.subtotalValue {
-    font-weight: 600;
-    margin-left: 0.5rem;
 }
 
 .placeholderButton {
