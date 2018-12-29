@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react';
-import { Query } from 'react-apollo';
+import { Query, Fragment } from 'react-apollo';
 import { Form } from 'informed';
 import gql from 'graphql-tag';
 import classify from 'src/classify';
@@ -16,21 +16,6 @@ const query = gql`
                 id
                 sku
                 name
-                price {
-                    regularPrice {
-                        amount {
-                            currency
-                            value
-                        }
-                    }
-                }
-                description
-                media_gallery_entries {
-                    label
-                    position
-                    disabled
-                    file
-                }
                 ... on ConfigurableProduct {
                     configurable_options {
                         attribute_code
@@ -93,9 +78,6 @@ class EditMenu extends Component {
         const product = targetItem;
 
         const optionCodes = new Map();
-        for (const option of configurable_options) {
-            optionCodes.set(option.attribute_id, option.attribute_code);
-        }
 
         const payload = {
             item: product,
@@ -104,6 +86,9 @@ class EditMenu extends Component {
         }
 
         if (productType === 'ConfigurableProduct') {
+            for (const option of configurable_options) {
+                optionCodes.set(option.attribute_id, option.attribute_code);
+            }
             const options = Array.from(optionSelections, ([id, value]) => ({
                 option_id: id,
                 option_value: value
@@ -166,12 +151,10 @@ class EditMenu extends Component {
                     const item = data.productDetail.items[0];
                     const configurable_options = item.configurable_options;
 
-                    if (!Array.isArray(configurable_options)) {
-                        return <div>No options!</div>
-                    }
+                    let options = null;
 
-                    return (
-                        <Form className={classes.content}>
+                    if (Array.isArray(configurable_options)) {
+                        options =
                             <Suspense fallback={fallback}>
                                 <section className={classes.focusItem}>
                                     {name}
@@ -183,16 +166,21 @@ class EditMenu extends Component {
                                         onSelectionChange={handleSelectionChange}
                                     />
                                 </section>
-                                <section className={classes.quantity}>
-                                    <h2 className={classes.quantityTitle}>
-                                        <span>Quantity</span>
-                                    </h2>
-                                    <Quantity
-                                        initialValue={props.item.qty}
-                                        onValueChange={this.setQuantity}
-                                    />
-                                </section>
                             </Suspense>
+                    }
+
+                    return (
+                        <Form className={classes.content}>
+                            {options}
+                            <section className={classes.quantity}>
+                                <h2 className={classes.quantityTitle}>
+                                    <span>Quantity</span>
+                                </h2>
+                                <Quantity
+                                    initialValue={props.item.qty}
+                                    onValueChange={this.setQuantity}
+                                />
+                            </section>
                             <div className={classes.save}>
                                 <Button onClick={this.props.hideEditPanel}>Cancel</Button>
                                 <Button onClick={() => this.handleClick(item)}>Update Cart</Button>

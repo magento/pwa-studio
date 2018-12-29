@@ -7,7 +7,6 @@ import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, updateItemInCart, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
-import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
 import ProductList from './productList';
@@ -146,7 +145,6 @@ class MiniCart extends Component {
                     hideEditPanel={hideEditPanel}
                     updateCart={updateItemInCart}
                 />
-
             </Fragment>
         );
     }
