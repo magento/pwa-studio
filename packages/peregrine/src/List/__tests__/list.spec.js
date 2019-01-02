@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import List from '..';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     root: 'abc'
