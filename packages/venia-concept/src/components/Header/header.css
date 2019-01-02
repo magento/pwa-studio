@@ -8,6 +8,14 @@
     grid-row-gap: 0.5rem;
 }
 
+.open {
+    composes: root;
+}
+
+.closed {
+    composes: root;
+}
+
 .toolbar {
     align-content: center;
     align-items: center;
@@ -21,8 +29,7 @@
 }
 
 .navTrigger,
-.cartTrigger,
-.searchTrigger {
+.cartTrigger {
     composes: root from '../clickable.css';
     height: 3rem;
     width: 3rem;
@@ -40,24 +47,4 @@
 .secondaryActions {
     grid-area: secondary;
     justify-self: end;
-}
-
-.searchBlock {
-    align-items: center;
-    display: none;
-    flex: none;
-    justify-content: center;
-    order: 1;
-    padding: 0 0.5rem 1rem;
-    width: 100%;
-}
-
-.searchInput {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 6px;
-    font-size: 1rem;
-    height: 3rem;
-    padding: 0 1.5rem;
-    width: 24rem;
-    -webkit-appearance: none;
 }
