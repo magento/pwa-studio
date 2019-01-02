@@ -25,6 +25,7 @@ class SearchAutocomplete extends Component {
     };
 
     state = {
+        isQueryUpdating: false,
         autocompleteQuery: ''
     };
 
@@ -32,6 +33,7 @@ class SearchAutocomplete extends Component {
         const { searchQuery } = this.props;
 
         if (prevProps.searchQuery !== searchQuery) {
+            this.setState({ isQueryUpdating: true });
             this.updateAutocompleteQuery(searchQuery);
         }
     };
@@ -39,7 +41,8 @@ class SearchAutocomplete extends Component {
     /* Debounce this update in order to avoid multiple autocomplete query calls */
     updateAutocompleteQuery = debounce(value => {
         this.setState({
-            autocompleteQuery: value
+            autocompleteQuery: value,
+            isQueryUpdating: false
         });
     }, debounceTimeout);
 
@@ -59,7 +62,7 @@ class SearchAutocomplete extends Component {
     render() {
         const { classes, autocompleteVisible } = this.props;
         const { handleOnProductOpen, handleCategorySearch } = this;
-        const { autocompleteQuery } = this.state;
+        const { autocompleteQuery, isQueryUpdating } = this.state;
 
         if (!autocompleteVisible || autocompleteQuery.length < 3) return null;
 
@@ -79,7 +82,7 @@ class SearchAutocomplete extends Component {
                                 </div>
                             </div>
                         );
-                    if (loading)
+                    if (loading || isQueryUpdating)
                         return (
                             <div className={classes.root}>
                                 <div className={classes.statusContent}>
