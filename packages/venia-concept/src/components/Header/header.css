@@ -22,6 +22,14 @@
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
+.open {
+    composes: root;
+}
+
+.closed {
+    composes: root;
+}
+
 .toolbar {
     align-content: center;
     align-items: center;

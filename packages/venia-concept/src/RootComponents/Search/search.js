@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getSearchParams } from 'src/util/getSearchParams';
+import { bool, func, object, shape, string } from 'prop-types';
 import gql from 'graphql-tag';
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
@@ -23,6 +24,19 @@ const getCategoryName = gql`
 `;
 
 export class Search extends Component {
+    static propTypes = {
+        classes: shape({
+            noResult: string,
+            root: string,
+            totalPages: string
+        }),
+        history: object,
+        location: object.isRequired,
+        match: object,
+        searchOpen: bool,
+        toggleSearch: func
+    };
+
     getCategoryName = (categoryId, classes) => (
         <div className={classes.categoryFilters}>
             <button
