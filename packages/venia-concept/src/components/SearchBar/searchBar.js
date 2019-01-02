@@ -69,7 +69,11 @@ export class SearchBar extends Component {
     }
 
     autocompleteClick = e => {
-        if (this.autocompleteRef.current.contains(e.target)) return;
+        if (
+            this.searchRef.current.contains(e.target) ||
+            this.autocompleteRef.current.contains(e.target)
+        )
+            return;
         this.updateAutocompleteVisible(false);
     };
 
