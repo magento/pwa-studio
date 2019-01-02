@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
