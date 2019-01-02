@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
+import SearchTrigger from './searchTrigger';
+
+const SearchBar = React.lazy(() => import('src/components/SearchBar'));
+
 import defaultClasses from './header.css';
 import logo from './logo.svg';
 
@@ -15,19 +19,26 @@ class Header extends Component {
             logo: PropTypes.string,
             primaryActions: PropTypes.string,
             root: PropTypes.string,
-            searchBlock: PropTypes.string,
-            searchInput: PropTypes.string,
-            searchTrigger: PropTypes.string,
+            open: PropTypes.string,
+            closed: PropTypes.string,
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
-        })
+        }),
+        searchOpen: PropTypes.bool,
+        toggleSearch: PropTypes.func.isRequired
     };
 
+    get searchIcon() {
+        return <Icon name="search" />;
+    }
+
     render() {
-        const { classes } = this.props;
+        const { searchOpen, classes, toggleSearch } = this.props;
+
+        const rootClass = searchOpen ? classes.open : classes.closed;
 
         return (
-            <header className={classes.root}>
+            <header className={rootClass}>
                 <div className={classes.toolbar}>
                     <Link to="/">
                         <img
@@ -44,21 +55,28 @@ class Header extends Component {
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
-                        <button className={classes.searchTrigger}>
-                            <Icon name="search" />
-                        </button>
+                        <SearchTrigger
+                            searchOpen={searchOpen}
+                            toggleSearch={toggleSearch}
+                        >
+                            {this.searchIcon}
+                        </SearchTrigger>
                         <CartTrigger>
                             <Icon name="shopping-cart" />
                         </CartTrigger>
                     </div>
                 </div>
-                <div className={classes.searchBlock}>
-                    <input
-                        className={classes.searchInput}
-                        type="text"
-                        placeholder="I'm looking for..."
+                <Suspense fallback={this.searchIcon}>
+                    <Route
+                        render={({ history, location }) => (
+                            <SearchBar
+                                isOpen={searchOpen}
+                                history={history}
+                                location={location}
+                            />
+                        )}
                     />
-                </div>
+                </Suspense>
             </header>
         );
     }
