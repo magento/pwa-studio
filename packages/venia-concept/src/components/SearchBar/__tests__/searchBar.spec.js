@@ -77,7 +77,7 @@ test('entering text in the input causes the reset button to appear', () => {
     // Simulate entering text in the input field.
     const input = instance.find(inputTypes);
     input.props.onChange({
-        target: { value: 'some text' }
+        currentTarget: { value: 'some text' }
     });
 
     // Test that the button appears.
