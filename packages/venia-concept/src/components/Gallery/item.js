@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, number, shape, func, bool } from 'prop-types';
+import { string, number, shape } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
@@ -50,15 +50,7 @@ class GalleryItem extends Component {
                     }).isRequired
                 }).isRequired
             }).isRequired
-        }),
-        onError: func,
-        onLoad: func,
-        showImage: bool
-    };
-
-    static defaultProps = {
-        onError: () => {},
-        onLoad: () => {}
+        })
     };
 
     render() {
@@ -95,11 +87,7 @@ class GalleryItem extends Component {
     }
 
     renderImagePlaceholder = () => {
-        const { classes, item, showImage } = this.props;
-
-        if (showImage) {
-            return null;
-        }
+        const { classes, item } = this.props;
 
         const className = item
             ? classes.imagePlaceholder
@@ -121,38 +109,23 @@ class GalleryItem extends Component {
      * https://github.com/magento/graphql-ce/issues/88
      */
     renderImage = () => {
-        const { classes, item, showImage } = this.props;
+        const { classes, item } = this.props;
 
         if (!item) {
             return null;
         }
 
         const { small_image, name } = item;
-        const className = showImage ? classes.image : classes.image_pending;
 
         return (
             <img
-                className={className}
+                className={classes.image}
                 src={makeProductMediaPath(small_image)}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
-                onLoad={this.handleLoad}
-                onError={this.handleError}
             />
         );
-    };
-
-    handleLoad = () => {
-        const { item, onLoad } = this.props;
-
-        onLoad(item.id);
-    };
-
-    handleError = () => {
-        const { item, onError } = this.props;
-
-        onError(item.id);
     };
 }
 

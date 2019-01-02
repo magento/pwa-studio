@@ -1,7 +1,19 @@
 .root {
-    margin: 0.8rem;
-    color: red;
-    max-height: 3rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+    background-color: rgb(var(--venia-error-alt));
+    border: 1px solid rgb(var(--venia-error));
+    border-radius: 2px;
+    color: rgb(var(--venia-error));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin: 1rem 0;
+    max-height: 5rem;
+    overflow-x: auto;
+    padding: 0;
+}
+
+.body {
+    display: inline-block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin: 1rem;
 }

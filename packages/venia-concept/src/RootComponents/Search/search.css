@@ -1,0 +1,15 @@
+.root {
+    padding: 1rem;
+}
+
+.totalPages {
+    color: rgb(var(--venia-text-alt));
+    display: grid;
+    justify-content: center;
+    padding: 0 0 1rem 0;
+    text-transform: uppercase;
+}
+
+.noResult {
+    display: flex;
+}
