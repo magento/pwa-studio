@@ -107,6 +107,7 @@ const jestConfig = {
                 // This mapping forces CSS Modules to return literal identies,
                 // so e.g. `classes.root` is always `"root"`.
                 '\\.css$': 'identity-obj-proxy',
+                '\\.svg$': 'identity-obj-proxy',
                 // Re-write imports to Peregrine to ensure they're not pulled
                 // from the build artifacts on disk in `dist`.
                 '^@magento/peregrine(/*(?:.+)*)':

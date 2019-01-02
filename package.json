@@ -22,6 +22,7 @@
     "now-start": "npm run -s stage:venia",
     "prepare": "node ./scripts/update_repo_environment.js && npx lerna bootstrap --hoist",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
+    "prettier:validate": "prettier-check '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
     "storybook:venia": "cd packages/venia-concept && npm run storybook",
@@ -34,6 +35,11 @@
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
     "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run prettier:validate && npm run lint && npm test"
+    }
   },
   "devDependencies": {
     "@magento/directive-parser": "~0.1.1",
@@ -92,6 +98,7 @@
     "graphql-tag": "~2.10.0",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.0",
+    "husky": "^1.2.0",
     "identity-obj-proxy": "~3.0.0",
     "informed": "~1.10.8",
     "intl": "~1.2.5",
@@ -118,7 +125,7 @@
     "react-apollo": "~2.2.4",
     "react-dom": "~16.6.1",
     "react-redux": "~5.0.7",
-    "react-router-dom": "~4.3.1",
+    "react-router-dom": "~4.4.0-beta.6",
     "react-test-renderer": "~16.6.1",
     "redux": "~4.0.1",
     "redux-actions": "~2.6.4",
