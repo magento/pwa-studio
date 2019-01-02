@@ -75,7 +75,7 @@ test('entering text in the input causes the reset button to appear', () => {
     expect(preChangeButtons).toHaveLength(0);
 
     // Simulate entering text in the input field.
-    const input = instance.find(inputTypes);
+    const input = instance.findByProps({ field: 'search_query' });
     input.props.onChange({
         currentTarget: { value: 'some text' }
     });
