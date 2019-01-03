@@ -81,6 +81,9 @@ entries:
     - label: Product listing
       url: /venia-pwa-concept/component/product-listing/
 
+    - label: Purchase history
+      url: /venia-pwa-concept/component/purchase-history/
+
     - label: Quantity selector
       url: /venia-pwa-concept/component/quantity-selector/
 
