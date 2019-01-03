@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import { toggleCart } from 'src/actions/cart';
+import CartCounter from './cartCounter';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
@@ -17,7 +18,8 @@ class Trigger extends Component {
     };
 
     render() {
-        const { children, classes, toggleCart } = this.props;
+        const { children, classes, toggleCart, cart } = this.props;
+        const itemsQty = cart.details.items_qty;
 
         return (
             <button
@@ -26,8 +28,17 @@ class Trigger extends Component {
                 onClick={toggleCart}
             >
                 {children}
+                <CartCounter counter={itemsQty ? itemsQty : 0} />
             </button>
         );
+    }
+}
+
+const mapStateToProps = state => {
+    const { cart } = state;
+    
+    return {
+        cart
     }
 }
 
@@ -38,7 +49,7 @@ const mapDispatchToProps = {
 export default compose(
     classify(defaultClasses),
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )
 )(Trigger);
