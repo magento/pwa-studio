@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -36,6 +36,15 @@ export class Search extends Component {
         searchOpen: bool,
         toggleSearch: func
     };
+
+    componentDidMount() {
+        // Ensure that search is open when the user lands on the search page.
+        const { inputText } = getSearchParams(location);
+        const { searchOpen, toggleSearch } = this.props;
+        if (toggleSearch && !searchOpen && inputText) {
+            toggleSearch();
+        }
+    }
 
     getCategoryName = (categoryId, classes) => (
         <div className={classes.categoryFilters}>
@@ -119,7 +128,6 @@ export class Search extends Component {
 const mapDispatchToProps = { executeSearch };
 
 export default compose(
-    withRouter,
     connect(
         null,
         mapDispatchToProps

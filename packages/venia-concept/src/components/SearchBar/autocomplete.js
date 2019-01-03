@@ -119,7 +119,6 @@ class SearchAutocomplete extends Component {
                             />
                             <SuggestedProducts
                                 handleOnProductOpen={handleOnProductOpen}
-                                handleCategorySearch={handleCategorySearch}
                                 items={items.slice(0, suggestedProductsLimit)}
                             />
                         </div>

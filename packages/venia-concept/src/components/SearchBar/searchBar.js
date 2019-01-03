@@ -42,7 +42,7 @@ export class SearchBar extends Component {
         this.searchRef = React.createRef();
         this.autocompleteRef = React.createRef();
         this.state = {
-            searchQuery: '',
+            dirty: false,
             autocompleteVisible: false
         };
     }
@@ -62,9 +62,6 @@ export class SearchBar extends Component {
         });
 
         document.addEventListener('mousedown', this.autocompleteClick, false);
-        this.setState({
-            searchQuery: searchValueFromQueryString
-        });
         this.formApi.setValue('search_query', searchValueFromQueryString);
     }
 
@@ -84,9 +81,7 @@ export class SearchBar extends Component {
     get resetButton() {
         const { resetForm, state } = this;
 
-        return state.searchQuery ? (
-            <Trigger action={resetForm}>{clearIcon}</Trigger>
-        ) : null;
+        return state.dirty && <Trigger action={resetForm}>{clearIcon}</Trigger>;
     }
 
     updateAutocompleteVisible = visible => {
@@ -95,20 +90,16 @@ export class SearchBar extends Component {
         });
     };
 
-    setSearchQuery = value => this.setState({ searchQuery: value });
-
-    handleChange = event => {
-        const { value } = event.currentTarget || event.srcElement;
-        this.updateAutocompleteVisible(true);
-        this.setSearchQuery(value);
+    handleChange = ({ values }) => {
+        const dirty = !!values.search_query;
+        this.setState({ dirty });
     };
 
-    handleSubmit = () => {
-        const { searchQuery } = this.state;
-        this.updateAutocompleteVisible(false);
-        if (searchQuery !== '') {
-            this.props.executeSearch(searchQuery, this.props.history);
-        }
+    handleInputChange = () => this.updateAutocompleteVisible(true);
+
+    handleSubmit = ({ search_query }) => {
+        search_query &&
+            this.props.executeSearch(search_query, this.props.history);
     };
 
     resetForm = () => {
@@ -120,9 +111,13 @@ export class SearchBar extends Component {
     };
 
     render() {
-        const { props, resetButton } = this;
+        const { props, resetButton, formApi } = this;
+        const { autocompleteVisible } = this.state;
         const { classes, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
+
+        const { values } = (formApi && formApi.getState()) || {};
+        const searchQuery = (values && values.search_query) || '';
 
         return (
             <div className={className}>
@@ -132,12 +127,13 @@ export class SearchBar extends Component {
                         getApi={this.setApi}
                         autoComplete="off"
                         initialValues={initialValues}
+                        onChange={this.handleChange}
                         onSubmit={this.handleSubmit}
                     >
                         <TextInput
                             field="search_query"
                             onFocus={this.inputFocus}
-                            onChange={this.handleChange}
+                            onChange={this.handleInputChange}
                             after={resetButton}
                             before={searchIcon}
                         />
@@ -147,13 +143,11 @@ export class SearchBar extends Component {
                             ref={this.autocompleteRef}
                         >
                             <SearchAutocomplete
-                                searchQuery={this.state.searchQuery}
+                                searchQuery={searchQuery}
                                 updateAutocompleteVisible={
                                     this.updateAutocompleteVisible
                                 }
-                                autocompleteVisible={
-                                    this.state.autocompleteVisible
-                                }
+                                autocompleteVisible={autocompleteVisible}
                                 executeSearch={this.props.executeSearch}
                                 history={this.props.history}
                             />

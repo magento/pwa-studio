@@ -34,12 +34,12 @@ class SuggestedCategories extends Component {
                 render="ul"
                 className={classes.root}
                 items={categorySuggestions}
-                getItemKey={item => item['value_string']}
+                getItemKey={item => item.value_string}
                 renderItem={({ item }) => (
                     <li className={classes.item}>
                         <Link
-                            onClick={handleCategorySearch}
-                            data-id={item['value_string']}
+                            onMouseDown={handleCategorySearch}
+                            data-id={item.value_string}
                             to="/search.html"
                         >
                             <strong>{autocompleteQuery}</strong> in {item.label}

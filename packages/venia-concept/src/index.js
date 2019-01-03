@@ -7,7 +7,7 @@ import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Router, RouteConsumer, Util } from '@magento/peregrine';
+import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
 
@@ -53,9 +53,7 @@ ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
             <Router apiBase={apiBase}>
-                <RouteConsumer>
-                    {routeProps => <App {...routeProps} />}
-                </RouteConsumer>
+                <App />
             </Router>
         </ReduxProvider>
     </ApolloProvider>,
