@@ -92,7 +92,7 @@ export class SearchBar extends Component {
 
     handleChange = ({ values }) => {
         const dirty = !!values.search_query;
-        this.setState({ dirty });
+        dirty !== this.state.dirty && this.setState({ dirty });
     };
 
     handleInputChange = () => this.updateAutocompleteVisible(true);

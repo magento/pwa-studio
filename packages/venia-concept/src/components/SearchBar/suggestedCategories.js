@@ -38,7 +38,7 @@ class SuggestedCategories extends Component {
                 renderItem={({ item }) => (
                     <li className={classes.item}>
                         <Link
-                            onMouseDown={handleCategorySearch}
+                            onClick={handleCategorySearch}
                             data-id={item.value_string}
                             to="/search.html"
                         >
