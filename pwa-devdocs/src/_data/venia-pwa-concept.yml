@@ -69,6 +69,9 @@ entries:
     - label: Number of items
       url: /venia-pwa-concept/component/number-of-items/
 
+    - label: Order confirmation
+      url: /venia-pwa-concept/component/order-confirmation/
+
     - label: Page
       url: /venia-pwa-concept/component/page/
     
