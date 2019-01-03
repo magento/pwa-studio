@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { getSearchParams } from 'src/util/getSearchParams';
 import { bool, func, object, shape, string } from 'prop-types';
 import gql from 'graphql-tag';
+
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import { executeSearch } from 'src/actions/app';
-
 import defaultClasses from './search.css';
-
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
 const getCategoryName = gql`
@@ -30,6 +26,7 @@ export class Search extends Component {
             root: string,
             totalPages: string
         }),
+        executeSearch: func.isRequired,
         history: object,
         location: object.isRequired,
         match: object,
@@ -125,12 +122,4 @@ export class Search extends Component {
     }
 }
 
-const mapDispatchToProps = { executeSearch };
-
-export default compose(
-    connect(
-        null,
-        mapDispatchToProps
-    ),
-    classify(defaultClasses)
-)(Search);
+export default classify(defaultClasses)(Search);
