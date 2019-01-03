@@ -1,13 +1,28 @@
-import { makePathPrepender } from '../makeMediaPath';
+import { makeCategoryMediaPath, makeProductMediaPath } from '../makeMediaPath';
+
 const fooTrailingSlash = '/foo/';
 const fooNoTrailingSlash = '/foo';
 
-test('makePathPrepender makes a function that returns a path', () => {
-    const makePath = makePathPrepender(fooNoTrailingSlash);
-    expect(makePath('nothing')).toBe('/foo/nothing');
+describe('makeProductMediaPath', () => {
+    test('normalizes the product path of resources with and without trailing slashes', () => {
+        const expected = '/media/catalog/product/foo';
+
+        const trailingSlashResult = makeProductMediaPath(fooTrailingSlash);
+        expect(trailingSlashResult).toBe(expected);
+
+        const noTrailingSlashResult = makeProductMediaPath(fooNoTrailingSlash);
+        expect(noTrailingSlashResult).toBe(expected);
+    });
 });
 
-test('makePathPrepender makes a function that removes extra slashes', () => {
-    const makePath = makePathPrepender(fooTrailingSlash);
-    expect(makePath('/nothing///')).toBe('/foo/nothing');
+describe('makeCategoryMediaPath', () => {
+    test('normalizes the category path of resources with and without trailing slashes', () => {
+        const expected = '/media/catalog/category/foo';
+
+        const trailingSlashResult = makeCategoryMediaPath(fooTrailingSlash);
+        expect(trailingSlashResult).toBe(expected);
+
+        const noTrailingSlashResult = makeCategoryMediaPath(fooNoTrailingSlash);
+        expect(noTrailingSlashResult).toBe(expected);
+    });
 });
