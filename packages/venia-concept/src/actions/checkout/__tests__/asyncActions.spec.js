@@ -169,21 +169,29 @@ describe('submitAddress', () => {
             cart: {},
             directory: { countries }
         }));
-
         await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow(
             'guestCartId'
         );
     });
+    test('submitAddress thunk dispatches action on incorrect state(region code)', async () => {
+        const invalidState = 'any_text';
+        const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
+        const incorrectAddressPayload = { incorrectAddressMessage };
+        const submitPayload = {
+            type: 'address',
+            formValues: { region_code: invalidState }
+        };
 
-    test('submitAddress thunk throws if payload is invalid', async () => {
-        const payload = { type: 'address', formValues: {} };
-
-        await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow();
+        await submitAddress(submitPayload)(...thunkArgs);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.address.submit(payload)
+            actions.address.submit(submitPayload)
         );
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.address.reject(incorrectAddressPayload)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 
@@ -502,6 +510,6 @@ describe('formatAddress', () => {
         const values = { region_code: '|||' };
         const shouldThrow = () => formatAddress(values, countries);
 
-        expect(shouldThrow).toThrow('region');
+        expect(shouldThrow).toThrow('state');
     });
 });
