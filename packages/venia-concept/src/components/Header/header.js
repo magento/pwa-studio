@@ -1,6 +1,4 @@
 import React, { Component, Suspense } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Link, Route } from 'react-router-dom';
 
@@ -87,18 +85,4 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const itemsCount = state.cart.details.items_count;
-
-    return {
-        itemsCount
-    };
-};
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        null
-    )
-)(Header);
+export default classify(defaultClasses)(Header);
