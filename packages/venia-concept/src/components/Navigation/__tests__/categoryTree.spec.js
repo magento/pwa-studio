@@ -1,12 +1,11 @@
 import React from 'react';
 import wait from 'waait';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
+import { BrowserRouter } from 'react-router-dom';
+
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
 import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTree from '../categoryTree';
-
-configure({ adapter: new Adapter() });
 
 jest.mock('react-router-dom/Link', () => () => <h6>link</h6>);
 jest.mock('react-router-dom/NavLink', () => 'navlink');
@@ -144,12 +143,14 @@ test('renders with product data', async () => {
     const updateRootNodeId = () => {};
     const wrapper = mount(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryTree
-                rootNodeId={rootNodeId}
-                currentId={currentId}
-                updateRootNodeId={updateRootNodeId}
-                classes={classes}
-            />
+            <BrowserRouter>
+                <CategoryTree
+                    rootNodeId={rootNodeId}
+                    currentId={currentId}
+                    updateRootNodeId={updateRootNodeId}
+                    classes={classes}
+                />
+            </BrowserRouter>
         </MockedProvider>
     );
     wait();
@@ -174,12 +175,14 @@ test('child node correctly sets new root and parent ids', () => {
 
     const wrapper = mount(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryTree
-                rootNodeId={rootNodeId}
-                currentId={currentId}
-                updateRootNodeId={setCurrentPath}
-                classes={classes}
-            />
+            <BrowserRouter>
+                <CategoryTree
+                    rootNodeId={rootNodeId}
+                    currentId={currentId}
+                    updateRootNodeId={setCurrentPath}
+                    classes={classes}
+                />
+            </BrowserRouter>
         </MockedProvider>
     );
     wait();

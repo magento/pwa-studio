@@ -1,9 +1,6 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import SignIn from '../signIn';
-
-configure({ adapter: new Adapter() });
 
 const props = {
     signIn: function() {},
@@ -16,7 +13,11 @@ const classes = {
 
 test('set state `password` to new `password` on `updatePassword`', () => {
     const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
+        <SignIn
+            signIn={props.signIn}
+            signInError={props.signInError}
+            onForgotPassword={() => {}}
+        />
     ).dive();
 
     const newPassword = 'foo';
@@ -28,7 +29,11 @@ test('set state `password` to new `password` on `updatePassword`', () => {
 
 test('set state `username` to new `username` on `updateUsername`', () => {
     const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
+        <SignIn
+            signIn={props.signIn}
+            signInError={props.signInError}
+            onForgotPassword={() => {}}
+        />
     ).dive();
 
     const newUsername = 'bar';
@@ -40,7 +45,11 @@ test('set state `username` to new `username` on `updateUsername`', () => {
 
 test('display error message if there is a `signInError`', () => {
     const wrapper = shallow(
-        <SignIn signIn={props.signIn} signInError={props.signInError} />
+        <SignIn
+            signIn={props.signIn}
+            signInError={props.signInError}
+            onForgotPassword={() => {}}
+        />
     ).dive();
 
     let errorMessage = shallow(wrapper.instance().errorMessage);
@@ -50,7 +59,13 @@ test('display error message if there is a `signInError`', () => {
 test('calls `onSignIn` when sign in button is pressed', () => {
     const signInSpy = jest.fn();
     const wrapper = mount(
-        shallow(<SignIn signIn={signInSpy} classes={classes} />).get(0)
+        shallow(
+            <SignIn
+                signIn={signInSpy}
+                classes={classes}
+                onForgotPassword={() => {}}
+            />
+        ).get(0)
     );
     const signInForm = wrapper.find('form');
     signInForm

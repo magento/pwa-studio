@@ -1,0 +1,18 @@
+.root {
+    align-items: center;
+    display: none;
+    justify-content: center;
+}
+
+.root_open {
+    composes: root;
+    display: flex;
+}
+
+.form {
+    align-items: center;
+    display: grid;
+    justify-items: stretch;
+    margin-bottom: 0.5rem;
+    width: 22.5rem;
+}

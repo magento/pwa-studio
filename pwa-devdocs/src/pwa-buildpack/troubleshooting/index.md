@@ -72,7 +72,7 @@ Another program or process has edited your [host file] and removed the entry for
 
 **Browser does not trust the generated SSL certificate**{:#untrusted-ssl-cert}
 
-Generating certificates is handled by [devcert]. It depends on OpenSSL, so make sure you have a current version of openssl on your system using the following command:
+Generating certificates is handled by [devcert][]. It depends on OpenSSL, so make sure you have a current version of openssl on your system using the following command:
 
 ``` sh
 openssl version
@@ -82,7 +82,18 @@ The version should be 1.0 or above (or LibreSSL 2, in the case of OSX High Sierr
 
 You can install higher versions of OpenSSL with [Homebrew] on OSX, [Chocolatey] on Windows, or your Linux distribution's package manager.
 
-If you're running Linux, machine make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme].
+If you're running Linux, make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme][].
+
+Some users have suggested deleting the `devcert` folder to trigger certificate regeneration.  
+
+* For MacOS users, this folder is usually found at:
+  ```sh
+~/Library/Application Support/devcert
+  ```
+* For Windows users, this folder is usually found at: 
+  ```text
+${User}\AppData\Local\devcert
+  ```
 
 [create an issue]: https://github.com/magento-research/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
