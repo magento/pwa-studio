@@ -1,15 +1,12 @@
 jest.mock('../../../classify');
 import React from 'react';
 import wait from 'waait';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTile from '../categoryTile';
 import CategoryList from '../categoryList';
 import getCategoryList from '../../../queries/getCategoryList.graphql';
-
-configure({ adapter: new Adapter() });
 
 const withRouterAndApolloClient = (mocks, renderFn) => (
     <MemoryRouter initialIndex={0} initialEntries={['/']}>
@@ -85,7 +82,7 @@ test('displays category tiles', async () => {
                                 id: 17,
                                 name: 'baz',
                                 url_key: 'baz-url.html',
-                                url_path: '/bar-url.html',
+                                url_path: '/baz-url.html',
                                 children_count: 0,
                                 path: '1/2/17',
                                 image: null,

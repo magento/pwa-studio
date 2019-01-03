@@ -17,7 +17,8 @@ class Tile extends Component {
         item: shape({
             id: oneOfType([number, string]),
             label: string
-        })
+        }),
+        itemIndex: number
     };
 
     render() {
@@ -26,6 +27,8 @@ class Tile extends Component {
             hasFocus,
             isSelected,
             item,
+            // eslint-disable-next-line
+            itemIndex,
             ...restProps
         } = this.props;
         const className = classes[getClassName('root', isSelected, hasFocus)];
