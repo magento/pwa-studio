@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Main from 'src/components/Main';
@@ -20,10 +20,7 @@ class App extends Component {
             root: string,
             root_masked: string
         }),
-        closeDrawer: func.isRequired,
-        history: object,
-        location: object,
-        match: object
+        closeDrawer: func.isRequired
     };
 
     get onlineIndicator() {
