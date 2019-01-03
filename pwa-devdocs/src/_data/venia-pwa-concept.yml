@@ -54,6 +54,9 @@ entries:
     - label: Footer
       url: /venia-pwa-concept/component/footer/
 
+    - label: Forgot password
+      url: /venia-pwa-concept/component/forgot-password/
+
     - label: Header
       url: /venia-pwa-concept/component/header/
 
