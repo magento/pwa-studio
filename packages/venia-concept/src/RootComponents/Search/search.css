@@ -1,0 +1,32 @@
+.root {
+    padding: 1rem;
+}
+
+.categoryTop {
+    display: flex;
+    padding: 0 0 1rem 0;
+    color: rgb(var(--venia-text-alt));
+    justify-content: center;
+    align-items: center;
+}
+
+.categoryFilters {
+    text-align: right;
+    flex-grow: 1;
+}
+
+.categoryFilter {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    border: 1px solid rgb(var(--venia-border));
+    padding: 0.25rem 0.5rem;
+}
+
+.categoryFilterText {
+    padding-right: 0.5rem;
+}
+
+.noResult {
+    display: flex;
+}

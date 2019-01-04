@@ -1,13 +1,49 @@
 .root {
-    padding: 0.5rem 1.5rem;
-    font-size: 0.85rem;
+    align-items: center;
+    color: rgb(var(--venia-text));
+    display: inline-grid;
+    font-size: 1rem;
+    font-weight: 400;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: auto min-content;
+    justify-items: center;
+    margin: 0.5rem;
+    vertical-align: top;
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    height: 1.25rem;
+    justify-content: center;
+    width: 1.25rem;
+    z-index: 1;
+}
+
+.input {
+    border: 1px solid rgb(var(--venia-text));
+    border-radius: 2px;
+    display: inline-flex;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    height: 1.25rem;
+    margin: 0;
+    width: 1.25rem;
+    -webkit-appearance: none;
+}
+
+.input:focus {
+    border-color: rgb(var(--venia-teal));
+    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
+        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
     outline: none;
 }
 
-.highlighted {
-    background-color: rgb(var(--venia-teal-alt));
-}
-
 .label {
-    vertical-align: super;
+    font-size: 1rem;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
 }
