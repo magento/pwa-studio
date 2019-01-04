@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
-import LoadingIndicator from "src/components/LoadingIndicator"
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -38,12 +38,6 @@ const categoryQuery = gql`
         }
     }
 `;
-
-const loadingIndicator = (
-    <LoadingIndicator>
-        <span>{"Fetching Data..."}</span>
-    </LoadingIndicator>
-)
 
 class Category extends Component {
     static propTypes = {
@@ -99,7 +93,9 @@ class Category extends Component {
                                 pageControl={pageControl}
                                 pageSize={pageSize}
                             />
-                        ) : loadingIndicator
+                        ) : (
+                            loadingIndicator
+                        );
 
                     // Retrieve the total page count from GraphQL when ready
                     const pageCount =
