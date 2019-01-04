@@ -24,19 +24,14 @@ class Trigger extends Component {
         const { cart } = this.props;
         const itemsQty = cart.details.items_qty;
         const svgAttributes = {
-            stroke: 'rgb(var(--venia-text))',
+            stroke: 'rgb(var(--venia-text))'
         };
-    
+
         if (itemsQty > 0) {
             svgAttributes.fill = 'rgb(var(--venia-text))';
         }
-    
-        return (
-            <Icon
-                name="shopping-cart"
-                attrs={svgAttributes}
-            />
-        );
+
+        return <Icon name="shopping-cart" attrs={svgAttributes} />;
     }
 
     render() {
@@ -58,11 +53,11 @@ class Trigger extends Component {
 
 const mapStateToProps = state => {
     const { cart } = state;
-    
+
     return {
         cart
-    }
-}
+    };
+};
 
 const mapDispatchToProps = {
     toggleCart
