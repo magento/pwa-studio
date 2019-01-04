@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { toggleCart } from 'src/actions/cart';
 import CartCounter from './cartCounter';
+
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
@@ -15,7 +16,8 @@ class Trigger extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        toggleCart: PropTypes.func.isRequired
+        toggleCart: PropTypes.func.isRequired,
+        itemsQty: PropTypes.number
     };
 
     get cartIcon() {
