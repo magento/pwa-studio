@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { toggleCart } from 'src/actions/cart';
 import CartCounter from './cartCounter';
+import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
@@ -17,8 +18,27 @@ class Trigger extends Component {
         toggleCart: PropTypes.func.isRequired
     };
 
+    get cartIcon() {
+        const { cart } = this.props;
+        const itemsQty = cart.details.items_qty;
+        const svgAttributes = {
+            stroke: 'rgb(var(--venia-text))',
+        };
+    
+        if (itemsQty > 0) {
+            svgAttributes.fill = 'rgb(var(--venia-text))';
+        }
+    
+        return (
+            <Icon
+                name="shopping-cart"
+                attrs={svgAttributes}
+            />
+        );
+    }
+
     render() {
-        const { children, classes, toggleCart, cart } = this.props;
+        const { classes, toggleCart, cart } = this.props;
         const itemsQty = cart.details.items_qty;
 
         return (
@@ -27,7 +47,7 @@ class Trigger extends Component {
                 aria-label="Toggle mini cart"
                 onClick={toggleCart}
             >
-                {children}
+                {this.cartIcon}
                 <CartCounter counter={itemsQty ? itemsQty : 0} />
             </button>
         );
