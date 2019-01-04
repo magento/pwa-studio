@@ -98,8 +98,10 @@ export class SearchBar extends Component {
     handleInputChange = () => this.updateAutocompleteVisible(true);
 
     handleSubmit = ({ search_query }) => {
-        search_query &&
+        if (search_query) {
             this.props.executeSearch(search_query, this.props.history);
+            this.updateAutocompleteVisible(false);
+        }
     };
 
     resetForm = () => {
