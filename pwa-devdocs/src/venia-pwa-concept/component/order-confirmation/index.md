@@ -18,5 +18,5 @@ title: Order confirmation component
 ## Interactions
 
 -   **Order number** - On tap, navigates the user to the order information page.
--   **Continue shopping** - On tap, navigates the user to the front page.
+-   **Continue shopping** - On tap, navigates the user to the homepage.
 -   **Create an account** - On tap, navigates the user to the account creation page.
