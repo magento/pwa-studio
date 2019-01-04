@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import classify from 'src/classify';
+
+import defaultClasses from './cartCounter.css';
 
 class CartCounter extends Component {
     
-    get showCounter() {
-        const { counter } = this.props;
-        return counter > 0 ? (
-            <span className="counter">{counter}</span>
-        ) : null;
-    }
+    // get showCounter() {
+    //     const { counter, classes } = this.props;
+    //     return counter > 0 ? (
+    //         <span className={classes.counter}>{counter}</span>
+    //     ) : null;
+    // }
 
     render() {
-        return (
-            {showCounter}
-        )
+        const { counter, classes } = this.props;
+        return counter > 0 ? (
+            <span className={classes.counter}>{counter}</span>
+        ) : null;
     }
 };
 
-export default CartCounter;
+export default classify(defaultClasses)(CartCounter);
