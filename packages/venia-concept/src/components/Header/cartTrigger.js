@@ -20,31 +20,16 @@ class Trigger extends Component {
         itemsQty: PropTypes.number
     };
 
-    get cartIcon() {
-        const { cart } = this.props;
-        const itemsQty = cart.details.items_qty;
-        const svgAttributes = {
-            stroke: 'rgb(var(--venia-text))'
-        };
-
-        if (itemsQty > 0) {
-            svgAttributes.fill = 'rgb(var(--venia-text))';
-        }
-
-        return <Icon name="shopping-cart" attrs={svgAttributes} />;
-    }
-
     render() {
         const { classes, toggleCart, cart } = this.props;
         const itemsQty = cart.details.items_qty;
+        const iconColor = 'rgb(var(--venia-text))';
 
         return (
-            <button
-                className={classes.root}
-                aria-label="Toggle mini cart"
-                onClick={toggleCart}
-            >
-                {this.cartIcon}
+            <button className={classes.root} onClick={toggleCart}>
+                <Icon 
+                    name="shopping-cart" 
+                    attrs={{stroke: iconColor, fill: iconColor}} />
                 <CartCounter counter={itemsQty ? itemsQty : 0} />
             </button>
         );
