@@ -26,7 +26,7 @@ test('Cart counter is rendered when cart contains items', () => {
     expect(wrapper.find('span').exists()).toBe(true);
 });
 
-test('Cart counter shows correct items in cart quantity', () => {
+test('Cart counter shows correct item quantity', () => {
     const itemsQty = 10;
     const wrapper = shallow(
         <CartCounter counter={itemsQty} classes={classes} />
