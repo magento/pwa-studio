@@ -182,7 +182,7 @@ export const updateItemInCart = (payload, targetItemId) => {
                     }
                 });
             }
-            
+
             const cartItem = await request(
                 `/rest/V1/guest-carts/${guestCartId}/items/${targetItemId}`,
                 {
@@ -218,7 +218,7 @@ export const updateItemInCart = (payload, targetItemId) => {
             dispatch(getCartDetails({ forceRefresh: true }))
         ]);
     };
-}
+};
 
 export const removeItemFromCart = payload => {
     const { item } = payload;

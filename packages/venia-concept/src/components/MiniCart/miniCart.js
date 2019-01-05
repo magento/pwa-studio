@@ -5,7 +5,11 @@ import { bool, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
-import { getCartDetails, updateItemInCart, removeItemFromCart } from 'src/actions/cart';
+import {
+    getCartDetails,
+    updateItemInCart,
+    removeItemFromCart
+} from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
@@ -13,8 +17,9 @@ import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible } from 'src/selectors/cart';
-
-import EditMenu from './editMenu';
+import CartOptions from './cartOptions';
+import getProductDetailByName from '../../queries/getProductDetailByName.graphql';
+import { Query } from 'react-apollo';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
@@ -138,10 +143,41 @@ class MiniCart extends Component {
         const { updateItemInCart } = props;
         const { focusItem } = state;
 
-        return (
+        if (focusItem === null) return;
+        const hasOptions = focusItem.options.length !== 0;
+
+        return hasOptions ? (
+            // `Name` is being used here because GraphQL does not allow
+            // filtering products by id, and sku is unreliable without
+            // a reference to the base product. Additionally, `url-key`
+            // cannot be used because we don't have page context in cart.
+            <Query
+                query={getProductDetailByName}
+                variables={{ name: focusItem.name, onServer: false }}
+            >
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return <div>Fetching Data</div>;
+
+                    const itemWithOptions = data.products.items[0];
+
+                    return (
+                        <Fragment>
+                            <CartOptions
+                                cartItem={focusItem}
+                                configItem={itemWithOptions}
+                                hideEditPanel={hideEditPanel}
+                                updateCart={updateItemInCart}
+                            />
+                        </Fragment>
+                    );
+                }}
+            </Query>
+        ) : (
             <Fragment>
-                <EditMenu
-                    item={focusItem}
+                <CartOptions
+                    cartItem={focusItem}
+                    configItem={{}}
                     hideEditPanel={hideEditPanel}
                     updateCart={updateItemInCart}
                 />
@@ -163,11 +199,7 @@ class MiniCart extends Component {
     };
 
     get miniCartInner() {
-        const {
-            checkout,
-            productList,
-            props,
-        } = this;
+        const { checkout, productList, props } = this;
         const { classes, isCartEmpty } = props;
 
         if (isCartEmpty) {
@@ -193,9 +225,7 @@ class MiniCart extends Component {
         const className = isOpen ? classes.root_open : classes.root;
 
         const body = isEditPanelOpen ? productOptions : miniCartInner;
-        const title = isEditPanelOpen
-            ? 'Edit Cart Item'
-            : 'Shopping Cart';
+        const title = isEditPanelOpen ? 'Edit Cart Item' : 'Shopping Cart';
 
         return (
             <aside className={className}>
@@ -222,7 +252,11 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = { getCartDetails, updateItemInCart, removeItemFromCart };
+const mapDispatchToProps = {
+    getCartDetails,
+    updateItemInCart,
+    removeItemFromCart
+};
 
 export default compose(
     classify(defaultClasses),
