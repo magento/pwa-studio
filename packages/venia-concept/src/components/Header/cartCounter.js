@@ -10,7 +10,7 @@ class CartCounter extends Component {
             root: PropTypes.string
         }),
         counter: PropTypes.number.isRequired
-    }
+    };
 
     render() {
         const { counter, classes } = this.props;
