@@ -60,7 +60,6 @@ test('Product name is rendered', () => {
         <Product item={item} currencyCode={'EUR'} classes={classes} />
     ).dive();
 
-    // The product's name is in the div at index 1.
     expect(
         wrapper
             .find(`.${classes.name}`)
