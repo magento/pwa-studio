@@ -7,7 +7,7 @@ import CartCounter from '../cartCounter';
 configure({ adapter: new Adapter() });
 
 const classes = {
-    counter: 'a'
+    root: 'a'
 };
 
 test('Cart counter is not rendered when cart is empty', () => {
