@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import debounce from 'lodash.debounce';
+
 import classify from 'src/classify';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -86,7 +88,7 @@ class SearchAutocomplete extends Component {
                         return (
                             <div className={classes.root}>
                                 <div className={classes.statusContent}>
-                                    Fetching Data
+                                    {loadingIndicator}
                                 </div>
                             </div>
                         );
