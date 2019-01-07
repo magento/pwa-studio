@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
 import { Query } from 'react-apollo';
-import navigationMenu from '../../queries/getNavigationMenu.graphql';
 
 import classify from 'src/classify';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
 import CategoryTree from './categoryTree';
 import defaultClasses from './categoryTree.css';
+import navigationMenu from '../../queries/getNavigationMenu.graphql';
 
 class Tree extends Component {
     static propTypes = {
@@ -41,7 +42,7 @@ class Tree extends Component {
             <Query query={navigationMenu} variables={{ id: rootNodeId }}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return null;
+                    if (loading) return loadingIndicator;
 
                     const branches = [];
 
