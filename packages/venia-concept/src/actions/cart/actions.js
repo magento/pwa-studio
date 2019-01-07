@@ -26,6 +26,14 @@ const actionMap = {
     UPDATE_ITEM: {
         REQUEST: null,
         RECEIVE: null
+    },
+    OPEN_EDIT_PANEL: {
+        REQUEST: null,
+        RECEIVE: null
+    },
+    HIDE_EDIT_PANEL: {
+        REQUEST: null,
+        RECEIVE: null
     }
 };
 

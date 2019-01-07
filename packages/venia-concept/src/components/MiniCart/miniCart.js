@@ -8,7 +8,9 @@ import classify from 'src/classify';
 import {
     getCartDetails,
     updateItemInCart,
-    removeItemFromCart
+    removeItemFromCart,
+    openEditPanel,
+    hideEditPanel
 } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
@@ -49,7 +51,6 @@ class MiniCart extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
-            isEditPanelOpen: false,
             focusItem: null
         };
     }
@@ -187,15 +188,13 @@ class MiniCart extends Component {
 
     showEditPanel = item => {
         this.setState({
-            isEditPanelOpen: true,
             focusItem: item
         });
+        this.props.openEditPanel();
     };
 
     hideEditPanel = () => {
-        this.setState({
-            isEditPanelOpen: false
-        });
+        this.props.hideEditPanel();
     };
 
     get miniCartInner() {
@@ -219,13 +218,12 @@ class MiniCart extends Component {
             return <div>Fetching Data</div>;
         }
 
-        const { miniCartInner, productOptions, props, state } = this;
-        const { classes, isOpen } = props;
-        const { isEditPanelOpen } = state;
+        const { miniCartInner, productOptions, props } = this;
+        const { classes, cart, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
-        const body = isEditPanelOpen ? productOptions : miniCartInner;
-        const title = isEditPanelOpen ? 'Edit Cart Item' : 'Shopping Cart';
+        const body = cart.itemEditOpen ? productOptions : miniCartInner;
+        const title = cart.itemEditOpen ? 'Edit Cart Item' : 'Shopping Cart';
 
         return (
             <aside className={className}>
@@ -255,7 +253,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     getCartDetails,
     updateItemInCart,
-    removeItemFromCart
+    removeItemFromCart,
+    openEditPanel,
+    hideEditPanel
 };
 
 export default compose(
