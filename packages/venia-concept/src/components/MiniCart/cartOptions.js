@@ -95,20 +95,16 @@ class CartOptions extends Component {
             ? classes.modal_active
             : classes.modal;
 
-        let options = null;
-
-        if (Array.isArray(configurable_options)) {
-            options = (
-                <Suspense fallback={fallback}>
-                    <section className={classes.options}>
-                        <Options
-                            options={configurable_options}
-                            onSelectionChange={handleSelectionChange}
-                        />
-                    </section>
-                </Suspense>
-            );
-        }
+        const options = Array.isArray(configurable_options) ? (
+            <Suspense fallback={fallback}>
+                <section className={classes.options}>
+                    <Options
+                        options={configurable_options}
+                        onSelectionChange={handleSelectionChange}
+                    />
+                </section>
+            </Suspense>
+        ) : null;
 
         return (
             <Form className={classes.root}>

@@ -2,9 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CartOptions from '../cartOptions';
 
-jest.mock(React.lazy(), () => () => 'option');
-//jest.mock('src/components/ProductOptions', () => 'option');
-
 const classes = {
     root: 'root',
     options: 'options',
