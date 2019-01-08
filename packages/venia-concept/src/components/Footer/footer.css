@@ -23,7 +23,8 @@
 }
 
 .copyright {
-    color: rgb(var(--venia-text-alt));
+    display: block;
+    color: rgb(var(--venia-dove-gray));
     font-size: 0.75rem;
     padding: 1.5rem 2rem;
     text-align: center;
