@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
 import PageWrapper from 'src/components/PageWrapper';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import OnlineIndicator from 'src/components/OnlineIndicator';
-import defaultClasses from './app.css';
 import renderRoutes from './renderRoutes';
 
 class App extends Component {
@@ -16,10 +14,6 @@ class App extends Component {
             drawer: string,
             overlay: bool.isRequired
         }).isRequired,
-        classes: shape({
-            root: string,
-            root_masked: string
-        }),
         closeDrawer: func.isRequired
     };
 
@@ -33,15 +27,14 @@ class App extends Component {
     }
 
     render() {
-        const { app, classes, closeDrawer } = this.props;
+        const { app, closeDrawer } = this.props;
         const { onlineIndicator } = this;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
-        const className = overlay ? classes.root_masked : classes.root;
 
         return (
-            <div className={className}>
+            <Fragment>
                 <PageWrapper isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}
@@ -49,9 +42,9 @@ class App extends Component {
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />
-            </div>
+            </Fragment>
         );
     }
 }
 
-export default classify(defaultClasses)(App);
+export default App;
