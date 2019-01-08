@@ -21,13 +21,13 @@ class NavHeader extends Component {
         return (
             <Fragment>
                 <Trigger key="backButton" action={onBack}>
-                    <Icon name="arrow-left" />
+                    <Icon name="ArrowLeft" />
                 </Trigger>
                 <h2 key="title" className={classes.title}>
                     <span>{title}</span>
                 </h2>
                 <Trigger key="closeButton" action={onClose}>
-                    <Icon name="x" />
+                    <Icon name="X" />
                 </Trigger>
             </Fragment>
         );

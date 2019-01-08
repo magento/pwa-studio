@@ -223,7 +223,7 @@ class MiniCart extends Component {
                         <span>{title}</span>
                     </h2>
                     <Trigger>
-                        <Icon name="x" />
+                        <Icon name="X" />
                     </Trigger>
                 </div>
                 {miniCartInner}

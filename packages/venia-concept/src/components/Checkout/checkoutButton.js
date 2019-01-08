@@ -20,7 +20,7 @@ class CheckoutButton extends Component {
 
         return (
             <Button disabled={disabled} onClick={submit}>
-                <Icon name="lock" attrs={iconDimensions} />
+                <Icon name="Lock" attrs={iconDimensions} />
                 <span>Checkout</span>
             </Button>
         );

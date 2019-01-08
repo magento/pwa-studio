@@ -18,12 +18,12 @@ class OnlineIndicator extends Component {
 
         return !isOnline ? (
             <div className={classes.offline}>
-                <Icon name="cloud-off" />
+                <Icon name="CloudOff" />
                 <p> You are offline. Some features may be unavailable. </p>
             </div>
         ) : (
             <div className={classes.online}>
-                <Icon name="check" />
+                <Icon name="Check" />
                 <p> You are online. </p>
             </div>
         );

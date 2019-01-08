@@ -24,7 +24,7 @@ class Filter extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.filterIconContainer}>
-                    <Icon name="filter" attrs={FILTER_ICON_ATTRS} />
+                    <Icon name="Filter" attrs={FILTER_ICON_ATTRS} />
                 </div>
                 <span>Filter by...</span>
             </div>

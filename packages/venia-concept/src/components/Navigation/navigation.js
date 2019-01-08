@@ -92,7 +92,7 @@ class Navigation extends PureComponent {
         ) : (
             <div className={classes.userChip}>
                 <div className={classes.userAvatar}>
-                    <Icon name="user" />
+                    <Icon name="User" />
                 </div>
                 <div className={classes.userInfo}>
                     <p className={classes.userName}>
@@ -101,7 +101,7 @@ class Navigation extends PureComponent {
                     <p className={classes.userEmail}>{email}</p>
                 </div>
                 <button className={classes.userMore}>
-                    <Icon name="chevron-up" />
+                    <Icon name="ChevronUp" />
                 </button>
             </div>
         );

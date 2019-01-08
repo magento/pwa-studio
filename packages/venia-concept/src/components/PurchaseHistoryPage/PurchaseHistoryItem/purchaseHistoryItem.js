@@ -44,7 +44,7 @@ class PurchaseHistoryItem extends Component {
                     </div>
                 </div>
                 <div className={classes.chevronContainer}>
-                    <Icon name="chevron-right" attrs={CHEVRON_ICON_ATTRS} />
+                    <Icon name="ChevronRight" attrs={CHEVRON_ICON_ATTRS} />
                 </div>
             </Link>
         );

@@ -8,7 +8,7 @@ import { FieldIcons, Message } from 'src/components/Field';
 import Icon from 'src/components/Icon';
 import defaultClasses from './select.css';
 
-const arrow = <Icon name="chevron-down" attrs={{ height: 18, width: 18 }} />;
+const arrow = <Icon name="ChevronDown" attrs={{ height: 18, width: 18 }} />;
 
 class Select extends Component {
     static propTypes = {

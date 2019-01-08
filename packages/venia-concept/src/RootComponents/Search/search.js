@@ -63,7 +63,7 @@ export class Search extends Component {
                     </Query>
                 </small>
                 <Icon
-                    name="x"
+                    name="X"
                     attrs={{
                         width: '13px',
                         height: '13px'

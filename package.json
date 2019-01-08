@@ -125,6 +125,7 @@
     "react": "~16.6.1",
     "react-apollo": "~2.2.4",
     "react-dom": "~16.6.1",
+    "react-feather": "^1.1.5",
     "react-redux": "~5.0.7",
     "react-router-dom": "~4.4.0-beta.6",
     "react-test-renderer": "~16.6.1",
@@ -151,5 +152,6 @@
     "workbox-webpack-plugin": "~3.6.1",
     "write-file-webpack-plugin": "~4.2.0",
     "xml": "~1.0.1"
-  }
+  },
+  "dependencies": {}
 }

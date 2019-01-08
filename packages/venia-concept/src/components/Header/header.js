@@ -29,7 +29,7 @@ class Header extends Component {
     };
 
     get searchIcon() {
-        return <Icon name="search" />;
+        return <Icon name="Search" />;
     }
 
     render() {
@@ -56,7 +56,7 @@ class Header extends Component {
                     </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
-                            <Icon name="menu" />
+                            <Icon name="Menu" />
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
@@ -67,7 +67,7 @@ class Header extends Component {
                             {this.searchIcon}
                         </SearchTrigger>
                         <CartTrigger>
-                            <Icon name="shopping-cart" />
+                            <Icon name="ShoppingCart" />
                         </CartTrigger>
                     </div>
                 </div>

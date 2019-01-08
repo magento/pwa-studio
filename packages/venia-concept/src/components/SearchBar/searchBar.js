@@ -15,8 +15,8 @@ const initialValues = {
     search_query: ''
 };
 
-const clearIcon = <Icon name="x" attrs={{ height: 18, width: 18 }} />;
-const searchIcon = <Icon name="search" attrs={{ height: 18, width: 18 }} />;
+const clearIcon = <Icon name="X" attrs={{ height: 18, width: 18 }} />;
+const searchIcon = <Icon name="Search" attrs={{ height: 18, width: 18 }} />;
 
 // TODO: remove export here (update story and test)
 export class SearchBar extends Component {

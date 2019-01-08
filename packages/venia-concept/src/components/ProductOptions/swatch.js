@@ -35,7 +35,7 @@ class Swatch extends Component {
     get icon() {
         const { isSelected } = this.props;
 
-        return isSelected ? <Icon name="check" /> : null;
+        return isSelected ? <Icon name="Check" /> : null;
     }
 
     render() {

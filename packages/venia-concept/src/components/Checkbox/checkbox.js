@@ -41,7 +41,7 @@ export class Checkbox extends Component {
             <Fragment>
                 <label className={classes.root} htmlFor={id}>
                     <span className={classes.icon}>
-                        {checked && <Icon name="check" attrs={iconAttrs} />}
+                        {checked && <Icon name="Check" attrs={iconAttrs} />}
                     </span>
                     <BasicCheckbox
                         {...rest}

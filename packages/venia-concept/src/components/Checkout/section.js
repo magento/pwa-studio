@@ -35,7 +35,7 @@ class Section extends Component {
                     {children}
                     <span className={classes.icon}>
                         {' '}
-                        {selectedOption && <Icon name="check" />}{' '}
+                        {selectedOption && <Icon name="Check" />}{' '}
                     </span>
                 </span>
             </Button>
