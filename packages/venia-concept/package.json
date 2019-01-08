@@ -18,6 +18,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "scripts": {
     "build": "npx rimraf dist && npm run -s validate-queries && webpack -p --color --progress --profile --env.mode production",
+    "build:stats": "npx rimraf dist && mkdir dist && npm run -s validate-queries && webpack -p --color --progress --profile --env.mode production --json > dist/build-stats.json",
     "clean": "npx rimraf dist",
     "prebuild": "npm run -s clean",
     "start": "node server.js",
