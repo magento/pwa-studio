@@ -1,0 +1,14 @@
+.items {
+    padding: 0 1.5rem;
+}
+
+.title {
+    padding-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.titleText {
+    display: block;
+    border-bottom: 2px solid rgb(var(--venia-border));
+    padding: 0.5rem 1.5rem;
+}

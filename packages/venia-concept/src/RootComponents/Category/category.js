@@ -4,8 +4,10 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -92,9 +94,7 @@ class Category extends Component {
                                 pageSize={pageSize}
                             />
                         ) : (
-                            <div className={classes.placeholder}>
-                                Fetching Data...
-                            </div>
+                            loadingIndicator
                         );
 
                     // Retrieve the total page count from GraphQL when ready

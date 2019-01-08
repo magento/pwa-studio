@@ -12,8 +12,11 @@ entries:
   - label: Install Venia sample data
     url: /venia-pwa-concept/install-sample-data/
 
-  - label: Simple REST checkout flow
-    url: /venia-pwa-concept/simple-rest-checkout/
+  - label: Features
+    entries:
+
+    - label: Checkout
+      url: /venia-pwa-concept/features/checkout/
 
   - label: Design
     entries:
@@ -54,6 +57,9 @@ entries:
     - label: Footer
       url: /venia-pwa-concept/component/footer/
 
+    - label: Forgot password
+      url: /venia-pwa-concept/component/forgot-password/
+
     - label: Header
       url: /venia-pwa-concept/component/header/
 
@@ -69,6 +75,9 @@ entries:
     - label: Number of items
       url: /venia-pwa-concept/component/number-of-items/
 
+    - label: Order confirmation
+      url: /venia-pwa-concept/component/order-confirmation/
+
     - label: Page
       url: /venia-pwa-concept/component/page/
     
@@ -77,6 +86,9 @@ entries:
 
     - label: Product listing
       url: /venia-pwa-concept/component/product-listing/
+
+    - label: Purchase history
+      url: /venia-pwa-concept/component/purchase-history/
 
     - label: Quantity selector
       url: /venia-pwa-concept/component/quantity-selector/
