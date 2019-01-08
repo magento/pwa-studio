@@ -122,3 +122,96 @@ test('getDetails.receive() returns a proper action object', () => {
         error: true
     });
 });
+
+test('updateItem.request.toString() returns the proper action type', () => {
+    expect(actions.updateItem.request.toString()).toBe(
+        'CART/UPDATE_ITEM/REQUEST'
+    );
+});
+
+test('updateItem.request() returns a proper action object', () => {
+    expect(actions.updateItem.request(payload)).toEqual({
+        type: 'CART/UPDATE_ITEM/REQUEST',
+        payload
+    });
+});
+
+test('updateItem.receive.toString() returns the proper action type', () => {
+    expect(actions.updateItem.receive.toString()).toBe(
+        'CART/UPDATE_ITEM/RECEIVE'
+    );
+});
+
+test('updateItem.receive() returns a proper action object', () => {
+    expect(actions.updateItem.receive(payload)).toEqual({
+        type: 'CART/UPDATE_ITEM/RECEIVE',
+        payload
+    });
+    expect(actions.updateItem.receive(error)).toEqual({
+        type: 'CART/UPDATE_ITEM/RECEIVE',
+        payload: error,
+        error: true
+    });
+});
+
+test('openEditPanel.request.toString() returns the proper action type', () => {
+    expect(actions.openEditPanel.request.toString()).toBe(
+        'CART/OPEN_EDIT_PANEL/REQUEST'
+    );
+});
+
+test('openEditPanel.request() returns a proper action object', () => {
+    expect(actions.openEditPanel.request(payload)).toEqual({
+        type: 'CART/OPEN_EDIT_PANEL/REQUEST',
+        payload
+    });
+});
+
+test('openEditPanel.receive.toString() returns the proper action type', () => {
+    expect(actions.openEditPanel.receive.toString()).toBe(
+        'CART/OPEN_EDIT_PANEL/RECEIVE'
+    );
+});
+
+test('openEditPanel.receive() returns a proper action object', () => {
+    expect(actions.openEditPanel.receive(payload)).toEqual({
+        type: 'CART/OPEN_EDIT_PANEL/RECEIVE',
+        payload
+    });
+    expect(actions.openEditPanel.receive(error)).toEqual({
+        type: 'CART/OPEN_EDIT_PANEL/RECEIVE',
+        payload: error,
+        error: true
+    });
+});
+
+test('hideEditPanel.request.toString() returns the proper action type', () => {
+    expect(actions.hideEditPanel.request.toString()).toBe(
+        'CART/HIDE_EDIT_PANEL/REQUEST'
+    );
+});
+
+test('hideEditPanel.request() returns a proper action object', () => {
+    expect(actions.hideEditPanel.request(payload)).toEqual({
+        type: 'CART/HIDE_EDIT_PANEL/REQUEST',
+        payload
+    });
+});
+
+test('hideEditPanel.receive.toString() returns the proper action type', () => {
+    expect(actions.hideEditPanel.receive.toString()).toBe(
+        'CART/HIDE_EDIT_PANEL/RECEIVE'
+    );
+});
+
+test('hideEditPanel.receive() returns a proper action object', () => {
+    expect(actions.hideEditPanel.receive(payload)).toEqual({
+        type: 'CART/HIDE_EDIT_PANEL/RECEIVE',
+        payload
+    });
+    expect(actions.hideEditPanel.receive(error)).toEqual({
+        type: 'CART/HIDE_EDIT_PANEL/RECEIVE',
+        payload: error,
+        error: true
+    });
+});

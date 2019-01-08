@@ -133,7 +133,7 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
-export const updateItemInCart = (payload, targetItemId) => {
+export const updateItemInCart = (payload = {}, targetItemId) => {
     const { item, options, parentSku, productType, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
