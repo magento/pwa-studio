@@ -12,7 +12,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 
 ## Prerequisites
 
-* [NodeJS 8.x LTS][]
+* [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 * [Node Package Manager][] (NPM)
 * [A running instance of Magento 2.3](#choosing-the-magento-23-backend)
 
@@ -76,6 +76,9 @@ Use the default cloud instance as the backend or set up your own [local developm
 The Venia storefront has been verified to be compatible with the following local setups:
 
 * Magento 2 installed using [valet-plus][]
+
+  **Note:** If you are having `Magento2ValetDriver` problems, try downgrading to version **1.0.21**.
+
 * [Vagrant Box for Magento 2 developers][]
 
 Don't forget to install the [Venia sample data][]!

@@ -1,0 +1,13 @@
+.root {
+    composes: root from '../clickable.css';
+    transition-property: color;
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    height: 3rem;
+    width: 3rem;
+}
+
+.open {
+    composes: root;
+    color: rgb(var(--venia-teal));
+}
