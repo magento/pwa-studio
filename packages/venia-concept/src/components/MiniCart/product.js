@@ -118,11 +118,7 @@ class Product extends Component {
                     </div>
                 </div>
                 {modal}
-                <Kebab
-                    onFocus={this.openDropdown}
-                    onBlur={this.closeDropdown}
-                    isOpen={this.state.isOpen}
-                >
+                <Kebab>
                     <Section
                         text="Add to favorites"
                         onClick={this.favoriteItem}
@@ -145,18 +141,6 @@ class Product extends Component {
             </li>
         );
     }
-
-    openDropdown = () => {
-        this.setState({
-            isOpen: true
-        });
-    };
-
-    closeDropdown = () => {
-        this.setState({
-            isOpen: false
-        });
-    };
 
     favoriteItem = () => {
         this.setState({
