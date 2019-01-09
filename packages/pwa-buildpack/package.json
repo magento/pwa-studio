@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.0.0-rc.16",
+  "version": "2.0.0-rc.17",
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.1",
-    "@magento/upward-js": "^2.0.0-rc.16",
+    "@magento/upward-js": "^2.0.0-rc.17",
     "ajv": "~6.1.1",
     "babel-helper-module-imports": "~7.0.0-beta.3",
     "babel-plugin-syntax-dynamic-import": "~6.18.0",

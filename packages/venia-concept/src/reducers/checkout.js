@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-
+import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
@@ -17,7 +17,9 @@ const initialState = {
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
@@ -31,7 +33,8 @@ const reducerMap = {
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
-            editing: payload
+            editing: payload,
+            incorrectAddressMessage: ''
         };
     },
     [actions.address.submit]: state => {
@@ -45,13 +48,23 @@ const reducerMap = {
             ...state,
             editing: null,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: state => {
+    [actions.address.reject]: (state, actionArgs) => {
+        const incorrectAddressMessage = get(
+            actionArgs,
+            'payload.incorrectAddressMessage',
+            ''
+        );
+
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: incorrectAddressMessage ? true : false,
+            incorrectAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -89,7 +102,9 @@ const reducerMap = {
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
     [actions.shippingMethod.reject]: state => {

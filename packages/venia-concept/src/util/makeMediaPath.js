@@ -1,6 +1,7 @@
 const trailingSlashRE = /\/+$/;
 const wrappingSlashRE = /^\/*(.+?)\/*$/;
-export function makePathPrepender(prefix) {
+
+function makePathPrepender(prefix) {
     const normalizedPrefix = prefix.replace(trailingSlashRE, '') + '/';
     return (...args) => {
         return (
@@ -18,8 +19,5 @@ export function makePathPrepender(prefix) {
 
 const mediaPath = '/media/catalog/';
 
-export const makeProductMediaPath = makePathPrepender(mediaPath + '/product/');
-
-export const makeCategoryMediaPath = makePathPrepender(
-    mediaPath + '/category/'
-);
+export const makeProductMediaPath = makePathPrepender(mediaPath + 'product/');
+export const makeCategoryMediaPath = makePathPrepender(mediaPath + 'category/');
