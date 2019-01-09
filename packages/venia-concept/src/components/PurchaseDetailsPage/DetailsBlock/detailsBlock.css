@@ -1,7 +1,7 @@
 .root {
     display: grid;
     grid-template-columns: auto 1fr;
-    border: 1px solid rgb(var(--venia-silver));
+    border: 1px solid rgb(var(--venia-border));
     color: black;
     font-size: 0.75rem;
     font-weight: 300;
@@ -11,7 +11,7 @@
 
 .property {
     margin-right: 1.5rem;
-    color: rgb(var(--venia-dove-gray));
+    color: rgb(var(--venia-text-alt));
 }
 
 .value {

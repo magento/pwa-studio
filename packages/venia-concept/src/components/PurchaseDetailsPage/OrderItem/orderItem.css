@@ -24,7 +24,7 @@
 }
 
 .name {
-    font-weight: var(--venia-font-weight-medium);
+    font-weight: 600;
 }
 
 .priceContainer {
