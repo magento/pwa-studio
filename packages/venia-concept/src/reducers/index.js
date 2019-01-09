@@ -8,14 +8,16 @@ import directory from './directory';
 import user from './user';
 import purchaseDetails from './purchaseDetails';
 import checkoutReceipt from './checkoutReceipt';
+import purchaseHistory from './purchaseHistory';
 
 export default combineReducers({
     app,
     cart,
     catalog,
     checkout,
+    checkoutReceipt,
     directory,
-    user,
     purchaseDetails,
-    checkoutReceipt
+    purchaseHistory,
+    user
 });

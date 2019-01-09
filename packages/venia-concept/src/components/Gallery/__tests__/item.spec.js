@@ -1,11 +1,8 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { Link, MemoryRouter } from 'react-router-dom';
 
 import Item from '../item';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     image: 'a',
@@ -40,7 +37,6 @@ const validItem = {
 /**
  * STATE 0: awaiting item data
  * `item` is `null` or `undefined`
- * `showImage` is irrelevant
  */
 test('renders a placeholder item while awaiting item', () => {
     const wrapper = shallow(<Item classes={classes} />).dive();
@@ -80,80 +76,11 @@ test('renders Link elements for navigating to a PDP', () => {
 });
 
 /**
- * STATE 1: awaiting showImage flag
+ * STATE 1: ready
  * `item` is a valid data object
- * `showImage` is `false`
  */
-test('renders both images when `showImage: false`', () => {
-    const wrapper = shallow(
-        <Item classes={classes} item={validItem} showImage={false} />
-    ).dive();
-    const realImage = wrapper.find({ className: classes.image_pending });
-    const placeholderImage = wrapper.find({
-        className: classes.imagePlaceholder
-    });
-
-    expect(realImage).toHaveLength(1);
-    expect(placeholderImage).toHaveLength(1);
-});
-
-test('handles `load` and `error` events', () => {
-    const wrapper = shallow(
-        <Item classes={classes} item={validItem} showImage={false} />
-    ).dive();
-    const image = wrapper.find({ className: classes.image_pending }).first();
-
-    expect(() => image.simulate('load')).not.toThrow();
-    expect(() => image.simulate('error')).not.toThrow();
-});
-
-test('calls `onLoad` on image `load`', () => {
-    const handleLoad = jest.fn();
-    const wrapper = shallow(
-        <Item
-            classes={classes}
-            item={validItem}
-            showImage={false}
-            onLoad={handleLoad}
-        />
-    ).dive();
-
-    wrapper
-        .find({ className: classes.image_pending })
-        .first()
-        .simulate('load');
-
-    expect(handleLoad).toBeCalledWith(validItem.id);
-});
-
-test('calls `onError` on image `error`', () => {
-    const handleError = jest.fn();
-    const wrapper = shallow(
-        <Item
-            classes={classes}
-            item={validItem}
-            showImage={false}
-            onError={handleError}
-        />
-    ).dive();
-
-    wrapper
-        .find({ className: classes.image_pending })
-        .first()
-        .simulate('error');
-
-    expect(handleError).toBeCalledWith(validItem.id);
-});
-
-/**
- * STATE 2: ready
- * `item` is a valid data object
- * `showImage` is `true`
- */
-test('renders only the real image when `showImage: true`', () => {
-    const wrapper = shallow(
-        <Item classes={classes} item={validItem} showImage={true} />
-    ).dive();
+test('renders only the real image', () => {
+    const wrapper = shallow(<Item classes={classes} item={validItem} />).dive();
     const image = wrapper.find({ className: classes.image });
 
     expect(image).toHaveLength(1);

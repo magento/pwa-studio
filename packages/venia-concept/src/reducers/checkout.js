@@ -1,13 +1,25 @@
 import { handleActions } from 'redux-actions';
-
+import get from 'lodash/get';
+import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
 export const name = 'checkout';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+const storedPaymentMethod = storage.getItem('paymentMethod');
+const storedShippingMethod = storage.getItem('shippingMethod');
 
 const initialState = {
     editing: null,
+    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
+    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
+    shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
+    shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
@@ -21,24 +33,81 @@ const reducerMap = {
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
-            editing: payload
+            editing: payload,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.input.submit]: state => {
+    [actions.address.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.input.accept]: state => {
+    [actions.address.accept]: state => {
         return {
             ...state,
             editing: null,
             step: 'form',
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
+        };
+    },
+    [actions.address.reject]: (state, actionArgs) => {
+        const incorrectAddressMessage = get(
+            actionArgs,
+            'payload.incorrectAddressMessage',
+            ''
+        );
+
+        return {
+            ...state,
+            submitting: false,
+            isAddressIncorrect: incorrectAddressMessage ? true : false,
+            incorrectAddressMessage
+        };
+    },
+    [actions.paymentMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.paymentMethod.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            editing: null,
+            paymentMethod: payload.code,
+            paymentTitle: payload.title,
+            step: 'form',
             submitting: false
         };
     },
-    [actions.input.reject]: state => {
+    [actions.paymentMethod.reject]: state => {
+        return {
+            ...state,
+            submitting: false
+        };
+    },
+    [actions.shippingMethod.submit]: state => {
+        return {
+            ...state,
+            submitting: true
+        };
+    },
+    [actions.shippingMethod.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            editing: null,
+            shippingMethod: payload.carrier_code,
+            shippingTitle: payload.carrier_title,
+            step: 'form',
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
+        };
+    },
+    [actions.shippingMethod.reject]: state => {
         return {
             ...state,
             submitting: false

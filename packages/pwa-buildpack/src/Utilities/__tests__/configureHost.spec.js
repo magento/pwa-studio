@@ -1,6 +1,8 @@
 jest.mock('devcert');
 
-const pkgLocTest = process.cwd() + '/package.json';
+const FAKE_CWD = '/path/to/fake/cwd';
+
+const pkgLocTest = FAKE_CWD + '/package.json';
 const pkg = jest.fn();
 jest.doMock(pkgLocTest, pkg, { virtual: true });
 const devcert = require('devcert');
@@ -55,7 +57,7 @@ const simulate = {
         return simulate;
     },
     packageNameIs(name) {
-        jest.resetModuleRegistry();
+        jest.resetModules();
         pkg.mockImplementationOnce(() => ({ name }));
         return simulate;
     }
@@ -63,11 +65,14 @@ const simulate = {
 
 // intercept and disable console output
 beforeEach(() => {
+    jest.spyOn(process, 'cwd');
+    process.cwd.mockReturnValue(FAKE_CWD);
     jest.spyOn(console, 'warn').mockImplementation();
     jest.spyOn(execa, 'shell').mockImplementation(() => Promise.resolve());
 });
 
 afterEach(() => {
+    process.cwd.mockRestore();
     console.warn.mockRestore();
     execa.shell.mockRestore();
 });
@@ -75,7 +80,7 @@ afterEach(() => {
 const hostRegex = (
     name = configureHost.DEFAULT_NAME,
     domain = configureHost.DEV_DOMAIN
-) => new RegExp(`${name}\\-\\w{4,5}\\.${domain}$`);
+) => new RegExp(`${name}\\-[\\w\\-]{4,5}\\.${domain}$`);
 
 test('produces a secure domain, port set, and ssl cert from default name if no package.json is found', async () => {
     simulate.noPackageFound().certCached();
@@ -201,13 +206,14 @@ test('fails if process is not connected to tty', async () => {
 });
 
 test('fails after a timeout if devcert never fulfills', async () => {
+    simulate.certNotCached();
+    simulate.certNotCached();
     jest.useFakeTimers();
-    devcert.configuredDomains.mockReturnValueOnce([]);
     let resolveHangingPromise;
     let promise = new Promise(resolve => (resolveHangingPromise = resolve));
     devcert.certificateFor.mockReturnValueOnce(promise);
     const certPromise = configureHost({ subdomain: 'no-hurry' });
-    jest.runAllTimers();
+    jest.advanceTimersByTime(35000);
     await expect(certPromise).rejects.toThrowError(
         'Timed out waiting for SSL certificate generation and trust.'
     );

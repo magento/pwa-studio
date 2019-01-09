@@ -2,20 +2,9 @@
     display: grid;
     grid-template-areas:
         'actions'
-        'items'
-        'pagination';
+        'items';
     grid-template-columns: 1fr;
     line-height: 1;
-}
-
-.actions {
-    display: grid;
-    grid-area: actions;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-column-gap: 1rem;
-    justify-content: center;
-    padding-bottom: 1rem;
 }
 
 .items {
@@ -23,16 +12,7 @@
     grid-area: items;
     grid-gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
-}
-
-.pagination {
-    display: grid;
-    grid-area: pagination;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-column-gap: 1rem;
-    justify-content: center;
-    padding-top: 1rem;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 640px) {

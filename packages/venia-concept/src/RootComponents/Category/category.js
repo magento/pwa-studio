@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
 import classify from 'src/classify';
-import Gallery from 'src/components/Gallery';
+import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
+import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
 const categoryQuery = gql`
-    query category($id: Int!) {
+    query category($id: Int!, $pageSize: Int!, $currentPage: Int!) {
         category(id: $id) {
+            id
             description
             name
             product_count
-            products {
+            products(pageSize: $pageSize, currentPage: $currentPage) {
                 items {
                     id
                     name
@@ -26,8 +32,8 @@ const categoryQuery = gql`
                             }
                         }
                     }
-                    url_key
                 }
+                total_count
             }
         }
     }
@@ -40,7 +46,10 @@ class Category extends Component {
             gallery: string,
             root: string,
             title: string
-        })
+        }),
+        currentPage: number,
+        pageSize: number,
+        prevPageTotal: number
     };
 
     // TODO: Should not be a default here, we just don't have
@@ -50,31 +59,59 @@ class Category extends Component {
     };
 
     render() {
-        const { id, classes } = this.props;
+        const {
+            id,
+            classes,
+            currentPage,
+            pageSize,
+            prevPageTotal,
+            setCurrentPage,
+            setPrevPageTotal
+        } = this.props;
+
+        const pageControl = {
+            currentPage: currentPage,
+            setPage: setCurrentPage,
+            updateTotalPages: setPrevPageTotal,
+            totalPages: prevPageTotal
+        };
 
         return (
-            <Query query={categoryQuery} variables={{ id }}>
+            <Query
+                query={categoryQuery}
+                variables={{
+                    id: Number(id),
+                    pageSize: Number(pageSize),
+                    currentPage: Number(currentPage)
+                }}
+            >
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
+                    if (loading)
+                        return pageControl.totalPages ? (
+                            <CategoryContent
+                                pageControl={pageControl}
+                                pageSize={pageSize}
+                            />
+                        ) : (
+                            loadingIndicator
+                        );
+
+                    // Retrieve the total page count from GraphQL when ready
+                    const pageCount =
+                        data.category.products.total_count / pageSize;
+                    const totalPages = Math.ceil(pageCount);
+                    const totalWrapper = {
+                        ...pageControl,
+                        totalPages: totalPages
+                    };
 
                     return (
-                        <article className={classes.root}>
-                            <h1 className={classes.title}>
-                                {/* TODO: Switch to RichContent component from Peregrine when merged */}
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: data.category.description
-                                    }}
-                                />
-                            </h1>
-                            <section className={classes.gallery}>
-                                <Gallery
-                                    data={data.category.products.items}
-                                    title={data.category.description}
-                                />
-                            </section>
-                        </article>
+                        <CategoryContent
+                            classes={classes}
+                            pageControl={totalWrapper}
+                            data={data}
+                        />
                     );
                 }}
             </Query>
@@ -82,4 +119,19 @@ class Category extends Component {
     }
 }
 
-export default classify(defaultClasses)(Category);
+const mapStateToProps = ({ catalog }) => {
+    return {
+        currentPage: catalog.currentPage,
+        pageSize: catalog.pageSize,
+        prevPageTotal: catalog.prevPageTotal
+    };
+};
+const mapDispatchToProps = { setCurrentPage, setPrevPageTotal };
+
+export default compose(
+    classify(defaultClasses),
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )
+)(Category);

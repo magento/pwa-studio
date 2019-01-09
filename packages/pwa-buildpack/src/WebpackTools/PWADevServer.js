@@ -167,27 +167,30 @@ be configured to have the same effect as 'id'.
             const { queryDirs = [] } = config.graphqlPlayground;
             const endpoint = '/graphql';
 
-            const tabs = await queryDirs.reduce(
-                async (queryTabs, dir) => [
-                    ...(await queryTabs),
-                    ...(await Promise.all(
-                        (await readdir(dir))
-                            .filter(filename => filename.endsWith('.graphql'))
-                            .map(async queryFile => ({
-                                endpoint,
-                                name: relative(
-                                    process.cwd(),
-                                    resolve(dir, queryFile)
-                                ),
-                                query: await readFile(
-                                    resolve(dir, queryFile),
-                                    'utf8'
-                                )
-                            }))
-                    ))
-                ],
-                []
+            const queryDirListings = await Promise.all(
+                queryDirs.map(async dir => {
+                    const files = await readdir(dir);
+                    return { dir, files };
+                })
             );
+
+            const queryDirContents = await Promise.all(
+                queryDirListings.map(({ dir, files }) =>
+                    Promise.all(
+                        files.map(async queryFile => {
+                            const fileAbsPath = resolve(dir, queryFile);
+                            const query = await readFile(fileAbsPath, 'utf8');
+                            const name = relative(process.cwd(), fileAbsPath);
+                            return {
+                                endpoint,
+                                name,
+                                query
+                            };
+                        })
+                    )
+                )
+            );
+            const tabs = [].concat(...queryDirContents); // flatten
 
             devServerConfig.before = app => {
                 // this middleware has a bad habit of calling next() when it

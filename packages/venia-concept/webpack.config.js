@@ -17,6 +17,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const configureBabel = require('./babel.config.js');
 
 const themePaths = {
+    images: path.resolve(__dirname, 'images'),
+    templates: path.resolve(__dirname, 'templates'),
     src: path.resolve(__dirname, 'src'),
     output: path.resolve(__dirname, 'dist')
 };
@@ -71,7 +73,7 @@ module.exports = async function(env) {
                         /peregrine\/src\//,
                         babelEnvDeps.include()
                     ],
-                    test: /\.(mjs|js|graphql)$/,
+                    test: /\.(mjs|js)$/,
                     use: [
                         {
                             loader: 'babel-loader',
@@ -133,7 +135,13 @@ module.exports = async function(env) {
                 env: { mode },
                 enableServiceWorkerDebugging,
                 serviceWorkerFileName,
-                paths: themePaths
+                paths: themePaths,
+                injectManifest: true,
+                injectManifestConfig: {
+                    include: [/\.js$/],
+                    swSrc: './src/sw.js',
+                    swDest: 'sw.js'
+                }
             })
         ],
         optimization: {
@@ -153,7 +161,6 @@ module.exports = async function(env) {
     };
     if (mode === 'development') {
         config.devtool = 'eval-source-map';
-
         const devServerConfig = {
             publicPath: config.output.publicPath,
             graphqlPlayground: {
