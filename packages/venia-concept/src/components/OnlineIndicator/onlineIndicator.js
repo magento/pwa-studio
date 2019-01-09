@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'src/components/Icon';
+import CloudOff from 'react-feather/dist/icons/cloud-off';
+import Check from 'react-feather/dist/icons/check';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
@@ -18,12 +20,12 @@ class OnlineIndicator extends Component {
 
         return !isOnline ? (
             <div className={classes.offline}>
-                <Icon name="CloudOff" />
+                <Icon src={CloudOff} />
                 <p> You are offline. Some features may be unavailable. </p>
             </div>
         ) : (
             <div className={classes.online}>
-                <Icon name="Check" />
+                <Icon src={Check} />
                 <p> You are online. </p>
             </div>
         );

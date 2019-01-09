@@ -5,6 +5,7 @@ import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './section.css';
 import Icon from 'src/components/Icon';
+import Check from 'react-feather/dist/icons/check';
 
 class Section extends Component {
     static propTypes = {
@@ -35,7 +36,7 @@ class Section extends Component {
                     {children}
                     <span className={classes.icon}>
                         {' '}
-                        {selectedOption && <Icon name="Check" />}{' '}
+                        {selectedOption && <Icon src={Check} />}{' '}
                     </span>
                 </span>
             </Button>

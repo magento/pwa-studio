@@ -4,6 +4,8 @@ import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './kebab.css';
 
+import MoreVertical from 'react-feather/dist/icons/more-vertical';
+
 class Kebab extends Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ class Kebab extends Component {
             <div {...restProps} className={classes.root}>
                 <button className={classes.kebab} ref={this.kebabButtonRef}>
                     <Icon
-                        name="MoreVertical"
+                        src={MoreVertical}
                         attrs={{ color: 'rgb(var(--venia-teal))' }}
                     />
                 </button>

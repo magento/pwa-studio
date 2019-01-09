@@ -5,10 +5,12 @@ import { compose } from 'redux';
 
 import classify from 'src/classify';
 import { FieldIcons, Message } from 'src/components/Field';
-import Icon from 'src/components/Icon';
 import defaultClasses from './select.css';
 
-const arrow = <Icon name="ChevronDown" attrs={{ height: 18, width: 18 }} />;
+import Icon from 'src/components/Icon';
+import ChevronDown from 'react-feather/dist/icons/chevron-down';
+
+const arrow = <Icon src={ChevronDown} attrs={{ height: 18, width: 18 }} />;
 
 class Select extends Component {
     static propTypes = {

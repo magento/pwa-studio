@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import X from 'react-feather/dist/icons/x';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -63,7 +64,7 @@ export class Search extends Component {
                     </Query>
                 </small>
                 <Icon
-                    name="X"
+                    src={X}
                     attrs={{
                         width: '13px',
                         height: '13px'

@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import classify from 'src/classify';
 import defaultClasses from './navButton.css';
 import Icon from '../Icon';
+import Rewind from 'react-feather/dist/icons/rewind';
+import ChevronLeft from 'react-feather/dist/icons/chevron-left';
+import ChevronRight from 'react-feather/dist/icons/chevron-right';
+import FastForward from 'react-feather/dist/icons/fast-forward';
+
+const NavIcons = {
+    Rewind,
+    ChevronLeft,
+    ChevronRight,
+    FastForward
+};
 
 const defaultSkipAttributes = {
     width: '1.2rem',
@@ -26,7 +37,7 @@ class NavButton extends Component {
         let attrs;
         // The chevron icon does not have a fill or any sizing issues that
         // need to be handled with attributes in props
-        if (name.includes('chevron')) {
+        if (name.includes('Chevron')) {
             attrs = {};
         } else {
             attrs = active
@@ -42,7 +53,7 @@ class NavButton extends Component {
                 aria-label={buttonLabel}
                 onClick={onClick}
             >
-                <Icon name={name} attrs={attrs} />
+                <Icon src={NavIcons[name]} attrs={attrs} />
             </button>
         );
     }

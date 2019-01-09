@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import classify from 'src/classify';
 import { Message } from 'src/components/Field';
 import Icon from 'src/components/Icon';
+import Check from 'react-feather/dist/icons/check';
 import defaultClasses from './checkbox.css';
 
 const iconAttrs = {
@@ -41,7 +42,7 @@ export class Checkbox extends Component {
             <Fragment>
                 <label className={classes.root} htmlFor={id}>
                     <span className={classes.icon}>
-                        {checked && <Icon name="Check" attrs={iconAttrs} />}
+                        {checked && <Icon src={Check} attrs={iconAttrs} />}
                     </span>
                     <BasicCheckbox
                         {...rest}
