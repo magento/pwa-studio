@@ -25,7 +25,9 @@ class Section extends Component {
             ? Object.assign(defaultAttributes, this.props.iconAttributes)
             : defaultAttributes;
 
-        return icon ? <Icon src={SectionIcons[icon]} attrs={iconAttributes} /> : null;
+        return icon ? (
+            <Icon src={SectionIcons[icon]} attrs={iconAttributes} />
+        ) : null;
     }
 
     render() {
