@@ -1,4 +1,4 @@
-import dressPicture from './dress.jpg';
+import { transparentPlaceholder } from 'src/shared/images';
 
 export const itemMock = {
     id: 1,
@@ -6,7 +6,7 @@ export const itemMock = {
     size: '43',
     color: 'Navy Blue',
     qty: 1,
-    titleImageSrc: dressPicture,
+    titleImageSrc: transparentPlaceholder,
     price: 27,
     sku: '24-MB01'
 };
@@ -18,7 +18,7 @@ export const otherItemsMock = [
         size: '42',
         color: 'Navy Blue',
         qty: 1,
-        titleImageSrc: dressPicture,
+        titleImageSrc: transparentPlaceholder,
         price: 27,
         sku: '24-MB01'
     },
@@ -28,7 +28,7 @@ export const otherItemsMock = [
         size: '40',
         color: 'Navy Blue',
         qty: 1,
-        titleImageSrc: dressPicture,
+        titleImageSrc: transparentPlaceholder,
         price: 27,
         sku: '24-MB01'
     },
@@ -38,7 +38,7 @@ export const otherItemsMock = [
         size: '45',
         color: 'Navy Blue',
         qty: 1,
-        titleImageSrc: dressPicture,
+        titleImageSrc: transparentPlaceholder,
         price: 27,
         sku: '24-MB01'
     },
@@ -48,7 +48,7 @@ export const otherItemsMock = [
         size: '47',
         color: 'Navy Blue',
         qty: 1,
-        titleImageSrc: dressPicture,
+        titleImageSrc: transparentPlaceholder,
         price: 27,
         sku: '24-MB01'
     },
@@ -58,7 +58,7 @@ export const otherItemsMock = [
         size: '39',
         color: 'Navy Blue',
         qty: 1,
-        titleImageSrc: dressPicture,
+        titleImageSrc: transparentPlaceholder,
         price: 27,
         sku: '24-MB01'
     }
