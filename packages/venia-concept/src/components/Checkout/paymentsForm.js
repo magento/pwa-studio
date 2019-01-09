@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Form } from 'informed';
-import { array, bool, func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
+import BraintreeDropin from './braintreeDropin';
 import Button from 'src/components/Button';
-import Label from './label';
-import Select from 'src/components/Select';
 
 import classify from 'src/classify';
 import defaultClasses from './paymentsForm.css';
 
 class PaymentsForm extends Component {
     static propTypes = {
-        availablePaymentMethods: array.isRequired,
         cancel: func.isRequired,
         classes: shape({
             body: string,
@@ -19,41 +17,29 @@ class PaymentsForm extends Component {
             heading: string,
             paymentMethod: string
         }),
-        paymentMethod: string,
         submit: func.isRequired,
         submitting: bool
     };
 
-    static defaultProps = {
-        availablePaymentMethods: [{}]
+    // TODO: don't actually keep the state here, move to Redux
+    state = {
+        isRequestingPaymentNonce: false
     };
 
     render() {
-        const {
-            availablePaymentMethods,
-            classes,
-            paymentMethod,
-            submitting
-        } = this.props;
-
-        const selectablePaymentMethods = availablePaymentMethods.map(
-            ({ code, title }) => ({ label: title, value: code })
-        );
-        const initialValue =
-            paymentMethod || availablePaymentMethods[0].code || '';
+        const { classes, submitting } = this.props;
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Billing Information</h2>
                     <div className={classes.paymentMethod}>
-                        <Label htmlFor={classes.paymentMethod}>
-                            Payment Method
-                        </Label>
-                        <Select
-                            field="paymentMethod"
-                            initialValue={initialValue}
-                            items={selectablePaymentMethods}
+                        <BraintreeDropin
+                            isRequestingPaymentNonce={
+                                this.state.isRequestingPaymentNonce
+                            }
+                            onError={this.cancelPaymentNonceRequest}
+                            onSuccess={this.setPaymentNonce}
                         />
                     </div>
                 </div>
@@ -67,24 +53,34 @@ class PaymentsForm extends Component {
         );
     }
 
+    /*
+     *  Event Handlers.
+     */
     cancel = () => {
         this.props.cancel();
     };
 
-    submit = ({ paymentMethod }) => {
-        const selectedPaymentMethod = this.props.availablePaymentMethods.find(
-            ({ code }) => code === paymentMethod
-        );
+    submit = () => {
+        this.setState({ isRequestingPaymentNonce: true });
+    };
 
-        if (!selectedPaymentMethod) {
-            console.warn(
-                `Could not find the selected payment method ${selectedPaymentMethod} in the list of available payment methods.`
-            );
-            this.cancel();
-            return;
-        }
+    setPaymentNonce = value => {
+        this.setState({
+            isRequestingPaymentNonce: false
+        });
 
-        this.props.submit({ paymentMethod: selectedPaymentMethod });
+        // Future: actually hook up submitting credit card data to M2 backend.
+        this.props.submit({
+            paymentMethod: {
+                code: 'checkmo',
+                display_primary: 'credit card',
+                display_secondary: `ending in ${value.details.lastFour}`
+            }
+        });
+    };
+
+    cancelPaymentNonceRequest = () => {
+        this.setState({ isRequestingPaymentNonce: false });
     };
 }
 

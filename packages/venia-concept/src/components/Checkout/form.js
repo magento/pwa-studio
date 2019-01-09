@@ -16,7 +16,6 @@ const storage = new BrowserPersistence();
 
 class Form extends Component {
     static propTypes = {
-        availablePaymentMethods: array,
         availableShippingMethods: array,
         cart: shape({
             details: object,
@@ -28,6 +27,8 @@ class Form extends Component {
             footer: string,
             informationPrompt: string,
             'informationPrompt--disabled': string,
+            paymentDisplayPrimary: string,
+            paymentDisplaySecondary: string,
             root: string
         }),
         editing: string,
@@ -36,8 +37,8 @@ class Form extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentMethod: string,
-        paymentTitle: string,
+        paymentDisplayPrimary: string,
+        paymentDisplaySecondary: string,
         ready: bool,
         shippingMethod: string,
         shippingTitle: string,
@@ -99,13 +100,9 @@ class Form extends Component {
                 );
             }
             case 'paymentMethod': {
-                const { availablePaymentMethods, paymentMethod } = this.props;
-
                 return (
                     <PaymentsForm
-                        availablePaymentMethods={availablePaymentMethods}
                         cancel={this.stopEditing}
-                        paymentMethod={paymentMethod}
                         submit={this.submitPaymentMethod}
                         submitting={submitting}
                     />
@@ -186,7 +183,8 @@ class Form extends Component {
             classes,
             isPaymentMethodReady,
             isShippingInformationReady,
-            paymentTitle
+            paymentDisplayPrimary,
+            paymentDisplaySecondary
         } = this.props;
 
         if (!isPaymentMethodReady) {
@@ -198,7 +196,13 @@ class Form extends Component {
 
         return (
             <Fragment>
-                <strong>{paymentTitle}</strong>
+                <strong className={classes.paymentDisplayPrimary}>
+                    {paymentDisplayPrimary}
+                </strong>
+                <br />
+                <span className={classes.paymentDisplaySecondary}>
+                    {paymentDisplaySecondary}
+                </span>
             </Fragment>
         );
     }
