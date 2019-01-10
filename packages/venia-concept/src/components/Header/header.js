@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
@@ -45,7 +45,9 @@ class Header extends Component {
         return (
             <header className={rootClass}>
                 <div className={classes.toolbar}>
-                    <Logo classes={{ logo: classes.logo }} />
+                    <Link to="/">
+                        <Logo classes={{ logo: classes.logo }} />
+                    </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
                             <Icon name="menu" />
