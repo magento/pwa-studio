@@ -40,14 +40,19 @@ export default class MagentoRouteHandler extends Component {
     }
 
     componentDidMount() {
+        const { pathname } = this.props.location;
+        const isSearch = pathname === '/search.html';
         mountedInstances.add(this);
-        this.getRouteComponent();
+        if (!isSearch) {
+            this.getRouteComponent(pathname);
+        }
     }
 
     componentDidUpdate() {
         const { props, state } = this;
         const { pathname } = props.location;
         const isKnown = state.componentMap.has(pathname);
+        const isSearch = pathname === '/search.html';
 
         // `NOTFOUND` component needs a unique id
         // currently it is set to -1
@@ -57,7 +62,7 @@ export default class MagentoRouteHandler extends Component {
 
         const shouldReloadRoute = isNotFoundComponent && navigator.onLine;
 
-        if (!isKnown || shouldReloadRoute) {
+        if ((!isKnown && !isSearch) || shouldReloadRoute) {
             this.getRouteComponent();
         }
     }
@@ -158,6 +163,6 @@ export default class MagentoRouteHandler extends Component {
         // otherwise we do have a RootComponent, so render it
         const { RootComponent, ...routeProps } = componentMap.get(pathname);
 
-        return <RootComponent {...routeProps} />;
+        return <RootComponent {...routeProps} key={pathname} />;
     }
 }

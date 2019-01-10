@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.imageAndPropsContainer {
+    display: flex;
+}
+
+.titleImage {
+    height: 5rem;
+    margin-right: 0.375rem;
+}
+
+.propsColumnContainer {
+    max-width: 10rem;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.priceContainer {
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+}

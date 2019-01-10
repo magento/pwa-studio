@@ -2,15 +2,17 @@
     box-sizing: border-box;
 }
 
-html {
+:root {
     --venia-anim-bounce: cubic-bezier(0.5, 1.8, 0.9, 0.8);
     --venia-border: 224, 224, 224;
+    --venia-error: 192, 18, 63;
+    --venia-error-alt: 255, 226, 234;
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
     --venia-grey: 246, 246, 246;
     --venia-orange: 241, 99, 33;
-    --venia-teal: 0, 134, 138;
+    --venia-teal: 0, 115, 120;
     --venia-teal-alt: 224, 240, 241;
-    --venia-teal-light: 212, 246, 241;
+    --venia-teal-light: 212, 243, 238;
     --venia-text: 33, 33, 33;
     --venia-text-alt: 117, 117, 117;
     --venia-text-hint: 158, 158, 158;

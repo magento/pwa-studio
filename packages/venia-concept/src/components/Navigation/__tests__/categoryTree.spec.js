@@ -1,13 +1,17 @@
 import React from 'react';
 import wait from 'waait';
-import { mount } from 'enzyme';
+import waitForExpect from 'wait-for-expect';
+import TestRenderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
+import { MockedProvider } from 'react-apollo/test-utils';
 
 import navigationMenuQuery from '../../../queries/getNavigationMenu.graphql';
-import { MockedProvider } from 'react-apollo/test-utils';
 import CategoryTree from '../categoryTree';
+import Branch from '../categoryBranch';
+import Leaf from '../categoryLeaf';
 
-jest.mock('react-router-dom/Link', () => () => <h6>link</h6>);
-jest.mock('react-router-dom/NavLink', () => 'navlink');
+jest.mock('../categoryBranch');
+jest.mock('../categoryLeaf');
 
 const mocks = [
     {
@@ -132,58 +136,54 @@ const classes = {
     inactive: 'b'
 };
 
-beforeAll(() => {
-    jest.useFakeTimers();
-});
-
 test('renders with product data', async () => {
     const rootNodeId = 1;
     const currentId = 1;
-    const updateRootNodeId = () => {};
-    const wrapper = mount(
+    const updateRootNodeId = jest.fn();
+
+    const { root } = TestRenderer.create(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryTree
-                rootNodeId={rootNodeId}
-                currentId={currentId}
-                updateRootNodeId={updateRootNodeId}
-                classes={classes}
-            />
+            <MemoryRouter>
+                <CategoryTree
+                    rootNodeId={rootNodeId}
+                    currentId={currentId}
+                    updateRootNodeId={updateRootNodeId}
+                    classes={classes}
+                />
+            </MemoryRouter>
         </MockedProvider>
     );
-    wait();
-    jest.runAllTimers();
-    wrapper.update();
-    // The mocked data above has exactly 2 branch categories,
-    // and 3 leaf categories
-    const branches = wrapper.find('Branch');
-    const leaves = wrapper.find('Leaf');
-    expect(branches.length).toBe(2);
-    expect(leaves.length).toBe(3);
+
+    await waitForExpect(() => {
+        expect(root.findAllByType(Branch).length).toBe(2);
+        expect(root.findAllByType(Leaf).length).toBe(3);
+    });
 });
 
-test('child node correctly sets new root and parent ids', () => {
-    let currentPath = '1';
-    const setCurrentPath = path => {
-        currentPath = path;
-    };
-
+test('child node correctly sets new root and parent ids', async () => {
     const rootNodeId = 1;
     const currentId = 1;
+    const setCurrentPath = jest.fn();
 
-    const wrapper = mount(
+    const { root } = TestRenderer.create(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <CategoryTree
-                rootNodeId={rootNodeId}
-                currentId={currentId}
-                updateRootNodeId={setCurrentPath}
-                classes={classes}
-            />
+            <MemoryRouter>
+                <CategoryTree
+                    rootNodeId={rootNodeId}
+                    currentId={currentId}
+                    updateRootNodeId={setCurrentPath}
+                    classes={classes}
+                />
+            </MemoryRouter>
         </MockedProvider>
     );
-    wait();
-    jest.runAllTimers();
-    wrapper.update();
-    const leaf3 = wrapper.find('button').last();
-    leaf3.simulate('click');
-    expect(currentPath).toEqual('1/3');
+
+    await wait();
+
+    const child = root.findByProps({ path: '1/3' });
+    const { onDive, path } = child.props;
+
+    onDive(path);
+
+    expect(setCurrentPath).toHaveBeenLastCalledWith(path);
 });
