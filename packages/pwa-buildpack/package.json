@@ -13,9 +13,6 @@
     "prepublishOnly": "npm run -s build",
     "watch": "npm run -s build -- --watch"
   },
-  "engines": {
-    "node": ">=8.0.0"
-  },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
     "magento",
@@ -52,12 +49,15 @@
     "workbox-webpack-plugin": "~3.6.1",
     "write-file-webpack-plugin": "~4.2.0"
   },
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "rimraf": "~2.6.2"
+  },
   "peerDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7"
   },
-  "devDependencies": {
-    "babel-cli": "~6.26.0",
-    "rimraf": "~2.6.2"
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
