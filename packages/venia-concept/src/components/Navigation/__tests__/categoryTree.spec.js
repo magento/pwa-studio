@@ -1,5 +1,6 @@
 import React from 'react';
 import wait from 'waait';
+import waitForExpect from 'wait-for-expect';
 import TestRenderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
@@ -153,10 +154,10 @@ test('renders with product data', async () => {
         </MockedProvider>
     );
 
-    await wait();
-
-    expect(root.findAllByType(Branch).length).toBe(2);
-    expect(root.findAllByType(Leaf).length).toBe(3);
+    await waitForExpect(() => {
+        expect(root.findAllByType(Branch).length).toBe(2);
+        expect(root.findAllByType(Leaf).length).toBe(3);
+    });
 });
 
 test('child node correctly sets new root and parent ids', async () => {
