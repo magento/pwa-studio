@@ -1,5 +1,4 @@
 import React from 'react';
-import wait from 'waait';
 import waitForExpect from 'wait-for-expect';
 import TestRenderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
@@ -178,12 +177,12 @@ test('child node correctly sets new root and parent ids', async () => {
         </MockedProvider>
     );
 
-    await wait();
+    await waitForExpect(() => {
+        const child = root.findByProps({ path: '1/3' });
+        const { onDive, path } = child.props;
 
-    const child = root.findByProps({ path: '1/3' });
-    const { onDive, path } = child.props;
+        onDive(path);
 
-    onDive(path);
-
-    expect(setCurrentPath).toHaveBeenLastCalledWith(path);
+        expect(setCurrentPath).toHaveBeenLastCalledWith(path);
+    });
 });

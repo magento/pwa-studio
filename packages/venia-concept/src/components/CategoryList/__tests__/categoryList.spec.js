@@ -1,5 +1,5 @@
 import React from 'react';
-import wait from 'waait';
+import waitForExpect from 'wait-for-expect';
 import TestRenderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
@@ -115,7 +115,7 @@ test('renders category tiles', async () => {
 
     expect(root.findByType(LoadingIndicator)).toBeTruthy();
 
-    await wait();
-
-    expect(root.findAllByType(CategoryTile)).toHaveLength(3);
+    await waitForExpect(() => {
+        expect(root.findAllByType(CategoryTile)).toHaveLength(3);
+    });
 });
