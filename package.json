@@ -25,6 +25,7 @@
     "prettier:validate": "prettier-check '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "stage:venia": "cd packages/venia-concept && npm start; cd - >/dev/null",
+    "stats:venia": "cd packages/venia-concept && npm run build:stats && webpack-bundle-analyzer dist/build-stats.json",
     "storybook:venia": "cd packages/venia-concept && npm run storybook",
     "test": "jest",
     "test:ci": "jest --no-cache -i --json --outputFile=test-results.json",
@@ -94,7 +95,6 @@
     "eslint-plugin-react": "~7.11.1",
     "execa": "~1.0.0",
     "express": "~4.16.3",
-    "feather-icons": "~4.9.0",
     "figures": "~2.0.0",
     "file-loader": "~2.0.0",
     "graphql": "~0.13.2",
@@ -127,6 +127,7 @@
     "react": "~16.6.1",
     "react-apollo": "~2.2.4",
     "react-dom": "~16.6.1",
+    "react-feather": "~1.1.5",
     "react-redux": "~5.0.7",
     "react-router-dom": "~4.4.0-beta.6",
     "react-test-renderer": "~16.6.1",
@@ -148,10 +149,12 @@
     "wait-for-expect": "^1.1.0",
     "webpack": "~4.25.1",
     "webpack-babel-env-deps": "~1.4.3",
+    "webpack-bundle-analyzer": "~3.0.3",
     "webpack-cli": "~3.1.2",
     "webpack-dev-server": "^3.1.14",
     "workbox-webpack-plugin": "~3.6.1",
     "write-file-webpack-plugin": "~4.2.0",
     "xml": "~1.0.1"
-  }
+  },
+  "dependencies": {}
 }
