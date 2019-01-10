@@ -58,6 +58,6 @@
     "babel-loader": "^7"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.14.1"
   }
 }
