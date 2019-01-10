@@ -10,9 +10,6 @@
     "lib": "./lib",
     "bin": "./bin"
   },
-  "engines": {
-    "node": ">=8.0.0"
-  },
   "scripts": {
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
@@ -55,5 +52,8 @@
   },
   "peerDependencies": {
     "express": "^4.16.3"
+  },
+  "engines": {
+    "node": ">=10.14.1"
   }
 }
