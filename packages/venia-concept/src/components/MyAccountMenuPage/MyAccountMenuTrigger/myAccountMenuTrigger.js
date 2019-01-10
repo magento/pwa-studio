@@ -40,13 +40,13 @@ class MyAccountMenuTrigger extends Component {
 
     state = {
         on: false
-    }
+    };
 
     toggle = () => {
         this.setState({
             on: !this.state.on
-        })
-    }
+        });
+    };
 
     render() {
         const { menu } = this;
@@ -66,6 +66,4 @@ class MyAccountMenuTrigger extends Component {
     }
 }
 
-export default compose(
-    classify(defaultClasses),
-)(MyAccountMenuTrigger);
+export default compose(classify(defaultClasses))(MyAccountMenuTrigger);
