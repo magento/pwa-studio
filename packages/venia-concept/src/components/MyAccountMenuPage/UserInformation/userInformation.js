@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import UserIcon from 'react-feather/dist/icons/user';
 import defaultClasses from './userInformation.css';
 import { USER_PROP_TYPES } from '../constants';
-
-const USER_ICON_ATTRS = {
-    width: 18
-};
 
 class UserInformation extends Component {
     static propTypes = {
@@ -27,7 +24,7 @@ class UserInformation extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.iconContainer}>
-                    <Icon name="user" attrs={USER_ICON_ATTRS} />
+                    <Icon src={UserIcon} size={18} />
                 </div>
                 <div className={classes.userInformationContainer}>
                     <p className={classes.fullName}>{fullname}</p>

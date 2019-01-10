@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { compose } from 'redux';
 import withToggle from 'src/components/withToggle';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import defaultClasses from './myAccountMenuTrigger.css';
 import UserInformation from '../UserInformation';
 import MyAccountMenuPage from '../MyAccountMenuPage';
 import { USER_PROP_TYPES } from '../constants';
+import ChevronUpIcon from 'react-feather/dist/icons/chevron-up';
 
 class MyAccountMenuTrigger extends Component {
     static propTypes = {
@@ -41,15 +42,15 @@ class MyAccountMenuTrigger extends Component {
         const { user, classes, setOn } = this.props;
 
         return (
-            <div>
+            <Fragment>
                 <div className={classes.userChip}>
                     <UserInformation user={user} />
                     <button className={classes.userMore} onClick={setOn}>
-                        <Icon name="chevron-up" />
+                        <Icon src={ChevronUpIcon} />
                     </button>
                 </div>
                 {menu}
-            </div>
+            </Fragment>
         );
     }
 }

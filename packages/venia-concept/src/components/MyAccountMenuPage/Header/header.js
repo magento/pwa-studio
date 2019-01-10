@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import Trigger from 'src/components/Trigger';
 import Icon from 'src/components/Icon';
+import CloseIcon from 'react-feather/dist/icons/x';
 import UserInformation from '../UserInformation';
 import defaultClasses from './header.css';
 import { USER_PROP_TYPES } from '../constants';
@@ -27,7 +28,7 @@ class Header extends Component {
                     classes={{ root: classes.closeButton }}
                     action={onClose}
                 >
-                    <Icon name="x" />
+                    <Icon src={CloseIcon} />
                 </Trigger>
             </div>
         );
