@@ -3,7 +3,7 @@ import { number, oneOfType, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Icon from 'src/components/Icon';
-import ChevronRight from 'react-feather/dist/icons/chevron-right';
+import { default as ChevronRightIcon } from 'react-feather/dist/icons/chevron-right';
 
 import classify from 'src/classify';
 import defaultClasses from './purchaseHistoryItem.css';
@@ -46,7 +46,7 @@ class PurchaseHistoryItem extends Component {
                     </div>
                 </div>
                 <div className={classes.chevronContainer}>
-                    <Icon src={ChevronRight} attrs={CHEVRON_ICON_ATTRS} />
+                    <Icon src={ChevronRightIcon} attrs={CHEVRON_ICON_ATTRS} />
                 </div>
             </Link>
         );

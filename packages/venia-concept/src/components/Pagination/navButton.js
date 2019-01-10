@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import classify from 'src/classify';
 import defaultClasses from './navButton.css';
 import Icon from '../Icon';
-import Rewind from 'react-feather/dist/icons/rewind';
-import ChevronLeft from 'react-feather/dist/icons/chevron-left';
-import ChevronRight from 'react-feather/dist/icons/chevron-right';
-import FastForward from 'react-feather/dist/icons/fast-forward';
+import { default as RewindIcon } from 'react-feather/dist/icons/rewind';
+import { default as ChevronLeftIcon } from 'react-feather/dist/icons/chevron-left';
+import { default as ChevronRightIcon } from 'react-feather/dist/icons/chevron-right';
+import { default as FastForwardIcon } from 'react-feather/dist/icons/fast-forward';
 
 const NavIcons = {
-    Rewind,
-    ChevronLeft,
-    ChevronRight,
-    FastForward
+    Rewind: RewindIcon,
+    ChevronLeft: ChevronLeftIcon,
+    ChevronRight: ChevronRightIcon,
+    FastForward: FastForwardIcon
 };
 
 const defaultSkipAttributes = {

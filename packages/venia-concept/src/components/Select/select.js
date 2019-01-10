@@ -8,9 +8,9 @@ import { FieldIcons, Message } from 'src/components/Field';
 import defaultClasses from './select.css';
 
 import Icon from 'src/components/Icon';
-import ChevronDown from 'react-feather/dist/icons/chevron-down';
+import { default as ChevronDownIcon } from 'react-feather/dist/icons/chevron-down';
 
-const arrow = <Icon src={ChevronDown} size={18} />;
+const arrow = <Icon src={ChevronDownIcon} size={18} />;
 
 class Select extends Component {
     static propTypes = {

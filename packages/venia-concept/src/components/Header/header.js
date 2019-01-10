@@ -4,9 +4,9 @@ import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import Search from 'react-feather/dist/icons/search';
-import Menu from 'react-feather/dist/icons/menu';
-import ShoppingCart from 'react-feather/dist/icons/shopping-cart';
+import { default as SearchIcon } from 'react-feather/dist/icons/search';
+import { default as MenuIcon } from 'react-feather/dist/icons/menu';
+import { default as ShoppingCartIcon } from 'react-feather/dist/icons/shopping-cart';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
@@ -32,7 +32,7 @@ class Header extends Component {
     };
 
     get searchIcon() {
-        return <Icon src={Search} />;
+        return <Icon src={SearchIcon} />;
     }
 
     render() {
@@ -59,7 +59,7 @@ class Header extends Component {
                     </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
-                            <Icon src={Menu} />
+                            <Icon src={MenuIcon} />
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
@@ -70,7 +70,7 @@ class Header extends Component {
                             {this.searchIcon}
                         </SearchTrigger>
                         <CartTrigger>
-                            <Icon src={ShoppingCart} />
+                            <Icon src={ShoppingCartIcon} />
                         </CartTrigger>
                     </div>
                 </div>

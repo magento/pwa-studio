@@ -4,7 +4,7 @@ import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './kebab.css';
 
-import MoreVertical from 'react-feather/dist/icons/more-vertical';
+import { default as MoreVertical } from 'react-feather/dist/icons/more-vertical';
 
 class Kebab extends Component {
     constructor(props) {
