@@ -5,7 +5,6 @@ import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
 import Lock from 'react-feather/dist/icons/lock';
 
-const iconDimensions = { height: 16, width: 16 };
 const isDisabled = (busy, valid) => busy || !valid;
 
 class CheckoutButton extends Component {
@@ -21,7 +20,7 @@ class CheckoutButton extends Component {
 
         return (
             <Button disabled={disabled} onClick={submit}>
-                <Icon src={Lock} attrs={iconDimensions} />
+                <Icon src={Lock} size={16} />
                 <span>Checkout</span>
             </Button>
         );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './icon.css';
@@ -9,20 +9,28 @@ import defaultClasses from './icon.css';
  */
 class Icon extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        })
+        classes: shape({
+            root: string
+        }),
+        size: number,
+        attrs: object,
+        src: oneOfType([func, shape({ render: func.isRequired })]).isRequired
     };
 
     render() {
-        const { attrs, classes, src: IconComponent } = this.props;
+        const {
+            attrs: { width, ...restAttrs } = {},
+            size,
+            classes,
+            src: IconComponent
+        } = this.props;
 
+        // Permit both prop styles:
+        // <Icon src={Foo} attrs={{ width: 18 }} />
+        // <Icon src={Foo} size={18} />
         return (
             <span className={classes.root}>
-                <IconComponent
-                    size={attrs && attrs.width}
-                    color={attrs && attrs.color}
-                />
+                <IconComponent size={size || width} {...restAttrs} />
             </span>
         );
     }

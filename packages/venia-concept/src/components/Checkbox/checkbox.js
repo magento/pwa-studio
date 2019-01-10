@@ -9,11 +9,6 @@ import Icon from 'src/components/Icon';
 import Check from 'react-feather/dist/icons/check';
 import defaultClasses from './checkbox.css';
 
-const iconAttrs = {
-    height: 18,
-    width: 18
-};
-
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -42,7 +37,7 @@ export class Checkbox extends Component {
             <Fragment>
                 <label className={classes.root} htmlFor={id}>
                     <span className={classes.icon}>
-                        {checked && <Icon src={Check} attrs={iconAttrs} />}
+                        {checked && <Icon src={Check} size={18} />}
                     </span>
                     <BasicCheckbox
                         {...rest}
