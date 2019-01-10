@@ -4,7 +4,6 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import UserIcon from 'react-feather/dist/icons/user';
 import defaultClasses from './userInformation.css';
-import { USER_PROP_TYPES } from '../constants';
 
 class UserInformation extends Component {
     static propTypes = {
@@ -14,7 +13,12 @@ class UserInformation extends Component {
             userInformationSecondary: PropTypes.string,
             iconContainer: PropTypes.string
         }),
-        user: PropTypes.shape(USER_PROP_TYPES)
+        user: PropTypes.shape({
+            email: PropTypes.string,
+            firstname: PropTypes.string,
+            lastname: PropTypes.string,
+            fullname: PropTypes.string
+        })
     };
 
     render() {

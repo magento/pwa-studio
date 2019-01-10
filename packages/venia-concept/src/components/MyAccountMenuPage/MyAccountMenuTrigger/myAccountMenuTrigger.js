@@ -7,7 +7,6 @@ import Icon from 'src/components/Icon';
 import defaultClasses from './myAccountMenuTrigger.css';
 import UserInformation from '../UserInformation';
 import MyAccountMenuPage from '../MyAccountMenuPage';
-import { USER_PROP_TYPES } from '../constants';
 import ChevronUpIcon from 'react-feather/dist/icons/chevron-up';
 
 class MyAccountMenuTrigger extends Component {
@@ -21,7 +20,12 @@ class MyAccountMenuTrigger extends Component {
             menuOpen: PropTypes.string,
             menuClosed: PropTypes.string
         }),
-        user: PropTypes.shape(USER_PROP_TYPES)
+        user: PropTypes.shape({
+            email: PropTypes.string,
+            firstname: PropTypes.string,
+            lastname: PropTypes.string,
+            fullname: PropTypes.string
+        })
     };
 
     get menu() {

@@ -6,7 +6,6 @@ import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
 import UserInformation from '../UserInformation';
 import defaultClasses from './header.css';
-import { USER_PROP_TYPES } from '../constants';
 
 class Header extends Component {
     static propTypes = {
@@ -15,7 +14,12 @@ class Header extends Component {
             header: PropTypes.string
         }),
         onClose: PropTypes.func,
-        user: PropTypes.shape(USER_PROP_TYPES)
+        user: PropTypes.shape({
+            email: PropTypes.string,
+            firstname: PropTypes.string,
+            lastname: PropTypes.string,
+            fullname: PropTypes.string
+        })
     };
 
     render() {
