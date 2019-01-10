@@ -1,23 +1,17 @@
 {
   "name": "@magento/venia-concept",
+  "version": "2.0.0-rc.17",
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.0.0-rc.17",
   "description": "Venia PWA Concept Storefront for Magento 2",
-  "license": "(OSL-3.0 OR AFL-3.0)",
-  "author": "Magento Commerce",
   "main": "src/index.js",
-  "repository": "github:magento-research/pwa-studio",
   "bin": {
     "venia": "./bin/venia.js"
   },
-  "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
-  },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "scripts": {
     "build": "npx rimraf dist && npm run -s validate-queries && webpack -p --color --progress --profile --env.mode production",
+    "build:stats": "npx rimraf dist && mkdir dist && npm run -s validate-queries && webpack -p --color --progress --profile --env.mode production --json > dist/build-stats.json",
     "clean": "npx rimraf dist",
     "prebuild": "npm run -s clean",
     "start": "node server.js",
@@ -28,8 +22,15 @@
     "validate-queries": "node ./validate-queries.js",
     "watch": "webpack-dev-server --progress --color --env.mode development"
   },
+  "repository": "github:magento-research/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
-    "@magento/eslint-config": "~1.2.3",
+    "@magento/eslint-config": "~1.3.0",
     "@magento/peregrine": "^2.0.0-rc.17",
     "@magento/pwa-buildpack": "^2.0.0-rc.17",
     "@magento/upward-js": "^2.0.0-rc.17",

@@ -2,6 +2,7 @@
     display: grid;
     gap: 0.5rem;
     justify-items: stretch;
+    padding: 0 1.5rem;
 }
 
 .actions {
