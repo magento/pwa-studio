@@ -5,7 +5,7 @@ import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './section.css';
 import Icon from 'src/components/Icon';
-import { default as CheckIcon } from 'react-feather/dist/icons/check';
+import CheckIcon from 'react-feather/dist/icons/check';
 
 class Section extends Component {
     static propTypes = {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import Icon from 'src/components/Icon';
-import { default as HeartIcon } from 'react-feather/dist/icons/heart';
-import { default as Edit2Icon } from 'react-feather/dist/icons/edit-2';
-import { default as TrashIcon } from 'react-feather/dist/icons/trash';
+import HeartIcon from 'react-feather/dist/icons/heart';
+import Edit2Icon from 'react-feather/dist/icons/edit-2';
+import TrashIcon from 'react-feather/dist/icons/trash';
 import classify from 'src/classify';
 import defaultClasses from './section.css';
 

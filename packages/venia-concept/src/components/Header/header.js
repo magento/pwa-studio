@@ -4,9 +4,9 @@ import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import { default as SearchIcon } from 'react-feather/dist/icons/search';
-import { default as MenuIcon } from 'react-feather/dist/icons/menu';
-import { default as ShoppingCartIcon } from 'react-feather/dist/icons/shopping-cart';
+import SearchIcon from 'react-feather/dist/icons/search';
+import MenuIcon from 'react-feather/dist/icons/menu';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';

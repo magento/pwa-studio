@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'src/components/Icon';
-import { default as CloudOffIcon } from 'react-feather/dist/icons/cloud-off';
-import { default as CheckIcon } from 'react-feather/dist/icons/check';
+import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
+import CheckIcon from 'react-feather/dist/icons/check';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';

@@ -3,7 +3,7 @@ import { number, oneOfType, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Icon from 'src/components/Icon';
-import { default as ChevronRightIcon } from 'react-feather/dist/icons/chevron-right';
+import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
 
 import classify from 'src/classify';
 import defaultClasses from './purchaseHistoryItem.css';

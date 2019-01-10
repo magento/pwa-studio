@@ -5,8 +5,8 @@ import getQueryParameterValue from '../../util/getQueryParameterValue';
 import { SEARCH_QUERY_PARAMETER } from '../../RootComponents/Search/consts';
 import SearchAutocomplete from './autocomplete';
 import Icon from 'src/components/Icon';
-import { default as ClearIcon } from 'react-feather/dist/icons/x';
-import { default as SearchIcon } from 'react-feather/dist/icons/search';
+import ClearIcon from 'react-feather/dist/icons/x';
+import SearchIcon from 'react-feather/dist/icons/search';
 import TextInput from 'src/components/TextInput';
 import Trigger from 'src/components/Trigger';
 

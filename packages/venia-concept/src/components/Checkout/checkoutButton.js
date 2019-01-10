@@ -3,7 +3,7 @@ import { bool, func } from 'prop-types';
 
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import { default as LockIcon } from 'react-feather/dist/icons/lock';
+import LockIcon from 'react-feather/dist/icons/lock';
 
 const isDisabled = (busy, valid) => busy || !valid;
 
