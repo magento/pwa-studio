@@ -58,10 +58,17 @@ class PaymentsForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button type="submit" disabled={submitting}>
+                    <Button
+                        contrast="high"
+                        priority="high"
+                        type="submit"
+                        disabled={submitting}
+                    >
                         Save
                     </Button>
-                    <Button onClick={this.cancel}>Cancel</Button>
+                    <Button contrast="high" onClick={this.cancel}>
+                        Cancel
+                    </Button>
                 </div>
             </Form>
         );

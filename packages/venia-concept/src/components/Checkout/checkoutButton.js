@@ -19,7 +19,12 @@ class CheckoutButton extends Component {
         const disabled = isDisabled(submitting, ready);
 
         return (
-            <Button disabled={disabled} onClick={submit}>
+            <Button
+                contrast="high"
+                priority="high"
+                disabled={disabled}
+                onClick={submit}
+            >
                 <Icon src={LockIcon} size={16} />
                 <span>Checkout</span>
             </Button>
