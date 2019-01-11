@@ -26,7 +26,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "validate-queries": "node ./validate-queries.js",
-    "watch": "webpack-dev-server --progress --color --env.mode development"
+    "watch": "webpack-dev-server --progress --color --env.mode development",
+    "watch:docker": "webpack-dev-server --progress --color --env.mode development --host pwa-docker.local"
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",

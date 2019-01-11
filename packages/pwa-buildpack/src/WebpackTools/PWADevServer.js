@@ -44,7 +44,7 @@ const PWADevServer = {
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
-            host: '0.0.0.0',
+            host: config.host || '0.0.0.0',
             port: config.port || (await portscanner.findAPortNotInUse(10000)),
             stats: {
                 all: !process.env.NODE_DEBUG ? false : undefined,
