@@ -5,6 +5,7 @@ import { Price } from '@magento/peregrine';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
@@ -132,7 +133,7 @@ class ProductFullDetail extends Component {
     };
 
     get fallback() {
-        return <div>Loading...</div>;
+        return loadingIndicator;
     }
 
     get productOptions() {

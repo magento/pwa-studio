@@ -4,7 +4,8 @@
     bottom: 0;
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;
-    grid-template-rows: min-content 1fr auto auto;
+    grid-template-rows: min-content 1fr;
+    height: 100vh;
     opacity: 0;
     overflow: hidden;
     position: fixed;

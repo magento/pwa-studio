@@ -1,18 +1,18 @@
 export const navButtons = {
     firstPage: {
-        name: 'rewind',
+        name: 'Rewind',
         buttonLabel: 'move to the first page'
     },
     prevPage: {
-        name: 'chevron-left',
+        name: 'ChevronLeft',
         buttonLabel: 'move to the previous page'
     },
     nextPage: {
-        name: 'chevron-right',
+        name: 'ChevronRight',
         buttonLabel: 'move to the next page'
     },
     lastPage: {
-        name: 'fast-forward',
+        name: 'FastForward',
         buttonLabel: 'move to the last page'
     }
 };
