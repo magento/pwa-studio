@@ -10,7 +10,7 @@ class MenuItem extends Component {
         }),
         component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
         title: PropTypes.node,
-        rightNode: PropTypes.node
+        badge: PropTypes.node
     };
 
     static defaultProps = {
@@ -22,14 +22,14 @@ class MenuItem extends Component {
             classes,
             component: ContainerComponent,
             title,
-            rightNode,
+            badge,
             ...props
         } = this.props;
 
         return (
             <ContainerComponent {...props} className={classes.item}>
                 {title}
-                {rightNode}
+                {badge}
             </ContainerComponent>
         );
     }
