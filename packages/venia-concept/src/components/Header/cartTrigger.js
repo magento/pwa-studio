@@ -27,7 +27,11 @@ class Trigger extends Component {
         const iconColor = 'rgb(var(--venia-text))';
 
         return (
-            <button className={classes.root} onClick={toggleCart}>
+            <button
+                className={classes.root}
+                aria-label="Toggle mini cart"
+                onClick={toggleCart}
+            >
                 <Icon
                     src={ShoppingCartIcon}
                     attrs={{ stroke: iconColor, fill: iconColor }}
