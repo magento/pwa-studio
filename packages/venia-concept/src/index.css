@@ -94,5 +94,11 @@ button {
     font-size: 100%;
     padding: 0;
     touch-action: manipulation;
+    user-select: none;
     -webkit-appearance: none;
+}
+
+button:disabled {
+    cursor: default;
+    touch-action: none;
 }
