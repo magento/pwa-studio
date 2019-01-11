@@ -60,9 +60,9 @@ class Footer extends Component {
                         <span>Get answers from our community online.</span>
                     </p>
                 </div>
-                <div className={classes.copyright}>
-                    <span>© Magento 2018. All rights reserved.</span>
-                </div>
+                <small className={classes.copyright}>
+                    © Magento 2018. All rights reserved.
+                </small>
             </footer>
         );
     }

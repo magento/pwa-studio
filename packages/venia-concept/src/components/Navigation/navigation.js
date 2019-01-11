@@ -5,6 +5,8 @@ import classify from 'src/classify';
 import Button from 'src/components/Button';
 import CreateAccount from 'src/components/CreateAccount';
 import Icon from 'src/components/Icon';
+import ChevronUpIcon from 'react-feather/dist/icons/chevron-up';
+import UserIcon from 'react-feather/dist/icons/user';
 import SignIn from 'src/components/SignIn';
 import ForgotPassword from 'src/components/ForgotPassword';
 import CategoryTree from './categoryTree';
@@ -100,7 +102,7 @@ class Navigation extends PureComponent {
         ) : (
             <div className={classes.userChip}>
                 <div className={classes.userAvatar}>
-                    <Icon name="user" />
+                    <Icon src={UserIcon} />
                 </div>
                 <div className={classes.userInfo}>
                     <p className={classes.userName}>
@@ -109,7 +111,7 @@ class Navigation extends PureComponent {
                     <p className={classes.userEmail}>{email}</p>
                 </div>
                 <button className={classes.userMore}>
-                    <Icon name="chevron-up" />
+                    <Icon src={ChevronUpIcon} />
                 </button>
             </div>
         );
