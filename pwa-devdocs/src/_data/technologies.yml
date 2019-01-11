@@ -28,6 +28,9 @@ entries:
     url: /technologies/upward/
     entries:
 
+        - label: Basic concepts
+          url: /technologies/upward/basic-concepts/
+
         - label: Reference implementation
           url: /technologies/upward/reference-implementation/
 
