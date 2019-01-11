@@ -13,10 +13,7 @@ const storedShippingMethod = storage.getItem('shippingMethod');
 const initialState = {
     editing: null,
     paymentCode: storedPaymentMethod && storedPaymentMethod.code,
-    paymentDisplayPrimary:
-        storedPaymentMethod && storedPaymentMethod.display_primary,
-    paymentDisplaySecondary:
-        storedPaymentMethod && storedPaymentMethod.display_secondary,
+    paymentData: storedPaymentMethod && storedPaymentMethod.data,
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
@@ -81,8 +78,7 @@ const reducerMap = {
             ...state,
             editing: null,
             paymentCode: payload.code,
-            paymentDisplayPrimary: payload.display_primary,
-            paymentDisplaySecondary: payload.display_secondary,
+            paymentData: payload.data,
             step: 'form',
             submitting: false
         };

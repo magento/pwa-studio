@@ -22,18 +22,10 @@ class BraintreeDropin extends Component {
         onSuccess: func.isRequired
     };
 
-    state = {
-        isSupported: true
-    };
-
     componentDidMount() {
-        this.createDropinInstance()
-            .then(instance => {
-                this.braintree = instance;
-            })
-            .catch(() => {
-                this.setState({ isSupported: false });
-            });
+        this.createDropinInstance().then(instance => {
+            this.braintree = instance;
+        });
     }
 
     componentWillUnmount() {
@@ -52,10 +44,6 @@ class BraintreeDropin extends Component {
     }
 
     render() {
-        if (!this.state.isSupported) {
-            throw new Error('Web Payments is not supported by this browser.');
-        }
-
         return <div id="dropin-container" />;
     }
 

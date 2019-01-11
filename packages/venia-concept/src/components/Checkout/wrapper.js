@@ -49,8 +49,7 @@ class CheckoutWrapper extends Component {
         }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
-            paymentDisplayPrimary: string,
-            paymentDisplaySecondary: string,
+            paymentData: object,
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
@@ -98,12 +97,7 @@ class CheckoutWrapper extends Component {
         };
 
         const { shippingMethods: availableShippingMethods } = cart;
-        const {
-            paymentDisplayPrimary,
-            paymentDisplaySecondary,
-            shippingMethod,
-            shippingTitle
-        } = checkout;
+        const { paymentData, shippingMethod, shippingTitle } = checkout;
 
         const miscProps = {
             availableShippingMethods,
@@ -112,8 +106,7 @@ class CheckoutWrapper extends Component {
             isPaymentMethodReady: isPaymentMethodReady(),
             isShippingInformationReady: isShippingInfoReady(),
             isShippingMethodReady: isShippingMethodReady(checkout),
-            paymentDisplayPrimary,
-            paymentDisplaySecondary,
+            paymentData,
             shippingMethod,
             shippingTitle
         };

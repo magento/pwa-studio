@@ -46,8 +46,7 @@ class Flow extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentDisplayPrimary: string,
-        paymentDisplaySecondary: string,
+        paymentData: object,
         shippingMethod: string,
         shippingTitle: string
     };
@@ -63,8 +62,7 @@ class Flow extends Component {
             isPaymentMethodReady,
             isShippingInformationReady,
             isShippingMethodReady,
-            paymentDisplayPrimary,
-            paymentDisplaySecondary,
+            paymentData,
             shippingMethod,
             shippingTitle
         } = this.props;
@@ -108,8 +106,7 @@ class Flow extends Component {
                     isPaymentMethodReady,
                     isShippingInformationReady,
                     isShippingMethodReady,
-                    paymentDisplayPrimary,
-                    paymentDisplaySecondary,
+                    paymentData,
                     shippingMethod,
                     shippingTitle,
                     submitAddress,

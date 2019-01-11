@@ -37,8 +37,7 @@ class Form extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentDisplayPrimary: string,
-        paymentDisplaySecondary: string,
+        paymentData: object,
         ready: bool,
         shippingMethod: string,
         shippingTitle: string,
@@ -183,8 +182,7 @@ class Form extends Component {
             classes,
             isPaymentMethodReady,
             isShippingInformationReady,
-            paymentDisplayPrimary,
-            paymentDisplaySecondary
+            paymentData
         } = this.props;
 
         if (!isPaymentMethodReady) {
@@ -194,14 +192,21 @@ class Form extends Component {
             return <span className={promptClass}>Add Billing Information</span>;
         }
 
+        let primaryDisplay = '';
+        let secondaryDisplay = '';
+        if (paymentData) {
+            primaryDisplay = paymentData.details.cardType;
+            secondaryDisplay = paymentData.description;
+        }
+
         return (
             <Fragment>
                 <strong className={classes.paymentDisplayPrimary}>
-                    {paymentDisplayPrimary}
+                    {primaryDisplay}
                 </strong>
                 <br />
                 <span className={classes.paymentDisplaySecondary}>
-                    {paymentDisplaySecondary}
+                    {secondaryDisplay}
                 </span>
             </Fragment>
         );

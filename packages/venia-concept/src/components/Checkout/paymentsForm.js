@@ -69,12 +69,10 @@ class PaymentsForm extends Component {
             isRequestingPaymentNonce: false
         });
 
-        // Future: actually hook up submitting credit card data to M2 backend.
         this.props.submit({
             paymentMethod: {
-                code: 'checkmo',
-                display_primary: 'credit card',
-                display_secondary: `ending in ${value.details.lastFour}`
+                code: 'braintree',
+                data: value
             }
         });
     };
