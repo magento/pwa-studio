@@ -7,6 +7,7 @@ import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
+import CloseIcon from 'react-feather/dist/icons/x';
 import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
@@ -223,7 +224,7 @@ class MiniCart extends Component {
                         <span>{title}</span>
                     </h2>
                     <Trigger>
-                        <Icon name="x" />
+                        <Icon src={CloseIcon} />
                     </Trigger>
                 </div>
                 {miniCartInner}

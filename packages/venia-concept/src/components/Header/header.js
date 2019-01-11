@@ -4,6 +4,9 @@ import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import SearchIcon from 'react-feather/dist/icons/search';
+import MenuIcon from 'react-feather/dist/icons/menu';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
@@ -29,11 +32,16 @@ class Header extends Component {
     };
 
     get searchIcon() {
-        return <Icon name="search" />;
+        return <Icon src={SearchIcon} />;
     }
 
     render() {
-        const { searchOpen, classes, toggleSearch } = this.props;
+        const {
+            autocompleteOpen,
+            searchOpen,
+            classes,
+            toggleSearch
+        } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
@@ -51,7 +59,7 @@ class Header extends Component {
                     </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
-                            <Icon name="menu" />
+                            <Icon src={MenuIcon} />
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
@@ -62,7 +70,7 @@ class Header extends Component {
                             {this.searchIcon}
                         </SearchTrigger>
                         <CartTrigger>
-                            <Icon name="shopping-cart" />
+                            <Icon src={ShoppingCartIcon} />
                         </CartTrigger>
                     </div>
                 </div>
@@ -70,6 +78,7 @@ class Header extends Component {
                     <Route
                         render={({ history, location }) => (
                             <SearchBar
+                                autocompleteOpen={autocompleteOpen}
                                 isOpen={searchOpen}
                                 history={history}
                                 location={location}

@@ -1,0 +1,11 @@
+.root {
+    padding: 0 1.5rem 1rem;
+}
+
+.item {
+    padding-bottom: 0.72rem;
+}
+
+.item:last-child {
+    padding-bottom: 0;
+}
