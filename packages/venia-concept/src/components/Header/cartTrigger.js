@@ -7,6 +7,7 @@ import { toggleCart } from 'src/actions/cart';
 import CartCounter from './cartCounter';
 
 import Icon from 'src/components/Icon';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
@@ -27,8 +28,8 @@ class Trigger extends Component {
 
         return (
             <button className={classes.root} onClick={toggleCart}>
-                <Icon
-                    name="shopping-cart"
+                <Icon 
+                    src={ShoppingCartIcon} 
                     attrs={{ stroke: iconColor, fill: iconColor }}
                 />
                 <CartCounter counter={itemsQty ? itemsQty : 0} />
