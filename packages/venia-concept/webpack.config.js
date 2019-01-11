@@ -192,11 +192,12 @@ module.exports = async function(env) {
         config.devtool = 'eval-source-map';
         const devServerConfig = {
             env: validEnv,
-            publicPath: config.output.publicPath,
+            publicPath: validEnv.PWA_STUDIO_PUBLIC_PATH || config.output.publicPath,
             graphqlPlayground: {
                 queryDirs: [path.resolve(themePaths.src, 'queries')]
             },
-            port: validEnv.PWA_STUDIO_PORTS_DEVELOPMENT
+            port: validEnv.PWA_STUDIO_PORTS_DEVELOPMENT,
+            host: validEnv.PWA_STUDIO_HOST_DEVELOPMENT
         };
         const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
         if (provideHost) {

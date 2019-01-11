@@ -1,0 +1,86 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=devcert
+        Validity
+            Not Before: Mar 12 19:23:15 2019 GMT
+            Not After : May 11 19:23:15 2038 GMT
+        Subject: CN=pwa-docker.localhost
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:db:79:32:07:81:5c:39:d5:29:83:ea:aa:60:49:
+                    d4:95:72:d3:39:73:77:07:60:31:93:13:d9:29:33:
+                    e2:92:75:f8:69:bb:2b:4e:eb:99:6d:14:d0:93:3a:
+                    58:df:b3:d7:3d:91:b9:f3:05:84:a4:05:96:d6:77:
+                    1f:d4:af:6e:e0:dc:8b:0a:fa:51:89:dd:21:bc:a1:
+                    0a:6e:9d:5b:bd:cf:9e:a3:40:c8:cd:12:b4:04:bc:
+                    61:ec:7b:d8:0f:1b:27:7b:3d:27:ef:21:ef:a5:e6:
+                    6f:86:1c:41:5f:74:8a:8e:a9:13:cf:5e:f7:db:83:
+                    b1:9e:3c:08:13:89:fc:61:b5:cc:66:05:c8:c1:8e:
+                    19:fe:b7:bb:9f:50:fa:29:ac:68:b4:97:d9:19:37:
+                    19:2c:a3:5d:2f:a1:f5:07:8c:af:4c:50:99:50:43:
+                    af:a9:b1:47:e0:fd:ea:0b:3c:f1:54:a8:a7:73:f4:
+                    dc:c1:b4:52:12:ba:30:fb:99:f9:1c:79:76:c9:c1:
+                    50:36:53:24:3d:44:68:5b:d7:13:ce:c3:49:03:45:
+                    f0:34:85:ae:1d:49:b5:8b:18:c9:62:da:d6:76:f5:
+                    71:05:31:92:a7:65:d0:56:a9:f3:11:c7:dc:11:39:
+                    a1:6f:d0:fb:e2:e0:84:ab:06:47:e2:8e:95:40:6a:
+                    8e:23
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                24:3B:99:7C:68:8B:42:F9:26:71:94:EB:AA:53:47:D4:5F:FD:E9:FD
+            X509v3 Authority Key Identifier: 
+                keyid:AB:BF:8D:22:34:1C:B4:BC:C1:6A:BD:B3:9D:3C:29:9C:03:5D:72:F3
+                DirName:/CN=devcert
+                serial:96:E8:91:9B:5C:B9:BE:02
+
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:*.pwa-docker.localhost, DNS:pwa-docker.localhost
+    Signature Algorithm: sha256WithRSAEncryption
+         b3:de:5b:49:2f:50:6d:85:80:fd:8e:7b:98:45:71:98:12:11:
+         f0:11:ec:c8:97:a6:44:af:fd:e1:2a:2b:d5:a4:2c:a1:79:07:
+         5d:a3:43:67:21:6d:94:51:ae:54:5a:32:b4:ff:55:cd:8c:3f:
+         79:ef:d4:2a:9e:d8:e9:b8:92:b2:a8:bf:92:fa:55:b6:10:46:
+         b4:dd:2c:4f:94:28:02:69:7e:78:4d:5d:0e:1e:40:ad:2c:b8:
+         2e:0e:dc:ba:05:2d:55:57:79:f1:00:0c:43:40:90:a0:ca:9a:
+         44:c0:ef:e5:e5:fb:35:03:4b:2a:6d:23:65:05:9a:5e:7c:47:
+         de:12:be:d9:1e:b7:8f:61:cc:69:43:a0:d0:cc:6a:01:36:76:
+         e6:c3:3a:63:46:e1:b5:2a:eb:14:b8:c1:44:60:93:44:68:83:
+         06:e4:fb:73:b9:00:76:3c:4a:d1:a6:bb:d1:43:42:5f:fd:ef:
+         eb:8b:f2:63:94:1a:f6:bf:f2:77:5d:e0:4e:8f:7d:0b:b2:77:
+         0e:98:48:a6:36:e6:d2:4c:56:80:5b:cc:c1:00:9e:1c:78:b7:
+         5b:2e:c6:3e:f3:14:d2:e2:2c:6c:56:2c:b2:35:15:d9:59:2c:
+         9a:46:3c:38:04:c8:81:f4:ac:f8:61:c0:7a:78:11:f3:dd:a2:
+         ca:ef:32:72
+-----BEGIN CERTIFICATE-----
+MIIDfzCCAmegAwIBAgIBATANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdkZXZj
+ZXJ0MB4XDTE5MDMxMjE5MjMxNVoXDTM4MDUxMTE5MjMxNVowHzEdMBsGA1UEAwwU
+cHdhLWRvY2tlci5sb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+AoIBAQDbeTIHgVw51SmD6qpgSdSVctM5c3cHYDGTE9kpM+KSdfhpuytO65ltFNCT
+Oljfs9c9kbnzBYSkBZbWdx/Ur27g3IsK+lGJ3SG8oQpunVu9z56jQMjNErQEvGHs
+e9gPGyd7PSfvIe+l5m+GHEFfdIqOqRPPXvfbg7GePAgTifxhtcxmBcjBjhn+t7uf
+UPoprGi0l9kZNxkso10vofUHjK9MUJlQQ6+psUfg/eoLPPFUqKdz9NzBtFISujD7
+mfkceXbJwVA2UyQ9RGhb1xPOw0kDRfA0ha4dSbWLGMli2tZ29XEFMZKnZdBWqfMR
+x9wROaFv0Pvi4ISrBkfijpVAao4jAgMBAAGjgdIwgc8wDAYDVR0TAQH/BAIwADAd
+BgNVHQ4EFgQUJDuZfGiLQvkmcZTrqlNH1F/96f0wQgYDVR0jBDswOYAUq7+NIjQc
+tLzBar2znTwpnANdcvOhFqQUMBIxEDAOBgNVBAMMB2RldmNlcnSCCQCW6JGbXLm+
+AjAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwNwYDVR0RBDAw
+LoIWKi5wd2EtZG9ja2VyLmxvY2FsaG9zdIIUcHdhLWRvY2tlci5sb2NhbGhvc3Qw
+DQYJKoZIhvcNAQELBQADggEBALPeW0kvUG2FgP2Oe5hFcZgSEfAR7MiXpkSv/eEq
+K9WkLKF5B12jQ2chbZRRrlRaMrT/Vc2MP3nv1Cqe2Om4krKov5L6VbYQRrTdLE+U
+KAJpfnhNXQ4eQK0suC4O3LoFLVVXefEADENAkKDKmkTA7+Xl+zUDSyptI2UFml58
+R94Svtket49hzGlDoNDMagE2dubDOmNG4bUq6xS4wURgk0Rogwbk+3O5AHY8StGm
+u9FDQl/97+uL8mOUGva/8ndd4E6PfQuydw6YSKY25tJMVoBbzMEAnhx4t1suxj7z
+FNLiLGxWLLI1FdlZLJpGPDgEyIH0rPhhwHp4EfPdosrvMnI=
+-----END CERTIFICATE-----

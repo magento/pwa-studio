@@ -5,6 +5,6 @@
         "node": "10.x.x"
     },
     "public": true,
-    "version": 1
+    "version": 1,
     "type": "npm"
 }
