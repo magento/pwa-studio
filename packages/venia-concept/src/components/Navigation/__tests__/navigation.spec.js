@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Navigation from '../navigation';
+import { MyAccountMenuTrigger } from 'src/components/MyAccountMenuPage';
 
 test('getUserDetails() should be called when navigation component mounts', async () => {
     const getUserDetails = jest.fn();
@@ -71,8 +72,8 @@ test('Navigation footer should not show user details element if user is not sign
         />
     ).dive();
 
-    const navFooter = wrapper.find('div.userChip');
-    expect(navFooter.exists()).toBeFalsy();
+    const myAccountMenuTrigger = wrapper.find(MyAccountMenuTrigger);
+    expect(myAccountMenuTrigger.exists()).toBeFalsy();
 });
 
 test('Navigation footer should show user details element if user is signed in.', async () => {
@@ -90,6 +91,6 @@ test('Navigation footer should show user details element if user is signed in.',
         />
     ).dive();
 
-    const navFooter = wrapper.find('div.userChip');
-    expect(navFooter.exists()).toBeTruthy();
+    const myAccountMenuTrigger = wrapper.find(MyAccountMenuTrigger);
+    expect(myAccountMenuTrigger.exists()).toBeTruthy();
 });

@@ -1,0 +1,11 @@
+.root {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+.logoContainer {
+    margin: 2rem auto;
+}

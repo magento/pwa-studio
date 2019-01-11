@@ -1,6 +1,6 @@
 import React from 'react';
+import waitForExpect from 'wait-for-expect';
 import TestRenderer from 'react-test-renderer';
-import wait from 'waait';
 import { Form } from 'informed';
 
 import CreateAccount from '../createAccount';
@@ -46,14 +46,14 @@ test('executes validators on submit', async () => {
     // touch fields, call validators, call onSubmit
     api.submitForm();
     // await async validation
-    await wait(0);
-
-    for (const validator of validators.values()) {
-        expect(validator).toHaveBeenCalledTimes(1);
-    }
-    for (const validator of asyncValidators.values()) {
-        expect(validator).toHaveBeenCalledTimes(1);
-    }
+    await waitForExpect(() => {
+        for (const validator of validators.values()) {
+            expect(validator).toHaveBeenCalledTimes(1);
+        }
+        for (const validator of asyncValidators.values()) {
+            expect(validator).toHaveBeenCalledTimes(1);
+        }
+    });
 });
 
 test('calls onSubmit if validation passes', async () => {
@@ -67,11 +67,11 @@ test('calls onSubmit if validation passes', async () => {
     // touch fields, call validators, call onSubmit
     api.submitForm();
     // await async validation
-    await wait(0);
+    await waitForExpect(() => {
+        const { asyncErrors, errors } = form.instance.controller.state;
 
-    const { asyncErrors, errors } = form.instance.controller.state;
-
-    expect(Object.keys(asyncErrors)).toHaveLength(0);
-    expect(Object.keys(errors)).toHaveLength(0);
-    expect(submitCallback).toHaveBeenCalledTimes(1);
+        expect(Object.keys(asyncErrors)).toHaveLength(0);
+        expect(Object.keys(errors)).toHaveLength(0);
+        expect(submitCallback).toHaveBeenCalledTimes(1);
+    });
 });
