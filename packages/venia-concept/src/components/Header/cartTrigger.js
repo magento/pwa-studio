@@ -28,8 +28,8 @@ class Trigger extends Component {
 
         return (
             <button className={classes.root} onClick={toggleCart}>
-                <Icon 
-                    src={ShoppingCartIcon} 
+                <Icon
+                    src={ShoppingCartIcon}
                     attrs={{ stroke: iconColor, fill: iconColor }}
                 />
                 <CartCounter counter={itemsQty ? itemsQty : 0} />
