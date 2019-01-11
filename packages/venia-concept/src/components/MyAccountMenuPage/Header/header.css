@@ -1,0 +1,16 @@
+.root {
+    display: flex;
+    justify-content: space-between;
+    height: 3.5rem;
+    z-index: 1;
+    background-color: rgb(var(--venia-grey));
+    box-shadow: 0 1px rgb(var(--venia-border));
+}
+
+.closeButton {
+    composes: root from 'src/components/Trigger/trigger.css';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.5rem;
+}

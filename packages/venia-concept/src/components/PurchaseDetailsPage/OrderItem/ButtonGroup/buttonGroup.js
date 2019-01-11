@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
+import Share2Icon from 'react-feather/dist/icons/share-2';
+import MessageSquareIcon from 'react-feather/dist/icons/message-square';
 import defaultClasses from './buttonGroup.css';
+
+const ButtonGroupIcons = {
+    ShoppingCart: ShoppingCartIcon,
+    Share2: Share2Icon,
+    MessageSquare: MessageSquareIcon
+};
 
 class ButtonGroup extends Component {
     static propTypes = {
@@ -35,7 +44,7 @@ class ButtonGroup extends Component {
                 onClick={onClickHandler}
             >
                 <span className={classes.iconContainer}>
-                    <Icon name={iconName} />
+                    <Icon src={ButtonGroupIcons[iconName]} />
                 </span>
                 <span className={classes.textNodeContiner}>{textNode}</span>
             </Button>

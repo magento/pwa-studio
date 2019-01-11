@@ -5,6 +5,8 @@ import getQueryParameterValue from '../../util/getQueryParameterValue';
 import { SEARCH_QUERY_PARAMETER } from '../../RootComponents/Search/consts';
 import SearchAutocomplete from './autocomplete';
 import Icon from 'src/components/Icon';
+import ClearIcon from 'react-feather/dist/icons/x';
+import SearchIcon from 'react-feather/dist/icons/search';
 import TextInput from 'src/components/TextInput';
 import Trigger from 'src/components/Trigger';
 
@@ -15,8 +17,8 @@ const initialValues = {
     search_query: ''
 };
 
-const clearIcon = <Icon name="x" attrs={{ height: 18, width: 18 }} />;
-const searchIcon = <Icon name="search" attrs={{ height: 18, width: 18 }} />;
+const clearIcon = <Icon src={ClearIcon} size={18} />;
+const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 // TODO: remove export here (update story and test)
 export class SearchBar extends Component {
