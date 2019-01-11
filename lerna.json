@@ -1,11 +1,5 @@
 {
     "version": "2.0.0-rc.17",
-    "packages": [
-        "packages/peregrine",
-        "packages/pwa-buildpack",
-        "packages/upward-js",
-        "packages/upward-spec",
-        "packages/venia-concept"
-    ],
-    "npmClient": "npm"
+    "npmClient": "yarn",
+    "useWorkspaces": true
 }

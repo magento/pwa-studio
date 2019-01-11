@@ -9,10 +9,10 @@
   "scripts": {
     "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "clean": "npx rimraf dist",
-    "prepublishOnly": "npx rimraf dist && npm run build",
+    "prepublishOnly": "npx rimraf dist && yarn build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
-    "watch": "npm run -s build -- --watch"
+    "watch": "yarn build --watch"
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
@@ -21,26 +21,26 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
+  "module": "src/index.js",
+  "jsnext:main": "src/index.js",
   "devDependencies": {
-    "@storybook/react": "~4.0.11",
-    "babel-cli": "~6.26.0",
-    "babel-runtime": "~6.26.0",
-    "react": "~16.6.1",
-    "react-dom": "~16.6.1",
-    "react-redux": "~5.0.7",
+    "@babel/cli": "~7.2.3",
+    "@babel/core": "~7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/runtime": "~7.2.0",
+    "@storybook/react": "~4.1.6",
+    "react": "~16.7.0",
+    "react-dom": "~16.7.0",
     "react-router-dom": "~4.4.0-beta.6",
-    "redux": "~4.0.1",
-    "rimraf": "~2.6.2"
+    "rimraf": "~2.6.3"
   },
   "peerDependencies": {
-    "babel-runtime": "^6.26.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-redux": "^5.0.7",
-    "react-router-dom": ">=4.4.0-beta.6",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
-  },
-  "module": "src/index.js",
-  "jsnext:main": "src/index.js"
+    "@babel/runtime": "^7.2.0",
+    "react": "~16.7.0",
+    "react-dom": "~16.7.0",
+    "react-router-dom": "~4.4.0-beta.6"
+  }
 }
