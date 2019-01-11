@@ -11,10 +11,10 @@
     overflow: hidden;
 }
 
-.main {
+.page {
     min-height: 100vh;
 }
 
-.main_masked {
-    composes: main;
+.page_masked {
+    composes: page;
 }

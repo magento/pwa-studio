@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import PageWrapper from 'src/components/PageWrapper';
+import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
@@ -35,10 +35,10 @@ class App extends Component {
 
         return (
             <Fragment>
-                <PageWrapper isMasked={overlay}>
+                <Main isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}
-                </PageWrapper>
+                </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />

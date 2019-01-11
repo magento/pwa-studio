@@ -4,13 +4,13 @@ import { bool, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
-import defaultClasses from './pageWrapper.css';
+import defaultClasses from './main.css';
 
-class PageWrapper extends Component {
+class Main extends Component {
     static propTypes = {
         classes: shape({
-            main: string,
-            main_masked: string,
+            page: string,
+            page_masked: string,
             root: string,
             root_masked: string
         }),
@@ -21,7 +21,7 @@ class PageWrapper extends Component {
         const { classes, isMasked } = this.props;
         const suffix = isMasked ? '_masked' : '';
 
-        return ['main', 'root'].reduce(
+        return ['page', 'root'].reduce(
             (acc, val) => ({ ...acc, [val]: classes[`${val}${suffix}`] }),
             {}
         );
@@ -32,13 +32,13 @@ class PageWrapper extends Component {
         const { children } = props;
 
         return (
-            <div className={classes.root}>
+            <main className={classes.root}>
                 <Header />
-                <main className={classes.main}>{children}</main>
+                <div className={classes.page}>{children}</div>
                 <Footer />
-            </div>
+            </main>
         );
     }
 }
 
-export default classify(defaultClasses)(PageWrapper);
+export default classify(defaultClasses)(Main);
