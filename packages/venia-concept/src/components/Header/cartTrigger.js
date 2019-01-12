@@ -11,7 +11,8 @@ import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
-class Trigger extends Component {
+export class Trigger extends Component {
+
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
@@ -21,10 +22,31 @@ class Trigger extends Component {
         itemsQty: PropTypes.number
     };
 
-    render() {
-        const { classes, toggleCart, cart } = this.props;
-        const itemsQty = cart.details.items_qty;
+    get cartIcon() {
+        const { cart: { details } } = this.props;
+        const itemsQty = details.items_qty;
         const iconColor = 'rgb(var(--venia-text))';
+        let svgAttributes = {
+            stroke: iconColor
+        }
+
+        if (itemsQty > 0) {
+            svgAttributes.fill = iconColor;
+        }
+
+        return (
+            <Icon
+                src={ShoppingCartIcon}
+                attrs={svgAttributes}
+            />
+        )
+
+    }
+
+    render() {
+        const { classes, toggleCart, cart: { details } } = this.props;
+        const { cartIcon } = this;
+        const itemsQty = details.items_qty;
 
         return (
             <button
@@ -32,23 +54,14 @@ class Trigger extends Component {
                 aria-label="Toggle mini cart"
                 onClick={toggleCart}
             >
-                <Icon
-                    src={ShoppingCartIcon}
-                    attrs={{ stroke: iconColor, fill: iconColor }}
-                />
+                {cartIcon}
                 <CartCounter counter={itemsQty ? itemsQty : 0} />
             </button>
         );
     }
 }
 
-const mapStateToProps = state => {
-    const { cart } = state;
-
-    return {
-        cart
-    };
-};
+const mapStateToProps = ({ cart }) => ({ cart });
 
 const mapDispatchToProps = {
     toggleCart
