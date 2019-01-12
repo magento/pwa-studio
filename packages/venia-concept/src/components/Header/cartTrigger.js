@@ -12,7 +12,6 @@ import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
 export class Trigger extends Component {
-
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
@@ -23,28 +22,28 @@ export class Trigger extends Component {
     };
 
     get cartIcon() {
-        const { cart: { details } } = this.props;
+        const {
+            cart: { details }
+        } = this.props;
         const itemsQty = details.items_qty;
         const iconColor = 'rgb(var(--venia-text))';
         let svgAttributes = {
             stroke: iconColor
-        }
+        };
 
         if (itemsQty > 0) {
             svgAttributes.fill = iconColor;
         }
 
-        return (
-            <Icon
-                src={ShoppingCartIcon}
-                attrs={svgAttributes}
-            />
-        )
-
+        return <Icon src={ShoppingCartIcon} attrs={svgAttributes} />;
     }
 
     render() {
-        const { classes, toggleCart, cart: { details } } = this.props;
+        const {
+            classes,
+            toggleCart,
+            cart: { details }
+        } = this.props;
         const { cartIcon } = this;
         const itemsQty = details.items_qty;
 
