@@ -133,6 +133,23 @@ They are used to simulate API calls or as temporary data for proofs of concepts 
 
 The `src/util` directory contain useful JavaScript utility functions used throughout the project.
 
+### `src/classify.js`
+
+The `src/classify.js` file creates a component that combines all default global classes and  classes applied as prop to the child component and  gives as props to child component. eg `Classify(Main)`, `Classify(Cart)`, `Classify(Header)`.
+
+### `src/index.js`
+
+The `src/index.js` file is the entry point of venia. It sets the ApolloProvider, the ReduxStore, and the Router configuration and App Component.
+
+### `src/store.js`
+
+The `stc/store.js` file responsible for creating redux store. It combines redux reducers and middlewares.
+
+### `src/sw.js`
+
+The `src/sw.js` file contains the service worker configuration.
+
+
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec
 [Webpack]: https://webpack.js.org/
