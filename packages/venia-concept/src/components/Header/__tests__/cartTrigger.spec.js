@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import { Trigger } from '../cartTrigger';
 
 const classes = {
-    root: "a"
-}
+    root: 'a'
+};
 
 const toggleCart = jest.fn();
 
@@ -16,9 +16,9 @@ test('Cart icon layout is outline only, when cart is empty', () => {
             }
         }
     };
-    const wrapper = mount( 
+    const wrapper = mount(
         <Trigger {...props} classes={classes} toggleCart={toggleCart} />
-    ); 
+    );
     expect(wrapper.find('svg').prop('fill')).toContain('none');
 });
 
@@ -30,8 +30,8 @@ test('Cart icon layout is filled, when cart contains items', () => {
             }
         }
     };
-    const wrapper = mount( 
+    const wrapper = mount(
         <Trigger {...props} classes={classes} toggleCart={toggleCart} />
-    ); 
+    );
     expect(wrapper.find('svg').prop('fill')).not.toContain('none');
 });
