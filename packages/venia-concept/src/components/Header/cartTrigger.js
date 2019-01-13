@@ -11,7 +11,7 @@ import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
-class Trigger extends Component {
+export class Trigger extends Component {
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
