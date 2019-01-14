@@ -1,5 +1,5 @@
 const cache = require('apicache').middleware;
-const expressSharp = require('express-sharp');
+const expressSharp = require('@magento/express-sharp');
 
 function addImgOptMiddleware(
     mountPoint,

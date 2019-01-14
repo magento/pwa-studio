@@ -28,6 +28,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.1",
+    "@magento/express-sharp": "~2.1.1-newdeps.0",
     "@magento/upward-js": "^2.0.0-rc.18",
     "ajv": "~6.1.1",
     "apicache": "~1.2.3",
@@ -40,7 +41,6 @@
     "devcert": "~1.0.0",
     "execa": "~1.0.0",
     "express": "~4.16.3",
-    "express-sharp": "~2.1.1",
     "graphql-playground-middleware-express": "~1.7.3",
     "lodash": "~4.17.11",
     "node-fetch": "~2.2.1",
