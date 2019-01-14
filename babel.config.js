@@ -1,4 +1,4 @@
-const browsers = require("./browserslist")
+const browsers = require('./browserslist');
 
 const plugins = [
     ['@babel/plugin-proposal-class-properties'],
