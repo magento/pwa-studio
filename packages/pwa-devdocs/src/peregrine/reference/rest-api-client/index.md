@@ -191,7 +191,7 @@ function placeCancelable(emitter) {
 
 `getResponse()`
 
-: Get the promise for the network operation.
+: Get the promise for the network operarion.
   This method can only be called after `run()` executes.
   This method exists so that requests can reuse the promises from other requests.
 
