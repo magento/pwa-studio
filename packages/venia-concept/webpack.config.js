@@ -80,7 +80,7 @@ module.exports = async function(env) {
                         {
                             loader: 'babel-loader',
                             options: {
-                                cacheDirectory: false,
+                                cacheDirectory: true,
                                 envName: mode,
                                 rootMode: 'upward'
                             }
