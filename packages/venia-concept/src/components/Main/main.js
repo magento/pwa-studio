@@ -33,9 +33,9 @@ class Main extends Component {
 
         return (
             <main className={classes.root}>
-                <Header />
-                <div className={classes.page}>{children}</div>
-                <Footer />
+                <Header style={{ flex: 1 }} />
+                <div style={{ flex: 2 }}>{children}</div>
+                <Footer style={{ flex: 1 }} />
             </main>
         );
     }

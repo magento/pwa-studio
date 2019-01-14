@@ -89,6 +89,7 @@ button {
     background: none;
     border: 0;
     cursor: pointer;
+    font-display: optional;
     font-family: var(--venia-font);
     font-size: 100%;
     padding: 0;

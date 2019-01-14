@@ -6,6 +6,9 @@ import GalleryItems, { emptyData } from './items';
 import defaultClasses from './gallery.css';
 
 class Gallery extends Component {
+    static IMAGE_SIZE_BREAKPOINTS =
+        '(max-width: 640px) 40vw, (max-width: 1024px) 20vw';
+    static IMAGE_SOURCE_WIDTHS = [160, 320, 480, 640, 800];
     static propTypes = {
         classes: shape({
             filters: string,
@@ -43,7 +46,12 @@ class Gallery extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.items}>
-                    <GalleryItems items={items} pageSize={pageSize} />
+                    <GalleryItems
+                        imageSizeBreakpoints={Gallery.IMAGE_SIZE_BREAKPOINTS}
+                        imageSourceWidths={Gallery.IMAGE_SOURCE_WIDTHS}
+                        items={items}
+                        pageSize={pageSize}
+                    />
                 </div>
             </div>
         );

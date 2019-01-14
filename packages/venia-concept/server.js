@@ -1,6 +1,16 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = 'test';
+}
 const validEnv = require('./validate-environment')(process.env);
-const { createUpwardServer, envToConfig } = require('@magento/upward-js');
+const {
+    Utilities: { addImgOptMiddleware }
+} = require('@magento/pwa-buildpack');
+const {
+    bestPractices,
+    createUpwardServer,
+    envToConfig
+} = require('@magento/upward-js');
 
 async function serve() {
     const config = Object.assign(
@@ -9,7 +19,13 @@ async function serve() {
             logUrl: true
         },
         envToConfig(validEnv),
-        { env: validEnv }
+        {
+            env: validEnv,
+            before: app => {
+                addImgOptMiddleware('/scale', app, validEnv);
+                app.use(bestPractices());
+            }
+        }
     );
 
     if (validEnv.isProduction) {

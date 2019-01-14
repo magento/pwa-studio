@@ -1,3 +1,9 @@
 {{#urlResolver}}
 <script type="application/json" id="url-resolver">{ "type": "{{type}}", "id": "{{id}}" }</script>
 {{/urlResolver}}
+<script>
+    const fontStylesheet = document.createElement('link');
+    fontStylesheet.rel = 'stylesheet';
+    fontStylesheet.href = 'https://fonts.googleapis.com/css?family=Muli:300';
+    document.head.appendChild(fontStylesheet);
+</script>

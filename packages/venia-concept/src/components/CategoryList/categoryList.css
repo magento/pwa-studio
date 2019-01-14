@@ -14,7 +14,7 @@
 .content {
     display: grid;
     grid-gap: 3rem 1rem;
-    grid-template-columns: repeat(auto-fit, 6rem);
+    grid-template-columns: repeat(3, 25vw);
     justify-content: center;
 }
 
@@ -29,4 +29,23 @@
 
 .noResults {
     composes: fetchingData;
+}
+
+:export {
+    tileImageSizes: (max-width: 480px) 6rem, (max-width: 1024px) 12rem,
+        (min-width: 1025px) 25vw;
+}
+
+@media screen and (max-width: 1024px) {
+    .content {
+        grid-template-columns: repeat(auto-fit, 12rem);
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .content {
+        grid-template-columns: repeat(auto-fit, 6rem);
+        justify-content: space-evenly;
+    }
 }

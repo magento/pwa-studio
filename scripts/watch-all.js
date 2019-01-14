@@ -54,10 +54,12 @@ function whenQuiet(childProcess, timeout = 1000) {
 
         // wait until stdout is quiet for a while before resolving this promise.
         const resolveDebounced = debounce(() => {
+            childProcess.stderr.on('data', () => resolveDebounced());
             // emit stderr so if the process exits abnormally, the error
             // displays in console
-            childProcess.stderr.on('data', () => resolveDebounced());
             childProcess.stderr.pipe(process.stderr);
+            // attach stdout once initial build is complete
+            childProcess.stdout.pipe(process.stderr);
             resolve();
         }, timeout);
         childProcess.stdout.on('data', () => resolveDebounced());
@@ -91,6 +93,7 @@ function summarizeEvents() {
         (summaries,
         ({ name }) => {
             summaries[name] = (summaries[name] || 0) + 1;
+            return summaries;
         },
         {})
     );

@@ -5,6 +5,9 @@ body: response.body
 response:
   when:
     - matches: request.url.pathname
+      pattern: '^/resize/(\d+)w/(.*())'
+      use: imageOpt
+    - matches: request.url.pathname
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
@@ -20,6 +23,31 @@ response:
       pattern: '^/$'
       use: appShell
   default: bundles
+
+imageOpt:
+  inline:
+    status: 301
+    body:
+      inline: ''
+    headers:
+      inline:
+        Location:
+          engine: mustache
+          provide:
+            width: $match.$1
+            path: $match.$2
+          template:
+            when:
+              - matches: env.USE_FASTLY
+                pattern: '[^0]'
+                use:
+                  inline: '/{{path}}?auto=webp&format=pjpg&'
+              - matches: env.NODE_ENV
+                pattern: '(development|test)'
+                use:
+                  inline: '/scale/resize/{{width}}?url={{path}}'
+            default:
+              inline: '/{{path}}'
 
 isDevelopment:
   when:

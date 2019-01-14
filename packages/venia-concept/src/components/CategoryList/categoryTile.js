@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import ResponsiveImage from 'src/components/ResponsiveImage';
 import classify from 'src/classify';
-import {
-    makeCategoryMediaPath,
-    makeProductMediaPath
-} from 'src/util/makeMediaPath';
 import defaultClasses from './categoryTile.css';
+import { tileImageSizes } from './categoryList.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
 const categoryUrlSuffix = '.html';
@@ -34,40 +32,59 @@ class CategoryTile extends Component {
         }).isRequired
     };
 
-    get imagePath() {
-        const { image, productImagePreview } = this.props.item;
-        const previewProduct = productImagePreview.items[0];
-        if (image) {
-            return makeCategoryMediaPath(image);
-        } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image);
-        } else {
+    get imageInfo() {
+        if (!this.props.item) {
             return null;
+        }
+        const { image, productImagePreview } = this.props.item;
+        if (image) {
+            return {
+                src: image,
+                type: 'category'
+            };
+        }
+        if (productImagePreview.items[0]) {
+            return {
+                src: productImagePreview.items[0].small_image,
+                type: 'product'
+            };
         }
     }
 
     render() {
-        const { imagePath, props } = this;
+        const { imageInfo, props } = this;
         const { classes, item } = props;
 
-        // interpolation doesn't work inside `url()` for legacy reasons
-        // so a custom property should wrap its value in `url()`
-        const imageUrl = imagePath ? `url(${imagePath})` : 'none';
-        const style = { '--venia-image': imageUrl };
-
-        // render an actual image element for accessibility
-        const imagePreview = imagePath ? (
-            <img className={classes.image} src={imagePath} alt={item.name} />
-        ) : null;
+        let imagePreview = null;
+        if (imageInfo && imageInfo.src && imageInfo.type) {
+            imagePreview = (
+                <ResponsiveImage
+                    alt={item.name}
+                    className={classes.image}
+                    sizes={tileImageSizes}
+                    widthOptions={[240, 640]}
+                    src={imageInfo.src}
+                    type={imageInfo.type}
+                    render={(renderImage, setToUrl) => {
+                        return (
+                            <span
+                                className={classes.imageWrapper}
+                                ref={setToUrl('--venia-category-tile-image')}
+                            >
+                                {renderImage()}
+                            </span>
+                        );
+                    }}
+                />
+            );
+        }
 
         return (
             <Link
                 className={classes.root}
                 to={`/${item.url_key}${categoryUrlSuffix}`}
             >
-                <span className={classes.imageWrapper} style={style}>
-                    {imagePreview}
-                </span>
+                {imagePreview}
                 <span className={classes.name}>{item.name}</span>
             </Link>
         );

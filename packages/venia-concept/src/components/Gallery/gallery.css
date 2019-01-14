@@ -5,18 +5,21 @@
         'items';
     grid-template-columns: 1fr;
     line-height: 1;
+    max-width: 640px;
+    margin: 0 auto;
 }
 
 .items {
     display: grid;
     grid-area: items;
-    grid-gap: 1rem;
+    grid-gap: 4rem;
     grid-template-columns: repeat(3, 1fr);
     margin-bottom: 10px;
 }
 
 @media (max-width: 640px) {
     .items {
+        grid-gap: 1rem;
         grid-template-columns: repeat(2, 1fr);
     }
 }

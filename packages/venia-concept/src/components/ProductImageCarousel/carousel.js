@@ -5,7 +5,7 @@ import memoize from 'memoize-one';
 import classify from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import ResponsiveImage from 'src/components/ResponsiveImage';
 import { transparentPlaceholder } from 'src/shared/images';
 
 class Carousel extends Component {
@@ -42,14 +42,27 @@ class Carousel extends Component {
 
         const sortedImages = this.sortAndFilterImages(images);
 
-        const mainImage = sortedImages[0] || {};
-        const src = mainImage.file
-            ? makeProductMediaPath(mainImage.file)
-            : transparentPlaceholder;
-        const alt = mainImage.label || 'product';
+        const { label, file } = sortedImages[0] || {};
+        const alt = label || 'product';
+        const mainImage = file ? (
+            <ResponsiveImage
+                className={classes.currentImage}
+                alt={alt}
+                src={file}
+                sizes="(max-width: 640px) 100vw, (min-width: 640px 80vw)"
+                widthOptions={[320, 640]}
+                type="product"
+            />
+        ) : (
+            <img
+                className={classes.currentImage}
+                src={transparentPlaceholder}
+                alt={alt}
+            />
+        );
         return (
             <div className={classes.root}>
-                <img className={classes.currentImage} src={src} alt={alt} />
+                {mainImage}
                 <ThumbnailList getItemKey={i => i.file} items={sortedImages} />
             </div>
         );

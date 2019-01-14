@@ -3,13 +3,10 @@ import { arrayOf, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import Kebab from './kebab';
 import Section from './section';
+import ResponsiveImage from 'src/components/ResponsiveImage';
 
 import classify from 'src/classify';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './product.css';
-
-const imageWidth = 80;
-const imageHeight = 100;
 
 class Product extends Component {
     static propTypes = {
@@ -75,14 +72,6 @@ class Product extends Component {
         return this.state.isOpen ? <div className={classes.modal} /> : null;
     }
 
-    styleImage(image) {
-        return {
-            minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
-            width: imageWidth,
-            backgroundImage: `url(${makeProductMediaPath(image.file)})`
-        };
-    }
-
     render() {
         const { options, props, modal } = this;
         const { classes, item, currencyCode } = props;
@@ -93,10 +82,26 @@ class Product extends Component {
 
         return (
             <li className={rootClasses}>
-                <div
-                    className={classes.image}
-                    style={this.styleImage(item.image)}
-                />
+                {
+                    <ResponsiveImage
+                        alt={item.name}
+                        className={classes.thumbnailImage}
+                        sizes="80px"
+                        src={(item.image && item.image.file) || ''}
+                        type="product"
+                        widthOptions={[160, 80]}
+                        render={(renderImage, setToUrl) => {
+                            return (
+                                <div
+                                    className={classes.thumbnail}
+                                    ref={setToUrl('background-image')}
+                                >
+                                    {renderImage()}
+                                </div>
+                            );
+                        }}
+                    />
+                }
                 <div className={classes.name}>{item.name}</div>
                 {options}
                 <div className={classes.quantity}>

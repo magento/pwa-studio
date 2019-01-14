@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { string, number, shape } from 'prop-types';
+import { arrayOf, string, number, shape } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import ResponsiveImage from 'src/components/ResponsiveImage';
 import defaultClasses from './item.css';
-
-const imageWidth = '300';
-const imageHeight = '372';
 
 const ItemPlaceholder = ({ children, classes }) => (
     <div className={classes.root_pending}>
@@ -37,6 +34,8 @@ class GalleryItem extends Component {
             root: string,
             root_pending: string
         }),
+        imageSizeBreakpoints: string,
+        imageSourceWidths: arrayOf(number),
         item: shape({
             id: number.isRequired,
             name: string.isRequired,
@@ -53,13 +52,66 @@ class GalleryItem extends Component {
         })
     };
 
+    static defaultProps = {
+        imageSizeBreakpoints: '(min-width: 1024px) 30vw',
+        imageSourceWidths: [320]
+    };
+
+    /**
+     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
+     * https://github.com/magento/graphql-ce/issues/88
+     */
+    get image() {
+        const {
+            classes,
+            item,
+            imageSizeBreakpoints,
+            imageSourceWidths
+        } = this.props;
+
+        if (!item) {
+            return null;
+        }
+
+        const { small_image, name } = item;
+        const className = item ? classes.image : classes.image_pending;
+
+        return (
+            <ResponsiveImage
+                className={className}
+                sizes={imageSizeBreakpoints}
+                src={small_image}
+                type="product"
+                alt={name}
+                widthOptions={imageSourceWidths}
+            />
+        );
+    }
+
+    get imagePlaceholder() {
+        const { classes, imageSizeBreakpoints, item } = this.props;
+
+        const className = item
+            ? classes.imagePlaceholder
+            : classes.imagePlaceholder_pending;
+
+        return (
+            <img
+                className={className}
+                src={transparentPlaceholder}
+                alt=""
+                sizes={imageSizeBreakpoints}
+            />
+        );
+    }
+
     render() {
         const { classes, item } = this.props;
 
         if (!item) {
             return (
                 <ItemPlaceholder classes={classes}>
-                    {this.renderImagePlaceholder()}
+                    {this.imagePlaceholder}
                 </ItemPlaceholder>
             );
         }
@@ -70,8 +122,8 @@ class GalleryItem extends Component {
         return (
             <div className={classes.root}>
                 <Link to={productLink} className={classes.images}>
-                    {this.renderImagePlaceholder()}
-                    {this.renderImage()}
+                    {this.imagePlaceholder}
+                    {this.image}
                 </Link>
                 <Link to={productLink} className={classes.name}>
                     <span>{name}</span>
@@ -85,48 +137,6 @@ class GalleryItem extends Component {
             </div>
         );
     }
-
-    renderImagePlaceholder = () => {
-        const { classes, item } = this.props;
-
-        const className = item
-            ? classes.imagePlaceholder
-            : classes.imagePlaceholder_pending;
-
-        return (
-            <img
-                className={className}
-                src={transparentPlaceholder}
-                alt=""
-                width={imageWidth}
-                height={imageHeight}
-            />
-        );
-    };
-
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
-    renderImage = () => {
-        const { classes, item } = this.props;
-
-        if (!item) {
-            return null;
-        }
-
-        const { small_image, name } = item;
-
-        return (
-            <img
-                className={classes.image}
-                src={makeProductMediaPath(small_image)}
-                alt={name}
-                width={imageWidth}
-                height={imageHeight}
-            />
-        );
-    };
 }
 
 export default classify(defaultClasses)(GalleryItem);

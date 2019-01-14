@@ -40,13 +40,14 @@ class Header extends Component {
             autocompleteOpen,
             searchOpen,
             classes,
-            toggleSearch
+            toggleSearch,
+            style
         } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
         return (
-            <header className={rootClass}>
+            <header style={style} className={rootClass}>
                 <div className={classes.toolbar}>
                     <Link to="/">
                         <Logo classes={{ logo: classes.logo }} />

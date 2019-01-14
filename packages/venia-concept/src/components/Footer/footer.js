@@ -16,10 +16,10 @@ class Footer extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, style } = this.props;
 
         return (
-            <footer className={classes.root}>
+            <footer style={style} className={classes.root}>
                 <div className={classes.tile}>
                     <h2 className={classes.tileTitle}>
                         <span>Your Account</span>

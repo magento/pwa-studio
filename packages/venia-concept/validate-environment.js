@@ -3,6 +3,21 @@ function validateEnvironment(env) {
     const { str, bool, url } = envalid;
 
     const validation = {
+        IMAGE_CACHE_EXPIRES: str({
+            desc:
+                'Lifetime of images in the local cache of resized images. Format is "[length] [unit]", as in "10 minutes" or "1 day".',
+            example: '5 minutes',
+            default: '1 hour'
+        }),
+        IMAGE_CACHE_DEBUG: bool({
+            desc: 'Log image cache debug info to the console.',
+            default: false
+        }),
+        IMAGE_CACHE_REDIS_CLIENT: str({
+            desc:
+                'To use a Redis instance instead of a local memory cache for persistence between server processes, set this variable to the socket or URL of the Redis instance.',
+            default: ''
+        }),
         SERVICE_WORKER_FILE_NAME: str({
             desc:
                 'Filename to use when autogenerating a service worker to be served at root.',

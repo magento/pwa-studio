@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import ResponsiveImage from 'src/components/ResponsiveImage';
 import classify from 'src/classify';
 import { Link } from 'react-router-dom';
 
@@ -38,10 +38,13 @@ class suggestedProduct extends Component {
         return (
             <li className={classes.root}>
                 <Link onClick={handleOnProductOpen} to={productLink}>
-                    <img
+                    <ResponsiveImage
                         className={classes.productImage}
                         alt={name}
-                        src={makeProductMediaPath(small_image)}
+                        sizes="60px"
+                        src={small_image}
+                        type="product"
+                        widthOptions={[60]}
                     />
                 </Link>
                 <Link

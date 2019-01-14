@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './thumbnail.css';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import ResponsiveImage from 'src/components/ResponsiveImage';
 import { transparentPlaceholder } from 'src/shared/images';
 
 class Thumbnail extends Component {
@@ -15,15 +15,23 @@ class Thumbnail extends Component {
 
     render() {
         const { classes, item } = this.props;
-        const src = item.file
-            ? makeProductMediaPath(item.file)
-            : transparentPlaceholder;
-
-        return (
-            <div className={classes.root}>
-                <img className={classes.image} src={src} alt={item.label} />
-            </div>
+        const image = item.file ? (
+            <ResponsiveImage
+                alt={item.label}
+                className={classes.image}
+                sizes="1.2vw"
+                widthOptions={[160, 360]}
+                type="product"
+                src={item.file}
+            />
+        ) : (
+            <img
+                className={classes.image}
+                src={transparentPlaceholder}
+                alt={item.label}
+            />
         );
+        return <div className={classes.root}>{image}</div>;
     }
 }
 

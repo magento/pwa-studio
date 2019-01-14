@@ -3,18 +3,14 @@
     color: rgb(var(--venia-text));
     position: relative;
     z-index: 1;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .root_masked {
     composes: root;
-    height: 100vh;
     overflow: hidden;
-}
-
-.page {
-    min-height: 100vh;
-}
-
-.page_masked {
-    composes: page;
 }

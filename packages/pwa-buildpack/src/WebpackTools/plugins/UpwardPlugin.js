@@ -10,9 +10,20 @@ const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class UpwardPlugin {
     constructor(devServer, env, upwardPath) {
-        this.env = env;
+        this.env = Object.assign(
+            {
+                NODE_ENV: 'development'
+            },
+            env
+        );
         this.upwardPath = upwardPath;
-        // Compose `after` function if something else has defined it.
+        // Compose `after` and `before` functions if something else has defined
+        // them.
+        const oldBefore = devServer.before;
+        devServer.before = (app, ...rest) => {
+            app.use(upward.bestPractices());
+            if (oldBefore) oldBefore(app, ...rest);
+        };
         const oldAfter = devServer.after;
         devServer.after = (app, ...rest) => {
             app.use((req, res, next) => this.handleRequest(req, res, next));

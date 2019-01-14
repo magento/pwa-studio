@@ -12,6 +12,8 @@ const defaultPlaceholders = emptyData.map((_, index) => (
 
 class GalleryItems extends Component {
     static propTypes = {
+        imageSourceWidths: arrayOf(number),
+        imageSizeBreakpoints: string,
         items: arrayOf(
             shape({
                 id: number.isRequired,
@@ -42,13 +44,20 @@ class GalleryItems extends Component {
     }
 
     render() {
-        const { items } = this.props;
+        const { imageSourceWidths, imageSizeBreakpoints, items } = this.props;
 
         if (items === emptyData) {
             return this.placeholders;
         }
 
-        return items.map(item => <GalleryItem key={item.id} item={item} />);
+        return items.map(item => (
+            <GalleryItem
+                key={item.id}
+                imageSourceWidths={imageSourceWidths}
+                imageSizeBreakpoints={imageSizeBreakpoints}
+                item={item}
+            />
+        ));
     }
 }
 
