@@ -25,7 +25,7 @@ RUN lerna bootstrap --hoist
 COPY packages ./packages
 
 # copy .env.docker file to .env
-COPY ./packages/venia-concept/.env.docker ./packages/venia-concept/.env
+COPY ./docker/.env.docker ./packages/venia-concept/.env
 
 # build the app
 RUN npm run build 
