@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+####################################################################################
+#
+#   Run this file from the root of the repository to build and run a PWA container
+#
+####################################################################################
+
+function message
+{
+  echo ""
+  echo "==========================================================================="
+  echo ""
+  echo "        " "$1"
+  echo ""
+  echo "==========================================================================="
+  echo ""
+}
+
+# copy environment variables to root for docker-compose to consume for build
+cp ./docker/.env.docker .env
+
+message "Clearing any running containers"
+docker-compose down
+
+message "Building PWA image"
+docker-compose build
+
+message "Starting Docker network and containers"
+docker-compose up

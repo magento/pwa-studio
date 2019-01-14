@@ -7,20 +7,19 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx-proxy/certs:/etc/nginx/certs
+      - ./docker/certs:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: unless-stopped
 
   pwa:
-    hostname: pwa-docker.local
+    hostname: ${PWA_STUDIO_PUBLIC_PATH}
     build:
       context: .
       dockerfile: Dockerfile
     links:
       - nginx-proxy
     environment:
-      VIRTUAL_HOST: pwa-docker.local
-      VIRTUAL_PORT: 8080
+      VIRTUAL_HOST: ${PWA_STUDIO_PUBLIC_PATH}
+      VIRTUAL_PORT: ${PWA_STUDIO_PORTS_DEVELOPMENT}
     expose:
-      - 8080
-    
+      - ${PWA_STUDIO_PORTS_DEVELOPMENT}
