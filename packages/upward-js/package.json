@@ -11,7 +11,8 @@
     "bin": "./bin"
   },
   "scripts": {
-    "build:dev": "echo 'Skipping upward-js build...'",
+    "build": "echo 'Skipping upward-js build...'",
+    "build:dev": "yarn run build",
     "clean": "echo 'Skipping upward-js clean...'",
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"

@@ -7,13 +7,13 @@
   "description": "The core runtime of Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx babel src --out-dir dist --root-mode 'upward' --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build": "babel src --out-dir dist --root-mode 'upward' --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
     "build:dev": "yarn build",
-    "clean": "npx rimraf dist",
-    "prepublishOnly": "npx rimraf dist && yarn build",
+    "clean": "rimraf dist",
+    "prepublishOnly": "yarn run clean && yarn run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
-    "watch": "yarn build --watch"
+    "watch": "yarn run build --watch"
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
