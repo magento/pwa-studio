@@ -14,9 +14,6 @@
   "bugs": {
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
-  "engines": {
-    "node": ">=10.14.1"
-  },
   "scripts": {
     "build": "yarn workspaces run build",
     "build:dev": "yarn workspaces run build:dev",
@@ -61,5 +58,8 @@
     "prettier": "1.15.3",
     "prettier-check": "~2.0.0",
     "wait-for-expect": "~1.1.0"
+  },
+  "engines": {
+    "node": ">=10.14.1"
   }
 }
