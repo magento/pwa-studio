@@ -3,13 +3,13 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
 import defaultClasses from './category.css';
+import { RouteConsumer } from '@magento/peregrine/src/Router';
 
 class CategoryContent extends Component {
     render() {
         const { classes, pageControl, data, pageSize } = this.props;
         const items = data ? data.category.products.items : null;
         const title = data ? data.category.description : null;
-
         return (
             <article className={classes.root}>
                 <h1 className={classes.title}>
@@ -24,7 +24,9 @@ class CategoryContent extends Component {
                     <Gallery data={items} title={title} pageSize={pageSize} />
                 </section>
                 <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
+                    <RouteConsumer>
+                       {context => <Pagination pageControl={pageControl} {...context} /> } 
+                    </RouteConsumer>
                 </div>
             </article>
         );
