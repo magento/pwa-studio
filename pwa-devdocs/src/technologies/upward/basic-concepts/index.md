@@ -20,7 +20,7 @@ It links values together in a global namespace referred to as the **context**.
 **Context**
 : The **context** is a dictionary of values, like a JSON object.
 A typical response cycle appends intermediate values to the context, such as a query result or a template string.
-<!-- TODO: add link to future context reference topic -->
+See [Context][]
 
 Each request handling cycle creates a new context object.
 The incoming request is assigned to the context value `request`, and the current environment variables are assigned to the `env` context value. 
@@ -53,4 +53,4 @@ If a cyclic dependency is detected this way, the server should raise an error on
 
 If a cyclic dependency occurs at runtime, the server should return a 500 error.
 
-[context]: #context
+[Context]: {{site.baseurl}}{% link technologies/upward/context/index.md %}

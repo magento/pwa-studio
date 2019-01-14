@@ -31,6 +31,12 @@ entries:
         - label: Basic concepts
           url: /technologies/upward/basic-concepts/
 
+        - label: Context
+          url: /technologies/upward/context/
+
+        - label: Resolvers
+          url: /technologies/upward/resolvers/
+
         - label: Reference implementation
           url: /technologies/upward/reference-implementation/
 
