@@ -33,17 +33,13 @@ beforeEach(() => {
 });
 
 test('renders a single div', () => {
-    const { root } = TestRenderer.create(
-        <BraintreeDropin {...props} />
-    );
+    const { root } = TestRenderer.create(<BraintreeDropin {...props} />);
 
     expect(root.findAllByType('div')).toHaveLength(1);
 });
 
 test('creates an instance of the underlying dropin on mount', () => {
-    TestRenderer.create(
-        <BraintreeDropin {...props} />
-    );
+    TestRenderer.create(<BraintreeDropin {...props} />);
 
     expect(mockCreate).toBeCalledTimes(1);
 });
