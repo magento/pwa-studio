@@ -24,7 +24,7 @@ common_settings:
       - ~/.ssh
       - ~/.npm
       - /root/.npm
-    key: 'v3-npm-cache-{{ checksum "package-lock.json" }}'
+    key: 'v4-npm-cache-{{ checksum "package-lock.json" }}'
 
   install_latest_npm: &install_latest_npm
     name: Ensure NPM is up to date
@@ -63,7 +63,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - 'v3-npm-cache-{{ checksum "package-lock.json" }}'
+            - 'v4-npm-cache-{{ checksum "package-lock.json" }}'
       - run: *install_latest_npm
       - run: *install_packages
       - save_cache: *savecache
