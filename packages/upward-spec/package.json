@@ -19,9 +19,6 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec#readme",
-  "engines": {
-    "node": ">=10.14.1"
-  },
   "dependencies": {
     "apollo-server": "~2.3.1",
     "chalk": "~2.4.2",
@@ -33,5 +30,8 @@
     "tap-diff": "~0.1.1",
     "tap-xunit": "~2.3.0",
     "tape": "~4.9.2"
+  },
+  "engines": {
+    "node": ">=10.14.1"
   }
 }

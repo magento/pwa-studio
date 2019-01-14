@@ -11,6 +11,8 @@
     "bin": "./bin"
   },
   "scripts": {
+    "build:dev": "echo 'Skipping upward-js build...'",
+    "clean": "echo 'Skipping upward-js clean...'",
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
   },
@@ -27,9 +29,6 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
-  "engines": {
-    "node": ">=10.14.1"
-  },
   "dependencies": {
     "apollo-boost": "~0.1.23",
     "apollo-link": "~1.2.6",
@@ -55,5 +54,8 @@
   },
   "peerDependencies": {
     "express": "~4.16.4"
+  },
+  "engines": {
+    "node": ">=10.14.1"
   }
 }

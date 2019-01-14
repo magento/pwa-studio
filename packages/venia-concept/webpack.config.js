@@ -14,7 +14,6 @@ const path = require('path');
 const babelEnvDeps = require('webpack-babel-env-deps');
 
 const TerserPlugin = require('terser-webpack-plugin');
-const configureBabel = require('./babel.config.js');
 
 const themePaths = {
     images: path.resolve(__dirname, 'images'),
@@ -26,17 +25,20 @@ const themePaths = {
 const rootComponentsDirs = ['./src/RootComponents/'];
 const libs = [
     'apollo-boost',
+    'informed',
     'react',
+    'react-apollo',
     'react-dom',
+    'react-feather',
     'react-redux',
     'react-router-dom',
-    'redux'
+    'redux',
+    'redux-actions',
+    'redux-thunk'
 ];
 
 module.exports = async function(env) {
     const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
-
-    const babelOptions = configureBabel(mode);
 
     const enableServiceWorkerDebugging =
         validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
@@ -77,7 +79,11 @@ module.exports = async function(env) {
                     use: [
                         {
                             loader: 'babel-loader',
-                            options: { ...babelOptions, cacheDirectory: true }
+                            options: {
+                                cacheDirectory: false,
+                                envName: mode,
+                                rootMode: 'upward'
+                            }
                         }
                     ]
                 },

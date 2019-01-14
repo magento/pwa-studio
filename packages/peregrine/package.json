@@ -7,7 +7,8 @@
   "description": "The core runtime of Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build": "npx babel src --out-dir dist --root-mode 'upward' --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build:dev": "yarn build",
     "clean": "npx rimraf dist",
     "prepublishOnly": "npx rimraf dist && yarn build",
     "storybook": "start-storybook -p 9001 -c .storybook",
@@ -21,26 +22,32 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
-  "module": "src/index.js",
-  "jsnext:main": "src/index.js",
   "devDependencies": {
     "@babel/cli": "~7.2.3",
     "@babel/core": "~7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "~7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "~7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.2.0",
+    "@babel/plugin-transform-runtime": "~7.2.0",
     "@babel/runtime": "~7.2.0",
     "@storybook/react": "~4.1.6",
+    "intl": "~1.2.5",
     "react": "~16.7.0",
     "react-dom": "~16.7.0",
     "react-router-dom": "~4.4.0-beta.6",
     "rimraf": "~2.6.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "~7.2.0",
     "react": "~16.7.0",
     "react-dom": "~16.7.0",
     "react-router-dom": "~4.4.0-beta.6"
-  }
+  },
+  "engines": {
+    "node": ">=10.14.1"
+  },
+  "module": "src/index.js",
+  "jsnext:main": "src/index.js"
 }
