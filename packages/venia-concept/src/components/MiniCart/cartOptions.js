@@ -4,6 +4,7 @@ import classify from 'src/classify';
 import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
+import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -32,48 +33,20 @@ class CartOptions extends Component {
     handleClick = async () => {
         const { updateCart, hideEditPanel, cartItem, configItem } = this.props;
         const { optionSelections, quantity } = this.state;
-        const { configurable_options, variants } = configItem;
+        const { configurable_options } = configItem;
         const isConfigurable = Array.isArray(configurable_options);
         const productType = isConfigurable
             ? 'ConfigurableProduct'
             : 'SimpleProduct';
 
-        const product = configItem;
-
-        const optionCodes = new Map();
-
         const payload = {
-            item: product,
+            item: configItem,
             productType,
             quantity: quantity
         };
 
         if (productType === 'ConfigurableProduct') {
-            for (const option of configurable_options) {
-                optionCodes.set(option.attribute_id, option.attribute_code);
-            }
-            const options = Array.from(optionSelections, ([id, value]) => ({
-                option_id: id,
-                option_value: value
-            }));
-
-            const item = variants.find(({ product: variant }) => {
-                for (const [id, value] of optionSelections) {
-                    const code = optionCodes.get(id);
-
-                    if (variant[code] !== value) {
-                        return false;
-                    }
-                }
-
-                return true;
-            });
-
-            Object.assign(payload, {
-                options,
-                parentSku: product.sku,
-                item: Object.assign({}, item.product)
-            });
+            appendOptionsToPayload(payload, optionSelections);
         }
         this.setState({
             isLoading: true
