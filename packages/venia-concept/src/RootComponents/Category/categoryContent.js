@@ -3,7 +3,7 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
 import defaultClasses from './category.css';
-import { RouteConsumer } from '@magento/peregrine/src/Router';
+import { RouteConsumer } from '@magento/peregrine';
 
 class CategoryContent extends Component {
     render() {
@@ -25,7 +25,12 @@ class CategoryContent extends Component {
                 </section>
                 <div className={classes.pagination}>
                     <RouteConsumer>
-                       {context => <Pagination pageControl={pageControl} {...context} /> } 
+                        {context => (
+                            <Pagination
+                                pageControl={pageControl}
+                                {...context}
+                            />
+                        )}
                     </RouteConsumer>
                 </div>
             </article>

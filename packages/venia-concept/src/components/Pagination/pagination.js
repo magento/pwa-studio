@@ -50,6 +50,8 @@ class Pagination extends Component {
         });
     }
 
+    getPageNumber() {}
+
     render() {
         const { classes } = this.props;
         const { currentPage, totalPages } = this.props.pageControl;
@@ -102,23 +104,28 @@ class Pagination extends Component {
     }
 
     setPage = pageNumber => {
-        this.props.history.push({
-            search: `?page=${pageNumber}`
-        });
+        if (this.props.history && this.props.location) {
+            const queryParams = new URLSearchParams(this.props.location.search);
+            queryParams.set('page', pageNumber);
+            this.props.history.push({
+                search: queryParams.toString()
+            });
+        }
         this.props.pageControl.setPage(pageNumber);
     };
 
     slideNavLeft = () => {
-        const {  currentPage } = this.props.pageControl;
+        const { currentPage } = this.props.pageControl;
+        console.log(currentPage);
         if (currentPage > 1) {
             this.setPage(currentPage - 1);
         }
     };
 
     slideNavRight = () => {
-        const {  currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            this.setPage(currentPage + 1);
+            this.setPage(Number(currentPage) + 1);
         }
     };
 

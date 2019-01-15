@@ -57,11 +57,14 @@ class Category extends Component {
     static defaultProps = {
         id: 3
     };
-   
+
     // gets current page from queryParam
     getCurrentPage() {
-        const page = getQueryParameterValue({location:undefined,queryParameter:'page'});
-        return page && page <= this.props.prevPageTotal?page:1; 
+        const page = getQueryParameterValue({
+            location: undefined,
+            queryParameter: 'page'
+        });
+        return page && page <= this.props.prevPageTotal ? page : 1;
     }
 
     render() {
