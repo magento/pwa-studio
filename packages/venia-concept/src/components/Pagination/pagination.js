@@ -102,20 +102,27 @@ class Pagination extends Component {
     }
 
     setPage = pageNumber => {
+        if (this.props.history && this.props.location) {
+            const queryParams = new URLSearchParams(this.props.location.search);
+            queryParams.set('page', pageNumber);
+            this.props.history.push({
+                search: queryParams.toString()
+            });
+        }
         this.props.pageControl.setPage(pageNumber);
     };
 
     slideNavLeft = () => {
-        const { setPage, currentPage } = this.props.pageControl;
+        const { currentPage } = this.props.pageControl;
         if (currentPage > 1) {
-            setPage(currentPage - 1);
+            this.setPage(Number(currentPage) - 1);
         }
     };
 
     slideNavRight = () => {
-        const { setPage, currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            setPage(currentPage + 1);
+            this.setPage(Number(currentPage) + 1);
         }
     };
 

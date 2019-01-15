@@ -10,6 +10,7 @@ import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import getQueryParameterValue from 'src/util/getQueryParameterValue';
 
 const categoryQuery = gql`
     query category($id: Int!, $pageSize: Int!, $currentPage: Int!) {
@@ -58,16 +59,23 @@ class Category extends Component {
         id: 3
     };
 
+        // gets current page from queryParam
+        getCurrentPage() {
+            const page = getQueryParameterValue({location:undefined,queryParameter:'page'});
+            return page && page <= this.props.prevPageTotal?page:1; 
+        }
+
     render() {
         const {
             id,
             classes,
-            currentPage,
             pageSize,
             prevPageTotal,
             setCurrentPage,
             setPrevPageTotal
         } = this.props;
+
+        const currentPage = this.getCurrentPage();
 
         const pageControl = {
             currentPage: currentPage,
