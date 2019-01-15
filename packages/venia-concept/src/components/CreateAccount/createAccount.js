@@ -101,7 +101,9 @@ class CreateAccount extends Component {
                 </Field>
                 <ErrorDisplay error={createAccountError} />
                 <div className={classes.actions}>
-                    <Button type="submit">{'Submit'}</Button>
+                    <Button type="submit" priority="high">
+                        {'Submit'}
+                    </Button>
                 </div>
             </Form>
         );
