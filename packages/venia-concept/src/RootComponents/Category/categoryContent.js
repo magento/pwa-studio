@@ -25,7 +25,7 @@ class CategoryContent extends Component {
                     <Gallery data={items} title={title} pageSize={pageSize} />
                 </section>
                 <div className={classes.pagination}>
-                <RouteConsumer>
+                    <RouteConsumer>
                         {context => (
                             <Pagination
                                 pageControl={pageControl}
