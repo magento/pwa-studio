@@ -11,7 +11,9 @@
     align-items: center;
     border-bottom: 1px solid rgb(var(--venia-border));
     display: grid;
-    grid-template-columns: 6rem 1fr;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-template-columns: 5rem 1fr 2rem;
     justify-items: start;
     margin: 0 1.5rem;
     min-height: 4.5rem;
@@ -34,7 +36,6 @@
     white-space: nowrap;
 }
 
-.icon * {
-    vertical-align: sub;
-    height: 1rem;
+.icon {
+    justify-self: center;
 }
