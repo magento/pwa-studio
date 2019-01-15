@@ -62,7 +62,6 @@ class Receipt extends Component {
                     </div>
                     <Button
                         data-id={CONTINUE_SHOPPING_BUTTON_ID}
-                        contrast="high"
                         onClick={this.continueShopping}
                     >
                         Continue Shopping
@@ -73,7 +72,6 @@ class Receipt extends Component {
                     </div>
                     <Button
                         data-id={CREATE_ACCOUNT_BUTTON_ID}
-                        contrast="high"
                         priority="high"
                         onClick={this.createAccount}
                     >

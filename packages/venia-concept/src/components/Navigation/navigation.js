@@ -89,7 +89,9 @@ class Navigation extends PureComponent {
 
         return !this.props.isSignedIn ? (
             <div className={classes.authBar}>
-                <Button onClick={this.showSignInForm}>Sign In</Button>
+                <Button priority="high" onClick={this.showSignInForm}>
+                    Sign In
+                </Button>
             </div>
         ) : (
             <div className={classes.userChip}>

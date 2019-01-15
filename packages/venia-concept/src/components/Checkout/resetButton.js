@@ -11,11 +11,7 @@ class ResetButton extends Component {
     render() {
         const { resetCheckout } = this.props;
 
-        return (
-            <Button contrast="high" onClick={resetCheckout}>
-                Continue Shopping
-            </Button>
-        );
+        return <Button onClick={resetCheckout}>Continue Shopping</Button>;
     }
 }
 

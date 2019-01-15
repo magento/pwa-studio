@@ -187,7 +187,7 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <Button onClick={this.addToCart}>
+                    <Button priority="high" onClick={this.addToCart}>
                         <span>Add to Cart</span>
                     </Button>
                 </section>

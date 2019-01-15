@@ -4,6 +4,9 @@
 
 :root {
     --venia-anim-bounce: cubic-bezier(0.5, 1.8, 0.9, 0.8);
+    --venia-anim-in: cubic-bezier(0, 0, 0.2, 1);
+    --venia-anim-out: cubic-bezier(0.4, 0, 1, 1);
+    --venia-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --venia-border: 224, 224, 224;
     --venia-error: 192, 18, 63;
     --venia-error-alt: 255, 226, 234;
@@ -13,6 +16,7 @@
     --venia-orange: 241, 99, 33;
     --venia-teal: 0, 115, 120;
     --venia-teal-alt: 224, 240, 241;
+    --venia-teal-dark: 0, 104, 108;
     --venia-teal-light: 212, 243, 238;
     --venia-text: 33, 33, 33;
     --venia-text-alt: 112, 112, 112;
