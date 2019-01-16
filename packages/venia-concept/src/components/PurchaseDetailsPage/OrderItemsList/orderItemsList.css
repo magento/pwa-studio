@@ -1,20 +1,12 @@
-.body {
-    margin: 1rem 0 1.125rem;
-}
-
-.defaultItemRoot {
-    padding: 0.625rem 0 2rem;
-    border-bottom: 1px solid rgb(var(--venia-border));
-}
-
-.defaultItemRoot:first-child {
-    padding-top: 2rem;
-    border-top: 1px solid rgb(var(--venia-border));
+.root {
 }
 
 .header {
-    margin-bottom: 0.625rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 0.875rem;
+    font-size: 0.875rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.list {
+    display: grid;
+    gap: 1.5rem;
 }

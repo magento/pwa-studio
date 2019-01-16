@@ -10,10 +10,10 @@ import defaultClasses from './orderItemsList.css';
 class OrderItemsList extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            body: PropTypes.string,
+            root: PropTypes.string,
             header: PropTypes.string,
             defaultItemRoot: PropTypes.string,
-            itemsContainer: PropTypes.string
+            list: PropTypes.string
         }),
         title: PropTypes.string,
         items: PropTypes.arrayOf(itemPropType),
@@ -23,21 +23,19 @@ class OrderItemsList extends Component {
 
     render() {
         const { classes, items, title, onBuyAgain, onShare } = this.props;
+
         return (
-            <div className={classes.body}>
+            <div className={classes.root}>
                 <h3 className={classes.header}>{title}</h3>
                 <List
                     items={items}
                     getItemKey={({ id }) => id}
                     render={props => (
-                        <div className={classes.itemsContainer}>
-                            {props.children}
-                        </div>
+                        <div className={classes.list}>{props.children}</div>
                     )}
                     renderItem={props => (
                         <OrderItem
                             {...props}
-                            classes={{ root: classes.defaultItemRoot }}
                             onBuyAgain={onBuyAgain}
                             onShare={onShare}
                         />

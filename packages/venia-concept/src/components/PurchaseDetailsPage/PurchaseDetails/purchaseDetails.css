@@ -1,60 +1,17 @@
 .root {
+    display: grid;
+    gap: 1rem;
     margin: 0 auto;
     max-width: 60rem;
     padding: 1rem 1.75rem;
 }
 
 .orderDetailsHeaderText {
-    color: black;
-    font-size: 0.875rem;
-    font-weight: 300;
-    line-height: 0.875rem;
-    text-align: center;
-    text-transform: uppercase;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
 }
 
 .detailsBlockHeaderText {
-    color: black;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.125rem;
-    margin-bottom: 0.5rem;
-}
-
-.customDetailsBlock {
-    composes: root from '../DetailsBlock/detailsBlock.css';
-    margin-bottom: 1rem;
-}
-
-.orderDetailsBlockRoot {
-    composes: customDetailsBlock;
-    padding: 1rem 0.625rem 0.5rem;
-}
-
-.shipmentBlockRoot {
-    composes: customDetailsBlock;
-    padding: 0.5rem 0.625rem 0.625rem;
-}
-
-.trackButtonRoot {
-    border-radius: 1.5rem;
-    min-width: 8.75rem;
-    background-color: black;
-    height: auto;
-    padding: 0.25rem 0.125rem;
-    border-color: black;
-    margin-bottom: 2rem;
-}
-
-.trackButtonRoot:hover {
-    background-color: black;
-}
-
-.trackButtonContent {
-    color: white;
-    font-size: 0.75rem;
-    line-height: 0.75rem;
-    text-align: center;
+    font-size: 1rem;
+    margin-top: 1rem;
 }

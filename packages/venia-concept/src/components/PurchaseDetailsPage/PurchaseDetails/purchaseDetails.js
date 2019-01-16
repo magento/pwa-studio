@@ -54,12 +54,9 @@ class PurchaseDetails extends Component {
                     onBuyAgain={addItemToCart}
                 />
                 <h2 className={classes.orderDetailsHeaderText}>
-                    Order details
+                    Order Details
                 </h2>
-                <DetailsBlock
-                    classes={{ root: classes.orderDetailsBlockRoot }}
-                    rows={orderDetails}
-                />
+                <DetailsBlock rows={orderDetails} />
                 <OrderItemsList
                     items={otherItems}
                     title="Other Items in this Order"
@@ -69,32 +66,18 @@ class PurchaseDetails extends Component {
                 <h3 className={classes.detailsBlockHeaderText}>
                     Shipment Details
                 </h3>
-                <DetailsBlock
-                    classes={{ root: classes.shipmentBlockRoot }}
-                    rows={shipmentDetails}
-                />
-                <Button
-                    classes={{
-                        root: classes.trackButtonRoot,
-                        content: classes.trackButtonContent
-                    }}
-                >
-                    Track Order
-                </Button>
+                <DetailsBlock rows={shipmentDetails} />
+                <div className={classes.shipmentActions}>
+                    <Button>Track Order</Button>
+                </div>
                 <h3 className={classes.detailsBlockHeaderText}>
                     Payment Details
                 </h3>
-                <DetailsBlock
-                    classes={{ root: classes.customDetailsBlock }}
-                    rows={paymentDetails}
-                />
+                <DetailsBlock rows={paymentDetails} />
                 <h3 className={classes.detailsBlockHeaderText}>
                     Order Summary
                 </h3>
-                <DetailsBlock
-                    classes={{ root: classes.customDetailsBlock }}
-                    rows={orderSummary}
-                />
+                <DetailsBlock rows={orderSummary} />
             </div>
         );
     };
