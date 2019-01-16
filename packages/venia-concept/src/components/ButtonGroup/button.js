@@ -7,6 +7,7 @@ import defaultClasses from './button.css';
 class Button extends Component {
     static propTypes = {
         classes: shape({
+            content: string,
             root: string
         }).isRequired
     };

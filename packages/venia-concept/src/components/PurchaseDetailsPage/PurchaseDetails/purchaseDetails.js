@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Button from 'src/components/Button';
+import { any, array, bool, func, shape, string } from 'prop-types';
+
 import classify from 'src/classify';
-import defaultClasses from './purchaseDetails.css';
+import Button from 'src/components/Button';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { getProductPageUrl } from './helpers';
 import OrderItem from '../OrderItem';
-import { itemPropType } from '../OrderItem/constants';
 import OrderItemsList from '../OrderItemsList';
 import DetailsBlock from '../DetailsBlock';
-import { getProductPageUrl } from './helpers';
+import defaultClasses from './purchaseDetails.css';
 
 class PurchaseDetails extends Component {
     static propTypes = {
-        shipmentDetails: PropTypes.array,
-        orderDetails: PropTypes.array,
-        paymentDetails: PropTypes.array,
-        orderSummary: PropTypes.array,
-        classes: PropTypes.shape({}),
-        addItemToCart: PropTypes.func,
-        item: itemPropType,
-        otherItems: PropTypes.arrayOf(itemPropType),
-        fetchOrderDetails: PropTypes.func,
-        isFetching: PropTypes.bool
+        addItemToCart: func,
+        classes: shape({
+            heading: string,
+            root: string,
+            shipmentActions: string
+        }).isRequired,
+        fetchOrderDetails: func,
+        isFetching: bool,
+        item: any,
+        orderDetails: array,
+        orderSummary: array,
+        otherItems: array,
+        paymentDetails: array,
+        shipmentDetails: array
     };
 
-    //TODO: implement executing url params for orderId and itemId
     componentDidMount() {
+        //TODO: implement executing url params for orderId and itemId
         this.props.fetchOrderDetails({});
     }
 
@@ -34,17 +39,22 @@ class PurchaseDetails extends Component {
         history.push(getProductPageUrl(item));
     };
 
-    renderComponent = () => {
+    render() {
         const {
+            addItemToCart,
+            classes,
+            isFetching,
+            item,
             shipmentDetails,
             orderDetails,
-            paymentDetails,
             orderSummary,
-            classes,
-            item,
             otherItems,
-            addItemToCart
+            paymentDetails
         } = this.props;
+
+        if (isFetching) {
+            return loadingIndicator;
+        }
 
         return (
             <div className={classes.root}>
@@ -53,9 +63,7 @@ class PurchaseDetails extends Component {
                     onShare={this.handleShare}
                     onBuyAgain={addItemToCart}
                 />
-                <h2 className={classes.orderDetailsHeaderText}>
-                    Order Details
-                </h2>
+                <h2 className={classes.heading}>Order Details</h2>
                 <DetailsBlock rows={orderDetails} />
                 <OrderItemsList
                     items={otherItems}
@@ -63,29 +71,17 @@ class PurchaseDetails extends Component {
                     onShare={this.handleShare}
                     onBuyAgain={addItemToCart}
                 />
-                <h3 className={classes.detailsBlockHeaderText}>
-                    Shipment Details
-                </h3>
+                <h3 className={classes.heading}>Shipment Details</h3>
                 <DetailsBlock rows={shipmentDetails} />
                 <div className={classes.shipmentActions}>
                     <Button>Track Order</Button>
                 </div>
-                <h3 className={classes.detailsBlockHeaderText}>
-                    Payment Details
-                </h3>
+                <h3 className={classes.heading}>Payment Details</h3>
                 <DetailsBlock rows={paymentDetails} />
-                <h3 className={classes.detailsBlockHeaderText}>
-                    Order Summary
-                </h3>
+                <h3 className={classes.heading}>Order Summary</h3>
                 <DetailsBlock rows={orderSummary} />
             </div>
         );
-    };
-
-    render() {
-        const { isFetching } = this.props;
-
-        return !isFetching ? this.renderComponent() : <div>Loading...</div>;
     }
 }
 

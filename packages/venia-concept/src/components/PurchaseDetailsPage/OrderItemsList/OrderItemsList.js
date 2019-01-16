@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { array, func, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
-import { itemPropType } from '../OrderItem/constants';
-import OrderItem from '../OrderItem';
 import classify from 'src/classify';
+import OrderItem from '../OrderItem';
 import defaultClasses from './orderItemsList.css';
 
 class OrderItemsList extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            header: PropTypes.string,
-            defaultItemRoot: PropTypes.string,
-            list: PropTypes.string
+        classes: shape({
+            heading: string,
+            list: string,
+            root: string
         }),
-        title: PropTypes.string,
-        items: PropTypes.arrayOf(itemPropType),
-        onBuyAgain: PropTypes.func,
-        onShare: PropTypes.func
+        items: array,
+        title: string,
+        onBuyAgain: func,
+        onShare: func
     };
 
     render() {
@@ -26,7 +24,7 @@ class OrderItemsList extends Component {
 
         return (
             <div className={classes.root}>
-                <h3 className={classes.header}>{title}</h3>
+                <h3 className={classes.heading}>{title}</h3>
                 <List
                     items={items}
                     getItemKey={({ id }) => id}

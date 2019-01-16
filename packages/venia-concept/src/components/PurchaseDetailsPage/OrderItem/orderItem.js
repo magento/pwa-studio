@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import MessageSquareIcon from 'react-feather/dist/icons/message-square';
 import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
@@ -8,22 +8,30 @@ import Share2Icon from 'react-feather/dist/icons/share-2';
 import classify from 'src/classify';
 import ButtonGroup from 'src/components/ButtonGroup';
 import Icon from 'src/components/Icon';
-import { itemPropType } from './constants';
 import defaultClasses from './orderItem.css';
 
 class OrderItem extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            main: PropTypes.string,
-            imageAndPropsContainer: PropTypes.string,
-            titleImage: PropTypes.string,
-            propsColumnContainer: PropTypes.string,
-            title: PropTypes.string,
-            priceContainer: PropTypes.string
+        classes: shape({
+            image: string,
+            main: string,
+            price: string,
+            propLabel: string,
+            propValue: string,
+            propsList: string,
+            root: string
         }),
-        currencyCode: PropTypes.string,
-        item: itemPropType
+        currencyCode: string,
+        item: shape({
+            color: string,
+            id: number,
+            name: string,
+            price: number,
+            qty: number,
+            size: string,
+            sku: string,
+            titleImageSrc: string
+        })
     };
 
     //TODO: get currencyCode whether from item object or from order or from user cart
@@ -93,13 +101,11 @@ class OrderItem extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.main}>
-                    <div className={classes.imageCell}>
-                        <img
-                            className={classes.titleImage}
-                            src={titleImageSrc}
-                            alt="itemOfClothes"
-                        />
-                    </div>
+                    <img
+                        className={classes.image}
+                        src={titleImageSrc}
+                        alt="itemOfClothes"
+                    />
                     <dl className={classes.propsList}>
                         <dt className={classes.propLabel}>Name</dt>
                         <dd className={classes.propValue}>{name}</dd>
@@ -110,7 +116,7 @@ class OrderItem extends Component {
                         <dt className={classes.propLabel}>Quantity</dt>
                         <dd className={classes.propValue}>{qty}</dd>
                     </dl>
-                    <div className={classes.priceContainer}>
+                    <div className={classes.price}>
                         <Price value={price || 0} currencyCode={currencyCode} />
                     </div>
                 </div>

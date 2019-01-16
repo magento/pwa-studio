@@ -3,15 +3,10 @@
     gap: 1rem;
     margin: 0 auto;
     max-width: 60rem;
-    padding: 1rem 1.75rem;
+    padding: 2rem 1.75rem;
 }
 
-.orderDetailsHeaderText {
-    font-size: 1rem;
-    margin-top: 1rem;
-}
-
-.detailsBlockHeaderText {
+.heading {
     font-size: 1rem;
     margin-top: 1rem;
 }

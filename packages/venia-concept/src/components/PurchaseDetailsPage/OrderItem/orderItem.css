@@ -17,15 +17,11 @@
     grid-template-columns: auto 1fr;
 }
 
-.imageAndPropsContainer {
-    display: flex;
-}
-
-.titleImage {
+.image {
     height: 5rem;
 }
 
-.titleImage[src^='data:image'] {
+.image[src^='data:image'] {
     background-color: rgb(var(--venia-grey));
 }
 
@@ -46,11 +42,13 @@
 .propLabel:nth-of-type(1) {
     display: none;
 }
+
 .propValue:nth-of-type(1) {
     font-weight: 600;
     grid-column: 1 / span 2;
 }
 
-.priceContainer {
+.price {
     font-size: 0.75rem;
+    line-height: 1rem;
 }
