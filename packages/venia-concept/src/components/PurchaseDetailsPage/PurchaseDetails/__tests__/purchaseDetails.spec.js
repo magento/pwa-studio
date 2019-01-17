@@ -117,7 +117,7 @@ test('calls fetchOrderDetails on mount', () => {
     expect(fetchOrderDetailsMock).toHaveBeenCalledTimes(1);
 });
 
-test('calls fetchOrderDetails on mount', () => {
+test('renders a loading indicator while loading', () => {
     const { root } = TestRenderer.create(
         <PurchaseDetails
             fetchOrderDetails={fetchOrderDetailsMock}
