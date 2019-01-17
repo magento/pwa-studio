@@ -28,10 +28,6 @@ class BraintreeDropin extends Component {
         });
     }
 
-    componentWillUnmount() {
-        this.braintree = null;
-    }
-
     componentDidUpdate(prevProps) {
         if (
             this.braintree &&
