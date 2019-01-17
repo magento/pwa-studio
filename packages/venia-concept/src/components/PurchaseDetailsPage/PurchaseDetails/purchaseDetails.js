@@ -4,7 +4,6 @@ import { any, array, bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
-import { getProductPageUrl } from './helpers';
 import OrderItem from '../OrderItem';
 import OrderItemsList from '../OrderItemsList';
 import DetailsBlock from '../DetailsBlock';
@@ -18,7 +17,7 @@ class PurchaseDetails extends Component {
             root: string,
             shipmentActions: string
         }).isRequired,
-        fetchOrderDetails: func,
+        fetchOrderDetails: func.isRequired,
         isFetching: bool,
         item: any,
         orderDetails: array,
@@ -33,23 +32,17 @@ class PurchaseDetails extends Component {
         this.props.fetchOrderDetails({});
     }
 
-    handleShare = item => {
-        const { history } = this.props;
-
-        history.push(getProductPageUrl(item));
-    };
-
     render() {
         const {
             addItemToCart,
             classes,
             isFetching,
             item,
-            shipmentDetails,
             orderDetails,
             orderSummary,
             otherItems,
-            paymentDetails
+            paymentDetails,
+            shipmentDetails
         } = this.props;
 
         if (isFetching) {

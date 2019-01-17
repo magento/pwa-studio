@@ -1,13 +1,12 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import DetailsBlock from '../../DetailsBlock';
-import PurchaseDetails from '../purchaseDetails';
-import OrderItem from '../../OrderItem';
-import OrderItemsList from '../../OrderItemsList';
-import Button from 'src/components/Button';
+import TestRenderer from 'react-test-renderer';
 
-configure({ adapter: new Adapter() });
+import LoadingIndicator from 'src/components/LoadingIndicator';
+import PurchaseDetails from '../purchaseDetails';
+
+jest.mock('src/components/LoadingIndicator');
+
+const fetchOrderDetailsMock = jest.fn();
 
 const commonOrderDetailsMock = [
     { property: 'Order No', value: 'orderNo' },
@@ -65,7 +64,7 @@ const otherItemsMock = [
         sku: 'sku'
     },
     {
-        id: 1,
+        id: 2,
         name: 'name',
         size: 'size',
         color: 'color',
@@ -75,7 +74,7 @@ const otherItemsMock = [
         sku: 'sku'
     },
     {
-        id: 1,
+        id: 3,
         name: 'name',
         size: 'size',
         color: 'color',
@@ -86,21 +85,53 @@ const otherItemsMock = [
     }
 ];
 
-test('renders correctly', () => {
-    const fetchOrderDetailsMock = jest.fn();
-    const wrapper = shallow(
+test('renders the expected tree', () => {
+    const tree = TestRenderer.create(
         <PurchaseDetails
-            shipmentDetails={shipmentDetailsMock}
-            orderDetails={commonOrderDetailsMock}
-            paymentDetails={paymentDetailsMock}
-            orderSummary={orderSummaryMock}
-            item={itemMock}
-            otherItems={otherItemsMock}
             fetchOrderDetails={fetchOrderDetailsMock}
+            item={itemMock}
+            orderDetails={commonOrderDetailsMock}
+            orderSummary={orderSummaryMock}
+            otherItems={otherItemsMock}
+            paymentDetails={paymentDetailsMock}
+            shipmentDetails={shipmentDetailsMock}
         />
-    ).dive();
-    expect(wrapper.find(DetailsBlock)).toHaveLength(4);
-    expect(wrapper.find(Button)).toHaveLength(1);
-    expect(wrapper.find(OrderItem)).toHaveLength(1);
-    expect(wrapper.find(OrderItemsList)).toHaveLength(1);
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('calls fetchOrderDetails on mount', () => {
+    TestRenderer.create(
+        <PurchaseDetails
+            fetchOrderDetails={fetchOrderDetailsMock}
+            item={itemMock}
+            orderDetails={commonOrderDetailsMock}
+            orderSummary={orderSummaryMock}
+            otherItems={otherItemsMock}
+            paymentDetails={paymentDetailsMock}
+            shipmentDetails={shipmentDetailsMock}
+        />
+    );
+
+    expect(fetchOrderDetailsMock).toHaveBeenCalledTimes(1);
+});
+
+test('calls fetchOrderDetails on mount', () => {
+    const { root } = TestRenderer.create(
+        <PurchaseDetails
+            fetchOrderDetails={fetchOrderDetailsMock}
+            isFetching={true}
+            item={itemMock}
+            orderDetails={commonOrderDetailsMock}
+            orderSummary={orderSummaryMock}
+            otherItems={otherItemsMock}
+            paymentDetails={paymentDetailsMock}
+            shipmentDetails={shipmentDetailsMock}
+        />
+    );
+
+    const spinner = root.findByType(LoadingIndicator);
+
+    expect(spinner).toBeTruthy();
 });

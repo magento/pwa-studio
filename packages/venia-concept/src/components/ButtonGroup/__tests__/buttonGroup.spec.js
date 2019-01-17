@@ -1,52 +1,34 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import TestRenderer from 'react-test-renderer';
+
+import Button from '../button';
 import ButtonGroup from '../buttonGroup';
-import Button from 'src/components/Button';
 
-configure({ adapter: new Adapter() });
+jest.mock('src/classify');
+jest.mock('../button');
 
-const classes = {
-    buttonGroupItem: 'buttonGroupItem',
-    textNodeContainer: 'textNodeContainer'
-};
+test('renders a div', () => {
+    const { root } = TestRenderer.create(<ButtonGroup />);
 
-const buttonGroupItemsMock = [
-    {
-        onClickHandler: jest.fn(),
-        iconName: 'icon1',
-        textNode: 'text1'
-    },
-    {
-        onClickHandler: jest.fn(),
-        iconName: 'icon2',
-        textNode: 'text2'
+    const el = root.findByProps({ className: 'root' });
+
+    expect(el).toBeTruthy();
+});
+
+test('renders children from `items`', () => {
+    const items = [
+        { key: 'a', children: 'a' },
+        { key: 'b', children: 'b' },
+        { key: 'c', children: 'c' }
+    ];
+
+    const { root } = TestRenderer.create(<ButtonGroup items={items} />);
+
+    const el = root.findByProps({ className: 'root' });
+
+    expect(el.children).toHaveLength(3);
+
+    for (const child of el.children) {
+        expect(child.type).toBe(Button);
     }
-];
-
-afterEach(() => {
-    buttonGroupItemsMock.forEach(button => button.onClickHandler.mockReset());
-});
-
-test('renders all button group items correctly', () => {
-    const wrapper = shallow(
-        <ButtonGroup buttonGroupItems={buttonGroupItemsMock} />
-    ).dive();
-
-    expect(wrapper.find(Button)).toHaveLength(buttonGroupItemsMock.length);
-});
-
-test('clicking buttons triggers appropriate handlers', () => {
-    const wrapper = shallow(
-        <ButtonGroup
-            classes={classes}
-            buttonGroupItems={buttonGroupItemsMock}
-        />
-    ).dive();
-
-    wrapper.find(Button).forEach((buttonNode, index) => {
-        const { onClickHandler } = buttonGroupItemsMock[index];
-        buttonNode.simulate('click');
-        expect(onClickHandler).toHaveBeenCalledTimes(1);
-    });
 });
