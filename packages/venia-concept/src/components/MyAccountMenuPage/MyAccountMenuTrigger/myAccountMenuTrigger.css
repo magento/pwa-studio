@@ -1,0 +1,40 @@
+.userChip {
+    align-content: center;
+    align-items: center;
+    background-color: rgb(var(--venia-grey));
+    display: grid;
+    flex: 0 0 100%;
+    grid-template-columns: 1fr 3.5rem;
+    grid-template-rows: 3.5rem;
+    height: 4rem;
+    width: 100%;
+}
+
+.userEmail {
+    color: rgb(var(--venia-text-alt));
+    font-size: 0.8125rem;
+    line-height: 1rem;
+}
+
+.userMore {
+    composes: root from 'src/components/clickable.css';
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.menuOpen {
+    position: fixed;
+    z-index: 5;
+    background-color: white;
+    transition: top 244ms;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+
+.menuClosed {
+    composes: menuOpen;
+    top: 101%;
+}

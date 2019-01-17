@@ -14,7 +14,7 @@ import SearchTrigger from './searchTrigger';
 const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
 import defaultClasses from './header.css';
-import logo from './logo.svg';
+import Logo from '../Logo';
 
 class Header extends Component {
     static propTypes = {
@@ -49,13 +49,7 @@ class Header extends Component {
             <header className={rootClass}>
                 <div className={classes.toolbar}>
                     <Link to="/">
-                        <img
-                            className={classes.logo}
-                            src={logo}
-                            height="24"
-                            alt="Venia"
-                            title="Venia"
-                        />
+                        <Logo classes={{ logo: classes.logo }} />
                     </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
