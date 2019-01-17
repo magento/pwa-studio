@@ -77,7 +77,7 @@ jobs:
           command: npm run danger
       - run:
           name: Bundle size analysis
-          command: npx -p iltorb bundlesize --debug
+          command: npm run bundlesize
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
