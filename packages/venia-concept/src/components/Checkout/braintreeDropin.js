@@ -13,7 +13,7 @@ import React, { Component } from 'react';
 import { bool, func } from 'prop-types';
 import dropin from 'braintree-web-drop-in';
 
-const BRAINTREE_SANDBOX_TOKEN = 'sandbox_8yrzsvtm_s2bg8fs563crhqzk';
+const { BRAINTREE_TOKEN } = process.env;
 
 class BraintreeDropin extends Component {
     static propTypes = {
@@ -46,7 +46,7 @@ class BraintreeDropin extends Component {
     createDropinInstance = () => {
         // Create an instance of the BrainTree Web Drop In.
         return dropin.create({
-            authorization: BRAINTREE_SANDBOX_TOKEN,
+            authorization: BRAINTREE_TOKEN,
             // Note: this selector must match to some part of this component's rendered HTML.
             container: '#dropin-container',
             card: {
