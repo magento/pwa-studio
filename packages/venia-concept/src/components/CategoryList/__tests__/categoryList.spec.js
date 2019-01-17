@@ -1,15 +1,15 @@
-jest.mock('../../../classify');
 import React from 'react';
-import wait from 'waait';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import waitForExpect from 'wait-for-expect';
+import TestRenderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
+
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import CategoryTile from '../categoryTile';
 import CategoryList from '../categoryList';
 import getCategoryList from '../../../queries/getCategoryList.graphql';
 
-configure({ adapter: new Adapter() });
+jest.mock('src/classify');
 
 const withRouterAndApolloClient = (mocks, renderFn) => (
     <MemoryRouter initialIndex={0} initialEntries={['/']}>
@@ -19,23 +19,30 @@ const withRouterAndApolloClient = (mocks, renderFn) => (
     </MemoryRouter>
 );
 
-test('displays header', () => {
-    const wrapper = mount(
+test('renders a header', () => {
+    const title = 'foo';
+    const { root } = TestRenderer.create(
         withRouterAndApolloClient([], () => (
-            <CategoryList id={2} title="testing title" />
+            <CategoryList id={2} title={title} />
         ))
     );
-    expect(wrapper.find('.header').text()).toEqual('testing title');
+
+    const list = root.findByProps({ className: 'root' });
+    const header = list.findByProps({ className: 'header' });
+
+    expect(header).toBeTruthy();
+    expect(header.findByProps({ children: title })).toBeTruthy();
 });
 
-test('omits header wrapper if header is absent', () => {
-    const wrapper = mount(
+test('omits the header if there is no title', () => {
+    const { root } = TestRenderer.create(
         withRouterAndApolloClient([], () => <CategoryList id={2} />)
     );
-    expect(wrapper.find('.header')).toHaveLength(0);
+
+    expect(root.findAllByProps({ className: 'header' })).toHaveLength(0);
 });
 
-test('displays category tiles', async () => {
+test('renders category tiles', async () => {
     const mocks = [
         {
             request: {
@@ -85,7 +92,7 @@ test('displays category tiles', async () => {
                                 id: 17,
                                 name: 'baz',
                                 url_key: 'baz-url.html',
-                                url_path: '/bar-url.html',
+                                url_path: '/baz-url.html',
                                 children_count: 0,
                                 path: '1/2/17',
                                 image: null,
@@ -99,72 +106,16 @@ test('displays category tiles', async () => {
             }
         }
     ];
-    const wrapper = mount(
+
+    const { root } = TestRenderer.create(
         withRouterAndApolloClient(mocks, () => (
-            <CategoryList id={2} title="Testing CategoryList" />
+            <CategoryList id={2} title="foo" />
         ))
     );
-    expect(wrapper.find('.root .fetchingData')).toHaveLength(1);
-    await wait(0);
-    // expect(wrapper.html()).toBe('lol');
-    wrapper.update();
-    const tiles = wrapper.find(CategoryTile);
-    expect(tiles).toHaveLength(3);
-    expect(tiles.find('Link')).toHaveLength(3);
-    expect(tiles.at(0).find('img[src$="media/foo.png"]')).toHaveLength(1);
-    expect(tiles.at(1).find('img[src$="media/bar-product.jpg"]')).toHaveLength(
-        1
-    );
-    expect(tiles.at(2).find('img')).toHaveLength(0);
-});
 
-test('displays zero results', async () => {
-    const mocks = [
-        {
-            request: {
-                query: getCategoryList,
-                variables: {
-                    id: 3
-                }
-            },
-            result: {
-                data: {
-                    category: {
-                        id: 3,
-                        children: []
-                    }
-                }
-            }
-        }
-    ];
-    const wrapper = mount(
-        withRouterAndApolloClient(mocks, () => <CategoryList id={3} />)
-    );
-    await wait(0);
-    wrapper.update();
-    expect(wrapper.find('.root .noResults')).toHaveLength(1);
-    expect(wrapper.find(CategoryTile)).toHaveLength(0);
-});
+    expect(root.findByType(LoadingIndicator)).toBeTruthy();
 
-test('displays a data fetch error', async () => {
-    const mocks = [
-        {
-            request: {
-                query: getCategoryList,
-                variables: {
-                    id: 4
-                }
-            },
-            error: new Error('Unknown category ID')
-        }
-    ];
-    const wrapper = mount(
-        withRouterAndApolloClient(mocks, () => <CategoryList id={4} />)
-    );
-    await wait(0);
-    wrapper.update();
-    expect(wrapper.find('.root .fetchError').text()).toMatch(
-        /Unknown category ID/
-    );
-    expect(wrapper.find(CategoryTile)).toHaveLength(0);
+    await waitForExpect(() => {
+        expect(root.findAllByType(CategoryTile)).toHaveLength(3);
+    });
 });

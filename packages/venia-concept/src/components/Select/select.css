@@ -1,13 +1,13 @@
-.root {
-    align-items: center;
-    background: none;
-    border: 1px solid currentColor;
-    border-radius: 2px;
-    color: inherit;
-    display: flex;
-    font-size: 1rem;
-    height: 2.5rem;
-    padding-left: calc(0.75rem - 1px);
-    padding-right: calc(2.5rem - 1px);
-    -webkit-appearance: none;
+.wrapper {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-template-areas: 'input icon';
+    grid-template-columns: auto 2.25rem;
+    height: 2.25rem;
+}
+
+.input {
+    composes: input from '../Field/field.css';
+    grid-area: input-start / input-start / input-end / icon-end;
+    padding-right: calc(2.25rem - 1px);
 }

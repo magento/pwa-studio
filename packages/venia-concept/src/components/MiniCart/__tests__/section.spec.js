@@ -1,15 +1,12 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import Section from '../section';
-
-configure({ adapter: new Adapter() });
 
 const classes = { text: 'a' };
 
 test('renders with passed icon name', () => {
-    const wrapper = shallow(<Section icon="x" text="Test" />).dive();
+    const wrapper = shallow(<Section icon="Heart" text="Test" />).dive();
 
     const icon = wrapper.instance().icon;
     expect(typeof icon).toBe('object');

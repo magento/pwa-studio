@@ -16,7 +16,7 @@ workflows:
 # configuration nodes for reuse.
 common_settings:
   docker: &docker_setup
-    - image: 'circleci/node:8.11.2'
+    - image: 'circleci/node:10.14.1'
   # Cache a bunch of stuff
   # - npm's local tarball cache
   save_cache: &savecache
@@ -36,7 +36,7 @@ common_settings:
 
   full_build: &full_build
     name: Full Build
-    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build && npm run clean:dist'
+    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build'
 
   test_result_path: &test_result_path
     path: "test-results"
@@ -73,15 +73,11 @@ jobs:
           command: 'npm run test:ci && npm run coveralls || true'
       - run: *full_build
       - run:
-          name: Patch CircleCI environment to help detect pull requests
-          command: chmod u+x scripts/patch_circleci_env && scripts/patch_circleci_env >> $BASH_ENV
-          environment:
-            GITHUB_GRAPHQL_ENDPOINT: https://api.github.com/graphql
-      - run:
           name: DangerCI
           command: npm run danger
+      - run:
+          name: Bundle size analysis
+          command: npm run bundlesize
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
-
-

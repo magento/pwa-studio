@@ -68,6 +68,12 @@ resource:
         inline:
           model: genericObject
           template: './templates/generic-shell.mst'
+    - matches: request.url.pathname
+      pattern: '/search.html'
+      use:
+        inline:
+          model: genericObject
+          template: './templates/generic-shell.mst'
   default:
     inline:
       template: './templates/notfound-shell.mst'
