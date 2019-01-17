@@ -44,7 +44,7 @@ class PaymentsForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button type="submit" disabled={submitting}>
+                    <Button priority="high" type="submit" disabled={submitting}>
                         Save
                     </Button>
                     <Button onClick={this.cancel}>Cancel</Button>
