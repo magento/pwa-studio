@@ -16,8 +16,7 @@ workflows:
 # configuration nodes for reuse.
 common_settings:
   docker: &docker_setup
-    - image: 'circleci/node:8.11.2'
-
+    - image: 'circleci/node:10.14.1'
   # Cache a bunch of stuff
   # - npm's local tarball cache
   save_cache: &savecache
@@ -74,11 +73,6 @@ jobs:
           command: 'npm run test:ci && npm run coveralls || true'
       - run: *full_build
       - run:
-          name: Patch CircleCI environment to help detect pull requests
-          command: chmod u+x scripts/patch_circleci_env && scripts/patch_circleci_env >> $BASH_ENV
-          environment:
-            GITHUB_GRAPHQL_ENDPOINT: https://api.github.com/graphql
-      - run:
           name: DangerCI
           command: npm run danger
       - run: # https://github.com/nodejs/node-gyp/wiki/Updating-npm's-bundled-node-gyp
@@ -90,4 +84,3 @@ jobs:
 
       - store_test_results: *test_result_path
       - store_artifacts: *test_result_path
-

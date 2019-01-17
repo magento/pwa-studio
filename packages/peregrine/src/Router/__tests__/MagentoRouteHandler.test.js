@@ -1,13 +1,10 @@
 import React from 'react';
 import MagentoRouteHandler from '../MagentoRouteHandler';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import resolveUnknownRoute from '../resolveUnknownRoute';
 import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
 
 jest.mock('FETCH_ROOT_COMPONENT', () => jest.fn(), { virtual: true });
-
-configure({ adapter: new Adapter() });
 
 jest.mock('../resolveUnknownRoute');
 

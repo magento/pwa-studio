@@ -1,10 +1,7 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import Kebab from '../kebab';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     root: 'a',
@@ -41,7 +38,8 @@ test('list is inactive when kebab is closed', () => {
 });
 
 test('list gains "active" class when kebab is open', () => {
-    const wrapper = shallow(<Kebab classes={classes} isOpen={true} />).dive();
+    const wrapper = shallow(<Kebab classes={classes} />).dive();
+    wrapper.setState({ isOpen: true });
 
     let menu = wrapper.find('ul');
     expect(menu.hasClass(classes.dropdown_active)).toBe(true);

@@ -241,9 +241,22 @@ export const getCartDetails = (payload = {}) => {
 
             // for each item in the cart, look up its image in the cache
             // and merge it into the item object
+            // then assign its options from the totals subResource
             if (imageCache && Array.isArray(items) && items.length) {
+                const validTotals = totals && totals.items;
                 items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};
+
+                    let options = [];
+                    if (validTotals) {
+                        const matchingItem = totals.items.find(
+                            t => t.item_id === item.item_id
+                        );
+                        if (matchingItem && matchingItem.options) {
+                            options = JSON.parse(matchingItem.options);
+                        }
+                    }
+                    item.options = options;
                 });
             }
 
