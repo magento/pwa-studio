@@ -4,6 +4,11 @@
 .body {
     composes: body from './form.css';
     grid-gap: 0.5rem;
+    max-height: calc(
+        var(--minicart-height) - var(--minicart-header-height) -
+            var(--flow-footer-height)
+    );
+    overflow-y: scroll;
     padding: 0 1.5rem;
 }
 
@@ -21,8 +26,23 @@
     text-transform: uppercase;
 }
 
-/* fields */
+/* Fields. */
 
 .paymentMethod {
-    grid-column-end: span 1;
+}
+
+/* Braintree-specific styles. */
+
+/*
+ * On error, the Braintree container increases in height
+ * in order to show an error message.
+ *
+ * Unfortunately because of a z-index on an internal element (the one
+ * selected below), it overlaps and displays above the minicart heading.
+ *
+ * Here we unset the z-index on the braintree internal element to cause it
+ * to scroll behind the minicart heading, as intended.
+ */
+[data-braintree-id='upper-container'] {
+    z-index: unset;
 }
