@@ -361,6 +361,13 @@ describe('submitShippingMethod', () => {
 });
 
 describe('submitOrder', () => {
+    const mockPaymentMethod = {
+        code: 'braintree',
+        data: {
+            nonce: 'unit_test_nonce'
+        }
+    };
+
     test('submitOrder() returns a thunk', () => {
         expect(submitOrder()).toBeInstanceOf(Function);
     });
@@ -387,7 +394,7 @@ describe('submitOrder', () => {
         // get address from storage.
         mockGetItem.mockImplementationOnce(() => address);
         // get payment method from storage.
-        mockGetItem.mockImplementationOnce(() => ({ code: 'checkmo' }));
+        mockGetItem.mockImplementationOnce(() => mockPaymentMethod);
 
         const response = 1;
         request.mockResolvedValueOnce(response);
@@ -425,7 +432,7 @@ describe('submitOrder', () => {
         // get address from storage.
         mockGetItem.mockImplementationOnce(() => address);
         // get payment method from storage.
-        mockGetItem.mockImplementationOnce(() => ({ code: 'checkmo' }));
+        mockGetItem.mockImplementationOnce(() => mockPaymentMethod);
 
         const response = 1;
         request.mockResolvedValueOnce(response);
@@ -443,7 +450,7 @@ describe('submitOrder', () => {
         // get address from storage.
         mockGetItem.mockImplementationOnce(() => address);
         // get payment method from storage.
-        mockGetItem.mockImplementationOnce(() => ({ code: 'checkmo' }));
+        mockGetItem.mockImplementationOnce(() => mockPaymentMethod);
 
         const error = new Error('ERROR');
         request.mockRejectedValueOnce(error);

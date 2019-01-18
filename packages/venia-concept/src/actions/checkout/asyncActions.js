@@ -145,11 +145,10 @@ export const submitOrder = () =>
                         cartId: guestCartId,
                         email: address.email,
                         paymentMethod: {
-                            // additional_data: {
-                            //     payment_method_nonce: paymentMethod.data.nonce
-                            // },
-                            // Hardcoded for now. Will be updated by a future ticket.
-                            method: 'checkmo' || paymentMethod.code
+                            additional_data: {
+                                payment_method_nonce: paymentMethod.data.nonce
+                            },
+                            method: paymentMethod.code
                         }
                     })
                 }
