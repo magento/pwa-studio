@@ -30,10 +30,10 @@ test('errors on unrecognized type', () => {
 test('resizes urls to specific widths', () => {
     expect(
         makeMediaUrl('some/category.jpg', { type: 'category', width: 160 })
-    ).toMatchSnapshot(
-        '/img/resize/160w/media/catalog/category/some/category.jpg'
+    ).toBe(
+        '/img/resize/160?url=%2Fmedia%2Fcatalog%2Fcategory%2Fsome%2Fcategory.jpg'
     );
     expect(makeMediaUrl('/some/other/thing.jpg', { width: 480 })).toBe(
-        '/img/resize/480w/some/other/thing.jpg'
+        '/img/resize/480?url=%2Fsome%2Fother%2Fthing.jpg'
     );
 });

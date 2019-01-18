@@ -8,7 +8,7 @@ import classify from 'src/classify';
 import makeMediaUrl from 'src/util/makeMediaUrl';
 import defaultClasses from './product.css';
 
-const imageWidth = 80;
+const imageWidth = 60;
 const imageHeight = 100;
 
 class Product extends Component {

@@ -18,7 +18,7 @@ const mediaPathPrefixes = {
 
 const resizeBase = joinUrls(process.env.IMAGE_SERVICE_PATH || '/img', 'resize');
 function makeResizedUrl(url, width) {
-    return `${joinUrls(resizeBase, width.toString())}/?url=${encodeURIComponent(
+    return `${joinUrls(resizeBase, width.toString())}?url=${encodeURIComponent(
         url
     )}`;
 }
