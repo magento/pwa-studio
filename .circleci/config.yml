@@ -32,7 +32,7 @@ common_settings:
 
   install_packages: &install_packages
     name: Install NPM packages from lockfile
-    command: npm ci --ignore-scripts && npx lerna bootstrap --hoist --no-ci
+    command: npm ci --ignore-scripts && npx lerna bootstrap --hoist --no-ci && npm rebuild
 
   full_build: &full_build
     name: Full Build

@@ -5,7 +5,7 @@ import memoize from 'memoize-one';
 import classify from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import makeMediaUrl from 'src/util/makeMediaUrl';
 import { transparentPlaceholder } from 'src/shared/images';
 
 class Carousel extends Component {
@@ -44,7 +44,7 @@ class Carousel extends Component {
 
         const mainImage = sortedImages[0] || {};
         const src = mainImage.file
-            ? makeProductMediaPath(mainImage.file)
+            ? makeMediaUrl(mainImage.file, { type: 'product', width: 640 })
             : transparentPlaceholder;
         const alt = mainImage.label || 'product';
         return (

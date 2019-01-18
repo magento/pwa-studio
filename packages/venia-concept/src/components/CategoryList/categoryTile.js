@@ -3,14 +3,13 @@ import { arrayOf, string, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import classify from 'src/classify';
-import {
-    makeCategoryMediaPath,
-    makeProductMediaPath
-} from 'src/util/makeMediaPath';
+import makeMediaUrl from 'src/util/makeMediaUrl';
 import defaultClasses from './categoryTile.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
 const categoryUrlSuffix = '.html';
+
+const previewImageSize = 480;
 
 class CategoryTile extends Component {
     static propTypes = {
@@ -38,9 +37,15 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return makeCategoryMediaPath(image);
+            return makeMediaUrl(image, {
+                type: 'category',
+                width: previewImageSize
+            });
         } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image);
+            return makeMediaUrl(previewProduct.small_image, {
+                type: 'product',
+                width: previewImageSize
+            });
         } else {
             return null;
         }

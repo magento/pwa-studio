@@ -84,6 +84,7 @@
     "redux": "~4.0.1",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
+    "sharp": "~0.21.2",
     "terser-webpack-plugin": "~1.1.0",
     "webpack": "~4.25.1",
     "webpack-babel-env-deps": "~1.4.3",

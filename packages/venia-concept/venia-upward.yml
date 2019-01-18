@@ -5,6 +5,9 @@ body: response.body
 response:
   when:
     - matches: request.url.pathname
+      pattern: '^/img/resize/(\d+)w/(.*())'
+      use: imageOpt
+    - matches: request.url.pathname
       pattern: '^/(graphql|rest|media/)'
       use: proxy
     - matches: request.url.pathname
@@ -20,6 +23,34 @@ response:
       pattern: '^/$'
       use: appShell
   default: bundles
+
+# In dev and staging mode, the PWADevServer and Venia's server.js both declare
+# the image resizing middleware at `/img/` before the UpwardPlugin declares
+# middleware, so a request should never get here.
+
+# In production mode, this forwards to Fastly where it is present, and drops
+# back to the uncompressed image otherwise. If this will run on a non-FastlyIO
+# server, an onboard resizing service is highly recommended.
+imageOpt:
+  inline:
+    status: 301
+    body:
+      inline: ''
+    headers:
+      inline:
+        Location:
+          engine: mustache
+          provide:
+            width: $match.$1
+            path: $match.$2
+          template:
+            when:
+              - matches: env.USE_FASTLY
+                pattern: '[^0]'
+                use:
+                  inline: '/{{path}}?auto=webp&format=pjpg&'
+            default:
+              inline: '/{{path}}'
 
 isDevelopment:
   when:
