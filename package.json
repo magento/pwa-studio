@@ -50,7 +50,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "npm run prettier && npm run prettier:validate && npm run lint && npm test && npm run build && bundlesize"
+      "pre-push": "npm run prettier && npm run prettier:validate && npm run lint && npm test"
     }
   },
   "devDependencies": {
