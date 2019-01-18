@@ -35,11 +35,22 @@
     "watch:all": "node scripts/watch-all.js",
     "watch:buildpack": "cd packages/pwa-buildpack && npm run -s watch; cd - >/dev/null",
     "watch:peregrine": "cd packages/peregrine && npm run -s watch; cd - >/dev/null",
-    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null"
+    "watch:venia": "cd packages/venia-concept && npm run -s watch; cd - >/dev/null",
+    "bundlesize": "bundlesize"
   },
+  "bundlesize": [
+    {
+      "path": "./packages/venia-concept/dist/js/{client,vendor}.js",
+      "maxSize": "150 kB"
+    },
+    {
+      "path": "./packages/venia-concept/dist/js/[0-9]-*.js",
+      "maxSize": "21kB"
+    }
+  ],
   "husky": {
     "hooks": {
-      "pre-push": "npm run prettier && npm run prettier:validate && npm run lint && npm test"
+      "pre-push": "npm run prettier && npm run prettier:validate && npm run lint && npm test && npm run build && bundlesize"
     }
   },
   "devDependencies": {
@@ -74,6 +85,7 @@
     "babel-runtime": "~6.26.0",
     "boxen": "~2.0.0",
     "braintree-web-drop-in": "~1.14.1",
+    "bundlesize": "~0.15.3",
     "chalk": "~2.4.1",
     "chokidar": "~2.0.4",
     "contains-path": "~1.0.0",
