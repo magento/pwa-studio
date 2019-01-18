@@ -67,6 +67,7 @@ exports[`renders the expected tree 1`] = `
   >
     <button
       className="root"
+      onClick={[Function]}
     >
       <span
         className="content"
@@ -107,6 +108,7 @@ exports[`renders the expected tree 1`] = `
     </button>
     <button
       className="root"
+      onClick={[Function]}
     >
       <span
         className="content"
@@ -161,6 +163,7 @@ exports[`renders the expected tree 1`] = `
     </button>
     <button
       className="root"
+      onClick={[Function]}
     >
       <span
         className="content"

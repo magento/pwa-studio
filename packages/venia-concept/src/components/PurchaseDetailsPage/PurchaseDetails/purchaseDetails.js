@@ -11,7 +11,6 @@ import defaultClasses from './purchaseDetails.css';
 
 class PurchaseDetails extends Component {
     static propTypes = {
-        addItemToCart: func,
         classes: shape({
             heading: string,
             root: string,
@@ -27,14 +26,25 @@ class PurchaseDetails extends Component {
         shipmentDetails: array
     };
 
+    handleBuyItem = () => {
+        // TODO: wire up
+    };
+
+    handleReviewItem = () => {
+        // TODO: wire up
+    };
+
+    handleShareItem = () => {
+        // TODO: wire up
+    };
+
     componentDidMount() {
-        //TODO: implement executing url params for orderId and itemId
+        // TODO: include orderId, itemId
         this.props.fetchOrderDetails({});
     }
 
     render() {
         const {
-            addItemToCart,
             classes,
             isFetching,
             item,
@@ -53,16 +63,18 @@ class PurchaseDetails extends Component {
             <div className={classes.root}>
                 <OrderItem
                     item={item}
-                    onShare={this.handleShare}
-                    onBuyAgain={addItemToCart}
+                    onBuyItem={this.handleBuyItem}
+                    onReviewItem={this.handleReviewItem}
+                    onShareItem={this.handleShareItem}
                 />
                 <h2 className={classes.heading}>Order Details</h2>
                 <DetailsBlock rows={orderDetails} />
                 <OrderItemsList
                     items={otherItems}
                     title="Other Items in this Order"
-                    onShare={this.handleShare}
-                    onBuyAgain={addItemToCart}
+                    onBuyItem={this.handleBuyItem}
+                    onReviewItem={this.handleReviewItem}
+                    onShareItem={this.handleShareItem}
                 />
                 <h3 className={classes.heading}>Shipment Details</h3>
                 <DetailsBlock rows={shipmentDetails} />

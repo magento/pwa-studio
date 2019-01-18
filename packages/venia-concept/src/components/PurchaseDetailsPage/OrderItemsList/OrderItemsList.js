@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, shape, string } from 'prop-types';
+import { array, func, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
@@ -14,11 +14,21 @@ class OrderItemsList extends Component {
             root: string
         }),
         items: array,
+        onBuyItem: func,
+        onReviewItem: func,
+        onShareItem: func,
         title: string
     };
 
     render() {
-        const { classes, items, title } = this.props;
+        const {
+            classes,
+            items,
+            onBuyItem,
+            onReviewItem,
+            onShareItem,
+            title
+        } = this.props;
 
         return (
             <div className={classes.root}>
@@ -29,7 +39,14 @@ class OrderItemsList extends Component {
                     render={props => (
                         <div className={classes.list}>{props.children}</div>
                     )}
-                    renderItem={props => <OrderItem {...props} />}
+                    renderItem={props => (
+                        <OrderItem
+                            {...props}
+                            onBuyItem={onBuyItem}
+                            onReviewItem={onReviewItem}
+                            onShareItem={onShareItem}
+                        />
+                    )}
                 />
             </div>
         );

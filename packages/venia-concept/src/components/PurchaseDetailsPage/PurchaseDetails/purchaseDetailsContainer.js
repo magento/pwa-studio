@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import { addItemToCart } from 'src/actions/cart/asyncActions';
 import { fetchOrderDetails } from 'src/actions/purchaseDetails/asyncActions';
 import purchaseDetailsPage from './purchaseDetails';
 import {
@@ -13,6 +12,8 @@ import {
     getItem
 } from './selectors';
 
+// TODO: refactor to avoid all these selectors for simple object properties
+
 export default connect(
     state => ({
         shipmentDetails: getShipmentDetails(state),
@@ -23,5 +24,5 @@ export default connect(
         otherItems: getOtherItems(state),
         item: getItem(state)
     }),
-    { addItemToCart, fetchOrderDetails }
+    { fetchOrderDetails }
 )(purchaseDetailsPage);

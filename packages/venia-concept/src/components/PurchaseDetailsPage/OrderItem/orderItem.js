@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import MessageSquareIcon from 'react-feather/dist/icons/message-square';
 import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
@@ -9,6 +9,8 @@ import classify from 'src/classify';
 import ButtonGroup from 'src/components/ButtonGroup';
 import Icon from 'src/components/Icon';
 import defaultClasses from './orderItem.css';
+
+const noop = () => {};
 
 class OrderItem extends Component {
     static propTypes = {
@@ -31,13 +33,37 @@ class OrderItem extends Component {
             size: string,
             sku: string,
             titleImageSrc: string
-        })
+        }),
+        onBuyItem: func,
+        onReviewItem: func,
+        onShareItem: func
     };
 
     //TODO: get currencyCode whether from item object or from order or from user cart
     static defaultProps = {
         item: {},
-        currencyCode: 'USD'
+        currencyCode: 'USD',
+        onBuyItem: noop,
+        onReviewItem: noop,
+        onShareItem: noop
+    };
+
+    buyItem = () => {
+        const { item, onBuyItem } = this.props;
+
+        onBuyItem(item);
+    };
+
+    reviewItem = () => {
+        const { item, onReviewItem } = this.props;
+
+        onReviewItem(item);
+    };
+
+    shareItem = () => {
+        const { item, onShareItem } = this.props;
+
+        onShareItem(item);
     };
 
     get buyContent() {

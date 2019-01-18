@@ -39,7 +39,9 @@ exports[`renders the expected tree 1`] = `
       </div>
     </div>
     <div>
-      <button>
+      <button
+        onClick={[Function]}
+      >
         <span>
           <span>
             <svg
@@ -73,7 +75,9 @@ exports[`renders the expected tree 1`] = `
           </span>
         </span>
       </button>
-      <button>
+      <button
+        onClick={[Function]}
+      >
         <span>
           <span>
             <svg
@@ -121,7 +125,9 @@ exports[`renders the expected tree 1`] = `
           </span>
         </span>
       </button>
-      <button>
+      <button
+        onClick={[Function]}
+      >
         <span>
           <span>
             <svg
@@ -218,7 +224,9 @@ exports[`renders the expected tree 1`] = `
           </div>
         </div>
         <div>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -252,7 +260,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -300,7 +310,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -363,7 +375,9 @@ exports[`renders the expected tree 1`] = `
           </div>
         </div>
         <div>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -397,7 +411,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -445,7 +461,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -508,7 +526,9 @@ exports[`renders the expected tree 1`] = `
           </div>
         </div>
         <div>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -542,7 +562,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg
@@ -590,7 +612,9 @@ exports[`renders the expected tree 1`] = `
               </span>
             </span>
           </button>
-          <button>
+          <button
+            onClick={[Function]}
+          >
             <span>
               <span>
                 <svg

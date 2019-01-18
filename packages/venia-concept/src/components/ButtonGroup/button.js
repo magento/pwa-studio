@@ -13,10 +13,10 @@ class Button extends Component {
     };
 
     render() {
-        const { children, classes } = this.props;
+        const { children, classes, ...rest } = this.props;
 
         return (
-            <button className={classes.root}>
+            <button {...rest} className={classes.root}>
                 <span className={classes.content}>{children}</span>
             </button>
         );
