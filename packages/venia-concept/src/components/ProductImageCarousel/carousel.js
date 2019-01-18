@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 
 import Icon from 'src/components/Icon';
+import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
+import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
 import classify from 'src/classify';
 import { imageItemPropType } from './constants';
 import ThumbnailList from './thumbnailList';
@@ -10,13 +12,9 @@ import defaultClasses from './carousel.css';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import { transparentPlaceholder } from 'src/shared/images';
 
-const chevronAttrs = {
-    width: 40
-};
-
-const chevronDirs = {
-    left: 'left',
-    right: 'right'
+const ChevronIcons = {
+    left: ChevronLeftIcon,
+    right: ChevronRightIcon
 };
 
 class Carousel extends Component {
@@ -81,7 +79,7 @@ class Carousel extends Component {
             onClick={this[`${direction}ChevronHandler`]}
             className={this.props.classes[`chevron-${direction}`]}
         >
-            <Icon name={`chevron-${direction}`} attrs={chevronAttrs} />
+            <Icon src={ChevronIcons[direction]} size={40} />
         </button>
     );
 
@@ -98,9 +96,9 @@ class Carousel extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.imageContainer}>
-                    {this.getChevron(chevronDirs.left)}
+                    {this.getChevron('left')}
                     <img className={classes.currentImage} src={src} alt={alt} />
-                    {this.getChevron(chevronDirs.right)}
+                    {this.getChevron('right')}
                 </div>
                 <ThumbnailList
                     getItemKey={i => i.file}
