@@ -36,10 +36,13 @@ common_settings:
 
   full_build: &full_build
     name: Full Build
-    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build && npm run clean:dist'
+    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build'
 
   test_result_path: &test_result_path
     path: "test-results"
+
+  artifact_storage_path: &artifact_storage_path
+    path: "packages/venia-concept/dist"
 
 jobs:
   master:
@@ -56,7 +59,7 @@ jobs:
           command: npm run coveralls
       - run: *full_build
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
+      - store_artifacts: *artifact_storage_path
   build:
     docker: *docker_setup
     steps:
@@ -75,8 +78,9 @@ jobs:
       - run:
           name: DangerCI
           command: npm run danger
+      - run:
+          name: Bundle size analysis
+          command: npm run bundlesize
 
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
-
-
+      - store_artifacts: *artifact_storage_path
