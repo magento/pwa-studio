@@ -46,7 +46,13 @@ class Flow extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentData: object,
+        paymentData: shape({
+            description: string,
+            details: shape({
+                cardType: string
+            }),
+            nonce: string
+        }),
         shippingMethod: string,
         shippingTitle: string
     };

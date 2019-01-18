@@ -49,7 +49,13 @@ class CheckoutWrapper extends Component {
         }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
-            paymentData: object,
+            paymentData: shape({
+                description: string,
+                details: shape({
+                    cardType: string
+                }),
+                nonce: string
+            }),
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,

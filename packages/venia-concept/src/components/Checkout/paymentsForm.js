@@ -21,7 +21,6 @@ class PaymentsForm extends Component {
         submitting: bool
     };
 
-    // TODO: don't actually keep the state here, move to Redux
     state = {
         isRequestingPaymentNonce: false
     };

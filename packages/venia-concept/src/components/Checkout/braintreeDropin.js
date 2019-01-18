@@ -22,10 +22,8 @@ class BraintreeDropin extends Component {
         onSuccess: func.isRequired
     };
 
-    componentDidMount() {
-        this.createDropinInstance().then(instance => {
-            this.braintree = instance;
-        });
+    async componentDidMount() {
+        this.braintree = await this.createDropinInstance();
     }
 
     componentDidUpdate(prevProps) {
