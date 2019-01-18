@@ -1,3 +1,3 @@
 # Docker Directory
 
-This directory will store local SSL/TLS certifications created by running docker setup, as well as scripts to setup a local docker development environment.
+This directory stores certificates for local SSL/TLS, created by running `run-docker` script, as well as configuration for docker environment setup.

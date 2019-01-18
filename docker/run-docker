@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 ####################################################################################
 #
@@ -6,8 +6,70 @@
 #
 ####################################################################################
 
-function message
-{
+ENVFILE=./.env
+HOSTSFILE=/etc/hosts
+HOSTPRESENT=false
+
+main () {
+  # copy environment variables to .env in root for docker-compose to consume for build
+  cp ./docker/.env.docker $ENVFILE 
+  . $ENVFILE
+
+  HOSTMAP="127.0.0.1 $PWA_STUDIO_PUBLIC_PATH"
+
+  add_host_to_hostfile
+
+  # create_certificates
+
+  start_docker
+}
+
+add_host_to_hostfile () {
+
+  if [ "$HOSTMAP" == "127.0.0.1" ]; then
+    echo "No custom host set to configure."
+    return
+  fi
+
+  while read -r var; do 
+    if [ "$var" == "$HOSTMAP" ]; then
+      HOSTPRESENT=true
+    fi
+  done < $HOSTSFILE
+
+
+  if [ $HOSTPRESENT == false ]; then
+    message "Please provide your password, if requested, to modify $HOSTSFILE"
+    echo $HOSTMAP | sudo tee -a /etc/hosts
+
+    if [ $? == 0 ]; then
+      message "Added $HOSTMAP configured in $ENVFILE to $HOSTSFILE"
+    else 
+      message "Host was not added to $HOSTSFILE. Please enter your password to add \n$HOSTMAP to your hostsfile."
+      exit $?
+    fi
+  else 
+    message "$HOSTSFILE already configured with $HOSTMAP"
+  fi
+}
+
+# create_certificates () {
+#   # TODO: create certificate for SSL/TLS
+
+# }
+
+start_docker () {
+  message "Clearing any running containers"
+  docker-compose down
+
+  message "Building PWA image"
+  docker-compose build
+
+  message "Starting Docker network and containers"
+  docker-compose up
+}
+
+message () {
   echo ""
   echo "==========================================================================="
   echo ""
@@ -17,14 +79,4 @@ function message
   echo ""
 }
 
-# copy environment variables to root for docker-compose to consume for build
-cp ./docker/.env.docker .env
-
-message "Clearing any running containers"
-docker-compose down
-
-message "Building PWA image"
-docker-compose build
-
-message "Starting Docker network and containers"
-docker-compose up
+main 
