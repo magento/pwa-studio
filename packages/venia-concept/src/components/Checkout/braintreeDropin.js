@@ -48,8 +48,6 @@ class BraintreeDropin extends Component {
             // Note: this selector must match to some part of this component's rendered HTML.
             container: '#dropin-container',
             card: {
-                // Show a cardholder name field.
-                cardholderName: true,
                 overrides: {
                     fields: {
                         number: {
