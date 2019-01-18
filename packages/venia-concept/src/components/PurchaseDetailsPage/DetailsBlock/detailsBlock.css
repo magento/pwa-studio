@@ -1,16 +1,15 @@
 .root {
-    display: grid;
-    grid-template-columns: auto 1fr;
     border: 1px solid rgb(var(--venia-border));
-    color: black;
+    color: rgb(var(--venia-text));
+    display: grid;
     font-size: 0.75rem;
-    font-weight: 300;
+    gap: 0 1.5rem;
+    grid-template-columns: minmax(8rem, auto) 1fr;
     line-height: 1.5rem;
-    padding: 0.5rem 0.625rem 2rem;
+    padding: 0.5rem 1rem;
 }
 
 .property {
-    margin-right: 1.5rem;
     color: rgb(var(--venia-text-alt));
 }
 

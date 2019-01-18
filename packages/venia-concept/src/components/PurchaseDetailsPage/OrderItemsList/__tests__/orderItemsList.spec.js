@@ -1,14 +1,9 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { List } from '@magento/peregrine';
+import TestRenderer from 'react-test-renderer';
+
 import OrderItemsList from '../OrderItemsList';
 
-configure({ adapter: new Adapter() });
-
-const classes = {
-    header: 'header'
-};
+jest.mock('src/classify');
 
 const itemsMock = [
     {
@@ -33,11 +28,20 @@ const itemsMock = [
     }
 ];
 
-test('renders correctly', () => {
-    const wrapper = shallow(
-        <OrderItemsList classes={classes} title="title" items={itemsMock} />
-    ).dive();
+test('renders the expected tree', () => {
+    const tree = TestRenderer.create(
+        <OrderItemsList title="a" items={itemsMock} />
+    );
 
-    expect(wrapper.find(`.${classes.header}`)).toHaveLength(1);
-    expect(wrapper.find(List)).toHaveLength(1);
+    expect(tree).toMatchSnapshot();
+});
+
+test('renders elements with classnames', () => {
+    const { root } = TestRenderer.create(
+        <OrderItemsList title="a" items={itemsMock} />
+    );
+
+    expect(root.findByProps({ className: 'root' })).toBeTruthy();
+    expect(root.findByProps({ className: 'heading' })).toBeTruthy();
+    expect(root.findByProps({ className: 'list' })).toBeTruthy();
 });

@@ -41,6 +41,9 @@ common_settings:
   test_result_path: &test_result_path
     path: "test-results"
 
+  artifact_storage_path: &artifact_storage_path
+    path: "packages/venia-concept/dist"
+
 jobs:
   master:
     docker: *docker_setup
@@ -56,7 +59,7 @@ jobs:
           command: npm run coveralls
       - run: *full_build
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
+      - store_artifacts: *artifact_storage_path
   build:
     docker: *docker_setup
     steps:
@@ -80,4 +83,4 @@ jobs:
           command: npm run bundlesize
 
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
+      - store_artifacts: *artifact_storage_path
