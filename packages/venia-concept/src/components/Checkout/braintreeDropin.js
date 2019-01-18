@@ -23,13 +23,21 @@ class BraintreeDropin extends Component {
     };
 
     async componentDidMount() {
-        this.braintree = await this.createDropinInstance();
+        try {
+            this.dropinInstance = await this.createDropinInstance();
+        }
+        catch (err) {
+            console.error(`Unable to initialize Credit Card form (Braintree). \n${err}`);
+        }   
     }
 
     componentDidUpdate(prevProps) {
+        const { dropinInstance } = this;
+        const { isRequestingPaymentNonce } = this.props;
+
         if (
-            this.braintree &&
-            this.props.isRequestingPaymentNonce &&
+            dropinInstance &&
+            isRequestingPaymentNonce &&
             !prevProps.isRequestingPaymentNonce
         ) {
             // Our parent is telling us to request the payment nonce.
@@ -67,13 +75,15 @@ class BraintreeDropin extends Component {
      * @see https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html#requestPaymentMethod.
      */
     requestPaymentNonce = async () => {
+        const { dropinInstance } = this;
+
         try {
-            const paymentNonce = await this.braintree.requestPaymentMethod();
+            const paymentNonce = await dropinInstance.requestPaymentMethod();
             this.props.onSuccess(paymentNonce);
         } catch (e) {
             // BrainTree will update the UI with error messaging,
             // but signal that there was an error.
-            console.warn(`Invalid Payment Details. \n${e}`);
+            console.error(`Invalid Payment Details. \n${e}`);
             this.props.onError();
         }
     };
