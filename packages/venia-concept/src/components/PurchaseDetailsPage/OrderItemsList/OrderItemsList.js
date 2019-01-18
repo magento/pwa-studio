@@ -1,45 +1,50 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { array, func, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
-import { itemPropType } from '../OrderItem/constants';
-import OrderItem from '../OrderItem';
 import classify from 'src/classify';
+import OrderItem from '../OrderItem';
 import defaultClasses from './orderItemsList.css';
 
 class OrderItemsList extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            body: PropTypes.string,
-            header: PropTypes.string,
-            defaultItemRoot: PropTypes.string,
-            itemsContainer: PropTypes.string
+        classes: shape({
+            heading: string,
+            list: string,
+            root: string
         }),
-        title: PropTypes.string,
-        items: PropTypes.arrayOf(itemPropType),
-        onBuyAgain: PropTypes.func,
-        onShare: PropTypes.func
+        items: array,
+        onBuyItem: func,
+        onReviewItem: func,
+        onShareItem: func,
+        title: string
     };
 
     render() {
-        const { classes, items, title, onBuyAgain, onShare } = this.props;
+        const {
+            classes,
+            items,
+            onBuyItem,
+            onReviewItem,
+            onShareItem,
+            title
+        } = this.props;
+
         return (
-            <div className={classes.body}>
-                <h3 className={classes.header}>{title}</h3>
+            <div className={classes.root}>
+                <h3 className={classes.heading}>{title}</h3>
                 <List
                     items={items}
                     getItemKey={({ id }) => id}
                     render={props => (
-                        <div className={classes.itemsContainer}>
-                            {props.children}
-                        </div>
+                        <div className={classes.list}>{props.children}</div>
                     )}
                     renderItem={props => (
                         <OrderItem
                             {...props}
-                            classes={{ root: classes.defaultItemRoot }}
-                            onBuyAgain={onBuyAgain}
-                            onShare={onShare}
+                            onBuyItem={onBuyItem}
+                            onReviewItem={onReviewItem}
+                            onShareItem={onShareItem}
                         />
                     )}
                 />

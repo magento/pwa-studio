@@ -1,10 +1,10 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import OrderItem from '../orderItem';
-import ButtonGroup from '../ButtonGroup';
+import TestRenderer from 'react-test-renderer';
 
-configure({ adapter: new Adapter() });
+import OrderItem from '../orderItem';
+import classes from '../orderItem.css';
+
+jest.mock('src/classify');
 
 const itemMock = {
     id: 1,
@@ -17,31 +17,70 @@ const itemMock = {
     sku: '24-MB01'
 };
 
-const classes = {
-    main: 'main',
-    imageAndPropsContainer: 'imageAndPropsContainer',
-    titleImage: 'titleImage',
-    propsColumnContainer: 'propsColumnContainer',
-    priceContainer: 'priceContainer'
-};
+test('renders the expected tree', () => {
+    const tree = TestRenderer.create(<OrderItem item={itemMock} />);
 
-test('renders correctly', () => {
-    const onBuyAgainMock = jest.fn();
-    const onShareMock = jest.fn();
+    expect(tree).toMatchSnapshot();
+});
 
-    const wrapper = shallow(
-        <OrderItem
-            classes={classes}
-            item={itemMock}
-            onBuyAgain={onBuyAgainMock}
-            onShare={onShareMock}
-        />
-    ).dive();
+test('renders elements with classnames', () => {
+    const { root } = TestRenderer.create(<OrderItem item={itemMock} />);
 
-    expect(wrapper.find(`.${classes.main}`)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.imageAndPropsContainer}`)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.titleImage}`)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.propsColumnContainer}`)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.priceContainer}`)).toHaveLength(1);
-    expect(wrapper.find(ButtonGroup)).toHaveLength(1);
+    expect(root.findByProps({ className: 'root' })).toBeTruthy();
+    expect(root.findByProps({ className: 'main' })).toBeTruthy();
+    expect(root.findByProps({ className: 'image' })).toBeTruthy();
+    expect(root.findByProps({ className: 'propsList' })).toBeTruthy();
+    expect(root.findByProps({ className: 'price' })).toBeTruthy();
+    expect(root.findAllByProps({ className: 'propLabel' })).toHaveLength(4);
+    expect(root.findAllByProps({ className: 'propValue' })).toHaveLength(4);
+});
+
+test('defaults price to 0', () => {
+    const { price, ...customItemMock } = itemMock;
+
+    const { root } = TestRenderer.create(<OrderItem item={customItemMock} />);
+
+    void price;
+    const element = root.findByProps({ className: 'price' }).children[0];
+
+    expect(element.props.value).toBe(0);
+});
+
+test('calls onBuyItem with item', () => {
+    const onBuyItem = jest.fn();
+
+    const { root } = TestRenderer.create(
+        <OrderItem item={itemMock} onBuyItem={onBuyItem} />
+    );
+
+    root.findByProps({ classes }).instance.buyItem();
+
+    expect(onBuyItem).toHaveBeenCalledTimes(1);
+    expect(onBuyItem).toHaveBeenLastCalledWith(itemMock);
+});
+
+test('calls onReviewItem with item', () => {
+    const onReviewItem = jest.fn();
+
+    const { root } = TestRenderer.create(
+        <OrderItem item={itemMock} onReviewItem={onReviewItem} />
+    );
+
+    root.findByProps({ classes }).instance.reviewItem();
+
+    expect(onReviewItem).toHaveBeenCalledTimes(1);
+    expect(onReviewItem).toHaveBeenLastCalledWith(itemMock);
+});
+
+test('calls onShareItem with item', () => {
+    const onShareItem = jest.fn();
+
+    const { root } = TestRenderer.create(
+        <OrderItem item={itemMock} onShareItem={onShareItem} />
+    );
+
+    root.findByProps({ classes }).instance.shareItem();
+
+    expect(onShareItem).toHaveBeenCalledTimes(1);
+    expect(onShareItem).toHaveBeenLastCalledWith(itemMock);
 });
