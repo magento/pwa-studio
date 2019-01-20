@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { Form, Text } from 'informed';
+import { Form } from 'informed';
 import memoize from 'memoize-one';
 import { bool, func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
-import Label from './label';
 import defaultClasses from './addressForm.css';
-import { invalidStateMessage } from './constants';
-import { isString } from 'util';
+import {validators} from './validators'
+import TextInput from 'src/components/TextInput';
+import Field from 'src/components/Field';
 
 const fields = [
     'city',
@@ -45,21 +45,13 @@ class AddressForm extends Component {
             validation: string
         }),
         incorrectAddressMessage: string,
-        isAddressIncorrect: bool,
         submit: func.isRequired,
         submitting: bool
     };
 
-    //TODO: implement appropriate validation for the state field
-    validateState = value => {
-        return isString(value) && value.length > 1 ? null : invalidStateMessage;
-    };
-
-    validationBlock = errors => {
+    validationBlock = () => {
         const { isAddressIncorrect, incorrectAddressMessage } = this.props;
-        if (errors.region_code) {
-            return errors.region_code;
-        } else if (isAddressIncorrect) {
+         if (isAddressIncorrect) {
             return incorrectAddressMessage;
         } else {
             return null;
@@ -82,7 +74,7 @@ class AddressForm extends Component {
         );
     }
 
-    children = ({ formState }) => {
+    children = () => {
         const { classes, submitting } = this.props;
 
         return (
@@ -90,72 +82,79 @@ class AddressForm extends Component {
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Shipping Address</h2>
                     <div className={classes.firstname}>
-                        <Label htmlFor={classes.firstname}>First Name</Label>
-                        <Text
-                            id={classes.firstname}
-                            field="firstname"
-                            className={classes.textInput}
-                        />
+                        <Field label="First Name">
+                            <TextInput
+                                id={classes.firstname}
+                                field="firstname"
+                                validate={validators.get('firstName')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.lastname}>
-                        <Label htmlFor={classes.lastname}>Last Name</Label>
-                        <Text
-                            id={classes.lastname}
-                            field="lastname"
-                            className={classes.textInput}
-                        />
+                        <Field label="Last Name">
+                            <TextInput
+                                id={classes.lastname}
+                                field="lastname"
+                                validate={validators.get('lastName')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.street0}>
-                        <Label htmlFor={classes.street0}>Street</Label>
-                        <Text
-                            id={classes.street0}
-                            field="street[0]"
-                            className={classes.textInput}
-                        />
+                        <Field label="Street">
+                            <TextInput
+                                id={classes.street0}
+                                field="street[0]"
+                                validate={validators.get('street')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.city}>
-                        <Label htmlFor={classes.city}>City</Label>
-                        <Text
-                            id={classes.city}
-                            field="city"
-                            className={classes.textInput}
-                        />
+                        <Field label="City">
+                            <TextInput
+                                id={classes.city}
+                                field="city"
+                                validate={validators.get('city')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.postcode}>
-                        <Label htmlFor={classes.postcode}>ZIP</Label>
-                        <Text
-                            id={classes.postcode}
-                            field="postcode"
-                            className={classes.textInput}
-                        />
+                        <Field label="ZIP">
+                            <TextInput
+                                id={classes.postcode}
+                                field="postcode"
+                                validate={validators.get('postcode')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.region_code}>
-                        <Label htmlFor={classes.region_code}>State</Label>
-                        <Text
-                            id={classes.region_code}
-                            field="region_code"
-                            className={classes.textInput}
-                            validate={this.validateState}
-                        />
+                        <Field label="State">
+                            <TextInput
+                                id={classes.region_code}
+                                field="region_code"
+                                validate={validators.get('regionCode')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.telephone}>
-                        <Label htmlFor={classes.telephone}>Phone</Label>
-                        <Text
-                            id={classes.telephone}
-                            field="telephone"
-                            className={classes.textInput}
-                        />
+                        <Field label="Phone">
+                            <TextInput
+                                id={classes.telephone}
+                                field="telephone"
+                                validate={validators.get('telephone')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.email}>
-                        <Label htmlFor={classes.email}>Email</Label>
-                        <Text
-                            id={classes.email}
-                            field="email"
-                            className={classes.textInput}
-                        />
+                        <Field label="Email">
+                            <TextInput
+                                id={classes.email}
+                                field="email"
+                                validate={validators.get('email')}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.validation}>
-                        {this.validationBlock(formState.errors)}
+                        {this.validationBlock()}
                     </div>
                 </div>
                 <div className={classes.footer}>
