@@ -6,7 +6,7 @@ import { bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './addressForm.css';
-import {validators} from './validators'
+import { validators } from './validators';
 import TextInput from 'src/components/TextInput';
 import Field from 'src/components/Field';
 
@@ -51,7 +51,7 @@ class AddressForm extends Component {
 
     validationBlock = () => {
         const { isAddressIncorrect, incorrectAddressMessage } = this.props;
-         if (isAddressIncorrect) {
+        if (isAddressIncorrect) {
             return incorrectAddressMessage;
         } else {
             return null;
