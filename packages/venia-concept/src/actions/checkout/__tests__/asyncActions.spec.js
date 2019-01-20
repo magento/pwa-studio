@@ -173,26 +173,6 @@ describe('submitAddress', () => {
             'guestCartId'
         );
     });
-    test('submitAddress thunk dispatches action on incorrect state(region code)', async () => {
-        const invalidState = 'any_text';
-        const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
-        const incorrectAddressPayload = { incorrectAddressMessage };
-        const submitPayload = {
-            type: 'address',
-            formValues: { region_code: invalidState }
-        };
-
-        await submitAddress(submitPayload)(...thunkArgs);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.address.submit(submitPayload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.address.reject(incorrectAddressPayload)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
 });
 
 describe('submitPaymentMethod', () => {
@@ -490,26 +470,5 @@ describe('formatAddress', () => {
         expect(result).toHaveProperty('region', address.region);
         expect(result).toHaveProperty('region_id', address.region_id);
         expect(result).toHaveProperty('region_code', address.region_code);
-    });
-
-    test('formatAddress throws if country is not found', () => {
-        const shouldThrow = () => formatAddress();
-
-        expect(shouldThrow).toThrow('country');
-    });
-
-    test('formatAddress throws if country contains no regions', () => {
-        const values = { region_code: address.region_code };
-        const countries = [{ id: 'US' }];
-        const shouldThrow = () => formatAddress(values, countries);
-
-        expect(shouldThrow).toThrow('regions');
-    });
-
-    test('formatAddress throws if region is not found', () => {
-        const values = { region_code: '|||' };
-        const shouldThrow = () => formatAddress(values, countries);
-
-        expect(shouldThrow).toThrow('state');
     });
 });
