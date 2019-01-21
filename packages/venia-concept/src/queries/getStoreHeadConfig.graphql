@@ -1,0 +1,9 @@
+query getStoreHeadConfig{
+    storeConfig {
+        default_title
+        title_prefix
+        title_suffix
+        default_description
+        default_keywords
+    }
+}

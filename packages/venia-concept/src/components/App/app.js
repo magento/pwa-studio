@@ -6,6 +6,7 @@ import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import OnlineIndicator from 'src/components/OnlineIndicator';
+import HtmlHead from 'src/components/HtmlHead';
 import renderRoutes from './renderRoutes';
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
 
         return (
             <Fragment>
+                <HtmlHead />
                 <Main isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}

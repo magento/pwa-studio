@@ -1,6 +1,5 @@
 {{> templates/doctype-and-head-start}}
 {{> templates/js-unavailable}}
-    <title>Venia</title>
   </head>
   <body>
     <div id="root">{{#urlResolver}}

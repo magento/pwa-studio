@@ -104,7 +104,10 @@ class Product extends Component {
                         ),
                         description: string,
                         short_description: string,
-                        canonical_url: string
+                        canonical_url: string,
+                        meta_title: string,
+                        meta_keyword: string,
+                        meta_description: string
                     })
                 ).isRequired
             }).isRequired

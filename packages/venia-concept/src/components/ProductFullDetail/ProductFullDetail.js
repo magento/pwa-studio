@@ -9,6 +9,7 @@ import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
+import HtmlHead from 'src/components/HtmlHead';
 import defaultClasses from './productFullDetail.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -162,6 +163,12 @@ class ProductFullDetail extends Component {
 
         return (
             <Form className={classes.root}>
+                <HtmlHead
+                    title={product.name}
+                    meta_title={product.meta_title}
+                    meta_keywords={product.meta_keyword}
+                    meta_description={product.meta_description}
+                />
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         <span>{product.name}</span>

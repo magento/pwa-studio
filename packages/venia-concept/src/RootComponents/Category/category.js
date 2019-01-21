@@ -17,6 +17,9 @@ const categoryQuery = gql`
             id
             description
             name
+            meta_title
+            meta_keywords
+            meta_description
             product_count
             products(pageSize: $pageSize, currentPage: $currentPage) {
                 items {
