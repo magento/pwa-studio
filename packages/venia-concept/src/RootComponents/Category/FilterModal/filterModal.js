@@ -3,15 +3,10 @@ import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import get from 'lodash/get';
 import classify from 'src/classify';
-import Filter from 'src/components/Filter';
+import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
 import FilterOption from './FilterOption';
 import defaultClasses from './filterModal.css';
-import { filterIconName, filterInnerText, filterOptions } from './constants';
-
-const iconAttrs = {
-    width: 16
-};
 
 class FilterModal extends Component {
     static propTypes = {
@@ -39,15 +34,14 @@ class FilterModal extends Component {
     }
 
     state = {
+        filterSearchTerm: '',
         areOptionsPristine: true,
         expandedOptions: {}
     };
 
     resetFilterOptions = () => {
         const { updateChosenFilterOptions } = this.props;
-        this.setState({ expandedOptions: {} }, () => {
-            updateChosenFilterOptions({});
-        });
+        updateChosenFilterOptions({});
     };
 
     getFooterButtons = areOptionsPristine => {
@@ -101,30 +95,42 @@ class FilterModal extends Component {
               });
     };
 
+    handleFilterSearch = event => {
+        const { value } = event.currentTarget || event.srcElement;
+        this.setState({ filterSearchTerm: value });
+    };
+
     render() {
         const {
             classes,
             closeModalHandler,
-            updateChosenFilterOptions,
-            filters
+            updateChosenFilterOptions
         } = this.props;
-        const { areOptionsPristine } = this.state;
+        let { filters } = this.props;
+        const { areOptionsPristine, filterSearchTerm } = this.state;
+
+        filters = filters.filter(
+            filter =>
+                `${filter.name}`
+                    .toUpperCase()
+                    .indexOf(filterSearchTerm.toUpperCase()) >= 0
+        );
 
         return (
             <div className={classes.root}>
                 <div className={classes.header}>
                     <span className={classes.headerTitle}>FILTER BY</span>
-                    <button onClick={closeModalHandler}>X icon</button>
+                    <button onClick={closeModalHandler}>
+                        <Icon src={CloseIcon} />
+                    </button>
                 </div>
                 <div className={classes.searchFilterContainer}>
-                    <Filter
-                        iconName={filterIconName}
-                        innerText={filterInnerText}
-                    />
+                    <input onChange={this.handleFilterSearch} type="text" />
                 </div>
+
                 <List
                     items={filters}
-                    getItemKey={({ id }) => id}
+                    getItemKey={({ request_var }) => request_var}
                     render={props => (
                         <ul className={classes.filterOptionsContainer}>
                             {props.children}

@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import ColorOption from '../ColorOption';
+import CloseIcon from 'react-feather/dist/icons/x-circle';
 import Icon from 'src/components/Icon';
+import ArrowDown from 'react-feather/dist/icons/chevron-down';
+import ArrowUp from 'react-feather/dist/icons/chevron-up';
 import defaultClasses from './filterOption.css';
-
-const circleIconAttrs = {
-    width: 12,
-    fill: 'black',
-    color: 'white'
-};
 
 class FilterOption extends Component {
     static propTypes = {
@@ -33,7 +30,7 @@ class FilterOption extends Component {
 
         return chosenOptionsCount ? (
             <button onClick={this.resetChosenItems} className={classes.counter}>
-                X icon
+                <Icon src={CloseIcon} />
                 <span className={classes.counterNumber}>
                     {chosenOptionsCount}
                 </span>
@@ -79,7 +76,7 @@ class FilterOption extends Component {
                             onClick={this.optionToggle}
                             className={classes.optionToggleButton}
                         >
-                            Arrow Icon
+                            <Icon src={isExpanded ? ArrowUp : ArrowDown} />
                         </button>
                     </div>
                 </div>
