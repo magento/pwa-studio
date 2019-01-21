@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
+import ColorOption from '../ColorOption';
 import Icon from 'src/components/Icon';
 import defaultClasses from './filterOption.css';
 
@@ -32,7 +33,7 @@ class FilterOption extends Component {
 
         return chosenOptionsCount ? (
             <button onClick={this.resetChosenItems} className={classes.counter}>
-                <Icon name="x-circle" attrs={circleIconAttrs} />
+                X icon
                 <span className={classes.counterNumber}>
                     {chosenOptionsCount}
                 </span>
@@ -60,11 +61,13 @@ class FilterOption extends Component {
     render() {
         const {
             classes,
-            item: { name, items, RenderOption },
+            item: { name, filter_items, request_var },
             chosenFilterOptions,
             isExpanded
         } = this.props;
         const chosenOptions = chosenFilterOptions;
+
+        const RenderOption = ColorOption;
 
         return (
             <div className={classes.root}>
@@ -76,15 +79,14 @@ class FilterOption extends Component {
                             onClick={this.optionToggle}
                             className={classes.optionToggleButton}
                         >
-                            <Icon
-                                name={isExpanded ? 'arrow-up' : 'arrow-down'}
-                            />
+                            Arrow Icon
                         </button>
                     </div>
                 </div>
                 {isExpanded ? (
                     <RenderOption
-                        items={items}
+                        id={request_var}
+                        items={filter_items}
                         chosenOptions={chosenOptions}
                         updateChosenItems={this.updateChosenItems}
                     />

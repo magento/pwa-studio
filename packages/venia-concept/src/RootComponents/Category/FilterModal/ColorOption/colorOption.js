@@ -50,26 +50,18 @@ class ColorOption extends Component {
         parentColor !== 'white' ? 'white' : 'black';
 
     render() {
-        const { classes, items } = this.props;
+        const { classes, items, id } = this.props;
 
         return (
             <div className={classes.colorOptionContainer}>
-                {items.map((color, index) => (
+                {items.map(item => (
                     <button
-                        key={index}
-                        onClick={() => this.toggleColor(color)}
-                        className={classes.colorOptionItem}
-                        style={{ backgroundColor: color }}
-                    >
-                        {this.isColorChosen(color) ? (
-                            <Icon
-                                name="check"
-                                attrs={{
-                                    color: this.chooseCheckIconColor(color)
-                                }}
-                            />
-                        ) : null}
-                    </button>
+                        key={`${id}-${item.value_string}`}
+                        onClick={() => this.toggleColor(item.value_string)}
+                        dangerouslySetInnerHTML={{
+                            __html: item.label
+                        }}
+                    />
                 ))}
             </div>
         );

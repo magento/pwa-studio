@@ -76,15 +76,14 @@ class Category extends Component {
             totalPages: prevPageTotal
         };
 
+        const queryVariables = {
+            id: Number(id),
+            pageSize: Number(pageSize),
+            currentPage: Number(currentPage)
+        };
+
         return (
-            <Query
-                query={categoryQuery}
-                variables={{
-                    id: Number(id),
-                    pageSize: Number(pageSize),
-                    currentPage: Number(currentPage)
-                }}
-            >
+            <Query query={categoryQuery} variables={queryVariables}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading)
@@ -108,6 +107,7 @@ class Category extends Component {
 
                     return (
                         <CategoryContent
+                            queryVariables={queryVariables}
                             classes={classes}
                             pageControl={totalWrapper}
                             data={data}

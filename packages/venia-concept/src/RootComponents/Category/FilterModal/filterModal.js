@@ -105,7 +105,8 @@ class FilterModal extends Component {
         const {
             classes,
             closeModalHandler,
-            updateChosenFilterOptions
+            updateChosenFilterOptions,
+            filters
         } = this.props;
         const { areOptionsPristine } = this.state;
 
@@ -113,9 +114,7 @@ class FilterModal extends Component {
             <div className={classes.root}>
                 <div className={classes.header}>
                     <span className={classes.headerTitle}>FILTER BY</span>
-                    <button onClick={closeModalHandler}>
-                        <Icon name="x" attrs={iconAttrs} />
-                    </button>
+                    <button onClick={closeModalHandler}>X icon</button>
                 </div>
                 <div className={classes.searchFilterContainer}>
                     <Filter
@@ -124,7 +123,7 @@ class FilterModal extends Component {
                     />
                 </div>
                 <List
-                    items={filterOptions}
+                    items={filters}
                     getItemKey={({ id }) => id}
                     render={props => (
                         <ul className={classes.filterOptionsContainer}>
@@ -138,11 +137,11 @@ class FilterModal extends Component {
                                 toggleOption={this.toggleOption}
                                 isExpanded={this.getIsExpanded(props.item.name)}
                                 chosenFilterOptions={this.getChosenFilterOptionsForItem(
-                                    props.item.name
+                                    props.item.request_var
                                 )}
                                 updateChosenFilterOptions={actualItems =>
                                     updateChosenFilterOptions({
-                                        optionName: props.item.name,
+                                        optionName: props.item.request_var,
                                         optionItems: actualItems
                                     })
                                 }

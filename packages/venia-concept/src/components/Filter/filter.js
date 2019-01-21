@@ -35,9 +35,7 @@ class Filter extends Component {
                 aria-label="filter"
                 onClick={onClickHandler}
             >
-                <div className={classes.filterIconContainer}>
-                    <Icon name={iconName} attrs={FILTER_ICON_ATTRS} />
-                </div>
+                <div className={classes.filterIconContainer}>Filter icon</div>
                 <span>{innerText}</span>
             </button>
         );
