@@ -1,0 +1,16 @@
+.colorOptionContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.colorOptionItem {
+    display: inline-block;
+    width: 2.125rem;
+    height: 2.125rem;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    margin: 0.5rem 0.75rem;
+    outline: none;
+}

@@ -14,7 +14,8 @@ const actionMap = {
     SET_PREV_PAGE_TOTAL: {
         REQUEST: null,
         RECEIVE: null
-    }
+    },
+    UPDATE_CHOSEN_FILTER_OPTIONS: null
 };
 
 export default createActions(actionMap, { prefix });
