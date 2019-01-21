@@ -1,6 +1,26 @@
 import store from 'src/store';
 
-export const validators = new Map()
+const validateRegionCode = (regionCode, countries) => {
+    const country = countries.find(({ id }) => id === 'US');
+
+    if (!country) {
+        return 'Country "US" is not an available country.';
+    }
+    const { available_regions: regions } = country;
+
+    if (!(Array.isArray(regions) && regions.length)) {
+        return 'Country "US" does not contain any available regions.';
+    }
+
+    const region = regions.find(({ code }) => code === value);
+    if (!region) {
+        return `State "${value}" is not an valid state abbreviation.`;
+    }
+
+    return null;
+};
+
+export default validators = new Map()
     .set('email', value => {
         const trimmed = (value || '').trim();
 
@@ -32,22 +52,5 @@ export const validators = new Map()
 
         const { directory } = store.getState();
         const { countries } = directory;
-
-        const country = countries.find(({ id }) => id === 'US');
-
-        if (!country) {
-            return 'Country "US" is not an available country.';
-        }
-        const { available_regions: regions } = country;
-
-        if (!(Array.isArray(regions) && regions.length)) {
-            return 'Country "US" does not contain any available regions.';
-        }
-
-        const region = regions.find(({ code }) => code === value);
-        if (!region) {
-            return `State "${value}" is not an valid state abbreviation.`;
-        }
-
-        return null;
+        return validateRegionCode(value, countries);
     });
