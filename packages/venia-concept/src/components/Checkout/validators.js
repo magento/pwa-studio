@@ -12,15 +12,15 @@ const validateRegionCode = (regionCode, countries) => {
         return 'Country "US" does not contain any available regions.';
     }
 
-    const region = regions.find(({ code }) => code === value);
+    const region = regions.find(({ code }) => code === regionCode);
     if (!region) {
-        return `State "${value}" is not an valid state abbreviation.`;
+        return `State "${regionCode}" is not an valid state abbreviation.`;
     }
 
     return null;
 };
 
-export default validators = new Map()
+export default new Map()
     .set('email', value => {
         const trimmed = (value || '').trim();
 

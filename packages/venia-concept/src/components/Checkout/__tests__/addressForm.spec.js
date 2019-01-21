@@ -4,7 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import { Form } from 'informed';
 
 import AddressForm from '../addressForm';
-import validators  from '../validators';
+import validators from '../validators';
 
 jest.mock('../validators');
 
@@ -12,9 +12,10 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-
 test('executes validators on submit', async () => {
-    const { root } = TestRenderer.create(<AddressForm initialValues={[]} cancel={jest.fn()} submit={jest.fn()} />);
+    const { root } = TestRenderer.create(
+        <AddressForm initialValues={[]} cancel={jest.fn()} submit={jest.fn()} />
+    );
 
     const form = root.findByType(Form);
     const { api } = form.instance.controller;
