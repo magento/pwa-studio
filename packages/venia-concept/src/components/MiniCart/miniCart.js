@@ -160,7 +160,7 @@ class MiniCart extends Component {
         return (
             <div className={classes.save}>
                 <Button onClick={this.hideEditPanel}>Cancel</Button>
-                <Button>Update Cart</Button>
+                <Button priority="high">Update Cart</Button>
             </div>
         );
     }
