@@ -5,7 +5,7 @@
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, 1rem);
     justify-content: center;
-    margin-top: -3rem;
+    margin-top: 1rem;
     z-index: 1;
 }
 
