@@ -6,7 +6,6 @@ import Icon from 'src/components/Icon';
 import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
 import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
 import classify from 'src/classify';
-import { imageItemPropType } from './constants';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -26,7 +25,14 @@ class Carousel extends Component {
             'chevron-left': PropTypes.string,
             'chevron-right': PropTypes.string
         }),
-        images: PropTypes.arrayOf(imageItemPropType).isRequired
+        images: PropTypes.arrayOf(
+            PropTypes.shape({
+                label: PropTypes.string,
+                position: PropTypes.number,
+                disabled: PropTypes.bool,
+                file: PropTypes.string.isRequired
+            })
+        ).isRequired
     };
 
     state = {

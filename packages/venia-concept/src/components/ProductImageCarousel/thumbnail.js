@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classify from 'src/classify';
-import { imageItemPropType } from './constants';
 import defaultClasses from './thumbnail.css';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import { transparentPlaceholder } from 'src/shared/images';
@@ -12,7 +11,12 @@ class Thumbnail extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        item: imageItemPropType,
+        item: PropTypes.shape({
+            label: PropTypes.string,
+            position: PropTypes.number,
+            disabled: PropTypes.bool,
+            file: PropTypes.string.isRequired
+        }),
         activeItemSrc: PropTypes.string,
         onClickHandler: PropTypes.func
     };

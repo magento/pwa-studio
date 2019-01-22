@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
-import { imageItemPropType } from './constants';
 import Thumbnail from './thumbnail';
 import defaultClasses from './thumbnailList.css';
 
@@ -12,7 +11,14 @@ class ThumbnailList extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        items: PropTypes.arrayOf(imageItemPropType).isRequired,
+        items: PropTypes.arrayOf(
+            PropTypes.shape({
+                label: PropTypes.string,
+                position: PropTypes.number,
+                disabled: PropTypes.bool,
+                file: PropTypes.string.isRequired
+            })
+        ).isRequired,
         getItemKey: PropTypes.func,
         activeItemSrc: PropTypes.string,
         updateActiveItemIndex: PropTypes.func
