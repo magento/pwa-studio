@@ -79,6 +79,7 @@ class CategoryContent extends Component {
             pageSize,
             queryVariables
         } = this.props;
+        const { filterModalOpen } = this.state;
         const title = data ? data.category.description : null;
 
         return (
@@ -104,7 +105,6 @@ class CategoryContent extends Component {
                         if (loading || error) return null;
                         const { products } = data;
                         const { items, filters } = products;
-                        console.log('PROD DATA', products);
                         return (
                             <Fragment>
                                 <section className={classes.gallery}>
@@ -117,14 +117,11 @@ class CategoryContent extends Component {
                                 <div className={classes.pagination}>
                                     <Pagination pageControl={pageControl} />
                                 </div>
-                                {this.state.filterModalOpen && (
-                                    <FilterModal
-                                        filters={filters}
-                                        closeModalHandler={
-                                            this.filterModalSwitcher
-                                        }
-                                    />
-                                )}
+                                <FilterModal
+                                    isModalOpen={filterModalOpen}
+                                    filters={filters}
+                                    closeModalHandler={this.filterModalSwitcher}
+                                />
                             </Fragment>
                         );
                     }}

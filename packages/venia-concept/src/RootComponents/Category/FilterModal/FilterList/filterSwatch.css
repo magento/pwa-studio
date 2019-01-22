@@ -1,0 +1,21 @@
+.root {
+    position: relative;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.swatch {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.25rem;
+}
+
+.iconWrapper {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}

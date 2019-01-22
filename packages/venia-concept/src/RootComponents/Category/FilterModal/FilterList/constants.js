@@ -8,10 +8,6 @@ export const filterRenderOptions = {
         mode: filterModes.swatch,
         options: { showLabel: false, generateColor: true }
     },
-    fashion_size: {
-        mode: filterModes.swatch,
-        options: { showLabel: true }
-    },
     default: {
         mode: filterModes.default
     }

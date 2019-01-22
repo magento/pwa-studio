@@ -103,6 +103,7 @@ class FilterModal extends Component {
     render() {
         const {
             classes,
+            isModalOpen,
             closeModalHandler,
             updateChosenFilterOptions
         } = this.props;
@@ -116,8 +117,10 @@ class FilterModal extends Component {
                     .indexOf(filterSearchTerm.toUpperCase()) >= 0
         );
 
+        const modalClass = isModalOpen ? classes.rootOpen : classes.root;
+
         return (
-            <div className={classes.root}>
+            <div className={modalClass}>
                 <div className={classes.header}>
                     <span className={classes.headerTitle}>FILTER BY</span>
                     <button onClick={closeModalHandler}>

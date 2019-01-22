@@ -1,0 +1,7 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}

@@ -8,6 +8,12 @@
     overflow: auto;
     padding: 2.375rem 1.75rem 0 1.75rem;
     background-color: white;
+    display: none;
+}
+
+.rootOpen {
+    composes: root;
+    display: block;
 }
 
 .header {
@@ -22,6 +28,11 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
+}
+
+.filterOptionsContainer {
+    max-height: 80%;
+    overflow: auto;
 }
 
 /* TODO: find out how to place buttons on desktop layout */

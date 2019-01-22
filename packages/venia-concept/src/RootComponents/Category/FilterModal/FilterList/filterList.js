@@ -49,8 +49,19 @@ class FilterList extends Component {
 
     isOptionActive = option => this.state.chosenOptions.indexOf(option) > -1;
 
-    getFilterIcon = value =>
-        this.isOptionActive(value) && <Icon src={Checkmark} />;
+    getFilterIcon = value => {
+        const { classes } = this.props;
+        return (
+            this.isOptionActive(value) && (
+                <Icon
+                    className={classes.icon}
+                    attrs={{ color: 'white' }}
+                    src={Checkmark}
+                    size={28}
+                />
+            )
+        );
+    };
 
     getRenderOptions = value =>
         filterRenderOptions[`${value}`] ||
@@ -68,19 +79,27 @@ class FilterList extends Component {
             <List
                 items={items}
                 getItemKey={({ value_string }) => `${id}-${value_string}`}
-                render={props => <ul>{props.children}</ul>}
+                render={props => (
+                    <ul className={classes.root}>{props.children}</ul>
+                )}
                 renderItem={({ item }) => (
                     <li>
                         {isSwatch ? (
                             <FilterSwatch
                                 {...item}
                                 options={options}
+                                isActive={this.isOptionActive(
+                                    item.value_string
+                                )}
                                 toggleOption={toggleOption}
                                 icon={getFilterIcon(item.value_string)}
                             />
                         ) : (
                             <FilterDefault
                                 {...item}
+                                isActive={this.isOptionActive(
+                                    item.value_string
+                                )}
                                 toggleOption={toggleOption}
                                 icon={getFilterIcon(item.value_string)}
                             />

@@ -30,7 +30,12 @@ class FilterBlock extends Component {
 
         return chosenOptionsCount ? (
             <button onClick={this.resetChosenItems} className={classes.counter}>
-                <Icon src={CloseIcon} />
+                <Icon
+                    className={classes.clearIcon}
+                    attrs={{ fill: 'black', color: 'white' }}
+                    src={CloseIcon}
+                    size={18}
+                />
                 <span className={classes.counterNumber}>
                     {chosenOptionsCount}
                 </span>

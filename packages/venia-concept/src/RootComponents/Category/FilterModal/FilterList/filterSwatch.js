@@ -13,9 +13,20 @@ const getRandomColor = () =>
 
 const memoizedGetRandomColor = memoize(getRandomColor);
 
-const FilterSwatch = ({ value_string, toggleOption, label, icon, options }) => (
-    <button value={value_string} onClick={toggleOption}>
-        {icon}
+const FilterSwatch = ({
+    value_string,
+    toggleOption,
+    label,
+    icon,
+    options,
+    classes
+}) => (
+    <button
+        className={classes.root}
+        value={value_string}
+        onClick={toggleOption}
+    >
+        <span className={classes.iconWrapper}>{icon}</span>
         {options.showLabel && (
             <span
                 dangerouslySetInnerHTML={{
@@ -25,13 +36,11 @@ const FilterSwatch = ({ value_string, toggleOption, label, icon, options }) => (
         )}
         {options.generateColor && (
             <span
+                className={classes.swatch}
                 style={{
                     backgroundColor: `rgb(${memoizedGetRandomColor(
                         value_string
-                    )})`,
-                    display: 'block',
-                    width: '20px',
-                    height: '20px'
+                    )})`
                 }}
             />
         )}
