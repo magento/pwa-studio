@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './filter.css';
-
-const FILTER_ICON_ATTRS = {
-    width: 16,
-    color: 'rgb(0, 134, 138)'
-};
 
 class Filter extends Component {
     static propTypes = {
@@ -16,7 +9,6 @@ class Filter extends Component {
             root: PropTypes.string,
             filterIconContainer: PropTypes.string
         }),
-        iconName: PropTypes.string,
         innerText: PropTypes.string,
         onClickHandler: PropTypes.func
     };
@@ -27,7 +19,7 @@ class Filter extends Component {
     };
 
     render() {
-        const { classes, onClickHandler, iconName, innerText } = this.props;
+        const { classes, onClickHandler, innerText } = this.props;
 
         return (
             <button

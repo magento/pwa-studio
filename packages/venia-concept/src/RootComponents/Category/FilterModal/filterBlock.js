@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import ColorOption from '../ColorOption';
+import FilterList from './FilterList';
 import CloseIcon from 'react-feather/dist/icons/x-circle';
 import Icon from 'src/components/Icon';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
 import ArrowUp from 'react-feather/dist/icons/chevron-up';
-import defaultClasses from './filterOption.css';
+import defaultClasses from './filterBlock.css';
 
-class FilterOption extends Component {
+class FilterBlock extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string
@@ -64,8 +64,6 @@ class FilterOption extends Component {
         } = this.props;
         const chosenOptions = chosenFilterOptions;
 
-        const RenderOption = ColorOption;
-
         return (
             <div className={classes.root}>
                 <div className={classes.optionHeader}>
@@ -81,7 +79,7 @@ class FilterOption extends Component {
                     </div>
                 </div>
                 {isExpanded ? (
-                    <RenderOption
+                    <FilterList
                         id={request_var}
                         items={filter_items}
                         chosenOptions={chosenOptions}
@@ -93,4 +91,4 @@ class FilterOption extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterOption);
+export default classify(defaultClasses)(FilterBlock);

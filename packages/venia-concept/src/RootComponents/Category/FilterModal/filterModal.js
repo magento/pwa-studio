@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import classify from 'src/classify';
 import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
-import FilterOption from './FilterOption';
+import FilterBlock from './FilterBlock';
 import defaultClasses from './filterModal.css';
 
 class FilterModal extends Component {
@@ -138,7 +138,7 @@ class FilterModal extends Component {
                     )}
                     renderItem={props => (
                         <li className={classes.filterOptionItem}>
-                            <FilterOption
+                            <FilterBlock
                                 {...props}
                                 toggleOption={this.toggleOption}
                                 isExpanded={this.getIsExpanded(props.item.name)}
