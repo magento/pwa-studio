@@ -11,38 +11,33 @@ class Thumbnail extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
+        isActive: PropTypes.bool,
         item: PropTypes.shape({
             label: PropTypes.string,
             position: PropTypes.number,
             disabled: PropTypes.bool,
             file: PropTypes.string.isRequired
         }),
-        activeItemSrc: PropTypes.string,
         onClickHandler: PropTypes.func
     };
 
     onClickHandlerWrapper = () => {
-        const {
-            onClickHandler,
-            item: { file }
-        } = this.props;
-        onClickHandler(file);
+        const { onClickHandler, itemIndex } = this.props;
+        onClickHandler(itemIndex);
     };
 
     render() {
         const {
             classes,
-            item: { file, label },
-            activeItemSrc
+            isActive,
+            item: { file, label }
         } = this.props;
         const src = file ? makeProductMediaPath(file) : transparentPlaceholder;
 
         return (
             <button
                 onClick={this.onClickHandlerWrapper}
-                className={
-                    activeItemSrc !== file ? classes.root : classes.rootSelected
-                }
+                className={isActive ? classes.rootSelected : classes.root}
             >
                 <img className={classes.image} src={src} alt={label} />
             </button>

@@ -19,21 +19,18 @@ class ThumbnailList extends Component {
                 file: PropTypes.string.isRequired
             })
         ).isRequired,
-        getItemKey: PropTypes.func,
-        activeItemSrc: PropTypes.string,
         updateActiveItemIndex: PropTypes.func
     };
 
     findItemIndexBySrc = src =>
         this.props.items.findIndex(image => image.file === src);
 
-    updateActiveItemHandler = newActiveItemSrc => {
-        const newActiveItemIndex = this.findItemIndexBySrc(newActiveItemSrc);
+    updateActiveItemHandler = newActiveItemIndex => {
         this.props.updateActiveItemIndex(newActiveItemIndex);
     };
 
     render() {
-        const { items, getItemKey, activeItemSrc, classes } = this.props;
+        const { activeItemIndex, items, classes } = this.props;
 
         return (
             <List
@@ -41,11 +38,11 @@ class ThumbnailList extends Component {
                 renderItem={props => (
                     <Thumbnail
                         {...props}
-                        activeItemSrc={activeItemSrc}
+                        isActive={activeItemIndex === props.itemIndex}
                         onClickHandler={this.updateActiveItemHandler}
                     />
                 )}
-                getItemKey={getItemKey}
+                getItemKey={i => i.file}
                 classes={classes}
             />
         );

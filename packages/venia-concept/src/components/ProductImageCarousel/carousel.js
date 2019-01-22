@@ -68,16 +68,14 @@ class Carousel extends Component {
         const sortedImages = this.sortedImages;
         const { activeItemIndex } = this.state;
         activeItemIndex > 0
-            ? this.setState({ activeItemIndex: activeItemIndex - 1 })
-            : this.setState({ activeItemIndex: sortedImages.length - 1 });
+            ? this.updateActiveItemIndex(activeItemIndex - 1)
+            : this.updateActiveItemIndex(sortedImages.length - 1);
     };
 
     rightChevronHandler = () => {
         const sortedImages = this.sortedImages;
         const { activeItemIndex } = this.state;
-        this.setState({
-            activeItemIndex: (activeItemIndex + 1) % sortedImages.length
-        });
+        this.updateActiveItemIndex((activeItemIndex + 1) % sortedImages.length);
     };
 
     getChevron = direction => (
@@ -107,11 +105,8 @@ class Carousel extends Component {
                     {this.getChevron('right')}
                 </div>
                 <ThumbnailList
-                    getItemKey={i => i.file}
                     items={sortedImages}
-                    activeItemSrc={
-                        sortedImages[this.state.activeItemIndex].file
-                    }
+                    activeItemIndex={this.state.activeItemIndex}
                     updateActiveItemIndex={this.updateActiveItemIndex}
                 />
             </div>
