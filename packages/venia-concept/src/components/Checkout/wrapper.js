@@ -33,7 +33,7 @@ const isPaymentMethodReady = () => {
     return !!paymentMethod;
 };
 const isShippingInfoReady = () => {
-    const address = storage.getItem('address');
+    const address = storage.getItem('shipping_address');
     return isAddressValid(address);
 };
 const isShippingMethodReady = checkout => !!checkout.shippingMethod;

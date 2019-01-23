@@ -10,25 +10,41 @@
  */
 
 import React, { Component } from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import dropin from 'braintree-web-drop-in';
+
+import defaultClasses from './braintreeDropin.css';
+import classify from 'src/classify';
 
 const { BRAINTREE_TOKEN } = process.env;
 
 class BraintreeDropin extends Component {
     static propTypes = {
+        classes: shape({
+            root: string
+        }),
         isRequestingPaymentNonce: bool,
         onError: func.isRequired,
         onSuccess: func.isRequired
     };
 
+    state = {
+        isError: false
+    };
+
     async componentDidMount() {
+        let isError;
+
         try {
             this.dropinInstance = await this.createDropinInstance();
+            isError = false;
         }
         catch (err) {
             console.error(`Unable to initialize Credit Card form (Braintree). \n${err}`);
-        }   
+            isError = true;
+        }
+
+        this.setState({ isError });
     }
 
     componentDidUpdate(prevProps) {
@@ -46,7 +62,23 @@ class BraintreeDropin extends Component {
     }
 
     render() {
-        return <div id="dropin-container" />;
+        const { classes } = this.props;
+        const { isError } = this.state;
+
+        if (isError) {
+            return (
+                <span className={classes.error}>
+                    There was an error loading payment options.
+                    Please try again later.
+                </span>
+            );
+        }
+
+        return (
+            <div className={classes.root}>
+                <div id="dropin-container" />
+            </div>
+        );
     }
 
     createDropinInstance = () => {
@@ -89,4 +121,4 @@ class BraintreeDropin extends Component {
     };
 }
 
-export default BraintreeDropin;
+export default classify(defaultClasses)(BraintreeDropin);

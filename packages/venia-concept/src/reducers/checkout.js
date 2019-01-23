@@ -74,11 +74,12 @@ const reducerMap = {
         };
     },
     [actions.paymentMethod.accept]: (state, { payload }) => {
+        const { billing_address, paymentMethod } = payload;
         return {
             ...state,
             editing: null,
-            paymentCode: payload.code,
-            paymentData: payload.data,
+            paymentCode: paymentMethod.code,
+            paymentData: paymentMethod.data,
             step: 'form',
             submitting: false
         };

@@ -1,4 +1,5 @@
 .root {
+    --base-z-index: 4;
     --minicart-height: 100vh;
     --minicart-header-height: 3.5rem;
     align-content: start;
@@ -19,7 +20,7 @@
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
     width: 360px;
-    z-index: 4;
+    z-index: var(--base-z-index);
 }
 
 /* state: open */

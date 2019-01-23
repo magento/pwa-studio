@@ -58,7 +58,7 @@ export const submitAddress = payload =>
             return null;
         }
 
-        await saveAddress(address);
+        await saveShippingAddress(address);
         dispatch(actions.address.accept());
     };
 
@@ -66,17 +66,38 @@ export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit(payload));
 
-        const { cart } = getState();
+        const { cart, directory } = getState();
 
         const { guestCartId } = cart;
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
         }
 
+        // Save the payment method.
         const desiredPaymentMethod = payload.formValues.paymentMethod;
-
         await savePaymentMethod(desiredPaymentMethod);
-        dispatch(actions.paymentMethod.accept(desiredPaymentMethod));
+
+        // Save the billing address.
+        let desiredBillingAddress;
+        const billingAddressPayload = payload.formValues.billingAddress;
+        if (billingAddressPayload.sameAsShippingAddress) {
+            desiredBillingAddress = await retrieveShippingAddress();
+        }
+        else {
+            const { countries } = directory;
+            try {
+                desiredBillingAddress = formatAddress(billingAddressPayload, countries);
+            } catch (error) {
+                // TODO: surface billing address fail
+            }
+        }
+
+        await saveBillingAddress(desiredBillingAddress);
+        
+        dispatch(actions.paymentMethod.accept({
+            billing_address: desiredBillingAddress,
+            paymentMethod: desiredPaymentMethod,
+        }));
     };
 
 export const submitShippingMethod = payload =>
@@ -89,8 +110,13 @@ export const submitShippingMethod = payload =>
             throw new Error('Missing required information: guestCartId');
         }
 
-        const address = await retrieveAddress();
+        let billing_address = await retrieveBillingAddress();
         const desiredShippingMethod = payload.formValues.shippingMethod;
+        const shipping_address = await retrieveShippingAddress();
+
+        // Remove extranneous properties from the billing address because the
+        // Magento backend will reject them.
+        billing_address = removeInvalidKeysFromAddress(billing_address);
 
         try {
             await request(
@@ -99,8 +125,8 @@ export const submitShippingMethod = payload =>
                     method: 'POST',
                     body: JSON.stringify({
                         addressInformation: {
-                            billing_address: address,
-                            shipping_address: address,
+                            billing_address,
+                            shipping_address,
                             shipping_carrier_code:
                                 desiredShippingMethod.carrier_code,
                             shipping_method_code:
@@ -132,8 +158,13 @@ export const submitOrder = () =>
             throw new Error('Missing required information: guestCartId');
         }
 
-        const address = await retrieveAddress();
+        let billing_address = await retrieveBillingAddress();
         const paymentMethod = await retrievePaymentMethod();
+        const shipping_address = await retrieveShippingAddress();
+
+        // Remove extranneous properties from the billing address because the
+        // Magento backend will reject them.
+        billing_address = removeInvalidKeysFromAddress(billing_address);
 
         try {
             const response = await request(
@@ -141,9 +172,9 @@ export const submitOrder = () =>
                 {
                     method: 'POST',
                     body: JSON.stringify({
-                        billingAddress: address,
+                        billingAddress: billing_address,
                         cartId: guestCartId,
-                        email: address.email,
+                        email: shipping_address.email,
                         paymentMethod: {
                             additional_data: {
                                 payment_method_nonce: paymentMethod.data.nonce
@@ -161,9 +192,10 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
+            await clearBillingAddress();
             await clearGuestCartId();
-            await clearAddress();
             await clearPaymentMethod();
+            await clearShippingAddress();
             await clearShippingMethod();
 
             dispatch(actions.order.accept(response));
@@ -218,16 +250,32 @@ export function formatAddress(address = {}, countries = []) {
     };
 }
 
-async function clearAddress() {
-    return storage.removeItem('address');
+/**
+ * When submitting addresses to the Magento backend, we must remove all
+ * properties it doesn't recognize because it will reject the submission.
+ *
+ * @param {Object} address - an address object that may have extra properties.
+ */
+function removeInvalidKeysFromAddress(address) {
+    const INVALID_ADDRESS_KEYS = ['sameAsShippingAddress'];
+
+    const validAddress = {};
+    const keysToKeep = Object.keys(address).filter(key => !INVALID_ADDRESS_KEYS.includes(key));
+    keysToKeep.forEach(key => validAddress[key] = address[key]);
+    
+    return validAddress;
 }
 
-async function retrieveAddress() {
-    return storage.getItem('address');
+async function clearBillingAddress() {
+    return storage.removeItem('billing_address');
 }
 
-async function saveAddress(address) {
-    return storage.setItem('address', address);
+async function retrieveBillingAddress() {
+    return storage.getItem('billing_address');
+}
+
+async function saveBillingAddress(address) {
+    return storage.setItem('billing_address', address);
 }
 
 async function clearPaymentMethod() {
@@ -240,6 +288,18 @@ async function retrievePaymentMethod() {
 
 async function savePaymentMethod(method) {
     return storage.setItem('paymentMethod', method);
+}
+
+async function clearShippingAddress() {
+    return storage.removeItem('shipping_address');
+}
+
+async function retrieveShippingAddress() {
+    return storage.getItem('shipping_address');
+}
+
+async function saveShippingAddress(address) {
+    return storage.setItem('shipping_address', address);
 }
 
 async function clearShippingMethod() {

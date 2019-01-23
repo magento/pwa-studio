@@ -59,7 +59,7 @@ class Form extends Component {
      */
     get addressSummary() {
         const { classes, isShippingInformationReady } = this.props;
-        const address = storage.getItem('address');
+        const address = storage.getItem('shipping_address');
 
         if (!isShippingInformationReady) {
             return (
@@ -91,7 +91,7 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const address = storage.getItem('address') || {};
+                const address = storage.getItem('shipping_address') || {};
 
                 return (
                     <AddressForm
