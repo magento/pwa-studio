@@ -54,7 +54,7 @@
 .address_check,
 .braintree,
 .postcode,
-.street {
+.street0 {
     grid-column-end: span 2;
 }
 

@@ -20,16 +20,22 @@ class PaymentsForm extends Component {
     static propTypes = {
         cancel: func.isRequired,
         classes: shape({
+            address_check: string,
             body: string,
+            braintree: string,
+            city: string,
             footer: string,
             heading: string,
+            postcode: string,
+            region_code: string,
+            street0: string
         }),
         initialValues: shape({
             addresses_same: bool,
             city: string,
             postcode: string,
             region_code: string,
-            street: array
+            street0: array
         }),
         submit: func.isRequired,
         submitting: bool
@@ -88,11 +94,11 @@ class PaymentsForm extends Component {
 
         return (
             <Fragment>
-                <div className={classes.street}>
-                    <Label htmlFor={classes.street}>Street</Label>
+                <div className={classes.street0}>
+                    <Label htmlFor={classes.street0}>Street</Label>
                     <Text
-                        id={classes.street}
-                        field="street"
+                        id={classes.street0}
+                        field="street[0]"
                         className={classes.textInput}
                     />
                 </div>
@@ -196,7 +202,7 @@ class PaymentsForm extends Component {
                 city: formValue('city'),
                 postcode: formValue('postcode'),
                 region_code: formValue('region_code'),
-                street: [formValue('street')]
+                street: formValue('street')
             };
         }
 
