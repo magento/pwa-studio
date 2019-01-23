@@ -1,14 +1,21 @@
 .root {
     display: inline-flex;
     align-items: center;
-    border: 1px solid rgb(var(--venia-text));
-    padding: 0.25rem 0.5rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
-.rootActive {
-    composes: root;
-    background-color: rgb(var(--venia-text));
+.icon {
+    background-color: white;
+    border: 1px solid rgb(var(--venia-text));
+    width: 1rem;
+    height: 1rem;
+    display: inline-flex;
+    border-radius: 3px;
+    margin-right: 1rem;
+}
+
+.iconActive {
+    composes: icon;
     color: white;
+    background-color: rgb(var(--venia-text));
 }

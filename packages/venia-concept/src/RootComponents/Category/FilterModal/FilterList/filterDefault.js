@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'src/components/Icon';
+import Checkmark from 'react-feather/dist/icons/check';
 import classify from 'src/classify';
 import defaultClasses from './filterDefault.css';
 
@@ -11,10 +13,13 @@ const FilterDefault = ({
     isActive
 }) => (
     <button
-        className={isActive ? classes.rootActive : classes.root}
+        className={classes.root}
         value={value_string}
         onClick={toggleOption}
     >
+        <span className={isActive ? classes.iconActive : classes.icon}>
+            {isActive && <Icon src={Checkmark} size={14} />}
+        </span>
         <span
             dangerouslySetInnerHTML={{
                 __html: label

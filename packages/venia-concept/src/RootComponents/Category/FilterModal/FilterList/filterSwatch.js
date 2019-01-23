@@ -19,6 +19,7 @@ const FilterSwatch = ({
     label,
     icon,
     options,
+    isActive,
     classes
 }) => (
     <button
@@ -27,8 +28,9 @@ const FilterSwatch = ({
         onClick={toggleOption}
     >
         <span className={classes.iconWrapper}>{icon}</span>
-        {options.showLabel && (
+        {isActive && (
             <span
+                className={classes.swatchLabel}
                 dangerouslySetInnerHTML={{
                     __html: label
                 }}

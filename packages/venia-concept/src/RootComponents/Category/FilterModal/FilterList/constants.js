@@ -3,10 +3,15 @@ export const filterModes = {
     swatch: 'swatch'
 };
 
+export const filterLayouts = {
+    grid: 'grid',
+    list: 'list'
+};
+
 export const filterRenderOptions = {
     fashion_color: {
         mode: filterModes.swatch,
-        options: { showLabel: false, generateColor: true }
+        options: { layout: filterLayouts.grid, generateColor: true }
     },
     default: {
         mode: filterModes.default

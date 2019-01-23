@@ -5,7 +5,7 @@ import Checkmark from 'react-feather/dist/icons/check';
 import classify from 'src/classify';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
-import { filterModes, filterRenderOptions } from './constants';
+import { filterModes, filterRenderOptions, filterLayouts } from './constants';
 import FilterDefault from './filterDefault';
 import FilterSwatch from './FilterSwatch';
 
@@ -63,6 +63,18 @@ class FilterList extends Component {
         );
     };
 
+    getLayout = options => {
+        const { layout } = options || '';
+        const { classes } = this.props;
+        switch (layout) {
+            case filterLayouts.grid:
+                return classes.rootGrid;
+                break;
+            default:
+                return classes.root;
+        }
+    };
+
     getRenderOptions = value =>
         filterRenderOptions[`${value}`] ||
         filterRenderOptions[filterModes.default];
@@ -73,6 +85,8 @@ class FilterList extends Component {
 
         const { mode, options } = this.getRenderOptions(id);
 
+        const filterLayoutClass = this.getLayout(options);
+
         const isSwatch = filterModes[mode] === filterModes.swatch;
 
         return (
@@ -80,7 +94,7 @@ class FilterList extends Component {
                 items={items}
                 getItemKey={({ value_string }) => `${id}-${value_string}`}
                 render={props => (
-                    <ul className={classes.root}>{props.children}</ul>
+                    <ul className={filterLayoutClass}>{props.children}</ul>
                 )}
                 renderItem={({ item }) => (
                     <li>
