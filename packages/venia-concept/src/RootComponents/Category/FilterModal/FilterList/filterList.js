@@ -41,13 +41,16 @@ class FilterList extends Component {
     };
 
     toggleOption = event => {
-        const { value } = event.currentTarget || event.srcElement;
+        const { value, title } = event.currentTarget || event.srcElement;
         this.isOptionActive(value)
-            ? this.removeOption(value)
-            : this.addOption(value);
+            ? this.removeOption({ title, value })
+            : this.addOption({ title, value });
     };
 
-    isOptionActive = option => this.state.chosenOptions.indexOf(option) > -1;
+    isOptionActive = option =>
+        this.state.chosenOptions.findIndex(
+            item => item.value === option.value && item.name === option.name
+        ) > -1;
 
     getFilterIcon = value => {
         const { classes } = this.props;
@@ -97,25 +100,33 @@ class FilterList extends Component {
                     <ul className={filterLayoutClass}>{props.children}</ul>
                 )}
                 renderItem={({ item }) => (
-                    <li>
+                    <li className={classes.filterItem}>
                         {isSwatch ? (
                             <FilterSwatch
                                 {...item}
                                 options={options}
-                                isActive={this.isOptionActive(
-                                    item.value_string
-                                )}
+                                isActive={this.isOptionActive({
+                                    title: item.label,
+                                    value: item.value_string
+                                })}
                                 toggleOption={toggleOption}
-                                icon={getFilterIcon(item.value_string)}
+                                icon={getFilterIcon({
+                                    title: item.label,
+                                    value: item.value_string
+                                })}
                             />
                         ) : (
                             <FilterDefault
                                 {...item}
-                                isActive={this.isOptionActive(
-                                    item.value_string
-                                )}
+                                isActive={this.isOptionActive({
+                                    title: item.label,
+                                    value: item.value_string
+                                })}
                                 toggleOption={toggleOption}
-                                icon={getFilterIcon(item.value_string)}
+                                icon={getFilterIcon({
+                                    title: item.label,
+                                    value: item.value_string
+                                })}
                             />
                         )}
                     </li>

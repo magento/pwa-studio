@@ -47,7 +47,7 @@ const reducerMap = {
     },
     [actions.updateChosenFilterOptions]: (
         state,
-        { payload: { optionName, optionItems } }
+        { payload: { optionName, optionItems, optionLabel } }
     ) => {
         return optionName
             ? {
@@ -55,7 +55,8 @@ const reducerMap = {
                   chosenFilterOptions: {
                       ...state.chosenFilterOptions,
                       [optionName]: {
-                          chosenItems: optionItems
+                          chosenItems: optionItems,
+                          optionLabel: optionLabel
                       }
                   }
               }

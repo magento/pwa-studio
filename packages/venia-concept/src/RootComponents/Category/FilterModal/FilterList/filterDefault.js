@@ -15,6 +15,7 @@ const FilterDefault = ({
     <button
         className={classes.root}
         value={value_string}
+        title={label}
         onClick={toggleOption}
     >
         <span className={isActive ? classes.iconActive : classes.icon}>

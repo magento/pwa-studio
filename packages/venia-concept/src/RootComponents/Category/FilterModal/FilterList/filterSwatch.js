@@ -25,6 +25,7 @@ const FilterSwatch = ({
     <button
         className={classes.root}
         value={value_string}
+        title={label}
         onClick={toggleOption}
     >
         <span className={classes.iconWrapper}>{icon}</span>

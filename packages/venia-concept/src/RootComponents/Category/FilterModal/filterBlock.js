@@ -24,25 +24,6 @@ class FilterBlock extends Component {
         isExpanded: PropTypes.bool
     };
 
-    get getCounter() {
-        const { classes, chosenFilterOptions } = this.props;
-        const chosenOptionsCount = chosenFilterOptions.length;
-
-        return chosenOptionsCount ? (
-            <button onClick={this.resetChosenItems} className={classes.counter}>
-                <Icon
-                    className={classes.clearIcon}
-                    attrs={{ fill: 'black', color: 'white' }}
-                    src={CloseIcon}
-                    size={18}
-                />
-                <span className={classes.counterNumber}>
-                    {chosenOptionsCount}
-                </span>
-            </button>
-        ) : null;
-    }
-
     resetChosenItems = () => {
         this.updateChosenItems([]);
     };
@@ -74,7 +55,6 @@ class FilterBlock extends Component {
                 <div className={classes.optionHeader}>
                     <div className={classes.optionName}>{name}</div>
                     <div className={classes.counterAndCloseButtonContainer}>
-                        {this.getCounter}
                         <button
                             onClick={this.optionToggle}
                             className={classes.optionToggleButton}

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import get from 'lodash/get';
+import FiltersCurrent from './filtersCurrentContainer';
 import classify from 'src/classify';
 import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
@@ -130,6 +131,8 @@ class FilterModal extends Component {
                 <div className={classes.searchFilterContainer}>
                     <input onChange={this.handleFilterSearch} type="text" />
                 </div>
+
+                <FiltersCurrent />
 
                 <List
                     items={filters}
