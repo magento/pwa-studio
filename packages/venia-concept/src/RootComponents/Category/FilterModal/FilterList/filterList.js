@@ -106,6 +106,7 @@ class FilterList extends Component {
                         {isSwatch ? (
                             <FilterSwatch
                                 {...item}
+                                group={id}
                                 options={options}
                                 isActive={this.isOptionActive({
                                     title: item.label,
@@ -120,6 +121,7 @@ class FilterList extends Component {
                         ) : (
                             <FilterDefault
                                 {...item}
+                                group={id}
                                 isActive={this.isOptionActive({
                                     title: item.label,
                                     value: item.value_string

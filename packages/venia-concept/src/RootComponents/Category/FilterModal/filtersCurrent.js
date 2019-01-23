@@ -41,9 +41,10 @@ class FiltersCurrent extends Component {
                                     data-group={key}
                                     title={title}
                                     value={value}
-                                >
-                                    {title}
-                                </button>
+                                    dangerouslySetInnerHTML={{
+                                        __html: title
+                                    }}
+                                />
                             </li>
                         )
                     )

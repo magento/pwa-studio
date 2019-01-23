@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
-import get from 'lodash/get';
 import FiltersCurrent from './filtersCurrentContainer';
 import classify from 'src/classify';
 import CloseIcon from 'react-feather/dist/icons/x';
@@ -20,24 +19,8 @@ class FilterModal extends Component {
         updateChosenFilterOptions: PropTypes.func
     };
 
-    static getDerivedStateFromProps(nextProps) {
-        const { chosenFilterOptions } = nextProps;
-        let filterOptionsArePristine = true;
-
-        for (const optionName in chosenFilterOptions) {
-            if (chosenFilterOptions[optionName].chosenItems.length > 0) {
-                filterOptionsArePristine = false;
-                break;
-            }
-        }
-
-        return { areOptionsPristine: filterOptionsArePristine };
-    }
-
     state = {
-        filterSearchTerm: '',
-        areOptionsPristine: true,
-        expandedOptions: {}
+        filterSearchTerm: ''
     };
 
     resetFilterOptions = () => {
@@ -72,30 +55,6 @@ class FilterModal extends Component {
         );
     };
 
-    getChosenFilterOptionsForItem = itemName => {
-        const { chosenFilterOptions } = this.props;
-        return get(chosenFilterOptions, `${itemName}.chosenItems`, []);
-    };
-
-    getIsExpanded = optionName => {
-        return !!this.state.expandedOptions[optionName];
-    };
-
-    toggleOption = optionName => {
-        const { expandedOptions } = this.state;
-        !!expandedOptions[optionName]
-            ? this.setState({
-                  expandedOptions: Object.assign({}, expandedOptions, {
-                      [optionName]: false
-                  })
-              })
-            : this.setState({
-                  expandedOptions: Object.assign({}, expandedOptions, {
-                      [optionName]: true
-                  })
-              });
-    };
-
     handleFilterSearch = event => {
         const { value } = event.currentTarget || event.srcElement;
         this.setState({ filterSearchTerm: value });
@@ -106,10 +65,12 @@ class FilterModal extends Component {
             classes,
             isModalOpen,
             closeModalHandler,
+            chosenFilterOptions,
             updateChosenFilterOptions
         } = this.props;
         let { filters } = this.props;
-        const { areOptionsPristine, filterSearchTerm } = this.state;
+        const { filterSearchTerm } = this.state;
+        const areOptionsPristine = false;
 
         filters = filters.filter(
             filter =>
@@ -146,16 +107,11 @@ class FilterModal extends Component {
                         <li className={classes.filterOptionItem}>
                             <FilterBlock
                                 item={props.item}
-                                toggleOption={this.toggleOption}
-                                isExpanded={this.getIsExpanded(props.item.name)}
-                                chosenFilterOptions={this.getChosenFilterOptionsForItem(
-                                    props.item.request_var
-                                )}
-                                updateChosenFilterOptions={actualItems =>
-                                    updateChosenFilterOptions({
-                                        optionName: props.item.request_var,
-                                        optionItems: actualItems
-                                    })
+                                chosenFilterOptions={
+                                    chosenFilterOptions[props.item.request_var]
+                                }
+                                updateChosenFilterOptions={
+                                    updateChosenFilterOptions
                                 }
                             />
                         </li>

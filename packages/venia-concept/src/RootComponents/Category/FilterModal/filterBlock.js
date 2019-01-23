@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
+import get from 'lodash/get';
 import FilterList from './FilterList';
-import CloseIcon from 'react-feather/dist/icons/x-circle';
 import Icon from 'src/components/Icon';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
 import ArrowUp from 'react-feather/dist/icons/chevron-up';
@@ -19,9 +19,13 @@ class FilterBlock extends Component {
             items: PropTypes.array,
             RenderOption: PropTypes.func
         }),
-        chosenFilterOptions: PropTypes.array,
+        chosenFilterOptions: PropTypes.object,
         updateChosenFilterOptions: PropTypes.func,
         isExpanded: PropTypes.bool
+    };
+
+    state = {
+        isExpanded: false
     };
 
     resetChosenItems = () => {
@@ -29,27 +33,35 @@ class FilterBlock extends Component {
     };
 
     optionToggle = () => {
-        const {
-            toggleOption,
-            item: { name }
-        } = this.props;
-        toggleOption(name);
+        const { isExpanded } = this.state;
+        this.setState({ isExpanded: !isExpanded });
     };
 
     updateChosenItems = actualItems => {
         const { updateChosenFilterOptions } = this.props;
-        console.log('ACTIAL ITMS', actualItems);
-        updateChosenFilterOptions(actualItems);
+        updateChosenFilterOptions({
+            optionName: this.props.item.request_var,
+            optionItems: actualItems
+        });
+    };
+
+    getChosenFilterOptionsForItem = () => {
+        const { chosenFilterOptions } = this.props;
+        return get(chosenFilterOptions, `chosenItems`, []);
     };
 
     render() {
         const {
             classes,
             item: { name, filter_items, request_var },
-            chosenFilterOptions,
-            isExpanded
+            chosenFilterOptions
         } = this.props;
-        const chosenOptions = chosenFilterOptions;
+
+        const { isExpanded } = this.state;
+
+        const chosenOptions = this.getChosenFilterOptionsForItem(
+            chosenFilterOptions
+        );
 
         return (
             <div className={classes.root}>
@@ -64,14 +76,12 @@ class FilterBlock extends Component {
                         </button>
                     </div>
                 </div>
-                {isExpanded ? (
-                    <FilterList
-                        id={request_var}
-                        items={filter_items}
-                        chosenOptions={chosenOptions}
-                        updateChosenItems={this.updateChosenItems}
-                    />
-                ) : null}
+                <FilterList
+                    id={request_var}
+                    items={filter_items}
+                    chosenOptions={chosenOptions}
+                    updateChosenItems={this.updateChosenItems}
+                />
             </div>
         );
     }
