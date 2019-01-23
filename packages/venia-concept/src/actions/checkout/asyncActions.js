@@ -34,6 +34,34 @@ export const editOrder = section =>
         dispatch(actions.edit(section));
     };
 
+export const submitBillingAddress = payload =>
+    async function thunk(dispatch, getState) {
+        dispatch(actions.billingAddress.submit(payload));
+
+        const { cart, directory } = getState();
+
+        const { guestCartId } = cart;
+        if (!guestCartId) {
+            throw new Error('Missing required information: guestCartId');
+        }
+
+        let desiredBillingAddress;
+        if (payload.sameAsShippingAddress) {
+            desiredBillingAddress = await retrieveShippingAddress();
+        }
+        else {
+            const { countries } = directory;
+            try {
+                desiredBillingAddress = formatAddress(payload, countries);
+            } catch (error) {
+                dispatch(actions.billingAddress.reject(error));
+            }
+        }
+
+        await saveBillingAddress(desiredBillingAddress);
+        dispatch(actions.billingAddress.accept());
+    }
+
 export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit(payload));
@@ -66,38 +94,20 @@ export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit(payload));
 
-        const { cart, directory } = getState();
+        const { cart } = getState();
 
         const { guestCartId } = cart;
         if (!guestCartId) {
             throw new Error('Missing required information: guestCartId');
         }
 
-        // Save the payment method.
         const desiredPaymentMethod = payload.formValues.paymentMethod;
         await savePaymentMethod(desiredPaymentMethod);
 
-        // Save the billing address.
-        let desiredBillingAddress;
-        const billingAddressPayload = payload.formValues.billingAddress;
-        if (billingAddressPayload.sameAsShippingAddress) {
-            desiredBillingAddress = await retrieveShippingAddress();
-        }
-        else {
-            const { countries } = directory;
-            try {
-                desiredBillingAddress = formatAddress(billingAddressPayload, countries);
-            } catch (error) {
-                // TODO: surface billing address fail
-            }
-        }
-
-        await saveBillingAddress(desiredBillingAddress);
+        // TODO: remove billing address from here.
+        await submitBillingAddress(payload.formValues.billingAddress)(dispatch, getState);
         
-        dispatch(actions.paymentMethod.accept({
-            billing_address: desiredBillingAddress,
-            paymentMethod: desiredPaymentMethod,
-        }));
+        dispatch(actions.paymentMethod.accept(desiredPaymentMethod));
     };
 
 export const submitShippingMethod = payload =>

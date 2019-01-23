@@ -166,8 +166,6 @@ class PaymentsForm extends Component {
             };
         }
 
-        console.log('billing address is', billingAddress);
-
         // Submit the payment method and billing address payload.
         this.props.submit({
             billingAddress,

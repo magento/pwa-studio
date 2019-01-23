@@ -37,6 +37,9 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
+    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.accept]: state => state,
+    [actions.billingAddress.reject]: state => state,
     [actions.shippingAddress.submit]: state => {
         return {
             ...state,
@@ -74,12 +77,11 @@ const reducerMap = {
         };
     },
     [actions.paymentMethod.accept]: (state, { payload }) => {
-        const { billing_address, paymentMethod } = payload;
         return {
             ...state,
             editing: null,
-            paymentCode: paymentMethod.code,
-            paymentData: paymentMethod.data,
+            paymentCode: payload.code,
+            paymentData: payload.data,
             step: 'form',
             submitting: false
         };
