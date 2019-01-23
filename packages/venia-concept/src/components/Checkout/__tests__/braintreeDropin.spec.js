@@ -32,10 +32,10 @@ beforeEach(() => {
     mockSuccess.mockReset();
 });
 
-test('renders a single div', () => {
+test('renders two divs', () => {
     const { root } = TestRenderer.create(<BraintreeDropin {...props} />);
 
-    expect(root.findAllByType('div')).toHaveLength(1);
+    expect(root.findAllByType('div')).toHaveLength(2);
 });
 
 test('creates an instance of the underlying dropin on mount', () => {

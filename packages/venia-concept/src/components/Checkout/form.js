@@ -278,7 +278,7 @@ class Form extends Component {
 
     submitShippingAddress = formValues => {
         this.props.submitShippingAddress({
-            type: 'address',
+            type: 'shippingAddress',
             formValues
         });
     };

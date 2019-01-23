@@ -16,6 +16,8 @@ const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
+const INVALID_ADDRESS_KEYS = ['sameAsShippingAddress'];
+
 export const beginCheckout = () =>
     async function thunk(dispatch) {
         dispatch(actions.begin());
@@ -277,12 +279,10 @@ export function formatAddress(address = {}, countries = []) {
  *
  * @param {Object} address - an address object that may have extra properties.
  */
-function removeInvalidKeysFromAddress(address) {
-    const INVALID_ADDRESS_KEYS = ['sameAsShippingAddress'];
-
+export function removeInvalidKeysFromAddress(address, invalidKeys = INVALID_ADDRESS_KEYS) {
     const validAddress = {};
     const keysToKeep = Object.keys(address).filter(
-        key => !INVALID_ADDRESS_KEYS.includes(key)
+        key => !invalidKeys.includes(key)
     );
     keysToKeep.forEach(key => (validAddress[key] = address[key]));
 
