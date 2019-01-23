@@ -1,10 +1,8 @@
-// NPM.
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import dropin from 'braintree-web-drop-in';
 jest.mock('braintree-web-drop-in');
 
-// Local.
 import BraintreeDropin from '../braintreeDropin';
 
 // Mock underlying braintree-web-drop-in functions.

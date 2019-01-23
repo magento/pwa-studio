@@ -77,7 +77,7 @@ class BraintreeDropin extends Component {
 
         return (
             <div className={classes.root}>
-                <div id="dropin-container" />
+                <div id="braintree-dropin-container" />
             </div>
         );
     }
@@ -87,7 +87,7 @@ class BraintreeDropin extends Component {
         return dropin.create({
             authorization: BRAINTREE_TOKEN,
             // Note: this selector must match to some part of this component's rendered HTML.
-            container: '#dropin-container',
+            container: '#braintree-dropin-container',
             card: {
                 overrides: {
                     fields: {

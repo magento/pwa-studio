@@ -31,7 +31,7 @@ The following steps summarize the basic checkout experience for a Venia shopper:
 1. The **Shipping and Billing** summary page appears with the following items:
 
     - **Ship To** - Click to display a form for setting the shipping address.
-    - **Pay With** - Click to display a form that allows the shopper to select the payment method.
+    - **Pay With** - Click to display a form that allows the shopper to select the payment method and billing address.
     - **Get It By** - Click to display a form that allows the shopper to select the shipping method.
     - **TOTAL** - Shows the shopping cart total.
 
@@ -96,8 +96,8 @@ Clicking on the **Cancel** button on each form dispatches an action that returns
 On the shipping address form, the **Save** button calls the `submitShippingAddress()` function.
 This function validates the address data before saving locally.
 
-On the payment method form, the **Save** button calls the `submitPaymentMethod()` function.
-This function saves the selected payment method locally.
+On the payment method form, the **Save** button calls the `submitPaymentMethodAndBillingAddress()` function.
+This function saves the selected payment method and billing address locally.
 
 On the shipping method form, the **Save** button calls the `submitShippingMethod()` function.
 This function saves the selected shipping method locally.
