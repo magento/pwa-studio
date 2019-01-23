@@ -1,15 +1,8 @@
-import { getCurrentUser, getAccountAddressList } from '../user';
-
-test('getCurrentUser returns user', () => {
-    const currentUser = {};
-    const state = {
-        user: {
-            currentUser
-        }
-    };
-
-    expect(getCurrentUser(state)).toBe(currentUser);
-});
+import {
+    getUserInformation,
+    getCurrentUser,
+    getAccountAddressList
+} from '../user';
 
 test('getAccountAddressList returns array of addresses', () => {
     const defaultShippingAddress = {
@@ -39,5 +32,39 @@ test('getAccountAddressList returns array of addresses', () => {
                 id: idArray[index]
             })
         });
+    });
+});
+
+test('getCurrentUser returns user', () => {
+    const currentUser = {};
+    const state = {
+        user: {
+            currentUser
+        }
+    };
+
+    expect(getCurrentUser(state)).toBe(currentUser);
+});
+
+test('getUserInformation returns user information', () => {
+    const email = 'user@example.com';
+    const firstname = 'Example';
+    const lastname = 'User';
+
+    const state = {
+        user: {
+            currentUser: {
+                email,
+                firstname,
+                lastname
+            }
+        }
+    };
+
+    expect(getUserInformation(state)).toEqual({
+        email,
+        firstname,
+        lastname,
+        fullname: expect.stringMatching(new RegExp(`${firstname}.*${lastname}`))
     });
 });

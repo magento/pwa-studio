@@ -23,6 +23,7 @@
 }
 
 .copyright {
+    display: block;
     color: rgb(var(--venia-text-alt));
     font-size: 0.75rem;
     padding: 1.5rem 2rem;

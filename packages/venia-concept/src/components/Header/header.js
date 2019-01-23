@@ -4,6 +4,9 @@ import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import SearchIcon from 'react-feather/dist/icons/search';
+import MenuIcon from 'react-feather/dist/icons/menu';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
@@ -11,7 +14,7 @@ import SearchTrigger from './searchTrigger';
 const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
 import defaultClasses from './header.css';
-import logo from './logo.svg';
+import Logo from '../Logo';
 
 class Header extends Component {
     static propTypes = {
@@ -29,7 +32,7 @@ class Header extends Component {
     };
 
     get searchIcon() {
-        return <Icon name="search" />;
+        return <Icon src={SearchIcon} />;
     }
 
     render() {
@@ -46,17 +49,11 @@ class Header extends Component {
             <header className={rootClass}>
                 <div className={classes.toolbar}>
                     <Link to="/">
-                        <img
-                            className={classes.logo}
-                            src={logo}
-                            height="24"
-                            alt="Venia"
-                            title="Venia"
-                        />
+                        <Logo classes={{ logo: classes.logo }} />
                     </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
-                            <Icon name="menu" />
+                            <Icon src={MenuIcon} />
                         </NavTrigger>
                     </div>
                     <div className={classes.secondaryActions}>
@@ -67,7 +64,7 @@ class Header extends Component {
                             {this.searchIcon}
                         </SearchTrigger>
                         <CartTrigger>
-                            <Icon name="shopping-cart" />
+                            <Icon src={ShoppingCartIcon} />
                         </CartTrigger>
                     </div>
                 </div>
