@@ -34,6 +34,12 @@ export const editOrder = section =>
         dispatch(actions.edit(section));
     };
 
+export const submitPaymentMethodAndBillingAddress = payload =>
+    async function thunk(dispatch, getState) {
+        submitBillingAddress(payload.formValues.billingAddress)(dispatch, getState);
+        submitPaymentMethod(payload.formValues.paymentMethod)(dispatch, getState);
+    }
+
 export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit(payload));
@@ -55,6 +61,7 @@ export const submitBillingAddress = payload =>
                 desiredBillingAddress = formatAddress(payload, countries);
             } catch (error) {
                 dispatch(actions.billingAddress.reject(error));
+                return;
             }
         }
 
@@ -101,13 +108,8 @@ export const submitPaymentMethod = payload =>
             throw new Error('Missing required information: guestCartId');
         }
 
-        const desiredPaymentMethod = payload.formValues.paymentMethod;
-        await savePaymentMethod(desiredPaymentMethod);
-
-        // TODO: remove billing address from here.
-        await submitBillingAddress(payload.formValues.billingAddress)(dispatch, getState);
-        
-        dispatch(actions.paymentMethod.accept(desiredPaymentMethod));
+        await savePaymentMethod(payload);
+        dispatch(actions.paymentMethod.accept(payload));
     };
 
 export const submitShippingMethod = payload =>

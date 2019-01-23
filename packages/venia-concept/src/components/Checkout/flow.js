@@ -22,7 +22,7 @@ class Flow extends Component {
             resetCheckout: func.isRequired,
             submitShippingAddress: func.isRequired,
             submitOrder: func.isRequired,
-            submitPaymentMethod: func.isRequired,
+            submitPaymentMethodAndBillingAddress: func.isRequired,
             submitShippingMethod: func.isRequired
         }).isRequired,
         availableShippingMethods: array,
@@ -79,7 +79,7 @@ class Flow extends Component {
             getShippingMethods,
             submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = actions;
 
@@ -117,7 +117,7 @@ class Flow extends Component {
                     shippingTitle,
                     submitShippingAddress,
                     submitOrder,
-                    submitPaymentMethod,
+                    submitPaymentMethodAndBillingAddress,
                     submitShippingMethod,
                     submitting
                 };

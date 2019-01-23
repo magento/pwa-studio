@@ -10,7 +10,7 @@ import {
     resetCheckout,
     submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
+    submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
 
@@ -65,7 +65,7 @@ class CheckoutWrapper extends Component {
         resetCheckout: func.isRequired,
         submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired
     };
 
@@ -81,7 +81,7 @@ class CheckoutWrapper extends Component {
             resetCheckout,
             submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = this.props;
 
@@ -98,7 +98,7 @@ class CheckoutWrapper extends Component {
             resetCheckout,
             submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         };
 
@@ -132,7 +132,7 @@ const mapDispatchToProps = {
     resetCheckout,
     submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
+    submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 };
 

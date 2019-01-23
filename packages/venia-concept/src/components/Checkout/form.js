@@ -49,7 +49,7 @@ class Form extends Component {
         shippingTitle: string,
         submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired,
         submitting: bool.isRequired
     };
@@ -108,7 +108,7 @@ class Form extends Component {
                 return (
                     <PaymentsForm
                         cancel={this.stopEditing}
-                        submit={this.submitPaymentMethod}
+                        submit={this.submitPaymentMethodAndBillingAddress}
                         submitting={submitting}
                     />
                 );
@@ -279,11 +279,8 @@ class Form extends Component {
         });
     };
 
-    submitPaymentMethod = formValues => {
-        this.props.submitPaymentMethod({
-            type: 'paymentMethod',
-            formValues
-        });
+    submitPaymentMethodAndBillingAddress = formValues => {
+        this.props.submitPaymentMethodAndBillingAddress({ formValues });
     };
 
     submitShippingMethod = formValues => {
