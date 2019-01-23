@@ -8,7 +8,7 @@ import {
     beginCheckout,
     editOrder,
     resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
     submitPaymentMethod,
     submitShippingMethod
@@ -63,7 +63,7 @@ class CheckoutWrapper extends Component {
         }),
         editOrder: func.isRequired,
         resetCheckout: func.isRequired,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
         submitPaymentMethod: func.isRequired,
         submitShippingMethod: func.isRequired
@@ -79,7 +79,7 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
             submitPaymentMethod,
             submitShippingMethod
@@ -96,7 +96,7 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
             submitPaymentMethod,
             submitShippingMethod
@@ -130,7 +130,7 @@ const mapDispatchToProps = {
     editOrder,
     getShippingMethods,
     resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
     submitPaymentMethod,
     submitShippingMethod

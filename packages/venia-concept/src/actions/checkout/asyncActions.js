@@ -34,9 +34,9 @@ export const editOrder = section =>
         dispatch(actions.edit(section));
     };
 
-export const submitAddress = payload =>
+export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.address.submit(payload));
+        dispatch(actions.shippingAddress.submit(payload));
 
         const { cart, directory } = getState();
 
@@ -51,7 +51,7 @@ export const submitAddress = payload =>
             address = formatAddress(address, countries);
         } catch (error) {
             dispatch(
-                actions.address.reject({
+                actions.shippingAddress.reject({
                     incorrectAddressMessage: error.message
                 })
             );
@@ -59,7 +59,7 @@ export const submitAddress = payload =>
         }
 
         await saveShippingAddress(address);
-        dispatch(actions.address.accept());
+        dispatch(actions.shippingAddress.accept());
     };
 
 export const submitPaymentMethod = payload =>

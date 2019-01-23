@@ -13,7 +13,7 @@ import {
     editOrder,
     formatAddress,
     resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitPaymentMethod,
     submitOrder,
     submitShippingMethod
@@ -129,22 +129,22 @@ describe('editOrder', () => {
     });
 });
 
-describe('submitAddress', () => {
-    test('submitAddress() returns a thunk', () => {
-        expect(submitAddress()).toBeInstanceOf(Function);
+describe('submitShippingAddress', () => {
+    test('submitShippingAddress() returns a thunk', () => {
+        expect(submitShippingAddress()).toBeInstanceOf(Function);
     });
 
-    test('submitAddress thunk returns undefined', async () => {
+    test('submitShippingAddress thunk returns undefined', async () => {
         const payload = { type: 'address', formValues: address };
-        const result = await submitAddress(payload)(...thunkArgs);
+        const result = await submitShippingAddress(payload)(...thunkArgs);
 
         expect(result).toBeUndefined();
     });
 
-    test('submitAddress thunk dispatches actions on success', async () => {
+    test('submitShippingAddress thunk dispatches actions on success', async () => {
         const payload = { type: 'address', formValues: address };
 
-        await submitAddress(payload)(...thunkArgs);
+        await submitShippingAddress(payload)(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -154,26 +154,26 @@ describe('submitAddress', () => {
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
-    test('submitAddress thunk saves to storage on success', async () => {
+    test('submitShippingAddress thunk saves to storage on success', async () => {
         const payload = { type: 'address', formValues: address };
 
-        await submitAddress(payload)(...thunkArgs);
+        await submitShippingAddress(payload)(...thunkArgs);
 
         expect(mockSetItem).toHaveBeenCalledWith('address', address);
     });
 
-    test('submitAddress thunk throws if there is no guest cart', async () => {
+    test('submitShippingAddress thunk throws if there is no guest cart', async () => {
         const payload = { type: 'address', formValues: address };
 
         getState.mockImplementationOnce(() => ({
             cart: {},
             directory: { countries }
         }));
-        await expect(submitAddress(payload)(...thunkArgs)).rejects.toThrow(
+        await expect(submitShippingAddress(payload)(...thunkArgs)).rejects.toThrow(
             'guestCartId'
         );
     });
-    test('submitAddress thunk dispatches action on incorrect state(region code)', async () => {
+    test('submitShippingAddress thunk dispatches action on incorrect state(region code)', async () => {
         const invalidState = 'any_text';
         const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
         const incorrectAddressPayload = { incorrectAddressMessage };
@@ -182,7 +182,7 @@ describe('submitAddress', () => {
             formValues: { region_code: invalidState }
         };
 
-        await submitAddress(submitPayload)(...thunkArgs);
+        await submitShippingAddress(submitPayload)(...thunkArgs);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.address.submit(submitPayload)

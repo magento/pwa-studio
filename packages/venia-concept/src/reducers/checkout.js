@@ -37,13 +37,13 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.address.submit]: state => {
+    [actions.shippingAddress.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.address.accept]: state => {
+    [actions.shippingAddress.accept]: state => {
         return {
             ...state,
             editing: null,
@@ -53,7 +53,7 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: (state, actionArgs) => {
+    [actions.shippingAddress.reject]: (state, actionArgs) => {
         const incorrectAddressMessage = get(
             actionArgs,
             'payload.incorrectAddressMessage',

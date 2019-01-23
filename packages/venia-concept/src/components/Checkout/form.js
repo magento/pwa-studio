@@ -47,7 +47,7 @@ class Form extends Component {
         ready: bool,
         shippingMethod: string,
         shippingTitle: string,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
         submitPaymentMethod: func.isRequired,
         submitShippingMethod: func.isRequired,
@@ -98,7 +98,7 @@ class Form extends Component {
                         initialValues={address}
                         submitting={submitting}
                         cancel={this.stopEditing}
-                        submit={this.submitAddress}
+                        submit={this.submitShippingAddress}
                         isAddressIncorrect={isAddressIncorrect}
                         incorrectAddressMessage={incorrectAddressMessage}
                     />
@@ -272,8 +272,8 @@ class Form extends Component {
         this.props.editOrder(null);
     };
 
-    submitAddress = formValues => {
-        this.props.submitAddress({
+    submitShippingAddress = formValues => {
+        this.props.submitShippingAddress({
             type: 'address',
             formValues
         });

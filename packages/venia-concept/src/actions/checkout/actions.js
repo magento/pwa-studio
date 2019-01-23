@@ -7,7 +7,7 @@ const actionTypes = ['BEGIN', 'EDIT', 'RESET'];
 // e.g., `actions.order.submit` => CHECKOUT/ORDER/SUBMIT
 // a `null` value corresponds to the default creator function
 const actionMap = {
-    ADDRESS: {
+    SHIPPING_ADDRESS: {
         SUBMIT: null,
         ACCEPT: null,
         REJECT: null
