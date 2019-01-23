@@ -48,3 +48,5 @@ Feel free to remove this section before creating this PR.
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
 - [ ] All new and existing tests passed.
+- [ ] All CI checks are green (linting, build/deploy, etc).
+- [ ] At least one core contributor has approved this PR.
