@@ -76,12 +76,20 @@ class FilterBlock extends Component {
                         </button>
                     </div>
                 </div>
-                <FilterList
-                    id={request_var}
-                    items={filter_items}
-                    chosenOptions={chosenOptions}
-                    updateChosenItems={this.updateChosenItems}
-                />
+                <div
+                    className={
+                        isExpanded
+                            ? classes.filterListExpanded
+                            : classes.filterList
+                    }
+                >
+                    <FilterList
+                        id={request_var}
+                        items={filter_items}
+                        chosenOptions={chosenOptions}
+                        updateChosenItems={this.updateChosenItems}
+                    />
+                </div>
             </div>
         );
     }

@@ -13,6 +13,15 @@
     outline: none;
 }
 
+.filterList {
+    display: none;
+}
+
+.filterListExpanded {
+    composes: filterList;
+    display: block;
+}
+
 .counter {
     display: flex;
     justify-content: space-evenly;
