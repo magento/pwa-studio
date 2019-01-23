@@ -279,7 +279,10 @@ export function formatAddress(address = {}, countries = []) {
  *
  * @param {Object} address - an address object that may have extra properties.
  */
-export function removeInvalidKeysFromAddress(address, invalidKeys = INVALID_ADDRESS_KEYS) {
+export function removeInvalidKeysFromAddress(
+    address,
+    invalidKeys = INVALID_ADDRESS_KEYS
+) {
     const validAddress = {};
     const keysToKeep = Object.keys(address).filter(
         key => !invalidKeys.includes(key)

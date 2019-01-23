@@ -145,9 +145,11 @@ describe('submitPaymentMethodAndBillingAddress', () => {
     });
 
     test('submitPaymentMethodAndBillingAddress thunk returns undefined', async () => {
-       const result = await submitPaymentMethodAndBillingAddress(payload)(...thunkArgs);
-       
-       expect(result).toBeUndefined();
+        const result = await submitPaymentMethodAndBillingAddress(payload)(
+            ...thunkArgs
+        );
+
+        expect(result).toBeUndefined();
     });
 
     test('submitPaymentMethodAndBillingAddress thunk dispatches paymentMethod and billing address actions', async () => {
@@ -176,7 +178,9 @@ describe('submitBillingAddress', () => {
     });
 
     test('submitBillingAddress thunk returns undefined', async () => {
-        const result = await submitBillingAddress(sameAsShippingPayload)(...thunkArgs);
+        const result = await submitBillingAddress(sameAsShippingPayload)(
+            ...thunkArgs
+        );
 
         expect(result).toBeUndefined();
     });
@@ -188,7 +192,24 @@ describe('submitBillingAddress', () => {
             1,
             actions.billingAddress.submit(sameAsShippingPayload)
         );
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.billingAddress.accept());
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.billingAddress.accept()
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test('submitBillingAddress thunk dispatches actions on success when using separate address', async () => {
+        await submitBillingAddress(differentFromShippingPayload)(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.billingAddress.submit(differentFromShippingPayload)
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.billingAddress.accept()
+        );
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
@@ -235,7 +256,10 @@ describe('submitShippingAddress', () => {
             1,
             actions.shippingAddress.submit(payload)
         );
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.shippingAddress.accept());
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.shippingAddress.accept()
+        );
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
@@ -442,7 +466,7 @@ describe('submitOrder', () => {
 
     test('submitOrder thunk returns undefined', async () => {
         // Get billing address from storage.
-        mockGetItem.mockImplementationOnce(() => address)
+        mockGetItem.mockImplementationOnce(() => address);
 
         const result = await submitOrder()(...thunkArgs);
 
@@ -605,10 +629,10 @@ describe('formatAddress', () => {
 describe('removeInvalidKeysFromAddress', () => {
     test('it removes blacklisted keys', () => {
         const blacklist = ['postcode'];
-        
+
         const result = removeInvalidKeysFromAddress(address, blacklist);
 
-        const expected = {...address};
+        const expected = { ...address };
         delete expected.postcode;
 
         expect(result).toEqual(expected);
