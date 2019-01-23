@@ -145,7 +145,7 @@ class FilterModal extends Component {
                     renderItem={props => (
                         <li className={classes.filterOptionItem}>
                             <FilterBlock
-                                {...props}
+                                item={props.item}
                                 toggleOption={this.toggleOption}
                                 isExpanded={this.getIsExpanded(props.item.name)}
                                 chosenFilterOptions={this.getChosenFilterOptionsForItem(

@@ -1,0 +1,14 @@
+.root {
+    display: flex;
+    overflow: auto;
+    margin-bottom: 1.5rem;
+}
+
+.button {
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+}

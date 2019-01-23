@@ -35,14 +35,16 @@ class FilterList extends Component {
         const { updateChosenItems } = this.props;
         const { chosenOptions } = this.state;
         const filteredOptions = chosenOptions.filter(
-            currentOption => currentOption !== option
+            currentOption =>
+                currentOption.title !== option.title &&
+                currentOption.value !== option.value
         );
         updateChosenItems(filteredOptions);
     };
 
     toggleOption = event => {
         const { value, title } = event.currentTarget || event.srcElement;
-        this.isOptionActive(value)
+        this.isOptionActive({ title, value })
             ? this.removeOption({ title, value })
             : this.addOption({ title, value });
     };

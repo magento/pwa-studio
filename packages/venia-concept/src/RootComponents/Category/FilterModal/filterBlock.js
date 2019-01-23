@@ -38,6 +38,7 @@ class FilterBlock extends Component {
 
     updateChosenItems = actualItems => {
         const { updateChosenFilterOptions } = this.props;
+        console.log('ACTIAL ITMS', actualItems);
         updateChosenFilterOptions(actualItems);
     };
 
