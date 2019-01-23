@@ -53,7 +53,11 @@ export const submitBillingAddress = payload =>
 
         let desiredBillingAddress;
         if (payload.sameAsShippingAddress) {
-            desiredBillingAddress = await retrieveShippingAddress();
+            const shippingAddress = await retrieveShippingAddress();
+            desiredBillingAddress = {
+                ...payload,
+                ...shippingAddress
+            };
         }
         else {
             const { countries } = directory;

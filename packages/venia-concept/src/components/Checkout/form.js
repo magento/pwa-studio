@@ -91,11 +91,11 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const address = storage.getItem('shipping_address') || {};
+                const shippingAddress = storage.getItem('shipping_address') || {};
 
                 return (
                     <AddressForm
-                        initialValues={address}
+                        initialValues={shippingAddress}
                         submitting={submitting}
                         cancel={this.stopEditing}
                         submit={this.submitShippingAddress}
@@ -105,9 +105,12 @@ class Form extends Component {
                 );
             }
             case 'paymentMethod': {
+                const billingAddress = storage.getItem('billing_address') || {};
+
                 return (
                     <PaymentsForm
                         cancel={this.stopEditing}
+                        initialValues={billingAddress}
                         submit={this.submitPaymentMethodAndBillingAddress}
                         submitting={submitting}
                     />

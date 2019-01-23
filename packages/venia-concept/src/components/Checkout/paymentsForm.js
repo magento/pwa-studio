@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Text } from 'informed';
-import { bool, func, shape, string } from 'prop-types';
+import { array, bool, func, shape, string } from 'prop-types';
 
 import BraintreeDropin from './braintreeDropin';
 import Label from './label';
@@ -10,7 +10,9 @@ import Checkbox from 'src/components/Checkbox';
 import classify from 'src/classify';
 import defaultClasses from './paymentsForm.css';
 
-const INITIAL_FORM_VALUES = {
+import isObjectEmpty from 'src/util/isObjectEmpty';
+
+const DEFAULT_FORM_VALUES = {
     'addresses_same': true
 };
 
@@ -22,6 +24,13 @@ class PaymentsForm extends Component {
             footer: string,
             heading: string,
         }),
+        initialValues: shape({
+            addresses_same: bool,
+            city: string,
+            postcode: string,
+            region_code: string,
+            street: array
+        }),
         submit: func.isRequired,
         submitting: bool
     };
@@ -31,14 +40,39 @@ class PaymentsForm extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, initialValues } = this.props;
         const { formChildren } = this;
+
+        let initialFormValues;
+        if (isObjectEmpty(initialValues)) {
+            initialFormValues = DEFAULT_FORM_VALUES;
+        }
+        // We have some initial values, use them.
+        else {
+            if (initialValues.sameAsShippingAddress) {
+                // If the addresses are the same, don't populate any fields
+                // other than the checkbox with an initial value.
+                initialFormValues = {
+                    addresses_same: true
+                };
+            }
+            else {
+                // The addresses are not the same, populate the other fields.
+                initialFormValues = {
+                    ...initialValues,
+                    // Note: we have to 'rename' this property - it doesn't match
+                    // the form field's name ("addresses_same").
+                    addresses_same: initialValues.sameAsShippingAddress
+                };
+                delete initialFormValues.sameAsShippingAddress;
+            }
+        }
 
         return (
             <Form
                 className={classes.root}
                 getApi={this.setFormApi}
-                initialValues={INITIAL_FORM_VALUES}
+                initialValues={initialFormValues}
                 onSubmit={this.submit}
             >
                 { formChildren }
@@ -153,7 +187,7 @@ class PaymentsForm extends Component {
         // Build up the billing address payload.
         const formValue = this.formApi.getValue;
         let billingAddress = {
-            sameAsShippingAddress: formValue('addresses_same')
+            sameAsShippingAddress: formValue('addresses_same') || false
         };
         
         if (!billingAddress.sameAsShippingAddress) {
