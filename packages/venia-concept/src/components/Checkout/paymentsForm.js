@@ -13,7 +13,7 @@ import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 
 const DEFAULT_FORM_VALUES = {
-    'addresses_same': true
+    addresses_same: true
 };
 
 class PaymentsForm extends Component {
@@ -42,7 +42,7 @@ class PaymentsForm extends Component {
     };
 
     state = {
-        isRequestingPaymentNonce: false,
+        isRequestingPaymentNonce: false
     };
 
     render() {
@@ -61,8 +61,7 @@ class PaymentsForm extends Component {
                 initialFormValues = {
                     addresses_same: true
                 };
-            }
-            else {
+            } else {
                 // The addresses are not the same, populate the other fields.
                 initialFormValues = {
                     ...initialValues,
@@ -81,7 +80,7 @@ class PaymentsForm extends Component {
                 initialValues={initialFormValues}
                 onSubmit={this.submit}
             >
-                { formChildren }
+                {formChildren}
             </Form>
         );
     }
@@ -89,7 +88,7 @@ class PaymentsForm extends Component {
     /*
      *  Class Properties.
      */
-    get billingAddressFields () {
+    get billingAddressFields() {
         const { classes } = this.props;
 
         return (
@@ -156,9 +155,8 @@ class PaymentsForm extends Component {
                             label="Billing address same as shipping address"
                         />
                     </div>
-                    { !formState.values.addresses_same && (
-                        this.billingAddressFields
-                    )}
+                    {!formState.values.addresses_same &&
+                        this.billingAddressFields}
                 </div>
                 <div className={classes.footer}>
                     <Button priority="high" type="submit" disabled={submitting}>
@@ -168,7 +166,7 @@ class PaymentsForm extends Component {
                 </div>
             </Fragment>
         );
-    }
+    };
 
     setFormApi = formApi => {
         this.formApi = formApi;
@@ -195,7 +193,7 @@ class PaymentsForm extends Component {
         let billingAddress = {
             sameAsShippingAddress: formValue('addresses_same') || false
         };
-        
+
         if (!billingAddress.sameAsShippingAddress) {
             billingAddress = {
                 ...billingAddress,

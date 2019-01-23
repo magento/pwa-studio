@@ -169,9 +169,9 @@ describe('submitShippingAddress', () => {
             cart: {},
             directory: { countries }
         }));
-        await expect(submitShippingAddress(payload)(...thunkArgs)).rejects.toThrow(
-            'guestCartId'
-        );
+        await expect(
+            submitShippingAddress(payload)(...thunkArgs)
+        ).rejects.toThrow('guestCartId');
     });
     test('submitShippingAddress thunk dispatches action on incorrect state(region code)', async () => {
         const invalidState = 'any_text';

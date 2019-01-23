@@ -91,7 +91,8 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const shippingAddress = storage.getItem('shipping_address') || {};
+                const shippingAddress =
+                    storage.getItem('shipping_address') || {};
 
                 return (
                     <AddressForm

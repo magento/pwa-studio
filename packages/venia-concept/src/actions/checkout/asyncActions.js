@@ -36,9 +36,15 @@ export const editOrder = section =>
 
 export const submitPaymentMethodAndBillingAddress = payload =>
     async function thunk(dispatch, getState) {
-        submitBillingAddress(payload.formValues.billingAddress)(dispatch, getState);
-        submitPaymentMethod(payload.formValues.paymentMethod)(dispatch, getState);
-    }
+        submitBillingAddress(payload.formValues.billingAddress)(
+            dispatch,
+            getState
+        );
+        submitPaymentMethod(payload.formValues.paymentMethod)(
+            dispatch,
+            getState
+        );
+    };
 
 export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
@@ -58,8 +64,7 @@ export const submitBillingAddress = payload =>
                 ...payload,
                 ...shippingAddress
             };
-        }
-        else {
+        } else {
             const { countries } = directory;
             try {
                 desiredBillingAddress = formatAddress(payload, countries);
@@ -71,7 +76,7 @@ export const submitBillingAddress = payload =>
 
         await saveBillingAddress(desiredBillingAddress);
         dispatch(actions.billingAddress.accept());
-    }
+    };
 
 export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
@@ -276,9 +281,11 @@ function removeInvalidKeysFromAddress(address) {
     const INVALID_ADDRESS_KEYS = ['sameAsShippingAddress'];
 
     const validAddress = {};
-    const keysToKeep = Object.keys(address).filter(key => !INVALID_ADDRESS_KEYS.includes(key));
-    keysToKeep.forEach(key => validAddress[key] = address[key]);
-    
+    const keysToKeep = Object.keys(address).filter(
+        key => !INVALID_ADDRESS_KEYS.includes(key)
+    );
+    keysToKeep.forEach(key => (validAddress[key] = address[key]));
+
     return validAddress;
 }
 

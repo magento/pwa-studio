@@ -38,9 +38,10 @@ class BraintreeDropin extends Component {
         try {
             this.dropinInstance = await this.createDropinInstance();
             isError = false;
-        }
-        catch (err) {
-            console.error(`Unable to initialize Credit Card form (Braintree). \n${err}`);
+        } catch (err) {
+            console.error(
+                `Unable to initialize Credit Card form (Braintree). \n${err}`
+            );
             isError = true;
         }
 
@@ -68,8 +69,8 @@ class BraintreeDropin extends Component {
         if (isError) {
             return (
                 <span className={classes.error}>
-                    There was an error loading payment options.
-                    Please try again later.
+                    There was an error loading payment options. Please try again
+                    later.
                 </span>
             );
         }
