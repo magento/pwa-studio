@@ -12,9 +12,13 @@
 import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import dropin from 'braintree-web-drop-in';
+import { Util } from '@magento/peregrine';
 
 import defaultClasses from './braintreeDropin.css';
 import classify from 'src/classify';
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
 const { BRAINTREE_TOKEN } = process.env;
 
@@ -114,6 +118,15 @@ class BraintreeDropin extends Component {
             const paymentNonce = await dropinInstance.requestPaymentMethod();
             this.props.onSuccess(paymentNonce);
         } catch (e) {
+            // If payment details were missing or invalid but we have data from
+            // a previous successful submission, use the previous data.
+            const storedPayment = storage.getItem('paymentMethod');
+            if (storedPayment) {
+                this.props.onSuccess(storedPayment.data);
+                return;
+            }
+
+            // An error occurred and we have no stored data.
             // BrainTree will update the UI with error messaging,
             // but signal that there was an error.
             console.error(`Invalid Payment Details. \n${e}`);
