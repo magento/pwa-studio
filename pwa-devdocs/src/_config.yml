@@ -40,6 +40,11 @@ defaults:
     values:
       toc-group: "venia-pwa-concept"
 
+  -
+    scope:
+      path: "upward"
+    values:
+      toc-group: "upward"
 
 algolia:
   application_id: 'E642SEDTHL'

@@ -149,7 +149,7 @@ The `src/util` directory contain useful JavaScript utility functions used throug
 [action]: #srcaction
 [CSS modules]: {{site.baseurl}}{%link technologies/basic-concepts/css-modules/index.md %}
 [Redux middleware pattern]: https://redux.js.org/advanced/middleware
-[UPWARD server specification]: {{site.baseurl}}{%link technologies/upward/index.md %}
+[UPWARD server specification]: {{site.baseurl}}{%link upward/index.md %}
 [mustache]: https://mustache.github.io/
 [`.env.dist`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/.env.dist
 [`deployVeniaSampleData.sh`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/deployVeniaSampleData.sh

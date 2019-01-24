@@ -19,8 +19,8 @@ It links values together in a global namespace referred to as the **context**.
 
 **Context**
 : The **context** is a dictionary of values, like a JSON object.
-A typical response cycle appends intermediate values to the context, such as a query result or a template string.
-See [Context][]
+  A typical response cycle appends intermediate values to the context, such as a query result or a template string.
+  See [Context][] for more information.
 
 Each request handling cycle creates a new context object.
 The incoming request is assigned to the context value `request`, and the current environment variables are assigned to the `env` context value. 
@@ -28,9 +28,9 @@ Root properties of the definition file represent other named values in the conte
 
 **Resolvers**
 : A **resolver** is an object that describes how a value is obtained. 
-A resolver represents an operation which executes and delivers its results upward in the tree.
+  A resolver represents an operation which executes and delivers its results upward in the tree.
 These operations execute until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
-<!-- TODO: add link to future resolver reference topic -->
+  See [Resolvers][] for more information.
 
 ## Returning the response
 
@@ -53,4 +53,5 @@ If a cyclic dependency is detected this way, the server should raise an error on
 
 If a cyclic dependency occurs at runtime, the server should return a 500 error.
 
-[Context]: {{site.baseurl}}{% link technologies/upward/context/index.md %}
+[Context]: {{site.baseurl}}{% link upward/context/index.md %}
+[Resolvers]: {{site.baseurl}}{% link upward/resolvers/index.md %}

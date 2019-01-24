@@ -1,0 +1,16 @@
+title: UPWARD
+entries:
+    - label: Overview
+      url: /upward/
+
+    - label: Basic concepts
+      url: /upward/basic-concepts/
+
+    - label: Context
+      url: /upward/context/
+
+    - label: Resolvers
+      url: /upward/resolvers/
+
+    - label: Reference implementation
+      url: /upward/reference-implementation/
