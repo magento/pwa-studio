@@ -6,11 +6,32 @@ entries:
     - label: Basic concepts
       url: /upward/basic-concepts/
 
+    - label: Reference implementation
+      url: /upward/reference-implementation/
+
     - label: Context
       url: /upward/context/
 
     - label: Resolvers
       url: /upward/resolvers/
+      entries:
+          - label: InlineResolver
+            url: /upward/resolvers/inline/
 
-    - label: Reference implementation
-      url: /upward/reference-implementation/
+          - label: FileResolver
+            url: /upward/resolvers/file/
+
+          - label: ServiceResolver
+            url: /upward/resolvers/service
+
+          - label: TemplateResolver
+            url: /upward/resolvers/template/
+
+          - label: ConditionalResolver
+            url: /upward/resolvers/conditional/
+
+          - label: ProxyResolver
+            url: /upward/resolvers/proxy/
+
+          - label: DirectoryResolver
+            url: /upward/resolvers/directory/
