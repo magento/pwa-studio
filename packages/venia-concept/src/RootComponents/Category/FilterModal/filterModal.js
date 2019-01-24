@@ -53,29 +53,17 @@ class FilterModal extends Component {
         );
     };
 
-    handleFilterSearch = event => {
-        const { value } = event.currentTarget || event.srcElement;
-        this.setState({ filterSearchTerm: value });
-    };
-
     render() {
         const {
             classes,
             isModalOpen,
             closeModalHandler,
             filterAdd,
-            filterRemove
+            filterRemove,
+            filters
         } = this.props;
-        let { filters } = this.props;
-        const { filterSearchTerm } = this.state;
-        const areOptionsPristine = false;
 
-        filters = filters.filter(
-            filter =>
-                `${filter.name}`
-                    .toUpperCase()
-                    .indexOf(filterSearchTerm.toUpperCase()) >= 0
-        );
+        const areOptionsPristine = false;
 
         const modalClass = isModalOpen ? classes.rootOpen : classes.root;
 
@@ -87,9 +75,8 @@ class FilterModal extends Component {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.searchFilterContainer}>
-                    <input onChange={this.handleFilterSearch} type="text" />
-                </div>
+
+                <FiltersCurrent keyPrefix="modal" />
 
                 <List
                     items={filters}

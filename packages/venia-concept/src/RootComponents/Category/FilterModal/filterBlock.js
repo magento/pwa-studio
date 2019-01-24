@@ -58,8 +58,6 @@ class FilterBlock extends Component {
 
         const { isExpanded } = this.state;
 
-        console.log('HAT I CHOOSE', this.props.chosenFilterOptions);
-
         return (
             <div className={classes.root}>
                 <div className={classes.optionHeader}>

@@ -10,9 +10,7 @@ const mapStateToProps = ({ catalog }) => {
 };
 
 const mapDispatchToProps = {
-    filterAdd: catalogActions.filterOptionAdd,
-    filterRemove: catalogActions.filterOptionRemove,
-    filterClear: catalogActions.filterOptionClear
+    filterRemove: catalogActions.filterOption.remove
 };
 
 export default connect(

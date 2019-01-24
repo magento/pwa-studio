@@ -15,24 +15,13 @@ class FilterList extends Component {
         updateChosenItems: PropTypes.func
     };
 
-    addOption = item => {
-        const { filterAdd } = this.props;
-        filterAdd(item);
-        console.log('FILTER ADD', item);
-    };
-
-    removeOption = item => {
-        const { filterRemove } = this.props;
-        filterRemove(item);
-    };
-
     toggleOption = event => {
+        const { filterRemove, filterAdd } = this.props;
         const { value, title, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
-        this.isOptionActive({ title, value, group })
-            ? this.removeOption({ title, value, group })
-            : this.addOption({ title, value, group });
+        const item = { title, value, group };
+        this.isOptionActive(item) ? filterRemove(item) : filterAdd(item);
     };
 
     isOptionActive = option =>

@@ -15,54 +15,46 @@ const getRandomColor = () =>
 
 const memoizedGetRandomColor = memoize(getRandomColor);
 
-class FilterSwatch extends Component {
-    componentWillUnmount = () => console.log('UIN');
-
-    render() {
-        const {
-            options,
-            isActive,
-            toggleOption,
-            value_string,
-            label,
-            classes,
-            group
-        } = this.props;
-
-        return (
-            <button
-                className={classes.root}
-                value={value_string}
-                data-group={group}
-                title={label}
-                onClick={toggleOption}
-            >
-                {isActive && (
-                    <Fragment>
-                        <span
-                            className={classes.swatchLabel}
-                            dangerouslySetInnerHTML={{
-                                __html: label
-                            }}
-                        />
-                        <span className={classes.iconWrapper}>
-                            <Icon src={Checkmark} size={32} />
-                        </span>
-                    </Fragment>
-                )}
-                {options.generateColor && (
-                    <span
-                        className={classes.swatch}
-                        style={{
-                            backgroundColor: `rgb(${memoizedGetRandomColor(
-                                value_string
-                            )})`
-                        }}
-                    />
-                )}
-            </button>
-        );
-    }
-}
+const FilterSwatch = ({
+    options,
+    isActive,
+    toggleOption,
+    value_string,
+    label,
+    classes,
+    group
+}) => (
+    <button
+        className={classes.root}
+        value={value_string}
+        data-group={group}
+        title={label}
+        onClick={toggleOption}
+    >
+        {isActive && (
+            <Fragment>
+                <span
+                    className={classes.swatchLabel}
+                    dangerouslySetInnerHTML={{
+                        __html: label
+                    }}
+                />
+                <span className={classes.iconWrapper}>
+                    <Icon src={Checkmark} size={32} />
+                </span>
+            </Fragment>
+        )}
+        {options.generateColor && (
+            <span
+                className={classes.swatch}
+                style={{
+                    backgroundColor: `rgb(${memoizedGetRandomColor(
+                        value_string
+                    )})`
+                }}
+            />
+        )}
+    </button>
+);
 
 export default classify(defaultClasses)(FilterSwatch);
