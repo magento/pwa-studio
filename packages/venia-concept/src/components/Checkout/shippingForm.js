@@ -59,8 +59,15 @@ class ShippingForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button className={classes.button} onClick={this.cancel}>Cancel</Button>
-                    <Button className={classes.button} priority="high" type="submit" disabled={submitting}>
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
+                    </Button>
+                    <Button
+                        className={classes.button}
+                        priority="high"
+                        type="submit"
+                        disabled={submitting}
+                    >
                         Use Method
                     </Button>
                 </div>

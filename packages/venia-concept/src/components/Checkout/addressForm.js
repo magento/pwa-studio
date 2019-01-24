@@ -161,10 +161,17 @@ class AddressForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button className={classes.button} onClick={this.cancel}>Cancel</Button>
-                    <Button className={classes.button} type="submit" priority="high" disabled={submitting}>
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
+                    </Button>
+                    <Button
+                        className={classes.button}
+                        type="submit"
+                        priority="high"
+                        disabled={submitting}
+                    >
                         Use Address
-                    </Button>                
+                    </Button>
                 </div>
             </Fragment>
         );

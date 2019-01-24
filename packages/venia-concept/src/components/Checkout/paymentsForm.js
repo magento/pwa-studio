@@ -30,7 +30,7 @@ class PaymentsForm extends Component {
             postcode: string,
             region_code: string,
             street0: string,
-            textInput: string,
+            textInput: string
         }),
         initialValues: shape({
             addresses_same: bool,
@@ -161,8 +161,15 @@ class PaymentsForm extends Component {
                         this.billingAddressFields}
                 </div>
                 <div className={classes.footer}>
-                    <Button className={classes.button} onClick={this.cancel}>Cancel</Button>
-                    <Button className={classes.button} priority="high" type="submit" disabled={submitting}>
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
+                    </Button>
+                    <Button
+                        className={classes.button}
+                        priority="high"
+                        type="submit"
+                        disabled={submitting}
+                    >
                         Use Card
                     </Button>
                 </div>
