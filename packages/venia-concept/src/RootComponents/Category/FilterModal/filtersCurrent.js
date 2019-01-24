@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'src/components/Icon';
+import Remove from 'react-feather/dist/icons/x';
 import classify from 'src/classify';
 import defaultClasses from './filtersCurrent.css';
 
@@ -30,10 +32,18 @@ class FiltersCurrent extends Component {
                                 data-group={key}
                                 title={title}
                                 value={value}
-                                dangerouslySetInnerHTML={{
-                                    __html: title
-                                }}
-                            />
+                            >
+                                <Icon
+                                    className={classes.icon}
+                                    src={Remove}
+                                    size={16}
+                                />
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: title
+                                    }}
+                                />
+                            </button>
                         </li>
                     ))
                 )}

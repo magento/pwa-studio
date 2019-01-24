@@ -6,7 +6,6 @@
     bottom: 0;
     z-index: 2;
     overflow: auto;
-    padding: 2.375rem 1.75rem 0 1.75rem;
     background-color: white;
     display: none;
 }
@@ -19,7 +18,7 @@
 .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1.875rem;
+    padding: 0.5rem 1.5rem;
 }
 
 .headerTitle {
@@ -31,20 +30,20 @@
 }
 
 .filterOptionsContainer {
-    max-height: 80%;
-    overflow: auto;
+    padding: 0.5rem 1.5rem 7.5rem;
 }
 
 /* TODO: find out how to place buttons on desktop layout */
 .footer {
     position: fixed;
+    background-color: white;
     display: flex;
     justify-content: space-around;
     left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
-    padding: 1.5rem 0;
-    box-shadow: 0 1px 2px 0 rgba(69, 66, 75, 0.23);
+    padding: 1.5rem;
+    border-top: 2px solid rgb(var(--venia-border));
 }
 
 .footerButton {
@@ -85,12 +84,12 @@
 }
 
 .filterOptionItem:first-child {
-    border-top: 1px solid #d1d1d1;
-    border-bottom: 1px solid #d1d1d1;
+    border-top: 2px solid rgb(var(--venia-border));
+    border-bottom: 2px solid rgb(var(--venia-border));
 }
 
 .filterOptionItem {
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 2px solid rgb(var(--venia-border));
 }
 
 .searchFilterContainer {

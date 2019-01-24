@@ -6,11 +6,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 2.875rem;
+}
+
+.optionNameExpanded {
+    font-weight: 600;
 }
 
 .optionToggleButton {
     outline: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .filterList {
@@ -23,6 +31,6 @@
 }
 
 .closeWrapper {
-    display: flex;
-    justify-content: space-between;
+    display: inline-flex;
+    align-items: center;
 }

@@ -4,6 +4,7 @@
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
+    outline: 0;
 }
 
 .swatch {
@@ -31,8 +32,8 @@
     border-radius: 2px;
     border: 2px solid rgb(var(--venia-border));
     margin-bottom: 0.75rem;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    animation: swatchPopup 3s ease-in-out normal forwards;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    animation: swatchPopup 2.5s ease-in-out normal forwards;
 }
 
 .swatchLabel:before,

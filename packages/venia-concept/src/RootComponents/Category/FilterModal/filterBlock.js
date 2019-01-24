@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import get from 'lodash/get';
 import FilterList from './FilterList';
 import Icon from 'src/components/Icon';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
@@ -61,15 +58,23 @@ class FilterBlock extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.optionHeader}>
-                    <div className={classes.optionName}>{name}</div>
-                    <div className={classes.closeWrapper}>
-                        <button
-                            onClick={this.optionToggle}
-                            className={classes.optionToggleButton}
+                    <button
+                        onClick={this.optionToggle}
+                        className={classes.optionToggleButton}
+                    >
+                        <span
+                            className={
+                                isExpanded
+                                    ? classes.optionNameExpanded
+                                    : classes.optionName
+                            }
                         >
+                            {name}
+                        </span>
+                        <span className={classes.closeWrapper}>
                             <Icon src={isExpanded ? ArrowUp : ArrowDown} />
-                        </button>
-                    </div>
+                        </span>
+                    </button>
                 </div>
                 <div
                     className={
@@ -92,4 +97,4 @@ class FilterBlock extends Component {
     }
 }
 
-export default compose(classify(defaultClasses))(FilterBlock);
+export default classify(defaultClasses)(FilterBlock);
