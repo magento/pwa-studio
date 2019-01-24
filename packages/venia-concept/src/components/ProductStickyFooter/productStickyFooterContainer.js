@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import ProductStickyFooter from './productStickyFooter';
 
 const mapStateToProps = ({ cart }) => {
-    const { recentAddItemHadError, addToCartActiveRequest } = cart;
+    const { addToCartError, isAddingToCart } = cart;
 
     return {
-        addToCartError: recentAddItemHadError,
-        addToCartActiveRequest
+        addToCartError,
+        isAddingToCart
     };
 };
 

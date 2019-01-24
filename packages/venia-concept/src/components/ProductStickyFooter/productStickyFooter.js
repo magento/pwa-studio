@@ -16,9 +16,9 @@ class ProductStickyFooter extends Component {
             addToCartSuccess: PropTypes.string,
             loadingContainer: PropTypes.string
         }),
-        addToCartHandler: PropTypes.func,
+        onAddToCart: PropTypes.func,
         addToCartError: PropTypes.bool,
-        addToCartActiveRequest: PropTypes.bool
+        isAddingToCart: PropTypes.bool
     };
 
     state = {
@@ -54,7 +54,7 @@ class ProductStickyFooter extends Component {
     get getCartButtonData() {
         const { classes } = this.props;
 
-        if (this.props.addToCartActiveRequest) {
+        if (this.props.isAddingToCart) {
             return this.getInProgressButtonData;
         } else if (this.state.addToCartButtonSuccessState) {
             this.setTimerToResetState();
@@ -71,7 +71,7 @@ class ProductStickyFooter extends Component {
     };
 
     handleAddToCart = async () => {
-        await this.props.addToCartHandler();
+        await this.props.onAddToCart();
         !this.props.addToCartError &&
             this.setState({ addToCartButtonSuccessState: true });
     };

@@ -10,8 +10,8 @@ export const initialState = {
     guestCartId: null,
     shippingMethods: [],
     totals: {},
-    addToCartActiveRequest: false,
-    recentAddItemHadError: false
+    isAddingToCart: false,
+    addToCartError: false
 };
 
 const reducerMap = {
@@ -56,26 +56,26 @@ const reducerMap = {
     [actions.addItem.request]: state => {
         return {
             ...state,
-            addToCartActiveRequest: true
+            isAddingToCart: true
         };
     },
     [actions.addItem.receive]: (state, { error }) => {
         if (error) {
             return {
                 ...state,
-                recentAddItemHadError: true
+                addToCartError: true
             };
         }
 
         return {
             ...state,
-            recentAddItemHadError: false
+            addToCartError: false
         };
     },
     [actions.addItem.complete]: state => {
         return {
             ...state,
-            addToCartActiveRequest: false
+            isAddingToCart: false
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {

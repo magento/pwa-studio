@@ -205,7 +205,7 @@ class ProductFullDetail extends Component {
                     <strong>{product.sku}</strong>
                 </section>
                 <section className={classes.stickyFooter}>
-                    <ProductStickyFooter addToCartHandler={this.addToCart} />
+                    <ProductStickyFooter onAddToCart={this.addToCart} />
                 </section>
             </Form>
         );
