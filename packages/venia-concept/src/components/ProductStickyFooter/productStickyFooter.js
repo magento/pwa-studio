@@ -29,7 +29,7 @@ class ProductStickyFooter extends Component {
         clearTimeout(this.resetButtonTimer);
     }
 
-    get getSuccessButtonData() {
+    get successButtonData() {
         const { classes } = this.props;
         return {
             className: classes.addToCartSuccess,
@@ -37,7 +37,7 @@ class ProductStickyFooter extends Component {
         };
     }
 
-    get getInProgressButtonData() {
+    get inProgressButtonData() {
         const { classes } = this.props;
         return {
             className: classes.addToCartInProgress,
@@ -51,14 +51,14 @@ class ProductStickyFooter extends Component {
         };
     }
 
-    get getCartButtonData() {
+    get cartButtonData() {
         const { classes } = this.props;
 
         if (this.props.isAddingToCart) {
-            return this.getInProgressButtonData;
+            return this.inProgressButtonData;
         } else if (this.state.addToCartButtonSuccessState) {
             this.setTimerToResetState();
-            return this.getSuccessButtonData;
+            return this.successButtonData;
         } else {
             return { childNode: 'Add to Cart', className: classes.addToCart };
         }
@@ -78,7 +78,7 @@ class ProductStickyFooter extends Component {
 
     render() {
         const { classes } = this.props;
-        const { childNode, className } = this.getCartButtonData;
+        const { childNode, className } = this.cartButtonData;
 
         return (
             <div className={classes.root}>
