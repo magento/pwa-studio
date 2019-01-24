@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Icon from 'src/components/Icon';
-import Checkmark from 'react-feather/dist/icons/check';
 import classify from 'src/classify';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
@@ -15,58 +15,30 @@ class FilterList extends Component {
         updateChosenItems: PropTypes.func
     };
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        const updatedChosenOptions = nextProps.chosenOptions;
-        return prevState.chosenOptions !== updatedChosenOptions
-            ? { chosenOptions: updatedChosenOptions }
-            : null;
-    }
-
-    state = {
-        chosenOptions: []
-    };
-
     addOption = item => {
-        const { updateChosenItems } = this.props;
-        updateChosenItems(this.state.chosenOptions.concat([item]));
+        const { filterAdd } = this.props;
+        filterAdd(item);
+        console.log('FILTER ADD', item);
     };
 
-    removeOption = option => {
-        const { updateChosenItems } = this.props;
-        const { chosenOptions } = this.state;
-        const filteredOptions = chosenOptions.filter(
-            currentOption =>
-                currentOption.title !== option.title &&
-                currentOption.value !== option.value
-        );
-        updateChosenItems(filteredOptions);
+    removeOption = item => {
+        const { filterRemove } = this.props;
+        filterRemove(item);
     };
 
     toggleOption = event => {
-        const { value, title } = event.currentTarget || event.srcElement;
-        this.isOptionActive({ title, value })
-            ? this.removeOption({ title, value })
-            : this.addOption({ title, value });
+        const { value, title, dataset } =
+            event.currentTarget || event.srcElement;
+        const { group } = dataset;
+        this.isOptionActive({ title, value, group })
+            ? this.removeOption({ title, value, group })
+            : this.addOption({ title, value, group });
     };
 
     isOptionActive = option =>
-        this.state.chosenOptions.findIndex(
+        this.props.chosenOptions.findIndex(
             item => item.value === option.value && item.name === option.name
         ) > -1;
-
-    getFilterIcon = value => {
-        const { classes } = this.props;
-        return (
-            this.isOptionActive(value) && (
-                <Icon
-                    className={classes.icon}
-                    attrs={{ color: 'white' }}
-                    src={Checkmark}
-                    size={28}
-                />
-            )
-        );
-    };
 
     getLayout = options => {
         const { layout } = options || '';
@@ -84,8 +56,12 @@ class FilterList extends Component {
         filterRenderOptions[`${value}`] ||
         filterRenderOptions[filterModes.default];
 
+    shouldComponentUpdate = ({ chosenOptions }) => {
+        return false;
+    };
+
     render() {
-        const { toggleOption, getFilterIcon } = this;
+        const { toggleOption } = this;
         const { classes, items, id } = this.props;
 
         const { mode, options } = this.getRenderOptions(id);
@@ -94,10 +70,12 @@ class FilterList extends Component {
 
         const isSwatch = filterModes[mode] === filterModes.swatch;
 
+        console.log('ID', id);
+
         return (
             <List
                 items={items}
-                getItemKey={({ value_string }) => `${id}-${value_string}`}
+                getItemKey={({ value_string }) => `item-${id}-${value_string}`}
                 render={props => (
                     <ul className={filterLayoutClass}>{props.children}</ul>
                 )}
@@ -108,29 +86,13 @@ class FilterList extends Component {
                                 {...item}
                                 group={id}
                                 options={options}
-                                isActive={this.isOptionActive({
-                                    title: item.label,
-                                    value: item.value_string
-                                })}
                                 toggleOption={toggleOption}
-                                icon={getFilterIcon({
-                                    title: item.label,
-                                    value: item.value_string
-                                })}
                             />
                         ) : (
                             <FilterDefault
                                 {...item}
                                 group={id}
-                                isActive={this.isOptionActive({
-                                    title: item.label,
-                                    value: item.value_string
-                                })}
                                 toggleOption={toggleOption}
-                                icon={getFilterIcon({
-                                    title: item.label,
-                                    value: item.value_string
-                                })}
                             />
                         )}
                     </li>
@@ -140,4 +102,15 @@ class FilterList extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterList);
+const mapStateToProps = ({ catalog }, { id }) => {
+    const { chosenFilterOptions } = catalog;
+
+    return {
+        chosenOptions: chosenFilterOptions[id] || []
+    };
+};
+
+export default compose(
+    classify(defaultClasses),
+    connect(mapStateToProps)
+)(FilterList);

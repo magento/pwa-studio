@@ -45,25 +45,43 @@ const reducerMap = {
             prevPageTotal: payload
         };
     },
-    [actions.updateChosenFilterOptions]: (
+    [actions.filterOption.add]: (
         state,
-        { payload: { optionName, optionItems, optionLabel } }
+        { payload: { group, title, value } }
     ) => {
-        return optionName
-            ? {
-                  ...state,
-                  chosenFilterOptions: {
-                      ...state.chosenFilterOptions,
-                      [optionName]: {
-                          chosenItems: optionItems,
-                          optionLabel: optionLabel
-                      }
-                  }
-              }
-            : {
-                  ...state,
-                  chosenFilterOptions: {}
-              };
+        const oldState = state.chosenFilterOptions[group] || [];
+        const newState = oldState.concat({ title, value });
+
+        return {
+            ...state,
+            chosenFilterOptions: {
+                ...state.chosenFilterOptions,
+                [group]: newState
+            }
+        };
+    },
+    [actions.filterOption.remove]: (
+        state,
+        { payload: { group, title, value } }
+    ) => {
+        const oldState = state.chosenFilterOptions[group] || [];
+        const newState = oldState.filter(item => {
+            return item.title !== title || item.value !== value;
+        });
+
+        return {
+            ...state,
+            chosenFilterOptions: {
+                ...state.chosenFilterOptions,
+                [group]: newState
+            }
+        };
+    },
+    [actions.filterOption.clear]: state => {
+        return {
+            ...state,
+            chosenFilterOptions: {}
+        };
     }
 };
 

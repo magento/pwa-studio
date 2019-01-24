@@ -14,9 +14,7 @@ class FilterModal extends Component {
             root: PropTypes.string,
             searchFilterContainer: PropTypes.string
         }),
-        closeModalHandler: PropTypes.func,
-        chosenFilterOptions: PropTypes.object,
-        updateChosenFilterOptions: PropTypes.func
+        closeModalHandler: PropTypes.func
     };
 
     state = {
@@ -24,8 +22,8 @@ class FilterModal extends Component {
     };
 
     resetFilterOptions = () => {
-        const { updateChosenFilterOptions } = this.props;
-        updateChosenFilterOptions({});
+        const { filterClear } = this.props;
+        filterClear();
     };
 
     getFooterButtons = areOptionsPristine => {
@@ -65,8 +63,8 @@ class FilterModal extends Component {
             classes,
             isModalOpen,
             closeModalHandler,
-            chosenFilterOptions,
-            updateChosenFilterOptions
+            filterAdd,
+            filterRemove
         } = this.props;
         let { filters } = this.props;
         const { filterSearchTerm } = this.state;
@@ -93,8 +91,6 @@ class FilterModal extends Component {
                     <input onChange={this.handleFilterSearch} type="text" />
                 </div>
 
-                <FiltersCurrent />
-
                 <List
                     items={filters}
                     getItemKey={({ request_var }) => request_var}
@@ -107,12 +103,8 @@ class FilterModal extends Component {
                         <li className={classes.filterOptionItem}>
                             <FilterBlock
                                 item={props.item}
-                                chosenFilterOptions={
-                                    chosenFilterOptions[props.item.request_var]
-                                }
-                                updateChosenFilterOptions={
-                                    updateChosenFilterOptions
-                                }
+                                filterAdd={filterAdd}
+                                filterRemove={filterRemove}
                             />
                         </li>
                     )}

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import get from 'lodash/get';
@@ -45,23 +47,18 @@ class FilterBlock extends Component {
         });
     };
 
-    getChosenFilterOptionsForItem = () => {
-        const { chosenFilterOptions } = this.props;
-        return get(chosenFilterOptions, `chosenItems`, []);
-    };
-
     render() {
         const {
             classes,
             item: { name, filter_items, request_var },
-            chosenFilterOptions
+            chosenFilterOptions,
+            filterRemove,
+            filterAdd
         } = this.props;
 
         const { isExpanded } = this.state;
 
-        const chosenOptions = this.getChosenFilterOptionsForItem(
-            chosenFilterOptions
-        );
+        console.log('HAT I CHOOSE', this.props.chosenFilterOptions);
 
         return (
             <div className={classes.root}>
@@ -84,9 +81,11 @@ class FilterBlock extends Component {
                     }
                 >
                     <FilterList
+                        filterAdd={filterAdd}
+                        filterRemove={filterRemove}
                         id={request_var}
                         items={filter_items}
-                        chosenOptions={chosenOptions}
+                        chosenOptions={chosenFilterOptions || []}
                         updateChosenItems={this.updateChosenItems}
                     />
                 </div>
@@ -95,4 +94,4 @@ class FilterBlock extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterBlock);
+export default compose(classify(defaultClasses))(FilterBlock);
