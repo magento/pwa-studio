@@ -63,18 +63,14 @@ const reducerMap = {
         if (error) {
             return {
                 ...state,
-                addToCartError: true
+                addToCartError: true,
+                isAddingToCart: false
             };
         }
 
         return {
             ...state,
-            addToCartError: false
-        };
-    },
-    [actions.addItem.complete]: state => {
-        return {
-            ...state,
+            addToCartError: false,
             isAddingToCart: false
         };
     },

@@ -129,7 +129,6 @@ export const addItemToCart = (payload = {}) => {
                 return thunk(...arguments);
             }
         }
-        dispatch(actions.addItem.complete());
     };
 };
 
