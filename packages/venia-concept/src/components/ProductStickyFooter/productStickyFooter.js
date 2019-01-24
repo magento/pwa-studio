@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import defaultClasses from './productStickyFooter.css';
 import Icon from 'src/components/Icon';
+import CheckIcon from 'react-feather/dist/icons/check';
 
 const SUCCESS_STATE_LIFETIME = 3000;
 
@@ -33,7 +34,7 @@ class ProductStickyFooter extends Component {
         const { classes } = this.props;
         return {
             className: classes.addToCartSuccess,
-            childNode: <Icon name="check" />
+            childNode: <Icon src={CheckIcon} />
         };
     }
 
