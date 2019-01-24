@@ -26,6 +26,10 @@
     text-transform: uppercase;
 }
 
+.button {
+    text-transform: capitalize;
+}
+
 .textInput {
     background: white;
     border: 1px solid rgb(var(--venia-text-alt));
