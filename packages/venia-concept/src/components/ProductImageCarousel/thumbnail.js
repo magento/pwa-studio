@@ -18,7 +18,8 @@ class Thumbnail extends Component {
             disabled: PropTypes.bool,
             file: PropTypes.string.isRequired
         }),
-        onClickHandler: PropTypes.func
+        itemIndex: PropTypes.number,
+        onClickHandler: PropTypes.func.isRequired
     };
 
     onClickHandlerWrapper = () => {
