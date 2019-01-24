@@ -26,6 +26,8 @@ class FilterModal extends Component {
         filterClear();
     };
 
+    handleApplyFilters = () => {};
+
     getFooterButtons = areOptionsPristine => {
         const { classes } = this.props;
         return (
@@ -38,16 +40,17 @@ class FilterModal extends Component {
                             : classes.resetButton
                     }
                 >
-                    Reset all filters
+                    Reset Filters
                 </button>
                 <button
+                    onClick={this.handleApplyFilters}
                     className={
                         areOptionsPristine
                             ? classes.applyButtonDisabled
                             : classes.applyButton
                     }
                 >
-                    Apply all filters
+                    Apply Filters
                 </button>
             </Fragment>
         );

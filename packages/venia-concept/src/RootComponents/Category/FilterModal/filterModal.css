@@ -38,7 +38,7 @@
     position: fixed;
     background-color: white;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     left: 0;
     right: 0;
     bottom: 0;
@@ -47,7 +47,9 @@
 }
 
 .footerButton {
-    height: 2.125rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     width: 9rem;
     border: 1px solid black;
     border-radius: 100px;
