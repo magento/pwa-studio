@@ -1,1 +1,1 @@
-export { default } from './productStickyFooterContainer';
+export { default } from './container';

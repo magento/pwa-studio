@@ -5,6 +5,8 @@ const mapStateToProps = ({ cart }) => {
     const { addToCartError, isAddingToCart } = cart;
 
     return {
+        // TODO: Currently this is a boolean, but we probably want to have
+        // this contain the error message or identifier for display.
         addToCartError,
         isAddingToCart
     };
