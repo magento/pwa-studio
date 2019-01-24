@@ -107,6 +107,10 @@ export const addItemToCart = (payload = {}) => {
             );
 
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
+            await Promise.all([
+                dispatch(toggleDrawer('cart')),
+                dispatch(getCartDetails({ forceRefresh: true }))
+            ]);
         } catch (error) {
             const { response, noGuestCartId } = error;
 
@@ -125,12 +129,6 @@ export const addItemToCart = (payload = {}) => {
                 return thunk(...arguments);
             }
         }
-
-        await Promise.all([
-            dispatch(toggleDrawer('cart')),
-            dispatch(getCartDetails({ forceRefresh: true }))
-        ]);
-
         dispatch(actions.addItem.complete());
     };
 };
