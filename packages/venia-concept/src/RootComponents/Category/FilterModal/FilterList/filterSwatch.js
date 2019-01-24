@@ -16,26 +16,18 @@ const getRandomColor = () =>
 const memoizedGetRandomColor = memoize(getRandomColor);
 
 class FilterSwatch extends Component {
-    state = {
-        isActive: false
-    };
-
-    updateFilterState = state => this.setState({ isActive: state });
-
     componentWillUnmount = () => console.log('UIN');
 
-    handleFilterToggle = event => {
-        const { isActive } = this.state;
-        this.props.toggleOption(event);
-        this.updateFilterState(!isActive);
-    };
-
     render() {
-        const { options, value_string, label, classes, group } = this.props;
-
-        const { isActive } = this.state;
-
-        const { handleFilterToggle } = this;
+        const {
+            options,
+            isActive,
+            toggleOption,
+            value_string,
+            label,
+            classes,
+            group
+        } = this.props;
 
         return (
             <button
@@ -43,7 +35,7 @@ class FilterSwatch extends Component {
                 value={value_string}
                 data-group={group}
                 title={label}
-                onClick={handleFilterToggle}
+                onClick={toggleOption}
             >
                 {isActive && (
                     <Fragment>

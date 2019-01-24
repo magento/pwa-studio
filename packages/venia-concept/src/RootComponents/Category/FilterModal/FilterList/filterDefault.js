@@ -6,26 +6,15 @@ import classify from 'src/classify';
 import defaultClasses from './filterDefault.css';
 
 class FilterDefault extends Component {
-    state = {
-        isActive: false
-    };
-
-    updateFilterState = state => this.setState({ isActive: state });
-
-    componentWillUnmount = () => console.log('UIN');
-
-    handleFilterToggle = event => {
-        const { isActive } = this.state;
-        this.props.toggleOption(event);
-        this.updateFilterState(!isActive);
-    };
-
     render() {
-        const { value_string, label, classes, group } = this.props;
-
-        const { isActive } = this.state;
-
-        const { handleFilterToggle } = this;
+        const {
+            value_string,
+            toggleOption,
+            label,
+            classes,
+            group,
+            isActive
+        } = this.props;
 
         return (
             <button
@@ -33,7 +22,7 @@ class FilterDefault extends Component {
                 value={value_string}
                 data-group={group}
                 title={label}
-                onClick={handleFilterToggle}
+                onClick={toggleOption}
             >
                 <span className={isActive ? classes.iconActive : classes.icon}>
                     {isActive && <Icon src={Checkmark} size={14} />}

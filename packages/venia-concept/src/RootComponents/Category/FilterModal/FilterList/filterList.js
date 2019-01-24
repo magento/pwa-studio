@@ -56,8 +56,11 @@ class FilterList extends Component {
         filterRenderOptions[`${value}`] ||
         filterRenderOptions[filterModes.default];
 
-    shouldComponentUpdate = ({ chosenOptions }) => {
-        return false;
+    isFilterSelected = item => {
+        return !!this.props.chosenOptions.find(
+            ({ title, value }) =>
+                item.label === title && item.value_string === value
+        );
     };
 
     render() {
@@ -70,8 +73,6 @@ class FilterList extends Component {
 
         const isSwatch = filterModes[mode] === filterModes.swatch;
 
-        console.log('ID', id);
-
         return (
             <List
                 items={items}
@@ -79,24 +80,30 @@ class FilterList extends Component {
                 render={props => (
                     <ul className={filterLayoutClass}>{props.children}</ul>
                 )}
-                renderItem={({ item }) => (
-                    <li className={classes.filterItem}>
-                        {isSwatch ? (
-                            <FilterSwatch
-                                {...item}
-                                group={id}
-                                options={options}
-                                toggleOption={toggleOption}
-                            />
-                        ) : (
-                            <FilterDefault
-                                {...item}
-                                group={id}
-                                toggleOption={toggleOption}
-                            />
-                        )}
-                    </li>
-                )}
+                renderItem={({ item }) => {
+                    const isActive = this.isFilterSelected(item);
+
+                    return (
+                        <li className={classes.filterItem}>
+                            {isSwatch ? (
+                                <FilterSwatch
+                                    {...item}
+                                    isActive={isActive}
+                                    group={id}
+                                    options={options}
+                                    toggleOption={toggleOption}
+                                />
+                            ) : (
+                                <FilterDefault
+                                    {...item}
+                                    isActive={isActive}
+                                    group={id}
+                                    toggleOption={toggleOption}
+                                />
+                            )}
+                        </li>
+                    );
+                }}
             />
         );
     }
