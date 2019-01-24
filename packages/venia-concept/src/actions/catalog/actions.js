@@ -15,7 +15,11 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
-    UPDATE_CHOSEN_FILTER_OPTIONS: null
+    FILTER_OPTION: {
+        ADD: null,
+        REMOVE: null,
+        CLEAR: null
+    }
 };
 
 export default createActions(actionMap, { prefix });

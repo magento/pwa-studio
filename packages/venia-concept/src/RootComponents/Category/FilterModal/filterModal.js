@@ -14,9 +14,7 @@ class FilterModal extends Component {
             root: PropTypes.string,
             searchFilterContainer: PropTypes.string
         }),
-        closeModalHandler: PropTypes.func,
-        chosenFilterOptions: PropTypes.object,
-        updateChosenFilterOptions: PropTypes.func
+        closeModalHandler: PropTypes.func
     };
 
     state = {
@@ -24,8 +22,8 @@ class FilterModal extends Component {
     };
 
     resetFilterOptions = () => {
-        const { updateChosenFilterOptions } = this.props;
-        updateChosenFilterOptions({});
+        const { filterClear } = this.props;
+        filterClear();
     };
 
     getFooterButtons = areOptionsPristine => {
@@ -55,29 +53,17 @@ class FilterModal extends Component {
         );
     };
 
-    handleFilterSearch = event => {
-        const { value } = event.currentTarget || event.srcElement;
-        this.setState({ filterSearchTerm: value });
-    };
-
     render() {
         const {
             classes,
             isModalOpen,
             closeModalHandler,
-            chosenFilterOptions,
-            updateChosenFilterOptions
+            filterAdd,
+            filterRemove,
+            filters
         } = this.props;
-        let { filters } = this.props;
-        const { filterSearchTerm } = this.state;
-        const areOptionsPristine = false;
 
-        filters = filters.filter(
-            filter =>
-                `${filter.name}`
-                    .toUpperCase()
-                    .indexOf(filterSearchTerm.toUpperCase()) >= 0
-        );
+        const areOptionsPristine = false;
 
         const modalClass = isModalOpen ? classes.rootOpen : classes.root;
 
@@ -89,11 +75,8 @@ class FilterModal extends Component {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.searchFilterContainer}>
-                    <input onChange={this.handleFilterSearch} type="text" />
-                </div>
 
-                <FiltersCurrent />
+                <FiltersCurrent keyPrefix="modal" />
 
                 <List
                     items={filters}
@@ -107,12 +90,8 @@ class FilterModal extends Component {
                         <li className={classes.filterOptionItem}>
                             <FilterBlock
                                 item={props.item}
-                                chosenFilterOptions={
-                                    chosenFilterOptions[props.item.request_var]
-                                }
-                                updateChosenFilterOptions={
-                                    updateChosenFilterOptions
-                                }
+                                filterAdd={filterAdd}
+                                filterRemove={filterRemove}
                             />
                         </li>
                     )}

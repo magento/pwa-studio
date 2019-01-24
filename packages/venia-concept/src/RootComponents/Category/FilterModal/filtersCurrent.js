@@ -5,49 +5,37 @@ import defaultClasses from './filtersCurrent.css';
 
 class FiltersCurrent extends Component {
     removeOption = event => {
-        const { title, value } = event.currentTarget || event.srcElement;
-        const { group } =
-            event.currentTarget.dataset || event.srcElement.dataset;
-        const { updateChosenFilterOptions, chosenFilterOptions } = this.props;
-        const filterGroup = chosenFilterOptions[group].chosenItems;
-
-        const filteredOptions = filterGroup.filter(
-            currentOption =>
-                currentOption.title !== title && currentOption.value !== value
-        );
-
-        updateChosenFilterOptions({
-            optionName: group,
-            optionItems: filteredOptions
-        });
+        const { title, value, dataset } =
+            event.currentTarget || event.srcElement;
+        const { group } = dataset;
+        const { filterRemove } = this.props;
+        filterRemove({ title, value, group });
     };
 
     render() {
-        const { chosenFilterOptions, classes } = this.props;
+        const { chosenFilterOptions, classes, keyPrefix } = this.props;
         const { removeOption } = this;
 
         return (
             <ul className={classes.root}>
                 {Object.keys(chosenFilterOptions).map(key =>
-                    chosenFilterOptions[key].chosenItems.map(
-                        ({ title, value }) => (
-                            <li
-                                className={classes.item}
-                                key={`current-${title}-${value}`}
-                            >
-                                <button
-                                    className={classes.button}
-                                    onClick={removeOption}
-                                    data-group={key}
-                                    title={title}
-                                    value={value}
-                                    dangerouslySetInnerHTML={{
-                                        __html: title
-                                    }}
-                                />
-                            </li>
-                        )
-                    )
+                    chosenFilterOptions[key].map(({ title, value }) => (
+                        <li
+                            className={classes.item}
+                            key={`${keyPrefix}-${title}-${value}`}
+                        >
+                            <button
+                                className={classes.button}
+                                onClick={removeOption}
+                                data-group={key}
+                                title={title}
+                                value={value}
+                                dangerouslySetInnerHTML={{
+                                    __html: title
+                                }}
+                            />
+                        </li>
+                    ))
                 )}
             </ul>
         );

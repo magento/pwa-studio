@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'src/components/Icon';
+import Checkmark from 'react-feather/dist/icons/check';
 import classify from 'src/classify';
 import defaultClasses from './filterSwatch.css';
 
@@ -14,28 +16,33 @@ const getRandomColor = () =>
 const memoizedGetRandomColor = memoize(getRandomColor);
 
 const FilterSwatch = ({
-    value_string,
-    toggleOption,
-    label,
-    icon,
     options,
     isActive,
-    classes
+    toggleOption,
+    value_string,
+    label,
+    classes,
+    group
 }) => (
     <button
         className={classes.root}
         value={value_string}
+        data-group={group}
         title={label}
         onClick={toggleOption}
     >
-        <span className={classes.iconWrapper}>{icon}</span>
         {isActive && (
-            <span
-                className={classes.swatchLabel}
-                dangerouslySetInnerHTML={{
-                    __html: label
-                }}
-            />
+            <Fragment>
+                <span
+                    className={classes.swatchLabel}
+                    dangerouslySetInnerHTML={{
+                        __html: label
+                    }}
+                />
+                <span className={classes.iconWrapper}>
+                    <Icon src={Checkmark} size={36} />
+                </span>
+            </Fragment>
         )}
         {options.generateColor && (
             <span

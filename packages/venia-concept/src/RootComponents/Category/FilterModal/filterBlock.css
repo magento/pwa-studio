@@ -22,21 +22,7 @@
     display: block;
 }
 
-.counter {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 15px;
-    height: 1.5rem;
-    min-width: 3.375rem;
-    background-color: white;
-    margin-right: 1rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
-}
-
-.counterAndCloseButtonContainer {
+.closeWrapper {
     display: flex;
     justify-content: space-between;
 }

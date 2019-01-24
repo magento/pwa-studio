@@ -10,11 +10,13 @@ const FilterDefault = ({
     toggleOption,
     label,
     classes,
+    group,
     isActive
 }) => (
     <button
         className={classes.root}
         value={value_string}
+        data-group={group}
         title={label}
         onClick={toggleOption}
     >
