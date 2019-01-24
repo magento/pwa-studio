@@ -62,7 +62,7 @@ class FilterBlock extends Component {
             <div className={classes.root}>
                 <div className={classes.optionHeader}>
                     <div className={classes.optionName}>{name}</div>
-                    <div className={classes.counterAndCloseButtonContainer}>
+                    <div className={classes.closeWrapper}>
                         <button
                             onClick={this.optionToggle}
                             className={classes.optionToggleButton}

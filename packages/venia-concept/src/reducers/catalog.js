@@ -10,7 +10,8 @@ const initialState = {
     currentPage: 1,
     pageSize: 6,
     prevPageTotal: null,
-    chosenFilterOptions: {}
+    chosenFilterOptions: {},
+    appliedFilterOptions: {}
 };
 
 const reducerMap = {

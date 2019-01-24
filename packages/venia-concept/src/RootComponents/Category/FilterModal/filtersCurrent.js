@@ -13,7 +13,7 @@ class FiltersCurrent extends Component {
     };
 
     render() {
-        const { chosenFilterOptions, classes, id } = this.props;
+        const { chosenFilterOptions, classes, keyPrefix } = this.props;
         const { removeOption } = this;
 
         return (

@@ -40,7 +40,7 @@ const FilterSwatch = ({
                     }}
                 />
                 <span className={classes.iconWrapper}>
-                    <Icon src={Checkmark} size={32} />
+                    <Icon src={Checkmark} size={36} />
                 </span>
             </Fragment>
         )}
