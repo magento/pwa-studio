@@ -13,7 +13,7 @@ If you followed the instructions for [Setting up Venia][], it automatically sets
 Use the following command to install upward-js in your project:
 
 ```sh
-npm install @magento/upward-js
+yarn add @magento/upward-js
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ Use the command line, server API, or middleware API to launch the upward-js serv
 You can make this project available to the command line by installing it globally:
 
 ```sh
-npm install -g @magento/upward-js
+yarn global add @magento/upward-js
 ```
 
 Launch the server in the foreground using the following command:

@@ -17,7 +17,6 @@ If you want to contribute to this project, please review the [contribution guide
 This project is under the OSL-3.0 license - see the [LICENSE] file for details.
 
 [Peregrine documentation]: https://magento-research.github.io/pwa-studio/peregrine/
-[NPM]: https://www.npmjs.com/
 [contribution guidelines]: .github/CONTRIBUTING.md
 [code of conduct]: .github/CODE_OF_CONDUCT.md
 [LICENSE]: LICENSE
