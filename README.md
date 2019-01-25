@@ -81,8 +81,8 @@ If you have an issue that cannot be resolved, please [create an issue][].
 [NPM]: https://www.npmjs.com/org/magento
 [Troubleshooting]: https://magento-research.github.io/pwa-studio/pwa-buildpack/troubleshooting/
 [Venia storefront setup]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/setup/
+[workspace commands]: https://yarnpkg.com/en/docs/cli/workspace
 [Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
-[yarn workspace]: https://yarnpkg.com/en/docs/cli/workspace
 
 [mage2pratik]: https://github.com/mage2pratik
 [mage2pratik-image]: https://avatars0.githubusercontent.com/u/33807558?s=120&v=4
