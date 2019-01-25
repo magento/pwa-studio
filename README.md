@@ -36,12 +36,11 @@ For more information about contributing to this repository, see the [Contributio
 
 ## About this repository
 
-To ease local development, testing, and versioning, the PWA Studio project uses a monorepo, with package management orchestrated by [lerna](https://github.com/lerna/lerna#about).
-All packages are versioned in a single repo, but released to `npm` as independent packages.
+To facilitate local development, testing, and versioning, PWA Studio is structured as a monorepo using [Yarn Workspaces][]. Packages in this repository are independently published to [NPM][]; rather than installing `pwa-studio` as a dependency of your project, you should install just the individual packages your project needs.
 
-## Lerna Packages
+## Workspaces
 
-This repository includes the following packages managed by lerna:
+This repository includes the following packages as workspaces:
 
 * [venia-concept](packages/venia-concept) - Reference/Concept Storefront
 * [pwa-buildpack](packages/pwa-buildpack/README.md) - Build tooling
@@ -49,15 +48,13 @@ This repository includes the following packages managed by lerna:
 * [upward-js](packages/upward-js) - Reference implementation of the UPWARD specification
 * [upward-spec](packages/upward-spec) - UPWARD specification and test suite
 
-## Other Packages
+## Other packages
 
-This repository also includes modules that are not managed by Lerna, because
-they are not meant to be distributed via NPM, and/or they should not have their
-dependencies centrally managed by Lerna.
+This repository also includes unpublished modules that are not managed by Yarn Workspaces. They are not configured as workspaces, so their dependencies are not hoisted and must be installed separately.
 
 * [pwa-devdocs](pwa-devdocs) - Project source for the [documentation site]
 
-## Quick Setup
+## Quick setup
 
 See the [Venia storefront setup][] topic for instructions on installing this project's dependencies and running the Venia storefront on top of an existing Magento backend. 
 
@@ -67,23 +64,25 @@ See our [Troubleshooting][] guide if you run into any problems.
 
 If you have an issue that cannot be resolved, please [create an issue][].
 
-## Things not to do
+## Tips
 
-* Our monorepo is set up so that `npm install` can cross-link dependencies (such as Venia's dependency on Buildpack) without any extra tools. Do not run `lerna bootstrap`.
-* All devDependencies are installed in the repository root. This means that **all scripts must be run from repository root**; otherwise, the locally installed CLI commands they use will not be available.
-* Production dependencies are sometimes installed in child packages, but for some projects, such as Venia, it makes no sense to have production dependencies, because of bundling.
-* Don't check in a big change to `package-lock.json`, and don't check in any `package-lock.json` files but the root one.
-* Make sure to run `npm run prettier` and `npm run lint` before any commit you intend to push. You may want to set up a [Git hook] for this.
+* Don't run `npm install`! Since this project has been configured with [Yarn Workspaces][], run `yarn install` to properly install, hoist, and cross-link dependencies.
+* Don't check in `package-lock.json`. There is only one lockfile, `yarn.lock`, and it's in the root directory.
+* To add a dependency, use [workspace commands][] (e.g., `yarn workspace @magento/venia-concept add my-module`). This will associate the dependency with the right package.
+* Before pushing a commit, `yarn run prettier` and `yarn run lint` to format and inspect the source code. (There is also a git hook that will do this automatically.)
 
-[documentation site]: https://magento-research.github.io/pwa-studio/
 [CircleCI]: https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg
-[Coverage Status]: https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master
-[Greenkeeper badge]: https://badges.greenkeeper.io/magento-research/pwa-studio.svg
 [Contribution guide]: .github/CONTRIBUTING.md
-[Git hook]: <https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
-[Venia storefront setup]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/setup/
-[Troubleshooting]: https://magento-research.github.io/pwa-studio/pwa-buildpack/troubleshooting/
+[Coverage Status]: https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master
 [create an issue]: https://github.com/magento-research/pwa-studio/issues/new
+[documentation site]: https://magento-research.github.io/pwa-studio/
+[Git hook]: <https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
+[Greenkeeper badge]: https://badges.greenkeeper.io/magento-research/pwa-studio.svg
+[NPM]: https://www.npmjs.com/org/magento
+[Troubleshooting]: https://magento-research.github.io/pwa-studio/pwa-buildpack/troubleshooting/
+[Venia storefront setup]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/setup/
+[Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
+[yarn workspace]: https://yarnpkg.com/en/docs/cli/workspace
 
 [mage2pratik]: https://github.com/mage2pratik
 [mage2pratik-image]: https://avatars0.githubusercontent.com/u/33807558?s=120&v=4
