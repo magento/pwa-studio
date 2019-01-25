@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import FilterFooter from './FilterFooter';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
-import FiltersCurrent from './filtersCurrentContainer';
+import { FiltersCurrent } from './FiltersCurrent';
 import classify from 'src/classify';
 import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
@@ -17,45 +18,6 @@ class FilterModal extends Component {
         closeModalHandler: PropTypes.func
     };
 
-    state = {
-        filterSearchTerm: ''
-    };
-
-    resetFilterOptions = () => {
-        const { filterClear } = this.props;
-        filterClear();
-    };
-
-    handleApplyFilters = () => {};
-
-    getFooterButtons = areOptionsPristine => {
-        const { classes } = this.props;
-        return (
-            <Fragment>
-                <button
-                    onClick={this.resetFilterOptions}
-                    className={
-                        areOptionsPristine
-                            ? classes.resetButtonDisabled
-                            : classes.resetButton
-                    }
-                >
-                    Reset Filters
-                </button>
-                <button
-                    onClick={this.handleApplyFilters}
-                    className={
-                        areOptionsPristine
-                            ? classes.applyButtonDisabled
-                            : classes.applyButton
-                    }
-                >
-                    Apply Filters
-                </button>
-            </Fragment>
-        );
-    };
-
     render() {
         const {
             classes,
@@ -65,8 +27,6 @@ class FilterModal extends Component {
             filterRemove,
             filters
         } = this.props;
-
-        const areOptionsPristine = false;
 
         const modalClass = isModalOpen ? classes.rootOpen : classes.root;
 
@@ -90,18 +50,14 @@ class FilterModal extends Component {
                         </ul>
                     )}
                     renderItem={props => (
-                        <li className={classes.filterOptionItem}>
-                            <FilterBlock
-                                item={props.item}
-                                filterAdd={filterAdd}
-                                filterRemove={filterRemove}
-                            />
-                        </li>
+                        <FilterBlock
+                            item={props.item}
+                            filterAdd={filterAdd}
+                            filterRemove={filterRemove}
+                        />
                     )}
                 />
-                <div className={classes.footer}>
-                    {this.getFooterButtons(areOptionsPristine)}
-                </div>
+                <FilterFooter />
             </div>
         );
     }

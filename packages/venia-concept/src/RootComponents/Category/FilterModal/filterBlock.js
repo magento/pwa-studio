@@ -44,10 +44,32 @@ class FilterBlock extends Component {
         });
     };
 
+    getControlBlock = isExpanded => {
+        const { classes, item } = this.props;
+        const iconSrc = isExpanded ? ArrowUp : ArrowDown;
+        const nameClass = isExpanded
+            ? classes.optionNameExpanded
+            : classes.optionName;
+
+        return (
+            <div className={classes.optionHeader}>
+                <button
+                    onClick={this.optionToggle}
+                    className={classes.optionToggleButton}
+                >
+                    <span className={nameClass}>{item.name}</span>
+                    <span className={classes.closeWrapper}>
+                        <Icon src={iconSrc} />
+                    </span>
+                </button>
+            </div>
+        );
+    };
+
     render() {
         const {
             classes,
-            item: { name, filter_items, request_var },
+            item: { filter_items, request_var },
             chosenFilterOptions,
             filterRemove,
             filterAdd
@@ -56,26 +78,9 @@ class FilterBlock extends Component {
         const { isExpanded } = this.state;
 
         return (
-            <div className={classes.root}>
-                <div className={classes.optionHeader}>
-                    <button
-                        onClick={this.optionToggle}
-                        className={classes.optionToggleButton}
-                    >
-                        <span
-                            className={
-                                isExpanded
-                                    ? classes.optionNameExpanded
-                                    : classes.optionName
-                            }
-                        >
-                            {name}
-                        </span>
-                        <span className={classes.closeWrapper}>
-                            <Icon src={isExpanded ? ArrowUp : ArrowDown} />
-                        </span>
-                    </button>
-                </div>
+            <li className={classes.root}>
+                {this.getControlBlock(isExpanded)}
+
                 <div
                     className={
                         isExpanded
@@ -92,7 +97,7 @@ class FilterBlock extends Component {
                         updateChosenItems={this.updateChosenItems}
                     />
                 </div>
-            </div>
+            </li>
         );
     }
 }

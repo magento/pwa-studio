@@ -4,8 +4,7 @@ import catalogActions from 'src/actions/catalog';
 
 const mapDispatchToProps = {
     filterAdd: catalogActions.filterOption.add,
-    filterRemove: catalogActions.filterOption.remove,
-    filterClear: catalogActions.filterOption.clear
+    filterRemove: catalogActions.filterOption.remove
 };
 
 export default connect(
