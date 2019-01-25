@@ -6,7 +6,6 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import SearchIcon from 'react-feather/dist/icons/search';
 import MenuIcon from 'react-feather/dist/icons/menu';
-import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
@@ -63,9 +62,7 @@ class Header extends Component {
                         >
                             {this.searchIcon}
                         </SearchTrigger>
-                        <CartTrigger>
-                            <Icon src={ShoppingCartIcon} />
-                        </CartTrigger>
+                        <CartTrigger />
                     </div>
                 </div>
                 <Suspense fallback={this.searchIcon}>
