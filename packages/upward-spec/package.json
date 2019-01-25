@@ -6,6 +6,11 @@
   "bin": {
     "upward-spec": "./bin/upward-spec"
   },
+  "scripts": {
+    "build": "echo 'Skipping upward-spec build...'",
+    "build:dev": "echo 'Skipping upward-spec build...'",
+    "clean": "echo 'Skipping upward-spec clean...'"
+  },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
     "magento",

@@ -6,7 +6,8 @@
     "packages/peregrine",
     "packages/pwa-buildpack",
     "packages/venia-concept",
-    "packages/upward-js"
+    "packages/upward-js",
+    "packages/upward-spec"
   ],
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
