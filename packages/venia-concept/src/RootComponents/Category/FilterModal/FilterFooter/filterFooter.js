@@ -27,7 +27,11 @@ class FilterFooter extends Component {
         areOptionsPristine: true
     };
 
-    resetFilterOptions = () => this.props.filterClear();
+    resetFilterOptions = () => {
+        const { history, filterClear } = this.props;
+        history.push('?' + '');
+        filterClear();
+    };
 
     handleApplyFilters = () => {
         const { history, chosenFilterOptions } = this.props;
