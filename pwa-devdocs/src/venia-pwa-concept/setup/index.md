@@ -13,7 +13,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 ## Prerequisites
 
 * [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
-* [Node Package Manager][] (NPM)
+* [Yarn >=1.13.0](https://yarnpkg.com)
 * [A running instance of Magento 2.3](#choosing-the-magento-23-backend)
 
 
@@ -37,7 +37,7 @@ If you have an existing `node_modules` directory from a previous PWA Studio vers
 In the PWA Studio project's root directory, run the following command to install the project dependencies:
 
 ``` sh
-npm install
+yarn install
 ```
 
 ## Step 3. Specify the Magento backend server
@@ -89,21 +89,21 @@ Don't forget to install the [Venia sample data][]!
 
 Before you run the server, generate build artifacts for Venia using the following command in the **project root directory**:
 
-`npm run build`
+`yarn run build`
 
 ### Run the server
 
 Use any of the following commands from the **project root directory** to start the server:
 
-`npm run watch:venia`
+`yarn run watch:venia`
 
 : Starts the Venia storefront development environment.
 
-`npm run watch:all`
+`yarn run watch:all`
 
 : Runs the full PWA Studio developer experience, which include Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds.
 
-`npm run build && npm run stage:venia`
+`yarn run build && yarn run stage:venia`
 
 : Generates build artifacts and runs the staging environment, which uses more compressed assets and more closely reflects production.
 
@@ -132,8 +132,6 @@ for PWA development on the frontend, use this new address.
 Congratulations! You have set up your development environment for the Venia storefront project.
 
 [Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept
-[Node Package Manager]: https://www.npmjs.com/
-[NodeJS 8.x LTS]: https://nodejs.org/en/
 [Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
 [Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
 [PWA Studio]: https://github.com/magento-research/pwa-studio
