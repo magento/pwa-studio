@@ -1,13 +1,13 @@
 require('events').EventEmitter.defaultMaxListeners = 100;
 
-const execa = require('execa');
-const path = require('path');
-const Multispinner = require('multispinner');
-const figures = require('figures');
 const chalk = require('chalk');
 const chokidar = require('chokidar');
-const debounce = require('lodash.debounce');
+const execa = require('execa');
+const figures = require('figures');
 const keypress = require('keypress');
+const debounce = require('lodash.debounce');
+const Multispinner = require('multispinner');
+const path = require('path');
 const StreamSnitch = require('stream-snitch');
 
 const warn = (msg, ...args) => {
@@ -74,7 +74,6 @@ const restartDevServerOnChange = [
     'packages/pwa-buildpack/dist/**/*.js',
     'packages/upward-js/lib/**/*.js',
     'packages/venia-concept/*.{js,json,yml}',
-    'packages/venia-concept/.babelrc',
     'packages/venia-concept/.env',
     'packages/venia-concept/templates/**/*',
     'yarn.lock'
