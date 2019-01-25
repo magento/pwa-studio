@@ -77,7 +77,7 @@ const restartDevServerOnChange = [
     'packages/venia-concept/.babelrc',
     'packages/venia-concept/.env',
     'packages/venia-concept/templates/**/*',
-    'package-lock.json'
+    'yarn.lock'
 ];
 
 const spinner = new Multispinner([...mustWatch, 'webpack-dev-server'], {
