@@ -18,7 +18,7 @@ common_settings:
   docker: &docker_setup
     - image: 'circleci/node:10.14.1'
   save_cache: &savecache
-    name: Save Yarn Package Cache
+    name: Save yarn package cache
     key: 'yarn-packages-{{ checksum "yarn.lock" }}'
     paths:
       - ~/.cache/yarn
@@ -27,7 +27,7 @@ common_settings:
     command: yarn install --frozen-lockfile --ignore-scripts
 
   full_build: &full_build
-    name: Full Build
+    name: Full build
     command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && yarn run clean:dist && yarn run build'
 
   test_result_path: &test_result_path
@@ -43,10 +43,10 @@ jobs:
       - checkout
       - run: *install_packages
       - run:
-          name: Test Suites
+          name: Test suites
           command: 'yarn run test:ci'
       - run:
-          name: Coveralls Coverage Analysis
+          name: Coveralls coverage analysis
           command: yarn run coveralls
       - run: *full_build
       - store_test_results: *test_result_path
@@ -61,23 +61,16 @@ jobs:
       - run: *install_packages
       - save_cache: *savecache
       - run:
-          name: Test Suites and Coverage
+          name: Test suites and coverage
           # Test failures should not stop Danger, so hide the exit code.
           command: 'yarn run test:ci && yarn run coveralls || true'
       - run: *full_build
       - run:
           name: DangerCI
-<<<<<<< HEAD
-          command: npm run danger
+          command: yarn run danger
       - run:
           name: Bundle size analysis
-          command: npm run bundlesize
+          command: yarn run bundlesize
 
       - store_test_results: *test_result_path
       - store_artifacts: *artifact_storage_path
-=======
-          command: yarn run danger
-
-      - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
->>>>>>> 940fd7fe... Switch to Yarn and Babel 7
