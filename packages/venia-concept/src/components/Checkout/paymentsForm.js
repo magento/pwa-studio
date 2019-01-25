@@ -11,6 +11,7 @@ import classify from 'src/classify';
 import defaultClasses from './paymentsForm.css';
 
 import isObjectEmpty from 'src/util/isObjectEmpty';
+import { hasLengthAtLeast, isNotEmpty } from 'src/util/formValidators.js';
 
 const DEFAULT_FORM_VALUES = {
     addresses_same: true
@@ -66,10 +67,8 @@ class PaymentsForm extends Component {
             } else {
                 // The addresses are not the same, populate the other fields.
                 initialFormValues = {
-                    ...initialValues,
-                    // Note: we have to 'rename' this property - it doesn't match
-                    // the form field's name ("addresses_same").
-                    addresses_same: initialValues.sameAsShippingAddress
+                    addresses_same: false,
+                    ...initialValues
                 };
                 delete initialFormValues.sameAsShippingAddress;
             }
@@ -90,47 +89,69 @@ class PaymentsForm extends Component {
     /*
      *  Class Properties.
      */
-    get billingAddressFields() {
+    billingAddressFields = formState => {
         const { classes } = this.props;
+
+        const getError = fieldName => {
+            if (formState.errors[fieldName]) {
+                return formState.errors[fieldName];
+            }
+        };
 
         return (
             <Fragment>
                 <div className={classes.street0}>
                     <Label htmlFor={classes.street0}>Street</Label>
                     <Text
-                        id={classes.street0}
-                        field="street[0]"
                         className={classes.textInput}
+                        field="street[0]"
+                        id={classes.street0}
+                        validate={this.validateStreet}
                     />
+                    <span className={classes.validation}>
+                        {getError('street')}
+                    </span>
                 </div>
                 <div className={classes.city}>
                     <Label htmlFor={classes.city}>City</Label>
                     <Text
-                        id={classes.city}
-                        field="city"
                         className={classes.textInput}
+                        field="city"
+                        id={classes.city}
+                        validate={this.validateCity}
                     />
+                    <span className={classes.validation}>
+                        {getError('city')}
+                    </span>
                 </div>
                 <div className={classes.region_code}>
                     <Label htmlFor={classes.region_code}>State</Label>
                     <Text
-                        id={classes.region_code}
-                        field="region_code"
                         className={classes.textInput}
+                        field="region_code"
+                        id={classes.region_code}
                         validate={this.validateState}
+                        validateOnBlur
                     />
+                    <span className={classes.validation}>
+                        {getError('region_code')}
+                    </span>
                 </div>
                 <div className={classes.postcode}>
                     <Label htmlFor={classes.postcode}>ZIP</Label>
                     <Text
-                        id={classes.postcode}
-                        field="postcode"
                         className={classes.textInput}
+                        field="postcode"
+                        id={classes.postcode}
+                        validate={this.validatePostcode}
                     />
+                    <span className={classes.validation}>
+                        {getError('postcode')}
+                    </span>
                 </div>
             </Fragment>
         );
-    }
+    };
 
     /*
      *  Class Functions.
@@ -158,7 +179,7 @@ class PaymentsForm extends Component {
                         />
                     </div>
                     {!formState.values.addresses_same &&
-                        this.billingAddressFields}
+                        this.billingAddressFields(formState)}
                 </div>
                 <div className={classes.footer}>
                     <Button className={classes.button} onClick={this.cancel}>
@@ -226,6 +247,14 @@ class PaymentsForm extends Component {
     cancelPaymentNonceRequest = () => {
         this.setState({ isRequestingPaymentNonce: false });
     };
+
+    validateCity = value => isNotEmpty(value);
+
+    validatePostcode = value => isNotEmpty(value);
+
+    validateState = value => hasLengthAtLeast(value, 2);
+
+    validateStreet = value => isNotEmpty(value);
 }
 
 export default classify(defaultClasses)(PaymentsForm);

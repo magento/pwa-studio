@@ -62,6 +62,12 @@
     grid-column-end: span 2;
 }
 
+.validation {
+    color: rgb(var(--venia-error));
+    font-size: 0.8125rem;
+    grid-column-end: span 2;
+}
+
 /* Braintree-specific styles. */
 
 /*
