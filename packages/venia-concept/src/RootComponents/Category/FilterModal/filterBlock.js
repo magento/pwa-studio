@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import FilterList from './FilterList';
 import Icon from 'src/components/Icon';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
@@ -24,7 +26,8 @@ class FilterBlock extends Component {
     };
 
     state = {
-        isExpanded: false
+        isExpanded: false,
+        chosenItemsFromUrl: {}
     };
 
     resetChosenItems = () => {
@@ -42,6 +45,35 @@ class FilterBlock extends Component {
             optionName: this.props.item.request_var,
             optionItems: actualItems
         });
+    };
+
+    getFilterParams = location => {
+        const {
+            item: { request_var }
+        } = this.props;
+        const params = new URLSearchParams(location.search);
+        let titles,
+            values = [];
+
+        let urlFilterParams = {};
+
+        for (var key of params.keys()) {
+            titles = params.getAll(key);
+            values = params.getAll(key);
+
+            urlFilterParams = titles.map((title, index) => ({
+                group: request_var,
+                title: title,
+                value: values[index]
+            }));
+        }
+
+        return urlFilterParams;
+    };
+
+    componentDidMount = () => {
+        const filterParams = this.getFilterParams(this.props.history.location);
+        console.log('FILTER PARASM', filterParams);
     };
 
     getControlBlock = isExpanded => {
@@ -70,7 +102,6 @@ class FilterBlock extends Component {
         const {
             classes,
             item: { filter_items, request_var },
-            chosenFilterOptions,
             filterRemove,
             filterAdd
         } = this.props;
@@ -93,7 +124,6 @@ class FilterBlock extends Component {
                         filterRemove={filterRemove}
                         id={request_var}
                         items={filter_items}
-                        chosenOptions={chosenFilterOptions || []}
                         updateChosenItems={this.updateChosenItems}
                     />
                 </div>
@@ -102,4 +132,7 @@ class FilterBlock extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterBlock);
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(FilterBlock);

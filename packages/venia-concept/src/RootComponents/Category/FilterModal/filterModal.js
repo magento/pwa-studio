@@ -23,6 +23,7 @@ class FilterModal extends Component {
             classes,
             isModalOpen,
             closeModalHandler,
+            filterSet,
             filterAdd,
             filterRemove,
             filters
@@ -52,6 +53,7 @@ class FilterModal extends Component {
                     renderItem={props => (
                         <FilterBlock
                             item={props.item}
+                            filterSet={filterSet}
                             filterAdd={filterAdd}
                             filterRemove={filterRemove}
                         />
