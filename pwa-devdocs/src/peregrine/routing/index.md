@@ -21,7 +21,7 @@ The following is a list of files provided by Peregrine to support routing:
 | [`Router.js`][]              | Defines the **MagentoRouter** component              |
 | [`MagentoRouteHandler.js`][] | Renders the correct component based on a given route |
 | [`resolveUnknownRoute.js`][] | Gets the appropriate page type for a route           |
-| [`fetchRootComponent.js`][]  | Load the Webpack chunk for a component               |
+| [`webpackInterop.js`][]      | Load the Webpack chunk for a component               |
 | [`Page.js`][]                | Sets up the MagentoRouteHandler as a router consumer |
 
 ## How it works
@@ -140,7 +140,7 @@ class App extends Component {
 [`Router.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/Router.js
 [`MagentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/MagentoRouteHandler.js
 [`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/resolveUnknownRoute.js
-[`fetchRootComponent.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/fetchRootComponent.js
+[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/webpackInterop.js
 [`Page.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Page/Page.js
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
