@@ -127,7 +127,7 @@ While the Storybook application is running, you can navigate to it in your brows
 Use the following command in the root directory of the Peregrine package to run Storybook:
 
 ``` sh
-npm run storybook
+yarn run storybook
 ```
 
 This command starts the Storybook application that is accessed through the browser at the following address:

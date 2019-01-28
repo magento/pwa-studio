@@ -1,7 +1,7 @@
 const dedent = require('dedent');
+const babel = require('@babel/core');
+const jsxTransform = require('@babel/plugin-transform-react-jsx');
 const plugin = require('../babel-plugin-magento-layout');
-const babel = require('babel-core');
-const jsxTransform = require('babel-plugin-transform-react-jsx');
 
 const transform = (opts, input, pragma) => {
     const { code } = babel.transform(input, {
