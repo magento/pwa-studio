@@ -20,7 +20,8 @@ Feel free to remove this section before creating this PR.
 <!--- This project only accepts pull requests related to open issues -->
 <!--- If suggesting a new feature or change, please discuss it in an issue first -->
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
-<!--- Please link to the issue here: -->
+<!--- Please link to the issue here with the following wording: Closes #<issue> -->
+Closes #ISSUENUM.
 
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
