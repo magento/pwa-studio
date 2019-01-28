@@ -1,14 +1,9 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import waitForExpect from 'wait-for-expect';
 import dropin from 'braintree-web-drop-in';
-jest.mock('braintree-web-drop-in');
 
 import BraintreeDropin from '../braintreeDropin';
-
-// Mock underlying braintree-web-drop-in functions.
-const mockCreate = jest.fn(() => {
-    return Promise.resolve({});
-});
 
 // Mock our component props.
 const mockError = jest.fn();
@@ -18,26 +13,17 @@ const props = {
     onSuccess: mockSuccess
 };
 
-beforeAll(() => {
-    dropin.create = mockCreate;
-});
-
-beforeEach(() => {
-    // We clear this mock so we don't blow away the implementation.
-    mockCreate.mockClear();
-
-    mockError.mockReset();
-    mockSuccess.mockReset();
-});
-
 test('renders two divs', () => {
     const { root } = TestRenderer.create(<BraintreeDropin {...props} />);
 
     expect(root.findAllByType('div')).toHaveLength(2);
 });
 
-test('creates an instance of the underlying dropin on mount', () => {
+test('creates an instance of the underlying dropin on mount', async () => {
     TestRenderer.create(<BraintreeDropin {...props} />);
 
-    expect(mockCreate).toBeCalledTimes(1);
+    await waitForExpect(() => {
+        expect(dropin.create).toHaveProperty('mock');
+        expect(dropin.create).toHaveBeenCalledTimes(1);
+    });
 });

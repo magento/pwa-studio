@@ -11,7 +11,6 @@
 
 import React, { Component } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import dropin from 'braintree-web-drop-in';
 import { Util } from '@magento/peregrine';
 
 import defaultClasses from './braintreeDropin.css';
@@ -19,7 +18,6 @@ import classify from 'src/classify';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
-
 const { BRAINTREE_TOKEN } = process.env;
 
 class BraintreeDropin extends Component {
@@ -86,7 +84,10 @@ class BraintreeDropin extends Component {
         );
     }
 
-    createDropinInstance = () => {
+    createDropinInstance = async () => {
+        // import the dropin API
+        const { default: dropin } = await import('braintree-web-drop-in');
+
         // Create an instance of the BrainTree Web Drop In.
         return dropin.create({
             authorization: BRAINTREE_TOKEN,
