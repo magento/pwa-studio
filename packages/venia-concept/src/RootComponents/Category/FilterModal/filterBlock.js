@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 import FilterList from './FilterList';
 import Icon from 'src/components/Icon';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
@@ -103,4 +101,4 @@ class FilterBlock extends Component {
     }
 }
 
-export default compose(classify(defaultClasses))(FilterBlock);
+export default classify(defaultClasses)(FilterBlock);
