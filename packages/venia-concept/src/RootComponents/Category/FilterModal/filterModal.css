@@ -4,15 +4,34 @@
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
-    overflow: auto;
     background-color: white;
-    display: none;
+    max-width: 640px;
+    transform: translate3d(-100%, 0, 0);
+    transition-duration: 192ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    width: 100%;
+    z-index: 3;
+    display: grid;
+    grid-template-rows: min-content 1fr;
 }
 
 .rootOpen {
     composes: root;
-    display: block;
+    box-shadow: 1px 0 rgb(var(--venia-border));
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    visibility: visible;
+}
+
+.modalWrapper {
+    overflow: auto;
+    height: 100vh;
 }
 
 .header {

@@ -57,29 +57,18 @@ class CategoryContent extends Component {
         })
     };
 
-    state = {
-        filterModalOpen: false
-    };
-
-    filterModalSwitcher = () => {
-        const { modalIsOpen } = globalClasses;
-        const bodyClasses = document.querySelector('body').classList;
-
-        bodyClasses.contains(modalIsOpen)
-            ? bodyClasses.remove(modalIsOpen)
-            : bodyClasses.add(modalIsOpen);
-        this.setState({ filterModalOpen: !this.state.filterModalOpen });
-    };
-
     render() {
         const {
             classes,
             pageControl,
             data,
             pageSize,
+            openDrawer,
+            closeDrawer,
+            isFilterModalOpen,
             queryVariables
         } = this.props;
-        const { filterModalOpen } = this.state;
+
         const title = data ? data.category.description : null;
 
         return (
@@ -93,7 +82,7 @@ class CategoryContent extends Component {
                     />
                     <div className={classes.headerButtons}>
                         <button
-                            onClick={this.filterModalSwitcher}
+                            onClick={openDrawer}
                             className={classes.filterButton}
                         >
                             Filter
@@ -118,9 +107,9 @@ class CategoryContent extends Component {
                                     <Pagination pageControl={pageControl} />
                                 </div>
                                 <FilterModal
-                                    isModalOpen={filterModalOpen}
+                                    closeModalHandler={closeDrawer}
+                                    isModalOpen={isFilterModalOpen}
                                     filters={filters}
-                                    closeModalHandler={this.filterModalSwitcher}
                                 />
                             </Fragment>
                         );

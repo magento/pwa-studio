@@ -34,8 +34,9 @@ class FilterFooter extends Component {
     };
 
     handleApplyFilters = () => {
-        const { history, chosenFilterOptions } = this.props;
+        const { history, chosenFilterOptions, closeModalHandler } = this.props;
         history.push('?' + serialize(chosenFilterOptions));
+        closeModalHandler();
     };
 
     getFooterButtons = areOptionsPristine => {

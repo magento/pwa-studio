@@ -74,33 +74,35 @@ class FilterModal extends Component {
 
         return (
             <div className={modalClass}>
-                <div className={classes.header}>
-                    <span className={classes.headerTitle}>FILTER BY</span>
-                    <button onClick={closeModalHandler}>
-                        <Icon src={CloseIcon} />
-                    </button>
+                <div className={classes.modalWrapper}>
+                    <div className={classes.header}>
+                        <span className={classes.headerTitle}>FILTER BY</span>
+                        <button onClick={closeModalHandler}>
+                            <Icon src={CloseIcon} />
+                        </button>
+                    </div>
+
+                    <FiltersCurrent keyPrefix="modal" />
+
+                    <List
+                        items={filters}
+                        getItemKey={({ request_var }) => request_var}
+                        render={props => (
+                            <ul className={classes.filterOptionsContainer}>
+                                {props.children}
+                            </ul>
+                        )}
+                        renderItem={props => (
+                            <FilterBlock
+                                item={props.item}
+                                filterSet={filterSet}
+                                filterAdd={filterAdd}
+                                filterRemove={filterRemove}
+                            />
+                        )}
+                    />
                 </div>
-
-                <FiltersCurrent keyPrefix="modal" />
-
-                <List
-                    items={filters}
-                    getItemKey={({ request_var }) => request_var}
-                    render={props => (
-                        <ul className={classes.filterOptionsContainer}>
-                            {props.children}
-                        </ul>
-                    )}
-                    renderItem={props => (
-                        <FilterBlock
-                            item={props.item}
-                            filterSet={filterSet}
-                            filterAdd={filterAdd}
-                            filterRemove={filterRemove}
-                        />
-                    )}
-                />
-                <FilterFooter />
+                <FilterFooter closeModalHandler={closeModalHandler} />
             </div>
         );
     }

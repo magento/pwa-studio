@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { closeDrawer, toggleDrawer } from 'src/actions/app';
 
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
@@ -63,10 +64,13 @@ class Category extends Component {
             id,
             classes,
             currentPage,
+            openDrawer,
+            closeDrawer,
             pageSize,
             prevPageTotal,
             setCurrentPage,
-            setPrevPageTotal
+            setPrevPageTotal,
+            drawer
         } = this.props;
 
         const pageControl = {
@@ -81,6 +85,8 @@ class Category extends Component {
             pageSize: Number(pageSize),
             currentPage: Number(currentPage)
         };
+
+        const isFilterModalOpen = drawer === 'filter';
 
         return (
             <Query query={categoryQuery} variables={queryVariables}>
@@ -107,6 +113,9 @@ class Category extends Component {
 
                     return (
                         <CategoryContent
+                            closeDrawer={closeDrawer}
+                            openDrawer={openDrawer}
+                            isFilterModalOpen={isFilterModalOpen}
                             queryVariables={queryVariables}
                             classes={classes}
                             pageControl={totalWrapper}
@@ -119,14 +128,21 @@ class Category extends Component {
     }
 }
 
-const mapStateToProps = ({ catalog }) => {
+const mapStateToProps = ({ catalog, app }) => {
     return {
+        drawer: app.drawer,
         currentPage: catalog.currentPage,
         pageSize: catalog.pageSize,
         prevPageTotal: catalog.prevPageTotal
     };
 };
-const mapDispatchToProps = { setCurrentPage, setPrevPageTotal };
+
+const mapDispatchToProps = dispatch => ({
+    openDrawer: () => dispatch(toggleDrawer('filter')),
+    closeDrawer: () => dispatch(closeDrawer()),
+    setCurrentPage: () => dispatch(setCurrentPage),
+    setPrevPageTotal: () => dispatch(setPrevPageTotal)
+});
 
 export default compose(
     classify(defaultClasses),
