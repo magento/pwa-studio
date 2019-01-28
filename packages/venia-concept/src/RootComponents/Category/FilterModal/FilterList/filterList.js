@@ -15,8 +15,6 @@ class FilterList extends Component {
         updateChosenItems: PropTypes.func
     };
 
-    componentWillUnmount = () => console.log('LiST UNMOUNT');
-
     toggleOption = event => {
         const { filterRemove, filterAdd } = this.props;
         const { value, title, dataset } =

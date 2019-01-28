@@ -35,8 +35,6 @@ class FilterModal extends Component {
             titles = params.getAll(`${cleanKey}[][title]`);
             values = params.getAll(`${cleanKey}[][value]`);
 
-            console.log('K/T/V', { cleanKey, titles, values });
-
             urlFilterParams[cleanKey] = titles.map((title, index) => ({
                 title: title,
                 value: values[index]
