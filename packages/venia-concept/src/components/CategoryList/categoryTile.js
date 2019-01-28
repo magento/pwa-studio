@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
-import { Link } from 'react-router-dom';
-
 import classify from 'src/classify';
 import {
     makeCategoryMediaPath,
     makeProductMediaPath
 } from 'src/util/makeMediaPath';
+import { Link, ResourceUrl } from 'src/drivers';
 import defaultClasses from './categoryTile.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
@@ -38,9 +37,11 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return makeCategoryMediaPath(image);
+            return new ResourceUrl(makeCategoryMediaPath(image)).toString();
         } else if (previewProduct) {
-            return makeProductMediaPath(previewProduct.small_image);
+            return new ResourceUrl(
+                makeProductMediaPath(previewProduct.small_image)
+            ).toString();
         } else {
             return null;
         }

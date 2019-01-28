@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
+import { Link, ResourceUrl } from 'src/drivers';
 import { Price } from '@magento/peregrine';
-import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -69,11 +69,17 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
-                <Link to={productLink} className={classes.images}>
+                <Link
+                    to={new ResourceUrl(productLink).toString()}
+                    className={classes.images}
+                >
                     {this.renderImagePlaceholder()}
                     {this.renderImage()}
                 </Link>
-                <Link to={productLink} className={classes.name}>
+                <Link
+                    to={new ResourceUrl(productLink).toString()}
+                    className={classes.name}
+                >
                     <span>{name}</span>
                 </Link>
                 <div className={classes.price}>
@@ -120,7 +126,9 @@ class GalleryItem extends Component {
         return (
             <img
                 className={classes.image}
-                src={makeProductMediaPath(small_image)}
+                src={new ResourceUrl(
+                    makeProductMediaPath(small_image)
+                ).toString()}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { ResourceUrl } from 'src/drivers';
 import classify from 'src/classify';
 import defaultClasses from './thumbnail.css';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
@@ -33,7 +34,9 @@ class Thumbnail extends Component {
             isActive,
             item: { file, label }
         } = this.props;
-        const src = file ? makeProductMediaPath(file) : transparentPlaceholder;
+        const src = file
+            ? new ResourceUrl(makeProductMediaPath(file)).toString()
+            : transparentPlaceholder;
 
         return (
             <button

@@ -7,7 +7,7 @@
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist --root-mode 'root' --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build": "babel src --out-dir dist --root-mode 'root' --source-maps --copy-files",
     "build:dev": "yarn run build",
     "clean": "rimraf dist",
     "prebuild": "yarn run clean",
