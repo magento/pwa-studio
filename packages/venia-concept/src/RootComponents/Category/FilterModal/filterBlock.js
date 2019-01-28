@@ -47,35 +47,6 @@ class FilterBlock extends Component {
         });
     };
 
-    getFilterParams = location => {
-        const {
-            item: { request_var }
-        } = this.props;
-        const params = new URLSearchParams(location.search);
-        let titles,
-            values = [];
-
-        let urlFilterParams = {};
-
-        for (var key of params.keys()) {
-            titles = params.getAll(key);
-            values = params.getAll(key);
-
-            urlFilterParams = titles.map((title, index) => ({
-                group: request_var,
-                title: title,
-                value: values[index]
-            }));
-        }
-
-        return urlFilterParams;
-    };
-
-    componentDidMount = () => {
-        const filterParams = this.getFilterParams(this.props.history.location);
-        console.log('FILTER PARASM', filterParams);
-    };
-
     getControlBlock = isExpanded => {
         const { classes, item } = this.props;
         const iconSrc = isExpanded ? ArrowUp : ArrowDown;
@@ -132,7 +103,4 @@ class FilterBlock extends Component {
     }
 }
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(FilterBlock);
+export default compose(classify(defaultClasses))(FilterBlock);

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import FilterFooter from './FilterFooter';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
 import classify from 'src/classify';
@@ -16,6 +18,47 @@ class FilterModal extends Component {
             searchFilterContainer: PropTypes.string
         }),
         closeModalHandler: PropTypes.func
+    };
+
+    getFilterParams = location => {
+        const params = new URLSearchParams(location.search);
+        let titles,
+            values = [];
+
+        let urlFilterParams = {};
+
+        for (var key of params.keys()) {
+            const cleanKey = key.replace(/\[\]\[.*\]/gm, '');
+
+            if (urlFilterParams[cleanKey]) continue;
+
+            titles = params.getAll(`${cleanKey}[][title]`);
+            values = params.getAll(`${cleanKey}[][value]`);
+
+            console.log('K/T/V', { cleanKey, titles, values });
+
+            urlFilterParams[cleanKey] = titles.map((title, index) => ({
+                title: title,
+                value: values[index]
+            }));
+        }
+
+        return urlFilterParams;
+    };
+
+    componentDidMount = () => {
+        const filterParams = this.getFilterParams(this.props.history.location);
+        for (var key in filterParams) {
+            if (filterParams.hasOwnProperty(key)) {
+                filterParams[key].map(({ title, value }) => {
+                    this.props.filterAdd({
+                        group: key,
+                        title,
+                        value
+                    });
+                });
+            }
+        }
     };
 
     render() {
@@ -65,4 +108,7 @@ class FilterModal extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterModal);
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(FilterModal);
