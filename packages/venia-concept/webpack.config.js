@@ -43,6 +43,7 @@ module.exports = async function(env) {
         validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
 
     const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
+    const braintreeToken = validEnv.BRAINTREE_TOKEN;
 
     const config = {
         mode,
@@ -129,7 +130,8 @@ module.exports = async function(env) {
                         mode === 'production' || enableServiceWorkerDebugging
                             ? serviceWorkerFileName
                             : false
-                    )
+                    ),
+                    BRAINTREE_TOKEN: JSON.stringify(braintreeToken)
                 }
             }),
             new ServiceWorkerPlugin({
