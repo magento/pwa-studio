@@ -112,7 +112,7 @@ class UpwardPlugin {
 
             async networkFetch(path, options) {
                 debug('networkFetch %s, %o', path, options);
-                const { protocol } = url.parse(path);
+                const { protocol } = new url.URL(path);
                 if (protocol === 'https:') {
                     return fetch(
                         path,

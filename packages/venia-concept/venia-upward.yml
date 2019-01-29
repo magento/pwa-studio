@@ -138,7 +138,7 @@ productResult:
 urlKey:
   when:
     - matches: request.url.pathname
-      pattern: '^/(?:(.*)\.html)?'
+      pattern: '^/(.*)\.html'
       use: $match.$1
   default:
     inline: ''

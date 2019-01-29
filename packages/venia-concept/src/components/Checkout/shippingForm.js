@@ -15,6 +15,7 @@ class ShippingForm extends Component {
         cancel: func.isRequired,
         classes: shape({
             body: string,
+            button: string,
             footer: string,
             heading: string,
             shippingMethod: string
@@ -58,10 +59,17 @@ class ShippingForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button priority="high" type="submit" disabled={submitting}>
-                        Save
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
                     </Button>
-                    <Button onClick={this.cancel}>Cancel</Button>
+                    <Button
+                        className={classes.button}
+                        priority="high"
+                        type="submit"
+                        disabled={submitting}
+                    >
+                        Use Method
+                    </Button>
                 </div>
             </Form>
         );

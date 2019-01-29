@@ -12,8 +12,8 @@ const storedShippingMethod = storage.getItem('shippingMethod');
 
 const initialState = {
     editing: null,
-    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
-    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
+    paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+    paymentData: storedPaymentMethod && storedPaymentMethod.data,
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
@@ -37,13 +37,16 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.address.submit]: state => {
+    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.accept]: state => state,
+    [actions.billingAddress.reject]: state => state,
+    [actions.shippingAddress.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.address.accept]: state => {
+    [actions.shippingAddress.accept]: state => {
         return {
             ...state,
             editing: null,
@@ -53,7 +56,7 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: (state, actionArgs) => {
+    [actions.shippingAddress.reject]: (state, actionArgs) => {
         const incorrectAddressMessage = get(
             actionArgs,
             'payload.incorrectAddressMessage',
@@ -77,8 +80,8 @@ const reducerMap = {
         return {
             ...state,
             editing: null,
-            paymentMethod: payload.code,
-            paymentTitle: payload.title,
+            paymentCode: payload.code,
+            paymentData: payload.data,
             step: 'form',
             submitting: false
         };
