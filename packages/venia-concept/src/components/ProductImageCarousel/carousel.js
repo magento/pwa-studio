@@ -9,7 +9,6 @@ import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
 import classify from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import { transparentPlaceholder } from 'src/shared/images';
 
 const ChevronIcons = {
@@ -95,9 +94,9 @@ class Carousel extends Component {
 
         const mainImage = sortedImages[this.state.activeItemIndex] || {};
         const src = mainImage.file
-            ? resourceUrl(makeProductMediaPath(mainImage.file))
+            ? resourceUrl(mainImage.file, { type: 'image-product', width: 640 })
             : transparentPlaceholder;
-        const alt = mainImage.label || 'product';
+        const alt = mainImage.label || 'image-product';
         return (
             <div className={classes.root}>
                 <div className={classes.imageContainer}>

@@ -6,7 +6,6 @@ import Kebab from './kebab';
 import Section from './section';
 
 import classify from 'src/classify';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './product.css';
 
 const imageWidth = 80;
@@ -80,9 +79,10 @@ class Product extends Component {
         return {
             minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
-            backgroundImage: `url(${resourceUrl(
-                makeProductMediaPath(image.file)
-            )})`
+            backgroundImage: `url(${resourceUrl(image.file, {
+                type: 'image-product',
+                width: imageWidth
+            })})`
         };
     }
 
