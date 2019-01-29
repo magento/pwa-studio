@@ -86,7 +86,7 @@ const config = api => {
             ]
         },
         test: {
-            plugins,
+            plugins: [...plugins, ['babel-plugin-dynamic-import-node']],
             presets: [
                 [
                     '@babel/preset-env',
