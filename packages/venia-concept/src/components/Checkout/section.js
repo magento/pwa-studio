@@ -11,6 +11,7 @@ const editIconAttrs = {
     color: 'black',
     width: 18
 };
+const EDIT_ICON = <Icon src={EditIcon} attrs={editIconAttrs} />;
 
 class Section extends Component {
     static propTypes = {
@@ -21,20 +22,26 @@ class Section extends Component {
             root: string,
             summary: string
         }),
-        isEditable: bool,
-        label: node
+        isClickable: bool,
+        label: node,
+        showEditIcon: bool
     };
 
     render() {
         const {
             children,
             classes,
-            isEditable,
+            isClickable,
             label,
+            showEditIcon,
             ...restProps
         } = this.props;
 
-        const icon = isEditable ? <Icon src={EditIcon} attrs={editIconAttrs} /> : null;
+        if (!isClickable) {
+            delete restProps.onClick;
+        }
+
+        const icon = showEditIcon ? EDIT_ICON : null;
 
         return (
             <button className={classes.root} {...restProps}>

@@ -28,6 +28,7 @@ class Form extends Component {
             body: string,
             footer: string,
             informationPrompt: string,
+            'informationPrompt--disabled': string,
             paymentDisplayPrimary: string,
             paymentDisplaySecondary: string,
             root: string
@@ -35,9 +36,9 @@ class Form extends Component {
         editing: string,
         editOrder: func.isRequired,
         getShippingMethods: func.isRequired,
-        isPaymentMethodReady: bool,
-        isShippingInformationReady: bool,
-        isShippingMethodReady: bool,
+        havePaymentMethod: bool,
+        haveShippingAddress: bool,
+        haveShippingMethod: bool,
         paymentData: shape({
             description: string,
             details: shape({
@@ -58,30 +59,6 @@ class Form extends Component {
     /*
      *  Class Properties.
      */
-    get addressSummary() {
-        const { classes, isShippingInformationReady } = this.props;
-        const address = storage.getItem('shipping_address');
-
-        if (!isShippingInformationReady) {
-            return (
-                <span className={classes.informationPrompt}>
-                    Add Shipping Information
-                </span>
-            );
-        }
-
-        const name = `${address.firstname} ${address.lastname}`;
-        const street = `${address.street.join(' ')}`;
-
-        return (
-            <Fragment>
-                <strong>{name}</strong>
-                <br />
-                <span>{street}</span>
-            </Fragment>
-        );
-    }
-
     get editableForm() {
         const {
             editing,
@@ -141,9 +118,9 @@ class Form extends Component {
         const {
             cart,
             classes,
-            isShippingInformationReady,
-            isPaymentMethodReady,
-            isShippingMethodReady,
+            havePaymentMethod,
+            haveShippingAddress,
+            haveShippingMethod,
             ready,
             submitOrder,
             submitting
@@ -153,23 +130,26 @@ class Form extends Component {
             <Fragment>
                 <div className={classes.body}>
                     <Section
-                        isEditable={isShippingInformationReady}
+                        isClickable={true}
                         label="Ship To"
                         onClick={this.editAddress}
+                        showEditIcon={haveShippingAddress}
                     >
-                        {this.addressSummary}
+                        {this.shippingAddressSummary}
                     </Section>
                     <Section
-                        isEditable={isPaymentMethodReady}
+                        isClickable={haveShippingAddress}
                         label="Pay With"
                         onClick={this.editPaymentMethod}
+                        showEditIcon={havePaymentMethod}
                     >
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
-                        isEditable={isShippingMethodReady}
+                        isClickable={havePaymentMethod}
                         label="Get It By"
                         onClick={this.editShippingMethod}
+                        showEditIcon={haveShippingMethod}
                     >
                         {this.shippingMethodSummary}
                     </Section>
@@ -183,7 +163,7 @@ class Form extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
-                    <Button onClick={this.cancelHandler}>Cancel</Button>
+                    <Button onClick={this.dismissCheckout}>Cancel</Button>
                     <SubmitButton
                         submitting={submitting}
                         valid={ready}
@@ -197,13 +177,15 @@ class Form extends Component {
     get paymentMethodSummary() {
         const {
             classes,
-            isPaymentMethodReady,
-            isShippingInformationReady,
+            havePaymentMethod,
+            haveShippingAddress,
             paymentData
         } = this.props;
 
-        if (!isPaymentMethodReady) {
-            const promptClass = classes.informationPrompt;
+        if (!havePaymentMethod) {
+            const promptClass = haveShippingAddress
+                ? classes.informationPrompt
+                : classes['informationPrompt--disabled'];
             return <span className={promptClass}>Add Billing Information</span>;
         }
 
@@ -227,11 +209,37 @@ class Form extends Component {
         );
     }
 
-    get shippingMethodSummary() {
-        const { classes, isShippingMethodReady, shippingTitle } = this.props;
+    get shippingAddressSummary() {
+        const { classes, haveShippingAddress } = this.props;
+        const address = storage.getItem('shipping_address');
 
-        if (!isShippingMethodReady) {
-            const promptClass = classes.informationPrompt;
+        if (!haveShippingAddress) {
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Shipping Information
+                </span>
+            );
+        }
+
+        const name = `${address.firstname} ${address.lastname}`;
+        const street = `${address.street.join(' ')}`;
+
+        return (
+            <Fragment>
+                <strong>{name}</strong>
+                <br />
+                <span>{street}</span>
+            </Fragment>
+        );
+    }
+
+    get shippingMethodSummary() {
+        const { classes, havePaymentMethod, haveShippingMethod, shippingTitle } = this.props;
+
+        if (!haveShippingMethod) {
+            const promptClass = havePaymentMethod
+                ? classes.informationPrompt
+                : classes['informationPrompt--disabled'];
             return (
                 <span className={promptClass}>Add Shipping Information</span>
             );
@@ -255,14 +263,13 @@ class Form extends Component {
         return <div className={classes.root}>{children}</div>;
     }
 
-    cancelHandler = () => {
-        const { cancelCheckout } = this.props;
-        cancelCheckout();
-    };
-
     /*
      *  Event Handlers.
      */
+    dismissCheckout = () => {
+        this.props.cancelCheckout();
+    };
+
     editAddress = () => {
         this.props.editOrder('address');
     };

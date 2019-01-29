@@ -41,11 +41,11 @@ class Flow extends Component {
         classes: shape({
             root: string
         }),
+        havePaymentMethod: bool,
+        haveShippingAddress: bool,
+        haveShippingMethod: bool,
         isCartReady: bool,
         isCheckoutReady: bool,
-        isPaymentMethodReady: bool,
-        isShippingInformationReady: bool,
-        isShippingMethodReady: bool,
         paymentData: shape({
             description: string,
             details: shape({
@@ -63,11 +63,11 @@ class Flow extends Component {
             availableShippingMethods,
             cart,
             checkout,
+            havePaymentMethod,
+            haveShippingAddress,
+            haveShippingMethod,
             isCartReady,
             isCheckoutReady,
-            isPaymentMethodReady,
-            isShippingInformationReady,
-            isShippingMethodReady,
             paymentData,
             shippingMethod,
             shippingTitle
@@ -110,10 +110,10 @@ class Flow extends Component {
                     editOrder,
                     editing,
                     getShippingMethods,
+                    havePaymentMethod,
+                    haveShippingAddress,
+                    haveShippingMethod,
                     ready: isCheckoutReady,
-                    isPaymentMethodReady,
-                    isShippingInformationReady,
-                    isShippingMethodReady,
                     paymentData,
                     shippingMethod,
                     shippingTitle,

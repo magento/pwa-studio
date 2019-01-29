@@ -13,6 +13,10 @@
     color: rgb(var(--venia-error));
     text-transform: capitalize;
 }
+.informationPrompt--disabled {
+    color: rgb(var(--venia-text-hint));
+    text-transform: capitalize;
+}
 
 .paymentDisplayPrimary {
     text-transform: capitalize;

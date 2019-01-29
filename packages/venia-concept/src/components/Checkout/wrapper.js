@@ -23,20 +23,20 @@ const isAddressValid = address => !!(address && address.email);
 const isCartReady = cart => cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
     return (
-        isPaymentMethodReady() &&
-        isShippingInfoReady() &&
-        isShippingMethodReady(checkout)
+        havePaymentMethod() &&
+        haveShippingAddress() &&
+        haveShippingMethod(checkout)
     );
 };
-const isPaymentMethodReady = () => {
+const havePaymentMethod = () => {
     const paymentMethod = storage.getItem('paymentMethod');
     return !!paymentMethod;
 };
-const isShippingInfoReady = () => {
+const haveShippingAddress = () => {
     const address = storage.getItem('shipping_address');
     return isAddressValid(address);
 };
-const isShippingMethodReady = checkout => !!checkout.shippingMethod;
+const haveShippingMethod = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -106,11 +106,11 @@ class CheckoutWrapper extends Component {
 
         const miscProps = {
             availableShippingMethods,
+            havePaymentMethod: havePaymentMethod(),
+            haveShippingAddress: haveShippingAddress(),
+            haveShippingMethod: haveShippingMethod(checkout),
             isCartReady: isCartReady(cart),
             isCheckoutReady: isCheckoutReady(checkout),
-            isPaymentMethodReady: isPaymentMethodReady(),
-            isShippingInformationReady: isShippingInfoReady(),
-            isShippingMethodReady: isShippingMethodReady(checkout),
             paymentData,
             shippingMethod,
             shippingTitle
