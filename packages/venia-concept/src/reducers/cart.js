@@ -76,13 +76,13 @@ const reducerMap = {
             ...payload
         };
     },
-    [actions.openEditPanel.receive]: state => {
+    [actions.openEditPanel]: state => {
         return {
             ...state,
             itemEditOpen: true
         };
     },
-    [actions.hideEditPanel.receive]: state => {
+    [actions.hideEditPanel]: state => {
         return {
             ...state,
             itemEditOpen: false

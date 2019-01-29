@@ -279,10 +279,10 @@ export const removeItemFromCart = payload => {
 };
 
 export const openEditPanel = () => async dispatch =>
-    dispatch(actions.openEditPanel.receive());
+    dispatch(actions.openEditPanel());
 
 export const hideEditPanel = () => async dispatch =>
-    dispatch(actions.hideEditPanel.receive());
+    dispatch(actions.hideEditPanel());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;

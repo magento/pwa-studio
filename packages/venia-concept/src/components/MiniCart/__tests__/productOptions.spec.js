@@ -50,10 +50,14 @@ const configItem = {
 };
 
 test('renders with options when passed a configurable item', () => {
+    const updateCart = jest.fn();
+    const hideEditPanel = jest.fn();
     const wrapper = shallow(
         <CartOptions
             cartItem={cartItem}
             configItem={configItem}
+            updateCart={updateCart}
+            hideEditPanel={hideEditPanel}
             classes={classes}
         />
     ).dive();
@@ -63,8 +67,16 @@ test('renders with options when passed a configurable item', () => {
 });
 
 test('renders with an empty configurable item, does not display options', () => {
+    const updateCart = jest.fn();
+    const hideEditPanel = jest.fn();
     const wrapper = shallow(
-        <CartOptions cartItem={cartItem} configItem={{}} classes={classes} />
+        <CartOptions
+            cartItem={cartItem}
+            configItem={{}}
+            updateCart={updateCart}
+            hideEditPanel={hideEditPanel}
+            classes={classes}
+        />
     ).dive();
     const options = wrapper.find('section.options');
     expect(options.length).toBe(0);

@@ -35,11 +35,15 @@ const sampleItem = {
     ]
 };
 
+const samplePayload = {
+    quantity: 1,
+    productType: 'ConfigurableProduct'
+};
+
 test('appends the given options to the payload object', () => {
     const payload = {
         item: sampleItem,
-        quantity: 1,
-        productType: 'ConfigurableProduct'
+        ...samplePayload
     };
     const optionSelections = new Map();
     optionSelections.set('1', 1);
@@ -48,4 +52,39 @@ test('appends the given options to the payload object', () => {
     expect(Array.isArray(payload.options)).toBe(false);
     appendOptionsToPayload(payload, optionSelections);
     expect(Array.isArray(payload.options)).toBe(true);
+});
+
+test('appends the given options using pre-cached option codes', () => {
+    const optionCodes = new Map();
+    for (const option of sampleItem.configurable_options) {
+        optionCodes.set(option.attribute_id, option.attribute_code);
+    }
+    const payload = {
+        item: sampleItem,
+        ...samplePayload
+    };
+    const optionSelections = new Map();
+    optionSelections.set('1', 1);
+    optionSelections.set('2', 2);
+
+    expect(Array.isArray(payload.options)).toBe(false);
+    appendOptionsToPayload(payload, optionSelections, optionCodes);
+    expect(Array.isArray(payload.options)).toBe(true);
+});
+
+test('unavailable item selection results in a TypeError', () => {
+    const payload = {
+        item: sampleItem,
+        ...samplePayload
+    };
+    const optionSelections = new Map();
+    optionSelections.set('1', 2);
+    optionSelections.set('2', 1);
+
+    expect(Array.isArray(payload.options)).toBe(false);
+    try {
+        appendOptionsToPayload(payload, optionSelections);
+    } catch (error) {
+        expect(error instanceof TypeError).toBe(true);
+    }
 });

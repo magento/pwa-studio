@@ -1,5 +1,7 @@
 import React, { Component, Suspense } from 'react';
+import { array, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import classify from 'src/classify';
 import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
@@ -9,14 +11,43 @@ import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 const Options = React.lazy(() => import('../ProductOptions'));
 
 class CartOptions extends Component {
-    state = {
-        optionSelections: new Map(),
-        quantity: this.props.cartItem.qty,
-        isLoading: false
+    static propTypes = {
+        classes: shape({
+            root: string,
+            focusItem: string,
+            price: string,
+            form: string,
+            quantity: string,
+            quantityTitle: string,
+            save: string,
+            modal: string,
+            modal_active: string,
+            options: string
+        }),
+        cartItem: shape({
+            item_id: number.isRequired,
+            name: string.isRequired,
+            price: number.isRequired,
+            qty: number.isRequired
+        }),
+        configItem: shape({
+            configurable_options: array
+        }),
+        updateCart: func.isRequired,
+        hideEditPanel: func.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            optionSelections: new Map(),
+            quantity: props.cartItem.qty,
+            isLoading: false
+        };
+    }
+
     get fallback() {
-        return <div>Loading...</div>;
+        return loadingIndicator;
     }
 
     setQuantity = quantity => this.setState({ quantity });
@@ -98,11 +129,17 @@ class CartOptions extends Component {
                     </section>
                 </div>
                 <div className={classes.save}>
-                    <Button onClick={this.props.hideEditPanel}>Cancel</Button>
-                    <Button onClick={this.handleClick}>Update Cart</Button>
+                    <Button priority="high" onClick={this.props.hideEditPanel}>
+                        <span>Cancel</span>
+                    </Button>
+                    <Button priority="high" onClick={this.handleClick}>
+                        <span>Update Cart</span>
+                    </Button>
                 </div>
                 <div className={modalClass}>
-                    <span className={classes.modalText}>Processing...</span>
+                    <span className={classes.modalText}>
+                        {loadingIndicator}
+                    </span>
                 </div>
             </Form>
         );
