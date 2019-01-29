@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 
-import { ResourceUrl } from 'src/drivers';
+import { resourceUrl } from 'src/drivers';
 import Icon from 'src/components/Icon';
 import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
 import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
@@ -95,7 +95,7 @@ class Carousel extends Component {
 
         const mainImage = sortedImages[this.state.activeItemIndex] || {};
         const src = mainImage.file
-            ? new ResourceUrl(makeProductMediaPath(mainImage.file)).toString()
+            ? resourceUrl(makeProductMediaPath(mainImage.file))
             : transparentPlaceholder;
         const alt = mainImage.label || 'product';
         return (

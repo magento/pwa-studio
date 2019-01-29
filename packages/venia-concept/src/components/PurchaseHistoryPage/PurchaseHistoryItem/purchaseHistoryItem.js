@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { number, oneOfType, shape, string } from 'prop-types';
-import { Link, ResourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from 'src/drivers';
 
 import Icon from 'src/components/Icon';
 import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
@@ -37,7 +37,7 @@ class PurchaseHistoryItem extends Component {
         const { imageSrc, title, date, url } = item || {};
 
         return (
-            <Link className={classes.body} to={new ResourceUrl(url).toString()}>
+            <Link className={classes.body} to={resourceUrl(url)}>
                 <img className={classes.image} src={imageSrc} alt="item" />
                 <div className={classes.textBlock}>
                     <div className={classes.textBlockTitle}>{title}</div>

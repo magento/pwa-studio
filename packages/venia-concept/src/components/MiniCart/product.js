@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { ResourceUrl } from 'src/drivers';
+import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
 import Section from './section';
 
@@ -80,9 +80,9 @@ class Product extends Component {
         return {
             minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
-            backgroundImage: `url(${new ResourceUrl(
+            backgroundImage: `url(${resourceUrl(
                 makeProductMediaPath(image.file)
-            ).toString()})`
+            )})`
         };
     }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import classify from 'src/classify';
-import { Link, ResourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from 'src/drivers';
 
 import defaultClasses from './suggestedProduct.css';
 
@@ -33,9 +33,7 @@ class suggestedProduct extends Component {
             price
         } = this.props;
 
-        const productLink = new ResourceUrl(
-            `/${url_key}${productUrlSuffix}`
-        ).toString();
+        const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
         return (
             <li className={classes.root}>
@@ -43,9 +41,7 @@ class suggestedProduct extends Component {
                     <img
                         className={classes.productImage}
                         alt={name}
-                        src={new ResourceUrl(
-                            makeProductMediaPath(small_image)
-                        ).toString()}
+                        src={resourceUrl(makeProductMediaPath(small_image))}
                     />
                 </Link>
                 <Link

@@ -5,7 +5,7 @@ import {
     makeCategoryMediaPath,
     makeProductMediaPath
 } from 'src/util/makeMediaPath';
-import { Link, ResourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from 'src/drivers';
 import defaultClasses from './categoryTile.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
@@ -37,11 +37,11 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return new ResourceUrl(makeCategoryMediaPath(image)).toString();
+            return resourceUrl(makeCategoryMediaPath(image));
         } else if (previewProduct) {
-            return new ResourceUrl(
+            return resourceUrl(
                 makeProductMediaPath(previewProduct.small_image)
-            ).toString();
+            );
         } else {
             return null;
         }
