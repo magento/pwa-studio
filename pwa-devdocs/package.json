@@ -1,28 +1,37 @@
 {
-  "name": "pwa-devdocs",
-  "private": true,
-  "version": "2.0.0-rc2.0.5",
-  "description": "A documentation site for Magento PWA",
-  "main": "gulpfile.js",
-  "dependencies": {
-    "broken-link-checker-local": "^0.2.0",
-    "gulp": "^3.9.1",
-    "jekyll-tasks": "^1.2.1",
-    "jquery": "^3.3.1"
-  },
-  "scripts": {
-    "build": "gulp build",
-    "build-production": "jekyll build --source src/ --config src/_config.yml,_config-production.yml",
-    "deploy": "./scripts/deploy.sh",
-    "start": "gulp dev",
-    "test-links": "rm -fr _site && npm run build && node_modules/broken-link-checker-local/out/bin.js _site -rog",
-    "tests": "npm run test-links"
-  },
-  "repository": "github:magento-research/pwa-studio",
-  "author": "James Calcaben",
-  "license": "OSL-3.0",
-  "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
-  },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-devdocs#readme"
+    "name": "pwa-devdocs",
+    "private": true,
+    "version": "2.0.0-rc2.0.5",
+    "description": "A documentation site for Magento PWA",
+    "main": "gulpfile.js",
+    "dependencies": {
+        "jquery": "^3.3.1"
+    },
+    "scripts": {
+        "start": "npm run develop",
+        "develop": "npm run build && node scripts/develop.js",
+        "build-css": "node-sass --output-style compact --include-path src/_scss src/_scss/main.scss src/builds/css/main.css",
+        "build-js": "webpack --config webpack.config.js",
+        "build-html": "bundle exec jekyll build --source src -I",
+        "build": "npm-run-all -s build-js build-css build-html",
+        "build-production": "npm-run-all -s build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
+        "deploy": "npm run build-production && ./scripts/deploy.sh"
+    },
+    "repository": "github:magento-research/pwa-studio",
+    "author": "James Calcaben",
+    "license": "OSL-3.0",
+    "bugs": {
+        "url": "https://github.com/magento-research/pwa-studio/issues"
+    },
+    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-devdocs#readme",
+    "devDependencies": {
+        "browser-sync": "^2.26.3",
+        "css-loader": "^2.1.0",
+        "node-sass": "^4.11.0",
+        "npm-run-all": "^4.1.5",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.29.0",
+        "webpack-cli": "^3.2.1"
+    }
 }
