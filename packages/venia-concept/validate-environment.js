@@ -3,11 +3,44 @@ function validateEnvironment(env) {
     const { str, bool, url } = envalid;
 
     const validation = {
+        IMAGE_SERVICE_PATH: str({
+            desc:
+                'Root path to mount the onboard image optimization service in the DevServer and staging server.',
+            example: '/img/',
+            default: '/img/'
+        }),
+        IMAGE_CACHE_EXPIRES: str({
+            desc:
+                'Lifetime of images in the local cache of resized images. Format is "[length] [unit]", as in "10 minutes" or "1 day".',
+            example: '5 minutes',
+            default: '1 hour'
+        }),
+        IMAGE_CACHE_DEBUG: bool({
+            desc: 'Log image cache debug info to the console.',
+            default: false
+        }),
+        IMAGE_CACHE_REDIS_CLIENT: str({
+            desc:
+                'To use a Redis instance instead of a local memory cache for persistence between server processes, set this variable to the socket or URL of the Redis instance.',
+            default: ''
+        }),
         SERVICE_WORKER_FILE_NAME: str({
             desc:
                 'Filename to use when autogenerating a service worker to be served at root.',
             example: 'sw.js',
             default: 'sw.js'
+        }),
+        MAGENTO_BACKEND_MEDIA_PATH_PRODUCT: str({
+            desc:
+                'URL path where the PWA expects Magento to serve product media.',
+            example: '/media/catalog/product',
+            default: '/media/catalog/product'
+        }),
+        MAGENTO_BACKEND_MEDIA_PATH_CATEGORY: str({
+            desc:
+                'URL path where the PWA expects Magento to serve category media.',
+            example: '/media/catalog/category',
+            default: '/media/catalog/category'
         }),
         MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST: bool({
             desc:

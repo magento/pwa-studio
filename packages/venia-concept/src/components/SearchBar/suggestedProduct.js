@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
+import makeMediaUrl from 'src/util/makeMediaUrl';
 import classify from 'src/classify';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +41,10 @@ class suggestedProduct extends Component {
                     <img
                         className={classes.productImage}
                         alt={name}
-                        src={makeProductMediaPath(small_image)}
+                        src={makeMediaUrl(small_image, {
+                            type: 'product',
+                            width: 60
+                        })}
                     />
                 </Link>
                 <Link
