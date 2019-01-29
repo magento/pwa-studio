@@ -4,13 +4,13 @@ import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import { Util } from '@magento/peregrine';
 import { getShippingMethods } from 'src/actions/cart';
-import actions, {
+import {
     beginCheckout,
+    cancelCheckout,
     editOrder,
-    resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
+    submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
 
@@ -33,7 +33,7 @@ const isPaymentMethodReady = () => {
     return !!paymentMethod;
 };
 const isShippingInfoReady = () => {
-    const address = storage.getItem('address');
+    const address = storage.getItem('shipping_address');
     return isAddressValid(address);
 };
 const isShippingMethodReady = checkout => !!checkout.shippingMethod;
@@ -41,45 +41,47 @@ const isShippingMethodReady = checkout => !!checkout.shippingMethod;
 class CheckoutWrapper extends Component {
     static propTypes = {
         beginCheckout: func.isRequired,
+        cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
             guestCartId: string,
-            paymentMethods: array,
             shippingMethods: array,
             totals: object
         }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
-            paymentMethod: string,
-            paymentTitle: string,
+            paymentData: shape({
+                description: string,
+                details: shape({
+                    cardType: string
+                }),
+                nonce: string
+            }),
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool.isRequired
         }),
         editOrder: func.isRequired,
-        resetCheckout: func.isRequired,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired
     };
 
     render() {
         const {
+            beginCheckout,
+            cancelCheckout,
             cart,
             checkout,
-
-            beginCheckout,
             editOrder,
             getShippingMethods,
             requestOrder,
-            resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
-            submitShippingMethod,
-            closeCheckoutForm
+            submitPaymentMethodAndBillingAddress,            
+            submitShippingMethod
         } = this.props;
 
         // ensure state slices are present
@@ -89,38 +91,27 @@ class CheckoutWrapper extends Component {
 
         const actions = {
             beginCheckout,
+            cancelCheckout,
             editOrder,
             getShippingMethods,
             requestOrder,
-            resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
-            submitShippingMethod,
-            closeCheckoutForm
+            submitPaymentMethodAndBillingAddress,
+            submitShippingMethod
         };
 
-        const {
-            paymentMethods: availablePaymentMethods,
-            shippingMethods: availableShippingMethods
-        } = cart;
-        const {
-            paymentMethod,
-            paymentTitle,
-            shippingMethod,
-            shippingTitle
-        } = checkout;
+        const { shippingMethods: availableShippingMethods } = cart;
+        const { paymentData, shippingMethod, shippingTitle } = checkout;
 
         const miscProps = {
-            availablePaymentMethods,
             availableShippingMethods,
             isCartReady: isCartReady(cart),
             isCheckoutReady: isCheckoutReady(checkout),
             isPaymentMethodReady: isPaymentMethodReady(),
             isShippingInformationReady: isShippingInfoReady(),
             isShippingMethodReady: isShippingMethodReady(checkout),
-            paymentMethod,
-            paymentTitle,
+            paymentData,
             shippingMethod,
             shippingTitle
         };
@@ -134,14 +125,13 @@ const mapStateToProps = ({ cart, checkout }) => ({ cart, checkout });
 
 const mapDispatchToProps = {
     beginCheckout,
+    cancelCheckout,
     editOrder,
     getShippingMethods,
-    resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
-    submitShippingMethod,
-    closeCheckoutForm: actions.reset
+    submitPaymentMethodAndBillingAddress,
+    submitShippingMethod
 };
 
 export default connect(

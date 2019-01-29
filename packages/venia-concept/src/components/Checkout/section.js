@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { bool, node, shape, string } from 'prop-types';
+import CheckIcon from 'react-feather/dist/icons/check';
+import EditIcon from 'react-feather/dist/icons/edit-2';
 
 import classify from 'src/classify';
-import Button from 'src/components/Button';
-import defaultClasses from './section.css';
 import Icon from 'src/components/Icon';
-import CheckIcon from 'react-feather/dist/icons/check';
+import defaultClasses from './section.css';
 
 const editIconAttrs = {
     color: 'black',
@@ -15,47 +15,37 @@ const editIconAttrs = {
 class Section extends Component {
     static propTypes = {
         classes: shape({
+            content: string,
+            icon: string,
             label: string,
             root: string,
-            summary: string,
-            icon: string
+            summary: string
         }),
-        label: node,
-        selectedOption: bool,
-        filledOption: bool
-    };
-
-    defaultProps = {
-        filledOption: false
+        isEditable: bool,
+        label: node
     };
 
     render() {
         const {
             children,
             classes,
+            isEditable,
             label,
-            selectedOption,
-            filledOption,
             ...restProps
         } = this.props;
+
+        const icon = isEditable ? <Icon src={EditIcon} attrs={editIconAttrs} /> : null;
+
         return (
-            <Button classes={classes} {...restProps}>
-                <span className={classes.label}>
-                    <span>{label}</span>
-                </span>
-                <span className={classes.summary}>
-                    {children}
-                    <span className={classes.icon}>
-                        {' '}
-                        {selectedOption && <Icon src={CheckIcon} />}{' '}
+            <button className={classes.root} {...restProps}>
+                <span className={classes.content}>
+                    <span className={classes.label}>
+                        <span>{label}</span>
                     </span>
+                    <span className={classes.summary}>{children}</span>
+                    <span className={classes.icon}>{icon}</span>
                 </span>
-                <span className={classes.editIconContainer}>
-                    {filledOption ? (
-                        <Icon name="edit-2" attrs={editIconAttrs} />
-                    ) : null}
-                </span>
-            </Button>
+            </button>
         );
     }
 }

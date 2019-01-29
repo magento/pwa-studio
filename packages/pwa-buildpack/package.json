@@ -7,11 +7,12 @@
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx babel src --out-dir dist --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
-    "clean": "npx rimraf dist",
-    "prebuild": "npm run -s clean",
-    "prepublishOnly": "npm run -s build",
-    "watch": "npm run -s build -- --watch"
+    "build": "babel src --out-dir dist --root-mode 'root' --ignore '__tests__/,__mocks__/,__fixtures__/' --source-maps --copy-files",
+    "build:dev": "yarn run build",
+    "clean": "rimraf dist",
+    "prebuild": "yarn run clean",
+    "prepublishOnly": "yarn run build",
+    "watch": "yarn run build --watch"
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -27,37 +28,43 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
-    "@magento/directive-parser": "~0.1.1",
-    "@magento/upward-js": "^2.0.0-rc.18",
-    "ajv": "~6.1.1",
-    "babel-helper-module-imports": "~7.0.0-beta.3",
-    "babel-plugin-syntax-dynamic-import": "~6.18.0",
-    "boxen": "~2.0.0",
-    "chalk": "~2.4.1",
-    "debug": "~3.1.0",
+    "@babel/core": "~7.2.2",
+    "@babel/helper-module-imports": "~7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.2.0",
+    "@magento/directive-parser": "~0.1.6",
+    "@magento/upward-js": "2.0.0-rc.18",
+    "ajv": "~6.6.2",
+    "babel-loader": "~8.0.5",
+    "boxen": "~2.1.0",
+    "chalk": "~2.4.2",
+    "debug": "~4.1.1",
     "debug-error-middleware": "~1.3.0",
     "devcert": "~1.0.0",
     "execa": "~1.0.0",
-    "express": "~4.16.3",
-    "graphql-playground-middleware-express": "~1.7.3",
+    "express": "~4.16.4",
+    "graphql-playground-middleware-express": "~1.7.8",
     "lodash": "~4.17.11",
-    "node-fetch": "~2.2.1",
+    "node-fetch": "~2.3.0",
     "portscanner": "~2.2.0",
-    "readdir-enhanced": "~2.2.2",
-    "virtual-module-webpack-plugin": "~0.4.0",
+    "readdir-enhanced": "~2.2.4",
+    "virtual-module-webpack-plugin": "~0.4.1",
+    "webpack": "~4.28.4",
     "webpack-sources": "~1.3.0",
-    "workbox-webpack-plugin": "~3.6.1",
-    "write-file-webpack-plugin": "~4.2.0"
+    "workbox-webpack-plugin": "~3.6.3",
+    "write-file-webpack-plugin": "~4.5.0"
   },
   "devDependencies": {
-    "babel-cli": "~6.26.0",
-    "rimraf": "~2.6.2"
-  },
-  "peerDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7"
+    "@babel/cli": "~7.2.3",
+    "@babel/plugin-proposal-class-properties": "~7.2.3",
+    "dedent": "~0.7.0",
+    "memory-fs": "~0.4.1",
+    "rimraf": "~2.6.3",
+    "strip-ansi": "~5.0.0",
+    "terser-webpack-plugin": "~1.2.1"
   },
   "engines": {
-    "node": ">=10.14.1"
+    "node": ">=10.7.0",
+    "yarn": ">=1.12.0"
   }
 }

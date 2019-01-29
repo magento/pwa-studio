@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './button.css';
 
-class Button extends Component {
+const getRootClassName = priority => `root_${priority}Priority`;
+
+export class Button extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            content: PropTypes.string,
-            root: PropTypes.string,
-            rootFilled: PropTypes.string
-        }),
-        type: PropTypes.oneOf(['button', 'reset', 'submit']),
-        filled: PropTypes.bool
+        classes: shape({
+            content: string,
+            root: string,
+            root_highPriority: string,
+            root_normalPriority: string
+        }).isRequired,
+        priority: oneOf(['high', 'normal']).isRequired,
+        type: oneOf(['button', 'reset', 'submit']).isRequired
     };
 
     static defaultProps = {
-        type: 'button',
-        filled: false
+        priority: 'normal',
+        type: 'button'
     };
 
     render() {
-        const { children, classes, type, filled, ...restProps } = this.props;
-        const className = filled ? classes.rootFilled : classes.root;
+        const { children, classes, priority, type, ...restProps } = this.props;
+
+        const rootClassName = classes[getRootClassName(priority)];
 
         return (
-            <button className={className} type={type} {...restProps}>
+            <button className={rootClassName} type={type} {...restProps}>
                 <span className={classes.content}>{children}</span>
             </button>
         );

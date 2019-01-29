@@ -10,7 +10,6 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router, Util } from '@magento/peregrine';
 
 import store from 'src/store';
-
 import app from 'src/actions/app';
 import App from 'src/components/App';
 import './index.css';

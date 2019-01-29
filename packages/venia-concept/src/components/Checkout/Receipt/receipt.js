@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import classify from 'src/classify';
-import Button, { darkThemeClasses } from 'src/components/Button';
+import Button from 'src/components/Button';
 import defaultClasses from './receipt.css';
 
 export const CONTINUE_SHOPPING_BUTTON_ID = 'continue-shopping-button';
@@ -62,7 +62,6 @@ class Receipt extends Component {
                     </div>
                     <Button
                         data-id={CONTINUE_SHOPPING_BUTTON_ID}
-                        classes={darkThemeClasses}
                         onClick={this.continueShopping}
                     >
                         Continue Shopping
@@ -73,7 +72,7 @@ class Receipt extends Component {
                     </div>
                     <Button
                         data-id={CREATE_ACCOUNT_BUTTON_ID}
-                        classes={darkThemeClasses}
+                        priority="high"
                         onClick={this.createAccount}
                     >
                         Create an Account

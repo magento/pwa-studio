@@ -17,7 +17,7 @@ class SubmitButton extends Component {
         const disabled = isDisabled(submitting, valid);
 
         return (
-            <Button filled={true} disabled={disabled} onClick={submitOrder}>
+            <Button priority="high" disabled={disabled} onClick={submitOrder}>
                 Confirm Order
             </Button>
         );
