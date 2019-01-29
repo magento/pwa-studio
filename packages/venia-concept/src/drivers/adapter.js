@@ -9,7 +9,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
 /**
- * The counterpart to "@magento-venia/drivers" is an adapter which provides
+ * The counterpart to "@magento/venia-drivers" is an adapter which provides
  * context objects to the driver dependencies. The default implementation in
  * 'src/drivers' uses components like 'react-apollo' and 'react-redux', which
  * have implicit external dependencies. This adapter provides all of them at

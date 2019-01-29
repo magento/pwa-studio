@@ -23,7 +23,7 @@ export { connect } from 'react-redux';
  *
  *     module: {
  *       alias: {
- *         "@magento-venia/drivers": "./myReplacementDrivers"
+ *         "@magento/venia-drivers": "./myReplacementDrivers"
  *       }
  *     }
  */

@@ -7,7 +7,7 @@
   "description": "Venia PWA Concept Storefront for Magento 2",
   "main": "src/index.js",
   "browser": {
-    "@magento-venia/drivers": "src/drivers"
+    "@magento/venia-drivers": "src/drivers"
   },
   "bin": {
     "venia": "./bin/venia.js"

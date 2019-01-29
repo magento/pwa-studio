@@ -23,7 +23,7 @@ const config = api => {
         warned = true;
         console.warn(
             chalk.bold.yellowBright(
-                'You may see some warnings that @magento-venia/drivers could not be resolved. This is normal and not an error; Venia exports a virtual import path and babel-plugin-module-resolver is hardcoded to warn about it.'
+                'You may see some warnings that @magento/venia-drivers could not be resolved. This is normal and not an error; Venia exports a virtual import path and babel-plugin-module-resolver is hardcoded to warn about it.'
             )
         );
     }
@@ -48,23 +48,23 @@ const config = api => {
                          * override the 'src/drivers' dependency so Venia
                          * modules will run outside the Venia app. This alias
                          * exports the modules so the drivers dependency is
-                         * a unique string '@magento-venia/drivers', which is
+                         * a unique string '@magento/venia-drivers', which is
                          * less likely to collide with an existing dependency
                          * than 'src/drivers' is.
                          *
                          * In webpack (or any build system) config for a project
                          * using Venia modules, you must write an override for
-                         * '@magento-venia/drivers' and make an alias to that
+                         * '@magento/venia-drivers' and make an alias to that
                          * module in your build configuration, e.g.:
                          *
                          *     alias: {
-                         *       '@magento-venia/drivers': './src/veniaDrivers'
+                         *       '@magento/venia-drivers': './src/veniaDrivers'
                          *     }
                          *
                          * to map from this virtual string to your replacement.
                          */
                         alias: {
-                            '^src/drivers$': '@magento-venia/drivers'
+                            '^src/drivers$': '@magento/venia-drivers'
                         }
                     }
                 ]
