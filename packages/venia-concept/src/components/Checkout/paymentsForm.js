@@ -5,13 +5,12 @@ import { array, bool, func, shape, string } from 'prop-types';
 import BraintreeDropin from './braintreeDropin';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
+import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
-
 import classify from 'src/classify';
-import defaultClasses from './paymentsForm.css';
 
+import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import Field from "./addressForm";
 import validators from "./validators";
 
 const DEFAULT_FORM_VALUES = {
