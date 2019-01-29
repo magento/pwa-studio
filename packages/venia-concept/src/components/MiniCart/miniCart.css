@@ -1,15 +1,15 @@
-:root {
-    --minicart-width: 360px;
-}
-
 .root {
+    --base-z-index: 4;
+    --minicart-width: 360px;
+    --minicart-height: 100vh;
+    --minicart-header-height: 3.5rem;
     align-content: start;
     background-color: white;
     bottom: 0;
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;
     grid-template-rows: min-content 1fr;
-    height: 100vh;
+    height: var(--minicart-height);
     opacity: 0;
     overflow: hidden;
     position: fixed;
@@ -21,7 +21,7 @@
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
     width: var(--minicart-width);
-    z-index: 4;
+    z-index: var(--base-z-index);
 }
 
 /* state: open */
@@ -54,7 +54,7 @@
     grid-auto-flow: column;
     grid-auto-rows: 3rem;
     grid-template-columns: 1fr;
-    height: 3.5rem;
+    height: var(--minicart-header-height);
     justify-content: end;
     padding: 0 1rem;
     position: relative;

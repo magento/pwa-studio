@@ -8,9 +8,9 @@ import {
     beginCheckout,
     editOrder,
     resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
+    submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
 
@@ -33,7 +33,7 @@ const isPaymentMethodReady = () => {
     return !!paymentMethod;
 };
 const isShippingInfoReady = () => {
-    const address = storage.getItem('address');
+    const address = storage.getItem('shipping_address');
     return isAddressValid(address);
 };
 const isShippingMethodReady = checkout => !!checkout.shippingMethod;
@@ -44,14 +44,18 @@ class CheckoutWrapper extends Component {
         cart: shape({
             details: object,
             guestCartId: string,
-            paymentMethods: array,
             shippingMethods: array,
             totals: object
         }),
         checkout: shape({
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
-            paymentMethod: string,
-            paymentTitle: string,
+            paymentData: shape({
+                description: string,
+                details: shape({
+                    cardType: string
+                }),
+                nonce: string
+            }),
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
@@ -59,9 +63,9 @@ class CheckoutWrapper extends Component {
         }),
         editOrder: func.isRequired,
         resetCheckout: func.isRequired,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired
     };
 
@@ -75,9 +79,9 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = this.props;
 
@@ -92,33 +96,23 @@ class CheckoutWrapper extends Component {
             getShippingMethods,
             requestOrder,
             resetCheckout,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         };
 
-        const {
-            paymentMethods: availablePaymentMethods,
-            shippingMethods: availableShippingMethods
-        } = cart;
-        const {
-            paymentMethod,
-            paymentTitle,
-            shippingMethod,
-            shippingTitle
-        } = checkout;
+        const { shippingMethods: availableShippingMethods } = cart;
+        const { paymentData, shippingMethod, shippingTitle } = checkout;
 
         const miscProps = {
-            availablePaymentMethods,
             availableShippingMethods,
             isCartReady: isCartReady(cart),
             isCheckoutReady: isCheckoutReady(checkout),
             isPaymentMethodReady: isPaymentMethodReady(),
             isShippingInformationReady: isShippingInfoReady(),
             isShippingMethodReady: isShippingMethodReady(checkout),
-            paymentMethod,
-            paymentTitle,
+            paymentData,
             shippingMethod,
             shippingTitle
         };
@@ -136,9 +130,9 @@ const mapDispatchToProps = {
     editOrder,
     getShippingMethods,
     resetCheckout,
-    submitAddress,
+    submitShippingAddress,
     submitOrder,
-    submitPaymentMethod,
+    submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 };
 

@@ -31,7 +31,7 @@ The following steps summarize the basic checkout experience for a Venia shopper:
 1. The **Shipping and Billing** summary page appears with the following items:
 
     - **Ship To** - Click to display a form for setting the shipping address.
-    - **Pay With** - Click to display a form that allows the shopper to select the payment method.
+    - **Pay With** - Click to display a form that allows the shopper to select the payment method and billing address.
     - **Get It By** - Click to display a form that allows the shopper to select the shipping method.
     - **TOTAL** - Shows the shopping cart total.
 
@@ -83,7 +83,7 @@ When the shopper clicks on the **Checkout** button, the `beginCheckout()` functi
 1. `getShippingMethods()` - Creates a POST request to `guest-carts/<cartId>/estimate-shipping-methods` to get a list of available shipping methods based on a given address.
    If an address has not been provided, the ability to choose a shipping method is disabled.
 1. `getCountries()` - Creates a GET request to the `directory/countries` REST endpoint to get a list of countries and regions from the backing store.
-   The `submitAddress()` function uses this list to validate the country for a shipping address.
+   The `submitShippingAddress()` and `submitBillingAddress()` functions use this list to validate the country for a given address.
 
 #### Form sections
 
@@ -93,11 +93,11 @@ Each form has a **Save** and **Cancel** button.
 
 Clicking on the **Cancel** button on each form dispatches an action that returns the _Form_ component to its order overview state.
 
-On the shipping address form, the **Save** button calls the `submitAddress()` function.
+On the shipping address form, the **Save** button calls the `submitShippingAddress()` function.
 This function validates the address data before saving locally.
 
-On the payment method form, the **Save** button calls the `submitPaymentMethod()` function.
-This function saves the selected payment method locally.
+On the payment method form, the **Save** button calls the `submitPaymentMethodAndBillingAddress()` function.
+This function saves the selected payment method and billing address locally.
 
 On the shipping method form, the **Save** button calls the `submitShippingMethod()` function.
 This function saves the selected shipping method locally.
