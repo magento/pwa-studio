@@ -11,3 +11,4 @@ test-report.xml
 test-results.json
 lerna-debug.log
 .env
+yarn-error.log

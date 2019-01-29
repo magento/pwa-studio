@@ -33,6 +33,7 @@ class AddressForm extends Component {
         cancel: func.isRequired,
         classes: shape({
             body: string,
+            button: string,
             city: string,
             email: string,
             firstname: string,
@@ -42,6 +43,7 @@ class AddressForm extends Component {
             region_code: string,
             street0: string,
             telephone: string,
+            textInput: string,
             validation: string
         }),
         incorrectAddressMessage: string,
@@ -158,10 +160,17 @@ class AddressForm extends Component {
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button type="submit" priority="high" disabled={submitting}>
-                        Save
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
                     </Button>
-                    <Button onClick={this.cancel}>Cancel</Button>
+                    <Button
+                        className={classes.button}
+                        type="submit"
+                        priority="high"
+                        disabled={submitting}
+                    >
+                        Use Address
+                    </Button>
                 </div>
             </Fragment>
         );

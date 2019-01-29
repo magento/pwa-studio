@@ -7,5 +7,6 @@
         "packages/upward-spec",
         "packages/venia-concept"
     ],
-    "npmClient": "npm"
+    "npmClient": "yarn",
+    "useWorkspaces": true
 }
