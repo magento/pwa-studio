@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
-import { Query } from 'react-apollo';
 
+import { Query } from 'src/drivers';
 import classify from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Branch from './categoryBranch';

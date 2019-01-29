@@ -11,10 +11,10 @@ const joinUrls = (base, url) =>
 
 // TODO: make this even more dynamic, like an open registry
 const mediaPathPrefixes = {
-    product:
+    'image-product':
         process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
         '/media/catalog/product',
-    category:
+    'image-category':
         process.env.MAGENTO_BACKEND_MEDIA_PATH_CATALOG ||
         '/media/catalog/category'
 };
@@ -32,7 +32,7 @@ function makeResizedUrl(url, width) {
 
 // Should fail silently on a null value, so default to the empty string
 // so that string methods work
-function makeMediaUrl(url = '', opts = {}) {
+function formatUrl(url = '', opts = {}) {
     const { type, width } = opts;
     if (absoluteUrl.test(url) || !(type || width)) {
         // Absolute URLs shouldn't be resized
@@ -61,4 +61,4 @@ function makeMediaUrl(url = '', opts = {}) {
 const storeUrlKey = (url, { width = '', type = '' } = {}) =>
     `${type}%%${url}%%${width}`;
 
-export default memoize(makeMediaUrl, storeUrlKey);
+export default memoize(formatUrl, storeUrlKey);
