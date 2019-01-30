@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import { Util } from '@magento/peregrine';

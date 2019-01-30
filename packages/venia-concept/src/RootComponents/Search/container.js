@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 
 import Search from './search';
 import { executeSearch, toggleSearch } from 'src/actions/app';
