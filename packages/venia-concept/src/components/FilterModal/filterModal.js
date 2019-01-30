@@ -1,8 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import FilterFooter from './FilterFooter';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
 import classify from 'src/classify';
@@ -15,8 +13,19 @@ class FilterModal extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
-            searchFilterContainer: PropTypes.string
+            modalWrapper: PropTypes.string,
+            header: PropTypes.string,
+            headerTitle: PropTypes.string,
+            filterOptionsContainer: PropTypes.string
         }),
+        filters: PropTypes.arrayOf(
+            PropTypes.shape({
+                request_var: PropTypes.string,
+                items: PropTypes.array
+            })
+        ),
+        filterAdd: PropTypes.func,
+        filterRemove: PropTypes.func,
         closeModalHandler: PropTypes.func
     };
 
@@ -60,15 +69,7 @@ class FilterModal extends Component {
     };
 
     render() {
-        const {
-            classes,
-            isModalOpen,
-            closeModalHandler,
-            filterAdd,
-            filterRemove,
-            filters
-        } = this.props;
-
+        const { classes, isModalOpen, closeModalHandler } = this.props;
         const modalClass = isModalOpen ? classes.rootOpen : classes.root;
 
         return (
@@ -84,7 +85,7 @@ class FilterModal extends Component {
                     <FiltersCurrent keyPrefix="modal" />
 
                     <List
-                        items={filters}
+                        items={this.props.filters}
                         getItemKey={({ request_var }) => request_var}
                         render={props => (
                             <ul className={classes.filterOptionsContainer}>
@@ -94,8 +95,8 @@ class FilterModal extends Component {
                         renderItem={props => (
                             <FilterBlock
                                 item={props.item}
-                                filterAdd={filterAdd}
-                                filterRemove={filterRemove}
+                                filterAdd={this.props.filterAdd}
+                                filterRemove={this.props.filterRemove}
                             />
                         )}
                     />
@@ -106,7 +107,4 @@ class FilterModal extends Component {
     }
 }
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(FilterModal);
+export default classify(defaultClasses)(FilterModal);

@@ -5,8 +5,7 @@ import gql from 'graphql-tag';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
-import globalClasses from 'src/index.css';
-import FilterModal from './FilterModal';
+import FilterModal from 'src/components/FilterModal';
 import defaultClasses from './category.css';
 
 const productsQuery = gql`

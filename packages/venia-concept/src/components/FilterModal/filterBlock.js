@@ -13,36 +13,21 @@ class FilterBlock extends Component {
             root: PropTypes.string
         }),
         item: PropTypes.shape({
-            id: PropTypes.number,
-            name: PropTypes.string,
-            items: PropTypes.array,
-            RenderOption: PropTypes.func
+            name: PropTypes.array,
+            filter_items: PropTypes.array,
+            request_var: PropTypes.string
         }),
-        chosenFilterOptions: PropTypes.object,
-        updateChosenFilterOptions: PropTypes.func,
-        isExpanded: PropTypes.bool
+        filterAdd: PropTypes.func,
+        filterRemove: PropTypes.func
     };
 
     state = {
-        isExpanded: false,
-        chosenItemsFromUrl: {}
-    };
-
-    resetChosenItems = () => {
-        this.updateChosenItems([]);
+        isExpanded: false
     };
 
     optionToggle = () => {
         const { isExpanded } = this.state;
         this.setState({ isExpanded: !isExpanded });
-    };
-
-    updateChosenItems = actualItems => {
-        const { updateChosenFilterOptions } = this.props;
-        updateChosenFilterOptions({
-            optionName: this.props.item.request_var,
-            optionItems: actualItems
-        });
     };
 
     getControlBlock = isExpanded => {
@@ -77,23 +62,21 @@ class FilterBlock extends Component {
 
         const { isExpanded } = this.state;
 
+        const listClassName = isExpanded
+            ? classes.filterListExpanded
+            : classes.filterList;
+
+        const controlBlock = this.getControlBlock(isExpanded);
+
         return (
             <li className={classes.root}>
-                {this.getControlBlock(isExpanded)}
-
-                <div
-                    className={
-                        isExpanded
-                            ? classes.filterListExpanded
-                            : classes.filterList
-                    }
-                >
+                {controlBlock}
+                <div className={listClassName}>
                     <FilterList
                         filterAdd={filterAdd}
                         filterRemove={filterRemove}
                         id={request_var}
                         items={filter_items}
-                        updateChosenItems={this.updateChosenItems}
                     />
                 </div>
             </li>
