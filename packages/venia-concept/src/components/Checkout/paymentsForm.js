@@ -44,6 +44,10 @@ class PaymentsForm extends Component {
         submitting: bool
     };
 
+    static defaultProps = {
+        initialValues: {}
+    };
+
     state = {
         isRequestingPaymentNonce: false
     };
@@ -226,7 +230,6 @@ class PaymentsForm extends Component {
 
         if (!billingAddress.sameAsShippingAddress) {
             billingAddress = {
-                ...billingAddress,
                 city: formValue('city'),
                 postcode: formValue('postcode'),
                 region_code: formValue('region_code'),

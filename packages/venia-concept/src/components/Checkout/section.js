@@ -21,7 +21,6 @@ class Section extends Component {
             root: string,
             summary: string
         }),
-        isClickable: bool,
         label: node,
         showEditIcon: bool
     };
@@ -35,10 +34,6 @@ class Section extends Component {
             showEditIcon,
             ...restProps
         } = this.props;
-
-        if (!isClickable) {
-            delete restProps.onClick;
-        }
 
         const icon = showEditIcon ? EDIT_ICON : null;
 

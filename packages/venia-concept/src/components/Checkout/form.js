@@ -18,6 +18,7 @@ const storage = new BrowserPersistence();
 class Form extends Component {
     static propTypes = {
         availableShippingMethods: array,
+        billingAddress: object, // TODO: shape
         cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
@@ -39,6 +40,8 @@ class Form extends Component {
         havePaymentMethod: bool,
         haveShippingAddress: bool,
         haveShippingMethod: bool,
+        incorrectAddressMessage: string,
+        isAddressIncorrect: bool,
         paymentData: shape({
             description: string,
             details: shape({
@@ -47,6 +50,7 @@ class Form extends Component {
             nonce: string
         }),
         ready: bool,
+        shippingAddress: object, // TODO: shape
         shippingMethod: string,
         shippingTitle: string,
         submitShippingAddress: func.isRequired,
@@ -69,8 +73,7 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const shippingAddress =
-                    storage.getItem('shipping_address') || {};
+                const { shippingAddress } = this.props;
 
                 return (
                     <AddressForm
@@ -84,7 +87,7 @@ class Form extends Component {
                 );
             }
             case 'paymentMethod': {
-                const billingAddress = storage.getItem('billing_address') || {};
+                const { billingAddress } = this.props;
 
                 return (
                     <PaymentsForm
@@ -130,7 +133,6 @@ class Form extends Component {
             <Fragment>
                 <div className={classes.body}>
                     <Section
-                        isClickable={true}
                         label="Ship To"
                         onClick={this.editAddress}
                         showEditIcon={haveShippingAddress}
@@ -138,7 +140,6 @@ class Form extends Component {
                         {this.shippingAddressSummary}
                     </Section>
                     <Section
-                        isClickable={haveShippingAddress}
                         label="Pay With"
                         onClick={this.editPaymentMethod}
                         showEditIcon={havePaymentMethod}
@@ -146,7 +147,6 @@ class Form extends Component {
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
-                        isClickable={havePaymentMethod}
                         label="Get It By"
                         onClick={this.editShippingMethod}
                         showEditIcon={haveShippingMethod}
@@ -175,18 +175,14 @@ class Form extends Component {
     }
 
     get paymentMethodSummary() {
-        const {
-            classes,
-            havePaymentMethod,
-            haveShippingAddress,
-            paymentData
-        } = this.props;
+        const { classes, havePaymentMethod, paymentData } = this.props;
 
         if (!havePaymentMethod) {
-            const promptClass = haveShippingAddress
-                ? classes.informationPrompt
-                : classes['informationPrompt--disabled'];
-            return <span className={promptClass}>Add Billing Information</span>;
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Billing Information
+                </span>
+            );
         }
 
         let primaryDisplay = '';
@@ -210,8 +206,7 @@ class Form extends Component {
     }
 
     get shippingAddressSummary() {
-        const { classes, haveShippingAddress } = this.props;
-        const address = storage.getItem('shipping_address');
+        const { classes, haveShippingAddress, shippingAddress } = this.props;
 
         if (!haveShippingAddress) {
             return (
@@ -221,8 +216,8 @@ class Form extends Component {
             );
         }
 
-        const name = `${address.firstname} ${address.lastname}`;
-        const street = `${address.street.join(' ')}`;
+        const name = `${shippingAddress.firstname} ${shippingAddress.lastname}`;
+        const street = `${shippingAddress.street.join(' ')}`;
 
         return (
             <Fragment>
@@ -234,25 +229,32 @@ class Form extends Component {
     }
 
     get shippingMethodSummary() {
-        const {
-            classes,
-            havePaymentMethod,
-            haveShippingMethod,
-            shippingTitle
-        } = this.props;
+        const { classes, haveShippingMethod, shippingTitle } = this.props;
 
         if (!haveShippingMethod) {
-            const promptClass = havePaymentMethod
-                ? classes.informationPrompt
-                : classes['informationPrompt--disabled'];
             return (
-                <span className={promptClass}>Add Shipping Information</span>
+                <span className={classes.informationPrompt}>
+                    Add Shipping Information
+                </span>
             );
         }
 
+        const twoDaysInMilliseconds = 1000 * 60 * 60 * 24 * 2;
+        const twoDaysFromNowDate = new Date(Date.now() + twoDaysInMilliseconds);
+        const twoDaysFromNowDisplay = twoDaysFromNowDate.toLocaleDateString(
+            'en-US',
+            {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }
+        );
+
         return (
             <Fragment>
-                <strong>{shippingTitle}</strong>
+                <strong>{twoDaysFromNowDisplay}</strong>
+                <br />
+                <span>{shippingTitle}</span>
             </Fragment>
         );
     }

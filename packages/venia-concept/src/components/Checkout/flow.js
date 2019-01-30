@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';
@@ -32,11 +32,23 @@ class Flow extends Component {
             totals: object
         }),
         checkout: shape({
-            editing: string,
+            billingAddress: object, // TODO: shape
+            editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             incorrectAddressMessage: string,
             isAddressIncorrect: bool,
-            step: string,
-            submitting: bool
+            paymentCode: string,
+            paymentData: shape({
+                description: string,
+                details: shape({
+                    cardType: string
+                }),
+                nonce: string
+            }),
+            shippingAddress: object, // TODO: shape
+            shippingMethod: string,
+            shippingTitle: string,
+            step: oneOf(['cart', 'form', 'receipt']).isRequired,
+            submitting: bool.isRequired
         }),
         classes: shape({
             root: string
@@ -67,10 +79,7 @@ class Flow extends Component {
             haveShippingAddress,
             haveShippingMethod,
             isCartReady,
-            isCheckoutReady,
-            paymentData,
-            shippingMethod,
-            shippingTitle
+            isCheckoutReady
         } = this.props;
 
         const {
@@ -85,11 +94,16 @@ class Flow extends Component {
         } = actions;
 
         const {
+            billingAddress,
             editing,
-            step,
-            submitting,
             isAddressIncorrect,
-            incorrectAddressMessage
+            incorrectAddressMessage,
+            paymentData,
+            shippingAddress,
+            shippingMethod,
+            shippingTitle,
+            step,
+            submitting
         } = checkout;
 
         switch (stepMap[step]) {
@@ -105,6 +119,7 @@ class Flow extends Component {
             case stepMap.form: {
                 const stepProps = {
                     availableShippingMethods,
+                    billingAddress,
                     cancelCheckout,
                     cart,
                     editOrder,
@@ -113,8 +128,11 @@ class Flow extends Component {
                     havePaymentMethod,
                     haveShippingAddress,
                     haveShippingMethod,
-                    ready: isCheckoutReady,
+                    incorrectAddressMessage,
+                    isAddressIncorrect,
                     paymentData,
+                    ready: isCheckoutReady,
+                    shippingAddress,
                     shippingMethod,
                     shippingTitle,
                     submitShippingAddress,
@@ -124,13 +142,7 @@ class Flow extends Component {
                     submitting
                 };
 
-                const formProps = {
-                    ...stepProps,
-                    incorrectAddressMessage,
-                    isAddressIncorrect
-                };
-
-                return <Form {...formProps} />;
+                return <Form {...stepProps} />;
             }
             case stepMap.receipt: {
                 return <Receipt />;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
-import { Util } from '@magento/peregrine';
 import { getShippingMethods } from 'src/actions/cart';
 import {
     beginCheckout,
@@ -16,27 +15,20 @@ import {
 
 import Flow from './flow';
 
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
-
-const isAddressValid = address => !!(address && address.email);
+const hasData = value => !!value;
 const isCartReady = cart => cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
-    return (
-        havePaymentMethod() &&
-        haveShippingAddress() &&
-        haveShippingMethod(checkout)
+    const {
+        billingAddress,
+        paymentData,
+        shippingAddress,
+        shippingMethod
+    } = checkout;
+
+    return [billingAddress, paymentData, shippingAddress, shippingMethod].every(
+        hasData
     );
 };
-const havePaymentMethod = () => {
-    const paymentMethod = storage.getItem('paymentMethod');
-    return !!paymentMethod;
-};
-const haveShippingAddress = () => {
-    const address = storage.getItem('shipping_address');
-    return isAddressValid(address);
-};
-const haveShippingMethod = checkout => !!checkout.shippingMethod;
 
 class CheckoutWrapper extends Component {
     static propTypes = {
@@ -49,7 +41,11 @@ class CheckoutWrapper extends Component {
             totals: object
         }),
         checkout: shape({
+            billingAddress: object, // TODO: shape
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
+            incorrectAddressMessage: string,
+            isAddressIncorrect: bool,
+            paymentCode: string,
             paymentData: shape({
                 description: string,
                 details: shape({
@@ -57,6 +53,7 @@ class CheckoutWrapper extends Component {
                 }),
                 nonce: string
             }),
+            shippingAddress: object, // TODO: shape
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
@@ -102,18 +99,15 @@ class CheckoutWrapper extends Component {
         };
 
         const { shippingMethods: availableShippingMethods } = cart;
-        const { paymentData, shippingMethod, shippingTitle } = checkout;
+        const { paymentData, shippingAddress, shippingMethod } = checkout;
 
         const miscProps = {
             availableShippingMethods,
-            havePaymentMethod: havePaymentMethod(),
-            haveShippingAddress: haveShippingAddress(),
-            haveShippingMethod: haveShippingMethod(checkout),
+            havePaymentMethod: hasData(paymentData),
+            haveShippingAddress: hasData(shippingAddress),
+            haveShippingMethod: hasData(shippingMethod),
             isCartReady: isCartReady(cart),
-            isCheckoutReady: isCheckoutReady(checkout),
-            paymentData,
-            shippingMethod,
-            shippingTitle
+            isCheckoutReady: isCheckoutReady(checkout)
         };
 
         const flowProps = { actions, cart, checkout, ...miscProps };

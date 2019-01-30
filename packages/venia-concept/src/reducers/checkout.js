@@ -1,21 +1,24 @@
 import { handleActions } from 'redux-actions';
 import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
-import actions from 'src/actions/checkout';
+import actions, {
+    DEFAULT_SHIPPING_METHOD,
+    saveShippingMethod
+} from 'src/actions/checkout';
 
-export const name = 'checkout';
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-const storedPaymentMethod = storage.getItem('paymentMethod');
-const storedShippingMethod = storage.getItem('shippingMethod');
+export const name = 'checkout';
 
 const initialState = {
+    billingAddress: null,
     editing: null,
-    paymentCode: storedPaymentMethod && storedPaymentMethod.code,
-    paymentData: storedPaymentMethod && storedPaymentMethod.data,
-    shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
-    shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
+    paymentCode: '',
+    paymentData: null,
+    shippingAddress: null,
+    shippingMethod: '',
+    shippingTitle: '',
     step: 'cart',
     submitting: false,
     isAddressIncorrect: false,
@@ -24,8 +27,28 @@ const initialState = {
 
 const reducerMap = {
     [actions.begin]: state => {
+        const storedBillingAddress = storage.getItem('billing_address');
+        const storedPaymentMethod = storage.getItem('paymentMethod');
+        const storedShippingAddress = storage.getItem('shipping_address');
+        let storedShippingMethod = storage.getItem('shippingMethod');
+
+        // If we didn't have a stored shipping method already,
+        // use the default one and then save the default one to storage for next time.
+        if (!storedShippingMethod) {
+            storedShippingMethod = DEFAULT_SHIPPING_METHOD;
+            saveShippingMethod(DEFAULT_SHIPPING_METHOD);
+        }
+
         return {
             ...state,
+            billingAddress: storedBillingAddress,
+            paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+            paymentData: storedPaymentMethod && storedPaymentMethod.data,
+            shippingAddress: storedShippingAddress,
+            shippingMethod:
+                storedShippingMethod && storedShippingMethod.carrier_code,
+            shippingTitle:
+                storedShippingMethod && storedShippingMethod.carrier_title,
             editing: null,
             step: 'form'
         };
@@ -38,7 +61,12 @@ const reducerMap = {
         };
     },
     [actions.billingAddress.submit]: state => state,
-    [actions.billingAddress.accept]: state => state,
+    [actions.billingAddress.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            billingAddress: payload
+        };
+    },
     [actions.billingAddress.reject]: state => state,
     [actions.shippingAddress.submit]: state => {
         return {
@@ -46,10 +74,11 @@ const reducerMap = {
             submitting: true
         };
     },
-    [actions.shippingAddress.accept]: state => {
+    [actions.shippingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
             editing: null,
+            shippingAddress: payload,
             step: 'form',
             submitting: false,
             isAddressIncorrect: false,
