@@ -80,7 +80,7 @@ class CheckoutWrapper extends Component {
             requestOrder,
             submitShippingAddress,
             submitOrder,
-            submitPaymentMethodAndBillingAddress,            
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = this.props;
 

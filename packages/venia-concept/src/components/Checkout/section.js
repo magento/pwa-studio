@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { bool, node, shape, string } from 'prop-types';
-import CheckIcon from 'react-feather/dist/icons/check';
 import EditIcon from 'react-feather/dist/icons/edit-2';
 
 import classify from 'src/classify';

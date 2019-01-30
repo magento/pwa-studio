@@ -234,7 +234,12 @@ class Form extends Component {
     }
 
     get shippingMethodSummary() {
-        const { classes, havePaymentMethod, haveShippingMethod, shippingTitle } = this.props;
+        const {
+            classes,
+            havePaymentMethod,
+            haveShippingMethod,
+            shippingTitle
+        } = this.props;
 
         if (!haveShippingMethod) {
             const promptClass = havePaymentMethod
