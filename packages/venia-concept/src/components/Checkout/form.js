@@ -4,6 +4,7 @@ import { array, bool, func, object, shape, string } from 'prop-types';
 import { Price, Util } from '@magento/peregrine';
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
+import ResetButton from './resetButton';
 import Section from './section';
 import ShippingForm from './shippingForm';
 import SubmitButton from './submitButton';
@@ -39,6 +40,7 @@ class Form extends Component {
         paymentMethod: string,
         paymentTitle: string,
         ready: bool,
+        resetCheckout: func.isRequired,
         shippingMethod: string,
         shippingTitle: string,
         submitAddress: func.isRequired,
@@ -137,6 +139,7 @@ class Form extends Component {
             isShippingInformationReady,
             isPaymentMethodReady,
             ready,
+            resetCheckout,
             submitOrder,
             submitting
         } = this.props;
@@ -171,6 +174,7 @@ class Form extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
+                    <ResetButton resetCheckout={resetCheckout}/>
                     <SubmitButton
                         submitting={submitting}
                         valid={ready}
