@@ -180,7 +180,7 @@ class Form extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
-                    <ResetButton resetCheckout={resetCheckout}/>
+                    <ResetButton resetCheckout={resetCheckout} />
                     <SubmitButton
                         submitting={submitting}
                         valid={ready}
