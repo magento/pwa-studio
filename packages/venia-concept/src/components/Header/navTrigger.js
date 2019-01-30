@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 

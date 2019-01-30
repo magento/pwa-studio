@@ -1,8 +1,8 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Route } from 'react-router-dom';
 
 import classify from 'src/classify';
+import { Link, resourceUrl, Route } from 'src/drivers';
 import Icon from 'src/components/Icon';
 import SearchIcon from 'react-feather/dist/icons/search';
 import MenuIcon from 'react-feather/dist/icons/menu';
@@ -47,7 +47,7 @@ class Header extends Component {
         return (
             <header className={rootClass}>
                 <div className={classes.toolbar}>
-                    <Link to="/">
+                    <Link to={resourceUrl('/')}>
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
                     <div className={classes.primaryActions}>

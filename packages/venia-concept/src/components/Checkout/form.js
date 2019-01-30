@@ -17,7 +17,6 @@ const storage = new BrowserPersistence();
 
 class Form extends Component {
     static propTypes = {
-        availablePaymentMethods: array,
         availableShippingMethods: array,
         cart: shape({
             details: object,
@@ -29,6 +28,8 @@ class Form extends Component {
             footer: string,
             informationPrompt: string,
             'informationPrompt--disabled': string,
+            paymentDisplayPrimary: string,
+            paymentDisplaySecondary: string,
             root: string
         }),
         editing: string,
@@ -37,15 +38,20 @@ class Form extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentMethod: string,
-        paymentTitle: string,
+        paymentData: shape({
+            description: string,
+            details: shape({
+                cardType: string
+            }),
+            nonce: string
+        }),
         ready: bool,
         resetCheckout: func.isRequired,
         shippingMethod: string,
         shippingTitle: string,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired,
         submitting: bool.isRequired
     };
@@ -55,7 +61,7 @@ class Form extends Component {
      */
     get addressSummary() {
         const { classes, isShippingInformationReady } = this.props;
-        const address = storage.getItem('address');
+        const address = storage.getItem('shipping_address');
 
         if (!isShippingInformationReady) {
             return (
@@ -87,28 +93,28 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const address = storage.getItem('address') || {};
+                const shippingAddress =
+                    storage.getItem('shipping_address') || {};
 
                 return (
                     <AddressForm
-                        initialValues={address}
+                        initialValues={shippingAddress}
                         submitting={submitting}
                         cancel={this.stopEditing}
-                        submit={this.submitAddress}
+                        submit={this.submitShippingAddress}
                         isAddressIncorrect={isAddressIncorrect}
                         incorrectAddressMessage={incorrectAddressMessage}
                     />
                 );
             }
             case 'paymentMethod': {
-                const { availablePaymentMethods, paymentMethod } = this.props;
+                const billingAddress = storage.getItem('billing_address') || {};
 
                 return (
                     <PaymentsForm
-                        availablePaymentMethods={availablePaymentMethods}
                         cancel={this.stopEditing}
-                        paymentMethod={paymentMethod}
-                        submit={this.submitPaymentMethod}
+                        initialValues={billingAddress}
+                        submit={this.submitPaymentMethodAndBillingAddress}
                         submitting={submitting}
                     />
                 );
@@ -190,7 +196,7 @@ class Form extends Component {
             classes,
             isPaymentMethodReady,
             isShippingInformationReady,
-            paymentTitle
+            paymentData
         } = this.props;
 
         if (!isPaymentMethodReady) {
@@ -200,9 +206,22 @@ class Form extends Component {
             return <span className={promptClass}>Add Billing Information</span>;
         }
 
+        let primaryDisplay = '';
+        let secondaryDisplay = '';
+        if (paymentData) {
+            primaryDisplay = paymentData.details.cardType;
+            secondaryDisplay = paymentData.description;
+        }
+
         return (
             <Fragment>
-                <strong>{paymentTitle}</strong>
+                <strong className={classes.paymentDisplayPrimary}>
+                    {primaryDisplay}
+                </strong>
+                <br />
+                <span className={classes.paymentDisplaySecondary}>
+                    {secondaryDisplay}
+                </span>
             </Fragment>
         );
     }
@@ -261,18 +280,15 @@ class Form extends Component {
         this.props.editOrder(null);
     };
 
-    submitAddress = formValues => {
-        this.props.submitAddress({
-            type: 'address',
+    submitShippingAddress = formValues => {
+        this.props.submitShippingAddress({
+            type: 'shippingAddress',
             formValues
         });
     };
 
-    submitPaymentMethod = formValues => {
-        this.props.submitPaymentMethod({
-            type: 'paymentMethod',
-            formValues
-        });
+    submitPaymentMethodAndBillingAddress = formValues => {
+        this.props.submitPaymentMethodAndBillingAddress({ formValues });
     };
 
     submitShippingMethod = formValues => {

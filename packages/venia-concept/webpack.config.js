@@ -43,6 +43,7 @@ module.exports = async function(env) {
         validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
 
     const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
+    const braintreeToken = validEnv.BRAINTREE_TOKEN;
 
     const config = {
         mode,
@@ -118,6 +119,7 @@ module.exports = async function(env) {
                 rootComponentsDirs,
                 context: __dirname
             }),
+            new webpack.EnvironmentPlugin(validEnv),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(mode),
@@ -129,7 +131,8 @@ module.exports = async function(env) {
                         mode === 'production' || enableServiceWorkerDebugging
                             ? serviceWorkerFileName
                             : false
-                    )
+                    ),
+                    BRAINTREE_TOKEN: JSON.stringify(braintreeToken)
                 }
             }),
             new ServiceWorkerPlugin({
@@ -163,6 +166,7 @@ module.exports = async function(env) {
     if (mode === 'development') {
         config.devtool = 'eval-source-map';
         const devServerConfig = {
+            env: validEnv,
             publicPath: config.output.publicPath,
             graphqlPlayground: {
                 queryDirs: [path.resolve(themePaths.src, 'queries')]

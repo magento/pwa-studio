@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient } from 'apollo-client';
-import { persistCache } from 'apollo-cache-persist';
-import { ApolloProvider } from 'react-apollo';
 import { setContext } from 'apollo-link-context';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { Provider as ReduxProvider } from 'react-redux';
-import { Router, Util } from '@magento/peregrine';
+import { Util } from '@magento/peregrine';
 
+import { Adapter } from 'src/drivers';
 import store from 'src/store';
 import app from 'src/actions/app';
 import App from 'src/components/App';
@@ -17,10 +12,11 @@ import './index.css';
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
-const httpLink = createHttpLink({
-    uri: apiBase
-});
-
+/**
+ * The Venia adapter provides basic context objects: a router, a store, a
+ * GraphQL client, and some common functions. It is not opinionated about auth,
+ * so we add an auth implementation here and prepend it to the Apollo Link list.
+ */
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const storage = new BrowserPersistence();
@@ -36,26 +32,14 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
-const cache = new InMemoryCache();
-
-persistCache({
-    cache,
-    storage: window.localStorage
-});
-
-const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: cache
-});
-
 ReactDOM.render(
-    <ApolloProvider client={apolloClient}>
-        <ReduxProvider store={store}>
-            <Router apiBase={apiBase}>
-                <App />
-            </Router>
-        </ReduxProvider>
-    </ApolloProvider>,
+    <Adapter
+        apiBase={apiBase}
+        apollo={{ link: authLink.concat(Adapter.apolloLink(apiBase)) }}
+        store={store}
+    >
+        <App />
+    </Adapter>,
     document.getElementById('root')
 );
 
