@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { getUserInformation } from 'src/selectors/user';
 import MyAccountMenuTrigger from './myAccountMenuTrigger';
 

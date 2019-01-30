@@ -30,7 +30,7 @@ class Section extends Component {
         const icon = selectedOption ? <Icon src={CheckIcon} size={16} /> : null;
 
         return (
-            <button classes={classes.root} {...restProps}>
+            <button className={classes.root} {...restProps}>
                 <span className={classes.content}>
                     <span className={classes.label}>
                         <span>{label}</span>

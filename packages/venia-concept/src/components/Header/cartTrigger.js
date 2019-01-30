@@ -1,23 +1,51 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import { toggleCart } from 'src/actions/cart';
+import CartCounter from './cartCounter';
+
+import Icon from 'src/components/Icon';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 
-class Trigger extends Component {
+export class Trigger extends Component {
     static propTypes = {
         children: PropTypes.node,
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        toggleCart: PropTypes.func.isRequired
+        toggleCart: PropTypes.func.isRequired,
+        itemsQty: PropTypes.number
     };
 
+    get cartIcon() {
+        const {
+            cart: { details }
+        } = this.props;
+        const itemsQty = details.items_qty;
+        const iconColor = 'rgb(var(--venia-text))';
+        let svgAttributes = {
+            stroke: iconColor
+        };
+
+        if (itemsQty > 0) {
+            svgAttributes.fill = iconColor;
+        }
+
+        return <Icon src={ShoppingCartIcon} attrs={svgAttributes} />;
+    }
+
     render() {
-        const { children, classes, toggleCart } = this.props;
+        const {
+            classes,
+            toggleCart,
+            cart: { details }
+        } = this.props;
+        const { cartIcon } = this;
+        const itemsQty = details.items_qty;
 
         return (
             <button
@@ -25,11 +53,14 @@ class Trigger extends Component {
                 aria-label="Toggle mini cart"
                 onClick={toggleCart}
             >
-                {children}
+                {cartIcon}
+                <CartCounter counter={itemsQty ? itemsQty : 0} />
             </button>
         );
     }
 }
+
+const mapStateToProps = ({ cart }) => ({ cart });
 
 const mapDispatchToProps = {
     toggleCart
@@ -38,7 +69,7 @@ const mapDispatchToProps = {
 export default compose(
     classify(defaultClasses),
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )
 )(Trigger);

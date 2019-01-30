@@ -18,11 +18,34 @@ class ThumbnailList extends Component {
                 disabled: PropTypes.bool,
                 file: PropTypes.string.isRequired
             })
-        ).isRequired
+        ).isRequired,
+        updateActiveItemIndex: PropTypes.func
+    };
+
+    findItemIndexBySrc = src =>
+        this.props.items.findIndex(image => image.file === src);
+
+    updateActiveItemHandler = newActiveItemIndex => {
+        this.props.updateActiveItemIndex(newActiveItemIndex);
     };
 
     render() {
-        return <List renderItem={Thumbnail} {...this.props} />;
+        const { activeItemIndex, items, classes } = this.props;
+
+        return (
+            <List
+                items={items}
+                renderItem={props => (
+                    <Thumbnail
+                        {...props}
+                        isActive={activeItemIndex === props.itemIndex}
+                        onClickHandler={this.updateActiveItemHandler}
+                    />
+                )}
+                getItemKey={i => i.file}
+                classes={classes}
+            />
+        );
     }
 }
 

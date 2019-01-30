@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 
 import { closeDrawer } from 'src/actions/app';
 import App from './app';

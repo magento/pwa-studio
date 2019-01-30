@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import classify from 'src/classify';
-import { Link } from 'react-router-dom';
+import { Link, resourceUrl } from 'src/drivers';
 
 import defaultClasses from './suggestedProduct.css';
 
@@ -33,7 +32,7 @@ class suggestedProduct extends Component {
             price
         } = this.props;
 
-        const productLink = `/${url_key}${productUrlSuffix}`;
+        const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
         return (
             <li className={classes.root}>
@@ -41,7 +40,10 @@ class suggestedProduct extends Component {
                     <img
                         className={classes.productImage}
                         alt={name}
-                        src={makeProductMediaPath(small_image)}
+                        src={resourceUrl(small_image, {
+                            type: 'image-product',
+                            width: 60
+                        })}
                     />
                 </Link>
                 <Link

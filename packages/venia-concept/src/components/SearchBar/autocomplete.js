@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
 import debounce from 'lodash.debounce';
+import { Query } from 'src/drivers';
 
 import classify from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';

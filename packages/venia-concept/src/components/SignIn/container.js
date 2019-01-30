@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import SignIn from './signIn';
 import { signIn, assignGuestCartToCustomer } from 'src/actions/user';
 
