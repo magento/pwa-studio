@@ -69,7 +69,7 @@ test('Operations work when createElement is used instead of React.createElement'
     const result = transform(
         opts,
         dedent`
-            import { createElement } from 'react';
+            import React from 'react';
             <div>
                 Should remove container below
                 <div data-mid='product.page' />
