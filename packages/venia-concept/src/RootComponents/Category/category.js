@@ -139,8 +139,8 @@ const mapStateToProps = ({ catalog, app }) => {
 const mapDispatchToProps = dispatch => ({
     openDrawer: () => dispatch(toggleDrawer('filter')),
     closeDrawer: () => dispatch(closeDrawer()),
-    setCurrentPage: () => dispatch(setCurrentPage),
-    setPrevPageTotal: () => dispatch(setPrevPageTotal)
+    setCurrentPage: payload => dispatch(setCurrentPage(payload)),
+    setPrevPageTotal: payload => dispatch(setPrevPageTotal(payload))
 });
 
 export default compose(
