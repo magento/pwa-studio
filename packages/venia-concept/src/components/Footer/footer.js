@@ -63,13 +63,14 @@ class Footer extends Component {
                         <span>Get answers from our community online.</span>
                     </p>
                 </div>
-                <div className={classes.copyright}>
+                <small className={classes.copyright}>
                     <Query query={storeConfigDataQuery}>
                         {({ loading, error, data }) => {
                             if (error) {
                                 return (
                                     <span className={classes.fetchError}>
-                                        Data Fetch Error: <pre>{error.message}</pre>
+                                        Data Fetch Error:{' '}
+                                        <pre>{error.message}</pre>
                                     </span>
                                 );
                             }
@@ -80,15 +81,17 @@ class Footer extends Component {
                                     </span>
                                 );
                             }
-                            const storeName = data.storeConfig.name ? data.storeConfig.name : 'Magento';
+                            const storeName =
+                                data.storeConfig.name || 'Magento';
 
                             return (
-                                <span>© {storeName} {year}. All rights reserved.</span>
+                                <span>
+                                    © {storeName} {year}. All rights reserved.
+                                </span>
                             );
                         }}
                     </Query>
-
-                </div>
+                </small>
             </footer>
         );
     }

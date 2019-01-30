@@ -1,28 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { resourceUrl } from 'src/drivers';
 import classify from 'src/classify';
 import defaultClasses from './thumbnail.css';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import { transparentPlaceholder } from 'src/shared/images';
 
 class Thumbnail extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string
-        })
+        }),
+        isActive: PropTypes.bool,
+        item: PropTypes.shape({
+            label: PropTypes.string,
+            position: PropTypes.number,
+            disabled: PropTypes.bool,
+            file: PropTypes.string.isRequired
+        }),
+        itemIndex: PropTypes.number,
+        onClickHandler: PropTypes.func.isRequired
+    };
+
+    onClickHandlerWrapper = () => {
+        const { onClickHandler, itemIndex } = this.props;
+        onClickHandler(itemIndex);
     };
 
     render() {
-        const { classes, item } = this.props;
-        const src = item.file
-            ? makeProductMediaPath(item.file)
+        const {
+            classes,
+            isActive,
+            item: { file, label }
+        } = this.props;
+        const src = file
+            ? resourceUrl(file, { type: 'image-product', width: 240 })
             : transparentPlaceholder;
 
         return (
-            <div className={classes.root}>
-                <img className={classes.image} src={src} alt={item.label} />
-            </div>
+            <button
+                onClick={this.onClickHandlerWrapper}
+                className={isActive ? classes.rootSelected : classes.root}
+            >
+                <img className={classes.image} src={src} alt={label} />
+            </button>
         );
     }
 }

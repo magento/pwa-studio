@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import classify from 'src/classify';
 import defaultClasses from './indicator.css';
-// TODO: move to a common location
-import logo from '../Header/logo.svg';
+
+import logo from '../Logo/logo.svg';
 
 class LoadingIndicator extends Component {
     render() {

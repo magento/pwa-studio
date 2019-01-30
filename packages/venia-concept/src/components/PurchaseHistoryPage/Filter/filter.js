@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
 
 import Icon from 'src/components/Icon';
+import FilterIcon from 'react-feather/dist/icons/filter';
 import classify from 'src/classify';
 import defaultClasses from './filter.css';
 
@@ -24,7 +25,7 @@ class Filter extends Component {
         return (
             <div className={classes.root}>
                 <div className={classes.filterIconContainer}>
-                    <Icon name="filter" attrs={FILTER_ICON_ATTRS} />
+                    <Icon src={FilterIcon} attrs={FILTER_ICON_ATTRS} />
                 </div>
                 <span>Filter by...</span>
             </div>

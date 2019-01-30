@@ -209,6 +209,8 @@ test('fails after a timeout if devcert never fulfills', async () => {
     simulate.certNotCached();
     simulate.certNotCached();
     jest.useFakeTimers();
+    const oldIsTTY = process.stdin.isTTY;
+    process.stdin.isTTY = true;
     let resolveHangingPromise;
     let promise = new Promise(resolve => (resolveHangingPromise = resolve));
     devcert.certificateFor.mockReturnValueOnce(promise);
@@ -219,4 +221,5 @@ test('fails after a timeout if devcert never fulfills', async () => {
     );
     resolveHangingPromise();
     jest.useRealTimers();
+    process.stdin.isTTY = oldIsTTY;
 });

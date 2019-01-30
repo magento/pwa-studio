@@ -47,7 +47,7 @@ Please enter the password for ${chalk.whiteBright(
                     clearTimeout(timeout);
                     return reject(
                         new Error(
-                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `npm run watch:venia`) by itself in the terminal to continue.'
+                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `yarn run watch:venia`) by itself in the terminal to continue.'
                         )
                     );
                 }

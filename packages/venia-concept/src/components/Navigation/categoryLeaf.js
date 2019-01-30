@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'src/drivers';
 import { func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';

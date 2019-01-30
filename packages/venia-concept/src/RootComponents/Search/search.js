@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Query } from 'react-apollo';
+import { Query, Redirect } from 'src/drivers';
 import { getSearchParams } from 'src/util/getSearchParams';
 import { bool, func, object, shape, string } from 'prop-types';
 import gql from 'graphql-tag';
@@ -8,6 +7,7 @@ import gql from 'graphql-tag';
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import CloseIcon from 'react-feather/dist/icons/x';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -63,7 +63,7 @@ export class Search extends Component {
                     </Query>
                 </small>
                 <Icon
-                    name="x"
+                    src={CloseIcon}
                     attrs={{
                         width: '13px',
                         height: '13px'

@@ -50,7 +50,7 @@ React components are modular pieces that make up a React application, such as a 
 
 A Magento theme uses a [Composer][] file to specify its dependencies and relies on Magento's file resolution mechanism to make sure the required theme files are available.
 
-PWA Studio uses [NPM][] for dependency management and validation scripts to make sure it is compatible with the backend Magento server.
+PWA Studio uses [Yarn][] for dependency management and validation scripts to make sure it is compatible with the backend Magento server.
 
 ## Inheritance vs modularity
 
@@ -114,7 +114,7 @@ The following table is a summary of general skills needed for PWA storefront dev
 | [CSS modules][]                       | Locally scoped style definitions                    |
 | JavaScript Object Notation ([JSON][]) | Data-interchange format                             |
 | [Peregrine][]                         | React components library provided by the PWA Studio |
-| [NPM][]                               | JS package and dependency manager                   |
+| [Yarn][]                              | JS package and dependency manager                   |
 {:style="table-layout: auto;"}
 
 [progressive web app]: {{site.baseurl}}{%link technologies/overview/index.md %}
@@ -138,6 +138,6 @@ The following table is a summary of general skills needed for PWA storefront dev
 [Redux]: https://redux.js.org/
 [JSON]: https://www.json.org/
 [webpack]: https://webpack.js.org/
-[NPM]: https://www.npmjs.com/
+[Yarn]: https://yarnpkg.com/
 [Composer]: https://getcomposer.org/doc/00-intro.md
 [Frontend Developer Guide]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/bk-frontend-dev-guide.html
