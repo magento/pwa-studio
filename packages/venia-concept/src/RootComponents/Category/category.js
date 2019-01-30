@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
-import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect, Query } from 'src/drivers';
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 
 import classify from 'src/classify';

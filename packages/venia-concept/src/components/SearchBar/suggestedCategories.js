@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
-import { Link } from 'react-router-dom';
+import { Link } from 'src/drivers';
 import { List } from '@magento/peregrine';
 import defaultClasses from './suggestedCategories.css';
 

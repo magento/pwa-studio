@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
+import { Link, resourceUrl } from 'src/drivers';
 import { Price } from '@magento/peregrine';
-import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 
 const imageWidth = '300';
@@ -69,11 +68,11 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
-                <Link to={productLink} className={classes.images}>
+                <Link to={resourceUrl(productLink)} className={classes.images}>
                     {this.renderImagePlaceholder()}
                     {this.renderImage()}
                 </Link>
-                <Link to={productLink} className={classes.name}>
+                <Link to={resourceUrl(productLink)} className={classes.name}>
                     <span>{name}</span>
                 </Link>
                 <div className={classes.price}>
@@ -120,7 +119,10 @@ class GalleryItem extends Component {
         return (
             <img
                 className={classes.image}
-                src={makeProductMediaPath(small_image)}
+                src={resourceUrl(small_image, {
+                    type: 'image-product',
+                    width: imageWidth
+                })}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}

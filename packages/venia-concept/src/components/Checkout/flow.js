@@ -20,12 +20,11 @@ class Flow extends Component {
             editOrder: func.isRequired,
             getShippingMethods: func.isRequired,
             resetCheckout: func.isRequired,
-            submitAddress: func.isRequired,
+            submitShippingAddress: func.isRequired,
             submitOrder: func.isRequired,
-            submitPaymentMethod: func.isRequired,
+            submitPaymentMethodAndBillingAddress: func.isRequired,
             submitShippingMethod: func.isRequired
         }).isRequired,
-        availablePaymentMethods: array,
         availableShippingMethods: array,
         cart: shape({
             details: object,
@@ -47,8 +46,13 @@ class Flow extends Component {
         isPaymentMethodReady: bool,
         isShippingInformationReady: bool,
         isShippingMethodReady: bool,
-        paymentMethod: string,
-        paymentTitle: string,
+        paymentData: shape({
+            description: string,
+            details: shape({
+                cardType: string
+            }),
+            nonce: string
+        }),
         shippingMethod: string,
         shippingTitle: string
     };
@@ -56,7 +60,6 @@ class Flow extends Component {
     get child() {
         const {
             actions,
-            availablePaymentMethods,
             availableShippingMethods,
             cart,
             checkout,
@@ -65,8 +68,7 @@ class Flow extends Component {
             isPaymentMethodReady,
             isShippingInformationReady,
             isShippingMethodReady,
-            paymentMethod,
-            paymentTitle,
+            paymentData,
             shippingMethod,
             shippingTitle
         } = this.props;
@@ -75,9 +77,9 @@ class Flow extends Component {
             beginCheckout,
             editOrder,
             getShippingMethods,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = actions;
 
@@ -101,7 +103,6 @@ class Flow extends Component {
             }
             case stepMap.form: {
                 const stepProps = {
-                    availablePaymentMethods,
                     availableShippingMethods,
                     cart,
                     editOrder,
@@ -111,13 +112,12 @@ class Flow extends Component {
                     isPaymentMethodReady,
                     isShippingInformationReady,
                     isShippingMethodReady,
-                    paymentMethod,
-                    paymentTitle,
+                    paymentData,
                     shippingMethod,
                     shippingTitle,
-                    submitAddress,
+                    submitShippingAddress,
                     submitOrder,
-                    submitPaymentMethod,
+                    submitPaymentMethodAndBillingAddress,
                     submitShippingMethod,
                     submitting
                 };
