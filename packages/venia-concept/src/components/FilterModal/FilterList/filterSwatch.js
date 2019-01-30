@@ -15,46 +15,72 @@ const getRandomColor = () =>
 
 const memoizedGetRandomColor = memoize(getRandomColor);
 
-const FilterSwatch = ({
-    options,
-    isActive,
-    toggleOption,
-    value_string,
-    label,
-    classes,
-    group
-}) => (
-    <button
-        className={classes.root}
-        value={value_string}
-        data-group={group}
-        title={label}
-        onClick={toggleOption}
-    >
-        {isActive && (
-            <Fragment>
-                <span
-                    className={classes.swatchLabel}
-                    dangerouslySetInnerHTML={{
-                        __html: label
-                    }}
-                />
-                <span className={classes.iconWrapper}>
-                    <Icon src={Checkmark} size={36} />
-                </span>
-            </Fragment>
-        )}
-        {options.generateColor && (
-            <span
-                className={classes.swatch}
-                style={{
-                    backgroundColor: `rgb(${memoizedGetRandomColor(
-                        value_string
-                    )})`
-                }}
-            />
-        )}
-    </button>
-);
+class FilterSwatch extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            swatchLabel: PropTypes.string,
+            iconWrapper: PropTypes.string,
+            swatch: PropTypes.string
+        }),
+        options: PropTypes.shape({
+            generateColor: PropTypes.bool
+        }),
+        isActive: PropTypes.bool,
+        toggleOption: PropTypes.func,
+        value_string: PropTypes.string,
+        label: PropTypes.string,
+        group: PropTypes.string
+    };
+
+    render() {
+        const {
+            options,
+            isActive,
+            toggleOption,
+            value_string,
+            label,
+            classes,
+            group
+        } = this.props;
+
+        const generatedColor =
+            options.generateColor && memoizedGetRandomColor(value_string);
+
+        const swatchInlineStyle = generatedColor && {
+            backgroundColor: `rgb(${generatedColor})`
+        };
+
+        return (
+            <button
+                className={classes.root}
+                value={value_string}
+                data-group={group}
+                title={label}
+                onClick={toggleOption}
+            >
+                {isActive && (
+                    <Fragment>
+                        <span
+                            className={classes.swatchLabel}
+                            dangerouslySetInnerHTML={{
+                                __html: label
+                            }}
+                        />
+                        <span className={classes.iconWrapper}>
+                            <Icon src={Checkmark} size={36} />
+                        </span>
+                    </Fragment>
+                )}
+                {options.generateColor && (
+                    <span
+                        className={classes.swatch}
+                        style={swatchInlineStyle}
+                    />
+                )}
+            </button>
+        );
+    }
+}
 
 export default classify(defaultClasses)(FilterSwatch);

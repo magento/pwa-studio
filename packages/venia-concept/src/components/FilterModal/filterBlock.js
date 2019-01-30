@@ -10,10 +10,17 @@ import defaultClasses from './filterBlock.css';
 class FilterBlock extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string
+            root: PropTypes.string,
+            optionHeader: PropTypes.string,
+            optionToggleButton: PropTypes.string,
+            optionName: PropTypes.string,
+            optionNameExpanded: PropTypes.string,
+            closeWrapper: PropTypes.string,
+            filterList: PropTypes.string,
+            filterListExpanded: PropTypes.string
         }),
         item: PropTypes.shape({
-            name: PropTypes.array,
+            name: PropTypes.string,
             filter_items: PropTypes.array,
             request_var: PropTypes.string
         }),

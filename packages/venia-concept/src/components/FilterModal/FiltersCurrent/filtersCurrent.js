@@ -6,6 +6,21 @@ import classify from 'src/classify';
 import defaultClasses from './filtersCurrent.css';
 
 class FiltersCurrent extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            item: PropTypes.string,
+            button: PropTypes.string,
+            icon: PropTypes.string
+        }),
+        keyPrefix: PropTypes.string,
+        filterRemove: PropTypes.func,
+        chosenFilterOptions: PropTypes.shape({
+            title: PropTypes.string,
+            value: PropTypes.string
+        })
+    };
+
     removeOption = event => {
         const { title, value, dataset } =
             event.currentTarget || event.srcElement;

@@ -9,6 +9,20 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 class FilterFooter extends Component {
+    static propTypes = {
+        classes: PropTypes.shape({
+            resetButton: PropTypes.string,
+            resetButtonDisabled: PropTypes.string,
+            applyButton: PropTypes.string,
+            applyButtonDisabled: PropTypes.string,
+            footer: PropTypes.string
+        }),
+        history: PropTypes.object,
+        filterClear: PropTypes.func,
+        chosenFilterOptions: PropTypes.object,
+        closeModalHandler: PropTypes.func
+    };
+
     static getDerivedStateFromProps(nextProps) {
         const { chosenFilterOptions } = nextProps;
         let filterOptionsArePristine = true;
@@ -29,7 +43,7 @@ class FilterFooter extends Component {
 
     resetFilterOptions = () => {
         const { history, filterClear } = this.props;
-        history.push('?' + '');
+        history.push();
         filterClear();
     };
 
@@ -41,27 +55,28 @@ class FilterFooter extends Component {
 
     getFooterButtons = areOptionsPristine => {
         const { classes } = this.props;
+
+        const resetButtonClass = areOptionsPristine
+            ? classes.resetButtonDisabled
+            : classes.resetButton;
+
+        const applyButtonClass = areOptionsPristine
+            ? classes.applyButtonDisabled
+            : classes.applyButton;
+
         return (
             <Fragment>
                 <button
                     onClick={this.resetFilterOptions}
                     disabled={areOptionsPristine}
-                    className={
-                        areOptionsPristine
-                            ? classes.resetButtonDisabled
-                            : classes.resetButton
-                    }
+                    className={resetButtonClass}
                 >
                     Reset Filters
                 </button>
                 <button
                     onClick={this.handleApplyFilters}
                     disabled={areOptionsPristine}
-                    className={
-                        areOptionsPristine
-                            ? classes.applyButtonDisabled
-                            : classes.applyButton
-                    }
+                    className={applyButtonClass}
                 >
                     Apply Filters
                 </button>
@@ -72,13 +87,9 @@ class FilterFooter extends Component {
     render() {
         const { areOptionsPristine } = this.state;
         const { classes } = this.props;
+        const footerButtons = this.getFooterButtons(areOptionsPristine);
 
-        return (
-            <div className={classes.footer}>
-                {areOptionsPristine}
-                {this.getFooterButtons(areOptionsPristine)}
-            </div>
-        );
+        return <div className={classes.footer}>{footerButtons}</div>;
     }
 }
 

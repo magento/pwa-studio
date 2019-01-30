@@ -11,8 +11,20 @@ import FilterSwatch from './FilterSwatch';
 
 class FilterList extends Component {
     static propTypes = {
-        classes: PropTypes.shape({}),
-        updateChosenItems: PropTypes.func
+        classes: PropTypes.shape({
+            root: PropTypes.string,
+            rootGrid: PropTypes.string,
+            filterItem: PropTypes.string
+        }),
+        chosenOptions: PropTypes.arrayOf(
+            PropTypes.shape({
+                title: PropTypes.string,
+                value: PropTypes.string
+            })
+        ),
+        filterAdd: PropTypes.func,
+        filterRemove: PropTypes.func,
+        items: PropTypes.array
     };
 
     toggleOption = event => {
@@ -30,7 +42,7 @@ class FilterList extends Component {
         ) > -1;
 
     getLayout = options => {
-        const { layout } = options || '';
+        const { layout } = options ? options : {};
         const { classes } = this.props;
         switch (layout) {
             case filterLayouts.grid:
@@ -52,12 +64,16 @@ class FilterList extends Component {
     };
 
     render() {
-        const { toggleOption } = this;
+        const {
+            toggleOption,
+            getRenderOptions,
+            getLayout,
+            isFilterSelected
+        } = this;
         const { classes, items, id } = this.props;
 
-        const { mode, options } = this.getRenderOptions(id);
-
-        const filterLayoutClass = this.getLayout(options);
+        const { mode, options } = getRenderOptions(id);
+        const filterLayoutClass = getLayout(options);
 
         const isSwatch = filterModes[mode] === filterModes.swatch;
 
@@ -69,25 +85,21 @@ class FilterList extends Component {
                     <ul className={filterLayoutClass}>{props.children}</ul>
                 )}
                 renderItem={({ item }) => {
-                    const isActive = this.isFilterSelected(item);
+                    const isActive = isFilterSelected(item);
+                    const swatchProps = {
+                        ...item,
+                        isActive,
+                        options,
+                        toggleOption,
+                        group: id
+                    };
 
                     return (
                         <li className={classes.filterItem}>
                             {isSwatch ? (
-                                <FilterSwatch
-                                    {...item}
-                                    isActive={isActive}
-                                    group={id}
-                                    options={options}
-                                    toggleOption={toggleOption}
-                                />
+                                <FilterSwatch {...swatchProps} />
                             ) : (
-                                <FilterDefault
-                                    {...item}
-                                    isActive={isActive}
-                                    group={id}
-                                    toggleOption={toggleOption}
-                                />
+                                <FilterDefault {...swatchProps} />
                             )}
                         </li>
                     );
