@@ -14,7 +14,6 @@ import {
     editOrder,
     formatAddress,
     resetCheckout,
-    removeInvalidKeysFromAddress,
     submitBillingAddress,
     submitShippingAddress,
     submitPaymentMethod,
@@ -432,7 +431,9 @@ describe('submitOrder', () => {
     });
 
     test('submitOrder thunk returns undefined', async () => {
-        mockGetItem.mockImplementationOnce(() => mockBillingAddressSameAsShipping);
+        mockGetItem.mockImplementationOnce(
+            () => mockBillingAddressSameAsShipping
+        );
 
         const result = await submitOrder()(...thunkArgs);
 
@@ -461,9 +462,57 @@ describe('submitOrder', () => {
             .mockImplementationOnce(() => mockShippingMethod);
 
         const response = 1;
-        request
-            .mockResolvedValueOnce(response)
-            .mockResolvedValueOnce(response);
+        request.mockResolvedValueOnce(response).mockResolvedValueOnce(response);
+
+        await submitOrder()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            checkoutReceiptActions.setOrderInformation({
+                id: response,
+                billing_address: address
+            })
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            3,
+            actions.order.accept(response)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(3);
+
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'guestCartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
+        expect(mockRemoveItem).toHaveBeenCalledTimes(5);
+    });
+
+    test('submitOrder thunk dispatches actions and clears local storage on success when addresses are different', async () => {
+        const mockState = {
+            cart: {
+                details: {
+                    billing_address: address
+                },
+                guestCartId: 'GUEST_CART_ID'
+            },
+            directory: { countries }
+        };
+
+        getState
+            .mockImplementationOnce(() => mockState)
+            .mockImplementationOnce(() => mockState);
+
+        mockGetItem
+            .mockImplementationOnce(
+                () => mockBillingAddressDifferentFromShipping
+            )
+            .mockImplementationOnce(() => mockPaymentMethod)
+            .mockImplementationOnce(() => mockShippingAddress)
+            .mockImplementationOnce(() => mockShippingMethod);
+
+        const response = 1;
+        request.mockResolvedValueOnce(response).mockResolvedValueOnce(response);
 
         await submitOrder()(...thunkArgs);
 
