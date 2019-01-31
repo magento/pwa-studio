@@ -74,11 +74,8 @@ export const submitBillingAddress = payload =>
             throw new Error('Missing required information: guestCartId');
         }
 
-        let desiredBillingAddress;
-        if (payload.sameAsShippingAddress) {
-            const shippingAddress = await retrieveShippingAddress();
-            desiredBillingAddress = shippingAddress ? shippingAddress : payload;
-        } else {
+        let desiredBillingAddress = payload;
+        if (!payload.sameAsShippingAddress) {
             const { countries } = directory;
             try {
                 desiredBillingAddress = formatAddress(payload, countries);

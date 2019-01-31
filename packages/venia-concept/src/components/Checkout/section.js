@@ -29,7 +29,6 @@ class Section extends Component {
         const {
             children,
             classes,
-            isClickable,
             label,
             showEditIcon,
             ...restProps

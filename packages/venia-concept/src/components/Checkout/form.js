@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { Price, Util } from '@magento/peregrine';
+import { Price } from '@magento/peregrine';
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import Section from './section';
@@ -11,9 +11,6 @@ import SubmitButton from './submitButton';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './form.css';
-
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
 
 class Form extends Component {
     static propTypes = {
