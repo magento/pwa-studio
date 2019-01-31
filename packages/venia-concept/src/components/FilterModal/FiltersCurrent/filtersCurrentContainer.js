@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import FiltersCurrent from './FiltersCurrent';
+import FiltersCurrent from './filtersCurrent';
 import catalogActions from 'src/actions/catalog';
 
 const mapStateToProps = ({ catalog }) => {
