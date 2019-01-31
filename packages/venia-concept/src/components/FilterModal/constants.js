@@ -11,9 +11,14 @@ export const filterLayouts = {
 export const filterRenderOptions = {
     fashion_color: {
         mode: filterModes.swatch,
-        options: { layout: filterLayouts.grid, generateColor: true }
+        options: {
+            layout: filterLayouts.grid,
+            generateColor: true,
+            searchable: true
+        }
     },
     default: {
-        mode: filterModes.default
+        mode: filterModes.default,
+        options: {}
     }
 };

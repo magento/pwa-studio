@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import FilterList from './FilterList';
 import Icon from 'src/components/Icon';
+import { filterModes, filterRenderOptions, filterLayouts } from './constants';
 import ArrowDown from 'react-feather/dist/icons/chevron-down';
 import ArrowUp from 'react-feather/dist/icons/chevron-up';
 import defaultClasses from './filterBlock.css';
@@ -59,15 +60,32 @@ class FilterBlock extends Component {
         );
     };
 
+    getLayout = options => {
+        const { layout } = options ? options : {};
+        const { classes } = this.props;
+        switch (layout) {
+            case filterLayouts.grid:
+                return classes.layoutGrid;
+            default:
+                return classes.layout;
+        }
+    };
+
+    getRenderOptions = value =>
+        filterRenderOptions[`${value}`] ||
+        filterRenderOptions[filterModes.default];
+
     render() {
         const {
             classes,
-            item: { filter_items, request_var },
+            item: { filter_items, request_var, name },
             filterRemove,
             filterAdd
         } = this.props;
 
         const { isExpanded } = this.state;
+
+        const { mode, options } = this.getRenderOptions(request_var);
 
         const listClassName = isExpanded
             ? classes.filterListExpanded
@@ -75,16 +93,27 @@ class FilterBlock extends Component {
 
         const controlBlock = this.getControlBlock(isExpanded);
 
+        const filterLayoutClass = this.getLayout(options);
+
+        const isSwatch = filterModes[mode] === filterModes.swatch;
+
+        const filterProps = {
+            isSwatch,
+            name,
+            filterAdd,
+            filterRemove,
+            mode,
+            options,
+            id: request_var,
+            items: filter_items,
+            layoutClass: filterLayoutClass
+        };
+
         return (
             <li className={classes.root}>
                 {controlBlock}
                 <div className={listClassName}>
-                    <FilterList
-                        filterAdd={filterAdd}
-                        filterRemove={filterRemove}
-                        id={request_var}
-                        items={filter_items}
-                    />
+                    <FilterList {...filterProps} />
                 </div>
             </li>
         );

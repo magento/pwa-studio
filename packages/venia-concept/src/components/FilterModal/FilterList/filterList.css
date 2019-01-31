@@ -1,16 +1,3 @@
-.root {
-    justify-content: flex-start;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-
-.rootGrid {
-    composes: root;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
 .filterItem {
     margin-bottom: 1rem;
 }

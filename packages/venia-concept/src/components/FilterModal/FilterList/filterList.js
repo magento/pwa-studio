@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
-import { filterModes, filterRenderOptions, filterLayouts } from './constants';
 import FilterDefault from './filterDefault';
 import FilterSwatch from './FilterSwatch';
+import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 
 class FilterList extends Component {
     static propTypes = {
@@ -41,21 +41,6 @@ class FilterList extends Component {
             item => item.value === option.value && item.name === option.name
         ) > -1;
 
-    getLayout = options => {
-        const { layout } = options ? options : {};
-        const { classes } = this.props;
-        switch (layout) {
-            case filterLayouts.grid:
-                return classes.rootGrid;
-            default:
-                return classes.root;
-        }
-    };
-
-    getRenderOptions = value =>
-        filterRenderOptions[`${value}`] ||
-        filterRenderOptions[filterModes.default];
-
     isFilterSelected = item => {
         return !!this.props.chosenOptions.find(
             ({ title, value }) =>
@@ -64,25 +49,22 @@ class FilterList extends Component {
     };
 
     render() {
+        const { toggleOption, isFilterSelected } = this;
         const {
-            toggleOption,
-            getRenderOptions,
-            getLayout,
-            isFilterSelected
-        } = this;
-        const { classes, items, id } = this.props;
-
-        const { mode, options } = getRenderOptions(id);
-        const filterLayoutClass = getLayout(options);
-
-        const isSwatch = filterModes[mode] === filterModes.swatch;
+            classes,
+            items,
+            id,
+            options,
+            layoutClass,
+            isSwatch
+        } = this.props;
 
         return (
             <List
                 items={items}
                 getItemKey={({ value_string }) => `item-${id}-${value_string}`}
                 render={props => (
-                    <ul className={filterLayoutClass}>{props.children}</ul>
+                    <ul className={layoutClass}>{props.children}</ul>
                 )}
                 renderItem={({ item }) => {
                     const isActive = isFilterSelected(item);
@@ -119,5 +101,6 @@ const mapStateToProps = ({ catalog }, { id }) => {
 
 export default compose(
     classify(defaultClasses),
-    connect(mapStateToProps)
+    connect(mapStateToProps),
+    WithFilterSearch
 )(FilterList);

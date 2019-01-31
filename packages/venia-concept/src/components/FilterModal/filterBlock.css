@@ -7,6 +7,19 @@
     border-bottom: 2px solid rgb(var(--venia-border));
 }
 
+.layout {
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.layoutGrid {
+    composes: layout;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 .clearIcon {
     display: flex;
 }
@@ -32,6 +45,7 @@
 
 .filterList {
     display: none;
+    padding-right: 2.75rem;
 }
 
 .filterListExpanded {
