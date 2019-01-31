@@ -6,7 +6,7 @@ import classify from 'src/classify';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
 import FilterDefault from './filterDefault';
-import FilterSwatch from './FilterSwatch';
+import FilterSwatch from './filterSwatch';
 import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 
 class FilterList extends Component {
