@@ -15,7 +15,19 @@ import defaultClasses from './form.css';
 class Form extends Component {
     static propTypes = {
         availableShippingMethods: array,
-        billingAddress: object, // TODO: shape
+        billingAddress: shape({
+            city: string,
+            country_id: string,
+            email: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            region_code: string,
+            region: string,
+            street: string,
+            telephone: string
+        }),
         cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
@@ -47,7 +59,19 @@ class Form extends Component {
             nonce: string
         }),
         ready: bool,
-        shippingAddress: object, // TODO: shape
+        shippingAddress: shape({
+            city: string,
+            country_id: string,
+            email: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            region_code: string,
+            region: string,
+            street: string,
+            telephone: string
+        }),
         shippingMethod: string,
         shippingTitle: string,
         submitShippingAddress: func.isRequired,

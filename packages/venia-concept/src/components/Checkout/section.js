@@ -6,6 +6,7 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import defaultClasses from './section.css';
 
+// TODO: move these attributes to CSS.
 const editIconAttrs = {
     color: 'black',
     width: 18

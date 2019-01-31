@@ -32,7 +32,19 @@ class Flow extends Component {
             totals: object
         }),
         checkout: shape({
-            billingAddress: object, // TODO: shape
+            billingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: string,
+                telephone: string
+            }),
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             incorrectAddressMessage: string,
             isAddressIncorrect: bool,
@@ -44,7 +56,19 @@ class Flow extends Component {
                 }),
                 nonce: string
             }),
-            shippingAddress: object, // TODO: shape
+            shippingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: string,
+                telephone: string
+            }),
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
