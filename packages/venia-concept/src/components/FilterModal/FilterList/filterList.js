@@ -12,8 +12,6 @@ import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 class FilterList extends Component {
     static propTypes = {
         classes: PropTypes.shape({
-            root: PropTypes.string,
-            rootGrid: PropTypes.string,
             filterItem: PropTypes.string
         }),
         chosenOptions: PropTypes.arrayOf(
@@ -22,6 +20,9 @@ class FilterList extends Component {
                 value: PropTypes.string
             })
         ),
+        layoutClass: PropTypes.string,
+        isSwatch: PropTypes.bool,
+        options: PropTypes.object,
         filterAdd: PropTypes.func,
         filterRemove: PropTypes.func,
         items: PropTypes.array

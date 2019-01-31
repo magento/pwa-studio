@@ -12,6 +12,8 @@ class FilterBlock extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
+            layout: PropTypes.string,
+            layoutGrid: PropTypes.string,
             optionHeader: PropTypes.string,
             optionToggleButton: PropTypes.string,
             optionName: PropTypes.string,
