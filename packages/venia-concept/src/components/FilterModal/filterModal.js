@@ -6,7 +6,7 @@ import { FiltersCurrent } from './FiltersCurrent';
 import classify from 'src/classify';
 import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
-import FilterBlock from './FilterBlock';
+import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';
 
 class FilterModal extends Component {
