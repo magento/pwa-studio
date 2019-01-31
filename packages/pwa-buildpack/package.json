@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.0.0-rc.18",
+  "version": "2.0.0-rc.19",
   "publishConfig": {
     "access": "public"
   },
@@ -34,7 +34,7 @@
     "@babel/plugin-transform-react-jsx": "~7.2.0",
     "@magento/directive-parser": "~0.1.6",
     "@magento/express-sharp": "~2.1.1-newdeps.1",
-    "@magento/upward-js": "2.0.0-rc.18",
+    "@magento/upward-js": "^2.0.0-rc.19",
     "ajv": "~6.6.2",
     "apicache": "~1.2.3",
     "babel-loader": "~8.0.5",
