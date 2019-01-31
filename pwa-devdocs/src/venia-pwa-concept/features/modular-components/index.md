@@ -47,7 +47,7 @@ they will work correctly without modifications.
 
 Complex components, such as [ProductFullDetail][] and [CategoryList][], use objects with external dependencies, such as Query and Link.
 
-To use these components in your own project, you have the following options:
+To use complex components in your own project, you have the following options:
 
 -   Import the [Venia Adapter][] and wrap it around Venia components
 -   Override [`src/drivers`][] so its components do not depend on context and IO provided by an adapter
