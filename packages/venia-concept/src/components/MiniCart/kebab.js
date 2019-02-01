@@ -40,10 +40,7 @@ class Kebab extends Component {
         return (
             <div {...restProps} className={classes.root}>
                 <button className={classes.kebab} ref={this.kebabButtonRef}>
-                    <Icon
-                        src={MoreVerticalIcon}
-                        attrs={{ color: 'rgb(var(--venia-teal))' }}
-                    />
+                    <Icon src={MoreVerticalIcon} attrs={{ color: 'black' }} />
                 </button>
                 <ul className={toggleClass}>{children}</ul>
             </div>
