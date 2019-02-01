@@ -42,22 +42,6 @@ test('reset() returns a proper action object', () => {
     });
 });
 
-test('cancelCheckout.toString() returns the proper action type', () => {
-    expect(actions.cancelCheckout.toString()).toBe('CHECKOUT/CANCEL_CHECKOUT');
-});
-
-test('cancelCheckout() returns a proper action object', () => {
-    expect(actions.cancelCheckout(payload)).toEqual({
-        type: 'CHECKOUT/CANCEL_CHECKOUT',
-        payload
-    });
-    expect(actions.cancelCheckout(error)).toEqual({
-        type: 'CHECKOUT/CANCEL_CHECKOUT',
-        payload: error,
-        error: true
-    });
-});
-
 describe('billingAddress', () => {
     test('billingAddress.submit.toString() returns the proper action type', () => {
         expect(actions.billingAddress.submit.toString()).toBe(

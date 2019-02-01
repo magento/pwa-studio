@@ -6,7 +6,7 @@ import { bool, func, object, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
-import checkoutActions from 'src/actions/checkout';
+import { cancelCheckout } from 'src/actions/checkout';
 import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
 import Button from 'src/components/Button';
@@ -22,7 +22,7 @@ const Checkout = React.lazy(() => import('src/components/Checkout'));
 
 class MiniCart extends Component {
     static propTypes = {
-        cancelCheckout: func,
+        cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -255,7 +255,6 @@ const mapStateToProps = state => {
     };
 };
 
-const { cancelCheckout } = checkoutActions;
 const mapDispatchToProps = {
     getCartDetails,
     removeItemFromCart,

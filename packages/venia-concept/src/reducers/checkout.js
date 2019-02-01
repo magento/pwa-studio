@@ -51,12 +51,6 @@ const reducerMap = {
             incorrectAddressMessage: ''
         };
     },
-    [actions.cancelCheckout]: state => {
-        return {
-            ...state,
-            step: 'cart'
-        };
-    },
     [actions.billingAddress.submit]: state => state,
     [actions.billingAddress.accept]: (state, { payload }) => {
         return {
