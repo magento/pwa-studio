@@ -1,33 +1,34 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import TestRenderer from 'react-test-renderer';
+
 import DetailsBlock from '../detailsBlock';
 
-configure({ adapter: new Adapter() });
-
-const classes = {
-    property: 'property',
-    value: 'value'
-};
+jest.mock('src/classify');
 
 const rows = [
     { property: 'Order No', value: '84322' },
     { property: 'Order Date', value: 'June 24, 2018' }
 ];
 
-test('renders correctly', () => {
-    const wrapper = shallow(
-        <DetailsBlock classes={classes} rows={rows} />
-    ).dive();
+test('renders the expected tree', () => {
+    const tree = TestRenderer.create(<DetailsBlock rows={rows} />);
 
-    expect(wrapper.find(`.${classes.property}`)).toHaveLength(rows.length);
-    expect(wrapper.find(`.${classes.value}`)).toHaveLength(rows.length);
+    expect(tree).toMatchSnapshot();
+});
 
-    wrapper.find(`.${classes.property}`).forEach((node, index) => {
-        expect(node.text()).toEqual(rows[index].property);
-    });
+test('renders elements with classnames', () => {
+    const { root } = TestRenderer.create(<DetailsBlock rows={rows} />);
 
-    wrapper.find(`.${classes.value}`).forEach((node, index) => {
-        expect(node.text()).toEqual(rows[index].value);
-    });
+    expect(root.findByProps({ className: 'root' })).toBeTruthy();
+    expect(root.findAllByProps({ className: 'property' })).toHaveLength(2);
+    expect(root.findAllByProps({ className: 'value' })).toHaveLength(2);
+});
+
+test('renders data as children', () => {
+    const { root } = TestRenderer.create(<DetailsBlock rows={rows} />);
+
+    expect(root.findByProps({ children: rows[0].property })).toBeTruthy();
+    expect(root.findByProps({ children: rows[0].value })).toBeTruthy();
+    expect(root.findByProps({ children: rows[1].property })).toBeTruthy();
+    expect(root.findByProps({ children: rows[1].value })).toBeTruthy();
 });

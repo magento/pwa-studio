@@ -58,56 +58,112 @@ test('cancelCheckout() returns a proper action object', () => {
     });
 });
 
-describe('address', () => {
-    test('address.submit.toString() returns the proper action type', () => {
-        expect(actions.address.submit.toString()).toBe(
-            'CHECKOUT/ADDRESS/SUBMIT'
+describe('billingAddress', () => {
+    test('billingAddress.submit.toString() returns the proper action type', () => {
+        expect(actions.billingAddress.submit.toString()).toBe(
+            'CHECKOUT/BILLING_ADDRESS/SUBMIT'
         );
     });
 
-    test('address.submit() returns a proper action object', () => {
-        expect(actions.address.submit(payload)).toEqual({
-            type: 'CHECKOUT/ADDRESS/SUBMIT',
+    test('billingAddress.submit() returns a proper action object', () => {
+        expect(actions.billingAddress.submit(payload)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/SUBMIT',
             payload
         });
-        expect(actions.address.submit(error)).toEqual({
-            type: 'CHECKOUT/ADDRESS/SUBMIT',
+        expect(actions.billingAddress.submit(error)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/SUBMIT',
             payload: error,
             error: true
         });
     });
 
-    test('address.accept.toString() returns the proper action type', () => {
-        expect(actions.address.accept.toString()).toBe(
-            'CHECKOUT/ADDRESS/ACCEPT'
+    test('billingAddress.accept.toString() returns the proper action type', () => {
+        expect(actions.billingAddress.accept.toString()).toBe(
+            'CHECKOUT/BILLING_ADDRESS/ACCEPT'
         );
     });
 
-    test('address.accept() returns a proper action object', () => {
-        expect(actions.address.accept(payload)).toEqual({
-            type: 'CHECKOUT/ADDRESS/ACCEPT',
+    test('billingAddress.accept() returns a proper action object', () => {
+        expect(actions.billingAddress.accept(payload)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/ACCEPT',
             payload
         });
-        expect(actions.address.accept(error)).toEqual({
-            type: 'CHECKOUT/ADDRESS/ACCEPT',
+        expect(actions.billingAddress.accept(error)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/ACCEPT',
             payload: error,
             error: true
         });
     });
 
-    test('address.reject.toString() returns the proper action type', () => {
-        expect(actions.address.reject.toString()).toBe(
-            'CHECKOUT/ADDRESS/REJECT'
+    test('billingAddress.reject.toString() returns the proper action type', () => {
+        expect(actions.billingAddress.reject.toString()).toBe(
+            'CHECKOUT/BILLING_ADDRESS/REJECT'
         );
     });
 
-    test('address.reject() returns a proper action object', () => {
-        expect(actions.address.reject(payload)).toEqual({
-            type: 'CHECKOUT/ADDRESS/REJECT',
+    test('billingAddress.reject() returns a proper action object', () => {
+        expect(actions.billingAddress.reject(payload)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/REJECT',
             payload
         });
-        expect(actions.address.reject(error)).toEqual({
-            type: 'CHECKOUT/ADDRESS/REJECT',
+        expect(actions.billingAddress.reject(error)).toEqual({
+            type: 'CHECKOUT/BILLING_ADDRESS/REJECT',
+            payload: error,
+            error: true
+        });
+    });
+});
+
+describe('shippingAddress', () => {
+    test('shippingAddress.submit.toString() returns the proper action type', () => {
+        expect(actions.shippingAddress.submit.toString()).toBe(
+            'CHECKOUT/SHIPPING_ADDRESS/SUBMIT'
+        );
+    });
+
+    test('shippingAddress.submit() returns a proper action object', () => {
+        expect(actions.shippingAddress.submit(payload)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/SUBMIT',
+            payload
+        });
+        expect(actions.shippingAddress.submit(error)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/SUBMIT',
+            payload: error,
+            error: true
+        });
+    });
+
+    test('shippingAddress.accept.toString() returns the proper action type', () => {
+        expect(actions.shippingAddress.accept.toString()).toBe(
+            'CHECKOUT/SHIPPING_ADDRESS/ACCEPT'
+        );
+    });
+
+    test('shippingAddress.accept() returns a proper action object', () => {
+        expect(actions.shippingAddress.accept(payload)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/ACCEPT',
+            payload
+        });
+        expect(actions.shippingAddress.accept(error)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/ACCEPT',
+            payload: error,
+            error: true
+        });
+    });
+
+    test('shippingAddress.reject.toString() returns the proper action type', () => {
+        expect(actions.shippingAddress.reject.toString()).toBe(
+            'CHECKOUT/SHIPPING_ADDRESS/REJECT'
+        );
+    });
+
+    test('shippingAddress.reject() returns a proper action object', () => {
+        expect(actions.shippingAddress.reject(payload)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/REJECT',
+            payload
+        });
+        expect(actions.shippingAddress.reject(error)).toEqual({
+            type: 'CHECKOUT/SHIPPING_ADDRESS/REJECT',
             payload: error,
             error: true
         });
@@ -164,6 +220,39 @@ describe('paymentMethod', () => {
         });
         expect(actions.paymentMethod.reject(error)).toEqual({
             type: 'CHECKOUT/PAYMENT_METHOD/REJECT',
+            payload: error,
+            error: true
+        });
+    });
+});
+
+describe('getShippingMethods', () => {
+    test('getShippingMethods.request.toString() returns the proper action type', () => {
+        expect(actions.getShippingMethods.request.toString()).toBe(
+            'CHECKOUT/GET_SHIPPING_METHODS/REQUEST'
+        );
+    });
+
+    test('getShippingMethods.request() returns a proper action object', () => {
+        expect(actions.getShippingMethods.request(payload)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/REQUEST',
+            payload
+        });
+    });
+
+    test('getShippingMethods.receive.toString() returns the proper action type', () => {
+        expect(actions.getShippingMethods.receive.toString()).toBe(
+            'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE'
+        );
+    });
+
+    test('getShippingMethods.receive() returns a proper action object', () => {
+        expect(actions.getShippingMethods.receive(payload)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE',
+            payload
+        });
+        expect(actions.getShippingMethods.receive(error)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE',
             payload: error,
             error: true
         });

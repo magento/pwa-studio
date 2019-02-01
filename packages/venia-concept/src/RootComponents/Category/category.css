@@ -6,7 +6,7 @@
     font-size: 1.5rem;
     font-weight: 400;
     margin: 0 0 1rem;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .pagination {
@@ -17,4 +17,12 @@
 
 .placeholder {
     height: 100vh;
+}
+
+.categoryTitle {
+    color: black;
+    font-size: 1.375rem;
+    font-weight: 300;
+    line-height: 1.375rem;
+    text-align: center;
 }

@@ -1,76 +1,152 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
+import MessageSquareIcon from 'react-feather/dist/icons/message-square';
+import ShoppingCartIcon from 'react-feather/dist/icons/shopping-cart';
+import Share2Icon from 'react-feather/dist/icons/share-2';
+
 import classify from 'src/classify';
+import ButtonGroup from 'src/components/ButtonGroup';
+import Icon from 'src/components/Icon';
 import defaultClasses from './orderItem.css';
-import ButtonGroup from './ButtonGroup';
-import { itemPropType } from './constants';
-import { getButtonGroupItems } from './helpers';
+
+const noop = () => {};
 
 class OrderItem extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            main: PropTypes.string,
-            imageAndPropsContainer: PropTypes.string,
-            titleImage: PropTypes.string,
-            propsColumnContainer: PropTypes.string,
-            title: PropTypes.string,
-            priceContainer: PropTypes.string
+        classes: shape({
+            image: string,
+            main: string,
+            price: string,
+            propLabel: string,
+            propValue: string,
+            propsList: string,
+            root: string
         }),
-        item: itemPropType,
-        onBuyAgain: PropTypes.func,
-        onShare: PropTypes.func,
-        currencyCode: PropTypes.string
+        currencyCode: string,
+        item: shape({
+            color: string,
+            id: number,
+            name: string,
+            price: number,
+            qty: number,
+            size: string,
+            sku: string,
+            titleImageSrc: string
+        }),
+        onBuyItem: func,
+        onReviewItem: func,
+        onShareItem: func
     };
 
     //TODO: get currencyCode whether from item object or from order or from user cart
     static defaultProps = {
         item: {},
-        currencyCode: 'USD'
+        currencyCode: 'USD',
+        onBuyItem: noop,
+        onReviewItem: noop,
+        onShareItem: noop
     };
-    //TODO: make correct mapping from item
-    onBuyAgainHandler = () => {
-        this.props.onBuyAgain({ item: this.props.item, quantity: 1 });
+
+    buyItem = () => {
+        const { item, onBuyItem } = this.props;
+
+        onBuyItem(item);
     };
-    //TODO: make correct mapping from item
-    onShareHandler = () => {
-        this.props.onShare(this.props.item);
+
+    reviewItem = () => {
+        const { item, onReviewItem } = this.props;
+
+        onReviewItem(item);
     };
+
+    shareItem = () => {
+        const { item, onShareItem } = this.props;
+
+        onShareItem(item);
+    };
+
+    get buyContent() {
+        return (
+            <Fragment>
+                <Icon src={ShoppingCartIcon} size={12} />
+                <span>Buy</span>
+            </Fragment>
+        );
+    }
+
+    get reviewContent() {
+        return (
+            <Fragment>
+                <Icon src={MessageSquareIcon} size={12} />
+                <span>Review</span>
+            </Fragment>
+        );
+    }
+
+    get shareContent() {
+        return (
+            <Fragment>
+                <Icon src={Share2Icon} size={12} />
+                <span>Share</span>
+            </Fragment>
+        );
+    }
 
     render() {
         const {
-            classes,
-            item: { titleImageSrc, name, size, color, qty, price },
-            currencyCode
-        } = this.props;
-        //TODO: implement reviewItem handler and use as argument in below function
-        const buttonGroupItems = getButtonGroupItems(
-            this.onBuyAgainHandler,
-            this.onShareHandler
-        );
+            buyContent,
+            buyItem,
+            props,
+            reviewContent,
+            reviewItem,
+            shareContent,
+            shareItem
+        } = this;
+        const { classes, currencyCode, item } = props;
+        const { color, name, price, qty, size, titleImageSrc } = item;
+
+        const buttonGroupItems = [
+            {
+                key: 'buy',
+                onClick: buyItem,
+                children: buyContent
+            },
+            {
+                key: 'share',
+                onClick: shareItem,
+                children: shareContent
+            },
+            {
+                key: 'review',
+                onClick: reviewItem,
+                children: reviewContent
+            }
+        ];
 
         return (
             <div className={classes.root}>
                 <div className={classes.main}>
-                    <div className={classes.imageAndPropsContainer}>
-                        <img
-                            className={classes.titleImage}
-                            src={titleImageSrc}
-                            alt="itemOfClothes"
-                        />
-                        <div className={classes.propsColumnContainer}>
-                            <div className={classes.name}>{name}</div>
-                            <div>Size : {size}</div>
-                            <div>Color : {color}</div>
-                            <div>Qty : {qty}</div>
-                        </div>
-                    </div>
-                    <div className={classes.priceContainer}>
+                    <img
+                        className={classes.image}
+                        src={titleImageSrc}
+                        alt="itemOfClothes"
+                    />
+                    <dl className={classes.propsList}>
+                        <dt className={classes.propLabel}>Name</dt>
+                        <dd className={classes.propValue}>{name}</dd>
+                        <dt className={classes.propLabel}>Size</dt>
+                        <dd className={classes.propValue}>{size}</dd>
+                        <dt className={classes.propLabel}>Color</dt>
+                        <dd className={classes.propValue}>{color}</dd>
+                        <dt className={classes.propLabel}>Quantity</dt>
+                        <dd className={classes.propValue}>{qty}</dd>
+                    </dl>
+                    <div className={classes.price}>
                         <Price value={price || 0} currencyCode={currencyCode} />
                     </div>
                 </div>
-                <ButtonGroup buttonGroupItems={buttonGroupItems} />
+                <ButtonGroup items={buttonGroupItems} />
             </div>
         );
     }

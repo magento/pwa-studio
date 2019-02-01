@@ -60,7 +60,7 @@ class ProductFullDetail extends Component {
 
         // if this is a simple product, do nothing
         if (!Array.isArray(configurable_options)) {
-            return;
+            return null;
         }
 
         // otherwise, cache attribute codes to avoid lookup cost later
@@ -187,7 +187,7 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <Button onClick={this.addToCart}>
+                    <Button priority="high" onClick={this.addToCart}>
                         <span>Add to Cart</span>
                     </Button>
                 </section>

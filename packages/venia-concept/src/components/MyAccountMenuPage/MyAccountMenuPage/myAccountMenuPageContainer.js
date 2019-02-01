@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { signOut } from 'src/actions/user';

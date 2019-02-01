@@ -68,6 +68,8 @@ class CreateAccount extends Component {
                         autoComplete="email"
                         validate={validators.get('email')}
                         asyncValidate={asyncValidators.get('email')}
+                        validateOnBlur
+                        asyncValidateOnBlur
                     />
                 </Field>
                 <Field label="First Name">
@@ -75,6 +77,7 @@ class CreateAccount extends Component {
                         field="customer.firstname"
                         autoComplete="given-name"
                         validate={validators.get('firstName')}
+                        validateOnBlur
                     />
                 </Field>
                 <Field label="Last Name">
@@ -82,6 +85,7 @@ class CreateAccount extends Component {
                         field="customer.lastname"
                         autoComplete="family-name"
                         validate={validators.get('lastName')}
+                        validateOnBlur
                     />
                 </Field>
                 <Field label="Password">
@@ -90,6 +94,7 @@ class CreateAccount extends Component {
                         type="password"
                         autoComplete="new-password"
                         validate={validators.get('password')}
+                        validateOnBlur
                     />
                 </Field>
                 <Field label="Confirm Password">
@@ -97,11 +102,14 @@ class CreateAccount extends Component {
                         field="confirm"
                         type="password"
                         validate={validators.get('confirm')}
+                        validateOnBlur
                     />
                 </Field>
                 <ErrorDisplay error={createAccountError} />
                 <div className={classes.actions}>
-                    <Button type="submit">{'Submit'}</Button>
+                    <Button type="submit" priority="high">
+                        {'Submit'}
+                    </Button>
                 </div>
             </Form>
         );
