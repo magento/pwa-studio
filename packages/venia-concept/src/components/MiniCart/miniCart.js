@@ -107,7 +107,7 @@ class MiniCart extends Component {
                     </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
-                    &nbsp;({itemsQuantity} {itemQuantityText})
+                    ({itemsQuantity} {itemQuantityText})
                 </dd>
             </dl>
         ) : null;
