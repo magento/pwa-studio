@@ -1,5 +1,4 @@
 import { connect } from 'src/drivers';
-import { getUserDetails } from 'src/actions/user';
 import { closeDrawer } from 'src/actions/app';
 import { getAllCategories } from 'src/actions/catalog';
 import {
