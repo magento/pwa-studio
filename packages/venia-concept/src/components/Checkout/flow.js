@@ -19,19 +19,18 @@ class Flow extends Component {
             beginCheckout: func.isRequired,
             cancelCheckout: func.isRequired,
             editOrder: func.isRequired,
-            getShippingMethods: func.isRequired,
             submitShippingAddress: func.isRequired,
             submitOrder: func.isRequired,
             submitPaymentMethodAndBillingAddress: func.isRequired,
             submitShippingMethod: func.isRequired
         }).isRequired,
-        availableShippingMethods: array,
         cart: shape({
             details: object,
             guestCartId: string,
             totals: object
         }),
         checkout: shape({
+            availableShippingMethods: array,
             billingAddress: shape({
                 city: string,
                 country_id: string,
@@ -96,7 +95,6 @@ class Flow extends Component {
     get child() {
         const {
             actions,
-            availableShippingMethods,
             cart,
             checkout,
             hasPaymentMethod,
@@ -110,7 +108,6 @@ class Flow extends Component {
             beginCheckout,
             cancelCheckout,
             editOrder,
-            getShippingMethods,
             submitShippingAddress,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
@@ -118,6 +115,7 @@ class Flow extends Component {
         } = actions;
 
         const {
+            availableShippingMethods,
             billingAddress,
             editing,
             isAddressIncorrect,
@@ -148,7 +146,6 @@ class Flow extends Component {
                     cart,
                     editOrder,
                     editing,
-                    getShippingMethods,
                     hasPaymentMethod,
                     hasShippingAddress,
                     hasShippingMethod,

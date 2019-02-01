@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'src/drivers';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
-import { getShippingMethods } from 'src/actions/cart';
 import {
     beginCheckout,
     cancelCheckout,
@@ -37,11 +36,23 @@ class CheckoutWrapper extends Component {
         cart: shape({
             details: object,
             guestCartId: string,
-            shippingMethods: array,
             totals: object
         }),
         checkout: shape({
-            billingAddress: object, // TODO: shape
+            availableShippingMethods: array,
+            billingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: array,
+                telephone: string
+            }),
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             incorrectAddressMessage: string,
             isAddressIncorrect: bool,
@@ -53,7 +64,19 @@ class CheckoutWrapper extends Component {
                 }),
                 nonce: string
             }),
-            shippingAddress: object, // TODO: shape
+            shippingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: array,
+                telephone: string
+            }),
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
@@ -73,7 +96,6 @@ class CheckoutWrapper extends Component {
             cart,
             checkout,
             editOrder,
-            getShippingMethods,
             requestOrder,
             submitShippingAddress,
             submitOrder,
@@ -90,7 +112,6 @@ class CheckoutWrapper extends Component {
             beginCheckout,
             cancelCheckout,
             editOrder,
-            getShippingMethods,
             requestOrder,
             submitShippingAddress,
             submitOrder,
@@ -98,8 +119,12 @@ class CheckoutWrapper extends Component {
             submitShippingMethod
         };
 
-        const { shippingMethods: availableShippingMethods } = cart;
-        const { paymentData, shippingAddress, shippingMethod } = checkout;
+        const {
+            availableShippingMethods,
+            paymentData,
+            shippingAddress,
+            shippingMethod
+        } = checkout;
 
         const miscProps = {
             availableShippingMethods,
@@ -121,7 +146,6 @@ const mapDispatchToProps = {
     beginCheckout,
     cancelCheckout,
     editOrder,
-    getShippingMethods,
     submitShippingAddress,
     submitOrder,
     submitPaymentMethodAndBillingAddress,

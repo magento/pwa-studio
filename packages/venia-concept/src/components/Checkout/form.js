@@ -45,7 +45,6 @@ class Form extends Component {
         }),
         editing: string,
         editOrder: func.isRequired,
-        getShippingMethods: func.isRequired,
         hasPaymentMethod: bool,
         hasShippingAddress: bool,
         hasShippingMethod: bool,

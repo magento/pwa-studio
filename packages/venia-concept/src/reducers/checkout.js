@@ -9,6 +9,7 @@ const storage = new BrowserPersistence();
 export const name = 'checkout';
 
 const initialState = {
+    availableShippingMethods: [],
     billingAddress: null,
     editing: null,
     paymentCode: '',
@@ -58,6 +59,20 @@ const reducerMap = {
         };
     },
     [actions.billingAddress.reject]: state => state,
+    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            availableShippingMethods: payload.map(method => ({
+                ...method,
+                code: method.carrier_code,
+                title: method.carrier_title
+            }))
+        };
+    },
     [actions.shippingAddress.submit]: state => {
         return {
             ...state,

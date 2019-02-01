@@ -36,21 +36,6 @@ const reducerMap = {
             ...payload
         };
     },
-    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
-        if (error) {
-            return state;
-        }
-
-        return {
-            ...state,
-            ...payload,
-            shippingMethods: payload.map(method => ({
-                ...method,
-                code: method.carrier_code,
-                title: method.carrier_title
-            }))
-        };
-    },
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;

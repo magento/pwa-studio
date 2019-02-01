@@ -1,7 +1,7 @@
 import { RestApi, Util } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId, getShippingMethods } from 'src/actions/cart';
+import { clearGuestCartId } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
@@ -34,6 +34,51 @@ export const editOrder = section =>
     async function thunk(dispatch) {
         dispatch(actions.edit(section));
     };
+
+export const getShippingMethods = () => {
+    return async function thunk(dispatch, getState) {
+        const { cart } = getState();
+        const { guestCartId } = cart;
+
+        try {
+            // if there isn't a guest cart, create one
+            // then retry this operation
+            if (!guestCartId) {
+                await dispatch(createGuestCart());
+                return thunk(...arguments);
+            }
+
+            dispatch(actions.getShippingMethods.request(guestCartId));
+
+            const response = await request(
+                `/rest/V1/guest-carts/${guestCartId}/estimate-shipping-methods`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        address: {
+                            country_id: 'US',
+                            postcode: null
+                        }
+                    })
+                }
+            );
+
+            dispatch(actions.getShippingMethods.receive(response));
+        } catch (error) {
+            const { response } = error;
+
+            dispatch(actions.getShippingMethods.receive(error));
+
+            // check if the guest cart has expired
+            if (response && response.status === 404) {
+                // if so, clear it out, get a new one, and retry.
+                await clearGuestCartId();
+                await dispatch(createGuestCart());
+                return thunk(...arguments);
+            }
+        }
+    };
+};
 
 export const submitPaymentMethodAndBillingAddress = payload =>
     async function thunk(dispatch, getState) {

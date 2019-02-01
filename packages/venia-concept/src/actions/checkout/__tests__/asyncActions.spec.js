@@ -12,6 +12,7 @@ import {
     beginCheckout,
     editOrder,
     formatAddress,
+    getShippingMethods,
     resetCheckout,
     submitBillingAddress,
     submitShippingAddress,
@@ -128,6 +129,54 @@ describe('editOrder', () => {
 
         expect(dispatch).toHaveBeenCalledWith(actions.edit(payload));
         expect(dispatch).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe('getShippingMethods', () => {
+    test('getShippingMethods() returns a thunk', () => {
+        expect(getShippingMethods()).toBeInstanceOf(Function);
+    });
+
+    test('getShippingMethods thunk returns undefined', async () => {
+        const result = await getShippingMethods()(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('getShippingMethods thunk dispatches actions on success', async () => {
+        // Mock the estimate-shipping-methods response.
+        const MOCK_RESPONSE = [];
+        request.mockResolvedValueOnce(MOCK_RESPONSE);
+
+        await getShippingMethods()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getShippingMethods.request('GUEST_CART_ID')
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getShippingMethods.receive(MOCK_RESPONSE)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test('getShippingMethods thunk dispatches actions on failure', async () => {
+        // Mock the estimate-shipping-methods response.
+        const error = new Error('ERROR');
+        request.mockRejectedValueOnce(error);
+
+        await getShippingMethods()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getShippingMethods.request('GUEST_CART_ID')
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getShippingMethods.receive(error)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 
