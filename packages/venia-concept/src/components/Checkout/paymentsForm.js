@@ -11,9 +11,9 @@ import classify from 'src/classify';
 
 import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import {validateRegionCode} from "./validators";
-import {isRequired, hasLengthExactly} from "src/util/formValidators";
-import combine from "src/util/combineValidators";
+import { validateRegionCode } from './validators';
+import { isRequired, hasLengthExactly } from 'src/util/formValidators';
+import combine from 'src/util/combineValidators';
 
 const DEFAULT_FORM_VALUES = {
     addresses_same: true

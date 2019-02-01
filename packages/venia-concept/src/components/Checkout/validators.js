@@ -1,6 +1,6 @@
 import store from 'src/store';
 
-export const validateRegionCode = (regionCode) => {
+export const validateRegionCode = regionCode => {
     const { directory } = store.getState();
     const { countries } = directory;
     const country = countries.find(({ id }) => id === 'US');

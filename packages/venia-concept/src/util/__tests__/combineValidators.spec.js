@@ -1,4 +1,4 @@
-import {isRequired} from '../formValidators';
+import { isRequired } from '../formValidators';
 import combine from '../combineValidators';
 
 describe('combine', () => {

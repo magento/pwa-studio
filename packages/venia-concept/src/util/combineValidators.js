@@ -14,8 +14,15 @@ export default callbacks => {
         for (let i = 0; i < callbacks.length; i++) {
             let callback = callbacks[i];
 
-            if (callback == null || (!callback[Symbol.iterator] && typeof callback !== 'function')) {
-                throw new Error('Expected `callbacks[' + i + ']` to be iterable or function.');
+            if (
+                callback == null ||
+                (!callback[Symbol.iterator] && typeof callback !== 'function')
+            ) {
+                throw new Error(
+                    'Expected `callbacks[' +
+                        i +
+                        ']` to be iterable or function.'
+                );
             }
 
             if (callback[Symbol.iterator]) {
@@ -23,7 +30,9 @@ export default callbacks => {
                 let extendedParam = callback[1];
 
                 if (typeof extendedCallback !== 'function') {
-                    throw new Error('Expected `callbacks[' + i + '][0]` to be function.');
+                    throw new Error(
+                        'Expected `callbacks[' + i + '][0]` to be function.'
+                    );
                 }
 
                 result = extendedCallback(value, values, extendedParam);

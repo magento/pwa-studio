@@ -6,8 +6,12 @@ import { bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './addressForm.css';
-import {validateRegionCode} from './validators';
-import {validateEmail, isRequired, hasLengthExactly} from 'src/util/formValidators';
+import { validateRegionCode } from './validators';
+import {
+    validateEmail,
+    isRequired,
+    hasLengthExactly
+} from 'src/util/formValidators';
 import combine from 'src/util/combineValidators';
 import TextInput from 'src/components/TextInput';
 import Field from 'src/components/Field';
