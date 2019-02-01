@@ -92,6 +92,7 @@ class MiniCart extends Component {
         const { cartCurrencyCode, cartId } = this;
         const hasSubtotal = cartId && cart.totals && 'subtotal' in cart.totals;
         const itemsQuantity = cart.details.items_qty;
+        const itemQuantityText = itemsQuantity === 1 ? 'item' : 'items';
         const totalPrice = cart.totals.subtotal;
 
         return hasSubtotal ? (
@@ -106,7 +107,7 @@ class MiniCart extends Component {
                     </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
-                    &nbsp;(${itemsQuantity} Items)
+                    &nbsp;({itemsQuantity} {itemQuantityText})
                 </dd>
             </dl>
         ) : null;
