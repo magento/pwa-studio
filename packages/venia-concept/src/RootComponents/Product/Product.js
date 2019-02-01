@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
+import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import ProductFullDetail from 'src/components/ProductFullDetail';

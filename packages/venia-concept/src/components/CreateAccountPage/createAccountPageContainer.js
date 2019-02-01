@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { createAccount } from 'src/actions/createAccountPage';
 import CreateAccountPage from './createAccountPage';
 

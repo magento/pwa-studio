@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
+// 2019-01-28 Removed virtual `FETCH_ROOT_COMPONENT` import. It's much cleaner
+// to inject a "fetchRootComponent" global at build time, so that's what we
+// changed the MagentoRootComponentsPlugin to do.
 import resolveUnknownRoute from './resolveUnknownRoute';
 
 const InternalError = Symbol('InternalError');
@@ -77,6 +79,13 @@ export default class MagentoRouteHandler extends Component {
             location: { pathname }
         } = this.props;
 
+        // Depending on the environment, the fetchRootComponent global can be
+        // either an ES module with a `default` property or a plain CJS module.
+        const fetchRoot =
+            'default' in fetchRootComponent
+                ? fetchRootComponent.default
+                : fetchRootComponent;
+
         try {
             // try to resolve the route
             // if this throws, we essentially have a 500 Internal Error
@@ -95,7 +104,7 @@ export default class MagentoRouteHandler extends Component {
 
             // at this point we should have a matching RootComponent
             // if this throws, we essentially have a 500 Internal Error
-            const RootComponent = await fetchRootComponent(type);
+            const RootComponent = await fetchRoot(type);
 
             // associate the matching RootComponent with this location
             this.setRouteComponent(pathname, RootComponent, { id });
