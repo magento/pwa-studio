@@ -46,7 +46,15 @@ Run the following command in the Magento root directory to install the Venia dat
 bin/magento setup:upgrade
 ```
 
-## Step 4. Verify installation
+## Step 4. Reindex the new data
+
+Run the following command in the Magento root directory to reindex the data from the modules:
+
+```sh
+bin/magento indexer:reindex
+```
+
+## Step 5. Verify installation
 
 Log into the Admin section or visit the store of your Magento instance to verify the sample data installation. 
 
