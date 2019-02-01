@@ -77,9 +77,9 @@ class Flow extends Component {
         classes: shape({
             root: string
         }),
-        havePaymentMethod: bool,
-        haveShippingAddress: bool,
-        haveShippingMethod: bool,
+        hasPaymentMethod: bool,
+        hasShippingAddress: bool,
+        hasShippingMethod: bool,
         isCartReady: bool,
         isCheckoutReady: bool,
         paymentData: shape({
@@ -99,9 +99,9 @@ class Flow extends Component {
             availableShippingMethods,
             cart,
             checkout,
-            havePaymentMethod,
-            haveShippingAddress,
-            haveShippingMethod,
+            hasPaymentMethod,
+            hasShippingAddress,
+            hasShippingMethod,
             isCartReady,
             isCheckoutReady
         } = this.props;
@@ -149,9 +149,9 @@ class Flow extends Component {
                     editOrder,
                     editing,
                     getShippingMethods,
-                    havePaymentMethod,
-                    haveShippingAddress,
-                    haveShippingMethod,
+                    hasPaymentMethod,
+                    hasShippingAddress,
+                    hasShippingMethod,
                     incorrectAddressMessage,
                     isAddressIncorrect,
                     paymentData,

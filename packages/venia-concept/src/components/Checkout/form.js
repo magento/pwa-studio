@@ -46,9 +46,9 @@ class Form extends Component {
         editing: string,
         editOrder: func.isRequired,
         getShippingMethods: func.isRequired,
-        havePaymentMethod: bool,
-        haveShippingAddress: bool,
-        haveShippingMethod: bool,
+        hasPaymentMethod: bool,
+        hasShippingAddress: bool,
+        hasShippingMethod: bool,
         incorrectAddressMessage: string,
         isAddressIncorrect: bool,
         paymentData: shape({
@@ -142,9 +142,9 @@ class Form extends Component {
         const {
             cart,
             classes,
-            havePaymentMethod,
-            haveShippingAddress,
-            haveShippingMethod,
+            hasPaymentMethod,
+            hasShippingAddress,
+            hasShippingMethod,
             ready,
             submitOrder,
             submitting
@@ -156,21 +156,21 @@ class Form extends Component {
                     <Section
                         label="Ship To"
                         onClick={this.editAddress}
-                        showEditIcon={haveShippingAddress}
+                        showEditIcon={hasShippingAddress}
                     >
                         {this.shippingAddressSummary}
                     </Section>
                     <Section
                         label="Pay With"
                         onClick={this.editPaymentMethod}
-                        showEditIcon={havePaymentMethod}
+                        showEditIcon={hasPaymentMethod}
                     >
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
                         label="Use"
                         onClick={this.editShippingMethod}
-                        showEditIcon={haveShippingMethod}
+                        showEditIcon={hasShippingMethod}
                     >
                         {this.shippingMethodSummary}
                     </Section>
@@ -196,9 +196,9 @@ class Form extends Component {
     }
 
     get paymentMethodSummary() {
-        const { classes, havePaymentMethod, paymentData } = this.props;
+        const { classes, hasPaymentMethod, paymentData } = this.props;
 
-        if (!havePaymentMethod) {
+        if (!hasPaymentMethod) {
             return (
                 <span className={classes.informationPrompt}>
                     Add Billing Information
@@ -227,9 +227,9 @@ class Form extends Component {
     }
 
     get shippingAddressSummary() {
-        const { classes, haveShippingAddress, shippingAddress } = this.props;
+        const { classes, hasShippingAddress, shippingAddress } = this.props;
 
-        if (!haveShippingAddress) {
+        if (!hasShippingAddress) {
             return (
                 <span className={classes.informationPrompt}>
                     Add Shipping Information
@@ -250,9 +250,9 @@ class Form extends Component {
     }
 
     get shippingMethodSummary() {
-        const { classes, haveShippingMethod, shippingTitle } = this.props;
+        const { classes, hasShippingMethod, shippingTitle } = this.props;
 
-        if (!haveShippingMethod) {
+        if (!hasShippingMethod) {
             return (
                 <span className={classes.informationPrompt}>
                     Specify Shipping Method

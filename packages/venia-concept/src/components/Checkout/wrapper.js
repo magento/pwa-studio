@@ -103,9 +103,9 @@ class CheckoutWrapper extends Component {
 
         const miscProps = {
             availableShippingMethods,
-            havePaymentMethod: hasData(paymentData),
-            haveShippingAddress: hasData(shippingAddress),
-            haveShippingMethod: hasData(shippingMethod),
+            hasPaymentMethod: hasData(paymentData),
+            hasShippingAddress: hasData(shippingAddress),
+            hasShippingMethod: hasData(shippingMethod),
             isCartReady: isCartReady(cart),
             isCheckoutReady: isCheckoutReady(checkout)
         };
