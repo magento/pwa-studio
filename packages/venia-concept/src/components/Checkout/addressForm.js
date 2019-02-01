@@ -6,7 +6,9 @@ import { bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './addressForm.css';
-import validators from './validators';
+import {validateRegionCode} from './validators';
+import {validateEmail, isRequired, hasLengthExactly} from 'src/util/formValidators';
+import combine from 'src/util/combineValidators';
 import TextInput from 'src/components/TextInput';
 import Field from 'src/components/Field';
 
@@ -88,7 +90,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.firstname}
                                 field="firstname"
-                                validate={validators.get('firstName')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -97,7 +99,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.lastname}
                                 field="lastname"
-                                validate={validators.get('lastName')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -106,7 +108,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.street0}
                                 field="street[0]"
-                                validate={validators.get('street')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -115,7 +117,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.city}
                                 field="city"
-                                validate={validators.get('city')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -124,7 +126,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.postcode}
                                 field="postcode"
-                                validate={validators.get('postcode')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -133,7 +135,11 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.region_code}
                                 field="region_code"
-                                validate={validators.get('regionCode')}
+                                validate={combine([
+                                    isRequired,
+                                    [hasLengthExactly, 2],
+                                    validateRegionCode
+                                ])}
                             />
                         </Field>
                     </div>
@@ -142,7 +148,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.telephone}
                                 field="telephone"
-                                validate={validators.get('telephone')}
+                                validate={isRequired}
                             />
                         </Field>
                     </div>
@@ -151,7 +157,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.email}
                                 field="email"
-                                validate={validators.get('email')}
+                                validate={combine([isRequired, validateEmail])}
                             />
                         </Field>
                     </div>

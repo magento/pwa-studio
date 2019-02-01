@@ -11,7 +11,9 @@ import classify from 'src/classify';
 
 import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import validators from "./validators";
+import {validateRegionCode} from "./validators";
+import {isRequired, hasLengthExactly} from "src/util/formValidators";
+import combine from "src/util/combineValidators";
 
 const DEFAULT_FORM_VALUES = {
     addresses_same: true
@@ -99,7 +101,7 @@ class PaymentsForm extends Component {
                         <TextInput
                             id={classes.street0}
                             field="street[0]"
-                            validate={validators.get('street')}
+                            validate={isRequired}
                         />
                     </Field>
                 </div>
@@ -108,7 +110,7 @@ class PaymentsForm extends Component {
                         <TextInput
                             id={classes.city}
                             field="city"
-                            validate={validators.get('city')}
+                            validate={isRequired}
                         />
                     </Field>
                 </div>
@@ -117,7 +119,11 @@ class PaymentsForm extends Component {
                         <TextInput
                             id={classes.region_code}
                             field="region_code"
-                            validate={validators.get('regionCode')}
+                            validate={combine([
+                                isRequired,
+                                [hasLengthExactly, 2],
+                                validateRegionCode
+                            ])}
                         />
                     </Field>
                 </div>
@@ -126,7 +132,7 @@ class PaymentsForm extends Component {
                         <TextInput
                             id={classes.postcode}
                             field="postcode"
-                            validate={validators.get('postcode')}
+                            validate={isRequired}
                         />
                     </Field>
                 </div>

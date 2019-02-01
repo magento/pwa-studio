@@ -2,13 +2,13 @@ import * as validators from '../formValidators';
 
 describe('hasLengthAtLeast', () => {
     test('it returns undefined on success', () => {
-        const result = validators.hasLengthAtLeast('test', 1);
+        const result = validators.hasLengthAtLeast('test', [], 1);
 
         expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.hasLengthAtLeast('test', 10);
+        const result = validators.hasLengthAtLeast('test', [], 10);
 
         expect(typeof result).toBe('string');
     });
@@ -16,13 +16,13 @@ describe('hasLengthAtLeast', () => {
 
 describe('hasLengthAtMost', () => {
     test('it returns undefined on success', () => {
-        const result = validators.hasLengthAtMost('test', 10);
+        const result = validators.hasLengthAtMost('test', [], 10);
 
         expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.hasLengthAtMost('test', 1);
+        const result = validators.hasLengthAtMost('test', [], 1);
 
         expect(typeof result).toBe('string');
     });
@@ -30,27 +30,53 @@ describe('hasLengthAtMost', () => {
 
 describe('hasLengthExactly', () => {
     test('it returns undefined on success', () => {
-        const result = validators.hasLengthExactly('test', 4);
+        const result = validators.hasLengthExactly('test', [], 4);
 
         expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.hasLengthExactly('test', 1);
+        const result = validators.hasLengthExactly('test', [], 1);
 
         expect(typeof result).toBe('string');
     });
 });
 
-describe('isNotEmpty', () => {
-    test('it returns undefined on success', () => {
-        const result = validators.isNotEmpty('test');
+describe('isRequired', () => {
+    test('it returns null on success', () => {
+        const result = validators.isRequired('test');
 
-        expect(result).toBeUndefined();
+        expect(result).toBeNull();
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.isNotEmpty('');
+        const result = validators.isRequired('');
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on failure', () => {
+        const result = validators.isRequired(' ');
+
+        expect(typeof result).toBe('string');
+    });
+});
+
+describe('validateEmail', () => {
+    test('it returns null on success', () => {
+        const result = validators.validateEmail('johndoe@domain.com');
+
+        expect(result).toBeNull();
+    });
+
+    test('it returns a string on failure', () => {
+        const result = validators.validateEmail('');
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on failure', () => {
+        const result = validators.validateEmail('johndoe@domain');
 
         expect(typeof result).toBe('string');
     });
