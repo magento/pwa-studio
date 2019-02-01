@@ -23,6 +23,10 @@
 
 /* fields */
 
+.button {
+    text-transform: capitalize;
+}
+
 .textInput {
     background: white;
     border: 1px solid rgb(var(--venia-text-alt));
@@ -53,4 +57,9 @@
 .email,
 .street0 {
     grid-column-end: span 2;
+}
+
+.validation {
+    grid-column-end: span 2;
+    line-height: normal;
 }

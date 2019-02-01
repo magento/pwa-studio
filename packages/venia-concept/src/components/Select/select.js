@@ -4,14 +4,13 @@ import { BasicSelect, Option, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
-import { Message } from 'src/components/Field';
-import Icon from 'src/components/Icon';
+import { FieldIcons, Message } from 'src/components/Field';
 import defaultClasses from './select.css';
 
-const iconAttrs = {
-    height: 18,
-    width: 18
-};
+import Icon from 'src/components/Icon';
+import ChevronDownIcon from 'react-feather/dist/icons/chevron-down';
+
+const arrow = <Icon src={ChevronDownIcon} size={18} />;
 
 class Select extends Component {
     static propTypes = {
@@ -20,7 +19,7 @@ class Select extends Component {
         }),
         field: string.isRequired,
         fieldState: shape({
-            value: string
+            value: oneOfType([number, string])
         }),
         items: arrayOf(
             shape({
@@ -41,7 +40,7 @@ class Select extends Component {
 
         return (
             <Fragment>
-                <div className={classes.wrapper}>
+                <FieldIcons after={arrow}>
                     <BasicSelect
                         {...rest}
                         fieldState={fieldState}
@@ -49,10 +48,7 @@ class Select extends Component {
                     >
                         {options}
                     </BasicSelect>
-                    <span className={classes.icon}>
-                        <Icon name="chevron-down" attrs={iconAttrs} />
-                    </span>
-                </div>
+                </FieldIcons>
                 <Message fieldState={fieldState}>{message}</Message>
             </Fragment>
         );

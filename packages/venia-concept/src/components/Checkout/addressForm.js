@@ -7,6 +7,8 @@ import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Label from './label';
 import defaultClasses from './addressForm.css';
+import { invalidStateMessage } from './constants';
+import { isString } from 'util';
 
 const fields = [
     'city',
@@ -31,6 +33,7 @@ class AddressForm extends Component {
         cancel: func.isRequired,
         classes: shape({
             body: string,
+            button: string,
             city: string,
             email: string,
             firstname: string,
@@ -39,10 +42,30 @@ class AddressForm extends Component {
             postcode: string,
             region_code: string,
             street0: string,
-            telephone: string
+            telephone: string,
+            textInput: string,
+            validation: string
         }),
+        incorrectAddressMessage: string,
+        isAddressIncorrect: bool,
         submit: func.isRequired,
         submitting: bool
+    };
+
+    //TODO: implement appropriate validation for the state field
+    validateState = value => {
+        return isString(value) && value.length > 1 ? null : invalidStateMessage;
+    };
+
+    validationBlock = errors => {
+        const { isAddressIncorrect, incorrectAddressMessage } = this.props;
+        if (errors.region_code) {
+            return errors.region_code;
+        } else if (isAddressIncorrect) {
+            return incorrectAddressMessage;
+        } else {
+            return null;
+        }
     };
 
     render() {
@@ -61,7 +84,7 @@ class AddressForm extends Component {
         );
     }
 
-    children = () => {
+    children = ({ formState }) => {
         const { classes, submitting } = this.props;
 
         return (
@@ -114,6 +137,7 @@ class AddressForm extends Component {
                             id={classes.region_code}
                             field="region_code"
                             className={classes.textInput}
+                            validate={this.validateState}
                         />
                     </div>
                     <div className={classes.telephone}>
@@ -132,12 +156,22 @@ class AddressForm extends Component {
                             className={classes.textInput}
                         />
                     </div>
+                    <div className={classes.validation}>
+                        {this.validationBlock(formState.errors)}
+                    </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button type="submit" disabled={submitting}>
-                        Save
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
                     </Button>
-                    <Button onClick={this.cancel}>Cancel</Button>
+                    <Button
+                        className={classes.button}
+                        type="submit"
+                        priority="high"
+                        disabled={submitting}
+                    >
+                        Use Address
+                    </Button>
                 </div>
             </Fragment>
         );

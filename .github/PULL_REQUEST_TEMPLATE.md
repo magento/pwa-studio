@@ -1,24 +1,3 @@
-<!-- (REQUIRED) What is the nature of this PR? -->
-
-## This PR is a:
-
-- [ ] New feature
-- [ ] Enhancement/Optimization
-- [ ] Refactor
-- [ ] Bugfix
-- [ ] Test for existing code
-- [ ] Documentation
-
-<!-- (REQUIRED) What does this PR change? -->
-
-## Summary
-
-When this pull request is merged, it will...
-
-<!-- (OPTIONAL) What other information can you provide about this PR? -->
-
-## Additional information
-
 <!--
 Thank you for your contribution!
 
@@ -32,3 +11,43 @@ We may ask you for changes in your PR in order to meet the standards set in our 
 
 Feel free to remove this section before creating this PR.
 -->
+
+## Description
+<!--- Provide a general summary of your changes in the Title above -->
+<!--- Describe your changes in detail here: -->
+
+## Related Issue
+<!--- This project only accepts pull requests related to open issues -->
+<!--- If suggesting a new feature or change, please discuss it in an issue first -->
+<!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
+<!--- Please link to the issue here with the following wording: Closes #<issue> -->
+Closes #ISSUENUM.
+
+## Motivation and Context
+<!--- Why is this change required? What problem does it solve? -->
+
+## How Has This Been Tested?
+<!--- Please describe in detail how you tested your changes. -->
+<!--- Include details of your testing environment, and the tests you ran to -->
+<!--- see how your change affects other areas of the code, etc. -->
+
+## Screenshots (if appropriate):
+
+## Proposed Labels for Change Type/Package
+<!--- What types of changes does your code introduce? Let us know if this is a -->
+<!--- BUG, FEATURE, DOCUMENTATION, or TEST change. -->
+
+<!--- What packages are modified by this code? Let us know if this applies to -->
+<!--- peregrine, pwa-buildpack, upward-js, upward-spec, venia-concept or pwa-devdocs -->
+
+## Checklist:
+<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
+<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+- [ ] I have read the **CONTRIBUTING** document.
+- [ ] I have linked an issue to this PR.
+- [ ] I have indicated the change type and relevant package(s).
+- [ ] I have updated the documentation accordingly.
+- [ ] I have added tests to cover my changes.
+- [ ] All new and existing tests passed.
+- [ ] All CI checks are green (linting, build/deploy, etc).
+- [ ] At least one core contributor has approved this PR.

@@ -1,0 +1,37 @@
+.root {
+    align-items: center;
+    display: none;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.root_open {
+    composes: root;
+    display: flex;
+}
+
+.form {
+    align-items: center;
+    display: grid;
+    justify-items: stretch;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.searchInner {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 24rem;
+    width: 100%;
+}
+
+.SearchAutocompleteWrapper {
+    text-align: left;
+    margin: -0.5rem 0 0.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+}

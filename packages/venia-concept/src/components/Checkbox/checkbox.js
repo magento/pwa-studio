@@ -6,12 +6,8 @@ import { compose } from 'redux';
 import classify from 'src/classify';
 import { Message } from 'src/components/Field';
 import Icon from 'src/components/Icon';
+import CheckIcon from 'react-feather/dist/icons/check';
 import defaultClasses from './checkbox.css';
-
-const iconAttrs = {
-    height: 18,
-    width: 18
-};
 
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */
@@ -25,6 +21,7 @@ export class Checkbox extends Component {
             message: string,
             root: string
         }),
+        field: string.isRequired,
         fieldState: shape({
             value: bool
         }).isRequired,
@@ -41,7 +38,7 @@ export class Checkbox extends Component {
             <Fragment>
                 <label className={classes.root} htmlFor={id}>
                     <span className={classes.icon}>
-                        {checked && <Icon name="check" attrs={iconAttrs} />}
+                        {checked && <Icon src={CheckIcon} size={18} />}
                     </span>
                     <BasicCheckbox
                         {...rest}
