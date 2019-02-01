@@ -65,8 +65,7 @@ async function serve() {
             config.port = ports.staging;
         } catch (e) {
             console.log(
-                'Could not configure or access custom host. Using loopback...',
-                e
+                'Could not configure or access custom host. Using loopback...'
             );
         }
     }
