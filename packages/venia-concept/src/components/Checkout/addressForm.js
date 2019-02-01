@@ -52,6 +52,10 @@ class AddressForm extends Component {
         submitting: bool
     };
 
+    static defaultProps = {
+        initialValues: {}
+    };
+
     //TODO: implement appropriate validation for the state field
     validateState = value => {
         return isString(value) && value.length > 1 ? null : invalidStateMessage;

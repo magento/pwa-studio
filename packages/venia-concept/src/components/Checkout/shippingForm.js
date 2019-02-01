@@ -37,11 +37,19 @@ class ShippingForm extends Component {
             submitting
         } = this.props;
 
-        const selectableShippingMethods = availableShippingMethods.map(
-            ({ code, title }) => ({ label: title, value: code })
-        );
-        const initialValue =
-            shippingMethod || availableShippingMethods[0].carrier_code || '';
+        let initialValue;
+        let selectableShippingMethods;
+
+        if (availableShippingMethods.length) {
+            selectableShippingMethods = availableShippingMethods.map(
+                ({ code, title }) => ({ label: title, value: code })
+            );
+            initialValue =
+                shippingMethod || availableShippingMethods[0].carrier_code;
+        } else {
+            selectableShippingMethods = [];
+            initialValue = '';
+        }
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>

@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import { bool, node, shape, string } from 'prop-types';
-import CheckIcon from 'react-feather/dist/icons/check';
+import EditIcon from 'react-feather/dist/icons/edit-2';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import defaultClasses from './section.css';
 
+// TODO: move these attributes to CSS.
+const editIconAttrs = {
+    color: 'black',
+    width: 18
+};
+const EDIT_ICON = <Icon src={EditIcon} attrs={editIconAttrs} />;
+
 class Section extends Component {
     static propTypes = {
         classes: shape({
+            content: string,
+            icon: string,
             label: string,
             root: string,
-            summary: string,
-            icon: string
+            summary: string
         }),
         label: node,
-        selectedOption: bool
+        showEditIcon: bool
     };
 
     render() {
@@ -23,11 +31,11 @@ class Section extends Component {
             children,
             classes,
             label,
-            selectedOption,
+            showEditIcon,
             ...restProps
         } = this.props;
 
-        const icon = selectedOption ? <Icon src={CheckIcon} size={16} /> : null;
+        const icon = showEditIcon ? EDIT_ICON : null;
 
         return (
             <button className={classes.root} {...restProps}>
