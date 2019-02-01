@@ -9,13 +9,15 @@ import actions from 'src/actions/user';
 
 export const name = 'user';
 
+const isSignedIn = () => !!storage.getItem('signin_token');
+
 const initialState = {
     currentUser: {
         email: '',
         firstname: '',
         lastname: ''
     },
-    isSignedIn: !!storage.getItem('signin_token'),
+    isSignedIn: isSignedIn(),
     forgotPassword: {
         email: '',
         isInProgress: false
@@ -80,6 +82,12 @@ const reducerMap = {
                 email,
                 isInProgress: false
             }
+        };
+    },
+    [actions.signIn.reset]: () => {
+        return {
+            ...initialState,
+            isSignedIn: isSignedIn()
         };
     }
 };

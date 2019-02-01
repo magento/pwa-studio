@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Query } from 'react-apollo';
+import { Query, Redirect } from 'src/drivers';
 import { getSearchParams } from 'src/util/getSearchParams';
 import { bool, func, object, shape, string } from 'prop-types';
 import gql from 'graphql-tag';

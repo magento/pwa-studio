@@ -1,6 +1,6 @@
 import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { bool, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
@@ -160,7 +160,7 @@ class MiniCart extends Component {
         return (
             <div className={classes.save}>
                 <Button onClick={this.hideEditPanel}>Cancel</Button>
-                <Button>Update Cart</Button>
+                <Button priority="high">Update Cart</Button>
             </div>
         );
     }

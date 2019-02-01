@@ -24,7 +24,7 @@ In addition to the NPM packages.json and Venia specific validation and testing f
   Copy and execute this file in a Magento instance to install the sample data.
 
 [`server.js`][]
-: A node script that runs the UPWARD staging server when the `npm run stage:venia` command is used.
+: A node script that runs the UPWARD staging server when the `yarn run stage:venia` command is used.
 
 [`validate-environment.js`][]
 : A node script that validates the `.env` environment file.
