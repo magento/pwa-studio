@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,11 @@ class Trigger extends Component {
         const { children, classes, openNav } = this.props;
 
         return (
-            <button className={classes.root} onClick={openNav}>
+            <button
+                className={classes.root}
+                aria-label="Toggle navigation panel"
+                onClick={openNav}
+            >
                 {children}
             </button>
         );

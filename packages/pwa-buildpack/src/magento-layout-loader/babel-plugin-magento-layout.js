@@ -1,5 +1,5 @@
 const validateConfig = require('./validateConfig');
-const { addDefault } = require('babel-helper-module-imports');
+const { addDefault } = require('@babel/helper-module-imports');
 
 const noop = () => {};
 module.exports = babelPluginMagentoLayout;

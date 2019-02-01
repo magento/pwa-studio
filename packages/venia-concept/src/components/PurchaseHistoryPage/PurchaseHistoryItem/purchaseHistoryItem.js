@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { number, oneOfType, shape, string } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, resourceUrl } from 'src/drivers';
 
 import Icon from 'src/components/Icon';
+import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
+
 import classify from 'src/classify';
 import defaultClasses from './purchaseHistoryItem.css';
 import { processDate } from './helpers';
@@ -35,7 +37,7 @@ class PurchaseHistoryItem extends Component {
         const { imageSrc, title, date, url } = item || {};
 
         return (
-            <Link className={classes.body} to={url}>
+            <Link className={classes.body} to={resourceUrl(url)}>
                 <img className={classes.image} src={imageSrc} alt="item" />
                 <div className={classes.textBlock}>
                     <div className={classes.textBlockTitle}>{title}</div>
@@ -44,7 +46,7 @@ class PurchaseHistoryItem extends Component {
                     </div>
                 </div>
                 <div className={classes.chevronContainer}>
-                    <Icon name="chevron-right" attrs={CHEVRON_ICON_ATTRS} />
+                    <Icon src={ChevronRightIcon} attrs={CHEVRON_ICON_ATTRS} />
                 </div>
             </Link>
         );

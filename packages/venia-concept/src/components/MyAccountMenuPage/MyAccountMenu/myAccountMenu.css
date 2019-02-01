@@ -1,0 +1,13 @@
+.list {
+    padding: 0 1.5rem;
+}
+
+.signOutTitle {
+    color: rgb(var(--venia-text-spot));
+}
+
+.rewardsPoints {
+    font-size: 0.625rem;
+    font-weight: 300;
+    line-height: 0.875rem;
+}

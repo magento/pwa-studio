@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
+import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
 import Section from './section';
 
 import classify from 'src/classify';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './product.css';
 
 const imageWidth = 80;
@@ -79,7 +79,10 @@ class Product extends Component {
         return {
             minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
             width: imageWidth,
-            backgroundImage: `url(${makeProductMediaPath(image.file)})`
+            backgroundImage: `url(${resourceUrl(image.file, {
+                type: 'image-product',
+                width: imageWidth
+            })})`
         };
     }
 
@@ -122,7 +125,7 @@ class Product extends Component {
                     <Section
                         text="Add to favorites"
                         onClick={this.favoriteItem}
-                        icon="heart"
+                        icon="Heart"
                         iconAttributes={
                             this.state.isFavorite ? favoritesFill : ''
                         }
@@ -130,12 +133,12 @@ class Product extends Component {
                     <Section
                         text="Edit item"
                         onClick={this.editItem}
-                        icon="edit-2"
+                        icon="Edit2"
                     />
                     <Section
                         text="Remove item"
                         onClick={this.removeItem}
-                        icon="trash"
+                        icon="Trash"
                     />
                 </Kebab>
             </li>

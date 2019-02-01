@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the expected tree 1`] = `
+<dl
+  className="root"
+>
+  <dt
+    className="property"
+  >
+    Order No
+  </dt>
+  <dd
+    className="value"
+  >
+    84322
+  </dd>
+  <dt
+    className="property"
+  >
+    Order Date
+  </dt>
+  <dd
+    className="value"
+  >
+    June 24, 2018
+  </dd>
+</dl>
+`;

@@ -1,0 +1,54 @@
+.root {
+    border-top: 1px solid rgb(var(--venia-border));
+    display: grid;
+    gap: 1rem;
+    padding-top: 1.5rem;
+}
+
+.root:nth-of-type(1) {
+    border-top-width: 0;
+    padding-top: 0;
+}
+
+.main {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+}
+
+.image {
+    height: 5rem;
+}
+
+.image[src^='data:image'] {
+    background-color: rgb(var(--venia-grey));
+}
+
+.propsList {
+    align-items: center;
+    display: grid;
+    font-size: 0.75rem;
+    gap: 0 1.5rem;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    line-height: 1rem;
+}
+
+.propLabel {
+    color: rgb(var(--venia-text-alt));
+}
+
+.propLabel:nth-of-type(1) {
+    display: none;
+}
+
+.propValue:nth-of-type(1) {
+    font-weight: 600;
+    grid-column: 1 / span 2;
+}
+
+.price {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}

@@ -1,2 +1,6 @@
-web/
+# Minified build assets
+dist/
+# Babelified ES modules for NPM dependents
+esm/
+# Generated coverage pages
 coverage

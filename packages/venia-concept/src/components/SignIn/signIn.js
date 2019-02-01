@@ -58,7 +58,9 @@ class SignIn extends Component {
                         field="password"
                     />
                     <div className={classes.signInButton}>
-                        <Button type="submit">Sign In</Button>
+                        <Button priority="high" type="submit">
+                            Sign In
+                        </Button>
                     </div>
                     <div className={classes.signInError}>{errorMessage}</div>
                     <button
