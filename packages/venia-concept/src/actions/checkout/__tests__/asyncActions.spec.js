@@ -10,7 +10,6 @@ import {
 import actions from '../actions';
 import {
     beginCheckout,
-    DEFAULT_SHIPPING_METHOD,
     editOrder,
     formatAddress,
     resetCheckout,
@@ -424,7 +423,20 @@ describe('submitOrder', () => {
         }
     };
     const mockShippingAddress = address;
-    const mockShippingMethod = DEFAULT_SHIPPING_METHOD;
+    const mockShippingMethod = {
+        amount: 5,
+        available: true,
+        base_amount: 5,
+        carrier_code: 'flatrate',
+        carrier_title: 'Flat Rate',
+        code: 'flatrate',
+        error_message: '',
+        method_code: 'flatrate',
+        method_title: 'Fixed',
+        price_excl_tax: 5,
+        price_incl_tax: 5,
+        title: 'Flat Rate'
+    };
 
     test('submitOrder() returns a thunk', () => {
         expect(submitOrder()).toBeInstanceOf(Function);

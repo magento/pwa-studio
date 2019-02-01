@@ -25,7 +25,7 @@ class Form extends Component {
             region_id: string,
             region_code: string,
             region: string,
-            street: string,
+            street: array,
             telephone: string
         }),
         cancelCheckout: func.isRequired,
@@ -69,7 +69,7 @@ class Form extends Component {
             region_id: string,
             region_code: string,
             region: string,
-            street: string,
+            street: array,
             telephone: string
         }),
         shippingMethod: string,
@@ -168,7 +168,7 @@ class Form extends Component {
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
-                        label="Get It By"
+                        label="Use"
                         onClick={this.editShippingMethod}
                         showEditIcon={haveShippingMethod}
                     >
@@ -255,27 +255,14 @@ class Form extends Component {
         if (!haveShippingMethod) {
             return (
                 <span className={classes.informationPrompt}>
-                    Add Shipping Information
+                    Specify Shipping Method
                 </span>
             );
         }
 
-        const twoDaysInMilliseconds = 1000 * 60 * 60 * 24 * 2;
-        const twoDaysFromNowDate = new Date(Date.now() + twoDaysInMilliseconds);
-        const twoDaysFromNowDisplay = twoDaysFromNowDate.toLocaleDateString(
-            'en-US',
-            {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            }
-        );
-
         return (
             <Fragment>
-                <strong>{twoDaysFromNowDisplay}</strong>
-                <br />
-                <span>{shippingTitle}</span>
+                <strong>{shippingTitle}</strong>
             </Fragment>
         );
     }

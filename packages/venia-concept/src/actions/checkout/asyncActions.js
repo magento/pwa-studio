@@ -12,22 +12,6 @@ const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-// Use the "flatrate" shipping method as the default.
-export const DEFAULT_SHIPPING_METHOD = {
-    amount: 5,
-    available: true,
-    base_amount: 5,
-    carrier_code: 'flatrate',
-    carrier_title: 'Flat Rate',
-    code: 'flatrate',
-    error_message: '',
-    method_code: 'flatrate',
-    method_title: 'Fixed',
-    price_excl_tax: 5,
-    price_incl_tax: 5,
-    title: 'Flat Rate'
-};
-
 export const beginCheckout = () =>
     async function thunk(dispatch) {
         dispatch(actions.begin());
@@ -317,6 +301,6 @@ async function retrieveShippingMethod() {
     return storage.getItem('shippingMethod');
 }
 
-export async function saveShippingMethod(method) {
+async function saveShippingMethod(method) {
     return storage.setItem('shippingMethod', method);
 }

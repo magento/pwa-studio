@@ -42,7 +42,7 @@ class Flow extends Component {
                 region_id: string,
                 region_code: string,
                 region: string,
-                street: string,
+                street: array,
                 telephone: string
             }),
             editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
@@ -66,7 +66,7 @@ class Flow extends Component {
                 region_id: string,
                 region_code: string,
                 region: string,
-                street: string,
+                street: array,
                 telephone: string
             }),
             shippingMethod: string,

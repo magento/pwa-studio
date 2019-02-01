@@ -1,10 +1,7 @@
 import { handleActions } from 'redux-actions';
 import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
-import actions, {
-    DEFAULT_SHIPPING_METHOD,
-    saveShippingMethod
-} from 'src/actions/checkout';
+import actions from 'src/actions/checkout';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
@@ -31,13 +28,6 @@ const reducerMap = {
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
         let storedShippingMethod = storage.getItem('shippingMethod');
-
-        // If we didn't have a stored shipping method already,
-        // use the default one and then save the default one to storage for next time.
-        if (!storedShippingMethod) {
-            storedShippingMethod = DEFAULT_SHIPPING_METHOD;
-            saveShippingMethod(DEFAULT_SHIPPING_METHOD);
-        }
 
         return {
             ...state,
