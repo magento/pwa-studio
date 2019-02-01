@@ -1,6 +1,6 @@
 .root {
     color: rgb(var(--venia-text));
-    display: block;
+    display: grid;
 }
 
 .label {

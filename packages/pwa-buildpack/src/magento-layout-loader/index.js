@@ -1,6 +1,6 @@
+const dynamicImportSyntax = require('@babel/plugin-syntax-dynamic-import');
 const babelLoader = require('babel-loader');
 const babelPlugin = require('./babel-plugin-magento-layout');
-const dynamicImportSyntax = require('babel-plugin-syntax-dynamic-import');
 
 /**
  * The Magento Layout Loader is a small wrapper around

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bool, shape, number, arrayOf, string } from 'prop-types';
 
+import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 
@@ -123,7 +123,7 @@ class Product extends Component {
             >
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
+                    if (loading) return loadingIndicator;
 
                     const product = data.productDetail.items[0];
 

@@ -1,0 +1,12 @@
+.root {
+    border: 1px solid rgb(var(--venia-border));
+    font-size: 0.8125rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 2;
+    padding: 1rem 0;
+}
+
+.statusContent {
+    padding: 0.5rem 1.5rem;
+}

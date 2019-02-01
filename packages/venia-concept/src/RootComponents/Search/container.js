@@ -1,16 +1,15 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 
 import Search from './search';
-import { toggleSearch } from 'src/actions/app';
+import { executeSearch, toggleSearch } from 'src/actions/app';
 
 const mapStateToProps = ({ app }) => {
     const { searchOpen } = app;
-    return {
-        searchOpen
-    };
+
+    return { searchOpen };
 };
 
-const mapDispatchToProps = { toggleSearch };
+const mapDispatchToProps = { executeSearch, toggleSearch };
 
 export default connect(
     mapStateToProps,

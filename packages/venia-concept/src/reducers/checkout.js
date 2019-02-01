@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-
+import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
@@ -12,12 +12,14 @@ const storedShippingMethod = storage.getItem('shippingMethod');
 
 const initialState = {
     editing: null,
-    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
-    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
+    paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+    paymentData: storedPaymentMethod && storedPaymentMethod.data,
     shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
     shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
@@ -31,27 +33,41 @@ const reducerMap = {
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
-            editing: payload
+            editing: payload,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.submit]: state => {
+    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.accept]: state => state,
+    [actions.billingAddress.reject]: state => state,
+    [actions.shippingAddress.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.address.accept]: state => {
+    [actions.shippingAddress.accept]: state => {
         return {
             ...state,
             editing: null,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: state => {
+    [actions.shippingAddress.reject]: (state, actionArgs) => {
+        const incorrectAddressMessage = get(
+            actionArgs,
+            'payload.incorrectAddressMessage',
+            ''
+        );
+
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: incorrectAddressMessage ? true : false,
+            incorrectAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -64,8 +80,8 @@ const reducerMap = {
         return {
             ...state,
             editing: null,
-            paymentMethod: payload.code,
-            paymentTitle: payload.title,
+            paymentCode: payload.code,
+            paymentData: payload.data,
             step: 'form',
             submitting: false
         };
@@ -89,7 +105,9 @@ const reducerMap = {
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
     [actions.shippingMethod.reject]: state => {

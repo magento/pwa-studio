@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
+import { Query, Redirect } from 'src/drivers';
+import { getSearchParams } from 'src/util/getSearchParams';
 import { bool, func, object, shape, string } from 'prop-types';
-import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import getQueryParameterValue from '../../util/getQueryParameterValue';
-import { SEARCH_QUERY_PARAMETER } from './consts';
 import Gallery from 'src/components/Gallery';
-
 import classify from 'src/classify';
+import Icon from 'src/components/Icon';
+import CloseIcon from 'react-feather/dist/icons/x';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
-const searchQuery = gql`
-    query($inputText: String) {
-        products(search: $inputText) {
-            items {
-                id
-                name
-                small_image
-                url_key
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                }
-            }
-            total_count
+const getCategoryName = gql`
+    query getCategoryName($id: Int!) {
+        category(id: $id) {
+            name
         }
     }
 `;
@@ -39,6 +27,7 @@ export class Search extends Component {
             root: string,
             totalPages: string
         }),
+        executeSearch: func.isRequired,
         history: object,
         location: object.isRequired,
         match: object,
@@ -48,42 +37,82 @@ export class Search extends Component {
 
     componentDidMount() {
         // Ensure that search is open when the user lands on the search page.
+        const { inputText } = getSearchParams(location);
         const { searchOpen, toggleSearch } = this.props;
-        if (toggleSearch && !searchOpen) {
+        if (toggleSearch && !searchOpen && inputText) {
             toggleSearch();
         }
     }
 
-    render() {
-        const { classes, location } = this.props;
+    getCategoryName = (categoryId, classes) => (
+        <div className={classes.categoryFilters}>
+            <button
+                className={classes.categoryFilter}
+                onClick={this.handleClearCategoryFilter}
+            >
+                <small className={classes.categoryFilterText}>
+                    <Query
+                        query={getCategoryName}
+                        variables={{ id: categoryId }}
+                    >
+                        {({ loading, error, data }) => {
+                            if (error) return null;
+                            if (loading) return 'Loading...';
+                            return data.category.name;
+                        }}
+                    </Query>
+                </small>
+                <Icon
+                    src={CloseIcon}
+                    attrs={{
+                        width: '13px',
+                        height: '13px'
+                    }}
+                />
+            </button>
+        </div>
+    );
 
-        const userInput = getQueryParameterValue({
-            location,
-            queryParameter: SEARCH_QUERY_PARAMETER
-        });
+    handleClearCategoryFilter = () => {
+        const { inputText } = getSearchParams(location);
+        if (inputText) this.props.executeSearch(inputText, this.props.history);
+    };
+
+    render() {
+        const { classes } = this.props;
+        const { getCategoryName } = this;
+
+        const { inputText, categoryId } = getSearchParams(location);
+
+        if (!inputText) return <Redirect to="/" />;
+
+        const queryVariable = categoryId
+            ? { inputText, categoryId }
+            : { inputText };
 
         return (
-            <Query query={searchQuery} variables={{ inputText: userInput }}>
+            <Query query={PRODUCT_SEARCH} variables={queryVariable}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
+                    if (loading) return loadingIndicator;
 
-                    if (data.products.items.length === 0) {
+                    if (data.products.items.length === 0)
                         return (
                             <div className={classes.noResult}>
                                 No results found!
                             </div>
                         );
-                    }
 
                     return (
                         <article className={classes.root}>
-                            <div className={classes.totalPages}>
-                                <span>{`${
-                                    data.products.total_count
-                                } items`}</span>
+                            <div className={classes.categoryTop}>
+                                <div className={classes.totalPages}>
+                                    {data.products.total_count} items{' '}
+                                </div>
+                                {categoryId &&
+                                    getCategoryName(categoryId, classes)}
                             </div>
-                            <section>
+                            <section className={classes.gallery}>
                                 <Gallery data={data.products.items} />
                             </section>
                         </article>

@@ -1,12 +1,13 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 
 import Header from './header';
 import { toggleSearch } from 'src/actions/app';
 
 const mapStateToProps = ({ app }) => {
-    const { searchOpen } = app;
+    const { searchOpen, autocompleteOpen } = app;
     return {
-        searchOpen
+        searchOpen,
+        autocompleteOpen
     };
 };
 
