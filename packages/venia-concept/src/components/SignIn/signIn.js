@@ -68,7 +68,7 @@ class SignIn extends Component {
                         className={classes.forgotPassword}
                         onClick={this.handleForgotPassword}
                     >
-                        Forgot your username or password?
+                        Forgot password?
                     </button>
                 </Form>
                 <div className={classes.signInDivider} />
