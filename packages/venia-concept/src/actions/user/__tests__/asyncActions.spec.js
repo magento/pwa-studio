@@ -10,9 +10,11 @@ import actions from '../actions';
 import {
     signIn,
     getUserDetails,
+    completePasswordReset,
     createAccount,
     createNewUserRequest,
-    assignGuestCartToCustomer
+    assignGuestCartToCustomer,
+    resetPassword
 } from '../asyncActions';
 
 jest.mock('src/store');
@@ -212,4 +214,48 @@ test('assignGuestCartToCustomer thunk retrieves guest cart with guestCartId', as
 test('assignGuestCartToCustomer thunk dispatches removeGuestCart()', async () => {
     await assignGuestCartToCustomer({})(...thunkArgs);
     expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
+});
+
+describe('resetPassword', () => {
+    const email = 'test@test.com';
+
+    test('resetPassword() returns a thunk', () => {
+        expect(resetPassword({ email })).toBeInstanceOf(Function);
+    });
+
+    test('resetPassword thunk dispatches actions on success', async () => {
+        await resetPassword({ email })(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.resetPassword.request(email)
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.resetPassword.receive(email)
+        );
+    });
+});
+
+describe('completePasswordReset', () => {
+    const payload = 'test';
+
+    test('completePasswordReset() to return a thunk', () => {
+        expect(completePasswordReset()).toBeInstanceOf(Function);
+    });
+
+    test('completePasswordReset thunk returns undefined', async () => {
+        const result = await completePasswordReset(payload)(...thunkArgs);
+        expect(result).toBeUndefined();
+    });
+
+    test('completePasswordReset thunk dispatches actions', async () => {
+        await completePasswordReset(payload)(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledWith(
+            actions.completePasswordReset(payload)
+        );
+        expect(dispatch).toHaveBeenCalledTimes(1);
+    });
 });

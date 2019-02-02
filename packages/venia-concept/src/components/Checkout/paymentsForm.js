@@ -34,14 +34,18 @@ class PaymentsForm extends Component {
             textInput: string
         }),
         initialValues: shape({
-            addresses_same: bool,
             city: string,
             postcode: string,
             region_code: string,
+            sameAsShippingAddress: bool,
             street0: array
         }),
         submit: func.isRequired,
         submitting: bool
+    };
+
+    static defaultProps = {
+        initialValues: {}
     };
 
     state = {
@@ -226,7 +230,6 @@ class PaymentsForm extends Component {
 
         if (!billingAddress.sameAsShippingAddress) {
             billingAddress = {
-                ...billingAddress,
                 city: formValue('city'),
                 postcode: formValue('postcode'),
                 region_code: formValue('region_code'),
