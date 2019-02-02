@@ -127,7 +127,11 @@ class CheckoutWrapper extends Component {
     }
 }
 
-const mapStateToProps = ({ cart, checkout, directory }) => ({ cart, checkout, directory });
+const mapStateToProps = ({ cart, checkout, directory }) => ({
+    cart,
+    checkout,
+    directory
+});
 
 const mapDispatchToProps = {
     beginCheckout,

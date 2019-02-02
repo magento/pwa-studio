@@ -17,7 +17,9 @@ describe('combine', () => {
     });
 
     test('throws an error on passing not array', () => {
-        expect(() => combine('string')).toThrow('Expected `callbacks` to be array.');
+        expect(() => combine('string')).toThrow(
+            'Expected `callbacks` to be array.'
+        );
     });
 
     test('throws an error on passing not function as extended callback on validate', () => {

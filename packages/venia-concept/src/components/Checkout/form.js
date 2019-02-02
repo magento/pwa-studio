@@ -92,7 +92,7 @@ class Form extends Component {
             incorrectAddressMessage,
             directory
         } = this.props;
-        const {countries} = directory;
+        const { countries } = directory;
 
         switch (editing) {
             case 'address': {

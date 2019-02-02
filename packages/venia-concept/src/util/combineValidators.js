@@ -53,9 +53,7 @@ export default callbacks => {
                 (!Array.isArray(callback) && typeof callback !== 'function')
             ) {
                 throw new Error(
-                    'Expected `callbacks[' +
-                        i +
-                        ']` to be array or function.'
+                    'Expected `callbacks[' + i + ']` to be array or function.'
                 );
             }
 

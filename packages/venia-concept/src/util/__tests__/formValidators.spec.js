@@ -84,22 +84,22 @@ describe('validateEmail', () => {
 
 describe('validateRegionCode', () => {
     const countries = [
-            {
-                id: 'US',
-                available_regions: [
-                    {
-                        id: "1",
-                        code: "AL",
-                        name: "Alabama"
-                    }
-                ]
-            },
-            {id: 'UA'},
-            {id: 'UK'}
+        {
+            id: 'US',
+            available_regions: [
+                {
+                    id: '1',
+                    code: 'AL',
+                    name: 'Alabama'
+                }
+            ]
+        },
+        { id: 'UA' },
+        { id: 'UK' }
     ];
 
     test('it returns null on success', () => {
-        const result = validators.validateRegionCode('AL',[], countries);
+        const result = validators.validateRegionCode('AL', [], countries);
 
         expect(result).toBeNull();
     });
@@ -111,7 +111,11 @@ describe('validateRegionCode', () => {
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.validateRegionCode('some_string',[], countries);
+        const result = validators.validateRegionCode(
+            'some_string',
+            [],
+            countries
+        );
 
         expect(typeof result).toBe('string');
     });
