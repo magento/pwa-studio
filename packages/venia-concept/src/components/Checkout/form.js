@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { Price, Util } from '@magento/peregrine';
+import { Price } from '@magento/peregrine';
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import Section from './section';
@@ -9,15 +9,26 @@ import ShippingForm from './shippingForm';
 import SubmitButton from './submitButton';
 
 import classify from 'src/classify';
+import Button from 'src/components/Button';
 import defaultClasses from './form.css';
-
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
 
 class Form extends Component {
     static propTypes = {
-        availablePaymentMethods: array,
         availableShippingMethods: array,
+        billingAddress: shape({
+            city: string,
+            country_id: string,
+            email: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            region_code: string,
+            region: string,
+            street: array,
+            telephone: string
+        }),
+        cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -28,22 +39,43 @@ class Form extends Component {
             footer: string,
             informationPrompt: string,
             'informationPrompt--disabled': string,
+            paymentDisplayPrimary: string,
+            paymentDisplaySecondary: string,
             root: string
         }),
         editing: string,
         editOrder: func.isRequired,
-        getShippingMethods: func.isRequired,
-        isPaymentMethodReady: bool,
-        isShippingInformationReady: bool,
-        isShippingMethodReady: bool,
-        paymentMethod: string,
-        paymentTitle: string,
+        hasPaymentMethod: bool,
+        hasShippingAddress: bool,
+        hasShippingMethod: bool,
+        incorrectAddressMessage: string,
+        isAddressIncorrect: bool,
+        paymentData: shape({
+            description: string,
+            details: shape({
+                cardType: string
+            }),
+            nonce: string
+        }),
         ready: bool,
+        shippingAddress: shape({
+            city: string,
+            country_id: string,
+            email: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            region_code: string,
+            region: string,
+            street: array,
+            telephone: string
+        }),
         shippingMethod: string,
         shippingTitle: string,
-        submitAddress: func.isRequired,
+        submitShippingAddress: func.isRequired,
         submitOrder: func.isRequired,
-        submitPaymentMethod: func.isRequired,
+        submitPaymentMethodAndBillingAddress: func.isRequired,
         submitShippingMethod: func.isRequired,
         submitting: bool.isRequired
     };
@@ -51,30 +83,6 @@ class Form extends Component {
     /*
      *  Class Properties.
      */
-    get addressSummary() {
-        const { classes, isShippingInformationReady } = this.props;
-        const address = storage.getItem('address');
-
-        if (!isShippingInformationReady) {
-            return (
-                <span className={classes.informationPrompt}>
-                    Add Shipping Information
-                </span>
-            );
-        }
-
-        const name = `${address.firstname} ${address.lastname}`;
-        const street = `${address.street.join(' ')}`;
-
-        return (
-            <Fragment>
-                <strong>{name}</strong>
-                <br />
-                <span>{street}</span>
-            </Fragment>
-        );
-    }
-
     get editableForm() {
         const {
             editing,
@@ -85,28 +93,27 @@ class Form extends Component {
 
         switch (editing) {
             case 'address': {
-                const address = storage.getItem('address') || {};
+                const { shippingAddress } = this.props;
 
                 return (
                     <AddressForm
-                        initialValues={address}
+                        initialValues={shippingAddress}
                         submitting={submitting}
                         cancel={this.stopEditing}
-                        submit={this.submitAddress}
+                        submit={this.submitShippingAddress}
                         isAddressIncorrect={isAddressIncorrect}
                         incorrectAddressMessage={incorrectAddressMessage}
                     />
                 );
             }
             case 'paymentMethod': {
-                const { availablePaymentMethods, paymentMethod } = this.props;
+                const { billingAddress } = this.props;
 
                 return (
                     <PaymentsForm
-                        availablePaymentMethods={availablePaymentMethods}
                         cancel={this.stopEditing}
-                        paymentMethod={paymentMethod}
-                        submit={this.submitPaymentMethod}
+                        initialValues={billingAddress}
+                        submit={this.submitPaymentMethodAndBillingAddress}
                         submitting={submitting}
                     />
                 );
@@ -134,8 +141,9 @@ class Form extends Component {
         const {
             cart,
             classes,
-            isShippingInformationReady,
-            isPaymentMethodReady,
+            hasPaymentMethod,
+            hasShippingAddress,
+            hasShippingMethod,
             ready,
             submitOrder,
             submitting
@@ -144,20 +152,24 @@ class Form extends Component {
         return (
             <Fragment>
                 <div className={classes.body}>
-                    <Section label="Ship To" onClick={this.editAddress}>
-                        {this.addressSummary}
+                    <Section
+                        label="Ship To"
+                        onClick={this.editAddress}
+                        showEditIcon={hasShippingAddress}
+                    >
+                        {this.shippingAddressSummary}
                     </Section>
                     <Section
-                        disabled={!isShippingInformationReady}
                         label="Pay With"
                         onClick={this.editPaymentMethod}
+                        showEditIcon={hasPaymentMethod}
                     >
                         {this.paymentMethodSummary}
                     </Section>
                     <Section
-                        disabled={!isPaymentMethodReady}
-                        label="Get It By"
+                        label="Use"
                         onClick={this.editShippingMethod}
+                        showEditIcon={hasShippingMethod}
                     >
                         {this.shippingMethodSummary}
                     </Section>
@@ -171,6 +183,7 @@ class Form extends Component {
                     </Section>
                 </div>
                 <div className={classes.footer}>
+                    <Button onClick={this.dismissCheckout}>Back to Cart</Button>
                     <SubmitButton
                         submitting={submitting}
                         valid={ready}
@@ -182,41 +195,67 @@ class Form extends Component {
     }
 
     get paymentMethodSummary() {
-        const {
-            classes,
-            isPaymentMethodReady,
-            isShippingInformationReady,
-            paymentTitle
-        } = this.props;
+        const { classes, hasPaymentMethod, paymentData } = this.props;
 
-        if (!isPaymentMethodReady) {
-            const promptClass = isShippingInformationReady
-                ? classes.informationPrompt
-                : classes['informationPrompt--disabled'];
-            return <span className={promptClass}>Add Billing Information</span>;
+        if (!hasPaymentMethod) {
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Billing Information
+                </span>
+            );
+        }
+
+        let primaryDisplay = '';
+        let secondaryDisplay = '';
+        if (paymentData) {
+            primaryDisplay = paymentData.details.cardType;
+            secondaryDisplay = paymentData.description;
         }
 
         return (
             <Fragment>
-                <strong>{paymentTitle}</strong>
+                <strong className={classes.paymentDisplayPrimary}>
+                    {primaryDisplay}
+                </strong>
+                <br />
+                <span className={classes.paymentDisplaySecondary}>
+                    {secondaryDisplay}
+                </span>
+            </Fragment>
+        );
+    }
+
+    get shippingAddressSummary() {
+        const { classes, hasShippingAddress, shippingAddress } = this.props;
+
+        if (!hasShippingAddress) {
+            return (
+                <span className={classes.informationPrompt}>
+                    Add Shipping Information
+                </span>
+            );
+        }
+
+        const name = `${shippingAddress.firstname} ${shippingAddress.lastname}`;
+        const street = `${shippingAddress.street.join(' ')}`;
+
+        return (
+            <Fragment>
+                <strong>{name}</strong>
+                <br />
+                <span>{street}</span>
             </Fragment>
         );
     }
 
     get shippingMethodSummary() {
-        const {
-            classes,
-            isPaymentMethodReady,
-            isShippingMethodReady,
-            shippingTitle
-        } = this.props;
+        const { classes, hasShippingMethod, shippingTitle } = this.props;
 
-        if (!isShippingMethodReady) {
-            const promptClass = isPaymentMethodReady
-                ? classes.informationPrompt
-                : classes['informationPrompt--disabled'];
+        if (!hasShippingMethod) {
             return (
-                <span className={promptClass}>Add Shipping Information</span>
+                <span className={classes.informationPrompt}>
+                    Specify Shipping Method
+                </span>
             );
         }
 
@@ -241,6 +280,10 @@ class Form extends Component {
     /*
      *  Event Handlers.
      */
+    dismissCheckout = () => {
+        this.props.cancelCheckout();
+    };
+
     editAddress = () => {
         this.props.editOrder('address');
     };
@@ -257,18 +300,15 @@ class Form extends Component {
         this.props.editOrder(null);
     };
 
-    submitAddress = formValues => {
-        this.props.submitAddress({
-            type: 'address',
+    submitShippingAddress = formValues => {
+        this.props.submitShippingAddress({
+            type: 'shippingAddress',
             formValues
         });
     };
 
-    submitPaymentMethod = formValues => {
-        this.props.submitPaymentMethod({
-            type: 'paymentMethod',
-            formValues
-        });
+    submitPaymentMethodAndBillingAddress = formValues => {
+        this.props.submitPaymentMethodAndBillingAddress({ formValues });
     };
 
     submitShippingMethod = formValues => {

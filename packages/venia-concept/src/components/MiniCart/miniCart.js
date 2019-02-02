@@ -1,6 +1,6 @@
 import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import { bool, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
@@ -91,20 +91,23 @@ class MiniCart extends Component {
         const { cart, classes } = this.props;
         const { cartCurrencyCode, cartId } = this;
         const hasSubtotal = cartId && cart.totals && 'subtotal' in cart.totals;
+        const itemsQuantity = cart.details.items_qty;
+        const itemQuantityText = itemsQuantity === 1 ? 'item' : 'items';
+        const totalPrice = cart.totals.subtotal;
 
         return hasSubtotal ? (
             <dl className={classes.totals}>
                 <dt className={classes.subtotalLabel}>
                     <span>
-                        Subtotal
-                        {` (${cart.details.items_qty} Items)`}
+                        Cart Total :&nbsp;
+                        <Price
+                            currencyCode={cartCurrencyCode}
+                            value={totalPrice}
+                        />
                     </span>
                 </dt>
                 <dd className={classes.subtotalValue}>
-                    <Price
-                        currencyCode={cartCurrencyCode}
-                        value={cart.totals.subtotal}
-                    />
+                    ({itemsQuantity} {itemQuantityText})
                 </dd>
             </dl>
         ) : null;
