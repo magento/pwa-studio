@@ -146,7 +146,8 @@ It sets the ApolloProvider, the ReduxStore, and the Router configuration and App
 
 ### `src/store.js`
 
-The `stc/store.js` file responsible for creating redux store. It combines redux reducers and middlewares.
+The `src/store.js` file is responsible for creating a Redux store.
+It also combines Redux reducers and middlewares.
 
 ### `src/sw.js`
 
