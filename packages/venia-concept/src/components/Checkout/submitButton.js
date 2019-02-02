@@ -18,7 +18,7 @@ class SubmitButton extends Component {
 
         return (
             <Button priority="high" disabled={disabled} onClick={submitOrder}>
-                Place Order
+                Confirm Order
             </Button>
         );
     }

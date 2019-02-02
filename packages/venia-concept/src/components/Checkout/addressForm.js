@@ -58,6 +58,10 @@ class AddressForm extends Component {
         countries: array
     };
 
+    static defaultProps = {
+        initialValues: {}
+    };
+
     validationBlock = () => {
         const { isAddressIncorrect, incorrectAddressMessage } = this.props;
         if (isAddressIncorrect) {
