@@ -135,7 +135,9 @@ The `src/util` directory contain useful JavaScript utility functions used throug
 
 ### `src/classify.js`
 
-The `src/classify.js` file creates a component that combines all default global classes and  classes applied as prop to the child component and  gives as props to child component. eg `Classify(Main)`, `Classify(Cart)`, `Classify(Header)`.
+The `src/classify.js` file is a module that returns a component with the combined classes of its default classes, className property, and the classes provided through the `classes` prop.
+
+Example: `Classify(Main)`, `Classify(Cart)`, `Classify(Header)`.
 
 ### `src/index.js`
 
