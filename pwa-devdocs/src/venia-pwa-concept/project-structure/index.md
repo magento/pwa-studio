@@ -139,7 +139,8 @@ The `src/classify.js` file creates a component that combines all default global 
 
 ### `src/index.js`
 
-The `src/index.js` file is the entry point of venia. It sets the ApolloProvider, the ReduxStore, and the Router configuration and App Component.
+The `src/index.js` file is the entry point of Venia.
+It sets the ApolloProvider, the ReduxStore, and the Router configuration and App Component.
 
 ### `src/store.js`
 
