@@ -22,6 +22,9 @@ class Form extends Component {
             guestCartId: string,
             totals: object
         }).isRequired,
+        directory: shape({
+            countries: array
+        }),
         classes: shape({
             body: string,
             footer: string,
@@ -86,8 +89,10 @@ class Form extends Component {
             editing,
             submitting,
             isAddressIncorrect,
-            incorrectAddressMessage
+            incorrectAddressMessage,
+            directory
         } = this.props;
+        const {countries} = directory;
 
         switch (editing) {
             case 'address': {
@@ -98,6 +103,7 @@ class Form extends Component {
                     <AddressForm
                         initialValues={shippingAddress}
                         submitting={submitting}
+                        countries={countries}
                         cancel={this.stopEditing}
                         submit={this.submitShippingAddress}
                         isAddressIncorrect={isAddressIncorrect}
@@ -114,6 +120,7 @@ class Form extends Component {
                         initialValues={billingAddress}
                         submit={this.submitPaymentMethodAndBillingAddress}
                         submitting={submitting}
+                        countries={countries}
                     />
                 );
             }

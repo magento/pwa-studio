@@ -11,8 +11,7 @@ import classify from 'src/classify';
 
 import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import { validateRegionCode } from './validators';
-import { isRequired, hasLengthExactly } from 'src/util/formValidators';
+import { isRequired, hasLengthExactly, validateRegionCode } from 'src/util/formValidators';
 import combine from 'src/util/combineValidators';
 
 const DEFAULT_FORM_VALUES = {
@@ -43,7 +42,8 @@ class PaymentsForm extends Component {
             street0: array
         }),
         submit: func.isRequired,
-        submitting: bool
+        submitting: bool,
+        countries: array
     };
 
     state = {
@@ -92,7 +92,7 @@ class PaymentsForm extends Component {
      *  Class Properties.
      */
     billingAddressFields = () => {
-        const { classes } = this.props;
+        const { classes, countries } = this.props;
 
         return (
             <Fragment>
@@ -122,7 +122,7 @@ class PaymentsForm extends Component {
                             validate={combine([
                                 isRequired,
                                 [hasLengthExactly, 2],
-                                validateRegionCode
+                                [validateRegionCode, countries]
                             ])}
                         />
                     </Field>

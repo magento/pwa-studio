@@ -61,6 +61,9 @@ class CheckoutWrapper extends Component {
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool.isRequired
         }),
+        directory: shape({
+            countries: array
+        }),
         editOrder: func.isRequired,
         resetCheckout: func.isRequired,
         submitShippingAddress: func.isRequired,
@@ -73,6 +76,7 @@ class CheckoutWrapper extends Component {
         const {
             cart,
             checkout,
+            directory,
 
             beginCheckout,
             editOrder,
@@ -117,13 +121,13 @@ class CheckoutWrapper extends Component {
             shippingTitle
         };
 
-        const flowProps = { actions, cart, checkout, ...miscProps };
+        const flowProps = { actions, cart, checkout, directory, ...miscProps };
 
         return <Flow {...flowProps} />;
     }
 }
 
-const mapStateToProps = ({ cart, checkout }) => ({ cart, checkout });
+const mapStateToProps = ({ cart, checkout, directory }) => ({ cart, checkout, directory });
 
 const mapDispatchToProps = {
     beginCheckout,

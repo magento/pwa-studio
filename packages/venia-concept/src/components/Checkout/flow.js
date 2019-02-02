@@ -38,6 +38,9 @@ class Flow extends Component {
             step: string,
             submitting: bool
         }),
+        directory: shape({
+            countries: array
+        }),
         classes: shape({
             root: string
         }),
@@ -63,6 +66,7 @@ class Flow extends Component {
             availableShippingMethods,
             cart,
             checkout,
+            directory,
             isCartReady,
             isCheckoutReady,
             isPaymentMethodReady,
@@ -105,6 +109,7 @@ class Flow extends Component {
                 const stepProps = {
                     availableShippingMethods,
                     cart,
+                    directory,
                     editOrder,
                     editing,
                     getShippingMethods,

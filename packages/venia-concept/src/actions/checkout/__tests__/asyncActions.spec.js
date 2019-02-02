@@ -278,27 +278,6 @@ describe('submitShippingAddress', () => {
             submitShippingAddress(payload)(...thunkArgs)
         ).rejects.toThrow('guestCartId');
     });
-
-    test('submitShippingAddress thunk dispatches action on incorrect state(region code)', async () => {
-        const invalidState = 'any_text';
-        const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
-        const incorrectAddressPayload = { incorrectAddressMessage };
-        const submitPayload = {
-            type: 'shippingAddress',
-            formValues: { region_code: invalidState }
-        };
-
-        await submitShippingAddress(submitPayload)(...thunkArgs);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.shippingAddress.submit(submitPayload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.shippingAddress.reject(incorrectAddressPayload)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
 });
 
 describe('submitPaymentMethod', () => {

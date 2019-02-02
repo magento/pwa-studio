@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { Form } from 'informed';
 import memoize from 'memoize-one';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, shape, string, array } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './addressForm.css';
-import { validateRegionCode } from './validators';
 import {
     validateEmail,
     isRequired,
-    hasLengthExactly
+    hasLengthExactly,
+    validateRegionCode
 } from 'src/util/formValidators';
 import combine from 'src/util/combineValidators';
 import TextInput from 'src/components/TextInput';
@@ -54,7 +54,8 @@ class AddressForm extends Component {
         }),
         incorrectAddressMessage: string,
         submit: func.isRequired,
-        submitting: bool
+        submitting: bool,
+        countries: array
     };
 
     validationBlock = () => {
@@ -83,7 +84,7 @@ class AddressForm extends Component {
     }
 
     children = () => {
-        const { classes, submitting } = this.props;
+        const { classes, submitting, countries } = this.props;
 
         return (
             <Fragment>
@@ -142,7 +143,7 @@ class AddressForm extends Component {
                                 validate={combine([
                                     isRequired,
                                     [hasLengthExactly, 2],
-                                    validateRegionCode
+                                    [validateRegionCode, countries]
                                 ])}
                             />
                         </Field>
