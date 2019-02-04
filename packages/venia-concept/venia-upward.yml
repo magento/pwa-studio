@@ -158,25 +158,33 @@ product: productResult.data.productDetail.items.0
 productResult:
   url: magentoGQL
   query: './src/queries/getProductDetail.graphql'
-  variables: pageQueryVariables
+  variables:
+    inline:
+      onServer: true
+      urlKey: urlKey
+      id: urlResolver.id
 
 category: categoryResult.data.category
 categoryResult:
   url: magentoGQL
   query: './src/queries/getCategory.graphql'
-  variables: pageQueryVariables
+  variables:
+    inline:
+      onServer: true
+      id: urlResolver.id
+      pageSize:
+        inline: 1
+      currentPage:
+        inline: 1
+
 
 cmsPage: cmsPageResult.data.cmsPage
 cmsPageResult:
   url: magentoGQL
   query: './src/queries/getCmsPage.graphql'
-  variables: pageQueryVariables
-
-pageQueryVariables:
+  variables:
     inline:
-      onServer:
-        inline: true
-      urlKey: urlKey
+      onServer: true
       id: urlResolver.id
 
 urlKey:
