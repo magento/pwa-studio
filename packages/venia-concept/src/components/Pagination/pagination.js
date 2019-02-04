@@ -5,6 +5,7 @@ import NavButton from './navButton';
 import { navButtons } from './constants';
 import { object } from 'prop-types';
 import { withRouter } from 'react-router';
+import { compose } from 'redux';
 
 const tileBuffer = 2;
 
@@ -147,4 +148,7 @@ class Pagination extends Component {
     };
 }
 
-export default withRouter(classify(defaultClasses)(Pagination));
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(Pagination);
