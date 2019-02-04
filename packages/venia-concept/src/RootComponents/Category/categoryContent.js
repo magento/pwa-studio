@@ -6,14 +6,7 @@ import defaultClasses from './category.css';
 
 class CategoryContent extends Component {
     render() {
-        const {
-            classes,
-            pageControl,
-            data,
-            pageSize,
-            location,
-            history
-        } = this.props;
+        const { classes, pageControl, data, pageSize } = this.props;
         const items = data ? data.category.products.items : null;
         const title = data ? data.category.description : null;
         const categoryTitle = data ? data.category.name : null;
@@ -33,11 +26,7 @@ class CategoryContent extends Component {
                     <Gallery data={items} title={title} pageSize={pageSize} />
                 </section>
                 <div className={classes.pagination}>
-                    <Pagination
-                        pageControl={pageControl}
-                        history={history}
-                        location={location}
-                    />
+                    <Pagination pageControl={pageControl} />
                 </div>
             </article>
         );
