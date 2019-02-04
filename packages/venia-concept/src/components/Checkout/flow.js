@@ -73,6 +73,9 @@ class Flow extends Component {
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool.isRequired
         }),
+        directory: shape({
+            countries: array
+        }),
         classes: shape({
             root: string
         }),
@@ -100,6 +103,7 @@ class Flow extends Component {
             hasPaymentMethod,
             hasShippingAddress,
             hasShippingMethod,
+            directory,
             isCartReady,
             isCheckoutReady
         } = this.props;
@@ -144,6 +148,7 @@ class Flow extends Component {
                     billingAddress,
                     cancelCheckout,
                     cart,
+                    directory,
                     editOrder,
                     editing,
                     hasPaymentMethod,
