@@ -151,26 +151,24 @@ module.exports = async function(env) {
             new WebpackAssetsManifest({
                 output: 'asset-manifest.json',
                 entrypoints: true,
-                customize(entry, original, manifest, asset) {
-                    debugger;
+                // Add explicit properties to the asset manifest for
+                // venia-upward.yml to use when evaluating app shell templates.
+                transform(assets) {
+                    // All RootComponents go to prefetch, and all client scripts
+                    // go to load.
+                    assets.bundles = {
+                        load: assets.entrypoints.client.js,
+                        prefetch: []
+                    };
+                    Object.entries(assets).forEach(([name, value]) => {
+                        if (name.startsWith('RootCmp')) {
+                            const filenames = Array.isArray(value)
+                                ? value
+                                : [value];
+                            assets.bundles.prefetch.push(...filenames);
+                        }
+                    });
                 }
-                // transform(assets, manifest) {
-                //     console.log('assets', assets);
-                //     const {
-                //         compiler: { options }
-                //     } = manifest;
-                //     const seedBundles = [];
-                //     const preloads = [];
-                //     Object.entries(assets).forEach(([name, urlPath]) => {
-                //         if (options.entry.hasOwnProperty(name)) {
-                //             seedBundles.push(urlPath);
-                //         } else {
-                //             preloads.push(urlPath);
-                //         }
-                //     });
-                //     manifest.set('seedBundles', seedBundles.reverse());
-                //     manifest.set('prefetchChunks', preloads);
-                // }
             })
         ],
         optimization: {
@@ -180,7 +178,7 @@ module.exports = async function(env) {
                         test: new RegExp(
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
-                        name: true,
+                        // name: true,
                         chunks: 'all'
                     }
                 }

@@ -87,8 +87,7 @@ appShell:
       template: resource.template
       provide:
         model: resource.model
-        seedBundles: assetManifest.entrypoints
-        prefetchChunks: assetManifest.prefetchChunks
+        bundles: assetManifest.bundles
         urlResolver: urlResolver
         env: env
 
@@ -207,7 +206,7 @@ index:
           inline: text/html
     body:
       engine: mustache
-      template: './templates/index.mst'
+      template: './templates/generic-shell.mst'
       provide:
         isDevelopment: isDevelopment
 

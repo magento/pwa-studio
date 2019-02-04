@@ -31,7 +31,7 @@ export default async function resolveUnknownRoute(opts) {
         const preloadScript = document.getElementById('url-resolver');
         if (preloadScript) {
             try {
-                const preload = JSON.parse(preloaded.textContent);
+                const preload = JSON.parse(preloadScript.textContent);
                 return {
                     type: preload.type,
                     id: castDigitsToNum(preload.id)
