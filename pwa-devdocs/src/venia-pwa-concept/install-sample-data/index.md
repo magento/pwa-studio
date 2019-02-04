@@ -14,7 +14,7 @@ Follow the instructions on this page to install the Venia sample data into your 
 
 ## Prerequisites
 
-* PHP 7.1 (currently one of the sample data modules is incompatible with PHP 7.2)
+* PHP 7.1.3+
 * System access to a Magento 2 instance
 
 {: .bs-callout .bs-callout-warning}

@@ -33,13 +33,21 @@ class Navigation extends PureComponent {
             userMore: string,
             userName: string
         }),
+        closeDrawer: func.isRequired,
+        completePasswordReset: func.isRequired,
+        createAccount: func.isRequired,
+        email: string,
         firstname: string,
+        forgotPassword: shape({
+            email: string,
+            isInProgress: bool
+        }),
         getAllCategories: func.isRequired,
         getUserDetails: func.isRequired,
-        email: string,
         isOpen: bool,
         isSignedIn: bool,
         lastname: string,
+        resetPassword: func.isRequired,
         signInError: object
     };
 
@@ -145,11 +153,22 @@ class Navigation extends PureComponent {
      */
     setForgotPasswordForm = () => {
         this.forgotPassword = className => {
+            const {
+                completePasswordReset,
+                forgotPassword,
+                resetPassword
+            } = this.props;
+            const { email, isInProgress } = forgotPassword;
+
             return (
                 <div className={className}>
                     <ForgotPassword
+                        completePasswordReset={completePasswordReset}
+                        email={email}
                         initialValues={{ email: this.state.defaultUsername }}
+                        isInProgress={isInProgress}
                         onClose={this.closeForgotPassword}
+                        resetPassword={resetPassword}
                     />
                 </div>
             );
