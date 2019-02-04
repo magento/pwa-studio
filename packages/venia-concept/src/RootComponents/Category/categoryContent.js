@@ -3,11 +3,18 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
 import defaultClasses from './category.css';
-import { RouteConsumer } from '@magento/peregrine';
+import { withRouter } from 'react-router';
 
 class CategoryContent extends Component {
     render() {
-        const { classes, pageControl, data, pageSize } = this.props;
+        const {
+            classes,
+            pageControl,
+            data,
+            pageSize,
+            location,
+            history
+        } = this.props;
         const items = data ? data.category.products.items : null;
         const title = data ? data.category.description : null;
         const categoryTitle = data ? data.category.name : null;
@@ -27,18 +34,15 @@ class CategoryContent extends Component {
                     <Gallery data={items} title={title} pageSize={pageSize} />
                 </section>
                 <div className={classes.pagination}>
-                    <RouteConsumer>
-                        {context => (
-                            <Pagination
-                                pageControl={pageControl}
-                                {...context}
-                            />
-                        )}
-                    </RouteConsumer>
+                    <Pagination
+                        pageControl={pageControl}
+                        history={history}
+                        location={location}
+                    />
                 </div>
             </article>
         );
     }
 }
 
-export default classify(defaultClasses)(CategoryContent);
+export default classify(defaultClasses)(withRouter(CategoryContent));

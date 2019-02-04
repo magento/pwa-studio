@@ -3,10 +3,15 @@ import classify from 'src/classify';
 import defaultClasses from './pagination.css';
 import NavButton from './navButton';
 import { navButtons } from './constants';
+import { object } from 'prop-types';
 
 const tileBuffer = 2;
 
 class Pagination extends Component {
+    static propTypes = {
+        history: object.isRequired,
+        location: object.isRequired
+    };
     componentDidMount() {
         const { updateTotalPages, totalPages } = this.props.pageControl;
         updateTotalPages(totalPages);
