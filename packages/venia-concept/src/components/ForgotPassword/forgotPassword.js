@@ -5,50 +5,40 @@ import classify from 'src/classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 import defaultClasses from './forgotPassword.css';
-import { resetPasswordRequest } from './api';
 
 class ForgotPassword extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             instructions: PropTypes.string
         }),
+        completePasswordReset: PropTypes.func.isRequired,
+        email: PropTypes.string,
         initialValues: PropTypes.shape({
             email: PropTypes.string
         }),
-        onClose: PropTypes.func.isRequired
-    };
-
-    state = {
-        submittedEmail: '',
-        submitSucceeded: false
+        isInProgress: PropTypes.bool,
+        onClose: PropTypes.func.isRequired,
+        resetPassword: PropTypes.func.isRequired
     };
 
     handleFormSubmit = async ({ email }) => {
-        await resetPasswordRequest({ email });
-
-        this.setState({
-            submittedEmail: email,
-            submitSucceeded: true
-        });
+        this.props.resetPassword({ email });
     };
 
     handleContinue = () => {
-        this.setState({
-            submittedEmail: '',
-            submitSucceeded: false
-        });
+        const { completePasswordReset, email, onClose } = this.props;
 
-        this.props.onClose();
+        completePasswordReset({ email });
+        onClose();
     };
 
     render() {
-        const { submitSucceeded, submittedEmail } = this.state;
-        const { initialValues, classes } = this.props;
+        const { classes, email, initialValues, isInProgress } = this.props;
 
-        if (submitSucceeded) {
+        if (isInProgress) {
             return (
                 <FormSubmissionSuccessful
-                    email={submittedEmail}
+                    email={email}
                     onContinue={this.handleContinue}
                 />
             );

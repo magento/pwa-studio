@@ -35,7 +35,7 @@ class Input extends Component {
         helpText: PropTypes.string,
         helpType: PropTypes.string,
         field: PropTypes.string.isRequired,
-        onChange: PropTypes.func.isRequired
+        onChange: PropTypes.func
     };
 
     static defaultProps = {
@@ -46,7 +46,10 @@ class Input extends Component {
 
     componentDidMount() {
         const { initialValue, onChange } = this.props;
-        initialValue && onChange(initialValue);
+
+        if (initialValue && onChange) {
+            onChange(initialValue);
+        }
     }
 
     state = {
@@ -108,7 +111,7 @@ class Input extends Component {
         return (
             <div className={rootClass}>
                 <span className={classes.label}>
-                    {requiredSymbol} {labelText}
+                    {requiredSymbol}&nbsp;{labelText}
                 </span>
                 <Text
                     initialValue={initialValue}
