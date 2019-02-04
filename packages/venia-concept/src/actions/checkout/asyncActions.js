@@ -279,24 +279,9 @@ export const continueShopping = history => async dispatch => {
 
 export function formatAddress(address = {}, countries = []) {
     const country = countries.find(({ id }) => id === 'US');
-
-    if (!country) {
-        throw new Error('Country "US" is not an available country.');
-    }
     const { region_code } = address;
     const { available_regions: regions } = country;
-
-    if (!(Array.isArray(regions) && regions.length)) {
-        throw new Error('Country "US" does not contain any available regions.');
-    }
-
     const region = regions.find(({ code }) => code === region_code);
-
-    if (!region) {
-        throw new Error(
-            `State "${region_code}" is not an valid state abbreviation.`
-        );
-    }
 
     return {
         country_id: 'US',
