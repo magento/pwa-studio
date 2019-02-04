@@ -1,18 +1,24 @@
 import { connect } from 'src/drivers';
-import { getUserDetails } from 'src/actions/user';
 import { closeDrawer } from 'src/actions/app';
 import { getAllCategories } from 'src/actions/catalog';
-import { createAccount } from 'src/actions/user';
+import {
+    completePasswordReset,
+    createAccount,
+    getUserDetails,
+    resetPassword
+} from 'src/actions/user';
 import Navigation from './navigation';
 
 const mapStateToProps = ({ catalog, user }) => {
     const { categories, rootCategoryId } = catalog;
-    const { firstname, email, isSignedIn, lastname } = user;
+    const { currentUser, isSignedIn, forgotPassword } = user;
+    const { firstname, email, lastname } = currentUser;
 
     return {
         categories,
-        firstname,
         email,
+        firstname,
+        forgotPassword,
         isSignedIn,
         lastname,
         rootCategoryId
@@ -21,9 +27,11 @@ const mapStateToProps = ({ catalog, user }) => {
 
 const mapDispatchToProps = {
     closeDrawer,
-    getAllCategories,
+    completePasswordReset,
     createAccount,
-    getUserDetails
+    getAllCategories,
+    getUserDetails,
+    resetPassword
 };
 
 export default connect(
