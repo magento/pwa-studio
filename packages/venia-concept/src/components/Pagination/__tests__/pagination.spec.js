@@ -14,7 +14,7 @@ const defaultPageControl = {
 
 test('Pagination component renders when there is more than 1 page', () => {
     const wrapper = shallow(
-        <Pagination classes={classes} pageControl={defaultPageControl} />
+        <Pagination.WrappedComponent classes={classes} pageControl={defaultPageControl} />
     ).dive();
     expect(wrapper.hasClass(classes.root)).toBe(true);
 });
@@ -22,7 +22,7 @@ test('Pagination component renders when there is more than 1 page', () => {
 test('Pagination component does not render when there is only 1 page', () => {
     const pageControl = { ...defaultPageControl, totalPages: 1 };
     const wrapper = shallow(
-        <Pagination classes={classes} pageControl={pageControl} />
+        <Pagination.WrappedComponent classes={classes} pageControl={pageControl} />
     ).dive();
     expect(wrapper.hasClass(classes.root)).toBe(false);
 });
@@ -34,7 +34,7 @@ test('clicking a numbered tile returns the appropriate page number', () => {
     };
 
     const pageControl = { ...defaultPageControl, setPage: setPage };
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
+    const wrapper = shallow(<Pagination.WrappedComponent pageControl={pageControl} />).dive();
 
     const tile3 = wrapper.find('button').at(2);
     tile3.simulate('click');
@@ -53,7 +53,7 @@ test('left arrow navigation', () => {
         currentPage: startingPage,
         setPage: setPage
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
+    const wrapper = mount(<Pagination.WrappedComponent pageControl={pageControl} />);
 
     const leftArrowNav = wrapper.find('button').at(1);
     // Page 3 -> 2
@@ -73,7 +73,7 @@ test('right arrow navigation', () => {
         currentPage: startingPage,
         setPage: setPage
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
+    const wrapper = mount(<Pagination.WrappedComponent pageControl={pageControl} />);
 
     const rightArrowNav = wrapper.find('button').at(5);
     // Page 2 -> 3
@@ -86,7 +86,7 @@ test('left bound prevents the lead tile from falling below 1', () => {
     const currentPage = 2;
     const totalPages = 8;
     const wrapper = shallow(
-        <Pagination pageControl={defaultPageControl} />
+        <Pagination.WrappedComponent pageControl={defaultPageControl} />
     ).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile(currentPage, totalPages)).toEqual(1);
@@ -96,7 +96,7 @@ test('right bound prevents the lead tile from exceeding total pages - visible ti
     const currentPage = 7;
     const totalPages = 9;
     const wrapper = shallow(
-        <Pagination pageControl={defaultPageControl} />
+        <Pagination.WrappedComponent pageControl={defaultPageControl} />
     ).dive();
     const leadTile = wrapper.instance().getLeadTile;
     expect(leadTile(currentPage, totalPages)).toEqual(5);
@@ -115,7 +115,7 @@ test('left skip', () => {
         setPage: setPage,
         totalPages: totalPages
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
+    const wrapper = mount(<Pagination.WrappedComponent pageControl={pageControl} />);
 
     const leftSkipButton = wrapper.find('button').first();
     leftSkipButton.simulate('click');
@@ -135,7 +135,7 @@ test('right skip', () => {
         setPage: setPage,
         totalPages: totalPages
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
+    const wrapper = mount(<Pagination.WrappedComponent pageControl={pageControl} />);
 
     const rightSkipButton = wrapper.find('button').last();
     rightSkipButton.simulate('click');

@@ -3,7 +3,6 @@ import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
 import defaultClasses from './category.css';
-import { withRouter } from 'react-router';
 
 class CategoryContent extends Component {
     render() {
@@ -45,4 +44,4 @@ class CategoryContent extends Component {
     }
 }
 
-export default classify(defaultClasses)(withRouter(CategoryContent));
+export default classify(defaultClasses)(CategoryContent);

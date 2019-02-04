@@ -4,6 +4,7 @@ import defaultClasses from './pagination.css';
 import NavButton from './navButton';
 import { navButtons } from './constants';
 import { object } from 'prop-types';
+import { withRouter } from 'react-router';
 
 const tileBuffer = 2;
 
@@ -146,4 +147,4 @@ class Pagination extends Component {
     };
 }
 
-export default classify(defaultClasses)(Pagination);
+export default withRouter(classify(defaultClasses)(Pagination));
