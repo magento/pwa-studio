@@ -239,7 +239,11 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 {miniCartInner}
-                <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
+                <Mask
+                    isActive={isMiniCartMaskOpen}
+                    dismiss={cancelCheckout}
+                    opacity={0.25}
+                />
             </aside>
         );
     }
