@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
+import { func, number, object, shape, string } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+
 import classify from 'src/classify';
+import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import defaultClasses from './pagination.css';
 import NavButton from './navButton';
 import { navButtons } from './constants';
-import { object } from 'prop-types';
-import { withRouter } from 'react-router';
-import { compose } from 'redux';
 
 const tileBuffer = 2;
 
 class Pagination extends Component {
     static propTypes = {
-        history: object.isRequired,
-        location: object.isRequired
+        classes: shape({
+            root: string
+        }),
+        history: object,
+        location: object,
+        pageControl: shape({
+            currentPage: number,
+            setPage: func,
+            totalPages: number,
+            updateTotalPages: func
+        })
     };
+
     componentDidMount() {
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
+        this.syncPage();
+    }
+
+    componentDidUpdate() {
+        this.syncPage();
     }
 
     componentWillUnmount() {
@@ -108,28 +123,27 @@ class Pagination extends Component {
         );
     }
 
-    setPage = pageNumber => {
-        if (this.props.history && this.props.location) {
-            const queryParams = new URLSearchParams(this.props.location.search);
-            queryParams.set('page', pageNumber);
-            this.props.history.push({
-                search: queryParams.toString()
-            });
-        }
-        this.props.pageControl.setPage(pageNumber);
+    setPage = (pageNumber, shouldReplace = false) => {
+        const { history, location } = this.props;
+        const { search } = location;
+        const queryParams = new URLSearchParams(search);
+        const method = shouldReplace ? 'replace' : 'push';
+
+        queryParams.set('page', pageNumber);
+        history[method]({ search: queryParams.toString() });
     };
 
     slideNavLeft = () => {
         const { currentPage } = this.props.pageControl;
         if (currentPage > 1) {
-            this.setPage(Number(currentPage) - 1);
+            this.setPage(currentPage - 1);
         }
     };
 
     slideNavRight = () => {
         const { currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            this.setPage(Number(currentPage) + 1);
+            this.setPage(currentPage + 1);
         }
     };
 
@@ -145,6 +159,32 @@ class Pagination extends Component {
             leadTile = Math.max(totalPages - tileBuffer * 2, 1);
         }
         return leadTile;
+    };
+
+    syncPage = () => {
+        const { location, pageControl } = this.props;
+        const { currentPage, setPage, totalPages } = pageControl;
+
+        const queryPage = Math.max(
+            1,
+            ~~getQueryParameterValue({
+                location,
+                queryParameter: 'page'
+            })
+        );
+
+        // if the page in the query string doesn't match client state
+        // update client state
+        if (queryPage !== currentPage) {
+            // if the query page is not a valid page number
+            // set it to `1` instead
+            // and make sure to update the URL
+            if (queryPage > totalPages) {
+                this.setPage(1, true);
+            } else {
+                setPage(queryPage);
+            }
+        }
     };
 }
 
