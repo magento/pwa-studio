@@ -15,10 +15,6 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
-    GET_SHIPPING_METHODS: {
-        REQUEST: null,
-        RECEIVE: null
-    },
     REMOVE_ITEM: {
         REQUEST: null,
         RECEIVE: null

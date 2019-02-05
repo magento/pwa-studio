@@ -14,7 +14,6 @@ import {
     removeItemFromCart,
     createGuestCart,
     getCartDetails,
-    getShippingMethods,
     toggleCart
 } from '../asyncActions';
 
@@ -352,6 +351,7 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
     const fakeDispatch = fn =>
         typeof fn === 'function' && fn(dispatch, getState);
     dispatch
+        .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
@@ -881,54 +881,6 @@ test('getCartDetails thunk merges cached item images into details', async () => 
             totals: 3
         })
     );
-});
-
-describe('getShippingMethods', () => {
-    test('getShippingMethods() returns a thunk', () => {
-        expect(getShippingMethods()).toBeInstanceOf(Function);
-    });
-
-    test('getShippingMethods thunk returns undefined', async () => {
-        const result = await getShippingMethods()(...thunkArgs);
-
-        expect(result).toBeUndefined();
-    });
-
-    test('getShippingMethods thunk dispatches actions on success', async () => {
-        // Mock the estimate-shipping-methods response.
-        const MOCK_RESPONSE = [];
-        request.mockResolvedValueOnce(MOCK_RESPONSE);
-
-        await getShippingMethods()(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getShippingMethods.receive(MOCK_RESPONSE)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
-
-    test('getShippingMethods thunk dispatches actions on failure', async () => {
-        // Mock the estimate-shipping-methods response.
-        const error = new Error('ERROR');
-        request.mockRejectedValueOnce(error);
-
-        await getShippingMethods()(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getShippingMethods.receive(error)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
 });
 
 test('toggleCart() returns a thunk', () => {

@@ -210,6 +210,39 @@ describe('paymentMethod', () => {
     });
 });
 
+describe('getShippingMethods', () => {
+    test('getShippingMethods.request.toString() returns the proper action type', () => {
+        expect(actions.getShippingMethods.request.toString()).toBe(
+            'CHECKOUT/GET_SHIPPING_METHODS/REQUEST'
+        );
+    });
+
+    test('getShippingMethods.request() returns a proper action object', () => {
+        expect(actions.getShippingMethods.request(payload)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/REQUEST',
+            payload
+        });
+    });
+
+    test('getShippingMethods.receive.toString() returns the proper action type', () => {
+        expect(actions.getShippingMethods.receive.toString()).toBe(
+            'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE'
+        );
+    });
+
+    test('getShippingMethods.receive() returns a proper action object', () => {
+        expect(actions.getShippingMethods.receive(payload)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE',
+            payload
+        });
+        expect(actions.getShippingMethods.receive(error)).toEqual({
+            type: 'CHECKOUT/GET_SHIPPING_METHODS/RECEIVE',
+            payload: error,
+            error: true
+        });
+    });
+});
+
 describe('shippingMethod', () => {
     test('shippingMethod.submit.toString() returns the proper action type', () => {
         expect(actions.shippingMethod.submit.toString()).toBe(
