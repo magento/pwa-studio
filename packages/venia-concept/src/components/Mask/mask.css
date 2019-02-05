@@ -18,9 +18,9 @@
 
 /* state: active */
 
-/* This class's opacity is dynamic and set in mask.js. */
 .root_active {
     composes: root;
+    opacity: 0.5;
     transition-duration: 224ms;
     visibility: visible;
 }

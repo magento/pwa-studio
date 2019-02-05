@@ -12,11 +12,11 @@ import CloseIcon from 'react-feather/dist/icons/x';
 import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
+import Mask from './mask';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
-import Mask from 'src/components/Mask';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
@@ -242,7 +242,6 @@ class MiniCart extends Component {
                 <Mask
                     isActive={isMiniCartMaskOpen}
                     dismiss={cancelCheckout}
-                    opacity={0.25}
                 />
             </aside>
         );
