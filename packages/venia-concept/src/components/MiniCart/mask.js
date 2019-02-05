@@ -24,7 +24,7 @@ class MiniCartMask extends Component {
             <Mask
                 classes={{ root_active: classes.root_active }}
                 dismiss={dismiss}
-                isActive={isActive} 
+                isActive={isActive}
             />
         );
     }
