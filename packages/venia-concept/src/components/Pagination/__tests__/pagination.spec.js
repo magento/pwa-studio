@@ -1,143 +1,187 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 
+import { navButtons } from '../constants';
+import NavButton from '../navButton';
 import Pagination from '../pagination';
 
-const classes = { root: 'a' };
+jest.mock('src/classify');
+jest.mock('../navButton');
+
+const setPage = jest.fn();
+const updateTotalPages = jest.fn();
+void NavButton;
 
 const defaultPageControl = {
     currentPage: 1,
-    setPage: () => {},
-    updateTotalPages: () => {},
-    totalPages: 3
+    setPage,
+    totalPages: 3,
+    updateTotalPages
 };
 
-test('Pagination component renders when there is more than 1 page', () => {
-    const wrapper = shallow(
-        <Pagination classes={classes} pageControl={defaultPageControl} />
-    ).dive();
-    expect(wrapper.hasClass(classes.root)).toBe(true);
+test('renders when there is more than 1 page', () => {
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={defaultPageControl} />
+        </MemoryRouter>
+    );
+
+    expect(root.findByProps({ className: 'root' })).toBeTruthy();
 });
 
-test('Pagination component does not render when there is only 1 page', () => {
+test('renders nothing when there is only 1 page', () => {
     const pageControl = { ...defaultPageControl, totalPages: 1 };
-    const wrapper = shallow(
-        <Pagination classes={classes} pageControl={pageControl} />
-    ).dive();
-    expect(wrapper.hasClass(classes.root)).toBe(false);
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    expect(root.findAllByProps({ className: 'root' })).toHaveLength(0);
 });
 
-test('clicking a numbered tile returns the appropriate page number', () => {
-    let pageTracker;
-    const setPage = pageNumber => {
-        pageTracker = pageNumber;
-    };
+test('tiles set the appropriate page number on click', () => {
+    const pageControl = { ...defaultPageControl };
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
 
-    const pageControl = { ...defaultPageControl, setPage: setPage };
-    const wrapper = shallow(<Pagination pageControl={pageControl} />).dive();
+    const tile = root.findAllByProps({ className: 'tileButton' })[2];
 
-    const tile3 = wrapper.find('button').at(2);
-    tile3.simulate('click');
-    expect(pageTracker).toEqual(3);
+    tile.props.onClick();
+
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(3);
 });
 
-test('left arrow navigation', () => {
-    const startingPage = 3;
-    let pageTracker = startingPage;
-    const setPage = pageNumber => {
-        pageTracker = pageNumber;
-    };
+test('sets the current page based on the query param', async () => {
+    const pageControl = { ...defaultPageControl };
 
+    TestRenderer.create(
+        <MemoryRouter
+            initialEntries={[{ pathname: '/index.html', search: '?page=2' }]}
+            initialIndex={0}
+        >
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(2);
+});
+
+test('prevPage button decrements page by 1', () => {
+    const pageControl = { ...defaultPageControl, currentPage: 2 };
+    const { root } = TestRenderer.create(
+        <MemoryRouter
+            initialEntries={[{ pathname: '/index.html', search: '?page=2' }]}
+            initialIndex={0}
+        >
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    const prevPage = root.findByProps({ name: navButtons.prevPage.name });
+
+    prevPage.props.onClick();
+
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(1);
+});
+
+test('prevPage button does nothing if currentPage is 1', () => {
+    const pageControl = { ...defaultPageControl };
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    const prevPage = root.findByProps({ name: navButtons.prevPage.name });
+
+    prevPage.props.onClick();
+
+    expect(setPage).not.toHaveBeenCalled();
+});
+
+test('nextPage button increments page by 1', () => {
+    const pageControl = { ...defaultPageControl };
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    const nextPage = root.findByProps({ name: navButtons.nextPage.name });
+
+    nextPage.props.onClick();
+
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(2);
+});
+
+test('nextPage button does nothing on last page', () => {
+    const pageControl = { ...defaultPageControl, currentPage: 3 };
+    const { root } = TestRenderer.create(
+        <MemoryRouter
+            initialEntries={[{ pathname: '/index.html', search: '?page=3' }]}
+            initialIndex={0}
+        >
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    const nextPage = root.findByProps({ name: navButtons.nextPage.name });
+
+    nextPage.props.onClick();
+
+    expect(setPage).not.toHaveBeenCalled();
+});
+
+test('leftSkip skips toward first page', () => {
     const pageControl = {
         ...defaultPageControl,
-        currentPage: startingPage,
-        setPage: setPage
+        currentPage: 8,
+        totalPages: 10
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
 
-    const leftArrowNav = wrapper.find('button').at(1);
-    // Page 3 -> 2
-    expect(pageTracker).toEqual(startingPage);
-    leftArrowNav.simulate('click');
-    expect(pageTracker).toEqual(startingPage - 1);
+    const { root } = TestRenderer.create(
+        <MemoryRouter
+            initialEntries={[{ pathname: '/index.html', search: '?page=8' }]}
+            initialIndex={0}
+        >
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
+
+    const firstPage = root.findByProps({ name: navButtons.firstPage.name });
+
+    firstPage.props.onClick();
+
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(3);
 });
 
-test('right arrow navigation', () => {
-    const startingPage = 2;
-    let pageTracker = startingPage;
-    const setPage = pageNumber => {
-        pageTracker = pageNumber;
-    };
+test('rightSkip skips toward last page', () => {
     const pageControl = {
         ...defaultPageControl,
-        currentPage: startingPage,
-        setPage: setPage
+        currentPage: 1,
+        totalPages: 10
     };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
 
-    const rightArrowNav = wrapper.find('button').at(5);
-    // Page 2 -> 3
-    expect(pageTracker).toEqual(startingPage);
-    rightArrowNav.simulate('click');
-    expect(pageTracker).toEqual(startingPage + 1);
-});
+    const { root } = TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={pageControl} />
+        </MemoryRouter>
+    );
 
-test('left bound prevents the lead tile from falling below 1', () => {
-    const currentPage = 2;
-    const totalPages = 8;
-    const wrapper = shallow(
-        <Pagination pageControl={defaultPageControl} />
-    ).dive();
-    const leadTile = wrapper.instance().getLeadTile;
-    expect(leadTile(currentPage, totalPages)).toEqual(1);
-});
+    const lastPage = root.findByProps({ name: navButtons.lastPage.name });
 
-test('right bound prevents the lead tile from exceeding total pages - visible tile buffer', () => {
-    const currentPage = 7;
-    const totalPages = 9;
-    const wrapper = shallow(
-        <Pagination pageControl={defaultPageControl} />
-    ).dive();
-    const leadTile = wrapper.instance().getLeadTile;
-    expect(leadTile(currentPage, totalPages)).toEqual(5);
-});
+    lastPage.props.onClick();
 
-test('left skip', () => {
-    const startingPage = 8;
-    const totalPages = 10;
-    let pageTracker = startingPage;
-    const setPage = pageNumber => {
-        pageTracker = pageNumber;
-    };
-    const pageControl = {
-        ...defaultPageControl,
-        currentPage: startingPage,
-        setPage: setPage,
-        totalPages: totalPages
-    };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
-
-    const leftSkipButton = wrapper.find('button').first();
-    leftSkipButton.simulate('click');
-    expect(pageTracker).toEqual(3);
-});
-
-test('right skip', () => {
-    const startingPage = 1;
-    const totalPages = 10;
-    let pageTracker = startingPage;
-    const setPage = pageNumber => {
-        pageTracker = pageNumber;
-    };
-    const pageControl = {
-        ...defaultPageControl,
-        currentPage: startingPage,
-        setPage: setPage,
-        totalPages: totalPages
-    };
-    const wrapper = mount(<Pagination pageControl={pageControl} />);
-
-    const rightSkipButton = wrapper.find('button').last();
-    rightSkipButton.simulate('click');
-    expect(pageTracker).toEqual(8);
+    expect(setPage).toHaveBeenCalledTimes(1);
+    expect(setPage).toHaveBeenLastCalledWith(8);
 });
