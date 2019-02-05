@@ -1,0 +1,195 @@
+/**
+ * Handle unhandled errors by setting a global error state.
+ *
+ * "store slice" reducers may want to handle errors in a custom way, in order
+ * to display more specific error states (such as form field validation).
+ *
+ * These reducers can indicate that an error is handled and needs no more UI
+ * response, by assigning the error object to the `error` property on their
+ * store slice.
+ *
+ * This reducer activates when the action has an `error` property. It then
+ * checks each store slice for an `error` property which equals the error in
+ * the action, indicating that the error has already been handled. If it
+ * detects that the error is not present in any store slice, it assumes the
+ * error is unhandled and pushes it into an `errors` array property on the root
+ * store.
+ *
+ * This `errors` colletion represents unhandled errors to be displayed in the
+ * next render. To dismiss an error, dispatch the ERROR_DISMISS action with the
+ * error as payload, and this reducer will remove it from the array.
+ *
+ */
+import { combineReducers } from 'redux';
+import app from 'src/actions/app';
+const APP_DISMISS_ERROR = app.markErrorHandled.toString();
+
+// Create and export the error reducer with a factory function. This allows
+// testability through injection of the non-idempotent methods for ID creation.
+export function createErrorReducer(window) {
+    const { Date, Math } = window;
+    // Cache the generated error records, but let them be garbage collected.
+    const errorRecords = new WeakMap();
+
+    /**
+     * This function builds an {error, id, loc} tuple from errors. It aids in
+     * production-mode debugging by providing a unique ID to each error, plus a
+     * hint as to the error source location, for a user to report on a support
+     * call.
+     * @param {Error} error The error to create or retrieve a record for.
+     */
+    function errorRecord(error) {
+        let record = errorRecords.get(error);
+        if (record) {
+            return record;
+        }
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(error, this);
+        }
+        record = { error };
+        const { constructor, message, name, stack } = error;
+        // Reasonably unique, yet readable error ID.
+        const seconds = new Date().getSeconds();
+        const randomChar = Math.random()
+            .toString(36)
+            .slice(2, 3)
+            .toUpperCase();
+        record.id =
+            ((constructor && constructor.name) || name) + seconds + randomChar;
+
+        // Add offending line, if possible.
+        if (stack) {
+            const messageStart = stack.indexOf(message);
+            if (messageStart > -1) {
+                const traceStart = messageStart + message.length;
+                record.loc = stack
+                    .slice(traceStart)
+                    .replace(window.location.origin, '')
+                    .trim()
+                    .split('\n')[0];
+            }
+        }
+        errorRecords.set(error, record);
+        return record;
+    }
+
+    /**
+     * This function returns the name of the slice for logging purposes, and
+     * undefined if no slice handling this error is found. It uses
+     * Object.entries() to create a [name, sliceObject] pair for each slice;
+     * the iteratee only tests the value, but we destructure the name into the
+     * final return value. For instance, the cart slice is represented as an
+     * entry ["cart", cartState]. If cartState has any property whose value is
+     * the provided error, then this function will return the string "cart".
+     *
+     * @param {object} fullStoreState
+     * @param {Error} error
+     *
+     */
+    function sliceHandledError(state, error) {
+        const foundEntry = Object.entries(state).find(
+            ([, slice]) =>
+                typeof slice === 'object' &&
+                // A slice is considered to have "handled" the error if it
+                // includes a root property (of any name) with the error as a
+                // value. This is the pattern with existing reducers.
+                Object.values(slice).includes(error)
+        );
+        if (foundEntry) {
+            // Return the name of the slice.
+            return foundEntry[0];
+        }
+    }
+
+    /**
+     * This reducer handles the full store state (all slices) and adds any
+     * unhandled errors (as defined by the selector function
+     * sliceHandledError() defined above) to a root `unhandledErrors`
+     * collection. It also handles the app-level action `APP_DISMISS_ERROR` by
+     * removing the passed error from that collection. Any global error UI can
+     * use this action (as a click handler, for instance) to dismiss the error.
+     *
+     * @param {object} fullStoreState
+     * @param {object} action
+     */
+    function errorReducer(state = {}, { type, payload, error }) {
+        const { unhandledErrors } = state;
+        if (type === APP_DISMISS_ERROR) {
+            const errorsMinusDismissed = unhandledErrors.filter(
+                ({ error }) => error !== payload
+            );
+            // If the array is smaller now, then we successfully removed an error.
+            if (errorsMinusDismissed.length < unhandledErrors.length) {
+                return {
+                    ...state,
+                    unhandledErrors: errorsMinusDismissed
+                };
+            }
+            // Otherwise...
+            if (process.env.NODE_ENV === 'development') {
+                console.error(
+                    'Received ${APP_DISMISS_ERROR} action, but provided error "${error}" was not present in the state.errors collection. The error object in the payload payload must be strictly equal to the error to be dismissed.',
+                    error
+                );
+            }
+        } else if (error) {
+            // `error` property should be boolean and the payload is the error
+            // itself, but just in case someone got that wrong...
+            const actualError = Error.isPrototypeOf(error) ? error : payload;
+            const sliceHandled = sliceHandledError(state, actualError);
+            if (!sliceHandled) {
+                // No one took this one. Add it to the unhandled list.
+                const allErrors = [
+                    // Dedupe errors in case this one is dispatched repeatedly
+                    // Also call `errorRecord()` with the current context,
+                    // which is the root reducer; that enables it to trim
+                    // useful stack traces by omitting useless lines
+                    ...new Set(
+                        unhandledErrors.concat(
+                            errorRecord.call(this, actualError)
+                        )
+                    )
+                ];
+                return {
+                    ...state,
+                    unhandledErrors: allErrors
+                };
+            }
+            // If we get here, a slice DID handle it and indicated that by
+            // setting it as a root property of the slice.
+            if (process.env.NODE_ENV === 'development') {
+                console.log(
+                    `Store slice ${sliceHandled} handled error, won't handle as fallback`,
+                    actualError
+                );
+            }
+        }
+        return state;
+    }
+
+    return errorReducer;
+}
+
+/**
+ * Wrapper function for Redux `combineReducers()` which adds an error reducer
+ * and a root `unhandledErrors` collection to state.
+ * Since `combineReducers()` returns a function which validates its state, it
+ * will error if it sees the "unrecognized" `unhandledErrors` property. This
+ * function hides that property by extracting it from state, then running the
+ * store root reducer on the clean state, then recombining the state and
+ * transforming it with the error reducer.
+ *
+ * @param {Object} slices Reducer map for Redux `combineReducers()`.
+ */
+export default function combineReducersWithErrorHandling(slices) {
+    const rootReducer = combineReducers(slices);
+    const errorReducer = createErrorReducer(window);
+    return function errorHandlingRootReducer(state = {}, action) {
+        const { unhandledErrors = [], ...restOfState } = state;
+        const nextState = rootReducer(restOfState, action);
+        nextState.unhandledErrors = unhandledErrors;
+        // Apply errorReducer in the context of this root reducer,
+        // so it can trim stack traces using `this`.
+        return errorReducer.call(errorHandlingRootReducer, nextState, action);
+    };
+}

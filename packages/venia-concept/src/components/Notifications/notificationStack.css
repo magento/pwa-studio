@@ -1,0 +1,5 @@
+.root {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    position: sticky;
+}
