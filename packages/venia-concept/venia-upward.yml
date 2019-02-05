@@ -6,7 +6,7 @@ response:
   when:
     # pass through to proxy
     - matches: request.url.pathname
-      pattern: '^/img/resize/(\d+)w/(.*())'
+      pattern: '^/img/resize/(\d+)'
       use: imageOpt
     - matches: request.url.pathname
       pattern: '^/(graphql|rest|media/)'
@@ -45,15 +45,15 @@ imageOpt:
           engine: mustache
           provide:
             width: $match.$1
-            path: $match.$2
+            path: request.url.query.url
           template:
             when:
               - matches: env.USE_FASTLY
                 pattern: '[^0]'
                 use:
-                  inline: '/{{path}}?auto=webp&format=pjpg&'
+                  inline: '{{path}}?auto=webp&format=pjpg&'
             default:
-              inline: '/{{path}}'
+              inline: '{{path}}'
 
 isDevelopment:
   when:
