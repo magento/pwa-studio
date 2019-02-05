@@ -1,6 +1,9 @@
 {
-    "version": 1,
     "name": "magento-venia",
-    "alias": "magento-venia",
-    "public": true
+    "alias": ["magento-venia", "veniapwa.com"],
+    "engines": {
+        "node": "10.x.x"
+    },
+    "public": true,
+    "version": 1
 }

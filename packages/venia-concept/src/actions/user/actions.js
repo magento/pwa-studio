@@ -1,6 +1,7 @@
 import { createActions } from 'redux-actions';
 
 const prefix = 'USER';
+const actionTypes = ['COMPLETE_PASSWORD_RESET'];
 
 const actionMap = {
     SIGN_IN: {
@@ -23,7 +24,11 @@ const actionMap = {
     CREATE_ACCOUNT_ERROR: {
         REQUEST: null,
         RECEIVE: null
+    },
+    RESET_PASSWORD: {
+        REQUEST: null,
+        RECEIVE: null
     }
 };
 
-export default createActions(actionMap, { prefix });
+export default createActions(actionMap, ...actionTypes, { prefix });

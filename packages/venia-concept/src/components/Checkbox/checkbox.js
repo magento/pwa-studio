@@ -21,6 +21,7 @@ export class Checkbox extends Component {
             message: string,
             root: string
         }),
+        field: string.isRequired,
         fieldState: shape({
             value: bool
         }).isRequired,
