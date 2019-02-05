@@ -1,17 +1,22 @@
 import React, { Component, Fragment } from 'react';
-import { Form, Text } from 'informed';
+import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
 import BraintreeDropin from './braintreeDropin';
-import Label from './label';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
-
+import Field from 'src/components/Field';
+import TextInput from 'src/components/TextInput';
 import classify from 'src/classify';
-import defaultClasses from './paymentsForm.css';
 
+import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import { hasLengthAtLeast, isNotEmpty } from 'src/util/formValidators.js';
+import {
+    isRequired,
+    hasLengthExactly,
+    validateRegionCode
+} from 'src/util/formValidators';
+import combine from 'src/util/combineValidators';
 
 const DEFAULT_FORM_VALUES = {
     addresses_same: true
@@ -34,14 +39,19 @@ class PaymentsForm extends Component {
             textInput: string
         }),
         initialValues: shape({
-            addresses_same: bool,
             city: string,
             postcode: string,
             region_code: string,
+            sameAsShippingAddress: bool,
             street0: array
         }),
         submit: func.isRequired,
-        submitting: bool
+        submitting: bool,
+        countries: array
+    };
+
+    static defaultProps = {
+        initialValues: {}
     };
 
     state = {
@@ -89,65 +99,50 @@ class PaymentsForm extends Component {
     /*
      *  Class Properties.
      */
-    billingAddressFields = formState => {
-        const { classes } = this.props;
-
-        const getError = fieldName => {
-            if (formState.errors[fieldName]) {
-                return formState.errors[fieldName];
-            }
-        };
+    billingAddressFields = () => {
+        const { classes, countries } = this.props;
 
         return (
             <Fragment>
                 <div className={classes.street0}>
-                    <Label htmlFor={classes.street0}>Street</Label>
-                    <Text
-                        className={classes.textInput}
-                        field="street[0]"
-                        id={classes.street0}
-                        validate={this.validateStreet}
-                    />
-                    <span className={classes.validation}>
-                        {getError('street')}
-                    </span>
+                    <Field label="Street">
+                        <TextInput
+                            id={classes.street0}
+                            field="street[0]"
+                            validate={isRequired}
+                        />
+                    </Field>
                 </div>
                 <div className={classes.city}>
-                    <Label htmlFor={classes.city}>City</Label>
-                    <Text
-                        className={classes.textInput}
-                        field="city"
-                        id={classes.city}
-                        validate={this.validateCity}
-                    />
-                    <span className={classes.validation}>
-                        {getError('city')}
-                    </span>
+                    <Field label="City">
+                        <TextInput
+                            id={classes.city}
+                            field="city"
+                            validate={isRequired}
+                        />
+                    </Field>
                 </div>
                 <div className={classes.region_code}>
-                    <Label htmlFor={classes.region_code}>State</Label>
-                    <Text
-                        className={classes.textInput}
-                        field="region_code"
-                        id={classes.region_code}
-                        validate={this.validateState}
-                        validateOnBlur
-                    />
-                    <span className={classes.validation}>
-                        {getError('region_code')}
-                    </span>
+                    <Field label="State">
+                        <TextInput
+                            id={classes.region_code}
+                            field="region_code"
+                            validate={combine([
+                                isRequired,
+                                [hasLengthExactly, 2],
+                                [validateRegionCode, countries]
+                            ])}
+                        />
+                    </Field>
                 </div>
                 <div className={classes.postcode}>
-                    <Label htmlFor={classes.postcode}>ZIP</Label>
-                    <Text
-                        className={classes.textInput}
-                        field="postcode"
-                        id={classes.postcode}
-                        validate={this.validatePostcode}
-                    />
-                    <span className={classes.validation}>
-                        {getError('postcode')}
-                    </span>
+                    <Field label="ZIP">
+                        <TextInput
+                            id={classes.postcode}
+                            field="postcode"
+                            validate={isRequired}
+                        />
+                    </Field>
                 </div>
             </Fragment>
         );
@@ -179,7 +174,7 @@ class PaymentsForm extends Component {
                         />
                     </div>
                     {!formState.values.addresses_same &&
-                        this.billingAddressFields(formState)}
+                        this.billingAddressFields()}
                 </div>
                 <div className={classes.footer}>
                     <Button className={classes.button} onClick={this.cancel}>
@@ -226,7 +221,6 @@ class PaymentsForm extends Component {
 
         if (!billingAddress.sameAsShippingAddress) {
             billingAddress = {
-                ...billingAddress,
                 city: formValue('city'),
                 postcode: formValue('postcode'),
                 region_code: formValue('region_code'),
@@ -247,14 +241,6 @@ class PaymentsForm extends Component {
     cancelPaymentNonceRequest = () => {
         this.setState({ isRequestingPaymentNonce: false });
     };
-
-    validateCity = value => isNotEmpty(value);
-
-    validatePostcode = value => isNotEmpty(value);
-
-    validateState = value => hasLengthAtLeast(value, 2);
-
-    validateStreet = value => isNotEmpty(value);
 }
 
 export default classify(defaultClasses)(PaymentsForm);

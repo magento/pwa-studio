@@ -15,6 +15,9 @@ entries:
   - label: Features
     entries:
 
+    - label: Modular components
+      url: /venia-pwa-concept/features/modular-components/
+
     - label: Checkout
       url: /venia-pwa-concept/features/checkout/
 
