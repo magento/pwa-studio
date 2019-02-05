@@ -331,27 +331,6 @@ describe('submitShippingAddress', () => {
             submitShippingAddress(payload)(...thunkArgs)
         ).rejects.toThrow('guestCartId');
     });
-
-    test('submitShippingAddress thunk dispatches action on incorrect state(region code)', async () => {
-        const invalidState = 'any_text';
-        const incorrectAddressMessage = `State "${invalidState}" is not an valid state abbreviation.`;
-        const incorrectAddressPayload = { incorrectAddressMessage };
-        const submitPayload = {
-            type: 'shippingAddress',
-            formValues: { region_code: invalidState }
-        };
-
-        await submitShippingAddress(submitPayload)(...thunkArgs);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.shippingAddress.submit(submitPayload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.shippingAddress.reject(incorrectAddressPayload)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
 });
 
 describe('submitPaymentMethod', () => {
@@ -651,26 +630,5 @@ describe('formatAddress', () => {
         expect(result).toHaveProperty('region', address.region);
         expect(result).toHaveProperty('region_id', address.region_id);
         expect(result).toHaveProperty('region_code', address.region_code);
-    });
-
-    test('formatAddress throws if country is not found', () => {
-        const shouldThrow = () => formatAddress();
-
-        expect(shouldThrow).toThrow('country');
-    });
-
-    test('formatAddress throws if country contains no regions', () => {
-        const values = { region_code: address.region_code };
-        const countries = [{ id: 'US' }];
-        const shouldThrow = () => formatAddress(values, countries);
-
-        expect(shouldThrow).toThrow('regions');
-    });
-
-    test('formatAddress throws if region is not found', () => {
-        const values = { region_code: '|||' };
-        const shouldThrow = () => formatAddress(values, countries);
-
-        expect(shouldThrow).toThrow('state');
     });
 });
