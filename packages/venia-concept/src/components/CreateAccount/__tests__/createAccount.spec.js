@@ -11,7 +11,7 @@ import {
     validateConfirmPassword,
     hasLengthAtLeast
 } from 'src/util/formValidators';
-import {validateEmail as asyncValidateEmail} from '../asyncValidators';
+import { validateEmail as asyncValidateEmail } from '../asyncValidators';
 
 jest.mock('src/util/formValidators');
 jest.mock('../asyncValidators');

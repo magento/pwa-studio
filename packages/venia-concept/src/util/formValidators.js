@@ -90,7 +90,11 @@ export const validatePassword = value => {
     return null;
 };
 
-export const validateConfirmPassword = (value, values, passwordKey = 'password') => {
+export const validateConfirmPassword = (
+    value,
+    values,
+    passwordKey = 'password'
+) => {
     if (!value) {
         return null;
     }
