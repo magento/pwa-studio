@@ -1,6 +1,4 @@
----
-title: Context
----
+# Context
 
 The context is a global namespace created for each request.
 It contains a dictionary of values, like a JSON object.
@@ -246,7 +244,75 @@ an efficient implementation identifies the parts of the root context that are no
 A context lookup can be used anywhere a resolver is allowed in the definition file.
 A context path indicates a dependency on another root context value, which causes the currenty branch to wait until the value is resolved.
 
-{% include_relative _code/using-context_1.md %}
+```yml
+body:
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              id: request.url.query.shipmentId
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            url: env.SHIPMENTS_SVC
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              name: request.url.query.shipmentName
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use:
+        resolver: template
+        engine: mustache
+        template:
+          resolver: file
+          file:
+            resolver: inline
+            inline: './renderShipment.mst'
+        provide:
+          shipment:
+            resolver: service
+            url: env.SHIPMENTS_SVC
+            query:
+              resolver: file
+              file:
+                resolver: inline
+                inline: './getShipment.graphql'
+            variables:
+              trackingNumber: request.url.query.shipmentTrackingNumber
+    default:
+      inline: 'Please provide a query'
+```
 
 In the example provided, the matchers use the context lookups `request.url.query.shipmentId`, `request.url.query.shipmentName`, and `request.url.query.shipmentTrackingNumber` to asynchronously obtain values for comparison as soon as they resolve.
 The `request` object is part of the initial context, but
@@ -254,14 +320,98 @@ dependencies on other context values that have definitions can also be used.
 
 The above definition could be more concisely expressed using intermediate values and more context lookups:
 
-{% include_relative _code/using-context_2.md %}
+```yml
+body:
+  resolver: conditional
+  when:
+    - matches: gqlVariables
+      pattern: null
+      use:
+        inline: 'Please provide a query'
+  default:
+    resolver: template
+    engine: mustache
+    template:
+      resolver: file
+      file:
+        resolver: inline
+          inline: './renderShipment.mst'
+    provide:
+      shipment:
+        resolver: service
+        url: env.SHIPMENTS_SVC
+        query:
+          resolver: file
+          file:
+            resolver: inline
+              inline: './getShipment.graphql'
+        variables: gqlVariables
+gqlVariables:
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use:
+        resolver: inline
+        inline:
+          id: request.url.query.shipmentId
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use:
+        resolver: inline
+        inline:
+          name: request.url.query.shipmentName
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use:
+        resolver: inline
+        inline:
+          trackingNumber: request.url.query.trackingNumber
+  default: null
+```
 
 This definition produces identical behavior as the first one but with 30% fewer lines.
 It demonstrates the idea of using context values to reduce the first repetative definition.
 
 If the GraphQL service sets an order of precedence for the shipment query, which uses the same priority logic as the ConditionalResolver, the definition can be further reduced to use the same variable set in all cases:
 
-{% include_relative _code/using-context_3.md %}
+```yml
+body:
+  resolver: conditional
+  when:
+    - matches: request.url.query.shipmentId
+      pattern: '\d+'
+      use: getShipment
+    - matches: request.url.query.shipmentName
+      pattern: '\w+'
+      use: getShipment
+    - matches: request.url.query.shipmentTrackingNumber
+      pattern: '[\w\d\.]+'
+      use: getShipment
+  default:
+    inline: 'Please provide a query'
+getShipment:
+  resolver: template
+  engine: mustache
+  template:
+    resolver: file
+    file:
+      resolver: inline
+        inline: './renderShipment.mst'
+  provide:
+    shipment:
+      resolver: service
+      url: env.SHIPMENTS_SVC
+      query:
+        resolver: file
+        file:
+          resolver: inline
+            inline: './getShipment.graphql'
+      variables:
+        id: request.url.query.shipmentId
+        name: request.url.query.shipmentName
+        trackingNumber: request.url.query.trackingNumber
+```
 
 Setting top-level context properties for reusable values is an important way to reduce verbosity and code duplication in the definition file.
 

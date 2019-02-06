@@ -1,6 +1,4 @@
----
-title: Resolvers
----
+# Resolvers
 
 A Resolver is an object that describes how a value is obtained.
 
@@ -19,10 +17,10 @@ List of available Resolvers:
 -   [ProxyResolver][] - delegates request/response handling to a proxy
 -   [DirectoryResolver][] - delegates request/response handling to a static file directory
 
-[inlineresolver]: {{ site.baseurl }}{%link upward/resolvers/inline/index.md %}
-[fileresolver]: {{ site.baseurl }}{%link upward/resolvers/file/index.md %}
-[serviceresolver]: {{ site.baseurl }}{%link upward/resolvers/service/index.md %}
-[TemplateResolver]: {{ site.baseurl }}{%link upward/resolvers/template/index.md %}
-[ConditionalResolver]: {{ site.baseurl }}{%link upward/resolvers/conditional/index.md %}
-[ProxyResolver]: {{ site.baseurl }}{%link upward/resolvers/proxy/index.md %}
-[DirectoryResolver]: {{ site.baseurl }}{%link upward/resolvers/directory/index.md %}
+[inlineresolver]: inline.md
+[fileresolver]: file.md
+[serviceresolver]: service.md
+[templateresolver]: template.md
+[conditionalresolver]: conditional.md
+[proxyresolver]: proxy.md
+[directoryresolver]: directory.md

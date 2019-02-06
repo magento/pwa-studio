@@ -1,6 +1,4 @@
----
-title: InlineResolver
----
+# InlineResolver
 
 Use an **InlineResolver** wherever you need a literal string value in the context.
 

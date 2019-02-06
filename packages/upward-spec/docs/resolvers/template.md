@@ -1,6 +1,4 @@
----
-title: TemplateResolver
----
+# TemplateResolver
 
 Use a **TemplateResolver** to render a template into a string.
 This can be used to assemble the response body using data from a context value.
@@ -152,5 +150,5 @@ These errors must be formatted like [GraphQL errors][].
 [mustache specification]: https://github.com/mustache/spec
 [reactjs server-side rendering]: https://reactjs.org/docs/react-dom-server.html
 [graphql errors]: http://facebook.github.io/graphql/June2018/#sec-Errors
-[InlineResolver]: {{site.baseurl}}{%link upward/resolvers/inline/index.md %}
-[FileResolver]: {{site.baseurl}}{%link upward/resolvers/file/index.md %}
+[InlineResolver]: inline.md
+[FileResolver]: file.md

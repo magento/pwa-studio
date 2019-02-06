@@ -1,6 +1,4 @@
----
-title: FileResolver
----
+# FileResolver
 
 Use a **FileResolver** to load content from a file.
 This is useful for loading queries and templates, which are reused by other systems.

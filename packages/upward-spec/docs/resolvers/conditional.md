@@ -1,6 +1,4 @@
----
-title: ConditionalResolver
----
+# ConditionalResolver
 
 Use a **ConditionalResolver** to test a context value for a particular pattern and yield another Resolver depending on the match results.
 

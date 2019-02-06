@@ -1,6 +1,4 @@
----
-title: DirectoryResolver
----
+# DirectoryResolver
 
 Use a **DirectoryResolver** to delegate request and response handling to a static server.
 
@@ -20,4 +18,4 @@ static:
         inline: './dist'
 ```
 
-[ProxyResolver]: {{site.baseurl}}{%link upward/resolvers/proxy/index.md %}
+[ProxyResolver]: proxy.md

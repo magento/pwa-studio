@@ -1,6 +1,4 @@
----
-title: Basic concepts
----
+# Basic concepts
 
 An UPWARD definition file describes the behavior of the server for an application shell.
 This topic explains the basic concepts you need to know to read or create your own UPWARD definition file and server.
@@ -53,5 +51,5 @@ If a cyclic dependency is detected this way, the server should raise an error on
 
 If a cyclic dependency occurs at runtime, the server should return a 500 error.
 
-[Context]: {{site.baseurl}}{% link upward/context/index.md %}
-[Resolvers]: {{site.baseurl}}{% link upward/resolvers/index.md %}
+[Context]: context.md
+[Resolvers]: resolvers/index.md

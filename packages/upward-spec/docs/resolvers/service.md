@@ -1,6 +1,4 @@
----
-title: ServiceResolver
----
+# ServiceResolver
 
 Use a **ServiceResolver** to obtain live data from a GraphQL backing service.
 The values for URL, method, and headers are specified manually, and

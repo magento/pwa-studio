@@ -1,6 +1,4 @@
----
-title: ProxyResolver
----
+# ProxyResolver
 
 Use a **ProxyResolver** to pass a request to another service.
 This resolver is guaranteed to resolve into an object with `status`, `headers`, and `body` properties from a logical point of view.
