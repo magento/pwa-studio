@@ -31,6 +31,5 @@ test('renders with props', () => {
             classes={classes}
         />
     ).dive();
-
     expect(wrapper.hasClass(classes.root)).toBe(true);
 });

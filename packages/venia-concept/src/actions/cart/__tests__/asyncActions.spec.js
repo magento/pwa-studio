@@ -354,6 +354,7 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
+        .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch);
 
     request.mockResolvedValueOnce(cartItem).mockResolvedValueOnce(cartItem);

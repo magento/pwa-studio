@@ -20,7 +20,7 @@
 }
 
 .categoryTitle {
-    color: black;
+    color: rgb(var(--venia-text));
     font-size: 1.375rem;
     font-weight: 300;
     line-height: 1.375rem;
