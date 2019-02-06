@@ -6,20 +6,23 @@ FROM node:10.14.1-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
-# global environment setup
-RUN npm install lerna -g --loglevel notice
+# global environment setup : yarn + dependencies needed to support node-gyp
+RUN apk --no-cache --virtual add \
+    python \
+    make \
+    g++ \
+    yarn 
 
-# copy just the dependency files and configs needed for install (utilizes docker cache)
-COPY lerna.json .
+# copy just the dependency files and configs needed for install
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
 COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
 COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
-COPY package.json .
+COPY package.json yarn.lock babel.config.js browserslist.js ./
 
-# lerna bootstrap/install dependencies with lerna hoisting
-RUN lerna bootstrap --hoist
+# install dependencies with yarn
+RUN yarn install
 
 # copy over the rest of the package files
 COPY packages ./packages
@@ -28,7 +31,7 @@ COPY packages ./packages
 COPY ./docker/.env.docker ./packages/venia-concept/.env
 
 # build the app
-RUN npm run build 
+RUN yarn run build 
 
 
 # MULTI-STAGE BUILD
@@ -45,4 +48,4 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app .
 
 # command to run application
-CMD [ "npm", "--prefix", "packages/venia-concept", "run", "watch:docker"]
+CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch:docker"]
