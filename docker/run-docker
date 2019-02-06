@@ -18,29 +18,33 @@ main () {
   DOMAIN=$PWA_STUDIO_PUBLIC_PATH
   HOSTMAP="127.0.0.1 $DOMAIN"
 
-  add_host_to_hostfile
+  add_domain_to_hostfile
 
   generate_certificate
 
   start_docker
 }
 
-add_host_to_hostfile () {
-  if [ "$HOSTMAP" == "127.0.0.1" ]; then
-    echo "No custom host set to configure."
-    return
+add_domain_to_hostfile () {
+  # handle if a domain was not configured
+  if [ "$HOSTMAP" == "127.0.0.1 " ]; then
+    message "Domain not found.\nPlease provide a custom domain in docker/.env.docker under the key:\nPWA_STUDIO_PUBLIC_PATH"
+    exit 1
   fi
-
+  
+  # check to see if the hostfile already contains the hostmap/domain
   while read -r var; do 
     if [ "$var" == "$HOSTMAP" ]; then
       HOSTPRESENT=true
     fi
   done < $HOSTSFILE
 
+  # add the domain if it is not present in the hostfile, otherwise don't
   if [ $HOSTPRESENT == false ]; then
     message "Please provide your password, if requested, to modify $HOSTSFILE"
     echo $HOSTMAP | sudo tee -a $HOSTSFILE
 
+    # handle error with adding to the hostfile
     if [ $? == 0 ]; then
       message "Added $HOSTMAP configured in $ENVFILE to $HOSTSFILE"
     else 
@@ -95,7 +99,7 @@ EOL
   -out ./docker/certs/$DOMAIN.crt \
   -config $OpenSSLConf
 
-  # add the certificate to the System keychain and trust the certificate
+  # add the certificate to the system keychain and trust the certificate
   sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./docker/certs/$DOMAIN.crt
 
   if [ $? == 0 ]; then
