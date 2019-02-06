@@ -215,6 +215,10 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
             dispatch(toggleDrawer('cart')),
             dispatch(getCartDetails({ forceRefresh: true }))
         ]);
+        // This is done here as a dispatch instead of as part of
+        // updateItem.receive() so that the cart will close the options
+        // drawer only after it's finished updating
+        dispatch(closeOptionsDrawer());
     };
 };
 
@@ -276,11 +280,11 @@ export const removeItemFromCart = payload => {
     };
 };
 
-export const openEditPanel = () => async dispatch =>
-    dispatch(actions.openEditPanel());
+export const openOptionsDrawer = () => async dispatch =>
+    dispatch(actions.openOptionsDrawer());
 
-export const hideEditPanel = () => async dispatch =>
-    dispatch(actions.hideEditPanel());
+export const closeOptionsDrawer = () => async dispatch =>
+    dispatch(actions.closeOptionsDrawer());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;

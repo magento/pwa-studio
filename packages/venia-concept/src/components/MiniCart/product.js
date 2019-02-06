@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string, func } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
@@ -41,7 +41,8 @@ class Product extends Component {
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string.isRequired,
+        openOptionsDrawer: func.isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -152,7 +153,7 @@ class Product extends Component {
     };
 
     editItem = () => {
-        this.props.showEditPanel(this.props.item);
+        this.props.openOptionsDrawer(this.props.item);
     };
 
     removeItem = () => {

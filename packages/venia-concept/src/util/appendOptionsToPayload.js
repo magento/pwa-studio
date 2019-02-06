@@ -30,6 +30,8 @@ const appendOptionsToPayload = (
         return true;
     });
 
+    if (!selectedVariant) return payload;
+
     Object.assign(payload, {
         options,
         parentSku: item.sku,

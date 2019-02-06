@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import classify from 'src/classify';
 import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
@@ -34,20 +34,19 @@ class CartOptions extends Component {
             configurable_options: array
         }),
         updateCart: func.isRequired,
-        hideEditPanel: func.isRequired
+        closeOptionsDrawer: func.isRequired
     };
 
     constructor(props) {
         super(props);
         this.state = {
             optionSelections: new Map(),
-            quantity: props.cartItem.qty,
-            isLoading: false
+            quantity: props.cartItem.qty
         };
     }
 
     get fallback() {
-        return loadingIndicator;
+        return <LoadingIndicator>Fetching Data</LoadingIndicator>;
     }
 
     setQuantity = quantity => this.setState({ quantity });
@@ -62,7 +61,7 @@ class CartOptions extends Component {
     };
 
     handleClick = async () => {
-        const { updateCart, hideEditPanel, cartItem, configItem } = this.props;
+        const { updateCart, cartItem, configItem } = this.props;
         const { optionSelections, quantity } = this.state;
         const { configurable_options } = configItem;
         const isConfigurable = Array.isArray(configurable_options);
@@ -79,25 +78,16 @@ class CartOptions extends Component {
         if (productType === 'ConfigurableProduct') {
             appendOptionsToPayload(payload, optionSelections);
         }
-        this.setState({
-            isLoading: true
-        });
-        await updateCart(payload, cartItem.item_id);
-        this.setState({
-            isLoading: false
-        });
-        hideEditPanel();
+        updateCart(payload, cartItem.item_id);
     };
 
     render() {
-        const { fallback, handleSelectionChange, props, state } = this;
-        const { classes, cartItem, configItem } = props;
+        const { fallback, handleSelectionChange, props } = this;
+        const { classes, cartItem, configItem, isLoading } = props;
         const { name, price } = cartItem;
         const { configurable_options } = configItem;
 
-        const modalClass = state.isLoading
-            ? classes.modal_active
-            : classes.modal;
+        const modalClass = isLoading ? classes.modal_active : classes.modal;
 
         const options = Array.isArray(configurable_options) ? (
             <Suspense fallback={fallback}>
@@ -129,7 +119,10 @@ class CartOptions extends Component {
                     </section>
                 </div>
                 <div className={classes.save}>
-                    <Button priority="high" onClick={this.props.hideEditPanel}>
+                    <Button
+                        priority="high"
+                        onClick={this.props.closeOptionsDrawer}
+                    >
                         <span>Cancel</span>
                     </Button>
                     <Button priority="high" onClick={this.handleClick}>
@@ -138,7 +131,7 @@ class CartOptions extends Component {
                 </div>
                 <div className={modalClass}>
                     <span className={classes.modalText}>
-                        {loadingIndicator}
+                        <LoadingIndicator>Updating Cart</LoadingIndicator>
                     </span>
                 </div>
             </Form>

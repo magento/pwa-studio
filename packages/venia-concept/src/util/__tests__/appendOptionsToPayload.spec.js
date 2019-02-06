@@ -72,19 +72,17 @@ test('appends the given options using pre-cached option codes', () => {
     expect(Array.isArray(payload.options)).toBe(true);
 });
 
-test('unavailable item selection results in a TypeError', () => {
+test('unavailable item selection returns the original payload', () => {
     const payload = {
         item: sampleItem,
         ...samplePayload
     };
+    const unchangedPayload = { ...payload };
     const optionSelections = new Map();
     optionSelections.set('1', 2);
     optionSelections.set('2', 1);
 
     expect(Array.isArray(payload.options)).toBe(false);
-    try {
-        appendOptionsToPayload(payload, optionSelections);
-    } catch (error) {
-        expect(error instanceof TypeError).toBe(true);
-    }
+    appendOptionsToPayload(payload, optionSelections);
+    expect(payload).toEqual(unchangedPayload);
 });

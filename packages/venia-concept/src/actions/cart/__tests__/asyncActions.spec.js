@@ -403,7 +403,8 @@ test('updateItemInCart thunk dispatches actions on success', async () => {
     );
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
     expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
-    expect(dispatch).toHaveBeenCalledTimes(4);
+    // Additional dispatch occurs to close the options drawer
+    expect(dispatch).toHaveBeenCalledTimes(5);
 });
 
 test('updateItemInCart thunk skips image cache if no sku or image', async () => {
@@ -420,6 +421,7 @@ test('updateItemInCart thunk skips image cache if no sku or image', async () => 
     };
     await updateItemInCart(noSku)(...thunkArgs);
     expect(mockGetItem).not.toHaveBeenCalled;
+
     const noImages = {
         quantity: 1,
         item: {
@@ -428,6 +430,7 @@ test('updateItemInCart thunk skips image cache if no sku or image', async () => 
     };
     await updateItemInCart(noImages)(...thunkArgs);
     expect(mockGetItem).not.toHaveBeenCalled;
+
     const emptyImages = {
         quantity: 1,
         item: {
@@ -492,10 +495,12 @@ test('updateItemInCart reuses product images from cache', async () => {
         media_gallery_entries: [{ url: 'http://example.com/same/item' }]
     };
     const fakeImageCache = {};
+
     mockGetItem.mockReturnValueOnce(fakeImageCache);
     await updateItemInCart({ quantity: 1, item: sameItem })(...thunkArgs);
     mockGetItem.mockReturnValueOnce(fakeImageCache);
     expect(mockSetItem).toHaveBeenCalledTimes(1);
+
     await updateItemInCart({ quantity: 4, item: sameItem })(...thunkArgs);
     expect(mockSetItem).toHaveBeenCalledTimes(1);
 });
@@ -524,7 +529,7 @@ test('updateItemInCart thunk dispatches special failure if guestCartId is not pr
         2,
         actions.updateItem.receive(error)
     );
-    // and now, the the createGuestCart thunk
+    // and now, the createGuestCart thunk
     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
 });
 
@@ -591,6 +596,7 @@ test('updateItemInCart tries to recreate a guest cart on 404 failure', async () 
                 type: 'CART/UPDATE_ITEM/RECEIVE'
             }
         ],
+        [expect.any(Function)],
         [expect.any(Function)],
         [expect.any(Function)]
     ]);

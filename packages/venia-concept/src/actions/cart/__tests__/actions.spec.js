@@ -154,56 +154,28 @@ test('updateItem.receive() returns a proper action object', () => {
     });
 });
 
-test('openEditPanel.toString() returns the proper action type', () => {
-    expect(actions.openEditPanel.toString()).toBe('CART/OPEN_EDIT_PANEL');
+test('openOptionsDrawer.toString() returns the proper action type', () => {
+    expect(actions.openOptionsDrawer.toString()).toBe(
+        'CART/OPEN_OPTIONS_DRAWER'
+    );
 });
 
-test('openEditPanel() returns a proper action object', () => {
-    expect(actions.openEditPanel(payload)).toEqual({
-        type: 'CART/OPEN_EDIT_PANEL',
+test('openOptionsDrawer() returns a proper action object', () => {
+    expect(actions.openOptionsDrawer(payload)).toEqual({
+        type: 'CART/OPEN_OPTIONS_DRAWER',
         payload
     });
 });
 
-test('openEditPanel.toString() returns the proper action type', () => {
-    expect(actions.openEditPanel.toString()).toBe('CART/OPEN_EDIT_PANEL');
+test('closeOptionsDrawer.toString() returns the proper action type', () => {
+    expect(actions.closeOptionsDrawer.toString()).toBe(
+        'CART/CLOSE_OPTIONS_DRAWER'
+    );
 });
 
-test('openEditPanel() returns a proper action object', () => {
-    expect(actions.openEditPanel(payload)).toEqual({
-        type: 'CART/OPEN_EDIT_PANEL',
+test('closeOptionsDrawer() returns a proper action object', () => {
+    expect(actions.closeOptionsDrawer(payload)).toEqual({
+        type: 'CART/CLOSE_OPTIONS_DRAWER',
         payload
-    });
-    expect(actions.openEditPanel(error)).toEqual({
-        type: 'CART/OPEN_EDIT_PANEL',
-        payload: error,
-        error: true
-    });
-});
-
-test('hideEditPanel.toString() returns the proper action type', () => {
-    expect(actions.hideEditPanel.toString()).toBe('CART/HIDE_EDIT_PANEL');
-});
-
-test('hideEditPanel() returns a proper action object', () => {
-    expect(actions.hideEditPanel(payload)).toEqual({
-        type: 'CART/HIDE_EDIT_PANEL',
-        payload
-    });
-});
-
-test('hideEditPanel.toString() returns the proper action type', () => {
-    expect(actions.hideEditPanel.toString()).toBe('CART/HIDE_EDIT_PANEL');
-});
-
-test('hideEditPanel() returns a proper action object', () => {
-    expect(actions.hideEditPanel(payload)).toEqual({
-        type: 'CART/HIDE_EDIT_PANEL',
-        payload
-    });
-    expect(actions.hideEditPanel(error)).toEqual({
-        type: 'CART/HIDE_EDIT_PANEL',
-        payload: error,
-        error: true
     });
 });

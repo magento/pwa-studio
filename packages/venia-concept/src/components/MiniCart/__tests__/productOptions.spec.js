@@ -51,13 +51,13 @@ const configItem = {
 
 test('renders with options when passed a configurable item', () => {
     const updateCart = jest.fn();
-    const hideEditPanel = jest.fn();
+    const closeOptionsDrawer = jest.fn();
     const wrapper = shallow(
         <CartOptions
             cartItem={cartItem}
             configItem={configItem}
             updateCart={updateCart}
-            hideEditPanel={hideEditPanel}
+            closeOptionsDrawer={closeOptionsDrawer}
             classes={classes}
         />
     ).dive();
@@ -68,13 +68,13 @@ test('renders with options when passed a configurable item', () => {
 
 test('renders with an empty configurable item, does not display options', () => {
     const updateCart = jest.fn();
-    const hideEditPanel = jest.fn();
+    const closeOptionsDrawer = jest.fn();
     const wrapper = shallow(
         <CartOptions
             cartItem={cartItem}
             configItem={{}}
             updateCart={updateCart}
-            hideEditPanel={hideEditPanel}
+            closeOptionsDrawer={closeOptionsDrawer}
             classes={classes}
         />
     ).dive();
@@ -92,13 +92,13 @@ test('submit action updates the cart item using configurable product data', () =
             sku: payload.item.sku
         });
     };
-    const hideEditPanel = jest.fn();
+    const closeOptionsDrawer = jest.fn();
     const wrapper = shallow(
         <CartOptions
             cartItem={cartItem}
             configItem={configItem}
             updateCart={updateCart}
-            hideEditPanel={hideEditPanel}
+            closeOptionsDrawer={closeOptionsDrawer}
         />
     ).dive();
 

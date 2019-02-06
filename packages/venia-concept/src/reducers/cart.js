@@ -10,7 +10,8 @@ export const initialState = {
     guestCartId: null,
     shippingMethods: [],
     totals: {},
-    itemEditOpen: false
+    isOptionsDrawerOpen: false,
+    isLoading: false
 };
 
 const reducerMap = {
@@ -37,6 +38,16 @@ const reducerMap = {
             ...payload
         };
     },
+    [actions.updateItem.request]: (state, { payload, error }) => {
+        if (error) {
+            return initialState;
+        }
+        return {
+            ...state,
+            ...payload,
+            isLoading: true
+        };
+    },
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
@@ -51,16 +62,17 @@ const reducerMap = {
             ...payload
         };
     },
-    [actions.openEditPanel]: state => {
+    [actions.openOptionsDrawer]: state => {
         return {
             ...state,
-            itemEditOpen: true
+            isOptionsDrawerOpen: true
         };
     },
-    [actions.hideEditPanel]: state => {
+    [actions.closeOptionsDrawer]: state => {
         return {
             ...state,
-            itemEditOpen: false
+            isOptionsDrawerOpen: false,
+            isLoading: false
         };
     },
     [checkoutActions.order.accept]: () => {

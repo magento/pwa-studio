@@ -1,7 +1,7 @@
 import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
-import { bool, object, shape, string } from 'prop-types';
+import { bool, object, shape, string, func } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
@@ -9,8 +9,8 @@ import {
     getCartDetails,
     updateItemInCart,
     removeItemFromCart,
-    openEditPanel,
-    hideEditPanel
+    openOptionsDrawer,
+    closeOptionsDrawer
 } from 'src/actions/cart';
 import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
@@ -22,6 +22,7 @@ import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible } from 'src/selectors/cart';
 import CartOptions from './cartOptions';
 import getProductDetailByName from '../../queries/getProductDetailByName.graphql';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import { Query } from 'react-apollo';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
@@ -31,7 +32,9 @@ class MiniCart extends Component {
         cart: shape({
             details: object,
             guestCartId: string,
-            totals: object
+            totals: object,
+            isOptionsDrawerOpen: bool,
+            isLoading: bool
         }),
         classes: shape({
             body: string,
@@ -46,7 +49,10 @@ class MiniCart extends Component {
             title: string,
             totals: string
         }),
-        isCartEmpty: bool
+        isCartEmpty: bool,
+        updateItemInCart: func,
+        openOptionsDrawer: func.isRequired,
+        closeOptionsDrawer: func.isRequired
     };
 
     constructor(...args) {
@@ -86,7 +92,7 @@ class MiniCart extends Component {
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
-                showEditPanel={this.showEditPanel}
+                openOptionsDrawer={this.openOptionsDrawer}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
                 totalsItems={cart.totals.items}
@@ -144,8 +150,8 @@ class MiniCart extends Component {
     }
 
     get productOptions() {
-        const { props, state, hideEditPanel } = this;
-        const { updateItemInCart } = props;
+        const { props, state, closeOptionsDrawer } = this;
+        const { updateItemInCart, cart } = props;
         const { focusItem } = state;
 
         if (focusItem === null) return;
@@ -162,7 +168,7 @@ class MiniCart extends Component {
             >
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return <div>Fetching Data</div>;
+                    if (loading) return loadingIndicator;
 
                     const itemWithOptions = data.products.items[0];
 
@@ -171,7 +177,8 @@ class MiniCart extends Component {
                             <CartOptions
                                 cartItem={focusItem}
                                 configItem={itemWithOptions}
-                                hideEditPanel={hideEditPanel}
+                                closeOptionsDrawer={closeOptionsDrawer}
+                                isLoading={cart.isLoading}
                                 updateCart={updateItemInCart}
                             />
                         </Fragment>
@@ -183,22 +190,23 @@ class MiniCart extends Component {
                 <CartOptions
                     cartItem={focusItem}
                     configItem={{}}
-                    hideEditPanel={hideEditPanel}
+                    closeOptionsDrawer={closeOptionsDrawer}
+                    isLoading={cart.isLoading}
                     updateCart={updateItemInCart}
                 />
             </Fragment>
         );
     }
 
-    showEditPanel = item => {
+    openOptionsDrawer = item => {
         this.setState({
             focusItem: item
         });
-        this.props.openEditPanel();
+        this.props.openOptionsDrawer();
     };
 
-    hideEditPanel = () => {
-        this.props.hideEditPanel();
+    closeOptionsDrawer = () => {
+        this.props.closeOptionsDrawer();
     };
 
     get miniCartInner() {
@@ -226,8 +234,10 @@ class MiniCart extends Component {
         const { classes, cart, isOpen } = props;
         const className = isOpen ? classes.root_open : classes.root;
 
-        const body = cart.itemEditOpen ? productOptions : miniCartInner;
-        const title = cart.itemEditOpen ? 'Edit Cart Item' : 'Shopping Cart';
+        const body = cart.isOptionsDrawerOpen ? productOptions : miniCartInner;
+        const title = cart.isOptionsDrawerOpen
+            ? 'Edit Cart Item'
+            : 'Shopping Cart';
 
         return (
             <aside className={className}>
@@ -258,8 +268,8 @@ const mapDispatchToProps = {
     getCartDetails,
     updateItemInCart,
     removeItemFromCart,
-    openEditPanel,
-    hideEditPanel
+    openOptionsDrawer,
+    closeOptionsDrawer
 };
 
 export default compose(

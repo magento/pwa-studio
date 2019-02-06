@@ -25,6 +25,6 @@ const actionMap = {
     }
 };
 
-const actionTypes = ['OPEN_EDIT_PANEL', 'HIDE_EDIT_PANEL'];
+const actionTypes = ['OPEN_OPTIONS_DRAWER', 'CLOSE_OPTIONS_DRAWER'];
 
 export default createActions(actionMap, ...actionTypes, { prefix });
