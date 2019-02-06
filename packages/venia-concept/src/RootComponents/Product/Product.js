@@ -115,6 +115,10 @@ class Product extends Component {
         await this.props.addItemToCart({ guestCartId, item, quantity });
     };
 
+    componentWillMount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return (
             <Query
