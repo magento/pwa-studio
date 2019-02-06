@@ -1,8 +1,5 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import CreateAccount from 'src/components/CreateAccount';
-import ForgotPassword from 'src/components/ForgotPassword';
-import SignIn from 'src/components/SignIn';
 import Navigation from '../navigation';
 import { MyAccountMenuTrigger } from '../../MyAccountMenuPage';
 
@@ -11,13 +8,6 @@ jest.mock('src/components/CreateAccount');
 jest.mock('src/components/ForgotPassword');
 jest.mock('src/components/SignIn');
 jest.mock('../../MyAccountMenuPage');
-
-// mark mocked imports
-void {
-    CreateAccount,
-    ForgotPassword,
-    SignIn
-};
 
 const closeDrawer = jest.fn();
 const completePasswordReset = jest.fn();

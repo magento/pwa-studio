@@ -1,4 +1,3 @@
-import { connect } from 'src/drivers';
 import { closeDrawer } from 'src/actions/app';
 import { getAllCategories } from 'src/actions/catalog';
 import {
@@ -9,9 +8,6 @@ import {
 } from 'src/actions/user';
 import Container from '../container';
 import Navigation from '../navigation';
-
-// mark mocked imports
-void connect;
 
 jest.mock('src/drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
