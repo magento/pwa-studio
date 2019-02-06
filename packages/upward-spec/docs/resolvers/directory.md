@@ -10,8 +10,6 @@ Much like the ProxyResolver, this resolver exists to bolster the notion that an 
 | ----------- | ------------------ | ------- | ----------------------- |
 | `directory` | `Resolved<string>` | -       | The directory to target |
 
-{: style="table-layout:auto" }
-
 ```yml
 static:
     directory:

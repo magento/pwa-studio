@@ -3,16 +3,14 @@
 Use a **FileResolver** to load content from a file.
 This is useful for loading queries and templates, which are reused by other systems.
 
-{: .bs-callout .bs-callout-info}
-File contents are not expected to change during server runtime, so an UPWARD-compliant server should cache file contents on startup.
+**Note:**
+_File contents are not expected to change during server runtime, so an UPWARD-compliant server should cache file contents on startup._
 
 | Property   | Type               | Default | Description                                                                                   |
 | ---------- | ------------------ | ------- | --------------------------------------------------------------------------------------------- |
 | `file`     | `Resolved<string>` | -       | _Required._ Path of the file to read relative to the definition file                          |
 | `encoding` | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Examples: `utf-8`, `latin-1`, or `binary` |
 | `parse`    | `Resolved<string>` | `auto`  | Parse the file as a given file type.                                                          |
-{: style="table-layout:auto" }
-
 ```yml
 query:
     resolver: file

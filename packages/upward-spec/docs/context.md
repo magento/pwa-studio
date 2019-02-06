@@ -215,10 +215,10 @@ the example context lookup resolves to an empty string.
 However, the HTTP response does have a `body` property defined, so 
 the lookup `uxbridges.body.characters.0.name` resolves to `Kevin Uxbridge`.
 
-{: .bs-callout .bs-callout-info}
-Array and list handling is intentionally rudimentary in UPWARD because of the potential for scope confusion, performance issues, and security issues during iteration.
-The only recommended use case for list lookup is when a web service returns a list of items that is expected to have only one result.
-That result may be lifted out into a scalar value.
+**Note:**
+_Array and list handling is intentionally rudimentary in UPWARD because of the potential for scope confusion, performance issues, and security issues during iteration._
+_The only recommended use case for list lookup is when a web service returns a list of items that is expected to have only one result._
+_That result may be lifted out into a scalar value._
 
 #### Pattern matching
 

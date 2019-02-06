@@ -11,7 +11,6 @@ the query itself is constructed using the `query` and `variables` parameters.
 | `headers`   | `Resolved<Object<string,string>>` | -                           | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the headers configuration can append to `headers` that can have multiple values. |
 | `query`     | `Resolved<Query string>`          | -                           | The query to use.                                                                                                                                                                  |
 | `variables` | `Resolved<Object <any>>`          | `{}`                        | Variables to use with the GraphQL query. Must resolve to an object with keys and values, almost always with an InlineResolver.                                                     |
-{: style="table-layout:auto" }
 
 ```yml
 documentResult:
@@ -52,8 +51,8 @@ documentResult:
       id: request.url.query.id
 ```
 
-{: .bs-callout .bs-callout-info}
-For the purposes of demonstration, the query in the example is resolved inline.
+**Note:**
+_For the purposes of demonstration, the query in the example is resolved inline._
 The best practice is to store queries in files and use FileResolvers to obtain them.
 
 ## Using GraphQL

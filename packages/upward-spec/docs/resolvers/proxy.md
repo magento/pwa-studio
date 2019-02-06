@@ -9,7 +9,6 @@ Implementations may handle request objects directly to improve performance.
 | ----------------- | ------------------- | ------- | ------------------------------------------------------------------------------------------ |
 | `target`          | `Resolved<string>`  | -       | The URL of the service                                                                     |
 | `ignoreSSLErrors` | `Resolved<boolean>` | `false` | Ignore remote SSL certificate errors (useful for internal communication among containers). |
-{: style="table-layout:auto" }
 
 ```yml
 proxy:

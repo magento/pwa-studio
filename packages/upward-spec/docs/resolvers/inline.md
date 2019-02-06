@@ -5,7 +5,6 @@ Use an **InlineResolver** wherever you need a literal string value in the contex
 | Property | Type  | Default | Description                                     |
 | -------- | ----- | ------- | ----------------------------------------------- |
 | `inline` | `any` | -       | _Required._ The value to assign to the context. |
-{: style="table-layout:auto" }
 
 A normal string property value performs a context lookup, so
 an entry that looks like the following:

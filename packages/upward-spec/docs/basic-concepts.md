@@ -40,9 +40,9 @@ If possible, UPWARD server implementations should use static analysis on startup
 
 No streaming or buffering interface should be provided; UPWARD servers should not deal in data large enough to require streaming.
 
-{: .bs-callout .bs-callout-info}
-The generation of `status`, `headers`, and `body` share similar logic.
-The recommended best practice is to use an **InlineResolver** to create a top-level `response` object with those properties, and define the top-level `status`, `headers`, and `body` properties to refer to that object in context (e.g. status: response.status).
+**Note:**
+_The generation of `status`, `headers`, and `body` share similar logic._
+_The recommended best practice is to use an **InlineResolver** to create a top-level `response` object with those properties, and define the top-level `status`, `headers`, and `body` properties to refer to that object in context (e.g. status: response.status)._
 
 ## Cyclical dependency detection
 

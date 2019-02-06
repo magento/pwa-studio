@@ -11,7 +11,6 @@ UPWARD servers can also provide other template renderers that evaluate context o
 | `engine`   | `Resolved<string>`                     | -       | _Required._ The label of the template engine to use.                           |
 | `provide`  | `Resolved<string[] or object<string>>` | -       | _Required._ A list, or an object mapping, of values available to the template. |
 | `template` | `Resolved<Template or string>`         | -       | The template to render                                                         |
-{: style="table-layout:auto" }
 
 ```yml
 {% raw %}
@@ -45,9 +44,9 @@ body:
 {% endraw %}
 ```
 
-{: .bs-callout .bs-callout-info}
-For illustrative purposes, this example uses an [InlineResolver][].
-In a production configuration use a [FileResolver][] to obtain the template.
+**Note:**
+_For illustrative purposes, this example uses an [InlineResolver][]._
+_In a production configuration use a [FileResolver][] to obtain the template._
 
 This configuration resolves into an HTML document that displays content from the `documentResult.data.document` context value.
 

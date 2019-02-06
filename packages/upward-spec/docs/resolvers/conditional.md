@@ -16,7 +16,6 @@ It takes two configuration values: when must be a list of Matcher<Resolver<T>>>,
 | --------- | ------------------------ | ------- | --------------------------------------------------------------- |
 | `when`    | `Matcher<Resolver<T>>[]` | -       | A list of `Matcher` objects                                     |
 | `default` | `Resolved<any>`          | -       | _Required._ The default resolver to use if no matcher succeeds. |
-{: style="table-layout:auto" }
 
 ## Matcher
 
@@ -27,7 +26,6 @@ A `Matcher` is an object used in the list for the `when` configuration.
 | `matches` | `string`        | -       | _Required._ The context value to match. Must be a bare string context lookup.                  |
 | `pattern` | `string`        | -       | _Required._ Perl compatible regular expressions to use to test against the value in `matches`. |
 | `use`     | `Resolved<any>` | -       | _Required._ Resolver to use if the match succeeds.                                             |
-{: style="table-layout:auto" }
 
 ## Match context
 
