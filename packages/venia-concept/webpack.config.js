@@ -192,7 +192,8 @@ module.exports = async function(env) {
         config.devtool = 'eval-source-map';
         const devServerConfig = {
             env: validEnv,
-            publicPath: validEnv.PWA_STUDIO_PUBLIC_PATH || config.output.publicPath,
+            publicPath:
+                validEnv.PWA_STUDIO_PUBLIC_PATH || config.output.publicPath,
             graphqlPlayground: {
                 queryDirs: [path.resolve(themePaths.src, 'queries')]
             },

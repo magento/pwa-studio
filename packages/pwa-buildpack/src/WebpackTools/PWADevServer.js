@@ -20,62 +20,62 @@ const secureHostWarning = chalk.redBright(
     `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
     highly recommends using the ${chalk.whiteBright(
         '"provideSecureHost"'
-        )} configuration
+    )} configuration
         option of PWADevServer. `
-        );
-        
-        const helpText = `To autogenerate a unique host based on project name
+);
+
+const helpText = `To autogenerate a unique host based on project name
         and location on disk, simply add:
         ${chalk.whiteBright('provideSecureHost: true')}
         to PWADevServer configuration options.
         
         More options for this feature are described in documentation.
         `;
-        
-        const PWADevServer = {
-            validateConfig: optionsValidator('PWADevServer', {
-                publicPath: 'string',
-                env: 'object'
-            }),
-            async configure(config) {
-                debug('configure() invoked', config);
-                PWADevServer.validateConfig('.configure(config)', config);
-                const devServerConfig = {
-                    contentBase: false, // UpwardPlugin serves static files
-                    compress: true,
-                    hot: true,
-                    host: config.host || '0.0.0.0',
-                    port: config.port || (await portscanner.findAPortNotInUse(10000)),
-                    stats: {
-                        all: !process.env.NODE_DEBUG ? false : undefined,
-                        builtAt: true,
-                        colors: true,
-                        errors: true,
-                        errorDetails: true,
-                        moduleTrace: true,
-                        timings: true,
-                        version: true,
-                        warnings: true
-                    },
-                    after(app, server) {
-                        app.use(debugErrorMiddleware());
-                        require('dotenv').config();
-                        let publicPath = process.env.DOCKER_CONFIG
-                        ? 'https://' + process.env.PWA_STUDIO_PUBLIC_PATH
-                        : devServerConfig.publicPath;
-                        let readyNotice = chalk.green(
-                            `PWADevServer ready at ${chalk.greenBright.underline(
-                                publicPath
-                                )}`
-                                );
-                                if (config.graphqlPlayground) {
-                                    readyNotice +=
-                                    '\n' +
-                                    chalk.blueBright(
-                                        `GraphQL Playground ready at ${chalk.blueBright.underline(
-                                            new url.URL('/graphiql', publicPath)
-                                            )}`
-                                            );
+
+const PWADevServer = {
+    validateConfig: optionsValidator('PWADevServer', {
+        publicPath: 'string',
+        env: 'object'
+    }),
+    async configure(config) {
+        debug('configure() invoked', config);
+        PWADevServer.validateConfig('.configure(config)', config);
+        const devServerConfig = {
+            contentBase: false, // UpwardPlugin serves static files
+            compress: true,
+            hot: true,
+            host: config.host || '0.0.0.0',
+            port: config.port || (await portscanner.findAPortNotInUse(10000)),
+            stats: {
+                all: !process.env.NODE_DEBUG ? false : undefined,
+                builtAt: true,
+                colors: true,
+                errors: true,
+                errorDetails: true,
+                moduleTrace: true,
+                timings: true,
+                version: true,
+                warnings: true
+            },
+            after(app, server) {
+                app.use(debugErrorMiddleware());
+                require('dotenv').config();
+                let publicPath = process.env.DOCKER_CONFIG
+                    ? 'https://' + process.env.PWA_STUDIO_PUBLIC_PATH
+                    : devServerConfig.publicPath;
+                let readyNotice = chalk.green(
+                    `PWADevServer ready at ${chalk.greenBright.underline(
+                        publicPath
+                    )}`
+                );
+                if (config.graphqlPlayground) {
+                    readyNotice +=
+                        '\n' +
+                        chalk.blueBright(
+                            `GraphQL Playground ready at ${chalk.blueBright.underline(
+                                new url.URL('/graphiql', publicPath)
+                            )}`
+                        );
                 }
                 server.middleware.waitUntilValid(() =>
                     console.log(
