@@ -119,7 +119,7 @@ The following table is a summary of general skills needed for PWA storefront dev
 
 [progressive web app]: {{site.baseurl}}{%link technologies/overview/index.md %}
 [Venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
-[middle tier service layer]: {{site.baseurl}}{%link upward/index.md %}
+[middle tier service layer]: {{site.baseurl}}{%link technologies/upward/index.md %}
 [GraphQL]: {{site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
 [CSS modules]: {{site.baseurl}}{%link technologies/basic-concepts/css-modules/index.md %}
 [Peregrine]: {{site.baseurl}}{%link peregrine/index.md %}

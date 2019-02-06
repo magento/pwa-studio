@@ -83,5 +83,5 @@ You can also pass an `IOAdapter` as a second argument to the middleware.
 
 [upward-js]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-js
 
-[UPWARD]: {{site.baseurl}}{% link upward/index.md %}
+[UPWARD]: {{site.baseurl}}{% link technologies/upward/index.md %}
 [Setting up Venia]: {{site.baseurl}}{% link venia-pwa-concept/setup/index.md %}

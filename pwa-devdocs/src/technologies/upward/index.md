@@ -5,6 +5,9 @@ title: UPWARD
 **UPWARD** is an acronym for Unified Progressive Web App Response Definition.
 An UPWARD definition file describes how a web server delivers and supports a Progressive Web Application.
 
+This topic is a brief overview of UPWARD.
+See the [official UPWARD specification docs][] for more information.
+
 UPWARD definition files provide details about server behavior using platform-independent, [declarative][] language.
 This lets a Progressive Web Application run on top of an UPWARD-compliant server in any language on any tech stack because the application is only concerned about the HTTP endpoint behavior from the UPWARD server.
 
@@ -21,9 +24,10 @@ The main purpose of an UPWARD server is to do the following:
 An UPWARD server sits between a PWA and its resources, such as Magento.
 It acts as the backend service for a PWA frontend that is able to proxy requests to connected services or serve static files.
 
-![UPWARD server diagram]({{site.baseurl}}{% link upward/images/upward-server-diagram.png %})
+![UPWARD server diagram]({{site.baseurl}}{% link technologies/upward/images/upward-server-diagram.png %})
 
 See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server. 
+
 ### UPWARD definition file
 
 An UPWARD server uses a definition file to determine the appropriate process or service for a request from an application shell.
@@ -74,10 +78,6 @@ An UPWARD server itself is not a cache,
 but it must serve static resources from [edge servers][] when possible.
 This supports the need for content that a PWA can [cache and reuse when offline][].
 
----
-
-**Next:** [Basic Concepts][]
-
 [choreograph]: https://en.wikipedia.org/wiki/Service_choreography
 [application shell]: https://developers.google.com/web/fundamentals/architecture/app-shell
 [declarative]: https://en.wikipedia.org/wiki/Declarative_programming
@@ -89,5 +89,4 @@ This supports the need for content that a PWA can [cache and reuse when offline]
 [`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/venia-upward.yml
 [upward-js]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-js
 [cache and reuse when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
-
-[Basic Concepts]: {{ site.baseurl }}{% link upward/basic-concepts/index.md %}
+[official UPWARD specification docs]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec

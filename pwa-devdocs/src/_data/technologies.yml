@@ -21,8 +21,16 @@ entries:
 
       - label: CSS modules
         url: /technologies/basic-concepts/css-modules/
+
       - label: GraphQL
         url: /technologies/basic-concepts/graphql/
+
+  - label: UPWARD
+    url: /technologies/upward/
+    entries:
+
+      - label: Reference implementation
+        url: /technologies/upward/reference-implementation/
 
   - label: Contributing to PWA Studio
     url: /technologies/contribute/
