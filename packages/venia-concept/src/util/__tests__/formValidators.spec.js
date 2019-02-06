@@ -164,7 +164,11 @@ describe('validateConfirmPassword', () => {
         };
         const password = 'qwerty12345';
         const passwordKey = 'password_key';
-        const result = validators.validateConfirmPassword(password, values, passwordKey);
+        const result = validators.validateConfirmPassword(
+            password,
+            values,
+            passwordKey
+        );
 
         expect(result).toBeNull();
     });
