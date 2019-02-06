@@ -5,16 +5,11 @@ import TextArea from '../textArea';
 
 jest.mock('src/classify');
 
-const classes = {
-    input: {}
-};
-
 const fieldState = {
     value: ''
 };
 
 const props = {
-    classes,
     field: 'text-area',
     fieldState
 };
