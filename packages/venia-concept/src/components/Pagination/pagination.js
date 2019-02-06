@@ -102,7 +102,10 @@ class Pagination extends Component {
     }
 
     setPage = pageNumber => {
-        this.props.pageControl.setPage(pageNumber);
+        const currentPage = this.props.pageControl.currentPage;
+        if (currentPage !== pageNumber) {
+            this.props.pageControl.setPage(pageNumber);
+        }
     };
 
     slideNavLeft = () => {
