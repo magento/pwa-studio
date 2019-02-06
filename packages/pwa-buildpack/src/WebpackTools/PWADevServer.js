@@ -3,6 +3,7 @@ const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
+const dotenv = require('dotenv').config();
 const url = require('url');
 const optionsValidator = require('../util/options-validator');
 const chalk = require('chalk');
@@ -59,9 +60,12 @@ const PWADevServer = {
             },
             after(app, server) {
                 app.use(debugErrorMiddleware());
+                let publicPath = process.env.DOCKER_CONFIG 
+                    ? 'https://' + process.env.PWA_STUDIO_PUBLIC_PATH
+                    : devServerConfig.publicPath;
                 let readyNotice = chalk.green(
                     `PWADevServer ready at ${chalk.greenBright.underline(
-                        devServerConfig.publicPath
+                        publicPath
                     )}`
                 );
                 if (config.graphqlPlayground) {
@@ -71,7 +75,7 @@ const PWADevServer = {
                             `GraphQL Playground ready at ${chalk.blueBright.underline(
                                 new url.URL(
                                     '/graphiql',
-                                    devServerConfig.publicPath
+                                    publicPath
                                 )
                             )}`
                         );
@@ -219,7 +223,6 @@ be configured to have the same effect as 'id'.
             // ensure trailing slash
             pathname: config.publicPath.replace(/([^\/])$/, '$1/')
         });
-
         return devServerConfig;
     }
 };
