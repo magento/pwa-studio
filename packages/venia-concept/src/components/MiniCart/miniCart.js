@@ -216,6 +216,14 @@ class MiniCart extends Component {
 
     get miniCartInner() {
         const { checkout, productList, props } = this;
+        const {
+            checkout,
+            productConfirm,
+            productList,
+            productOptions,
+            props,
+            state
+        } = this;
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
 
         if (isCartEmpty) {
