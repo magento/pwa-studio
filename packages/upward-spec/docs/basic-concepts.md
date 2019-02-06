@@ -30,6 +30,17 @@ Root properties of the definition file represent other named values in the conte
 These operations execute until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
   See [Resolvers][] for more information.
 
+### Execution scheduling and ordering
+
+Resolvers must execute only when needed.
+If a request handling cycle moves through [ConditionalResolver][] branches in a way that never requires a particular context value, then that context value must never be resolved during that execution cycle.
+
+Resolvers must execute as concurrently as possible.
+The maximum concurrency is left to the implementation.
+A compliant server detects when a Resolver uses a context value, and delays its execution until that context value becomes available, via [topological sorting][] of resolver execution.
+
+See [Execution scheduling strategies][] for an implementation example.
+
 ## Returning the response
 
 Eventually, the root context must have non-null values for its `status`, `header`, and `body` properties.
@@ -53,3 +64,6 @@ If a cyclic dependency occurs at runtime, the server should return a 500 error.
 
 [Context]: context.md
 [Resolvers]: resolvers/index.md
+[ConditionalResolvers]: resolvers/conditional.md
+[topological sorting]: https://en.wikipedia.org/wiki/Topological_sorting
+[Execution scheduling strategies]: ../EXECUTION_SCHEDULING_STRATEGIES.md 
