@@ -19,7 +19,8 @@
     transition-property: opacity, transform, visibility;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
     z-index: var(--base-z-index);
 }
 
