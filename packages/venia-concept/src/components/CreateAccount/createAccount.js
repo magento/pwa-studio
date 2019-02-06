@@ -7,7 +7,15 @@ import Button from 'src/components/Button';
 import ErrorDisplay from 'src/components/ErrorDisplay';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
-import { asyncValidators, validators } from './validators';
+import { validateEmail as asyncValidateEmail } from './asyncValidators';
+import combine from 'src/util/combineValidators';
+import {
+    validateEmail,
+    isRequired,
+    validatePassword,
+    validateConfirmPassword,
+    hasLengthAtLeast
+} from 'src/util/formValidators';
 import defaultClasses from './createAccount.css';
 
 class CreateAccount extends Component {
@@ -66,8 +74,8 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
-                        validate={validators.get('email')}
-                        asyncValidate={asyncValidators.get('email')}
+                        validate={combine([isRequired, validateEmail])}
+                        asyncValidate={asyncValidateEmail}
                         validateOnBlur
                         asyncValidateOnBlur
                     />
@@ -76,7 +84,7 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.firstname"
                         autoComplete="given-name"
-                        validate={validators.get('firstName')}
+                        validate={isRequired}
                         validateOnBlur
                     />
                 </Field>
@@ -84,7 +92,7 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.lastname"
                         autoComplete="family-name"
-                        validate={validators.get('lastName')}
+                        validate={isRequired}
                         validateOnBlur
                     />
                 </Field>
@@ -93,7 +101,11 @@ class CreateAccount extends Component {
                         field="password"
                         type="password"
                         autoComplete="new-password"
-                        validate={validators.get('password')}
+                        validate={combine([
+                            isRequired,
+                            [hasLengthAtLeast, 8],
+                            validatePassword
+                        ])}
                         validateOnBlur
                     />
                 </Field>
@@ -101,7 +113,10 @@ class CreateAccount extends Component {
                     <TextInput
                         field="confirm"
                         type="password"
-                        validate={validators.get('confirm')}
+                        validate={combine([
+                            isRequired,
+                            validateConfirmPassword
+                        ])}
                         validateOnBlur
                     />
                 </Field>

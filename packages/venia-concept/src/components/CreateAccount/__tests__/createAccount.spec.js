@@ -4,11 +4,19 @@ import TestRenderer from 'react-test-renderer';
 import { Form } from 'informed';
 
 import CreateAccount from '../createAccount';
-import { asyncValidators, validators } from '../validators';
+import {
+    validateEmail,
+    isRequired,
+    validatePassword,
+    validateConfirmPassword,
+    hasLengthAtLeast
+} from 'src/util/formValidators';
+import {validateEmail as asyncValidateEmail} from '../asyncValidators';
 
-jest.mock('../validators');
+jest.mock('src/util/formValidators');
+jest.mock('../asyncValidators');
 
-const submitCallback = jest.fn();
+export const submitCallback = jest.fn();
 
 afterEach(() => {
     jest.clearAllMocks();
@@ -47,12 +55,12 @@ test('executes validators on submit', async () => {
     api.submitForm();
     // await async validation
     await waitForExpect(() => {
-        for (const validator of validators.values()) {
-            expect(validator).toHaveBeenCalledTimes(1);
-        }
-        for (const validator of asyncValidators.values()) {
-            expect(validator).toHaveBeenCalledTimes(1);
-        }
+        expect(validateEmail).toHaveBeenCalledTimes(1);
+        expect(hasLengthAtLeast).toHaveBeenCalledTimes(1);
+        expect(isRequired).toHaveBeenCalledTimes(5);
+        expect(validatePassword).toHaveBeenCalledTimes(1);
+        expect(validateConfirmPassword).toHaveBeenCalledTimes(1);
+        expect(asyncValidateEmail).toHaveBeenCalledTimes(1);
     });
 });
 
