@@ -29,12 +29,7 @@ export class TextArea extends Component {
     };
 
     render() {
-        const {
-          classes,
-          fieldState,
-          message,
-          ...rest
-        } = this.props;
+        const { classes, fieldState, message, ...rest } = this.props;
 
         return (
             <Fragment>
