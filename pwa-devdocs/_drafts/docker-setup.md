@@ -7,20 +7,11 @@
     ```
 3. In the root of the repository, run 
     ```
-    docker build -t pwa:2.0 .
+    docker/run-docker
     ```
-4. Once the build completes, run `docker images` to confirm your image is present.
-5. Copy the docker environment config file:
-    ```
-    cp packages/venia-concept/.env.docker packages/venia-concept/.env
-    ```
-6. To mount the present working directory to the container and run the application with hot reloading:
-    ```
-    docker run -p 8080:8080 -v "$(pwd)"/:/usr/src/app pwa:2.0
-    ```
-7. To just run the application in the browser without mounting any directories:
-    ```
-    docker run -p 8080:8080 pwa:2.0
-    ```
-7. Go to http://0.0.0.0:8080/ in your browser to see the application running. 
-8. Make changes in your filesystem or in the container and the changes will persist in both locations if you run the container with a mounted volume.
+4. Once the script completes, a locally running instance of pwa will be available at `https://pwa-docker.local`.
+
+The domain is configurable. Two changes are needed to configure a new domain name.
+
+1. Change `PWA_STUDIO_PUBLIC_PATH` key to the new domain under `docker/.env.docker`.
+2. Change the `--host` value in the `watch:docker` script under `packages/venia-concept/package.json` to the new domain.
