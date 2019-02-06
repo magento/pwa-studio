@@ -47,6 +47,12 @@
 .footer {
     box-shadow: 0 -1px rgb(var(--venia-border));
     padding: 1.5rem 0 0.5rem;
+    background-color: white;
+}
+
+.footerMaskOpen {
+    composes: footer;
+    z-index: 3;
 }
 
 .header {
