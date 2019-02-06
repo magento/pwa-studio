@@ -1,7 +1,7 @@
 import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
-import { bool, object, shape, string, func } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
@@ -12,14 +12,16 @@ import {
     openOptionsDrawer,
     closeOptionsDrawer
 } from 'src/actions/cart';
+import { cancelCheckout } from 'src/actions/checkout';
 import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
+import Mask from './mask';
 import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
-import { isEmptyCartVisible } from 'src/selectors/cart';
+import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
 import CartOptions from './cartOptions';
 import getProductDetailByName from '../../queries/getProductDetailByName.graphql';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
@@ -29,6 +31,7 @@ const Checkout = React.lazy(() => import('src/components/Checkout'));
 
 class MiniCart extends Component {
     static propTypes = {
+        cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
             guestCartId: string,
@@ -39,6 +42,7 @@ class MiniCart extends Component {
         classes: shape({
             body: string,
             footer: string,
+            footerMaskOpen: string,
             header: string,
             placeholderButton: string,
             root_open: string,
@@ -52,7 +56,8 @@ class MiniCart extends Component {
         isCartEmpty: bool,
         updateItemInCart: func,
         openOptionsDrawer: func.isRequired,
-        closeOptionsDrawer: func.isRequired
+        closeOptionsDrawer: func.isRequired,
+        isMiniCartMaskOpen: bool
     };
 
     constructor(...args) {
@@ -211,16 +216,20 @@ class MiniCart extends Component {
 
     get miniCartInner() {
         const { checkout, productList, props } = this;
-        const { classes, isCartEmpty } = props;
+        const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
 
         if (isCartEmpty) {
             return <EmptyMiniCart />;
         }
 
+        const footerClassName = isMiniCartMaskOpen
+            ? classes.footerMaskOpen
+            : classes.footer;
+
         return (
             <Fragment>
                 <div className={classes.body}>{productList}</div>
-                <div className={classes.footer}>{checkout}</div>
+                <div className={footerClassName}>{checkout}</div>
             </Fragment>
         );
     }
@@ -231,13 +240,17 @@ class MiniCart extends Component {
         }
 
         const { miniCartInner, productOptions, props } = this;
-        const { classes, cart, isOpen } = props;
-        const className = isOpen ? classes.root_open : classes.root;
+        const {
+            classes,
+            isOpen,
+            isMiniCartMaskOpen,
+            cancelCheckout,
+            cart: { isOptionsDrawerOpen }
+        } = props;
 
-        const body = cart.isOptionsDrawerOpen ? productOptions : miniCartInner;
-        const title = cart.isOptionsDrawerOpen
-            ? 'Edit Cart Item'
-            : 'Shopping Cart';
+        const className = isOpen ? classes.root_open : classes.root;
+        const body = isOptionsDrawerOpen ? productOptions : miniCartInner;
+        const title = isOptionsDrawerOpen ? 'Edit Cart Item' : 'Shopping Cart';
 
         return (
             <aside className={className}>
@@ -250,6 +263,7 @@ class MiniCart extends Component {
                     </Trigger>
                 </div>
                 {body}
+                <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );
     }
@@ -260,7 +274,8 @@ const mapStateToProps = state => {
 
     return {
         cart,
-        isCartEmpty: isEmptyCartVisible(state)
+        isCartEmpty: isEmptyCartVisible(state),
+        isMiniCartMaskOpen: isMiniCartMaskOpen(state)
     };
 };
 
@@ -269,7 +284,8 @@ const mapDispatchToProps = {
     updateItemInCart,
     removeItemFromCart,
     openOptionsDrawer,
-    closeOptionsDrawer
+    closeOptionsDrawer,
+    cancelCheckout
 };
 
 export default compose(
