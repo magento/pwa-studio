@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ####################################################################################
 #
@@ -15,17 +15,17 @@ main () {
   cp ./docker/.env.docker $ENVFILE 
   . $ENVFILE
 
-  HOSTMAP="127.0.0.1 $PWA_STUDIO_PUBLIC_PATH"
+  DOMAIN=$PWA_STUDIO_PUBLIC_PATH
+  HOSTMAP="127.0.0.1 $DOMAIN"
 
   add_host_to_hostfile
 
-  # create_certificates
+  generate_certificate
 
   start_docker
 }
 
 add_host_to_hostfile () {
-
   if [ "$HOSTMAP" == "127.0.0.1" ]; then
     echo "No custom host set to configure."
     return
@@ -37,15 +37,14 @@ add_host_to_hostfile () {
     fi
   done < $HOSTSFILE
 
-
   if [ $HOSTPRESENT == false ]; then
     message "Please provide your password, if requested, to modify $HOSTSFILE"
-    echo $HOSTMAP | sudo tee -a /etc/hosts
+    echo $HOSTMAP | sudo tee -a $HOSTSFILE
 
     if [ $? == 0 ]; then
       message "Added $HOSTMAP configured in $ENVFILE to $HOSTSFILE"
     else 
-      message "Host was not added to $HOSTSFILE. Please enter your password to add \n$HOSTMAP to your hostsfile."
+      message "Host was not added to $HOSTSFILE.\nPlease enter your password to add $HOSTMAP to your hostsfile."
       exit $?
     fi
   else 
@@ -53,10 +52,60 @@ add_host_to_hostfile () {
   fi
 }
 
-# create_certificates () {
-#   # TODO: create certificate for SSL/TLS
+generate_certificate () {
+  # make docker/certs folder if one does not already exist
+  [ -d ./docker/certs ] || mkdir ./docker/certs
 
-# }
+  # generate a new self-signed certificate if one does not already exist for $DOMAIN
+  if [ -f ./docker/certs/$DOMAIN.crt ]; then
+    message "SSL certificate for $DOMAIN found."
+    return
+  else
+    message "Generating SSL certificate.\nProvide credentials, if requested, to trust the certificate."
+  fi
+
+  # generate an openssl config for creating a certificate signing request (CSR)
+  OpenSSLConf=./docker/certs/"$DOMAIN"-openssl.cnf
+
+  cat >$OpenSSLConf <<EOL
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+[req_distinguished_name]
+CN = $DOMAIN
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = *.$DOMAIN
+DNS.2 = $DOMAIN
+EOL
+
+  # create key (no passphrase), CSR, and SSL certificate
+  openssl req \
+  -new \
+  -newkey rsa:2048 \
+  -sha1 \
+  -days 3650 \
+  -nodes \
+  -x509 \
+  -keyout ./docker/certs/$DOMAIN.key \
+  -out ./docker/certs/$DOMAIN.crt \
+  -config $OpenSSLConf
+
+  # add the certificate to the System keychain and trust the certificate
+  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./docker/certs/$DOMAIN.crt
+
+  if [ $? == 0 ]; then
+    message "Certificate generated and trusted by system successfully."
+  else 
+    message "Error occurred during certificate generation/trust.\nPlease enter your password to trust the certificate."
+    rm ./docker/certs/$DOMAIN.crt
+    exit $?
+  fi
+}
 
 start_docker () {
   message "Clearing any running containers"
@@ -68,14 +117,13 @@ start_docker () {
   message "Starting Docker network and containers"
   message "You may see some warnings that @magento/venia-drivers could not be \n resolved. This is normal and not an error."
   docker-compose up
-
 }
 
 message () {
   echo ""
   echo "==========================================================================="
   echo ""
-  echo "        " "$1"
+  echo -e "        " "$1"
   echo ""
   echo "==========================================================================="
   echo ""
