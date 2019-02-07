@@ -7,6 +7,7 @@ const merge = (...args) => Object.assign({}, ...args);
 const classify = defaultClasses => WrappedComponent =>
     class extends Component {
         static displayName = `Classify(${getDisplayName(WrappedComponent)})`;
+        static propTypes = WrappedComponent.propTypes;
 
         render() {
             const { className, classes, ...restProps } = this.props;
