@@ -81,7 +81,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run prettier && yarn run prettier:validate && yarn run lint"
+      "pre-push": "yarn run prettier:validate && yarn run lint"
     }
   },
   "bundlesize": [
