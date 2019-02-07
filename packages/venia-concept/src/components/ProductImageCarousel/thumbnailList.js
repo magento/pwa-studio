@@ -20,7 +20,7 @@ class ThumbnailList extends Component {
                 file: PropTypes.string.isRequired
             })
         ).isRequired,
-        updateActiveItemIndex: PropTypes.func
+        updateActiveItemIndex: PropTypes.func.isRequired
     };
 
     updateActiveItemHandler = newActiveItemIndex => {
