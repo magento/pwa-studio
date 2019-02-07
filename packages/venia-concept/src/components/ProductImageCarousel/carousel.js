@@ -55,7 +55,7 @@ class Carousel extends Component {
             .sort((a, b) => {
                 const aPos = isNaN(a.position) ? 9999 : a.position;
                 const bPos = isNaN(b.position) ? 9999 : b.position;
-                return bPos - aPos;
+                return aPos - bPos;
             })
     );
 
