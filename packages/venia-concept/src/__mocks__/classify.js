@@ -15,6 +15,7 @@ const classify = () => WrappedComponent =>
     class extends Component {
         static displayName = `Classify(${WrappedComponent.displayName ||
             WrappedComponent.name})`;
+        static propTypes = WrappedComponent.propTypes;
 
         render() {
             return <WrappedComponent {...this.props} classes={idObj} />;
