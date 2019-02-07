@@ -37,6 +37,7 @@ test('renders transparent placeholder when no file name is provided', () => {
     const props = {
         ...defaultProps,
         item: {
+            file: '',
             label: 'placeholder-thumbnail'
         }
     };
