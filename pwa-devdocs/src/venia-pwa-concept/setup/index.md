@@ -14,6 +14,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 
 * [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 * [Yarn >=1.13.0](https://yarnpkg.com)
+* Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
 * [A running instance of Magento 2.3](#choosing-the-magento-23-backend)
 
 
