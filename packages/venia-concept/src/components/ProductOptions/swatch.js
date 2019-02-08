@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, number, oneOfType, shape, string } from 'prop-types';
+import { bool, func, number, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
@@ -21,7 +21,10 @@ class Swatch extends Component {
         item: shape({
             label: string.isRequired,
             value_index: oneOfType([number, string]).isRequired
-        }).isRequired
+        }).isRequired,
+        onBlur: func,
+        onClick: func,
+        onFocus: func
     };
 
     static defaultProps = {
@@ -42,9 +45,12 @@ class Swatch extends Component {
             hasFocus,
             isSelected,
             item,
-            style,
-            ...restProps
+            onBlur,
+            onClick,
+            onFocus,
+            style
         } = props;
+
         const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label, value_index } = item;
 
@@ -59,8 +65,10 @@ class Swatch extends Component {
 
         return (
             <button
-                {...restProps}
                 className={className}
+                onBlur={onBlur}
+                onClick={onClick}
+                onFocus={onFocus}
                 style={finalStyle}
                 title={label}
             >

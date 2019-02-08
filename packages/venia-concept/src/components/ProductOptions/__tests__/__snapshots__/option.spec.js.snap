@@ -16,7 +16,6 @@ exports[`renders Option component correctly 1`] = `
   >
     <button
       className="root"
-      itemIndex={0}
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -29,7 +28,6 @@ exports[`renders Option component correctly 1`] = `
     />
     <button
       className="root"
-      itemIndex={1}
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}

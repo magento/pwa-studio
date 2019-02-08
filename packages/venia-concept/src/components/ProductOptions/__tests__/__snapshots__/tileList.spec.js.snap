@@ -6,7 +6,6 @@ exports[`renders TileList component correctly 1`] = `
 >
   <button
     className="root"
-    itemIndex={0}
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
