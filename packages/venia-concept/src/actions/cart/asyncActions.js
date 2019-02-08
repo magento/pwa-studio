@@ -1,5 +1,5 @@
 import { RestApi } from '@magento/peregrine';
-
+import {loadingIndicator} from '../../components/LoadingIndicator';
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
