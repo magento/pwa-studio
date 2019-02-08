@@ -167,10 +167,12 @@ class Pagination extends Component {
 
         const queryPage = Math.max(
             1,
-            ~~getQueryParameterValue({
-                location,
-                queryParameter: 'page'
-            })
+            Math.floor(
+                getQueryParameterValue({
+                    location,
+                    queryParameter: 'page'
+                })
+            )
         );
 
         // if the page in the query string doesn't match client state
