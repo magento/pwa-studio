@@ -19,9 +19,14 @@ class Swatch extends Component {
         hasFocus: bool,
         isSelected: bool,
         item: shape({
-            value_index: oneOfType([number, string]).isRequired,
-            label: string.isRequired
-        })
+            label: string.isRequired,
+            value_index: oneOfType([number, string]).isRequired
+        }).isRequired
+    };
+
+    static defaultProps = {
+        hasFocus: false,
+        isSelected: false
     };
 
     get icon() {
