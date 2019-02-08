@@ -8,6 +8,7 @@ import defaultClasses from './thumbnailList.css';
 
 class ThumbnailList extends Component {
     static propTypes = {
+        activeItemIndex: PropTypes.number,
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
@@ -19,11 +20,8 @@ class ThumbnailList extends Component {
                 file: PropTypes.string.isRequired
             })
         ).isRequired,
-        updateActiveItemIndex: PropTypes.func
+        updateActiveItemIndex: PropTypes.func.isRequired
     };
-
-    findItemIndexBySrc = src =>
-        this.props.items.findIndex(image => image.file === src);
 
     updateActiveItemHandler = newActiveItemIndex => {
         this.props.updateActiveItemIndex(newActiveItemIndex);
