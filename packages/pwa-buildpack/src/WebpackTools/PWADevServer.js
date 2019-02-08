@@ -1,3 +1,4 @@
+require('dotenv').config();
 const debug = require('../util/debug').makeFileLogger(__filename);
 const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
@@ -44,8 +45,10 @@ const PWADevServer = {
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
-            host: config.host || '0.0.0.0',
-            port: config.port || (await portscanner.findAPortNotInUse(10000)),
+            host: process.env.PWA_STUDIO_HOST_DEVELOPMENT || '0.0.0.0',
+            port:
+                process.env.PWA_STUDIO_PORTS_DEVELOPMENT ||
+                (await portscanner.findAPortNotInUse(10000)),
             stats: {
                 all: !process.env.NODE_DEBUG ? false : undefined,
                 builtAt: true,
@@ -59,8 +62,7 @@ const PWADevServer = {
             },
             after(app, server) {
                 app.use(debugErrorMiddleware());
-                require('dotenv').config();
-                let publicPath = process.env.DOCKER_CONFIG
+                let publicPath = process.env.PWA_STUDIO_PUBLIC_PATH
                     ? 'https://' + process.env.PWA_STUDIO_PUBLIC_PATH
                     : devServerConfig.publicPath;
                 let readyNotice = chalk.green(
