@@ -6,11 +6,13 @@ import SwatchList from '../swatchList';
 jest.mock('src/classify');
 jest.mock('../../../util/getRandomColor');
 const defaultProps = {
-  items: [{
-    id: '1',
-    value_index: 1,
-    label: 'foo'
-  }]
+    items: [
+        {
+            id: '1',
+            value_index: 1,
+            label: 'foo'
+        }
+    ]
 };
 
 test('renders SwatchList component correctly', () => {

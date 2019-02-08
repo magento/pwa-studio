@@ -6,10 +6,12 @@ import TileList from '../tileList';
 jest.mock('src/classify');
 
 const defaultProps = {
-  items: [{
-    id: '1',
-    label: 'foo'
-  }]
+    items: [
+        {
+            id: '1',
+            label: 'foo'
+        }
+    ]
 };
 
 test('renders TileList component correctly', () => {
