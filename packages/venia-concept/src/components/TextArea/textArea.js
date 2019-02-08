@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { number, oneOf, oneOfType, shape, string } from 'prop-types';
+import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
 import { BasicTextArea, asField } from 'informed';
 import { compose } from 'redux';
 
@@ -13,9 +13,11 @@ export class TextArea extends Component {
             input: string
         }),
         cols: oneOfType([number, string]),
+        field: string.isRequired,
         fieldState: shape({
             value: string
         }),
+        message: node,
         rows: oneOfType([number, string]),
         wrap: oneOf(['hard', 'soft'])
     };
@@ -25,15 +27,6 @@ export class TextArea extends Component {
         rows: 4,
         wrap: 'hard'
     };
-
-    get message() {
-        const { classes, fieldState, message } = this.props;
-        const { asyncError, error } = fieldState;
-        const errorMessage = error || asyncError;
-        const className = errorMessage ? classes.error : classes.message;
-
-        return <p className={className}>{errorMessage || message || ''}</p>;
-    }
 
     render() {
         const { classes, fieldState, message, ...rest } = this.props;

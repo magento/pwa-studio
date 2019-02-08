@@ -20,7 +20,8 @@ Feel free to remove this section before creating this PR.
 <!--- This project only accepts pull requests related to open issues -->
 <!--- If suggesting a new feature or change, please discuss it in an issue first -->
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
-<!--- Please link to the issue here with the following wording: Closes #<issue> -->
+<!--- Please link to the issue here with the specific wording: "Closes #<issue>" -->
+<!--- Using the above wording causes Github to automatically close the issue on merge. -->
 Closes #ISSUENUM.
 
 ## Motivation and Context
