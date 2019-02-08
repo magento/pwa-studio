@@ -12,7 +12,7 @@ This script will:
 * run `docker-compose build` to build the container network
 * run `docker-compose up` to start the container running PWA at the custom domain with https
 
-After `docker/run-docker` is executed from the root of the repository, the default configuration will have the PWA application running at `https://pwa-docker.local`.
+After `docker/run-docker` is executed from the root of the repository, the default configuration will have the PWA application running at `https://pwa-docker.localhost`.
 
 ### Configure a new custom domain
 
