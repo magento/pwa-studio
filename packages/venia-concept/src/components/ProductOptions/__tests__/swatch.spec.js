@@ -5,12 +5,7 @@ import Swatch from '../swatch';
 import Icon from 'src/components/Icon';
 
 jest.mock('src/classify');
-jest.mock('../../../util/getRandomColor', () => {
-    return {
-        getRandomColor: jest.fn(),
-        memoizedGetRandomColor: jest.fn().mockReturnValue('123,123,123')
-    };
-});
+jest.mock('../../../util/getRandomColor');
 
 const defaultProps = {
     item: {

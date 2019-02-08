@@ -4,12 +4,7 @@ import testRenderer from 'react-test-renderer';
 import Option from '../option';
 
 jest.mock('src/classify');
-jest.mock('../../../util/getRandomColor', () => {
-    return {
-        getRandomColor: jest.fn(),
-        memoizedGetRandomColor: jest.fn().mockReturnValue('123,123,123')
-    };
-});
+jest.mock('../../../util/getRandomColor');
 
 const onSelectionChangeMock = jest.fn();
 const defaultProps = {
