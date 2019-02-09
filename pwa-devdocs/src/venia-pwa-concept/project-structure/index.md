@@ -92,7 +92,7 @@ you will find multiple component definition files in a single feature directory.
 
 {: .bs-callout .bs-callout-info}
 **Note:**
-Not all components used in the Venia them are in this directory.
+Not all components used in the Venia theme are in this directory.
 Some components are imported from the [Peregrine][] project or other sources.
 
 For more information on components, see the [official documentation for React components][].
