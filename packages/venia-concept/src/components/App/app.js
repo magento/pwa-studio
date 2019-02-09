@@ -8,6 +8,7 @@ import Navigation from 'src/components/Navigation';
 import OnlineIndicator from 'src/components/OnlineIndicator';
 import ErrorNotifications from './errorNotifications';
 import renderRoutes from './renderRoutes';
+import errorRecord from 'src/util/createErrorRecord';
 
 class App extends Component {
     static propTypes = {
@@ -18,6 +19,35 @@ class App extends Component {
         closeDrawer: func.isRequired
     };
 
+    static get initialState() {
+        return {
+            renderError: null
+        };
+    }
+
+    get errorFallback() {
+        const { renderError } = this.state;
+        if (renderError) {
+            return (
+                <Fragment>
+                    <Main isMasked={true} />
+                    <Mask isActive={true} />
+                    <ErrorNotifications
+                        errors={[
+                            errorRecord(
+                                renderError,
+                                window,
+                                this,
+                                renderError.stack
+                            )
+                        ]}
+                        onDismissError={this.recoverFromRenderError}
+                    />
+                </Fragment>
+            );
+        }
+    }
+
     get onlineIndicator() {
         const { app } = this.props;
         const { hasBeenOffline, isOnline } = app;
@@ -27,7 +57,26 @@ class App extends Component {
         return hasBeenOffline ? <OnlineIndicator isOnline={isOnline} /> : null;
     }
 
+    // Defining this static method turns this component into an ErrorBoundary,
+    // which can re-render a fallback UI if any of its descendant components
+    // throw an exception while rendering.
+    // This is a common implementation: React uses the returned object to run
+    // setState() on the component. <App /> then re-renders with a `renderError`
+    // property in state, and the render() method below will render a fallback
+    // UI describing the error if the `renderError` property is set.
+    static getDerivedStateFromError(renderError) {
+        return { renderError };
+    }
+
+    recoverFromRenderError = () => window.location.reload();
+
+    state = App.initialState;
+
     render() {
+        const { errorFallback } = this;
+        if (errorFallback) {
+            return errorFallback;
+        }
         const {
             app,
             closeDrawer,
@@ -43,15 +92,15 @@ class App extends Component {
             <Fragment>
                 <Main isMasked={overlay}>
                     {onlineIndicator}
-                    <ErrorNotifications
-                        errors={unhandledErrors}
-                        onDismissError={markErrorHandled}
-                    />
                     {renderRoutes()}
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />
+                <ErrorNotifications
+                    errors={unhandledErrors}
+                    onDismissError={markErrorHandled}
+                />
             </Fragment>
         );
     }

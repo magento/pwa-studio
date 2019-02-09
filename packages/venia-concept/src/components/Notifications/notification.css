@@ -1,5 +1,5 @@
 :root {
-    --venia-notification-height: 3rem;
+    --venia-notification-height: 3.5rem;
 }
 .root {
     align-items: center;
@@ -13,7 +13,7 @@
     text-align: left;
     top: 0;
     transform: translateY(calc(-1 * var(--venia-notification-height)));
-    transition: transform 250ms, opacity 100ms;
+    transition: transform 250ms;
     width: 100%;
     -webkit-appearance: none;
 }
@@ -24,12 +24,6 @@
 
 .showing {
     transform: translateY(0px);
-    opacity: 1;
-}
-
-.dismissing {
-    transform: translateY(calc(-1 * var(--venia-notification-height)));
-    opacity: 0;
 }
 
 .error {

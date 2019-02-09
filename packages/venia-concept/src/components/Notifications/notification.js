@@ -22,25 +22,39 @@ class Notification extends Component {
         type: oneOf(['error', 'success', 'warning']).isRequired
     };
 
-    dismiss = () => this.setState({ dismissing: true, showing: false });
+    dismiss = () => this.setState({ showing: false });
 
     handleTransitionEnd = e => {
         const { afterDismiss } = this.props;
-        if (afterDismiss && this.state.dismissing) {
+        // The transitionend event fires after slide down, but we only want to
+        // run the afterDismiss callback after slide up.
+        if (afterDismiss && !this.state.showing) {
             afterDismiss(e);
         }
     };
 
-    handleClick = e =>
+    handleClick = e => {
         this.props.onClick && this.props.onClick(e, this.dismiss);
+    };
 
     state = {
-        dismissing: false,
         showing: false
     };
 
     componentDidMount() {
-        this.setState({ showing: true });
+        // React sometimes optimizes by merging two successive DOM updates,
+        // which means we don't get the transition effect. Therefore we wait a
+        // moment after mount to add the class which causes the slide-down.
+        this._showingTimeout = setTimeout(
+            () => this.setState({ showing: true }),
+            50
+        );
+    }
+
+    componentWillUnmount() {
+        // Don't leak timeouts! React will complain if the above timeout tries
+        // to run setState on a component that isn't mounted anymore.
+        clearTimeout(this._showingTimeout);
     }
 
     render() {
@@ -51,13 +65,12 @@ class Notification extends Component {
             onClick,
             type
         } = this.props;
-        const { dismissing, showing } = this.state;
+        const { showing } = this.state;
         const className = composeClassnames([
             classes.root,
             classes[type],
-            dismissing && classes.dismissing,
-            showing && classes.showing,
-            onClick && classes.clickable
+            onClick && classes.clickable,
+            showing && classes.showing
         ]);
 
         return (
