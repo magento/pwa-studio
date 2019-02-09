@@ -115,7 +115,7 @@ class Product extends Component {
         await this.props.addItemToCart({ guestCartId, item, quantity });
     };
 
-    componentWillMount() {
+    componentDidMount() {
         window.scrollTo(0, 0);
     }
 
