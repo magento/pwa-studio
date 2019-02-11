@@ -160,15 +160,21 @@ class Product extends Component {
     removeItem = () => {
         // TODO: prompt user to confirm this action
 
+        const {
+            removeItemFromCart,
+            loadingElement,
+            item
+        } = this.props;
+
         this.setState({
             isOpen: false
         });
 
-        this.props.loadingElement(true);
+        loadingElement && loadingElement(true);
 
-        this.props.removeItemFromCart({
-            item: this.props.item,
-            loadingElement: this.props.loadingElement
+        removeItemFromCart({
+            item: item,
+            loadingElement: loadingElement
         });
     };
 }

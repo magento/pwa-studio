@@ -228,7 +228,10 @@ export const getCartDetails = (payload = {}) => {
                 totals
             ] = await Promise.all([
                 retrieveImageCache(),
-                fetchCartPart({ guestCartId, forceRefresh }),
+                fetchCartPart({
+                    guestCartId,
+                    forceRefresh
+                }),
                 fetchCartPart({
                     guestCartId,
                     forceRefresh,
@@ -285,7 +288,7 @@ export const getCartDetails = (payload = {}) => {
                 return thunk(...arguments);
             }
         } finally {
-            loadingElement(false);
+            loadingElement && loadingElement(false);
         }
     };
 };

@@ -176,7 +176,11 @@ class MiniCart extends Component {
     }
 
     get loading() {
-        return this.state.isLoading ? loadingIndicator : null;
+        const {
+            isLoading
+        } = this.state;
+
+        return isLoading ? loadingIndicator : null;
     }
 
     loadingElement = bool => {
