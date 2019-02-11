@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './tile.css';
@@ -17,9 +17,7 @@ class Tile extends Component {
         item: shape({
             label: string.isRequired
         }).isRequired,
-        onBlur: func,
-        onClick: func,
-        onFocus: func
+        itemIndex: number
     };
 
     static defaultProps = {
@@ -33,20 +31,15 @@ class Tile extends Component {
             hasFocus,
             isSelected,
             item,
-            onBlur,
-            onClick,
-            onFocus
+            // eslint-disable-next-line
+            itemIndex,
+            ...restProps
         } = this.props;
         const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label } = item;
 
         return (
-            <button
-                className={className}
-                onBlur={onBlur}
-                onClick={onClick}
-                onFocus={onFocus}
-            >
+            <button {...restProps} className={className}>
                 <span>{label}</span>
             </button>
         );

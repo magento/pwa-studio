@@ -4,7 +4,7 @@ import testRenderer from 'react-test-renderer';
 import Option from '../option';
 
 jest.mock('src/classify');
-jest.mock('../../../util/getRandomColor');
+jest.mock('src/util/getRandomColor');
 
 const onSelectionChangeMock = jest.fn();
 const defaultProps = {

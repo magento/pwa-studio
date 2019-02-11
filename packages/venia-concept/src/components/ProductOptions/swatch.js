@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { bool, func, number, oneOfType, shape, string } from 'prop-types';
+import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import CheckIcon from 'react-feather/dist/icons/check';
 import defaultClasses from './swatch.css';
 
-import { memoizedGetRandomColor } from '../../util/getRandomColor';
+import { memoizedGetRandomColor } from 'src/util/getRandomColor';
 
 const getClassName = (name, isSelected, hasFocus) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
@@ -22,9 +22,8 @@ class Swatch extends Component {
             label: string.isRequired,
             value_index: oneOfType([number, string]).isRequired
         }).isRequired,
-        onBlur: func,
-        onClick: func,
-        onFocus: func
+        itemIndex: number,
+        style: object
     };
 
     static defaultProps = {
@@ -45,12 +44,11 @@ class Swatch extends Component {
             hasFocus,
             isSelected,
             item,
-            onBlur,
-            onClick,
-            onFocus,
-            style
+            // eslint-disable-next-line
+            itemIndex,
+            style,
+            ...restProps
         } = props;
-
         const className = classes[getClassName('root', isSelected, hasFocus)];
         const { label, value_index } = item;
 
@@ -65,10 +63,8 @@ class Swatch extends Component {
 
         return (
             <button
+                {...restProps}
                 className={className}
-                onBlur={onBlur}
-                onClick={onClick}
-                onFocus={onFocus}
                 style={finalStyle}
                 title={label}
             >

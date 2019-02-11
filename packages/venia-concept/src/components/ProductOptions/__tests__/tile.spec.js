@@ -4,7 +4,7 @@ import testRenderer from 'react-test-renderer';
 import Tile from '../tile';
 
 jest.mock('src/classify');
-jest.mock('../../../util/getRandomColor');
+jest.mock('src/util/getRandomColor');
 
 const defaultProps = {
     item: {
