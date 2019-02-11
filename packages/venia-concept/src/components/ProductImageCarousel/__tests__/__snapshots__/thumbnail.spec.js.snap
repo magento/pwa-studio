@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders root class if not the active Thumbnail 1`] = `
+<button
+  className="root"
+  onClick={[Function]}
+>
+  <img
+    alt="test-thumbnail"
+    className="image"
+    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+  />
+</button>
+`;
+
+exports[`renders the Thumbnail component correctly 1`] = `
+<button
+  className="rootSelected"
+  onClick={[Function]}
+>
+  <img
+    alt="test-thumbnail"
+    className="image"
+    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+  />
+</button>
+`;
+
+exports[`renders transparent placeholder when no file name is provided 1`] = `
+<button
+  className="rootSelected"
+  onClick={[Function]}
+>
+  <img
+    alt="placeholder-thumbnail"
+    className="image"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+  />
+</button>
+`;
