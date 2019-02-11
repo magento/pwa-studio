@@ -1,5 +1,5 @@
-import {RestApi} from '@magento/peregrine';
-import {closeDrawer, toggleDrawer} from 'src/actions/app';
+import { RestApi } from '@magento/peregrine';
+import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
 import { Util } from '@magento/peregrine';
@@ -131,7 +131,7 @@ export const addItemToCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const {item, loadingElement} = payload;
+    const { item, loadingElement } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -163,7 +163,7 @@ export const removeItemFromCart = payload => {
             }
 
             dispatch(
-                actions.removeItem.receive({cartItem, item, cartItemCount})
+                actions.removeItem.receive({ cartItem, item, cartItemCount })
             );
         } catch (error) {
             const { response, noGuestCartId } = error;
@@ -189,13 +189,14 @@ export const removeItemFromCart = payload => {
                 getCartDetails({
                     forceRefresh: true,
                     loadingElement: loadingElement
-                }))
+                })
+            )
         ]);
     };
 };
 
 export const getCartDetails = (payload = {}) => {
-    const {forceRefresh, loadingElement} = payload;
+    const { forceRefresh, loadingElement } = payload;
 
     return async function thunk(dispatch, getState) {
         const { cart } = getState();

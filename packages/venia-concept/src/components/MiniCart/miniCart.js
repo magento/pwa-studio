@@ -210,7 +210,7 @@ class MiniCart extends Component {
         } = this;
 
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
-        const { isEditPanelOpen, isLoading } = state;
+        const { isEditPanelOpen } = state;
 
         if (isCartEmpty) {
             return <EmptyMiniCart />;
@@ -234,26 +234,15 @@ class MiniCart extends Component {
     }
 
     render() {
-        const { miniCartInner, props, state} = this;
+        const { miniCartInner, props, state } = this;
 
-        const {
-            classes,
-            isOpen,
-            isMiniCartMaskOpen,
-            cancelCheckout
-        } = props;
+        const { classes, isOpen, isMiniCartMaskOpen, cancelCheckout } = props;
 
-        const {
-            isEditPanelOpen
-        } = state;
+        const { isEditPanelOpen } = state;
 
-        const className = isOpen
-            ? classes.root_open
-            : classes.root;
+        const className = isOpen ? classes.root_open : classes.root;
 
-        const title = isEditPanelOpen
-            ? 'Edit Cart Item'
-            : 'Shopping Cart';
+        const title = isEditPanelOpen ? 'Edit Cart Item' : 'Shopping Cart';
 
         return (
             <aside className={className}>

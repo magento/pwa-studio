@@ -9,10 +9,7 @@ class LoadingIndicator extends Component {
     render() {
         const { props } = this;
 
-        const {
-            children,
-            classes
-        } = props;
+        const { children, classes } = props;
 
         return (
             <div className={classes.root}>

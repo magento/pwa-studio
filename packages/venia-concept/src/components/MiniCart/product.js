@@ -1,7 +1,7 @@
-import React, {Component, Fragment} from 'react';
-import {arrayOf, number, shape, string} from 'prop-types';
-import {List, Price} from '@magento/peregrine';
-import {resourceUrl} from 'src/drivers';
+import React, { Component, Fragment } from 'react';
+import { arrayOf, number, shape, string } from 'prop-types';
+import { Price } from '@magento/peregrine';
+import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
 import Section from './section';
 import classify from 'src/classify';
@@ -54,12 +54,12 @@ class Product extends Component {
     }
 
     get options() {
-        const {classes, item} = this.props;
+        const { classes, item } = this.props;
         const options = item.options;
 
         return options && options.length > 0 ? (
             <dl className={classes.options}>
-                {options.map(({label, value}) => (
+                {options.map(({ label, value }) => (
                     <Fragment key={`${label}${value}`}>
                         <dt className={classes.optionLabel}>
                             {label} : {value}
@@ -71,8 +71,8 @@ class Product extends Component {
     }
 
     get modal() {
-        const {classes} = this.props;
-        return this.state.isOpen ? <div className={classes.modal}/> : null;
+        const { classes } = this.props;
+        return this.state.isOpen ? <div className={classes.modal} /> : null;
     }
 
     styleImage(image) {
@@ -87,14 +87,14 @@ class Product extends Component {
     }
 
     render() {
-        const {options, props, modal } = this;
-        const {classes, item, currencyCode} = props;
+        const { options, props, modal } = this;
+        const { classes, item, currencyCode } = props;
 
         const rootClasses = this.state.isOpen
             ? classes.root + ' ' + classes.root_masked
             : classes.root;
 
-        const favoritesFill = {fill: 'rgb(var(--venia-teal))'};
+        const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
             <li className={rootClasses}>
