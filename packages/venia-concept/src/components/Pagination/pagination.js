@@ -167,12 +167,14 @@ class Pagination extends Component {
 
         const queryPage = Math.max(
             1,
-            Math.floor(
-                getQueryParameterValue({
-                    location,
-                    queryParameter: 'page'
-                })
-            )
+            // Note: The ~ operator is a bitwise NOT operator.
+            // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
+            // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
+            // For positive numbers, applying this operator twice has the same effect as Math.floor.
+            ~~getQueryParameterValue({
+                location,
+                queryParameter: 'page'
+            })
         );
 
         // if the page in the query string doesn't match client state
