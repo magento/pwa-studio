@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, number, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './tile.css';
