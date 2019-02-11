@@ -34,8 +34,8 @@ const config = api => {
          * package root, like 'src/classify'.
          */
         development: {
-            // Ignore __mocks__, __stories__, etc.
-            ignore: [/\/__\w+__\//],
+            // Ignore everything with underscores except stories
+            ignore: [/\/__(tests?|mocks|fixtures|helpers)__\//],
             plugins: [
                 ...plugins,
                 [
