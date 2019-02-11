@@ -1,10 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {arrayOf, number, shape, string} from 'prop-types';
-import {Price} from '@magento/peregrine';
+import {List, Price} from '@magento/peregrine';
 import {resourceUrl} from 'src/drivers';
 import Kebab from './kebab';
 import Section from './section';
-
 import classify from 'src/classify';
 import defaultClasses from './product.css';
 
@@ -90,9 +89,11 @@ class Product extends Component {
     render() {
         const {options, props, modal } = this;
         const {classes, item, currencyCode} = props;
+
         const rootClasses = this.state.isOpen
             ? classes.root + ' ' + classes.root_masked
             : classes.root;
+
         const favoritesFill = {fill: 'rgb(var(--venia-teal))'};
 
         return (
@@ -138,7 +139,7 @@ class Product extends Component {
                     />
                     <Section
                         text="Remove item"
-                        onClick= {this.removeItem}
+                        onClick={this.removeItem}
                         icon="Trash"
                     />
                 </Kebab>
@@ -160,14 +161,14 @@ class Product extends Component {
         // TODO: prompt user to confirm this action
 
         this.setState({
-            isOpen: false,
-            loadingElement: true
+            isOpen: false
         });
 
-        // console.log(this.props.state);
+        this.props.loadingElement(true);
 
         this.props.removeItemFromCart({
-            item: this.props.item
+            item: this.props.item,
+            loadingElement: this.props.loadingElement
         });
     };
 }

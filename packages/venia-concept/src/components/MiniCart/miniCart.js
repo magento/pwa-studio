@@ -2,7 +2,7 @@ import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import { bool, func, object, shape, string } from 'prop-types';
-
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
@@ -50,7 +50,8 @@ class MiniCart extends Component {
         super(...args);
         this.state = {
             isEditPanelOpen: false,
-            focusItem: null
+            focusItem: null,
+            isLoading: false
         };
     }
 
@@ -84,6 +85,7 @@ class MiniCart extends Component {
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
+                loadingElement={this.loadingElement}
                 showEditPanel={this.showEditPanel}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
@@ -173,6 +175,16 @@ class MiniCart extends Component {
         );
     }
 
+    get loading() {
+        return this.state.isLoading ? loadingIndicator : null;
+    }
+
+    loadingElement = bool => {
+        this.setState({
+            isLoading: bool
+        });
+    };
+
     showEditPanel = item => {
         this.setState({
             isEditPanelOpen: true,
@@ -193,15 +205,17 @@ class MiniCart extends Component {
             productList,
             productOptions,
             props,
-            state
+            state,
+            loading
         } = this;
+
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
+        const { isEditPanelOpen, isLoading } = state;
 
         if (isCartEmpty) {
             return <EmptyMiniCart />;
         }
 
-        const { isEditPanelOpen } = state;
         const body = isEditPanelOpen ? productOptions : productList;
         const footer = isEditPanelOpen ? productConfirm : checkout;
         const footerClassName = isMiniCartMaskOpen
@@ -210,21 +224,34 @@ class MiniCart extends Component {
 
         return (
             <Fragment>
-                <div className={classes.body}>{body}</div>
+                <div className={classes.body}>
+                    {loading}
+                    {body}
+                </div>
                 <div className={footerClassName}>{footer}</div>
             </Fragment>
         );
     }
 
     render() {
-        if (this.props.loading) {
-            return <div>Fetching Data</div>;
-        }
+        const { miniCartInner, props, state} = this;
 
-        const { miniCartInner, props } = this;
-        const { classes, isOpen, isMiniCartMaskOpen, cancelCheckout } = props;
-        const className = isOpen ? classes.root_open : classes.root;
-        const title = this.state.isEditPanelOpen
+        const {
+            classes,
+            isOpen,
+            isMiniCartMaskOpen,
+            cancelCheckout
+        } = props;
+
+        const {
+            isEditPanelOpen
+        } = state;
+
+        const className = isOpen
+            ? classes.root_open
+            : classes.root;
+
+        const title = isEditPanelOpen
             ? 'Edit Cart Item'
             : 'Shopping Cart';
 

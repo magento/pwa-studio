@@ -31,6 +31,7 @@ class ProductList extends Component {
             removeItemFromCart,
             showEditPanel,
             totalsItems,
+            loadingElement,
             ...otherProps
         } = this.props;
 
@@ -42,6 +43,7 @@ class ProductList extends Component {
                     <Product
                         currencyCode={currencyCode}
                         removeItemFromCart={removeItemFromCart}
+                        loadingElement={loadingElement}
                         showEditPanel={showEditPanel}
                         totalsItems={totalsItems}
                         {...props}

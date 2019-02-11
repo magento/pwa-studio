@@ -1,6 +1,5 @@
-import { RestApi } from '@magento/peregrine';
-import {loadingIndicator} from '../../components/LoadingIndicator';
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
+import {RestApi} from '@magento/peregrine';
+import {closeDrawer, toggleDrawer} from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
 import { Util } from '@magento/peregrine';
@@ -132,7 +131,7 @@ export const addItemToCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item } = payload;
+    const {item, loadingElement} = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -164,7 +163,7 @@ export const removeItemFromCart = payload => {
             }
 
             dispatch(
-                actions.removeItem.receive({ cartItem, item, cartItemCount })
+                actions.removeItem.receive({cartItem, item, cartItemCount})
             );
         } catch (error) {
             const { response, noGuestCartId } = error;
@@ -185,12 +184,18 @@ export const removeItemFromCart = payload => {
             }
         }
 
-        await Promise.all([dispatch(getCartDetails({ forceRefresh: true }))]);
+        await Promise.all([
+            dispatch(
+                getCartDetails({
+                    forceRefresh: true,
+                    loadingElement: loadingElement
+                }))
+        ]);
     };
 };
 
 export const getCartDetails = (payload = {}) => {
-    const { forceRefresh } = payload;
+    const {forceRefresh, loadingElement} = payload;
 
     return async function thunk(dispatch, getState) {
         const { cart } = getState();
@@ -278,6 +283,8 @@ export const getCartDetails = (payload = {}) => {
                 // then retry this operation
                 return thunk(...arguments);
             }
+        } finally {
+            loadingElement(false);
         }
     };
 };

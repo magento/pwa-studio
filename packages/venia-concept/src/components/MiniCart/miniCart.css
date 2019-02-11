@@ -36,6 +36,16 @@
 
 .body {
     overflow: auto;
+    position: relative;
+}
+
+/*TODO: Here need a class 'indicator'*/
+
+.body > div {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    margin: 0;
 }
 
 .focusItem {
