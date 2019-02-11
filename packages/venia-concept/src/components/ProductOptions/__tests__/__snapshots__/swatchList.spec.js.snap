@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SwatchList component correctly 1`] = `
+<div
+  className="root"
+>
+  <button
+    className="root"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
+      }
+    }
+    title="foo"
+  />
+</div>
+`;
