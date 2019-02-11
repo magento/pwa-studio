@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <textarea
+    className="input"
+    cols={40}
+    name="text-area"
+    onBlur={[Function]}
+    onChange={[Function]}
+    rows={4}
+    value=""
+    wrap="hard"
+  />
+  <p
+    className="root"
+  />
+</form>
+`;
+
+exports[`renders with non-default columns/rows/wrap 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <textarea
+    className="input"
+    cols={30}
+    name="text-area"
+    onBlur={[Function]}
+    onChange={[Function]}
+    rows={5}
+    value=""
+    wrap="soft"
+  />
+  <p
+    className="root"
+  />
+</form>
+`;

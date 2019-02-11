@@ -28,7 +28,6 @@ class Leaf extends Component {
 
     render() {
         const { classes, name, urlPath } = this.props;
-        const text = name;
 
         return (
             <Link
@@ -36,7 +35,7 @@ class Leaf extends Component {
                 to={`/${urlPath}${urlSuffix}`}
                 onClick={this.handleClick}
             >
-                <span className={classes.text}>{text}</span>
+                <span className={classes.text}>{name}</span>
             </Link>
         );
     }
