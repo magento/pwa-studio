@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { arrayOf, object, func, shape, string } from 'prop-types';
-import AlertCircle from 'react-feather/dist/icons/alert-circle';
 import classify from 'src/classify';
 import { Notification, NotificationStack } from 'src/components/Notifications';
 import defaultClasses from './errorNotifications.css';
@@ -27,15 +26,12 @@ class ErrorNotifications extends Component {
     render() {
         const { classes, onDismissError, errors } = this.props;
         if (errors.length > 0) {
-            // TODO: Put this side effect and the console log
-            // somewhere else, but for now this is what makes sense.
             return (
                 <NotificationStack>
                     {errors.map(({ error, id, loc }) => (
                         <Notification
                             key={id}
                             type="error"
-                            icon={AlertCircle}
                             onClick={(e, dismiss) => {
                                 e.preventDefault();
                                 e.stopPropagation();

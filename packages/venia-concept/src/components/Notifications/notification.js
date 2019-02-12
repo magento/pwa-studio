@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Icon from 'src/components/Icon';
 import { any, func, oneOf, shape, string } from 'prop-types';
+import AlertCircle from 'react-feather/dist/icons/alert-circle';
+import InfoIcon from 'react-feather/dist/icons/info';
+import CheckCircle from 'react-feather/dist/icons/check-circle';
 
 import classify from 'src/classify';
 import defaultClasses from './notification.css';
@@ -10,36 +13,55 @@ import defaultClasses from './notification.css';
 // individually during re-renders.
 const composeClassnames = classNames => classNames.filter(s => s).join(' ');
 
+const defaultIcons = {
+    error: AlertCircle,
+    warning: InfoIcon,
+    success: CheckCircle
+};
+
 class Notification extends Component {
     static propTypes = {
         children: any.isRequired,
         classes: shape({
             root: string
         }),
-        icon: any.isRequired,
+        icon: any,
         afterDismiss: func,
+        afterShow: func,
         onClick: func,
         type: oneOf(['error', 'success', 'warning']).isRequired
     };
 
+    static SHOW_DELAY = 50;
+
     dismiss = () => this.setState({ showing: false });
 
     handleTransitionEnd = e => {
-        const { afterDismiss } = this.props;
-        // The transitionend event fires after slide down, but we only want to
-        // run the afterDismiss callback after slide up.
-        if (afterDismiss && !this.state.showing) {
-            afterDismiss(e);
+        // The transitionend event fires after slide down and slide up,
+        // so we test the showing state to determine which callback to run.
+        if (this.state.showing) {
+            // Pass a function to dismiss this notification into the caller.
+            this.runHandlerIfPresent('afterShow', e, this.dismiss);
+        } else {
+            this.runHandlerIfPresent('afterDismiss', e);
         }
     };
 
     handleClick = e => {
-        this.props.onClick && this.props.onClick(e, this.dismiss);
+        // Pass a function to dismiss this notification into the caller.
+        this.runHandlerIfPresent('onClick', e, this.dismiss);
     };
 
     state = {
         showing: false
     };
+
+    runHandlerIfPresent(name, ...args) {
+        const handler = this.props[name];
+        if (typeof handler === 'function') {
+            handler(...args);
+        }
+    }
 
     componentDidMount() {
         // React sometimes optimizes by merging two successive DOM updates,
@@ -47,7 +69,7 @@ class Notification extends Component {
         // moment after mount to add the class which causes the slide-down.
         this._showingTimeout = setTimeout(
             () => this.setState({ showing: true }),
-            50
+            Notification.SHOW_DELAY
         );
     }
 
@@ -55,13 +77,14 @@ class Notification extends Component {
         // Don't leak timeouts! React will complain if the above timeout tries
         // to run setState on a component that isn't mounted anymore.
         clearTimeout(this._showingTimeout);
+        this._showingTimeout = null;
     }
 
     render() {
         const {
             classes,
             children,
-            icon: IconGlyph,
+            icon: CustomIcon,
             onClick,
             type
         } = this.props;
@@ -72,6 +95,8 @@ class Notification extends Component {
             onClick && classes.clickable,
             showing && classes.showing
         ]);
+
+        const IconGlyph = CustomIcon || defaultIcons[type];
 
         return (
             <button
