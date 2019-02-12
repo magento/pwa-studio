@@ -5,12 +5,10 @@ import MessageIcon from 'react-feather/dist/icons/message-circle';
 
 import { Notification } from '../';
 
-// Must mock this so that CSS classes are predictable.
-// jest.mock('src/classify');
-
 beforeEach(jest.useFakeTimers);
 afterAll(jest.useRealTimers);
 
+// Mock classes so that CSS classes are predictable.
 const classes = [
     'success',
     'warning',

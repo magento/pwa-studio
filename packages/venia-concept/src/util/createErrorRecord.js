@@ -18,7 +18,7 @@ export default function errorRecord(error, window, context, customStack) {
     if (record) {
         return record;
     }
-    record = { error };
+    record = { error, loc: '' };
     const { constructor, message, name } = error;
     // Reasonably unique, yet readable error ID.
     const seconds = new Date().getSeconds();
@@ -34,6 +34,7 @@ export default function errorRecord(error, window, context, customStack) {
     if (customStack) {
         stack = customStack;
     } else {
+        /** istanbul ignore next */
         if (Error.captureStackTrace) {
             Error.captureStackTrace(error, context);
         }
@@ -51,7 +52,8 @@ export default function errorRecord(error, window, context, customStack) {
     errorRecords.set(error, record);
     // In development mode, React logs these already.
     // Log in production mode so that users can give Support helpful debug info.
-    if (process.env.NODE_ENV !== 'development') {
+    /** istanbul ignore next */
+    if (process.env.NODE_ENV === 'production') {
         logError(
             `%cUnhandled ${record.id}`,
             'background: #CC0000; color: white; padding: 0.1em 0.5em',

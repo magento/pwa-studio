@@ -27,25 +27,27 @@ class ErrorNotifications extends Component {
         const { classes, onDismissError, errors } = this.props;
         if (errors.length > 0) {
             return (
-                <NotificationStack>
-                    {errors.map(({ error, id, loc }) => (
-                        <Notification
-                            key={id}
-                            type="error"
-                            onClick={(e, dismiss) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                dismiss();
-                            }}
-                            afterDismiss={() => onDismissError(error)}
-                        >
-                            <div>Sorry! An unexpected error occurred.</div>
-                            <small className={classes.debuginfo}>
-                                Debug: {id} {loc}
-                            </small>
-                        </Notification>
-                    ))}
-                </NotificationStack>
+                <div className={classes.root}>
+                    <NotificationStack>
+                        {errors.map(({ error, id, loc }) => (
+                            <Notification
+                                key={id}
+                                type="error"
+                                onClick={(e, dismiss) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    dismiss();
+                                }}
+                                afterDismiss={() => onDismissError(error)}
+                            >
+                                <div>Sorry! An unexpected error occurred.</div>
+                                <small className={classes.debuginfo}>
+                                    Debug: {id} {loc}
+                                </small>
+                            </Notification>
+                        ))}
+                    </NotificationStack>
+                </div>
             );
         }
         return null;

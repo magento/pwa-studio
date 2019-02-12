@@ -1,9 +1,9 @@
 .root {
     display: flex;
     flex-flow: column-reverse nowrap;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
+    width: inherit;
     z-index: 3;
 }

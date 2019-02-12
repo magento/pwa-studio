@@ -64,66 +64,72 @@ function sliceHandledError(state, error) {
  * @param {object} fullStoreState
  * @param {object} action
  */
-function errorReducer(state = {}, { type, payload, error }) {
+function errorReducer(state = {}, action) {
     const { unhandledErrors } = state;
+    const { type, payload } = action;
+
+    // The `error` property should be boolean and the payload is the error
+    // itself, but just in case someone got that wrong...
+    let error;
+    if (action.error instanceof Error) {
+        error = action.error;
+    } else if (payload instanceof Error) {
+        error = payload;
+    } else {
+        // No error, so nothing this reducer can do.
+        return state;
+    }
     if (type === APP_DISMISS_ERROR) {
         const errorsMinusDismissed = unhandledErrors.filter(
-            ({ error }) => error !== payload
+            record => record.error !== error
         );
-        // If the array is smaller now, then we successfully removed an error.
-        if (errorsMinusDismissed.length < unhandledErrors.length) {
-            return {
-                ...state,
-                unhandledErrors: errorsMinusDismissed
-            };
-        }
-        // Otherwise...
-        if (process.env.NODE_ENV === 'development') {
+        // If the array is the same size, then the error wasn't here
+        // but it should have been!
+        if (
+            process.env.NODE_ENV === 'development' &&
+            errorsMinusDismissed.length == unhandledErrors.length
+        ) {
             console.error(
-                'Received ${APP_DISMISS_ERROR} action, but provided error "${error}" was not present in the state.errors collection. The error object in the payload payload must be strictly equal to the error to be dismissed.',
+                'Received ${APP_DISMISS_ERROR} action, but provided error "${error}" was not present in the state.unhandledErrors collection. The error object in the action payload must be strictly equal to the error to be dismissed.',
                 error
             );
         }
-    } else if (error) {
-        // `error` property should be boolean and the payload is the error
-        // itself, but just in case someone got that wrong...
-        const actualError = Error.isPrototypeOf(error) ? error : payload;
-        const sliceHandled = sliceHandledError(state, actualError);
-        if (!sliceHandled) {
-            // No one took this one. Add it to the unhandled list.
-            const allErrors = [
-                // Dedupe errors in case this one is dispatched repeatedly
-                ...new Set(
-                    unhandledErrors.concat(
-                        errorRecord(
-                            actualError,
-                            // `errorRecord()` requires the window argument for
-                            // testability, through injection of the
-                            // non-idempotent Date and Math methods for IDs.
-                            window,
-                            // Also call `errorRecord()` with the current
-                            // context, which is the root reducer; that enables
-                            // it to trim useful stack traces by omitting
-                            // useless lines.
-                            this
-                        )
+        return {
+            ...state,
+            unhandledErrors: errorsMinusDismissed
+        };
+    }
+
+    // Handle any other action that may have produced an error.
+    const sliceHandled = sliceHandledError(state, error);
+    if (!sliceHandled) {
+        // No one took this one. Add it to the unhandled list.
+        const allErrors = [
+            // Dedupe errors in case this one is dispatched repeatedly
+            ...new Set(
+                unhandledErrors.concat(
+                    errorRecord(
+                        error,
+                        // `errorRecord()` requires the window argument for
+                        // testability, through injection of the
+                        // non-idempotent Date and Math methods for IDs.
+                        window,
+                        // Also call `errorRecord()` with the current
+                        // context, which is the root reducer; that enables
+                        // it to trim useful stack traces by omitting
+                        // useless lines.
+                        this
                     )
                 )
-            ];
-            return {
-                ...state,
-                unhandledErrors: allErrors
-            };
-        }
-        // If we get here, a slice DID handle it and indicated that by
-        // setting it as a root property of the slice.
-        if (process.env.NODE_ENV === 'development') {
-            console.log(
-                `Store slice ${sliceHandled} handled error, won't handle as fallback`,
-                actualError
-            );
-        }
+            )
+        ];
+        return {
+            ...state,
+            unhandledErrors: allErrors
+        };
     }
+    // If we get here, a slice DID handle it and indicated that by
+    // setting it as a root property of the slice.
     return state;
 }
 

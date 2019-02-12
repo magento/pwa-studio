@@ -1,6 +1,14 @@
+.root {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
 .debuginfo {
     display: block;
-    font-size: 3vw;
+    font-size: 0.7rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

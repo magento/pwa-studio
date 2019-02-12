@@ -16,7 +16,10 @@ class App extends Component {
             drawer: string,
             overlay: bool.isRequired
         }).isRequired,
-        closeDrawer: func.isRequired
+        closeDrawer: func.isRequired,
+        markErrorHandled: func.isRequired,
+        hasBeenOffline: bool,
+        isOnline: bool
     };
 
     static get initialState() {
