@@ -10,7 +10,8 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
-import WrappedCheckoutWrapper, { CheckoutWrapper } from '../wrapper';
+import WrappedCheckoutWrapper from '../index';
+import { CheckoutWrapper } from '../wrapper';
 import Flow from '../flow';
 
 jest.mock('src/classify');

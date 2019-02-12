@@ -50,3 +50,16 @@ test('renders Receipt component', () => {
 
     expect(() => component.root.findByType(Receipt)).not.toThrow();
 });
+
+test('renders null if checkout/cart props are falsy', () => {
+    const props = {
+        ...defaultProps,
+        checkout: false,
+        cart: false
+    };
+    const component = testRenderer.create(<Flow {...props} />);
+
+    expect(() => component.root.findByType(Cart)).toThrow();
+    expect(() => component.root.findByType(Form)).toThrow();
+    expect(() => component.root.findByType(Receipt)).toThrow();
+});

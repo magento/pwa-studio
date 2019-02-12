@@ -268,3 +268,16 @@ test('renders shipping form if editing prop is shippingMethod', () => {
     expect(() => component.root.findByType(PaymentsForm)).toThrow();
     expect(() => component.root.findByType(ShippingForm)).not.toThrow();
 });
+
+test('renders null if editing value is not one of allowed enums', () => {
+    const props = {
+        ...defaultProps,
+        editing: 'INVALID'
+    };
+
+    const component = testRenderer.create(<Form {...props} />);
+
+    expect(() => component.root.findByType(AddressForm)).toThrow();
+    expect(() => component.root.findByType(PaymentsForm)).toThrow();
+    expect(() => component.root.findByType(ShippingForm)).toThrow();
+});
