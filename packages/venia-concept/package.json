@@ -16,7 +16,7 @@
     "build": "yarn run clean && yarn run build:esm && yarn run validate-queries && yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && yarn run validate-queries && yarn run build:stats",
     "build:dev": "echo 'Skipping venia-concept build...'",
-    "build:esm": "BABEL_ENV=development WARN_RESOLVE=1 babel src --out-dir esm --root-mode 'upward' --source-maps --copy-files",
+    "build:esm": "BABEL_ENV=development babel src --out-dir esm --root-mode 'upward' --source-maps --copy-files",
     "build:prod": "webpack -p --color --progress --profile --env.mode production",
     "clean": "rimraf dist esm",
     "prepublishOnly": "yarn run build",
