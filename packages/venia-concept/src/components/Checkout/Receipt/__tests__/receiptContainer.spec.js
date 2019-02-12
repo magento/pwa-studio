@@ -1,4 +1,4 @@
-import { reset } from 'src/actions/checkoutReceipt';
+import actions from 'src/actions/checkoutReceipt';
 import { continueShopping, createAccount } from 'src/actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
@@ -19,7 +19,7 @@ test('returns a connected Receipt component', () => {
     expect(Container.mapDispatchToProps).toMatchObject({
         continueShopping,
         createAccount,
-        reset
+        reset: actions.reset
     });
 });
 

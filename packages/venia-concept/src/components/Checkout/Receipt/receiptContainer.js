@@ -1,10 +1,12 @@
 import { connect } from 'src/drivers';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { reset } from 'src/actions/checkoutReceipt';
+import actions from 'src/actions/checkoutReceipt';
 import { continueShopping, createAccount } from 'src/actions/checkout';
 import Receipt from './receipt';
 import { getOrderInformation } from 'src/selectors/checkoutReceipt';
+
+const { reset } = actions;
 
 const mapStateToProps = state => ({
     order: getOrderInformation(state)
