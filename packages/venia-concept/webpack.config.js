@@ -178,7 +178,6 @@ module.exports = async function(env) {
                         test: new RegExp(
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
-                        // name: true,
                         chunks: 'all'
                     }
                 }
