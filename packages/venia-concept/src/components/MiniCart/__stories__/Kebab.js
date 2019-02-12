@@ -22,9 +22,9 @@ stories.add('Kebab Closed', () => (
 stories.add('Kebab Open', () => (
     <div style={styles}>
         <Kebab isOpen={true}>
-            <Section icon="heart" text="Section 1" />
-            <Section icon="x" text="Section 2" />
-            <Section icon="chevron-up" text="Section 3" />
+            <Section icon="Heart" text="Section 1" />
+            <Section icon="Edit2" text="Section 2" />
+            <Section icon="Trash" text="Section 3" />
             <Section text="Non-icon Section" />
         </Kebab>
     </div>

@@ -19,6 +19,9 @@ class Kebab extends Component {
     componentDidMount() {
         document.addEventListener('click', this.handleDocumentClick);
         document.addEventListener('touchend', this.handleDocumentClick);
+        if (this.props.isOpen) {
+            this.setState({ isOpen: true });
+        }
     }
 
     handleDocumentClick = event => {
