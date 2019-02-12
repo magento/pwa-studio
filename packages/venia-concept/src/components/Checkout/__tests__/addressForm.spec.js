@@ -2,7 +2,6 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 
 import AddressForm from '../addressForm';
-import { Form } from 'informed';
 
 jest.mock('src/classify');
 
