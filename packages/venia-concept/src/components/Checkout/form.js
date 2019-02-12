@@ -96,7 +96,7 @@ class Form extends Component {
         } = this.props;
         const { countries } = directory;
 
-        switch(editing){
+        switch (editing) {
             case 'address': {
                 const { shippingAddress } = this.props;
 
