@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, number, oneOfType, shape, string } from 'prop-types';
+import { bool, number, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './tile.css';
@@ -15,10 +15,14 @@ class Tile extends Component {
         hasFocus: bool,
         isSelected: bool,
         item: shape({
-            id: oneOfType([number, string]),
-            label: string
-        }),
+            label: string.isRequired
+        }).isRequired,
         itemIndex: number
+    };
+
+    static defaultProps = {
+        hasFocus: false,
+        isSelected: false
     };
 
     render() {
