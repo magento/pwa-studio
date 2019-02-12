@@ -57,6 +57,13 @@ class Category extends Component {
         id: 3
     };
 
+    componentDidUpdate(prevProps) {
+        // If the current page has changed, scroll back up to the top.
+        if (this.props.currentPage !== prevProps.currentPage) {
+            window.scrollTo(0, 0);
+        }
+    }
+
     render() {
         const {
             id,

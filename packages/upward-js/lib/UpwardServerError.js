@@ -4,7 +4,10 @@ class UpwardServerError extends Error {
     }
     constructor(originalError, message) {
         super(originalError);
-        this.message += ' -- ' + message;
+
+        if (message) {
+            this.message += ' -- ' + message;
+        }
     }
 }
 
