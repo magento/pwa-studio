@@ -15,7 +15,7 @@ const styles = {
 
 stories.add('Kebab Closed', () => (
     <div style={styles}>
-        <Kebab />
+        <Kebab isOpen={false} />
     </div>
 ));
 
