@@ -74,6 +74,9 @@
     "stream-snitch": "~0.0.3",
     "wait-for-expect": "~1.1.0"
   },
+  "optionalDependencies": {
+    "bundlesize": "~0.17.1"
+  },
   "engines": {
     "node": ">=10.7.0",
     "yarn": ">=1.12.0"
@@ -82,5 +85,15 @@
     "hooks": {
       "pre-push": "yarn run prettier:validate && yarn run lint"
     }
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./packages/venia-concept/dist/js/{client,vendor}.js",
+      "maxSize": "150 kB"
+    },
+    {
+      "path": "./packages/venia-concept/dist/js/[0-9]-*.js",
+      "maxSize": "21 kB"
+    }
+  ]
 }
