@@ -10,7 +10,7 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
-import WrappedCheckoutWrapper from '../index';
+import ConnectedCheckoutWrapper from '../index';
 import { CheckoutWrapper } from '../wrapper';
 import Flow from '../flow';
 
@@ -41,9 +41,9 @@ const defaultProps = {
 };
 
 test('returns a connected CheckoutWrapper component', () => {
-    expect(WrappedCheckoutWrapper.component).toBeInstanceOf(Function);
-    expect(WrappedCheckoutWrapper.mapStateToProps).toBeInstanceOf(Function);
-    expect(WrappedCheckoutWrapper.mapDispatchToProps).toMatchObject({
+    expect(ConnectedCheckoutWrapper.component).toBeInstanceOf(Function);
+    expect(ConnectedCheckoutWrapper.mapStateToProps).toBeInstanceOf(Function);
+    expect(ConnectedCheckoutWrapper.mapDispatchToProps).toMatchObject({
         beginCheckout,
         cancelCheckout,
         editOrder,
@@ -55,7 +55,7 @@ test('returns a connected CheckoutWrapper component', () => {
 });
 
 test('mapStateToProps correctly maps state to props', () => {
-    const { mapStateToProps } = WrappedCheckoutWrapper;
+    const { mapStateToProps } = ConnectedCheckoutWrapper;
 
     const state = {
         cart: {},
