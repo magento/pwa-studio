@@ -105,13 +105,7 @@ class Product extends Component {
                 {options}
                 <div className={classes.quantity}>
                     <div className={classes.quantityRow}>
-                        <select
-                            className={classes.quantitySelect}
-                            value={item.qty}
-                            readOnly
-                        >
-                            <option value={item.qty}>{item.qty}</option>
-                        </select>
+                        <span>{item.qty}</span>
                         <span className={classes.quantityOperator}>{'×'}</span>
                         <span className={classes.price}>
                             <Price
