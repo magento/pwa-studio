@@ -119,10 +119,7 @@ class CartOptions extends Component {
                     </section>
                 </div>
                 <div className={classes.save}>
-                    <Button
-                        priority="high"
-                        onClick={this.props.closeOptionsDrawer}
-                    >
+                    <Button onClick={this.props.closeOptionsDrawer}>
                         <span>Cancel</span>
                     </Button>
                     <Button priority="high" onClick={this.handleClick}>
