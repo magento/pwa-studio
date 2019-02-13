@@ -29,7 +29,7 @@ class ProductList extends Component {
         const {
             currencyCode,
             removeItemFromCart,
-            showEditPanel,
+            openOptionsDrawer,
             totalsItems,
             loadingElement,
             ...otherProps
@@ -44,7 +44,7 @@ class ProductList extends Component {
                         currencyCode={currencyCode}
                         removeItemFromCart={removeItemFromCart}
                         loadingElement={loadingElement}
-                        showEditPanel={showEditPanel}
+                        openOptionsDrawer={openOptionsDrawer}
                         totalsItems={totalsItems}
                         {...props}
                     />

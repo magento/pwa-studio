@@ -19,7 +19,8 @@
     transition-property: opacity, transform, visibility;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
     z-index: var(--base-z-index);
 }
 
@@ -46,12 +47,9 @@
     z-index: 100;
     top: 0;
     margin: 0;
-}
-
-.focusItem {
-    display: block;
-    box-shadow: 0 1px rgb(var(--venia-border));
-    padding: 1rem;
+    background-color: rgb(var(--venia-grey));
+    height: 100%;
+    opacity: 0.9;
 }
 
 .footer {
@@ -82,13 +80,13 @@
     z-index: 1;
 }
 
-.options {
-    padding: 1rem;
-    font-weight: bold;
+.subtotalLabel {
+    color: rgb(var(--venia-text-alt));
 }
 
-.price {
-    float: right;
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
 }
 
 .title {
@@ -106,26 +104,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.save {
-    justify-content: center;
-    display: flex;
-    padding: 1rem 0;
-}
-
-.save button {
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-.subtotalLabel {
-    color: rgb(var(--venia-text-alt));
-}
-
-.subtotalValue {
-    font-weight: 600;
-    margin-left: 0.5rem;
 }
 
 .placeholderButton {

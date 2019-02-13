@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { func, object, oneOf, shape, string } from 'prop-types';
 import Icon from 'src/components/Icon';
 import HeartIcon from 'react-feather/dist/icons/heart';
 import Edit2Icon from 'react-feather/dist/icons/edit-2';
@@ -14,6 +14,17 @@ const SectionIcons = {
 };
 
 class Section extends Component {
+    static propTypes = {
+        classes: shape({
+            menuItem: string,
+            text: string
+        }),
+        icon: oneOf(['Heart', 'Edit2', 'Trash']),
+        iconAttributes: object,
+        onClick: func,
+        text: string
+    };
+
     get icon() {
         const { icon } = this.props;
         const defaultAttributes = {

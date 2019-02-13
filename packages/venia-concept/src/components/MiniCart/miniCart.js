@@ -2,14 +2,18 @@ import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import { bool, func, object, shape, string } from 'prop-types';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
-import { getCartDetails, removeItemFromCart } from 'src/actions/cart';
+import {
+    getCartDetails,
+    updateItemInCart,
+    removeItemFromCart,
+    openOptionsDrawer,
+    closeOptionsDrawer
+} from 'src/actions/cart';
 import { cancelCheckout } from 'src/actions/checkout';
 import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
-import Button from 'src/components/Button';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 import EmptyMiniCart from './emptyMiniCart';
 import Mask from './mask';
@@ -17,6 +21,10 @@ import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
+import CartOptions from './cartOptions';
+import getProductDetailByName from '../../queries/getProductDetailByName.graphql';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { Query } from 'react-apollo';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
@@ -26,7 +34,9 @@ class MiniCart extends Component {
         cart: shape({
             details: object,
             guestCartId: string,
-            totals: object
+            totals: object,
+            isOptionsDrawerOpen: bool,
+            isLoading: bool
         }),
         classes: shape({
             body: string,
@@ -43,6 +53,9 @@ class MiniCart extends Component {
             totals: string
         }),
         isCartEmpty: bool,
+        updateItemInCart: func,
+        openOptionsDrawer: func.isRequired,
+        closeOptionsDrawer: func.isRequired,
         isMiniCartMaskOpen: bool
     };
 
@@ -86,7 +99,7 @@ class MiniCart extends Component {
             <ProductList
                 removeItemFromCart={removeItemFromCart}
                 loadingElement={this.loadingElement}
-                showEditPanel={this.showEditPanel}
+                openOptionsDrawer={this.openOptionsDrawer}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
                 totalsItems={cart.totals.items}
@@ -144,34 +157,47 @@ class MiniCart extends Component {
     }
 
     get productOptions() {
-        const { classes } = this.props;
+        const { props, state, closeOptionsDrawer } = this;
+        const { updateItemInCart, cart } = props;
+        const { focusItem } = state;
 
-        const itemName = this.state.focusItem
-            ? this.state.focusItem.name
-            : null;
-        const itemPrice = this.state.focusItem
-            ? this.state.focusItem.price
-            : null;
+        if (focusItem === null) return;
+        const hasOptions = focusItem.options.length !== 0;
 
-        return (
-            <div className={classes.content}>
-                <div className={classes.focusItem}>
-                    {itemName}
-                    <div className={classes.price}>${itemPrice}</div>
-                </div>
-                <div className={classes.options}>Choose a Size:</div>
-            </div>
-        );
-    }
+        return hasOptions ? (
+            // `Name` is being used here because GraphQL does not allow
+            // filtering products by id, and sku is unreliable without
+            // a reference to the base product. Additionally, `url-key`
+            // cannot be used because we don't have page context in cart.
+            <Query
+                query={getProductDetailByName}
+                variables={{ name: focusItem.name, onServer: false }}
+            >
+                {({ loading, error, data }) => {
+                    if (error) return <div>Data Fetch Error</div>;
+                    if (loading) return loadingIndicator;
 
-    get productConfirm() {
-        const { classes } = this.props;
+                    const itemWithOptions = data.products.items[0];
 
-        return (
-            <div className={classes.save}>
-                <Button onClick={this.hideEditPanel}>Cancel</Button>
-                <Button priority="high">Update Cart</Button>
-            </div>
+                    return (
+                        <CartOptions
+                            cartItem={focusItem}
+                            configItem={itemWithOptions}
+                            closeOptionsDrawer={closeOptionsDrawer}
+                            isLoading={cart.isLoading}
+                            updateCart={updateItemInCart}
+                        />
+                    );
+                }}
+            </Query>
+        ) : (
+            <CartOptions
+                cartItem={focusItem}
+                configItem={{}}
+                closeOptionsDrawer={closeOptionsDrawer}
+                isLoading={cart.isLoading}
+                updateCart={updateItemInCart}
+            />
         );
     }
 
@@ -185,17 +211,15 @@ class MiniCart extends Component {
         });
     };
 
-    showEditPanel = item => {
+    openOptionsDrawer = item => {
         this.setState({
-            isEditPanelOpen: true,
             focusItem: item
         });
+        this.props.openOptionsDrawer();
     };
 
-    hideEditPanel = () => {
-        this.setState({
-            isEditPanelOpen: false
-        });
+    closeOptionsDrawer = () => {
+        this.props.closeOptionsDrawer();
     };
 
     get miniCartInner() {
@@ -203,7 +227,6 @@ class MiniCart extends Component {
             checkout,
             productConfirm,
             productList,
-            productOptions,
             props,
             state,
             loading
@@ -216,8 +239,8 @@ class MiniCart extends Component {
             return <EmptyMiniCart />;
         }
 
-        const body = isEditPanelOpen ? productOptions : productList;
         const footer = isEditPanelOpen ? productConfirm : checkout;
+
         const footerClassName = isMiniCartMaskOpen
             ? classes.footerMaskOpen
             : classes.footer;
@@ -226,7 +249,7 @@ class MiniCart extends Component {
             <Fragment>
                 <div className={classes.body}>
                     {loading}
-                    {body}
+                    {productList}
                 </div>
                 <div className={footerClassName}>{footer}</div>
             </Fragment>
@@ -234,15 +257,19 @@ class MiniCart extends Component {
     }
 
     render() {
-        const { miniCartInner, props, state } = this;
+        const { miniCartInner, productOptions, props } = this;
 
-        const { classes, isOpen, isMiniCartMaskOpen, cancelCheckout } = props;
-
-        const { isEditPanelOpen } = state;
+        const {
+            classes,
+            isOpen,
+            isMiniCartMaskOpen,
+            cancelCheckout,
+            cart: { isOptionsDrawerOpen }
+        } = props;
 
         const className = isOpen ? classes.root_open : classes.root;
-
-        const title = isEditPanelOpen ? 'Edit Cart Item' : 'Shopping Cart';
+        const body = isOptionsDrawerOpen ? productOptions : miniCartInner;
+        const title = isOptionsDrawerOpen ? 'Edit Cart Item' : 'Shopping Cart';
 
         return (
             <aside className={className}>
@@ -254,7 +281,7 @@ class MiniCart extends Component {
                         <Icon src={CloseIcon} />
                     </Trigger>
                 </div>
-                {miniCartInner}
+                {body}
                 <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );
@@ -273,7 +300,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getCartDetails,
+    updateItemInCart,
     removeItemFromCart,
+    openOptionsDrawer,
+    closeOptionsDrawer,
     cancelCheckout
 };
 

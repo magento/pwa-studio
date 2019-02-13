@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { arrayOf, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
@@ -40,7 +40,8 @@ class Product extends Component {
             quote_id: string,
             sku: string.isRequired
         }).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string.isRequired,
+        openOptionsDrawer: func.isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -106,13 +107,7 @@ class Product extends Component {
                 {options}
                 <div className={classes.quantity}>
                     <div className={classes.quantityRow}>
-                        <select
-                            className={classes.quantitySelect}
-                            value={item.qty}
-                            readOnly
-                        >
-                            <option value={item.qty}>{item.qty}</option>
-                        </select>
+                        <span>{item.qty}</span>
                         <span className={classes.quantityOperator}>{'×'}</span>
                         <span className={classes.price}>
                             <Price
@@ -129,7 +124,7 @@ class Product extends Component {
                         onClick={this.favoriteItem}
                         icon="Heart"
                         iconAttributes={
-                            this.state.isFavorite ? favoritesFill : ''
+                            this.state.isFavorite ? favoritesFill : {}
                         }
                     />
                     <Section
@@ -154,7 +149,7 @@ class Product extends Component {
     };
 
     editItem = () => {
-        this.props.showEditPanel(this.props.item);
+        this.props.openOptionsDrawer(this.props.item);
     };
 
     removeItem = () => {
