@@ -2,7 +2,7 @@ import { dispatch, getState } from 'src/store';
 jest.mock('src/store');
 const thunkArgs = [dispatch, getState];
 
-import { createAccount } from '../asyncActions';
+import { createAccount } from '../index';
 
 const mockPayload = {
     accountInfo: {
