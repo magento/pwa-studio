@@ -1,12 +1,17 @@
 import React, { Component, Suspense } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { Price } from '@magento/peregrine';
+
 import LoadingIndicator from 'src/components/LoadingIndicator';
 import classify from 'src/classify';
 import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
+
+// TODO: get real currencyCode for cartItem
+const currencyCode = 'USD';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -103,8 +108,10 @@ class CartOptions extends Component {
         return (
             <Form className={classes.root}>
                 <div className={classes.focusItem}>
-                    {name}
-                    <div className={classes.price}>${price}</div>
+                    <span className={classes.name}>{name}</span>
+                    <span className={classes.price}>
+                        <Price currencyCode={currencyCode} value={price} />
+                    </span>
                 </div>
                 <div className={classes.form}>
                     {options}
@@ -127,9 +134,7 @@ class CartOptions extends Component {
                     </Button>
                 </div>
                 <div className={modalClass}>
-                    <span className={classes.modalText}>
-                        <LoadingIndicator>Updating Cart</LoadingIndicator>
-                    </span>
+                    <LoadingIndicator>Updating Cart</LoadingIndicator>
                 </div>
             </Form>
         );
