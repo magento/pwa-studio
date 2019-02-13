@@ -361,7 +361,7 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
     request.mockResolvedValueOnce(cartItem).mockResolvedValueOnce(cartItem);
     await addItemToCart(payload)(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(4);
+    expect(getState).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenCalledTimes(7);
     expect(request).toHaveBeenCalledTimes(4);
 });
@@ -722,7 +722,7 @@ test('getCartDetails thunk creates a guest cart if no ID is found', async () => 
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(5);
+    expect(getState).toHaveBeenCalledTimes(4);
     expect(mockGetItem).toHaveBeenCalled();
     const createCallArgs = request.mock.calls[0];
     const retrieveCallArgs = request.mock.calls[1];
@@ -785,7 +785,7 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(5);
+    expect(getState).toHaveBeenCalledTimes(4);
     expect(mockGetItem).toHaveBeenCalledWith('imagesBySku');
     expect(mockRemoveItem).toHaveBeenCalledWith('guestCartId');
     expect(mockSetItem).toHaveBeenCalledWith('guestCartId', 'BRAND_NEW_CART');
