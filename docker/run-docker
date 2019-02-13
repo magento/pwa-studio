@@ -12,6 +12,7 @@ HOSTPRESENT=false
 
 main () {
   # copy environment variables to .env in root for docker-compose to consume for build
+  message "Adding environment variables in root .env for docker setup."
   cp ./docker/.env.docker $ENVFILE 
   . $ENVFILE
 
@@ -118,9 +119,21 @@ start_docker () {
   message "Building PWA image"
   docker-compose build
 
+  # clean up the environment in the background
+  clean_up_env &
+
   message "Starting Docker network and containers"
-  message "You may see some warnings that @magento/venia-drivers could not be \n resolved. This is normal and not an error."
   docker-compose up
+}
+
+clean_up_env () {
+  # the docker-compose command needs the .env file to be present in order to run
+  # but we want to remove it after execution so it doesn't pollute the user's environment 
+  # when they switch to other branches or do not want to use the docker environment anymore
+  if [ -f .env ]; then
+    sleep 20
+    rm .env
+  fi
 }
 
 message () {

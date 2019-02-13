@@ -15,3 +15,5 @@ The domain is configurable. Two changes are needed to configure a new domain nam
 
 1. Change `PWA_STUDIO_PUBLIC_PATH` key to the new domain under `docker/.env.docker`.
 2. Change the `--host` value in the `watch:docker` script under `packages/venia-concept/package.json` to the new domain.
+
+*NOTE:* Open a new shell window for a clean work environment if you decide to work outside of the Docker environment.

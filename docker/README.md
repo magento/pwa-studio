@@ -2,7 +2,9 @@
 
 This directory stores certificates for local SSL/TLS, created by running `run-docker` script, as well as configuration for docker environment setup.
 
-Run the `docker/run-docker` script from the root of the repository to create a container running PWA with a secure https protocol. 
+Run the `docker/run-docker` script from the root of the repository to create a container running PWA with a secure https protocol.
+
+*NOTE: Running this script in the shell sets a number of environment variables for docker-compose to consume. You may want to run this in a separate shell if you desire to retain your shell environment for other purposes.*
 
 This script will:
 
