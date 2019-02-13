@@ -42,7 +42,10 @@ class ShippingForm extends Component {
 
         if (availableShippingMethods.length) {
             selectableShippingMethods = availableShippingMethods.map(
-                ({ code, title }) => ({ label: title, value: code })
+                ({ carrier_code, carrier_title }) => ({
+                    label: carrier_title,
+                    value: carrier_code
+                })
             );
             initialValue =
                 shippingMethod || availableShippingMethods[0].carrier_code;
@@ -89,7 +92,7 @@ class ShippingForm extends Component {
 
     submit = ({ shippingMethod }) => {
         const selectedShippingMethod = this.props.availableShippingMethods.find(
-            ({ code }) => code === shippingMethod
+            ({ carrier_code }) => carrier_code === shippingMethod
         );
 
         if (!selectedShippingMethod) {
