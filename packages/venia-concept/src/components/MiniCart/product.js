@@ -122,7 +122,7 @@ class Product extends Component {
                         onClick={this.favoriteItem}
                         icon="Heart"
                         iconAttributes={
-                            this.state.isFavorite ? favoritesFill : ''
+                            this.state.isFavorite ? favoritesFill : {}
                         }
                     />
                     <Section
