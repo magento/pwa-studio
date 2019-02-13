@@ -9,6 +9,7 @@ import store from 'src/store';
 
 const stories = storiesOf('Header', module);
 const apiBase = new URL('/graphql', location.origin).toString();
+const noop = () => {};
 
 stories.add('Search Bar Closed', () => (
     <Adapter
@@ -16,7 +17,11 @@ stories.add('Search Bar Closed', () => (
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
     >
-        <Header classes={defaultClasses} searchOpen={false} />
+        <Header
+            classes={defaultClasses}
+            searchOpen={false}
+            toggleSearch={noop}
+        />
     </Adapter>
 ));
 
@@ -26,6 +31,10 @@ stories.add('Search Bar Open', () => (
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
     >
-        <Header classes={defaultClasses} searchOpen={true} />
+        <Header
+            classes={defaultClasses}
+            searchOpen={true}
+            toggleSearch={noop}
+        />
     </Adapter>
 ));
