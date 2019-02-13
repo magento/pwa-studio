@@ -11,7 +11,9 @@ export const initialState = {
     guestCartId: null,
     paymentMethods: [],
     shippingMethods: [],
-    totals: {}
+    totals: {},
+    isOptionsDrawerOpen: false,
+    isLoading: false
 };
 
 const reducerMap = {
@@ -47,6 +49,16 @@ const reducerMap = {
             loading: false
         };
     },
+    [actions.updateItem.request]: (state, { payload, error }) => {
+        if (error) {
+            return initialState;
+        }
+        return {
+            ...state,
+            ...payload,
+            isLoading: true
+        };
+    },
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
@@ -59,6 +71,19 @@ const reducerMap = {
         return {
             ...state,
             ...payload
+        };
+    },
+    [actions.openOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: true
+        };
+    },
+    [actions.closeOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: false,
+            isLoading: false
         };
     },
     [checkoutActions.order.accept]: () => {
