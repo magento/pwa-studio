@@ -7,7 +7,9 @@ export const name = 'cart';
 
 export const initialState = {
     details: {},
+    loading: false,
     guestCartId: null,
+    paymentMethods: [],
     shippingMethods: [],
     totals: {},
     isOptionsDrawerOpen: false,
@@ -25,17 +27,26 @@ const reducerMap = {
             guestCartId: payload
         };
     },
+    [actions.getDetails.request]: (state, { payload }) => {
+        return {
+            ...state,
+            guestCartId: payload,
+            loading: true
+        };
+    },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
+                loading: false,
                 guestCartId: null
             };
         }
 
         return {
             ...state,
-            ...payload
+            ...payload,
+            loading: false
         };
     },
     [actions.updateItem.request]: (state, { payload, error }) => {
