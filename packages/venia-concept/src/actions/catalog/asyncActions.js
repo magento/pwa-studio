@@ -18,7 +18,6 @@ export const getAllCategories = () =>
 export const setCurrentPage = payload =>
     async function thunk(dispatch) {
         dispatch(actions.setCurrentPage.receive(payload));
-        window.scrollTo(0, 0);
     };
 
 export const setPrevPageTotal = payload =>

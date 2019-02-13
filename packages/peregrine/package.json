@@ -38,15 +38,15 @@
     "@storybook/react": "~4.1.6",
     "concurrently": "~4.1.0",
     "intl": "~1.2.5",
-    "react": "~16.7.0",
-    "react-dom": "~16.7.0",
+    "react": "~16.8.0",
+    "react-dom": "~16.8.0",
     "react-router-dom": "~4.4.0-beta.6",
     "rimraf": "~2.6.3"
   },
   "peerDependencies": {
     "@babel/runtime": "~7.2.0",
-    "react": "~16.7.0",
-    "react-dom": "~16.7.0",
+    "react": "~16.8.0",
+    "react-dom": "~16.8.0",
     "react-router-dom": "~4.4.0-beta.6"
   },
   "engines": {
