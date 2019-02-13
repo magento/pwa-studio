@@ -4,9 +4,7 @@ let shrinkRay;
 try {
     shrinkRay = require('shrink-ray-current');
 } catch (error) {
-    console.warn(
-        'Missing dependency: `shrink-ray-current`. Ensure additional tools are installed: https://github.com/nodejs/node-gyp#installation'
-    );
+    shrinkRay = false;
 }
 
 // TODO: node-helmet and any other zero-conf best practices should go here.
@@ -15,6 +13,14 @@ function bestPractices() {
 
     if (shrinkRay) {
         bestPracticeMiddlewares.use(shrinkRay());
+    } else {
+        console.warn(
+            `Cannot add compression middleware: dependency \`shrink-ray-current\` is not
+installed. Assets will be served uncompressed.
+
+If possible, install additional tools to build NodeJS native dependencies:
+https://github.com/nodejs/node-gyp#installation`
+        );
     }
 
     return bestPracticeMiddlewares;

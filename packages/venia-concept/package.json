@@ -58,8 +58,7 @@
     "react-router-dom": "~4.4.0-beta.6",
     "redux": "~4.0.1",
     "redux-actions": "~2.6.4",
-    "redux-thunk": "~2.3.0",
-    "sharp": "~0.21.2"
+    "redux-thunk": "~2.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.2.2",
@@ -92,6 +91,9 @@
     "webpack-bundle-analyzer": "~3.0.3",
     "webpack-cli": "~3.2.1",
     "webpack-dev-server": "~3.1.14"
+  },
+  "optionalDependencies": {
+    "sharp": "~0.21.2"
   },
   "engines": {
     "node": ">=10.7.0",
