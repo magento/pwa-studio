@@ -7,22 +7,16 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 
-const stepMap = {
-    cart: 1,
-    form: 2,
-    receipt: 3
-};
-
 class Flow extends Component {
     static propTypes = {
         actions: shape({
-            beginCheckout: func.isRequired,
-            cancelCheckout: func.isRequired,
-            editOrder: func.isRequired,
-            submitShippingAddress: func.isRequired,
-            submitOrder: func.isRequired,
-            submitPaymentMethodAndBillingAddress: func.isRequired,
-            submitShippingMethod: func.isRequired
+            beginCheckout: func,
+            cancelCheckout: func,
+            editOrder: func,
+            submitShippingAddress: func,
+            submitOrder: func,
+            submitPaymentMethodAndBillingAddress: func,
+            submitShippingMethod: func
         }).isRequired,
         cart: shape({
             details: object,
@@ -71,8 +65,8 @@ class Flow extends Component {
             shippingMethod: string,
             shippingTitle: string,
             step: oneOf(['cart', 'form', 'receipt']).isRequired,
-            submitting: bool.isRequired
-        }),
+            submitting: bool
+        }).isRequired,
         directory: shape({
             countries: array
         }),
@@ -132,8 +126,8 @@ class Flow extends Component {
             submitting
         } = checkout;
 
-        switch (stepMap[step]) {
-            case stepMap.cart: {
+        switch (step) {
+            case 'cart': {
                 const stepProps = {
                     beginCheckout,
                     ready: isCartReady,
@@ -142,7 +136,7 @@ class Flow extends Component {
 
                 return <Cart {...stepProps} />;
             }
-            case stepMap.form: {
+            case 'form': {
                 const stepProps = {
                     availableShippingMethods,
                     billingAddress,
@@ -170,7 +164,7 @@ class Flow extends Component {
 
                 return <Form {...stepProps} />;
             }
-            case stepMap.receipt: {
+            case 'receipt': {
                 return <Receipt />;
             }
             default: {
