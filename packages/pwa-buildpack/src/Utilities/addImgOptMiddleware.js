@@ -1,30 +1,22 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 let cache;
 let expressSharp;
-const missingDeps = [];
+const missingDeps = '';
+const markDepInvalid = (dep, e) => {
+    missingDeps += `- ${dep}: Reason: ${e.message.split('\n')[0]}\n`;
+};
 try {
     cache = require('apicache').middleware;
 } catch (e) {
-    missingDeps.push('- apicache');
+    markDepInvalid('apicache', e);
 }
 try {
     expressSharp = require('@magento/express-sharp');
 } catch (e) {
-    missingDeps.push('- @magento/express-sharp');
+    markDepInvalid('@magento/express-sharp', e);
 }
 
 function addImgOptMiddleware(app, env = process.env) {
-    if (missingDeps.length > 0) {
-        console.warn(
-            `Cannot add image optimization middleware due to missing dependencies:
-${missingDeps.join('\n')}
-Images will be served uncompressed.
-
-If possible, install additional tools to build NodeJS native dependencies:
-https://github.com/nodejs/node-gyp#installation`
-        );
-        return;
-    }
     const imgOptConfig = {
         baseHost: env.MAGENTO_BACKEND_URL,
         mountPoint: env.IMAGE_SERVICE_PATH,
@@ -36,18 +28,37 @@ https://github.com/nodejs/node-gyp#installation`
         `mounting onboard image optimization middleware express-sharp with config %o`,
         imgOptConfig
     );
-    app.use(
-        imgOptConfig.mountPoint,
-        cache(imgOptConfig.cacheExpires, null, {
+    let cacheMiddleware;
+    let sharpMiddleware;
+    try {
+        cacheMiddleware = cache(imgOptConfig.cacheExpires, null, {
             debug: imgOptConfig.debugCache,
             redisClient:
                 imgOptConfig.redis &&
                 require('redis').redisClient(imgOptConfig.redis)
-        }),
-        expressSharp({
+        });
+    } catch (e) {
+        markDepInvalid('apicache', e);
+    }
+    try {
+        sharpMiddleware = expressSharp({
             baseHost: imgOptConfig.baseHost
-        })
-    );
+        });
+    } catch (e) {
+        markDepInvalid('@magento/express-sharp', e);
+    }
+    if (missingDeps) {
+        console.warn(
+            `Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
+${listInvalidDeps()}
+Images will be served uncompressed.
+
+If possible, install additional tools to build NodeJS native dependencies:
+https://github.com/nodejs/node-gyp#installation`
+        );
+    } else {
+        app.use(imgOptConfig.mountPoint, cacheMiddleware, sharpMiddleware);
+    }
 }
 
 module.exports = addImgOptMiddleware;

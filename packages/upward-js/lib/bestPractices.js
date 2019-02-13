@@ -11,12 +11,12 @@ try {
 function bestPractices() {
     const bestPracticeMiddlewares = connect();
 
-    if (shrinkRay) {
+    try {
         bestPracticeMiddlewares.use(shrinkRay());
-    } else {
+    } catch (e) {
         console.warn(
             `Cannot add compression middleware: dependency \`shrink-ray-current\` is not
-installed. Assets will be served uncompressed.
+installed or not compatible with this environment. Assets will be served uncompressed.
 
 If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation`
