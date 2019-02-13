@@ -22,7 +22,7 @@ class Kebab extends Component {
         this.kebabButtonRef = createRef();
 
         this.state = {
-            isOpen: !!this.props.isOpen
+            isOpen: !!props.isOpen
         };
     }
 
