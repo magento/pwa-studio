@@ -7,10 +7,11 @@ export const name = 'cart';
 
 export const initialState = {
     details: {},
+    loading: false,
     guestCartId: null,
+    paymentMethods: [],
     shippingMethods: [],
-    totals: {},
-    paymentMethods: []
+    totals: {}
 };
 
 const reducerMap = {
