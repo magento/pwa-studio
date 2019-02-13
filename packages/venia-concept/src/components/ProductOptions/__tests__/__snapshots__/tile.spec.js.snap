@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`appends "_focused" to className if hasFocus is true 1`] = `
+<button
+  className="root_focused"
+>
+  <span>
+    red
+  </span>
+</button>
+`;
+
+exports[`appends "_selected" to className if isSelected is true 1`] = `
+<button
+  className="root_selected"
+>
+  <span>
+    red
+  </span>
+</button>
+`;
+
+exports[`renders a Tile correctly 1`] = `
+<button
+  className="root"
+>
+  <span>
+    red
+  </span>
+</button>
+`;

@@ -1,6 +1,5 @@
 .root {
     --base-z-index: 4;
-    --minicart-width: 360px;
     --minicart-height: 100vh;
     --minicart-header-height: 3.5rem;
     align-content: start;
@@ -20,7 +19,8 @@
     transition-property: opacity, transform, visibility;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
-    width: var(--minicart-width);
+    width: 100%;
+    max-width: 360px;
     z-index: var(--base-z-index);
 }
 
