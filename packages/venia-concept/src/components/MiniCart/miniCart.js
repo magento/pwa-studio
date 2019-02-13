@@ -178,28 +178,24 @@ class MiniCart extends Component {
                     const itemWithOptions = data.products.items[0];
 
                     return (
-                        <Fragment>
-                            <CartOptions
-                                cartItem={focusItem}
-                                configItem={itemWithOptions}
-                                closeOptionsDrawer={closeOptionsDrawer}
-                                isLoading={cart.isLoading}
-                                updateCart={updateItemInCart}
-                            />
-                        </Fragment>
+                        <CartOptions
+                            cartItem={focusItem}
+                            configItem={itemWithOptions}
+                            closeOptionsDrawer={closeOptionsDrawer}
+                            isLoading={cart.isLoading}
+                            updateCart={updateItemInCart}
+                        />
                     );
                 }}
             </Query>
         ) : (
-            <Fragment>
-                <CartOptions
-                    cartItem={focusItem}
-                    configItem={{}}
-                    closeOptionsDrawer={closeOptionsDrawer}
-                    isLoading={cart.isLoading}
-                    updateCart={updateItemInCart}
-                />
-            </Fragment>
+            <CartOptions
+                cartItem={focusItem}
+                configItem={{}}
+                closeOptionsDrawer={closeOptionsDrawer}
+                isLoading={cart.isLoading}
+                updateCart={updateItemInCart}
+            />
         );
     }
 
