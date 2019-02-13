@@ -1,6 +1,6 @@
 import React from 'react';
+import testRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import Button from 'src/components/Button';
 import Receipt, {
     CREATE_ACCOUNT_BUTTON_ID,
     CONTINUE_SHOPPING_BUTTON_ID
@@ -11,12 +11,19 @@ const classes = {
     textBlock: 'textBlock'
 };
 
-test('renders correctly', () => {
-    const wrapper = shallow(<Receipt classes={classes} />).dive();
+jest.mock('src/classify');
 
-    expect(wrapper.find(`.${classes.header}`)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.textBlock}`)).toHaveLength(2);
-    expect(wrapper.find(Button)).toHaveLength(2);
+test('renders a Receipt component correctly', () => {
+    const props = {
+        continueShopping: jest.fn(),
+        order: { id: '123' },
+        createAccount: jest.fn(),
+        reset: jest.fn()
+    };
+
+    const component = testRenderer.create(<Receipt {...props} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('calls `handleContinueShopping` when `Continue Shopping` button is pressed', () => {
