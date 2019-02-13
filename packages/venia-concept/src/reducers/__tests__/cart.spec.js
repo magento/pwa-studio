@@ -52,6 +52,7 @@ test('getDetails.receive: merges payload with state', () => {
             }
         )
     ).toEqual({
+        loading: false,
         other: 'stuff',
         totals: {
             total: 200

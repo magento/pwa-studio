@@ -290,10 +290,9 @@ export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
     return async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        const { cart, user } = getState();
         const { guestCartId } = cart;
 
-        const { user } = getState();
         if (user.isSignedIn) {
             // TODO: handle authed carts
             // if a user creates an account,
