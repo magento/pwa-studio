@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a ResetButton component 1`] = `
+<button
+  className="root_normalPriority"
+  onClick={[MockFunction]}
+  type="button"
+>
+  <span
+    className="content"
+  >
+    Continue Shopping
+  </span>
+</button>
+`;
