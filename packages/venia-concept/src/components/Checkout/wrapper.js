@@ -29,15 +29,15 @@ const isCheckoutReady = checkout => {
     );
 };
 
-class CheckoutWrapper extends Component {
+export class CheckoutWrapper extends Component {
     static propTypes = {
-        beginCheckout: func.isRequired,
-        cancelCheckout: func.isRequired,
+        beginCheckout: func,
+        cancelCheckout: func,
         cart: shape({
-            details: object,
+            details: object.isRequired,
             guestCartId: string,
             totals: object
-        }),
+        }).isRequired,
         checkout: shape({
             availableShippingMethods: array,
             billingAddress: shape({
@@ -85,11 +85,11 @@ class CheckoutWrapper extends Component {
         directory: shape({
             countries: array
         }),
-        editOrder: func.isRequired,
-        submitShippingAddress: func.isRequired,
-        submitOrder: func.isRequired,
-        submitPaymentMethodAndBillingAddress: func.isRequired,
-        submitShippingMethod: func.isRequired
+        editOrder: func,
+        submitShippingAddress: func,
+        submitOrder: func,
+        submitPaymentMethodAndBillingAddress: func,
+        submitShippingMethod: func
     };
 
     render() {
