@@ -205,14 +205,16 @@ export const getCartDetails = (payload = {}) => {
             return;
         }
 
-        dispatch(actions.getDetails.request(guestCartId));
-
         // if there isn't a guest cart, create one
         // then retry this operation
         if (!guestCartId) {
             await dispatch(createGuestCart());
             return thunk(...arguments);
         }
+
+        // Once we have the cart id indicate that we are starting to make
+        // async requests for the details.
+        dispatch(actions.getDetails.request(guestCartId));
 
         try {
             const [

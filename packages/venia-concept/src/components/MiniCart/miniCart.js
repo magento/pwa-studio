@@ -17,6 +17,7 @@ import ProductList from './productList';
 import Trigger from './trigger';
 import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 
@@ -217,12 +218,14 @@ class MiniCart extends Component {
     }
 
     render() {
-        if (this.props.loading) {
-            return <div>Fetching Data</div>;
-        }
-
         const { miniCartInner, props } = this;
-        const { classes, isOpen, isMiniCartMaskOpen, cancelCheckout } = props;
+        const {
+            classes,
+            cart,
+            isOpen,
+            isMiniCartMaskOpen,
+            cancelCheckout
+        } = props;
         const className = isOpen ? classes.root_open : classes.root;
         const title = this.state.isEditPanelOpen
             ? 'Edit Cart Item'
@@ -238,7 +241,7 @@ class MiniCart extends Component {
                         <Icon src={CloseIcon} />
                     </Trigger>
                 </div>
-                {miniCartInner}
+                {cart.loading ? <LoadingIndicator /> : miniCartInner}
                 <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );

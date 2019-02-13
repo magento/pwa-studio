@@ -9,7 +9,8 @@ export const initialState = {
     details: {},
     guestCartId: null,
     shippingMethods: [],
-    totals: {}
+    totals: {},
+    paymentMethods: []
 };
 
 const reducerMap = {
@@ -23,17 +24,26 @@ const reducerMap = {
             guestCartId: payload
         };
     },
+    [actions.getDetails.request]: (state, { payload }) => {
+        return {
+            ...state,
+            guestCartId: payload,
+            loading: true
+        };
+    },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
+                loading: false,
                 guestCartId: null
             };
         }
 
         return {
             ...state,
-            ...payload
+            ...payload,
+            loading: false
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {
