@@ -14,12 +14,12 @@ class Receipt extends Component {
             footer: string,
             root: string
         }),
-        continueShopping: func,
+        continueShopping: func.isRequired,
         order: shape({
             id: string
-        }),
-        createAccount: func,
-        reset: func
+        }).isRequired,
+        createAccount: func.isRequired,
+        reset: func.isRequired
     };
 
     static defaultProps = {

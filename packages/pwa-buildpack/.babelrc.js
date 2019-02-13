@@ -1,6 +1,6 @@
 const config = {
-    // Ignore __mocks__, __stories__, etc.
-    ignore: [/\/__\w+__\//],
+    // Ignore everything with underscores except stories
+    ignore: [/\/__(tests?|mocks|fixtures|helpers)__\//],
     plugins: [
         ['@babel/plugin-proposal-class-properties', { loose: false }],
         ['@babel/plugin-syntax-jsx'],

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Label component as label if plain is false 1`] = `
+<label
+  className="root"
+/>
+`;
+
+exports[`renders a Label component as span if plain is true 1`] = `
+<span
+  className="root"
+/>
+`;
