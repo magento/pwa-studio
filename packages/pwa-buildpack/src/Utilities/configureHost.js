@@ -4,7 +4,7 @@ const { createHash } = require('crypto');
 const devcert = require('devcert');
 const os = require('os');
 const chalk = require('chalk');
-const execa = require('execa');
+const isElevated = require('is-elevated');
 const { username } = os.userInfo();
 
 /**
@@ -30,12 +30,6 @@ proto.isNSSInstalled = function() {
 const DEFAULT_NAME = 'my-pwa';
 const DEV_DOMAIN = 'local.pwadev';
 
-const isSudoSession = () =>
-    execa
-        .shell('sudo -n true')
-        .then(() => true)
-        .catch(() => false);
-
 const alreadyProvisioned = hostname =>
     devcert.configuredDomains().includes(hostname);
 
@@ -55,7 +49,7 @@ function getCert(hostname) {
         try {
             if (!alreadyProvisioned(hostname)) {
                 if (process.stdin.isTTY) {
-                    if (!(await isSudoSession())) {
+                    if (!(await isElevated())) {
                         console.warn(
                             chalk.greenBright(`Creating a local development domain requires temporary administrative privileges.
 Please enter the password for ${chalk.whiteBright(

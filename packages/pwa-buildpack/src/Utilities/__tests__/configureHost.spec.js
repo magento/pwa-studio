@@ -1,4 +1,5 @@
 jest.mock('devcert');
+jest.mock('is-elevated', () => async () => true);
 
 const FAKE_CWD = '/path/to/fake/cwd';
 
@@ -7,7 +8,7 @@ const pkg = jest.fn();
 jest.doMock(pkgLocTest, pkg, { virtual: true });
 const devcert = require('devcert');
 const { configureHost } = require('../');
-const execa = require('execa');
+const isElevated = require('is-elevated');
 
 const fakeCertPair = {
     key: Buffer.from('fakeKey'),
@@ -68,13 +69,11 @@ beforeEach(() => {
     jest.spyOn(process, 'cwd');
     process.cwd.mockReturnValue(FAKE_CWD);
     jest.spyOn(console, 'warn').mockImplementation();
-    jest.spyOn(execa, 'shell').mockImplementation(() => Promise.resolve());
 });
 
 afterEach(() => {
     process.cwd.mockRestore();
     console.warn.mockRestore();
-    execa.shell.mockRestore();
 });
 
 const hostRegex = (
@@ -170,7 +169,7 @@ test('warns about sudo prompt if cert needs to be created', async () => {
     await configureHost({ subdomain: 'best-boss-i-ever-had' });
     expect(console.warn).not.toHaveBeenCalled();
     simulate.certCreated();
-    execa.shell.mockRejectedValueOnce(new Error('wat'));
+    isElevated.mockResolvedValueOnce(false);
     await configureHost({ subdomain: 'bar-none' });
     process.stdin.isTTY = oldIsTTY;
     expect(console.warn).toHaveBeenCalledWith(
