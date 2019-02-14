@@ -260,11 +260,11 @@ class MiniCart extends Component {
         const { miniCartInner, productOptions, props } = this;
 
         const {
-            classes,
-            isOpen,
-            isMiniCartMaskOpen,
             cancelCheckout,
-            cart: { isOptionsDrawerOpen }
+            cart: { isOptionsDrawerOpen, loading },
+            classes,
+            isMiniCartMaskOpen,
+            isOpen
         } = props;
 
         const className = isOpen ? classes.root_open : classes.root;
@@ -281,7 +281,7 @@ class MiniCart extends Component {
                         <Icon src={CloseIcon} />
                     </Trigger>
                 </div>
-                {body}
+                {loading ? loadingIndicator : body}
                 <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );

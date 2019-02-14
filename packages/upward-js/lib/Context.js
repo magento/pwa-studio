@@ -64,12 +64,12 @@ class Context {
     }
 
     async get(lookup) {
-        const path = ContextPath.from(lookup);
-        debug('lookup %s at path %s', lookup, path);
-        if (constants.has(path.toString())) {
+        if (constants.has(lookup) || constants.has(lookup.toString())) {
             debug('%s is a constant', lookup);
             return lookup;
         }
+        const path = ContextPath.from(lookup);
+        debug('lookup %s at path %s', lookup, path);
         const base = path.base();
         debug('%s is from context base %s', lookup, base);
         if (!this._data.hasOwnProperty(base)) {
