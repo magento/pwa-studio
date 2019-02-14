@@ -23,7 +23,7 @@ export default class Price extends PureComponent {
          */
         currencyCode: string.isRequired,
         /**
-         * Class names to use when styling this component 
+         * Class names to use when styling this component
          */
         classes: shape({
             currency: string,

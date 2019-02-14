@@ -12,7 +12,7 @@ import Items from './items';
 class List extends Component {
     static propTypes = {
         /**
-         * Class names to use when styling this component 
+         * Class names to use when styling this component
          */
         classes: PropTypes.shape({
             root: PropTypes.string
