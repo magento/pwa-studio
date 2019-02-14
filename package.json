@@ -18,7 +18,6 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "build:dev": "yarn workspaces run build:dev",
-    "bundlesize": "npx bundlesize",
     "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
@@ -47,7 +46,6 @@
     "@magento/eslint-config": "~1.3.0",
     "babel-eslint": "~10.0.1",
     "babel-plugin-module-resolver": "~3.2.0",
-    "bundlesize": "~0.17.1",
     "chalk": "~2.4.2",
     "chokidar": "~2.0.4",
     "coveralls": "~3.0.2",
@@ -75,6 +73,9 @@
     "prettier-check": "~2.0.0",
     "stream-snitch": "~0.0.3",
     "wait-for-expect": "~1.1.0"
+  },
+  "optionalDependencies": {
+    "bundlesize": "~0.17.1"
   },
   "engines": {
     "node": ">=10.7.0",
