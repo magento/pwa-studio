@@ -34,7 +34,7 @@ export default function errorRecord(error, window, context, customStack) {
     if (customStack) {
         stack = customStack;
     } else {
-        /** istanbul ignore next */
+        /* istanbul ignore next */
         if (Error.captureStackTrace) {
             Error.captureStackTrace(error, context);
         }
@@ -52,7 +52,7 @@ export default function errorRecord(error, window, context, customStack) {
     errorRecords.set(error, record);
     // In development mode, React logs these already.
     // Log in production mode so that users can give Support helpful debug info.
-    /** istanbul ignore next */
+    /* istanbul ignore next */
     if (process.env.NODE_ENV === 'production') {
         logError(
             `%cUnhandled ${record.id}`,

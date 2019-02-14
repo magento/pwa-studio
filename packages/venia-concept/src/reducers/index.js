@@ -1,4 +1,4 @@
-import combineReducersWithErrorHandling from 'src/util/combineReducersWithErrorHandling';
+import { combineReducers } from 'redux';
 
 import app from './app';
 import cart from './cart';
@@ -10,7 +10,7 @@ import purchaseDetails from './purchaseDetails';
 import checkoutReceipt from './checkoutReceipt';
 import purchaseHistory from './purchaseHistory';
 
-export default combineReducersWithErrorHandling({
+export default combineReducers({
     app,
     cart,
     catalog,

@@ -1,14 +1,10 @@
-import combineReducersWithErrorHandling from '../combineReducersWithErrorHandling';
-import { combineReducers } from 'redux';
+import errorHandlerEnhancer from '../errorHandler';
 import app from 'src/actions/app';
 const APP_DISMISS_ERROR = app.markErrorHandled.toString();
 
-jest.mock('redux');
-
 const rootReducer = jest.fn(() => ({ other: 'stuff' }));
-combineReducers.mockImplementation(() => rootReducer);
 
-let reducer = combineReducersWithErrorHandling({});
+const reducer = errorHandlerEnhancer(x => x)(rootReducer);
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 jest.spyOn(console, 'log').mockImplementation(() => {});
@@ -19,9 +15,8 @@ afterAll(() => {
 });
 
 test('creates state with unhandled errors list if none exists', () => {
-    const reducer = combineReducersWithErrorHandling({});
-    const state = reducer({}, { type: 'init' });
-    expect(combineReducers).toHaveBeenCalled();
+    const reducer = errorHandlerEnhancer(x => x)(rootReducer);
+    const state = reducer(undefined, { type: 'init' });
     expect(rootReducer).toHaveBeenCalled();
     expect(state).toHaveProperty('unhandledErrors', []);
 });

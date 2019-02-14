@@ -15,12 +15,11 @@
  * error is unhandled and pushes it into an `errors` array property on the root
  * store.
  *
- * This `errors` colletion represents unhandled errors to be displayed in the
+ * This `errors` collection represents unhandled errors to be displayed in the
  * next render. To dismiss an error, dispatch the ERROR_DISMISS action with the
  * error as payload, and this reducer will remove it from the array.
  *
  */
-import { combineReducers } from 'redux';
 import app from 'src/actions/app';
 import errorRecord from 'src/util/createErrorRecord';
 const APP_DISMISS_ERROR = app.markErrorHandled.toString();
@@ -64,7 +63,7 @@ function sliceHandledError(state, error) {
  * @param {object} fullStoreState
  * @param {object} action
  */
-function errorReducer(state = {}, action) {
+function errorReducer(state, action) {
     const { unhandledErrors } = state;
     const { type, payload } = action;
 
@@ -134,18 +133,16 @@ function errorReducer(state = {}, action) {
 }
 
 /**
- * Wrapper function for Redux `combineReducers()` which adds an error reducer
- * and a root `unhandledErrors` collection to state.
- * Since `combineReducers()` returns a function which validates its state, it
- * will error if it sees the "unrecognized" `unhandledErrors` property. This
- * function hides that property by extracting it from state, then running the
- * store root reducer on the clean state, then recombining the state and
- * transforming it with the error reducer.
+ * Wrapper function for a Redux reducer which adds an error reducer and a root
+ * `unhandledErrors` collection to state. Since many reducers validate their
+ * state objects, they will error if they see the "unrecognized"
+ * `unhandledErrors` property. This function hides that property by extracting
+ * it from state, then running the passed root reducer on the clean state, then
+ * recombining the state and transforming it with the error reducer.
  *
- * @param {Object} slices Reducer map for Redux `combineReducers()`.
+ * @param {Function} rootReducer Original root reducer.
  */
-export default function combineReducersWithErrorHandling(slices) {
-    const rootReducer = combineReducers(slices);
+function wrapReducerWithErrorHandling(rootReducer) {
     return function errorHandlingRootReducer(state = {}, action) {
         const { unhandledErrors = [], ...restOfState } = state;
         const nextState = rootReducer(restOfState, action);
@@ -154,4 +151,15 @@ export default function combineReducersWithErrorHandling(slices) {
         // so it can trim stack traces using `this`.
         return errorReducer.call(errorHandlingRootReducer, nextState, action);
     };
+}
+
+/**
+ * Store enhancer which returns a StoreCreator, which accepts a
+ * root reducer and an initial state and returns a new store.
+ * It is in this function that we can intercept the root reducer
+ * and wrap it with error handling.
+ */
+export default function createErrorHandlingStore(createStore) {
+    return (reducer, ...args) =>
+        createStore(wrapReducerWithErrorHandling(reducer), ...args);
 }
