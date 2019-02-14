@@ -5,17 +5,39 @@ import fromRenderProp from '../util/fromRenderProp';
 import iterable from '../validators/iterable';
 import Items from './items';
 
+/**
+ * The **List** component maps a collection of data objects into an array of elements.
+ * It also manages the selection and focus of those elements.
+ */
 class List extends Component {
     static propTypes = {
+        /**
+         * Class names to use when styling this component 
+         */
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
         getItemKey: PropTypes.func.isRequired,
+        /**
+         * An iterable that yields `[key, item]` pairs such as an ES2015 Map
+         */
         items: iterable.isRequired,
+        /**
+         * A render prop for the list element. A tagname string, such as `"div"`, is also valid.
+         */
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
             .isRequired,
+        /**
+         * A render prop for the list item elements. A tagname string, such as `"div"`, is also valid.
+         */
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+        /**
+         * A callback that fires when the selection state changes.
+         */
         onSelectionChange: PropTypes.func,
+        /**
+         * A string corresponding to a selection model.
+         */
         selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
     };
 
