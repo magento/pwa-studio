@@ -159,10 +159,11 @@ module.exports = async function(env) {
                     const load = [];
                     const { js, ...entries } = assets.entrypoints;
 
-                    if(Array.isArray(js)) load.push(...js);
+                    if (Array.isArray(js)) load.push(...js);
 
                     Object.keys(entries).forEach(entryName => {
-                        Array.isArray(entries[entryName].js) && load.push(...entries[entryName].js);
+                        Array.isArray(entries[entryName].js) &&
+                            load.push(...entries[entryName].js);
                     });
 
                     assets.bundles = {
