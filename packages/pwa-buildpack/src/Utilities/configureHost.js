@@ -4,8 +4,14 @@ const { createHash } = require('crypto');
 const devcert = require('devcert');
 const os = require('os');
 const chalk = require('chalk');
+const execa = require('execa');
 const isElevated = require('is-elevated');
+const appConfigPath = require('application-config-path');
 const { username } = os.userInfo();
+
+// On OSX and Windows, the default app config paths contain spaces. If copying
+// and pasting from console output, any spaces will need explicit escaping.
+const devCertConfigPath = appConfigPath('devcert').replace(/ /g, '\\ ');
 
 /**
  * Monkeypatch devcert to fix
@@ -15,14 +21,20 @@ const { username } = os.userInfo();
  */
 const devCertUtils = require('devcert/dist/utils');
 const MacOSPlatform = require('devcert/dist/platforms/darwin');
+/* istanbul ignore next */
 const proto = (MacOSPlatform.default || MacOSPlatform).prototype;
+/* istanbul ignore next */
 proto.isNSSInstalled = function() {
+    debug(
+        'Running patched `MacOSPlatform#isNSSInstalled method to detect certutil installation'
+    );
     try {
         return devCertUtils
             .run('brew list -1')
             .toString()
             .includes('\nnss\n');
     } catch (e) {
+        debug('certutil not installed!');
         return false;
     }
 };
@@ -30,30 +42,37 @@ proto.isNSSInstalled = function() {
 const DEFAULT_NAME = 'my-pwa';
 const DEV_DOMAIN = 'local.pwadev';
 
-const willPromptForPassword = async () => {
+const willNotPasswordPrompt = async () => {
     try {
         // On Windows we will have no sudo or a non-standard sudo, so we should
         // not even try this.
+        /* istanbul ignore else */
         if (process.platform !== 'win32') {
             // If standard `sudo` has run in the TTY recently, it may still have
             // a credential cached and it won't prompt for the password.
             // The -n flag means "non-interactive", so sudo will exit nonzero
             // instead of password prompting if the shell is not currently
             // authenticated.
+            debug('Using sudo -n true to test whether credential is active');
             await execa.shell('sudo -n true');
+            debug('sudo -n true succeeded, session is active');
             // If that succeeds, the shell is authenticated and it won't prompt:
-            return false;
+            return true;
         }
     } catch (e) {
+        debug(`sudo -n failed: ${e}\n\n trying isElevated()`);
         // Recover; the rest of this method will run if sudo -n failed.
     }
     const elevated = await isElevated();
-    // Will prompt if _not_ elevated.
-    return !elevated;
+    debug(`isElevated() === ${elevated}`);
+    return elevated;
 };
 
-const alreadyProvisioned = hostname =>
-    devcert.configuredDomains().includes(hostname);
+const alreadyProvisioned = hostname => {
+    const exists = devcert.configuredDomains().includes(hostname);
+    debug(`${hostname} already provisioned? ${exists}`);
+    return exists;
+};
 
 function getCert(hostname) {
     // Manually create a Promise here to obtain a "reject" function in closure,
@@ -68,36 +87,58 @@ function getCert(hostname) {
                 ),
             30000
         );
-        try {
-            if (!alreadyProvisioned(hostname)) {
-                if (process.stdin.isTTY) {
-                    if (await willPromptForPassword()) {
-                        console.warn(
-                            chalk.greenBright(`Creating a local development domain requires temporary administrative privileges.
-Please enter the password for ${chalk.whiteBright(
-                                username
-                            )} on ${chalk.whiteBright(os.hostname())}.`)
-                        );
-                    }
-                } else {
-                    clearTimeout(timeout);
-                    return reject(
-                        new Error(
-                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `yarn run watch:venia`) by itself in the terminal to continue.'
-                        )
-                    );
-                }
+
+        // Resolve with the cert info, or reject using a custom error argument.
+        const tryGetCert = async (rejecter = x => x) => {
+            try {
+                const certBuffers = await devcert.certificateFor(hostname);
+                debug(`devcert.certificateFor(${hostname}) succeeded`);
+                resolve({
+                    key: certBuffers.key.toString('utf8'),
+                    cert: certBuffers.cert.toString('utf8')
+                });
+            } catch (e) {
+                debug(`devcert.certificateFor(${hostname}) failed, %s`, e);
+                reject(await rejecter(e));
+            } finally {
+                clearTimeout(timeout);
+                debug(`cleared getCert timeout`);
             }
-            const certBuffers = await devcert.certificateFor(hostname);
-            clearTimeout(timeout);
-            resolve({
-                key: certBuffers.key.toString('utf8'),
-                cert: certBuffers.cert.toString('utf8')
-            });
-        } catch (e) {
-            clearTimeout(timeout);
-            reject(e);
+        };
+
+        // Should be able to fetch non-interactively in either of these cases
+        if (alreadyProvisioned(hostname) || (await willNotPasswordPrompt())) {
+            debug(
+                `either provisioned already or sudo is active, trying getCert`
+            );
+            return tryGetCert();
         }
+
+        // Can only enter the password if we're in a real TTY
+        if (process.stdin.isTTY) {
+            console.warn(
+                chalk.greenBright(`Creating a local development domain requires temporary administrative privileges.
+Please enter the password for ${chalk.whiteBright(
+                    username
+                )} on ${chalk.whiteBright(os.hostname())}.`)
+            );
+            return tryGetCert(
+                e =>
+                    new Error(
+                        `Could not authenticate to modify hostfile and create protected keyfile: ${
+                            e.message
+                        }`
+                    )
+            );
+        }
+
+        // If we get here, we have neither elevated privileges nor a TTY.
+        clearTimeout(timeout);
+        return reject(
+            new Error(
+                'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `yarn run watch:venia`) by itself in the terminal to continue.'
+            )
+        );
     });
 }
 
@@ -195,7 +236,11 @@ async function configureHost({
         };
     } catch (e) {
         throw Error(
-            debug.errorMsg(`Could not setup development domain: \n${e.stack}`)
+            debug.errorMsg(`Could not setup development domain: \n${e.message}.
+
+    If this keeps happening, you may need to delete the configuration files at
+        ${devCertConfigPath}
+    and try again.`)
         );
     }
 }

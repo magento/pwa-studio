@@ -2963,7 +2963,7 @@ append-transform@^0.4.0:
   dependencies:
     default-require-extensions "^1.0.0"
 
-application-config-path@^0.1.0:
+application-config-path@^0.1.0, application-config-path@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/application-config-path/-/application-config-path-0.1.0.tgz#193c5f0a86541a4c66fba1e2dc38583362ea5e8f"
   integrity sha1-GTxfCoZUGkxm+6Hi3DhYM2LqXo8=
@@ -8234,7 +8234,7 @@ is-accessor-descriptor@^1.0.0:
   dependencies:
     kind-of "^6.0.0"
 
-is-admin@^2.1.0, is-admin@~2.1.1:
+is-admin@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/is-admin/-/is-admin-2.1.1.tgz#79869030ec02d2cbf8f8acb5705475c226394fba"
   integrity sha1-eYaQMOwC0sv4+Ky1cFR1wiY5T7o=
