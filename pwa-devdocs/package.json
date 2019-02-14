@@ -8,15 +8,16 @@
         "jquery": "^3.3.1"
     },
     "scripts": {
-        "start": "npm run develop",
+        "start": "npm-run-all -s clean develop",
         "develop": "npm run build && node scripts/develop.js",
         "build-css": "node-sass --output-style compact --include-path src/_scss src/_scss/main.scss src/builds/css/main.css",
         "build-js": "webpack --config webpack.config.js",
         "build-reference-doc-snippets": "node scripts/create-reference-docs",
         "build-html": "bundle exec jekyll build --source src -I",
         "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-html",
-        "build-production": "npm-run-all -s build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
-        "deploy": "npm run build-production && ./scripts/deploy.sh"
+        "build-production": "npm-run-all -s clean build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
+        "deploy": "npm run build-production && ./scripts/deploy.sh",
+        "clean": "rm -fr _site"
     },
     "repository": "github:magento-research/pwa-studio",
     "author": "James Calcaben",
