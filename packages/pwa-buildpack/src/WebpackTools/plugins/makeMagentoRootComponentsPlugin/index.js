@@ -4,7 +4,7 @@ const { ProvidePlugin } = require('webpack');
 const readdir = require('readdir-enhanced');
 const directiveParser = require('@magento/directive-parser');
 const VirtualModulePlugin = require('virtual-module-webpack-plugin');
-const { isAbsolute, join, relative } = require('path');
+const { isAbsolute, join, relative, normalize } = require('path');
 
 const toRootComponentMapKey = (type, variant = 'default') =>
     `RootCmp_${type}__${variant}`;
@@ -44,6 +44,7 @@ class MagentoRootComponentsPlugin {
         const rootComponentsDirsAbs = rootComponentsDirs.map(dir =>
             isAbsolute(dir) ? dir : join(context, dir)
         );
+
         const rootComponentImporters = await rootComponentsDirsAbs.reduce(
             async (importersPromise, rootComponentDir) => {
                 const importerSources = await importersPromise;
@@ -94,12 +95,23 @@ class MagentoRootComponentsPlugin {
                                     pageType,
                                     variant
                                 );
+
+                                // Get the normalized relative path so this works across envs.
+                                // See https://nodejs.org/api/path.html#path_path_normalize_path.
+                                const path = normalize(
+                                    relative(context, rootComponentFile)
+                                );
+
+                                // The path string we start with has a single \ which is invalid in Windows.
+                                // Replace it with double backslash.
+                                let normalizedPath = path.replace(
+                                    /\\/g,
+                                    String.raw`\\`
+                                );
+
                                 importerSources[
                                     key
-                                ] = `() => import(/* webpackChunkName: "${key}" */'${relative(
-                                    context,
-                                    rootComponentFile
-                                )}')`;
+                                ] = `() => import(/* webpackChunkName: "${key}" */'${normalizedPath}')`;
                             });
                         }
                     })
