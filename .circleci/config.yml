@@ -31,6 +31,10 @@ common_settings:
     name: Full build
     command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && yarn run clean:dist && yarn run build'
 
+  storybook_build: &storybook_build
+    name: Storybook compilation
+    command: yarn workspace @magento/venia-concept run storybook-build
+
   test_result_path: &test_result_path
     path: "test-results"
 
@@ -50,6 +54,7 @@ jobs:
           name: Coveralls coverage analysis
           command: yarn run coveralls
       - run: *full_build
+      - run: *storybook_build
       - store_test_results: *test_result_path
       - store_artifacts: *artifact_storage_path
   build:
@@ -66,6 +71,7 @@ jobs:
           # Test failures should not stop Danger, so hide the exit code.
           command: 'yarn run test:ci && yarn run coveralls || true'
       - run: *full_build
+      - run: *storybook_build
       - run:
           name: DangerCI
           command: yarn run danger
