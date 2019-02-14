@@ -7,9 +7,9 @@
     "upward-spec": "./bin/upward-spec"
   },
   "scripts": {
-    "build": "echo 'Skipping upward-spec build...'",
-    "build:dev": "echo 'Skipping upward-spec build...'",
-    "clean": "echo 'Skipping upward-spec clean...'"
+    "build": "echo No upward-spec build step",
+    "build:dev": "echo No upward-spec build:dev step",
+    "clean": "echo No upward-spec clean step"
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
