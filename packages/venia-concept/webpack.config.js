@@ -156,8 +156,17 @@ module.exports = async function(env) {
                 transform(assets) {
                     // All RootComponents go to prefetch, and all client scripts
                     // go to load.
+                    const load = [];
+                    const { js, ...entries } = assets.entrypoints;
+
+                    if(Array.isArray(js)) load.push(...js);
+
+                    Object.keys(entries).forEach(entryName => {
+                        Array.isArray(entries[entryName].js) && load.push(...entries[entryName].js);
+                    });
+
                     assets.bundles = {
-                        load: assets.entrypoints.js,
+                        load,
                         prefetch: []
                     };
                     Object.entries(assets).forEach(([name, value]) => {
