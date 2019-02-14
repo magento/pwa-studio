@@ -8234,7 +8234,7 @@ is-accessor-descriptor@^1.0.0:
   dependencies:
     kind-of "^6.0.0"
 
-is-admin@^2.1.0:
+is-admin@^2.1.0, is-admin@~2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/is-admin/-/is-admin-2.1.1.tgz#79869030ec02d2cbf8f8acb5705475c226394fba"
   integrity sha1-eYaQMOwC0sv4+Ky1cFR1wiY5T7o=

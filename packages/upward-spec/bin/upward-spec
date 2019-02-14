@@ -2,6 +2,12 @@
 const path = require('path');
 const fs = require('fs');
 
+// if (process.platform === 'win32') {
+//     console.error(
+//         'The upward-spec test utility requires a Unix-like environment. It requires process management features which are unavailable in Windows shells.'
+//     );
+// }
+
 const providedScriptPath = path.resolve(process.argv[2]);
 
 /**
@@ -43,19 +49,15 @@ const tapePath = path.resolve(
     path.dirname(require.resolve('tape')),
     './bin/tape'
 );
-const testProcess = require('child_process').spawn(
-    tapePath,
-    ['*/tests.js'],
-    {
-        cwd: scenariosDir,
-        env: Object.assign(
-            {
-                UPWARD_SERVER_SCRIPT_PATH: providedScriptPath
-            },
-            process.env
-        )
-    }
-);
+const testProcess = require('child_process').spawn(tapePath, ['*/tests.js'], {
+    cwd: scenariosDir,
+    env: Object.assign(
+        {
+            UPWARD_SERVER_SCRIPT_PATH: providedScriptPath
+        },
+        process.env
+    )
+});
 
 if (raw) {
     testProcess.stdout.pipe(process.stdout);
