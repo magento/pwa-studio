@@ -98,14 +98,16 @@ class MagentoRootComponentsPlugin {
 
                                 // Get the normalized relative path so this works across envs.
                                 // See https://nodejs.org/api/path.html#path_path_normalize_path.
-                                const path = normalize(relative(
-                                    context,
-                                    rootComponentFile
-                                ));
+                                const path = normalize(
+                                    relative(context, rootComponentFile)
+                                );
 
                                 // The path string we start with has a single \ which is invalid in Windows.
                                 // Replace it with double backslash.
-                                let normalizedPath = path.replace(/\\/g, String.raw`\\`);
+                                let normalizedPath = path.replace(
+                                    /\\/g,
+                                    String.raw`\\`
+                                );
 
                                 importerSources[
                                     key
