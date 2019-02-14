@@ -249,3 +249,17 @@ test('recognizes file paths', async () => {
         'file'
     );
 });
+
+test('passes output of file compile command', async () => {
+    const visitor = {
+        upward: jest.fn(),
+        io: {
+            readFile: jest.fn(() => '{ "wut": 5 }')
+        }
+    };
+    visitor.upward.mockResolvedValueOnce('something.json');
+    const jsonDoc = await new FileResolver(visitor).resolve({
+        file: 'someJSON'
+    });
+    expect(jsonDoc.wut).toBe(5);
+});
