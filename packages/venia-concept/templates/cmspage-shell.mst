@@ -1,0 +1,13 @@
+{{> templates/open-document}}
+    {{#model}}
+    <title>{{title}} - Venia</title>
+    <meta name="title" content="{{title}}">
+    <meta name="keywords" content="{{meta_keywords}}">
+    <meta name="description" content="{{#meta_description}}{{.}}{{/meta_description}}{{^meta_description}}{{content_heading}}{{/meta_description}}">
+    {{/model}}
+  {{> templates/open-body }}
+    <div id="root">
+        Loading {{model.title}}...
+    </div>
+  {{> templates/seed-bundles}}
+{{> templates/close-document}}

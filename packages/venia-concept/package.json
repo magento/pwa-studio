@@ -89,6 +89,7 @@
     "rimraf": "~2.6.3",
     "terser-webpack-plugin": "~1.2.1",
     "webpack": "~4.28.4",
+    "webpack-assets-manifest": "~3.1.1",
     "webpack-bundle-analyzer": "~3.0.3",
     "webpack-cli": "~3.2.1",
     "webpack-dev-server": "~3.1.14"

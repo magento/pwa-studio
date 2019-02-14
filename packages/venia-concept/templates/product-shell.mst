@@ -1,18 +1,13 @@
-{{> templates/doctype-and-head-start}}
-{{> templates/js-unavailable}}
+{{> templates/open-document}}
     <title>{{model.name}} - {{site.name}}</title>
     {{#model}}
     <meta name="title" content="{{name}}">
     <meta name="keywords" content="{{meta_keyword}}">
     <meta name="description" content="{{#meta_description}}{{.}}{{/meta_description}}{{^meta_description}}{{description}}{{/meta_description}}">
-  </head>
-  <body>
-    <div id="root">
-        Loading {{name}}...
-    </div>
     {{/model}}
-{{> templates/preloads}}
-{{> templates/scripts}}
-  </body>
-</html>
-
+  {{> templates/open-body }}
+    <div id="root">
+        Loading {{model.name}}...
+    </div>
+  {{> templates/seed-bundles}}
+{{> templates/close-document}}

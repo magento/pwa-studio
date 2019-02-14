@@ -122,3 +122,60 @@ test('getDetails.receive() returns a proper action object', () => {
         error: true
     });
 });
+
+test('updateItem.request.toString() returns the proper action type', () => {
+    expect(actions.updateItem.request.toString()).toBe(
+        'CART/UPDATE_ITEM/REQUEST'
+    );
+});
+
+test('updateItem.request() returns a proper action object', () => {
+    expect(actions.updateItem.request(payload)).toEqual({
+        type: 'CART/UPDATE_ITEM/REQUEST',
+        payload
+    });
+});
+
+test('updateItem.receive.toString() returns the proper action type', () => {
+    expect(actions.updateItem.receive.toString()).toBe(
+        'CART/UPDATE_ITEM/RECEIVE'
+    );
+});
+
+test('updateItem.receive() returns a proper action object', () => {
+    expect(actions.updateItem.receive(payload)).toEqual({
+        type: 'CART/UPDATE_ITEM/RECEIVE',
+        payload
+    });
+    expect(actions.updateItem.receive(error)).toEqual({
+        type: 'CART/UPDATE_ITEM/RECEIVE',
+        payload: error,
+        error: true
+    });
+});
+
+test('openOptionsDrawer.toString() returns the proper action type', () => {
+    expect(actions.openOptionsDrawer.toString()).toBe(
+        'CART/OPEN_OPTIONS_DRAWER'
+    );
+});
+
+test('openOptionsDrawer() returns a proper action object', () => {
+    expect(actions.openOptionsDrawer(payload)).toEqual({
+        type: 'CART/OPEN_OPTIONS_DRAWER',
+        payload
+    });
+});
+
+test('closeOptionsDrawer.toString() returns the proper action type', () => {
+    expect(actions.closeOptionsDrawer.toString()).toBe(
+        'CART/CLOSE_OPTIONS_DRAWER'
+    );
+});
+
+test('closeOptionsDrawer() returns a proper action object', () => {
+    expect(actions.closeOptionsDrawer(payload)).toEqual({
+        type: 'CART/CLOSE_OPTIONS_DRAWER',
+        payload
+    });
+});
