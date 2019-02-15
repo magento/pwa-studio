@@ -37,7 +37,14 @@ const mocks = [
                             url_path: 'test-category/child-1',
                             product_count: 5,
                             children_count: '2',
-                            path: '1/2'
+                            path: '1/2',
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/child-1.jpg'
+                                    }
+                                ]
+                            }
                         },
                         {
                             id: 3,
@@ -48,7 +55,14 @@ const mocks = [
                             url_path: 'test-category/child-2',
                             product_count: 3,
                             children_count: '1',
-                            path: '1/3'
+                            path: '1/3',
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/child-2.jpg'
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -79,7 +93,14 @@ const mocks = [
                             url_path: 'test-category/child-1/leaf-1',
                             product_count: 4,
                             children_count: '0',
-                            path: '1/2/4'
+                            path: '1/2/4',
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/leaf-1.jpg'
+                                    }
+                                ]
+                            }
                         },
                         {
                             id: 5,
@@ -90,7 +111,14 @@ const mocks = [
                             url_path: 'test-category/child-1/leaf-2',
                             product_count: 2,
                             children_count: '0',
-                            path: '1/2/5'
+                            path: '1/2/5',
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/leaf-2.jpg'
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -121,7 +149,14 @@ const mocks = [
                             url_path: 'test-category/child-2/leaf-3',
                             product_count: 6,
                             children_count: '0',
-                            path: '1/3/6'
+                            path: '1/3/6',
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/leaf-3.jpg'
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
