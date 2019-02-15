@@ -9,14 +9,7 @@ beforeEach(jest.useFakeTimers);
 afterAll(jest.useRealTimers);
 
 // Mock classes so that CSS classes are predictable.
-const classes = [
-    'success',
-    'warning',
-    'error',
-    'clickable',
-    'showing',
-    'message'
-].reduce(
+const classes = ['success', 'warning', 'error', 'showing', 'message'].reduce(
     (cls, name) => ({
         ...cls,
         [name]: name
@@ -38,7 +31,6 @@ test('click-to-dismiss success notification', async () => {
     const notification = wrapper.find('button');
     expect(notification.find('.message').text()).toEqual('Dismissable');
     expect(notification.hasClass('success')).toBeTruthy();
-    expect(notification.hasClass('clickable')).toBeTruthy();
 
     jest.advanceTimersByTime(Notification.SHOW_DELAY * 2);
 
@@ -67,7 +59,6 @@ test('undismissable success notification', async () => {
     const notification = wrapper.find('button');
     expect(notification.find('.message').text()).toEqual('Persistent');
     expect(notification.hasClass('success')).toBeTruthy();
-    expect(notification.hasClass('clickable')).not.toBeTruthy();
 
     jest.advanceTimersByTime(Notification.SHOW_DELAY * 2);
 
@@ -99,7 +90,6 @@ test('auto-dismissing warning notification', async () => {
 
     const notification = wrapper.find('button');
     expect(notification.hasClass('warning')).toBeTruthy();
-    expect(notification.hasClass('clickable')).not.toBeTruthy();
 
     jest.advanceTimersByTime(Notification.SHOW_DELAY * 2);
 
@@ -147,7 +137,6 @@ test('error notification with side effect afterDismiss', async () => {
 
     const notification = wrapper.find('button');
     expect(notification.hasClass('error')).toBeTruthy();
-    expect(notification.hasClass('clickable')).not.toBeTruthy();
 
     jest.advanceTimersByTime(Notification.SHOW_DELAY * 2);
 
