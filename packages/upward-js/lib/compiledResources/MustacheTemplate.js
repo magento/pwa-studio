@@ -91,6 +91,7 @@ class MustacheTemplate extends AbstractCompiledResource {
         for (const [name, tpt] of this._loadedPartials.entries()) {
             this._partials[name] = tpt;
         }
+        return this;
     }
     async render(context) {
         return this._template.render(context, this._partials, '').trim();
