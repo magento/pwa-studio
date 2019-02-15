@@ -4,6 +4,8 @@ import classify from 'src/classify';
 import { Notification, NotificationStack } from 'src/components/Notifications';
 import defaultClasses from './errorNotifications.css';
 
+const dismissers = new WeakMap();
+
 class ErrorNotifications extends Component {
     static propTypes = {
         classes: shape({
@@ -29,14 +31,22 @@ class ErrorNotifications extends Component {
         dismiss();
     }
 
+    // Memoize dismisser funcs to reduce re-renders from func identity change.
+    getErrorDismisser(error) {
+        const { onDismissError } = this.props;
+        return dismissers.has(error)
+            ? dismissers.get(error)
+            : dismissers.set(error, () => onDismissError(error)).get(error);
+    }
+
     get allNotifications() {
-        const { classes, onDismissError, errors } = this.props;
+        const { classes, errors } = this.props;
         return errors.map(({ error, id, loc }) => (
             <Notification
                 key={id}
                 type="error"
                 onClick={this.dismissNotificationOnClick}
-                afterDismiss={() => onDismissError(error)}
+                afterDismiss={this.getErrorDismisser(error)}
             >
                 <div>Sorry! An unexpected error occurred.</div>
                 <small className={classes.debuginfo}>
