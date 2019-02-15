@@ -9,6 +9,8 @@
     ```
     docker/run-docker
     ```
+    Run with `-h` flag to see command line options.
+
 4. Once the script completes, a locally running instance of pwa will be available at `https://pwa-docker.localhost`.
 
 The domain is configurable. Two changes are needed to configure a new domain name.

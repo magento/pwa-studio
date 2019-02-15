@@ -5,15 +5,43 @@
 #   Run this file from the root of the repository to build and run a PWA container
 #
 ####################################################################################
+OPTIND=1
 EDITED_HOSTFILE="n"
 CERT_TRUSTED="n"
+IS_WINDOWS_MACHINE=false
+
+# evaluate command line arguments
+# run docker/run-docker -h for options
+while getopts ":xwfch" opt; do
+  case ${opt} in
+    x ) IS_WINDOWS_MACHINE="n"
+      ;;
+    w ) IS_WINDOWS_MACHINE="y"
+      ;;
+    f ) EDITED_HOSTFILE="y"
+      ;;
+    c ) CERT_TRUSTED="y"
+      ;;
+    h ) echo -e "Usage: docker/run-docker [-x] [-w] [-f] [-c] [-h]"
+         echo ""
+         echo "     -x - You are on a Unix machine"
+         echo "     -w - You are on a Windows machine"
+         echo "     -f - Host file has been edited to contain the configured domain" 
+         echo "     -c - ssl/tls certificate has been trusted for configured domain"
+         echo "     -h - help"
+         echo ""
+         exit 1
+      ;;
+  esac
+done
 
 main () {
-  # capture whether the user is on a Windows machine for separate setup tasks
-  read -p "Are you on a Windows machine? [y/n] " IS_WINDOWS_MACHINE
+  if [ "$IS_WINDOWS_MACHINE" == false ]; then
+    # capture whether the user is on a Windows machine for separate setup tasks
+    read -p "Are you on a Windows machine? [y/n] " IS_WINDOWS_MACHINE
+  fi
 
-  # copy environment variables to .env in root for docker-compose to consume for build
-  message "Adding environment variables in root .env for docker setup."
+  message "Adding environment variables to .env for docker setup."
   ENVFILE=./.env
   cp ./docker/.env.docker $ENVFILE 
   . $ENVFILE
@@ -21,14 +49,19 @@ main () {
   DOMAIN=$PWA_STUDIO_PUBLIC_PATH
   HOSTMAP="127.0.0.1 $DOMAIN"
 
-  add_domain_to_hostfile
+  if [ "$EDITED_HOSTFILE" == "n" ]; then
+    add_domain_to_hostfile
+  fi
 
-  generate_certificate
+  if [ "$CERT_TRUSTED" == "n" ]; then
+    generate_certificate
+  fi
 
+  # By this point in the setup the host file should have the $DOMAIN and the certificate should be created and trusted
   if [ "$EDITED_HOSTFILE" == "y" ] && [ "$CERT_TRUSTED" == "y" ]; then
     start_docker
   else
-    message "The host file does not include your domain and/or the certificate is not trusted.\nPlease follow the steps to edit your system host file and trust the ssl certificate.\nThe application will not run correctly without completing these steps."
+    message "The host file does not include your domain and/or the certificate is not trusted.\nFollow the steps to edit your system host file and trust the ssl certificate.\nThe application will not run correctly without completing these steps."
     rm ./docker/certs/$DOMAIN.crt
     exit 1
   fi
@@ -41,46 +74,53 @@ add_domain_to_hostfile () {
     exit 1
   fi
   
-  # Windows specific manual host file editing instructions
   if [ "$IS_WINDOWS_MACHINE" == "y" ]; then
-    echo "================================================================================="
-    echo "In order to setup the hostmapping correctly, follow the below steps:"
-    echo "Open the command prompt (CMD) in administrative mode."
-    echo "Run the following command to edit the host file:"
-    echo "notepad C:\Windows\System32\drivers\etc\hosts"
-    echo "Add the following to the end of the file and save:"
-    echo "$HOSTMAP"
-    echo "================================================================================="
-    read -p "Have you completed the above steps? [y/n] " EDITED_HOSTFILE
+    add_domain_to_hostfile_windows
   else 
-    # Automated Mac OS host file editing
+    add_domain_to_hostfile_nix
+  fi
+}
 
-    HOSTSFILE=/etc/hosts
-    HOSTPRESENT=false
+# Windows specific manual host file editing instructions
+add_domain_to_hostfile_windows () {
+  echo "================================================================================="
+  echo "In order to setup the hostmapping correctly, follow the below steps:"
+  echo "Open the command prompt (CMD) in administrative mode."
+  echo "Run the following command to edit the host file:"
+  echo "notepad C:\Windows\System32\drivers\etc\hosts"
+  echo "Add the following to the end of the file and save:"
+  echo "$HOSTMAP"
+  echo "================================================================================="
+  read -p "Have you completed the above steps? [y/n] " EDITED_HOSTFILE
+}
 
-    # check to see if the hostfile already contains the hostmap/domain
-    while read -r var; do 
-      if [ "$var" == "$HOSTMAP" ]; then
-        HOSTPRESENT=true
-      fi
-    done < $HOSTSFILE
+# *nix specific manual host file editing automation
+add_domain_to_hostfile_nix () {
+  HOSTSFILE=/etc/hosts
+  HOSTPRESENT=false
 
-    # add the domain if it is not present in the hostfile, otherwise don't
-    if [ "$HOSTPRESENT" == false ]; then
-      message "Please provide your password, if requested, to modify $HOSTSFILE"
-      echo $HOSTMAP | sudo tee -a $HOSTSFILE
-
-      # handle error with adding to the hostfile
-      if [ $? == 0 ]; then
-        message "Added $HOSTMAP configured in $ENVFILE to $HOSTSFILE"
-        EDITED_HOSTFILE="y"
-      else 
-        message "Host was not added to $HOSTSFILE.\nPlease enter your password to add $HOSTMAP to your hostsfile."
-      fi
-    else 
-      message "$HOSTSFILE already configured with $HOSTMAP"
-      EDITED_HOSTFILE="y"
+  # check to see if the hostfile already contains the hostmap/domain
+  while read -r var; do 
+    if [ "$var" == "$HOSTMAP" ]; then
+      HOSTPRESENT=true
     fi
+  done < $HOSTSFILE
+
+  # add the domain if it is not present in the hostfile, otherwise don't
+  if [ "$HOSTPRESENT" == false ]; then
+    message "Please provide your password, if requested, to modify $HOSTSFILE"
+    echo $HOSTMAP | sudo tee -a $HOSTSFILE
+
+    # handle error with adding to the hostfile
+    if [ $? == 0 ]; then
+      message "Added $HOSTMAP configured in $ENVFILE to $HOSTSFILE"
+      EDITED_HOSTFILE="y"
+    else 
+      message "Host was not added to $HOSTSFILE.\nPlease enter your password to add $HOSTMAP to your hostsfile."
+    fi
+  else 
+    message "$HOSTSFILE already configured with $HOSTMAP"
+    EDITED_HOSTFILE="y"
   fi
 }
 
@@ -129,28 +169,36 @@ EOL
   -config $OpenSSLConf
 
   if [ "$IS_WINDOWS_MACHINE" == "y" ]; then
-    echo "================================================================================="
-    echo "In order to trust the SSL certificate for https support, follow the below steps:"
-    echo "Open the certificate folder in Explorer, found in ./docker/certs"
-    echo "Double click on the certificate, named: $DOMAIN.crt"
-    echo "Install certificate..."
-    echo "Choose Local Machine"
-    echo "Choose Place all certificates in the following store and click Browse..."
-    echo "Choose Trusted Root Certification Authorities and click OK."
-    echo "Click Next, then Finish."
-    echo "Your certificate is now trusted"
-    echo "================================================================================="
-    read -p "Have you completed the steps above to trust the certificate? [y/n] " CERT_TRUSTED
+    trust_certificate_windows
   else
-    # add the certificate to the system keychain and trust the certificate
-    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./docker/certs/$DOMAIN.crt
+    trust_certificate_nix
+  fi
+}
 
-    if [ $? == 0 ]; then
-      message "Certificate generated and trusted by system successfully."
-      CERT_TRUSTED="y"
-    else 
-      message "Error occurred during certificate generation/trust.\nPlease enter your password to trust the certificate."
-    fi
+trust_certificate_windows () {
+  echo "================================================================================="
+  echo "In order to trust the SSL certificate for https support, follow the below steps:"
+  echo "Open the certificate folder in Explorer, found in ./docker/certs"
+  echo "Double click on the certificate, named: $DOMAIN.crt"
+  echo "Install certificate..."
+  echo "Choose Local Machine"
+  echo "Choose Place all certificates in the following store and click Browse..."
+  echo "Choose Trusted Root Certification Authorities and click OK."
+  echo "Click Next, then Finish."
+  echo "Your certificate is now trusted"
+  echo "================================================================================="
+  read -p "Have you completed the steps above to trust the certificate? [y/n] " CERT_TRUSTED
+}
+
+trust_certificate_nix () {
+  # add the certificate to the system keychain and trust the certificate
+  sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./docker/certs/$DOMAIN.crt
+
+  if [ $? == 0 ]; then
+    message "Certificate generated and trusted by system successfully."
+    CERT_TRUSTED="y"
+  else 
+    message "Error occurred during certificate generation/trust.\nPlease enter your password to trust the certificate."
   fi
 }
 
