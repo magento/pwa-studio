@@ -157,7 +157,7 @@ module.exports = async function(env) {
                     // All RootComponents go to prefetch, and all client scripts
                     // go to load.
                     assets.bundles = {
-                        load: assets.entrypoints.main.js,
+                        load: assets.entrypoints.client.js,
                         prefetch: []
                     };
                     Object.entries(assets).forEach(([name, value]) => {
