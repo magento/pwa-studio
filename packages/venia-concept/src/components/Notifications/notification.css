@@ -1,9 +1,10 @@
 .root {
     align-items: center;
+    border-radius: 2px;
     display: inline-flex;
     height: var(--venia-notification-height);
     justify-content: flex-start;
-    margin-bottom: 0.3125rem;
+    margin-bottom: 0.125rem;
     opacity: 0;
     overflow: hidden;
     padding: 0 0.625rem;
@@ -15,7 +16,7 @@
     transition-timing-function: var(--venia-anim-out);
     width: 100%;
     -webkit-appearance: none;
-    --venia-notification-height: 3.5rem;
+    --venia-notification-height: 3rem;
 }
 
 .root:disabled {

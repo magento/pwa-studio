@@ -1,10 +1,5 @@
 .root {
     display: flex;
-    flex-flow: column-reverse nowrap;
-    position: sticky;
+    flex-direction: column-reverse;
     overflow: hidden;
-    top: 0;
-    left: 0;
-    width: inherit;
-    z-index: 3;
 }
