@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { array, bool, func, shape, string } from 'prop-types';
 
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
@@ -14,12 +14,13 @@ class App extends Component {
     static propTypes = {
         app: shape({
             drawer: string,
+            hasBeenOffline: bool,
+            isOnline: bool,
             overlay: bool.isRequired
         }).isRequired,
         closeDrawer: func.isRequired,
         markErrorHandled: func.isRequired,
-        hasBeenOffline: bool,
-        isOnline: bool
+        unhandledErrors: array
     };
 
     static get initialState() {
