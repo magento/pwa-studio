@@ -33,7 +33,7 @@ common_settings:
 
   storybook_build: &storybook_build
     name: Storybook compilation
-    command: yarn workspace @magento/venia-concept run storybook-build
+    command: yarn workspace @magento/venia-concept run storybook:build
 
   test_result_path: &test_result_path
     path: "test-results"
