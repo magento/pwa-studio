@@ -105,20 +105,18 @@ function errorReducer(state, action) {
         // No one took this one. Add it to the unhandled list.
         const allErrors = [
             // Dedupe errors in case this one is dispatched repeatedly
-            ...new Set(
-                unhandledErrors.concat(
-                    errorRecord(
-                        error,
-                        // `errorRecord()` requires the window argument for
-                        // testability, through injection of the
-                        // non-idempotent Date and Math methods for IDs.
-                        window,
-                        // Also call `errorRecord()` with the current
-                        // context, which is the root reducer; that enables
-                        // it to trim useful stack traces by omitting
-                        // useless lines.
-                        this
-                    )
+            ...new Set(unhandledErrors).add(
+                errorRecord(
+                    error,
+                    // `errorRecord()` requires the window argument for
+                    // testability, through injection of the
+                    // non-idempotent Date and Math methods for IDs.
+                    window,
+                    // Also call `errorRecord()` with the current
+                    // context, which is the root reducer; that enables
+                    // it to trim useful stack traces by omitting
+                    // useless lines.
+                    this
                 )
             )
         ];

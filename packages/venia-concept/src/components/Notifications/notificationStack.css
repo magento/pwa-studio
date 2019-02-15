@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: column-reverse nowrap;
     position: sticky;
+    overflow: hidden;
     top: 0;
     left: 0;
     width: inherit;

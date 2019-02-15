@@ -4,12 +4,11 @@
 .root {
     align-items: center;
     display: inline-flex;
-    font-size: 0.9em;
     height: var(--venia-notification-height);
     justify-content: flex-start;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.3125rem;
     overflow: hidden;
-    padding: 0 0.6rem;
+    padding: 0 0.625rem;
     text-align: left;
     top: 0;
     transform: translateY(calc(-1 * var(--venia-notification-height)));
@@ -18,47 +17,41 @@
     -webkit-appearance: none;
 }
 
-.clickable {
-    cursor: pointer;
+.root:disabled {
+    /* Don't gray out a disabled button */
+    color: inherit;
+}
+
+.error {
+    composes: root;
+    background-color: rgb(var(--venia-error-alt));
+    --venia-notification-icon-color: var(--venia-error);
+}
+
+.success {
+    composes: root;
+    background-color: rgb(var(--venia-teal-light));
+    --venia-notification-icon-color: var(--venia-teal);
+}
+
+.warning {
+    composes: root;
+    background-color: rgb(var(--venia-warning-light));
+    --venia-notification-icon-color: var(--venia-warning-dark);
+}
+
+.icon {
+    composes: root from 'src/components/Icon/icon.css';
+    color: rgb(var(--venia-notification-icon-color));
 }
 
 .showing {
     transform: translateY(0px);
 }
 
-.error {
-    background-color: rgb(var(--venia-error-alt));
-}
-
-/**
- * TODO: Descendent selector here relies on implementation of Icon component.
- * Replace with a real classname to be passed to the Icon (which will be easier
- * when src/classify is improved to do proper composition.
- */
-
-.error span {
-    color: rgb(var(--venia-error));
-}
-
-.warning {
-    background-color: rgb(var(--venia-warning-light));
-}
-
-.warning span {
-    color: rgb(var(--venia-warning-dark));
-}
-
-.success {
-    background-color: rgb(var(--venia-teal-light));
-}
-
-.success span {
-    color: rgb(var(--venia-teal));
-}
-
 .message {
-    line-height: 1.3em;
-    margin: 0 0.6rem 0 0.8rem;
+    line-height: 1.25rem;
+    margin: 0 0.5rem 0 0.75rem;
     /* Set a min-width so text elements inside must overflow, not stretch */
     min-width: 0;
 }

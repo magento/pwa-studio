@@ -31,19 +31,15 @@ class App extends Component {
     get errorFallback() {
         const { renderError } = this.state;
         if (renderError) {
+            const errors = [
+                errorRecord(renderError, window, this, renderError.stack)
+            ];
             return (
                 <Fragment>
                     <Main isMasked={true} />
                     <Mask isActive={true} />
                     <ErrorNotifications
-                        errors={[
-                            errorRecord(
-                                renderError,
-                                window,
-                                this,
-                                renderError.stack
-                            )
-                        ]}
+                        errors={errors}
                         onDismissError={this.recoverFromRenderError}
                     />
                 </Fragment>

@@ -8,11 +8,6 @@ import CheckCircle from 'react-feather/dist/icons/check-circle';
 import classify from 'src/classify';
 import defaultClasses from './notification.css';
 
-// To properly handle transitions, we must compose classnames manually rather
-// than relying on the CSS `composes` keyword. We have to add classes
-// individually during re-renders.
-const composeClassnames = classNames => classNames.filter(s => s).join(' ');
-
 const defaultIcons = {
     error: AlertCircle,
     warning: InfoIcon,
@@ -89,22 +84,22 @@ class Notification extends Component {
             type
         } = this.props;
         const { showing } = this.state;
-        const className = composeClassnames([
-            classes.root,
-            classes[type],
-            onClick && classes.clickable,
-            showing && classes.showing
-        ]);
+
+        let className = classes[type];
+        if (showing) {
+            className += ` ${classes.showing}`;
+        }
 
         const IconGlyph = CustomIcon || defaultIcons[type];
 
         return (
             <button
                 className={className}
+                disabled={!onClick}
                 onTransitionEnd={this.handleTransitionEnd}
                 onClick={this.handleClick}
             >
-                <Icon src={IconGlyph} />
+                <Icon classes={{ root: classes.icon }} src={IconGlyph} />
                 <div className={classes.message}>{children}</div>
             </button>
         );
