@@ -75,12 +75,13 @@ class ProductFullDetail extends Component {
     state = {
         optionCodes: new Map(),
         optionSelections: new Map(),
-        quantity: 1
+        quantity: 1,
+        addToCartDisabled: false
     };
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = () => {
+    addToCart = async () => {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
@@ -100,7 +101,9 @@ class ProductFullDetail extends Component {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addToCart(payload);
+        this.setState({ addToCartDisabled: true });
+        await addToCart(payload);
+        this.setState({ addToCartDisabled: false });
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -136,7 +139,7 @@ class ProductFullDetail extends Component {
     }
 
     render() {
-        const { productOptions, props } = this;
+        const { productOptions, props, addToCart, state } = this;
         const { classes, product } = props;
         const { regularPrice } = product.price;
 
@@ -167,7 +170,11 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <Button priority="high" onClick={this.addToCart}>
+                    <Button
+                        priority="high"
+                        onClick={addToCart}
+                        disabled={state.addToCartDisabled}
+                    >
                         <span>Add to Cart</span>
                     </Button>
                 </section>
