@@ -117,8 +117,6 @@ export const addItemToCart = (payload = {}) => {
         } catch (error) {
             const { response, noGuestCartId } = error;
 
-            dispatch(actions.addItem.receive(error));
-
             // check if the guest cart has expired
             if (noGuestCartId || (response && response.status === 404)) {
                 // if so, then delete the cached ID...
@@ -131,6 +129,9 @@ export const addItemToCart = (payload = {}) => {
                 // then retry this operation
                 return thunk(...arguments);
             }
+            
+            // This error is not because of a missing guest cart.
+            dispatch(actions.addItem.receive(error));
         }
     };
 };
