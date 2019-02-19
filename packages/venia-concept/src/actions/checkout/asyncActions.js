@@ -1,7 +1,10 @@
 import { RestApi, Util } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId } from 'src/actions/cart';
+import { 
+    clearGuestCartId,
+    createGuestCart
+} from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
@@ -27,6 +30,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
+        await dispatch(createGuestCart());
         dispatch(actions.reset());
     };
 
