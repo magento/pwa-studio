@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import defaultClasses from './input.css';
 import classify from 'src/classify';
-import { Text } from 'informed';
+import { Text, asField } from 'informed';
+import { Message } from 'src/components/Field';
+import { compose } from 'redux';
 
 export const HelpTypes = {
     hint: 'hint',
@@ -99,7 +101,10 @@ class Input extends Component {
             disabled,
             required,
             title,
-            initialValue
+            initialValue,
+            fieldState,
+            message,
+            ...rest
         } = this.props;
         let { autoComplete, field } = this.props;
 
@@ -108,12 +113,15 @@ class Input extends Component {
         }
         autoComplete = !autoComplete ? 'off' : autoComplete;
 
+        ['helpText', 'helpVisible', 'helpType'].forEach(e => delete rest[e]);
+
         return (
             <div className={rootClass}>
                 <span className={classes.label}>
                     {requiredSymbol}&nbsp;{labelText}
                 </span>
                 <Text
+                    {...rest}
                     initialValue={initialValue}
                     className={classes.input}
                     placeholder={placeholder}
@@ -128,6 +136,7 @@ class Input extends Component {
                     field={field}
                 />
                 {helpText}
+                <Message fieldState={fieldState}>{message}</Message>
             </div>
         );
     }
@@ -153,4 +162,7 @@ class Input extends Component {
     };
 }
 
-export default classify(defaultClasses)(Input);
+export default compose(
+    classify(defaultClasses),
+    asField
+)(Input);
