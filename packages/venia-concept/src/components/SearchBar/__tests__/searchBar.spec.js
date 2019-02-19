@@ -1,10 +1,11 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
+import { Form } from 'informed';
+import TextInput from 'src/components/TextInput';
 import SearchBar from '../searchBar';
 
 const buttonTypes = el => el.type === 'button';
-const formTypes = el => el.type === 'form';
 const inputTypes = el => el.type === 'input';
 
 const executeSearchMock = jest.fn();
@@ -101,16 +102,83 @@ test('the reset button clears the input', () => {
     expect(input.props.value).toBe('');
 });
 
-// TODO: test fails because mock isn't called ... but it is?
-test.skip('submitting the form executes the search', () => {
+test('submitting the form executes the search', () => {
     const renderer = TestRenderer.create(<SearchBar {...props} />);
     const instance = renderer.root;
 
     // Simulate form submit.
-    const form = instance.find(formTypes);
-    form.props.onSubmit();
+    const form = instance.findByType(Form);
+    form.props.onSubmit({
+        search_query: 'test'
+    });
 
     // Test that executeSearch was called.
     expect(executeSearchMock).toHaveBeenCalledTimes(1);
     expect(executeSearchMock).toHaveBeenNthCalledWith(1, 'test', props.history);
+});
+
+test('focusing on the text input sets state.autocompleteVisible true', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
+    const setStateMock = jest.fn();
+    instance.children[0].instance.setState = setStateMock;
+
+    const input = instance.findByType(TextInput);
+    input.props.onFocus();
+
+    expect(setStateMock).toHaveBeenCalled();
+    expect(setStateMock).toHaveBeenCalledWith({
+        autocompleteVisible: true
+    });
+});
+
+test('handles clicks inside and out of autocomplete input', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
+    const setStateMock = jest.fn();
+
+    instance.children[0].instance.searchRef.current = {};
+    instance.children[0].instance.autocompleteRef.current = {};
+
+    instance.children[0].instance.setState = setStateMock;
+    instance.children[0].instance.searchRef.current.contains = jest
+        .fn()
+        .mockReturnValue(true);
+    instance.children[0].instance.autocompleteRef.current.contains = jest
+        .fn()
+        .mockReturnValue(false);
+
+    instance.children[0].instance.autocompleteClick({
+        target: ''
+    });
+
+    expect(setStateMock).not.toHaveBeenCalled();
+
+    instance.children[0].instance.searchRef.current.contains = jest
+        .fn()
+        .mockReturnValue(false);
+    instance.children[0].instance.autocompleteRef.current.contains = jest
+        .fn()
+        .mockReturnValue(true);
+
+    instance.children[0].instance.autocompleteClick({
+        target: ''
+    });
+
+    expect(setStateMock).not.toHaveBeenCalled();
+
+    instance.children[0].instance.searchRef.current.contains = jest
+        .fn()
+        .mockReturnValue(false);
+    instance.children[0].instance.autocompleteRef.current.contains = jest
+        .fn()
+        .mockReturnValue(false);
+
+    instance.children[0].instance.autocompleteClick({
+        target: ''
+    });
+
+    expect(setStateMock).toHaveBeenCalledWith({
+        autocompleteVisible: false
+    });
 });
