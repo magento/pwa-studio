@@ -1,10 +1,7 @@
 import { RestApi, Util } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { 
-    clearGuestCartId,
-    createGuestCart
-} from 'src/actions/cart';
+import { clearGuestCartId, createGuestCart } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
 import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
