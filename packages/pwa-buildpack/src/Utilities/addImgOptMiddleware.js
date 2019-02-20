@@ -1,7 +1,7 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 let cache;
 let expressSharp;
-const missingDeps = '';
+let missingDeps = '';
 const markDepInvalid = (dep, e) => {
     missingDeps += `- ${dep}: Reason: ${e.message.split('\n')[0]}\n`;
 };
