@@ -50,7 +50,7 @@ function addImgOptMiddleware(app, env = process.env) {
     if (missingDeps) {
         console.warn(
             `Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
-${listInvalidDeps()}
+${missingDeps}
 Images will be served uncompressed.
 
 If possible, install additional tools to build NodeJS native dependencies:
