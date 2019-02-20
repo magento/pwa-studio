@@ -107,6 +107,13 @@ export const addItemToCart = (payload = {}) => {
             );
 
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
+
+            // 2019-02-07  Moved these dispatches to the success clause of
+            // addItemToCart. The cart should only open on success.
+            // In the catch clause, this action creator calls its own thunk,
+            // so a successful retry will wind up here anyway.
+            await dispatch(getCartDetails({ forceRefresh: true }));
+            await dispatch(toggleDrawer('cart'));
         } catch (error) {
             const { response, noGuestCartId } = error;
 
@@ -125,9 +132,6 @@ export const addItemToCart = (payload = {}) => {
                 return thunk(...arguments);
             }
         }
-
-        await dispatch(getCartDetails({ forceRefresh: true }));
-        await dispatch(toggleDrawer('cart'));
     };
 };
 

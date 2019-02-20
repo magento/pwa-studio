@@ -51,7 +51,7 @@ imageOpt:
               - matches: env.USE_FASTLY
                 pattern: '[^0]'
                 use:
-                  inline: '{{path}}?auto=webp&format=pjpg&'
+                  inline: '{{path}}?auto=webp&format=pjpg&width={{width}}'
             default:
               inline: '{{path}}'
 
