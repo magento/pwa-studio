@@ -1,6 +1,5 @@
 # Release 2.0
 
-
 ## What's new
 
 ### Server platform and language independence
@@ -9,7 +8,7 @@
     An UPWARD file describes a stack-agnostic server that is used for server side rendering, asset delivery, and proxying.
 -   A PWA package can now define its network requirements in an UPWARD file.
 -   A PWA can now be deployed on any tech stack as long as the server is UPWARD compliant.
--   UPWARD server implemented in NodeJS and PHP
+-   UPWARD servers implemented in[NodeJS][] and [PHP][]
 -   UPWARD spec published and open for community contribution.
 
 #### Related documentation updates
@@ -64,6 +63,7 @@
     -   Advanced minification
     -   Bundle splitting
 -   Improved app performance on devices using smoother animations and non-blocking renders, which provide faster times on first meaningful paint.
+-   Improved app performance on devices, including smoother renders and faster [Time To First Meaningful Paint][].
 
 ### GraphQL usage
 
@@ -72,7 +72,7 @@
 ### Magento Cloud compatibility
 
 -   A new Magento module (`Magento_UpwardConnector`) is available to route frontend requests through an UPWARD-PHP server.
--   Software Integrators(SI) can replace existing Magento cloud storefronts with a new PWA storefront using the UPWARD connector module.
+-   Solution Implementers(SI) can replace existing Magento cloud storefronts with a new PWA storefront using the UPWARD connector module.
 -   Documentation created for deploying storefront to Magento Cloud
 -   Assistance offered by Magento Enterprise Cloud deployment team
 
@@ -101,6 +101,7 @@
 
 ## Other notable updates
 
+-   Switched from NPM to Yarn for package management
 -   **Setup Venia storefront** video developed and available in Magento U
 
 [braintree integration]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/features/braintree/
@@ -129,3 +130,6 @@
 [#916]: https://github.com/magento-research/pwa-studio/issues/916
 [#830]: https://github.com/magento-research/pwa-studio/issues/83o
 [#824]: https://github.com/magento-research/pwa-studio/issues/824
+[nodejs]: https://magento-research.github.io/pwa-studio/technologies/upward/reference-implementation/
+[php]: https://github.com/magento-research/magento2-upward-connector
+[time to first meaningful paint]: https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint
