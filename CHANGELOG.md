@@ -12,7 +12,7 @@ For a list of relevant Pull Requests related to the 2.0 release, see this [GitHu
     An UPWARD file describes a stack-agnostic server that is used for server side rendering, asset delivery, and proxying.
 -   A PWA package can now define its network requirements in an UPWARD file.
 -   A PWA can now be deployed on any tech stack as long as the server is UPWARD compliant.
--   UPWARD servers implemented in[NodeJS][] and [PHP][]
+-   UPWARD servers implemented in [NodeJS][] and [PHP][]
 -   UPWARD spec published and open for community contribution.
 
 #### Related documentation updates
@@ -22,7 +22,7 @@ For a list of relevant Pull Requests related to the 2.0 release, see this [GitHu
 
 ### Improved developer experience
 
--   Implemented consistent patterns for workflow, such as action/reducer organization and container/presentational separation, in the Venia reference theme source code.
+-   Implemented consistent patterns for workflow, such as action/reducer organization and container/presentational separation, in the Venia reference storefront source code.
 -   Venia components are now portable and can be used in any React application.
 -   New centralized driver and adapter concepts for all PWA-Studio component input/output.
 -   Configurable low level UI elements, such as lists and forms, available for developers without the need for drivers or adapters.
@@ -33,7 +33,7 @@ For a list of relevant Pull Requests related to the 2.0 release, see this [GitHu
 -   [Modular Venia components][] ([#796][])
 -   [Venia directory structure][]([#487][] [#752][])
 
-### App-like experience
+### Venia app-like experience
 
 -   Pagination feature added to Venia reference storefront for app-like navigation.
 -   Inline checkout implemented in the Venia reference storefront.
@@ -57,7 +57,7 @@ For a list of relevant Pull Requests related to the 2.0 release, see this [GitHu
 
 -   Web App Manifest file created for the Venia reference storefront.
     This file provides the metadata for adding the Venia storefront to a mobile home screen.
--   Service worker optimizations
+-   Service worker optimizations.
 
 ### Performance enhancements
 
@@ -98,7 +98,7 @@ For a list of relevant Pull Requests related to the 2.0 release, see this [GitHu
 
 ## Known issues
 
--   After submitting a successful order, users are unable to add items to the cart. ([#916][])
+-   After submitting a successful order, the application throws up an error notification, and the user has to actively click out of the error notification. ([#916][])
 -   Create account page displayed with null values for email, first and last name when creating an account during a guest checkout. ([#830][])
 -   (Mobile specific) When there are more categories, users cannot scroll to Sign in button. It blocks user from signing to the account. ([#824][])
 
