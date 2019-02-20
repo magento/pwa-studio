@@ -6,8 +6,8 @@
 ### Server platform and language independence
 
 -   UPWARD spec introduced for cross platform server behavior configuration.
-    An upward spec describes a stack-agnostic server that is used for server side rendering.
--   A PWA package can now define its network requirements in an UPWARD spec file.
+    An UPWARD file describes a stack-agnostic server that is used for server side rendering, asset delivery, and proxying.
+-   A PWA package can now define its network requirements in an UPWARD file.
 -   A PWA can now be deployed on any tech stack as long as the server is UPWARD compliant.
 -   UPWARD server implemented in NodeJS and PHP
 -   UPWARD spec published and open for community contribution.
@@ -43,7 +43,7 @@
 
 ### Improved shopper experience
 
--   Braintree integration in the Venia reference storefront.
+-   Braintree checkout integration in the Venia reference storefront.
 -   Search with intelligent previews implemented in the Venia reference storefront.
 
 #### Related documentation updates
