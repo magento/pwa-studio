@@ -62,7 +62,6 @@
     -   Dynamic image compression/resize
     -   Advanced minification
     -   Bundle splitting
--   Improved app performance on devices using smoother animations and non-blocking renders, which provide faster times on first meaningful paint.
 -   Improved app performance on devices, including smoother renders and faster [Time To First Meaningful Paint][].
 
 ### GraphQL usage
