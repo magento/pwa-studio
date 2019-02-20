@@ -1,6 +1,5 @@
 # Release 2.0
 
-Branch: https://github.com/magento-research/pwa-studio/tree/release/2.0
 
 ## What's new
 
