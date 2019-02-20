@@ -1,6 +1,6 @@
 import reducer from '../app';
 
-const baseState = {
+const state = {
     drawer: null,
     hasBeenOffline: false,
     isOnline: true,
@@ -10,71 +10,73 @@ const baseState = {
     searchOpen: false
 };
 
-test('toggleDrawer', () => {
+test('toggleDrawer sets the overlay flag and the drawer to the action payload', () => {
     const action = {
         payload: 'cart',
         type: 'APP/TOGGLE_DRAWER'
     };
 
-    const result = reducer(baseState, action);
+    const result = reducer(state, action);
 
-    expect(result).toEqual({
-        ...baseState,
-        drawer: 'cart',
-        overlay: true
+    expect(result).toHaveProperty('drawer', action.payload);
+    expect(result).toHaveProperty('overlay', true);
+});
+
+describe('toggleSearch', () => {
+    test('toggleSearch flips the searchOpen flag to true', () => {
+        const action = {
+            type: 'APP/TOGGLE_SEARCH'
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('searchOpen', true);
+    });
+
+    test('toggleSearch flips the searchOpen flag to false', () => {
+        const action = {
+            type: 'APP/TOGGLE_SEARCH'
+        };
+
+        const testState = {
+            ...state,
+            searchOpen: true
+        };
+
+        const result = reducer(testState, action);
+
+        expect(result).toHaveProperty('searchOpen', false);
     });
 });
 
-test('toggleSearch', () => {
-    const action = {
-        type: 'APP/TOGGLE_SEARCH'
-    };
-
-    const result = reducer(baseState, action);
-
-    expect(result).toEqual({
-        ...baseState,
-        searchOpen: true
-    });
-});
-
-test('executeSearch', () => {
+test('executeSearch sets the query to the action payload', () => {
     const action = {
         payload: 'unit test',
         type: 'APP/EXECUTE_SEARCH'
     };
 
-    const result = reducer(baseState, action);
+    const result = reducer(state, action);
 
-    expect(result).toEqual({
-        ...baseState,
-        query: 'unit test'
-    });
+    expect(result).toHaveProperty('query', 'unit test');
 });
 
-test('setOnline', () => {
+test('setOnline sets the isOnline flag to true', () => {
     const action = {
         type: 'APP/SET_ONLINE'
     };
 
-    const result = reducer(baseState, action);
+    const result = reducer(state, action);
 
-    expect(result).toEqual({
-        ...baseState,
-        isOnline: true
-    });
+    expect(result).toHaveProperty('isOnline', true);
 });
 
-test('setOffline', () => {
+test('setOffline sets the isOnline and hasBeenOffline flags appropriately', () => {
     const action = {
         type: 'APP/SET_OFFLINE'
     };
 
-    const result = reducer(baseState, action);
+    const result = reducer(state, action);
 
-    expect(result).toEqual({
-        ...baseState,
-        isOnline: false,
-        hasBeenOffline: true
-    });
+    expect(result).toHaveProperty('isOnline', false);
+    expect(result).toHaveProperty('hasBeenOffline', true);
 });
