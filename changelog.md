@@ -2,6 +2,10 @@
 
 ## What's new
 
+This is a brief development summary for this release.
+
+For a list of relevant Pull Requests related to the 2.0 release, see this [GitHub query result][].
+
 ### Server platform and language independence
 
 -   UPWARD spec introduced for cross platform server behavior configuration.
@@ -132,3 +136,4 @@
 [nodejs]: https://magento-research.github.io/pwa-studio/technologies/upward/reference-implementation/
 [php]: https://github.com/magento-research/magento2-upward-connector
 [time to first meaningful paint]: https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint
+[GitHub query result]: https://github.com/magento-research/pwa-studio/pulls?page=1&q=is%3Apr+is%3Amerged+base%3Arelease%2F2.0+review%3Aapproved+NOT+fix+in%3Atitle+NOT+fixed+in%3Atitle+NOT+chore+in%3Atitle+NOT+test+in%3Atitle&utf8=%E2%9C%93
