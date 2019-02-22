@@ -207,13 +207,18 @@ start_docker () {
   docker-compose down
 
   message "Building PWA image"
-  docker-compose build
+  BUILD_STATUS=0
+  docker-compose build || BUILD_STATUS=$?
 
   # clean up the environment in the background
   clean_up_env &
-
-  message "Starting Docker network and containers"
-  docker-compose up
+  
+  if [ "$BUILD_STATUS" == 0 ]; then
+    message "Starting Docker network and containers"
+    docker-compose up
+  else
+    message "Build failed. See output for details."
+  fi
 }
 
 clean_up_env () {
