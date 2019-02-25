@@ -27,14 +27,14 @@ const item = {
 
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
-    const showEditPanel = jest.fn();
+    const openOptionsDrawer = jest.fn();
     let wrapper = shallow(
         <Product
             classes={classes}
             item={item}
             currencyCode={'NZD'}
             removeItemFromCart={removeItemFromCart}
-            showEditPanel={showEditPanel}
+            openOptionsDrawer={openOptionsDrawer}
         />
     ).dive();
 
@@ -56,8 +56,14 @@ test('passed functions are called from nested `Section` components', () => {
 });
 
 test('Product name is rendered', () => {
+    const openOptionsDrawer = jest.fn();
     const wrapper = shallow(
-        <Product item={item} currencyCode={'EUR'} classes={classes} />
+        <Product
+            item={item}
+            currencyCode={'EUR'}
+            classes={classes}
+            openOptionsDrawer={openOptionsDrawer}
+        />
     ).dive();
 
     expect(
@@ -69,8 +75,14 @@ test('Product name is rendered', () => {
 });
 
 test('Product variants are rendered', () => {
+    const openOptionsDrawer = jest.fn();
     const wrapper = shallow(
-        <Product item={item} currencyCode={'EUR'} classes={classes} />
+        <Product
+            item={item}
+            currencyCode={'EUR'}
+            classes={classes}
+            openOptionsDrawer={openOptionsDrawer}
+        />
     ).dive();
 
     wrapper.find(`.${classes.optionLabel}`).forEach((optionLabel, i) => {

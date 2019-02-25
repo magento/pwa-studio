@@ -7,6 +7,26 @@ const chalk = require('chalk');
 const execa = require('execa');
 const { username } = os.userInfo();
 
+/**
+ * Monkeypatch devcert to fix
+ * https://github.com/magento-research/pwa-studio/issues/679 which is blocked by
+ * https://github.com/davewasmer/devcert/pull/30.
+ * TODO: Remove this when a release of devcert without this bug is available
+ */
+const devCertUtils = require('devcert/dist/utils');
+const MacOSPlatform = require('devcert/dist/platforms/darwin');
+const proto = (MacOSPlatform.default || MacOSPlatform).prototype;
+proto.isNSSInstalled = function() {
+    try {
+        return devCertUtils
+            .run('brew list -1')
+            .toString()
+            .includes('\nnss\n');
+    } catch (e) {
+        return false;
+    }
+};
+
 const DEFAULT_NAME = 'my-pwa';
 const DEV_DOMAIN = 'local.pwadev';
 
@@ -47,7 +67,7 @@ Please enter the password for ${chalk.whiteBright(
                     clearTimeout(timeout);
                     return reject(
                         new Error(
-                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `npm run watch:venia`) by itself in the terminal to continue.'
+                            'Creating a local development domain requires an interactive terminal for the user to answer prompts. Run the development server (e.g. `yarn run watch:venia`) by itself in the terminal to continue.'
                         )
                     );
                 }

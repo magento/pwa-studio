@@ -81,12 +81,6 @@
     margin: 0 0.375rem;
 }
 
-.quantitySelect {
-    background: transparent;
-    width: 3.125rem;
-    padding: 0.3125rem;
-}
-
 .price {
     align-items: center;
     display: inline-flex;

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff6334">
+    <link rel="manifest" href="/manifest.json">
+
+    {{!
+        Apple Specific Tags
+
+        To be included until Safari supports WebAppManifest
+        See Docs:
+        - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+        - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+    }}
+    {{!
+        Apple Icons for Homescreen
+        Sizes: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
+    }}
+    <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">
+
+    <link rel="preconnect" href="{{env.MAGENTO_BACKEND_URL}}">
+    {{#bundles.prefetch}}
+    <link rel="prefetch script" href="{{.}}">
+    {{/bundles.prefetch}}

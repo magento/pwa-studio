@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import fetchRootComponent from 'FETCH_ROOT_COMPONENT';
+// 2019-01-28 Removed virtual `FETCH_ROOT_COMPONENT` import. It's much cleaner
+// to inject a "fetchRootComponent" global at build time, so that's what we
+// changed the MagentoRootComponentsPlugin to do.
 import resolveUnknownRoute from './resolveUnknownRoute';
 
 const InternalError = Symbol('InternalError');
@@ -40,14 +42,19 @@ export default class MagentoRouteHandler extends Component {
     }
 
     componentDidMount() {
+        const { pathname } = this.props.location;
+        const isSearch = pathname === '/search.html';
         mountedInstances.add(this);
-        this.getRouteComponent();
+        if (!isSearch) {
+            this.getRouteComponent(pathname);
+        }
     }
 
     componentDidUpdate() {
         const { props, state } = this;
         const { pathname } = props.location;
         const isKnown = state.componentMap.has(pathname);
+        const isSearch = pathname === '/search.html';
 
         // `NOTFOUND` component needs a unique id
         // currently it is set to -1
@@ -57,7 +64,7 @@ export default class MagentoRouteHandler extends Component {
 
         const shouldReloadRoute = isNotFoundComponent && navigator.onLine;
 
-        if (!isKnown || shouldReloadRoute) {
+        if ((!isKnown && !isSearch) || shouldReloadRoute) {
             this.getRouteComponent();
         }
     }
@@ -71,6 +78,13 @@ export default class MagentoRouteHandler extends Component {
             apiBase,
             location: { pathname }
         } = this.props;
+
+        // Depending on the environment, the fetchRootComponent global can be
+        // either an ES module with a `default` property or a plain CJS module.
+        const fetchRoot =
+            'default' in fetchRootComponent
+                ? fetchRootComponent.default
+                : fetchRootComponent;
 
         try {
             // try to resolve the route
@@ -90,7 +104,7 @@ export default class MagentoRouteHandler extends Component {
 
             // at this point we should have a matching RootComponent
             // if this throws, we essentially have a 500 Internal Error
-            const RootComponent = await fetchRootComponent(type);
+            const RootComponent = await fetchRoot(type);
 
             // associate the matching RootComponent with this location
             this.setRouteComponent(pathname, RootComponent, { id });
@@ -158,6 +172,6 @@ export default class MagentoRouteHandler extends Component {
         // otherwise we do have a RootComponent, so render it
         const { RootComponent, ...routeProps } = componentMap.get(pathname);
 
-        return <RootComponent {...routeProps} />;
+        return <RootComponent {...routeProps} key={pathname} />;
     }
 }

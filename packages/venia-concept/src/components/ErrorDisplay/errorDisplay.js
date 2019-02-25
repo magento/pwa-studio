@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import defaultClasses from './errorDisplay.css';
+import { shape, string } from 'prop-types';
+
 import classify from 'src/classify';
+import defaultClasses from './errorDisplay.css';
 
 class ErrorDisplay extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
+        classes: shape({
+            body: string,
+            root: string
         }),
-        error: PropTypes.object
+        error: shape({
+            message: string
+        })
     };
 
     render() {
         const { classes, error } = this.props;
-        if (error) {
-            const isErrorEmpty = Object.keys(error).length === 0;
-            return !isErrorEmpty ? (
-                <div className={classes.root}>
-                    <p> {`Error: ${error.message.substring(0, 100)}...`} </p>
-                </div>
-            ) : null;
-        } else {
+        const message = error && error.message;
+
+        if (!message) {
             return null;
         }
+
+        return (
+            <pre className={classes.root}>
+                <code className={classes.body}>{message}</code>
+            </pre>
+        );
     }
 }
 

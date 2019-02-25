@@ -16,67 +16,68 @@ workflows:
 # configuration nodes for reuse.
 common_settings:
   docker: &docker_setup
-    - image: 'circleci/node:8.11.2'
-  # Cache a bunch of stuff
-  # - npm's local tarball cache
+    - image: 'circleci/node:10.14.1'
   save_cache: &savecache
+    name: Save yarn package cache
+    key: 'yarn-packages-{{ checksum "yarn.lock" }}'
     paths:
-      - ~/.ssh
-      - ~/.npm
-      - /root/.npm
-    key: 'v3-npm-cache-{{ checksum "package-lock.json" }}'
-
-  install_latest_npm: &install_latest_npm
-    name: Ensure NPM is up to date
-    command: sudo npm install -g npm@latest
-
+      - ~/.cache/yarn
   install_packages: &install_packages
-    name: Install NPM packages from lockfile
-    command: npm ci --ignore-scripts && npx lerna bootstrap --hoist --no-ci
+    name: Install packages from lockfile
+    # Don't ignore scripts. Bundlesize needs to build iltorb on install.
+    command: yarn install --frozen-lockfile
 
   full_build: &full_build
-    name: Full Build
-    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && npm run build && npm run clean:dist'
+    name: Full build
+    command: 'cp packages/venia-concept/.env.dist packages/venia-concept/.env && yarn run clean:dist && yarn run build'
+
+  storybook_build: &storybook_build
+    name: Storybook compilation
+    command: yarn workspace @magento/venia-concept run storybook:build
 
   test_result_path: &test_result_path
     path: "test-results"
+
+  artifact_storage_path: &artifact_storage_path
+    path: "packages/venia-concept/dist"
 
 jobs:
   master:
     docker: *docker_setup
     steps:
       - checkout
-      - run: *install_latest_npm
       - run: *install_packages
       - run:
-          name: Test Suites
-          command: 'npm run test:ci'
+          name: Test suites
+          command: 'yarn run test:ci'
       - run:
-          name: Coveralls Coverage Analysis
-          command: npm run coveralls
+          name: Coveralls coverage analysis
+          command: yarn run coveralls
       - run: *full_build
+      - run: *storybook_build
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
+      - store_artifacts: *artifact_storage_path
   build:
     docker: *docker_setup
     steps:
       - checkout
       - restore_cache:
           keys:
-            - 'v3-npm-cache-{{ checksum "package-lock.json" }}'
-      - run: *install_latest_npm
+            - 'yarn-packages-{{ checksum "yarn.lock" }}'
       - run: *install_packages
       - save_cache: *savecache
       - run:
-          name: Test Suites and Coverage
+          name: Test suites and coverage
           # Test failures should not stop Danger, so hide the exit code.
-          command: 'npm run test:ci && npm run coveralls || true'
+          command: 'yarn run test:ci && yarn run coveralls || true'
       - run: *full_build
+      - run: *storybook_build
       - run:
           name: DangerCI
-          command: npm run danger
+          command: yarn run danger
+      - run:
+          name: Bundle size analysis
+          command: yarn run bundlesize
 
       - store_test_results: *test_result_path
-      - store_artifacts: *test_result_path
-
-
+      - store_artifacts: *artifact_storage_path

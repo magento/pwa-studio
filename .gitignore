@@ -2,6 +2,7 @@ node_modules
 npm-debug.log
 .DS_Store
 .vscode
+jsconfig.json
 coverage
 test-results
 dist
@@ -11,3 +12,6 @@ test-report.xml
 test-results.json
 lerna-debug.log
 .env
+yarn-error.log
+# Packages that build partially transpiled ES modules put them here
+packages/*/esm/*

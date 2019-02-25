@@ -1,29 +1,45 @@
 import { handleActions } from 'redux-actions';
-
+import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
 import actions from 'src/actions/checkout';
 
-export const name = 'checkout';
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-const storedPaymentMethod = storage.getItem('paymentMethod');
-const storedShippingMethod = storage.getItem('shippingMethod');
+export const name = 'checkout';
 
 const initialState = {
+    availableShippingMethods: [],
+    billingAddress: null,
     editing: null,
-    paymentMethod: storedPaymentMethod && storedPaymentMethod.code,
-    paymentTitle: storedPaymentMethod && storedPaymentMethod.title,
-    shippingMethod: storedShippingMethod && storedShippingMethod.carrier_code,
-    shippingTitle: storedShippingMethod && storedShippingMethod.carrier_title,
+    paymentCode: '',
+    paymentData: null,
+    shippingAddress: null,
+    shippingMethod: '',
+    shippingTitle: '',
     step: 'cart',
-    submitting: false
+    submitting: false,
+    isAddressIncorrect: false,
+    incorrectAddressMessage: ''
 };
 
 const reducerMap = {
     [actions.begin]: state => {
+        const storedBillingAddress = storage.getItem('billing_address');
+        const storedPaymentMethod = storage.getItem('paymentMethod');
+        const storedShippingAddress = storage.getItem('shipping_address');
+        let storedShippingMethod = storage.getItem('shippingMethod');
+
         return {
             ...state,
+            billingAddress: storedBillingAddress,
+            paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+            paymentData: storedPaymentMethod && storedPaymentMethod.data,
+            shippingAddress: storedShippingAddress,
+            shippingMethod:
+                storedShippingMethod && storedShippingMethod.carrier_code,
+            shippingTitle:
+                storedShippingMethod && storedShippingMethod.carrier_title,
             editing: null,
             step: 'form'
         };
@@ -31,27 +47,61 @@ const reducerMap = {
     [actions.edit]: (state, { payload }) => {
         return {
             ...state,
-            editing: payload
+            editing: payload,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.submit]: state => {
+    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.accept]: (state, { payload }) => {
+        return {
+            ...state,
+            billingAddress: payload
+        };
+    },
+    [actions.billingAddress.reject]: state => state,
+    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            availableShippingMethods: payload.map(method => ({
+                ...method,
+                code: method.carrier_code,
+                title: method.carrier_title
+            }))
+        };
+    },
+    [actions.shippingAddress.submit]: state => {
         return {
             ...state,
             submitting: true
         };
     },
-    [actions.address.accept]: state => {
+    [actions.shippingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
             editing: null,
+            shippingAddress: payload,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
-    [actions.address.reject]: state => {
+    [actions.shippingAddress.reject]: (state, actionArgs) => {
+        const incorrectAddressMessage = get(
+            actionArgs,
+            'payload.incorrectAddressMessage',
+            ''
+        );
+
         return {
             ...state,
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: incorrectAddressMessage ? true : false,
+            incorrectAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -64,8 +114,8 @@ const reducerMap = {
         return {
             ...state,
             editing: null,
-            paymentMethod: payload.code,
-            paymentTitle: payload.title,
+            paymentCode: payload.code,
+            paymentData: payload.data,
             step: 'form',
             submitting: false
         };
@@ -89,7 +139,9 @@ const reducerMap = {
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title,
             step: 'form',
-            submitting: false
+            submitting: false,
+            isAddressIncorrect: false,
+            incorrectAddressMessage: ''
         };
     },
     [actions.shippingMethod.reject]: state => {

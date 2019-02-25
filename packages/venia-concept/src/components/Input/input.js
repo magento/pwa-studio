@@ -44,6 +44,14 @@ class Input extends Component {
         helpType: HelpTypes.hint
     };
 
+    componentDidMount() {
+        const { initialValue, onChange } = this.props;
+
+        if (initialValue && onChange) {
+            onChange(initialValue);
+        }
+    }
+
     state = {
         value: this.props.initialValue,
         focused: false,
@@ -103,7 +111,7 @@ class Input extends Component {
         return (
             <div className={rootClass}>
                 <span className={classes.label}>
-                    {requiredSymbol} {labelText}
+                    {requiredSymbol}&nbsp;{labelText}
                 </span>
                 <Text
                     initialValue={initialValue}

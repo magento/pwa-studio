@@ -1,101 +1,77 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import waitForExpect from 'wait-for-expect';
+import TestRenderer from 'react-test-renderer';
+import { Form } from 'informed';
+
 import CreateAccount from '../createAccount';
+import { asyncValidators, validators } from '../validators';
 
-let blankState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    subscribe: false,
-    checkingEmail: false,
-    emailAvailable: false,
-    subscribe: true
-};
+jest.mock('../validators');
 
-let state = {
-    firstName: 'Test',
-    lastName: 'Test Test',
-    email: 'test@test.com',
-    password: 'test',
-    passwordConfirm: 'test',
-    subscribe: false,
-    checkingEmail: false,
-    emailAvailable: true,
-    subscribe: true
-};
+const submitCallback = jest.fn();
 
-jest.mock('@magento/peregrine', () => {
-    return {
-        RestApi: {
-            Magento2: {
-                request: () => {
-                    return true;
-                }
-            }
+afterEach(() => {
+    jest.clearAllMocks();
+});
+
+test('renders the correct tree', () => {
+    const tree = TestRenderer.create(<CreateAccount />).toJSON();
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('has a submit handler', () => {
+    const { root } = TestRenderer.create(<CreateAccount />);
+
+    const { instance } = root.children[0];
+
+    expect(instance.handleSubmit).toBeInstanceOf(Function);
+});
+
+test('attaches the submit handler', () => {
+    const { root } = TestRenderer.create(<CreateAccount />);
+
+    const { instance } = root.children[0];
+    const { onSubmit } = root.findByType(Form).props;
+
+    expect(onSubmit).toBe(instance.handleSubmit);
+});
+
+test('executes validators on submit', async () => {
+    const { root } = TestRenderer.create(<CreateAccount />);
+
+    const form = root.findByType(Form);
+    const { api } = form.instance.controller;
+
+    // touch fields, call validators, call onSubmit
+    api.submitForm();
+    // await async validation
+    await waitForExpect(() => {
+        for (const validator of validators.values()) {
+            expect(validator).toHaveBeenCalledTimes(1);
         }
-    };
+        for (const validator of asyncValidators.values()) {
+            expect(validator).toHaveBeenCalledTimes(1);
+        }
+    });
 });
 
-jest.mock('lodash.debounce', () => fn => fn);
-
-const classes = {
-    createAccountButton: 'a',
-    root: 'b'
-};
-
-// jest.useFakeTimers();
-
-test('correctly checks if password and passwordConfirm match', () => {
-    const wrapper = shallow(<CreateAccount />).dive();
-    wrapper.setState(state);
-    expect(wrapper.instance().hasPasswordConfirmError).toBe(false);
-    let incorrectPassState = Object.assign({}, state);
-    incorrectPassState.passwordConfirm =
-        incorrectPassState.passwordConfirm + 'wrong!';
-    wrapper.setState(incorrectPassState);
-    expect(wrapper.instance().hasPasswordConfirmError).toBe(true);
-});
-
-test('Enables the create account button when all forms are filled in and passwords match', () => {
-    const wrapper = shallow(<CreateAccount />).dive();
-    wrapper.setState(state);
-    expect(wrapper.instance().isIncompleteOrInvalid).toBe(false);
-});
-
-test('checks if email is available', () => {
-    const wrapper = shallow(<CreateAccount />).dive();
-    const emailNotAvailable = Object.assign({ emailAvailable: false, state });
-    wrapper.setState(emailNotAvailable);
-    wrapper
-        .instance()
-        .checkEmail('test@test.com')
-        .then(() => {
-            const { emailAvailable } = wrapper.instance().state;
-            expect(emailAvailable).toBe(true);
-        });
-});
-
-test('account creation to be disabled if not all inputs are filled', () => {
-    const wrapper = shallow(<CreateAccount />).dive();
-    wrapper.setState(blankState);
-    expect(wrapper.instance().isIncompleteOrInvalid).toBe(true);
-});
-
-test('calls `onCreateAccount` when create account button is pressed', () => {
-    const createAccountSpy = jest.fn();
-    const wrapper = mount(
-        shallow(
-            <CreateAccount onSubmit={createAccountSpy} classes={classes} />
-        ).get(0)
+test('calls onSubmit if validation passes', async () => {
+    const { root } = TestRenderer.create(
+        <CreateAccount onSubmit={submitCallback} />
     );
-    wrapper.setState(state);
-    const createAccountForm = wrapper.find('form');
-    createAccountForm
-        .getElement()
-        .props.onSubmit()
-        .then(() => {
-            expect(createAccountSpy).toHaveBeenCalled();
-        });
+
+    const form = root.findByType(Form);
+    const { api } = form.instance.controller;
+
+    // touch fields, call validators, call onSubmit
+    api.submitForm();
+    // await async validation
+    await waitForExpect(() => {
+        const { asyncErrors, errors } = form.instance.controller.state;
+
+        expect(Object.keys(asyncErrors)).toHaveLength(0);
+        expect(Object.keys(errors)).toHaveLength(0);
+        expect(submitCallback).toHaveBeenCalledTimes(1);
+    });
 });

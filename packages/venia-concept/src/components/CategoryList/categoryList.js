@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
-import { Query } from 'react-apollo';
+import { Query } from 'src/drivers';
 import classify from 'src/classify';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './categoryList.css';
 import CategoryTile from './categoryTile';
 import categoryListQuery from '../../queries/getCategoryList.graphql';
@@ -45,11 +46,7 @@ class CategoryList extends Component {
                             );
                         }
                         if (loading) {
-                            return (
-                                <div className={classes.fetchingData}>
-                                    Fetching Data
-                                </div>
-                            );
+                            return loadingIndicator;
                         }
                         if (data.category.children.length === 0) {
                             return (

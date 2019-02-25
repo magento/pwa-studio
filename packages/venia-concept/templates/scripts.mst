@@ -1,2 +1,0 @@
-{{^isDevelopment}}<script defer src="/js/vendor.js"></script>{{/isDevelopment}}
-<script defer src="/js/client.js"></script>
