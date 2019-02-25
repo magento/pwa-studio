@@ -1,18 +1,18 @@
 # Contributing
 
-Thank you for your interest in contributing to the PWA Studio project! Before you start contributing, please take a moment to read through the following guidelines:
+Thank you for your interest in contributing to the PWA Studio project! Before you start, please take a moment to read through the following guidelines:
 
 -   [Code of Conduct]
 -   [Support]
 
-To contribute to this repository, start by forking the [official repository] and following the installation instructions in the README file.
+To contribute to this repository, start by forking the [official repository] and following the installation instructions in the `README` file.
 
-## Pull Request checklist
+## Pull Requests
 
--   PR commits should contain [meaningful commit messages]
--   To help with reviews, your PR should only create/revise a single feature or fix a single issue.
--   If your PR fixes a bug, please provide a step-by-step description of how to reproduce the bug.
--   If your PR addresses an existing issue, please reference that issue in the title or description.
+-   PRs must be tied to issues.
+-   PRs should only be scoped to a single issue.
+-   PR commits should contain [meaningful commit messages].
+-   Please fill out the entirety of the PR template, including the PR checklist.
 -   If your PR adds a feature with a public API, please add or update documentation in the README for the relevant package.
 
 **Note:**
@@ -27,9 +27,6 @@ Even foundational infrastructure stories are available for a generous developer 
 
 To get started, look for issues tagged with the **[help wanted]** labels.
 These issues are ready for community ownership.
-
-**Note:**
-_We also accept unsolicited new issues/features and pull request, but priority is given to issues in our roadmap that community developers have been kind enough to take on._
 
 ### Claiming an issue on the roadmap
 
@@ -83,7 +80,7 @@ We hope this guide paints a clear picture of your duties and expectations in the
 
 ## Report an issue
 
-Create a [GitHub issue] and put an **X** in the appropriate box to report an issue with the project.
+Create a [GitHub issue].
 Provide as much detail as you can in each section to help us triage and process the issue.
 
 ### Issue types
@@ -99,6 +96,6 @@ _Please avoid creating GitHub issues asking for help on bugs in your project tha
 [support]: SUPPORT.md
 [official repository]: https://github.com/magento-research/pwa-studio
 [meaningful commit messages]: https://chris.beams.io/posts/git-commit/
-[github issue]: https://github.com/magento-research/pwa-studio/issues/new
+[github issue]: https://github.com/magento-research/pwa-studio/issues/new/choose
 [magento research]: https://github.com/magento-research
 [help wanted]: https://github.com/magento-research/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
