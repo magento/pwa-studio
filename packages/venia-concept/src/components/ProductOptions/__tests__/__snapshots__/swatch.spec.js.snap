@@ -1,89 +1,125 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
-<button
-  className="root_focused"
-  style={
-    Object {
-      "--venia-swatch-bg": "123,123,123",
+<div
+  className="root"
+>
+  <span
+    className="tooltip"
+  >
+    red
+  </span>
+  <button
+    className="root_focused"
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
+      }
     }
-  }
-  title="red"
-/>
+    title="red"
+  />
+</div>
 `;
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
-<button
-  className="root_selected"
-  style={
-    Object {
-      "--venia-swatch-bg": "123,123,123",
-    }
-  }
-  title="red"
+<div
+  className="root"
 >
   <span
-    className="root"
+    className="tooltip"
   >
-    <svg
-      fill="none"
-      height="24"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
+    red
   </span>
-</button>
+  <button
+    className="root_selected"
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
+      }
+    }
+    title="red"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polyline
+          points="20 6 9 17 4 12"
+        />
+      </svg>
+    </span>
+  </button>
+</div>
 `;
 
 exports[`renders a Swatch correctly 1`] = `
-<button
+<div
   className="root"
-  style={
-    Object {
-      "--venia-swatch-bg": "123,123,123",
+>
+  <span
+    className="tooltip"
+  >
+    red
+  </span>
+  <button
+    className="root"
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
+      }
     }
-  }
-  title="red"
-/>
+    title="red"
+  />
+</div>
 `;
 
 exports[`renders an icon if isSelected is true 1`] = `
-<button
-  className="root_selected"
-  style={
-    Object {
-      "--venia-swatch-bg": "123,123,123",
-    }
-  }
-  title="red"
+<div
+  className="root"
 >
   <span
-    className="root"
+    className="tooltip"
   >
-    <svg
-      fill="none"
-      height="24"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline
-        points="20 6 9 17 4 12"
-      />
-    </svg>
+    red
   </span>
-</button>
+  <button
+    className="root_selected"
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
+      }
+    }
+    title="red"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polyline
+          points="20 6 9 17 4 12"
+        />
+      </svg>
+    </span>
+  </button>
+</div>
 `;
