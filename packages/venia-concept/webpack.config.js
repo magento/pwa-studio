@@ -11,10 +11,9 @@ const {
     }
 } = require('@magento/pwa-buildpack');
 const path = require('path');
-const babelEnvDeps = require('webpack-babel-env-deps');
 
 const TerserPlugin = require('terser-webpack-plugin');
-const configureBabel = require('./babel.config.js');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const themePaths = {
     images: path.resolve(__dirname, 'images'),
@@ -26,22 +25,26 @@ const themePaths = {
 const rootComponentsDirs = ['./src/RootComponents/'];
 const libs = [
     'apollo-boost',
+    'informed',
     'react',
+    'react-apollo',
     'react-dom',
+    'react-feather',
     'react-redux',
     'react-router-dom',
-    'redux'
+    'redux',
+    'redux-actions',
+    'redux-thunk'
 ];
 
 module.exports = async function(env) {
     const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
 
-    const babelOptions = configureBabel(mode);
-
     const enableServiceWorkerDebugging =
         validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
 
     const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
+    const braintreeToken = validEnv.BRAINTREE_TOKEN;
 
     const config = {
         mode,
@@ -68,16 +71,16 @@ module.exports = async function(env) {
                     ]
                 },
                 {
-                    include: [
-                        themePaths.src,
-                        /peregrine\/src\//,
-                        babelEnvDeps.include()
-                    ],
+                    include: [themePaths.src, /peregrine\/src\//],
                     test: /\.(mjs|js)$/,
                     use: [
                         {
                             loader: 'babel-loader',
-                            options: { ...babelOptions, cacheDirectory: true }
+                            options: {
+                                cacheDirectory: true,
+                                envName: mode,
+                                rootMode: 'upward'
+                            }
                         }
                     ]
                 },
@@ -117,6 +120,7 @@ module.exports = async function(env) {
                 rootComponentsDirs,
                 context: __dirname
             }),
+            new webpack.EnvironmentPlugin(validEnv),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(mode),
@@ -128,7 +132,8 @@ module.exports = async function(env) {
                         mode === 'production' || enableServiceWorkerDebugging
                             ? serviceWorkerFileName
                             : false
-                    )
+                    ),
+                    BRAINTREE_TOKEN: JSON.stringify(braintreeToken)
                 }
             }),
             new ServiceWorkerPlugin({
@@ -142,6 +147,28 @@ module.exports = async function(env) {
                     swSrc: './src/sw.js',
                     swDest: 'sw.js'
                 }
+            }),
+            new WebpackAssetsManifest({
+                output: 'asset-manifest.json',
+                entrypoints: true,
+                // Add explicit properties to the asset manifest for
+                // venia-upward.yml to use when evaluating app shell templates.
+                transform(assets) {
+                    // All RootComponents go to prefetch, and all client scripts
+                    // go to load.
+                    assets.bundles = {
+                        load: assets.entrypoints.client.js,
+                        prefetch: []
+                    };
+                    Object.entries(assets).forEach(([name, value]) => {
+                        if (name.startsWith('RootCmp')) {
+                            const filenames = Array.isArray(value)
+                                ? value
+                                : [value];
+                            assets.bundles.prefetch.push(...filenames);
+                        }
+                    });
+                }
             })
         ],
         optimization: {
@@ -151,8 +178,6 @@ module.exports = async function(env) {
                         test: new RegExp(
                             `[\\\/]node_modules[\\\/](${libs.join('|')})[\\\/]`
                         ),
-                        name: true,
-                        filename: 'js/vendor.js',
                         chunks: 'all'
                     }
                 }
@@ -162,6 +187,7 @@ module.exports = async function(env) {
     if (mode === 'development') {
         config.devtool = 'eval-source-map';
         const devServerConfig = {
+            env: validEnv,
             publicPath: config.output.publicPath,
             graphqlPlayground: {
                 queryDirs: [path.resolve(themePaths.src, 'queries')]

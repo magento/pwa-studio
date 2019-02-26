@@ -15,14 +15,16 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
-    GET_SHIPPING_METHODS: {
+    REMOVE_ITEM: {
         REQUEST: null,
         RECEIVE: null
     },
-    REMOVE_ITEM: {
+    UPDATE_ITEM: {
         REQUEST: null,
         RECEIVE: null
     }
 };
 
-export default createActions(actionMap, { prefix });
+const actionTypes = ['OPEN_OPTIONS_DRAWER', 'CLOSE_OPTIONS_DRAWER'];
+
+export default createActions(actionMap, ...actionTypes, { prefix });

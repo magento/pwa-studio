@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import { bool, number, oneOfType, shape, string } from 'prop-types';
+import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import CheckIcon from 'react-feather/dist/icons/check';
 import defaultClasses from './swatch.css';
 
-// TODO: replace with actual swatch colors or images from API
-// M2 GraphQL doesn't currently support them
-const cache = new Map();
-const memoize = fn => key =>
-    cache.has(key) ? cache.get(key) : cache.set(key, fn(key)).get(key);
-
-const getRandomColor = () =>
-    Array.from({ length: 3 }, () => Math.floor(Math.random() * 255)).join(',');
-const memoizedGetRandomColor = memoize(getRandomColor);
+import { memoizedGetRandomColor } from 'src/util/getRandomColor';
 
 const getClassName = (name, isSelected, hasFocus) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
@@ -26,16 +19,22 @@ class Swatch extends Component {
         hasFocus: bool,
         isSelected: bool,
         item: shape({
-            id: oneOfType([number, string]),
-            label: string
-        }),
-        itemIndex: number
+            label: string.isRequired,
+            value_index: oneOfType([number, string]).isRequired
+        }).isRequired,
+        itemIndex: number,
+        style: object
+    };
+
+    static defaultProps = {
+        hasFocus: false,
+        isSelected: false
     };
 
     get icon() {
         const { isSelected } = this.props;
 
-        return isSelected ? <Icon name="check" /> : null;
+        return isSelected ? <Icon src={CheckIcon} /> : null;
     }
 
     render() {

@@ -1,0 +1,37 @@
+.root {
+    align-content: center;
+    align-items: center;
+    display: grid;
+    gap: 3rem;
+    height: calc(100% - 6rem);
+    justify-content: center;
+    justify-items: center;
+    margin: 3rem 0;
+    width: 100%;
+}
+
+.message {
+    color: rgb(var(--venia-text-alt));
+    font-size: 1rem;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+}
+
+.indicator {
+    animation-direction: alternate;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse {
+    0% {
+        filter: grayscale(1);
+        transform: scale(0.75) rotate(-540deg);
+    }
+    100% {
+        filter: grayscale(0);
+        transform: scale(1) rotate(0deg);
+    }
+}

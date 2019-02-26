@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Cart from './cart';
@@ -7,48 +7,84 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 
-const stepMap = {
-    cart: 1,
-    form: 2,
-    receipt: 3
-};
-
 class Flow extends Component {
     static propTypes = {
         actions: shape({
-            beginCheckout: func.isRequired,
-            editOrder: func.isRequired,
-            getShippingMethods: func.isRequired,
-            resetCheckout: func.isRequired,
-            submitAddress: func.isRequired,
-            submitOrder: func.isRequired,
-            submitPaymentMethod: func.isRequired,
-            submitShippingMethod: func.isRequired
+            beginCheckout: func,
+            cancelCheckout: func,
+            editOrder: func,
+            submitShippingAddress: func,
+            submitOrder: func,
+            submitPaymentMethodAndBillingAddress: func,
+            submitShippingMethod: func
         }).isRequired,
-        availablePaymentMethods: array,
-        availableShippingMethods: array,
         cart: shape({
             details: object,
             guestCartId: string,
             totals: object
         }),
         checkout: shape({
-            editing: string,
+            availableShippingMethods: array,
+            billingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: array,
+                telephone: string
+            }),
+            editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
             incorrectAddressMessage: string,
             isAddressIncorrect: bool,
-            step: string,
+            paymentCode: string,
+            paymentData: shape({
+                description: string,
+                details: shape({
+                    cardType: string
+                }),
+                nonce: string
+            }),
+            shippingAddress: shape({
+                city: string,
+                country_id: string,
+                email: string,
+                firstname: string,
+                lastname: string,
+                postcode: string,
+                region_id: string,
+                region_code: string,
+                region: string,
+                street: array,
+                telephone: string
+            }),
+            shippingMethod: string,
+            shippingTitle: string,
+            step: oneOf(['cart', 'form', 'receipt']).isRequired,
             submitting: bool
+        }).isRequired,
+        directory: shape({
+            countries: array
         }),
         classes: shape({
             root: string
         }),
+        hasPaymentMethod: bool,
+        hasShippingAddress: bool,
+        hasShippingMethod: bool,
         isCartReady: bool,
         isCheckoutReady: bool,
-        isPaymentMethodReady: bool,
-        isShippingInformationReady: bool,
-        isShippingMethodReady: bool,
-        paymentMethod: string,
-        paymentTitle: string,
+        paymentData: shape({
+            description: string,
+            details: shape({
+                cardType: string
+            }),
+            nonce: string
+        }),
         shippingMethod: string,
         shippingTitle: string
     };
@@ -56,41 +92,42 @@ class Flow extends Component {
     get child() {
         const {
             actions,
-            availablePaymentMethods,
-            availableShippingMethods,
             cart,
             checkout,
+            hasPaymentMethod,
+            hasShippingAddress,
+            hasShippingMethod,
+            directory,
             isCartReady,
-            isCheckoutReady,
-            isPaymentMethodReady,
-            isShippingInformationReady,
-            isShippingMethodReady,
-            paymentMethod,
-            paymentTitle,
-            shippingMethod,
-            shippingTitle
+            isCheckoutReady
         } = this.props;
 
         const {
             beginCheckout,
+            cancelCheckout,
             editOrder,
-            getShippingMethods,
-            submitAddress,
+            submitShippingAddress,
             submitOrder,
-            submitPaymentMethod,
+            submitPaymentMethodAndBillingAddress,
             submitShippingMethod
         } = actions;
 
         const {
+            availableShippingMethods,
+            billingAddress,
             editing,
-            step,
-            submitting,
             isAddressIncorrect,
-            incorrectAddressMessage
+            incorrectAddressMessage,
+            paymentData,
+            shippingAddress,
+            shippingMethod,
+            shippingTitle,
+            step,
+            submitting
         } = checkout;
 
-        switch (stepMap[step]) {
-            case stepMap.cart: {
+        switch (step) {
+            case 'cart': {
                 const stepProps = {
                     beginCheckout,
                     ready: isCartReady,
@@ -99,38 +136,35 @@ class Flow extends Component {
 
                 return <Cart {...stepProps} />;
             }
-            case stepMap.form: {
+            case 'form': {
                 const stepProps = {
-                    availablePaymentMethods,
                     availableShippingMethods,
+                    billingAddress,
+                    cancelCheckout,
                     cart,
+                    directory,
                     editOrder,
                     editing,
-                    getShippingMethods,
+                    hasPaymentMethod,
+                    hasShippingAddress,
+                    hasShippingMethod,
+                    incorrectAddressMessage,
+                    isAddressIncorrect,
+                    paymentData,
                     ready: isCheckoutReady,
-                    isPaymentMethodReady,
-                    isShippingInformationReady,
-                    isShippingMethodReady,
-                    paymentMethod,
-                    paymentTitle,
+                    shippingAddress,
                     shippingMethod,
                     shippingTitle,
-                    submitAddress,
+                    submitShippingAddress,
                     submitOrder,
-                    submitPaymentMethod,
+                    submitPaymentMethodAndBillingAddress,
                     submitShippingMethod,
                     submitting
                 };
 
-                const formProps = {
-                    ...stepProps,
-                    incorrectAddressMessage,
-                    isAddressIncorrect
-                };
-
-                return <Form {...formProps} />;
+                return <Form {...stepProps} />;
             }
-            case stepMap.receipt: {
+            case 'receipt': {
                 return <Receipt />;
             }
             default: {

@@ -24,7 +24,7 @@ In addition to the NPM packages.json and Venia specific validation and testing f
   Copy and execute this file in a Magento instance to install the sample data.
 
 [`server.js`][]
-: A node script that runs the UPWARD staging server when the `npm run stage:venia` command is used.
+: A node script that runs the UPWARD staging server when the `yarn run stage:venia` command is used.
 
 [`validate-environment.js`][]
 : A node script that validates the `.env` environment file.
@@ -92,7 +92,7 @@ you will find multiple component definition files in a single feature directory.
 
 {: .bs-callout .bs-callout-info}
 **Note:**
-Not all components used in the Venia them are in this directory.
+Not all components used in the Venia theme are in this directory.
 Some components are imported from the [Peregrine][] project or other sources.
 
 For more information on components, see the [official documentation for React components][].
@@ -132,6 +132,27 @@ They are used to simulate API calls or as temporary data for proofs of concepts 
 ### `src/util`
 
 The `src/util` directory contain useful JavaScript utility functions used throughout the project.
+
+### `src/classify.js`
+
+The `src/classify.js` file is a module that returns a component with the combined classes of its default classes, className property, and the classes provided through the `classes` prop.
+
+Example: `Classify(Main)`, `Classify(Cart)`, `Classify(Header)`.
+
+### `src/index.js`
+
+The `src/index.js` file is the entry point of Venia.
+It sets the ApolloProvider, the ReduxStore, and the Router configuration and App Component.
+
+### `src/store.js`
+
+The `src/store.js` file is responsible for creating a Redux store.
+It also combines Redux reducers and middlewares.
+
+### `src/sw.js`
+
+The `src/sw.js` file contains the service worker configuration.
+
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec

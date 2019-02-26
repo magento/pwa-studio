@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { string, number, shape } from 'prop-types';
+import { Link, resourceUrl } from 'src/drivers';
 import { Price } from '@magento/peregrine';
-import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 import Image from 'src/components/Image';
 
@@ -41,7 +40,6 @@ class GalleryItem extends Component {
         })
     };
 
-    // used as an argument for <Image />
     renderImagePlaceholder(props) {
         return (
             <img
@@ -54,20 +52,20 @@ class GalleryItem extends Component {
         );
     }
 
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
     get renderImage() {
         const { classes, item } = this.props;
+        const { small_image, name } = item;
         const { renderImagePlaceholder } = this;
 
         return (
             <Fragment>
                 <Image
                     className={classes.image}
-                    src={makeProductMediaPath(item.small_image)}
-                    alt={item.name}
+                    src={resourceUrl(small_image, {
+                        type: 'image-product',
+                        width: imageWidth
+                    })}
+                    alt={name}
                     iconHeight={iconHeight}
                     placeholder={renderImagePlaceholder}
                 />
@@ -110,10 +108,10 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
-                <Link to={productLink} className={classes.images}>
+                <Link to={resourceUrl(productLink)} className={classes.images}>
                     {renderImage}
                 </Link>
-                <Link to={productLink} className={classes.name}>
+                <Link to={resourceUrl(productLink)} className={classes.name}>
                     <span>{name}</span>
                 </Link>
                 <div className={classes.price}>

@@ -10,12 +10,21 @@
 }
 
 .informationPrompt {
-    color: rgb(var(--venia-orange));
+    color: rgb(var(--venia-error));
     text-transform: capitalize;
 }
-.informationPrompt--disabled {
-    color: rgb(var(--venia-text-hint));
+
+.paymentDisplayPrimary {
     text-transform: capitalize;
+}
+
+.paymentDisplaySecondary {
+    /* The ::first-letter pseudo element below only works on block elements */
+    display: block;
+    text-transform: lowercase;
+}
+.paymentDisplaySecondary::first-letter {
+    text-transform: uppercase;
 }
 
 @keyframes enter {

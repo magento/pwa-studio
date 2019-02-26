@@ -1,6 +1,7 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
 import { removeGuestCart } from 'src/actions/cart';
+import { refresh } from 'src/util/router-helpers';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
@@ -40,6 +41,14 @@ export const signIn = credentials =>
             dispatch(actions.signInError.receive(error));
         }
     };
+
+export const signOut = ({ history }) => dispatch => {
+    setToken(null);
+
+    dispatch(actions.signIn.reset());
+
+    refresh({ history });
+};
 
 export const getUserDetails = () =>
     async function thunk(...args) {
@@ -120,6 +129,22 @@ export const assignGuestCartToCustomer = () =>
             console.log(error);
         }
     };
+
+export const resetPassword = ({ email }) =>
+    async function thunk(...args) {
+        const [dispatch] = args;
+
+        dispatch(actions.resetPassword.request(email));
+
+        // TODO: actually make the call to the API.
+        // For now, just return a resolved promise.
+        const response = await Promise.resolve(email);
+
+        dispatch(actions.resetPassword.receive(response));
+    };
+
+export const completePasswordReset = email => async dispatch =>
+    dispatch(actions.completePasswordReset(email));
 
 async function setToken(token) {
     const storage = new BrowserPersistence();

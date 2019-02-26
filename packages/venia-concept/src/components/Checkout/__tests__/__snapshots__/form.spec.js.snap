@@ -1,0 +1,1195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an editable Form component if editing 1`] = `
+<div
+  className="root"
+/>
+`;
+
+exports[`renders an overview Form component if not editing 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders billing info CTA if no payment method is entered 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders empty strings if payment data is not defined 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <strong
+            className="paymentDisplayPrimary"
+          >
+            
+          </strong>
+          <br />
+          <span
+            className="paymentDisplaySecondary"
+          >
+            
+          </span>
+        </span>
+        <span
+          className="icon"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              fill="none"
+              height={18}
+              stroke="black"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              />
+            </svg>
+          </span>
+        </span>
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders name and street if shipping address is entered 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <strong>
+            Bob Dole
+          </strong>
+          <br />
+          <span>
+            123 Street
+          </span>
+        </span>
+        <span
+          className="icon"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              fill="none"
+              height={18}
+              stroke="black"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              />
+            </svg>
+          </span>
+        </span>
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders payment method summary if payment method entered 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <strong
+            className="paymentDisplayPrimary"
+          >
+            VISA
+          </strong>
+          <br />
+          <span
+            className="paymentDisplaySecondary"
+          >
+            card
+          </span>
+        </span>
+        <span
+          className="icon"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              fill="none"
+              height={18}
+              stroke="black"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              />
+            </svg>
+          </span>
+        </span>
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders shipping address CTA if no shipping address is entered 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders shipping method CTA if no shipping method selected 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Specify Shipping Method
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders shipping title if shipping method is selected 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="body"
+  >
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Ship To
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Shipping Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Pay With
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <span
+            className="informationPrompt"
+          >
+            Add Billing Information
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            Use
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <strong>
+            shipping title
+          </strong>
+        </span>
+        <span
+          className="icon"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              fill="none"
+              height={18}
+              stroke="black"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              />
+            </svg>
+          </span>
+        </span>
+      </span>
+    </button>
+    <button
+      className="root"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="label"
+        >
+          <span>
+            TOTAL
+          </span>
+        </span>
+        <span
+          className="summary"
+        >
+          <div />
+          <br />
+          <span>
+             Items
+          </span>
+        </span>
+        <span
+          className="icon"
+        />
+      </span>
+    </button>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="root_normalPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
+      </span>
+    </button>
+  </div>
+</div>
+`;

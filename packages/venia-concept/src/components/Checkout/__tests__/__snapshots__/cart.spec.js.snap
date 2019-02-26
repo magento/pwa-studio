@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Cart component 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="footer"
+  />
+</div>
+`;

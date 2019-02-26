@@ -1,41 +1,14 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect, Query } from 'src/drivers';
+
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
-
-const categoryQuery = gql`
-    query category($id: Int!, $pageSize: Int!, $currentPage: Int!) {
-        category(id: $id) {
-            id
-            description
-            name
-            product_count
-            products(pageSize: $pageSize, currentPage: $currentPage) {
-                items {
-                    id
-                    name
-                    small_image
-                    url_key
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                                currency
-                            }
-                        }
-                    }
-                }
-                total_count
-            }
-        }
-    }
-`;
+import categoryQuery from 'src/queries/getCategory.graphql';
 
 class Category extends Component {
     static propTypes = {
@@ -55,6 +28,13 @@ class Category extends Component {
     static defaultProps = {
         id: 3
     };
+
+    componentDidUpdate(prevProps) {
+        // If the current page has changed, scroll back up to the top.
+        if (this.props.currentPage !== prevProps.currentPage) {
+            window.scrollTo(0, 0);
+        }
+    }
 
     render() {
         const {
@@ -79,6 +59,7 @@ class Category extends Component {
                 query={categoryQuery}
                 variables={{
                     id: Number(id),
+                    onServer: false,
                     pageSize: Number(pageSize),
                     currentPage: Number(currentPage)
                 }}
@@ -92,9 +73,7 @@ class Category extends Component {
                                 pageSize={pageSize}
                             />
                         ) : (
-                            <div className={classes.placeholder}>
-                                Fetching Data...
-                            </div>
+                            loadingIndicator
                         );
 
                     // Retrieve the total page count from GraphQL when ready

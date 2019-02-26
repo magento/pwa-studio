@@ -35,7 +35,9 @@ const path = require('path');
  */
 
 // Reusable glob string for building `testMatch` patterns.
-const testGlob = '/**/__tests__/*.(test|spec).js';
+// All testable code in packages lives at either 'src' for code that must
+// transpile, or 'lib' for code that doesn't have to.
+const testGlob = '/**/{src,lib}/**/__tests__/*.(test|spec).js';
 
 const configureProject = (dir, displayName, cb) =>
     // Defaults that every project config must include.
@@ -94,12 +96,6 @@ const jestConfig = {
             // Expose jsdom to tests.
             browser: true,
             moduleNameMapper: {
-                // Peregrine imports a virtual module that must be mocked.
-                // It would be nice if Venia respected a mock in Peregrine,
-                // but it doesn't, so Venia tests will fail without this.
-                '^FETCH_ROOT_COMPONENT$': inPackage(
-                    '__mocks__/virtualModule.js'
-                ),
                 // Mock binary files to avoid excess RAM usage.
                 '\\.(jpg|jpeg|png|svg)$': inPackage('__mocks__/fileMock.js'),
                 // CSS module classes are dynamically generated, but that makes
@@ -111,7 +107,7 @@ const jestConfig = {
                 // Re-write imports to Peregrine to ensure they're not pulled
                 // from the build artifacts on disk in `dist`.
                 '^@magento/peregrine(/*(?:.+)*)':
-                    '<rootDir>/packages/peregrine/src/$1'
+                    '<rootDir>/packages/peregrine/$1'
             },
             // Reproduce the Webpack resolution config that lets Venia import
             // from `src` instead of with relative paths:
@@ -163,6 +159,7 @@ const jestConfig = {
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
         'dist',
+        'esm',
         'node_modules',
         '__fixtures__',
         '__helpers__',

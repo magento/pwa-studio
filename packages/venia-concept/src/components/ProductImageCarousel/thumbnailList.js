@@ -8,6 +8,7 @@ import defaultClasses from './thumbnailList.css';
 
 class ThumbnailList extends Component {
     static propTypes = {
+        activeItemIndex: PropTypes.number,
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
@@ -18,11 +19,31 @@ class ThumbnailList extends Component {
                 disabled: PropTypes.bool,
                 file: PropTypes.string.isRequired
             })
-        ).isRequired
+        ).isRequired,
+        updateActiveItemIndex: PropTypes.func.isRequired
+    };
+
+    updateActiveItemHandler = newActiveItemIndex => {
+        this.props.updateActiveItemIndex(newActiveItemIndex);
     };
 
     render() {
-        return <List renderItem={Thumbnail} {...this.props} />;
+        const { activeItemIndex, items, classes } = this.props;
+
+        return (
+            <List
+                items={items}
+                renderItem={props => (
+                    <Thumbnail
+                        {...props}
+                        isActive={activeItemIndex === props.itemIndex}
+                        onClickHandler={this.updateActiveItemHandler}
+                    />
+                )}
+                getItemKey={i => i.file}
+                classes={classes}
+            />
+        );
     }
 }
 

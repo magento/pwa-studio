@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the ThumbnailList component correctly 1`] = `
+<div
+  className="root"
+>
+  <button
+    className="rootSelected"
+    onClick={[Function]}
+  >
+    <img
+      alt="test-thumbnail1"
+      className="image"
+      src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+    />
+  </button>
+  <button
+    className="root"
+    onClick={[Function]}
+  >
+    <img
+      alt="test-thumbnail2"
+      className="image"
+      src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
+    />
+  </button>
+</div>
+`;

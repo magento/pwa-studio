@@ -1,95 +1,56 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import Navigation from '../navigation';
+import { MyAccountMenuTrigger } from '../../MyAccountMenuPage';
 
-test('getUserDetails() should be called when navigation component mounts', async () => {
-    const getUserDetails = jest.fn();
-    const getAllCategories = jest.fn();
+jest.mock('src/classify');
+jest.mock('src/components/CreateAccount');
+jest.mock('src/components/ForgotPassword');
+jest.mock('src/components/SignIn');
+jest.mock('../../MyAccountMenuPage');
 
-    const wrapper = shallow(
-        <Navigation
-            getUserDetails={getUserDetails}
-            getAllCategories={getAllCategories}
-        />
-    ).dive();
+const closeDrawer = jest.fn();
+const completePasswordReset = jest.fn();
+const createAccount = jest.fn();
+const getAllCategories = jest.fn();
+const getUserDetails = jest.fn();
+const resetPassword = jest.fn();
 
-    wrapper.update();
+const props = {
+    closeDrawer,
+    completePasswordReset,
+    createAccount,
+    getAllCategories,
+    getUserDetails,
+    resetPassword
+};
+
+test('getUserDetails() is called on mount', () => {
+    TestRenderer.create(<Navigation {...props} />);
 
     expect(getUserDetails).toHaveBeenCalledTimes(1);
 });
 
-test('Navigation footer should show the "Sign In" button if user is not signed in.', async () => {
-    const getUserDetails = jest.fn();
-    const getAllCategories = jest.fn();
+test('authBar renders if user is not signed in', () => {
+    const { root } = TestRenderer.create(
+        <Navigation {...props} isSignedIn={false} />
+    );
 
-    const classes = { authBar: 'authBar' };
+    const authBar = root.findAllByProps({ className: 'authBar' });
+    const trigger = root.findAllByType(MyAccountMenuTrigger);
 
-    const wrapper = shallow(
-        <Navigation
-            getUserDetails={getUserDetails}
-            getAllCategories={getAllCategories}
-            isSignedIn={false}
-            classes={classes}
-        />
-    ).dive();
-
-    const navFooter = wrapper.find('div.authBar');
-    expect(navFooter.exists()).toBeTruthy();
+    expect(authBar).toHaveLength(1);
+    expect(trigger).toHaveLength(0);
 });
 
-test('Navigation footer should not show the "Sign In" button if user is signed in.', async () => {
-    const getUserDetails = jest.fn();
-    const getAllCategories = jest.fn();
+test('account trigger renders if user is signed in', async () => {
+    const { root } = TestRenderer.create(
+        <Navigation {...props} isSignedIn={true} />
+    );
 
-    const classes = { authBar: 'authBar' };
+    const authBar = root.findAllByProps({ className: 'authBar' });
+    const trigger = root.findAllByType(MyAccountMenuTrigger);
 
-    const wrapper = shallow(
-        <Navigation
-            getUserDetails={getUserDetails}
-            getAllCategories={getAllCategories}
-            isSignedIn={true}
-            classes={classes}
-        />
-    ).dive();
-
-    const navFooter = wrapper.find('div.authBar');
-    expect(navFooter.exists()).toBeFalsy();
-});
-
-test('Navigation footer should not show user details element if user is not signed in.', async () => {
-    const getUserDetails = jest.fn();
-    const getAllCategories = jest.fn();
-
-    const classes = { userChip: 'userChip' };
-
-    const wrapper = shallow(
-        <Navigation
-            getUserDetails={getUserDetails}
-            getAllCategories={getAllCategories}
-            isSignedIn={false}
-            classes={classes}
-        />
-    ).dive();
-
-    const navFooter = wrapper.find('div.userChip');
-    expect(navFooter.exists()).toBeFalsy();
-});
-
-test('Navigation footer should show user details element if user is signed in.', async () => {
-    const getUserDetails = jest.fn();
-    const getAllCategories = jest.fn();
-
-    const classes = { userChip: 'userChip' };
-
-    const wrapper = shallow(
-        <Navigation
-            getUserDetails={getUserDetails}
-            getAllCategories={getAllCategories}
-            isSignedIn={true}
-            classes={classes}
-        />
-    ).dive();
-
-    const navFooter = wrapper.find('div.userChip');
-    expect(navFooter.exists()).toBeTruthy();
+    expect(authBar).toHaveLength(0);
+    expect(trigger).toHaveLength(1);
 });
