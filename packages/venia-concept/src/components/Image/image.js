@@ -41,13 +41,13 @@ class Image extends Component {
         }
     }
 
-    handleLoad = () => {
+    onLoad = () => {
         this.setState({
             showImage: true
         });
     };
 
-    handleError = () => {
+    onError = () => {
         this.setState({
             isError: true,
             showImage: false
@@ -83,7 +83,7 @@ class Image extends Component {
 
     get image() {
         const { alt, width, height, src, classes } = this.props;
-        const { handleLoad, handleError, imagePlaceholder } = this;
+        const { onLoad, onError, imagePlaceholder } = this;
         const { showImage } = this.state;
 
         const className = showImage ? classes.image : classes.image_pending;
@@ -97,8 +97,8 @@ class Image extends Component {
                     alt={alt}
                     width={width}
                     height={height}
-                    onLoad={handleLoad}
-                    onError={handleError}
+                    onLoad={onLoad}
+                    onError={onError}
                 />
             </Fragment>
         );

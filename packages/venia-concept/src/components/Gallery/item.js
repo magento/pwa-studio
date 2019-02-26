@@ -73,34 +73,8 @@ class GalleryItem extends Component {
         );
     }
 
-    // Runs before images begin to load
-    get imagePreLoad() {
-        const { classes } = this.props;
-        const { renderImagePlaceholder } = this;
-        return (
-            <div className={classes.root}>
-                <Image
-                    className={classes.image}
-                    alt="placeholder"
-                    src={null}
-                    iconHeight={iconHeight}
-                    placeholder={renderImagePlaceholder}
-                />
-                <div className={classes.name_pending} />
-                <div className={classes.price_pending} />
-            </div>
-        );
-    }
-
     render() {
         const { classes, item } = this.props;
-        const { imagePreLoad } = this;
-
-        // If no item, return imagePreload
-        if (!item) {
-            return imagePreLoad;
-        }
-
         const { renderImage } = this;
 
         const { name, price, url_key } = item;
