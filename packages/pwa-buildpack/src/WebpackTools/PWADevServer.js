@@ -42,6 +42,7 @@ const PWADevServer = {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
+            public: process.env.PWA_STUDIO_PUBLIC_PATH || '',
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
@@ -215,13 +216,20 @@ be configured to have the same effect as 'id'.
         }
 
         // Public path must be an absolute URL to enable hot module replacement
-        devServerConfig.publicPath = url.format({
-            protocol: devServerConfig.https ? 'https:' : 'http:',
-            hostname: devServerConfig.host,
-            port: devServerConfig.port,
-            // ensure trailing slash
-            pathname: config.publicPath.replace(/([^\/])$/, '$1/')
-        });
+        devServerConfig.publicPath = process.env.PWA_STUDIO_PUBLIC_PATH
+            ? url.format({
+                  protocol: 'https:',
+                  hostname: process.env.PWA_STUDIO_PUBLIC_PATH,
+                  port: '',
+                  pathname: '/'
+              })
+            : url.format({
+                  protocol: devServerConfig.https ? 'https:' : 'http:',
+                  hostname: devServerConfig.host,
+                  port: devServerConfig.port,
+                  // ensure trailing slash
+                  pathname: config.publicPath.replace(/([^\/])$/, '$1/')
+              });
         return devServerConfig;
     }
 };
