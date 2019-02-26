@@ -1,5 +1,6 @@
 const { readFile: fsReadFile } = require('fs');
 const readFile = require('util').promisify(fsReadFile);
+const { ProvidePlugin } = require('webpack');
 const readdir = require('readdir-enhanced');
 const directiveParser = require('@magento/directive-parser');
 const VirtualModulePlugin = require('virtual-module-webpack-plugin');
@@ -23,9 +24,14 @@ class MagentoRootComponentsPlugin {
     }
 
     apply(compiler) {
+        // Provide `fetchRootComponent` as a global: Expose the source as a
+        // module, and then use a ProvidePlugin to inline it.
         new VirtualModulePlugin({
             moduleName: 'FETCH_ROOT_COMPONENT',
             contents: this.contents
+        }).apply(compiler);
+        new ProvidePlugin({
+            fetchRootComponent: 'FETCH_ROOT_COMPONENT'
         }).apply(compiler);
     }
 

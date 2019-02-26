@@ -7,9 +7,13 @@ export const name = 'cart';
 
 export const initialState = {
     details: {},
+    loading: false,
     guestCartId: null,
+    paymentMethods: [],
     shippingMethods: [],
-    totals: {}
+    totals: {},
+    isOptionsDrawerOpen: false,
+    isLoading: false
 };
 
 const reducerMap = {
@@ -23,32 +27,36 @@ const reducerMap = {
             guestCartId: payload
         };
     },
+    [actions.getDetails.request]: (state, { payload }) => {
+        return {
+            ...state,
+            guestCartId: payload,
+            loading: true
+        };
+    },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
+                loading: false,
                 guestCartId: null
             };
         }
 
         return {
             ...state,
-            ...payload
+            ...payload,
+            loading: false
         };
     },
-    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
+    [actions.updateItem.request]: (state, { payload, error }) => {
         if (error) {
-            return state;
+            return initialState;
         }
-
         return {
             ...state,
             ...payload,
-            shippingMethods: payload.map(method => ({
-                ...method,
-                code: method.carrier_code,
-                title: method.carrier_title
-            }))
+            isLoading: true
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {
@@ -63,6 +71,19 @@ const reducerMap = {
         return {
             ...state,
             ...payload
+        };
+    },
+    [actions.openOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: true
+        };
+    },
+    [actions.closeOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: false,
+            isLoading: false
         };
     },
     [checkoutActions.order.accept]: () => {

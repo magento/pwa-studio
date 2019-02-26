@@ -1,17 +1,16 @@
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from 'src/drivers';
 
-import { closeDrawer } from 'src/actions/app';
+import appActions, { closeDrawer } from 'src/actions/app';
 import App from './app';
 
-const mapStateToProps = ({ app }) => ({ app });
-const mapDispatchToProps = { closeDrawer };
+const mapStateToProps = ({ app, unhandledErrors }) => ({
+    app,
+    unhandledErrors
+});
+const { markErrorHandled } = appActions;
+const mapDispatchToProps = { closeDrawer, markErrorHandled };
 
-export default compose(
-    withRouter,
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
 )(App);

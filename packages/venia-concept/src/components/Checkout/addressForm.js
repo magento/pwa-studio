@@ -1,12 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { Form, Text } from 'informed';
+import { Form } from 'informed';
 import memoize from 'memoize-one';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, shape, string, array } from 'prop-types';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
-import Label from './label';
 import defaultClasses from './addressForm.css';
+import {
+    validateEmail,
+    isRequired,
+    hasLengthExactly,
+    validateRegionCode
+} from 'src/util/formValidators';
+import combine from 'src/util/combineValidators';
+import TextInput from 'src/components/TextInput';
+import Field from 'src/components/Field';
 
 const fields = [
     'city',
@@ -31,6 +39,7 @@ class AddressForm extends Component {
         cancel: func.isRequired,
         classes: shape({
             body: string,
+            button: string,
             city: string,
             email: string,
             firstname: string,
@@ -39,10 +48,27 @@ class AddressForm extends Component {
             postcode: string,
             region_code: string,
             street0: string,
-            telephone: string
+            telephone: string,
+            textInput: string,
+            validation: string
         }),
+        incorrectAddressMessage: string,
         submit: func.isRequired,
-        submitting: bool
+        submitting: bool,
+        countries: array
+    };
+
+    static defaultProps = {
+        initialValues: {}
+    };
+
+    validationBlock = () => {
+        const { isAddressIncorrect, incorrectAddressMessage } = this.props;
+        if (isAddressIncorrect) {
+            return incorrectAddressMessage;
+        } else {
+            return null;
+        }
     };
 
     render() {
@@ -62,82 +88,104 @@ class AddressForm extends Component {
     }
 
     children = () => {
-        const { classes, submitting } = this.props;
+        const { classes, submitting, countries } = this.props;
 
         return (
             <Fragment>
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Shipping Address</h2>
                     <div className={classes.firstname}>
-                        <Label htmlFor={classes.firstname}>First Name</Label>
-                        <Text
-                            id={classes.firstname}
-                            field="firstname"
-                            className={classes.textInput}
-                        />
+                        <Field label="First Name">
+                            <TextInput
+                                id={classes.firstname}
+                                field="firstname"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.lastname}>
-                        <Label htmlFor={classes.lastname}>Last Name</Label>
-                        <Text
-                            id={classes.lastname}
-                            field="lastname"
-                            className={classes.textInput}
-                        />
+                        <Field label="Last Name">
+                            <TextInput
+                                id={classes.lastname}
+                                field="lastname"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.street0}>
-                        <Label htmlFor={classes.street0}>Street</Label>
-                        <Text
-                            id={classes.street0}
-                            field="street[0]"
-                            className={classes.textInput}
-                        />
+                        <Field label="Street">
+                            <TextInput
+                                id={classes.street0}
+                                field="street[0]"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.city}>
-                        <Label htmlFor={classes.city}>City</Label>
-                        <Text
-                            id={classes.city}
-                            field="city"
-                            className={classes.textInput}
-                        />
+                        <Field label="City">
+                            <TextInput
+                                id={classes.city}
+                                field="city"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.postcode}>
-                        <Label htmlFor={classes.postcode}>ZIP</Label>
-                        <Text
-                            id={classes.postcode}
-                            field="postcode"
-                            className={classes.textInput}
-                        />
+                        <Field label="ZIP">
+                            <TextInput
+                                id={classes.postcode}
+                                field="postcode"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.region_code}>
-                        <Label htmlFor={classes.region_code}>State</Label>
-                        <Text
-                            id={classes.region_code}
-                            field="region_code"
-                            className={classes.textInput}
-                        />
+                        <Field label="State">
+                            <TextInput
+                                id={classes.region_code}
+                                field="region_code"
+                                validate={combine([
+                                    isRequired,
+                                    [hasLengthExactly, 2],
+                                    [validateRegionCode, countries]
+                                ])}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.telephone}>
-                        <Label htmlFor={classes.telephone}>Phone</Label>
-                        <Text
-                            id={classes.telephone}
-                            field="telephone"
-                            className={classes.textInput}
-                        />
+                        <Field label="Phone">
+                            <TextInput
+                                id={classes.telephone}
+                                field="telephone"
+                                validate={isRequired}
+                            />
+                        </Field>
                     </div>
                     <div className={classes.email}>
-                        <Label htmlFor={classes.email}>Email</Label>
-                        <Text
-                            id={classes.email}
-                            field="email"
-                            className={classes.textInput}
-                        />
+                        <Field label="Email">
+                            <TextInput
+                                id={classes.email}
+                                field="email"
+                                validate={combine([isRequired, validateEmail])}
+                            />
+                        </Field>
+                    </div>
+                    <div className={classes.validation}>
+                        {this.validationBlock()}
                     </div>
                 </div>
                 <div className={classes.footer}>
-                    <Button type="submit" disabled={submitting}>
-                        Save
+                    <Button className={classes.button} onClick={this.cancel}>
+                        Cancel
                     </Button>
-                    <Button onClick={this.cancel}>Cancel</Button>
+                    <Button
+                        className={classes.button}
+                        type="submit"
+                        priority="high"
+                        disabled={submitting}
+                    >
+                        Use Address
+                    </Button>
                 </div>
             </Fragment>
         );

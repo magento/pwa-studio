@@ -1,14 +1,37 @@
 import React, { Component } from 'react';
+import { func, number, object, shape, string } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+
 import classify from 'src/classify';
+import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import defaultClasses from './pagination.css';
 import NavButton from './navButton';
+import { navButtons } from './constants';
 
 const tileBuffer = 2;
 
 class Pagination extends Component {
+    static propTypes = {
+        classes: shape({
+            root: string
+        }),
+        history: object,
+        location: object,
+        pageControl: shape({
+            currentPage: number,
+            setPage: func,
+            totalPages: number,
+            updateTotalPages: func
+        })
+    };
+
     componentDidMount() {
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
+        this.syncPage();
+    }
+
+    componentDidUpdate() {
+        this.syncPage();
     }
 
     componentWillUnmount() {
@@ -72,45 +95,55 @@ class Pagination extends Component {
         return (
             <div className={classes.root}>
                 <NavButton
-                    name="rewind"
+                    name={navButtons.firstPage.name}
                     active={isActiveLeft}
                     onClick={() => this.setPage(leftSkip)}
+                    buttonLabel={navButtons.firstPage.buttonLabel}
                 />
                 <NavButton
-                    name="chevron-left"
+                    name={navButtons.prevPage.name}
                     active={isActiveLeft}
                     onClick={this.slideNavLeft}
+                    buttonLabel={navButtons.prevPage.buttonLabel}
                 />
                 {navigationTiles}
                 <NavButton
-                    name="chevron-right"
+                    name={navButtons.nextPage.name}
                     active={isActiveRight}
                     onClick={this.slideNavRight}
+                    buttonLabel={navButtons.nextPage.buttonLabel}
                 />
                 <NavButton
-                    name="fast-forward"
+                    name={navButtons.lastPage.name}
                     active={isActiveRight}
                     onClick={() => this.setPage(rightSkip)}
+                    buttonLabel={navButtons.lastPage.buttonLabel}
                 />
             </div>
         );
     }
 
-    setPage = pageNumber => {
-        this.props.pageControl.setPage(pageNumber);
+    setPage = (pageNumber, shouldReplace = false) => {
+        const { history, location } = this.props;
+        const { search } = location;
+        const queryParams = new URLSearchParams(search);
+        const method = shouldReplace ? 'replace' : 'push';
+
+        queryParams.set('page', pageNumber);
+        history[method]({ search: queryParams.toString() });
     };
 
     slideNavLeft = () => {
-        const { setPage, currentPage } = this.props.pageControl;
+        const { currentPage } = this.props.pageControl;
         if (currentPage > 1) {
-            setPage(currentPage - 1);
+            this.setPage(currentPage - 1);
         }
     };
 
     slideNavRight = () => {
-        const { setPage, currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            setPage(currentPage + 1);
+            this.setPage(currentPage + 1);
         }
     };
 
@@ -127,6 +160,39 @@ class Pagination extends Component {
         }
         return leadTile;
     };
+
+    syncPage = () => {
+        const { location, pageControl } = this.props;
+        const { currentPage, setPage, totalPages } = pageControl;
+
+        const queryPage = Math.max(
+            1,
+            // Note: The ~ operator is a bitwise NOT operator.
+            // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
+            // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
+            // For positive numbers, applying this operator twice has the same effect as Math.floor.
+            ~~getQueryParameterValue({
+                location,
+                queryParameter: 'page'
+            })
+        );
+
+        // if the page in the query string doesn't match client state
+        // update client state
+        if (queryPage !== currentPage) {
+            // if the query page is not a valid page number
+            // set it to `1` instead
+            // and make sure to update the URL
+            if (queryPage > totalPages) {
+                this.setPage(1, true);
+            } else {
+                setPage(queryPage);
+            }
+        }
+    };
 }
 
-export default classify(defaultClasses)(Pagination);
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(Pagination);

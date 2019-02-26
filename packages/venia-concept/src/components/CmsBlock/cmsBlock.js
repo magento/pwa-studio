@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { Query } from 'react-apollo';
 
+import { Query } from 'src/drivers';
 import classify from 'src/classify';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';

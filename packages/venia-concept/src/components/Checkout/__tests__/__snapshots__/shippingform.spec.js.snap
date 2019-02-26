@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a shipping form 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <h2>
+      Shipping Information
+    </h2>
+    <div>
+      <label>
+        Shipping Method
+      </label>
+    </div>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Cancel
+      </span>
+    </button>
+    <button
+      type="submit"
+    >
+      <span>
+        Use Method
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders no initial value and no shipping methods if no availableShippingMethods 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <h2>
+      Shipping Information
+    </h2>
+    <div>
+      <label>
+        Shipping Method
+      </label>
+    </div>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Cancel
+      </span>
+    </button>
+    <button
+      type="submit"
+    >
+      <span>
+        Use Method
+      </span>
+    </button>
+  </div>
+</form>
+`;

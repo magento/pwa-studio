@@ -1,10 +1,14 @@
 .root {
+    --base-z-index: 4;
+    --minicart-height: 100vh;
+    --minicart-header-height: 3.5rem;
     align-content: start;
     background-color: white;
     bottom: 0;
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;
-    grid-template-rows: min-content 1fr auto auto;
+    grid-template-rows: min-content 1fr;
+    height: var(--minicart-height);
     opacity: 0;
     overflow: hidden;
     position: fixed;
@@ -15,8 +19,9 @@
     transition-property: opacity, transform, visibility;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     visibility: hidden;
-    width: 360px;
-    z-index: 4;
+    width: 100%;
+    max-width: 360px;
+    z-index: var(--base-z-index);
 }
 
 /* state: open */
@@ -34,16 +39,15 @@
     overflow: auto;
 }
 
-.focusItem {
-    display: block;
-    box-shadow: 0 1px rgb(var(--venia-border));
-    padding: 1rem;
-}
-
 .footer {
     box-shadow: 0 -1px rgb(var(--venia-border));
-    margin: 0 1.5rem;
     padding: 1.5rem 0 0.5rem;
+    background-color: white;
+}
+
+.footerMaskOpen {
+    composes: footer;
+    z-index: 3;
 }
 
 .header {
@@ -56,20 +60,20 @@
     grid-auto-flow: column;
     grid-auto-rows: 3rem;
     grid-template-columns: 1fr;
-    height: 3.5rem;
+    height: var(--minicart-header-height);
     justify-content: end;
     padding: 0 1rem;
     position: relative;
     z-index: 1;
 }
 
-.options {
-    padding: 1rem;
-    font-weight: bold;
+.subtotalLabel {
+    color: rgb(var(--venia-text-alt));
 }
 
-.price {
-    float: right;
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
 }
 
 .title {
@@ -87,26 +91,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.save {
-    justify-content: center;
-    display: flex;
-    padding: 1rem 0;
-}
-
-.save button {
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-.subtotalLabel {
-    color: rgb(var(--venia-text-alt));
-}
-
-.subtotalValue {
-    font-weight: 600;
-    margin-left: 0.5rem;
 }
 
 .placeholderButton {

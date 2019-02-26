@@ -14,7 +14,7 @@ Follow the instructions on this page to install the Venia sample data into your 
 
 ## Prerequisites
 
-* PHP 7.1 (currently one of the sample data modules is incompatible with PHP 7.2)
+* PHP 7.1.3+
 * System access to a Magento 2 instance
 
 {: .bs-callout .bs-callout-warning}
@@ -46,7 +46,15 @@ Run the following command in the Magento root directory to install the Venia dat
 bin/magento setup:upgrade
 ```
 
-## Step 4. Verify installation
+## Step 4. Reindex the new data
+
+Run the following command in the Magento root directory to reindex the data from the modules:
+
+```sh
+bin/magento indexer:reindex
+```
+
+## Step 5. Verify installation
 
 Log into the Admin section or visit the store of your Magento instance to verify the sample data installation. 
 

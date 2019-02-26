@@ -14,6 +14,7 @@ const readdir = promisify(readdirAsync);
 const readFile = promisify(readFileAsync);
 const { resolve, relative } = require('path');
 const boxen = require('boxen');
+const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
 const secureHostWarning = chalk.redBright(
     `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
@@ -33,7 +34,8 @@ const helpText = `To autogenerate a unique host based on project name
 
 const PWADevServer = {
     validateConfig: optionsValidator('PWADevServer', {
-        publicPath: 'string'
+        publicPath: 'string',
+        env: 'object'
     }),
     async configure(config) {
         debug('configure() invoked', config);
@@ -45,7 +47,7 @@ const PWADevServer = {
             host: '0.0.0.0',
             port: await portscanner.findAPortNotInUse(10000),
             stats: {
-                all: false,
+                all: !process.env.NODE_DEBUG ? false : undefined,
                 builtAt: true,
                 colors: true,
                 errors: true,
@@ -85,6 +87,9 @@ const PWADevServer = {
                         })
                     )
                 );
+            },
+            before(app) {
+                addImgOptMiddleware(app, config.env);
             }
         };
         const { id, provideSecureHost } = config;
@@ -167,29 +172,34 @@ be configured to have the same effect as 'id'.
             const { queryDirs = [] } = config.graphqlPlayground;
             const endpoint = '/graphql';
 
-            const tabs = await queryDirs.reduce(
-                async (queryTabs, dir) => [
-                    ...(await queryTabs),
-                    ...(await Promise.all(
-                        (await readdir(dir))
-                            .filter(filename => filename.endsWith('.graphql'))
-                            .map(async queryFile => ({
-                                endpoint,
-                                name: relative(
-                                    process.cwd(),
-                                    resolve(dir, queryFile)
-                                ),
-                                query: await readFile(
-                                    resolve(dir, queryFile),
-                                    'utf8'
-                                )
-                            }))
-                    ))
-                ],
-                []
+            const queryDirListings = await Promise.all(
+                queryDirs.map(async dir => {
+                    const files = await readdir(dir);
+                    return { dir, files };
+                })
             );
 
+            const queryDirContents = await Promise.all(
+                queryDirListings.map(({ dir, files }) =>
+                    Promise.all(
+                        files.map(async queryFile => {
+                            const fileAbsPath = resolve(dir, queryFile);
+                            const query = await readFile(fileAbsPath, 'utf8');
+                            const name = relative(process.cwd(), fileAbsPath);
+                            return {
+                                endpoint,
+                                name,
+                                query
+                            };
+                        })
+                    )
+                )
+            );
+            const tabs = [].concat(...queryDirContents); // flatten
+
+            const oldBefore = devServerConfig.before;
             devServerConfig.before = app => {
+                oldBefore(app);
                 // this middleware has a bad habit of calling next() when it
                 // should not, so let's give it a noop next()
                 const noop = () => {};

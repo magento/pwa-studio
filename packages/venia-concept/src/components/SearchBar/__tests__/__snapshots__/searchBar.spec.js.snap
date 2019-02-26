@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<div>
+  <div>
+    <form
+      autoComplete="off"
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <span
+        style={
+          Object {
+            "--iconsAfter": 1,
+            "--iconsBefore": 1,
+          }
+        }
+      >
+        <span>
+          <input
+            name="search_query"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value="test"
+          />
+        </span>
+        <span>
+          <span>
+            <svg
+              fill="none"
+              height={18}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="11"
+                cy="11"
+                r="8"
+              />
+              <line
+                x1="21"
+                x2="16.65"
+                y1="21"
+                y2="16.65"
+              />
+            </svg>
+          </span>
+        </span>
+        <span>
+          <button
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              <svg
+                fill="none"
+                height={18}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={18}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+      <p />
+      <div />
+    </form>
+  </div>
+</div>
+`;

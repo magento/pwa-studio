@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { string, number, shape, func, bool } from 'prop-types';
+import { string, number, shape } from 'prop-types';
+import { Link, resourceUrl } from 'src/drivers';
 import { Price } from '@magento/peregrine';
-import { Link } from 'react-router-dom';
 import classify from 'src/classify';
 import { transparentPlaceholder } from 'src/shared/images';
-import { makeProductMediaPath } from 'src/util/makeMediaPath';
 import defaultClasses from './item.css';
 
 const imageWidth = '300';
@@ -50,15 +49,7 @@ class GalleryItem extends Component {
                     }).isRequired
                 }).isRequired
             }).isRequired
-        }),
-        onError: func,
-        onLoad: func,
-        showImage: bool
-    };
-
-    static defaultProps = {
-        onError: () => {},
-        onLoad: () => {}
+        })
     };
 
     render() {
@@ -77,11 +68,11 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
-                <Link to={productLink} className={classes.images}>
+                <Link to={resourceUrl(productLink)} className={classes.images}>
                     {this.renderImagePlaceholder()}
                     {this.renderImage()}
                 </Link>
-                <Link to={productLink} className={classes.name}>
+                <Link to={resourceUrl(productLink)} className={classes.name}>
                     <span>{name}</span>
                 </Link>
                 <div className={classes.price}>
@@ -95,11 +86,7 @@ class GalleryItem extends Component {
     }
 
     renderImagePlaceholder = () => {
-        const { classes, item, showImage } = this.props;
-
-        if (showImage) {
-            return null;
-        }
+        const { classes, item } = this.props;
 
         const className = item
             ? classes.imagePlaceholder
@@ -121,38 +108,26 @@ class GalleryItem extends Component {
      * https://github.com/magento/graphql-ce/issues/88
      */
     renderImage = () => {
-        const { classes, item, showImage } = this.props;
+        const { classes, item } = this.props;
 
         if (!item) {
             return null;
         }
 
         const { small_image, name } = item;
-        const className = showImage ? classes.image : classes.image_pending;
 
         return (
             <img
-                className={className}
-                src={makeProductMediaPath(small_image)}
+                className={classes.image}
+                src={resourceUrl(small_image, {
+                    type: 'image-product',
+                    width: imageWidth
+                })}
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
-                onLoad={this.handleLoad}
-                onError={this.handleError}
             />
         );
-    };
-
-    handleLoad = () => {
-        const { item, onLoad } = this.props;
-
-        onLoad(item.id);
-    };
-
-    handleError = () => {
-        const { item, onError } = this.props;
-
-        onError(item.id);
     };
 }
 

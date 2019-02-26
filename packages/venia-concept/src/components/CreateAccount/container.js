@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'src/drivers';
 import CreateAccount from './createAccount';
 
 const mapStateToProps = ({ user }) => {

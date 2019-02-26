@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a transparent main image if no file name is provided 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="imageContainer"
+  >
+    <button
+      className="chevron-left"
+      onClick={[Function]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={40}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={40}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="15 18 9 12 15 6"
+          />
+        </svg>
+      </span>
+    </button>
+    <img
+      alt="image-product"
+      className="currentImage"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    />
+    <button
+      className="chevron-right"
+      onClick={[Function]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={40}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={40}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="9 18 15 12 9 6"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    className="root"
+  />
+</div>
+`;
+
+exports[`renders the Carousel component correctly w/ sorted images 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="imageContainer"
+  >
+    <button
+      className="chevron-left"
+      onClick={[Function]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={40}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={40}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="15 18 9 12 15 6"
+          />
+        </svg>
+      </span>
+    </button>
+    <img
+      alt="test-thumbnail1"
+      className="currentImage"
+      src="/img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+    />
+    <button
+      className="chevron-right"
+      onClick={[Function]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={40}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={40}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="9 18 15 12 9 6"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    className="root"
+  >
+    <button
+      className="rootSelected"
+      onClick={[Function]}
+    >
+      <img
+        alt="test-thumbnail1"
+        className="image"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+      />
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <img
+        alt="test-thumbnail2"
+        className="image"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
+      />
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <img
+        alt="test-thumbnail3"
+        className="image"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail3.png"
+      />
+    </button>
+    <button
+      className="root"
+      onClick={[Function]}
+    >
+      <img
+        alt="test-thumbnail4"
+        className="image"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail4.png"
+      />
+    </button>
+  </div>
+</div>
+`;

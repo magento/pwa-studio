@@ -1,10 +1,7 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import CategoryContent from '../categoryContent';
-
-configure({ adapter: new Adapter() });
 
 const classes = {
     root: 'a',
@@ -34,6 +31,5 @@ test('renders with props', () => {
             classes={classes}
         />
     ).dive();
-
     expect(wrapper.hasClass(classes.root)).toBe(true);
 });
