@@ -92,7 +92,7 @@ else
       execute_install
       ;;
     n )
-      echo "Sample Data instalation failed."
+      echo "Sample Data installation failed."
       exit 0
       ;;
     * )
