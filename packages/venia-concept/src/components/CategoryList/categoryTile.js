@@ -12,21 +12,14 @@ const previewImageSize = 480;
 class CategoryTile extends Component {
     static propTypes = {
         item: shape({
-            image: arrayOf(
-                shape({
-                    url: string,
-                    label: string
-                })
-            ),
+            image: string.isRequired,
             name: string.isRequired,
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: shape(
-                            shape({
-                                url: string
-                            })
-                        ),
+                        small_image: shape({
+                            url: string.isRequired
+                        })
                     })
                 )
             }),
@@ -44,7 +37,7 @@ class CategoryTile extends Component {
         const { image, productImagePreview } = this.props.item;
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return resourceUrl(image.url, {
+            return resourceUrl(image, {
                 type: 'image-category',
                 width: previewImageSize
             });
@@ -58,17 +51,8 @@ class CategoryTile extends Component {
         }
     }
 
-    get imageLabel() {
-        const { image, name } = this.props.item;
-        if (image && image.label) {
-            return image.label;
-        } else {
-            return name;
-        }
-    }
-
     render() {
-        const { imagePath, imageLabel, props } = this;
+        const { imagePath, props } = this;
         const { classes, item } = props;
 
         // interpolation doesn't work inside `url()` for legacy reasons
@@ -78,7 +62,7 @@ class CategoryTile extends Component {
 
         // render an actual image element for accessibility
         const imagePreview = imagePath ? (
-            <img className={classes.image} src={imagePath} alt={imageLabel} />
+            <img className={classes.image} src={imagePath} alt={item.name} />
         ) : null;
 
         return (
