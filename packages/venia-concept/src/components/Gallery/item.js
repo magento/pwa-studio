@@ -105,15 +105,6 @@ class GalleryItem extends Component {
         );
     };
 
-    get imageLabel() {
-        const { small_image, name } = this.props.item;
-        if (small_image && small_image.label) {
-            return small_image.label;
-        } else {
-            return name;
-        }
-    }
-
     renderImage = () => {
         const { classes, item } = this.props;
 
