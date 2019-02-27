@@ -1,12 +1,8 @@
-{{> templates/doctype-and-head-start}}
-{{> templates/js-unavailable}}
-    <title>Venia - Not Found</title>
-  </head>
-  <body>
+{{> templates/open-document}}
+    <title>Venia -- Not Found</title>
+  {{> templates/open-body }}
     <div id="root">
-        <h1>Not found!</h1>
+        Not found!
     </div>
-{{> templates/preloads}}
-{{> templates/scripts}}
-  </body>
-</html>
+  {{> templates/seed-bundles}}
+{{> templates/close-document}}

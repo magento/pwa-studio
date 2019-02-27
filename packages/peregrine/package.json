@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "2.0.0-rc.19",
+  "version": "2.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +35,7 @@
     "@babel/plugin-transform-react-jsx": "~7.2.0",
     "@babel/plugin-transform-runtime": "~7.2.0",
     "@babel/runtime": "~7.2.0",
-    "@storybook/react": "~4.1.6",
+    "@storybook/react": "~4.1.11",
     "concurrently": "~4.1.0",
     "intl": "~1.2.5",
     "react": "~16.8.0",

@@ -10,7 +10,7 @@ class Options extends Component {
             shape({
                 attribute_id: string.isRequired
             })
-        )
+        ).isRequired
     };
 
     handleSelectionChange = (optionId, selection) => {
