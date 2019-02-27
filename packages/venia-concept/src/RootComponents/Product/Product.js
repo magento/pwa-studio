@@ -42,12 +42,12 @@ class Product extends Component {
                                 file: string.isRequired
                             })
                         ),
-                        description: arrayOf(
-                            shape({
-                                html: string
-                            })
-                        ),
-                        short_description: string,
+                        description: shape({
+                            html: string
+                        }),
+                        short_description: shape({
+                            html: string
+                        }),
                         canonical_url: string
                     })
                 ).isRequired
