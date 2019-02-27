@@ -50,11 +50,9 @@ class ProductFullDetail extends Component {
                     file: string.isRequired
                 })
             ),
-            description: arrayOf(
-                shape({
-                    html: string
-                })
-            )
+            description: shape({
+                html: string.isRequired
+            })
         }).isRequired,
         addToCart: func.isRequired
     };

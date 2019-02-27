@@ -17,12 +17,9 @@ class Gallery extends Component {
             shape({
                 id: number.isRequired,
                 name: string.isRequired,
-                small_image: shape(
-                    shape({
-                        url: string,
-                        label: string
-                    })
-                ),
+                small_image: shape({
+                    url: string.isRequired
+                }),
                 price: shape({
                     regularPrice: shape({
                         amount: shape({
