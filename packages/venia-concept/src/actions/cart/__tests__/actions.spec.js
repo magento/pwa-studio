@@ -62,9 +62,7 @@ test('removeItem.receive() returns a proper action object', () => {
 });
 
 test('getCart.request.toString() returns the proper action type', () => {
-    expect(actions.getCart.request.toString()).toBe(
-        'CART/GET_CART/REQUEST'
-    );
+    expect(actions.getCart.request.toString()).toBe('CART/GET_CART/REQUEST');
 });
 
 test('getCart.request() returns a proper action object', () => {
@@ -75,9 +73,7 @@ test('getCart.request() returns a proper action object', () => {
 });
 
 test('getGuesgetCarttCart.receive.toString() returns the proper action type', () => {
-    expect(actions.getCart.receive.toString()).toBe(
-        'CART/GET_CART/RECEIVE'
-    );
+    expect(actions.getCart.receive.toString()).toBe('CART/GET_CART/RECEIVE');
 });
 
 test('getCart.receive() returns a proper action object', () => {

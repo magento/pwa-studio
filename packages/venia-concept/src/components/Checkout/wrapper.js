@@ -143,7 +143,14 @@ export class CheckoutWrapper extends Component {
             isCheckoutReady: isCheckoutReady(checkout)
         };
 
-        const flowProps = { actions, cart, checkout, directory, user, ...miscProps };
+        const flowProps = {
+            actions,
+            cart,
+            checkout,
+            directory,
+            user,
+            ...miscProps
+        };
 
         return <Flow {...flowProps} />;
     }

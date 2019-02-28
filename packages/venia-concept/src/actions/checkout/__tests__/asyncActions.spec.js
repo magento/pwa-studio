@@ -610,9 +610,7 @@ describe('submitOrder', () => {
             cart: {}
         }));
 
-        await expect(submitOrder()(...thunkArgs)).rejects.toThrow(
-            'cartId'
-        );
+        await expect(submitOrder()(...thunkArgs)).rejects.toThrow('cartId');
     });
 
     test('its thunk uses the proper endpoints when the user is signed in', async () => {

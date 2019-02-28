@@ -50,7 +50,11 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
     const handleCreateAccountMock = jest.fn();
 
     const wrapper = shallow(
-        <Receipt createAccount={handleCreateAccountMock} classes={classes} user={userProp} />
+        <Receipt
+            createAccount={handleCreateAccountMock}
+            classes={classes}
+            user={userProp}
+        />
     ).dive();
 
     wrapper

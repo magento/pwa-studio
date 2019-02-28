@@ -51,21 +51,19 @@ export const getShippingMethods = () => {
             dispatch(actions.getShippingMethods.request(cartId));
 
             const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
-            const authedEndpoint = '/rest/V1/carts/mine/estimate-shipping-methods';
+            const authedEndpoint =
+                '/rest/V1/carts/mine/estimate-shipping-methods';
             const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
 
-            const response = await request(
-                endpoint,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        address: {
-                            country_id: 'US',
-                            postcode: null
-                        }
-                    })
-                }
-            );
+            const response = await request(endpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    address: {
+                        country_id: 'US',
+                        postcode: null
+                    }
+                })
+            });
 
             dispatch(actions.getShippingMethods.receive(response));
         } catch (error) {
@@ -212,47 +210,47 @@ export const submitOrder = () =>
         try {
             // POST to shipping-information to submit the shipping address and shipping method.
             const guestShippingEndpoint = `/rest/V1/guest-carts/${cartId}/shipping-information`;
-            const authedShippingEndpoint = '/rest/V1/carts/mine/shipping-information';
-            const shippingEndpoint = user.isSignedIn ? authedShippingEndpoint : guestShippingEndpoint;
+            const authedShippingEndpoint =
+                '/rest/V1/carts/mine/shipping-information';
+            const shippingEndpoint = user.isSignedIn
+                ? authedShippingEndpoint
+                : guestShippingEndpoint;
 
-            await request(
-                shippingEndpoint,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        addressInformation: {
-                            billing_address,
-                            shipping_address,
-                            shipping_carrier_code: shipping_method.carrier_code,
-                            shipping_method_code: shipping_method.method_code
-                        }
-                    })
-                }
-            );
+            await request(shippingEndpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    addressInformation: {
+                        billing_address,
+                        shipping_address,
+                        shipping_carrier_code: shipping_method.carrier_code,
+                        shipping_method_code: shipping_method.method_code
+                    }
+                })
+            });
 
             // POST to payment-information to submit the payment details and billing address,
             // Note: this endpoint also actually submits the order.
             const guestPaymentEndpoint = `/rest/V1/guest-carts/${cartId}/payment-information`;
-            const authedPaymentEndpoint = '/rest/V1/carts/mine/payment-information';
-            const paymentEndpoint = user.isSignedIn ? authedPaymentEndpoint : guestPaymentEndpoint;
+            const authedPaymentEndpoint =
+                '/rest/V1/carts/mine/payment-information';
+            const paymentEndpoint = user.isSignedIn
+                ? authedPaymentEndpoint
+                : guestPaymentEndpoint;
 
-            const response = await request(
-                paymentEndpoint,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        billingAddress: billing_address,
-                        cartId: cartId,
-                        email: shipping_address.email,
-                        paymentMethod: {
-                            additional_data: {
-                                payment_method_nonce: paymentMethod.data.nonce
-                            },
-                            method: paymentMethod.code
-                        }
-                    })
-                }
-            );
+            const response = await request(paymentEndpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    billingAddress: billing_address,
+                    cartId: cartId,
+                    email: shipping_address.email,
+                    paymentMethod: {
+                        additional_data: {
+                            payment_method_nonce: paymentMethod.data.nonce
+                        },
+                        method: paymentMethod.code
+                    }
+                })
+            });
 
             dispatch(
                 checkoutReceiptActions.setOrderInformation(

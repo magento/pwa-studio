@@ -35,7 +35,9 @@ export const createCart = () =>
         try {
             const guestCartEndpoint = '/rest/V1/guest-carts';
             const signedInCartEndpoint = '/rest/V1/carts/mine';
-            const cartEndpoint = user.isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+            const cartEndpoint = user.isSignedIn
+                ? signedInCartEndpoint
+                : guestCartEndpoint;
 
             const cartId = await request(cartEndpoint, {
                 method: 'POST'
@@ -75,17 +77,18 @@ export const addItemToCart = (payload = {}) => {
             const { isSignedIn } = user;
             const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
             const signedInCartEndpoint = '/rest/V1/carts/mine/items';
-            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+            const cartEndpoint = isSignedIn
+                ? signedInCartEndpoint
+                : guestCartEndpoint;
 
-            const response = await request(
-                cartEndpoint,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({ cartItem })
-                }
+            const response = await request(cartEndpoint, {
+                method: 'POST',
+                body: JSON.stringify({ cartItem })
+            });
+
+            dispatch(
+                actions.addItem.receive({ cartItem: response, item, quantity })
             );
-
-            dispatch(actions.addItem.receive({ cartItem: response, item, quantity }));
 
             // 2019-02-07  Moved these dispatches to the success clause of
             // addItemToCart. The cart should only open on success.
@@ -139,17 +142,22 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
             const { isSignedIn } = user;
             const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${targetItemId}`;
             const signedInCartEndpoint = `/rest/V1/carts/mine/items/${targetItemId}`;
-            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+            const cartEndpoint = isSignedIn
+                ? signedInCartEndpoint
+                : guestCartEndpoint;
 
-            const response = await request(
-                cartEndpoint,
-                {
-                    method: 'PUT',
-                    body: JSON.stringify({ cartItem })
-                }
+            const response = await request(cartEndpoint, {
+                method: 'PUT',
+                body: JSON.stringify({ cartItem })
+            });
+
+            dispatch(
+                actions.updateItem.receive({
+                    cartItem: response,
+                    item,
+                    quantity
+                })
             );
-
-            dispatch(actions.updateItem.receive({ cartItem: response, item, quantity }));
         } catch (error) {
             const { response, noCartId } = error;
 
@@ -175,7 +183,7 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
         // ]);
 
         await dispatch(getCartDetails({ forceRefresh: true }));
-        
+
         // Close the options drawer only after the cart is finished updating.
         dispatch(closeOptionsDrawer());
     };
@@ -190,7 +198,7 @@ export const removeItemFromCart = payload => {
         try {
             const { cart, user } = getState();
             const { cartId } = cart;
-            
+
             if (!cartId) {
                 const missingCartIdError = new Error(
                     'Missing required information: cartId'
@@ -200,16 +208,19 @@ export const removeItemFromCart = payload => {
             }
 
             const { isSignedIn } = user;
-            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${item.item_id}`;
-            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${item.item_id}`;
-            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${
+                item.item_id
+            }`;
+            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${
+                item.item_id
+            }`;
+            const cartEndpoint = isSignedIn
+                ? signedInCartEndpoint
+                : guestCartEndpoint;
 
-            const response = await request(
-                cartEndpoint,
-                {
-                    method: 'DELETE'
-                }
-            );
+            const response = await request(cartEndpoint, {
+                method: 'DELETE'
+            });
 
             // When removing the last item in the cart, perform a reset
             // to prevent a bug where the next item added to the cart has
@@ -220,7 +231,11 @@ export const removeItemFromCart = payload => {
             }
 
             dispatch(
-                actions.removeItem.receive({ cartItem: response, item, cartItemCount })
+                actions.removeItem.receive({
+                    cartItem: response,
+                    item,
+                    cartItemCount
+                })
             );
         } catch (error) {
             const { response, noCartId } = error;
@@ -376,7 +391,12 @@ export const removeGuestCart = () =>
 
 /* helpers */
 
-async function fetchCartPart({ cartId, forceRefresh, isSignedIn, subResource = '' }) {
+async function fetchCartPart({
+    cartId,
+    forceRefresh,
+    isSignedIn,
+    subResource = ''
+}) {
     const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
     const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
     const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;

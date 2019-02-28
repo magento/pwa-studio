@@ -70,11 +70,11 @@ class Receipt extends Component {
                     >
                         Continue Shopping
                     </Button>
-                    { !user.isSignedIn && (
+                    {!user.isSignedIn && (
                         <Fragment>
                             <div className={classes.textBlock}>
-                                Track order status and earn rewards for your purchase by
-                                creating and account.
+                                Track order status and earn rewards for your
+                                purchase by creating and account.
                             </div>
                             <Button
                                 data-id={CREATE_ACCOUNT_BUTTON_ID}
