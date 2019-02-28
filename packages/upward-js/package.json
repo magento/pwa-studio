@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "2.0.0-rc.19",
+  "version": "2.0.0",
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -46,17 +46,19 @@
     "js-yaml": "~3.12.1",
     "lodash": "~4.17.11",
     "morgan": "~1.9.1",
-    "node-fetch": "~2.3.0",
-    "shrink-ray-current": "~3.0.2"
+    "node-fetch": "~2.3.0"
   },
   "devDependencies": {
-    "@magento/upward-spec": "^2.0.0-rc.19",
+    "@magento/upward-spec": "^2.0.0",
     "express": "~4.16.4",
     "jest": "~23.6.0",
     "supertest": "~3.3.0"
   },
   "peerDependencies": {
     "express": "~4.16.4"
+  },
+  "optionalDependencies": {
+    "shrink-ray-current": "~3.0.2"
   },
   "engines": {
     "node": ">=10.7.0",

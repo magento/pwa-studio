@@ -57,13 +57,12 @@ class ResolverVisitor {
         }
 
         if (isPrimitive(defined)) {
-            const definedString = defined.toString();
             debug(
                 'defined: %s is primitive, yielding to context.get("%s")',
-                definedString,
-                definedString
+                defined,
+                defined
             );
-            return this.context.get(definedString);
+            return this.context.get(defined);
         }
 
         if (typeof defined !== 'object' || !this.getResolverFailure) {

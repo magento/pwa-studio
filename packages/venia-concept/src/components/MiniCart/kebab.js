@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-
+import { bool, shape, string } from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './kebab.css';
@@ -7,14 +7,24 @@ import defaultClasses from './kebab.css';
 import MoreVerticalIcon from 'react-feather/dist/icons/more-vertical';
 
 class Kebab extends Component {
+    static propTypes = {
+        classes: shape({
+            dropdown: string,
+            dropdown_active: string,
+            kebab: string,
+            root: string
+        }),
+        isOpen: bool
+    };
+
     constructor(props) {
         super(props);
         this.kebabButtonRef = createRef();
-    }
 
-    state = {
-        isOpen: false
-    };
+        this.state = {
+            isOpen: !!props.isOpen
+        };
+    }
 
     componentDidMount() {
         document.addEventListener('click', this.handleDocumentClick);
@@ -33,17 +43,22 @@ class Kebab extends Component {
     }
 
     render() {
-        const { classes, children, ...restProps } = this.props;
-        const { isOpen } = this.state;
-        const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
+        const {
+            classes,
+            children,
+            //eslint-disable-next-line
+            isOpen,
+            ...restProps
+        } = this.props;
+
+        const toggleClass = this.state.isOpen
+            ? classes.dropdown_active
+            : classes.dropdown;
 
         return (
             <div {...restProps} className={classes.root}>
                 <button className={classes.kebab} ref={this.kebabButtonRef}>
-                    <Icon
-                        src={MoreVerticalIcon}
-                        attrs={{ color: 'rgb(var(--venia-teal))' }}
-                    />
+                    <Icon src={MoreVerticalIcon} />
                 </button>
                 <ul className={toggleClass}>{children}</ul>
             </div>

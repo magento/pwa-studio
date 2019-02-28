@@ -69,6 +69,7 @@ class CategoryContent extends Component {
         } = this.props;
 
         const title = data ? data.category.description : null;
+        const categoryTitle = data ? data.category.name : null;
 
         return (
             <article className={classes.root}>
@@ -79,6 +80,7 @@ class CategoryContent extends Component {
                             __html: title
                         }}
                     />
+                    <div className={classes.categoryTitle}>{categoryTitle}</div>
                     <div className={classes.headerButtons}>
                         <button
                             onClick={openDrawer}

@@ -103,6 +103,10 @@ module.exports = class TemplateResolver extends AbstractResolver {
         await renderer.compile();
         debug('renderer compiled');
 
-        return renderer.render(fromPairs(rootEntries));
+        const templateContext = fromPairs(rootEntries);
+
+        debug('rendering from context %O', templateContext);
+
+        return renderer.render(templateContext);
     }
 };
