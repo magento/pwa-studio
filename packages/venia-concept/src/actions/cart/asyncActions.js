@@ -114,11 +114,7 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
-// TODO: is targetItemId just payload.item.item_id?
 export const updateItemInCart = (payload = {}, targetItemId) => {
-    // console.log('updateItemInCart payload item id', payload.item.item_id);
-    // console.log('targetItemId', targetItemId);
-
     const { item, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
@@ -385,7 +381,7 @@ async function fetchCartPart({ cartId, forceRefresh, isSignedIn, subResource = '
     const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
     const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
 
-    const cache = forceRefresh ? 'reload' : 'default'; 
+    const cache = forceRefresh ? 'reload' : 'default';
 
     return request(endpoint, { cache });
 }

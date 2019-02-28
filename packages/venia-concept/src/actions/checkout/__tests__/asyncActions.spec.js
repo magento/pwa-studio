@@ -54,7 +54,8 @@ const paymentMethod = {
 beforeAll(() => {
     getState.mockImplementation(() => ({
         cart: { cartId: 'CART_ID' },
-        directory: { countries }
+        directory: { countries },
+        user: { isSignedIn: false }
     }));
 });
 
@@ -492,7 +493,8 @@ describe('submitOrder', () => {
                 },
                 cartId: 'CART_ID'
             },
-            directory: { countries }
+            directory: { countries },
+            user: { isSignedIn: false }
         };
 
         getState
@@ -540,7 +542,8 @@ describe('submitOrder', () => {
                 },
                 cartId: 'CART_ID'
             },
-            directory: { countries }
+            directory: { countries },
+            user: { isSignedIn: false }
         };
 
         getState

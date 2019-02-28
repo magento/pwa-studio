@@ -207,7 +207,7 @@ test('assignGuestCartToCustomer thunk retrieves guest cart with cartId', async (
 
     const firstRequest = request.mock.calls[0];
     expect(mockGetItem).toHaveBeenCalledWith('cartId');
-    expect(firstRequest[0]).toBe(`/rest/V1/guest-carts/STORED_GUEST_CART_ID`);
+    expect(firstRequest[0]).toBe(`/rest/V1/guest-carts/STORED_CART_ID`);
     expect(firstRequest[1]).toHaveProperty('method', 'PUT');
 });
 
