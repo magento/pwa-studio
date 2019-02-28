@@ -31,7 +31,6 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
-    "apollo-boost": "^0.1.28",
     "apollo-link": "^1.2.8",
     "apollo-link-http": "^1.5.11",
     "connect": "^3.6.6",
@@ -51,7 +50,6 @@
   "devDependencies": {
     "@magento/upward-spec": "^3.0.0-dev",
     "express": "^4.16.4",
-    "jest": "^23.6.0",
     "supertest": "^3.4.2"
   },
   "peerDependencies": {

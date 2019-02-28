@@ -63,6 +63,7 @@
     "dedent": "^0.7.0",
     "memory-fs": "^0.4.1",
     "rimraf": "^2.6.3",
+    "sharp": "^0.21.2",
     "strip-ansi": "^5.0.0",
     "terser-webpack-plugin": "^1.2.3"
   },
