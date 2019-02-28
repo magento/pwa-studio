@@ -183,7 +183,7 @@ class Form extends Component {
                     <Section label="TOTAL">
                         <Price
                             currencyCode={cart.totals.quote_currency_code}
-                            value={cart.totals.subtotal}
+                            value={cart.totals.subtotal || 0}
                         />
                         <br />
                         <span>{cart.details.items_qty} Items</span>
