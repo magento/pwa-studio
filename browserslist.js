@@ -1,5 +1,5 @@
 /*
- * Precise browser targeting reduces the amount of transpilation we do.
+ * Precise browser targeting reduces the amount of transpiration we do.
  * Dropping IE 11 support would have the greatest impact.
  * Read more: https://twitter.com/jamiebuilds/status/1022568923726639104
  */

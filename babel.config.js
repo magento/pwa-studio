@@ -19,7 +19,7 @@ const targets = {
 const config = api => {
     const envConfigs = {
         /**
-         * Watch mode and build:esm partial transpilation mode.
+         * Watch mode and build:esm partial transpiration mode.
          * The module-resolver plugin makes Babel recognize import paths from
          * package root, like 'src/classify'.
          */

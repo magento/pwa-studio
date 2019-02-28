@@ -227,7 +227,7 @@ test('dev-mode IOAdapter uses fetch', async () => {
     );
 });
 
-test('dev-mode IOAdapter can fetch unsecure URLs', async () => {
+test('dev-mode IOAdapter can fetch insecure URLs', async () => {
     const devServer = {};
     const app = {
         use: jest.fn()

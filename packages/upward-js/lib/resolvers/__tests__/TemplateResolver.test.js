@@ -117,7 +117,7 @@ test('accepts a template string as the template arg', async () => {
     expect(visitor.context.get).toHaveBeenCalledWith('env');
 });
 
-test('throws if template argument is not an enging instance or a string', async () => {
+test('throws if template argument is not an engine instance or a string', async () => {
     const io = { readFile() {} };
     const visitor = {
         upward: jest.fn(
