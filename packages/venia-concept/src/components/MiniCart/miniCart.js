@@ -34,7 +34,7 @@ class MiniCart extends Component {
         cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
-            guestCartId: string,
+            cartId: string,
             totals: object,
             isOptionsDrawerOpen: bool,
             isLoading: bool

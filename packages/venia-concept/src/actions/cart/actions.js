@@ -7,7 +7,7 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
-    GET_GUEST_CART: {
+    GET_CART: {
         REQUEST: null,
         RECEIVE: null
     },

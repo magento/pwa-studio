@@ -35,7 +35,7 @@ export class CheckoutWrapper extends Component {
         cancelCheckout: func,
         cart: shape({
             details: object.isRequired,
-            guestCartId: string,
+            cartId: string,
             totals: object
         }).isRequired,
         checkout: shape({

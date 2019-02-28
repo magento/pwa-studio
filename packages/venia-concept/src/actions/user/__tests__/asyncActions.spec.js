@@ -195,18 +195,18 @@ test('createNewUserRequest thunk dispatches createAccountError on invalid accoun
     );
 });
 
-test('assignGuestCartToCustomer thunk retrieves guest cart with guestCartId', async () => {
+test('assignGuestCartToCustomer thunk retrieves guest cart with cartId', async () => {
     getState.mockImplementationOnce(() => ({
         user: { isSignedIn: false, id: 'ID', storeId: 'STORE_ID' }
     }));
 
-    const storedGuestCartId = 'STORED_GUEST_CART_ID';
-    mockGetItem.mockImplementationOnce(() => storedGuestCartId);
+    const storedCartId = 'STORED_CART_ID';
+    mockGetItem.mockImplementationOnce(() => storedCartId);
 
     await assignGuestCartToCustomer({})(...thunkArgs);
 
     const firstRequest = request.mock.calls[0];
-    expect(mockGetItem).toHaveBeenCalledWith('guestCartId');
+    expect(mockGetItem).toHaveBeenCalledWith('cartId');
     expect(firstRequest[0]).toBe(`/rest/V1/guest-carts/STORED_GUEST_CART_ID`);
     expect(firstRequest[1]).toHaveProperty('method', 'PUT');
 });

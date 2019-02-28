@@ -6,31 +6,31 @@ import checkoutActions from 'src/actions/checkout';
 export const name = 'cart';
 
 export const initialState = {
+    cartId: null,
     details: {},
+    isOptionsDrawerOpen: false,
+    isLoading: false,
     loading: false,
-    guestCartId: null,
     paymentMethods: [],
     shippingMethods: [],
-    totals: {},
-    isOptionsDrawerOpen: false,
-    isLoading: false
+    totals: {}
 };
 
 const reducerMap = {
-    [actions.getGuestCart.receive]: (state, { payload, error }) => {
+    [actions.getCart.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
         }
 
         return {
             ...state,
-            guestCartId: payload
+            cartId: payload
         };
     },
     [actions.getDetails.request]: (state, { payload }) => {
         return {
             ...state,
-            guestCartId: payload,
+            cartId: payload,
             loading: true
         };
     },
@@ -39,7 +39,7 @@ const reducerMap = {
             return {
                 ...state,
                 loading: false,
-                guestCartId: null
+                cartId: null
             };
         }
 

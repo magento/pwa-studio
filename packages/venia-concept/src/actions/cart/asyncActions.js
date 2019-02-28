@@ -9,12 +9,12 @@ const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-export const createGuestCart = () =>
+export const createCart = () =>
     async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        const { cart, user } = getState();
 
-        // if a guest cart already exists, exit
-        if (cart.guestCartId) {
+        // if a cart already exists in the store, exit
+        if (cart.cartId) {
             return;
         }
 
@@ -22,91 +22,70 @@ export const createGuestCart = () =>
         // in case the user has already completed an order this session
         dispatch(checkoutActions.reset());
 
-        const guestCartId = await retrieveGuestCartId();
-
-        // if a guest cart exists in storage, act like we just received it
-        if (guestCartId) {
-            dispatch(actions.getGuestCart.receive(guestCartId));
+        // if a cart exists in storage, act like we just received it
+        const cartId = await retrieveCartId();
+        if (cartId) {
+            dispatch(actions.getCart.receive(cartId));
             return;
         }
 
-        // otherwise, request a new guest cart
-        dispatch(actions.getGuestCart.request());
+        // otherwise, request a new cart
+        dispatch(actions.getCart.request());
 
         try {
-            const id = await request('/rest/V1/guest-carts', {
+            const guestCartEndpoint = '/rest/V1/guest-carts';
+            const signedInCartEndpoint = '/rest/V1/carts/mine';
+            const cartEndpoint = user.isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+
+            const cartId = await request(cartEndpoint, {
                 method: 'POST'
             });
 
             // write to storage in the background
-            saveGuestCartId(id);
-            dispatch(actions.getGuestCart.receive(id));
+            saveCartId(cartId);
+
+            dispatch(actions.getCart.receive(cartId));
         } catch (error) {
-            dispatch(actions.getGuestCart.receive(error));
+            dispatch(actions.getCart.receive(error));
         }
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, options, parentSku, productType, quantity } = payload;
+    const { item, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
-        const { user } = getState();
-        if (user.isSignedIn) {
-            // TODO: handle authed carts
-            // if a user creates an account,
-            // then the guest cart will be transferred to their account
-            // causing `/guest-carts` to 400
-            return;
-        }
-
         try {
-            const { cart } = getState();
-            const { guestCartId } = cart;
+            const { cart, user } = getState();
+            const { cartId } = cart;
 
-            if (!guestCartId) {
-                const missingGuestCartError = new Error(
-                    'Missing required information: guestCartId'
+            if (!cartId) {
+                const missingCartIdError = new Error(
+                    'Missing required information: cartId'
                 );
-                missingGuestCartError.noGuestCartId = true;
-                throw missingGuestCartError;
+                missingCartIdError.noCartId = true;
+                throw missingCartIdError;
             }
 
-            // TODO: change to GraphQL mutation
-            // for now, manually transform the payload for REST
-            const itemPayload = {
-                qty: quantity,
-                sku: item.sku,
-                name: item.name,
-                quote_id: guestCartId
-            };
+            const cartItem = toRESTCartItem(cartId, payload);
 
-            if (productType === 'ConfigurableProduct') {
-                Object.assign(itemPayload, {
-                    sku: parentSku,
-                    product_type: 'configurable',
-                    product_option: {
-                        extension_attributes: {
-                            configurable_item_options: options
-                        }
-                    }
-                });
-            }
+            const { isSignedIn } = user;
+            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
+            const signedInCartEndpoint = '/rest/V1/carts/mine/items';
+            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
 
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items`,
+            const response = await request(
+                cartEndpoint,
                 {
                     method: 'POST',
-                    body: JSON.stringify({
-                        cartItem: itemPayload
-                    })
+                    body: JSON.stringify({ cartItem })
                 }
             );
 
-            dispatch(actions.addItem.receive({ cartItem, item, quantity }));
+            dispatch(actions.addItem.receive({ cartItem: response, item, quantity }));
 
             // 2019-02-07  Moved these dispatches to the success clause of
             // addItemToCart. The cart should only open on success.
@@ -115,19 +94,19 @@ export const addItemToCart = (payload = {}) => {
             await dispatch(getCartDetails({ forceRefresh: true }));
             await dispatch(toggleDrawer('cart'));
         } catch (error) {
-            const { response, noGuestCartId } = error;
+            const { response, noCartId } = error;
 
             dispatch(actions.addItem.receive(error));
 
             // check if the guest cart has expired
-            if (noGuestCartId || (response && response.status === 404)) {
+            if (noCartId || (response && response.status === 404)) {
                 // if so, then delete the cached ID...
                 // in contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await clearCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -135,93 +114,73 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
+// TODO: is targetItemId just payload.item.item_id?
 export const updateItemInCart = (payload = {}, targetItemId) => {
-    const { item, options, parentSku, productType, quantity } = payload;
+    // console.log('updateItemInCart payload item id', payload.item.item_id);
+    // console.log('targetItemId', targetItemId);
+
+    const { item, quantity } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
 
-        const { user } = getState();
-        if (user.isSignedIn) {
-            // TODO: handle authed carts
-            // if a user creates an account,
-            // then the guest cart will be transferred to their account
-            // causing `/guest-carts` to 400
-            return;
-        }
-
         try {
-            const { cart } = getState();
-            const { guestCartId } = cart;
+            const { cart, user } = getState();
+            const { cartId } = cart;
 
-            if (!guestCartId) {
-                const missingGuestCartError = new Error(
-                    'Missing required information: guestCartId'
+            if (!cartId) {
+                const missingCartIdError = new Error(
+                    'Missing required information: cartId'
                 );
-                missingGuestCartError.noGuestCartId = true;
-                throw missingGuestCartError;
+                missingCartIdError.noCartId = true;
+                throw missingCartIdError;
             }
 
-            // TODO: change to GraphQL mutation
-            // for now, manually transform the payload for REST
-            const itemPayload = {
-                qty: quantity,
-                sku: item.sku,
-                name: item.name,
-                quote_id: guestCartId
-            };
+            const cartItem = toRESTCartItem(cartId, payload);
 
-            if (productType === 'ConfigurableProduct') {
-                Object.assign(itemPayload, {
-                    sku: parentSku,
-                    product_type: 'configurable',
-                    product_option: {
-                        extension_attributes: {
-                            configurable_item_options: options
-                        }
-                    }
-                });
-            }
+            const { isSignedIn } = user;
+            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${targetItemId}`;
+            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${targetItemId}`;
+            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
 
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items/${targetItemId}`,
+            const response = await request(
+                cartEndpoint,
                 {
                     method: 'PUT',
-                    body: JSON.stringify({
-                        cartItem: itemPayload
-                    })
+                    body: JSON.stringify({ cartItem })
                 }
             );
 
-            dispatch(actions.updateItem.receive({ cartItem, item, quantity }));
+            dispatch(actions.updateItem.receive({ cartItem: response, item, quantity }));
         } catch (error) {
-            const { response, noGuestCartId } = error;
+            const { response, noCartId } = error;
 
             dispatch(actions.updateItem.receive(error));
 
             // check if the guest cart has expired
-            if (noGuestCartId || (response && response.status === 404)) {
+            if (noCartId || (response && response.status === 404)) {
                 // if so, then delete the cached ID...
                 // in contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await clearCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
         }
 
-        await Promise.all([
-            dispatch(toggleDrawer('cart')),
-            dispatch(getCartDetails({ forceRefresh: true }))
-        ]);
-        // This is done here as a dispatch instead of as part of
-        // updateItem.receive() so that the cart will close the options
-        // drawer only after it's finished updating
+        // await Promise.all([
+        //     dispatch(getCartDetails({ forceRefresh: true })),
+        //     dispatch(toggleDrawer('cart'))
+        // ]);
+
+        await dispatch(getCartDetails({ forceRefresh: true }));
+        
+        // Close the options drawer only after the cart is finished updating.
         dispatch(closeOptionsDrawer());
     };
 };
@@ -233,54 +192,60 @@ export const removeItemFromCart = payload => {
         dispatch(actions.removeItem.request(payload));
 
         try {
-            const { cart } = getState();
-            const { guestCartId } = cart;
-            const cartItemCount = cart.details ? cart.details.items_count : 0;
-
-            if (!guestCartId) {
-                const missingGuestCartError = new Error(
-                    'Missing required information: guestCartId'
+            const { cart, user } = getState();
+            const { cartId } = cart;
+            
+            if (!cartId) {
+                const missingCartIdError = new Error(
+                    'Missing required information: cartId'
                 );
-                missingGuestCartError.noGuestCartId = true;
-                throw missingGuestCartError;
+                missingCartIdError.noCartId = true;
+                throw missingCartIdError;
             }
 
-            const cartItem = await request(
-                `/rest/V1/guest-carts/${guestCartId}/items/${item.item_id}`,
+            const { isSignedIn } = user;
+            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${item.item_id}`;
+            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${item.item_id}`;
+            const cartEndpoint = isSignedIn ? signedInCartEndpoint : guestCartEndpoint;
+
+            const response = await request(
+                cartEndpoint,
                 {
                     method: 'DELETE'
                 }
             );
+
             // When removing the last item in the cart, perform a reset
             // to prevent a bug where the next item added to the cart has
             // a price of 0
-            if (cartItemCount == 1) {
-                await clearGuestCartId();
+            const cartItemCount = cart.details ? cart.details.items_count : 0;
+            if (cartItemCount === 1) {
+                await clearCartId();
             }
 
             dispatch(
-                actions.removeItem.receive({ cartItem, item, cartItemCount })
+                actions.removeItem.receive({ cartItem: response, item, cartItemCount })
             );
         } catch (error) {
-            const { response, noGuestCartId } = error;
+            const { response, noCartId } = error;
 
             dispatch(actions.removeItem.receive(error));
 
             // check if the guest cart has expired
-            if (noGuestCartId || (response && response.status === 404)) {
+            if (noCartId || (response && response.status === 404)) {
                 // if so, then delete the cached ID...
                 // in contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await clearCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
         }
 
-        await Promise.all([dispatch(getCartDetails({ forceRefresh: true }))]);
+        await dispatch(getCartDetails({ forceRefresh: true }));
     };
 };
 
@@ -295,26 +260,19 @@ export const getCartDetails = (payload = {}) => {
 
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
-        const { guestCartId } = cart;
+        const { cartId } = cart;
+        const { isSignedIn } = user;
 
-        if (user.isSignedIn) {
-            // TODO: handle authed carts
-            // if a user creates an account,
-            // then the guest cart will be transferred to their account
-            // causing `/guest-carts` to 400
-            return;
-        }
-
-        // if there isn't a guest cart, create one
+        // if there isn't a cart, create one
         // then retry this operation
-        if (!guestCartId) {
-            await dispatch(createGuestCart());
+        if (!cartId) {
+            await dispatch(createCart());
             return thunk(...arguments);
         }
 
         // Once we have the cart id indicate that we are starting to make
         // async requests for the details.
-        dispatch(actions.getDetails.request(guestCartId));
+        dispatch(actions.getDetails.request(cartId));
 
         try {
             const [
@@ -324,15 +282,17 @@ export const getCartDetails = (payload = {}) => {
                 totals
             ] = await Promise.all([
                 retrieveImageCache(),
-                fetchCartPart({ guestCartId, forceRefresh }),
+                fetchCartPart({ cartId, forceRefresh, isSignedIn }),
                 fetchCartPart({
-                    guestCartId,
+                    cartId,
                     forceRefresh,
+                    isSignedIn,
                     subResource: 'payment-methods'
                 }),
                 fetchCartPart({
-                    guestCartId,
+                    cartId,
                     forceRefresh,
+                    isSignedIn,
                     subResource: 'totals'
                 })
             ]);
@@ -374,9 +334,9 @@ export const getCartDetails = (payload = {}) => {
                 // in contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await clearCartId();
                 // then create a new one
-                await dispatch(createGuestCart());
+                await dispatch(createCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -409,11 +369,9 @@ export const removeGuestCart = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { cart } = getState();
-        // ensure state slices are present
-        if (!cart) {
-            return;
-        }
-        if (cart['guestCartId']) {
+
+        if (cart && cart.cartId) {
+            // TODO: does this actually do anything?
             dispatch({
                 type: 'REMOVE_GUEST_CART'
             });
@@ -422,36 +380,43 @@ export const removeGuestCart = () =>
 
 /* helpers */
 
-async function fetchCartPart({ guestCartId, forceRefresh, subResource = '' }) {
-    return request(`/rest/V1/guest-carts/${guestCartId}/${subResource}`, {
-        cache: forceRefresh ? 'reload' : 'default'
-    });
+async function fetchCartPart({ cartId, forceRefresh, isSignedIn, subResource = '' }) {
+    const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
+    const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
+    const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
+
+    const cache = forceRefresh ? 'reload' : 'default'; 
+
+    return request(endpoint, { cache });
 }
 
-export async function getGuestCartId(dispatch, getState) {
+export async function getCartId(dispatch, getState) {
     const { cart } = getState();
+
     // reducers may be added asynchronously
     if (!cart) {
         return null;
     }
+
     // create a guest cart if one hasn't been created yet
-    if (!cart.guestCartId) {
-        await dispatch(createGuestCart());
+    if (!cart.cartId) {
+        await dispatch(createCart());
     }
+
     // retrieve app state again
-    return getState().cart.guestCartId;
+    return getState().cart.cartId;
 }
 
-export async function retrieveGuestCartId() {
-    return storage.getItem('guestCartId');
+export async function retrieveCartId() {
+    return storage.getItem('cartId');
 }
 
-export async function saveGuestCartId(id) {
-    return storage.setItem('guestCartId', id);
+export async function saveCartId(id) {
+    return storage.setItem('cartId', id);
 }
 
-export async function clearGuestCartId() {
-    return storage.removeItem('guestCartId');
+export async function clearCartId() {
+    return storage.removeItem('cartId');
 }
 
 async function retrieveImageCache() {
@@ -462,7 +427,36 @@ async function saveImageCache(cache) {
     return storage.setItem('imagesBySku', cache);
 }
 
-async function writeImageToCache(item = {}) {
+/**
+ * Transforms an item payload to a shape that the REST endpoints expect.
+ * When GraphQL comes online we can drop this.
+ */
+function toRESTCartItem(cartId, payload) {
+    const { item, productType, quantity } = payload;
+
+    const cartItem = {
+        qty: quantity,
+        sku: item.sku,
+        name: item.name,
+        quote_id: cartId
+    };
+
+    if (productType === 'ConfigurableProduct') {
+        const { options, parentSku } = payload;
+
+        cartItem.sku = parentSku;
+        cartItem.product_type = 'configurable';
+        cartItem.product_option = {
+            extension_attributes: {
+                configurable_item_options: options
+            }
+        };
+    }
+
+    return cartItem;
+}
+
+export async function writeImageToCache(item = {}) {
     const { media_gallery_entries: media, sku } = item;
 
     if (sku) {

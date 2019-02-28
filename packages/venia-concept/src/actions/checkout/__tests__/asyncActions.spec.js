@@ -53,7 +53,7 @@ const paymentMethod = {
 
 beforeAll(() => {
     getState.mockImplementation(() => ({
-        cart: { guestCartId: 'GUEST_CART_ID' },
+        cart: { cartId: 'CART_ID' },
         directory: { countries }
     }));
 });
@@ -152,7 +152,7 @@ describe('getShippingMethods', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
+            actions.getShippingMethods.request('CART_ID')
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -170,13 +170,17 @@ describe('getShippingMethods', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
+            actions.getShippingMethods.request('CART_ID')
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
             actions.getShippingMethods.receive(error)
         );
         expect(dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test('its thunk uses the proper endpoint when the user is signed in', async () => {
+        // TODO
     });
 });
 
@@ -278,14 +282,14 @@ describe('submitBillingAddress', () => {
         });
     });
 
-    test('submitBillingAddress thunk throws if there is no guest cart', async () => {
+    test('submitBillingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
             directory: { countries }
         }));
         await expect(
             submitBillingAddress(sameAsShippingPayload)(...thunkArgs)
-        ).rejects.toThrow('guestCartId');
+        ).rejects.toThrow('cartId');
     });
 });
 
@@ -322,14 +326,14 @@ describe('submitShippingAddress', () => {
         expect(mockSetItem).toHaveBeenCalledWith('shipping_address', address);
     });
 
-    test('submitShippingAddress thunk throws if there is no guest cart', async () => {
+    test('submitShippingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
             directory: { countries }
         }));
         await expect(
             submitShippingAddress(payload)(...thunkArgs)
-        ).rejects.toThrow('guestCartId');
+        ).rejects.toThrow('cartId');
     });
 });
 
@@ -369,14 +373,14 @@ describe('submitPaymentMethod', () => {
         );
     });
 
-    test('submitPaymentMethod thunk throws if there is no guest cart', async () => {
+    test('submitPaymentMethod thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {}
         }));
 
         await expect(
             submitPaymentMethod(payload)(...thunkArgs)
-        ).rejects.toThrow('guestCartId');
+        ).rejects.toThrow('cartId');
     });
 });
 
@@ -425,14 +429,14 @@ describe('submitShippingMethod', () => {
         expect(mockSetItem).toHaveBeenCalledTimes(1);
     });
 
-    test('submitShippingMethod thunk throws if there is no guest cart', async () => {
+    test('submitShippingMethod thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {}
         }));
 
         await expect(
             submitShippingMethod(payload)(...thunkArgs)
-        ).rejects.toThrow('guestCartId');
+        ).rejects.toThrow('cartId');
     });
 });
 
@@ -486,7 +490,7 @@ describe('submitOrder', () => {
                 details: {
                     billing_address: address
                 },
-                guestCartId: 'GUEST_CART_ID'
+                cartId: 'CART_ID'
             },
             directory: { countries }
         };
@@ -521,7 +525,7 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
 
         expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'guestCartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'cartId');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
@@ -534,7 +538,7 @@ describe('submitOrder', () => {
                 details: {
                     billing_address: address
                 },
-                guestCartId: 'GUEST_CART_ID'
+                cartId: 'CART_ID'
             },
             directory: { countries }
         };
@@ -571,7 +575,7 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
 
         expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'guestCartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'cartId');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
@@ -598,14 +602,18 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
-    test('submitOrder thunk throws if there is no guest cart', async () => {
+    test('submitOrder thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {}
         }));
 
         await expect(submitOrder()(...thunkArgs)).rejects.toThrow(
-            'guestCartId'
+            'cartId'
         );
+    });
+
+    test('its thunk uses the proper endpoints when the user is signed in', async () => {
+        // TODO
     });
 });
 

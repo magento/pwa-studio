@@ -1,6 +1,6 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
-import { removeGuestCart } from 'src/actions/cart';
+import { createCart, removeGuestCart } from 'src/actions/cart';
 import { refresh } from 'src/util/router-helpers';
 
 const { request } = RestApi.Magento2;
@@ -35,6 +35,10 @@ export const signIn = credentials =>
             const userDetails = await request('/rest/V1/customers/me', {
                 method: 'GET'
             });
+
+            // Now that the user is signed in, create a new cart.
+            // TODO: should we delete the old one first? or assignGuestCartToCustomer?
+            await dispatch(createCart());
 
             dispatch(actions.signIn.receive(userDetails));
         } catch (error) {
@@ -113,16 +117,19 @@ export const assignGuestCartToCustomer = () =>
 
         try {
             const storage = new BrowserPersistence();
-            let guestCartId = storage.getItem('guestCartId');
+            let cartId = storage.getItem('cartId');
+
             const payload = {
                 customerId: user.id,
                 storeId: user.store_id
             };
-            // TODO: Check if guestCartId exists
-            await request(`/rest/V1/guest-carts/${guestCartId}`, {
+
+            // TODO: Check if cartId exists
+            await request(`/rest/V1/guest-carts/${cartId}`, {
                 method: 'PUT',
                 body: JSON.stringify(payload)
             });
+
             dispatch(removeGuestCart());
         } catch (error) {
             // TODO: Handle error

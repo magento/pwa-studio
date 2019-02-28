@@ -20,7 +20,7 @@ class Flow extends Component {
         }).isRequired,
         cart: shape({
             details: object,
-            guestCartId: string,
+            cartId: string,
             totals: object
         }),
         checkout: shape({

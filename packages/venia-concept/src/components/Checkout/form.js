@@ -31,7 +31,7 @@ class Form extends Component {
         cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
-            guestCartId: string,
+            cartId: string,
             totals: object
         }).isRequired,
         directory: shape({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, shape, number, arrayOf, string } from 'prop-types';
+import { bool, shape, number, arrayOf, string, func } from 'prop-types';
 
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
@@ -17,6 +17,9 @@ import productQuery from 'src/queries/getProductDetail.graphql';
  */
 class Product extends Component {
     static propTypes = {
+        addItemToCart: func.isRequired,
+        // TODO: where does cartId from from? Should it be added to mapStateToProps?
+        cartId: string,
         data: shape({
             productDetail: shape({
                 total_count: number,
@@ -52,8 +55,8 @@ class Product extends Component {
     };
 
     addToCart = async (item, quantity) => {
-        const { guestCartId } = this.props;
-        await this.props.addItemToCart({ guestCartId, item, quantity });
+        const { cartId } = this.props;
+        await this.props.addItemToCart({ cartId, item, quantity });
     };
 
     render() {

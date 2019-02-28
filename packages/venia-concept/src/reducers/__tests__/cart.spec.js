@@ -1,25 +1,25 @@
-import cartReducers, { initialState } from 'src/reducers/cart';
+import reducer, { initialState } from 'src/reducers/cart';
 import actions from 'src/actions/cart';
 import checkoutActions from 'src/actions/checkout';
 
-test('getGuestCart.receive: adds guestCartId to state', () => {
+test('getCart.receive: adds cartId to state', () => {
     expect(
-        cartReducers(
+        reducer(
             { other: 'stuff' },
-            { type: actions.getGuestCart.receive, payload: 'A_CART' }
+            { type: actions.getCart.receive, payload: 'A_CART' }
         )
     ).toEqual({
         other: 'stuff',
-        guestCartId: 'A_CART'
+        cartId: 'A_CART'
     });
 });
 
-test('getGuestCart.receive: restores initial state on error', () => {
+test('getCart.receive: restores initial state on error', () => {
     expect(
-        cartReducers(
-            { guestCartId: 'AN_EXPIRED_CART', other: 'stuff' },
+        reducer(
+            { cartId: 'AN_EXPIRED_CART', other: 'stuff' },
             {
-                type: actions.getGuestCart.receive,
+                type: actions.getCart.receive,
                 payload: new Error('Failed to get a guest cart!'),
                 error: true
             }
@@ -27,21 +27,9 @@ test('getGuestCart.receive: restores initial state on error', () => {
     ).toEqual(initialState);
 });
 
-test('getGuestCart.receive: adds guestCartId to state', () => {
-    expect(
-        cartReducers(
-            { other: 'stuff' },
-            { type: actions.getGuestCart.receive, payload: 'A_CART' }
-        )
-    ).toEqual({
-        other: 'stuff',
-        guestCartId: 'A_CART'
-    });
-});
-
 test('getDetails.receive: merges payload with state', () => {
     expect(
-        cartReducers(
+        reducer(
             { other: 'stuff', totals: { total: 100 } },
             {
                 type: actions.getDetails.receive,
@@ -63,21 +51,21 @@ test('getDetails.receive: merges payload with state', () => {
     });
 });
 
-test('getDetails.receive: removes guestCartId on error', () => {
-    const state = { guestCartId: 123, other: 'stuff', totals: { total: 100 } };
-    const nextState = cartReducers(state, {
+test('getDetails.receive: removes cartId on error', () => {
+    const state = { cartId: 123, other: 'stuff', totals: { total: 100 } };
+    const nextState = reducer(state, {
         type: actions.getDetails.receive,
         payload: new Error('That did not work at all'),
         error: true
     });
     expect(nextState).toMatchObject({ other: 'stuff', totals: { total: 100 } });
-    expect(nextState.guestCartId).not.toBeTruthy();
+    expect(nextState.cartId).not.toBeTruthy();
 });
 
 test('checkoutActions.order.accept: cart resets to initial state', () => {
     expect(
-        cartReducers(
-            { guestCartId: 'SOME_CART', details: { items: ['done'] } },
+        reducer(
+            { cartId: 'SOME_CART', details: { items: ['done'] } },
             { type: checkoutActions.order.accept }
         )
     ).toEqual(initialState);
