@@ -36,16 +36,16 @@ RUN yarn run build
 
 # MULTI-STAGE BUILD
 FROM node:10.14.1-alpine
+# working directory
+WORKDIR /usr/src/app
+# copy build from previous stage
+COPY --from=build /usr/src/app .
 # create and set non-root USER
 RUN addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser
+RUN chown -R appuser:appuser /usr/src && \
+    chmod 755 /usr/src
 USER appuser
-
-# working directory
-WORKDIR /usr/src/app
-
-# copy build from previous stage
-COPY --from=build /usr/src/app .
 
 # command to run application
 CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch:docker"]
