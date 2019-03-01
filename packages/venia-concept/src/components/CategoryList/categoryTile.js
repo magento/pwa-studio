@@ -19,7 +19,7 @@ class CategoryTile extends Component {
                     shape({
                         small_image: shape({
                             url: string.isRequired
-                        })
+                        }).isRequired
                     })
                 )
             }),
