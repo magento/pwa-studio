@@ -43,8 +43,8 @@ COPY --from=build /usr/src/app .
 # create and set non-root USER
 RUN addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser
-RUN chown -R appuser:appuser /usr/src && \
-    chmod 755 /usr/src
+RUN chown -R appuser:appuser /usr/src/app && \
+    chmod 755 /usr/src/app
 USER appuser
 
 # command to run application
