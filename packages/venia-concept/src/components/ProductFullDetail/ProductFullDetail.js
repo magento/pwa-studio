@@ -52,7 +52,7 @@ class ProductFullDetail extends Component {
             ),
             description: shape({
                 html: string.isRequired
-            })
+            }).isRequired
         }).isRequired,
         addToCart: func.isRequired
     };

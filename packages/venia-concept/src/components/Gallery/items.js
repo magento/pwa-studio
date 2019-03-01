@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, string, number, shape } from 'prop-types';
+import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
 const pageSize = 12;
@@ -14,18 +14,7 @@ class GalleryItems extends Component {
     static propTypes = {
         items: arrayOf(
             shape({
-                id: number.isRequired,
-                name: string.isRequired,
-                small_image: shape({
-                    url: string.isRequired
-                }),
-                price: shape({
-                    regularPrice: shape({
-                        amount: shape({
-                            value: number.isRequired
-                        }).isRequired
-                    }).isRequired
-                }).isRequired
+                id: number.isRequired
             })
         ).isRequired,
         pageSize: number

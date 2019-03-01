@@ -14,7 +14,7 @@ class suggestedProduct extends Component {
         url_key: string.isRequired,
         small_image: shape({
             url: string.isRequired
-        }),
+        }).isRequired,
         name: string.isRequired,
         price: object.isRequired,
         classes: shape({

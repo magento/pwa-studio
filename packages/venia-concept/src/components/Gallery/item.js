@@ -41,7 +41,7 @@ class GalleryItem extends Component {
             name: string.isRequired,
             small_image: shape({
                 url: string.isRequired
-            }),
+            }).isRequired,
             url_key: string.isRequired,
             price: shape({
                 regularPrice: shape({
