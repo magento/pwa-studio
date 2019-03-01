@@ -16,6 +16,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./packages/peregrine/.storybook:/usr/src/app/packages/peregrine/.storybook:rw
+      - ./packages/peregrine/esm:/usr/src/app/packages/peregrine/esm:rw
+      - ./packages/peregrine/scripts:/usr/src/app/packages/peregrine/scripts:rw
+      - ./packages/peregrine/src:/usr/src/app/packages/peregrine/src:rw
+      - ./packages/pwa-buildpack/src:/usr/src/app/packages/pwa-buildpack/src:rw
+      - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
+      - ./packages/venia-concept/.storybook:/usr/src/app/packages/venia-concept/.storybook:rw
+      - ./packages/venia-concept/esm:/usr/src/app/packages/venia-concept/esm:rw
+      - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw
+      - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw
     links:
       - nginx-proxy
     environment:
