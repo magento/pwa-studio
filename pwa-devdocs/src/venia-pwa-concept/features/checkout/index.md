@@ -121,7 +121,7 @@ After a form is saved, each of the submit functions dispatches an action that re
 
 | Filename                                  | Importance                                                                                                                 |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-releated actions such as `beginCheckout()` and the order form submit methods. |
+| [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-related actions such as `beginCheckout()` and the order form submit methods. |
 | [src/reducers/checkout.js][]              | Reducer functions for checkout-related actions.                                                                            |
 | [src/actions/cart/asyncActions.js][]      | Contains the definition for the `getShippingMethods()` function.                                                           |
 | [src/actions/directory/asyncActions.js][] | Contains the definition for the `getCountries()` function.                                                                 |
