@@ -57,9 +57,8 @@ class SuggestedProduct extends Component {
                     onClick={handleOnProductOpen}
                     className={classes.productName}
                     to={productLink}
-                >
-                    {name}
-                </Link>
+                    dangerouslySetInnerHTML={{ __html: name }}
+                />
                 <Link onClick={handleOnProductOpen} to={productLink}>
                     <Price
                         currencyCode={price.regularPrice.amount.currency}
