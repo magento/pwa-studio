@@ -73,7 +73,7 @@ class GalleryItem extends Component {
                     {this.renderImage()}
                 </Link>
                 <Link to={resourceUrl(productLink)} className={classes.name}>
-                    <span>{name}</span>
+                    <span dangerouslySetInnerHTML={{ __html: name}} />
                 </Link>
                 <div className={classes.price}>
                     <Price
