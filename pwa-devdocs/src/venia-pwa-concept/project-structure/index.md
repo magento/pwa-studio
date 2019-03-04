@@ -45,9 +45,9 @@ In addition to the NPM packages.json and Venia specific validation and testing f
 The `templates` directory contains [mustache][] template partials.
 The UPWARD server combines these templates to create an application shell for different page types.
 
-## The [`media`][] directory
+## The [`static`][] directory
 
-Currently, the `media` directory only contains the `favicon.ico` icon file.
+Currently, the `static` directory contains the `favicon.ico` and Apple Touch Icon(Web Clip) files.
 
 ## The [`src`][] directory
 
