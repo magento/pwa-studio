@@ -68,7 +68,7 @@ Use the [`var()`][] function to use these custom properties in your style defini
 
 ## Animations
 
-Component animations should feel optimal in its current context. 
+Animations and transitions should run at a smooth 60 fps.
 This can be achieved by setting the speed of the animation to increments of **16 milliseconds**, which is roughly 1 frame per second.
 
 Use the following table as a reference for the ideal duration for different animation actions:
