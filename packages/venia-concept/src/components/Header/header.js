@@ -35,12 +35,7 @@ class Header extends Component {
     }
 
     render() {
-        const {
-            autocompleteOpen,
-            searchOpen,
-            classes,
-            toggleSearch
-        } = this.props;
+        const { searchOpen, classes, toggleSearch } = this.props;
 
         const rootClass = searchOpen ? classes.open : classes.closed;
 
@@ -69,7 +64,6 @@ class Header extends Component {
                     <Route
                         render={({ history, location }) => (
                             <SearchBar
-                                autocompleteOpen={autocompleteOpen}
                                 isOpen={searchOpen}
                                 history={history}
                                 location={location}
