@@ -30,10 +30,10 @@ class CategoryContent extends Component {
             isFilterModalOpen
         } = this.props;
 
+        const items = data ? data.products.items : null;
+        const filters = data ? data.products.filters : null;
         const title = data ? data.category.description : null;
         const categoryTitle = data ? data.category.name : null;
-
-        const { items, filters } = data && data.products;
 
         return (
             <article className={classes.root}>

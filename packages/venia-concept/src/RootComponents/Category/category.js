@@ -62,7 +62,8 @@ class Category extends Component {
             id: Number(id),
             onServer: false,
             pageSize: Number(pageSize),
-            currentPage: Number(currentPage)
+            currentPage: Number(currentPage),
+            idString: String(id)
         };
 
         const isFilterModalOpen = drawer === 'filter';
@@ -82,8 +83,7 @@ class Category extends Component {
                         );
 
                     // Retrieve the total page count from GraphQL when ready
-                    const pageCount =
-                        data.category.products.total_count / pageSize;
+                    const pageCount = data.products.total_count / pageSize;
                     const totalPages = Math.ceil(pageCount);
                     const totalWrapper = {
                         ...pageControl,
@@ -95,7 +95,6 @@ class Category extends Component {
                             closeDrawer={closeDrawer}
                             openDrawer={openDrawer}
                             isFilterModalOpen={isFilterModalOpen}
-                            queryVariables={queryVariables}
                             classes={classes}
                             pageControl={totalWrapper}
                             data={data}
