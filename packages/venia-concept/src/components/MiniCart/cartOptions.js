@@ -108,7 +108,10 @@ class CartOptions extends Component {
         return (
             <Form className={classes.root}>
                 <div className={classes.focusItem}>
-                    <span className={classes.name}>{name}</span>
+                    <span
+                        className={classes.name}
+                        dangerouslySetInnerHTML={{ __html: name }}
+                    />
                     <span className={classes.price}>
                         <Price currencyCode={currencyCode} value={price} />
                     </span>
