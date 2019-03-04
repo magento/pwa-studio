@@ -101,7 +101,10 @@ class Product extends Component {
                     className={classes.image}
                     style={this.styleImage(item.image)}
                 />
-                <div className={classes.name}>{item.name}</div>
+                <div
+                    className={classes.name}
+                    dangerouslySetInnerHTML={{ __html: item.name}}
+                />
                 {options}
                 <div className={classes.quantity}>
                     <div className={classes.quantityRow}>
