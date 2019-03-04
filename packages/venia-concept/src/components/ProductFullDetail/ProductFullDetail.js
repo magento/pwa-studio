@@ -144,7 +144,9 @@ class ProductFullDetail extends Component {
             <Form className={classes.root}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
-                        <span dangerouslySetInnerHTML={{ __html: product.name}} />
+                        <span
+                            dangerouslySetInnerHTML={{ __html: product.name }}
+                        />
                     </h1>
                     <p className={classes.productPrice}>
                         <Price
