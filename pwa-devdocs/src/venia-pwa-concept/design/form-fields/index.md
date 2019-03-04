@@ -7,7 +7,7 @@ title: Form fields
 | **Static**           | ![Static][]           | A non-focused form field                            |
 | **Static - Success** | ![Static - Success][] | A non-focused form field with a valid entry         |
 | **Static - Error**   | ![Static - Error][]   | A non-focused form field with an invalid entry      |
-| **Visited**          | ![Visited][]          | A non-focused form field that has been visited      |
+| **Visited**          | ![Visited][]          | A form field that has been visited      |
 | **Active**           | ![Active][]           | An active, focused form field                       |
 | **Active - Success** | ![Active - Success][] | An active, focused form field with a valid entry    |
 | **Active - Error**   | ![Active - Error][]   | An active, focused form field with an invalid entry |
