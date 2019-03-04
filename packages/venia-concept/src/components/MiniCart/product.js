@@ -103,7 +103,7 @@ class Product extends Component {
                 />
                 <div
                     className={classes.name}
-                    dangerouslySetInnerHTML={{ __html: item.name}}
+                    dangerouslySetInnerHTML={{ __html: item.name }}
                 />
                 {options}
                 <div className={classes.quantity}>
