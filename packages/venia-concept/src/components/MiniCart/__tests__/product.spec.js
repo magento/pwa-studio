@@ -70,7 +70,7 @@ test('Product name is rendered', () => {
         wrapper
             .find(`.${classes.name}`)
             .at(0)
-            .text()
+            .html()
     ).toContain(item.name);
 });
 
