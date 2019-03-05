@@ -8,11 +8,11 @@ const initialState = {
 };
 
 const reducerMap = {
-    [actions.fetchPurchaseHistoryRequest]: state => ({
+    [actions.getPurchaseHistory.request]: state => ({
         ...state,
         isFetching: true
     }),
-    [actions.setItems]: (state, { payload, error }) => {
+    [actions.getPurchaseHistory.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
