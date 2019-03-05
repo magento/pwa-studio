@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "workspaces": [
+    "packages/graphql-cli-validate-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
     "packages/venia-concept",

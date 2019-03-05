@@ -1,0 +1,29 @@
+{
+  "name": "graphql-cli-validate-queries",
+  "version": "0.1.0",
+  "description": "graphql-cli plugin for validating all queries in a project",
+  "main": "index.js",
+  "repository": "https://github.com/magento-research/pwa-studio",
+  "author": "Adobe, Inc",
+  "license": "MIT",
+  "keywords": [
+    "graphql",
+    "graphql-cli"
+  ],
+  "scripts": {
+    "build": "echo 'Skipping graphql-cli-validate-queries build...'",
+    "clean": "echo 'Skipping graphql-cli-validate-queries clean...'"
+  },
+  "dependencies": {
+    "graphql": "^14.1.1",
+    "graphql-config": "^2.2.1",
+    "graphql-request": "^1.8.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^12.0.9",
+    "graphql-cli": "^3.0.11"
+  },
+  "peerDependencies": {
+    "graphql-cli": "^3.0.11"
+  }
+}
