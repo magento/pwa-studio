@@ -17,21 +17,22 @@ const { resolve, relative } = require('path');
 const boxen = require('boxen');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
-const secureHostWarning = chalk.redBright(
-    `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
+const secureHostWarning = chalk.redBright(`
+    To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
     highly recommends using the ${chalk.whiteBright(
         '"provideSecureHost"'
     )} configuration
-        option of PWADevServer. `
-);
+    option of PWADevServer. 
+`);
 
-const helpText = `To autogenerate a unique host based on project name
-        and location on disk, simply add:
-        ${chalk.whiteBright('provideSecureHost: true')}
-        to PWADevServer configuration options.
-        
-        More options for this feature are described in documentation.
-        `;
+const helpText = `
+    To autogenerate a unique host based on project name
+    and location on disk, simply add:
+    ${chalk.whiteBright('provideSecureHost: true')}
+    to PWADevServer configuration options.
+
+    More options for this feature are described in documentation.
+`;
 
 const PWADevServer = {
     validateConfig: optionsValidator('PWADevServer', {
@@ -49,7 +50,7 @@ const PWADevServer = {
                 poll: 1000
             },
             hot: true,
-            host: process.env.PWA_STUDIO_HOST_DEVELOPMENT || '0.0.0.0',
+            host: '0.0.0.0',
             port:
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT ||
                 (await portscanner.findAPortNotInUse(10000)),
@@ -66,12 +67,9 @@ const PWADevServer = {
             },
             after(app, server) {
                 app.use(debugErrorMiddleware());
-                let publicPath = process.env.PWA_STUDIO_PUBLIC_PATH
-                    ? 'https://' + process.env.PWA_STUDIO_PUBLIC_PATH
-                    : devServerConfig.publicPath;
                 let readyNotice = chalk.green(
                     `PWADevServer ready at ${chalk.greenBright.underline(
-                        publicPath
+                        devServerConfig.publicPath
                     )}`
                 );
                 if (config.graphqlPlayground) {
@@ -79,7 +77,10 @@ const PWADevServer = {
                         '\n' +
                         chalk.blueBright(
                             `GraphQL Playground ready at ${chalk.blueBright.underline(
-                                new url.URL('/graphiql', publicPath)
+                                new url.URL(
+                                    '/graphiql',
+                                    devServerConfig.publicPath
+                                )
                             )}`
                         );
                 }
@@ -219,13 +220,9 @@ be configured to have the same effect as 'id'.
         }
 
         // Public path must be an absolute URL to enable hot module replacement
-        devServerConfig.publicPath = process.env.PWA_STUDIO_PUBLIC_PATH
-            ? url.format({
-                  protocol: 'https:',
-                  hostname: process.env.PWA_STUDIO_PUBLIC_PATH,
-                  port: '',
-                  pathname: '/'
-              })
+        // If public key is set, then publicPath should equal the public key value - supports proxying https://bit.ly/2EOBVYL
+        devServerConfig.publicPath = devServerConfig.public
+            ? `https://${devServerConfig.public}/`
             : url.format({
                   protocol: devServerConfig.https ? 'https:' : 'http:',
                   hostname: devServerConfig.host,
