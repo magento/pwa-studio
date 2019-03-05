@@ -137,7 +137,15 @@ const jestConfig = {
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
             testMatch: [`<rootDir>/scripts/${testGlob}`]
-        }))
+        })),
+        // Test the graphql-cli plugin
+        configureProject(
+            'graphql-cli-validate-magento-pwa-queries',
+            'GraphQL CLI Plugin',
+            () => ({
+                testEnvironment: 'node'
+            })
+        )
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
