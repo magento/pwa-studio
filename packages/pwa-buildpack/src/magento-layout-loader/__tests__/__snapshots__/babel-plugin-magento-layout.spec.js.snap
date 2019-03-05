@@ -82,7 +82,11 @@ _react.default.createElement(\\"div\\", {
 exports[`Operations work when createElement is used instead of React.createElement 1`] = `
 "\\"use strict\\";
 
-var _react = require(\\"react\\");
+var _react = _interopRequireDefault(require(\\"react\\"));
 
-(0, _react.createElement)(\\"div\\", null, \\"Should remove container below\\");"
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+createElement(\\"div\\", null, \\"Should remove container below\\", createElement(\\"div\\", {
+  \\"data-mid\\": \\"product.page\\"
+}));"
 `;
