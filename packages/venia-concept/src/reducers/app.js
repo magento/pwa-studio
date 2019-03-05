@@ -31,8 +31,7 @@ const reducerMap = {
     [actions.executeSearch]: (state, { payload }) => {
         return {
             ...state,
-            query: payload,
-            autocompleteOpen: false
+            query: payload
         };
     },
     [actions.setOnline]: state => {
