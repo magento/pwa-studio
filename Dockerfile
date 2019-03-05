@@ -32,8 +32,9 @@ COPY ./docker/.env.docker ./packages/venia-concept/.env
 
 # build the app
 RUN yarn run build 
-
-# UNCOMMENT FOR PRODUCTION BUILD - not as necessary for dev env to have non-root user
+#######################################################################################
+# UNCOMMENT FOR PRODUCTION BUILD - not as necessary for dev env to have non-root user #
+#######################################################################################
 # # MULTI-STAGE BUILD
 # FROM node:10.14.1-alpine
 # # working directory
