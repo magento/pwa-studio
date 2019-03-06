@@ -4,10 +4,10 @@ import Header from './header';
 import { toggleSearch } from 'src/actions/app';
 
 const mapStateToProps = ({ app }) => {
-    const { searchOpen, autocompleteOpen } = app;
+    const { searchOpen } = app;
+
     return {
-        searchOpen,
-        autocompleteOpen
+        searchOpen
     };
 };
 
