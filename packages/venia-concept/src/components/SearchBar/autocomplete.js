@@ -23,13 +23,17 @@ class SearchAutocomplete extends Component {
         }),
         searchQuery: PropTypes.string.isRequired,
         autocompleteVisible: PropTypes.bool,
+        executeSearch: PropTypes.func.isRequired,
         updateAutocompleteVisible: PropTypes.func.isRequired
     };
 
-    state = {
-        isQueryUpdating: false,
-        autocompleteQuery: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isQueryUpdating: false,
+            autocompleteQuery: props.searchQuery || ''
+        };
+    }
 
     componentDidUpdate = prevProps => {
         const { searchQuery } = this.props;
