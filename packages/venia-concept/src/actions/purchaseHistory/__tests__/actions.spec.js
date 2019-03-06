@@ -1,44 +1,80 @@
 import actions from '../actions';
 
-test('setItems.toString() returns the proper action type', () => {
-    expect(actions.setItems.toString()).toBe('PURCHASE_HISTORY/SET_ITEMS');
-});
+const PREFIX = 'PURCHASE_HISTORY';
 
-test('setItems() returns a proper action object', () => {
-    const payload = { items: [] };
-    const error = new Error();
+describe('getPurchaseHistory', () => {
+    const NAME = `${PREFIX}/GET_PURCHASE_HISTORY`;
 
-    expect(actions.setItems(payload)).toEqual({
-        type: 'PURCHASE_HISTORY/SET_ITEMS',
-        payload
+    describe('request', () => {
+        const REQUEST_NAME = `${NAME}/REQUEST`;
+
+        test('toString() returns the proper action type', () => {
+            expect(actions.getPurchaseHistory.request.toString()).toBe(
+                REQUEST_NAME
+            );
+        });
+
+        test('it returns a proper action object', () => {
+            const payload = { items: [] };
+            const error = new Error();
+
+            expect(actions.getPurchaseHistory.request(payload)).toEqual({
+                type: REQUEST_NAME,
+                payload
+            });
+            expect(actions.getPurchaseHistory.request(error)).toEqual({
+                type: REQUEST_NAME,
+                payload: error,
+                error: true
+            });
+        });
     });
-    expect(actions.setItems(error)).toEqual({
-        type: 'PURCHASE_HISTORY/SET_ITEMS',
-        payload: error,
-        error: true
+
+    describe('receive', () => {
+        const RECEIVE_NAME = `${NAME}/RECEIVE`;
+
+        test('toString() returns the proper action type', () => {
+            expect(actions.getPurchaseHistory.receive.toString()).toBe(
+                RECEIVE_NAME
+            );
+        });
+
+        test('it returns a proper action object', () => {
+            const payload = { items: [] };
+            const error = new Error();
+
+            expect(actions.getPurchaseHistory.receive(payload)).toEqual({
+                type: RECEIVE_NAME,
+                payload
+            });
+            expect(actions.getPurchaseHistory.receive(error)).toEqual({
+                type: RECEIVE_NAME,
+                payload: error,
+                error: true
+            });
+        });
     });
 });
 
-test('reset.toString() returns the proper action type', () => {
-    expect(actions.reset.toString()).toBe('PURCHASE_HISTORY/RESET');
-});
+describe('reset', () => {
+    const NAME = `${PREFIX}/RESET`;
 
-test('reset() returns a proper action object', () => {
-    expect(actions.reset()).toEqual({
-        type: 'PURCHASE_HISTORY/RESET',
-        payload: undefined
+    test('toString() returns the proper action type', () => {
+        expect(actions.reset.toString()).toBe(NAME);
     });
-});
 
-test('fetchPurchaseHistoryRequest.toString() returns the proper action type', () => {
-    expect(actions.fetchPurchaseHistoryRequest.toString()).toBe(
-        'PURCHASE_HISTORY/FETCH_PURCHASE_HISTORY_REQUEST'
-    );
-});
+    test('it returns a proper action object', () => {
+        const payload = 'payload';
+        const error = new Error('error');
 
-test('fetchPurchaseHistoryRequest() returns a proper action object', () => {
-    expect(actions.fetchPurchaseHistoryRequest()).toEqual({
-        type: 'PURCHASE_HISTORY/FETCH_PURCHASE_HISTORY_REQUEST',
-        payload: undefined
+        expect(actions.reset(payload)).toEqual({
+            type: NAME,
+            payload
+        });
+        expect(actions.reset(error)).toEqual({
+            type: NAME,
+            payload: error,
+            error: true
+        });
     });
 });
