@@ -46,9 +46,6 @@ const PWADevServer = {
             public: process.env.PWA_STUDIO_PUBLIC_PATH || '',
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
-            watchOptions: {
-                poll: 1000
-            },
             hot: true,
             host: '0.0.0.0',
             port:

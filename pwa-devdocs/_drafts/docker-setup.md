@@ -11,7 +11,21 @@
     ```
 4. Once the script completes, a locally running instance of pwa will be available at `https://pwa-docker.localhost`.
 
+## Configure a new domain
+
 The domain is configurable. Two changes are needed to configure a new domain name.
 
 1. Change `PWA_STUDIO_PUBLIC_PATH` key to the new domain under `docker/.env.docker`.
 2. Change the `--host` value in the `watch:docker` script under `packages/venia-concept/package.json` to the new domain.
+
+## Service Workers and Hot Reloading
+
+Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `ENABLE_SERVICE_WORKER_DEBUGGING=0` to `ENABLE_SERVICE_WORKER_DEBUGGING=1` in `.env.docker`.
+
+Hot reloading is enabled by default when running the `docker/run-docker` script and automatically refreshes the browser on changes made in the container as well as on the host machine, ie your local file system. 
+
+If service workers are enabled during development, then service worker caching will affect the hot reloading and will require a manual refresh after the cached assets have fully reloaded.
+
+In order to avoid manual page refreshing and have hot reloading work as expected with service workers, it is recommended for developers to click the `Update on reload` checkbox in the `Service Workers` panel in Chrome developer tools. This feature in Chrome is helpful when developing with service workers because it ensures that the service worker is updated on every page reload and you will see changes immediately, avoiding the service worker cache.
+
+For more details check out the [dev tools docs](https://bit.ly/2tTGWc0).
