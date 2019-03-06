@@ -173,6 +173,13 @@ class ProductFullDetail extends Component {
         const { classes, product } = props;
         const { regularPrice } = product.price;
 
+        // We want this key to change whenever mediaGalleryEntries changes.
+        // Make it dependent on a unique value in each entry (file),
+        // and the order.
+        const carouselKey = mediaGalleryEntries.reduce((fullKey, entry) => {
+            return `${fullKey},${entry.file}`;
+        }, '');
+
         return (
             <Form className={classes.root}>
                 <section className={classes.title}>
@@ -187,10 +194,7 @@ class ProductFullDetail extends Component {
                     </p>
                 </section>
                 <section className={classes.imageCarousel}>
-                    <Carousel
-                        images={mediaGalleryEntries}
-                        key={mediaGalleryEntries}
-                    />
+                    <Carousel images={mediaGalleryEntries} key={carouselKey} />
                 </section>
                 <section className={classes.options}>{productOptions}</section>
                 <section className={classes.quantity}>
