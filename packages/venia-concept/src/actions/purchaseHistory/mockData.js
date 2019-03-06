@@ -1,4 +1,4 @@
-const purchaseHistoryMock = {
+const data = {
     items: [
         {
             item_id: 27,
@@ -17,8 +17,4 @@ const purchaseHistoryMock = {
     ]
 };
 
-// TODO: make a request here. Move to rest service.
-export const fetchPurchaseHistory = () =>
-    new Promise(resolve => {
-        setTimeout(() => resolve(purchaseHistoryMock), 1000);
-    });
+export default data;
