@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "2.0.0-rc.19",
+  "version": "2.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -37,7 +37,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
     "@babel/runtime": "^7.2.0",
-    "@magento/peregrine": "^2.0.0-rc.19",
+    "@magento/peregrine": "^2.0.0",
     "apollo-boost": "~0.1.23",
     "apollo-cache-inmemory": "~1.3.12",
     "apollo-cache-persist": "~0.1.1",
@@ -69,8 +69,8 @@
     "@babel/plugin-transform-react-jsx": "~7.2.0",
     "@babel/plugin-transform-runtime": "~7.2.0",
     "@babel/preset-env": "~7.2.3",
-    "@magento/pwa-buildpack": "^2.0.0-rc.19",
-    "@magento/upward-js": "^2.0.0-rc.19",
+    "@magento/pwa-buildpack": "^2.0.0",
+    "@magento/upward-js": "^2.0.0",
     "@storybook/react": "~4.1.11",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~23.6.0",
