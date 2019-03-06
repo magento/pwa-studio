@@ -1,22 +1,24 @@
-import {
-    isPurchaseHistoryFetching,
-    getPurchaseHistoryItems
-} from '../purchaseHistory';
+import { transformItems } from '../purchaseHistory';
 
-test('getPurchaseHistoryItems returns isFetching state', () => {
-    const state = {
-        purchaseHistory: {
-            items: []
+test('transformItems returns items in the proper shape', () => {
+    const initialItems = [
+        {
+            item_id: 1,
+            name: 'one',
+            date: 'fake'
         }
-    };
-    expect(getPurchaseHistoryItems(state)).toEqual([]);
-});
+    ];
 
-test('isPurchaseHistoryFetching returns isFetching state', () => {
-    const state = {
-        purchaseHistory: {
-            isFetching: true
-        }
-    };
-    expect(isPurchaseHistoryFetching(state)).toEqual(true);
+    const result = transformItems(initialItems);
+    const transformedItem = result[0];
+
+    const expectedKeys = ['date', 'id', 'imageSrc', 'title', 'url'];
+    expectedKeys.forEach(expectedKey => {
+        expect(transformedItem).toHaveProperty(expectedKey);
+    });
+
+    const initialItem = initialItems[0];
+    expect(transformedItem.date).toBe(initialItem.date);
+    expect(transformedItem.id).toBe(initialItem.item_id);
+    expect(transformedItem.title).toBe(initialItem.name);
 });
