@@ -49,6 +49,8 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                 }
             }
             meta_title @include(if: $onServer)
+            # Yes, Products have `meta_keyword` and
+            # everything else has `meta_keywords`.
             meta_keyword @include(if: $onServer)
             meta_description @include(if: $onServer)
         }

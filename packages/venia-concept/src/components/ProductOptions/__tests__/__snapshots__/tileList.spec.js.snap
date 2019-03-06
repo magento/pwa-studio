@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders TileList component correctly 1`] = `
+<div
+  className="root"
+>
+  <button
+    className="root"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+  >
+    <span>
+      foo
+    </span>
+  </button>
+</div>
+`;

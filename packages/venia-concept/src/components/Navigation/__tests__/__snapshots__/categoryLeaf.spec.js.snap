@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<a
+  className="root"
+  href="/1/2/3.html"
+  onClick={[Function]}
+>
+  <span
+    className="text"
+  >
+    a
+  </span>
+</a>
+`;

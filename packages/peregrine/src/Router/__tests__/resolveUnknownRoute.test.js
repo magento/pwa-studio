@@ -54,6 +54,21 @@ beforeEach(() => {
     fetch.resetMocks();
 });
 
+test('Preload path: resolves directly from preload attributes', async () => {
+    document.body.setAttribute('data-model-type', 'CATEGORY');
+    document.body.setAttribute('data-model-id', '45');
+    const res = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://example.com'
+    });
+    expect(res).toMatchObject({
+        type: 'CATEGORY',
+        id: 45
+    });
+    document.body.removeAttribute('data-model-type');
+    document.body.removeAttribute('data-model-id');
+});
+
 test('Preload path: resolves directly from preload element', async () => {
     document.body.innerHTML =
         '<script type="application/json" id="url-resolver">{ "type": "PRODUCT", "id": "VA-123" }</script>';

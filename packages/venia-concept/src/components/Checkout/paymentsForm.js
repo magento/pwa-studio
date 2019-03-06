@@ -215,16 +215,19 @@ class PaymentsForm extends Component {
 
         // Build up the billing address payload.
         const formValue = this.formApi.getValue;
-        let billingAddress = {
-            sameAsShippingAddress: formValue('addresses_same') || false
-        };
+        const sameAsShippingAddress = formValue('addresses_same') || false;
 
-        if (!billingAddress.sameAsShippingAddress) {
+        let billingAddress;
+        if (!sameAsShippingAddress) {
             billingAddress = {
                 city: formValue('city'),
                 postcode: formValue('postcode'),
                 region_code: formValue('region_code'),
                 street: formValue('street')
+            };
+        } else {
+            billingAddress = {
+                sameAsShippingAddress
             };
         }
 

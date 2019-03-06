@@ -17,16 +17,16 @@ class Branch extends Component {
 
     handleClick = () => {
         const { path, onDive } = this.props;
+
         onDive(path);
     };
 
     render() {
         const { classes, name } = this.props;
-        const text = name;
 
         return (
             <button className={classes.root} onClick={this.handleClick}>
-                <span className={classes.text}>{text}</span>
+                <span className={classes.text}>{name}</span>
             </button>
         );
     }
