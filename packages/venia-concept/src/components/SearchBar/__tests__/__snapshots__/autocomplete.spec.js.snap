@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SuggestedCategories and SuggestedProducts 1`] = `
+<div
+  className="root"
+/>
+`;
+
+exports[`renders error 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="statusContent"
+  >
+    Data Fetch Error
+  </div>
+</div>
+`;
+
+exports[`renders loading indicator 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="statusContent"
+  >
+    Fetching Data...
+  </div>
+</div>
+`;
+
+exports[`renders no results 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="statusContent"
+  >
+    No results found, try a different search
+  </div>
+</div>
+`;
