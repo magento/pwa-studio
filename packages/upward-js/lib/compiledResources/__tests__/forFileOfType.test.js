@@ -1,9 +1,15 @@
-const { forFileOfType, GraphQLDocument, MustacheTemplate } = require('../');
+const {
+    forFileOfType,
+    GraphQLDocument,
+    JSONDocument,
+    MustacheTemplate
+} = require('../');
 
 test('returns constructor for a given file extension', () => {
     expect(forFileOfType('.graphql')).toBe(GraphQLDocument);
     expect(forFileOfType('.gql')).toBe(GraphQLDocument);
     expect(forFileOfType('.mst')).toBe(MustacheTemplate);
+    expect(forFileOfType('.json')).toBe(JSONDocument);
 });
 
 test('returns constructor for a filename', () => {

@@ -1,7 +1,8 @@
 const { extname, normalize } = require('path');
 const CompiledResources = {
     GraphQLDocument: require('./GraphQLDocument'),
-    MustacheTemplate: require('./MustacheTemplate')
+    MustacheTemplate: require('./MustacheTemplate'),
+    JSONDocument: require('./JSONDocument')
 };
 
 const byExtension = new Map();

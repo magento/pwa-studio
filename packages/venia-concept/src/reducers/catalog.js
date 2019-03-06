@@ -4,7 +4,7 @@ import actions from 'src/actions/catalog';
 
 export const name = 'catalog';
 
-const initialState = {
+export const initialState = {
     categories: null,
     rootCategoryId: null,
     currentPage: 1,
