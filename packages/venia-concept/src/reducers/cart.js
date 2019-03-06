@@ -8,6 +8,10 @@ export const name = 'cart';
 export const initialState = {
     details: {},
     guestCartId: null,
+    isLoading: false,
+    isOptionsDrawerOpen: false,
+    isUpdatingItem: false,
+    paymentMethods: [],
     shippingMethods: [],
     totals: {}
 };
@@ -23,32 +27,44 @@ const reducerMap = {
             guestCartId: payload
         };
     },
+    [actions.getDetails.request]: (state, { payload }) => {
+        return {
+            ...state,
+            guestCartId: payload,
+            isLoading: true
+        };
+    },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
+                isLoading: false,
                 guestCartId: null
             };
         }
 
         return {
             ...state,
-            ...payload
+            ...payload,
+            isLoading: false
         };
     },
-    [actions.getShippingMethods.receive]: (state, { payload, error }) => {
+    [actions.updateItem.request]: (state, { payload, error }) => {
         if (error) {
-            return state;
+            return initialState;
         }
-
         return {
             ...state,
             ...payload,
-            shippingMethods: payload.map(method => ({
-                ...method,
-                code: method.carrier_code,
-                title: method.carrier_title
-            }))
+            isUpdatingItem: true
+        };
+    },
+    [actions.updateItem.receive]: state => {
+        // We don't actually have to update any items here
+        // because we force a refresh from the server.
+        return {
+            ...state,
+            isUpdatingItem: false
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {
@@ -63,6 +79,18 @@ const reducerMap = {
         return {
             ...state,
             ...payload
+        };
+    },
+    [actions.openOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: true
+        };
+    },
+    [actions.closeOptionsDrawer]: state => {
+        return {
+            ...state,
+            isOptionsDrawerOpen: false
         };
     },
     [checkoutActions.order.accept]: () => {

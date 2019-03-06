@@ -85,6 +85,13 @@ When the shopper clicks on the **Checkout** button, the `beginCheckout()` functi
 1. `getCountries()` - Creates a GET request to the `directory/countries` REST endpoint to get a list of countries and regions from the backing store.
    The `submitShippingAddress()` and `submitBillingAddress()` functions use this list to validate the country for a given address.
 
+#### Braintree integration
+
+Venia comes with Braintree integration built into the checkout process.
+This gives Venia the ability to simulate payment submission using a real payments platform.
+
+See [Braintree integration][] for more information.
+
 #### Form sections
 
 Clicking on a _Section_ component dispatches actions that update the _Form_ component to show an editable form for shipping address, payment method, or shipping method.
@@ -163,6 +170,7 @@ This screen shows the recently stored order ID number and buttons to **Continue 
 
 [product component]: {{site.data.vars.repo}}/tree/master/packages/venia-concept/src/RootComponents/Product/Product.js
 [cart module]: {{site.data.vars.repot}}/tree/master/packages/venia-concept/src/actions/cart.js
+[Braintree integration]: {{site.baseurl}}{%link venia-pwa-concept/features/braintree/index.md %}
 
 [rest api documentation]: https://devdocs.magento.com/redoc/2.3/
 [action creator]: https://redux.js.org/basics/actions#action-creators

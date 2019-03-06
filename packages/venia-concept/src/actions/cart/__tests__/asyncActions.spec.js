@@ -10,10 +10,10 @@ import {
 import actions from '../actions';
 import {
     addItemToCart,
+    updateItemInCart,
     removeItemFromCart,
     createGuestCart,
     getCartDetails,
-    getShippingMethods,
     toggleCart
 } from '../asyncActions';
 
@@ -355,12 +355,13 @@ test('addItemToCart opens drawer and gets cart details on success', async () => 
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch)
+        .mockImplementationOnce(fakeDispatch)
         .mockImplementationOnce(fakeDispatch);
 
     request.mockResolvedValueOnce(cartItem).mockResolvedValueOnce(cartItem);
     await addItemToCart(payload)(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(4);
+    expect(getState).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenCalledTimes(7);
     expect(request).toHaveBeenCalledTimes(4);
 });
@@ -373,6 +374,232 @@ test('removeItemFromCart thunk returns undefined', async () => {
     const result = await removeItemFromCart({})(...thunkArgs);
 
     expect(result).toBeUndefined();
+});
+
+test('updateItemInCart() returns a thunk', () => {
+    expect(updateItemInCart()).toBeInstanceOf(Function);
+});
+
+test('updateItemInCart thunk returns undefined', async () => {
+    const result = await updateItemInCart()(...thunkArgs);
+
+    expect(result).toBeUndefined();
+});
+
+test('updateItemInCart thunk dispatches actions on success', async () => {
+    const payload = { item: 'ITEM', quantity: 1 };
+    const cartItem = 'CART_ITEM';
+
+    request.mockResolvedValueOnce(cartItem);
+    await updateItemInCart(payload)(...thunkArgs);
+
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.updateItem.request(payload)
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.updateItem.receive({ cartItem, ...payload })
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+    expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+    // Additional dispatch occurs to close the options drawer
+    expect(dispatch).toHaveBeenCalledTimes(5);
+});
+
+test('updateItemInCart thunk skips image cache if no sku or image', async () => {
+    const noSku = {
+        quantity: 1,
+        item: {
+            media_gallery_entries: [
+                {
+                    position: 1,
+                    url: 'http://example.com'
+                }
+            ]
+        }
+    };
+    await updateItemInCart(noSku)(...thunkArgs);
+    expect(mockGetItem).not.toHaveBeenCalled;
+
+    const noImages = {
+        quantity: 1,
+        item: {
+            sku: 'INVISIBLE'
+        }
+    };
+    await updateItemInCart(noImages)(...thunkArgs);
+    expect(mockGetItem).not.toHaveBeenCalled;
+
+    const emptyImages = {
+        quantity: 1,
+        item: {
+            sku: 'INVISIBLE',
+            media_gallery_entries: []
+        }
+    };
+    await updateItemInCart(emptyImages)(...thunkArgs);
+    expect(mockGetItem).not.toHaveBeenCalled;
+});
+
+test('updateItemInCart stores product images in local cache for use in cart', async () => {
+    const itemWithImages = {
+        quantity: 1,
+        item: {
+            sku: 'HELLO',
+            media_gallery_entries: [
+                {
+                    position: 2,
+                    url: 'http://example.com/second'
+                },
+                {
+                    position: 1,
+                    url: 'http://example.com/first'
+                }
+            ]
+        }
+    };
+    await updateItemInCart(itemWithImages)(...thunkArgs);
+    expect(mockGetItem).toHaveBeenCalledWith('imagesBySku');
+    expect(mockSetItem).toHaveBeenCalledWith(
+        'imagesBySku',
+        expect.objectContaining({
+            HELLO: { position: 1, url: 'http://example.com/first' }
+        })
+    );
+
+    const itemWithUnpositionedImages = {
+        quantity: 1,
+        item: {
+            sku: 'GOODBYE',
+            media_gallery_entries: [
+                {
+                    url: 'http://example.com'
+                }
+            ]
+        }
+    };
+    await updateItemInCart(itemWithUnpositionedImages)(...thunkArgs);
+    expect(mockGetItem).toHaveBeenCalledTimes(2);
+    expect(mockSetItem).toHaveBeenCalledWith(
+        'imagesBySku',
+        expect.objectContaining({
+            GOODBYE: { url: 'http://example.com' }
+        })
+    );
+});
+
+test('updateItemInCart reuses product images from cache', async () => {
+    const sameItem = {
+        sku: 'SAME_ITEM',
+        media_gallery_entries: [{ url: 'http://example.com/same/item' }]
+    };
+    const fakeImageCache = {};
+
+    mockGetItem.mockReturnValueOnce(fakeImageCache);
+    await updateItemInCart({ quantity: 1, item: sameItem })(...thunkArgs);
+    mockGetItem.mockReturnValueOnce(fakeImageCache);
+    expect(mockSetItem).toHaveBeenCalledTimes(1);
+
+    await updateItemInCart({ quantity: 4, item: sameItem })(...thunkArgs);
+    expect(mockSetItem).toHaveBeenCalledTimes(1);
+});
+
+test('updateItemInCart thunk dispatches special failure if guestCartId is not present', async () => {
+    const payload = {
+        item: { sku: 'ITEM_SKU', name: 'ITEM_NAME' },
+        quantity: 1
+    };
+    const error = new Error('Missing required information: guestCartId');
+    error.noGuestCartId = true;
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
+    getState.mockImplementationOnce(() => ({
+        cart: {},
+        user: { isSignedIn: false }
+    }));
+    await updateItemInCart(payload)(...thunkArgs);
+    expect(dispatch).toHaveBeenNthCalledWith(
+        1,
+        actions.updateItem.request(payload)
+    );
+    expect(dispatch).toHaveBeenNthCalledWith(
+        2,
+        actions.updateItem.receive(error)
+    );
+    // and now, the createGuestCart thunk
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+});
+
+test('updateItemInCart tries to recreate a guest cart on 404 failure', async () => {
+    getState
+        .mockImplementationOnce(() => ({
+            cart: { guestCartId: 'OLD_AND_BUSTED' },
+            user: { isSignedIn: false }
+        }))
+        .mockImplementationOnce(() => ({
+            cart: { guestCartId: 'CACHED_CART' },
+            user: { isSignedIn: false }
+        }))
+        .mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }));
+    const payload = { item: 'ITEM', quantity: 1 };
+    const error = new Error('ERROR');
+    error.response = {
+        status: 404
+    };
+    // image cache
+    mockGetItem.mockResolvedValueOnce('CACHED_CART');
+
+    request.mockRejectedValueOnce(error);
+
+    await updateItemInCart(payload)(...thunkArgs);
+
+    expect(dispatch.mock.calls).toMatchObject([
+        [
+            {
+                payload: {
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/UPDATE_ITEM/REQUEST'
+            }
+        ],
+        [
+            {
+                error: true,
+                payload: expect.any(Error),
+                type: 'CART/UPDATE_ITEM/RECEIVE'
+            }
+        ],
+        [expect.any(Function)],
+        [
+            {
+                payload: {
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/UPDATE_ITEM/REQUEST'
+            }
+        ],
+        [
+            {
+                payload: {
+                    cartItem: undefined,
+                    item: 'ITEM',
+                    quantity: 1
+                },
+                type: 'CART/UPDATE_ITEM/RECEIVE'
+            }
+        ],
+        [expect.any(Function)],
+        [expect.any(Function)],
+        [expect.any(Function)]
+    ]);
 });
 
 test('removeItemFromCart thunk dispatches actions on success', async () => {
@@ -495,7 +722,7 @@ test('getCartDetails thunk creates a guest cart if no ID is found', async () => 
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(5);
+    expect(getState).toHaveBeenCalledTimes(4);
     expect(mockGetItem).toHaveBeenCalled();
     const createCallArgs = request.mock.calls[0];
     const retrieveCallArgs = request.mock.calls[1];
@@ -558,7 +785,7 @@ test('getCartDetails thunk deletes an old cart id and recreates a guest cart if 
 
     await getCartDetails()(...thunkArgs);
 
-    expect(getState).toHaveBeenCalledTimes(5);
+    expect(getState).toHaveBeenCalledTimes(4);
     expect(mockGetItem).toHaveBeenCalledWith('imagesBySku');
     expect(mockRemoveItem).toHaveBeenCalledWith('guestCartId');
     expect(mockSetItem).toHaveBeenCalledWith('guestCartId', 'BRAND_NEW_CART');
@@ -660,54 +887,6 @@ test('getCartDetails thunk merges cached item images into details', async () => 
             totals: 3
         })
     );
-});
-
-describe('getShippingMethods', () => {
-    test('getShippingMethods() returns a thunk', () => {
-        expect(getShippingMethods()).toBeInstanceOf(Function);
-    });
-
-    test('getShippingMethods thunk returns undefined', async () => {
-        const result = await getShippingMethods()(...thunkArgs);
-
-        expect(result).toBeUndefined();
-    });
-
-    test('getShippingMethods thunk dispatches actions on success', async () => {
-        // Mock the estimate-shipping-methods response.
-        const MOCK_RESPONSE = [];
-        request.mockResolvedValueOnce(MOCK_RESPONSE);
-
-        await getShippingMethods()(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getShippingMethods.receive(MOCK_RESPONSE)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
-
-    test('getShippingMethods thunk dispatches actions on failure', async () => {
-        // Mock the estimate-shipping-methods response.
-        const error = new Error('ERROR');
-        request.mockRejectedValueOnce(error);
-
-        await getShippingMethods()(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getShippingMethods.request('GUEST_CART_ID')
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getShippingMethods.receive(error)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(2);
-    });
 });
 
 test('toggleCart() returns a thunk', () => {

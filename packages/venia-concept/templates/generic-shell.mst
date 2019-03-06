@@ -1,13 +1,13 @@
-{{> templates/doctype-and-head-start}}
-{{> templates/js-unavailable}}
+{{> templates/open-document}}
+    {{#model}}
+    <title>{{title}} - Venia</title>
+    {{/model}}
+    {{^model}}
     <title>Venia</title>
-  </head>
-  <body>
-    <div id="root">{{#urlResolver}}
-        {{#type}}Loading {{type}}{{/type}}
-        {{^type}}Not found!{{/type}}
-    {{/urlResolver}}</div>
-{{> templates/preloads}}
-{{> templates/scripts}}
-  </body>
-</html>
+    {{/model}}
+  {{> templates/open-body }}
+    <div id="root">
+        Loading {{model.title}}...
+    </div>
+  {{> templates/seed-bundles}}
+{{> templates/close-document}}

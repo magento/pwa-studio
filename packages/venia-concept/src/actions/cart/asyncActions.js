@@ -107,10 +107,99 @@ export const addItemToCart = (payload = {}) => {
             );
 
             dispatch(actions.addItem.receive({ cartItem, item, quantity }));
+
+            // 2019-02-07  Moved these dispatches to the success clause of
+            // addItemToCart. The cart should only open on success.
+            // In the catch clause, this action creator calls its own thunk,
+            // so a successful retry will wind up here anyway.
+            await dispatch(getCartDetails({ forceRefresh: true }));
+            await dispatch(toggleDrawer('cart'));
         } catch (error) {
             const { response, noGuestCartId } = error;
 
             dispatch(actions.addItem.receive(error));
+
+            // check if the guest cart has expired
+            if (noGuestCartId || (response && response.status === 404)) {
+                // if so, then delete the cached ID...
+                // in contrast to the save, make sure storage deletion is
+                // complete before dispatching the error--you don't want an
+                // upstream action to try and reuse the known-bad ID.
+                await clearGuestCartId();
+                // then create a new one
+                await dispatch(createGuestCart());
+                // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+    };
+};
+
+export const updateItemInCart = (payload = {}, targetItemId) => {
+    const { item, options, parentSku, productType, quantity } = payload;
+    const writingImageToCache = writeImageToCache(item);
+
+    return async function thunk(dispatch, getState) {
+        await writingImageToCache;
+        dispatch(actions.updateItem.request(payload));
+
+        const { user } = getState();
+        if (user.isSignedIn) {
+            // TODO: handle authed carts
+            // if a user creates an account,
+            // then the guest cart will be transferred to their account
+            // causing `/guest-carts` to 400
+            return;
+        }
+
+        try {
+            const { cart } = getState();
+            const { guestCartId } = cart;
+
+            if (!guestCartId) {
+                const missingGuestCartError = new Error(
+                    'Missing required information: guestCartId'
+                );
+                missingGuestCartError.noGuestCartId = true;
+                throw missingGuestCartError;
+            }
+
+            // TODO: change to GraphQL mutation
+            // for now, manually transform the payload for REST
+            const itemPayload = {
+                qty: quantity,
+                sku: item.sku,
+                name: item.name,
+                quote_id: guestCartId
+            };
+
+            if (productType === 'ConfigurableProduct') {
+                Object.assign(itemPayload, {
+                    sku: parentSku,
+                    product_type: 'configurable',
+                    product_option: {
+                        extension_attributes: {
+                            configurable_item_options: options
+                        }
+                    }
+                });
+            }
+
+            const cartItem = await request(
+                `/rest/V1/guest-carts/${guestCartId}/items/${targetItemId}`,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        cartItem: itemPayload
+                    })
+                }
+            );
+
+            dispatch(actions.updateItem.receive({ cartItem, item, quantity }));
+        } catch (error) {
+            const { response, noGuestCartId } = error;
+
+            dispatch(actions.updateItem.receive(error));
 
             // check if the guest cart has expired
             if (noGuestCartId || (response && response.status === 404)) {
@@ -130,6 +219,10 @@ export const addItemToCart = (payload = {}) => {
             dispatch(toggleDrawer('cart')),
             dispatch(getCartDetails({ forceRefresh: true }))
         ]);
+        // This is done here as a dispatch instead of as part of
+        // updateItem.receive() so that the cart will close the options
+        // drawer only after it's finished updating
+        dispatch(closeOptionsDrawer());
     };
 };
 
@@ -191,14 +284,19 @@ export const removeItemFromCart = payload => {
     };
 };
 
+export const openOptionsDrawer = () => async dispatch =>
+    dispatch(actions.openOptionsDrawer());
+
+export const closeOptionsDrawer = () => async dispatch =>
+    dispatch(actions.closeOptionsDrawer());
+
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
 
     return async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        const { cart, user } = getState();
         const { guestCartId } = cart;
 
-        const { user } = getState();
         if (user.isSignedIn) {
             // TODO: handle authed carts
             // if a user creates an account,
@@ -207,14 +305,16 @@ export const getCartDetails = (payload = {}) => {
             return;
         }
 
-        dispatch(actions.getDetails.request(guestCartId));
-
         // if there isn't a guest cart, create one
         // then retry this operation
         if (!guestCartId) {
             await dispatch(createGuestCart());
             return thunk(...arguments);
         }
+
+        // Once we have the cart id indicate that we are starting to make
+        // async requests for the details.
+        dispatch(actions.getDetails.request(guestCartId));
 
         try {
             const [
@@ -278,51 +378,6 @@ export const getCartDetails = (payload = {}) => {
                 // then create a new one
                 await dispatch(createGuestCart());
                 // then retry this operation
-                return thunk(...arguments);
-            }
-        }
-    };
-};
-
-export const getShippingMethods = () => {
-    return async function thunk(dispatch, getState) {
-        const { cart } = getState();
-        const { guestCartId } = cart;
-
-        try {
-            // if there isn't a guest cart, create one
-            // then retry this operation
-            if (!guestCartId) {
-                await dispatch(createGuestCart());
-                return thunk(...arguments);
-            }
-
-            dispatch(actions.getShippingMethods.request(guestCartId));
-
-            const response = await request(
-                `/rest/V1/guest-carts/${guestCartId}/estimate-shipping-methods`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        address: {
-                            country_id: 'US',
-                            postcode: null
-                        }
-                    })
-                }
-            );
-
-            dispatch(actions.getShippingMethods.receive(response));
-        } catch (error) {
-            const { response } = error;
-
-            dispatch(actions.getShippingMethods.receive(error));
-
-            // check if the guest cart has expired
-            if (response && response.status === 404) {
-                // if so, clear it out, get a new one, and retry.
-                await clearGuestCartId();
-                await dispatch(createGuestCart());
                 return thunk(...arguments);
             }
         }

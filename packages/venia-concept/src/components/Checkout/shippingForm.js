@@ -37,11 +37,22 @@ class ShippingForm extends Component {
             submitting
         } = this.props;
 
-        const selectableShippingMethods = availableShippingMethods.map(
-            ({ code, title }) => ({ label: title, value: code })
-        );
-        const initialValue =
-            shippingMethod || availableShippingMethods[0].carrier_code || '';
+        let initialValue;
+        let selectableShippingMethods;
+
+        if (availableShippingMethods.length) {
+            selectableShippingMethods = availableShippingMethods.map(
+                ({ carrier_code, carrier_title }) => ({
+                    label: carrier_title,
+                    value: carrier_code
+                })
+            );
+            initialValue =
+                shippingMethod || availableShippingMethods[0].carrier_code;
+        } else {
+            selectableShippingMethods = [];
+            initialValue = '';
+        }
 
         return (
             <Form className={classes.root} onSubmit={this.submit}>
@@ -81,7 +92,7 @@ class ShippingForm extends Component {
 
     submit = ({ shippingMethod }) => {
         const selectedShippingMethod = this.props.availableShippingMethods.find(
-            ({ code }) => code === shippingMethod
+            ({ carrier_code }) => carrier_code === shippingMethod
         );
 
         if (!selectedShippingMethod) {

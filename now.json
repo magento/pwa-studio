@@ -1,6 +1,6 @@
 {
     "name": "magento-venia",
-    "alias": "magento-venia",
+    "alias": ["magento-venia", "veniapwa.com"],
     "engines": {
         "node": "10.x.x"
     },
