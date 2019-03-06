@@ -222,5 +222,3 @@ test('removes mousedown event listener', () => {
         false
     );
 });
-
-test;
