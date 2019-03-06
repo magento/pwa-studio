@@ -5,6 +5,13 @@ import { Form } from 'informed';
 import TextInput from 'src/components/TextInput';
 import SearchBar from '../searchBar';
 
+const removeEventListenerMock = jest.fn();
+Object.defineProperty(window.document, 'removeEventListener', {
+    writable: true,
+    configurable: true
+});
+window.document.removeEventListener = removeEventListenerMock;
+
 const buttonTypes = el => el.type === 'button';
 const inputTypes = el => el.type === 'input';
 
@@ -20,8 +27,22 @@ afterEach(() => {
     executeSearchMock.mockReset();
 });
 
+afterAll(() => {
+    afterAll(() => window.document.removeEventListener.mockRestore());
+});
+
 test('renders the correct tree', () => {
     const tree = TestRenderer.create(<SearchBar {...props} />).toJSON();
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('renders the correct tree', () => {
+    const newProps = {
+        ...props,
+        isOpen: false
+    };
+    const tree = TestRenderer.create(<SearchBar {...newProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -108,6 +129,10 @@ test('submitting the form executes the search', () => {
 
     // Simulate form submit.
     const form = instance.findByType(Form);
+
+    form.props.onSubmit({});
+    expect(executeSearchMock).not.toHaveBeenCalled();
+
     form.props.onSubmit({
         search_query: 'test'
     });
@@ -182,3 +207,20 @@ test('handles clicks inside and out of autocomplete input', () => {
         autocompleteVisible: false
     });
 });
+
+test('removes mousedown event listener', () => {
+    const renderer = TestRenderer.create(<SearchBar {...props} />);
+    const instance = renderer.root;
+
+    instance.children[0].instance.autocompleteClick = jest.fn();
+
+    instance.children[0].instance.componentWillUnmount();
+
+    expect(removeEventListenerMock).toHaveBeenCalledWith(
+        'mousedown',
+        instance.children[0].instance.autocompleteClick,
+        false
+    );
+});
+
+test;
