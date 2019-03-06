@@ -1,15 +1,14 @@
 import actions from './actions';
-import { fetchPurchaseHistory } from './api';
+import mockData from './mockData';
 
 export const getPurchaseHistory = () =>
     async function thunk(dispatch) {
-        dispatch(actions.fetchPurchaseHistoryRequest());
+        dispatch(actions.getPurchaseHistory.request());
 
         try {
-            const response = await fetchPurchaseHistory();
-
-            dispatch(actions.setItems(response));
+            // TODO: make an actual request here.
+            dispatch(actions.getPurchaseHistory.receive(mockData));
         } catch (error) {
-            dispatch(actions.setItems(error));
+            dispatch(actions.getPurchaseHistory.receive(error));
         }
     };
