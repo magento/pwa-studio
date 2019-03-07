@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 import Filter from 'src/components/PurchaseHistoryPage/Filter';
 import classify from 'src/classify';
@@ -14,11 +14,14 @@ class PurchaseHistory extends Component {
             filterContainer: string,
             itemsContainer: string
         }),
+        getPurchaseHistory: func.isRequired,
+        isFetching: bool,
         items: arrayOf(
             shape({
                 id: number.isRequired
             })
-        )
+        ),
+        resetPurchaseHistory: func.isRequired
     };
 
     componentDidMount() {
