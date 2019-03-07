@@ -15,7 +15,7 @@ const mediaPathPrefixes = {
         process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
         '/media/catalog/product',
     'image-category':
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATALOG ||
+        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATEGORY ||
         '/media/catalog/category'
 };
 
