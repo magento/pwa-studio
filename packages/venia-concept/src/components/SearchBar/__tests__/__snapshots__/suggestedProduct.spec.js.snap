@@ -8,13 +8,7 @@ exports[`renders a suggestedProduct component 1`] = `
     alt="Product Name"
     className="productImage"
   />
-  <span
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "Product Name",
-      }
-    }
-  />
+  Product Name
   <div />
 </li>
 `;
