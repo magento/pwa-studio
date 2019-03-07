@@ -7,6 +7,9 @@ import { Link, resourceUrl } from 'src/drivers';
 import defaultClasses from './suggestedProduct.css';
 
 const productUrlSuffix = '.html';
+const toHTML = str => ({
+    __html: str
+});
 
 class SuggestedProduct extends Component {
     static propTypes = {
@@ -57,8 +60,11 @@ class SuggestedProduct extends Component {
                     onClick={handleOnProductOpen}
                     className={classes.productName}
                     to={productLink}
-                    dangerouslySetInnerHTML={{ __html: name }}
-                />
+                >
+                    <span
+                        dangerouslySetInnerHTML={toHTML(name)}
+                    />
+                </Link>
                 <Link onClick={handleOnProductOpen} to={productLink}>
                     <Price
                         currencyCode={price.regularPrice.amount.currency}
