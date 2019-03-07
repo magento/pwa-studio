@@ -5,11 +5,11 @@ Thank you for your interest in contributing to the PWA Studio project! Before yo
 -   [Code of Conduct]
 -   [Support]
 
-To contribute to this repository, start by forking the [official repository] and following the installation instructions in the `README` file.
+To contribute to this repository, fork the [official repository] and follow the installation instructions in the `README` file.
 
 ## Pull Requests
 
--   PRs must be tied to issues.
+-   Every PR must be tied to an issue. Create an issue if none exist for the PR.
 -   PRs should only be scoped to a single issue.
 -   PR commits should contain [meaningful commit messages].
 -   Please fill out the entirety of the PR template, including the PR checklist.
