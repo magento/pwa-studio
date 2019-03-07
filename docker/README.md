@@ -14,12 +14,13 @@ This script will:
 
 After `docker/run-docker` is executed from the root of the repository, the default configuration will have the PWA application running at `https://pwa-docker.localhost`.
 
-## Configure a new custom domain
+## Configure a custom domain
 
-The domain is configurable. Two changes are needed to configure a new domain name.
+The domain is configurable. Just set `PWA_STUDIO_PUBLIC_PATH` key to the new domain under `docker/.env.docker`, or pass a custom .env file with the `PWA_STUDIO_PUBLIC_PATH` key set. All required fields can be found in `docker/.env.docker`. See how to pass the custom .env file below.
 
-1. Change `PWA_STUDIO_PUBLIC_PATH` key to the new domain in `docker/.env.docker`.
-2. Change the `--host` value in the `watch:docker` script in `packages/venia-concept/package.json` to the new domain.
+## Pass custom .env file configuration through cli args (optional)
+
+To use a custom .env file for configuration, pass it to the `run-docker` script like so: `docker/run-docker -e path-from-project-root`. This file will take the place of the default `.env.docker` file.
 
 ## Service Workers and Hot Reloading
 
@@ -29,7 +30,6 @@ Hot reloading is enabled by default when running the `docker/run-docker` script 
 
 If service workers are enabled during development, then service worker caching will affect the hot reloading and will require a manual refresh after the cached assets have fully reloaded.
 
-In order to avoid manual page refreshing and have hot reloading work as expected with service workers, it is recommended for developers to click the `Update on reload` checkbox in the `Service Workers` panel in Chrome developer tools. This feature in Chrome is helpful when developing with service workers because it ensures that the service worker is updated on every page reload and you will see changes immediately, avoiding the service worker cache.
+In order to avoid manual page refreshing and have hot reloading work as expected with service workers enabled, it is recommended for developers to click the `Update on reload` checkbox in the `Service Workers` panel in Chrome developer tools. This feature in Chrome is helpful when developing with service workers because it ensures that the service worker is updated on every page reload and you will see changes immediately, avoiding the service worker cache.
 
 For more details check out the [dev tools docs](https://bit.ly/2tTGWc0).
-

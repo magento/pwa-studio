@@ -1,46 +1,65 @@
 #!/usr/bin/env sh
 
 ####################################################################################
-#
-#   Run this file from the root of the repository to build and run a PWA container
-#
+#   Run this file from the root of the repository to build and run a PWA container #
 ####################################################################################
+CONFIG_ENV_FILE=./docker/.env.docker
+STATUS=0
+
+# accepts -e <envfile_path> to set a separate environment variable file configuration
+while getopts ":e" opt; do
+  case ${opt} in
+    e )
+      # validate that the file path passed is valid
+      if [ -f $2 ]; then
+        CONFIG_ENV_FILE="$2"
+        echo "Configuration using environment variables from: $2"
+      else
+        echo -e "The env file you provided does not exist at this path: $2\nPlease enter the correct path to your environment file."
+        exit 1
+      fi
+      ;;
+  esac
+done
 
 main () {
-  message "Adding environment variables to .env for docker setup."
+  env_setup
+  create_certificate
+  # If cert setup failed then don't start docker
+  if [ "$STATUS" == 0 ]; then
+    start_docker
+  else
+    message "An error occurred during setup."
+    clean_up_env &     # clean up the environment in the background
+    exit 1
+  fi
+}
+
+env_setup () {
   ENVFILE=./.env
-  cp ./docker/.env.docker $ENVFILE 
+  message "Adding env vars from $CONFIG_ENV_FILE to $ENVFILE for docker setup."
+  cp $CONFIG_ENV_FILE $ENVFILE
+  echo "ENVFILEPATH=./$CONFIG_ENV_FILE" >> $ENVFILE
+  cat $ENVFILE
   . $ENVFILE
-
   DOMAIN=$PWA_STUDIO_PUBLIC_PATH
-  STATUS=0
+}
 
-  message "Creating SSL/TLS cert"
+create_certificate () {
+  message "Creating SSL/TLS certificate"
   # make docker/certs folder if one does not already exist
   [ -d ./docker/certs ] || mkdir ./docker/certs
   # install devcert dependency
   cd ./docker && yarn install && cd -
   node ./docker/makeHostAndCert $DOMAIN || STATUS=$?
-
-  # By this point in the setup the host file should have the $DOMAIN and the certificate should be created and trusted
-  if [ "$STATUS" == 0 ]; then
-    start_docker
-  else
-    message "An error occurred during setup."
-    exit 1
-  fi
 }
 
 start_docker () {
-  message "Clearing any running containers"
-  docker-compose down
-
   message "Building PWA image"
   BUILD_STATUS=0
   docker-compose build || BUILD_STATUS=$?
 
-  # clean up the environment in the background
-  clean_up_env &
+  clean_up_env &    # clean up the environment in the background
   
   if [ "$BUILD_STATUS" == 0 ]; then
     message "Starting Docker network and containers"
@@ -52,8 +71,8 @@ start_docker () {
 
 clean_up_env () {
   # the docker-compose command needs the .env file to be present in order to run
-  # but we want to remove it after execution so it doesn't pollute the user's environment 
-  # when they switch to other branches or do not want to use the docker environment anymore
+  # but we want to remove it after execution so it doesn't pollute the dev environment 
+  # when switching git branches or running the application outside of docker
   if [ -f .env ]; then
     sleep 20
     rm .env
