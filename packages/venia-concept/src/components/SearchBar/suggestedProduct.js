@@ -61,9 +61,7 @@ class SuggestedProduct extends Component {
                     className={classes.productName}
                     to={productLink}
                 >
-                    <span
-                        dangerouslySetInnerHTML={toHTML(name)}
-                    />
+                    <span dangerouslySetInnerHTML={toHTML(name)} />
                 </Link>
                 <Link onClick={handleOnProductOpen} to={productLink}>
                     <Price
