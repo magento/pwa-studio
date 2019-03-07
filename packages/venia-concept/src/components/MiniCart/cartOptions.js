@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react';
-import { array, func, number, shape, string } from 'prop-types';
+import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
 
@@ -38,6 +38,7 @@ class CartOptions extends Component {
         configItem: shape({
             configurable_options: array
         }),
+        isUpdatingItem: bool,
         updateCart: func.isRequired,
         closeOptionsDrawer: func.isRequired
     };
@@ -88,11 +89,13 @@ class CartOptions extends Component {
 
     render() {
         const { fallback, handleSelectionChange, props } = this;
-        const { classes, cartItem, configItem, isLoading } = props;
+        const { classes, cartItem, configItem, isUpdatingItem } = props;
         const { name, price } = cartItem;
         const { configurable_options } = configItem;
 
-        const modalClass = isLoading ? classes.modal_active : classes.modal;
+        const modalClass = isUpdatingItem
+            ? classes.modal_active
+            : classes.modal;
 
         const options = Array.isArray(configurable_options) ? (
             <Suspense fallback={fallback}>
