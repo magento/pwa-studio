@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import { Link, resourceUrl } from 'src/drivers';
@@ -8,7 +8,7 @@ import defaultClasses from './suggestedProduct.css';
 
 const productUrlSuffix = '.html';
 
-class suggestedProduct extends Component {
+class SuggestedProduct extends Component {
     static propTypes = {
         handleOnProductOpen: func.isRequired,
         url_key: string.isRequired,
@@ -16,7 +16,14 @@ class suggestedProduct extends Component {
             url: string.isRequired
         }).isRequired,
         name: string.isRequired,
-        price: object.isRequired,
+        price: shape({
+            regularPrice: shape({
+                amount: shape({
+                    currency: string,
+                    value: number
+                })
+            })
+        }).isRequired,
         classes: shape({
             root: string,
             productName: string,
@@ -66,4 +73,4 @@ class suggestedProduct extends Component {
     }
 }
 
-export default classify(defaultClasses)(suggestedProduct);
+export default classify(defaultClasses)(SuggestedProduct);

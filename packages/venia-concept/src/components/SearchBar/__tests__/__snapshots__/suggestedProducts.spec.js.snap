@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a suggestedProduct component 1`] = `
+<div
+  className="root"
+>
+  <h4
+    className="title"
+  >
+    <span
+      className="titleText"
+    >
+      Product Suggestions
+    </span>
+  </h4>
+  <ul
+    className="items"
+  >
+    <li
+      className="root"
+    >
+      <img
+        alt="Product Name"
+        className="productImage"
+      />
+      Product Name
+      <div />
+    </li>
+  </ul>
+</div>
+`;
