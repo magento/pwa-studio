@@ -1,0 +1,23 @@
+# buildspec for deploying latest changes to main development branch
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo install step...
+  pre_build:
+    commands:
+      - echo logging in to AWS ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+  build:
+    commands:
+      - echo build Docker image on `date`
+      - docker build -f Dockerfile.prod -t pwa-demo:latest .
+      - docker tag pwa-demo:latest 276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa-demo
+  post_build:
+    commands:
+      - echo build Docker image complete `date`
+      - echo push latest Docker images to ECR...
+      - docker push 276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa-demo
+artifacts:
+  files:
+    - Dockerrun.aws.json
