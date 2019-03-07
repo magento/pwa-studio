@@ -1,0 +1,39 @@
+version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+
+phases:
+  install:
+    run-as: root
+    commands:
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - apt-get update && apt-get install --no-install-recommends yarn
+      - yarn install --frozen-lockfile
+  pre_build:
+    commands:
+      - cp packages/venia-concept/.env.dist packages/venia-concept/.env
+  build:
+    commands:
+      - yarn run build
+  post_build:
+    commands:
+      - yarn workspace @magento/venia-concept run storybook:build
+      - yarn run danger
+      - yarn run bundlesize
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
