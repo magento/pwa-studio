@@ -27,11 +27,14 @@ RUN yarn install
 # copy over the rest of the package files
 COPY packages ./packages
 
-# copy .env.docker file to .env
-COPY ./docker/.env.docker ./packages/venia-concept/.env
+# set in docker-compose
+ARG ENVFILEPATH
+# copy configuration env file from host file system to venia-concept .env for build
+COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 
 # build the app
 RUN yarn run build 
+
 #######################################################################################
 # UNCOMMENT FOR PRODUCTION BUILD - not as necessary for dev env to have non-root user #
 #######################################################################################
@@ -47,6 +50,9 @@ RUN yarn run build
 # RUN chown -R appuser:appuser /usr/src/app && \
 #     chmod 755 /usr/src/app
 # USER appuser
+#######################################################################################
 
+# Pass the `WEBPACK_HOST` arg from docker-compose args and set it to the HOST
+ARG WEBPACK_HOST
 # command to run application
-CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch:docker"]
+CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${WEBPACK_HOST}"]
