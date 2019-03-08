@@ -213,7 +213,6 @@ class MiniCart extends Component {
 
     get miniCartInner() {
         const { checkout, productConfirm, productList, props, state } = this;
-
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
         const { isEditPanelOpen } = state;
 
@@ -237,7 +236,6 @@ class MiniCart extends Component {
 
     render() {
         const { miniCartInner, productOptions, props } = this;
-
         const {
             cancelCheckout,
             cart: { isOptionsDrawerOpen, isLoading },

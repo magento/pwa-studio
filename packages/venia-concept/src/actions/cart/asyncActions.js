@@ -1,8 +1,8 @@
-import { RestApi } from '@magento/peregrine';
+import { RestApi, Util } from '@magento/peregrine';
+
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
-import { Util } from '@magento/peregrine';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
@@ -279,13 +279,11 @@ export const removeItemFromCart = payload => {
             }
         }
 
-        await Promise.all([
-            dispatch(
-                getCartDetails({
-                    forceRefresh: true
-                })
-            )
-        ]);
+        await dispatch(
+            getCartDetails({
+                forceRefresh: true
+            })
+        );
     };
 };
 

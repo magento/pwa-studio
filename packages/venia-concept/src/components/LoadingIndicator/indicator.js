@@ -8,7 +8,6 @@ import logo from '../Logo/logo.svg';
 class LoadingIndicator extends Component {
     render() {
         const { props } = this;
-
         const { children, classes } = props;
 
         return (

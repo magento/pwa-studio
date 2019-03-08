@@ -64,7 +64,7 @@
     display: inline-flex;
 }
 
-.modal {
+.mask {
     position: absolute;
     left: -24px;
     right: -24px;

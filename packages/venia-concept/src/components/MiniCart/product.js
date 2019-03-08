@@ -47,7 +47,6 @@ class Product extends Component {
     // TODO: Manage favorite items using GraphQL/REST when it is ready
     constructor() {
         super();
-
         this.state = {
             isLoading: false,
             isFavorite: false
@@ -71,9 +70,9 @@ class Product extends Component {
         ) : null;
     }
 
-    get modal() {
+    get mask() {
         const { classes } = this.props;
-        return this.state.isLoading ? <div className={classes.modal} /> : null;
+        return this.state.isLoading ? <div className={classes.mask} /> : null;
     }
 
     styleImage(image) {
@@ -88,9 +87,8 @@ class Product extends Component {
     }
 
     render() {
-        const { options, props, modal } = this;
+        const { options, props, mask } = this;
         const { classes, item, currencyCode } = props;
-
         const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
@@ -113,7 +111,7 @@ class Product extends Component {
                         </span>
                     </div>
                 </div>
-                {modal}
+                {mask}
                 <Kebab>
                     <Section
                         text="Add to favorites"
@@ -149,15 +147,14 @@ class Product extends Component {
     };
 
     removeItem = () => {
-        // TODO: prompt user to confirm this action
-
-        const { removeItemFromCart, item } = this.props;
-
         this.setState({
             isLoading: true
         });
 
-        removeItemFromCart({ item: item });
+        // TODO: prompt user to confirm this action
+        this.props.removeItemFromCart({
+            item: this.props.item
+        });
     };
 }
 
