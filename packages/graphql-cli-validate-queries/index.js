@@ -1,18 +1,74 @@
-const { getGraphQLProjectConfig } = require('graphql-config');
+/**
+ * This plugin validates GraphQL queries against a GraphQL endpoint's schema.
+ * TODO: make this unit testable.
+ */
 
-const { request } = require('graphql-request');
-const { getIntrospectionQuery, introspectionQuery } = require('graphql');
+const eslint = require('eslint');
+const fs = require('fs');
 
-const query = getIntrospectionQuery
-    ? getIntrospectionQuery()
-    : introspectionQuery;
+const PLUGIN_COMMAND = 'validate-queries';
+const PLUGIN_DESCRIPTION =
+    'Validate all query files and template literals in a project against a schema.';
 
-module.exports.command = 'validate-queries';
-module.exports.describe =
-    'Validate all query files and template literals in a project against the schema';
+/**
+ * TODO
+ * @param {*} context
+ * @param {*} argv
+ */
+async function validateQueries(context, argv) {
+    try {
+        console.log('Validating project queries...');
 
-module.exports.builder = args =>
-    args.options({
+        const { clients, filesGlob, insecure } = argv;
+
+        if (insecure) {
+            console.log('Allowing insecure (self-signed) certificates.');
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+        }
+
+        const projectConfiguration = await context.getProjectConfig();
+
+        // Get the schema.
+        const { schemaPath } = projectConfiguration;
+        context.spinner.start(`Reading the schema from ${schemaPath}...`);
+        const schemaJson = await getSchema({ schemaPath });
+        context.spinner.succeed();
+
+        // Validate our queries against that schema.
+        context.spinner.start('Finding queries in files...');
+        const validator = getValidator({ clients, schemaJson });
+        const queryFiles = validator.resolveFileGlobPatterns([filesGlob]);
+        context.spinner.succeed();
+
+        context.spinner.start(
+            "Validating project's queries against the schema..."
+        );
+        const report = validator.executeOnFiles(queryFiles);
+        context.spinner.succeed();
+
+        console.log(`Checked ${report.results.length} files.`);
+
+        // Report the results.
+        if (report.errorCount === 0) {
+            console.log('All queries are valid.');
+        } else {
+            console.warn('Found some invalid queries:');
+
+            const formatter = validator.getFormatter();
+            console.log(formatter(report.results));
+        }
+    } catch (e) {
+        const message = e.message ? e.message : e;
+        context.spinner.fail(`An error occurred: ${message}`);
+    }
+}
+
+/**
+ *
+ * @param {*} args
+ */
+function getSupportedArguments(args) {
+    const supportedArguments = {
         clients: {
             alias: 'c',
             choices: ['apollo', 'fraql', 'literal', 'lokka', 'relay'],
@@ -20,11 +76,9 @@ module.exports.builder = args =>
             describe: 'GraphQL clients in use in this project.',
             type: 'array'
         },
-        directory: {
-            alias: 'd',
-            default: './src/',
-            describe:
-                'Path to directory that contains all GraphQL files and tags to be validated',
+        filesGlob: {
+            alias: 'f',
+            describe: 'The glob used to target files for validation',
             type: 'string'
         },
         insecure: {
@@ -34,36 +88,55 @@ module.exports.builder = args =>
         },
         project: {
             alias: 'p',
-            describe: 'Project name',
+            describe: 'Project name as specified in graphql config',
             type: 'string'
         }
-    });
+    };
 
-module.exports.handler = async (context, argv) => {
-    if (argv.insecure) {
-        process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-    }
-    const config = context.getProjectConfig(null, argv.project);
-    let schema;
-    try {
-        schema = config.getSchema();
-    } catch (e) {
-        let endpoint;
+    return args.options(supportedArguments);
+}
+
+function getSchema({ schemaPath }) {
+    return new Promise((resolve, reject) => {
         try {
-            endpoint = cfg.extensions.endpoints.default;
-        } catch (e) {
-            throw new Error(
-                `GraphQLConfig file at "${
-                    cfg.configPath
-                }" must include the GraphQL endpoint of a running Magento instance at extensions: { endpoints: { default } }`
-            );
-        }
-        console.warn(
-            `Valid schema not found at "${
-                config.schemaPath
-            }". Retrieving from extensions.endpoints.default: ${endpoint}`
-        );
-    }
-};
+            const fileEncoding = 'utf8';
+            const schemaContents = fs.readFileSync(schemaPath, fileEncoding);
+            const schemaJSON = JSON.parse(schemaContents);
 
-function getRuleConfig(argv) {}
+            resolve(schemaJSON);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+function getValidator({ clients, schemaJson }) {
+    const clientRules = clients.map(clientName => ({
+        env: clientName,
+        projectName: 'magento', // TODO: what does this refer to?
+        schemaJson
+    }));
+
+    const templateStringsRule = ['error', ...clientRules];
+
+    const linterConfiguration = {
+        parser: 'babel-eslint',
+        rules: {
+            'graphql/template-strings': templateStringsRule
+        },
+        plugins: ['graphql'],
+        useEslintrc: false
+    };
+
+    const CLIEngine = eslint.CLIEngine;
+    const cli = new CLIEngine(linterConfiguration);
+
+    return cli;
+}
+
+module.exports = {
+    builder: getSupportedArguments,
+    command: PLUGIN_COMMAND,
+    desc: PLUGIN_DESCRIPTION,
+    handler: validateQueries
+};

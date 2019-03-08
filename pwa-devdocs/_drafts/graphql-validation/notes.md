@@ -81,6 +81,8 @@ We created a `graphql-cli` plugin called `validate-queries` that lives at `packa
 Venia will depend on `graphql-cli` and this `validate-queries` plugin to do the work of validating the queries,
 replacing the need for `validate-queries.js` in `packages/venia-concept/` itself.
 
+Venia's `package.json` will include a script that runs a `graphql-cli-validate-queries` command that runs our plugin. `graphql-cli` takes care of wiring all of that up for us.
+
 ### New Tools / Dependencies
 
 * [graphql-config](https://github.com/prisma/graphql-config)
@@ -96,3 +98,9 @@ replacing the need for `validate-queries.js` in `packages/venia-concept/` itself
   * The idea would be: [get-schema](https://oss.prisma.io/content/graphql-cli/06-schema-handling) to get the current backend's schema, and compare it to known Magento GraphQL schemas
   * Requires these GraphQL schemas to be known to PWA at build time
 * Are we using `graphql-cli`'s [lint](https://oss.prisma.io/content/graphql-cli/09-lint) command? "Running graphql lint will emit validation errors against the schema.".
+* Should this go in `pwa-buildpack` or `venia-concept`? I think `peregrine` will need it too.
+  * Future concern?
+* Publish plugin to NPM registry, install it from there.
+    * Tag it with `graphql`, `cli`, and `plugin`
+* Clean up dependencies of plugin
+* `yarn unlink` and make sure everything still works
