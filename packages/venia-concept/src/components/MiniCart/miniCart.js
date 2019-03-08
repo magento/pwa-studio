@@ -64,8 +64,7 @@ class MiniCart extends Component {
         super(...args);
         this.state = {
             isEditPanelOpen: false,
-            focusItem: null,
-            isLoading: false
+            focusItem: null
         };
     }
 

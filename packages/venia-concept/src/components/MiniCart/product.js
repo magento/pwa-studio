@@ -148,7 +148,7 @@ class Product extends Component {
         this.props.openOptionsDrawer(this.props.item);
     };
 
-    removeItem = async () => {
+    removeItem = () => {
         // TODO: prompt user to confirm this action
 
         const { removeItemFromCart, item } = this.props;
@@ -157,7 +157,7 @@ class Product extends Component {
             isLoading: true
         });
 
-        await removeItemFromCart({ item: item });
+        removeItemFromCart({ item: item });
     };
 }
 
