@@ -21,15 +21,16 @@ async function validateQueries(validEnv, log = console.log.bind(console)) {
             }`
         );
     }
-
-    const { gql, HttpLink, makePromise, execute } = require('apollo-boost');
+    const gql = require('graphql-tag');
+    const { createHttpLink } = require('apollo-link-http');
+    const { execute, makePromise } = require('apollo-link');
     const { getIntrospectionQuery, introspectionQuery } = require('graphql');
 
     const query = gql(
         getIntrospectionQuery ? getIntrospectionQuery() : introspectionQuery
     );
 
-    const link = new HttpLink({
+    const link = createHttpLink({
         uri: graphQLEndpoint,
         fetch: require('node-fetch')
     });
