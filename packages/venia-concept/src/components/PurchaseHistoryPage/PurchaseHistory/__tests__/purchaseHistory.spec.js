@@ -12,6 +12,7 @@ test('renders correctly', () => {
             resetPurchaseHistory={() => {}}
         />
     ).dive();
+
     expect(wrapper.find(Filter)).toHaveLength(1);
     expect(wrapper.find(List)).toHaveLength(1);
 });
