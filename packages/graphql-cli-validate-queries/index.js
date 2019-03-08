@@ -69,12 +69,12 @@ function getSupportedArguments(args) {
         },
         filesGlob: {
             alias: 'f',
-            describe: 'The glob used to target files for validation',
+            describe: 'The glob used to target files for validation.',
             type: 'string'
         },
         insecure: {
             alias: 'i',
-            describe: 'Allow insecure (self-signed) certificates',
+            describe: 'Allow insecure (self-signed) certificates.',
             type: 'boolean'
         },
         project: {
