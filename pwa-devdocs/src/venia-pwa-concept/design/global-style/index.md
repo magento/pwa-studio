@@ -5,7 +5,7 @@ title: Global style guide
 {: .bs-callout .bs-callout-info}
 **Note:**
 This design specification is still in development.
-If have any feedback or would like to join the PWA conversation, please join our [Slack][] channel.
+If have any feedback or would like to join the PWA conversation, please join our [Slack](https://magentocommeng.slack.com/messages/C71HNKYS2) channel.
 
 This topic provides the global style rules and values used in the Venia storefront.
 Use this guide to style components that will fit within the Venia storefront.
