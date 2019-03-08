@@ -49,7 +49,7 @@ class Product extends Component {
         super();
 
         this.state = {
-            isOpen: false,
+            isLoading: false,
             isFavorite: false
         };
     }
@@ -73,7 +73,7 @@ class Product extends Component {
 
     get modal() {
         const { classes } = this.props;
-        return this.state.isOpen ? <div className={classes.modal} /> : null;
+        return this.state.isLoading ? <div className={classes.modal} /> : null;
     }
 
     styleImage(image) {
@@ -91,14 +91,10 @@ class Product extends Component {
         const { options, props, modal } = this;
         const { classes, item, currencyCode } = props;
 
-        const rootClasses = this.state.isOpen
-            ? classes.root + ' ' + classes.root_masked
-            : classes.root;
-
         const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
-            <li className={rootClasses}>
+            <li className={classes.root}>
                 <div
                     className={classes.image}
                     style={this.styleImage(item.image)}
@@ -152,21 +148,16 @@ class Product extends Component {
         this.props.openOptionsDrawer(this.props.item);
     };
 
-    removeItem = () => {
+    removeItem = async () => {
         // TODO: prompt user to confirm this action
 
-        const { removeItemFromCart, loadingElement, item } = this.props;
+        const { removeItemFromCart, item } = this.props;
 
         this.setState({
-            isOpen: false
+            isLoading: true
         });
 
-        loadingElement && loadingElement(true);
-
-        removeItemFromCart({
-            item: item,
-            loadingElement: loadingElement
-        });
+        await removeItemFromCart({ item: item });
     };
 }
 

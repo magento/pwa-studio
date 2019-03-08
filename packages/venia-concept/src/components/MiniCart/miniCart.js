@@ -99,7 +99,6 @@ class MiniCart extends Component {
         return cartId ? (
             <ProductList
                 removeItemFromCart={removeItemFromCart}
-                loadingElement={this.loadingElement}
                 openOptionsDrawer={this.openOptionsDrawer}
                 currencyCode={cartCurrencyCode}
                 items={cart.details.items}
@@ -202,16 +201,6 @@ class MiniCart extends Component {
         );
     }
 
-    get loading() {
-        return this.state.isLoading ? loadingIndicator : null;
-    }
-
-    loadingElement = bool => {
-        this.setState({
-            isLoading: bool
-        });
-    };
-
     openOptionsDrawer = item => {
         this.setState({
             focusItem: item
@@ -224,14 +213,7 @@ class MiniCart extends Component {
     };
 
     get miniCartInner() {
-        const {
-            checkout,
-            productConfirm,
-            productList,
-            props,
-            state,
-            loading
-        } = this;
+        const { checkout, productConfirm, productList, props, state } = this;
 
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
         const { isEditPanelOpen } = state;
@@ -248,10 +230,7 @@ class MiniCart extends Component {
 
         return (
             <Fragment>
-                <div className={classes.body}>
-                    {loading}
-                    {productList}
-                </div>
+                <div className={classes.body}>{productList}</div>
                 <div className={footerClassName}>{footer}</div>
             </Fragment>
         );

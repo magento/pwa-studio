@@ -13,8 +13,7 @@ class Kebab extends Component {
             dropdown_active: string,
             kebab: string,
             root: string
-        }),
-        isOpen: bool
+        })
     };
 
     constructor(props) {
@@ -22,7 +21,7 @@ class Kebab extends Component {
         this.kebabButtonRef = createRef();
 
         this.state = {
-            isOpen: !!props.isOpen
+            isOpen: false
         };
     }
 
@@ -43,13 +42,7 @@ class Kebab extends Component {
     }
 
     render() {
-        const {
-            classes,
-            children,
-            //eslint-disable-next-line
-            isOpen,
-            ...restProps
-        } = this.props;
+        const { classes, children, ...restProps } = this.props;
 
         const toggleClass = this.state.isOpen
             ? classes.dropdown_active

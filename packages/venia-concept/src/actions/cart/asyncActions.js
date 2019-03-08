@@ -226,7 +226,7 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item, loadingElement } = payload;
+    const { item } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -282,8 +282,7 @@ export const removeItemFromCart = payload => {
         await Promise.all([
             dispatch(
                 getCartDetails({
-                    forceRefresh: true,
-                    loadingElement: loadingElement
+                    forceRefresh: true
                 })
             )
         ]);
@@ -297,7 +296,7 @@ export const closeOptionsDrawer = () => async dispatch =>
     dispatch(actions.closeOptionsDrawer());
 
 export const getCartDetails = (payload = {}) => {
-    const { forceRefresh, loadingElement } = payload;
+    const { forceRefresh } = payload;
 
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
@@ -389,8 +388,6 @@ export const getCartDetails = (payload = {}) => {
                 // then retry this operation
                 return thunk(...arguments);
             }
-        } finally {
-            loadingElement && loadingElement(false);
         }
     };
 };
