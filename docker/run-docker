@@ -15,7 +15,7 @@ while getopts ":e" opt; do
         CONFIG_ENV_FILE="$2"
         echo "Configuration using environment variables from: $2"
       else
-        echo -e "The env file you provided does not exist at this path: $2\nPlease enter the correct path to your environment file."
+        echo -e "The env file you provided does not exist at this path: $2\nPlease provide the relative path to your environment file.\nExample: $CONFIG_ENV_FILE"
         exit 1
       fi
       ;;
@@ -39,7 +39,7 @@ env_setup () {
   ENVFILE=./.env
   message "Adding env vars from $CONFIG_ENV_FILE to $ENVFILE for docker setup."
   cp $CONFIG_ENV_FILE $ENVFILE
-  echo "ENVFILEPATH=./$CONFIG_ENV_FILE" >> $ENVFILE
+  echo "ENVFILEPATH=$CONFIG_ENV_FILE" >> $ENVFILE
   cat $ENVFILE
   . $ENVFILE
   DOMAIN=$PWA_STUDIO_PUBLIC_PATH
