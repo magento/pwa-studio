@@ -27,9 +27,7 @@ const tableRows = Object.keys(compatibilityDefinitions).reduce((rows, pwaVersion
 /*
  *  Create the contents of the markdown file.
  */
-const markdownContents = `# PWA Studio / Magento Compatibility Table
-
-| PWA Studio | Magento |
+const markdownContents = `| PWA Studio | Magento |
 | --- | --- |
 ${ tableRows }
 `;

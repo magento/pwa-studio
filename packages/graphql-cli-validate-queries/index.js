@@ -4,7 +4,6 @@
  */
 
 const eslint = require('eslint');
-const fs = require('fs');
 
 const PLUGIN_COMMAND = 'validate-queries';
 const PLUGIN_DESCRIPTION =
@@ -19,24 +18,16 @@ async function validateQueries(context, argv) {
     try {
         console.log('Validating project queries...');
 
-        const { clients, filesGlob, insecure } = argv;
+        const { clients, filesGlob, insecure, project } = argv;
 
         if (insecure) {
             console.log('Allowing insecure (self-signed) certificates.');
             process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
         }
 
-        const projectConfiguration = await context.getProjectConfig();
-
-        // Get the schema.
-        const { schemaPath } = projectConfiguration;
-        context.spinner.start(`Reading the schema from ${schemaPath}...`);
-        const schemaJson = await getSchema({ schemaPath });
-        context.spinner.succeed();
-
         // Validate our queries against that schema.
         context.spinner.start('Finding queries in files...');
-        const validator = getValidator({ clients, schemaJson });
+        const validator = getValidator({ clients, project });
         const queryFiles = validator.resolveFileGlobPatterns([filesGlob]);
         context.spinner.succeed();
 
@@ -96,42 +87,25 @@ function getSupportedArguments(args) {
     return args.options(supportedArguments);
 }
 
-function getSchema({ schemaPath }) {
-    return new Promise((resolve, reject) => {
-        try {
-            const fileEncoding = 'utf8';
-            const schemaContents = fs.readFileSync(schemaPath, fileEncoding);
-            const schemaJSON = JSON.parse(schemaContents);
-
-            resolve(schemaJSON);
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
-
-function getValidator({ clients, schemaJson }) {
+function getValidator({ clients, project }) {
     const clientRules = clients.map(clientName => ({
         env: clientName,
-        projectName: 'magento', // TODO: what does this refer to?
-        schemaJson
+        projectName: project
     }));
 
-    const templateStringsRule = ['error', ...clientRules];
+    const ruleDefinition = ['error', ...clientRules];
 
     const linterConfiguration = {
         parser: 'babel-eslint',
-        rules: {
-            'graphql/template-strings': templateStringsRule
-        },
         plugins: ['graphql'],
+        rules: {
+            'graphql/template-strings': ruleDefinition,
+            'graphql/no-deprecated-fields': ruleDefinition
+        },
         useEslintrc: false
     };
 
-    const CLIEngine = eslint.CLIEngine;
-    const cli = new CLIEngine(linterConfiguration);
-
-    return cli;
+    return new eslint.CLIEngine(linterConfiguration);
 }
 
 module.exports = {

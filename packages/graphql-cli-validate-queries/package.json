@@ -16,9 +16,11 @@
   "author": "Adobe, Inc",
   "license": "MIT",
   "dependencies": {
-    "eslint": "^5.15.1"
+    "eslint": "^5.15.1",
+    "eslint-plugin-graphql": "~3.0.3"
   },
   "devDependencies": {
+    "babel-eslint": "~10.0.1",
     "rimraf": "~2.6.3"
   }
 }
