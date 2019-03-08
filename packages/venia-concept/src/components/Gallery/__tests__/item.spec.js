@@ -22,9 +22,7 @@ const classes = {
 const validItem = {
     id: 1,
     name: 'Test Product',
-    small_image: {
-        url: '/foo/bar/pic.png'
-    },
+    small_image: '/foo/bar/pic.png',
     price: {
         regularPrice: {
             amount: {

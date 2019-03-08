@@ -50,9 +50,7 @@ class ProductFullDetail extends Component {
                     file: string.isRequired
                 })
             ),
-            description: shape({
-                html: string.isRequired
-            }).isRequired
+            description: string.isRequired
         }).isRequired,
         addToCart: func.isRequired
     };
@@ -177,7 +175,7 @@ class ProductFullDetail extends Component {
                     <h2 className={classes.descriptionTitle}>
                         <span>Product Description</span>
                     </h2>
-                    <RichText content={product.description.html} />
+                    <RichText content={product.description} />
                 </section>
                 <section className={classes.details}>
                     <h2 className={classes.detailsTitle}>

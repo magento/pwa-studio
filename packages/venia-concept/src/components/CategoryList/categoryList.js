@@ -30,6 +30,21 @@ class CategoryList extends Component {
         ) : null;
     }
 
+    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    mapCategory(categoryItem) {
+        categoryItem.productImagePreview.items = categoryItem.productImagePreview.items.map(
+            imagePreview => {
+                if (typeof imagePreview.small_image === 'object') {
+                    imagePreview.small_image = imagePreview.small_image.url;
+                }
+
+                return imagePreview;
+            }
+        );
+
+        return categoryItem;
+    }
+
     render() {
         const { id, classes } = this.props;
 
@@ -60,7 +75,7 @@ class CategoryList extends Component {
                             <div className={classes.content}>
                                 {data.category.children.map(item => (
                                     <CategoryTile
-                                        item={item}
+                                        item={this.mapCategory(item)}
                                         key={item.url_key}
                                     />
                                 ))}

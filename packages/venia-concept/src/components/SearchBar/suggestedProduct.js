@@ -12,9 +12,7 @@ class SuggestedProduct extends Component {
     static propTypes = {
         handleOnProductOpen: func.isRequired,
         url_key: string.isRequired,
-        small_image: shape({
-            url: string.isRequired
-        }).isRequired,
+        small_image: string.isRequired,
         name: string.isRequired,
         price: shape({
             regularPrice: shape({
@@ -49,7 +47,7 @@ class SuggestedProduct extends Component {
                     <img
                         className={classes.productImage}
                         alt={name}
-                        src={resourceUrl(small_image.url, {
+                        src={resourceUrl(small_image, {
                             type: 'image-product',
                             width: 60
                         })}

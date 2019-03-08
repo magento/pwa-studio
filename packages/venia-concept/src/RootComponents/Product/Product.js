@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bool, shape, number, arrayOf, string } from 'prop-types';
 
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
@@ -16,45 +15,6 @@ import productQuery from 'src/queries/getProductDetail.graphql';
  * TODO: Replace with a single product query when possible.
  */
 class Product extends Component {
-    static propTypes = {
-        data: shape({
-            productDetail: shape({
-                total_count: number,
-                items: arrayOf(
-                    shape({
-                        id: number,
-                        sku: string.isRequired,
-                        price: shape({
-                            regularPrice: shape({
-                                amount: shape({
-                                    currency: string.isRequired,
-                                    value: number.isRequired
-                                })
-                            }).isRequired
-                        }).isRequired,
-                        image: string,
-                        image_label: string,
-                        media_gallery_entries: arrayOf(
-                            shape({
-                                label: string,
-                                position: number.isRequired,
-                                disabled: bool,
-                                file: string.isRequired
-                            })
-                        ),
-                        description: shape({
-                            html: string
-                        }),
-                        short_description: shape({
-                            html: string
-                        }),
-                        canonical_url: string
-                    })
-                ).isRequired
-            }).isRequired
-        })
-    };
-
     addToCart = async (item, quantity) => {
         const { guestCartId } = this.props;
         await this.props.addItemToCart({ guestCartId, item, quantity });
@@ -62,6 +22,14 @@ class Product extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+    }
+
+    mapProduct(product) {
+        if (typeof product.description === 'object') {
+            product.description = product.description.html;
+        }
+
+        return product;
     }
 
     render() {
@@ -78,7 +46,7 @@ class Product extends Component {
 
                     return (
                         <ProductFullDetail
-                            product={product}
+                            product={this.mapProduct(product)}
                             addToCart={this.props.addItemToCart}
                         />
                     );

@@ -32,6 +32,15 @@ class GalleryItems extends Component {
             : defaultPlaceholders;
     }
 
+    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    mapGalleryItem(item) {
+        if (typeof item.small_image === 'object') {
+            item.small_image = item.small_image.url;
+        }
+
+        return item;
+    }
+
     render() {
         const { items } = this.props;
 
@@ -39,7 +48,9 @@ class GalleryItems extends Component {
             return this.placeholders;
         }
 
-        return items.map(item => <GalleryItem key={item.id} item={item} />);
+        return items.map(item => (
+            <GalleryItem key={item.id} item={this.mapGalleryItem(item)} />
+        ));
     }
 }
 

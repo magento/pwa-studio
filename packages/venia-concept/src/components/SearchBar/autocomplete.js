@@ -65,6 +65,17 @@ class SearchAutocomplete extends Component {
 
     handleOnProductOpen = () => this.props.updateAutocompleteVisible(false);
 
+    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    mapProducts(products) {
+        return products.map(product => {
+            if (typeof product.small_image === 'object') {
+                product.small_image = product.small_image.url;
+            }
+
+            return product;
+        });
+    }
+
     render() {
         const { classes, autocompleteVisible } = this.props;
         const { handleOnProductOpen, handleCategorySearch } = this;
@@ -125,7 +136,9 @@ class SearchAutocomplete extends Component {
                             />
                             <SuggestedProducts
                                 handleOnProductOpen={handleOnProductOpen}
-                                items={items.slice(0, suggestedProductsLimit)}
+                                items={this.mapProducts(
+                                    items.slice(0, suggestedProductsLimit)
+                                )}
                             />
                         </div>
                     );

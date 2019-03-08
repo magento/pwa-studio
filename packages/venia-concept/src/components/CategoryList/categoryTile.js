@@ -12,14 +12,12 @@ const previewImageSize = 480;
 class CategoryTile extends Component {
     static propTypes = {
         item: shape({
-            image: string.isRequired,
+            image: string,
             name: string.isRequired,
             productImagePreview: shape({
                 items: arrayOf(
                     shape({
-                        small_image: shape({
-                            url: string.isRequired
-                        }).isRequired
+                        small_image: string
                     })
                 )
             }),
@@ -42,7 +40,7 @@ class CategoryTile extends Component {
                 width: previewImageSize
             });
         } else if (previewProduct) {
-            return resourceUrl(previewProduct.small_image.url, {
+            return resourceUrl(previewProduct.small_image, {
                 type: 'image-product',
                 width: previewImageSize
             });
