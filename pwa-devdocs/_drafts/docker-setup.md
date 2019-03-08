@@ -5,6 +5,7 @@
     ```
     git clone https://github.com/magento-research/pwa-studio
     ```
+    *Note*: Windows users will want to ensure that [shared drives](https://docs.docker.com/docker-for-windows/#shared-drives) are enabled.
 3. In the root of the repository, run 
     ```
     docker/run-docker
@@ -30,3 +31,7 @@ If service workers are enabled during development, then service worker caching w
 In order to avoid manual page refreshing and have hot reloading work as expected with service workers enabled, it is recommended for developers to click the `Update on reload` checkbox in the `Service Workers` panel in Chrome developer tools. This feature in Chrome is helpful when developing with service workers because it ensures that the service worker is updated on every page reload and you will see changes immediately, avoiding the service worker cache.
 
 For more details check out the [dev tools docs](https://bit.ly/2tTGWc0).
+
+### Hot Reloading is not working
+
+If you find that hot reloading is not working for you the webpack docs recommend using [polling](https://webpack.js.org/configuration/watch/#watchoptionspoll) as watching does not work with network file systems and machines in VirtualBox. To enable polling, set `PWA_STUDIO_HOT_RELOAD_WITH_POLLING=1` in `.env.docker`.

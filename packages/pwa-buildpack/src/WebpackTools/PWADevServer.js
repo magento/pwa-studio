@@ -47,6 +47,13 @@ const PWADevServer = {
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
+            watchOptions: {
+                // polling is CPU intensive - provide the option to turn it on if needed
+                poll:
+                    !!parseInt(
+                        process.env.PWA_STUDIO_HOT_RELOAD_WITH_POLLING
+                    ) || false
+            },
             host: '0.0.0.0',
             port:
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT ||
