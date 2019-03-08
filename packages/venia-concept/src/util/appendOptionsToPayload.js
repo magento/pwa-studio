@@ -18,11 +18,20 @@ const appendOptionsToPayload = (
         option_value: value
     }));
 
-    const selectedVariant = variants.find(({ product: variant }) => {
+    const selectedVariant = variants.find(({ attributes, product }) => {
         for (const [id, value] of optionSelections) {
             const code = optionCodes.get(id);
 
-            if (variant[code] !== value) {
+            // check `product` for standard attributes
+            // check `attributes` for custom attributes
+            if (
+                product[code] !== value &&
+                !attributes.some(
+                    attribute =>
+                        attribute.code === code &&
+                        attribute.value_index === value
+                )
+            ) {
                 return false;
             }
         }
