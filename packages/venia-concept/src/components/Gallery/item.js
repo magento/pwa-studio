@@ -103,6 +103,10 @@ class GalleryItem extends Component {
         );
     };
 
+    /**
+     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
+     * https://github.com/magento/graphql-ce/issues/88
+     */
     renderImage = () => {
         const { classes, item } = this.props;
 

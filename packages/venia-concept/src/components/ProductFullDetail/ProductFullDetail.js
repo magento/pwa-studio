@@ -50,7 +50,7 @@ class ProductFullDetail extends Component {
                     file: string.isRequired
                 })
             ),
-            description: string.isRequired
+            description: string
         }).isRequired,
         addToCart: func.isRequired
     };

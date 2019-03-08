@@ -23,6 +23,7 @@ const validItem = {
     id: 1,
     name: 'Test Product',
     small_image: '/foo/bar/pic.png',
+    url_key: 'strive-shoulder-pack',
     price: {
         regularPrice: {
             amount: {
