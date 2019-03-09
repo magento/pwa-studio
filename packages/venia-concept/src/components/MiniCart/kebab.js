@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './kebab.css';
