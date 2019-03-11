@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { arrayOf, func, object, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
+import getOptionType from './getOptionType';
 import SwatchList from './swatchList';
 import TileList from './tileList';
 import defaultClasses from './option.css';
@@ -30,11 +31,13 @@ class Option extends Component {
     };
 
     get listComponent() {
-        const { attribute_code } = this.props;
+        const { attribute_code, values } = this.props;
 
         // TODO: get an explicit field from the API
         // that identifies an attribute as a swatch
-        return attribute_code === 'fashion_color' ? SwatchList : TileList;
+        const optionType = getOptionType({ attribute_code, values });
+
+        return optionType === 'swatch' ? SwatchList : TileList;
     }
 
     render() {
