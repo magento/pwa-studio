@@ -19,7 +19,7 @@ const appendOptionsToPayload = (
     }));
 
     const selectedVariant = variants.find(({ attributes, product }) => {
-        const customAttributes = (attributes, []).reduce(
+        const customAttributes = (attributes || []).reduce(
             (map, { code, value_index }) => new Map(map).set(code, value_index),
             new Map()
         );
