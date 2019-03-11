@@ -4,12 +4,13 @@
 .body {
     composes: body from './form.css';
     grid-gap: 0.5rem;
-    max-height: calc(
-        var(--minicart-height) - var(--minicart-header-height) -
-            var(--flow-footer-height)
+    height: calc(
+        var(--minicart-height) - var(--flow-footer-height) -
+            var(--minicart-footer-padding-bottom)
     );
     overflow-y: scroll;
     padding: 0 1.5rem;
+    grid-auto-rows: max-content;
 }
 
 .footer {
