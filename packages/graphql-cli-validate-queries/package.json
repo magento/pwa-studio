@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "echo 'Skipping graphql-cli-validate-queries build...'",
-    "clean": "rimraf ./node_modules"
+    "clean": "rimraf ./node_modules",
+    "test": "jest"
   },
   "repository": "https://github.com/magento-research/pwa-studio",
   "keywords": [
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "babel-eslint": "~10.0.1",
+    "jest": "~24.4.0",
     "rimraf": "~2.6.3"
   }
 }
