@@ -381,7 +381,7 @@ function getProp(callExprPath, propName) {
 
 /**
  * Given a Babel path wrapping a CallExpression,
- * returns a boolean indictating whether the path
+ * returns a boolean indicating whether the path
  * is a call to React's createElement function
  * @param {Path} callExprPath
  * @param {string=} reactIdent String representing the identifier in scope for React
