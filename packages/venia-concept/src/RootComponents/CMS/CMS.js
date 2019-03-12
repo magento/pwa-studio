@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import CategoryList from 'src/components/CategoryList';
-import HomePage from 'src/components/HomePage';
+import CmsPage from 'src/components/CmsPage';
 
 export default class CMS extends Component {
     render() {
         return (
             <Fragment>
-                <HomePage id={2}/>
+                <CmsPage id={2}/>
                 <CategoryList title="Shop by category" id={2} />
             </Fragment>
         );

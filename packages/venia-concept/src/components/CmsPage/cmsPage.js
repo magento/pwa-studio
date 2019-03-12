@@ -3,11 +3,11 @@ import { Query } from 'src/drivers';
 import { number, shape, string } from 'prop-types';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import classify from 'src/classify';
-import defaultClasses from './homePage.css';
+import defaultClasses from './cmsPage.css';
 import ReactHtmlParser from 'react-html-parser';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 
-class HomePage extends Component {
+class CmsPage extends Component {
     static propTypes = {
         classes: shape({
             root: string,
@@ -42,4 +42,4 @@ class HomePage extends Component {
     }
 }
 
-export default classify(defaultClasses)(HomePage);
+export default classify(defaultClasses)(CmsPage);
