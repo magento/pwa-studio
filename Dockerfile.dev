@@ -1,4 +1,4 @@
-##############################################################
+#############################################################
 # This file is intended to be used with ./docker-compose.yml #
 ##############################################################
 
@@ -44,15 +44,12 @@ RUN yarn run build
 # WORKDIR /usr/src/app
 # # copy build from previous stage
 # COPY --from=build /usr/src/app .
-# # create and set non-root USER
-# RUN addgroup -g 1001 appuser && \
-#     adduser -S -u 1001 -G appuser appuser
-# RUN chown -R appuser:appuser /usr/src/app && \
-#     chmod 755 /usr/src/app
-# USER appuser
+# # node:alpine comes with a configured user and group
+# RUN chown -R node:node /usr/src/app
+# USER node
 #######################################################################################
 
-# Pass the `WEBPACK_HOST` arg from docker-compose args and set it to the HOST
-ARG WEBPACK_HOST
+# Pass the `HOST` arg from docker-compose args and set it to the HOST
+ARG HOST
 # command to run application
-CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${WEBPACK_HOST}"]
+CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${HOST}"]

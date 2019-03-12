@@ -28,7 +28,7 @@ async function serve() {
         }
     );
 
-    if (validEnv.isProduction) {
+    if (process.env.NODE_ENV === 'production' || validEnv.isProduction) {
         if (process.env.PORT) {
             console.log(
                 `NODE_ENV=production and PORT set. Binding to localhost:${
@@ -47,7 +47,7 @@ async function serve() {
         return;
     }
 
-    if (!config.host) {
+    if (!process.env.PWA_STUDIO_HOST && !config.host) {
         try {
             const {
                 Utilities: { configureHost }
