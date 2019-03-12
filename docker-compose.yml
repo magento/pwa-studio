@@ -20,7 +20,7 @@ services:
     # build pwa using the Dockerfile from the PWD
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       args: 
         WEBPACK_HOST: ${PWA_STUDIO_PUBLIC_PATH}
         ENVFILEPATH: ${ENVFILEPATH}
