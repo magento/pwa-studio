@@ -6,7 +6,7 @@ export default class CMS extends Component {
     render() {
         return (
             <Fragment>
-                <CmsPage id={2}/>
+                <CmsPage id={2} />
                 <CategoryList title="Shop by category" id={2} />
             </Fragment>
         );
