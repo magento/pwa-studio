@@ -25,7 +25,7 @@ const config = api => {
          */
         development: {
             // Ignore everything with underscores except stories
-            ignore: [/\/__(tests?|mocks|fixtures|helpers)__\//],
+            ignore: [/\/__(tests?|mocks|fixtures|helpers|dist)__\//],
             plugins: [
                 ...plugins,
                 [
