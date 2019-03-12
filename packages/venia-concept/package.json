@@ -54,6 +54,7 @@
     "react-apollo": "~2.3.3",
     "react-dom": "~16.8.0",
     "react-feather": "~1.1.5",
+    "react-html-parser": "~2.0.2",
     "react-redux": "~6.0.0",
     "react-router-dom": "~4.4.0-beta.6",
     "redux": "~4.0.1",
