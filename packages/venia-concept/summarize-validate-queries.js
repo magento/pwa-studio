@@ -8,10 +8,10 @@
 const semver = require('semver');
 
 const compatibilityDefinitions = require('../../magento-compatibility.js');
-const package = require('../../package.json');
+const packageJSON = require('../../package.json');
 
 const DOCS_COMPAT_TABLE_PATH = 'https://magento-research.github.io/pwa-studio/';
-const currentVersion = package.version;
+const currentVersion = packageJSON.version;
 
 const pwaVersions = Object.keys(compatibilityDefinitions);
 const matchingPWAVersion = pwaVersions.find(pwaVersion =>
