@@ -88,6 +88,10 @@ function getSupportedArguments(args) {
     return args.options(PLUGIN_SUPPORTED_ARGUMENTS);
 }
 
+/**
+ * Creates a linter configuration with rules based on the current
+ * clients and project. 
+ */
 function getValidator({ clients, project }) {
     const clientRules = clients.map(clientName => ({
         env: clientName,
