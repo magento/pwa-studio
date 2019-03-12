@@ -1,6 +1,5 @@
 /**
  * This plugin validates GraphQL queries against a GraphQL endpoint's schema.
- * TODO: make this unit testable.
  */
 
 const fs = require('fs');
