@@ -1,7 +1,7 @@
 /**
  * This file outputs a summary blurb to the console informing the developer
  * about PWA to Magento version compatibility.
- * 
+ *
  * This will help developers experiencing compatibility issues to solve them.
  */
 
@@ -14,12 +14,16 @@ const DOCS_COMPAT_TABLE_PATH = 'https://magento-research.github.io/pwa-studio/';
 const currentVersion = package.version;
 
 const pwaVersions = Object.keys(compatibilityDefinitions);
-const matchingPWAVersion = pwaVersions.find(pwaVersion => semver.satisfies(currentVersion, pwaVersion));
+const matchingPWAVersion = pwaVersions.find(pwaVersion =>
+    semver.satisfies(currentVersion, pwaVersion)
+);
 
-let details = '';
+let versionSpecifics = '';
 if (matchingPWAVersion) {
-    const compatibleMagentoVersion = compatibilityDefinitions[matchingPWAVersion];
-    details = `
+    const compatibleMagentoVersion =
+        compatibilityDefinitions[matchingPWAVersion];
+
+    versionSpecifics = `
 Your version of PWA is: ${currentVersion}.
 This version of PWA is compatible with version ${compatibleMagentoVersion} of Magento.
     `;
@@ -27,7 +31,7 @@ This version of PWA is compatible with version ${compatibleMagentoVersion} of Ma
 
 console.log(`
 If there are errors above, your versions of PWA and Magento may be incompatible.
-${details}
+${versionSpecifics}
 Please refer to the compatibility table in the PWA documentation for more details:
 ${DOCS_COMPAT_TABLE_PATH}.
 `);
