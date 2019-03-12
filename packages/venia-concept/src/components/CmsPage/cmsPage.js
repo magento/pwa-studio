@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'src/drivers';
 import { number, shape, string } from 'prop-types';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
+import CmsBlockGroup from 'src/components/CmsBlock/index';
 import classify from 'src/classify';
 import defaultClasses from './cmsPage.css';
 import ReactHtmlParser from 'react-html-parser';
@@ -34,6 +35,7 @@ class CmsPage extends Component {
                             <div className={classes.content}>
                                 {ReactHtmlParser(content)}
                             </div>
+                            <CmsBlockGroup identifiers={['pwa_banner']} />
                         </div>
                     );
                 }}
