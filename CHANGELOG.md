@@ -12,7 +12,7 @@ Release **2.1.0** is a compatibility release for the core **Magento 2.3.1** rele
 Notable changes include:
 
 * Updated GraphQL queries
-* Magento GrpahQL query validation tool for buildpack
+* Magento GraphQL query validation tool for buildpack
 
 ### Updated GraphQL queries
 
