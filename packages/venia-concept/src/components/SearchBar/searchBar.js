@@ -107,6 +107,7 @@ export class SearchBar extends Component {
     };
 
     resetForm = () => {
+        this.updateAutocompleteVisible(false);
         this.formApi.reset();
     };
 
