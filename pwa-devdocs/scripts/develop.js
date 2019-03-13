@@ -13,7 +13,9 @@ function buildCallback(error, stdout, stderr) {
     site.reload();
 }
 
-workspace.watch('./src/**/*.md').on('change', fileChangeHandler);
+workspace
+    .watch('./src/**/*.md', { ignored: /.*\/auto-generated\/.*/})
+    .on('change', fileChangeHandler);
 workspace.watch('./src/**/*.html').on('change', fileChangeHandler);
 workspace.watch('./src/_scss/**/*.scss').on('change', fileChangeHandler);
 workspace.watch('./src/_js/**/*.js').on('change', fileChangeHandler);

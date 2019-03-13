@@ -147,7 +147,7 @@ page:
   default: notFound
 ```
 
-The `LIBRARY_SVC` endpoint is responsible for providing, querying, and doing existence checks on the backing data. The `.mst` template files implement only the base Mustache specification, so they are almost completely logic-free--they don't even have conditionals. A PWA expecting this server can read this document and structure the same GraphQL calls; in this way, a PWA can include an `upward.yml` to define service depdencies, or it can build against a service-provided `upward.yml` to do service discovery.
+The `LIBRARY_SVC` endpoint is responsible for providing, querying, and doing existence checks on the backing data. The `.mst` template files implement only the base Mustache specification, so they are almost completely logic-free--they don't even have conditionals. A PWA expecting this server can read this document and structure the same GraphQL calls; in this way, a PWA can include an `upward.yml` to define service dependencies, or it can build against a service-provided `upward.yml` to do service discovery.
 
 #### Push business logic to the edges of the system
 
