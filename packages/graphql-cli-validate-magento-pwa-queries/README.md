@@ -1,14 +1,14 @@
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 
-# graphql-cli-validate-queries
+# graphql-cli-validate-magento-pwa-queries
 
 Validate your project's GraphQL queries against a schema.
 
 ## Installation
 
 ```
-yarn add graphql-cli graphql-cli-validate-queries
+yarn add graphql-cli graphql-cli-validate-magento-pwa-queries
 ```
 
 ## Summary
@@ -23,6 +23,10 @@ Given the following `.graphqlconfig`:
             "extensions": {
                 "endpoints": {
                     "default": "https://myEndpoint.com/graphql"
+                },
+                "validate-magento-pwa-queries": {
+                    "clients": ["apollo", "literal"],
+                    "filesGlob": "src/**/*.{js,graphql,gql}"
                 }
             }
         }
@@ -39,7 +43,7 @@ from `https://myEndpoint.com/graphql` and store it in `mySchema.json`.
 
 Then the command 
 ```
-graphql-cli validate-queries --project myApp --filesGlob \"src/**/*.{js,graphql,gql}\" --clients apollo literal
+graphql-cli validate-magento-pwa-queries --project myApp
 ```
 
 will validate all `apollo` and `literal` GraphQL queries it finds in `.js`, `.graphql`, or `.gql` files in the `src/` directory
@@ -51,9 +55,14 @@ This plugin supports the following command line options:
 
 | Option | Description | Type | Default |
 | --- | --- | --- | --- |
-| `--clients`, `-c` | GraphQL clients in use in this project. | `array` | `["apollo"]` |
-| `--filesGlob`, `-f` | A glob used to target files for validation. | `string` | `""` |
 | `--project`, `-p` | The project name as specified in `.graphqlconfig`. | `string` | `""` |
+
+You can also specifiy the following options in your `.graphqlconfig`:
+
+| Option | Description | Type |
+| --- | --- | --- | --- |
+| `--clients`, `-c` | GraphQL clients in use in this project. | `array` |
+| `--filesGlob`, `-f` | A glob used to target files for validation. | `string` |
 
 ## Further Reading
 
