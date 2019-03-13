@@ -78,11 +78,9 @@ const jestConfig = {
                 inPackage('scripts/fetch-mock.js')
             ],
             // Set up Enzyme React 16 adapter for testing React components
-            setupTestFrameworkScriptFile: path.join(
-                '<rootDir>',
-                'scripts',
-                'jest-enzyme-setup.js'
-            ),
+            setupFilesAfterEnv: [
+                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
+            ],
             // Give jsdom a real URL for router testing.
             testURL: 'https://localhost/'
         })),
@@ -117,11 +115,9 @@ const jestConfig = {
                 '<rootDir>/node_modules'
             ],
             // Set up Enzyme React 16 adapter for testing React components
-            setupTestFrameworkScriptFile: path.join(
-                '<rootDir>',
-                'scripts',
-                'jest-enzyme-setup.js'
-            ),
+            setupFilesAfterEnv: [
+                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
+            ],
             // Give jsdom a real URL for router testing.
             testURL: 'https://localhost/',
             transform: {
