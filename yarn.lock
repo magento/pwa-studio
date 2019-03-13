@@ -7753,8 +7753,8 @@ graphql-cli-prepare@1.4.19:
     graphql-static-binding "0.9.3"
     lodash "4.17.5"
 
-"graphql-cli-validate-magento-pwa-queries@file:packages/graphql-cli-validate-magento-pwa-queries":
-  version "0.1.0"
+"graphql-cli-validate-magento-pwa-queries@file:./packages/graphql-cli-validate-magento-pwa-queries":
+  version "1.0.0"
   dependencies:
     eslint "~5.15.1"
     eslint-plugin-graphql "~3.0.3"
