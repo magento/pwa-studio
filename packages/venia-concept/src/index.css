@@ -99,6 +99,7 @@ button {
     padding: 0;
     touch-action: manipulation;
     user-select: none;
+    outline: none;
     -webkit-appearance: none;
 }
 
