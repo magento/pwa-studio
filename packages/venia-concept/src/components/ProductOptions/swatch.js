@@ -46,6 +46,8 @@ class Swatch extends Component {
             hasFocus,
             isSelected,
             item,
+            // eslint-disable-next-line
+            itemIndex,
             style,
             ...restProps
         } = props;
