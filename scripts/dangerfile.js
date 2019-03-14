@@ -1,19 +1,7 @@
-const { fail, warn, markdown, danger } = require('danger');
+const { fail, warn } = require('danger');
 
-const fromRoot = p => require('path').relative('', p);
-
-const packageNames = {
-    'venia-concept': 'Venia',
-    'pwa-buildpack': 'Buildpack',
-    peregrine: 'Peregrine'
-};
-const pathToPackageName = filepath => {
-    const path = require('path');
-    const packageDir = path
-        .normalize(path.relative('packages', filepath))
-        .split(path.sep)[0];
-    return packageNames[packageDir] || packageDir;
-};
+const fromRoot = p =>
+    require('path').relative(require('pkg-dir').sync(__dirname), p);
 
 const reportDir = './test-results/';
 const reportFile = name => {
@@ -247,13 +235,13 @@ const tasks = [
     function unitTests() {
         let summary;
         try {
-            summary = require('./test-results.json');
+            summary = require('../test-results.json');
         } catch (e) {
             const execa = require('execa');
             try {
                 execa.sync('yarn', ['run', '-s', 'test:ci']);
             } catch (e) {}
-            summary = require('./test-results.json');
+            summary = require('../test-results.json');
         }
         const failedTests = summary.testResults.filter(
             t => t.status !== 'passed'
