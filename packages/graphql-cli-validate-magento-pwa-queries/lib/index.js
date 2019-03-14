@@ -150,7 +150,9 @@ function getErrorResolutionDetails() {
         });
         if (pwaMatch) {
             const compatibleMagentoVersion = compatibilityDefinitions[pwaMatch];
-            versionSpecificDetails += `\nSome components in this PWA send GraphQL queries that are only compatible with version ${chalk.underline(
+            versionSpecificDetails += `\nSome components in PWA Studio version ${chalk.green(
+                packageVersion
+            )} send GraphQL queries that are only compatible with version ${chalk.underline(
                 chalk.red(compatibleMagentoVersion)
             )} of Magento 2.`;
         }
