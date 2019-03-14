@@ -65,7 +65,7 @@ class SearchAutocomplete extends Component {
 
     handleOnProductOpen = () => this.props.updateAutocompleteVisible(false);
 
-    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProducts(products) {
         return products.map(product => {
             if (typeof product.small_image === 'object') {

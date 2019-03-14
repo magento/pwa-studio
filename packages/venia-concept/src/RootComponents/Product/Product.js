@@ -24,7 +24,7 @@ class Product extends Component {
         window.scrollTo(0, 0);
     }
 
-    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProduct(product) {
         if (typeof product.description === 'object') {
             product.description = product.description.html;

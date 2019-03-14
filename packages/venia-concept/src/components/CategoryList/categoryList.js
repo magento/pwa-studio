@@ -30,7 +30,7 @@ class CategoryList extends Component {
         ) : null;
     }
 
-    // map Magento 2.3.1 schema changes to v2.0.0 proptype shape to maintain backwards compatibility
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapCategory(categoryItem) {
         categoryItem.productImagePreview.items = categoryItem.productImagePreview.items.map(
             imagePreview => {
