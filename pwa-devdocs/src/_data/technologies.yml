@@ -33,3 +33,6 @@ entries:
 
   - label: Contributing to PWA Studio
     url: /technologies/contribute/
+
+  - label: Versioning strategy
+    url: /technologies/versioning/
