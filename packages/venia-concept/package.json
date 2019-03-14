@@ -47,7 +47,7 @@
     "apollo-link-http": "^1.5.11",
     "braintree-web-drop-in": "^1.16.0",
     "graphql-cli": "^3.0.11",
-    "graphql-cli-validate-magento-pwa-queries": "file:./packages/graphql-cli-validate-magento-pwa-queries",
+    "graphql-cli-validate-magento-pwa-queries": "^1.0.0",
     "graphql-tag": "^2.10.1",
     "informed": "^1.10.12",
     "lodash.debounce": "^4.0.8",
