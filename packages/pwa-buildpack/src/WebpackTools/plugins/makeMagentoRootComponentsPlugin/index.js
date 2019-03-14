@@ -112,8 +112,8 @@ class MagentoRootComponentsPlugin {
         this.contents = `
 const rootComponentsMap = {
 ${Object.entries(rootComponentImporters)
-            .map(entry => entry.join(':'))
-            .join(',\n')}
+    .map(entry => entry.join(':'))
+    .join(',\n')}
 };
 const key = ${toRootComponentMapKey.toString()};
 export default function fetchRootComponent(type, variant = 'default') {
