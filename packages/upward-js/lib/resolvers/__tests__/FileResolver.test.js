@@ -12,6 +12,7 @@ test('resolve() throws error if no definition provided', async () => {
 });
 
 test('resolves filename and uses default encoding and parse', async () => {
+    expect(false).toBeTruthy();
     const visitor = {
         upward: jest.fn(() => 'in-the-way'),
         io: {

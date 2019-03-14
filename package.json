@@ -21,7 +21,7 @@
     "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "danger": "danger-ci",
+    "danger:ci": "danger ci --use-github-checks --dangerfile ./scripts/dangerfile.js",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "now-build": "cp packages/venia-concept/.env.dist packages/venia-concept/.env && yarn run build",
     "now-start": "yarn run stage:venia",

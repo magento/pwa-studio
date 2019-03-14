@@ -74,7 +74,7 @@ jobs:
       - run: *storybook_build
       - run:
           name: DangerCI
-          command: yarn run danger
+          command: yarn run danger:ci
       - run:
           name: Bundle size analysis
           command: yarn run bundlesize
