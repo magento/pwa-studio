@@ -19,6 +19,11 @@ Notable changes include:
 The Magento 2.3.1 release contains GraphQL schema changes that are not compatible with PWA Studio 2.0.0 presentational components.
 This release adds a mapping layer to the wrapper components to maintain backwards compatibility for the presentational components.
 
+This update also includes a change to the `.env.dist` file in the Venia project.
+This change sets the `MAGENTO_BACKEND_URL` variable to that of a Magento 2.3.1 instance.
+
+If you have previously set up Venia and copied the `.env.dist` file into your project's `.env` file, you must update the `MAGENTO_BACKEND_URL` variable to keep your project compatible.
+
 Pull Request: [#990](https://github.com/magento-research/pwa-studio/pull/990)
 
 ### Query validation tool
