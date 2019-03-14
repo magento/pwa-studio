@@ -30,6 +30,17 @@ It provides clear error messages regarding where and how to resolve issues.
 
 Pull Request: [#1004](https://github.com/magento-research/pwa-studio/pull/1004)
 
+### Other updates
+
+* Unit tests created to increase test coverage
+* Documentation typo fixes
+* Devdocs script created for auto-generating reference docs from source
+* Misc code cleanup
+* Bugfix for shopping cart error when continuing to shop after checkout
+* Bugfix for the full screen checkout drawer
+* Bugfix for pagination persisting during Query loading state
+* Bugfix for Search autocomplete rendering loading component on clear
+
 ## What's new in 2.0.0
 
 This is a brief development summary for the 2.0.0 release.
