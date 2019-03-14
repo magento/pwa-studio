@@ -250,7 +250,9 @@ const tasks = [
             summary = require('./test-results.json');
         } catch (e) {
             const execa = require('execa');
-            execa.sync('yarn', ['run', '-s', 'test:ci']);
+            try {
+                execa.sync('yarn', ['run', '-s', 'test:ci']);
+            } catch (e) {}
             summary = require('./test-results.json');
         }
         const failedTests = summary.testResults.filter(
