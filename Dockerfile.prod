@@ -26,8 +26,9 @@ COPY packages ./packages
 # copy configuration env file from host file system to venia-concept .env for build
 COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 
+ENV NODE_ENV=production 
 # build the app
-RUN NODE_ENV=production yarn run build 
+RUN yarn run build 
 
 
 # MULTI-STAGE BUILD
@@ -41,6 +42,8 @@ RUN chown -R node:node /usr/src/app
 USER node
 
 EXPOSE 8080
+
+ENV NODE_ENV=production 
 
 # command to run application
 CMD [ "yarn", "stage:venia" ]
