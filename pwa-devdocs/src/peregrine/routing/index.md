@@ -137,13 +137,13 @@ class App extends Component {
 ...
 ```
 
-[`Router.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/Router.js
-[`MagentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/MagentoRouteHandler.js
-[`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/resolveUnknownRoute.js
-[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Router/webpackInterop.js
-[`Page.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/peregrine/src/Page/Page.js
+[`Router.js`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/peregrine/src/Router/Router.js
+[`MagentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/peregrine/src/Router/MagentoRouteHandler.js
+[`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/peregrine/src/Router/resolveUnknownRoute.js
+[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/peregrine/src/Router/webpackInterop.js
+[`Page.js`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/peregrine/src/Page/Page.js
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
-[ErrorView]:t://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/ErrorView/errorView.js 
-[App]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/App/app.js
+[ErrorView]:t://github.com/magento-research/pwa-studio/blob/develop/packages/venia-concept/src/components/ErrorView/errorView.js 
+[App]: https://github.com/magento-research/pwa-studio/blob/develop/packages/venia-concept/src/components/App/app.js
 [Loading and error message components]: #loading-and-error-message-components
