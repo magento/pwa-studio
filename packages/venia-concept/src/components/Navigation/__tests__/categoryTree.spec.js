@@ -123,6 +123,25 @@ const mocks = [
                                     }
                                 ]
                             }
+                        },
+                        {
+                            id: 7,
+                            name: 'Child Leaf 3',
+                            position: 3,
+                            level: 3,
+                            url_key: 'leaf-3',
+                            url_path: 'test-category/child-1/leaf-3',
+                            product_count: 3,
+                            children_count: '0',
+                            path: '1/2/7',
+                            include_in_menu: 0,
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/leaf-3.jpg'
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -154,11 +173,30 @@ const mocks = [
                             product_count: 6,
                             children_count: '0',
                             path: '1/3/6',
-                            include_in_menu: 1,
+                            include_in_menu: 0,
                             productImagePreview: {
                                 items: [
                                     {
                                         small_image: 'media/leaf-3.jpg'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            id: 8,
+                            name: 'Child Leaf 4',
+                            position: 1,
+                            level: 2,
+                            url_key: 'leaf-4',
+                            url_path: 'test-category/child-2/leaf-4',
+                            product_count: 6,
+                            children_count: '0',
+                            path: '1/3/8',
+                            include_in_menu: 1,
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: 'media/leaf-4.jpg'
                                     }
                                 ]
                             }
