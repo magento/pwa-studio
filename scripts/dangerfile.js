@@ -233,6 +233,8 @@ const tasks = [
     },
 
     function unitTests() {
+        let blorp;
+        const stripAnsi = require('strip-ansi');
         let summary;
         try {
             summary = require('../test-results.json');
@@ -252,8 +254,8 @@ const tasks = [
         // prettier-ignore
         const failSummary = failedTests.map(t =>
                 `<details>
-    <summary>${fromRoot(t.name)}</summary>
-    <pre>${t.message}</pre>
+    <summary><kbd>${fromRoot(t.name)}</kbd></summary>
+    <pre>${stripAnsi(t.message)}</pre>
     </details>`
             ).join('\n');
         fail(

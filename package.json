@@ -74,6 +74,7 @@
     "prettier": "^1.16.4",
     "prettier-check": "~2.0.0",
     "stream-snitch": "~0.0.3",
+    "strip-ansi": "^5.1.0",
     "wait-for-expect": "~1.1.0"
   },
   "optionalDependencies": {
