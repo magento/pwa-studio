@@ -132,7 +132,7 @@ for PWA development on the frontend, use this new address.
 
 Congratulations! You have set up your development environment for the Venia storefront project.
 
-[Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/develop/packages/venia-concept
+[Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
 [Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
 [Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
 [PWA Studio]: https://github.com/magento-research/pwa-studio
