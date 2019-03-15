@@ -1,15 +1,12 @@
 {
-    "AWSEBDockerrunVersion": "1",
-    "Image": {
-      "Name": "276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa:latest",
-      "Update": "true"
-    },
-    "Ports": [
-      {
-        "ContainerPort": "8080"
-      }
-    ],
-    "Logging": "/var/log/nginx",
-    "Entrypoint": "/usr/src/app",
-    "Command": "yarn stage:venia"
-  }
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ]
+}
