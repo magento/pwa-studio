@@ -3,6 +3,9 @@ entries:
   - label: Overview
     url: /technologies/overview/
 
+  - label: Magento compatibility
+    url: /technologies/magento-compatibility/
+
   - label: Magento theme vs PWA storefront
     url: /technologies/theme-vs-storefront/
 
