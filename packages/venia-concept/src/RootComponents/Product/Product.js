@@ -26,11 +26,12 @@ class Product extends Component {
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProduct(product) {
-        if (typeof product.description === 'object') {
-            product.description = product.description.html;
-        }
-
-        return product;
+        const { description } = product;
+        return {
+            ...product,
+            description:
+                typeof description === 'object' ? description.html : description
+        };
     }
 
     render() {

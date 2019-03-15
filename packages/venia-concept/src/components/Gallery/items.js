@@ -34,11 +34,12 @@ class GalleryItems extends Component {
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapGalleryItem(item) {
-        if (typeof item.small_image === 'object') {
-            item.small_image = item.small_image.url;
-        }
-
-        return item;
+        const { small_image } = item;
+        return {
+            ...item,
+            small_image:
+                typeof small_image === 'object' ? small_image.url : small_image
+        };
     }
 
     render() {

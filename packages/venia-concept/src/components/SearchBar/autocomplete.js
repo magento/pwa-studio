@@ -68,11 +68,14 @@ class SearchAutocomplete extends Component {
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProducts(products) {
         return products.map(product => {
-            if (typeof product.small_image === 'object') {
-                product.small_image = product.small_image.url;
-            }
-
-            return product;
+            const { small_image } = product;
+            return {
+                ...product,
+                small_image:
+                    typeof small_image === 'object'
+                        ? small_image.url
+                        : small_image
+            };
         });
     }
 
