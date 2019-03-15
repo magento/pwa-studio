@@ -12,7 +12,7 @@ Release **2.1.0** is a compatibility release for the core **Magento 2.3.1** rele
 Notable changes include:
 
 * Updated GraphQL queries
-* Magento GraphQL query validation tool for buildpack
+* Magento GraphQL query validation tool
 
 ### Updated GraphQL queries
 
@@ -28,7 +28,7 @@ Pull Request: [#990](https://github.com/magento-research/pwa-studio/pull/990)
 
 ### Query validation tool
 
-PWA Studio 2.1.0 creates a new `graphql-cli` plugin called `validate-queries` to replace the `validate-queries.js` script in the Venia package.
+PWA Studio 2.1.0 creates a new `graphql-cli` plugin called `validate-magento-pwa-queries` to replace the `validate-queries.js` script in the Venia package.
 
 This tool lets developers know when a breaking change occurs with GraphQL to address incompatibility or breaking changes.
 It provides clear error messages regarding where and how to resolve issues.
