@@ -60,7 +60,7 @@ This plugin supports the following command line options:
 You can also specifiy the following options in your `.graphqlconfig`:
 
 | Option | Description | Type |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | `--clients`, `-c` | GraphQL clients in use in this project. | `array` |
 | `--filesGlob`, `-f` | A glob used to target files for validation. | `string` |
 
