@@ -4,10 +4,6 @@
     position: relative;
 }
 
-.tooltip:focus {
-    outline: 5px solid red;
-}
-
 .tooltip {
     /* Appearance. */
     --tooltip-height: 2.5rem;
@@ -17,7 +13,6 @@
     box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.15);
     color: white;
     height: var(--tooltip-height);
-    outline: initial;
     width: max-content;
 
     /* Positioning. */

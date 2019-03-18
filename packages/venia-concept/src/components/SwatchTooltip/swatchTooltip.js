@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
+import uuid from 'uuid/v4';
 
 import classify from 'src/classify';
 import defaultClasses from './swatchTooltip.css';
@@ -17,6 +18,7 @@ class SwatchTooltip extends Component {
         super(...args);
 
         this.timeoutId = null;
+        this.uniqueId = uuid();
     }
 
     state = {
@@ -33,7 +35,7 @@ class SwatchTooltip extends Component {
         this.timeoutId = setTimeout(() => {
             this.setState({ isShowing: false });
         }, 0);
-    }
+    };
 
     /*
      *  The tooltip target has received focus, show the tooltip.
@@ -43,26 +45,27 @@ class SwatchTooltip extends Component {
         clearTimeout(this.timeoutId);
 
         this.setState({ isShowing: true });
-    }
+    };
 
     onKeyDown = event => {
         if (event.key === 'Escape') {
             this.setState({ isShowing: false });
         }
-    }
+    };
     onMouseOver = () => {
         this.setState({ isShowing: true });
-    }
+    };
     onMouseLeave = () => {
         this.setState({ isShowing: false });
-    }
+    };
 
     render() {
         const { text, children, classes } = this.props;
         const { isShowing } = this.state;
 
         return (
-            <div 
+            <div
+                aria-describedBy={this.uniqueId}
                 className={classes.root}
                 onBlur={this.onBlur}
                 onFocus={this.onFocus}
@@ -72,7 +75,13 @@ class SwatchTooltip extends Component {
                 tabIndex="1"
             >
                 {isShowing && (
-                    <div className={classes.tooltip} role="tooltip">{text}</div>
+                    <div
+                        className={classes.tooltip}
+                        id={this.uniqueId}
+                        role="tooltip"
+                    >
+                        {text}
+                    </div>
                 )}
                 {children}
             </div>
