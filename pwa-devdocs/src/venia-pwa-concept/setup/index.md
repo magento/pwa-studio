@@ -62,9 +62,9 @@ MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentos
 
 ### Choosing the Magento 2.3 backend
 
-The most rececnt version of the Venia storefront runs on top of any Magento 2.3.1 instance. 
+The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance. 
 
-The currently recommended Magento version to use with PWA Studio is **2.3.1** which can be installed using composer. 
+The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer. 
 
 **Example:**
 
