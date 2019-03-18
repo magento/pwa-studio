@@ -30,6 +30,26 @@ class CategoryList extends Component {
         ) : null;
     }
 
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+    mapCategory(categoryItem) {
+        const { items } = categoryItem.productImagePreview;
+        return {
+            ...categoryItem,
+            productImagePreview: {
+                items: items.map(item => {
+                    const { small_image } = item;
+                    return {
+                        ...item,
+                        small_image:
+                            typeof small_image === 'object'
+                                ? small_image.url
+                                : small_image
+                    };
+                })
+            }
+        };
+    }
+
     render() {
         const { id, classes } = this.props;
 
@@ -60,7 +80,7 @@ class CategoryList extends Component {
                             <div className={classes.content}>
                                 {data.category.children.map(item => (
                                     <CategoryTile
-                                        item={item}
+                                        item={this.mapCategory(item)}
                                         key={item.url_key}
                                     />
                                 ))}
