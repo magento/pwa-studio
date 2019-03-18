@@ -77,8 +77,26 @@ function remotelyResolveRoute(opts) {
             });
         }
     } else {
-        return fetchRoute(opts);
+        return checkRoute(opts);
     }
+}
+
+/**
+ * @description Calls the GraphQL API for results from the urlResolver query
+ * @param {{ route: string, apiBase: string}} opts
+ * @returns {Promise<resolve>}
+ */
+async function checkRoute(opts)
+    {
+      let resolve = await fetchRoute(opts);
+      if (resolve === null) {
+        if (opts.route.endsWith('.html')) {
+          opts.route = opts.route.replace('.html', '');
+          resolve = await fetchRoute(opts)
+        }
+      }
+      
+      return resolve
 }
 
 /**
@@ -86,10 +104,8 @@ function remotelyResolveRoute(opts) {
  * @param {{ route: string, apiBase: string}} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
-let checkCount = 0;
 function fetchRoute(opts) {
     const url = new URL('/graphql', opts.apiBase);
-    console.log(opts);
     return fetch(url, {
         method: 'POST',
         credentials: 'include',
@@ -109,11 +125,6 @@ function fetchRoute(opts) {
     })
         .then(res => res.json())
         .then(res => {
-            if(res.urlResolver == null && checkCount < 1) {
-                checkCount+=1;
-                opts.route.replace('.html', '');
-                fetchRoute(opts)
-            }
             storeURLResolveResult(res, opts);
             return res.data.urlResolver;
         });
