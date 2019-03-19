@@ -4,8 +4,6 @@ import { shallow } from 'enzyme';
 import PurchaseHistoryItem from '../purchaseHistoryItem';
 import { processDate } from '../helpers';
 
-const JEST_HOST = window.location.href;
-
 const classes = {
     body: 'body',
     image: 'image',
@@ -20,7 +18,7 @@ const item = {
     imageSrc: 'image.jpg',
     title: 'Lorem ipsum dolor sit amet',
     date: Date.now(),
-    url: JEST_HOST
+    url: '/'
 };
 
 test('renders correctly', () => {

@@ -1,10 +1,9 @@
 import makeUrl from '../makeUrl';
 
-const FASTLY_CONSTANT_PARAMETERS = 'auto=webp&format=pjpg';
-const JEST_HOST = window.location.href;
+const productBase = '/media/catalog/product';
+const categoryBase = '/media/catalog/category';
+const resizeBase = '/img/resize';
 
-const leadingSlash = '/foo.jpg';
-const noLeadingSlash = 'foo.jpg';
 const relativePath = '/some/path/to/img.jpg';
 const absoluteUrls = [
     'data://example.com/foo.png',
@@ -18,87 +17,67 @@ test('returns absolute url unmodified when called with no options', () => {
     });
 });
 
-test('FASTLY: returns absolute url with fastly params', () => {
-    absoluteUrls.forEach(url => {
-        expect(makeUrl(url, { useFastly: true })).toBe(
-            `${url}?${FASTLY_CONSTANT_PARAMETERS}`
-        );
-    });
+test('returns relative path unmodified when called with no options', () => {
+    expect(makeUrl(relativePath)).toBe(relativePath);
 });
 
-test('makes relative path an absolute url', () => {
-    const expected = new URL(relativePath, JEST_HOST);
+test('throws if type is unrecognized', () => {
+    const invalidType = 'invalid';
+    const thrower = () => {
+        makeUrl(relativePath, { type: invalidType });
+    };
 
-    expect(makeUrl(relativePath)).toBe(expected.href);
+    expect(thrower).toThrow(invalidType);
 });
 
-test('FASTLY: makes relative path an absolute url with fastly params', () => {
-    const expected = new URL(relativePath, JEST_HOST);
-
-    expect(makeUrl(relativePath, { useFastly: true })).toBe(
-        `${expected.href}?${FASTLY_CONSTANT_PARAMETERS}`
+test('prepends media path for product images', () => {
+    expect(makeUrl(relativePath, { type: 'image-product' })).toBe(
+        `${productBase}${relativePath}`
+    );
+    expect(makeUrl(absoluteUrls[2], { type: 'image-product' })).toBe(
+        `${productBase}${new URL(absoluteUrls[2]).pathname}`
     );
 });
 
-test('normalizes slash paths on typed urls', () => {
-    const expected = new URL('/foo.jpg', JEST_HOST);
-
-    expect(makeUrl(leadingSlash)).toBe(expected.href);
-    expect(makeUrl(noLeadingSlash)).toBe(expected.href);
-});
-
-test('FASTLY: normalizes slash paths on typed urls', () => {
-    const expected = new URL('/foo.jpg', JEST_HOST);
-
-    expect(makeUrl(leadingSlash, { useFastly: true })).toBe(
-        `${expected.href}?${FASTLY_CONSTANT_PARAMETERS}`
+test('prepends media path for category images', () => {
+    expect(makeUrl(relativePath, { type: 'image-category' })).toBe(
+        `${categoryBase}${relativePath}`
     );
-    expect(makeUrl(noLeadingSlash, { useFastly: true })).toBe(
-        `${expected.href}?${FASTLY_CONSTANT_PARAMETERS}`
+    expect(makeUrl(absoluteUrls[2], { type: 'image-category' })).toBe(
+        `${categoryBase}${new URL(absoluteUrls[2]).pathname}`
     );
 });
 
-test('resizes but does not prepend path when width is passed but not type', () => {
+test("doesn't prepend media path if it's already included", () => {
+    const cachedPath = `${productBase}/foo.jpg`;
+
+    expect(makeUrl(cachedPath, { type: 'image-product' })).toBe(cachedPath);
+});
+
+test('rewrites absolute url when width is provided', () => {
+    const width = 100;
     const raw = absoluteUrls[2];
-    const expected = new URL(raw);
+    const { pathname } = new URL(raw);
 
-    expect(makeUrl(raw, { width: 100 })).toBe(
-        `${
-            expected.origin
-        }/img/resize/100?url=https%3A%2F%2Fexample.com%2Fbaz.png`
+    expect(makeUrl(raw, { width })).toBe(
+        `${resizeBase}/${width}?url=${encodeURIComponent(pathname)}`
     );
 });
 
-test('FASTLY: resizes but does not prepend path when width is passed but not type', () => {
-    const raw = absoluteUrls[2];
-    const expected = new URL(raw);
+test('rewrites relative path when width is provided', () => {
+    const width = 100;
 
-    expect(makeUrl(raw, { width: 100, useFastly: true })).toBe(
-        `${expected.origin}/baz.png?auto=webp&format=pjpg&width=100`
+    expect(makeUrl(relativePath, { width })).toBe(
+        `${resizeBase}/${width}?url=${encodeURIComponent(relativePath)}`
     );
 });
 
-test('resizes urls to specific widths', () => {
-    const expected = new URL(
-        'img/resize/160?url=%2Fsome%2Fcategory.jpg',
-        JEST_HOST
+test('includes media path when rewriting for resizing', () => {
+    const width = 100;
+
+    expect(makeUrl(relativePath, { width, type: 'image-product' })).toBe(
+        `${resizeBase}/${width}?url=${encodeURIComponent(
+            productBase + relativePath
+        )}`
     );
-
-    expect(
-        makeUrl('/some/category.jpg', { type: 'image-category', width: 160 })
-    ).toBe(expected.href);
-});
-
-test('FASTLY: resizes urls to specific widths', () => {
-    const expected = new URL(
-        `/some/category.jpg?${FASTLY_CONSTANT_PARAMETERS}&width=160`,
-        JEST_HOST
-    );
-
-    expect(
-        makeUrl('/some/category.jpg', {
-            width: 160,
-            useFastly: true
-        })
-    ).toBe(expected.href);
 });

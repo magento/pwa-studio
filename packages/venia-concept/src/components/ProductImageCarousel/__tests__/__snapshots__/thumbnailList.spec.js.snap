@@ -11,7 +11,7 @@ exports[`renders the ThumbnailList component correctly 1`] = `
     <img
       alt="test-thumbnail1"
       className="image"
-      src="https://localhost/img/resize/240?url=thumbnail1.png"
+      src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
     />
   </button>
   <button
@@ -21,7 +21,7 @@ exports[`renders the ThumbnailList component correctly 1`] = `
     <img
       alt="test-thumbnail2"
       className="image"
-      src="https://localhost/img/resize/240?url=thumbnail2.png"
+      src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
     />
   </button>
 </div>

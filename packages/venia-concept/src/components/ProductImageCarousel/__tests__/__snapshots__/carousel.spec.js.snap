@@ -101,7 +101,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <img
       alt="test-thumbnail1"
       className="currentImage"
-      src="https://localhost/img/resize/640?url=thumbnail1.png"
+      src="/img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
     />
     <button
       className="chevron-right"
@@ -138,7 +138,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image"
-        src="https://localhost/img/resize/240?url=thumbnail1.png"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
       />
     </button>
     <button
@@ -148,7 +148,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail2"
         className="image"
-        src="https://localhost/img/resize/240?url=thumbnail2.png"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
       />
     </button>
     <button
@@ -158,7 +158,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail3"
         className="image"
-        src="https://localhost/img/resize/240?url=thumbnail3.png"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail3.png"
       />
     </button>
     <button
@@ -168,7 +168,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail4"
         className="image"
-        src="https://localhost/img/resize/240?url=thumbnail4.png"
+        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail4.png"
       />
     </button>
   </div>

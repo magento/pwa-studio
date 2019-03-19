@@ -4,49 +4,53 @@ const joinUrls = (base, url) =>
     '/' +
     (url.startsWith('/') ? url.slice(1) : url);
 
-const stripMagentoOrigin = url => {
-    const origin = process.env.MAGENTO_BACKEND_URL;
+const mediaBases = new Map()
+    .set(
+        'image-product',
+        process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
+            '/media/catalog/product'
+    )
+    .set(
+        'image-category',
+        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATEGORY ||
+            '/media/catalog/category'
+    );
 
-    return origin && url.startsWith(origin) ? new URL(url).pathname : url;
-};
-
-// default to `/img/resize`
 const resizeBase = joinUrls(
     process.env.IMAGE_SERVICE_PATH || '/img/',
     '/resize/'
 );
 
-const makeOptimizedUrl = (path, width, useFastly) => {
-    const urlObject = new URL(path, window.location.href);
+const makeOptimizedUrl = (path, { type, width } = {}) => {
+    const { location } = window;
+    const urlObject = new URL(path, location.href);
     const params = new URLSearchParams(urlObject.search);
 
-    if (useFastly) {
-        params.set('auto', 'webp');
-        params.set('format', 'pjpg');
-
-        if (width) {
-            params.set('width', width);
+    if (type) {
+        if (!mediaBases.has(type)) {
+            throw new Error(`Unrecognized media type ${type}`);
         }
 
-        urlObject.search = `?${params}`;
-    } else if (width) {
-        // set pathname, but retain origin
-        urlObject.pathname = `${resizeBase}${width}`;
+        const mediaBase = mediaBases.get(type);
 
-        // encodeURIComponent would be redundant
-        params.set('url', path);
+        // prepend media base if it isn't already part of the pathname
+        if (!urlObject.pathname.includes(mediaBase)) {
+            urlObject.pathname = joinUrls(mediaBase, urlObject.pathname);
+        }
 
-        urlObject.search = `?${params}`;
+        // check for width before returning
     }
 
-    return urlObject.href;
+    if (width) {
+        // set pathname as query param
+        // encodeURIComponent would be redundant
+        params.set('url', urlObject.pathname);
+
+        return `${resizeBase}${width}?${params}`;
+    }
+
+    // return unaltered path if we didn't operate on it
+    return type ? urlObject.pathname : path;
 };
 
-const formatUrl = (url = '', { useFastly, width } = {}) =>
-    makeOptimizedUrl(
-        stripMagentoOrigin(url),
-        width,
-        useFastly || process.env.USE_FASTLY
-    );
-
-export default formatUrl;
+export default makeOptimizedUrl;
