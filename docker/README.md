@@ -6,8 +6,8 @@ Run the `docker/run-docker` script from the root of the repository to create a c
 
 This script will:
 
-* copy the `.env.docker` environment variables to `.env` to be easily consumable by `docker-compose`
-* add a custom domain, configured in `.env.docker`
+* copy the `.env.docker.dev` environment variables to `.env` to be easily consumable by `docker-compose`
+* add a custom domain, configured in `.env.docker.dev`
 * generate a self-signed ssl/tls certificate and trust the certificate using `devcert` in the `makeHostAndCert.js` script
 * run `docker-compose build` to build the container network
 * run `docker-compose up` to start the container running PWA at the custom domain with https
@@ -16,15 +16,15 @@ After `docker/run-docker` is executed from the root of the repository, the defau
 
 ## Configure a custom domain
 
-The domain is configurable. Just set `PWA_STUDIO_HOST` key to the new domain under `docker/.env.docker`, or pass a custom .env file with the `PWA_STUDIO_HOST` key set. All required fields can be found in `docker/.env.docker`. See how to pass the custom .env file below.
+The domain is configurable. Just set `PWA_STUDIO_HOST` key to the new domain under `docker/.env.docker.dev`, or pass a custom .env file with the `PWA_STUDIO_HOST` key set. All required fields can be found in `docker/.env.docker.dev`. See how to pass the custom .env file below.
 
 ## Pass custom .env file configuration through cli args (optional)
 
-To use a custom .env file for configuration, pass it to the `run-docker` script like so: `docker/run-docker -e path-from-project-root`. This file will take the place of the default `.env.docker` file.
+To use a custom .env file for configuration, pass it to the `run-docker` script like so: `docker/run-docker -e path-from-project-root`. This file will take the place of the default `.env.docker.dev` file.
 
 ## Service Workers and Hot Reloading
 
-Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `ENABLE_SERVICE_WORKER_DEBUGGING=0` to `ENABLE_SERVICE_WORKER_DEBUGGING=1` in `.env.docker`.
+Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `ENABLE_SERVICE_WORKER_DEBUGGING=0` to `ENABLE_SERVICE_WORKER_DEBUGGING=1` in `.env.docker.dev`.
 
 Hot reloading is enabled by default when running the `docker/run-docker` script and automatically refreshes the browser on changes made in the container as well as on the host machine, ie your local file system. 
 
@@ -36,4 +36,4 @@ For more details check out the [dev tools docs](https://bit.ly/2tTGWc0).
 
 ### Hot Reloading is not working
 
-If you find that hot reloading is not working for you the webpack docs recommend using [polling](https://webpack.js.org/configuration/watch/#watchoptionspoll) as watching does not work with network file systems and machines in VirtualBox. To enable polling, set `PWA_STUDIO_HOT_RELOAD_WITH_POLLING=1` in `.env.docker`.
+If you find that hot reloading is not working for you the webpack docs recommend using [polling](https://webpack.js.org/configuration/watch/#watchoptionspoll) as watching does not work with network file systems and machines in VirtualBox. To enable polling, set `PWA_STUDIO_HOT_RELOAD_WITH_POLLING=1` in `.env.docker.dev`.
