@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo install step...
+      - sudo apt update && sudo apt install yarn && yarn --version
+      - yarn install --frozen-lockfile
+  pre_build:
+    commands:
+      - echo logging in to AWS ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - yarn run test:ci
+  build:
+    commands:
+      - echo build Docker image on `date` for github branch $CODEBUILD_SOURCE_VERSION
+      - docker build -f Dockerfile.prod -t pwa:$CODEBUILD_SOURCE_VERSION .
+      - docker tag pwa:$CODEBUILD_SOURCE_VERSION 276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa-pullrequests
+  post_build:
+    commands:
+      - echo build Docker image complete `date` for github branch $CODEBUILD_SOURCE_VERSION
+      - echo push latest Docker images to ECR...
+      - docker push 276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa-pullrequests
