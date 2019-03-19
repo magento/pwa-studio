@@ -41,25 +41,21 @@ test('FASTLY: makes relative path an absolute url with fastly params', () => {
 });
 
 test('normalizes slash paths on typed urls', () => {
-    const product = new URL('/media/catalog/product/foo.jpg', JEST_HOST);
-    const category = new URL('/media/catalog/category/foo.jpg', JEST_HOST);
+    const expected = new URL('/foo.jpg', JEST_HOST);
 
-    expect(makeUrl(leadingSlash, { type: 'image-product' })).toBe(product.href);
-    expect(makeUrl(noLeadingSlash, { type: 'image-category' })).toBe(
-        category.href
-    );
+    expect(makeUrl(leadingSlash)).toBe(expected.href);
+    expect(makeUrl(noLeadingSlash)).toBe(expected.href);
 });
 
 test('FASTLY: normalizes slash paths on typed urls', () => {
-    const product = new URL('/media/catalog/product/foo.jpg', JEST_HOST);
-    const category = new URL('/media/catalog/category/foo.jpg', JEST_HOST);
+    const expected = new URL('/foo.jpg', JEST_HOST);
 
-    expect(
-        makeUrl(leadingSlash, { type: 'image-product', useFastly: true })
-    ).toBe(`${product.href}?${FASTLY_CONSTANT_PARAMETERS}`);
-    expect(
-        makeUrl(noLeadingSlash, { type: 'image-category', useFastly: true })
-    ).toBe(`${category.href}?${FASTLY_CONSTANT_PARAMETERS}`);
+    expect(makeUrl(leadingSlash, { useFastly: true })).toBe(
+        `${expected.href}?${FASTLY_CONSTANT_PARAMETERS}`
+    );
+    expect(makeUrl(noLeadingSlash, { useFastly: true })).toBe(
+        `${expected.href}?${FASTLY_CONSTANT_PARAMETERS}`
+    );
 });
 
 test('resizes but does not prepend path when width is passed but not type', () => {
@@ -84,32 +80,25 @@ test('FASTLY: resizes but does not prepend path when width is passed but not typ
 
 test('resizes urls to specific widths', () => {
     const expected = new URL(
-        'img/resize/160?url=%2Fmedia%2Fcatalog%2Fcategory%2Fsome%2Fcategory.jpg',
+        'img/resize/160?url=%2Fsome%2Fcategory.jpg',
         JEST_HOST
     );
 
     expect(
-        makeUrl('some/category.jpg', { type: 'image-category', width: 160 })
+        makeUrl('/some/category.jpg', { type: 'image-category', width: 160 })
     ).toBe(expected.href);
 });
 
 test('FASTLY: resizes urls to specific widths', () => {
     const expected = new URL(
-        `media/catalog/category/some/category.jpg?${FASTLY_CONSTANT_PARAMETERS}&width=160`,
+        `/some/category.jpg?${FASTLY_CONSTANT_PARAMETERS}&width=160`,
         JEST_HOST
     );
 
     expect(
-        makeUrl('some/category.jpg', {
-            type: 'image-category',
+        makeUrl('/some/category.jpg', {
             width: 160,
             useFastly: true
         })
     ).toBe(expected.href);
-});
-
-test('errors on unrecognized type', () => {
-    expect(() => makeUrl('url', { type: 'invalid' })).toThrow(
-        'Unrecognized media type invalid'
-    );
 });

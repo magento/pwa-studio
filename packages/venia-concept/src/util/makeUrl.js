@@ -1,38 +1,13 @@
-// test if a URL begins with `http://` or `https://` or `data:`
-const absoluteUrl = /^(data|https|http)?:/i;
-
 // ensure there's exactly one slash between segments
 const joinUrls = (base, url) =>
     (base.endsWith('/') ? base.slice(0, -1) : base) +
     '/' +
     (url.startsWith('/') ? url.slice(1) : url);
 
-// TODO: make this even more dynamic, like an open registry
-const mediaPathPrefixes = new Map()
-    .set(
-        'image-product',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
-            '/media/catalog/product'
-    )
-    .set(
-        'image-category',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATALOG ||
-            '/media/catalog/category'
-    );
+const stripMagentoOrigin = url => {
+    const origin = process.env.MAGENTO_BACKEND_URL;
 
-const prependMediaPath = (url, type) => {
-    // only prepend to relative URLs of recognized type
-    if (absoluteUrl.test(url) || !type) {
-        return url;
-    }
-
-    // throw if type is unrecognized
-    if (!mediaPathPrefixes.has(type)) {
-        throw new Error(`Unrecognized media type ${type}`);
-    }
-
-    // prepend media directory to path
-    return joinUrls(mediaPathPrefixes.get(type), url);
+    return origin && url.startsWith(origin) ? new URL(url).pathname : url;
 };
 
 // default to `/img/resize`
@@ -67,9 +42,9 @@ const makeOptimizedUrl = (path, width, useFastly) => {
     return urlObject.href;
 };
 
-const formatUrl = (url = '', { useFastly, type, width } = {}) =>
+const formatUrl = (url = '', { useFastly, width } = {}) =>
     makeOptimizedUrl(
-        prependMediaPath(url, type),
+        stripMagentoOrigin(url),
         width,
         useFastly || process.env.USE_FASTLY
     );

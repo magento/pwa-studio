@@ -70,7 +70,7 @@ test('renders Link elements for navigating to a PDP', () => {
             .findWhere(
                 node =>
                     node.type() === Link &&
-                    node.prop('to') === `/${validItem.url_key}.html`
+                    node.prop('to').includes(validItem.url_key)
             )
     ).toHaveLength(2);
 });
