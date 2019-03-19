@@ -1,73 +1,77 @@
-import memoize from 'lodash/memoize';
-
-// Tests if a URL begins with `http://` or `https://` or `data:`
+// test if a URL begins with `http://` or `https://` or `data:`
 const absoluteUrl = /^(data|https|http)?:/i;
 
-// Simple path joiner that guarantees one and only one slash between segments
+// ensure there's exactly one slash between segments
 const joinUrls = (base, url) =>
     (base.endsWith('/') ? base.slice(0, -1) : base) +
     '/' +
     (url.startsWith('/') ? url.slice(1) : url);
 
 // TODO: make this even more dynamic, like an open registry
-const mediaPathPrefixes = {
-    'image-product':
+const mediaPathPrefixes = new Map()
+    .set(
+        'image-product',
         process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
-        '/media/catalog/product',
-    'image-category':
+            '/media/catalog/product'
+    )
+    .set(
+        'image-category',
         process.env.MAGENTO_BACKEND_MEDIA_PATH_CATALOG ||
-        '/media/catalog/category'
-};
-function ensurePathPrefix(url, type) {
-    // Can't prepend to absolute URLs, and don't know how to prepend if no type.
+            '/media/catalog/category'
+    );
+
+const prependMediaPath = (url, type) => {
+    // only prepend to relative URLs of recognized type
     if (absoluteUrl.test(url) || !type) {
         return url;
     }
 
-    if (!mediaPathPrefixes.hasOwnProperty(type)) {
+    // throw if type is unrecognized
+    if (!mediaPathPrefixes.has(type)) {
         throw new Error(`Unrecognized media type ${type}`);
     }
-    // "/path/to/jpeg" becomes e.g. "/media/catalog/product/path/to/jpeg"
-    return joinUrls(mediaPathPrefixes[type], url);
-}
 
-let resizeBase;
-function makeOptimizedUrl(url, width) {
-    if (process.env.USE_FASTLY) {
-        // `makeResizedUrl("/path/to/jpeg?queryParam=1", { width: 80 })` returns
-        // "/path/to/jpeg?queryParam=1&auto=webp&format=pjpg&width=80"
-        const urlObject = new URL(url, window.location.href);
-        const params = new URLSearchParams(urlObject.search);
+    // prepend media directory to path
+    return joinUrls(mediaPathPrefixes.get(type), url);
+};
+
+// default to `/img/resize`
+const resizeBase = joinUrls(
+    process.env.IMAGE_SERVICE_PATH || '/img/',
+    '/resize/'
+);
+
+const makeOptimizedUrl = (path, width, useFastly) => {
+    const urlObject = new URL(path, window.location.href);
+    const params = new URLSearchParams(urlObject.search);
+
+    if (useFastly) {
         params.set('auto', 'webp');
         params.set('format', 'pjpg');
+
         if (width) {
             params.set('width', width);
         }
-        urlObject.search = '?' + params;
-        return urlObject.href;
-    } else {
-        // `makeResizedUrl("/path/to/jpeg", { width: 80 })` returns
-        // "/img/resize/80?url=%2Fpath%2fto%2fjpeg"
 
-        resizeBase =
-            resizeBase ||
-            joinUrls(process.env.IMAGE_SERVICE_PATH || '/img', 'resize/');
-        return width
-            ? `${resizeBase}${width}?url=${encodeURIComponent(url)}`
-            : url;
+        urlObject.search = `?${params}`;
+    } else if (width) {
+        // set pathname, but retain origin
+        urlObject.pathname = `${resizeBase}${width}`;
+
+        // encodeURIComponent would be redundant
+        params.set('url', path);
+
+        urlObject.search = `?${params}`;
     }
-}
 
-// Should fail silently on a null value, so default to the empty string
-// so that string methods work
-function formatUrl(url = '', opts = {}) {
-    const { type, width } = opts;
-    return makeOptimizedUrl(ensurePathPrefix(url, type), width);
-}
+    return urlObject.href;
+};
 
-// Each combination of type, url, and width is computed only once and cached.
-// storeUrlKey defines the cache key as a function of the arguments.
-const storeUrlKey = (url, { width = '', type = '' } = {}) =>
-    `${type}%%${url}%%${width}`;
+const formatUrl = (url = '', { useFastly, type, width } = {}) =>
+    makeOptimizedUrl(
+        prependMediaPath(url, type),
+        width,
+        useFastly || process.env.USE_FASTLY
+    );
 
-export default memoize(formatUrl, storeUrlKey);
+export default formatUrl;
