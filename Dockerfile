@@ -19,7 +19,7 @@ COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
 COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
-COPY package.json yarn.lock babel.config.js browserslist.js ./
+COPY package.json yarn.lock babel.config.js browserslist.js magento-compatibility.js ./
 
 # install dependencies with yarn
 RUN yarn install
