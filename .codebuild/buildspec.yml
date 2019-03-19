@@ -18,7 +18,5 @@ phases:
       - echo push latest Docker images to ECR...
       - docker push 276375911640.dkr.ecr.us-east-1.amazonaws.com/pwa
 artifacts:
-  type: zip
   files:
     - Dockerrun.aws.json
-  name: pwa-$(CODEBUILD_SOURCE_VERSION)-$(date +%Y-%m-%d)

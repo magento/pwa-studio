@@ -19,7 +19,7 @@ COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
 COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
-COPY package.json yarn.lock babel.config.js browserslist.js ./
+COPY package.json yarn.lock babel.config.js browserslist.js magento-compatibility.js ./
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
@@ -35,20 +35,15 @@ COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 # build the app
 RUN yarn run build 
 
-#######################################################################################
-# UNCOMMENT FOR PRODUCTION BUILD - not as necessary for dev env to have non-root user #
-#######################################################################################
-# # MULTI-STAGE BUILD
-# FROM node:10.14.1-alpine
-# # working directory
-# WORKDIR /usr/src/app
-# # copy build from previous stage
-# COPY --from=build /usr/src/app .
-# # node:alpine comes with a configured user and group
-# RUN chown -R node:node /usr/src/app
-# USER node
-#######################################################################################
-
+# MULTI-STAGE BUILD
+FROM node:10.14.1-alpine
+# working directory
+WORKDIR /usr/src/app
+# node:alpine comes with a configured user and group
+RUN chown -R node:node /usr/src/app
+# copy build from previous stage
+COPY --from=build /usr/src/app .
+USER node
 # Pass the `HOST` arg from docker-compose args and set it to the HOST
 ARG HOST
 # command to run application
