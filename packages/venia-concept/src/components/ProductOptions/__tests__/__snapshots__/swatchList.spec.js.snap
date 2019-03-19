@@ -7,16 +7,15 @@ exports[`renders SwatchList component correctly 1`] = `
   <div
     className="root"
   >
-    <span
-      className="tooltip"
-    >
-      foo
-    </span>
     <button
-      className="root"
+      aria-describedby="633bb8f8-f091-40b8-8fb6-7e04dccda738"
+      className="root trigger"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
       style={
         Object {
           "--venia-swatch-bg": "123,123,123",

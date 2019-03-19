@@ -17,16 +17,15 @@ exports[`renders Option component correctly 1`] = `
     <div
       className="root"
     >
-      <span
-        className="tooltip"
-      >
-        red
-      </span>
       <button
-        className="root"
+        aria-describedby="f2954ab4-6098-42fb-8df4-58fbe4fe058f"
+        className="root trigger"
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
         style={
           Object {
             "--venia-swatch-bg": "123,123,123",
@@ -38,16 +37,15 @@ exports[`renders Option component correctly 1`] = `
     <div
       className="root"
     >
-      <span
-        className="tooltip"
-      >
-        blue
-      </span>
       <button
-        className="root"
+        aria-describedby="530b1cc8-28de-4a8d-9fbc-5bdb1855f3d3"
+        className="root trigger"
         onBlur={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
         style={
           Object {
             "--venia-swatch-bg": "123,123,123",
