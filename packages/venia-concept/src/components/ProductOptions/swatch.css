@@ -3,8 +3,6 @@
     background-color: rgb(var(--venia-swatch-bg));
     border-color: rgba(0, 0, 0, 0.1);
     color: white;
-    padding: 0;
-    margin: 0;
     --venia-swatch-bg: var(--venia-grey);
 }
 

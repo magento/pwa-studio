@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
+import over from 'lodash.over';
 import uuid from 'uuid/v4';
 
 import classify from 'src/classify';
@@ -63,17 +64,35 @@ class SwatchTooltip extends Component {
         const { text, children, classes } = this.props;
         const { isShowing } = this.state;
 
+        const ariaEnhancedChildren = React.Children.map(children, child => {
+            if (child.type !== 'button') {
+                return child;
+            }
+
+            // The button triggers the tooltip.
+            // Update its accessibility accordingly.
+            const ariaEnhancedButton = React.cloneElement(child, {
+                'aria-describedby': this.uniqueId,
+                className: `${child.props.className} ${classes.trigger}`,
+                // We want to tack our event functionality onto whatever already exists.
+                // lodash.over returns a function that calls each function
+                // provided to it with the args it receives -
+                // in this case, a React SyntheticEvent.
+                onBlur: over([child.props.onBlur, this.onBlur]),
+                onFocus: over([child.props.onFocus, this.onFocus]),
+                onKeyDown: over([child.props.onKeyDown, this.onKeyDown]),
+                onMouseOver: over([child.props.onMouseOver, this.onMouseOver]),
+                onMouseLeave: over([
+                    child.props.onMouseLeave,
+                    this.onMouseLeave
+                ])
+            });
+
+            return ariaEnhancedButton;
+        });
+
         return (
-            <div
-                aria-describedBy={this.uniqueId}
-                className={classes.root}
-                onBlur={this.onBlur}
-                onFocus={this.onFocus}
-                onKeyDown={this.onKeyDown}
-                onMouseOver={this.onMouseOver}
-                onMouseLeave={this.onMouseLeave}
-                tabIndex="1"
-            >
+            <div className={classes.root}>
                 {isShowing && (
                     <div
                         className={classes.tooltip}
@@ -83,7 +102,7 @@ class SwatchTooltip extends Component {
                         {text}
                     </div>
                 )}
-                {children}
+                {ariaEnhancedChildren}
             </div>
         );
     }

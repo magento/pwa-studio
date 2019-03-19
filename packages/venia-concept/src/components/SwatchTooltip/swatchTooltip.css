@@ -1,6 +1,4 @@
 .root {
-    margin-left: 1rem;
-    margin-top: 1rem;
     position: relative;
 }
 
@@ -17,12 +15,13 @@
 
     /* Positioning. */
     position: absolute;
-    top: calc((var(--tooltip-height) + 0.8rem) * -1);
-    left: 0;
+    top: calc((var(--tooltip-height) + 0.5rem) * -1);
+    left: 0.75rem; /* Match left padding to align left. */
 
     /* Children positioning. */
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 0 0.75rem;
 }
 
