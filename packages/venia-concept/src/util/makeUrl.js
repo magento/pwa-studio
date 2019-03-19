@@ -1,7 +1,7 @@
 import memoize from 'lodash/memoize';
 
 // Tests if a URL begins with `http://` or `https://` or `data:`
-const absoluteUrl = /^(data|https)?:/i;
+const absoluteUrl = /^(data|https|http)?:/i;
 
 // Simple path joiner that guarantees one and only one slash between segments
 const joinUrls = (base, url) =>

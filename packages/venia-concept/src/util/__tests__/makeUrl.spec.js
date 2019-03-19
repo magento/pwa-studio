@@ -1,8 +1,15 @@
 import makeUrl from '../makeUrl';
 
 test('returns absolute path unmodified', () => {
-    const absoluteUrl = 'https://example.com/foo.png';
-    expect(makeUrl(absoluteUrl)).toBe(absoluteUrl);
+    const absoluteUrls = [
+        'data://example.com/foo.png',
+        'http://example.com/bar.png',
+        'https://example.com/baz.png'
+    ];
+
+    absoluteUrls.forEach(url => {
+        expect(makeUrl(url)).toBe(url);
+    });
 });
 
 test('returns untyped, unresized url unmodified', () => {
