@@ -18,7 +18,7 @@ exports[`renders Option component correctly 1`] = `
       className="root"
     >
       <button
-        aria-describedby="f2954ab4-6098-42fb-8df4-58fbe4fe058f"
+        aria-describedby="00000000-0000-0000-0000-000000000000"
         className="root trigger"
         onBlur={[Function]}
         onClick={[Function]}
@@ -38,7 +38,7 @@ exports[`renders Option component correctly 1`] = `
       className="root"
     >
       <button
-        aria-describedby="530b1cc8-28de-4a8d-9fbc-5bdb1855f3d3"
+        aria-describedby="00000000-0000-0000-0000-000000000000"
         className="root trigger"
         onBlur={[Function]}
         onClick={[Function]}

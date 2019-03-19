@@ -8,7 +8,7 @@ exports[`renders SwatchList component correctly 1`] = `
     className="root"
   >
     <button
-      aria-describedby="633bb8f8-f091-40b8-8fb6-7e04dccda738"
+      aria-describedby="00000000-0000-0000-0000-000000000000"
       className="root trigger"
       onBlur={[Function]}
       onClick={[Function]}
