@@ -1,0 +1,10 @@
+{
+  "name": "pwa-docker",
+  "version": "1.0.0",
+  "description": "run pwa in a container with https",
+  "author": "Kayden Althen",
+  "license": "ISC",
+  "dependencies": {
+    "devcert": "~1.0.0"
+  }
+}
