@@ -24,7 +24,11 @@ const themePaths = {
 
 const rootComponentsDirs = ['./src/RootComponents/'];
 const libs = [
-    'apollo-boost',
+    'apollo-cache-inmemory',
+    'apollo-cache-persist',
+    'apollo-client',
+    'apollo-link-context',
+    'apollo-link-http',
     'informed',
     'react',
     'react-apollo',

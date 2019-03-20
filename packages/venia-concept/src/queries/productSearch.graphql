@@ -3,7 +3,9 @@ query productSearch($inputText: String!, $categoryId: String) {
         items {
             id
             name
-            small_image
+            small_image {
+                url
+            }
             url_key
             price {
                 regularPrice {
