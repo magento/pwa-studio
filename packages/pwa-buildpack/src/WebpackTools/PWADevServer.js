@@ -1,3 +1,4 @@
+require('dotenv').config();
 const debug = require('../util/debug').makeFileLogger(__filename);
 const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
@@ -16,20 +17,21 @@ const { resolve, relative } = require('path');
 const boxen = require('boxen');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
-const secureHostWarning = chalk.redBright(
-    `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
-  highly recommends using the ${chalk.whiteBright(
-      '"provideSecureHost"'
-  )} configuration
-  option of PWADevServer. `
-);
+const secureHostWarning = chalk.redBright(`
+    To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
+    highly recommends using the ${chalk.whiteBright(
+        '"provideSecureHost"'
+    )} configuration
+    option of PWADevServer. 
+`);
 
-const helpText = `To autogenerate a unique host based on project name
-  and location on disk, simply add:
+const helpText = `
+    To autogenerate a unique host based on project name
+    and location on disk, simply add:
     ${chalk.whiteBright('provideSecureHost: true')}
-  to PWADevServer configuration options.
+    to PWADevServer configuration options.
 
-  More options for this feature are described in documentation.
+    More options for this feature are described in documentation.
 `;
 
 const PWADevServer = {
@@ -41,11 +43,21 @@ const PWADevServer = {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
+            public: process.env.PWA_STUDIO_PUBLIC_PATH || '',
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
+            watchOptions: {
+                // polling is CPU intensive - provide the option to turn it on if needed
+                poll:
+                    !!parseInt(
+                        process.env.PWA_STUDIO_HOT_RELOAD_WITH_POLLING
+                    ) || false
+            },
             host: '0.0.0.0',
-            port: await portscanner.findAPortNotInUse(10000),
+            port:
+                process.env.PWA_STUDIO_PORTS_DEVELOPMENT ||
+                (await portscanner.findAPortNotInUse(10000)),
             stats: {
                 all: !process.env.NODE_DEBUG ? false : undefined,
                 builtAt: true,
@@ -212,14 +224,16 @@ be configured to have the same effect as 'id'.
         }
 
         // Public path must be an absolute URL to enable hot module replacement
-        devServerConfig.publicPath = url.format({
-            protocol: devServerConfig.https ? 'https:' : 'http:',
-            hostname: devServerConfig.host,
-            port: devServerConfig.port,
-            // ensure trailing slash
-            pathname: config.publicPath.replace(/([^\/])$/, '$1/')
-        });
-
+        // If public key is set, then publicPath should equal the public key value - supports proxying https://bit.ly/2EOBVYL
+        devServerConfig.publicPath = devServerConfig.public
+            ? `https://${devServerConfig.public}/`
+            : url.format({
+                  protocol: devServerConfig.https ? 'https:' : 'http:',
+                  hostname: devServerConfig.host,
+                  port: devServerConfig.port,
+                  // ensure trailing slash
+                  pathname: config.publicPath.replace(/([^\/])$/, '$1/')
+              });
         return devServerConfig;
     }
 };
