@@ -18,11 +18,9 @@ class GalleryItem extends Component {
     static propTypes = {
         classes: shape({
             image: string,
-            images: string,
             name: string,
             price: string,
-            root: string,
-            root_pending: string
+            root: string
         }),
         item: shape({
             id: number.isRequired,
@@ -54,8 +52,14 @@ class GalleryItem extends Component {
 
     get renderImage() {
         const { classes, item } = this.props;
-        const { small_image, name } = item;
         const { renderImagePlaceholder } = this;
+
+        let name = 'placeholder';
+        let small_image;
+        if (item) {
+            name = item.name;
+            small_image = item.small_image;
+        }
 
         return (
             <Fragment>
@@ -77,12 +81,16 @@ class GalleryItem extends Component {
         const { classes, item } = this.props;
         const { renderImage } = this;
 
+        if (!item) {
+            return this.renderImage;
+        }
+
         const { name, price, url_key } = item;
         const productLink = `/${url_key}${productUrlSuffix}`;
 
         return (
             <div className={classes.root}>
-                <Link to={resourceUrl(productLink)} className={classes.images}>
+                <Link to={resourceUrl(productLink)}>
                     {renderImage}
                 </Link>
                 <Link to={resourceUrl(productLink)} className={classes.name}>
