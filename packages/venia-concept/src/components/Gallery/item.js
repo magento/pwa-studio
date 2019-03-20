@@ -90,9 +90,7 @@ class GalleryItem extends Component {
 
         return (
             <div className={classes.root}>
-                <Link to={resourceUrl(productLink)}>
-                    {renderImage}
-                </Link>
+                <Link to={resourceUrl(productLink)}>{renderImage}</Link>
                 <Link to={resourceUrl(productLink)} className={classes.name}>
                     <span>{name}</span>
                 </Link>
