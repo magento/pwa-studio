@@ -6,7 +6,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 >
   <button
     aria-describedby="00000000-0000-0000-0000-000000000000"
-    className="root_focused trigger"
+    className="root_focused"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -28,7 +28,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
 >
   <button
     aria-describedby="00000000-0000-0000-0000-000000000000"
-    className="root_selected trigger"
+    className="root_selected"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -70,7 +70,7 @@ exports[`renders a Swatch correctly 1`] = `
 >
   <button
     aria-describedby="00000000-0000-0000-0000-000000000000"
-    className="root trigger"
+    className="root"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -92,7 +92,7 @@ exports[`renders an icon if isSelected is true 1`] = `
 >
   <button
     aria-describedby="00000000-0000-0000-0000-000000000000"
-    className="root_selected trigger"
+    className="root_selected"
     onBlur={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}

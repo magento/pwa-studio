@@ -73,7 +73,6 @@ class SwatchTooltip extends Component {
             // Update its accessibility accordingly.
             const ariaEnhancedButton = React.cloneElement(child, {
                 'aria-describedby': this.uniqueId,
-                className: `${child.props.className} ${classes.trigger}`,
                 // We want to tack our event functionality onto whatever already exists.
                 // lodash.over returns a function that calls each function
                 // provided to it with the args it receives -
