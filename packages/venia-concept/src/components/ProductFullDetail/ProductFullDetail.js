@@ -11,6 +11,7 @@ import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
+import findMatchingVariant from 'src/util/findMatchingProductVariant';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -153,16 +154,10 @@ class ProductFullDetail extends Component {
             return media_gallery_entries;
         }
 
-        const item = variants.find(({ product: variant }) => {
-            for (const [id, value] of optionSelections) {
-                const code = optionCodes.get(id);
-
-                if (variant[code] !== value) {
-                    return false;
-                }
-            }
-
-            return true;
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
         });
 
         return item.product.media_gallery_entries;
