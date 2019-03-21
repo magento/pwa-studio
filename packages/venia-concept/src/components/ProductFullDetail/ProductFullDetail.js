@@ -145,6 +145,7 @@ class ProductFullDetail extends Component {
             media_gallery_entries,
             variants
         } = product;
+
         const isConfigurable = Array.isArray(configurable_options);
 
         if (
@@ -159,6 +160,10 @@ class ProductFullDetail extends Component {
             optionSelections,
             variants
         });
+
+        if (!item) {
+            return media_gallery_entries;
+        }
 
         return item.product.media_gallery_entries;
     }
