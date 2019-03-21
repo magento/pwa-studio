@@ -4,7 +4,6 @@ import { Price } from '@magento/peregrine';
 import { resourceUrl } from 'src/drivers';
 import Kebab from './kebab';
 import Section from './section';
-
 import classify from 'src/classify';
 import defaultClasses from './product.css';
 
@@ -49,7 +48,7 @@ class Product extends Component {
     constructor() {
         super();
         this.state = {
-            isOpen: false,
+            isLoading: false,
             isFavorite: false
         };
     }
@@ -71,9 +70,9 @@ class Product extends Component {
         ) : null;
     }
 
-    get modal() {
+    get mask() {
         const { classes } = this.props;
-        return this.state.isOpen ? <div className={classes.modal} /> : null;
+        return this.state.isLoading ? <div className={classes.mask} /> : null;
     }
 
     styleImage(image) {
@@ -88,15 +87,12 @@ class Product extends Component {
     }
 
     render() {
-        const { options, props, modal } = this;
+        const { options, props, mask } = this;
         const { classes, item, currencyCode } = props;
-        const rootClasses = this.state.isOpen
-            ? classes.root + ' ' + classes.root_masked
-            : classes.root;
         const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
 
         return (
-            <li className={rootClasses}>
+            <li className={classes.root}>
                 <div
                     className={classes.image}
                     style={this.styleImage(item.image)}
@@ -115,7 +111,7 @@ class Product extends Component {
                         </span>
                     </div>
                 </div>
-                {modal}
+                {mask}
                 <Kebab>
                     <Section
                         text="Add to favorites"
@@ -151,6 +147,10 @@ class Product extends Component {
     };
 
     removeItem = () => {
+        this.setState({
+            isLoading: true
+        });
+
         // TODO: prompt user to confirm this action
         this.props.removeItemFromCart({
             item: this.props.item
