@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, shape, arrayOf, number } from 'prop-types';
+import { string, shape, array, number } from 'prop-types';
 
 import classify from 'src/classify';
 import GalleryItems, { emptyData } from './items';
@@ -13,21 +13,7 @@ class Gallery extends Component {
             pagination: string,
             root: string
         }),
-        data: arrayOf(
-            shape({
-                id: number.isRequired,
-                name: string.isRequired,
-                small_image: string.isRequired,
-                price: shape({
-                    regularPrice: shape({
-                        amount: shape({
-                            value: number.isRequired,
-                            currency: string.isRequired
-                        }).isRequired
-                    }).isRequired
-                }).isRequired
-            })
-        ),
+        data: array,
         pageSize: number
     };
 
