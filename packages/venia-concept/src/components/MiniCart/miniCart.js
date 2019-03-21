@@ -63,7 +63,6 @@ class MiniCart extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
-            isEditPanelOpen: false,
             focusItem: null
         };
     }
@@ -212,15 +211,14 @@ class MiniCart extends Component {
     };
 
     get miniCartInner() {
-        const { checkout, productConfirm, productList, props, state } = this;
+        const { checkout, productList, props } = this;
         const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
-        const { isEditPanelOpen } = state;
 
         if (isCartEmpty) {
             return <EmptyMiniCart />;
         }
 
-        const footer = isEditPanelOpen ? productConfirm : checkout;
+        const footer = checkout;
 
         const footerClassName = isMiniCartMaskOpen
             ? classes.footerMaskOpen
