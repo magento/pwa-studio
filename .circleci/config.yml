@@ -3,14 +3,17 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build:
+      - pr:
           filters:
             branches:
-              ignore: master
-      - master:
+              ignore: &integration_branches
+                - master
+                - develop
+                - /release\/\d+\.\d+
+      - integration:
           filters:
             branches:
-              only: master
+              only: *integration_branches
 
 # This key means nothing to CircleCI; it's just a place to keep anchored
 # configuration nodes for reuse.
@@ -42,7 +45,7 @@ common_settings:
     path: "packages/venia-concept/dist"
 
 jobs:
-  master:
+  integration:
     docker: *docker_setup
     steps:
       - checkout
@@ -55,9 +58,13 @@ jobs:
           command: yarn run coveralls
       - run: *full_build
       - run: *storybook_build
+      - run:
+          name: Bundle size analysis
+          command: yarn run bundlesize
+
       - store_test_results: *test_result_path
       - store_artifacts: *artifact_storage_path
-  build:
+  pr:
     docker: *docker_setup
     steps:
       - checkout
