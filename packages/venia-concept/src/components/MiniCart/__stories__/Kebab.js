@@ -13,15 +13,9 @@ const styles = {
     display: 'grid'
 };
 
-stories.add('Kebab Closed', () => (
+stories.add('Kebab', () => (
     <div style={styles}>
-        <Kebab isOpen={false} />
-    </div>
-));
-
-stories.add('Kebab Open', () => (
-    <div style={styles}>
-        <Kebab isOpen={true}>
+        <Kebab>
             <Section icon="Heart" text="Section 1" />
             <Section icon="Edit2" text="Section 2" />
             <Section icon="Trash" text="Section 3" />
