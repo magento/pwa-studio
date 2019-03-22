@@ -1,64 +1,74 @@
-import memoize from 'lodash/memoize';
-
-// Tests if a URL begins with `http://` or `https://` or `data:`
-const absoluteUrl = /^(data|https|http)?:/i;
-
-// Simple path joiner that guarantees one and only one slash between segments
+// ensure there's exactly one slash between segments
 const joinUrls = (base, url) =>
     (base.endsWith('/') ? base.slice(0, -1) : base) +
     '/' +
     (url.startsWith('/') ? url.slice(1) : url);
 
-// TODO: make this even more dynamic, like an open registry
-const mediaPathPrefixes = {
-    'image-product':
+const mediaBases = new Map()
+    .set(
+        'image-product',
         process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
-        '/media/catalog/product',
-    'image-category':
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATALOG ||
-        '/media/catalog/category'
-};
+            '/media/catalog/product'
+    )
+    .set(
+        'image-category',
+        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATEGORY ||
+            '/media/catalog/category'
+    );
 
-// Should produce `/img/resize` in the default case
-const resizeBase = joinUrls(process.env.IMAGE_SERVICE_PATH || '/img', 'resize');
-
-// `makeResizedUrl("/path/to/jpeg", { width: 80 })` returns
-// "/img/resize/80?url=%2Fpath%2fto%2fjpeg"
-function makeResizedUrl(url, width) {
-    return `${joinUrls(resizeBase, width.toString())}?url=${encodeURIComponent(
-        url
-    )}`;
-}
-
-// Should fail silently on a null value, so default to the empty string
-// so that string methods work
-function formatUrl(url = '', opts = {}) {
-    const { type, width } = opts;
-    if (absoluteUrl.test(url) || !(type || width)) {
-        // Absolute URLs shouldn't be resized
-        // Without a type or a width, we don't know how to transform this url
-        return url;
-    }
-
-    // we need to throw on an unrecognized `type`, so we may have to assign this
-    // in another code branch, hence the "let"
-    let formattedUrl = url;
+const resizeBase = joinUrls(
+    process.env.IMAGE_SERVICE_PATH || '/img/',
+    '/resize/'
+);
+/**
+ * Creates an "optimized" url for a provided absolute or relative url based on
+ * requested media type and width.
+ *
+ * If a `type` is provided the `path` will be joined with the associated media
+ * base.
+ *  - "/media/catalog/product/some/path/to/img.jpg"
+ *
+ * If a `width` is provided a "resize url" is returned using the desired width
+ * and original media url.
+ *  - /img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fsome%2Fpath%2Fto%2F/image.jpg
+ *
+ * If only `path` is provided it is returned unaltered.
+ *
+ * @param {string} path - absolute or relative url to resource.
+ * @param {Object} props - properties describing desired optimizations
+ * @param {string} props.type - "image-product" or "image-category"
+ * @param {number} props.width - the desired resize width of the image
+ */
+const makeOptimizedUrl = (path, { type, width } = {}) => {
+    const { location } = window;
+    const urlObject = new URL(path, location.href);
+    const params = new URLSearchParams(urlObject.search);
 
     if (type) {
-        if (!mediaPathPrefixes.hasOwnProperty(type)) {
+        if (!mediaBases.has(type)) {
             throw new Error(`Unrecognized media type ${type}`);
         }
-        // "/path/to/jpeg" becomes e.g. "/media/catalog/product/path/to/jpeg"
-        formattedUrl = joinUrls(mediaPathPrefixes[type], url);
+
+        const mediaBase = mediaBases.get(type);
+
+        // prepend media base if it isn't already part of the pathname
+        if (!urlObject.pathname.includes(mediaBase)) {
+            urlObject.pathname = joinUrls(mediaBase, urlObject.pathname);
+        }
+
+        // check for width before returning
     }
 
-    // if a width exists, make a resized URL!
-    return width ? makeResizedUrl(formattedUrl, width) : formattedUrl;
-}
+    if (width) {
+        // set pathname as query param
+        // encodeURIComponent would be redundant
+        params.set('url', urlObject.pathname);
 
-// Each combination of type, url, and width is computed only once and cached.
-// storeUrlKey defines the cache key as a function of the arguments.
-const storeUrlKey = (url, { width = '', type = '' } = {}) =>
-    `${type}%%${url}%%${width}`;
+        return `${resizeBase}${width}?${params}`;
+    }
 
-export default memoize(formatUrl, storeUrlKey);
+    // return unaltered path if we didn't operate on it
+    return type ? urlObject.pathname : path;
+};
+
+export default makeOptimizedUrl;

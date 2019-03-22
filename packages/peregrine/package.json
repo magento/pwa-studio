@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "2.1.0-dev",
+  "version": "2.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -26,22 +26,22 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-syntax-jsx": "^7.2.0",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/plugin-transform-runtime": "^7.3.4",
-    "@babel/runtime": "^7.3.4",
-    "@storybook/react": "^4.1.13",
-    "concurrently": "^4.1.0",
-    "intl": "^1.2.5",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-router-dom": "^4.4.0-beta.6",
-    "rimraf": "^2.6.3"
+    "@babel/cli": "~7.2.3",
+    "@babel/core": "~7.3.4",
+    "@babel/plugin-proposal-class-properties": "~7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "~7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.3.0",
+    "@babel/plugin-transform-runtime": "~7.3.4",
+    "@babel/runtime": "~7.3.4",
+    "@storybook/react": "~4.1.13",
+    "concurrently": "~4.1.0",
+    "intl": "~1.2.5",
+    "react": "~16.8.3",
+    "react-dom": "~16.8.3",
+    "react-router-dom": "~4.4.0-beta.6",
+    "rimraf": "~2.6.3"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.2.0",
