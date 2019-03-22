@@ -146,7 +146,9 @@ const mocks = [
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/leaf-3.jpg'
+                                        small_image: {
+                                            url: 'media/leaf-3.jpg'
+                                        }
                                     }
                                 ]
                             }
@@ -206,7 +208,9 @@ const mocks = [
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/leaf-4.jpg'
+                                        small_image: {
+                                            url: 'media/leaf-4.jpg'
+                                        }
                                     }
                                 ]
                             }
