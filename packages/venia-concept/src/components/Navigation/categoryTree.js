@@ -54,7 +54,7 @@ class Tree extends Component {
                     });
 
                     const leaves = children.map(node => {
-                        if (!node.include_in_menu) {
+                        if (Boolean(node.include_in_menu) === false) {
                             return null;
                         }
                         const { children_count } = node;
