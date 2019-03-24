@@ -21,6 +21,10 @@ class Thumbnail extends Component {
         onClickHandler: PropTypes.func.isRequired
     };
 
+    isDesktop = () => {
+        return window.innerWidth > 640;
+    };
+
     onClickHandlerWrapper = () => {
         const { onClickHandler, itemIndex } = this.props;
         onClickHandler(itemIndex);
@@ -32,8 +36,12 @@ class Thumbnail extends Component {
             isActive,
             item: { file, label }
         } = this.props;
+
         const src = file
-            ? resourceUrl(file, { type: 'image-product', width: 240 })
+            ? resourceUrl(file, {
+                  type: 'image-product',
+                  width: this.isDesktop() ? 240 : 640
+              })
             : transparentPlaceholder;
 
         return (
