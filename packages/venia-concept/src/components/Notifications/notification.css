@@ -1,0 +1,67 @@
+.root {
+    align-items: center;
+    border-radius: 2px;
+    display: inline-flex;
+    height: var(--venia-notification-height);
+    justify-content: flex-start;
+    margin-bottom: 0.125rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 0.625rem;
+    text-align: left;
+    top: 0;
+    transform: translateY(calc(-1 * var(--venia-notification-height)));
+    transition-duration: 128ms;
+    transition-property: opacity, transform;
+    transition-timing-function: var(--venia-anim-out);
+    width: 100%;
+    -webkit-appearance: none;
+    --venia-notification-height: 3rem;
+}
+
+.root:disabled {
+    /* Don't gray out a disabled button */
+    color: inherit;
+}
+
+.root:focus {
+    box-shadow: inset 2px 0 rgb(var(--venia-notification-icon-color));
+    outline: 0;
+}
+
+.error {
+    composes: root;
+    background-color: rgb(var(--venia-error-alt));
+    --venia-notification-icon-color: var(--venia-error);
+}
+
+.success {
+    composes: root;
+    background-color: rgb(var(--venia-teal-light));
+    --venia-notification-icon-color: var(--venia-teal);
+}
+
+.warning {
+    composes: root;
+    background-color: rgb(var(--venia-warning-light));
+    --venia-notification-icon-color: var(--venia-warning-dark);
+}
+
+.icon {
+    composes: root from 'src/components/Icon/icon.css';
+    color: rgb(var(--venia-notification-icon-color));
+}
+
+.showing {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.message {
+    line-height: 1.25rem;
+    margin: 0 0.5rem 0 0.75rem;
+    /* Set a min-width so text elements inside must overflow, not stretch */
+    min-width: 0;
+}

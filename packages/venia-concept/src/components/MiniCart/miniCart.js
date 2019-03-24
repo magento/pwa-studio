@@ -2,7 +2,6 @@ import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import { bool, func, object, shape, string } from 'prop-types';
-
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import {
@@ -36,8 +35,9 @@ class MiniCart extends Component {
             details: object,
             guestCartId: string,
             totals: object,
+            isLoading: bool,
             isOptionsDrawerOpen: bool,
-            isLoading: bool
+            isUpdatingItem: bool
         }),
         classes: shape({
             body: string,
@@ -182,7 +182,7 @@ class MiniCart extends Component {
                             cartItem={focusItem}
                             configItem={itemWithOptions}
                             closeOptionsDrawer={closeOptionsDrawer}
-                            isLoading={cart.isLoading}
+                            isUpdatingItem={cart.isUpdatingItem}
                             updateCart={updateItemInCart}
                         />
                     );
@@ -193,7 +193,7 @@ class MiniCart extends Component {
                 cartItem={focusItem}
                 configItem={{}}
                 closeOptionsDrawer={closeOptionsDrawer}
-                isLoading={cart.isLoading}
+                isUpdatingItem={cart.isUpdatingItem}
                 updateCart={updateItemInCart}
             />
         );
@@ -218,6 +218,8 @@ class MiniCart extends Component {
             return <EmptyMiniCart />;
         }
 
+        const footer = checkout;
+
         const footerClassName = isMiniCartMaskOpen
             ? classes.footerMaskOpen
             : classes.footer;
@@ -225,7 +227,7 @@ class MiniCart extends Component {
         return (
             <Fragment>
                 <div className={classes.body}>{productList}</div>
-                <div className={footerClassName}>{checkout}</div>
+                <div className={footerClassName}>{footer}</div>
             </Fragment>
         );
     }
@@ -234,7 +236,7 @@ class MiniCart extends Component {
         const { miniCartInner, productOptions, props } = this;
         const {
             cancelCheckout,
-            cart: { isOptionsDrawerOpen, loading },
+            cart: { isOptionsDrawerOpen, isLoading },
             classes,
             isMiniCartMaskOpen,
             isOpen
@@ -254,7 +256,7 @@ class MiniCart extends Component {
                         <Icon src={CloseIcon} />
                     </Trigger>
                 </div>
-                {loading ? loadingIndicator : body}
+                {isLoading ? loadingIndicator : body}
                 <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             </aside>
         );

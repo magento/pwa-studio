@@ -1,3 +1,5 @@
+import findMatchingVariant from './findMatchingProductVariant';
+
 const appendOptionsToPayload = (
     payload,
     optionSelections,
@@ -18,16 +20,10 @@ const appendOptionsToPayload = (
         option_value: value
     }));
 
-    const selectedVariant = variants.find(({ product: variant }) => {
-        for (const [id, value] of optionSelections) {
-            const code = optionCodes.get(id);
-
-            if (variant[code] !== value) {
-                return false;
-            }
-        }
-
-        return true;
+    const selectedVariant = findMatchingVariant({
+        variants,
+        optionCodes,
+        optionSelections
     });
 
     if (!selectedVariant) return payload;

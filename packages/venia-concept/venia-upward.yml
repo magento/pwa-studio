@@ -9,7 +9,7 @@ response:
       pattern: '^/img/resize/(\d+)'
       use: imageOpt
     - matches: request.url.pathname
-      pattern: '^/(graphql|rest|media/)'
+      pattern: '^/(graphql|rest|media|cache/)'
       use: proxy
     - matches: request.url.pathname
       pattern: '^/create-account'
@@ -31,9 +31,13 @@ response:
 # the image resizing middleware at `/img/` before the UpwardPlugin declares
 # middleware, so a request should never get here.
 
-# In production mode, this forwards to Fastly where it is present, and drops
-# back to the uncompressed image otherwise. If this will run on a non-FastlyIO
-# server, an onboard resizing service is highly recommended.
+# In production mode when USE_FASTLY is true, the Venia PWA has a
+# Fastly-specific URL factory. It should also never hit this route.
+
+# In production mode when the PWA has NOT built a Fastly-specific URL factory,
+# this forwards to Fastly where it is present, and drops back to the
+# uncompressed image otherwise. If this will run on a non-FastlyIO server, an
+# onboard resizing service is highly recommended.
 imageOpt:
   inline:
     status: 301

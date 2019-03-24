@@ -30,5 +30,8 @@ entries:
       - label: List
         url: /peregrine/reference/list/
 
+      - label: Price
+        url: /peregrine/reference/price/
+
       - label: Router
         url: /peregrine/reference/router/

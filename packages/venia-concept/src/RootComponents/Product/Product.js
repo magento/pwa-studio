@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bool, shape, number, arrayOf, string } from 'prop-types';
 
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
@@ -16,45 +15,24 @@ import productQuery from 'src/queries/getProductDetail.graphql';
  * TODO: Replace with a single product query when possible.
  */
 class Product extends Component {
-    static propTypes = {
-        data: shape({
-            productDetail: shape({
-                total_count: number,
-                items: arrayOf(
-                    shape({
-                        id: number,
-                        sku: string.isRequired,
-                        price: shape({
-                            regularPrice: shape({
-                                amount: shape({
-                                    currency: string.isRequired,
-                                    value: number.isRequired
-                                })
-                            }).isRequired
-                        }).isRequired,
-                        image: string,
-                        image_label: string,
-                        media_gallery_entries: arrayOf(
-                            shape({
-                                label: string,
-                                position: number.isRequired,
-                                disabled: bool,
-                                file: string.isRequired
-                            })
-                        ),
-                        description: string,
-                        short_description: string,
-                        canonical_url: string
-                    })
-                ).isRequired
-            }).isRequired
-        })
-    };
-
     addToCart = async (item, quantity) => {
         const { guestCartId } = this.props;
         await this.props.addItemToCart({ guestCartId, item, quantity });
     };
+
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+    mapProduct(product) {
+        const { description } = product;
+        return {
+            ...product,
+            description:
+                typeof description === 'object' ? description.html : description
+        };
+    }
 
     render() {
         return (
@@ -70,7 +48,7 @@ class Product extends Component {
 
                     return (
                         <ProductFullDetail
-                            product={product}
+                            product={this.mapProduct(product)}
                             addToCart={this.props.addItemToCart}
                         />
                     );
