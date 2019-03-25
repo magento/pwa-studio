@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
-
-import { asyncValidators, validators } from './validators';
-
+import { validators } from './validators';
 import defaultClasses from './createAccount.css';
-import classify from 'src/classify';
 
 class CreateAccount extends Component {
     static propTypes = {
@@ -100,9 +98,7 @@ class CreateAccount extends Component {
                         field="customer.email"
                         autoComplete="email"
                         validate={validators.get('email')}
-                        asyncValidate={asyncValidators.get('email')}
                         validateOnBlur
-                        asyncValidateOnBlur
                     />
                 </Field>
                 <Field label="Password">

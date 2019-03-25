@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import getDisplayName from 'src/util/getDisplayName';
 
-const merge = (...args) => Object.assign({}, ...args);
+export const mergeClasses = (...args) => Object.assign({}, ...args);
 
 const classify = defaultClasses => WrappedComponent =>
     class extends Component {
@@ -11,7 +11,7 @@ const classify = defaultClasses => WrappedComponent =>
         render() {
             const { className, classes, ...restProps } = this.props;
             const classNameAsObject = className ? { root: className } : null;
-            const finalClasses = merge(
+            const finalClasses = mergeClasses(
                 defaultClasses,
                 classNameAsObject,
                 classes

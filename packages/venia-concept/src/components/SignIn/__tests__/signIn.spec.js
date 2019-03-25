@@ -1,5 +1,7 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { act } from 'react-test-renderer';
+import { Form } from 'informed';
+import { createTestInstance } from '@magento/peregrine';
 
 import SignIn from '../signIn';
 
@@ -38,4 +40,23 @@ test('displays an error message if there is a sign in error', () => {
     const component = testRenderer.create(<SignIn {...testProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('calls `onSignIn` when sign in button is pressed', () => {
+    const signIn = jest.fn();
+    const onForgotPassword = jest.fn();
+
+    const { root } = createTestInstance(
+        <SignIn
+            signIn={signIn}
+            classes={classes}
+            onForgotPassword={onForgotPassword}
+        />
+    );
+
+    act(() => {
+        root.findByType(Form).props.onSubmit();
+    });
+
+    expect(signIn).toHaveBeenCalledTimes(1);
 });
