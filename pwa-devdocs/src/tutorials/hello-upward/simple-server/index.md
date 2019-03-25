@@ -1,5 +1,5 @@
 ---
-title: Hello UPWARD
+title: Creating a simple server
 ---
 
 This tutorial teaches the basics of reading and writing an UPWARD specification file by creating a simple web server that returns a "Hello World" message.
@@ -22,7 +22,7 @@ This tutorial teaches the basics of reading and writing an UPWARD specification 
     ```sh
     yarn init -y
     ```
-    
+
     Running this command creates a `package.json` file in your current directory.  
     The `package.json` file contains information about your project, such as name, version, dependencies, and runnable commands.
 
@@ -51,19 +51,19 @@ headers: response.headers
 body: response.body
 
 response:
-  inline:
-    status:
-      resolver: inline
-      inline: 200
-    headers:
-      resolver: inline
-      inline:
-        content-type:
-          resolver: inline
-          inline: 'text/string'
-    body:
-      resolver: inline
-      inline: 'Hello World!'
+    inline:
+        status:
+            resolver: inline
+            inline: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    resolver: inline
+                    inline: 'text/string'
+        body:
+            resolver: inline
+            inline: 'Hello World!'
 ```
 
 The first three lines set the `status`, `headers`, and `body` values required for an UPWARD server response.
@@ -77,13 +77,13 @@ For every request, the `response` object instructs the server to respond with a 
 Create a new file called `server.js` with the following content:
 
 ```js
-const { createUpwardServer } = require("@magento/upward-js");
+const { createUpwardServer } = require('@magento/upward-js');
 
 createUpwardServer({
-  upwardPath: "spec.yml",
-  bindLocal: true,
-  logUrl: true,
-  port: 8080
+    upwardPath: 'spec.yml',
+    bindLocal: true,
+    logUrl: true,
+    port: 8080
 });
 ```
 
@@ -94,7 +94,7 @@ Use `node` to run the server script:
 
 ```sh
 node server.js
-``` 
+```
 
 When the server starts, the URL for the server is displayed in the terminal.
 Navigate to this URL to see the "Hello World!" message.
@@ -139,41 +139,44 @@ This code tells the server to look at the requested URL path and check to see if
 If it matches, the server uses an object called `helloWorld` to resolve the response.
 For all other paths, the server resolves the response using the `notFound` object.
 
-Append the following `helloWorld` and `notFound` objects to the `spec.yml` file:
+Append the following `helloWorld` and `notFound` objects to the `spec.yml` file to complete the specification:
 
 ```yml
 helloWorld:
-  inline:
-    status:
-      resolver: inline
-      inline: 200
-    headers:
-      resolver: inline
-      inline:
-        content-type:
-          resolver: inline
-          inline: 'text/string'
-    body:
-      resolver: inline
-      inline: 'Hello World!'
+    inline:
+        status:
+            resolver: inline
+            inline: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    resolver: inline
+                    inline: 'text/string'
+        body:
+            resolver: inline
+            inline: 'Hello World!'
 
 notFound:
-  inline:
-    status:
-      resolver: inline
-      inline: 404
-    headers:
-      resolver: inline
-      inline:
-        content-type:
-          resolver: inline
-          inline: 'text/string'
-    body:
-      resolver: inline
-      inline: 'Page not found!'
+    inline:
+        status:
+            resolver: inline
+            inline: 404
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    resolver: inline
+                    inline: 'text/string'
+        body:
+            resolver: inline
+            inline: 'Page not found!'
 ```
 
-## Returning a web page
+Now, when you start the server and navigate to the application, only the root and `/hello-world` path return the "Hello World!" message.
+All other paths return the `404` response.
+
+## Create web page templates
 
 ## Converting to a React application
 
@@ -183,6 +186,6 @@ notFound:
 [node]: https://nodejs.org
 [yarn]: https://yarnpkg.com/en/
 [npm]: https://www.npmjs.com/get-npm
-[Express]: https://expressjs.com/
+[express]: https://expressjs.com/
 
 [`upward-js`]: {{site.baseurl}}{% link technologies/upward/reference-implementation/index.md %}
