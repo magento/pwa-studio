@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classify from 'src/classify';
 import defaultClasses from './footer.css';
 import storeConfigDataQuery from '../../queries/getStoreConfigData.graphql';
-import { Query } from 'react-apollo';
+import { Query } from 'src/drivers';
 
 class Footer extends Component {
     static propTypes = {
@@ -19,7 +19,6 @@ class Footer extends Component {
 
     render() {
         const { classes } = this.props;
-        const year = new Date().getFullYear();
 
         return (
             <footer className={classes.root}>
@@ -81,14 +80,8 @@ class Footer extends Component {
                                     </span>
                                 );
                             }
-                            const storeName =
-                                data.storeConfig.name || 'Magento';
 
-                            return (
-                                <span>
-                                    © {storeName} {year}. All rights reserved.
-                                </span>
-                            );
+                            return <span>{data.storeConfig.copyright}</span>;
                         }}
                     </Query>
                 </small>
