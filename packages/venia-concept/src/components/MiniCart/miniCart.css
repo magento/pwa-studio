@@ -40,8 +40,11 @@
 }
 
 .footer {
+    --minicart-footer-padding-top: 1.5rem;
+    --minicart-footer-padding-bottom: 0.5rem;
     box-shadow: 0 -1px rgb(var(--venia-border));
-    padding: 1.5rem 0 0.5rem;
+    padding: var(--minicart-footer-padding-top) 0
+        var(--minicart-footer-padding-bottom);
     background-color: white;
 }
 

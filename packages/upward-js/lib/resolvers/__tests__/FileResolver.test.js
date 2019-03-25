@@ -146,11 +146,6 @@ test('force parses a specific file type', async () => {
         file: 'anything',
         parse: 'turns-into-graphql'
     });
-    expect(gqlDoc).toMatchObject({
-        compile: expect.any(Function),
-        render: expect.any(Function)
-    });
-    expect(gqlDoc.compile()).resolves.not.toThrow();
     expect(gqlDoc.render()).resolves.toMatchObject({
         definitions: [
             {

@@ -4,6 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import { Form } from 'informed';
 import TextInput from 'src/components/TextInput';
 import SearchBar from '../searchBar';
+import SearchAutocomplete from '../autocomplete';
 
 const removeEventListenerMock = jest.fn();
 Object.defineProperty(window.document, 'removeEventListener', {
@@ -119,8 +120,11 @@ test('the reset button clears the input', () => {
     const button = instance.find(buttonTypes);
     button.props.onClick();
 
-    // Test that the input has been cleared.
+    // Test that the input has been cleared and autocomplete is closed.
     expect(input.props.value).toBe('');
+    expect(
+        instance.findByType(SearchAutocomplete).props.autocompleteVisible
+    ).toBe(false);
 });
 
 test('submitting the form executes the search', () => {

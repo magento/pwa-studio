@@ -63,7 +63,6 @@
 
 .save {
     box-shadow: 0 -1px rgb(var(--venia-border));
-    padding: 1.5rem 0 0.5rem;
     background-color: #fff;
     justify-content: center;
     padding: 1rem 0;
