@@ -29,7 +29,7 @@ Closes #ISSUE_NUMBER.
 <!--- Why is this change required? What problem does it solve? -->
 
 
-## Verification
+## Verification Steps
 <!-- Please describe in detail how a reviewer can verify your changes. -->
 
 
@@ -39,7 +39,7 @@ Closes #ISSUE_NUMBER.
 <!--- see how your change affects other areas of the code, etc. -->
 
 
-## Screenshots (if appropriate):
+## Screenshots / Screen Captures (if appropriate):
 
 
 ## Proposed Labels for Change Type/Package
@@ -57,8 +57,9 @@ Closes #ISSUE_NUMBER.
 - [ ] I have read the **CONTRIBUTING** document.
 - [ ] I have linked an issue to this PR.
 - [ ] I have indicated the change type and relevant package(s).
-- [ ] I have updated the documentation accordingly.
-- [ ] I have added tests to cover my changes.
+- [ ] I have proposed a change level by adding one of the `version: Major`, `version: Minor`, or `version: Patch` labels based on the defined [Public API](https://magento-research.github.io/pwa-studio/technologies/versioning/).
+- [ ] I have updated the documentation accordingly, if necessary.
+- [ ] I have added tests to cover my changes, if necessary.
 - [ ] All new and existing tests passed.
 - [ ] All CI checks are green (linting, build/deploy, etc).
 - [ ] At least one core contributor has approved this PR.
