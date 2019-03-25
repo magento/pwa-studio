@@ -36,7 +36,7 @@ const data = {
 <Items
     items={Object.entries(data)}
     renderItem='option'
-    selectionModel='check'
+    selectionModel='checkbox'
 />
 ```
 

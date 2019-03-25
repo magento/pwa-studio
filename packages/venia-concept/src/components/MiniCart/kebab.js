@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import Icon from 'src/components/Icon';
 import classify from 'src/classify';
 import defaultClasses from './kebab.css';
@@ -13,8 +13,7 @@ class Kebab extends Component {
             dropdown_active: string,
             kebab: string,
             root: string
-        }),
-        isOpen: bool
+        })
     };
 
     constructor(props) {
@@ -22,7 +21,7 @@ class Kebab extends Component {
         this.kebabButtonRef = createRef();
 
         this.state = {
-            isOpen: !!props.isOpen
+            isOpen: false
         };
     }
 
@@ -43,13 +42,7 @@ class Kebab extends Component {
     }
 
     render() {
-        const {
-            classes,
-            children,
-            //eslint-disable-next-line
-            isOpen,
-            ...restProps
-        } = this.props;
+        const { classes, children, ...restProps } = this.props;
 
         const toggleClass = this.state.isOpen
             ? classes.dropdown_active
