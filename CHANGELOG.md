@@ -1,8 +1,54 @@
 # Release 2.0
 
-## What's new
+## Table of contents
 
-This is a brief development summary for this release.
+* [2.1.0](#whats-new-in-210)
+* [2.0.0](#whats-new-in-200)
+
+## What's new in 2.1.0
+
+Release **2.1.0** is a compatibility release for the core **Magento 2.3.1** release.
+
+Notable changes include:
+
+* Updated GraphQL queries
+* Magento GraphQL query validation tool
+
+### Updated GraphQL queries
+
+The Magento 2.3.1 release contains GraphQL schema changes that are not compatible with PWA Studio 2.0.0 presentational components.
+This release adds a mapping layer to the wrapper components to maintain backwards compatibility for the presentational components.
+
+This update also includes a change to the `.env.dist` file in the Venia project.
+This change sets the `MAGENTO_BACKEND_URL` variable to that of a Magento 2.3.1 instance.
+
+If you have previously set up Venia and copied the `.env.dist` file into your project's `.env` file, you must update the `MAGENTO_BACKEND_URL` variable to keep your project compatible.
+
+Pull Request: [#990](https://github.com/magento-research/pwa-studio/pull/990)
+
+### Query validation tool
+
+PWA Studio 2.1.0 creates a new `graphql-cli` plugin called `validate-magento-pwa-queries` to replace the `validate-queries.js` script in the Venia package.
+
+This tool lets developers know when a breaking change occurs with GraphQL to address incompatibility or breaking changes.
+It provides clear error messages regarding where and how to resolve issues.
+
+Pull Request: [#1004](https://github.com/magento-research/pwa-studio/pull/1004)
+
+### Other updates
+
+* Unit tests created to increase test coverage
+* Documentation typo fixes
+* Devdocs script created for auto-generating reference docs from source
+* Misc code cleanup
+* Bugfix for shopping cart error when continuing to shop after checkout
+* Bugfix for the full screen checkout drawer
+* Bugfix for pagination persisting during Query loading state
+* Bugfix for Search autocomplete rendering loading component on clear
+
+## What's new in 2.0.0
+
+This is a brief development summary for the 2.0.0 release.
 
 For a list of relevant Pull Requests related to the 2.0 release, see this [GitHub query result][].
 
