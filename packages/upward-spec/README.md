@@ -193,19 +193,23 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
   - `headers`: An object representing HTTP headers. Header names are lower-cased, and multiple values are joined with commas.
 
   - `headerEntries`: An iterable array version of the `headers` object, suitable for use in a Mustache template (which cannot iterate over plain JSON objects). For this headers object:
+
     ```json
     {
       "accept": "text/html",
       "host": "example.com"
     }
     ```
+
     the `headerEntries` array would be:
+
     ```json
     [
       { "name": "accept", "value": "text/html" },
       { "name": "host", "value": "example.com" }
     ]
     ```
+
   - `queryEntries`: An iterable array version of the URL `query` object, suitable for Mustache like the `headerEntries` property explained above.
 
   - `url`: A subset of a [URL record][url spec] as specified by WHATWG. The following properties should at least be populated; the Host header can be used to infer the origin.
@@ -287,7 +291,7 @@ uxbridges:
       inline: false
   url:
     resolver: inline
-      inline: http://stapi.co/api/v1/rest/character/search
+    inline: http://stapi.co/api/v1/rest/character/search
   headers:
     resolver: inline
     inline:
@@ -496,6 +500,7 @@ A Resolver is an object which describes how a value is obtained. There are five 
 - `ConditionalResolver` does branch logic using pattern matching on context values
 - `ProxyResolver` delegates request/response handling to a proxy
 - `DirectoryResolver` delegates request/response handling to a static file directory
+- `UrlResolver` builds a URL from strings and other URLs
 
 Each Resolver takes different configuration parameters. Like a context lookup string, a resolver represents an operation which will execute and then deliver its results upward in the tree, until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
 
@@ -601,8 +606,11 @@ An UPWARD server uses a `ServiceResolver` to obtain live data from a GraphQL bac
 documentResult:
   resolver: service
   url:
-    resolver: inline
-    inline: 'https://example.com/graphql'
+    resolver: url
+    baseUrl:
+      inline: https://example.com
+    pathname:
+      inline: graphql
   method:
     resolver: inline
     inline: POST
@@ -974,10 +982,106 @@ static:
 
 #### DirectoryResolver Configuration Options
 
-| Property  | Type               | Default     | Description
-| --------- | ------------------ | ----------- | ---------------
-| `directory`    | `Resolved<string>` |      |             | _Required_. The local directory path to be served.
+| Property    | Type               | Default     | Description
+| ----------- | ------------------ | ----------- | ---------------
+| `directory` | `Resolved<string>` |             | _Required_. The local directory path to be served.
 
+### UrlResolver
+
+The UrlResolver is a utility for building [WHATWG Spec compliant URLs](https://url.spec.whatwg.org/) out of strings and/or other URL objects. Using the UrlResolver is easier and makes more well-formed URLs than string templates.
+
+#### UrlResolver Example
+
+Consider a server which places authorized calls to a REST API running in a local container. The container is always hosted at a virtual domain `admin.local`, but its port, API version, and auth token may vary from deployment to deployment. For the following example, assume these environment variables:
+
+```sh
+ADMIN_PORT=8081
+ADMIN_API_VERSION=1
+ADMIN_REFRESH_TOKEN=a1b2c3
+```
+
+The following configuration defines a base URL for the REST API, and a URL to a particular resource in that API.
+
+```yaml
+adminRESTTokenRefresh:
+  baseUrl: adminRESTApiBase
+  pathname:
+    inline: adminToken
+  query:
+    refreshToken: env.ADMIN_REFRESH_TOKEN
+    role:
+      inline: owner
+
+adminRESTApiBase:
+  baseUrl:
+    inline: https://admin.host/api/rest
+  port: env.ADMIN_PORT
+  pathname: apiVersion
+
+apiVersion:
+  engine: mustache
+  provide:
+    versionNumber: env.ADMIN_API_VERSION
+  template:
+    inline: 'v{{versionNumber}}'
+```
+
+These new context values can be used as URL objects: `adminRESTTokenRefresh.pathname`  and `adminRESTApiBase.protocol` are valid context values evaluating, respectively, to `/api/rest/v1/adminToken` and `https:`.
+
+The values can also be used as strings: if used as the `target` of a ProxyResolver, the context value `adminRESTTokenRefresh` evaluates to:
+
+```txt
+https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
+```
+
+#### UrlResolver Configuration Options
+
+| Property   | Type                       | Default     | Description
+| ---------- | -------------------------- | ----------- | ---------------
+| `baseUrl`  | `Resolved<string|boolean>` |             | _Required_. The base URL to use for constructing the new URL. Must be `false` if no base URL is required.
+| `hash`     | `Resolved<string>`         |             | Hash fragment of the URL, beginning with `#`.
+| `hostname` | `Resolved<string>`         |             | Domain or IP address of the URL.
+| `password` | `Resolved<string>`         |             | A password to be specified before the hostname.
+| `pathname` | `Resolved<string>`         |             | Slash-delimited path from the root of the host to a resource.
+| `port`     | `Resolved<string>`         |             | Port number of the URL.
+| `protocol` | `Resolved<string>`         | `https:`    | Protocol scheme of the URL, including the final `:`.
+| `query`    | `Resolved<object<string>>` |             | Object to encode into a query string. Keys are query parameter names, and values must resolve to primitives (strings, numbers, booleans, etc) that will be URL-encoded into query parameter values.
+| `search`   | `Resolved<string>`         |             | Serialized query string. Values must be URL (percent) encoded.
+
+#### UrlResolver Notes
+
+- If no base URL is required, either because the defined URL should be relative or the other parameters build an absolute URL, `baseUrl` must be explicitly set to `false`.
+
+- Pathnames must join based on leading and trailing slashes.
+
+  - If a `pathname` has a _leading_ slash, it must _overwrite_ any pathname on the `baseUrl`.
+
+  ```yaml
+  baseUrl: https://fleet.local/ships/hood/
+  pathname: /admiral
+  ```
+  
+  evaluates to `https://fleet.local/admiral`.
+
+  - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has a _trailing_ slash, then the `pathname` must _append_ to the last segment of the `baseUrl` path.
+
+  ```yaml
+  baseUrl: https://fleet.local/ships/hood/
+  pathname: captain/name
+  ```
+  
+  evaluates to `https://fleet.local/ships/hood/captain/name`.
+    
+  - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has no trailing slash, then a `pathname` must _replace_ the last segment of the `baseUrl` path.
+
+  ```yaml
+  baseUrl: https://fleet.local/ships/hood
+  pathname: yamato/
+  ```
+  
+  evaluates to `https://fleet.local/ships/yamato/`
+
+- If both `search` and `query` are present, the parameters must be merged, giving preference to `query` where there are conflicts. _"Array" query parameters are not defined by this specification, since their behavior is inconsistent across platforms._
 
 ## Reducing boilerplate
 

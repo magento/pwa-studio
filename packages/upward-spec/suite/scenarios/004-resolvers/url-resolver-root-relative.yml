@@ -1,0 +1,31 @@
+status: 200
+headers:
+  inline:
+    content-type: text/plain
+body: rewrittenUrl
+
+rewrittenUrl:
+  baseUrl: documentBase
+  pathname: request.url.query.id
+
+documentBase:
+  baseUrl: rootUrl
+  pathname:
+    inline: /document/
+  query: additionalParams
+
+rootUrl:
+  baseUrl: false
+  pathname:
+    inline: scope/
+  query:
+    inline:
+      foo:
+        inline: bar
+
+additionalParams:
+  inline:
+    foo:
+      inline: baz
+    guh:
+      inline: wuh

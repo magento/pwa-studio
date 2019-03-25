@@ -1,7 +1,7 @@
 const ServiceResolver = require('../ServiceResolver');
 const GraphQLDocument = require('../../compiledResources/GraphQLDocument');
 
-test('resolverType is file', () =>
+test('resolverType is service', () =>
     expect(ServiceResolver.resolverType).toBe('service'));
 
 test('telltale exists', () => expect(ServiceResolver.telltale).toBeDefined());

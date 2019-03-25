@@ -52,7 +52,7 @@ class ServiceResolver extends AbstractResolver {
         debug('url retrieved: "%s", query resolved, creating link', url);
 
         const link = new HttpLink({
-            uri: url,
+            uri: url.toString(),
             fetch: this.visitor.io.networkFetch,
             headers,
             useGETForQueries: method === 'GET'
@@ -91,7 +91,9 @@ class ServiceResolver extends AbstractResolver {
                 ) {
                     throw new Error(url.toString() + 'invalid: ' + e.stack);
                 }
-                throw e;
+                throw new Error(
+                    `ServiceResolver: Request to ${url.toString()} failed: ${e}`
+                );
             });
     }
 }
