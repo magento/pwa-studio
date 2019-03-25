@@ -1,4 +1,6 @@
 title: Tutorials
 entries:
-  - label: Overview
-    url: /tutorials/
+    - label: Overview
+      url: /tutorials/
+    - label: Hello UPWARD
+      url: /tutorials/hello-upward/
