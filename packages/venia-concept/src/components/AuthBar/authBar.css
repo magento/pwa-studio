@@ -1,0 +1,9 @@
+.root {
+    align-items: center;
+    background-color: white;
+    display: flex;
+    height: 5.5rem;
+    justify-content: center;
+    padding: 1.5rem 1rem 1rem;
+    width: 100%;
+}

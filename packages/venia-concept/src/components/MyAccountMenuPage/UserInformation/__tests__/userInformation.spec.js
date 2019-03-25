@@ -1,15 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Icon from 'src/components/Icon';
+import { createTestInstance } from '@magento/peregrine';
+
 import UserInformation from '../userInformation';
 
-const classes = {
-    fullName: 'fullName',
-    email: 'email',
-    userInformationContainer: 'userInformationContainer',
-    iconContainer: 'iconContainer',
-    root: 'root'
-};
+jest.mock('src/classify');
 
 const user = {
     fullname: 'Example User',
@@ -17,11 +11,11 @@ const user = {
 };
 
 test('renders correctly', () => {
-    const wrapper = shallow(
-        <UserInformation user={user} classes={classes} />
-    ).dive();
+    const { root } = createTestInstance(<UserInformation user={user} />);
 
-    expect(wrapper.find(Icon)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.fullName}`).text()).toBe(user.fullname);
-    expect(wrapper.find(`.${classes.email}`).text()).toBe(user.email);
+    expect(root.findByProps({ className: 'email' })).toBeTruthy();
+    expect(root.findByProps({ className: 'fullName' })).toBeTruthy();
+    expect(root.findByProps({ className: 'icon' })).toBeTruthy();
+    expect(root.findByProps({ className: 'root' })).toBeTruthy();
+    expect(root.findByProps({ className: 'user' })).toBeTruthy();
 });

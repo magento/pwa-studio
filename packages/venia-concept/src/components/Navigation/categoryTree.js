@@ -1,124 +1,86 @@
-import React, { Component, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
+import { useQuery } from '@magento/peregrine';
 
-import { Query } from 'src/drivers';
-import classify from 'src/classify';
-import LoadingIndicator from 'src/components/LoadingIndicator';
+import { mergeClasses } from 'src/classify';
+import MENU_QUERY from 'src/queries/getNavigationMenu.graphql';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
-import CategoryTree from './categoryTree';
 import defaultClasses from './categoryTree.css';
-import navigationMenu from '../../queries/getNavigationMenu.graphql';
 
-const loadingIndicator = <LoadingIndicator>{`Fetching...`}</LoadingIndicator>;
+const Tree = props => {
+    const {
+        categories,
+        categoryId,
+        onNavigate,
+        setCategoryId,
+        updateCategories
+    } = props;
 
-class Tree extends Component {
-    static propTypes = {
-        classes: shape({
-            leaf: string,
-            root: string,
-            tree: string
-        }),
-        nodes: objectOf(
-            shape({
-                id: number.isRequired,
-                position: number.isRequired
-            })
-        ),
-        onNavigate: func,
-        rootNodeId: number.isRequired,
-        updateRootNodeId: func.isRequired,
-        currentId: number.isRequired
-    };
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const [queryResult, queryApi] = useQuery(MENU_QUERY);
+    const { data } = queryResult;
+    const { runQuery } = queryApi;
 
-    get leaves() {
-        const {
-            classes,
-            onNavigate,
-            rootNodeId,
-            updateRootNodeId,
-            currentId
-        } = this.props;
+    // fetch categories
+    useEffect(() => {
+        if (categoryId) {
+            runQuery({ variables: { id: categoryId } });
+        }
+    }, [categoryId, runQuery]);
 
-        return rootNodeId ? (
-            <Query query={navigationMenu} variables={{ id: rootNodeId }}>
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return loadingIndicator;
+    // update redux with fetched categories
+    useEffect(() => {
+        if (data && data.category) {
+            updateCategories(data.category);
+        }
+    }, [data, updateCategories]);
 
-                    const branches = [];
+    const rootCategory = categories[categoryId];
+    const { children, url_path } = rootCategory || {};
 
-                    const children = data.category.children.sort((a, b) => {
-                        if (a.position > b.position) return 1;
-                        else if (a.position == b.position && a.id > b.id)
-                            return 1;
-                        else return -1;
-                    });
+    // render a branch for each child category
+    const branches = rootCategory
+        ? Array.from(children || [], id => (
+              <Branch
+                  key={id}
+                  category={categories[id]}
+                  setCategoryId={setCategoryId}
+              />
+          ))
+        : null;
 
-                    const leaves = children.map(node => {
-                        // allow leaf node to render if value is 1 or undefined (field not in Magento 2.3.0 schema)
-                        if (node.include_in_menu === 0) {
-                            return null;
-                        }
-                        const { children_count } = node;
-                        const isLeaf = children_count == 0;
-                        const elementProps = {
-                            nodeId: node.id,
-                            name: node.name,
-                            urlPath: node.url_path,
-                            path: node.path
-                        };
-
-                        if (!isLeaf) {
-                            branches.push(
-                                <CategoryTree
-                                    key={node.id}
-                                    rootNodeId={node.id}
-                                    updateRootNodeId={updateRootNodeId}
-                                    onNavigate={onNavigate}
-                                    currentId={currentId}
-                                />
-                            );
-                        }
-
-                        const element = isLeaf ? (
-                            <Leaf {...elementProps} onNavigate={onNavigate} />
-                        ) : (
-                            <Branch
-                                {...elementProps}
-                                onDive={updateRootNodeId}
-                            />
-                        );
-
-                        return <li key={node.id}>{element}</li>;
-                    });
-
-                    const branchClass =
-                        currentId == rootNodeId
-                            ? classes.branch
-                            : classes.inactive;
-
-                    return (
-                        <Fragment>
-                            <div className={branchClass}>{leaves}</div>
-                            {branches}
-                        </Fragment>
-                    );
-                }}
-            </Query>
+    const leaf =
+        rootCategory && url_path ? (
+            <Leaf category={rootCategory} onNavigate={onNavigate} />
         ) : null;
-    }
 
-    render() {
-        const { leaves, props } = this;
-        const { classes } = props;
+    return (
+        <div className={classes.root}>
+            <ul className={classes.tree}>
+                {branches}
+                {leaf}
+            </ul>
+        </div>
+    );
+};
 
-        return (
-            <div className={classes.root}>
-                <ul className={classes.tree}>{leaves}</ul>
-            </div>
-        );
-    }
-}
+export default Tree;
 
-export default classify(defaultClasses)(Tree);
+Tree.propTypes = {
+    categories: objectOf(
+        shape({
+            id: number.isRequired,
+            name: string,
+            url_path: string
+        })
+    ),
+    categoryId: number.isRequired,
+    classes: shape({
+        root: string,
+        tree: string
+    }),
+    onNavigate: func.isRequired,
+    setCategoryId: func.isRequired,
+    updateCategories: func.isRequired
+};

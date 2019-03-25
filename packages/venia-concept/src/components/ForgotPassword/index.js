@@ -1,1 +1,1 @@
-export { default } from './forgotPassword';
+export { default } from './container';

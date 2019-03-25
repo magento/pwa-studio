@@ -18,8 +18,7 @@ class MyAccountMenuPage extends Component {
         user: PropTypes.shape({
             email: PropTypes.string,
             firstname: PropTypes.string,
-            lastname: PropTypes.string,
-            fullname: PropTypes.string
+            lastname: PropTypes.string
         })
     };
 

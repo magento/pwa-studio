@@ -1,44 +1,43 @@
-import React, { Component } from 'react';
-import { Link } from 'src/drivers';
-import { func, shape, string } from 'prop-types';
+import React, { useCallback } from 'react';
+import { func, number, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
+import { Link, resourceUrl } from 'src/drivers';
 import defaultClasses from './categoryLeaf.css';
 
-const urlSuffix = '.html';
+const suffix = '.html';
 
-class Leaf extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string,
-            text: string
-        }),
-        name: string.isRequired,
-        urlPath: string.isRequired,
-        onNavigate: func
-    };
+const Leaf = props => {
+    const { category, onNavigate } = props;
+    const { name, url_path } = category;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    handleClick = () => {
-        const { onNavigate } = this.props;
+    const handleClick = useCallback(() => {
+        onNavigate();
+    }, [onNavigate]);
 
-        if (typeof onNavigate === 'function') {
-            onNavigate();
-        }
-    };
-
-    render() {
-        const { classes, name, urlPath } = this.props;
-
-        return (
+    return (
+        <li className={classes.root}>
             <Link
-                className={classes.root}
-                to={`/${urlPath}${urlSuffix}`}
-                onClick={this.handleClick}
+                className={classes.target}
+                to={resourceUrl(`/${url_path}${suffix}`)}
+                onClick={handleClick}
             >
-                <span className={classes.text}>{name}</span>
+                <span className={classes.text}>{`All ${name}`}</span>
             </Link>
-        );
-    }
-}
+        </li>
+    );
+};
 
-export default classify(defaultClasses)(Leaf);
+export default Leaf;
+
+Leaf.propTypes = {
+    category: shape({
+        id: number,
+        name: string.isRequired,
+        parentId: number,
+        position: number,
+        url_path: string.isRequired
+    }).isRequired,
+    onNavigate: func.isRequired
+};

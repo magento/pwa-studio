@@ -7,7 +7,6 @@ import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
-
 import combine from 'src/util/combineValidators';
 import {
     validateEmail,

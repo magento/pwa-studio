@@ -1,1 +1,1 @@
-export { default as MyAccountMenuTrigger } from './MyAccountMenuTrigger';
+export { default } from './MyAccountMenuPage';

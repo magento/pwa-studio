@@ -8851,9 +8851,9 @@ inflight@^1.0.4:
     wrappy "1"
 
 informed@~2.1.13:
-  version "2.1.15"
-  resolved "https://registry.yarnpkg.com/informed/-/informed-2.1.15.tgz#3e5c1a580ad9b05cba2b52209d6ddcd40ae40872"
-  integrity sha512-zxzF1NpI9YYhvrD1JXEAGHoJ5CHf9yAtIPAIbekn92D9SioVME7X4DwmJNOZb2vZ5fM8Ibcjbt2vzcJS2LXaLw==
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/informed/-/informed-2.1.13.tgz#99002260e9a6a3ec965622182809daa85a12a9cd"
+  integrity sha512-4IQXa1XNtLMMPjKUexR5QOPbxcV8c7IIKT9lb3Sh5wAJEYlB0p45dGH76F7XrN18/2G2A4QyX4DyA22/wG8HiQ==
   dependencies:
     debug "^4.1.1"
     lodash "^4.17.11"

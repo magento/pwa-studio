@@ -28,10 +28,10 @@
     "react-test-renderer": "~16.8.6"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.4.2",
-    "react": "^16.8.0",
-    "react-apollo": "^2.5.3",
-    "react-dom": "^16.8.0",
+    "@babel/runtime": "~7.4.2",
+    "react": "~16.8.0",
+    "react-apollo": "~2.5.5",
+    "react-dom": "~16.8.0",
     "react-router-dom": "~5.0.0"
   },
   "engines": {
