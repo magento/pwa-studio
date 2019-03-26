@@ -14,7 +14,7 @@
     visibility: hidden;
     width: 100%;
     max-width: 360px;
-    z-index: 3;
+    z-index: 10;
 }
 
 .header {
