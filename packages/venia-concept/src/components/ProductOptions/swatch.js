@@ -3,7 +3,7 @@ import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import SwatchTooltip from 'src/components/SwatchTooltip';
+import SwatchTooltip from './swatchTooltip';
 import CheckIcon from 'react-feather/dist/icons/check';
 
 import defaultClasses from './swatch.css';
