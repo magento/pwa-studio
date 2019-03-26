@@ -6,6 +6,16 @@ import uuid from 'uuid/v4';
 import classify from 'src/classify';
 import defaultClasses from './swatchTooltip.css';
 
+/**
+ * NOTE: The SwatchTooltip component, as created, needs to be a parent of the
+ * component it is a tooltip for. This is necessary for several reasons:
+ *  - the Tooltip generates a uuid which is used for the aria-describedby
+ *  - the Tooltip currently acts like a controller for event handlers.
+ *
+ * Once we move this component to a more general "Tooltip" component within
+ * Peregrine we may change the parent-child relationship pattern. Please be
+ * aware of this if you chose to reuse this component. -srugh
+ */
 class SwatchTooltip extends Component {
     static propTypes = {
         classes: shape({
