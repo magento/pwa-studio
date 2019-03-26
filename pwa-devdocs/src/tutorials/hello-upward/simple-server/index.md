@@ -112,27 +112,27 @@ headers: response.headers
 body: response.body
 
 response:
--  inline:
--    status:
--      resolver: inline
--      inline: 200
--    headers:
--      resolver: inline
--      inline:
--        content-type:
--          resolver: inline
--          inline: 'text/string'
--    body:
--      resolver: inline
--      inline: 'Hello World!'
-+  when:
-+    - matches: request.url.pathname
-+      pattern: '^/?$'
-+      use: helloWorld
-+    - matches: request.url.pathname
-+      pattern: '^/hello-world/?$'
-+      use: helloWorld
-+  default: notFound
+-   inline:
+-       status:
+-           resolver: inline
+-           inline: 200
+-       headers:
+-           resolver: inline
+-           inline:
+-               content-type:
+-                   resolver: inline
+-                   inline: 'text/string'
+-       body:
+-           resolver: inline
+-           inline: 'Hello World!'
++   when:
++       - matches: request.url.pathname
++         pattern: '^/?$'
++         use: helloWorld
++       - matches: request.url.pathname
++         pattern: '^/hello-world/?$'
++         use: helloWorld
++   default: notFound
 ```
 
 This code tells the server to look at the requested URL path and check to see if it matches the root or `/hello-world` path.
@@ -176,6 +176,8 @@ notFound:
 Now, when you start the server and navigate to the application, only the root and `/hello-world` path return the "Hello World!" message.
 All other paths return the `404` response.
 
+**Next:** [Serving web pages using the TemplateResolver][]
+
 ## Create web page templates
 
 ## Converting to a React application
@@ -189,3 +191,4 @@ All other paths return the `404` response.
 [express]: https://expressjs.com/
 
 [`upward-js`]: {{site.baseurl}}{% link technologies/upward/reference-implementation/index.md %}
+[Serving web pages using the TemplateResolver]: {{site.baseurl}}{% link tutorials/hello-upward/using-template-resolver/index.md %}
