@@ -21,7 +21,7 @@
     visibility: hidden;
     width: 100%;
     max-width: 360px;
-    z-index: var(--base-z-index);
+    z-index: 10;
 }
 
 /* state: open */
