@@ -46,13 +46,7 @@ const reducerMap = {
             prevPageTotal: payload
         };
     },
-    [actions.filterOption.add]: (
-        state,
-        { payload: { group, title, value } }
-    ) => {
-        const oldState = state.chosenFilterOptions[group] || [];
-        const newState = oldState.concat({ title, value });
-
+    [actions.filterOption.add]: (state, { payload: { newState, group } }) => {
         return {
             ...state,
             chosenFilterOptions: {
@@ -63,13 +57,8 @@ const reducerMap = {
     },
     [actions.filterOption.remove]: (
         state,
-        { payload: { group, title, value } }
+        { payload: { newState, group } }
     ) => {
-        const oldState = state.chosenFilterOptions[group] || [];
-        const newState = oldState.filter(item => {
-            return item.title !== title || item.value !== value;
-        });
-
         return {
             ...state,
             chosenFilterOptions: {

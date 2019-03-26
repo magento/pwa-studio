@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import Icon from 'src/components/Icon';
 import Remove from 'react-feather/dist/icons/x';
 import classify from 'src/classify';
+import { withRouter } from 'react-router-dom';
 import defaultClasses from './filtersCurrent.css';
 
 class FiltersCurrent extends Component {
@@ -25,8 +27,8 @@ class FiltersCurrent extends Component {
         const { title, value, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
-        const { filterRemove } = this.props;
-        filterRemove({ title, value, group });
+        const { filterRemove, history } = this.props;
+        filterRemove({ title, value, group }, history);
     };
 
     getCurrentFilter = (item, key) => {
@@ -70,4 +72,7 @@ class FiltersCurrent extends Component {
     }
 }
 
-export default classify(defaultClasses)(FiltersCurrent);
+export default compose(
+    withRouter,
+    classify(defaultClasses)
+)(FiltersCurrent);

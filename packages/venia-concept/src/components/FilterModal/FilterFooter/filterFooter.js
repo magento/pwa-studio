@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import catalogActions from 'src/actions/catalog';
+import catalogActions, { serialize } from 'src/actions/catalog';
 import { withRouter } from 'react-router-dom';
 import classify from 'src/classify';
-import { serialize } from './utils';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
