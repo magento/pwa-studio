@@ -2,13 +2,13 @@
 title: Using the TemplateResolver
 ---
 
-In this tutorial, you will learn how to use the TemplateResolver in your UPWARD specification file to serve an HTML page rendered by the server.
+In this tutorial, you will learn how to use the [TemplateResolver][] in your UPWARD specification file to serve an HTML page rendered server-side.
 
-This tutorial builds on the project described in the previous [Creating a simple server][] topic.
+This tutorial builds on the project described in the previous [Creating a simple server][] tutorial.
 
 ## Create web page templates
 
-In your project directory, create a `templates` directory with the following [Mustache][] template files:
+In your project directory, create a `templates` directory with [Mustache][] template files for the different pieces of the HTML page.
 
 **`open-document.mst`**
 
@@ -60,11 +60,11 @@ This template partial closes the `body` and `html` tag for the HTML response.
 {% endraw %}
 
 This template uses the previously defined template partials to create a complete HTML response.
-The body contains the "Hello World!" message and sets the page title to a `title` variable.
+The body contains the "Hello World!" message and sets the page title to a `title` variable, which is available through the template context.
 
 ## Add TemplateResolver
 
-Modify the `helloWorld` object in the `spec.yml` file and replace the simple text response to an actual HTML page:
+Modify the `helloWorld` object in the `spec.yml` file and replace the simple text response to an actual HTML page.
 
 ```diff
 helloWorld:
@@ -92,7 +92,7 @@ helloWorld:
 ```
 
 This new code replaces the InlineResolver with a TemplateResolver in the response body.
-This TemplateResolver configuration sets the rendering engine to `mustache` since the templates created previously are in Mustache format.
+This TemplateResolver configuration sets the rendering engine to `mustache`, since the templates created previously are in Mustache format.
 It also provides the `title` variable to the context during template render.
 
 Now, when you start the server and navigate to the root or `/hello-world` path, you get an actual HTML webpage instead of text.
@@ -103,3 +103,4 @@ Now, when you start the server and navigate to the root or `/hello-world` path, 
 [Adding React to the server]: {{site.baseurl}}{%link tutorials/hello-upward/adding-react/index.md %}
 
 [Mustache]: https://mustache.github.io/mustache.5.html
+[TemplateResolver]: https://github.com/magento-research/pwa-studio/tree/develop/packages/upward-spec#templateresolver

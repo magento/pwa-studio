@@ -8,7 +8,7 @@ This tutorial builds on the project described in the previous [Using the Templat
 
 ## Install dependencies
 
-Add the following dependencies into the project:
+Add babel, webpack, and react dependencies to the project:
 
 ```sh
 yarn add @babel/core @babel/preset-env babel-loader webpack webpack-cli @babel/preset-react react react-dom
@@ -70,7 +70,7 @@ module.exports = {
 };
 ```
 
-This configuration file tells webpack to transpile all JavaScript files using babel and bundling `src/hello-world.js` with its dependencies into `dist/app.js`.
+This configuration file tells webpack to transpile all JavaScript files using babel and bundle `src/hello-world.js` with its dependencies into `dist/app.js`.
 
 ## Create babel config
 
@@ -83,7 +83,7 @@ Create a `.babelrc` file to configure babel:
 ```
 
 This configuration file tells babel what presets to use during JavaScript transpilation.
-In this case, `@babel/preset-env` and `@babel/preset-react`, which are common React development presets.
+The presets used in this example, `@babel/preset-env` and `@babel/preset-react`, are common React development presets.
 
 ## Create the React application
 
@@ -107,12 +107,13 @@ It uses the `ReactDOM` module to inject the content of the application into the 
 
 ## Make the application script publicly available
 
-Modify the `spec.yml` file to make the application script available for download:
+Edit the `spec.yml` file to add a new URL pattern to check in the ConditionalResolver and a new `appScript` object.
 
 ```diff
 ...
 
 response:
+    resolver: conditional
     when:
         - matches: request.url.pathname
           pattern: '^/?$'
@@ -152,7 +153,7 @@ notFound:
 +                 inline: 'utf-8'
 ```
 
-This update uses a FileResolver to tell the UPWARD server to respond with the contents of `dist/app.js` when there is a request for the `js/app.js` path.
+This update uses a [FileResolver][] which instructs the UPWARD server to respond with the contents of `dist/app.js` when there is a request for the `js/app.js` path.
 
 ## Create the bundle and start the server
 
@@ -172,3 +173,4 @@ When you navigate to the server, you will see the React application render the "
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [babel]: https://babeljs.io/
 [webpack]: https://webpack.js.org/
+[FileResolver]: https://github.com/magento-research/pwa-studio/tree/develop/packages/upward-spec#fileresolver

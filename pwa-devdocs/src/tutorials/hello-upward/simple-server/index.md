@@ -2,7 +2,7 @@
 title: Creating a simple server
 ---
 
-This tutorial teaches the basics of reading and writing an UPWARD specification file by creating a simple web server that returns a "Hello World" message.
+This tutorial teaches the basics of reading and writing an UPWARD specification file by creating a simple web server that returns a "Hello World" string.
 
 ## Prerequisites
 
@@ -51,6 +51,7 @@ headers: response.headers
 body: response.body
 
 response:
+    resolver: inline
     inline:
         status:
             resolver: inline
@@ -70,11 +71,13 @@ The first three lines set the `status`, `headers`, and `body` values required fo
 These values are set by traversing a decision tree defined in the specification file.
 
 In this example, they are set to the `status`, `headers`, and `body` values of the `response` object.
-For every request, the `response` object instructs the server to respond with a `200 OK` status code, content of type `text/string`, and a value of `Hello World!` in the response body.
+These values are set using an UPWARD [InlineResolver][], which resolves the value of the `inline` property to a literal value.
+
+When passed to an UPWARD server, this file instructs the server to respond with a `200 OK` status code, content of type `text/string`, and a value of `Hello World!` in the response body for every request.
 
 ## Create and run the server
 
-Create a new file called `server.js` with the following content:
+Create a `server.js` file with logic for starting the Node implementation of an UPWARD server.
 
 ```js
 const { createUpwardServer } = require('@magento/upward-js');
@@ -104,7 +107,7 @@ Navigate to this URL to see the "Hello World!" message.
 When you browse to the server, every path request returns the same message.
 To restrict this message to the root or a specific path, you must use a ConditionalResolver.
 
-Edit `spec.yml` and replace the content of the `response` object with a ConditionalResolver:
+Edit `spec.yml` and replace the InlineResolver content of the `response` object with a [ConditionalResolver][] to define which paths return "Hello World!".
 
 ```diff
 status: response.status
@@ -112,6 +115,7 @@ headers: response.headers
 body: response.body
 
 response:
+-   resolver: inline
 -   inline:
 -       status:
 -           resolver: inline
@@ -125,6 +129,7 @@ response:
 -       body:
 -           resolver: inline
 -           inline: 'Hello World!'
++   resolver: conditional
 +   when:
 +       - matches: request.url.pathname
 +         pattern: '^/?$'
@@ -176,13 +181,7 @@ notFound:
 Now, when you start the server and navigate to the application, only the root and `/hello-world` path return the "Hello World!" message.
 All other paths return the `404` response.
 
-**Next:** [Serving web pages using the TemplateResolver][]
-
-## Create web page templates
-
-## Converting to a React application
-
-## Bonus: Adding Hot Module Reloading functionality
+**Next:** [Rendering web pages using the TemplateResolver][]
 
 [upward specification]: https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec
 [node]: https://nodejs.org
@@ -191,4 +190,6 @@ All other paths return the `404` response.
 [express]: https://expressjs.com/
 
 [`upward-js`]: {{site.baseurl}}{% link technologies/upward/reference-implementation/index.md %}
-[Serving web pages using the TemplateResolver]: {{site.baseurl}}{% link tutorials/hello-upward/using-template-resolver/index.md %}
+[Rendering web pages using the TemplateResolver]: {{site.baseurl}}{% link tutorials/hello-upward/using-template-resolver/index.md %}
+[InlineResolver]: https://github.com/magento-research/pwa-studio/tree/develop/packages/upward-spec#inlineresolver
+[ConditionalResolver]: https://github.com/magento-research/pwa-studio/tree/develop/packages/upward-spec#conditionalresolver
