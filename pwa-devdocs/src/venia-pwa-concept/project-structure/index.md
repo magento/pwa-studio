@@ -155,7 +155,7 @@ The `src/sw.js` file contains the service worker configuration.
 
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
-[UPWARD]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/upward-spec
+[UPWARD]: https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec
 [Webpack]: https://webpack.js.org/
 [Install Venia sample data]: {{ site.baseurl }}{% link venia-pwa-concept/install-sample-data/index.md %}
 [Venia setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
@@ -172,14 +172,14 @@ The `src/sw.js` file contains the service worker configuration.
 [Redux middleware pattern]: https://redux.js.org/advanced/middleware
 [UPWARD server specification]: {{site.baseurl}}{%link technologies/upward/index.md %}
 [mustache]: https://mustache.github.io/
-[`.env.dist`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/.env.dist
-[`deployVeniaSampleData.sh`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/deployVeniaSampleData.sh
-[`server.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/server.js
-[`validate-environment.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/validate-environment.js
-[`venia-concept`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept
-[`validate-queries.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/validate-queries.js 
-[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/venia-upward.yml
-[`templates`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/templates
-[`static`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/static
-[`src`]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept/src
-[`webpack.config.js`]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/webpack.config.js
+[`.env.dist`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/.env.dist
+[`deployVeniaSampleData.sh`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/deployVeniaSampleData.sh
+[`server.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/server.js
+[`validate-environment.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/validate-environment.js
+[`venia-concept`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
+[`validate-queries.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/validate-queries.js 
+[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/venia-upward.yml
+[`templates`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/templates
+[`static`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/static
+[`src`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src
+[`webpack.config.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/webpack.config.js

@@ -2,20 +2,11 @@
 title: List
 ---
 
-The `List` component maps a collection of data objects into an array of elements.
-It also manages the selection and focus of those elements.
-
-## Props
-
-| Name                | Required                                      | Description                                                                                   |
-| ------------------- | :-------------------------------------------: | --------------------------------------------------------------------------------------------- |
-| `classes`           |                                               | A classname object                                                                            |
-| `items`             | <i class="material-icons green">check_box</i> | An iterable that yields `[key, item]` pairs such as an ES2015 [Map]                           |
-| `render`            | <i class="material-icons green">check_box</i> | A [render prop] for the list element. A tagname string, such as `"div"`, is also valid.       |
-| `renderItem`        |                                               | A [render prop] for the list item elements. A tagname string, such as `"div"`, is also valid. |
-| `onSelectionChange` |                                               | A callback that fires when the selection state changes.                                       |
-| `selectionModel`    |                                               | A string corresponding to a selection model.                                                  |
-{:style="table-layout:auto"}
+<!-- 
+The reference doc content is generated automatically from the source code.
+To update this section, update the doc blocks in the source code
+-->
+{% include auto-generated/peregrine/src/List/list.md %}
 
 ### Selection models
 
