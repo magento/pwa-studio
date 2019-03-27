@@ -8,11 +8,11 @@ This tutorial builds on the project described in the previous [Creating a simple
 
 ## Create web page templates
 
-In your project directory, create a `templates` directory with the following template files:
+In your project directory, create a `templates` directory with the following [Mustache][] template files:
 
 **`open-document.mst`**
 
-``` mustache
+```mustache
 <!DOCTYPE html>
 <html language="en">
 
@@ -44,6 +44,7 @@ This template partial closes the `body` and `html` tag for the HTML response.
 **`hello-world.mst`**
 
 {%raw %}
+
 ```mustache
 {{> templates/open-document}}
 
@@ -52,14 +53,53 @@ This template partial closes the `body` and `html` tag for the HTML response.
   {{> templates/open-body}}
 
     Hello World!
-  
-  {{> templates/close-body}}
+
+  {{> templates/close-document}}
 ```
+
 {% endraw %}
 
 This template uses the previously defined template partials to create a complete HTML response.
+The body contains the "Hello World!" message and sets the page title to a `title` variable.
 
-A `title` variable is used in to set a custom value for the title metadata for the page.
-The value for this variable is defined in 
+## Add TemplateResolver
+
+Modify the `helloWorld` object in the `spec.yml` file and replace the simple text response to an actual HTML page:
+
+```diff
+helloWorld:
+    inline:
+        status:
+            resolver: inline
+            inline: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    resolver: inline
+-                   inline: 'text/string'
++                   inline: 'text/html'
+        body:
+-           resolver: inline
+-           inline: 'Hello World!'
++           resolver: template
++           engine: mustache
++           template: './templates/hello-world.mst'
++           provide:
++               title:
++                   resolver: inline
++                   inline: 'This is the page title!'
+```
+
+This new code replaces the InlineResolver with a TemplateResolver in the response body.
+This TemplateResolver configuration sets the rendering engine to `mustache` since the templates created previously are in Mustache format.
+It also provides the `title` variable to the context during template render.
+
+Now, when you start the server and navigate to the root or `/hello-world` path, you get an actual HTML webpage instead of text.
+
+**Next:** [Adding React to the server][]
 
 [Creating a simple server]: {{site.baseurl}}{%link tutorials/hello-upward/simple-server/index.md %}
+[Adding React to the server]: {{site.baseurl}}{%link tutorials/hello-upward/adding-react/index.md %}
+
+[Mustache]: https://mustache.github.io/mustache.5.html
