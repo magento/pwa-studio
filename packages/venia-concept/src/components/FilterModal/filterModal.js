@@ -72,6 +72,8 @@ class FilterModal extends Component {
         const { classes, isModalOpen, closeModalHandler } = this.props;
         const modalClass = isModalOpen ? classes.rootOpen : classes.root;
 
+        if (!this.props.filters) return null;
+
         return (
             <div className={modalClass}>
                 <div className={classes.modalWrapper}>
