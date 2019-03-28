@@ -2,8 +2,10 @@ import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
+import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { connect } from 'src/drivers';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
@@ -11,6 +13,7 @@ import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
+import findMatchingVariant from 'src/util/findMatchingProductVariant';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -135,10 +138,49 @@ class ProductFullDetail extends Component {
         );
     }
 
+    get mediaGalleryEntries() {
+        const { props, state } = this;
+        const { product } = props;
+        const { optionCodes, optionSelections } = state;
+        const {
+            configurable_options,
+            media_gallery_entries,
+            variants
+        } = product;
+
+        const isConfigurable = Array.isArray(configurable_options);
+
+        if (
+            !isConfigurable ||
+            (isConfigurable && optionSelections.size === 0)
+        ) {
+            return media_gallery_entries;
+        }
+
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        if (!item) {
+            return media_gallery_entries;
+        }
+
+        return item.product.media_gallery_entries;
+    }
+
     render() {
-        const { productOptions, props } = this;
-        const { classes, product } = props;
+        const { addToCart, productOptions, props, mediaGalleryEntries } = this;
+        const { classes, isAddingItem, product } = props;
         const { regularPrice } = product.price;
+
+        // We want this key to change whenever mediaGalleryEntries changes.
+        // Make it dependent on a unique value in each entry (file),
+        // and the order.
+        const carouselKey = mediaGalleryEntries.reduce((fullKey, entry) => {
+            return `${fullKey},${entry.file}`;
+        }, '');
 
         return (
             <Form className={classes.root}>
@@ -154,7 +196,7 @@ class ProductFullDetail extends Component {
                     </p>
                 </section>
                 <section className={classes.imageCarousel}>
-                    <Carousel images={product.media_gallery_entries} />
+                    <Carousel images={mediaGalleryEntries} key={carouselKey} />
                 </section>
                 <section className={classes.options}>{productOptions}</section>
                 <section className={classes.quantity}>
@@ -167,7 +209,11 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <Button priority="high" onClick={this.addToCart}>
+                    <Button
+                        priority="high"
+                        onClick={addToCart}
+                        disabled={isAddingItem}
+                    >
                         <span>Add to Cart</span>
                     </Button>
                 </section>
@@ -188,4 +234,13 @@ class ProductFullDetail extends Component {
     }
 }
 
-export default classify(defaultClasses)(ProductFullDetail);
+const mapStateToProps = ({ cart }) => {
+    return {
+        isAddingItem: cart.isAddingItem
+    };
+};
+
+export default compose(
+    classify(defaultClasses),
+    connect(mapStateToProps)
+)(ProductFullDetail);

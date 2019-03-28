@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, string, number, shape } from 'prop-types';
+import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
 const pageSize = 12;
@@ -14,16 +14,7 @@ class GalleryItems extends Component {
     static propTypes = {
         items: arrayOf(
             shape({
-                id: number.isRequired,
-                name: string.isRequired,
-                small_image: string.isRequired,
-                price: shape({
-                    regularPrice: shape({
-                        amount: shape({
-                            value: number.isRequired
-                        }).isRequired
-                    }).isRequired
-                }).isRequired
+                id: number.isRequired
             })
         ).isRequired,
         pageSize: number
@@ -41,6 +32,16 @@ class GalleryItems extends Component {
             : defaultPlaceholders;
     }
 
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+    mapGalleryItem(item) {
+        const { small_image } = item;
+        return {
+            ...item,
+            small_image:
+                typeof small_image === 'object' ? small_image.url : small_image
+        };
+    }
+
     render() {
         const { items } = this.props;
 
@@ -48,7 +49,9 @@ class GalleryItems extends Component {
             return this.placeholders;
         }
 
-        return items.map(item => <GalleryItem key={item.id} item={item} />);
+        return items.map(item => (
+            <GalleryItem key={item.id} item={this.mapGalleryItem(item)} />
+        ));
     }
 }
 
