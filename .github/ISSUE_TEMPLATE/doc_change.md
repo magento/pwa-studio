@@ -1,7 +1,7 @@
 ---
 name: Documentation Request
 about: Tell us how our documentation could improve
-title: "[doc]: A short, simple sentence describing the doc change"
+title: "[doc]: A short, simple sentence describing the doc request"
 labels: documentation
 assignees: 'jcalcaben'
 ---
