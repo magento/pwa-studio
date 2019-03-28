@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 
 import actions from 'src/actions/catalog';
 
@@ -9,8 +10,8 @@ export const initialState = {
     rootCategoryId: null,
     currentPage: 1,
     pageSize: 6,
-    chosenFilterOptions: {},
-    appliedFilterOptions: {}
+    chosenFilterOptions: getFilterParams(),
+    appliedFilterOptions: getFilterParams()
 };
 
 const reducerMap = {
