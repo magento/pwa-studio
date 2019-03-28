@@ -24,13 +24,13 @@ const reducerMap = {
 
         return {
             ...state,
-            cartId: payload
+            cartId: String(payload)
         };
     },
     [actions.getDetails.request]: (state, { payload }) => {
         return {
             ...state,
-            cartId: payload,
+            cartId: String(payload),
             isLoading: true
         };
     },
