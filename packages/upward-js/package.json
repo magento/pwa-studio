@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -31,16 +31,15 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
-    "apollo-boost": "~0.1.23",
-    "apollo-link": "~1.2.6",
-    "apollo-link-http": "~1.5.9",
+    "apollo-link": "~1.2.8",
+    "apollo-link-http": "~1.5.11",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
     "debug": "~4.1.1",
     "debug-error-middleware": "~1.3.0",
     "dotenv": "~6.2.0",
-    "graphql": "~14.0.2",
-    "graphql-tag": "~2.10.0",
+    "graphql": "~14.1.1",
+    "graphql-tag": "~2.10.1",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.1",
     "js-yaml": "~3.12.1",
@@ -49,13 +48,12 @@
     "node-fetch": "~2.3.0"
   },
   "devDependencies": {
-    "@magento/upward-spec": "^2.0.0",
+    "@magento/upward-spec": "~2.1.0",
     "express": "~4.16.4",
-    "jest": "~23.6.0",
-    "supertest": "~3.3.0"
+    "supertest": "~3.4.2"
   },
   "peerDependencies": {
-    "express": "~4.16.4"
+    "express": "^4.16.4"
   },
   "optionalDependencies": {
     "shrink-ray-current": "~3.0.2"

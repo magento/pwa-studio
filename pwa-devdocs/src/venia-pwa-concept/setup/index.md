@@ -15,7 +15,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 * [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 * [Yarn >=1.13.0](https://yarnpkg.com)
 * Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
-* [A running instance of Magento 2.3](#choosing-the-magento-23-backend)
+* [A running instance of Magento 2.3.1 or above](#choosing-the-magento-23-backend)
 
 
 ## Step 1. Clone the PWA Studio repository
@@ -53,23 +53,23 @@ cp packages/venia-concept/.env.dist packages/venia-concept/.env
 In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.  
 
 If you are contributing to Venia development or exploring its features, you can use the default `MAGENTO_BACKEND_URL` value.
-This URL points to a cloud instance of Magento 2.3 with the [Venia sample data][] installed.
+This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data][] installed.
 
 **Example:**
 ``` text
-MAGENTO_BACKEND_URL="https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
+MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/
 ```
 
 ### Choosing the Magento 2.3 backend
 
-The Venia storefront runs on top of any Magento 2.3 instance. 
+The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance. 
 
-The currently recommended Magento version to use with PWA Studio is **2.3.0** which can be installed using composer. 
+The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer. 
 
 **Example:**
 
 ```sh
-composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:2.3.0 [destination directory]
+composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:2.3.1 [destination directory]
 ```
 
 Use the default cloud instance as the backend or set up your own [local development instance][].
@@ -132,7 +132,7 @@ for PWA development on the frontend, use this new address.
 
 Congratulations! You have set up your development environment for the Venia storefront project.
 
-[Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/release/2.0/packages/venia-concept
+[Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
 [Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
 [Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
 [PWA Studio]: https://github.com/magento-research/pwa-studio

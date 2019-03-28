@@ -108,8 +108,9 @@ describe('resetCheckout', () => {
         await resetCheckout()(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.reset());
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+        expect(dispatch).toHaveBeenNthCalledWith(3, actions.reset());
+        expect(dispatch).toHaveBeenCalledTimes(3);
     });
 });
 

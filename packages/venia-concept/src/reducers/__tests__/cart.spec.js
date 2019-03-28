@@ -2,71 +2,202 @@ import reducer, { initialState } from 'src/reducers/cart';
 import actions from 'src/actions/cart';
 import checkoutActions from 'src/actions/checkout';
 
-test('getCart.receive: adds cartId to state', () => {
-    expect(
-        reducer(
-            { other: 'stuff' },
-            { type: actions.getCart.receive, payload: 'A_CART' }
-        )
-    ).toEqual({
-        other: 'stuff',
-        cartId: 'A_CART'
+const state = { ...initialState };
+
+describe('getCart.receive', () => {
+    const actionType = actions.getCart.receive;
+
+    test('it sets cartId', () => {
+        const action = {
+            error: null,
+            payload: 1,
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('cartId', 1);
+    });
+
+    test('it restores initial state on error', () => {
+        const action = {
+            error: true,
+            payload: new Error('unit test'),
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toEqual(initialState);
     });
 });
 
-test('getCart.receive: restores initial state on error', () => {
-    expect(
-        reducer(
-            { cartId: 'AN_EXPIRED_CART', other: 'stuff' },
-            {
-                type: actions.getCart.receive,
-                payload: new Error('Failed to get a guest cart!'),
-                error: true
-            }
-        )
-    ).toEqual(initialState);
-});
+describe('getDetails.request', () => {
+    const actionType = actions.getDetails.request;
 
-test('getDetails.receive: merges payload with state', () => {
-    expect(
-        reducer(
-            { other: 'stuff', totals: { total: 100 } },
-            {
-                type: actions.getDetails.receive,
-                payload: {
-                    totals: { total: 200 },
-                    details: { items: ['woah'] }
-                }
-            }
-        )
-    ).toEqual({
-        loading: false,
-        other: 'stuff',
-        totals: {
-            total: 200
-        },
-        details: {
-            items: ['woah']
-        }
+    test('it sets cartId and the isLoading flag', () => {
+        const action = {
+            payload: 1,
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('cartId', 1);
+        expect(result).toHaveProperty('isLoading', true);
     });
 });
 
-test('getDetails.receive: removes cartId on error', () => {
-    const state = { cartId: 123, other: 'stuff', totals: { total: 100 } };
-    const nextState = reducer(state, {
-        type: actions.getDetails.receive,
-        payload: new Error('That did not work at all'),
-        error: true
+describe('getDetails.receive', () => {
+    const actionType = actions.getDetails.receive;
+
+    test('it sets isLoading to false and includes all of payload', () => {
+        const action = {
+            payload: { unit: 'test', other: 'stuff' },
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isLoading', false);
+        expect(result).toHaveProperty('unit', 'test');
+        expect(result).toHaveProperty('other', 'stuff');
     });
-    expect(nextState).toMatchObject({ other: 'stuff', totals: { total: 100 } });
-    expect(nextState.cartId).not.toBeTruthy();
+
+    test('it sets isLoading to false and cartId to null on error', () => {
+        const action = {
+            error: true,
+            payload: new Error('unit test'),
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isLoading', false);
+        expect(result).toHaveProperty('cartId', null);
+    });
 });
 
-test('checkoutActions.order.accept: cart resets to initial state', () => {
-    expect(
-        reducer(
-            { cartId: 'SOME_CART', details: { items: ['done'] } },
-            { type: checkoutActions.order.accept }
-        )
-    ).toEqual(initialState);
+describe('updateItem.request', () => {
+    const actionType = actions.updateItem.request;
+
+    test('it sets isUpdatingItem to true and includes all of payload', () => {
+        const action = {
+            payload: { unit: 'test', other: 'stuff' },
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isUpdatingItem', true);
+        expect(result).toHaveProperty('unit', 'test');
+        expect(result).toHaveProperty('other', 'stuff');
+    });
+
+    test('it returns the initial state on error', () => {
+        const action = {
+            error: true,
+            payload: new Error('unit test'),
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toEqual(initialState);
+    });
+});
+
+describe('updateItem.receive', () => {
+    const actionType = actions.updateItem.receive;
+
+    test('it sets isUpdatingItem to false', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isUpdatingItem', false);
+    });
+});
+
+describe('removeItem.receive', () => {
+    const actionType = actions.removeItem.receive;
+
+    test('it includes all of payload on success', () => {
+        const action = {
+            payload: { unit: 'test', cartItemCount: 5 },
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('unit', 'test');
+        expect(result).toHaveProperty('cartItemCount', 5);
+    });
+
+    test('it returns the initial state if there is only one item', () => {
+        const action = {
+            payload: { unit: 'test', cartItemCount: 1 },
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toEqual(initialState);
+    });
+
+    test('it returns the initial state on error', () => {
+        const action = {
+            error: true,
+            payload: new Error('unit test'),
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toEqual(initialState);
+    });
+});
+
+describe('openOptionsDrawer', () => {
+    const actionType = actions.openOptionsDrawer;
+
+    test('it sets isOptionsDrawerOpen to true', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isOptionsDrawerOpen', true);
+    });
+});
+
+describe('closeOptionsDrawer', () => {
+    const actionType = actions.closeOptionsDrawer;
+
+    test('it sets isOptionsDrawerOpen to false', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isOptionsDrawerOpen', false);
+    });
+});
+
+describe('checkoutActions.order.accept', () => {
+    const actionType = checkoutActions.order.accept;
+
+    test('it returns the initial state', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toEqual(initialState);
+    });
 });

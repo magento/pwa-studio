@@ -11,3 +11,5 @@ Gemfile.lock
 
 *.log
 *.lock
+
+**/auto-generated

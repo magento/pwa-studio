@@ -110,16 +110,16 @@ class MagentoRootComponentsPlugin {
         );
 
         this.contents = `
-const rootComponentsMap = {
-${Object.entries(rootComponentImporters)
-            .map(entry => entry.join(':'))
-            .join(',\n')}
-};
-const key = ${toRootComponentMapKey.toString()};
-export default function fetchRootComponent(type, variant = 'default') {
-    return rootComponentsMap[key(type, variant)]().then(m => m.default || m);
-};
-`;
+            const rootComponentsMap = {
+            ${Object.entries(rootComponentImporters)
+                .map(entry => entry.join(':'))
+                .join(',\n')}
+            };
+            const key = ${toRootComponentMapKey.toString()};
+            export default function fetchRootComponent(type, variant = 'default') {
+                return rootComponentsMap[key(type, variant)]().then(m => m.default || m);
+            };
+        `;
     }
 }
 

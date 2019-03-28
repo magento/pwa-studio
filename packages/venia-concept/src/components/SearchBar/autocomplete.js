@@ -23,13 +23,17 @@ class SearchAutocomplete extends Component {
         }),
         searchQuery: PropTypes.string.isRequired,
         autocompleteVisible: PropTypes.bool,
+        executeSearch: PropTypes.func.isRequired,
         updateAutocompleteVisible: PropTypes.func.isRequired
     };
 
-    state = {
-        isQueryUpdating: false,
-        autocompleteQuery: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isQueryUpdating: false,
+            autocompleteQuery: props.searchQuery || ''
+        };
+    }
 
     componentDidUpdate = prevProps => {
         const { searchQuery } = this.props;
@@ -60,6 +64,20 @@ class SearchAutocomplete extends Component {
     };
 
     handleOnProductOpen = () => this.props.updateAutocompleteVisible(false);
+
+    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+    mapProducts(products) {
+        return products.map(product => {
+            const { small_image } = product;
+            return {
+                ...product,
+                small_image:
+                    typeof small_image === 'object'
+                        ? small_image.url
+                        : small_image
+            };
+        });
+    }
 
     render() {
         const { classes, autocompleteVisible } = this.props;
@@ -121,7 +139,9 @@ class SearchAutocomplete extends Component {
                             />
                             <SuggestedProducts
                                 handleOnProductOpen={handleOnProductOpen}
-                                items={items.slice(0, suggestedProductsLimit)}
+                                items={this.mapProducts(
+                                    items.slice(0, suggestedProductsLimit)
+                                )}
                             />
                         </div>
                     );

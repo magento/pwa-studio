@@ -8,9 +8,9 @@ export const name = 'cart';
 export const initialState = {
     cartId: null,
     details: {},
-    isOptionsDrawerOpen: false,
     isLoading: false,
-    loading: false,
+    isOptionsDrawerOpen: false,
+    isUpdatingItem: false,
     paymentMethods: [],
     shippingMethods: [],
     totals: {}
@@ -31,22 +31,22 @@ const reducerMap = {
         return {
             ...state,
             cartId: String(payload),
-            loading: true
+            isLoading: true
         };
     },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
-                loading: false,
-                cartId: null
+                cartId: null,
+                isLoading: false
             };
         }
 
         return {
             ...state,
             ...payload,
-            loading: false
+            isLoading: false
         };
     },
     [actions.updateItem.request]: (state, { payload, error }) => {
@@ -56,7 +56,15 @@ const reducerMap = {
         return {
             ...state,
             ...payload,
-            isLoading: true
+            isUpdatingItem: true
+        };
+    },
+    [actions.updateItem.receive]: state => {
+        // We don't actually have to update any items here
+        // because we force a refresh from the server.
+        return {
+            ...state,
+            isUpdatingItem: false
         };
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {
@@ -82,8 +90,7 @@ const reducerMap = {
     [actions.closeOptionsDrawer]: state => {
         return {
             ...state,
-            isOptionsDrawerOpen: false,
-            isLoading: false
+            isOptionsDrawerOpen: false
         };
     },
     [checkoutActions.order.accept]: () => {
