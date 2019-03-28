@@ -23,9 +23,6 @@ class FilterSwatch extends Component {
             iconWrapper: PropTypes.string,
             swatch: PropTypes.string
         }),
-        options: PropTypes.shape({
-            generateColor: PropTypes.bool
-        }),
         isActive: PropTypes.bool,
         toggleOption: PropTypes.func,
         value_string: PropTypes.string,
@@ -44,8 +41,7 @@ class FilterSwatch extends Component {
             group
         } = this.props;
 
-        const generatedColor =
-            options.generateColor && memoizedGetRandomColor(value_string);
+        const generatedColor = memoizedGetRandomColor(value_string);
 
         const swatchInlineStyle = generatedColor && {
             backgroundColor: `rgb(${generatedColor})`
@@ -72,12 +68,7 @@ class FilterSwatch extends Component {
                         </span>
                     </Fragment>
                 )}
-                {options.generateColor && (
-                    <span
-                        className={classes.swatch}
-                        style={swatchInlineStyle}
-                    />
-                )}
+                <span className={classes.swatch} style={swatchInlineStyle} />
             </button>
         );
     }

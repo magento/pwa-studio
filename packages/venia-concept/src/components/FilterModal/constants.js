@@ -13,7 +13,6 @@ export const filterRenderOptions = {
         mode: filterModes.swatch,
         options: {
             layout: filterLayouts.grid,
-            generateColor: true,
             searchable: true
         }
     },
