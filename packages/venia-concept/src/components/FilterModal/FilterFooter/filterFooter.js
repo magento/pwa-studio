@@ -6,6 +6,7 @@ import classify from 'src/classify';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import isObjectEmpty from 'src/util/isObjectEmpty';
 
 class FilterFooter extends Component {
     static propTypes = {
@@ -20,24 +21,6 @@ class FilterFooter extends Component {
         filterClear: PropTypes.func,
         chosenFilterOptions: PropTypes.object,
         closeModalHandler: PropTypes.func
-    };
-
-    static getDerivedStateFromProps(nextProps) {
-        const { chosenFilterOptions } = nextProps;
-        let filterOptionsArePristine = true;
-
-        for (const optionName in chosenFilterOptions) {
-            if (chosenFilterOptions[optionName].length > 0) {
-                filterOptionsArePristine = false;
-                break;
-            }
-        }
-
-        return { areOptionsPristine: filterOptionsArePristine };
-    }
-
-    state = {
-        areOptionsPristine: true
     };
 
     resetFilterOptions = () => {
@@ -84,9 +67,10 @@ class FilterFooter extends Component {
     };
 
     render() {
-        const { areOptionsPristine } = this.state;
-        const { classes } = this.props;
-        const footerButtons = this.getFooterButtons(areOptionsPristine);
+        const { classes, chosenFilterOptions } = this.props;
+        const footerButtons = this.getFooterButtons(
+            isObjectEmpty(chosenFilterOptions)
+        );
 
         return <div className={classes.footer}>{footerButtons}</div>;
     }
