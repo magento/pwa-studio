@@ -21,15 +21,11 @@ Feel free to remove this section before creating this issue.
 **Describe the request**
 A clear and concise description of the documentation request or where the documentation can be improved.
 
-**To Reproduce**
-If this is an issue with documentation, provide us a link or steps to get to the
-erroneous page. If this is a new topic request, disregard.
+**Possible solutions**
+How would you word this addition or change?
 
 **Screenshots**
 If applicable, add screenshots to help explain the problem.
-
-**Additional context**
-Add any other context about the problem here.
 
 <!-- Complete the following sections to help us apply appropriate labels! -->
 **Please let us know whether this is a new topic or a topic change request:**
