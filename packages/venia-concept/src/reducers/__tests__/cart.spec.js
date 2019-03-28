@@ -16,7 +16,7 @@ describe('getCart.receive', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('cartId', 1);
+        expect(result).toHaveProperty('cartId', '1');
     });
 
     test('it restores initial state on error', () => {
@@ -43,7 +43,7 @@ describe('getDetails.request', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('cartId', 1);
+        expect(result).toHaveProperty('cartId', '1');
         expect(result).toHaveProperty('isLoading', true);
     });
 });
