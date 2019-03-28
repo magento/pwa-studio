@@ -92,7 +92,7 @@ class Carousel extends Component {
         this.setState({
             currentImageLoaded: true
         });
-    }
+    };
 
     render() {
         const { classes } = this.props;
@@ -108,8 +108,19 @@ class Carousel extends Component {
             <div className={classes.root}>
                 <div className={classes.imageContainer}>
                     {this.getChevron('left')}
-                    <img onLoad={this.setCurrentImageLoaded} className={classes.currentImage} src={src} alt={alt} />
-                    {!this.state.currentImageLoaded ? <img className={classes.currentImage} src={transparentPlaceholder} alt={alt} />: null}
+                    <img
+                        onLoad={this.setCurrentImageLoaded}
+                        className={classes.currentImage}
+                        src={src}
+                        alt={alt}
+                    />
+                    {!this.state.currentImageLoaded ? (
+                        <img
+                            className={classes.currentImage}
+                            src={transparentPlaceholder}
+                            alt={alt}
+                        />
+                    ) : null}
                     {this.getChevron('right')}
                 </div>
                 <ThumbnailList
