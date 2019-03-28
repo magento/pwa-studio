@@ -54,7 +54,7 @@ export const filterAdd = ({ group, title, value }, history) =>
         const oldState = chosenFilterOptions[group] || [];
         const newState = oldState.concat({ title, value });
 
-        dispatch(actions.filterOption.add({ newState, group }));
+        dispatch(actions.filterOption.update({ newState, group }));
 
         if (history) {
             const filters = { ...chosenFilterOptions, [group]: newState };
@@ -73,7 +73,7 @@ export const filterRemove = ({ group, title, value }, history) =>
             return item.title !== title || item.value !== value;
         });
 
-        dispatch(actions.filterOption.remove({ newState, group }));
+        dispatch(actions.filterOption.update({ newState, group }));
 
         if (history) {
             const filters = { ...chosenFilterOptions, [group]: newState };

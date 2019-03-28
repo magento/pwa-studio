@@ -36,16 +36,7 @@ const reducerMap = {
             currentPage: payload
         };
     },
-    [actions.filterOption.add]: (state, { payload: { newState, group } }) => {
-        return {
-            ...state,
-            chosenFilterOptions: {
-                ...state.chosenFilterOptions,
-                [group]: newState
-            }
-        };
-    },
-    [actions.filterOption.remove]: (
+    [actions.filterOption.update]: (
         state,
         { payload: { newState, group } }
     ) => {

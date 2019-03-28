@@ -16,8 +16,7 @@ const actionMap = {
         RECEIVE: null
     },
     FILTER_OPTION: {
-        ADD: null,
-        REMOVE: null,
+        UPDATE: null,
         CLEAR: null
     }
 };
