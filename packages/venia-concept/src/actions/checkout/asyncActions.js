@@ -27,7 +27,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createGuestCart());
+        await dispatch(createCart());
         dispatch(actions.reset());
     };
 

@@ -297,7 +297,7 @@ export const getCartDetails = (payload = {}) => {
             ] = await Promise.all([
                 retrieveImageCache(),
                 fetchCartPart({
-                    guestCartId,
+                    cartId,
                     forceRefresh,
                     isSignedIn
                 }),
