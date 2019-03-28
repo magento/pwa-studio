@@ -36,7 +36,8 @@ class Carousel extends Component {
     };
 
     state = {
-        activeItemIndex: 0
+        activeItemIndex: 0,
+        currentImageLoaded: false
     };
 
     updateActiveItemIndex = index => {
@@ -87,6 +88,12 @@ class Carousel extends Component {
         </button>
     );
 
+    setCurrentImageLoaded = () => {
+        this.setState({
+            currentImageLoaded: true
+        });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -101,7 +108,8 @@ class Carousel extends Component {
             <div className={classes.root}>
                 <div className={classes.imageContainer}>
                     {this.getChevron('left')}
-                    <img className={classes.currentImage} src={src} alt={alt} />
+                    <img onLoad={this.setCurrentImageLoaded} className={classes.currentImage} src={src} alt={alt} />
+                    {!this.state.currentImageLoaded ? <img className={classes.currentImage} src={transparentPlaceholder} alt={alt} />: null}
                     {this.getChevron('right')}
                 </div>
                 <ThumbnailList
