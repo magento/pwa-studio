@@ -32,7 +32,6 @@ class FilterSwatch extends Component {
 
     render() {
         const {
-            options,
             isActive,
             toggleOption,
             value_string,
