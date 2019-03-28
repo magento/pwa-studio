@@ -69,7 +69,7 @@ class FilterList extends Component {
                 )}
                 renderItem={({ item }) => {
                     const isActive = isFilterSelected(item);
-                    const swatchProps = {
+                    const filterProps = {
                         ...item,
                         isActive,
                         options,
@@ -80,9 +80,9 @@ class FilterList extends Component {
                     return (
                         <li className={classes.filterItem}>
                             {isSwatch ? (
-                                <FilterSwatch {...swatchProps} />
+                                <FilterSwatch {...filterProps} />
                             ) : (
-                                <FilterDefault {...swatchProps} />
+                                <FilterDefault {...filterProps} />
                             )}
                         </li>
                     );
