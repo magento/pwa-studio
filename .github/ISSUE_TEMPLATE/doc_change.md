@@ -18,7 +18,7 @@ Issues that do not comply with our Code of Conduct or do not contain enough info
 Feel free to remove this section before creating this issue.
 -->
 
-**Describe the change**
+**Describe the request**
 A clear and concise description of the documentation request or where the documentation can be improved.
 
 **To Reproduce**
