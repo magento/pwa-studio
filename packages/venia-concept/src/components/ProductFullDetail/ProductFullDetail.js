@@ -2,8 +2,10 @@ import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
+import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { connect } from 'src/drivers';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
@@ -76,13 +78,12 @@ class ProductFullDetail extends Component {
     state = {
         optionCodes: new Map(),
         optionSelections: new Map(),
-        quantity: 1,
-        addToCartDisabled: false
+        quantity: 1
     };
 
     setQuantity = quantity => this.setState({ quantity });
 
-    addToCart = async () => {
+    addToCart = () => {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
@@ -102,9 +103,7 @@ class ProductFullDetail extends Component {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        this.setState({ addToCartDisabled: true });
-        await addToCart(payload);
-        this.setState({ addToCartDisabled: false });
+        addToCart(payload);
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -172,14 +171,8 @@ class ProductFullDetail extends Component {
     }
 
     render() {
-        const {
-            productOptions,
-            props,
-            mediaGalleryEntries,
-            addToCart,
-            state
-        } = this;
-        const { classes, product } = props;
+        const { addToCart, productOptions, props, mediaGalleryEntries } = this;
+        const { classes, isAddingItem, product } = props;
         const { regularPrice } = product.price;
 
         // We want this key to change whenever mediaGalleryEntries changes.
@@ -219,7 +212,7 @@ class ProductFullDetail extends Component {
                     <Button
                         priority="high"
                         onClick={addToCart}
-                        disabled={state.addToCartDisabled}
+                        disabled={isAddingItem}
                     >
                         <span>Add to Cart</span>
                     </Button>
@@ -241,4 +234,13 @@ class ProductFullDetail extends Component {
     }
 }
 
-export default classify(defaultClasses)(ProductFullDetail);
+const mapStateToProps = ({ cart }) => {
+    return {
+        isAddingItem: cart.isAddingItem
+    };
+};
+
+export default compose(
+    classify(defaultClasses),
+    connect(mapStateToProps)
+)(ProductFullDetail);
