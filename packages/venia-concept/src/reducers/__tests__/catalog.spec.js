@@ -113,17 +113,6 @@ describe('setCurrentPage.receive', () => {
 describe('setPrevPageTotal.receive', () => {
     const actionType = actions.setPrevPageTotal.receive;
 
-    test('it sets prevPageTotal to payload', () => {
-        const action = {
-            payload: 5,
-            type: actionType
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toHaveProperty('prevPageTotal', 5);
-    });
-
     test('it does not alter state on error', () => {
         const action = {
             error: true,

@@ -20,8 +20,7 @@ class Category extends Component {
             title: string
         }),
         currentPage: number,
-        pageSize: number,
-        prevPageTotal: number
+        pageSize: number
     };
 
     // TODO: Should not be a default here, we just don't have
@@ -45,7 +44,6 @@ class Category extends Component {
             openDrawer,
             closeDrawer,
             pageSize,
-            prevPageTotal,
             setCurrentPage,
             setPrevPageTotal,
             drawer
@@ -54,8 +52,7 @@ class Category extends Component {
         const pageControl = {
             currentPage: currentPage,
             setPage: setCurrentPage,
-            updateTotalPages: setPrevPageTotal,
-            totalPages: prevPageTotal
+            updateTotalPages: setPrevPageTotal
         };
 
         const queryVariables = {
@@ -113,8 +110,7 @@ const mapStateToProps = ({ catalog, app }) => {
     return {
         drawer: app.drawer,
         currentPage: catalog.currentPage,
-        pageSize: catalog.pageSize,
-        prevPageTotal: catalog.prevPageTotal
+        pageSize: catalog.pageSize
     };
 };
 
