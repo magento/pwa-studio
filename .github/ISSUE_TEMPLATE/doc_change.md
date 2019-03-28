@@ -19,7 +19,7 @@ Feel free to remove this section before creating this issue.
 -->
 
 **Describe the change**
-A clear and concise description of what change you desire.
+A clear and concise description of the documentation request or where the documentation can be improved.
 
 **To Reproduce**
 If this is an issue with documentation, provide us a link or steps to get to the
