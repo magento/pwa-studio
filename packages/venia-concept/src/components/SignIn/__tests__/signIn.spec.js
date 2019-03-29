@@ -52,7 +52,7 @@ test('display error message if there is a `signInError`', () => {
         />
     ).dive();
 
-    let errorMessage = shallow(wrapper.instance().errorMessage);
+    const errorMessage = shallow(wrapper.instance().errorMessage);
     expect(errorMessage.html()).toContain(props.signInError.message);
 });
 

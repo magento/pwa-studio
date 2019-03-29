@@ -40,7 +40,8 @@ const IntlPatches = {
             symbol: currency
         };
         const { symbol, decimal, groupDelim } = format;
-        let [integer, fraction] = num
+        // eslint-disable-next-line prefer-const
+        const [integer, fraction] = num
             .toFixed(maximumFractionDigits)
             .match(/\d+/g);
         const parts = [{ type: 'currency', value: symbol }];

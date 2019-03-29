@@ -63,6 +63,7 @@ module.exports = class TemplateResolver extends AbstractResolver {
             providePromise
         ];
 
+        // eslint-disable-next-line prefer-const
         let [engine, template, rootEntries] = await Promise.all(toResolve);
         debug('template retrieved, "%s"', template);
         debug('rootEntries retrieved, %o', rootEntries.map(([name]) => name));

@@ -14,7 +14,7 @@ function mockFetchReturned({
     mockFetch.mockImplementationOnce(
         (_, { signal }) =>
             new Promise((resolve, reject) => {
-                let body = json
+                const body = json
                     ? JSON.stringify(typeof json === 'function' ? json() : json)
                     : typeof text === 'function'
                     ? text()
