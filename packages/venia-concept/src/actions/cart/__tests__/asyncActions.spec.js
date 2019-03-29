@@ -143,12 +143,12 @@ test('addItemToCart thunk dispatches actions on success', async () => {
         1,
         actions.addItem.request(payload)
     );
+    expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
     expect(dispatch).toHaveBeenNthCalledWith(
-        2,
+        4,
         actions.addItem.receive({ cartItem, ...payload })
     );
-    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-    expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
     expect(dispatch).toHaveBeenCalledTimes(4);
 });
 
@@ -324,6 +324,8 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
                 type: 'CART/ADD_ITEM/REQUEST'
             }
         ],
+        [expect.any(Function)],
+        [expect.any(Function)],
         [
             {
                 payload: {
@@ -333,9 +335,7 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
                 },
                 type: 'CART/ADD_ITEM/RECEIVE'
             }
-        ],
-        [expect.any(Function)],
-        [expect.any(Function)]
+        ]
     ]);
 });
 
