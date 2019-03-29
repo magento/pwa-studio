@@ -6,7 +6,7 @@ import classify from 'src/classify';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
 import FilterDefault from './filterDefault';
-import FilterSwatch from './filterSwatch';
+import Swatch from 'src/components/ProductOptions/swatch';
 import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 
 class FilterList extends Component {
@@ -22,7 +22,6 @@ class FilterList extends Component {
         ),
         layoutClass: PropTypes.string,
         isSwatch: PropTypes.bool,
-        options: PropTypes.object,
         addFilter: PropTypes.func,
         removeFilter: PropTypes.func,
         items: PropTypes.array
@@ -51,14 +50,7 @@ class FilterList extends Component {
 
     render() {
         const { toggleOption, isFilterSelected } = this;
-        const {
-            classes,
-            items,
-            id,
-            options,
-            layoutClass,
-            isSwatch
-        } = this.props;
+        const { classes, items, id, layoutClass, isSwatch } = this.props;
 
         return (
             <List
@@ -69,18 +61,23 @@ class FilterList extends Component {
                 )}
                 renderItem={({ item }) => {
                     const isActive = isFilterSelected(item);
+
                     const filterProps = {
-                        ...item,
-                        isActive,
-                        options,
-                        toggleOption,
-                        group: id
+                        item: {
+                            label: item.label,
+                            value_index: item.value_string
+                        },
+                        value: item.value_string,
+                        title: item.label,
+                        'data-group': id,
+                        onClick: toggleOption,
+                        isSelected: isActive
                     };
 
                     return (
                         <li className={classes.filterItem}>
                             {isSwatch ? (
-                                <FilterSwatch {...filterProps} />
+                                <Swatch {...filterProps} />
                             ) : (
                                 <FilterDefault {...filterProps} />
                             )}

@@ -12,35 +12,28 @@ class FilterDefault extends Component {
             icon: PropTypes.string,
             iconActive: PropTypes.string
         }),
-        isActive: PropTypes.bool,
-        toggleOption: PropTypes.func,
-        value_string: PropTypes.string,
+        item: PropTypes.shape({
+            label: PropTypes.string
+        }),
+        isSelected: PropTypes.bool,
         label: PropTypes.string,
         group: PropTypes.string
     };
 
     render() {
         const {
-            value_string,
-            toggleOption,
-            label,
             classes,
-            group,
-            isActive
+            isSelected,
+            item: { label },
+            ...rest
         } = this.props;
 
-        const iconClassName = isActive ? classes.iconActive : classes.icon;
+        const iconClassName = isSelected ? classes.iconActive : classes.icon;
 
         return (
-            <button
-                className={classes.root}
-                value={value_string}
-                data-group={group}
-                title={label}
-                onClick={toggleOption}
-            >
+            <button className={classes.root} {...rest}>
                 <span className={iconClassName}>
-                    {isActive && <Icon src={Checkmark} size={14} />}
+                    {isSelected && <Icon src={Checkmark} size={14} />}
                 </span>
                 <span
                     dangerouslySetInnerHTML={{

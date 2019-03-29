@@ -105,7 +105,6 @@ class FilterBlock extends Component {
             addFilter,
             removeFilter,
             mode,
-            options,
             id: request_var,
             items: filter_items,
             layoutClass: filterLayoutClass
