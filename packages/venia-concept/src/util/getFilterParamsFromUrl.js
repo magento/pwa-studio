@@ -5,7 +5,7 @@ export const getFilterParams = () => {
 
     let urlFilterParams = {};
 
-    for (var key of params.keys()) {
+    for (const key of params.keys()) {
         const cleanKey = key.replace(/\[.*\]/gm, '');
         if (urlFilterParams[cleanKey]) continue;
 
