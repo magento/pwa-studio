@@ -27,8 +27,8 @@ class FilterModal extends Component {
                 items: PropTypes.array
             })
         ),
-        filterAdd: PropTypes.func,
-        filterRemove: PropTypes.func,
+        addFilter: PropTypes.func,
+        removeFilter: PropTypes.func,
         closeDrawer: PropTypes.func
     };
 
@@ -60,8 +60,8 @@ class FilterModal extends Component {
                         renderItem={props => (
                             <FilterBlock
                                 item={props.item}
-                                filterAdd={this.props.filterAdd}
-                                filterRemove={this.props.filterRemove}
+                                addFilter={this.props.addFilter}
+                                removeFilter={this.props.removeFilter}
                             />
                         )}
                     />

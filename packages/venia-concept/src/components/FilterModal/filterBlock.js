@@ -27,8 +27,8 @@ class FilterBlock extends Component {
             filter_items: PropTypes.array,
             request_var: PropTypes.string
         }),
-        filterAdd: PropTypes.func,
-        filterRemove: PropTypes.func
+        addFilter: PropTypes.func,
+        removeFilter: PropTypes.func
     };
 
     state = {
@@ -81,8 +81,8 @@ class FilterBlock extends Component {
         const {
             classes,
             item: { filter_items, request_var, name },
-            filterRemove,
-            filterAdd
+            removeFilter,
+            addFilter
         } = this.props;
 
         const { isExpanded } = this.state;
@@ -102,8 +102,8 @@ class FilterBlock extends Component {
         const filterProps = {
             isSwatch,
             name,
-            filterAdd,
-            filterRemove,
+            addFilter,
+            removeFilter,
             mode,
             options,
             id: request_var,

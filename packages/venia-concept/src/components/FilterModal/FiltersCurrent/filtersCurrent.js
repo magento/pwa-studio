@@ -16,7 +16,7 @@ class FiltersCurrent extends Component {
             icon: PropTypes.string
         }),
         keyPrefix: PropTypes.string,
-        filterRemove: PropTypes.func,
+        removeFilter: PropTypes.func,
         chosenFilterOptions: PropTypes.shape({
             title: PropTypes.string,
             value: PropTypes.string
@@ -27,8 +27,8 @@ class FiltersCurrent extends Component {
         const { title, value, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
-        const { filterRemove, history } = this.props;
-        filterRemove({ title, value, group }, history);
+        const { removeFilter, history } = this.props;
+        removeFilter({ title, value, group }, history);
     };
 
     getCurrentFilter = (item, key) => {

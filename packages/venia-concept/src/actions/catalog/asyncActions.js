@@ -45,7 +45,7 @@ export const serialize = (params, keys = [], isArray = false) => {
 const updateCatalogUrl = (filters, history) =>
     history.push('?' + serialize(filters));
 
-export const filterAdd = ({ group, title, value }, history) =>
+export const addFilter = ({ group, title, value }, history) =>
     async function thunk(dispatch, getState) {
         const {
             catalog: { chosenFilterOptions }
@@ -62,7 +62,7 @@ export const filterAdd = ({ group, title, value }, history) =>
         }
     };
 
-export const filterRemove = ({ group, title, value }, history) =>
+export const removeFilter = ({ group, title, value }, history) =>
     async function thunk(dispatch, getState) {
         const {
             catalog: { chosenFilterOptions }

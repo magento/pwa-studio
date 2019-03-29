@@ -23,18 +23,18 @@ class FilterList extends Component {
         layoutClass: PropTypes.string,
         isSwatch: PropTypes.bool,
         options: PropTypes.object,
-        filterAdd: PropTypes.func,
-        filterRemove: PropTypes.func,
+        addFilter: PropTypes.func,
+        removeFilter: PropTypes.func,
         items: PropTypes.array
     };
 
     toggleOption = event => {
-        const { filterRemove, filterAdd } = this.props;
+        const { removeFilter, addFilter } = this.props;
         const { value, title, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
         const item = { title, value, group };
-        this.isOptionActive(item) ? filterRemove(item) : filterAdd(item);
+        this.isOptionActive(item) ? removeFilter(item) : addFilter(item);
     };
 
     isOptionActive = option =>

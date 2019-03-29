@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import FilterModal from './filterModal';
-import { filterAdd, filterRemove } from 'src/actions/catalog';
+import { addFilter, removeFilter } from 'src/actions/catalog';
 
 const mapDispatchToProps = {
-    filterAdd,
-    filterRemove
+    addFilter,
+    removeFilter
 };
 
 export default compose(

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import FiltersCurrent from './filtersCurrent';
-import { filterRemove } from 'src/actions/catalog';
+import { removeFilter } from 'src/actions/catalog';
 
 const mapStateToProps = ({ catalog }) => {
     const { chosenFilterOptions } = catalog;
@@ -10,7 +10,7 @@ const mapStateToProps = ({ catalog }) => {
 };
 
 const mapDispatchToProps = {
-    filterRemove
+    removeFilter
 };
 
 export default connect(
