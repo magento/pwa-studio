@@ -20,6 +20,7 @@ class Category extends Component {
             title: string
         }),
         currentPage: number,
+        prevPageTotal: number,
         pageSize: number
     };
 
@@ -42,6 +43,7 @@ class Category extends Component {
             classes,
             currentPage,
             openDrawer,
+            prevPageTotal,
             closeDrawer,
             pageSize,
             setCurrentPage,
@@ -52,7 +54,8 @@ class Category extends Component {
         const pageControl = {
             currentPage: currentPage,
             setPage: setCurrentPage,
-            updateTotalPages: setPrevPageTotal
+            updateTotalPages: setPrevPageTotal,
+            totalPages: prevPageTotal
         };
 
         const queryVariables = {
@@ -110,7 +113,8 @@ const mapStateToProps = ({ catalog, app }) => {
     return {
         drawer: app.drawer,
         currentPage: catalog.currentPage,
-        pageSize: catalog.pageSize
+        pageSize: catalog.pageSize,
+        prevPageTotal: catalog.prevPageTotal
     };
 };
 

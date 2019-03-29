@@ -10,6 +10,7 @@ export const initialState = {
     rootCategoryId: null,
     currentPage: 1,
     pageSize: 6,
+    prevPageTotal: null,
     chosenFilterOptions: getFilterParams(),
     appliedFilterOptions: getFilterParams()
 };
@@ -34,6 +35,16 @@ const reducerMap = {
         return {
             ...state,
             currentPage: payload
+        };
+    },
+    [actions.setPrevPageTotal.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            prevPageTotal: payload
         };
     },
     [actions.filterOption.update]: (
