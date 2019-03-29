@@ -1,10 +1,9 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ""
+name: Feature Request
+about: Suggest a new feature!
+title: "[feature]: A short, simple sentence describing the feature"
 labels: enhancement
 assignees: ''
-
 ---
 
 <!--
@@ -19,14 +18,6 @@ Issues that do not comply with our Code of Conduct or do not contain enough info
 Feel free to remove this section before creating this issue.
 -->
 
-**Please let us know what packages this feature is in regards to:**
-- [ ] `venia-concept`
-- [ ] `pwa-buildpack`
-- [ ] `peregrine`
-- [ ] `pwa-devdocs`
-- [ ] `upward-js`
-- [ ] `upward-spec`
-
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
@@ -38,3 +29,11 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+
+**Please let us know what packages this feature is in regards to:**
+- [ ] `venia-concept`
+- [ ] `pwa-buildpack`
+- [ ] `peregrine`
+- [ ] `pwa-devdocs`
+- [ ] `upward-js`
+- [ ] `upward-spec`

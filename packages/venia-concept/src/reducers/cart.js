@@ -11,6 +11,7 @@ export const initialState = {
     isLoading: false,
     isOptionsDrawerOpen: false,
     isUpdatingItem: false,
+    isAddingItem: false,
     paymentMethods: [],
     shippingMethods: [],
     totals: {}
@@ -47,6 +48,18 @@ const reducerMap = {
             ...state,
             ...payload,
             isLoading: false
+        };
+    },
+    [actions.addItem.request]: state => {
+        return {
+            ...state,
+            isAddingItem: true
+        };
+    },
+    [actions.addItem.receive]: state => {
+        return {
+            ...state,
+            isAddingItem: false
         };
     },
     [actions.updateItem.request]: (state, { payload, error }) => {
