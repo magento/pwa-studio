@@ -101,6 +101,7 @@ class FilterBlock extends Component {
 
         const filterProps = {
             isSwatch,
+            options,
             name,
             addFilter,
             removeFilter,

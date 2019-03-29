@@ -17,10 +17,7 @@ const withFilterSearch = WrappedComponent => {
             filterQuery: ''
         };
 
-        handleFilterSearch = event => {
-            const { value } = event.currentTarget || event.srcElement;
-            this.setState({ filterQuery: value });
-        };
+        handleFilterSearch = value => this.setState({ filterQuery: value });
 
         handleResetSearch = () => this.setState({ filterQuery: '' });
 
@@ -58,7 +55,7 @@ const withFilterSearch = WrappedComponent => {
                             <TextInput
                                 placeholder={`Search for a specific ${name}`}
                                 fieldState={{ value: filterQuery }}
-                                onChange={handleFilterSearch}
+                                onValueChange={handleFilterSearch}
                                 field="filter_search"
                                 after={resetButton}
                                 before={searchIcon}
