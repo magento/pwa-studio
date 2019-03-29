@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import catalogActions, { serialize } from 'src/actions/catalog';
 import { withRouter } from 'react-router-dom';
+import { closeDrawer } from 'src/actions/app';
 import classify from 'src/classify';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
@@ -20,7 +21,7 @@ class FilterFooter extends Component {
         history: PropTypes.object,
         filterClear: PropTypes.func,
         chosenFilterOptions: PropTypes.object,
-        closeModalHandler: PropTypes.func
+        closeDrawer: PropTypes.func
     };
 
     resetFilterOptions = () => {
@@ -30,9 +31,9 @@ class FilterFooter extends Component {
     };
 
     handleApplyFilters = () => {
-        const { history, chosenFilterOptions, closeModalHandler } = this.props;
+        const { history, chosenFilterOptions, closeDrawer } = this.props;
         history.push('?' + serialize(chosenFilterOptions));
-        closeModalHandler();
+        closeDrawer();
     };
 
     getFooterButtons = areOptionsPristine => {
@@ -85,7 +86,8 @@ const mapStateToProps = ({ catalog }) => {
 };
 
 const mapDispatchToProps = {
-    filterClear: catalogActions.filterOption.clear
+    filterClear: catalogActions.filterOption.clear,
+    closeDrawer: closeDrawer
 };
 
 export default compose(

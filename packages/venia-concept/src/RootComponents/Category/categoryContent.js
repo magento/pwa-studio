@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'src/drivers';
+import { toggleDrawer } from 'src/actions/app';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
@@ -20,14 +23,7 @@ class CategoryContent extends Component {
     };
 
     render() {
-        const {
-            classes,
-            pageControl,
-            data,
-            pageSize,
-            openDrawer,
-            closeDrawer
-        } = this.props;
+        const { classes, pageControl, data, pageSize, openDrawer } = this.props;
 
         const items = data ? data.products.items : null;
         const filters = data ? data.products.filters : null;
@@ -61,13 +57,20 @@ class CategoryContent extends Component {
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
                 </div>
-                <FilterModal
-                    closeModalHandler={closeDrawer}
-                    filters={filters}
-                />
+                {filters && <FilterModal filters={filters} />}
             </article>
         );
     }
 }
 
-export default classify(defaultClasses)(CategoryContent);
+const mapDispatchToProps = dispatch => ({
+    openDrawer: () => dispatch(toggleDrawer('filter'))
+});
+
+export default compose(
+    connect(
+        null,
+        mapDispatchToProps
+    ),
+    classify(defaultClasses)
+)(CategoryContent);

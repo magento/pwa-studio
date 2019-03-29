@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { compose } from 'redux';
 import { connect, Query } from 'src/drivers';
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
 
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
@@ -42,9 +41,7 @@ class Category extends Component {
             id,
             classes,
             currentPage,
-            openDrawer,
             prevPageTotal,
-            closeDrawer,
             pageSize,
             setCurrentPage,
             setPrevPageTotal
@@ -92,8 +89,6 @@ class Category extends Component {
 
                     return (
                         <CategoryContent
-                            closeDrawer={closeDrawer}
-                            openDrawer={openDrawer}
                             classes={classes}
                             pageControl={totalWrapper}
                             data={data}
@@ -114,8 +109,6 @@ const mapStateToProps = ({ catalog }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    openDrawer: () => dispatch(toggleDrawer('filter')),
-    closeDrawer: () => dispatch(closeDrawer()),
     setCurrentPage: payload => dispatch(setCurrentPage(payload)),
     setPrevPageTotal: payload => dispatch(setPrevPageTotal(payload))
 });

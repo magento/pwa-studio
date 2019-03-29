@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import FilterFooter from './FilterFooter';
+import { closeDrawer } from 'src/actions/app';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
@@ -28,22 +29,20 @@ class FilterModal extends Component {
         ),
         filterAdd: PropTypes.func,
         filterRemove: PropTypes.func,
-        closeModalHandler: PropTypes.func
+        closeDrawer: PropTypes.func
     };
 
     render() {
-        const { classes, drawer, closeModalHandler } = this.props;
+        const { classes, drawer, closeDrawer } = this.props;
         const modalClass =
             drawer === 'filter' ? classes.rootOpen : classes.root;
-
-        if (!this.props.filters) return null;
 
         return (
             <div className={modalClass}>
                 <div className={classes.modalWrapper}>
                     <div className={classes.header}>
                         <span className={classes.headerTitle}>FILTER BY</span>
-                        <button onClick={closeModalHandler}>
+                        <button onClick={closeDrawer}>
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
@@ -67,7 +66,7 @@ class FilterModal extends Component {
                         )}
                     />
                 </div>
-                <FilterFooter closeModalHandler={closeModalHandler} />
+                <FilterFooter />
             </div>
         );
     }
@@ -79,7 +78,14 @@ const mapStateToProps = ({ app }) => {
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    closeDrawer: () => dispatch(closeDrawer())
+});
+
 export default compose(
-    connect(mapStateToProps),
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
     classify(defaultClasses)
 )(FilterModal);
