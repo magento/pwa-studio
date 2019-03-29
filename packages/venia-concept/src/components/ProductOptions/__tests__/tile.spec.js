@@ -5,6 +5,7 @@ import Tile from '../tile';
 
 jest.mock('src/classify');
 jest.mock('src/util/getRandomColor');
+jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
 const defaultProps = {
     item: {
