@@ -26,8 +26,7 @@ class CategoryContent extends Component {
             data,
             pageSize,
             openDrawer,
-            closeDrawer,
-            isFilterModalOpen
+            closeDrawer
         } = this.props;
 
         const items = data ? data.products.items : null;
@@ -62,7 +61,6 @@ class CategoryContent extends Component {
                 </div>
                 <FilterModal
                     closeModalHandler={closeDrawer}
-                    isModalOpen={isFilterModalOpen}
                     filters={filters}
                 />
             </article>

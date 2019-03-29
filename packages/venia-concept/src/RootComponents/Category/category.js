@@ -47,8 +47,7 @@ class Category extends Component {
             closeDrawer,
             pageSize,
             setCurrentPage,
-            setPrevPageTotal,
-            drawer
+            setPrevPageTotal
         } = this.props;
 
         const pageControl = {
@@ -65,8 +64,6 @@ class Category extends Component {
             currentPage: Number(currentPage),
             idString: String(id)
         };
-
-        const isFilterModalOpen = drawer === 'filter';
 
         return (
             <Query query={categoryQuery} variables={queryVariables}>
@@ -97,7 +94,6 @@ class Category extends Component {
                         <CategoryContent
                             closeDrawer={closeDrawer}
                             openDrawer={openDrawer}
-                            isFilterModalOpen={isFilterModalOpen}
                             classes={classes}
                             pageControl={totalWrapper}
                             data={data}
@@ -109,9 +105,8 @@ class Category extends Component {
     }
 }
 
-const mapStateToProps = ({ catalog, app }) => {
+const mapStateToProps = ({ catalog }) => {
     return {
-        drawer: app.drawer,
         currentPage: catalog.currentPage,
         pageSize: catalog.pageSize,
         prevPageTotal: catalog.prevPageTotal

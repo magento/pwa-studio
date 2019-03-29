@@ -11,8 +11,7 @@ export const initialState = {
     currentPage: 1,
     pageSize: 6,
     prevPageTotal: null,
-    chosenFilterOptions: getFilterParams(),
-    appliedFilterOptions: getFilterParams()
+    chosenFilterOptions: getFilterParams()
 };
 
 const reducerMap = {

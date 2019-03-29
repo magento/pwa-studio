@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'src/drivers';
 import FilterFooter from './FilterFooter';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
@@ -30,8 +32,9 @@ class FilterModal extends Component {
     };
 
     render() {
-        const { classes, isModalOpen, closeModalHandler } = this.props;
-        const modalClass = isModalOpen ? classes.rootOpen : classes.root;
+        const { classes, drawer, closeModalHandler } = this.props;
+        const modalClass =
+            drawer === 'filter' ? classes.rootOpen : classes.root;
 
         if (!this.props.filters) return null;
 
@@ -70,4 +73,13 @@ class FilterModal extends Component {
     }
 }
 
-export default classify(defaultClasses)(FilterModal);
+const mapStateToProps = ({ app }) => {
+    return {
+        drawer: app.drawer
+    };
+};
+
+export default compose(
+    connect(mapStateToProps),
+    classify(defaultClasses)
+)(FilterModal);
