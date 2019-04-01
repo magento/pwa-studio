@@ -167,11 +167,10 @@ class ProductFullDetail extends Component {
             return media_gallery_entries;
         }
 
-        const selected_media_gallery_entries = [
+        return [
             ...item.product.media_gallery_entries,
             ...media_gallery_entries
         ];
-        return selected_media_gallery_entries;
     }
 
     render() {
