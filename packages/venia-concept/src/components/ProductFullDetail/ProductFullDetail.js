@@ -17,6 +17,9 @@ import findMatchingVariant from 'src/util/findMatchingProductVariant';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
+const productIsConfigurable = product =>
+    Array.isArray(product.configurable_options);
+
 class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
@@ -63,7 +66,7 @@ class ProductFullDetail extends Component {
         const optionCodes = new Map(state.optionCodes);
 
         // if this is a simple product, do nothing
-        if (!Array.isArray(configurable_options)) {
+        if (!productIsConfigurable(props.product)) {
             return null;
         }
 
@@ -87,8 +90,7 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
-        const { configurable_options } = product;
-        const isConfigurable = Array.isArray(configurable_options);
+        const isConfigurable = productIsConfigurable(product);
         const productType = isConfigurable
             ? 'ConfigurableProduct'
             : 'SimpleProduct';
@@ -122,7 +124,7 @@ class ProductFullDetail extends Component {
     get productOptions() {
         const { fallback, handleSelectionChange, props } = this;
         const { configurable_options } = props.product;
-        const isConfigurable = Array.isArray(configurable_options);
+        const isConfigurable = productIsConfigurable(props.product);
 
         if (!isConfigurable) {
             return null;
@@ -142,13 +144,9 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { product } = props;
         const { optionCodes, optionSelections } = state;
-        const {
-            configurable_options,
-            media_gallery_entries,
-            variants
-        } = product;
+        const { media_gallery_entries, variants } = product;
 
-        const isConfigurable = Array.isArray(configurable_options);
+        const isConfigurable = productIsConfigurable(product);
 
         if (
             !isConfigurable ||
@@ -170,8 +168,31 @@ class ProductFullDetail extends Component {
         return item.product.media_gallery_entries;
     }
 
+    get isMissingOptions() {
+        const { product } = this.props;
+
+        // Non-configurable products can't be missing options
+        if (!productIsConfigurable(product)) {
+            return false;
+        }
+
+        // Configurable products are missing options if we have fewer
+        // option selections than the product has options.
+        const { configurable_options } = product;
+        const numProductOptions = configurable_options.length;
+        const numProductSelections = this.state.optionSelections.size;
+
+        return numProductSelections < numProductOptions;
+    }
+
     render() {
-        const { addToCart, productOptions, props, mediaGalleryEntries } = this;
+        const {
+            addToCart,
+            isMissingOptions,
+            mediaGalleryEntries,
+            productOptions,
+            props
+        } = this;
         const { classes, isAddingItem, product } = props;
         const { regularPrice } = product.price;
 
@@ -212,7 +233,7 @@ class ProductFullDetail extends Component {
                     <Button
                         priority="high"
                         onClick={addToCart}
-                        disabled={isAddingItem}
+                        disabled={isAddingItem || isMissingOptions}
                     >
                         <span>Add to Cart</span>
                     </Button>
