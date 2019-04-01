@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'src/drivers';
-import { toggleDrawer } from 'src/actions/app';
 import classify from 'src/classify';
 import Gallery from 'src/components/Gallery';
 import Pagination from 'src/components/Pagination';
@@ -63,14 +60,4 @@ class CategoryContent extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    openDrawer: () => dispatch(toggleDrawer('filter'))
-});
-
-export default compose(
-    connect(
-        null,
-        mapDispatchToProps
-    ),
-    classify(defaultClasses)
-)(CategoryContent);
+export default classify(defaultClasses)(CategoryContent);

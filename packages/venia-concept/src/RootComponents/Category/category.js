@@ -6,7 +6,7 @@ import { connect, Query } from 'src/drivers';
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
-import CategoryContent from './categoryContent';
+import CategoryContent from './categoryContentContainer';
 import defaultClasses from './category.css';
 import categoryQuery from 'src/queries/getCategory.graphql';
 
