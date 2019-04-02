@@ -34,6 +34,12 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <img
       alt="image-product"
       className="currentImage"
+      onLoad={[Function]}
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    />
+    <img
+      alt="image-product"
+      className="currentImage"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
@@ -101,7 +107,13 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <img
       alt="test-thumbnail1"
       className="currentImage"
+      onLoad={[Function]}
       src="/img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+    />
+    <img
+      alt="test-thumbnail1"
+      className="currentImage"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
       className="chevron-right"
