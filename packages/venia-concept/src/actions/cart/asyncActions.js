@@ -391,6 +391,7 @@ export const getCartDetails = (payload = {}) => {
 
 export const toggleCart = () =>
     async function thunk(dispatch, getState) {
+        let cartActions;
         const { app, cart } = getState();
 
         // ensure state slices are present
@@ -404,10 +405,11 @@ export const toggleCart = () =>
         }
 
         // otherwise open the cart and load its contents
-        await Promise.all([
-            dispatch(toggleDrawer('cart')),
-            dispatch(getCartDetails())
-        ]);
+        cartActions = [dispatch(toggleDrawer('cart'))];
+        if (cart.details !== undefined && cart.details.items_count !== 0) {
+            cartActions = [dispatch(getCartDetails())];
+        }
+        await Promise.all(cartActions);
     };
 
 export const removeGuestCart = () =>
