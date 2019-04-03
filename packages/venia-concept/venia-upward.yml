@@ -194,7 +194,7 @@ cmsPageResult:
 urlKey:
   when:
     - matches: request.url.pathname
-      pattern: '^/(?:(.*))?'
+      pattern: '^/(?:(.*)\.html)?'
       use: $match.$1
   default:
     inline: ''
