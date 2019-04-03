@@ -14,7 +14,7 @@
 
 ## Configure a custom domain
 
-The domain is configurable. Just set `PWA_STUDIO_HOST` key to the new domain under `docker/.env.docker`, or pass a custom .env file with the `PWA_STUDIO_HOST` key set. All required fields can be found in `docker/.env.docker`. See how to pass the custom .env file below.
+The domain is configurable. Just set `PWA_STUDIO_PUBLIC_PATH` key to the new domain under `docker/.env.docker`, or pass a custom .env file with the `PWA_STUDIO_PUBLIC_PATH` key set. All required fields can be found in `docker/.env.docker`. See how to pass the custom .env file below.
 
 ## Pass custom .env file configuration through cli args (optional)
 
