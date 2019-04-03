@@ -78,6 +78,34 @@ describe('getDetails.receive', () => {
     });
 });
 
+describe('addItem.request', () => {
+    const actionType = actions.addItem.request;
+
+    test('it sets isAddingItem to true', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isAddingItem', true);
+    });
+});
+
+describe('addItem.receive', () => {
+    const actionType = actions.addItem.receive;
+
+    test('it sets isAddingItem to false', () => {
+        const action = {
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('isAddingItem', false);
+    });
+});
+
 describe('updateItem.request', () => {
     const actionType = actions.updateItem.request;
 

@@ -85,16 +85,15 @@ export const addItemToCart = (payload = {}) => {
                 body: JSON.stringify({ cartItem })
             });
 
-            dispatch(
-                actions.addItem.receive({ cartItem: response, item, quantity })
-            );
-
             // 2019-02-07  Moved these dispatches to the success clause of
             // addItemToCart. The cart should only open on success.
             // In the catch clause, this action creator calls its own thunk,
             // so a successful retry will wind up here anyway.
             await dispatch(getCartDetails({ forceRefresh: true }));
             await dispatch(toggleDrawer('cart'));
+            dispatch(
+                actions.addItem.receive({ cartItem: response, item, quantity })
+            );
         } catch (error) {
             const { response, noCartId } = error;
 

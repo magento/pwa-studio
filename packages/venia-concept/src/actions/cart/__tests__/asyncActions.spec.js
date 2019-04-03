@@ -155,6 +155,26 @@ describe('addItemToCart', () => {
         expect(result).toBeUndefined();
     });
 
+    // test('addItemToCart thunk dispatches actions on success', async () => {
+    //     const payload = { item: 'ITEM', quantity: 1 };
+    //     const cartItem = 'CART_ITEM';
+
+    //     request.mockResolvedValueOnce(cartItem);
+    //     await addItemToCart(payload)(...thunkArgs);
+
+    //     expect(dispatch).toHaveBeenNthCalledWith(
+    //         1,
+    //         actions.addItem.request(payload)
+    //     );
+    //     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+    //     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+    //     expect(dispatch).toHaveBeenNthCalledWith(
+    //         4,
+    //         actions.addItem.receive({ cartItem, ...payload })
+    //     );
+    //     expect(dispatch).toHaveBeenCalledTimes(4);
+    // });
+
     test('its thunk dispatches actions on success', async () => {
         // Test setup.
         const cartItem = 'CART_ITEM';
@@ -168,18 +188,18 @@ describe('addItemToCart', () => {
             1,
             actions.addItem.request(payload)
         );
+        // getCartDetails
+        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+        // toggleDrawer
+        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
         expect(dispatch).toHaveBeenNthCalledWith(
-            2,
+            4,
             actions.addItem.receive({
                 cartItem,
                 item: payload.item,
                 quantity: payload.quantity
             })
         );
-        // getCartDetails
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        // toggleDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
         expect(dispatch).toHaveBeenCalledTimes(4);
     });
 
