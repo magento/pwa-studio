@@ -40,14 +40,16 @@ const IntlPatches = {
             symbol: currency
         };
         const { symbol, decimal, groupDelim } = format;
-        // eslint-disable-next-line prefer-const
+        const parts = [{ type: 'currency', value: symbol }];
+
         const [integer, fraction] = num
             .toFixed(maximumFractionDigits)
             .match(/\d+/g);
-        const parts = [{ type: 'currency', value: symbol }];
+
         if (useGrouping !== false) {
             const intParts = [];
             const firstGroupLength = integer.length % 3;
+            let integerSlice = integer;
             if (firstGroupLength > 0) {
                 intParts.push(
                     JSON.stringify({
@@ -55,10 +57,10 @@ const IntlPatches = {
                         value: integer.slice(0, firstGroupLength)
                     })
                 );
-                integer = integer.slice(firstGroupLength);
+                integerSlice = integer.slice(firstGroupLength);
             }
 
-            const groups = integer.match(/\d{3}/g);
+            const groups = integerSlice.match(/\d{3}/g);
 
             if (groups) {
                 intParts.push(

@@ -3,10 +3,14 @@ import { transformItems } from 'src/selectors/purchaseHistory';
 import PurchaseHistory from './purchaseHistory';
 import actions, { getPurchaseHistory } from 'src/actions/purchaseHistory';
 
-const mapStateToProps = ({ purchaseHistory: { isFetching, items } }) => {
+const mapStateToProps = ({ purchaseHistory }) => {
+    const { isFetching } = purchaseHistory;
+
+    const items = transformItems(purchaseHistory.items);
+
     return {
         isFetching,
-        items: transformItems(items)
+        items
     };
 };
 
