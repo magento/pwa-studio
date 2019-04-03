@@ -51,6 +51,7 @@
     "graphql-tag": "~2.10.1",
     "informed": "~1.10.12",
     "lodash.debounce": "~4.0.8",
+    "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
     "react": "~16.8.3",
@@ -58,10 +59,11 @@
     "react-dom": "~16.8.3",
     "react-feather": "~1.1.6",
     "react-redux": "~6.0.1",
-    "react-router-dom": "~4.4.0-beta.6",
+    "react-router-dom": "~5.0.0",
     "redux": "~4.0.1",
     "redux-actions": "~2.6.4",
-    "redux-thunk": "~2.3.0"
+    "redux-thunk": "~2.3.0",
+    "uuid": "~3.3.2"
   },
   "devDependencies": {
     "@babel/core": "~7.3.4",
