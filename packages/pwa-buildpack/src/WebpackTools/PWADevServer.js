@@ -43,7 +43,7 @@ const PWADevServer = {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
-            public: process.env.PWA_STUDIO_HOST || '',
+            public: process.env.PWA_STUDIO_PUBLIC_PATH || '',
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,

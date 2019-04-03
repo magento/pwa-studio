@@ -42,7 +42,7 @@ env_setup () {
   echo "ENVFILEPATH=$CONFIG_ENV_FILE" >> $ENVFILE
   cat $ENVFILE
   . $ENVFILE
-  DOMAIN=$PWA_STUDIO_HOST
+  DOMAIN=$PWA_STUDIO_PUBLIC_PATH
 }
 
 create_certificate () {
