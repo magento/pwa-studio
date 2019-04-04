@@ -67,6 +67,12 @@ export class SearchBar extends Component {
         this.formApi.setValue('search_query', searchValueFromQueryString);
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.isOpen !== prevProps.isOpen) {
+            this.searchRef.current.querySelector('input').focus();
+        }
+    }
+
     autocompleteClick = e => {
         if (
             this.searchRef.current.contains(e.target) ||
