@@ -52,7 +52,7 @@ This template partial closes the `body` and `html` tag for the HTML response.
 
   {{> templates/open-body}}
 
-    <b>Hello World!</b>
+    <b>Hello Template World!</b>
 
   {{> templates/close-document}}
 ```
@@ -60,7 +60,7 @@ This template partial closes the `body` and `html` tag for the HTML response.
 {% endraw %}
 
 This template uses the previously defined template partials to create a complete HTML response.
-The body contains the "Hello World!" message in bold and sets the page title to a `title` variable, which is available through the template context.
+The body contains the "Hello Template World!" message in bold and sets the page title to a `title` variable, which is available through the template context.
 
 ## Add TemplateResolver
 

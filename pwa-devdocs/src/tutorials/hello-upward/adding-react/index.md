@@ -32,7 +32,7 @@ Modify the `hello-world.mst` template to replace the original message with a "ro
 
   {{> templates/open-body}}
 
--   <b>Hello World!</b>
+-   <b>Hello Template World!</b>
 +   <div id="root">Loading...</div>
 +
 +   <script defer src="/js/app.js"></script>
@@ -95,14 +95,14 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
     render() {
-        return <h1>Hello World!</h1>;
+        return <h1>Hello React World!</h1>;
     }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-This file defines an `App` React component that returns a "Hello World!" message wrapped inside `h1` tags.
+This file defines an `App` React component that returns a "Hello React World!" message wrapped inside `h1` tags.
 It uses the `ReactDOM` module to inject the content of the application into the "root" DOM element in the document.
 
 ## Make the application script publicly available
@@ -165,7 +165,7 @@ npx webpack && node server.js
 
 When webpack bundles `src/hello-world.js` into `dist/app.js`, it includes its dependencies, such as React and ReactDOM.
 
-When you navigate to the server, you will see the React application render the "Hello World!" message using the App component.
+When you navigate to the server, you will see the React application render the "Hello React World!" message using the App component.
 
 [Using the TemplateResolver]: {{site.baseurl}}{%link tutorials/hello-upward/using-template-resolver/index.md %}
 
