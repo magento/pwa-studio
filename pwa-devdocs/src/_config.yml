@@ -39,7 +39,11 @@ defaults:
       path: "venia-pwa-concept"
     values:
       toc-group: "venia-pwa-concept"
-
+  -
+    scope:
+      path: "tutorials"
+    values:
+      toc-group: "tutorials" 
 
 algolia:
   application_id: 'E642SEDTHL'
