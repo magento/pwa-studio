@@ -10,6 +10,9 @@
 {% elsif page.toc-group == "venia-pwa-concept" %}
     {% assign toc = site.data.venia-pwa-concept %}
 
+{% elsif page.toc-group == "tutorials" %}
+    {% assign toc = site.data.tutorials %}
+
 {% endif %}
 
 {% include layout/toc.html %}
