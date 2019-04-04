@@ -89,16 +89,14 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
-        const productType = product.__typename;
 
         const payload = {
             item: product,
-            productType,
+            productType: product.__typename,
             quantity
         };
 
         if (isProductConfigurable(product)) {
-            console.log('appending options to payload');
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 

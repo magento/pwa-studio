@@ -71,16 +71,14 @@ class CartOptions extends Component {
     handleClick = async () => {
         const { updateCart, cartItem, configItem } = this.props;
         const { optionSelections, quantity } = this.state;
-        const productType = configItem.__typename;
 
         const payload = {
             item: configItem,
-            productType,
+            productType: configItem.__typename,
             quantity: quantity
         };
 
         if (isProductConfigurable(configItem)) {
-            console.log('appending options to payload');
             appendOptionsToPayload(payload, optionSelections);
         }
 
