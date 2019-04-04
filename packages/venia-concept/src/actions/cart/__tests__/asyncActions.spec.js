@@ -660,7 +660,7 @@ test('removeItemFromCart resets the guest cart when removing the last item in th
     getState.mockImplementationOnce(() => ({
         cart: { guestCartId: 'CART', details: { items_count: 1 } }
     }));
-    let payload = { item: 'ITEM' };
+    const payload = { item: 'ITEM' };
 
     // removeItemFromCart() calls storage.removeItem() to clear the guestCartId
     // but only if there's 1 item left in the cart
@@ -732,7 +732,7 @@ test('getCartDetails thunk creates a guest cart if no ID is found', async () => 
 });
 
 test('getCartDetails thunk deletes an old cart id and recreates a guest cart if cart ID is expired', async () => {
-    let tempStorage = {};
+    const tempStorage = {};
     mockSetItem.mockImplementation((key, value) => {
         tempStorage[key] = value;
     });
