@@ -4,9 +4,9 @@ import PurchaseHistory from './purchaseHistory';
 import actions, { getPurchaseHistory } from 'src/actions/purchaseHistory';
 
 const mapStateToProps = ({ purchaseHistory }) => {
-    let { isFetching, items } = purchaseHistory;
+    const { isFetching } = purchaseHistory;
 
-    items = transformItems(items);
+    const items = transformItems(purchaseHistory.items);
 
     return {
         isFetching,

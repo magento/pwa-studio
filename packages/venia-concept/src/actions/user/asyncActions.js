@@ -113,7 +113,7 @@ export const assignGuestCartToCustomer = () =>
 
         try {
             const storage = new BrowserPersistence();
-            let guestCartId = storage.getItem('guestCartId');
+            const guestCartId = storage.getItem('guestCartId');
             const payload = {
                 customerId: user.id,
                 storeId: user.store_id
