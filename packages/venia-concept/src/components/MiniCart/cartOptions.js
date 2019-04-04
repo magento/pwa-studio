@@ -9,6 +9,7 @@ import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
+import isProductConfigurable from 'src/util/isProductConfigurable';
 
 // TODO: get real currencyCode for cartItem
 const currencyCode = 'USD';
@@ -36,6 +37,7 @@ class CartOptions extends Component {
             qty: number.isRequired
         }),
         configItem: shape({
+            __typename: string,
             configurable_options: array
         }),
         isUpdatingItem: bool,
@@ -69,11 +71,7 @@ class CartOptions extends Component {
     handleClick = async () => {
         const { updateCart, cartItem, configItem } = this.props;
         const { optionSelections, quantity } = this.state;
-        const { configurable_options } = configItem;
-        const isConfigurable = Array.isArray(configurable_options);
-        const productType = isConfigurable
-            ? 'ConfigurableProduct'
-            : 'SimpleProduct';
+        const productType = configItem.__typename;
 
         const payload = {
             item: configItem,
@@ -81,9 +79,11 @@ class CartOptions extends Component {
             quantity: quantity
         };
 
-        if (productType === 'ConfigurableProduct') {
+        if (isProductConfigurable(configItem)) {
+            console.log('appending options to payload');
             appendOptionsToPayload(payload, optionSelections);
         }
+
         updateCart(payload, cartItem.item_id);
     };
 
@@ -91,17 +91,16 @@ class CartOptions extends Component {
         const { fallback, handleSelectionChange, props } = this;
         const { classes, cartItem, configItem, isUpdatingItem } = props;
         const { name, price } = cartItem;
-        const { configurable_options } = configItem;
 
         const modalClass = isUpdatingItem
             ? classes.modal_active
             : classes.modal;
 
-        const options = Array.isArray(configurable_options) ? (
+        const options = isProductConfigurable(configItem) ? (
             <Suspense fallback={fallback}>
                 <section className={classes.options}>
                     <Options
-                        options={configurable_options}
+                        options={configItem.configurable_options}
                         onSelectionChange={handleSelectionChange}
                     />
                 </section>

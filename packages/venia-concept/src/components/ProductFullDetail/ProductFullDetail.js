@@ -14,11 +14,9 @@ import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 import findMatchingVariant from 'src/util/findMatchingProductVariant';
+import isProductConfigurable from 'src/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
-
-const productIsConfigurable = product =>
-    Array.isArray(product.configurable_options);
 
 class ProductFullDetail extends Component {
     static propTypes = {
@@ -38,6 +36,7 @@ class ProductFullDetail extends Component {
             title: string
         }),
         product: shape({
+            __typename: string,
             id: number,
             sku: string.isRequired,
             price: shape({
@@ -66,7 +65,7 @@ class ProductFullDetail extends Component {
         const optionCodes = new Map(state.optionCodes);
 
         // if this is a simple product, do nothing
-        if (!productIsConfigurable(props.product)) {
+        if (!isProductConfigurable(props.product)) {
             return null;
         }
 
@@ -90,10 +89,7 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
-        const isConfigurable = productIsConfigurable(product);
-        const productType = isConfigurable
-            ? 'ConfigurableProduct'
-            : 'SimpleProduct';
+        const productType = product.__typename;
 
         const payload = {
             item: product,
@@ -101,7 +97,8 @@ class ProductFullDetail extends Component {
             quantity
         };
 
-        if (productType === 'ConfigurableProduct') {
+        if (isProductConfigurable(product)) {
+            console.log('appending options to payload');
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
@@ -124,7 +121,7 @@ class ProductFullDetail extends Component {
     get productOptions() {
         const { fallback, handleSelectionChange, props } = this;
         const { configurable_options } = props.product;
-        const isConfigurable = productIsConfigurable(props.product);
+        const isConfigurable = isProductConfigurable(props.product);
 
         if (!isConfigurable) {
             return null;
@@ -146,7 +143,7 @@ class ProductFullDetail extends Component {
         const { optionCodes, optionSelections } = state;
         const { media_gallery_entries, variants } = product;
 
-        const isConfigurable = productIsConfigurable(product);
+        const isConfigurable = isProductConfigurable(product);
 
         if (
             !isConfigurable ||
@@ -172,7 +169,7 @@ class ProductFullDetail extends Component {
         const { product } = this.props;
 
         // Non-configurable products can't be missing options
-        if (!productIsConfigurable(product)) {
+        if (!isProductConfigurable(product)) {
             return false;
         }
 
