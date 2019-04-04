@@ -35,11 +35,11 @@ This tutorial teaches the basics of reading and writing an UPWARD specification 
     yarn add @magento/upward-js express
     ```
 
-    The [`upward-js`][] package contain modules for deploying an UPWARD-compliant server.
+    The [`upward-js`][] package contains modules for deploying an UPWARD-compliant server.
     This server requires an [UPWARD specification][] file to tell it how to respond to requests.
 
     [Express][] is a web framework for Node.js.
-    It is a dependency on the `upward-js` modules used in this tutorial.
+    It is a dependency for the `upward-js` modules used in this tutorial.
 
 ## Create the initial UPWARD spec
 
@@ -91,7 +91,7 @@ createUpwardServer({
 ```
 
 This file imports the `createUpwardServer` module from the `@magento/upward-js` package and uses it to start a web server.
-The script passes in the location of the specification file and sets the port number of the server to `8080`.
+The script passes in the location of the UPWARD specification file and sets the port number of the server to `8080`.
 
 Use `node` to run the server script:
 
@@ -100,12 +100,12 @@ node server.js
 ```
 
 When the server starts, the URL for the server is displayed in the terminal.
-Navigate to this URL to see the "Hello World!" message.
+Navigate to this URL in your browser to see the "Hello World!" message.
 
 ## Define a 404 response
 
 When you browse to the server, every path request returns the same message.
-To restrict this message to the root or a specific path, you must use a ConditionalResolver.
+To restrict this message to a specific path, use a ConditionalResolver.
 
 Edit `spec.yml` and replace the InlineResolver content of the `response` object with a [ConditionalResolver][] to define which paths return "Hello World!".
 

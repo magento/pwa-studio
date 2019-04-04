@@ -8,7 +8,7 @@ This tutorial builds on the project described in the previous [Creating a simple
 
 ## Create web page templates
 
-In your project directory, create a `templates` directory with [Mustache][] template files for the different pieces of the HTML page.
+In your project directory, create a `templates` directory. This directory will house [Mustache][] template files for the different pieces of the HTML page.
 
 **`open-document.mst`**
 
