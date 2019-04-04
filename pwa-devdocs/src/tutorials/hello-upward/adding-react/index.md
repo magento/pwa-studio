@@ -32,7 +32,7 @@ Modify the `hello-world.mst` template to replace the original message with a "ro
 
   {{> templates/open-body}}
 
--   Hello World!
+-   <b>Hello World!</b>
 +   <div id="root">Loading...</div>
 +
 +   <script defer src="/js/app.js"></script>

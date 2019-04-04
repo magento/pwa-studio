@@ -23,10 +23,10 @@ This tutorial teaches the basics of reading and writing an UPWARD specification 
     yarn init -y
     ```
 
-    Running this command creates a `package.json` file in your current directory.  
+    Running this command creates a `package.json` file in your current directory.
     The `package.json` file contains information about your project, such as name, version, dependencies, and runnable commands.
 
-    The `-y` parameter of this command lets you skip the interactive session.
+    The `-y` parameter is used in this tutorial to skip the interactive session.
     Omit this parameter if you want to fill out information about your project during initialization.
 
 1. Install the `@magento/upward-js` and `express` packages:
@@ -36,13 +36,13 @@ This tutorial teaches the basics of reading and writing an UPWARD specification 
     ```
 
     The [`upward-js`][] package contains modules for deploying an UPWARD-compliant server.
-    This server requires an [UPWARD specification][] file to tell it how to respond to requests.
 
     [Express][] is a web framework for Node.js.
     It is a dependency for the `upward-js` modules used in this tutorial.
 
 ## Create the initial UPWARD spec
 
+An UPWARD server requires an [UPWARD specification][] file to tell it how to respond to requests.
 Create a new file called `spec.yml` with the following content:
 
 ```yml
@@ -70,7 +70,7 @@ response:
 The first three lines set the `status`, `headers`, and `body` values required for an UPWARD server response.
 These values are set by traversing a decision tree defined in the specification file.
 
-In this example, they are set to the `status`, `headers`, and `body` values of the `response` object.
+In this example, they are set to the `response.status`, `response.headers`, and `response.body` values defined in the `response` object.
 These values are set using an UPWARD [InlineResolver][], which resolves the value of the `inline` property to a literal value.
 
 When passed to an UPWARD server, this file instructs the server to respond with a `200 OK` status code, content of type `text/string`, and a value of `Hello World!` in the response body for every request.
@@ -91,7 +91,9 @@ createUpwardServer({
 ```
 
 This file imports the `createUpwardServer` module from the `@magento/upward-js` package and uses it to start a web server.
-The script passes in the location of the UPWARD specification file and sets the port number of the server to `8080`.
+
+The script specifies the location of the UPWARD specification file through the `upwardPath` configuration and sets the port number of the server to `8080`.  
+The `logUrl` configuration tells the script to display the URL of the server and `bindLocal` tells it to create and bind to local HTTP server.
 
 Use `node` to run the server script:
 
@@ -100,6 +102,13 @@ node server.js
 ```
 
 When the server starts, the URL for the server is displayed in the terminal.
+
+```sh
+> node server.js
+
+http://0.0.0.0:8080/
+```
+
 Navigate to this URL in your browser to see the "Hello World!" message.
 
 ## Define a 404 response
@@ -144,7 +153,7 @@ This code tells the server to look at the requested URL path and check to see if
 If it matches, the server uses an object called `helloWorld` to resolve the response.
 For all other paths, the server resolves the response using the `notFound` object.
 
-Append the following `helloWorld` and `notFound` objects to the `spec.yml` file to complete the specification:
+After the `response` object, define the following `helloWorld` and `notFound` objects in the `spec.yml` file:
 
 ```yml
 helloWorld:
@@ -180,6 +189,16 @@ notFound:
 
 Now, when you start the server and navigate to the application, only the root and `/hello-world` path return the "Hello World!" message.
 All other paths return the `404` response.
+
+Valid URLS:
+
+* `http://0.0.0.0:8080/`
+* `http://0.0.0.0:8080/hello-world`
+
+Examples of invalid URLS:
+
+* `http://0.0.0.0:8080/goodbye-world`
+* `http://0.0.0.0:8080/something-else`
 
 **Next:** [Rendering web pages using the TemplateResolver][]
 
