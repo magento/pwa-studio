@@ -1,22 +1,25 @@
 const thirtyDays = 30 * 24 * 60 * 60;
-workbox.skipWaiting();
-workbox.clientsClaim();
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
 
-workbox.routing.registerRoute('/', workbox.strategies.staleWhileRevalidate());
+workbox.routing.registerRoute(
+    '/',
+    new workbox.strategies.StaleWhileRevalidate()
+);
 
 workbox.routing.registerRoute(
     new RegExp('\\.html$'),
-    workbox.strategies.networkFirst()
+    new workbox.strategies.NetworkFirst()
 );
 
 workbox.routing.registerRoute(
     new RegExp('/.\\.js$'),
-    workbox.strategies.staleWhileRevalidate()
+    new workbox.strategies.StaleWhileRevalidate()
 );
 
 workbox.routing.registerRoute(
     /\/media\/catalog.*\.(?:png|gif|jpg|jpeg|svg)$/,
-    workbox.strategies.staleWhileRevalidate({
+    new workbox.strategies.StaleWhileRevalidate({
         cacheName: 'catalog',
         plugins: [
             new workbox.expiration.Plugin({
@@ -29,7 +32,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,
-    workbox.strategies.cacheFirst({
+    new workbox.strategies.CacheFirst({
         cacheName: 'images',
         plugins: [
             new workbox.expiration.Plugin({
