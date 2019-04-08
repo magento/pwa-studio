@@ -20,8 +20,7 @@ const initialValues = {
 const clearIcon = <Icon src={ClearIcon} size={18} />;
 const searchIcon = <Icon src={SearchIcon} size={18} />;
 
-// TODO: remove export here (update story and test)
-export class SearchBar extends Component {
+class SearchBar extends Component {
     static propTypes = {
         classes: shape({
             clearIcon: string,
