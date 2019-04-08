@@ -46,7 +46,7 @@ export default callbacks => {
         let result = null;
 
         for (let i = 0; i < callbacks.length; i++) {
-            let callback = callbacks[i];
+            const callback = callbacks[i];
 
             if (
                 callback == null ||
@@ -58,7 +58,7 @@ export default callbacks => {
             }
 
             if (Array.isArray(callback)) {
-                let [extendedCallback, extendedParam] = callback;
+                const [extendedCallback, extendedParam] = callback;
 
                 if (typeof extendedCallback !== 'function') {
                     throw new Error(
