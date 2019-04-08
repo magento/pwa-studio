@@ -1,6 +1,6 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
-
+import { transparentPlaceholder } from 'src/shared/images';
 import Carousel from '../carousel';
 
 jest.mock('src/classify');
@@ -60,9 +60,9 @@ test('renders active item as main image', () => {
     const button = component.root.findByProps({ className: 'rootSelected' });
     const activeImageThumbnailAlt = button.children[0].props.alt;
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
@@ -80,9 +80,9 @@ test('updates main image when non-active item is clicked', () => {
     const button = component.root.findByProps({ className: 'rootSelected' });
     const activeImageThumbnailAlt = button.children[0].props.alt;
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail2');
@@ -102,9 +102,9 @@ test('renders prior image when left chevron is clicked', () => {
     });
     leftButton.props.onClick();
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
@@ -118,9 +118,9 @@ test('renders last image when left chevron is clicked and first item is active',
     });
     leftButton.props.onClick();
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail4');
@@ -134,9 +134,9 @@ test('renders next image when right chevron is clicked', () => {
     });
     leftButton.props.onClick();
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail2');
@@ -155,9 +155,9 @@ test('renders first image when right chevron is clicked and last item is active'
     });
     leftButton.props.onClick();
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
@@ -171,10 +171,29 @@ test('renders a transparent main image if no file name is provided', () => {
 test('sets main image alt as "image-product" if no label is provided', () => {
     const component = testRenderer.create(<Carousel images={[]} />);
 
-    const activeImage = component.root.findByProps({
+    const activeImage = component.root.findAllByProps({
         className: 'currentImage'
-    });
+    })[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('image-product');
+});
+
+test('renders a placeholder until image is loaded', () => {
+    const component = testRenderer.create(<Carousel {...defaultProps} />);
+
+    const placeholderImage = component.root.findAllByProps({
+        className: 'currentImage'
+    })[1];
+    const placeholderImageSrc = placeholderImage.props.src;
+
+    expect(placeholderImageSrc).toEqual(transparentPlaceholder);
+
+    component.root.children[0].instance.setCurrentImageLoaded();
+
+    const images = component.root.findAllByProps({
+        className: 'currentImage'
+    });
+
+    expect(images.length).toEqual(1);
 });
