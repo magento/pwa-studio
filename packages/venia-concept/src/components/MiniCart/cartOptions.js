@@ -154,7 +154,7 @@ class CartOptions extends Component {
                     <Button
                         priority="high"
                         onClick={this.handleClick}
-                        disabled={isUpdatingItem || isMissingOptions}
+                        disabled={isMissingOptions}
                     >
                         <span>Update Cart</span>
                     </Button>
