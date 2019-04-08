@@ -23,7 +23,7 @@ It acts as the backend service for a PWA frontend that is able to proxy requests
 
 ![UPWARD server diagram]({{site.baseurl}}{% link technologies/upward/images/upward-server-diagram.png %})
 
-See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server. 
+See [RATIONALE.md][] in the `upward-spec` package for a more detailed explanation of the need for an UPWARD server.
 ### UPWARD definition file
 
 An UPWARD server uses a definition file to determine the appropriate process or service for a request from an application shell.

@@ -1,0 +1,9 @@
+{
+    "environments": [
+        {
+            "name": "2.3.1-venia-cloud",
+            "description": "Magento 2.3.1 with Venia sample data installed",
+            "url": "https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
+        }
+    ]
+}

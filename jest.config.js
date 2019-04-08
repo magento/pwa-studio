@@ -90,7 +90,7 @@ const jestConfig = {
         configureProject('upward-js', 'Upward JS', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('venia-concept', 'Venia Concept', inPackage => ({
+        configureProject('venia-library', 'Venia Concept', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
             moduleNameMapper: {
@@ -139,7 +139,11 @@ const jestConfig = {
             'graphql-cli-validate-magento-pwa-queries',
             'GraphQL CLI Plugin',
             () => ({
-                testEnvironment: 'node'
+                testEnvironment: 'node',
+                moduleNameMapper: {
+                    './magento-compatibility':
+                        '<rootDir>/magento-compatibility.js'
+                }
             })
         )
     ],

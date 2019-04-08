@@ -12,7 +12,7 @@
 # in an UPWARD spec file.
 # An UPWARD server uses the resolved values of these properties to create an
 # HTTP response to the client.
-# In this file, these properties get their values from a top-level 
+# In this file, these properties get their values from a top-level
 # 'response' object, which is a recommended and best practice approach.
 status: response.status
 headers: response.headers
@@ -20,10 +20,10 @@ body: response.body
 
 # This is a top-level object used to set values for the root `status`,
 # `headers`, and `body` properties.
-# It is the first branch in an abstract decision tree, which ultimately 
+# It is the first branch in an abstract decision tree, which ultimately
 # resolves to an object that contains values for its own 'status', 'headers',
 # and 'body' properties.
-# This object uses a ConditionalResolver to determine the object value based 
+# This object uses a ConditionalResolver to determine the object value based
 # on the URL pattern in the request object.
 response:
   when:
@@ -69,7 +69,7 @@ response:
   # serves the Webpack output assets from the './dist' folder.
   default: bundles
 
-# The imageOpt object returns an HTTP redirect response (301) to Fastly, an 
+# The imageOpt object returns an HTTP redirect response (301) to Fastly, an
 # image optimization service.
 #
 # This is mainly used in production mode when the PWA does NOT have a
@@ -104,7 +104,7 @@ imageOpt:
                 inline: pjpg
               width: $match.$1
 
-# An object that returns true if the NODE_ENV environment variable is set 
+# An object that returns true if the NODE_ENV environment variable is set
 # to 'development'. Used as a test in other configurations in this file.
 # Returns false otherwise.
 isDevelopment:
@@ -151,7 +151,7 @@ appShell:
       default: 404
     headers:
       inline:
-        # The appShell object will always resolve to a response containing 
+        # The appShell object will always resolve to a response containing
         # 'text/html' content.
         content-type: 'text/html'
     body:
@@ -237,7 +237,7 @@ resource:
 # the templates can render dynamic script tags based on the filenames of the
 # most recent build assets.
 #
-# NOTE: This object uses the shorthand syntax for a FileResolver to help with 
+# NOTE: This object uses the shorthand syntax for a FileResolver to help with
 # readability and as a convenience.
 assetManifest:
   when:
@@ -274,7 +274,7 @@ urlResolver: urlResolverResult.data.urlResolver
 # shorthand syntax for a FileResolver.
 urlResolverResult:
   url: magentoGQL
-  query: './src/queries/urlResolver.graphql'
+  query: './node_modules/@magento/venia-library/esm/queries/urlResolver.graphql'
   variables:
     inline:
       urlKey: request.url.pathname
@@ -297,7 +297,7 @@ product: productResult.data.productDetail.items.0
 # This object retrieves information about a specific product.
 productResult:
   url: magentoGQL
-  query: './src/queries/getProductDetail.graphql'
+  query: './node_modules/@magento/venia-library/esm/queries/getProductDetail.graphql'
   variables:
     inline:
       onServer: true
@@ -315,7 +315,7 @@ category: categoryResult.data.category
 # This object retrieves information about a specific category.
 categoryResult:
   url: magentoGQL
-  query: './src/queries/getCategory.graphql'
+  query: './node_modules/@magento/venia-library/esm/queries/getCategory.graphql'
   variables:
     inline:
       onServer: true
@@ -336,7 +336,7 @@ cmsPage: cmsPageResult.data.cmsPage
 # This object retrieves information about a specific CMS page.
 cmsPageResult:
   url: magentoGQL
-  query: './src/queries/getCmsPage.graphql'
+  query: './node_modules/@magento/venia-library/esm/queries/getCmsPage.graphql'
   variables:
     inline:
       onServer: true

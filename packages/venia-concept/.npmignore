@@ -1,1 +1,1 @@
-.env
+**/__{mocks,tests,fixtures,stories}__/**

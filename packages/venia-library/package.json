@@ -1,0 +1,83 @@
+{
+  "name": "@magento/venia-library",
+  "version": "3.0.0-beta.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Venia PWA storefront modules for use by other projects",
+  "main": "src/index.js",
+  "browser": {
+    "@magento/venia-drivers": "src/drivers"
+  },
+  "scripts": {
+    "build": "yarn run clean && yarn run build:esm",
+    "build:dev": "echo 'Skipping venia-library build...'",
+    "build:esm": "BABEL_ENV=development babel src --out-dir esm --root-mode 'upward' --source-maps --copy-files",
+    "clean": "rimraf dist esm",
+    "prepublishOnly": "yarn run build",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+  },
+  "repository": "github:magento-research/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-library#readme",
+  "dependencies": {
+    "apollo-cache-inmemory": "~1.4.3",
+    "apollo-cache-persist": "~0.1.1",
+    "apollo-link-http": "~1.5.11",
+    "braintree-web-drop-in": "~1.16.0",
+    "informed": "~2.1.13",
+    "lodash.over": "~4.7.0",
+    "memoize-one": "~5.0.0",
+    "prop-types": "~15.7.2",
+    "react-feather": "~1.1.6",
+    "redux-actions": "~2.6.4",
+    "redux-thunk": "~2.3.0",
+    "uuid": "~3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "~7.2.3",
+    "@babel/core": "~7.3.4",
+    "@babel/plugin-proposal-class-properties": "~7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "~7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.3.0",
+    "@babel/plugin-transform-runtime": "~7.4.4",
+    "@babel/preset-env": "~7.3.4",
+    "@magento/pwa-buildpack": "~3.0.0-beta.1",
+    "@magento/upward-js": "~2.1.0",
+    "@storybook/react": "~4.1.13",
+    "babel-core": "~7.0.0-bridge.0",
+    "babel-jest": "~24.1.0",
+    "babel-loader": "~8.0.5",
+    "babel-plugin-dynamic-import-node": "~2.2.0",
+    "babel-plugin-graphql-tag": "~2.0.0",
+    "css-loader": "^2.1.1",
+    "enzyme": "~3.9.0",
+    "enzyme-adapter-react-16": "~1.9.1",
+    "identity-obj-proxy": "~3.0.0",
+    "react-test-renderer": "~16.8.6",
+    "rimraf": "~2.6.3",
+    "apollo-client": "~2.5.1",
+    "react": "^16.8.3",
+    "react-apollo": "^2.5.5",
+    "redux": "~4.0.1"
+  },
+  "peerDependencies": {
+    "@magento/peregrine": "~2.1.0",
+    "apollo-client": "~2.5.1",
+    "react": "^16.8.3",
+    "react-apollo": "^2.5.5",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1"
+  },
+  "module": "esm/index.js",
+  "es2015": "src/index.js",
+  "esnext": "src/index.js"
+}

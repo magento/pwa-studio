@@ -3,9 +3,11 @@ test('static configure() produces a webpack resolver config', async () => {
     await expect(
         MagentoResolver.configure({ paths: { root: 'fakeRoot' } })
     ).resolves.toEqual({
+        alias: {},
         modules: ['fakeRoot', 'node_modules'],
         mainFiles: ['index'],
-        extensions: ['.mjs', '.js', '.json', '.graphql']
+        mainFields: ['module', 'browser', 'main'],
+        extensions: ['.wasm', '.mjs', '.js', '.json', '.graphql']
     });
 });
 test('static configure() throws if required paths are missing', async () => {

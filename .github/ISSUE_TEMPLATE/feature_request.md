@@ -31,9 +31,12 @@ A clear and concise description of any alternative solutions or features you've 
 Add any other context or screenshots about the feature request here.
 
 **Please let us know what packages this feature is in regards to:**
-- [ ] `venia-concept`
+- [ ] `create-pwa`
+- [ ] `graphql-cli-validate-magento-pwa-queries`
 - [ ] `pwa-buildpack`
 - [ ] `peregrine`
 - [ ] `pwa-devdocs`
 - [ ] `upward-js`
 - [ ] `upward-spec`
+- [ ] `venia-concept`
+- [ ] `venia-library`

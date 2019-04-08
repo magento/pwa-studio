@@ -1,29 +1,60 @@
 {
   "name": "@magento/venia-concept",
-  "version": "2.1.0",
+  "version": "3.0.0-beta.1",
+  "private": true,
   "publishConfig": {
     "access": "public"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**venia-library**",
+      "react-dom/**",
+      "**/react-dom/**",
+      "react-router-dom/**",
+      "**/react-router-dom/**"
+    ]
+  },
+  "buildpack": {
+    "template": {
+      "ignore": [
+        "./vscode",
+        "dist",
+        "node_modules",
+        ".env",
+        "build-stats.json",
+        "lastCachedGraphQLSchema.json"
+      ]
+    }
   },
   "description": "Venia PWA Concept Storefront for Magento 2",
   "main": "src/index.js",
   "browser": {
     "@magento/venia-drivers": "src/drivers"
   },
+  "files": [
+    ".eslintignore",
+    ".graphqlconfig",
+    "babel.config.js",
+    "esm/*",
+    "esm/**/*",
+    "server.js",
+    "{esm,src,static,templates}/*",
+    "{esm,src,static,templates}/**",
+    "server.js",
+    "server-lambda.js",
+    "upward.yml",
+    "webpack.config.js"
+  ],
   "scripts": {
-    "build": "yarn run clean && yarn run build:esm && yarn run validate-queries && yarn run build:prod",
-    "build:analyze": "yarn run clean && mkdir dist && yarn run validate-queries && yarn run build:stats",
+    "build": "yarn run clean && buildpack validate-env . && yarn run validate-queries && yarn run build:prod",
+    "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
     "build:dev": "echo 'Skipping venia-concept build...'",
-    "build:esm": "BABEL_ENV=development babel src --out-dir esm --root-mode 'upward' --source-maps --copy-files",
     "build:prod": "webpack -p --color --no-progress --profile --env.mode production",
-    "clean": "rimraf dist esm",
+    "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia",
     "now-build": "../../now-build.sh",
-    "prepublishOnly": "yarn run build",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
-    "stats": "webpack-bundle-analyzer dist/build-stats.json",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist",
     "validate-queries": "yarn run download-schema && graphql validate-magento-pwa-queries --project venia",
     "watch": "webpack-dev-server --progress --color --env.mode development"
   },
@@ -37,30 +68,18 @@
   "dependencies": {
     "@babel/runtime": "~7.4.2",
     "@magento/peregrine": "~2.1.0",
-    "apollo-boost": "~0.1.28",
-    "apollo-cache-inmemory": "~1.4.3",
-    "apollo-cache-persist": "~0.1.1",
-    "apollo-client": "~2.4.13",
+    "@magento/venia-library": "~3.0.0-beta.1",
+    "apollo-client": "~2.5.1",
     "apollo-link-context": "~1.0.14",
-    "apollo-link-http": "~1.5.11",
-    "braintree-web-drop-in": "~1.16.0",
     "graphql-cli": "~3.0.11",
     "graphql-cli-validate-magento-pwa-queries": "~1.0.0",
     "graphql-tag": "~2.10.1",
-    "informed": "~2.1.13",
-    "lodash.over": "~4.7.0",
-    "memoize-one": "~5.0.0",
-    "prop-types": "~15.7.2",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",
     "react-dom": "~16.8.3",
-    "react-feather": "~1.1.6",
     "react-redux": "~6.0.1",
     "react-router-dom": "~5.0.0",
-    "redux": "~4.0.1",
-    "redux-actions": "~2.6.4",
-    "redux-thunk": "~2.3.0",
-    "uuid": "~3.3.2"
+    "redux": "~4.0.1"
   },
   "devDependencies": {
     "@babel/core": "~7.3.4",
@@ -71,7 +90,7 @@
     "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
-    "@magento/pwa-buildpack": "~2.1.0",
+    "@magento/pwa-buildpack": "3.0.0-beta.1",
     "@magento/upward-js": "~2.1.0",
     "@storybook/react": "~4.1.13",
     "babel-core": "~7.0.0-bridge.0",
@@ -79,18 +98,13 @@
     "babel-loader": "~8.0.5",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-graphql-tag": "~2.0.0",
-    "chalk": "~2.4.2",
-    "css-loader": "~2.1.1",
+    "babel-plugin-module-resolver": "~3.2.0",
     "dotenv": "~6.2.0",
     "enzyme": "~3.9.0",
     "enzyme-adapter-react-16": "~1.9.1",
-    "identity-obj-proxy": "~3.0.0",
-    "node-fetch": "~2.3.0",
     "react-test-renderer": "~16.8.6",
     "rimraf": "~2.6.3",
-    "terser-webpack-plugin": "~1.2.3",
     "webpack": "~4.29.5",
-    "webpack-assets-manifest": "~3.1.1",
     "webpack-bundle-analyzer": "~3.0.4",
     "webpack-cli": "~3.2.3",
     "webpack-dev-server": "~3.2.1"
@@ -101,12 +115,5 @@
   "engines": {
     "node": "8.10.0 || >=10.7.0",
     "yarn": ">=1.12.0"
-  },
-  "module": "esm/index.js",
-  "es2015": "src/index.js",
-  "esnext": "src/index.js",
-  "sideEffects": [
-    "./src/index.js",
-    "./src/**/*.css"
-  ]
+  }
 }

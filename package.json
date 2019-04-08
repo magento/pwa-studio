@@ -1,14 +1,16 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "2.1.0",
+  "version": "3.0.0-beta.1",
   "private": true,
   "workspaces": [
+    "packages/create-pwa",
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
-    "packages/venia-concept",
     "packages/upward-js",
-    "packages/upward-spec"
+    "packages/upward-spec",
+    "packages/venia-library",
+    "packages/venia-concept"
   ],
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",

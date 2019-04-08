@@ -1,11 +1,14 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.1.0",
+  "version": "3.0.0-beta.1",
   "publishConfig": {
     "access": "public"
   },
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
   "main": "dist/index.js",
+  "bin": {
+    "buildpack": "./bin/buildpack"
+  },
   "scripts": {
     "build": "babel src --out-dir dist --root-mode 'root' --source-maps --copy-files",
     "build:dev": "yarn run build",
@@ -32,7 +35,7 @@
     "@babel/helper-module-imports": "~7.0.0",
     "@babel/plugin-syntax-dynamic-import": "~7.2.0",
     "@babel/plugin-transform-react-jsx": "~7.3.0",
-    "@magento/directive-parser": "~0.1.6",
+    "@magento/directive-parser": "~0.1.7",
     "@magento/express-sharp": "~2.1.1-newdeps.1",
     "@magento/upward-js": "~2.1.0",
     "apicache": "~1.4.0",
@@ -49,18 +52,26 @@
     "execa": "~1.0.0",
     "express": "~4.16.4",
     "figures": "~2.0.0",
+    "fs-extra": "~7.0.1",
     "graphql-playground-middleware-express": "~1.7.12",
+    "is-valid-npm-name": "~0.0.4",
+    "klaw": "~3.0.0",
     "lodash": "~4.17.11",
+    "micromatch": "~4.0.2",
     "node-fetch": "~2.3.0",
+    "pkg-dir": "~4.1.0",
     "portscanner": "~2.2.0",
     "readdir-enhanced": "~2.2.4",
     "redis": "~2.8.0",
+    "tar": "~4.4.8",
+    "terser-webpack-plugin": "~1.2.3",
     "virtual-module-webpack-plugin": "~0.4.1",
-    "webpack": "~4.29.5",
+    "webpack-assets-manifest": "~3.1.1",
     "webpack-sources": "~1.3.0",
     "word-wrap": "~1.2.3",
     "workbox-webpack-plugin": "~4.2.0",
-    "write-file-webpack-plugin": "~4.5.0"
+    "write-file-webpack-plugin": "~4.5.0",
+    "yargs": "~13.2.2"
   },
   "devDependencies": {
     "@babel/cli": "~7.2.3",
@@ -70,7 +81,10 @@
     "rimraf": "~2.6.3",
     "sharp": "~0.21.2",
     "strip-ansi": "~5.0.0",
-    "terser-webpack-plugin": "~1.2.3"
+    "webpack": "~4.29.5"
+  },
+  "peerDependencies": {
+    "webpack": "^4.29.5"
   },
   "engines": {
     "node": "8.10.0 || >=10.7.0",

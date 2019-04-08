@@ -52,9 +52,12 @@ Add any ideas about possible solutions to the problem here.
 
 <!-- Complete the following sections to help us apply appropriate labels! -->
 **Please let us know what packages this bug is in regards to:**
-- [ ] `venia-concept`
+- [ ] `create-pwa`
+- [ ] `graphql-cli-validate-magento-pwa-queries`
 - [ ] `pwa-buildpack`
 - [ ] `peregrine`
 - [ ] `pwa-devdocs`
 - [ ] `upward-js`
 - [ ] `upward-spec`
+- [ ] `venia-concept`
+- [ ] `venia-library`

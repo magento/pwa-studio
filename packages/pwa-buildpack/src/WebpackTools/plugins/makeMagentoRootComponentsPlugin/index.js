@@ -1,3 +1,4 @@
+const debug = require('../../../util/debug').makeFileLogger(__dirname);
 const { readFile: fsReadFile } = require('fs');
 const readFile = require('util').promisify(fsReadFile);
 const { ProvidePlugin } = require('webpack');
@@ -44,31 +45,54 @@ class MagentoRootComponentsPlugin {
         const rootComponentsDirsAbs = rootComponentsDirs.map(dir =>
             isAbsolute(dir) ? dir : join(context, dir)
         );
+        debug('absolute root component dirs: %J', rootComponentsDirsAbs);
         const rootComponentImporters = await rootComponentsDirsAbs.reduce(
             async (importersPromise, rootComponentDir) => {
+                debug('gathering files from %s', rootComponentDir);
                 const importerSources = await importersPromise;
                 const rootComponentFiles = await readdir(rootComponentDir, {
                     basePath: rootComponentDir,
                     deep: true,
                     filter: /m?[jt]s$/
                 });
+                debug(
+                    'files from %s: %J',
+                    rootComponentDir,
+                    rootComponentFiles
+                );
                 await Promise.all(
                     rootComponentFiles.map(async rootComponentFile => {
+                        debug('reading file %s', rootComponentFile);
                         const rootComponentSource = await readFile(
                             rootComponentFile,
                             'utf8'
                         );
+                        debug(
+                            'parsing %s source for directives',
+                            rootComponentFile
+                        );
                         const { directives = [], errors } = directiveParser(
                             rootComponentSource
+                        );
+                        debug(
+                            'directive parse found in %s, %J and errors: %J',
+                            rootComponentFile,
+                            directives,
+                            errors
                         );
                         if (errors.length) {
                             // for now, errors just mean no directive was found
                             return;
                         }
+                        debug('filtering %J for RootComponents', directives);
                         const rootComponentDirectives = directives.filter(
                             d => d.type === 'RootComponent'
                         );
-
+                        debug(
+                            'found %s directives: %J',
+                            rootComponentDirectives.length,
+                            rootComponentDirectives
+                        );
                         if (rootComponentDirectives.length === 0) {
                             return;
                         }
@@ -90,6 +114,11 @@ class MagentoRootComponentsPlugin {
                             );
                         } else {
                             pageTypes.forEach(pageType => {
+                                debug(
+                                    'creating root component map key for %s',
+                                    rootComponentFile,
+                                    pageType
+                                );
                                 const key = toRootComponentMapKey(
                                     pageType,
                                     variant

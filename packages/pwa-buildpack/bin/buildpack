@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+require('yargs')
+    .commandDir('../dist/cli')
+    .demandCommand(
+        1,
+        'Invoke buildpack with a subcommand (eg. buildpack init-project) and the arguments to that subcommand.'
+    )
+    .strict()
+    .help().argv;

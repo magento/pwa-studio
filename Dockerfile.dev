@@ -11,15 +11,21 @@ RUN apk --no-cache --virtual add \
     python \
     make \
     g++ \
-    yarn 
+    yarn
 
 # copy just the dependency files and configs needed for install
+COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
+COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
+COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
 COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
 COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
+COPY packages/venia-library/package.json ./packages/venia-library/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
-COPY package.json yarn.lock babel.config.js browserslist.js magento-compatibility.js ./
+COPY packages/venia-concept/browserslist.js ./packages/venia-concept/browserslist.js
+COPY packages/venia-concept/babel.config.js ./packages/venia-concept/babel.config.js
+COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
@@ -29,11 +35,11 @@ COPY packages ./packages
 
 # set in docker-compose
 ARG ENVFILEPATH
-# copy configuration env file from host file system to venia-concept .env for build
+# # copy configuration env file from host file system to venia-concept .env for build
 COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 
 # build the app
-RUN yarn run build 
+RUN yarn run build
 
 # MULTI-STAGE BUILD
 FROM node:10.14.1-alpine
