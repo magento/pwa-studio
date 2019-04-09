@@ -1,5 +1,6 @@
 module.exports.plugins = [
     require('remark-lint'),
+    require('remark-frontmatter'),
 
     // Blockquotes must be indented twice
     [require('remark-lint-blockquote-indentation'), [1, 2]],
