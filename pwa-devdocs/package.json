@@ -18,7 +18,8 @@
         "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-compatibility-table build-html",
         "build-production": "npm-run-all -s clean build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
         "deploy": "npm run build-production && ./scripts/deploy.sh",
-        "clean": "rm -fr _site"
+        "clean": "rm -fr _site",
+        "tests": "node scripts/tests"
     },
     "repository": "github:magento-research/pwa-studio",
     "author": "James Calcaben",
