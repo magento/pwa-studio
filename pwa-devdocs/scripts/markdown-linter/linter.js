@@ -4,10 +4,11 @@ let styleGuide = require('./style-guide');
 let vfile = require('to-vfile');
 
 const linter = filepath => {
-  var file = remark()
-    .use(styleGuide)
-    .processSync(vfile.readSync(filepath));
-  console.log(report(file)); 
-}
+    return vfile.read(filepath).then(vfile => {
+        return remark()
+            .use(styleGuide)
+            .process(vfile);
+    });
+};
 
 module.exports = linter;

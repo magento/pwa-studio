@@ -1,5 +1,24 @@
 const linter = require('./linter');
 const fs = require('fs');
-const path = require('path');
+const report = require('vfile-reporter');
 
-linter(path.join(__dirname, '../../src/technologies/contribute/index.md'));
+module.exports = {
+    linter: filepath => {
+        linter(filepath)
+            .then(file => {
+                console.log(report(file));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+    fixer: filepath => {
+        return linter(filepath)
+            .then(file => {
+                return fs.promises.writeFile(filepath, String(file), 'utf8');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+};
