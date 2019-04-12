@@ -13,7 +13,7 @@ The following features define a basic PWA website:
 * **Fast** - PWA sites use a variety of performance optimization strategies to provide a responsive experience or load content fast, even on slow networks.
 * **Secure** - PWA sites use HTTPS connections for enhanced security.
 * **Responsive** - PWA sites implement responsive design strategies to provide a consistent experience on desktops, tablets, and mobile devices. 
-* **Cross-browser compatible** - PWA sites work equally well on all modern browsers, such as Chrome, Edge, Firefox, Safari. 
+* **Cross-browser compatible** - PWA sites work equally well on all modern browsers, such as Chrome, Edge, Firefox, Safari (Mac OS only).
 * **Offline Mode** - PWA sites cache content to ensure that some content can be served when a user is offline.
 * **Mobile "Install"** - Mobile users can add PWA sites to their home screens and even receive Push notifications from the site.
 * **Shareable content** - Each page in a PWA site has a unique URL that can be shared with other apps or social media.
