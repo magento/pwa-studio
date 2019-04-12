@@ -87,7 +87,7 @@ The following table is a summary of general skills needed for Magento theme deve
 | [KnockoutJS][]                   | JS framework used for binding data models to the UI         |
 | Cascading Style Sheets ([CSS][]) | Defines the style for a websites                            |
 | Leaner Style Sheets ([Less][])   | Language extension for CSS                                  |
-| XML                              | Format used by Magento for configuration and layout         |
+| Extensible Markup Language ([XML][]) | Format used by Magento for configuration and layout         |
 | [Magento layouts][]              | Layouts represent the structure for a page                  |
 | [Magento templates][]            | Templates define  how layout blocks are presented on a page |
 | [Magento UI library][]           | Frontend library for Magento theme developers               |
@@ -130,6 +130,7 @@ The following table is a summary of general skills needed for PWA storefront dev
 [jQuery]: https://jquery.com/
 [Less]: http://lesscss.org/
 [CSS]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/css-topics/css-overview.html
+[XML]: https://magento.github.io/glossary/?#8c0645c5-aa6b-4a52-8266-5659a8b9d079
 [Magento UI library]: https://magento-devdocs.github.io/magento2-ui-library/
 [Magento layouts]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/layouts/layout-overview.html
 [Magento templates]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/templates/template-overview.html
