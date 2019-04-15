@@ -50,6 +50,22 @@ If you just want to generate the HTML pages in the `_site` folder, run the follo
 npm run build
 ```
 
+### Testing
+
+```
+npm run tests
+```
+
+This command runs tests on the documentation to make sure it meets our standards.
+
+To test a single file append the markdown file at the end of the test command.
+
+Example:
+
+```
+npm run tests -- src/technologies/versioning/index.md
+```
+
 ## Contributing
 
 This is an open source project that welcomes contributors of all skill levels.
