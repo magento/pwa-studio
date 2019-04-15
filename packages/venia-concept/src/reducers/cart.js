@@ -108,7 +108,8 @@ const reducerMap = {
     },
     [checkoutActions.order.accept]: () => {
         return initialState;
-    }
+    },
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);

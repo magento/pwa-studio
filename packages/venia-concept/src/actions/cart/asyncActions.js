@@ -275,6 +275,7 @@ export const getCartDetails = (payload = {}) => {
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
+        console.log('getCartDetails: isSignedIn?', isSignedIn);
 
         // if there isn't a cart, create one
         // then retry this operation
@@ -383,16 +384,12 @@ export const toggleCart = () =>
     };
 
 export const removeGuestCart = () =>
-    async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const { cart } = getState();
+    async function thunk(dispatch) {
+        // Clear the guest cartId from local storage.
+        await clearCartId();
 
-        if (cart && cart.cartId) {
-            // TODO: does this actually do anything?
-            dispatch({
-                type: 'REMOVE_GUEST_CART'
-            });
-        }
+        // Clear the guest cart info from the redux store.
+        await dispatch(actions.reset());
     };
 
 /* helpers */
@@ -420,7 +417,7 @@ export async function getCartId(dispatch, getState) {
         return null;
     }
 
-    // create a guest cart if one hasn't been created yet
+    // create a cart if one hasn't been created yet
     if (!cart.cartId) {
         await dispatch(createCart());
     }
