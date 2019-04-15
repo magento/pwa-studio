@@ -2,20 +2,14 @@ import actions from './actions';
 import mockData from './mockData';
 
 export const serialize = (params, keys = [], isArray = false) => {
-    const p = Object.keys(params)
+    const serialized = Object.keys(params)
         .map(key => {
-            let val = params[key];
-            if (
-                '[object Object]' === Object.prototype.toString.call(val) ||
-                Array.isArray(val)
-            ) {
+            const val = params[key];
+            const isObject =
+                Object.prototype.toString.call(val) === '[object Object]';
+            if (isObject || Array.isArray(val)) {
                 if (val.length === 0) return null;
-
-                if (Array.isArray(params)) {
-                    keys.push('');
-                } else {
-                    keys.push(key);
-                }
+                keys.push(Array.isArray(params) ? '' : key);
                 return serialize(val, keys, Array.isArray(val));
             } else {
                 let tKey = key;
@@ -28,18 +22,15 @@ export const serialize = (params, keys = [], isArray = false) => {
                         return '' === str ? k : `${str}[${k}]`;
                     }, '');
                 }
-                if (isArray) {
-                    return `${tKey}[]=${val}`;
-                } else {
-                    return `${tKey}=${val}`;
-                }
+
+                return isArray ? `${tKey}[]=${val}` : `${tKey}=${val}`;
             }
         })
         .filter(Boolean)
         .join('&');
 
     keys.pop();
-    return p;
+    return serialized;
 };
 
 const updateCatalogUrl = (filters, history) =>

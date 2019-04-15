@@ -3,7 +3,7 @@ export const getFilterParams = () => {
     let titles,
         values = [];
 
-    let urlFilterParams = {};
+    const urlFilterParams = {};
 
     for (const key of params.keys()) {
         const cleanKey = key.replace(/\[.*\]/gm, '');
