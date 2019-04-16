@@ -144,28 +144,19 @@ describe('signIn', () => {
 
     test('its thunk dispatches actions on success', async () => {
         await signIn(credentials)(...thunkArgs);
-    
+
         expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.resetSignInError.request()
         );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.signIn.receive()
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(2, actions.signIn.receive());
         // removeCart
-        expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            expect.any(Function)
-        )
+        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
         // getCartDetails
-        expect(dispatch).toHaveBeenNthCalledWith(
-            4,
-            expect.any(Function)
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
     });
-    
+
     test('its thunk dispatches actions on error', async () => {
         // Test setup.
         const error = new Error('ERROR');
@@ -173,7 +164,7 @@ describe('signIn', () => {
 
         // Execute the function.
         await signIn(credentials)(...thunkArgs);
-    
+
         // Make assertions.
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -185,10 +176,10 @@ describe('signIn', () => {
             actions.signInError.receive(error)
         );
     });
-    
+
     test('its thunk makes requests on success', async () => {
         await signIn(credentials)(...thunkArgs);
-    
+
         expect(request).toHaveBeenCalledTimes(2);
 
         const tokenRequest = request.mock.calls[0];
@@ -229,20 +220,11 @@ describe('signOut', () => {
         await signOut(mockParam)(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.signIn.reset()
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.signIn.reset());
         const removeCart = expect.any(Function);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            removeCart
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(2, removeCart);
         const getCartDetails = expect.any(Function);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            getCartDetails
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(3, getCartDetails);
     });
 });
 
