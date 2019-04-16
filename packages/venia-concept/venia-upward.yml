@@ -46,14 +46,18 @@ imageOpt:
     headers:
       inline:
         Location:
-          baseUrl: request.url.query.url
-          query:
-            inline:
-              auto:
-                inline: webp
-              format:
-                inline: pjpg
-              width: $match.$1
+          engine: mustache
+          provide:
+            width: $match.$1
+            path: request.url.query.url
+          template:
+            when:
+              - matches: env.USE_FASTLY
+                pattern: '[^0]'
+                use:
+                  inline: '{{path}}?auto=webp&format=pjpg&width={{width}}'
+            default:
+              inline: '{{path}}'
 
 isDevelopment:
   when:
@@ -148,9 +152,11 @@ urlResolverResult:
       urlKey: request.url.pathname
 
 magentoGQL:
-  baseUrl: env.MAGENTO_BACKEND_URL
-  pathname:
-    inline: graphql
+  engine: mustache
+  template:
+    inline: '{{env.MAGENTO_BACKEND_URL}}/graphql'
+  provide:
+    - env
 
 product: productResult.data.productDetail.items.0
 productResult:
