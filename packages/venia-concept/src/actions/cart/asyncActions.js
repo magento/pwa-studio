@@ -275,7 +275,6 @@ export const getCartDetails = (payload = {}) => {
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
-        console.log('getCartDetails: isSignedIn?', isSignedIn);
 
         // if there isn't a cart, create one
         // then retry this operation

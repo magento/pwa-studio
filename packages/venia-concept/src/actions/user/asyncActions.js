@@ -1,12 +1,13 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
-import { createCart, removeGuestCart } from 'src/actions/cart';
 import { refresh } from 'src/util/router-helpers';
+import { getCartDetails, removeGuestCart } from 'src/actions/cart';
+
+import actions from './actions';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
-
-import actions from './actions';
+const storage = new BrowserPersistence();
 
 export const signIn = credentials =>
     async function thunk(...args) {
@@ -16,8 +17,6 @@ export const signIn = credentials =>
 
         try {
             const body = {
-                // username: 'roni_cost@example.com',
-                // password: 'roni_cost3@example.com'
                 username: credentials.username,
                 password: credentials.password
             };
@@ -36,11 +35,12 @@ export const signIn = credentials =>
                 method: 'GET'
             });
 
-            // Now that the user is signed in, create a new cart.
-            // TODO: should we delete the old one first? or assignGuestCartToCustomer?
-            await dispatch(createCart());
+            await dispatch(actions.signIn.receive(userDetails));
 
-            dispatch(actions.signIn.receive(userDetails));
+            // Now that we're signed in, forget the old guest cart
+            // and fetch this customer's cart.
+            await dispatch(removeGuestCart());
+            dispatch(getCartDetails({ forceRefresh: true }));
         } catch (error) {
             dispatch(actions.signInError.receive(error));
         }
@@ -58,8 +58,10 @@ export const getUserDetails = () =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { user } = getState();
+
         if (user.isSignedIn) {
             dispatch(actions.resetSignInError.request());
+
             try {
                 const userDetails = await request('/rest/V1/customers/me', {
                     method: 'GET'
@@ -82,13 +84,13 @@ export const createNewUserRequest = accountInfo =>
                 method: 'POST',
                 body: JSON.stringify(accountInfo)
             });
+
             await dispatch(
                 signIn({
                     username: accountInfo.customer.email,
                     password: accountInfo.password
                 })
             );
-            dispatch(assignGuestCartToCustomer());
         } catch (error) {
             dispatch(actions.createAccountError.receive(error));
 
@@ -110,33 +112,6 @@ export const createAccount = accountInfo => async dispatch => {
     } catch (e) {}
 };
 
-export const assignGuestCartToCustomer = () =>
-    async function thunk(...args) {
-        const [dispatch, getState] = args;
-        const { user } = getState();
-
-        try {
-            const storage = new BrowserPersistence();
-            const cartId = storage.getItem('cartId');
-
-            const payload = {
-                customerId: user.id,
-                storeId: user.store_id
-            };
-
-            // TODO: Check if cartId exists
-            await request(`/rest/V1/guest-carts/${cartId}`, {
-                method: 'PUT',
-                body: JSON.stringify(payload)
-            });
-
-            dispatch(removeGuestCart());
-        } catch (error) {
-            // TODO: Handle error
-            console.log(error);
-        }
-    };
-
 export const resetPassword = ({ email }) =>
     async function thunk(...args) {
         const [dispatch] = args;
@@ -154,7 +129,6 @@ export const completePasswordReset = email => async dispatch =>
     dispatch(actions.completePasswordReset(email));
 
 async function setToken(token) {
-    const storage = new BrowserPersistence();
     // TODO: Get correct token expire time from API
     storage.setItem('signin_token', token, 3600);
 }

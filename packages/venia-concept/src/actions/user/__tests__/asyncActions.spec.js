@@ -13,7 +13,6 @@ import {
     completePasswordReset,
     createAccount,
     createNewUserRequest,
-    assignGuestCartToCustomer,
     resetPassword
 } from '../asyncActions';
 
@@ -67,10 +66,6 @@ test('createAccount() returns a thunk', () => {
 
 test('createNewUserRequest() returns a thunk', () => {
     expect(createNewUserRequest()).toBeInstanceOf(Function);
-});
-
-test('assignGuestCartToCustomer() returns a thunk', () => {
-    expect(assignGuestCartToCustomer()).toBeInstanceOf(Function);
 });
 
 test('signIn thunk dispatches resetSignInError', async () => {
@@ -175,12 +170,6 @@ test('createNewUserRequest thunk dispatches signIn', async () => {
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
 });
 
-test('createNewUserRequest thunk dispatches assignGuestCartToCustomer', async () => {
-    await createNewUserRequest(accountInfo)(...thunkArgs);
-
-    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-});
-
 test('createNewUserRequest thunk dispatches createAccountError on invalid account info', async () => {
     const error = new TypeError('ERROR');
     request.mockRejectedValueOnce(error);
@@ -193,27 +182,6 @@ test('createNewUserRequest thunk dispatches createAccountError on invalid accoun
         2,
         actions.createAccountError.receive(error)
     );
-});
-
-test('assignGuestCartToCustomer thunk retrieves guest cart with cartId', async () => {
-    getState.mockImplementationOnce(() => ({
-        user: { isSignedIn: false, id: 'ID', storeId: 'STORE_ID' }
-    }));
-
-    const storedCartId = 'STORED_CART_ID';
-    mockGetItem.mockImplementationOnce(() => storedCartId);
-
-    await assignGuestCartToCustomer({})(...thunkArgs);
-
-    const firstRequest = request.mock.calls[0];
-    expect(mockGetItem).toHaveBeenCalledWith('cartId');
-    expect(firstRequest[0]).toBe(`/rest/V1/guest-carts/STORED_CART_ID`);
-    expect(firstRequest[1]).toHaveProperty('method', 'PUT');
-});
-
-test('assignGuestCartToCustomer thunk dispatches removeGuestCart()', async () => {
-    await assignGuestCartToCustomer({})(...thunkArgs);
-    expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
 });
 
 describe('resetPassword', () => {
