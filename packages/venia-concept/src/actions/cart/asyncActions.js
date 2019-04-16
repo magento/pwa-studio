@@ -382,12 +382,12 @@ export const toggleCart = () =>
         ]);
     };
 
-export const removeGuestCart = () =>
+export const removeCart = () =>
     async function thunk(dispatch) {
-        // Clear the guest cartId from local storage.
+        // Clear the cartId from local storage.
         await clearCartId();
 
-        // Clear the guest cart info from the redux store.
+        // Clear the cart info from the redux store.
         await dispatch(actions.reset());
     };
 

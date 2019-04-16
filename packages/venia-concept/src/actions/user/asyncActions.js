@@ -1,7 +1,7 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
 import { refresh } from 'src/util/router-helpers';
-import { getCartDetails, removeGuestCart } from 'src/actions/cart';
+import { getCartDetails, removeCart } from 'src/actions/cart';
 
 import actions from './actions';
 
@@ -37,20 +37,26 @@ export const signIn = credentials =>
 
             await dispatch(actions.signIn.receive(userDetails));
 
-            // Now that we're signed in, forget the old guest cart
+            // Now that we're signed in, forget the old (guest) cart
             // and fetch this customer's cart.
-            await dispatch(removeGuestCart());
+            await dispatch(removeCart());
             dispatch(getCartDetails({ forceRefresh: true }));
         } catch (error) {
             dispatch(actions.signInError.receive(error));
         }
     };
 
-export const signOut = ({ history }) => dispatch => {
-    setToken(null);
+export const signOut = ({ history }) => async dispatch => {
+    // Sign the user out in local storage and Redux.
+    await setToken(null);
+    await dispatch(actions.signIn.reset());
 
-    dispatch(actions.signIn.reset());
+    // Now that we're signed out, forget the old (customer) cart
+    // and fetch a new guest cart.
+    await dispatch(removeCart());
+    dispatch(getCartDetails({ forceRefresh: true }));
 
+    // Finally, go back to the first page of the browser history.
     refresh({ history });
 };
 
