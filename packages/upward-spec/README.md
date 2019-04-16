@@ -214,14 +214,14 @@ When an UPWARD-compliant server receives an HTTP GET request, it must populate a
 
   - `url`: A subset of a [URL record][url spec] as specified by WHATWG. The following properties should at least be populated; the Host header can be used to infer the origin.
 
-    | Attribute | Example
-    | --------- | -------
-    | `host`    | `example.com:8080`
-    | `hostname`| `example.com`
-    | `port`    | `8080`
-    | `pathname`| `/deep/blue/sea`
-    | `search`  | `?baby=beluga`
-    | `query`   | `{ "baby": "beluga" }`
+    | Attribute  | Example                |
+    | ---------- | ---------------------- |
+    | `host`     | `example.com:8080`     |
+    | `hostname` | `example.com`          |
+    | `port`     | `8080`                 |
+    | `pathname` | `/deep/blue/sea`       |
+    | `search`   | `?baby=beluga`         |
+    | `query`    | `{ "baby": "beluga" }` |
 
     Because HTTP servers are sometimes unable to ascertain their own domain names or origins, it is acceptable for one or more of the `href`, `origin`, `protocol`, `username`, `password`, `host`, `hostname`, and `port` properties to be undefined. However, a compliant server MUST provide `pathname`, `search`, and `query`.
 
@@ -524,9 +524,9 @@ The `inline` of an InlineResolver may be of any type; it may be a primitive valu
 
 #### InlineResolver Configuration Options
 
-| Property | Type | Default | Description
-| -------- | ---- | ------- | ---------------------------------------------
-| `inline`    | `any`|         | _Required._ The value to be assigned to context.
+| Property | Type  | Default | Description                                      |
+| -------- | ----- | ------- | ------------------------------------------------ |
+| `inline` | `any` |         | _Required._ The value to be assigned to context. |
 
 ### FileResolver
 
@@ -547,11 +547,11 @@ The above expression loads the content of the file `./productDetail.graphql` and
 
 #### FileResolver Configuration Options
 
-| Property | Type       | Default | Description
-| -------- | ---------- | ------- | ---------------------------------------------
-| `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the definition file.
-| `encoding`  | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.
-| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. 
+| Property   | Type               | Default | Description                                                                                                                                                                            |
+| ---------- | ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `file`     | `Resolved<string>` |         | _Required_. Path to the file to be read. Resolved relative to the definition file.                                                                                                     |
+| `encoding` | `Resolved<string>` | `utf-8` | Character set to use when reading the file as text. Can be `utf-8`, `latin-1`, or `binary`.                                                                                            |
+| `parse`    | `Resolved<string>` | `auto`  | Attempt to parse the file as a given file type. The default of `auto` should attempt to determine the file type from its extension. The value `text` will effectively disable parsing. |
 
 #### Parsing
 
@@ -605,7 +605,7 @@ An UPWARD server uses a `ServiceResolver` to obtain live data from a GraphQL bac
 ```yaml
 documentResult:
   resolver: service
-  url:
+  endpoint:
     resolver: url
     baseUrl:
       inline: https://example.com
@@ -648,13 +648,14 @@ documentResult:
 
 #### ServiceResolver Configuration Options
 
-| Property  | Type               | Default                     | Description
-| --------- | ------------------ | --------------------------- | ---------------
-| `url`       | `Resolved<string>` | `https://localhost/graphql` | _Required_. The URL of the service endpoint to call.
-| `method`    | `Resolved<string>` | `POST`                      | The HTTP method to use. While GraphQL queries are typically POSTS, some services expose GraphQL over GET instead.
-| `headers`   | `Resolved<Object<string,string>>` |              | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the `headers` configuration can append to headers that can have multiple values.
-| `query`     | `Resolved<Query|string>` |                       | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.
-| `variables` | `Resolved<Object<any>>` | `{}`            | Variables to use with the GraphQL query. Must resolve to an object with keys and values, almost always with an InlineResolver.
+| Property    | Type                              | Default                     | Description                                                                                                                                                                                                                              |
+| ----------- | --------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `endpoint`  | `Resolved<string>`                | `https://localhost/graphql` | _Required_. The URL of the service endpoint to call.                                                                                                                                                                                     |
+| `url`       | `Resolved<string>`                | `https://localhost/graphql` | :no_entry_sign: _**Deprecated**_. Synonymous with `endpoint`. Replaced with `endpoint` for readability. This parameter is still supported for now, but should be replaced with `endpoint`. If both are present, an error will be thrown. |
+| `method`    | `Resolved<string>`                | `POST`                      | The HTTP method to use. While GraphQL queries are typically POSTS, some services expose GraphQL over GET instead.                                                                                                                        |
+| `headers`   | `Resolved<Object<string,string>>` |                             | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the `headers` configuration can append to headers that can have multiple values.                                                       |
+| `query`     | `Resolved<Query|string>`          |                             | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.                                                                                                                     |
+| `variables` | `Resolved<Object<any>>`           | `{}`                        | Variables to use with the GraphQL query. Must resolve to an object with keys and values, almost always with an InlineResolver.                                                                                                           |
 
 **ServiceResolvers always use GraphQL.** To obtain data from a non-GraphQL service, an UPWARD server may implement client-side directives which change the behavior of a GraphQL query, such as [apollo-link-rest][apollo-link-rest], and place the directives in the query itself. This should be transparent to the UPWARD server itself, which delegates the service call to a GraphQL client. If an UPWARD server's GraphQL client has no implementation for such a directive, then it must pass the query unmodified to the backing service to handle the directive.
 
@@ -743,11 +744,11 @@ The above configuration resolves into an HTML document displaying content from t
 
 #### TemplateResolver Configuration Options
 
-| Property  | Type               | Default                     | Description
-| --------- | ------------------ | --------------------------- | ---------------
-| `engine`    | `Resolved<string>` |                             | _Required_. The label of the template engine to use.
-| `provide`      | `Resolved<string[]|object<string>>`    |                  | _Required._ A list, or an object mapping, of values to make available in the template. Passing the entire context to a template for evaluation can cause cyclic dependencies.
-| `template`   | `Resolved<Template|string>` |              | The template to render.
+| Property   | Type                                | Default | Description                                                                                                                                                                   |
+| ---------- | ----------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `engine`   | `Resolved<string>`                  |         | _Required_. The label of the template engine to use.                                                                                                                          |
+| `provide`  | `Resolved<string[]|object<string>>` |         | _Required._ A list, or an object mapping, of values to make available in the template. Passing the entire context to a template for evaluation can cause cyclic dependencies. |
+| `template` | `Resolved<Template|string>`         |         | The template to render.                                                                                                                                                       |
 
 #### Template Context
 
@@ -904,20 +905,20 @@ If some other configuration provides a different `status`, such as `200`, then n
 
 #### ConditionalResolver Configuration Options
 
-| Property  | Type               | Default     | Description
-| --------- | ------------------ | ----------- | ---------------
-| `when`    | `Matcher[]` |      |             | _Required_. The list of matchers to test against context.
-| `default` | `Resolved<any>`    |             | _Required_. The default resolver to use if no matcher succeeds.
+| Property  | Type            | Default | Description                                                     |
+| --------- | --------------- | ------- | --------------------------------------------------------------- |
+| `when`    | `Matcher[]`     |         |                                                                 | _Required_. The list of matchers to test against context. |
+| `default` | `Resolved<any>` |         | _Required_. The default resolver to use if no matcher succeeds. |
 
 #### Matchers
 
 A `Matcher` is an object which can only be used as an item in a ConditionalResolver's `when` list. It must have the following properties:
 
-| Property  | Type               | Default | Description
-| --------- | ------------------ | ------- | ---------------
-| `matches` | `string`           |         | _Required_. The context value to match. Must be a bare string context lookup.
-| `pattern` | `string`           |         | _Required_. [PCRE][pcre] regular expression to use to test against the value in `matches`.
-| `use`     | `Resolved<any>`    |         | _Required_. Resolver to use if the match succeeds.
+| Property  | Type            | Default | Description                                                                                |
+| --------- | --------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `matches` | `string`        |         | _Required_. The context value to match. Must be a bare string context lookup.              |
+| `pattern` | `string`        |         | _Required_. [PCRE][pcre] regular expression to use to test against the value in `matches`. |
+| `use`     | `Resolved<any>` |         | _Required_. Resolver to use if the match succeeds.                                         |
 
 #### Match context
 
@@ -958,10 +959,10 @@ proxy:
 
 #### ProxyResolver Configuration Options
 
-| Property  | Type               | Default     | Description
-| --------- | ------------------ | ----------- | ---------------
-| `target`    | `Resolved<string>` |      |             | _Required_. The URL that receives proxied requess.
-| `ignoreSSLErrors` | `Resolved<boolean>`    | `false`            | Ignore remnote SSL certificate errors (useful for internal communication among containers).
+| Property          | Type                | Default | Description                                                                                 |
+| ----------------- | ------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `target`          | `Resolved<string>`  |         |                                                                                             | _Required_. The URL that receives proxied requess. |
+| `ignoreSSLErrors` | `Resolved<boolean>` | `false` | Ignore remnote SSL certificate errors (useful for internal communication among containers). |
 
 #### ProxyResolver notes
 
@@ -982,9 +983,9 @@ static:
 
 #### DirectoryResolver Configuration Options
 
-| Property    | Type               | Default     | Description
-| ----------- | ------------------ | ----------- | ---------------
-| `directory` | `Resolved<string>` |             | _Required_. The local directory path to be served.
+| Property    | Type               | Default | Description                                        |
+| ----------- | ------------------ | ------- | -------------------------------------------------- |
+| `directory` | `Resolved<string>` |         | _Required_. The local directory path to be served. |
 
 ### UrlResolver
 
@@ -1036,17 +1037,17 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
 
 #### UrlResolver Configuration Options
 
-| Property   | Type                       | Default     | Description
-| ---------- | -------------------------- | ----------- | ---------------
-| `baseUrl`  | `Resolved<string|boolean>` |             | _Required_. The base URL to use for constructing the new URL. Must be `false` if no base URL is required.
-| `hash`     | `Resolved<string>`         |             | Hash fragment of the URL, beginning with `#`.
-| `hostname` | `Resolved<string>`         |             | Domain or IP address of the URL.
-| `password` | `Resolved<string>`         |             | A password to be specified before the hostname.
-| `pathname` | `Resolved<string>`         |             | Slash-delimited path from the root of the host to a resource.
-| `port`     | `Resolved<string>`         |             | Port number of the URL.
-| `protocol` | `Resolved<string>`         | `https:`    | Protocol scheme of the URL, including the final `:`.
-| `query`    | `Resolved<object<string>>` |             | Object to encode into a query string. Keys are query parameter names, and values must resolve to primitives (strings, numbers, booleans, etc) that will be URL-encoded into query parameter values.
-| `search`   | `Resolved<string>`         |             | Serialized query string. Values must be URL (percent) encoded.
+| Property   | Type                       | Default  | Description                                                                                                                                                                                         |
+| ---------- | -------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUrl`  | `Resolved<string|boolean>` |          | _Required_. The base URL to use for constructing the new URL. Must be `false` if no base URL is required.                                                                                           |
+| `hash`     | `Resolved<string>`         |          | Hash fragment of the URL, beginning with `#`.                                                                                                                                                       |
+| `hostname` | `Resolved<string>`         |          | Domain or IP address of the URL.                                                                                                                                                                    |
+| `password` | `Resolved<string>`         |          | A password to be specified before the hostname.                                                                                                                                                     |
+| `pathname` | `Resolved<string>`         |          | Slash-delimited path from the root of the host to a resource.                                                                                                                                       |
+| `port`     | `Resolved<string>`         |          | Port number of the URL.                                                                                                                                                                             |
+| `protocol` | `Resolved<string>`         | `https:` | Protocol scheme of the URL, including the final `:`.                                                                                                                                                |
+| `query`    | `Resolved<object<string>>` |          | Object to encode into a query string. Keys are query parameter names, and values must resolve to primitives (strings, numbers, booleans, etc) that will be URL-encoded into query parameter values. |
+| `search`   | `Resolved<string>`         |          | Serialized query string. Values must be URL (percent) encoded.                                                                                                                                      |
 
 #### UrlResolver Notes
 
@@ -1164,15 +1165,15 @@ body:
 
 For any value which must be a Resolver or a context lookup, an UPWARD-compatible server should attempt to infer resolver types from a supplied resolver configuration object, rather than requiring a `resolver` name to be specified. Each resolver has required parameters that are mutually exclusive with one another, so a resolver type can be inferred from the presence of those parameters.
 
-| If parameter exists... | Then infer resolver type:
-| ---------------------: | :-----------------------:
-| `inline` | `InlineResolver`
-| `file` | `FileResolver`
-| `query` | `ServiceResolver`
-| `engine` | `TemplateResolver`
-| `when` | `ConditionalResolver`
-| `target` | `ProxyResolver`
-| `directory` | `DirectoryResolver`
+| If parameter exists... | Then infer resolver type: |
+| ---------------------: | :-----------------------: |
+|               `inline` |     `InlineResolver`      |
+|                 `file` |      `FileResolver`       |
+|                `query` |     `ServiceResolver`     |
+|               `engine` |    `TemplateResolver`     |
+|                 `when` |   `ConditionalResolver`   |
+|               `target` |      `ProxyResolver`      |
+|            `directory` |    `DirectoryResolver`    |
 
 Resolver type inference allows configuration to omit `resolver:` parameters, which makes it possible to be far more terse. The example optimized configuration in [Builtin constants](#builtin-constants) could be further reduced:
 
