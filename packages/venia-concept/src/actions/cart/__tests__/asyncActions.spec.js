@@ -108,17 +108,30 @@ describe('createCart', () => {
         expect(mockSetItem).toHaveBeenCalledWith('cartId', response);
     });
 
-    test('its thunk calls the appropriate endpoint when user is signed in', async () => {
+    test('its thunk calls the appropriate endpoints when user is signed in', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
             user: { isSignedIn: true }
         }));
+        const response = 'NEW_CART_ID';
+        request.mockResolvedValueOnce(response);
 
         await createCart()(...thunkArgs);
 
+        expect(request).toHaveBeenCalledTimes(2);
+
         const authedEndpoint = '/rest/V1/carts/mine';
-        expect(request).toHaveBeenCalledWith(authedEndpoint, {
+        expect(request).toHaveBeenNthCalledWith(1, authedEndpoint, {
             method: 'POST'
+        });
+
+        const billingEndpoint = '/rest/V1/carts/mine/billing-address';
+        expect(request).toHaveBeenNthCalledWith(2, billingEndpoint, {
+            method: 'POST',
+            body: JSON.stringify({
+                address: {},
+                cartId: response
+            })
         });
     });
 

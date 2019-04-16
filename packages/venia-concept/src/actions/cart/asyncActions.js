@@ -45,6 +45,21 @@ export const createCart = () =>
             // write to storage in the background
             saveCartId(cartId);
 
+            // There is currently an issue in Magento 2
+            // where the first item added to an empty cart for an
+            // authenticated customer gets added with a price of zero.
+            // @see https://github.com/magento/magento2/issues/2991
+            // This workaround is in place until that issue is resolved.
+            if (user.isSignedIn) {
+                await request('/rest/V1/carts/mine/billing-address', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        address: {},
+                        cartId
+                    })
+                });
+            }
+
             dispatch(actions.getCart.receive(cartId));
         } catch (error) {
             dispatch(actions.getCart.receive(error));
