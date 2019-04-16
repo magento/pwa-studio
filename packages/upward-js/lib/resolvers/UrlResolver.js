@@ -4,7 +4,9 @@ const { URL, URLSearchParams } = require('url');
 const { forOwn, fromPairs, isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 
-// The WHATWG URL object can't deal with relative URLs.
+// The WHATWG URL object can't deal with relative URLs. When baseURL is false,
+// generate a nonce random domain so that we can use the URL object to format.
+// We'll remove it at the end to yield a relative URL back.
 const randomString = Math.random()
     .toString(36)
     .slice(2, 7);
@@ -69,7 +71,7 @@ class UrlResolver extends AbstractResolver {
 
         const paramsString = params.toString();
         if (paramsString) {
-            resultUrl.search = '?' + paramsString;
+            resultUrl.search = paramsString;
         }
 
         if (resultUrl.hostname === FAKE_BASE_URL.hostname) {
