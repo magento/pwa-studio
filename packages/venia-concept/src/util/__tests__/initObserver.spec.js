@@ -2,7 +2,7 @@ import initObserver from '../initObserver';
 
 // mock a simple observer-type generator
 function* arrayObserver() {
-    let array = [];
+    const array = [];
 
     array.push(yield);
     array.push(yield);
