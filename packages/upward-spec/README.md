@@ -11,7 +11,7 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
 - [UPWARD Specification](#upward-specification)
   - [Quickstart](#quickstart)
   - [Summary](#summary)
-    - [Simple example](#simple-example)
+    - [Echo Example](#echo-example)
   - [Configuration](#configuration)
   - [Responding to requests](#responding-to-requests)
     - [Execution scheduling and ordering](#execution-scheduling-and-ordering)
@@ -53,6 +53,10 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
     - [DirectoryResolver](#directoryresolver)
       - [DirectoryResolver Example](#directoryresolver-example)
       - [DirectoryResolver Configuration Options](#directoryresolver-configuration-options)
+    - [UrlResolver](#urlresolver)
+      - [UrlResolver Example](#urlresolver-example)
+      - [UrlResolver Configuration Options](#urlresolver-configuration-options)
+      - [UrlResolver Notes](#urlresolver-notes)
   - [Reducing boilerplate](#reducing-boilerplate)
     - [Default parameters](#default-parameters)
     - [Builtin constants](#builtin-constants)
@@ -654,7 +658,7 @@ documentResult:
 | `url`       | `Resolved<string>`                | `https://localhost/graphql` | :no_entry_sign: _**Deprecated**_. Synonymous with `endpoint`. Replaced with `endpoint` for readability. This parameter is still supported for now, but should be replaced with `endpoint`. If both are present, an error will be thrown. |
 | `method`    | `Resolved<string>`                | `POST`                      | The HTTP method to use. While GraphQL queries are typically POSTS, some services expose GraphQL over GET instead.                                                                                                                        |
 | `headers`   | `Resolved<Object<string,string>>` |                             | Additional HTTP headers to send with the GraphQL request. Some headers are set automatically, but the `headers` configuration can append to headers that can have multiple values.                                                       |
-| `query`     | `Resolved<Query|string>`          |                             | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.                                                                                                                     |
+| `query`     | `Resolved<Query\|string>`         |                             | _Required_. The GraphQL query object. Can either be a parsed query, or a string that can be parsed as a valid query.                                                                                                                     |
 | `variables` | `Resolved<Object<any>>`           | `{}`                        | Variables to use with the GraphQL query. Must resolve to an object with keys and values, almost always with an InlineResolver.                                                                                                           |
 
 **ServiceResolvers always use GraphQL.** To obtain data from a non-GraphQL service, an UPWARD server may implement client-side directives which change the behavior of a GraphQL query, such as [apollo-link-rest][apollo-link-rest], and place the directives in the query itself. This should be transparent to the UPWARD server itself, which delegates the service call to a GraphQL client. If an UPWARD server's GraphQL client has no implementation for such a directive, then it must pass the query unmodified to the backing service to handle the directive.
@@ -744,11 +748,11 @@ The above configuration resolves into an HTML document displaying content from t
 
 #### TemplateResolver Configuration Options
 
-| Property   | Type                                | Default | Description                                                                                                                                                                   |
-| ---------- | ----------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `engine`   | `Resolved<string>`                  |         | _Required_. The label of the template engine to use.                                                                                                                          |
-| `provide`  | `Resolved<string[]|object<string>>` |         | _Required._ A list, or an object mapping, of values to make available in the template. Passing the entire context to a template for evaluation can cause cyclic dependencies. |
-| `template` | `Resolved<Template|string>`         |         | The template to render.                                                                                                                                                       |
+| Property   | Type                                 | Default | Description                                                                                                                                                                   |
+| ---------- | ------------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `engine`   | `Resolved<string>`                   |         | _Required_. The label of the template engine to use.                                                                                                                          |
+| `provide`  | `Resolved<string[]\|object<string>>` |         | _Required._ A list, or an object mapping, of values to make available in the template. Passing the entire context to a template for evaluation can cause cyclic dependencies. |
+| `template` | `Resolved<Template\\|string>`        |         | The template to render.                                                                                                                                                       |
 
 #### Template Context
 
@@ -1037,17 +1041,17 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
 
 #### UrlResolver Configuration Options
 
-| Property   | Type                       | Default  | Description                                                                                                                                                                                         |
-| ---------- | -------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `baseUrl`  | `Resolved<string|boolean>` |          | _Required_. The base URL to use for constructing the new URL. Must be `false` if no base URL is required.                                                                                           |
-| `hash`     | `Resolved<string>`         |          | Hash fragment of the URL, beginning with `#`.                                                                                                                                                       |
-| `hostname` | `Resolved<string>`         |          | Domain or IP address of the URL.                                                                                                                                                                    |
-| `password` | `Resolved<string>`         |          | A password to be specified before the hostname.                                                                                                                                                     |
-| `pathname` | `Resolved<string>`         |          | Slash-delimited path from the root of the host to a resource.                                                                                                                                       |
-| `port`     | `Resolved<string>`         |          | Port number of the URL.                                                                                                                                                                             |
-| `protocol` | `Resolved<string>`         | `https:` | Protocol scheme of the URL, including the final `:`.                                                                                                                                                |
-| `query`    | `Resolved<object<string>>` |          | Object to encode into a query string. Keys are query parameter names, and values must resolve to primitives (strings, numbers, booleans, etc) that will be URL-encoded into query parameter values. |
-| `search`   | `Resolved<string>`         |          | Serialized query string. Values must be URL (percent) encoded.                                                                                                                                      |
+| Property   | Type                        | Default  | Description                                                                                                                                                                                         |
+| ---------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUrl`  | `Resolved<string\|boolean>` |          | _Required_. The base URL to use for constructing the new URL. Must be `false` if no base URL is required.                                                                                           |
+| `hash`     | `Resolved<string>`          |          | Hash fragment of the URL, beginning with `#`.                                                                                                                                                       |
+| `hostname` | `Resolved<string>`          |          | Domain or IP address of the URL.                                                                                                                                                                    |
+| `password` | `Resolved<string>`          |          | A password to be specified before the hostname.                                                                                                                                                     |
+| `pathname` | `Resolved<string>`          |          | Slash-delimited path from the root of the host to a resource.                                                                                                                                       |
+| `port`     | `Resolved<string>`          |          | Port number of the URL.                                                                                                                                                                             |
+| `protocol` | `Resolved<string>`          | `https:` | Protocol scheme of the URL, including the final `:`.                                                                                                                                                |
+| `query`    | `Resolved<object<string>>`  |          | Object to encode into a query string. Keys are query parameter names, and values must resolve to primitives (strings, numbers, booleans, etc) that will be URL-encoded into query parameter values. |
+| `search`   | `Resolved<string>`          |          | Serialized query string. Values must be URL (percent) encoded.                                                                                                                                      |
 
 #### UrlResolver Notes
 
