@@ -27,7 +27,7 @@ export class Trigger extends Component {
         } = this.props;
         const itemsQty = details.items_qty;
         const iconColor = 'rgb(var(--venia-text))';
-        let svgAttributes = {
+        const svgAttributes = {
             stroke: iconColor
         };
 

@@ -28,7 +28,7 @@ const reducerMap = {
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
-        let storedShippingMethod = storage.getItem('shippingMethod');
+        const storedShippingMethod = storage.getItem('shippingMethod');
 
         return {
             ...state,
