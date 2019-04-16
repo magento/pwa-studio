@@ -18,13 +18,12 @@ import productQuery from 'src/queries/getProductDetail.graphql';
 class Product extends Component {
     static propTypes = {
         addItemToCart: func.isRequired,
-        // TODO: where does cartId from from? Should it be added to mapStateToProps?
         cartId: string
     };
 
     addToCart = async (item, quantity) => {
-        const { cartId } = this.props;
-        await this.props.addItemToCart({ cartId, item, quantity });
+        const { addItemToCart, cartId } = this.props;
+        await addItemToCart({ cartId, item, quantity });
     };
 
     componentDidMount() {
