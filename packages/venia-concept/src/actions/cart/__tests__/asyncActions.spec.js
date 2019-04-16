@@ -14,6 +14,7 @@ import {
     removeItemFromCart,
     createCart,
     getCartDetails,
+    removeCart,
     toggleCart,
     writeImageToCache
 } from '../asyncActions';
@@ -675,6 +676,31 @@ describe('getCartDetails', () => {
             authedEndpoints.totals,
             cacheArg
         );
+    });
+});
+
+describe('removeCart', () => {
+    test('it returns a thunk', () => {
+        expect(removeCart()).toBeInstanceOf(Function);
+    });
+
+    test('its thunk returns undefined', async () => {
+        const result = await removeCart()(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it clears the cartId from local storage', async () => {
+        await removeCart()(...thunkArgs);
+
+        expect(mockRemoveItem).toHaveBeenCalledWith('cartId');
+    });
+
+    test('it clears the cart from the redux store', async () => {
+        await removeCart()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith(actions.reset());
     });
 });
 
