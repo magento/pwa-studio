@@ -48,7 +48,7 @@ export const signIn = credentials =>
 
 export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
-    await setToken(null);
+    await clearToken();
     await dispatch(actions.signIn.reset());
 
     // Now that we're signed out, forget the old (customer) cart
@@ -136,5 +136,9 @@ export const completePasswordReset = email => async dispatch =>
 
 async function setToken(token) {
     // TODO: Get correct token expire time from API
-    storage.setItem('signin_token', token, 3600);
+    return storage.setItem('signin_token', token, 3600);
+}
+
+async function clearToken() {
+    return storage.removeItem('signin_token');
 }
