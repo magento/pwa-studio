@@ -535,10 +535,6 @@ describe('getCartDetails', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
     });
 
-    test.skip('its thunk deletes an old cart id and recreates a cart if cart ID is expired', async () => {
-        // TODO: 655
-    });
-
     test('its thunk dispatches actions on success', async () => {
         const mockDetails = { items: [] };
         request

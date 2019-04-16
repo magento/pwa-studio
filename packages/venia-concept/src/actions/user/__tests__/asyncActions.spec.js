@@ -9,6 +9,7 @@ import {
 import actions from '../actions';
 import {
     signIn,
+    signOut,
     getUserDetails,
     completePasswordReset,
     createAccount,
@@ -52,10 +53,6 @@ afterAll(() => {
     getState.mockRestore();
 });
 
-test('signIn() returns a thunk', () => {
-    expect(signIn()).toBeInstanceOf(Function);
-});
-
 test('getUserDetails() returns a thunk', () => {
     expect(getUserDetails()).toBeInstanceOf(Function);
 });
@@ -66,50 +63,6 @@ test('createAccount() returns a thunk', () => {
 
 test('createNewUserRequest() returns a thunk', () => {
     expect(createNewUserRequest()).toBeInstanceOf(Function);
-});
-
-test('signIn thunk dispatches resetSignInError', async () => {
-    await signIn(credentials)(...thunkArgs);
-
-    expect(dispatch).toHaveBeenCalledWith(actions.resetSignInError.request());
-});
-
-test('signIn thunk dispatches signIn', async () => {
-    await signIn(credentials)(...thunkArgs);
-
-    expect(dispatch).toHaveBeenCalledWith(actions.signIn.receive());
-});
-
-test('signIn thunk dispatches signInError on failed request', async () => {
-    const error = new Error('ERROR');
-    request.mockRejectedValueOnce(error);
-    await signIn(credentials)(...thunkArgs);
-    expect(dispatch).toHaveBeenNthCalledWith(
-        2,
-        actions.signInError.receive(error)
-    );
-});
-
-test('signIn thunk makes request to get customer token with credentials', async () => {
-    await signIn(credentials)(...thunkArgs);
-
-    const firstRequest = request.mock.calls[0];
-
-    expect(firstRequest[0]).toBe('/rest/V1/integration/customer/token');
-    expect(firstRequest[1]).toHaveProperty('method', 'POST');
-    expect(JSON.parse(firstRequest[1].body)).toEqual({
-        username: `${credentials.username}`,
-        password: `${credentials.password}`
-    });
-});
-
-test('signIn thunk makes request to get customer details after sign in', async () => {
-    await signIn(credentials)(...thunkArgs);
-
-    const secondRequest = request.mock.calls[1];
-
-    expect(secondRequest[0]).toBe('/rest/V1/customers/me');
-    expect(secondRequest[1]).toHaveProperty('method', 'GET');
 });
 
 test('getUserDetails thunk makes request to get customer details if user is signed in', async () => {
@@ -182,6 +135,115 @@ test('createNewUserRequest thunk dispatches createAccountError on invalid accoun
         2,
         actions.createAccountError.receive(error)
     );
+});
+
+describe('signIn', () => {
+    test('it returns a thunk', () => {
+        expect(signIn()).toBeInstanceOf(Function);
+    });
+
+    test('its thunk dispatches actions on success', async () => {
+        await signIn(credentials)(...thunkArgs);
+    
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.resetSignInError.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.signIn.receive()
+        );
+        // removeCart
+        expect(dispatch).toHaveBeenNthCalledWith(
+            3,
+            expect.any(Function)
+        )
+        // getCartDetails
+        expect(dispatch).toHaveBeenNthCalledWith(
+            4,
+            expect.any(Function)
+        );
+    });
+    
+    test('its thunk dispatches actions on error', async () => {
+        // Test setup.
+        const error = new Error('ERROR');
+        request.mockRejectedValueOnce(error);
+
+        // Execute the function.
+        await signIn(credentials)(...thunkArgs);
+    
+        // Make assertions.
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.resetSignInError.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.signInError.receive(error)
+        );
+    });
+    
+    test('its thunk makes requests on success', async () => {
+        await signIn(credentials)(...thunkArgs);
+    
+        expect(request).toHaveBeenCalledTimes(2);
+
+        const tokenRequest = request.mock.calls[0];
+        const tokenEndpoint = tokenRequest[0];
+        const tokenParams = tokenRequest[1];
+
+        expect(tokenEndpoint).toBe('/rest/V1/integration/customer/token');
+        expect(tokenParams).toHaveProperty('method', 'POST');
+        expect(tokenParams).toHaveProperty('body');
+
+        const tokenBody = JSON.parse(tokenParams.body);
+        expect(tokenBody).toEqual({
+            username: `${credentials.username}`,
+            password: `${credentials.password}`
+        });
+
+        const detailsRequest = request.mock.calls[1];
+        const detailsEndpoint = detailsRequest[0];
+        const detailsParams = detailsRequest[1];
+
+        expect(detailsEndpoint).toBe('/rest/V1/customers/me');
+        expect(detailsParams).toHaveProperty('method', 'GET');
+    });
+});
+
+describe('signOut', () => {
+    const mockParam = {
+        history: {
+            go: jest.fn()
+        }
+    };
+
+    test('it returns a thunk', () => {
+        expect(signOut(mockParam)).toBeInstanceOf(Function);
+    });
+
+    test('its thunk dispatches actions on success', async () => {
+        await signOut(mockParam)(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.signIn.reset()
+        );
+        const removeCart = expect.any(Function);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            removeCart
+        );
+        const getCartDetails = expect.any(Function);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            3,
+            getCartDetails
+        );
+    });
 });
 
 describe('resetPassword', () => {
