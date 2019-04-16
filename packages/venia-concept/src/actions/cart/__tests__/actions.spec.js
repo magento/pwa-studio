@@ -72,7 +72,7 @@ test('getCart.request() returns a proper action object', () => {
     });
 });
 
-test('getGuesgetCarttCart.receive.toString() returns the proper action type', () => {
+test('getCart.receive.toString() returns the proper action type', () => {
     expect(actions.getCart.receive.toString()).toBe('CART/GET_CART/RECEIVE');
 });
 
