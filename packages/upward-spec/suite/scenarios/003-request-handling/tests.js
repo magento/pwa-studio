@@ -23,7 +23,7 @@ tape.test('Reflect request', async t => {
             headers: {
                 'content-type': 'text/plain'
             },
-            text: 'some/path'
+            contains: 'some/path'
         });
 
         server.assert('crashed', false);
