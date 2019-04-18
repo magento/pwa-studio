@@ -11,29 +11,29 @@ const config = {
 const filepath = process.argv[2];
 if (filepath) {
     const fullPath = path.join(__dirname, '..', '..', filepath);
-    testFile(fullPath);
+    lintFile(fullPath);
 } else {
-    testDirectory(config.basePath);
+    lintDirectory(config.basePath);
 }
 
 // Run tests on all markdown files found under the specified directory
-function testDirectory(directoryPath) {
+function lintDirectory(directoryPath) {
     fs.promises
         .readdir(directoryPath, { withFileTypes: true })
         .then(filenames => {
             filenames.forEach(file => {
                 const fullPath = path.join(directoryPath, file.name);
                 if (file.isDirectory()) {
-                    testDirectory(fullPath);
+                    lintDirectory(fullPath);
                 } else if (file.isFile() && path.extname(fullPath) === '.md') {
-                    testFile(fullPath);
+                    lintFile(fullPath);
                 }
             });
         });
 }
 
 // Run all tests on a single file
-function testFile(filepath) {
+function lintFile(filepath) {
     // Run linter
     linter(filepath);
 }

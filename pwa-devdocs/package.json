@@ -8,19 +8,19 @@
         "jquery": "^3.3.1"
     },
     "scripts": {
-        "start": "npm-run-all -s clean develop",
-        "develop": "npm run build && node scripts/develop.js",
+        "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-compatibility-table build-html",
         "build-compatibility-table": "node scripts/create-compatibility-table.js",
         "build-css": "node-sass --output-style compact --include-path src/_scss src/_scss/main.scss src/builds/css/main.css",
-        "build-js": "webpack --config webpack.config.js",
-        "build-reference-doc-snippets": "node scripts/create-reference-docs",
         "build-html": "bundle exec jekyll build --source src -I",
-        "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-compatibility-table build-html",
+        "build-js": "webpack --config webpack.config.js",
         "build-production": "npm-run-all -s clean build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
-        "deploy": "npm run build-production && ./scripts/deploy.sh",
+        "build-reference-doc-snippets": "node scripts/create-reference-docs",
         "clean": "rm -fr _site",
-        "tests": "node scripts/tests",
-        "fix-markdown": "node scripts/fix-markdown.js"
+        "deploy": "npm run build-production && ./scripts/deploy.sh",
+        "develop": "npm run build && node scripts/develop.js",
+        "fix-markdown": "node scripts/fix-markdown.js",
+        "lint": "node scripts/lint",
+        "start": "npm-run-all -s clean develop"
     },
     "repository": "github:magento-research/pwa-studio",
     "author": "James Calcaben",

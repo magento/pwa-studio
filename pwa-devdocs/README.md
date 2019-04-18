@@ -53,17 +53,17 @@ npm run build
 ### Testing
 
 ```
-npm run tests
+npm run lint
 ```
 
-This command runs tests on the documentation to make sure it meets our standards.
+This command runs linting on the documentation to make sure it meets our standards.
 
-To test a single file append the markdown file at the end of the test command.
+To test a single file append the markdown file at the end of the lint command.
 
 Example:
 
 ```
-npm run tests -- src/technologies/versioning/index.md
+npm run lint -- src/technologies/versioning/index.md
 ```
 
 ## Contributing

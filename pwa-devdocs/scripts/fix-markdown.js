@@ -1,5 +1,4 @@
-const fixMarkdown = require('./markdown-linter').fixer;
-const lint = require('./markdown-linter').linter;
+const { fixer: fixMarkdown, linter: lint } = require('./markdown-linter');
 const process = require('process');
 const path = require('path');
 
