@@ -9,21 +9,21 @@ response:
       pattern: '^/img/resize/(\d+)'
       use: imageOpt
     - matches: request.url.pathname
-      pattern: '^/(graphql|rest|media|cache/)'
+      pattern: "^/(graphql|rest|media|cache/)"
       use: proxy
     - matches: request.url.pathname
-      pattern: '^/create-account'
+      pattern: "^/create-account"
       use: index
     # serve document root (blank urlKey)
     - matches: request.url.pathname
-      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
+      pattern: "^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png|robots.txt$)"
       use: static
     # serve anything with a urlKey
     - matches: urlKey
-      pattern: '.'
+      pattern: "."
       use: appShell
     - matches: request.url.pathname
-      pattern: '^/$'
+      pattern: "^/$"
       use: appShell
   default: bundles
 
@@ -42,7 +42,7 @@ imageOpt:
   inline:
     status: 301
     body:
-      inline: ''
+      inline: ""
     headers:
       inline:
         Location:
@@ -53,16 +53,16 @@ imageOpt:
           template:
             when:
               - matches: env.USE_FASTLY
-                pattern: '[^0]'
+                pattern: "[^0]"
                 use:
-                  inline: '{{path}}?auto=webp&format=pjpg&width={{width}}'
+                  inline: "{{path}}?auto=webp&format=pjpg&width={{width}}"
             default:
-              inline: '{{path}}'
+              inline: "{{path}}"
 
 isDevelopment:
   when:
     - matches: env.NODE_ENV
-      pattern: 'development'
+      pattern: "development"
       use:
         inline: true
   default:
@@ -80,12 +80,12 @@ appShell:
     status:
       when:
         - matches: resource.model
-          pattern: '.'
+          pattern: "."
           use: 200
       default: 404
     headers:
       inline:
-        content-type: 'text/html'
+        content-type: "text/html"
     body:
       engine: mustache
       template: resource.template
@@ -98,55 +98,55 @@ appShell:
 resource:
   when:
     - matches: urlResolver.type
-      pattern: 'CMS_PAGE'
+      pattern: "CMS_PAGE"
       use:
         inline:
           model: cmsPage
-          template: './templates/cmspage-shell.mst'
+          template: "./templates/cmspage-shell.mst"
     - matches: urlResolver.type
-      pattern: 'CATEGORY'
+      pattern: "CATEGORY"
       use:
         inline:
           model: category
-          template: './templates/category-shell.mst'
+          template: "./templates/category-shell.mst"
     - matches: urlResolver.type
-      pattern: 'PRODUCT'
+      pattern: "PRODUCT"
       use:
         inline:
           model: product
-          template: './templates/product-shell.mst'
+          template: "./templates/product-shell.mst"
     - matches: urlResolver.type
-      pattern: '.'
+      pattern: "."
       use:
         inline:
           model: unknownPageType
-          template: './templates/generic-shell.mst'
+          template: "./templates/generic-shell.mst"
     - matches: request.url.pathname
-      pattern: '/search.html'
+      pattern: "/search.html"
       use:
         inline:
           model: genericObject
-          template: './templates/generic-shell.mst'
+          template: "./templates/generic-shell.mst"
   default:
     inline:
-      template: './templates/notfound-shell.mst'
+      template: "./templates/notfound-shell.mst"
 
 assetManifest:
   when:
     - matches: env.NODE_ENV
-      pattern: 'development'
+      pattern: "development"
       use: ./asset-manifest.json
   default: ./dist/asset-manifest.json
 
 unknownPageType:
   inline:
-    title: 'Unknown page type'
+    title: "Unknown page type"
 
 urlResolver: urlResolverResult.data.urlResolver
 
 urlResolverResult:
   url: magentoGQL
-  query: './src/queries/urlResolver.graphql'
+  query: "./src/queries/urlResolver.graphql"
   variables:
     inline:
       urlKey: request.url.pathname
@@ -154,14 +154,14 @@ urlResolverResult:
 magentoGQL:
   engine: mustache
   template:
-    inline: '{{env.MAGENTO_BACKEND_URL}}/graphql'
+    inline: "{{env.MAGENTO_BACKEND_URL}}/graphql"
   provide:
     - env
 
 product: productResult.data.productDetail.items.0
 productResult:
   url: magentoGQL
-  query: './src/queries/getProductDetail.graphql'
+  query: "./src/queries/getProductDetail.graphql"
   variables:
     inline:
       onServer: true
@@ -171,7 +171,7 @@ productResult:
 category: categoryResult.data.category
 categoryResult:
   url: magentoGQL
-  query: './src/queries/getCategory.graphql'
+  query: "./src/queries/getCategory.graphql"
   variables:
     inline:
       onServer: true
@@ -181,11 +181,10 @@ categoryResult:
       currentPage:
         inline: 1
 
-
 cmsPage: cmsPageResult.data.cmsPage
 cmsPageResult:
   url: magentoGQL
-  query: './src/queries/getCmsPage.graphql'
+  query: "./src/queries/getCmsPage.graphql"
   variables:
     inline:
       onServer: true
@@ -197,17 +196,16 @@ urlKey:
       pattern: '^/(?:(.*)\.html)?'
       use: $match.$1
   default:
-    inline: ''
+    inline: ""
 
 genericObject:
   inline:
     name:
-      inline:
-        "Hello world!"
+      inline: "Hello world!"
 
 bundles:
   directory:
-    inline: './dist'
+    inline: "./dist"
 
 index:
   inline:
@@ -218,10 +216,10 @@ index:
           inline: text/html
     body:
       engine: mustache
-      template: './templates/generic-shell.mst'
+      template: "./templates/generic-shell.mst"
       provide:
         isDevelopment: isDevelopment
 
 static:
   directory:
-    inline: './static'
+    inline: "./static"
