@@ -9,6 +9,8 @@ import FilterDefault from './filterDefault';
 import Swatch from 'src/components/ProductOptions/swatch';
 import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 
+const stripHtmlRegex = /(<([^>]+)>)/gi;
+
 class FilterList extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -27,6 +29,8 @@ class FilterList extends Component {
         items: PropTypes.array
     };
 
+    stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
+
     toggleOption = event => {
         const { removeFilter, addFilter } = this.props;
         const { value, title, dataset } =
@@ -42,14 +46,14 @@ class FilterList extends Component {
         ) > -1;
 
     isFilterSelected = item => {
+        const label = this.stripHtml(item.label);
         return !!this.props.chosenOptions.find(
-            ({ title, value }) =>
-                item.label === title && item.value_string === value
+            ({ title, value }) => label === title && item.value_string === value
         );
     };
 
     render() {
-        const { toggleOption, isFilterSelected } = this;
+        const { toggleOption, isFilterSelected, stripHtml } = this;
         const { classes, items, id, layoutClass, isSwatch } = this.props;
 
         return (
@@ -64,11 +68,11 @@ class FilterList extends Component {
 
                     const filterProps = {
                         item: {
-                            label: item.label,
+                            label: stripHtml(item.label),
                             value_index: item.value_string
                         },
                         value: item.value_string,
-                        title: item.label,
+                        title: stripHtml(item.label),
                         'data-group': id,
                         onClick: toggleOption,
                         isSelected: isActive

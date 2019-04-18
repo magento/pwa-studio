@@ -46,11 +46,7 @@ class FiltersCurrent extends Component {
                     value={value}
                 >
                     <Icon className={classes.icon} src={Remove} size={16} />
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: title
-                        }}
-                    />
+                    <span>{title}</span>
                 </button>
             </li>
         );

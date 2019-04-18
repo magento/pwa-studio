@@ -35,11 +35,7 @@ class FilterDefault extends Component {
                 <span className={iconClassName}>
                     {isSelected && <Icon src={Checkmark} size={14} />}
                 </span>
-                <span
-                    dangerouslySetInnerHTML={{
-                        __html: label
-                    }}
-                />
+                <span>{label}</span>
             </button>
         );
     }
