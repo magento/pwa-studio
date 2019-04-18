@@ -9,8 +9,6 @@ import FilterDefault from './filterDefault';
 import Swatch from 'src/components/ProductOptions/swatch';
 import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
 
-const stripHtmlRegex = /(<([^>]+)>)/gi;
-
 class FilterList extends Component {
     static propTypes = {
         classes: PropTypes.shape({

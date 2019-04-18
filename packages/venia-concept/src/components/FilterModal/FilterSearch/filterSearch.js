@@ -22,11 +22,8 @@ const withFilterSearch = WrappedComponent => {
         handleResetSearch = () => this.setState({ filterQuery: '' });
 
         getFilteredItems = (items, filterQuery) =>
-            items.filter(
-                item =>
-                    item.label
-                        .toUpperCase()
-                        .indexOf(filterQuery.toUpperCase()) >= 0
+            items.filter(item =>
+                item.label.toUpperCase().includes(filterQuery.toUpperCase())
             );
 
         render() {
