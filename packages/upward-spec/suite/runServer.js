@@ -31,6 +31,7 @@ module.exports = async function runServer(
             const flags = {
                 crashed: false,
                 launched: false,
+                responding: false,
                 running: false
             };
             let stderr = '';
@@ -89,17 +90,7 @@ module.exports = async function runServer(
             function emitServer() {
                 clearTimeout(terminator);
                 resolve({
-                    stderr,
                     url,
-                    hasCrashed() {
-                        return flags.crashed;
-                    },
-                    hasLaunched() {
-                        return flags.launched;
-                    },
-                    isRunning() {
-                        return flags.running;
-                    },
                     async close() {
                         if (flags.running) {
                             return terminateClean().catch(e => test.error(e));
@@ -116,10 +107,7 @@ module.exports = async function runServer(
                             message += `, listening at ${url}`;
                         }
                         if (stderr) {
-                            message += `, emitting stderr ${stderr.slice(
-                                0,
-                                50
-                            )}[...]`;
+                            message += `, emitting stderr ${stderr}`;
                         }
                         const status =
                             flags[flag] === expected ? 'pass' : 'fail';
