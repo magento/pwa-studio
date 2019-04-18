@@ -7,6 +7,7 @@ export const name = 'cart';
 
 export const initialState = {
     details: {},
+    detailsError: null,
     guestCartId: null,
     isLoading: false,
     isOptionsDrawerOpen: false,
@@ -39,8 +40,9 @@ const reducerMap = {
         if (error) {
             return {
                 ...state,
-                isLoading: false,
-                guestCartId: null
+                detailsError: payload,
+                guestCartId: null,
+                isLoading: false
             };
         }
 
