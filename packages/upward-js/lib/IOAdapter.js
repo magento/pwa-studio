@@ -45,7 +45,7 @@ class IOAdapter {
      * @param {string} [encoding] Character set, e.g. 'utf-8'.
      * @return {Promise<string|Buffer>} Promise for file contents.
      */
-    async readFile(filePath, encoding) {}
+    async readFile(filePath, encoding) {} //eslint-disable-line
 
     /**
      * Works like `node-fetch`. (Injected for testability.)
