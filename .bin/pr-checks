@@ -15,6 +15,10 @@ STATUS=0
 message "Installing dependencies with yarn..."
 yarn install --frozen-lockfile || STATUS=$?
 echo "Test exit status $STATUS"
+if [$STATUS -eq 1]; then
+   echo "yarn install fails"
+   exit 1
+fi
 
 # production build - needed for some of the subsequent checks, like storybook
 message "Running production build..."
