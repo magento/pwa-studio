@@ -15,7 +15,7 @@ STATUS=0
 message "Installing dependencies with yarn..."
 yarn install --frozen-lockfile || STATUS=$?
 echo "Test exit status $STATUS"
-if [$STATUS -eq 1]; then
+if [ $STATUS -eq 1 ]; then
    echo "yarn install failed"
    exit 1
 fi
