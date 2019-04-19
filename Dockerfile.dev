@@ -22,7 +22,7 @@ COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js browserslist.js magento-compatibility.js ./
 
 # install dependencies with yarn
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # copy over the rest of the package files
 COPY packages ./packages
@@ -35,24 +35,16 @@ COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 # build the app
 RUN yarn run build 
 
-#######################################################################################
-# UNCOMMENT FOR PRODUCTION BUILD - not as necessary for dev env to have non-root user #
-#######################################################################################
-# # MULTI-STAGE BUILD
-# FROM node:10.14.1-alpine
-# # working directory
-# WORKDIR /usr/src/app
-# # copy build from previous stage
-# COPY --from=build /usr/src/app .
-# # create and set non-root USER
-# RUN addgroup -g 1001 appuser && \
-#     adduser -S -u 1001 -G appuser appuser
-# RUN chown -R appuser:appuser /usr/src/app && \
-#     chmod 755 /usr/src/app
-# USER appuser
-#######################################################################################
-
-# Pass the `WEBPACK_HOST` arg from docker-compose args and set it to the HOST
-ARG WEBPACK_HOST
+# MULTI-STAGE BUILD
+FROM node:10.14.1-alpine
+# working directory
+WORKDIR /usr/src/app
+# node:alpine comes with a configured user and group
+RUN chown -R node:node /usr/src/app
+# copy build from previous stage
+COPY --from=build /usr/src/app .
+USER node
+# Pass the `HOST` arg from docker-compose args and set it to the HOST
+ARG HOST
 # command to run application
-CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${WEBPACK_HOST}"]
+CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${HOST}"]
