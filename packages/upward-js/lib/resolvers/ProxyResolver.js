@@ -27,26 +27,26 @@ class ProxyResolver extends AbstractResolver {
                 ? this.visitor.upward(definition, 'ignoreSSLErrors')
                 : false
         ];
-        const [target, ignoreSSLErrors] = await Promise.all(toResolve);
+        const [targetUrl, ignoreSSLErrors] = await Promise.all(toResolve);
 
-        debug('resolved target %o', target);
-        if (typeof target !== 'string') {
+        debug('resolved target %o', targetUrl);
+        if (typeof targetUrl !== 'string' && !targetUrl.href) {
             throw new Error(
-                `'target' argument to ProxyResolver must be a string URL, but was a: ${typeof target}`
+                `'target' argument to ProxyResolver must be a string or URL object, but was a: ${typeof targetUrl}`
             );
         }
 
-        let server = ProxyResolver.servers.get(target);
+        let server = ProxyResolver.servers.get(targetUrl);
         if (!server) {
-            debug(`creating new server for ${target}`);
+            debug(`creating new server for ${targetUrl}`);
             server = proxyMiddleware({
-                target,
+                target: targetUrl.toString(),
                 secure: !ignoreSSLErrors,
                 changeOrigin: true,
                 autoRewrite: true,
                 cookieDomainRewrite: ''
             });
-            ProxyResolver.servers.set(target, server);
+            ProxyResolver.servers.set(targetUrl, server);
         }
 
         return server;
