@@ -12,7 +12,7 @@ export const createGuestCart = () =>
     async function thunk(dispatch, getState) {
         const { cart } = getState();
 
-        // if a guest cart already exists, exit
+        // if a guest cart already exists in redux, exit
         if (cart.guestCartId) {
             return;
         }
@@ -21,16 +21,15 @@ export const createGuestCart = () =>
         // in case the user has already completed an order this session
         dispatch(checkoutActions.reset());
 
-        const guestCartId = await retrieveGuestCartId();
+        // Request a new guest cart.
+        dispatch(actions.getGuestCart.request());
 
         // if a guest cart exists in storage, act like we just received it
+        const guestCartId = await retrieveGuestCartId();
         if (guestCartId) {
             dispatch(actions.getGuestCart.receive(guestCartId));
             return;
         }
-
-        // otherwise, request a new guest cart
-        dispatch(actions.getGuestCart.request());
 
         try {
             const id = await request('/rest/V1/guest-carts', {
@@ -119,11 +118,11 @@ export const addItemToCart = (payload = {}) => {
 
             // check if the guest cart has expired
             if (noGuestCartId || (response && response.status === 404)) {
-                // if so, then delete the cached ID...
-                // in contrast to the save, make sure storage deletion is
+                // Delete the cached ID from local storage and Redux.
+                // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await dispatch(removeCart());
                 // then create a new one
                 await dispatch(createGuestCart());
                 // then retry this operation
@@ -201,15 +200,13 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
             // check if the guest cart has expired
             if (noGuestCartId || (response && response.status === 404)) {
-                // if so, then delete the cached ID...
-                // in contrast to the save, make sure storage deletion is
+                // Delete the cached ID from local storage and Redux.
+                // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await clearGuestCartId();
+                await dispatch(removeCart());
                 // then create a new one
                 await dispatch(createGuestCart());
-                // then retry this operation
-                return thunk(...arguments);
             }
         }
 
@@ -266,15 +263,14 @@ export const removeItemFromCart = payload => {
 
             // check if the guest cart has expired
             if (noGuestCartId || (response && response.status === 404)) {
-                // if so, then delete the cached ID...
-                // in contrast to the save, make sure storage deletion is
+                // Delete the cached ID from local storage.
+                // The reducer handles clearing out the bad ID from Redux.
+                // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
                 await clearGuestCartId();
                 // then create a new one
                 await dispatch(createGuestCart());
-                // then retry this operation
-                return thunk(...arguments);
             }
         }
 
@@ -375,8 +371,9 @@ export const getCartDetails = (payload = {}) => {
 
             // check if the guest cart has expired
             if (response && response.status === 404) {
-                // if so, then delete the cached ID...
-                // in contrast to the save, make sure storage deletion is
+                // if so, then delete the cached ID from local storage.
+                // The reducer handles clearing out the bad ID from Redux.
+                // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
                 await clearGuestCartId();
@@ -423,6 +420,15 @@ export const removeGuestCart = () =>
                 type: 'REMOVE_GUEST_CART'
             });
         }
+    };
+
+export const removeCart = () =>
+    async function thunk(dispatch) {
+        // Clear the cartId from local storage.
+        await clearGuestCartId();
+
+        // Clear the cart info from the redux store.
+        await dispatch(actions.reset());
     };
 
 /* helpers */

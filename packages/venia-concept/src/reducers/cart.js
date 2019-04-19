@@ -6,6 +6,7 @@ import checkoutActions from 'src/actions/checkout';
 export const name = 'cart';
 
 export const initialState = {
+    addItemError: null,
     details: {},
     detailsError: null,
     guestCartId: null,
@@ -14,8 +15,10 @@ export const initialState = {
     isUpdatingItem: false,
     isAddingItem: false,
     paymentMethods: [],
+    removeItemError: null,
     shippingMethods: [],
-    totals: {}
+    totals: {},
+    updateItemError: null
 };
 
 const reducerMap = {
@@ -58,7 +61,15 @@ const reducerMap = {
             isAddingItem: true
         };
     },
-    [actions.addItem.receive]: state => {
+    [actions.addItem.receive]: (state, { payload, error }) => {
+        if (error) {
+            return {
+                ...state,
+                addItemError: payload,
+                isAddingItem: false
+            };
+        }
+
         return {
             ...state,
             isAddingItem: false
@@ -74,7 +85,15 @@ const reducerMap = {
             isUpdatingItem: true
         };
     },
-    [actions.updateItem.receive]: state => {
+    [actions.updateItem.receive]: (state, { payload, error }) => {
+        if (error) {
+            return {
+                ...state,
+                isUpdatingItem: false,
+                updateItemError: payload
+            };
+        }
+        
         // We don't actually have to update any items here
         // because we force a refresh from the server.
         return {
@@ -84,7 +103,10 @@ const reducerMap = {
     },
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
-            return initialState;
+            return {
+                ...initialState,
+                removeItemError: payload
+            };
         }
         // If we are emptying the cart, perform a reset to prevent
         // a bug where the next item added to cart would have a price of 0
@@ -110,7 +132,8 @@ const reducerMap = {
     },
     [checkoutActions.order.accept]: () => {
         return initialState;
-    }
+    },
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);
