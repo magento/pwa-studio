@@ -580,7 +580,7 @@ test('updateItemInCart tries to recreate a guest cart on 404 failure', async () 
 });
 
 test('removeItemFromCart thunk dispatches actions on success', async () => {
-    const payload = { item: { item_id: 'ITEM' }};
+    const payload = { item: { item_id: 'ITEM' } };
     const cartItem = 'CART_ITEM';
 
     request.mockResolvedValueOnce(cartItem);

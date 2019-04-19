@@ -93,7 +93,7 @@ const reducerMap = {
                 updateItemError: payload
             };
         }
-        
+
         // We don't actually have to update any items here
         // because we force a refresh from the server.
         return {
