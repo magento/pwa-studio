@@ -88,33 +88,40 @@ function jUnitSuite(title) {
             const time = stopwatch.stop();
             fs.writeFileSync(
                 filename,
-                xml({
-                    testsuites: [
+                xml(
+                    [
                         {
-                            _attr: {
-                                tests: cases.length,
-                                failures: failureCount,
-                                time
-                            }
-                        },
-                        {
-                            testsuite: [
+                            testsuites: [
                                 {
                                     _attr: {
-                                        name: title,
-                                        errors: errorCount,
+                                        tests: cases.length,
                                         failures: failureCount,
-                                        skipped: 0,
-                                        timestamp: new Date().toISOString(),
-                                        time,
-                                        tests: cases.length
+                                        time
                                     }
                                 },
-                                ...cases
+                                {
+                                    testsuite: [
+                                        {
+                                            _attr: {
+                                                name: title,
+                                                errors: errorCount,
+                                                failures: failureCount,
+                                                skipped: 0,
+                                                timestamp: new Date().toISOString(),
+                                                time,
+                                                tests: cases.length
+                                            }
+                                        },
+                                        ...cases
+                                    ]
+                                }
                             ]
                         }
-                    ]
-                }),
+                    ],
+                    {
+                        declaration: true
+                    }
+                ),
                 'utf8'
             );
         }
@@ -136,7 +143,7 @@ const tasks = [
             stdout = result.stdout;
             stderr = result.stderr;
         } catch (err) {
-            if (typeof stdout !== 'string') {
+            if (err.code === 'MODULE_NOT_FOUND') {
                 // execa didn't require
                 throw err;
             }
@@ -144,6 +151,7 @@ const tasks = [
             stderr = err.stderr;
         }
         const failedFiles = stdout.split('\n').filter(s => s.trim());
+
         // Prettier doesn't normally print the files it covered, but in debug
         // mode, you can extract them with these regex (as of Prettier 1.13.5)
         // This is a hack based on debug output not guaranteed to stay the same.
@@ -271,6 +279,7 @@ const tasks = [
                 'All tests must pass before this PR can be merged\n\n\n' +
                 failSummary
         );
+        throw new Error(failSummary);
     }
 
     // function mergeJunitReports() {
@@ -306,6 +315,25 @@ const tasks = [
     // }
 ];
 
+const runTasks = async tasks => {
+    const errors = [];
+    for (const task of tasks) {
+        try {
+            await task();
+        } catch (e) {
+            errors.push({ task: task.name, error: e.stdout || e });
+        }
+    }
+    return errors;
+};
+
 (async () => {
-    for (const task of tasks) await task();
+    const errors = await runTasks(tasks);
+    if (errors.length) {
+        errors.map(e => {
+            console.log(codeFence(`ERROR ON TASK: ${e.task}`));
+            console.log(e.error);
+        });
+        throw 'Danger found errors. See stack trace above.';
+    }
 })();

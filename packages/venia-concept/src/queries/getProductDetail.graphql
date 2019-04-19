@@ -1,6 +1,7 @@
 query productDetail($urlKey: String, $onServer: Boolean!) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
+            __typename
             sku
             name
             price {

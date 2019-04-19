@@ -3,7 +3,7 @@
 ####################################################################################
 #   Run this file from the root of the repository to build and run a PWA container #
 ####################################################################################
-CONFIG_ENV_FILE=./docker/.env.docker
+CONFIG_ENV_FILE=./docker/.env.docker.dev
 STATUS=0
 
 # accepts -e <envfile_path> to set a separate environment variable file configuration
