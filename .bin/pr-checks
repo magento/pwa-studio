@@ -13,7 +13,8 @@ message () {
 STATUS=0
 
 message "Installing dependencies with yarn..."
-yarn install --frozen-lockfile
+yarn install --frozen-lockfile || STATUS=$?
+echo "Test exit status STATUS"
 
 # production build - needed for some of the subsequent checks, like storybook
 message "Running production build..."
