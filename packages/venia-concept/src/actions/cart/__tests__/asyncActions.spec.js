@@ -72,11 +72,12 @@ test('createGuestCart thunk uses the guest cart from storage', async () => {
 
     expect(mockGetItem).toHaveBeenCalledWith('guestCartId');
     expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
+    expect(dispatch).toHaveBeenNthCalledWith(2, actions.getGuestCart.request());
     expect(dispatch).toHaveBeenNthCalledWith(
-        2,
+        3,
         actions.getGuestCart.receive(storedGuestCartId)
     );
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(request).not.toHaveBeenCalled();
 });
 
@@ -314,7 +315,11 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
                 type: 'CART/ADD_ITEM/RECEIVE'
             }
         ],
+        // removeCart
         [expect.any(Function)],
+        // createGuestCart
+        [expect.any(Function)],
+        // After retry: add the item
         [
             {
                 payload: {
@@ -324,7 +329,9 @@ test('addItemToCart tries to recreate a guest cart on 404 failure', async () => 
                 type: 'CART/ADD_ITEM/REQUEST'
             }
         ],
+        // getCartDetails
         [expect.any(Function)],
+        // toggleDrawer
         [expect.any(Function)],
         [
             {
@@ -516,10 +523,6 @@ test('updateItemInCart thunk dispatches special failure if guestCartId is not pr
         cart: {},
         user: { isSignedIn: false }
     }));
-    getState.mockImplementationOnce(() => ({
-        cart: {},
-        user: { isSignedIn: false }
-    }));
     await updateItemInCart(payload)(...thunkArgs);
     expect(dispatch).toHaveBeenNthCalledWith(
         1,
@@ -529,24 +532,9 @@ test('updateItemInCart thunk dispatches special failure if guestCartId is not pr
         2,
         actions.updateItem.receive(error)
     );
-    // and now, the createGuestCart thunk
-    expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
 });
 
 test('updateItemInCart tries to recreate a guest cart on 404 failure', async () => {
-    getState
-        .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'OLD_AND_BUSTED' },
-            user: { isSignedIn: false }
-        }))
-        .mockImplementationOnce(() => ({
-            cart: { guestCartId: 'CACHED_CART' },
-            user: { isSignedIn: false }
-        }))
-        .mockImplementationOnce(() => ({
-            cart: {},
-            user: { isSignedIn: false }
-        }));
     const payload = { item: 'ITEM', quantity: 1 };
     const error = new Error('ERROR');
     error.response = {
@@ -576,34 +564,23 @@ test('updateItemInCart tries to recreate a guest cart on 404 failure', async () 
                 type: 'CART/UPDATE_ITEM/RECEIVE'
             }
         ],
+        // removeCart
         [expect.any(Function)],
-        [
-            {
-                payload: {
-                    item: 'ITEM',
-                    quantity: 1
-                },
-                type: 'CART/UPDATE_ITEM/REQUEST'
-            }
-        ],
-        [
-            {
-                payload: {
-                    cartItem: undefined,
-                    item: 'ITEM',
-                    quantity: 1
-                },
-                type: 'CART/UPDATE_ITEM/RECEIVE'
-            }
-        ],
+        // createGuestCart
         [expect.any(Function)],
+        // addItemToCart
         [expect.any(Function)],
+        // toggleDrawer
+        [expect.any(Function)],
+        // getCartDetails
+        [expect.any(Function)],
+        // closeOptionsDrawer
         [expect.any(Function)]
     ]);
 });
 
 test('removeItemFromCart thunk dispatches actions on success', async () => {
-    const payload = { item: 'ITEM' };
+    const payload = { item: { item_id: 'ITEM' }};
     const cartItem = 'CART_ITEM';
 
     request.mockResolvedValueOnce(cartItem);
@@ -653,7 +630,7 @@ test('removeItemFromCart tries to recreate a guest cart on 404 failure', async (
 
     await removeItemFromCart(payload)(...thunkArgs);
 
-    expect(request).toHaveBeenCalledTimes(2);
+    expect(request).toHaveBeenCalledTimes(1);
 });
 
 test('removeItemFromCart resets the guest cart when removing the last item in the cart', async () => {

@@ -140,7 +140,7 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
 
-        const { user } = getState();
+        const { cart, user } = getState();
         if (user.isSignedIn) {
             // TODO: handle authed carts
             // if a user creates an account,
@@ -150,7 +150,6 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
         }
 
         try {
-            const { cart } = getState();
             const { guestCartId } = cart;
 
             if (!guestCartId) {
@@ -207,6 +206,8 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
                 await dispatch(removeCart());
                 // then create a new one
                 await dispatch(createGuestCart());
+                // and add the updated item to the new cart.
+                await dispatch(addItemToCart(payload));
             }
         }
 
