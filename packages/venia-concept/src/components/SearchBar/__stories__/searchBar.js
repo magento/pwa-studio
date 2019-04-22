@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { SearchBar } from '../searchBar';
+import { SearchBar } from '../searchBar/asad';
 import defaultClasses from '../searchBar.css';
 
 const stories = storiesOf('SearchBar', module);
