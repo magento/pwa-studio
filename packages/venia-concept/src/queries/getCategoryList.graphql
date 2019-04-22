@@ -2,7 +2,7 @@
 query categoryList($id: Int!) {
     category(id: $id) {
         id
-         {
+        children {
             id
             name
             url_key

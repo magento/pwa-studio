@@ -1,4 +1,4 @@
-query ($id: Int!, $pageSize: Int!, $currentPage: Int!, $onServer: Boolean!) {
+query category($id: Int!, $pageSize: Int!, $currentPage: Int!, $onServer: Boolean!) {
         category(id: $id) {
             id
             description
