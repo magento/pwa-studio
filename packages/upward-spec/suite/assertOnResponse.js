@@ -44,13 +44,23 @@ module.exports = async (t, response, expected) => {
     });
     try {
         const body = await response.clone().text();
-        if (expected.text) {
-            const msg = `body should match '${expected.text}': ${body}`;
-            if (body.includes(expected.text)) {
-                t.pass(msg);
+        if (expected.contains) {
+            if (body.includes(expected.contains)) {
+                t.pass(`body should contain '${expected.contains}': ${body}`);
             } else {
-                t.fail(msg);
+                t.equals(
+                    expected.contains + body,
+                    body,
+                    `body should contain ${expected.contains}`
+                );
             }
+        }
+        if (expected.text) {
+            t.equals(
+                expected.text.trim(),
+                body.trim(),
+                `body should match text ${expected.text.trim()}`
+            );
         }
         if (expected.json) {
             let parsed;
