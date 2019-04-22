@@ -13,9 +13,10 @@ message () {
 STATUS=0
 
 message "Installing dependencies with yarn..."
-yarn install --frozen-lockfile || STATUS=$?
+yarn install --frozen-lockfile 2>&1 | tail -10 >>logfle || STATUS=$?
 echo "Test exit status $STATUS"
 ls
+cat logfile
 if [ $STATUS -eq 1 ]; then
    echo "yarn install failed"
    exit 1
