@@ -15,15 +15,15 @@ STATUS=0
 message "Installing dependencies with yarn..."
 RUN yarn install --frozen-lockfile
 #yarn install --frozen-lockfile 2>&1 || STATUS=$?
-#if [ $STATUS -eq 1 ]; then
-#   echo "yarn install failed"
-#   exit 1
-#fi
 
 # production build - needed for some of the subsequent checks, like storybook
 message "Running production build..."
 cp ./docker/.env.docker.prod ./packages/venia-concept/.env
-RUN yarn run build
+yarn run build 2>&1 || STATUS=$?
+if [ $STATUS -eq 1 ]; then
+   echo "yarn build failed"
+   exit 1
+fi
 
 # jest tests - does not fail ci, failures are evaluated by danger check below
 message "Running unit tests with Jest..."
