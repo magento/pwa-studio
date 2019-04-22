@@ -1,0 +1,25 @@
+status: 200
+headers:
+  inline:
+    content-type: text/plain
+body: rewrittenUrl
+
+rewrittenUrl:
+  baseUrl: documentBase
+  pathname: request.url.query.id
+
+documentBase:
+  baseUrl: rootUrl
+  pathname:
+    inline: /document/
+
+rootUrl:
+  baseUrl: false
+  hostname:
+    inline: example.com
+  username:
+    inline: user
+  password:
+    inline: pass
+  port:
+    inline: 3000

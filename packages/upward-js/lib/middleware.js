@@ -57,29 +57,42 @@ class UpwardMiddleware {
                         }`
                     );
                 }
-                if (typeof response.body !== 'string') {
+                if (
+                    typeof response.body !== 'string' &&
+                    typeof response.body.toString !== 'function'
+                ) {
                     errors.push(
-                        `Resolved with a non-string body! Body was '${
+                        `Resolved with a non-serializable body! Body was '${Object.prototype.toString.call(
                             response.body
-                        }'`
+                        )}'`
                     );
                 }
             } catch (e) {
-                errors.push(e.stack);
+                errors.push(e.message);
             }
             if (errors.length > 0) {
-                next(
-                    new UpwardServerError(
-                        `Request did not evaluate to a valid response, because: \n${errors.join(
-                            '\n'
-                        )}`
-                    )
-                );
+                if (req.accepts('json')) {
+                    res.json({
+                        errors: errors.map(message => ({ message }))
+                    });
+                } else {
+                    next(
+                        new UpwardServerError(
+                            `Request did not evaluate to a valid response, because: \n${errors.join(
+                                '\n'
+                            )}`
+                        )
+                    );
+                }
             } else {
                 debug('status, headers, and body valid. responding');
                 res.status(response.status)
                     .set(response.headers)
-                    .send(response.body);
+                    .send(
+                        typeof response.body === 'string'
+                            ? response.body
+                            : response.body.toString()
+                    );
             }
         };
     }
