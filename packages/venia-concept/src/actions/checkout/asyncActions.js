@@ -3,7 +3,6 @@ import { RestApi, Util } from '@magento/peregrine';
 import { closeDrawer } from 'src/actions/app';
 import { clearGuestCartId, createGuestCart } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
-import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 import actions from './actions';
@@ -244,9 +243,10 @@ export const submitOrder = () =>
             );
 
             dispatch(
-                checkoutReceiptActions.setOrderInformation(
-                    getOrderInformation(getState(), response)
-                )
+                checkoutReceiptActions.setOrderInformation({
+                    id: response,
+                    shipping_address
+                })
             );
 
             // Clear out everything we've saved about this cart from local storage.

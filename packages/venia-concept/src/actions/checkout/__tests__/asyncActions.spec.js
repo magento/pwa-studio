@@ -512,7 +512,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                billing_address: address
+                shipping_address: mockShippingAddress
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -540,9 +540,7 @@ describe('submitOrder', () => {
             directory: { countries }
         };
 
-        getState
-            .mockImplementationOnce(() => mockState)
-            .mockImplementationOnce(() => mockState);
+        getState.mockImplementationOnce(() => mockState);
 
         mockGetItem
             .mockImplementationOnce(
@@ -562,7 +560,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                billing_address: address
+                shipping_address: mockShippingAddress
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(

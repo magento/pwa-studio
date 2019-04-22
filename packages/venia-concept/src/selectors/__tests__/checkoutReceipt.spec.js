@@ -1,7 +1,7 @@
 import { getOrderInformation, getAccountInformation } from '../checkoutReceipt';
 
 test('getOrderInformation returns order', () => {
-    const order = { id: 1, billing_address: {} };
+    const order = { id: 1, shipping_address: {} };
     const state = {
         checkoutReceipt: {
             order
@@ -18,7 +18,7 @@ test('getAccountInformation returns account information', () => {
     const state = {
         checkoutReceipt: {
             order: {
-                billing_address: {
+                shipping_address: {
                     email,
                     firstname: firstName,
                     lastname: lastName
