@@ -2,14 +2,6 @@
 title: Client-side caching
 ---
 
-<!--
-The GraphQL team needs documentation regarding how PWA implements client-side caching. This PWA ticket is related to the following GraphQL ticket: magento/graphql-ce#18
-
-Service workers as a network cache on the client
-How Apollo maintains a cache of query results client-side
-etc.
--->
-
 Client-to-server communication is slow and expensive.
 Performance is an important feature for any Progressive Web Application(PWA), so
 requests to the server should be minimized.
@@ -37,7 +29,7 @@ Venia uses the following [caching strategies][] with its service worker:
 
 #### [Stale-while-revalidate][]
 
-This approach takes a request and uses a cached response if it exists.
+The stale-while-revalidate strategy tell the service worker to use a cached response if it exists.
 A separate network request is made for that resource and the result is cached for future requests.
 
 This strategy is used when the most up to date version of a resource is not necessary for an application.
@@ -45,23 +37,53 @@ This strategy is used when the most up to date version of a resource is not nece
 | Route pattern                                     | Description          |
 | ------------------------------------------------- | -------------------- |
 | `/`                                               | The application root |
-| `/.\\.js$`                                        | Javascript files     |
+| `/.\\.js$`                                        | JavaScript files     |
 | `/\/media\/catalog.*\.(?:png|gif|jpg|jpeg|svg)$/` | Catalog image files  |
 
-{:style="table-layout: auto"}
+#### [Network first][]
 
-#### [Network-first][]
+The network first strategy tells the service worker to get a resource from the network first.
+If a network connection cannot be made, the service worker uses the cache as a fallback.
 
-What is workbox?
-What are the different caching strategies used in Venia's `sw.js` file?
+This strategy is used for data that may change frequently on the server.
 
-## Caching in Apollo
+| Route pattern | Description |
+| ------------- | ----------- |
+| `\\.html$`    | HTML pages  |
 
-What is it? How does it work? How does it relate to PWA Studio?
+#### [Cache first][]
+
+The cache first strategy tells the service worker to use the data from the cache.
+Unlike the stale-while-revalidate strategy, no network call is made to update the cache.
+
+If a response is not found in the cache, a network call is made to get the resource and cache the response.
+
+This strategy is used for non-critical assets that do not get updated very often.
+
+| Route pattern | Description                             |
+| ------------- | --------------------------------------- |
+| `images`      | Image files served from the application |
+
+## Caching in the Apollo GraphQL client
+
+The Venia implementation storefront uses the Apollo GraphQL client to make requests to the Magento GraphQL endpoint.
+It also incorporates the default [`InMemoryCache`][] implementation to add caching abilities to the client.
+
+The cache is persisted between browser sessions in `window.localstorage` using the [`apollo-cache-persist`][] module.
+This lets the Apollo client maintain its cached data even when the user closes the application.
+
+By default, `InMemoryCache` uses a cache first strategy for all queries.
+This strategy is set using the `fetchPolicy` prop on the `Query` component.
+
+Caching for Apollo is set up in the [`src/drivers/adapter.js`][] file.
 
 [service worker]: https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
 [`src/sw.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/sw.js
 [workbox]: https://developers.google.com/web/tools/workbox/
 [caching strategies]: https://developers.google.com/web/tools/workbox/modules/workbox-strategies
-[Stale-while-revalidate]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate
-[Network-first]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache
+[stale-while-revalidate]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate
+[network first]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache
+[cache first]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network
+[`inmemorycache`]: https://www.apollographql.com/docs/react/advanced/caching
+[`apollo-cache-persist`]: https://github.com/apollographql/apollo-cache-persist
+[`src/drivers/adapter.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
