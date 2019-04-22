@@ -18,7 +18,7 @@ yarn install --frozen-lockfile 2>&1 || exit 1
 # production build - needed for some of the subsequent checks, like storybook
 message "Running production build..."
 cp ./docker/.env.docker.prod ./packages/venia-concept/.env
-yarn run build 2>&1
+yarn run build || exit 1
 
 # jest tests - does not fail ci, failures are evaluated by danger check below
 message "Running unit tests with Jest..."
