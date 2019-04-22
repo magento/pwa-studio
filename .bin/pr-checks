@@ -35,7 +35,4 @@ yarn run bundlesize
 
 # danger ci - eslint, prettier:validate, unit test evaluation, etc.
 message "Running Danger..."
-yarn run danger || STATUS=$?
-
-echo "Exit Status: $STATUS"
-exit $STATUS
+yarn run danger || exit 1
