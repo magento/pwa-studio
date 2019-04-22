@@ -27,7 +27,7 @@ message "Running Coveralls..."
 yarn run coveralls
 
 message "Running Storybook..."
-yarn workspace @magento/venia-concept run storybook:build
+yarn workspace @magento/venia-concept run storybook:build || exit 1
 
 message "Running Bundlesize..."
 yarn run bundlesize
