@@ -63,7 +63,7 @@ There are many strategies and patterns available to help boost the performance o
 
 The root component of an application is the DOM node under which all other nodes are managed by React.
 Routing is the ability to map a URL pattern to the appropriate handler.  
-<sub>[ _[Help write this topic][performance patterns]_ ]</sub>
+<sub>[ _[Help write this topic][root components and routing]_ ]</sub>
 
 ## Critical path
 
@@ -71,17 +71,16 @@ The critical path for rendering refers to the steps the browser takes to process
 Optimizing the critical path is important to get the best performance out of a progressive web application.  
 <sub>[ _[Help write this topic][critical path]_ ]</sub>
 
+[container extensibility]: {{ site.baseurl }}{%link technologies/basic-concepts/container-extensibility/index.md %}
+[graphql]: {{ site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
+[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[application shell]: {{site.baseurl}}{%link technologies/basic-concepts/app-shell/index.md %}
+
 [redux]: https://redux.js.org/introduction/core-concepts
-
-[Service worker]: {{ site.data.vars.repo }}
-[Component data binding]: {{ site.data.vars.repo }}
-[Client state, reducers, and actions]: {{ site.data.vars.repo }}
-[Loading and offline states]: {{ site.data.vars.repo }}
-[Container extensibility]: {{ site.baseurl }}{%link technologies/basic-concepts/container-extensibility/index.md %}
-[Performance patterns]: {{ site.data.vars.repo }}
-[Root components and routing]: {{ site.data.vars.repo }}
-[Critical path]: {{ site.data.vars.repo }}
-
-[GraphQL]: {{ site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
-[CSS modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
-[Application shell]: {{site.baseurl}}{%link technologies/basic-concepts/app-shell/index.md %}
+[service worker]: https://github.com/magento-research/pwa-studio
+[component data binding]: https://github.com/magento-research/pwa-studio
+[client state, reducers, and actions]: https://github.com/magento-research/pwa-studio
+[loading and offline states]: https://github.com/magento-research/pwa-studio
+[performance patterns]: https://github.com/magento-research/pwa-studio
+[root components and routing]: https://github.com/magento-research/pwa-studio
+[critical path]: https://github.com/magento-research/pwa-studio
