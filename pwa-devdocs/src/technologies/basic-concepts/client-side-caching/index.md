@@ -3,7 +3,7 @@ title: Client-side caching
 ---
 
 Client-server communication is slow and expensive.
-Performance is an important feature for any Progressive Web Application(PWA), so
+Performance is an important feature for any Progressive Web Application (PWA), so
 requests to the server should be minimized.
 
 Offline mode is also a required feature for a PWA.
