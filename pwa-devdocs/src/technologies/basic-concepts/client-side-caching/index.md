@@ -30,7 +30,7 @@ Venia uses the following [caching strategies][] with its service worker:
 #### [Stale-while-revalidate][]
 
 The stale-while-revalidate strategy tells the service worker to use a cached response if it exists.
-A separate network request is made for that resource and the result is cached for future requests.
+A separate network request is made for that resource and the cache is updated for future requests.
 
 This strategy is used when the most up to date version of a resource is not necessary for an application.
 
