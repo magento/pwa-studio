@@ -1,0 +1,92 @@
+#!/usr/bin/env sh
+
+####################################################################################
+#   Run this file from the root of the repository to build and run a PWA container #
+####################################################################################
+CONFIG_ENV_FILE=./docker/.env.docker.dev
+STATUS=0
+
+# accepts -e <envfile_path> to set a separate environment variable file configuration
+while getopts ":e" opt; do
+  case ${opt} in
+    e )
+      # validate that the file path passed is valid
+      if [ -f $2 ]; then
+        CONFIG_ENV_FILE="$2"
+        echo "Configuration using environment variables from: $2"
+      else
+        echo -e "The env file you provided does not exist at this path: $2\nPlease provide the relative path to your environment file.\nExample: $CONFIG_ENV_FILE"
+        exit 1
+      fi
+      ;;
+  esac
+done
+
+main () {
+  env_setup
+  create_certificate
+  # If cert setup failed then don't start docker
+  if [ "$STATUS" == 0 ]; then
+    start_docker
+  else
+    message "An error occurred during setup."
+    clean_up_env &     # clean up the environment in the background
+    exit 1
+  fi
+}
+
+env_setup () {
+  ENVFILE=./.env
+  message "Adding env vars from $CONFIG_ENV_FILE to $ENVFILE for docker setup."
+  cp $CONFIG_ENV_FILE $ENVFILE
+  echo "ENVFILEPATH=$CONFIG_ENV_FILE" >> $ENVFILE
+  cat $ENVFILE
+  . $ENVFILE
+  DOMAIN=$PWA_STUDIO_PUBLIC_PATH
+}
+
+create_certificate () {
+  message "Creating SSL/TLS certificate"
+  # make docker/certs folder if one does not already exist
+  [ -d ./docker/certs ] || mkdir ./docker/certs
+  # install devcert dependency
+  cd ./docker && yarn install && cd -
+  node ./docker/makeHostAndCert $DOMAIN || STATUS=$?
+}
+
+start_docker () {
+  message "Building PWA image"
+  BUILD_STATUS=0
+  docker-compose build || BUILD_STATUS=$?
+
+  clean_up_env &    # clean up the environment in the background
+  
+  if [ "$BUILD_STATUS" == 0 ]; then
+    message "Starting Docker network and containers"
+    docker-compose up
+  else
+    message "Build failed. See output for details."
+  fi
+}
+
+clean_up_env () {
+  # the docker-compose command needs the .env file to be present in order to run
+  # but we want to remove it after execution so it doesn't pollute the dev environment 
+  # when switching git branches or running the application outside of docker
+  if [ -f .env ]; then
+    sleep 20
+    rm .env
+  fi
+}
+
+message () {
+  echo ""
+  echo "==========================================================================="
+  echo ""
+  echo -e "        " "$1"
+  echo ""
+  echo "==========================================================================="
+  echo ""
+}
+
+main 

@@ -62,7 +62,7 @@ class Input extends Component {
 
     get helpText() {
         const { helpVisible, classes, helpText, helpType } = this.props;
-        let helpTypeClass = `${classes.helpText} ${classes[helpType]}`;
+        const helpTypeClass = `${classes.helpText} ${classes[helpType]}`;
 
         return helpVisible ? (
             <div className={helpTypeClass}>{helpText}</div>

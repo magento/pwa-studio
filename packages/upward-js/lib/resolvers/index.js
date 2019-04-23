@@ -6,7 +6,8 @@ const ResolverList = [
     require('./ServiceResolver'),
     require('./ProxyResolver'),
     require('./DirectoryResolver'),
-    require('./ConditionalResolver')
+    require('./ConditionalResolver'),
+    require('./UrlResolver')
 ];
 
 const ResolversByType = ResolverList.reduce((out, Resolver) => {

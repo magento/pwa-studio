@@ -1,13 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const execa = require('execa');
-const mkdirp = require('mkdirp');
-const xml = require('xml');
 const { fail, warn, markdown, danger } = require('danger');
-const prettierVersion = require('prettier/package.json').version;
-const eslintJUnitReporter = require('eslint/lib/formatters/junit');
 
-const fromRoot = p => path.relative('', p);
+const fromRoot = p => require('path').relative('', p);
 
 const packageNames = {
     'venia-concept': 'Venia',
@@ -15,6 +8,7 @@ const packageNames = {
     peregrine: 'Peregrine'
 };
 const pathToPackageName = filepath => {
+    const path = require('path');
     const packageDir = path
         .normalize(path.relative('packages', filepath))
         .split(path.sep)[0];
@@ -23,6 +17,8 @@ const pathToPackageName = filepath => {
 
 const reportDir = './test-results/';
 const reportFile = name => {
+    const path = require('path');
+    const mkdirp = require('mkdirp');
     const subdir = path.join(reportDir, name);
     mkdirp.sync(subdir);
     return path.join(subdir, 'results.xml');
@@ -51,6 +47,8 @@ function timer() {
 }
 
 function jUnitSuite(title) {
+    const fs = require('fs');
+    const xml = require('xml');
     const stopwatch = timer();
     let failureCount = 0;
     let errorCount = 0;
@@ -90,33 +88,40 @@ function jUnitSuite(title) {
             const time = stopwatch.stop();
             fs.writeFileSync(
                 filename,
-                xml({
-                    testsuites: [
+                xml(
+                    [
                         {
-                            _attr: {
-                                tests: cases.length,
-                                failures: failureCount,
-                                time
-                            }
-                        },
-                        {
-                            testsuite: [
+                            testsuites: [
                                 {
                                     _attr: {
-                                        name: title,
-                                        errors: errorCount,
+                                        tests: cases.length,
                                         failures: failureCount,
-                                        skipped: 0,
-                                        timestamp: new Date().toISOString(),
-                                        time,
-                                        tests: cases.length
+                                        time
                                     }
                                 },
-                                ...cases
+                                {
+                                    testsuite: [
+                                        {
+                                            _attr: {
+                                                name: title,
+                                                errors: errorCount,
+                                                failures: failureCount,
+                                                skipped: 0,
+                                                timestamp: new Date().toISOString(),
+                                                time,
+                                                tests: cases.length
+                                            }
+                                        },
+                                        ...cases
+                                    ]
+                                }
                             ]
                         }
-                    ]
-                }),
+                    ],
+                    {
+                        declaration: true
+                    }
+                ),
                 'utf8'
             );
         }
@@ -128,20 +133,25 @@ const tasks = [
         const junit = jUnitSuite('Prettier');
         let stdout, stderr;
         try {
-            const result = execa.sync('npm', [
+            const execa = require('execa');
+            const result = execa.sync('yarn', [
                 'run',
                 '--silent',
                 'prettier:check',
-                '--',
                 '--loglevel=debug'
             ]);
             stdout = result.stdout;
             stderr = result.stderr;
         } catch (err) {
+            if (err.code === 'MODULE_NOT_FOUND') {
+                // execa didn't require
+                throw err;
+            }
             stdout = err.stdout;
             stderr = err.stderr;
         }
         const failedFiles = stdout.split('\n').filter(s => s.trim());
+
         // Prettier doesn't normally print the files it covered, but in debug
         // mode, you can extract them with these regex (as of Prettier 1.13.5)
         // This is a hack based on debug output not guaranteed to stay the same.
@@ -172,6 +182,7 @@ const tasks = [
         );
         if (!coveredFiles || coveredFiles.length === 0) {
             let warning = 'Prettier did not appear to cover any files.';
+            const prettierVersion = require('prettier/package.json').version;
             if (prettierVersion !== '1.13.5') {
                 warning +=
                     '\nThis may be due to an unexpected change in debug output in a version of Prettier later than 1.13.5.';
@@ -196,21 +207,23 @@ const tasks = [
         if (failedFiles.length > 0) {
             fail(
                 'The following file(s) were not ' +
-                    'formatted with **prettier**. Make sure to execute `npm run prettier` ' +
+                    'formatted with **prettier**. Make sure to execute `yarn run prettier` ' +
                     `locally prior to committing.\n${codeFence(stdout)}`
             );
         }
     },
 
     function eslintCheck() {
+        const fs = require('fs');
+        const eslintJUnitReporter = require('eslint/lib/formatters/junit');
         const stopwatch = timer();
         let stdout;
         try {
-            ({ stdout } = execa.sync('npm', [
+            const execa = require('execa');
+            ({ stdout } = execa.sync('yarn', [
                 'run',
                 '--silent',
                 'lint',
-                '--',
                 '-f',
                 'json'
             ]));
@@ -233,7 +246,7 @@ const tasks = [
         if (errFiles.length > 0) {
             fail(
                 'The following file(s) did not pass **ESLint**. Execute ' +
-                    '`npm run lint` locally for more details\n' +
+                    '`yarn run lint` locally for more details\n' +
                     codeFence(errFiles.join('\n'))
             );
         }
@@ -244,7 +257,8 @@ const tasks = [
         try {
             summary = require('./test-results.json');
         } catch (e) {
-            execa.sync('npm', ['run', '-s', 'test:ci']);
+            const execa = require('execa');
+            execa.sync('yarn', ['run', '-s', 'test:ci']);
             summary = require('./test-results.json');
         }
         const failedTests = summary.testResults.filter(
@@ -265,6 +279,7 @@ const tasks = [
                 'All tests must pass before this PR can be merged\n\n\n' +
                 failSummary
         );
+        throw new Error(failSummary);
     }
 
     // function mergeJunitReports() {
@@ -300,6 +315,25 @@ const tasks = [
     // }
 ];
 
+const runTasks = async tasks => {
+    const errors = [];
+    for (const task of tasks) {
+        try {
+            await task();
+        } catch (e) {
+            errors.push({ task: task.name, error: e.stdout || e });
+        }
+    }
+    return errors;
+};
+
 (async () => {
-    for (const task of tasks) await task();
+    const errors = await runTasks(tasks);
+    if (errors.length) {
+        errors.map(e => {
+            console.log(codeFence(`ERROR ON TASK: ${e.task}`));
+            console.log(e.error);
+        });
+        throw 'Danger found errors. See stack trace above.';
+    }
 })();

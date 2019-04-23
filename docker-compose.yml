@@ -1,0 +1,48 @@
+version: '3'
+services:
+  # proxy service that creates a reverse proxy to the pwa container - https://bit.ly/2HpZJDI
+  # the reverse proxy connects the SSL/TLS certs created on the local file system into the nginx container
+  # this allows the pwa container to be accessible over HTTPS
+  # it also proxies requests to the configured domain running at the configured port for the pwa container
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    hostname: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: unless-stopped
+
+  pwa:
+    hostname: ${PWA_STUDIO_PUBLIC_PATH}
+    # build pwa using the Dockerfile from the PWD
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args: 
+        HOST: ${PWA_STUDIO_PUBLIC_PATH}
+        ENVFILEPATH: ${ENVFILEPATH}
+    # list of directories and files on the host system to volume mount into the container
+    # changes made to files in the container and on the host file system are mapped to one another
+    # this enables hot reloading from the container to detect changes made on the host file system
+    volumes:
+      - ./packages/peregrine/.storybook:/usr/src/app/packages/peregrine/.storybook:rw
+      - ./packages/peregrine/esm:/usr/src/app/packages/peregrine/esm:rw
+      - ./packages/peregrine/scripts:/usr/src/app/packages/peregrine/scripts:rw
+      - ./packages/peregrine/src:/usr/src/app/packages/peregrine/src:rw
+      - ./packages/pwa-buildpack/src:/usr/src/app/packages/pwa-buildpack/src:rw
+      - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
+      - ./packages/venia-concept/.storybook:/usr/src/app/packages/venia-concept/.storybook:rw
+      - ./packages/venia-concept/esm:/usr/src/app/packages/venia-concept/esm:rw
+      - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw
+      - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw
+    links:
+      - nginx-proxy
+    environment:
+      # environment variables consumed by the nginx-proxy service
+      VIRTUAL_HOST: ${PWA_STUDIO_PUBLIC_PATH}
+      VIRTUAL_PORT: ${PWA_STUDIO_PORTS_DEVELOPMENT}
+    expose:
+      - ${PWA_STUDIO_PORTS_DEVELOPMENT}

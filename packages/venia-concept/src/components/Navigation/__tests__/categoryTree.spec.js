@@ -38,10 +38,13 @@ const mocks = [
                             product_count: 5,
                             children_count: '2',
                             path: '1/2',
+                            include_in_menu: 1,
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/child-1.jpg'
+                                        small_image: {
+                                            url: 'media/child-1.jpg'
+                                        }
                                     }
                                 ]
                             }
@@ -56,10 +59,13 @@ const mocks = [
                             product_count: 3,
                             children_count: '1',
                             path: '1/3',
+                            include_in_menu: 1,
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/child-2.jpg'
+                                        small_image: {
+                                            url: 'media/child-2.jpg'
+                                        }
                                     }
                                 ]
                             }
@@ -94,10 +100,13 @@ const mocks = [
                             product_count: 4,
                             children_count: '0',
                             path: '1/2/4',
+                            include_in_menu: 1,
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/leaf-1.jpg'
+                                        small_image: {
+                                            url: 'media/leaf-1.jpg'
+                                        }
                                     }
                                 ]
                             }
@@ -112,10 +121,34 @@ const mocks = [
                             product_count: 2,
                             children_count: '0',
                             path: '1/2/5',
+                            include_in_menu: 1,
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/leaf-2.jpg'
+                                        small_image: {
+                                            url: 'media/leaf-2.jpg'
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            id: 7,
+                            name: 'Child Leaf 3',
+                            position: 3,
+                            level: 3,
+                            url_key: 'leaf-3',
+                            url_path: 'test-category/child-1/leaf-3',
+                            product_count: 3,
+                            children_count: '0',
+                            path: '1/2/7',
+                            include_in_menu: 0,
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: {
+                                            url: 'media/leaf-3.jpg'
+                                        }
                                     }
                                 ]
                             }
@@ -150,10 +183,34 @@ const mocks = [
                             product_count: 6,
                             children_count: '0',
                             path: '1/3/6',
+                            include_in_menu: 0,
                             productImagePreview: {
                                 items: [
                                     {
-                                        small_image: 'media/leaf-3.jpg'
+                                        small_image: {
+                                            url: 'media/leaf-3.jpg'
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            id: 8,
+                            name: 'Child Leaf 4',
+                            position: 1,
+                            level: 2,
+                            url_key: 'leaf-4',
+                            url_path: 'test-category/child-2/leaf-4',
+                            product_count: 6,
+                            children_count: '0',
+                            path: '1/3/8',
+                            include_in_menu: 1,
+                            productImagePreview: {
+                                items: [
+                                    {
+                                        small_image: {
+                                            url: 'media/leaf-4.jpg'
+                                        }
                                     }
                                 ]
                             }

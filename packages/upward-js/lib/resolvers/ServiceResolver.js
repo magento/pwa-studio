@@ -10,7 +10,17 @@ class ServiceResolver extends AbstractResolver {
         return 'service';
     }
     static get telltale() {
-        return 'url';
+        return 'endpoint';
+    }
+    static recognize(definition) {
+        // handle deprecated url property for now
+        if (definition.hasOwnProperty('url')) {
+            const newDefinition = Object.assign({}, definition, {
+                endpoint: definition.url
+            });
+            delete newDefinition.url;
+            return newDefinition;
+        }
     }
     async resolve(definition) {
         const die = msg => {
@@ -20,15 +30,21 @@ class ServiceResolver extends AbstractResolver {
                 })}.\n\n${msg}`
             );
         };
-        if (!definition.url) {
-            die('No URL specified.');
+        if (definition.endpoint && definition.url) {
+            die(
+                'Cannot specify both "url" and "endpoint" parameters. The "url" parameter is deprecated; use "endpoint" instead.'
+            );
         }
+        if (!definition.endpoint && !definition.url) {
+            die('No endpoint specified.');
+        }
+        const endpointProp = definition.endpoint ? 'endpoint' : 'url';
         if (!definition.query) {
             die('No GraphQL query document specified.');
         }
         debug('validated config %o', definition);
         const toResolve = [
-            this.visitor.upward(definition, 'url'),
+            this.visitor.upward(definition, endpointProp),
             this.visitor.upward(definition, 'query'),
             definition.method
                 ? this.visitor.upward(definition, 'method')
@@ -41,7 +57,7 @@ class ServiceResolver extends AbstractResolver {
                 : {}
         ];
 
-        const [url, query, method, headers, variables] = await Promise.all(
+        const [endpoint, query, method, headers, variables] = await Promise.all(
             toResolve
         );
 
@@ -49,10 +65,10 @@ class ServiceResolver extends AbstractResolver {
             die(`Variables must resolve to a plain object.`);
         }
 
-        debug('url retrieved: "%s", query resolved, creating link', url);
+        debug('url retrieved: "%s", query resolved, creating link', endpoint);
 
         const link = new HttpLink({
-            uri: url,
+            uri: endpoint.toString(),
             fetch: this.visitor.io.networkFetch,
             headers,
             useGETForQueries: method === 'GET'
@@ -86,12 +102,9 @@ class ServiceResolver extends AbstractResolver {
                 }
             })
             .catch(e => {
-                if (
-                    e.message.indexOf('Only absolute URLs are supported') !== -1
-                ) {
-                    throw new Error(url.toString() + 'invalid: ' + e.stack);
-                }
-                throw e;
+                throw new Error(
+                    `ServiceResolver: Request to ${endpoint.toString()} failed: ${e}`
+                );
             });
     }
 }

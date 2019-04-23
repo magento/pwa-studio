@@ -17,6 +17,7 @@ const cartItem = {
 };
 
 const configItem = {
+    __typename: 'ConfigurableProduct',
     configurable_options: [
         {
             attribute_code: 'size',
