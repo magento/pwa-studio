@@ -7,9 +7,9 @@ export const name = 'cart';
 
 export const initialState = {
     addItemError: null,
+    cartId: null,
     details: {},
     detailsError: null,
-    guestCartId: null,
     isLoading: false,
     isOptionsDrawerOpen: false,
     isUpdatingItem: false,
@@ -22,20 +22,20 @@ export const initialState = {
 };
 
 const reducerMap = {
-    [actions.getGuestCart.receive]: (state, { payload, error }) => {
+    [actions.getCart.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
         }
 
         return {
             ...state,
-            guestCartId: payload
+            cartId: String(payload)
         };
     },
     [actions.getDetails.request]: (state, { payload }) => {
         return {
             ...state,
-            guestCartId: payload,
+            cartId: String(payload),
             isLoading: true
         };
     },
@@ -44,7 +44,7 @@ const reducerMap = {
             return {
                 ...state,
                 detailsError: payload,
-                guestCartId: null,
+                cartId: null,
                 isLoading: false
             };
         }
