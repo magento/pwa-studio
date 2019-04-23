@@ -2,7 +2,7 @@
 title: Client-side caching
 ---
 
-Client-to-server communication is slow and expensive.
+Client-server communication is slow and expensive.
 Performance is an important feature for any Progressive Web Application(PWA), so
 requests to the server should be minimized.
 
@@ -10,8 +10,8 @@ Offline mode is also a required feature for a PWA.
 In offline mode, the application must be able to serve pages that have been recently viewed.
 
 These features are implemented with the help of a client-side cache.
-This local cache stores data from previously fetched resources.
-Future requests to that resource can use the cache in place of a server request to boost performance.
+This local cache stores data from resources as they are fetched.
+Once a resource has been cached, the service worker may consult the cache on subsequent requests for that resource to boost performance.
 
 ## Service Worker caching
 
@@ -29,7 +29,7 @@ Venia uses the following [caching strategies][] with its service worker:
 
 #### [Stale-while-revalidate][]
 
-The stale-while-revalidate strategy tell the service worker to use a cached response if it exists.
+The stale-while-revalidate strategy tells the service worker to use a cached response if it exists.
 A separate network request is made for that resource and the result is cached for future requests.
 
 This strategy is used when the most up to date version of a resource is not necessary for an application.
