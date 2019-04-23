@@ -86,7 +86,7 @@ describe('createCart', () => {
             3,
             actions.getCart.receive(storedCartId)
         );
-        
+
         expect(request).not.toHaveBeenCalled();
     });
 
@@ -265,7 +265,8 @@ describe('addItemToCart', () => {
 
         /*
          * Initial attempt will fail.
-         */ 
+         */
+
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.addItem.request(payload)
@@ -283,17 +284,23 @@ describe('addItemToCart', () => {
          * And then the thunk is called again.
          */
 
-        expect(dispatch).toHaveBeenNthCalledWith(5, actions.addItem.request(payload));
+        expect(dispatch).toHaveBeenNthCalledWith(
+            5,
+            actions.addItem.request(payload)
+        );
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(6, expect.any(Function));
         // toggleDrawer
         expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
         // addItem.receive
-        expect(dispatch).toHaveBeenNthCalledWith(8, actions.addItem.receive({
-            cartItem: undefined,
-            item: 'ITEM',
-            quantity: 1
-        }));
+        expect(dispatch).toHaveBeenNthCalledWith(
+            8,
+            actions.addItem.receive({
+                cartItem: undefined,
+                item: 'ITEM',
+                quantity: 1
+            })
+        );
     });
 
     test('its thunk uses the appropriate endpoint when user is signed in', async () => {
