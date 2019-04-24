@@ -255,7 +255,7 @@ export const submitOrder = () =>
             dispatch(
                 checkoutReceiptActions.setOrderInformation({
                     id: response,
-                    shipping_address
+                    billing_address
                 })
             );
 

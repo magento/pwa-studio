@@ -518,7 +518,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                shipping_address: mockShippingAddress
+                billing_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -567,7 +567,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                shipping_address: mockShippingAddress
+                billing_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(
