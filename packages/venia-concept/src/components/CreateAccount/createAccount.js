@@ -4,7 +4,6 @@ import { Form } from 'informed';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
-import ErrorDisplay from 'src/components/ErrorDisplay';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
 import { asyncValidators, validators } from './validators';
@@ -31,6 +30,15 @@ class CreateAccount extends Component {
         initialValues: {}
     };
 
+    get errorMessage() {
+        const { createAccountError } = this.props;
+        const errorIsEmpty = Object.keys(createAccountError).length === 0;
+
+        if (createAccountError && !errorIsEmpty) {
+            return 'An error occurred. Please try again.';
+        }
+    }
+
     get initialValues() {
         const { initialValues } = this.props;
         const { email, firstName, lastName, ...rest } = initialValues;
@@ -50,8 +58,8 @@ class CreateAccount extends Component {
     };
 
     render() {
-        const { handleSubmit, initialValues, props } = this;
-        const { classes, createAccountError } = props;
+        const { errorMessage, handleSubmit, initialValues, props } = this;
+        const { classes } = props;
 
         return (
             <Form
@@ -105,7 +113,7 @@ class CreateAccount extends Component {
                         validateOnBlur
                     />
                 </Field>
-                <ErrorDisplay error={createAccountError} />
+                <div className={classes.error}>{errorMessage}</div>
                 <div className={classes.actions}>
                     <Button type="submit" priority="high">
                         {'Submit'}
