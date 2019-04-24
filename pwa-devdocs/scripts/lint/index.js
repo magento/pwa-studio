@@ -11,7 +11,14 @@ const config = {
 const filepath = process.argv[2];
 if (filepath) {
     const fullPath = path.join(__dirname, '..', '..', filepath);
-    lintFile(fullPath);
+
+    fs.stat(fullPath, (error, stats) => {
+        if (stats.isFile()) {
+            lintFile(fullPath);
+        } else if (stats.isDirectory()) {
+            lintDirectory(fullPath);
+        }
+    });
 } else {
     lintDirectory(config.basePath);
 }
