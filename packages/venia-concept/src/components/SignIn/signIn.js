@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Input from 'src/components/Input';
+import { Form } from 'informed';
+
 import Button from 'src/components/Button';
+import Field from 'src/components/Field';
+import TextInput from 'src/components/TextInput';
+
+import { isRequired } from 'src/util/formValidators';
+
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
-import { Form } from 'informed';
-import ErrorDisplay from 'src/components/ErrorDisplay';
 
 class SignIn extends Component {
     static propTypes = {
@@ -18,18 +22,18 @@ class SignIn extends Component {
             showCreateAccountButton: PropTypes.string
         }),
         onForgotPassword: PropTypes.func.isRequired,
+        setDefaultUsername: PropTypes.func,
         signIn: PropTypes.func,
         signInError: PropTypes.object
     };
 
-    state = {
-        password: '',
-        username: ''
-    };
-
     get errorMessage() {
         const { signInError } = this.props;
-        return <ErrorDisplay error={signInError} />;
+        const errorIsEmpty = Object.keys(signInError).length === 0;
+        
+        if (signInError && !errorIsEmpty) {
+            return 'An error occurred. Please try again.';
+        }
     }
 
     render() {
@@ -38,24 +42,24 @@ class SignIn extends Component {
 
         return (
             <div className={classes.root}>
-                <Form onSubmit={onSignIn}>
-                    <Input
-                        onChange={this.updateUsername}
-                        helpText={'example help text'}
-                        label={'Username or Email'}
-                        required={true}
-                        autoComplete={'username'}
-                        field="username"
-                    />
-                    <Input
-                        onChange={this.updatePassword}
-                        label={'Password'}
-                        type={'password'}
-                        helpText={'example help text'}
-                        required={true}
-                        autoComplete={'current-password'}
-                        field="password"
-                    />
+                <Form getApi={this.setFormApi} onSubmit={onSignIn}>
+                    <Field label="Email" required={true}>
+                        <TextInput
+                            autoComplete="email"
+                            field="email"
+                            validate={isRequired}
+                            validateOnBlur
+                        />
+                    </Field>
+                    <Field label="Password" required={true}>
+                        <TextInput
+                            autoComplete="current-password"
+                            field="password"
+                            type="password"
+                            validate={isRequired}
+                            validateOnBlur
+                        />
+                    </Field>
                     <div className={classes.signInButton}>
                         <Button priority="high" type="submit">
                             Sign In
@@ -72,36 +76,43 @@ class SignIn extends Component {
                 </Form>
                 <div className={classes.signInDivider} />
                 <div className={classes.showCreateAccountButton}>
-                    <Button onClick={this.showCreateAccountForm}>
-                        {' '}
-                        Create an Account{' '}
+                    <Button priority="high" onClick={this.showCreateAccountForm}>
+                        Create an Account
                     </Button>
                 </div>
             </div>
         );
     }
 
-    onSignIn = () => {
-        const { username, password } = this.state;
-        this.props.signIn({ username: username, password: password });
-    };
-
-    showCreateAccountForm = () => {
-        this.props.setDefaultUsername(this.state.username);
-        this.props.showCreateAccountForm();
-    };
-
     handleForgotPassword = () => {
-        this.props.setDefaultUsername(this.state.username);
+        const username = this.formApi.getValue('email');
+
+        if (this.props.setDefaultUsername) {
+            this.props.setDefaultUsername(username);
+        }
+
         this.props.onForgotPassword();
     };
 
-    updatePassword = newPassword => {
-        this.setState({ password: newPassword });
+    onSignIn = () => {
+        const username = this.formApi.getValue('email');
+        const password = this.formApi.getValue('password');
+
+        this.props.signIn({ username, password });
     };
 
-    updateUsername = newUsername => {
-        this.setState({ username: newUsername });
+    setFormApi = formApi => {
+        this.formApi = formApi;
+    }
+
+    showCreateAccountForm = () => {
+        const username = this.formApi.getValue('email');
+
+        if (this.props.setDefaultUsername) {
+            this.props.setDefaultUsername(username);
+        }
+
+        this.props.showCreateAccountForm();
     };
 }
 
