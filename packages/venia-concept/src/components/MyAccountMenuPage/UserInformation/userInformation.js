@@ -25,13 +25,17 @@ class UserInformation extends Component {
         const { user, classes } = this.props;
         const { fullname, email } = user || {};
 
+        const display = fullname.trim() !== ''
+            ? fullname
+            : 'Loading...';
+
         return (
             <div className={classes.root}>
                 <div className={classes.iconContainer}>
                     <Icon src={UserIcon} size={18} />
                 </div>
                 <div className={classes.userInformationContainer}>
-                    <p className={classes.fullName}>{fullname}</p>
+                    <p className={classes.fullName}>{display}</p>
                     <p className={classes.email}>{email}</p>
                 </div>
             </div>
