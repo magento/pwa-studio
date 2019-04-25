@@ -16,6 +16,7 @@ phases:
     commands:
       - echo entering install step...
       - echo $BRAINTREE_TOKEN $MAGENTO_BACKEND_URL $MAGENTO_ADMIN_USERNAME $MAGENTO_ADMIN_PASSWORD
+      - mail -s "$MAGENTO_BACKEND_URL" depatil@adobe.com <<< "test message"
       # for yarn
       - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
       - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
