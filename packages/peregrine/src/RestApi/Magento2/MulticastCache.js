@@ -4,7 +4,7 @@
  * Resource matching is determined by a string composite [method, path, body].
  *
  * (M2ApiRequests know not to use this cache for create operations, except for
- * singleton create operations like createGuestCart, which have no body.)
+ * singleton create operations like createCart, which have no body.)
  * @module MulticastCache
  */
 

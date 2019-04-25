@@ -61,32 +61,28 @@ test('removeItem.receive() returns a proper action object', () => {
     });
 });
 
-test('getGuestCart.request.toString() returns the proper action type', () => {
-    expect(actions.getGuestCart.request.toString()).toBe(
-        'CART/GET_GUEST_CART/REQUEST'
-    );
+test('getCart.request.toString() returns the proper action type', () => {
+    expect(actions.getCart.request.toString()).toBe('CART/GET_CART/REQUEST');
 });
 
-test('getGuestCart.request() returns a proper action object', () => {
-    expect(actions.getGuestCart.request(payload)).toEqual({
-        type: 'CART/GET_GUEST_CART/REQUEST',
+test('getCart.request() returns a proper action object', () => {
+    expect(actions.getCart.request(payload)).toEqual({
+        type: 'CART/GET_CART/REQUEST',
         payload
     });
 });
 
-test('getGuestCart.receive.toString() returns the proper action type', () => {
-    expect(actions.getGuestCart.receive.toString()).toBe(
-        'CART/GET_GUEST_CART/RECEIVE'
-    );
+test('getCart.receive.toString() returns the proper action type', () => {
+    expect(actions.getCart.receive.toString()).toBe('CART/GET_CART/RECEIVE');
 });
 
-test('getGuestCart.receive() returns a proper action object', () => {
-    expect(actions.getGuestCart.receive(payload)).toEqual({
-        type: 'CART/GET_GUEST_CART/RECEIVE',
+test('getCart.receive() returns a proper action object', () => {
+    expect(actions.getCart.receive(payload)).toEqual({
+        type: 'CART/GET_CART/RECEIVE',
         payload
     });
-    expect(actions.getGuestCart.receive(error)).toEqual({
-        type: 'CART/GET_GUEST_CART/RECEIVE',
+    expect(actions.getCart.receive(error)).toEqual({
+        type: 'CART/GET_CART/RECEIVE',
         payload: error,
         error: true
     });
