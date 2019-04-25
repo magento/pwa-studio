@@ -1,9 +1,8 @@
 import { RestApi, Util } from '@magento/peregrine';
 
 import { closeDrawer } from 'src/actions/app';
-import { clearGuestCartId, createGuestCart } from 'src/actions/cart';
+import { clearCartId, createCart } from 'src/actions/cart';
 import { getCountries } from 'src/actions/directory';
-import { getOrderInformation } from 'src/selectors/cart';
 import { getAccountInformation } from 'src/selectors/checkoutReceipt';
 import checkoutReceiptActions from 'src/actions/checkoutReceipt';
 import actions from './actions';
@@ -27,7 +26,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createGuestCart());
+        await dispatch(createCart());
         dispatch(actions.reset());
     };
 
@@ -38,31 +37,33 @@ export const editOrder = section =>
 
 export const getShippingMethods = () => {
     return async function thunk(dispatch, getState) {
-        const { cart } = getState();
-        const { guestCartId } = cart;
+        const { cart, user } = getState();
+        const { cartId } = cart;
 
         try {
             // if there isn't a guest cart, create one
             // then retry this operation
-            if (!guestCartId) {
-                await dispatch(createGuestCart());
+            if (!cartId) {
+                await dispatch(createCart());
                 return thunk(...arguments);
             }
 
-            dispatch(actions.getShippingMethods.request(guestCartId));
+            dispatch(actions.getShippingMethods.request(cartId));
 
-            const response = await request(
-                `/rest/V1/guest-carts/${guestCartId}/estimate-shipping-methods`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        address: {
-                            country_id: 'US',
-                            postcode: null
-                        }
-                    })
-                }
-            );
+            const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
+            const authedEndpoint =
+                '/rest/V1/carts/mine/estimate-shipping-methods';
+            const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
+
+            const response = await request(endpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    address: {
+                        country_id: 'US',
+                        postcode: null
+                    }
+                })
+            });
 
             dispatch(actions.getShippingMethods.receive(response));
         } catch (error) {
@@ -73,8 +74,8 @@ export const getShippingMethods = () => {
             // check if the guest cart has expired
             if (response && response.status === 404) {
                 // if so, clear it out, get a new one, and retry.
-                await clearGuestCartId();
-                await dispatch(createGuestCart());
+                await clearCartId();
+                await dispatch(createCart());
                 return thunk(...arguments);
             }
         }
@@ -99,9 +100,9 @@ export const submitBillingAddress = payload =>
 
         const { cart, directory } = getState();
 
-        const { guestCartId } = cart;
-        if (!guestCartId) {
-            throw new Error('Missing required information: guestCartId');
+        const { cartId } = cart;
+        if (!cartId) {
+            throw new Error('Missing required information: cartId');
         }
 
         let desiredBillingAddress = payload;
@@ -125,9 +126,9 @@ export const submitPaymentMethod = payload =>
 
         const { cart } = getState();
 
-        const { guestCartId } = cart;
-        if (!guestCartId) {
-            throw new Error('Missing required information: guestCartId');
+        const { cartId } = cart;
+        if (!cartId) {
+            throw new Error('Missing required information: cartId');
         }
 
         await savePaymentMethod(payload);
@@ -140,9 +141,9 @@ export const submitShippingAddress = payload =>
 
         const { cart, directory } = getState();
 
-        const { guestCartId } = cart;
-        if (!guestCartId) {
-            throw new Error('Missing required information: guestCartId');
+        const { cartId } = cart;
+        if (!cartId) {
+            throw new Error('Missing required information: cartId');
         }
 
         const { countries } = directory;
@@ -167,9 +168,9 @@ export const submitShippingMethod = payload =>
         dispatch(actions.shippingMethod.submit(payload));
 
         const { cart } = getState();
-        const { guestCartId } = cart;
-        if (!guestCartId) {
-            throw new Error('Missing required information: guestCartId');
+        const { cartId } = cart;
+        if (!cartId) {
+            throw new Error('Missing required information: cartId');
         }
 
         const desiredShippingMethod = payload.formValues.shippingMethod;
@@ -181,10 +182,10 @@ export const submitOrder = () =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
-        const { cart } = getState();
-        const { guestCartId } = cart;
-        if (!guestCartId) {
-            throw new Error('Missing required information: guestCartId');
+        const { cart, user } = getState();
+        const { cartId } = cart;
+        if (!cartId) {
+            throw new Error('Missing required information: cartId');
         }
 
         let billing_address = await retrieveBillingAddress();
@@ -208,50 +209,59 @@ export const submitOrder = () =>
 
         try {
             // POST to shipping-information to submit the shipping address and shipping method.
-            await request(
-                `/rest/V1/guest-carts/${guestCartId}/shipping-information`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        addressInformation: {
-                            billing_address,
-                            shipping_address,
-                            shipping_carrier_code: shipping_method.carrier_code,
-                            shipping_method_code: shipping_method.method_code
-                        }
-                    })
-                }
-            );
+            const guestShippingEndpoint = `/rest/V1/guest-carts/${cartId}/shipping-information`;
+            const authedShippingEndpoint =
+                '/rest/V1/carts/mine/shipping-information';
+            const shippingEndpoint = user.isSignedIn
+                ? authedShippingEndpoint
+                : guestShippingEndpoint;
+
+            await request(shippingEndpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    addressInformation: {
+                        billing_address,
+                        shipping_address,
+                        shipping_carrier_code: shipping_method.carrier_code,
+                        shipping_method_code: shipping_method.method_code
+                    }
+                })
+            });
 
             // POST to payment-information to submit the payment details and billing address,
             // Note: this endpoint also actually submits the order.
-            const response = await request(
-                `/rest/V1/guest-carts/${guestCartId}/payment-information`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        billingAddress: billing_address,
-                        cartId: guestCartId,
-                        email: shipping_address.email,
-                        paymentMethod: {
-                            additional_data: {
-                                payment_method_nonce: paymentMethod.data.nonce
-                            },
-                            method: paymentMethod.code
-                        }
-                    })
-                }
-            );
+            const guestPaymentEndpoint = `/rest/V1/guest-carts/${cartId}/payment-information`;
+            const authedPaymentEndpoint =
+                '/rest/V1/carts/mine/payment-information';
+            const paymentEndpoint = user.isSignedIn
+                ? authedPaymentEndpoint
+                : guestPaymentEndpoint;
+
+            const response = await request(paymentEndpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    billingAddress: billing_address,
+                    cartId: cartId,
+                    email: shipping_address.email,
+                    paymentMethod: {
+                        additional_data: {
+                            payment_method_nonce: paymentMethod.data.nonce
+                        },
+                        method: paymentMethod.code
+                    }
+                })
+            });
 
             dispatch(
-                checkoutReceiptActions.setOrderInformation(
-                    getOrderInformation(getState(), response)
-                )
+                checkoutReceiptActions.setOrderInformation({
+                    id: response,
+                    billing_address
+                })
             );
 
             // Clear out everything we've saved about this cart from local storage.
             await clearBillingAddress();
-            await clearGuestCartId();
+            await clearCartId();
             await clearPaymentMethod();
             await clearShippingAddress();
             await clearShippingMethod();
