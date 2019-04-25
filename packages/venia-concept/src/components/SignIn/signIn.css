@@ -10,7 +10,11 @@
     text-decoration: underline;
     color: rgb(var(--venia-error));
     font-size: 0.8rem;
-    margin: 2rem auto 0;
+}
+
+.form {
+    display: grid;
+    row-gap: 1rem;
 }
 
 .modal {
@@ -32,7 +36,7 @@
 .showCreateAccountButton,
 .signInButton {
     text-align: center;
-    margin: 1rem 0;
+    margin-top: 0.5rem;
 }
 
 .signInDivider {

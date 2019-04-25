@@ -76,10 +76,8 @@ class CreateAccount extends Component {
                 onSubmit={handleSubmit}
             >
                 <h3 className={classes.lead}>
-                    {
-                        `Check out faster, use multiple addresses, track
-                         orders and more by creating an account!`
-                    }
+                    {`Check out faster, use multiple addresses, track
+                         orders and more by creating an account!`}
                 </h3>
                 <Field label="First Name" required={true}>
                     <TextInput

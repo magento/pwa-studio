@@ -16,6 +16,7 @@ class SignIn extends Component {
     static propTypes = {
         classes: shape({
             forgotPassword: string,
+            form: string,
             modal: string,
             modal_active: string,
             root: string,
@@ -35,7 +36,7 @@ class SignIn extends Component {
     get errorMessage() {
         const { signInError } = this.props;
         const errorIsEmpty = Object.keys(signInError).length === 0;
-        
+
         if (signInError && !errorIsEmpty) {
             return 'An error occurred. Please try again.';
         }
@@ -50,12 +51,15 @@ class SignIn extends Component {
                 <div className={classes.modal_active}>
                     <LoadingIndicator>Signing In</LoadingIndicator>
                 </div>
-            )
-        }
-        else {
+            );
+        } else {
             return (
                 <div className={classes.root}>
-                    <Form getApi={this.setFormApi} onSubmit={onSignIn}>
+                    <Form
+                        className={classes.form}
+                        getApi={this.setFormApi}
+                        onSubmit={onSignIn}
+                    >
                         <Field label="Email" required={true}>
                             <TextInput
                                 autoComplete="email"
@@ -78,7 +82,9 @@ class SignIn extends Component {
                                 Sign In
                             </Button>
                         </div>
-                        <div className={classes.signInError}>{errorMessage}</div>
+                        <div className={classes.signInError}>
+                            {errorMessage}
+                        </div>
                         <button
                             type="button"
                             className={classes.forgotPassword}
@@ -89,7 +95,10 @@ class SignIn extends Component {
                     </Form>
                     <div className={classes.signInDivider} />
                     <div className={classes.showCreateAccountButton}>
-                        <Button priority="high" onClick={this.showCreateAccountForm}>
+                        <Button
+                            priority="high"
+                            onClick={this.showCreateAccountForm}
+                        >
                             Create an Account
                         </Button>
                     </div>
@@ -117,7 +126,7 @@ class SignIn extends Component {
 
     setFormApi = formApi => {
         this.formApi = formApi;
-    }
+    };
 
     showCreateAccountForm = () => {
         const username = this.formApi.getValue('email');

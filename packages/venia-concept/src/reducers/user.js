@@ -63,7 +63,7 @@ const reducerMap = {
                 ...state,
                 getDetailsError: payload,
                 isGettingDetails: false
-            }
+            };
         }
 
         return {

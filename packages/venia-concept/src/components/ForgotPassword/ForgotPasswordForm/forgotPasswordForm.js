@@ -34,7 +34,8 @@ class ForgotPasswordForm extends Component {
             <Form
                 className={classes.root}
                 initialValues={initialValues}
-                onSubmit={onSubmit}>
+                onSubmit={onSubmit}
+            >
                 <Field label="Email Address" required={true}>
                     <TextInput
                         autoComplete="email"

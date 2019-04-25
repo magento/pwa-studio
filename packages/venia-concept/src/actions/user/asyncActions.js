@@ -71,6 +71,7 @@ export const getUserDetails = () =>
                 const userDetails = await request('/rest/V1/customers/me', {
                     method: 'GET'
                 });
+
                 dispatch(actions.getDetails.receive(userDetails));
             } catch (error) {
                 dispatch(actions.getDetails.receive(error));

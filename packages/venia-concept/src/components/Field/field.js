@@ -26,7 +26,7 @@ class Field extends Component {
         return (
             <div className={classes.root}>
                 <span className={classes.label}>
-                    { this.requiredSymbol }
+                    {this.requiredSymbol}
                     {label}
                 </span>
                 {children}
