@@ -10,10 +10,6 @@ const props = {
     signInError: {}
 };
 
-const classes = {
-    signInButton: 'a'
-};
-
 test('renders correctly', () => {
     const component = testRenderer.create(<SignIn {...props} />);
 
