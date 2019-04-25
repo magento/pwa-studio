@@ -1,0 +1,16 @@
+title: Tutorials
+entries:
+    - label: Overview
+      url: /tutorials/
+    
+    - label: Hello UPWARD
+      entries:
+
+        - label: Creating a simple server
+          url: /tutorials/hello-upward/simple-server/
+
+        - label: Using the TemplateResolver
+          url: /tutorials/hello-upward/using-template-resolver/
+
+        - label: Adding React
+          url: /tutorials/hello-upward/adding-react/

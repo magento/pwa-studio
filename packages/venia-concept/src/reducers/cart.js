@@ -6,31 +6,32 @@ import checkoutActions from 'src/actions/checkout';
 export const name = 'cart';
 
 export const initialState = {
+    cartId: null,
     details: {},
-    guestCartId: null,
     isLoading: false,
     isOptionsDrawerOpen: false,
     isUpdatingItem: false,
+    isAddingItem: false,
     paymentMethods: [],
     shippingMethods: [],
     totals: {}
 };
 
 const reducerMap = {
-    [actions.getGuestCart.receive]: (state, { payload, error }) => {
+    [actions.getCart.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
         }
 
         return {
             ...state,
-            guestCartId: payload
+            cartId: String(payload)
         };
     },
     [actions.getDetails.request]: (state, { payload }) => {
         return {
             ...state,
-            guestCartId: payload,
+            cartId: String(payload),
             isLoading: true
         };
     },
@@ -38,8 +39,8 @@ const reducerMap = {
         if (error) {
             return {
                 ...state,
-                isLoading: false,
-                guestCartId: null
+                cartId: null,
+                isLoading: false
             };
         }
 
@@ -47,6 +48,18 @@ const reducerMap = {
             ...state,
             ...payload,
             isLoading: false
+        };
+    },
+    [actions.addItem.request]: state => {
+        return {
+            ...state,
+            isAddingItem: true
+        };
+    },
+    [actions.addItem.receive]: state => {
+        return {
+            ...state,
+            isAddingItem: false
         };
     },
     [actions.updateItem.request]: (state, { payload, error }) => {
@@ -95,7 +108,8 @@ const reducerMap = {
     },
     [checkoutActions.order.accept]: () => {
         return initialState;
-    }
+    },
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);

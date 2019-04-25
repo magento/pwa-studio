@@ -185,3 +185,13 @@ test('rightSkip skips toward last page', () => {
     expect(setPage).toHaveBeenCalledTimes(1);
     expect(setPage).toHaveBeenLastCalledWith(8);
 });
+
+test('updateTotalPages is called on component mount', () => {
+    TestRenderer.create(
+        <MemoryRouter>
+            <Pagination pageControl={defaultPageControl} />
+        </MemoryRouter>
+    );
+
+    expect(updateTotalPages).toHaveBeenCalledTimes(1);
+});

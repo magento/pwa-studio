@@ -40,14 +40,15 @@ The following steps summarize the basic checkout experience for a Venia shopper:
 
 ## Detailed technical flow
 
-The following sections provide the technical details for each step in the checkout flow.
+The following sections provide the technical details for each step in the checkout flow for a guest customer.
+Authenticated (signed in) customers follow the same steps but may call different endpoints.
 
 ### Updating the cart
 
 1. When the shopper clicks on the **Add To Cart** button, the application passes the shopper-specified product configuration to the `addItemToCart()` function.
 2. Before the `addItemToCart()` function can add the product to the cart, it first checks the local storage for an existing cart ID.
 
-    If an existing cart ID does not exist, it calls the `createGuestCart()` function.
+    If an existing cart ID does not exist, it calls the `createCart()` function.
     This function creates a POST request to the `/V1/guest-carts` REST endpoint to get a cart ID to store in the local storage.
 
     After a cart ID is found, the `addItemToCart` function uses the product information passed in by the application to update the cart.
@@ -71,7 +72,7 @@ The following sections provide the technical details for each step in the checko
 
 | Filename                             | Importance                                                                                                  |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| [src/actions/cart/asyncActions.js][] | Contains asynchronous functions for cart-related actions such as `addItemToCart()` and `createGuestCart()`. |
+| [src/actions/cart/asyncActions.js][] | Contains asynchronous functions for cart-related actions such as `addItemToCart()` and `createCart()`. |
 | [src/actions/app/asyncActions.js][]  | Contains the `toggleDrawer()` function                                                                      |
 
 ### Gathering payment and shipping information
@@ -121,7 +122,7 @@ After a form is saved, each of the submit functions dispatches an action that re
 
 | Filename                                  | Importance                                                                                                                 |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-releated actions such as `beginCheckout()` and the order form submit methods. |
+| [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-related actions such as `beginCheckout()` and the order form submit methods. |
 | [src/reducers/checkout.js][]              | Reducer functions for checkout-related actions.                                                                            |
 | [src/actions/cart/asyncActions.js][]      | Contains the definition for the `getShippingMethods()` function.                                                           |
 | [src/actions/directory/asyncActions.js][] | Contains the definition for the `getCountries()` function.                                                                 |
@@ -179,15 +180,15 @@ This screen shows the recently stored order ID number and buttons to **Continue 
 [`guest-carts/<cartid>`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartId
 [`guest-carts/<cartid>/totals`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdtotals
 [`guest-carts/<cartid>/estimate-shipping-methods`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdestimate-shipping-methods
-[src/actions/cart/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/actions/cart/asyncActions.js
-[src/actions/app/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/actions/app/asyncActions.js
-[src/actions/checkout/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/actions/checkout/asyncActions.js
-[src/components/checkout/flow.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/Checkout/flow.js
-[src/actions/directory/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/actions/directory/asyncActions.js
+[src/actions/cart/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/actions/cart/asyncActions.js
+[src/actions/app/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/actions/app/asyncActions.js
+[src/actions/checkout/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/actions/checkout/asyncActions.js
+[src/components/checkout/flow.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/flow.js
+[src/actions/directory/asyncactions.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/actions/directory/asyncActions.js
 [`guest-carts/<cartid>/estimate-shipping-methods`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdestimate-shipping-methods
 [`directory/countries`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/directorycountries
-[src/components/checkout/form.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/Checkout/form.js
+[src/components/checkout/form.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/form.js
 [`guest-carts/<cartid>/shipping-information`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdshipping-information
-[src/reducers/checkout.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/reducers/checkout.js
+[src/reducers/checkout.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/reducers/checkout.js
 [`guest-carts/<cartid>/payment-information`]: https://devdocs.magento.com/redoc/2.3/guest-rest-api.html#tag/guest-cartscartIdpayment-information
-[src/components/checkout/receipt/receipt.js]: https://github.com/magento-research/pwa-studio/blob/release/2.0/packages/venia-concept/src/components/Checkout/Receipt/receipt.js
+[src/components/checkout/receipt/receipt.js]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/Checkout/Receipt/receipt.js

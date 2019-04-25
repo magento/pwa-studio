@@ -1,6 +1,7 @@
 query productDetail($urlKey: String, $onServer: Boolean!) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
+            __typename
             sku
             name
             price {
@@ -11,7 +12,9 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                     }
                 }
             }
-            description
+            description {
+                html
+            }
             media_gallery_entries {
                 label
                 position
@@ -33,9 +36,11 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                     }
                 }
                 variants {
+                    attributes {
+                        code
+                        value_index
+                    }
                     product {
-                        fashion_color
-                        fashion_size
                         id
                         media_gallery_entries {
                             disabled

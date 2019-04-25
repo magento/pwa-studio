@@ -2,7 +2,6 @@ import React, { Component, Fragment, Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'src/drivers';
 import { bool, func, object, shape, string } from 'prop-types';
-
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
 import {
@@ -34,7 +33,7 @@ class MiniCart extends Component {
         cancelCheckout: func.isRequired,
         cart: shape({
             details: object,
-            guestCartId: string,
+            cartId: string,
             totals: object,
             isLoading: bool,
             isOptionsDrawerOpen: bool,
@@ -219,6 +218,8 @@ class MiniCart extends Component {
             return <EmptyMiniCart />;
         }
 
+        const footer = checkout;
+
         const footerClassName = isMiniCartMaskOpen
             ? classes.footerMaskOpen
             : classes.footer;
@@ -226,7 +227,7 @@ class MiniCart extends Component {
         return (
             <Fragment>
                 <div className={classes.body}>{productList}</div>
-                <div className={footerClassName}>{checkout}</div>
+                <div className={footerClassName}>{footer}</div>
             </Fragment>
         );
     }
