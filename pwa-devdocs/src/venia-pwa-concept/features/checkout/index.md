@@ -40,14 +40,15 @@ The following steps summarize the basic checkout experience for a Venia shopper:
 
 ## Detailed technical flow
 
-The following sections provide the technical details for each step in the checkout flow.
+The following sections provide the technical details for each step in the checkout flow for a guest customer.
+Authenticated (signed in) customers follow the same steps but may call different endpoints.
 
 ### Updating the cart
 
 1. When the shopper clicks on the **Add To Cart** button, the application passes the shopper-specified product configuration to the `addItemToCart()` function.
 2. Before the `addItemToCart()` function can add the product to the cart, it first checks the local storage for an existing cart ID.
 
-    If an existing cart ID does not exist, it calls the `createGuestCart()` function.
+    If an existing cart ID does not exist, it calls the `createCart()` function.
     This function creates a POST request to the `/V1/guest-carts` REST endpoint to get a cart ID to store in the local storage.
 
     After a cart ID is found, the `addItemToCart` function uses the product information passed in by the application to update the cart.
@@ -71,7 +72,7 @@ The following sections provide the technical details for each step in the checko
 
 | Filename                             | Importance                                                                                                  |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| [src/actions/cart/asyncActions.js][] | Contains asynchronous functions for cart-related actions such as `addItemToCart()` and `createGuestCart()`. |
+| [src/actions/cart/asyncActions.js][] | Contains asynchronous functions for cart-related actions such as `addItemToCart()` and `createCart()`. |
 | [src/actions/app/asyncActions.js][]  | Contains the `toggleDrawer()` function                                                                      |
 
 ### Gathering payment and shipping information

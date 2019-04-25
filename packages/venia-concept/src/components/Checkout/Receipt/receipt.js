@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { func, shape, string } from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import { bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './receipt.css';
@@ -19,7 +19,10 @@ class Receipt extends Component {
             id: string
         }).isRequired,
         createAccount: func.isRequired,
-        reset: func.isRequired
+        reset: func.isRequired,
+        user: shape({
+            isSignedIn: bool
+        })
     };
 
     static defaultProps = {
@@ -44,7 +47,8 @@ class Receipt extends Component {
     render() {
         const {
             classes,
-            order: { id }
+            order: { id },
+            user
         } = this.props;
 
         return (
@@ -66,17 +70,21 @@ class Receipt extends Component {
                     >
                         Continue Shopping
                     </Button>
-                    <div className={classes.textBlock}>
-                        Track order status and earn rewards for your purchase by
-                        creating and account.
-                    </div>
-                    <Button
-                        data-id={CREATE_ACCOUNT_BUTTON_ID}
-                        priority="high"
-                        onClick={this.createAccount}
-                    >
-                        Create an Account
-                    </Button>
+                    {!user.isSignedIn && (
+                        <Fragment>
+                            <div className={classes.textBlock}>
+                                Track order status and earn rewards for your
+                                purchase by creating and account.
+                            </div>
+                            <Button
+                                data-id={CREATE_ACCOUNT_BUTTON_ID}
+                                priority="high"
+                                onClick={this.createAccount}
+                            >
+                                Create an Account
+                            </Button>
+                        </Fragment>
+                    )}
                 </div>
             </div>
         );

@@ -18,9 +18,8 @@ const apiBase = new URL('/graphql', location.origin).toString();
  * so we add an auth implementation here and prepend it to the Apollo Link list.
  */
 const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
+    // get the authentication token from local storage if it exists.
     const storage = new BrowserPersistence();
-    // TODO: Get correct token expire time from API
     const token = storage.getItem('signin_token');
 
     // return the headers to the context so httpLink can read them
