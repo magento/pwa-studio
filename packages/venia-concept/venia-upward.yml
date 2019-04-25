@@ -1,30 +1,67 @@
+# This is the UPWARD specification file for the Venia storefront.
+# It is used by an UPWARD server implementation, such as upward-js and
+# upward-php, to describe how the server responds to requests.
+
+# The root properties of an UPWARD spec file are part of a global context
+# that includes request and environment data.
+# These properties are available to other properties and are ultimately
+# populated with Resolvers.
+
+# The root 'status', 'headers', and 'body' properties are required properties
+# in an UPWARD spec file.
+# An UPWARD server uses the resolved values of these properties to create an
+# HTTP response to the client.
+# In this example, these properties get their values from a top-level 
+# 'response' object, which is a recommended and best practice approach.
 status: response.status
 headers: response.headers
 body: response.body
 
+# This is a top-level object used to set values for the root `status`,
+# `headers`, and `body` properties.
+# It is the first branch in an abstract decision tree, which ultimately 
+# resolves to an object that contains values for its own 'status', 'headers',
+# and 'body' properties.
+# This object uses a ConditionalResolver to determine the object value based 
+# on the URL pattern in the request object.
 response:
   when:
-    # pass through to proxy
+    # This URL pattern requests a compressed image from the server.
+    # The resolution path is directed to the top-level `imageOpt` object.
     - matches: request.url.pathname
       pattern: '^/img/resize/(\d+)'
       use: imageOpt
+    # Requests to graphql/rest endpoints, the media library, and cache are
+    # handled by the top-level 'proxy' object, which is a ProxyResolver
+    # that passes the request through to the backing Magento server.
     - matches: request.url.pathname
       pattern: '^/(graphql|rest|media|cache/)'
       use: proxy
+    # Requests to create an account are handled by the top-level 'index'
+    # object, which returns a generic app shell since the feature has
+    # not been implemented.
     - matches: request.url.pathname
       pattern: '^/create-account'
       use: index
-    # serve document root (blank urlKey)
+    # Requests for static resources provided by the application project, such
+    # as icons, manifests, and static images, are handled by the top-level
+    # 'static' object.
     - matches: request.url.pathname
       pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
       use: static
-    # serve anything with a urlKey
+    # Requests with a URL key are handled by the top-level 'appShell' object.
+    # The existence of a URL key is determined using the top-level 'urlKey'
+    # object.
     - matches: urlKey
       pattern: '.'
       use: appShell
+    # Requests to the document root, i.e. having no URL key, is also handled
+    # by the top-level 'appShell' object.
     - matches: request.url.pathname
       pattern: '^/$'
       use: appShell
+  # If the none of the tested conditions pass, the default handler for the
+  # request is the top-level 'bundles' object.
   default: bundles
 
 # In dev and staging mode, the PWADevServer and Venia's server.js both declare
