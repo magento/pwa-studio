@@ -1,0 +1,27 @@
+status: 200
+headers:
+  inline:
+    content-type: text/plain
+body: adminRESTTokenRefresh
+
+adminRESTTokenRefresh:
+  baseUrl: adminRESTApiBase
+  pathname:
+    inline: adminToken
+  query:
+    inline:
+      refreshToken: env.ADMIN_REFRESH_TOKEN
+      role:
+        inline: owner
+
+adminRESTApiBase:
+  baseUrl: request.url.query.adminApiBase
+  port: env.ADMIN_PORT
+  pathname: apiVersion
+
+apiVersion:
+  engine: mustache
+  provide:
+    versionNumber: env.ADMIN_API_VERSION
+  template:
+    inline: 'v{{versionNumber}}/'
