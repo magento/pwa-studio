@@ -11,7 +11,7 @@ message () {
   echo ""
 }
 
-message "Installing dependencies with yarn..."
+message "Installing dependencies with yarn.."
 yarn install --frozen-lockfile || exit 1
 
 # production build - needed for some of the subsequent checks, like storybook
