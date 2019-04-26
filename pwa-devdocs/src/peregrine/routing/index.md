@@ -123,14 +123,14 @@ class App extends Component {
     render(){
     ...
        return (
-           <div className={className}>
+           <Fragment>
                <Main isMasked={overlay}>
                    <Page>{renderRoutingError}</Page>
                </Main>
                <Mask isActive={overlay} dismiss={closeDrawer} />
                <Navigation isOpen={navIsOpen} />
                <MiniCart isOpen={cartIsOpen} />
-           </div>
+           </Fragment>
        );
     }
 }

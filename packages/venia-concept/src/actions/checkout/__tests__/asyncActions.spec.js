@@ -518,7 +518,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                billing_address: address
+                billing_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -547,9 +547,7 @@ describe('submitOrder', () => {
             user: { isSignedIn: false }
         };
 
-        getState
-            .mockImplementationOnce(() => mockState)
-            .mockImplementationOnce(() => mockState);
+        getState.mockImplementationOnce(() => mockState);
 
         mockGetItem
             .mockImplementationOnce(
@@ -569,7 +567,7 @@ describe('submitOrder', () => {
             2,
             checkoutReceiptActions.setOrderInformation({
                 id: response,
-                billing_address: address
+                billing_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(
