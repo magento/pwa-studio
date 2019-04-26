@@ -184,7 +184,10 @@ describe('removeItem.receive', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toEqual(initialState);
+        expect(result).toEqual({
+            ...initialState,
+            removeItemError: action.payload
+        });
     });
 });
 
