@@ -11,7 +11,7 @@
 # in an UPWARD spec file.
 # An UPWARD server uses the resolved values of these properties to create an
 # HTTP response to the client.
-# In this example, these properties get their values from a top-level 
+# In this file, these properties get their values from a top-level 
 # 'response' object, which is a recommended and best practice approach.
 status: response.status
 headers: response.headers
@@ -26,7 +26,8 @@ body: response.body
 # on the URL pattern in the request object.
 response:
   when:
-    # This URL pattern requests a compressed image from the server.
+    # This URL pattern requests a compressed version of an image from the
+    # server.
     # The resolution path is directed to the top-level `imageOpt` object.
     - matches: request.url.pathname
       pattern: '^/img/resize/(\d+)'
@@ -64,17 +65,22 @@ response:
   # request is the top-level 'bundles' object.
   default: bundles
 
-# In dev and staging mode, the PWADevServer and Venia's server.js both declare
+# The imageOpt object returns an HTTP redirect response (301) to Fastly, an 
+# image optimization service.
+#
+# This is mainly used in production mode when the PWA does NOT have a
+# Fastly-specific URL factory.
+# This object forwards to Fastly where it is present, and drops back to the
+# uncompressed image otherwise.
+# If this application runs on a non-FastlyIO server, an onboard resizing service
+# is highly recommended.
+#
+# NOTE: In dev and staging mode, the PWADevServer and Venia's server.js declare
 # the image resizing middleware at `/img/` before the UpwardPlugin declares
 # middleware, so a request should never get here.
-
+#
 # In production mode when USE_FASTLY is true, the Venia PWA has a
 # Fastly-specific URL factory. It should also never hit this route.
-
-# In production mode when the PWA has NOT built a Fastly-specific URL factory,
-# this forwards to Fastly where it is present, and drops back to the
-# uncompressed image otherwise. If this will run on a non-FastlyIO server, an
-# onboard resizing service is highly recommended.
 imageOpt:
   inline:
     status: 301
@@ -89,13 +95,19 @@ imageOpt:
             path: request.url.query.url
           template:
             when:
+              # Redirect to the Fastly service, which is presumed to be part
+              # of the URL query, when the USE_FASTLY environment value is true
               - matches: env.USE_FASTLY
                 pattern: '[^0]'
                 use:
                   inline: '{{path}}?auto=webp&format=pjpg&width={{width}}'
+            # The fallback strategy is to use the uncompressed image
             default:
               inline: '{{path}}'
 
+# An object that returns true if the NODE_ENV environment variable is set 
+# to 'development'.
+# Returns false otherwise.
 isDevelopment:
   when:
     - matches: env.NODE_ENV
@@ -105,6 +117,10 @@ isDevelopment:
   default:
     inline: false
 
+# A ProxyResolver object that passes a request to the backend Magento
+# server defined in the MAGENTO_BACKEND_URL environment variable.
+# An UPWARD server infers this object as a ProxyResolver due to the presence
+# of the 'target' property.
 proxy:
   target: env.MAGENTO_BACKEND_URL
   # A local Magento install may have SSH configured and untrusted,
@@ -112,52 +128,91 @@ proxy:
   ignoreSSLErrors:
     inline: true
 
+# The appShell object resolves to a response that returns server-side rendered
+# HTML containing the PWA application shell.
+# For SEO purposes, the appropriate meta tags in the HTML head element are also
+# set based on information about the resource.
+# This object uses properties in the top-level 'resource' object to return the
+# appropriate response values.
 appShell:
   inline:
     status:
       when:
+        # A request for a valid resource results in a 'resource' object with
+        # a model property.
+        # This ConditionalResolver checks for the presence of this property.
+        # If the property is not present, the requested resource could not be
+        # found and a 404 HTTP status is returned.
         - matches: resource.model
           pattern: '.'
           use: 200
       default: 404
     headers:
       inline:
+        # The appShell object will always resolve to a response containing 
+        # 'text/html' content.
         content-type: 'text/html'
     body:
+      # The body property of an appShell object is resolved using a
+      # TemplateResolver.
+      # When the top-level 'resource' object resolves, it will contain
+      # information on which template file to use for the resource model type.
       engine: mustache
       template: resource.template
+      # The TemplateResolver provides the following objects to the template
+      # context during render.
+      # See the definition for each of the listed top-level object for details
+      # on the data each one provides.
       provide:
         model: resource.model
         bundles: assetManifest.bundles
         urlResolver: urlResolver
         env: env
 
+# The resource object provides information about the page type and which
+# template to use for a requested resource.
+# It uses a ConditionalResolver on the top-level 'urlResolver' object to
+# determine it's 'model' and 'template' properties.
+# See the definition of the 'urlResolver' object for details on how it determines
+# the page type based on the request URL.
 resource:
   when:
     - matches: urlResolver.type
       pattern: 'CMS_PAGE'
       use:
         inline:
+          # See the top-level 'cmsPage' object for details on its resolved data
           model: cmsPage
           template: './templates/cmspage-shell.mst'
     - matches: urlResolver.type
       pattern: 'CATEGORY'
       use:
         inline:
+          # See the top-level 'category' object for details on its resolved data
           model: category
           template: './templates/category-shell.mst'
     - matches: urlResolver.type
       pattern: 'PRODUCT'
       use:
         inline:
+          # See the top-level 'product' object for details on its resolved data
           model: product
           template: './templates/product-shell.mst'
+    # CMS_PAGE, CATEGORY, and PRODUCT are known page types with specific
+    # data models and template files for each type.
+    # The following condition handles the case where the urlResolver object
+    # contains an unknown page type.
+    # It uses the top-level 'unknownPageType' object as its resolved data and
+    # a generic shell as the template file.
     - matches: urlResolver.type
       pattern: '.'
       use:
         inline:
           model: unknownPageType
           template: './templates/generic-shell.mst'
+    # This entry makes '/search.html' a valid resource path.
+    # It uses the top-level 'genericObject' object as its resolve data and uses
+    # the generic shell as its template file.
     - matches: request.url.pathname
       pattern: '/search.html'
       use:
@@ -165,9 +220,17 @@ resource:
           model: genericObject
           template: './templates/generic-shell.mst'
   default:
+    # If none of the resolver conditions pass, no 'model' property is set and
+    # this resource object sets the template property to the notfound-shell
+    # template file.
     inline:
       template: './templates/notfound-shell.mst'
 
+# The assetManifest object is a FileResolver that returns JSON data from a
+# manifest.
+#
+# NOTE: This object uses the shorthand syntax for a FileResolver to help with 
+# readability and as a convenience.
 assetManifest:
   when:
     - matches: env.NODE_ENV
@@ -175,12 +238,31 @@ assetManifest:
       use: ./asset-manifest.json
   default: ./dist/asset-manifest.json
 
+# The unknownPageType object contains a single 'title' property that is used
+# in the template file as the page title.
+# The top-level 'resource' object uses this object as the model data for page
+# types it does not support.
 unknownPageType:
   inline:
     title: 'Unknown page type'
 
+# The urlResolver object is an object containing only the relevant
+# data from the top-level 'urlResolverResult' object, which is a
+# ServiceResolver.
+#
+# NOTE: Extracting smaller objects from large or deeply nesting data objects
+# is a pattern used to enhance readability and avoid long "dot lookup" strings
 urlResolver: urlResolverResult.data.urlResolver
 
+# The urlResolverResult object is a ServiceResolver that returns data from a
+# GraphQL backing service, whose URL is resolved in the top-level 'magentoGQL'
+# object.
+#
+# This object retrieves information from Magento about the request path.
+#
+# NOTE: The UPWARD server is able to interpret this entry as a ServiceResolver
+# because of the presence of the 'query' property, which itself uses the
+# shorthand syntax for a FileResolver.
 urlResolverResult:
   url: magentoGQL
   query: './src/queries/urlResolver.graphql'
@@ -188,6 +270,8 @@ urlResolverResult:
     inline:
       urlKey: request.url.pathname
 
+# The magentoGQL object uses a TemplateResolver to generate the URL for the
+# GraphQL endpoint using the MAGENTO_BACKEND_URL environment variable.
 magentoGQL:
   engine: mustache
   template:
@@ -195,7 +279,15 @@ magentoGQL:
   provide:
     - env
 
+# The product object is an object containing only the relevant data from the
+# top-level 'productResult' object.
 product: productResult.data.productDetail.items.0
+
+# The productResult object is a ServiceResolver that returns data from a
+# GraphQL backing service, whose URL is resolved in the top-level 'magentoGQL'
+# object.
+#
+# This object retrieves information about a specific product.
 productResult:
   url: magentoGQL
   query: './src/queries/getProductDetail.graphql'
@@ -205,7 +297,15 @@ productResult:
       urlKey: urlKey
       id: urlResolver.id
 
+# The category object is an object containing only the relevant data from the
+# top-level 'categoryResult' object.
 category: categoryResult.data.category
+
+# The categoryResult object is a ServiceResolver that returns data from a
+# GraphQL backing service, whose URL is resolved in the top-level 'magentoGQL'
+# object.
+#
+# This object retrieves information about a specific category.
 categoryResult:
   url: magentoGQL
   query: './src/queries/getCategory.graphql'
@@ -218,8 +318,15 @@ categoryResult:
       currentPage:
         inline: 1
 
-
+# The cmsPage object is an object containing only the relevant data from the
+# top-level 'cmsPageResult' object.
 cmsPage: cmsPageResult.data.cmsPage
+
+# The cmsPageResult object is a ServiceResolver that returns data from a
+# GraphQL backing service, whose URL is resolved in the top-level 'magentoGQL'
+# object.
+#
+# This object retrieves information about a specific CMS page.
 cmsPageResult:
   url: magentoGQL
   query: './src/queries/getCmsPage.graphql'
@@ -228,6 +335,7 @@ cmsPageResult:
       onServer: true
       id: urlResolver.id
 
+# The urlKey object returns the value of the URL key from the request path
 urlKey:
   when:
     - matches: request.url.pathname
@@ -236,16 +344,24 @@ urlKey:
   default:
     inline: ''
 
+# The genericObject object is the data object used by the top-level 'appShell'
+# object for the '/search.html' path
 genericObject:
   inline:
     name:
       inline:
         "Hello world!"
 
+# The bundles object is a DirectoryResolver that allows access to the bundled
+# files in the project's './dist' diretory.
+#
+# NOTE: The UPWARD server is able to interpret this entry as a
+# DirectoryResolver because of the presence of the 'directory' property.
 bundles:
   directory:
     inline: './dist'
 
+# The index object contains response data for rendering a generic app shell
 index:
   inline:
     status: 200
@@ -259,6 +375,8 @@ index:
       provide:
         isDevelopment: isDevelopment
 
+# The static object is a DirectoryResolver that allows access to the files
+# inside the project's './static' directory.
 static:
   directory:
     inline: './static'
