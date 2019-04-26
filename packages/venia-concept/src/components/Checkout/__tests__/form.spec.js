@@ -24,7 +24,7 @@ const defaultProps = {
     cancelCheckout: mockCancelCheckout,
     cart: {
         details: {},
-        guestCartId: '123',
+        cartId: '123',
         totals: {}
     },
     directory: {

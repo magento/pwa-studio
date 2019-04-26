@@ -19,6 +19,7 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "build:dev": "yarn workspaces run build:dev",
+    "ci:pr-checks": "./.bin/pr-checks",
     "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
@@ -50,7 +51,7 @@
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
     "coveralls": "~3.0.3",
-    "danger": "~7.0.14",
+    "danger": "~7.0.17",
     "eslint": "~5.14.1",
     "eslint-plugin-babel": "~5.3.0",
     "eslint-plugin-graphql": "~3.0.3",
