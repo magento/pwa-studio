@@ -4,7 +4,7 @@ title: Colors
 
 The Venia storefront uses the following colors in its design.
 
-| Color       | Hex       | Description |
+| Color       | Hex,Rgb       | Description |
 | ----------- | --------- | ----------- |
 | ![007378][] | `#007378` `rgb(0,115,120)`| |
 | ![D4F3EE][] | `#D4F3EE` `rgb(212,243,238)` | |
