@@ -28,11 +28,6 @@ test('formats a relative url', async () => {
         query: 'query'
     });
     expect(relativeUrl.toString()).toBe(href);
-    expect(relativeUrl).toMatchObject({
-        href,
-        pathname,
-        search
-    });
 });
 
 test('formats an absolute url', async () => {
@@ -58,6 +53,34 @@ test('formats an absolute url', async () => {
     });
     expect(absoluteUrl.toString()).toBe(
         'https://localhost:8888/rootAbsolute/path?foo=bar&baz=quux'
+    );
+});
+
+test('merges search string and query parameters', async () => {
+    const baseUrl = 'https://localhost:8976/rootAbsolute/path?foo=bar';
+    const visitor = {
+        upward: jest.fn(
+            (dfn, name) =>
+                ({
+                    baseUrl,
+                    port: 8888,
+                    search: 'baz=xuuq&odin=true&dva=false',
+                    query: {
+                        baz: 'quux'
+                    }
+                }[dfn[name]])
+        ),
+        io: {}
+    };
+
+    const absoluteUrl = await new UrlResolver(visitor).resolve({
+        baseUrl: 'baseUrl',
+        port: 'port',
+        search: 'search',
+        query: 'query'
+    });
+    expect(absoluteUrl.toString()).toBe(
+        'https://localhost:8888/rootAbsolute/path?baz=quux&odin=true&dva=false'
     );
 });
 
