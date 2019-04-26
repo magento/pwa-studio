@@ -282,37 +282,6 @@ const tasks = [
         throw new Error(failSummary);
     }
 
-    // function mergeJunitReports() {
-    //     execa.sync('junit-merge', [
-    //         '--dir',
-    //         reportDir,
-    //         '--out',
-    //         reportFile('all-junit.xml')
-    //     ]);
-    // }
-
-    // Disabled for now, but leaving in for future implementation.
-    // Can't use right now due to the lack of permissions granularity
-    // in GitHub
-    // async function addProjectLabels() {
-    //     const allChangedFiles = [
-    //         ...danger.git.created_files,
-    //         ...danger.git.deleted_files,
-    //         ...danger.git.modified_files
-    //     ];
-    //     const touchedPackages = allChangedFiles.reduce((touched, path) => {
-    //         const matches = path.match(/packages\/([\w-]+)\//);
-    //         return matches ? touched.add(matches[1]) : touched;
-    //     }, new Set());
-
-    //     if (!touchedPackages.size) return;
-
-    //     await danger.github.api.issues.addLabels(
-    //         Object.assign({}, danger.github.thisPR, {
-    //             labels: Array.from(touchedPackages).map(s => `pkg:${s}`)
-    //         })
-    //     );
-    // }
 ];
 
 const runTasks = async tasks => {
