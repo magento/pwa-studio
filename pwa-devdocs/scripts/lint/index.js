@@ -7,7 +7,7 @@ const config = {
     basePath: path.join(__dirname, '../../src')
 };
 
-// If a single file is specified, only run tests on that file
+// If a file or directory is specified, only run tests on that file or directory
 const filepath = process.argv[2];
 if (filepath) {
     const fullPath = path.join(__dirname, '..', '..', filepath);

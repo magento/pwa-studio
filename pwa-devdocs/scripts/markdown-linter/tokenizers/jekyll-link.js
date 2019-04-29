@@ -1,5 +1,6 @@
 /**
- * A remark-parse tokenizer to add support for jekyll style link definitions, which have spaces in the link
+ * A remark-parse tokenizer to add support for jekyll style link definitions 
+ * These definitions have spaces in the link and are not correctly parsed
  *
  * For more information see:
  * - https://github.com/remarkjs/remark/tree/master/packages/remark-parse#extending-the-parser
@@ -12,11 +13,18 @@ function jekyllLinkDefinition() {
     // Add a new inline tokenizer
     tokenizers.jekyllLinkDefinition = tokenizer;
 
-    // Run it just before `link`.
+    // Run it just before the `link` tokenizer.
     methods.splice(methods.indexOf('link'), 0, 'jekyllLinkDefinition');
 }
 
-// The tokenizer function to use during parsing
+/**
+ * The tokenizer function to use during parsing
+ * @param eat (function) A function used for consuming parts of a string and returning
+ *                       a function for adding a node to a syntax tree
+ * @param value (string) A value that may contain the value we are looking for
+ * @param silent (boolean) Whether the parser should just detect the existence of the pattern
+ *                       or also consume it
+ */
 function tokenizer(eat, value, silent) {
     // This regex checks to see if a value looks like a markdown link definition
     var match = /^\[([^\]]+)\]:\s?(.*)/.exec(value);
