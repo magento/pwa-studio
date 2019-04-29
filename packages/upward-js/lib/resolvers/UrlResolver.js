@@ -37,11 +37,13 @@ class UrlResolver extends AbstractResolver {
         const argued = [
             'baseUrl',
             'protocol',
+            'hash',
             'hostname',
             'pathname',
-            'query',
             'password',
             'port',
+            'query',
+            'search',
             'username'
         ]
             .filter(arg => definition.hasOwnProperty(arg))
