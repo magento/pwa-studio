@@ -35,7 +35,7 @@ export class CheckoutWrapper extends Component {
         cancelCheckout: func,
         cart: shape({
             details: object.isRequired,
-            guestCartId: string,
+            cartId: string,
             totals: object
         }).isRequired,
         checkout: shape({
@@ -89,7 +89,10 @@ export class CheckoutWrapper extends Component {
         submitShippingAddress: func,
         submitOrder: func,
         submitPaymentMethodAndBillingAddress: func,
-        submitShippingMethod: func
+        submitShippingMethod: func,
+        user: shape({
+            isSignedIn: bool
+        })
     };
 
     render() {
@@ -104,7 +107,8 @@ export class CheckoutWrapper extends Component {
             submitShippingAddress,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
-            submitShippingMethod
+            submitShippingMethod,
+            user
         } = this.props;
 
         // ensure state slices are present
@@ -139,16 +143,24 @@ export class CheckoutWrapper extends Component {
             isCheckoutReady: isCheckoutReady(checkout)
         };
 
-        const flowProps = { actions, cart, checkout, directory, ...miscProps };
+        const flowProps = {
+            actions,
+            cart,
+            checkout,
+            directory,
+            user,
+            ...miscProps
+        };
 
         return <Flow {...flowProps} />;
     }
 }
 
-const mapStateToProps = ({ cart, checkout, directory }) => ({
+const mapStateToProps = ({ cart, checkout, directory, user }) => ({
     cart,
     checkout,
-    directory
+    directory,
+    user
 });
 
 const mapDispatchToProps = {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, func } from 'prop-types';
 
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
@@ -15,9 +16,14 @@ import productQuery from 'src/queries/getProductDetail.graphql';
  * TODO: Replace with a single product query when possible.
  */
 class Product extends Component {
+    static propTypes = {
+        addItemToCart: func.isRequired,
+        cartId: string
+    };
+
     addToCart = async (item, quantity) => {
-        const { guestCartId } = this.props;
-        await this.props.addItemToCart({ guestCartId, item, quantity });
+        const { addItemToCart, cartId } = this.props;
+        await addItemToCart({ cartId, item, quantity });
     };
 
     componentDidMount() {

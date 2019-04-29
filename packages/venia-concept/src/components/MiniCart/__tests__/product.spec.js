@@ -28,7 +28,7 @@ const item = {
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
     const openOptionsDrawer = jest.fn();
-    let wrapper = shallow(
+    const wrapper = shallow(
         <Product
             classes={classes}
             item={item}

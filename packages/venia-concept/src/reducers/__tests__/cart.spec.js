@@ -4,10 +4,10 @@ import checkoutActions from 'src/actions/checkout';
 
 const state = { ...initialState };
 
-describe('getGuestCart.receive', () => {
-    const actionType = actions.getGuestCart.receive;
+describe('getCart.receive', () => {
+    const actionType = actions.getCart.receive;
 
-    test('it sets guestCartId', () => {
+    test('it sets cartId', () => {
         const action = {
             error: null,
             payload: 1,
@@ -16,7 +16,7 @@ describe('getGuestCart.receive', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('guestCartId', 1);
+        expect(result).toHaveProperty('cartId', '1');
     });
 
     test('it restores initial state on error', () => {
@@ -35,7 +35,7 @@ describe('getGuestCart.receive', () => {
 describe('getDetails.request', () => {
     const actionType = actions.getDetails.request;
 
-    test('it sets guestCartId and the isLoading flag', () => {
+    test('it sets cartId and the isLoading flag', () => {
         const action = {
             payload: 1,
             type: actionType
@@ -43,7 +43,7 @@ describe('getDetails.request', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('guestCartId', 1);
+        expect(result).toHaveProperty('cartId', '1');
         expect(result).toHaveProperty('isLoading', true);
     });
 });
@@ -64,7 +64,7 @@ describe('getDetails.receive', () => {
         expect(result).toHaveProperty('other', 'stuff');
     });
 
-    test('it sets isLoading to false and guestCartId to null on error', () => {
+    test('it sets isLoading to false and cartId to null on error', () => {
         const action = {
             error: true,
             payload: new Error('unit test'),
@@ -74,7 +74,7 @@ describe('getDetails.receive', () => {
         const result = reducer(state, action);
 
         expect(result).toHaveProperty('isLoading', false);
-        expect(result).toHaveProperty('guestCartId', null);
+        expect(result).toHaveProperty('cartId', null);
     });
 });
 
@@ -184,7 +184,10 @@ describe('removeItem.receive', () => {
 
         const result = reducer(state, action);
 
-        expect(result).toEqual(initialState);
+        expect(result).toEqual({
+            ...initialState,
+            removeItemError: action.payload
+        });
     });
 });
 
