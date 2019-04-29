@@ -25,7 +25,7 @@ class UserInformation extends Component {
         const { user, classes } = this.props;
         const { fullname, email } = user || {};
 
-        const display = fullname.trim() !== '' ? fullname : 'Loading...';
+        const display = fullname.trim() || 'Loading...';
 
         return (
             <div className={classes.root}>
