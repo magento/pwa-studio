@@ -13,12 +13,15 @@ const classes = {
 
 jest.mock('src/classify');
 
+const userProp = { isSignedIn: false };
+
 test('renders a Receipt component correctly', () => {
     const props = {
         continueShopping: jest.fn(),
         order: { id: '123' },
         createAccount: jest.fn(),
-        reset: jest.fn()
+        reset: jest.fn(),
+        user: userProp
     };
 
     const component = testRenderer.create(<Receipt {...props} />);
@@ -33,6 +36,7 @@ test('calls `handleContinueShopping` when `Continue Shopping` button is pressed'
         <Receipt
             continueShopping={handleContinueShoppingMock}
             classes={classes}
+            user={userProp}
         />
     ).dive();
     wrapper
@@ -46,7 +50,11 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
     const handleCreateAccountMock = jest.fn();
 
     const wrapper = shallow(
-        <Receipt createAccount={handleCreateAccountMock} classes={classes} />
+        <Receipt
+            createAccount={handleCreateAccountMock}
+            classes={classes}
+            user={userProp}
+        />
     ).dive();
 
     wrapper
@@ -61,7 +69,7 @@ test('calls `reset` when component was unmounted', () => {
     const resetHandlerMock = jest.fn();
 
     const wrapper = shallow(
-        <Receipt reset={resetHandlerMock} classes={classes} />
+        <Receipt reset={resetHandlerMock} classes={classes} user={userProp} />
     ).dive();
 
     wrapper.unmount();
