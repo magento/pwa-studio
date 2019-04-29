@@ -65,7 +65,7 @@ test('the reset button is visible when the input field is not empty', () => {
 
     const buttons = instance.findAll(buttonTypes);
 
-    expect(buttons).toHaveLength(1);
+    expect(buttons).toHaveLength(0);
 });
 
 test('the reset button is not visible when the input field is empty', () => {
@@ -80,7 +80,7 @@ test('the reset button is not visible when the input field is empty', () => {
 
     const buttons = instance.findAll(buttonTypes);
 
-    expect(buttons).toHaveLength(0);
+    expect(buttons).toHaveLength(1);
 });
 
 test('entering text in the input causes the reset button to appear', () => {
