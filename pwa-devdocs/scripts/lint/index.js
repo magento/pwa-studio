@@ -13,10 +13,18 @@ if (filepath) {
     const fullPath = path.join(__dirname, '..', '..', filepath);
 
     fs.stat(fullPath, (error, stats) => {
-        if (stats.isFile()) {
+        if (error) {
+            console.error(error);
+        } else if (stats.isFile()) {
             lintFile(fullPath);
         } else if (stats.isDirectory()) {
             lintDirectory(fullPath);
+        } else {
+            console.error(
+                'ERROR:',
+                filepath,
+                'is neither a file nor directory'
+            );
         }
     });
 } else {
