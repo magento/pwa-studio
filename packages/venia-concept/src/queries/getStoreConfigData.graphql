@@ -1,0 +1,6 @@
+query storeConfigData {
+    storeConfig {
+        id
+        copyright
+    }
+}

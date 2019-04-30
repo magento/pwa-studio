@@ -20,7 +20,7 @@ class Flow extends Component {
         }).isRequired,
         cart: shape({
             details: object,
-            guestCartId: string,
+            cartId: string,
             totals: object
         }),
         checkout: shape({
@@ -86,7 +86,10 @@ class Flow extends Component {
             nonce: string
         }),
         shippingMethod: string,
-        shippingTitle: string
+        shippingTitle: string,
+        user: shape({
+            isSignedIn: bool
+        })
     };
 
     get child() {
@@ -99,7 +102,8 @@ class Flow extends Component {
             hasShippingMethod,
             directory,
             isCartReady,
-            isCheckoutReady
+            isCheckoutReady,
+            user
         } = this.props;
 
         const {
@@ -165,7 +169,11 @@ class Flow extends Component {
                 return <Form {...stepProps} />;
             }
             case 'receipt': {
-                return <Receipt />;
+                const stepProps = {
+                    user
+                };
+
+                return <Receipt {...stepProps} />;
             }
             default: {
                 return null;

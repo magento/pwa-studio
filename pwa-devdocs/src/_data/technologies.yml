@@ -1,41 +1,43 @@
 title: Technologies
 entries:
-  - label: Overview
-    url: /technologies/overview/
+    - label: Overview
+      url: /technologies/overview/
 
-  - label: Magento compatibility
-    url: /technologies/magento-compatibility/
+    - label: Magento compatibility
+      url: /technologies/magento-compatibility/
 
-  - label: Magento theme vs PWA storefront
-    url: /technologies/theme-vs-storefront/
+    - label: Magento theme vs PWA storefront
+      url: /technologies/theme-vs-storefront/
 
-  - label: Tools and libraries
-    url: /technologies/tools-libraries/
+    - label: Tools and libraries
+      url: /technologies/tools-libraries/
 
-  - label: Basic concepts
-    url: /technologies/basic-concepts/
-    entries:
+    - label: Basic concepts
+      url: /technologies/basic-concepts/
+      entries:
+          - label: Application shell
+            url: /technologies/basic-concepts/app-shell/
 
-      - label: Application shell
-        url: /technologies/basic-concepts/app-shell/
+          - label: Container extensibility
+            url: /technologies/basic-concepts/container-extensibility/
 
-      - label: Container extensibility
-        url: /technologies/basic-concepts/container-extensibility/
+          - label: CSS modules
+            url: /technologies/basic-concepts/css-modules/
 
-      - label: CSS modules
-        url: /technologies/basic-concepts/css-modules/
-      - label: GraphQL
-        url: /technologies/basic-concepts/graphql/
+          - label: GraphQL
+            url: /technologies/basic-concepts/graphql/
 
-  - label: UPWARD
-    url: /technologies/upward/
-    entries:
+          - label: Client-side caching
+            url: /technologies/basic-concepts/client-side-caching/
 
-        - label: Reference implementation
-          url: /technologies/upward/reference-implementation/
+    - label: UPWARD
+      url: /technologies/upward/
+      entries:
+          - label: Reference implementation
+            url: /technologies/upward/reference-implementation/
 
-  - label: Contributing to PWA Studio
-    url: /technologies/contribute/
+    - label: Contributing to PWA Studio
+      url: /technologies/contribute/
 
-  - label: Versioning strategy
-    url: /technologies/versioning/
+    - label: Versioning strategy
+      url: /technologies/versioning/

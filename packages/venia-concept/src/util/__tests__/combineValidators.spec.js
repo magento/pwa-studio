@@ -41,7 +41,7 @@ describe('combine', () => {
     });
 
     test('test calling the single fail validator', () => {
-        let result = combine([isRequiredFail])();
+        const result = combine([isRequiredFail])();
 
         expect(isRequiredFail).toHaveBeenCalledTimes(1);
         expect(typeof result).toBe('string');
@@ -62,7 +62,7 @@ describe('combine', () => {
     });
 
     test('the first validator returned message, the second is never called', () => {
-        let result = combine([isRequiredFail, [hasLengthExactly, 4]])();
+        const result = combine([isRequiredFail, [hasLengthExactly, 4]])();
 
         expect(isRequiredFail).toHaveBeenCalledTimes(1);
         expect(hasLengthExactly).toHaveBeenCalledTimes(0);

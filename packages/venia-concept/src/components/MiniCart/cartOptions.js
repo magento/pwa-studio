@@ -9,6 +9,7 @@ import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
+import isProductConfigurable from 'src/util/isProductConfigurable';
 
 // TODO: get real currencyCode for cartItem
 const currencyCode = 'USD';
@@ -36,6 +37,7 @@ class CartOptions extends Component {
             qty: number.isRequired
         }),
         configItem: shape({
+            __typename: string,
             configurable_options: array
         }),
         isUpdatingItem: bool,
@@ -69,39 +71,56 @@ class CartOptions extends Component {
     handleClick = async () => {
         const { updateCart, cartItem, configItem } = this.props;
         const { optionSelections, quantity } = this.state;
-        const { configurable_options } = configItem;
-        const isConfigurable = Array.isArray(configurable_options);
-        const productType = isConfigurable
-            ? 'ConfigurableProduct'
-            : 'SimpleProduct';
 
         const payload = {
             item: configItem,
-            productType,
+            productType: configItem.__typename,
             quantity: quantity
         };
 
-        if (productType === 'ConfigurableProduct') {
+        if (isProductConfigurable(configItem)) {
             appendOptionsToPayload(payload, optionSelections);
         }
+
         updateCart(payload, cartItem.item_id);
     };
 
+    get isMissingOptions() {
+        const { configItem, cartItem } = this.props;
+
+        // Non-configurable products can't be missing options
+        if (cartItem.product_type !== 'configurable') {
+            return false;
+        }
+
+        // Configurable products are missing options if we have fewer
+        // option selections than the product has options.
+        const { configurable_options } = configItem;
+        const numProductOptions = configurable_options.length;
+        const numProductSelections = this.state.optionSelections.size;
+
+        return numProductSelections < numProductOptions;
+    }
+
     render() {
-        const { fallback, handleSelectionChange, props } = this;
+        const {
+            fallback,
+            handleSelectionChange,
+            isMissingOptions,
+            props
+        } = this;
         const { classes, cartItem, configItem, isUpdatingItem } = props;
         const { name, price } = cartItem;
-        const { configurable_options } = configItem;
 
         const modalClass = isUpdatingItem
             ? classes.modal_active
             : classes.modal;
 
-        const options = Array.isArray(configurable_options) ? (
+        const options = isProductConfigurable(configItem) ? (
             <Suspense fallback={fallback}>
                 <section className={classes.options}>
                     <Options
-                        options={configurable_options}
+                        options={configItem.configurable_options}
                         onSelectionChange={handleSelectionChange}
                     />
                 </section>
@@ -132,7 +151,11 @@ class CartOptions extends Component {
                     <Button onClick={this.props.closeOptionsDrawer}>
                         <span>Cancel</span>
                     </Button>
-                    <Button priority="high" onClick={this.handleClick}>
+                    <Button
+                        priority="high"
+                        onClick={this.handleClick}
+                        disabled={isMissingOptions}
+                    >
                         <span>Update Cart</span>
                     </Button>
                 </div>
