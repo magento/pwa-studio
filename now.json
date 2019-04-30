@@ -13,8 +13,6 @@
     },
     "build": {
         "env": {
-            "UPWARD_JS_BIND_LOCAL": "false",
-            "USE_FASTLY": "1",
             "MAGENTO_BACKEND_URL": "https://master-7rqtwti-xjmpcdjpe6kzm.us-4.magentosite.cloud/"
         }
     },
@@ -32,7 +30,7 @@
                     "static/*",
                     "templates/*"
                 ],
-                "maxLambdaSize": "50mb"
+                "maxLambdaSize": "20mb"
             },
             "src": "packages/venia-concept/server-lambda.js",
             "use": "@now/node"

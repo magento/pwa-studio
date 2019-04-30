@@ -11,9 +11,7 @@ async function serve() {
         env: validEnv,
         before: app => {
             app.use(bestPractices());
-        },
-        bindLocal: false,
-        logUrl: false
+        }
     });
 
     const server = await createUpwardServer(config);
