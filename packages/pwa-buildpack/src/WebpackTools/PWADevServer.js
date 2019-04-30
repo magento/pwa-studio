@@ -22,7 +22,7 @@ const secureHostWarning = chalk.redBright(`
     highly recommends using the ${chalk.whiteBright(
         '"provideSecureHost"'
     )} configuration
-    option of PWADevServer. 
+    option of PWADevServer.
 `);
 
 const helpText = `
@@ -151,10 +151,6 @@ be configured to have the same effect as 'id'.
 
             devServerConfig.host = hostname;
             devServerConfig.https = ssl;
-            // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
-            devServerConfig.https.spdy = {
-                protocols: ['http/1.1']
-            };
 
             const requestedPort =
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT || ports.development;

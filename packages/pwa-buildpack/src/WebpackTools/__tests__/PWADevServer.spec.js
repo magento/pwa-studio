@@ -90,10 +90,7 @@ test('.configure() creates a project-unique host if `provideSecureHost` is set',
         port: 8001,
         https: {
             key: 'the chickie',
-            cert: 'chop chop',
-            spdy: {
-                protocols: ['http/1.1']
-            }
+            cert: 'chop chop'
         },
         publicPath: 'https://bork.bork.bork:8001/bork/'
     });
@@ -111,10 +108,7 @@ test('.configure() falls back to an open port if desired port is not available, 
         port: 10001,
         https: {
             key: 'the chickie',
-            cert: 'chop chop',
-            spdy: {
-                protocols: ['http/1.1']
-            }
+            cert: 'chop chop'
         },
         publicPath: 'https://bork.bork.bork:10001/bork/'
     });
@@ -135,10 +129,7 @@ test('.configure() is backwards compatible with "id" option, but warns', async (
         port: 8002,
         https: {
             key: 'the chickie',
-            cert: 'chop chop',
-            spdy: {
-                protocols: ['http/1.1']
-            }
+            cert: 'chop chop'
         }
     });
     expect(configureHost).toHaveBeenCalledWith(
