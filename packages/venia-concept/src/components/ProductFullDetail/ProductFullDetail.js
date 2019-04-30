@@ -2,8 +2,10 @@ import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
+import { compose } from 'redux';
 
 import classify from 'src/classify';
+import { connect } from 'src/drivers';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
@@ -12,6 +14,7 @@ import RichText from 'src/components/RichText';
 import defaultClasses from './productFullDetail.css';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 import findMatchingVariant from 'src/util/findMatchingProductVariant';
+import isProductConfigurable from 'src/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -33,6 +36,7 @@ class ProductFullDetail extends Component {
             title: string
         }),
         product: shape({
+            __typename: string,
             id: number,
             sku: string.isRequired,
             price: shape({
@@ -61,7 +65,7 @@ class ProductFullDetail extends Component {
         const optionCodes = new Map(state.optionCodes);
 
         // if this is a simple product, do nothing
-        if (!Array.isArray(configurable_options)) {
+        if (!isProductConfigurable(props.product)) {
             return null;
         }
 
@@ -85,19 +89,14 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { optionSelections, quantity, optionCodes } = state;
         const { addToCart, product } = props;
-        const { configurable_options } = product;
-        const isConfigurable = Array.isArray(configurable_options);
-        const productType = isConfigurable
-            ? 'ConfigurableProduct'
-            : 'SimpleProduct';
 
         const payload = {
             item: product,
-            productType,
+            productType: product.__typename,
             quantity
         };
 
-        if (productType === 'ConfigurableProduct') {
+        if (isProductConfigurable(product)) {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
@@ -120,7 +119,7 @@ class ProductFullDetail extends Component {
     get productOptions() {
         const { fallback, handleSelectionChange, props } = this;
         const { configurable_options } = props.product;
-        const isConfigurable = Array.isArray(configurable_options);
+        const isConfigurable = isProductConfigurable(props.product);
 
         if (!isConfigurable) {
             return null;
@@ -140,13 +139,9 @@ class ProductFullDetail extends Component {
         const { props, state } = this;
         const { product } = props;
         const { optionCodes, optionSelections } = state;
-        const {
-            configurable_options,
-            media_gallery_entries,
-            variants
-        } = product;
+        const { media_gallery_entries, variants } = product;
 
-        const isConfigurable = Array.isArray(configurable_options);
+        const isConfigurable = isProductConfigurable(product);
 
         if (
             !isConfigurable ||
@@ -165,12 +160,38 @@ class ProductFullDetail extends Component {
             return media_gallery_entries;
         }
 
-        return item.product.media_gallery_entries;
+        return [
+            ...item.product.media_gallery_entries,
+            ...media_gallery_entries
+        ];
+    }
+
+    get isMissingOptions() {
+        const { product } = this.props;
+
+        // Non-configurable products can't be missing options
+        if (!isProductConfigurable(product)) {
+            return false;
+        }
+
+        // Configurable products are missing options if we have fewer
+        // option selections than the product has options.
+        const { configurable_options } = product;
+        const numProductOptions = configurable_options.length;
+        const numProductSelections = this.state.optionSelections.size;
+
+        return numProductSelections < numProductOptions;
     }
 
     render() {
-        const { productOptions, props, mediaGalleryEntries } = this;
-        const { classes, product } = props;
+        const {
+            addToCart,
+            isMissingOptions,
+            mediaGalleryEntries,
+            productOptions,
+            props
+        } = this;
+        const { classes, isAddingItem, product } = props;
         const { regularPrice } = product.price;
 
         // We want this key to change whenever mediaGalleryEntries changes.
@@ -207,7 +228,11 @@ class ProductFullDetail extends Component {
                     />
                 </section>
                 <section className={classes.cartActions}>
-                    <Button priority="high" onClick={this.addToCart}>
+                    <Button
+                        priority="high"
+                        onClick={addToCart}
+                        disabled={isAddingItem || isMissingOptions}
+                    >
                         <span>Add to Cart</span>
                     </Button>
                 </section>
@@ -228,4 +253,13 @@ class ProductFullDetail extends Component {
     }
 }
 
-export default classify(defaultClasses)(ProductFullDetail);
+const mapStateToProps = ({ cart }) => {
+    return {
+        isAddingItem: cart.isAddingItem
+    };
+};
+
+export default compose(
+    classify(defaultClasses),
+    connect(mapStateToProps)
+)(ProductFullDetail);

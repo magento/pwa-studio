@@ -54,6 +54,10 @@ class Tree extends Component {
                     });
 
                     const leaves = children.map(node => {
+                        // allow leaf node to render if value is 1 or undefined (field not in Magento 2.3.0 schema)
+                        if (node.include_in_menu === 0) {
+                            return null;
+                        }
                         const { children_count } = node;
                         const isLeaf = children_count == 0;
                         const elementProps = {

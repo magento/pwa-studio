@@ -4,8 +4,8 @@ import { loadingIndicator } from 'src/components/LoadingIndicator';
 
 const messages = new Map()
     .set('loading', loadingIndicator)
-    .set('notFound', '404 Not Found')
-    .set('internalError', '500 Internal Server Error');
+    .set('notFound', 'That page could not be found. Please try again.')
+    .set('internalError', 'Something went wrong. Please try again.');
 
 class ErrorView extends Component {
     render() {

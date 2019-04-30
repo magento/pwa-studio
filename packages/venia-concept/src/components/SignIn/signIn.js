@@ -17,10 +17,9 @@ class SignIn extends Component {
             signInError: PropTypes.string,
             showCreateAccountButton: PropTypes.string
         }),
-
-        signInError: PropTypes.object,
+        onForgotPassword: PropTypes.func.isRequired,
         signIn: PropTypes.func,
-        onForgotPassword: PropTypes.func.isRequired
+        signInError: PropTypes.object
     };
 
     state = {
