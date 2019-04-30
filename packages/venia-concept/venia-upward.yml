@@ -16,7 +16,7 @@ response:
       use: index
     # serve document root (blank urlKey)
     - matches: request.url.pathname
-      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
+      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png|robots.txt$)'
       use: static
     # serve anything with a urlKey
     - matches: urlKey
