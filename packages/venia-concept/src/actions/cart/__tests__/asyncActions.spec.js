@@ -897,7 +897,6 @@ describe('toggleCart', () => {
         expect(dispatch).not.toHaveBeenCalled();
     });
 
-
     test('toggleCart thunk opens the drawer and cart is empty', async () => {
         getState.mockReturnValueOnce({
             app: { drawer: 'cart' },
@@ -923,7 +922,7 @@ describe('toggleCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
-    
+
     test('its thunk exits if cart state is not present', async () => {
         getState.mockImplementationOnce(() => ({
             app: {}
@@ -956,7 +955,6 @@ describe('toggleCart', () => {
         const getCartDetails = expect.any(Function);
         expect(dispatch).toHaveBeenNthCalledWith(2, getCartDetails);
     });
-
 });
 
 describe('writeImageToCache', () => {
