@@ -1,6 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ProductFullDetail } from '../ProductFullDetail';
+import TestRenderer from 'react-test-renderer';
+import ProductFullDetail from '../ProductFullDetail';
+
+jest.mock('src/classify');
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
@@ -79,17 +81,19 @@ const mockConfigurableProduct = {
 };
 
 test('Configurable Product has correct media gallery image count', async () => {
-    const wrapper = shallow(
+    const { root } = TestRenderer.create(
         <ProductFullDetail
             product={mockConfigurableProduct}
             isAddingItem={false}
             classes={{}}
+            addToCart={jest.fn()}
         />
     );
+    const { instance } = root.children[0];
 
-    expect(wrapper.instance().mediaGalleryEntries).toHaveLength(2);
-    wrapper.setState({
+    expect(instance.mediaGalleryEntries).toHaveLength(2);
+    instance.setState({
         optionSelections: new Map([['1', 1]])
     });
-    expect(wrapper.instance().mediaGalleryEntries).toHaveLength(3);
+    expect(instance.mediaGalleryEntries).toHaveLength(3);
 });
