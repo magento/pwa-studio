@@ -18,7 +18,7 @@ import isProductConfigurable from 'src/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
-class ProductFullDetail extends Component {
+export class ProductFullDetail extends Component {
     static propTypes = {
         classes: shape({
             cartActions: string,
