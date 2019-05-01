@@ -7,11 +7,26 @@ const config = {
     basePath: path.join(__dirname, '../../src')
 };
 
-// If a single file is specified, only run tests on that file
+// If a file or directory is specified, only run tests on that file or directory
 const filepath = process.argv[2];
 if (filepath) {
     const fullPath = path.join(__dirname, '..', '..', filepath);
-    lintFile(fullPath);
+
+    fs.stat(fullPath, (error, stats) => {
+        if (error) {
+            console.error(error);
+        } else if (stats.isFile()) {
+            lintFile(fullPath);
+        } else if (stats.isDirectory()) {
+            lintDirectory(fullPath);
+        } else {
+            console.error(
+                'ERROR:',
+                filepath,
+                'is neither a file nor directory'
+            );
+        }
+    });
 } else {
     lintDirectory(config.basePath);
 }
