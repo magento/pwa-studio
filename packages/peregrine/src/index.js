@@ -1,6 +1,9 @@
 import * as RestApi from './RestApi';
 import * as Util from './util';
 
+// hooks
+export { useUsername } from './hooks/useUsername';
+
 export { default as ContainerChild } from './ContainerChild';
 export { default as List, Items, Item } from './List';
 export { default as Page } from './Page';
