@@ -38,7 +38,9 @@ class SignIn extends Component {
         const errorIsEmpty = Object.keys(signInError).length === 0;
 
         if (signInError && !errorIsEmpty) {
-            return 'An error occurred. Please try again.';
+            // Note: we can't access the actual message that comes back from the server
+            // without doing some fragile string manipulation. Hardcoded for now.
+            return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
         }
     }
 
