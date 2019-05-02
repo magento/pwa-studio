@@ -24,7 +24,7 @@ class Thumbnail extends Component {
     // with a useWindowSize hook and rerender when the width changes across the
     // breakpoint. This is important when changing from portrait to landscape.
     isDesktop = () => {
-        return window.innerWidth > 640;
+        return window.innerWidth >= 1024;
     };
 
     onClickHandlerWrapper = () => {
