@@ -1,107 +1,143 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Input from 'src/components/Input';
+import { bool, func, object, shape, string } from 'prop-types';
+import { Form } from 'informed';
+
 import Button from 'src/components/Button';
+import Field from 'src/components/Field';
+import LoadingIndicator from 'src/components/LoadingIndicator';
+import TextInput from 'src/components/TextInput';
+
+import { isRequired } from 'src/util/formValidators';
+
 import defaultClasses from './signIn.css';
 import classify from 'src/classify';
-import { Form } from 'informed';
-import ErrorDisplay from 'src/components/ErrorDisplay';
 
 class SignIn extends Component {
     static propTypes = {
-        classes: PropTypes.shape({
-            signInSection: PropTypes.string,
-            signInDivider: PropTypes.string,
-            forgotPassword: PropTypes.string,
-            root: PropTypes.string,
-            signInError: PropTypes.string,
-            showCreateAccountButton: PropTypes.string
+        classes: shape({
+            forgotPassword: string,
+            form: string,
+            modal: string,
+            modal_active: string,
+            root: string,
+            showCreateAccountButton: string,
+            signInDivider: string,
+            signInError: string,
+            signInSection: string
         }),
-        onForgotPassword: PropTypes.func.isRequired,
-        signIn: PropTypes.func,
-        signInError: PropTypes.object
-    };
-
-    state = {
-        password: '',
-        username: ''
+        isGettingDetails: bool,
+        isSigningIn: bool,
+        onForgotPassword: func.isRequired,
+        setDefaultUsername: func,
+        signIn: func,
+        signInError: object
     };
 
     get errorMessage() {
         const { signInError } = this.props;
-        return <ErrorDisplay error={signInError} />;
+        const errorIsEmpty = Object.keys(signInError).length === 0;
+
+        if (signInError && !errorIsEmpty) {
+            // Note: we can't access the actual message that comes back from the server
+            // without doing some fragile string manipulation. Hardcoded for now.
+            return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
+        }
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, isGettingDetails, isSigningIn } = this.props;
         const { onSignIn, errorMessage } = this;
 
-        return (
-            <div className={classes.root}>
-                <Form onSubmit={onSignIn}>
-                    <Input
-                        onChange={this.updateUsername}
-                        helpText={'example help text'}
-                        label={'Username or Email'}
-                        required={true}
-                        autoComplete={'username'}
-                        field="username"
-                    />
-                    <Input
-                        onChange={this.updatePassword}
-                        label={'Password'}
-                        type={'password'}
-                        helpText={'example help text'}
-                        required={true}
-                        autoComplete={'current-password'}
-                        field="password"
-                    />
-                    <div className={classes.signInButton}>
-                        <Button priority="high" type="submit">
-                            Sign In
+        if (isGettingDetails || isSigningIn) {
+            return (
+                <div className={classes.modal_active}>
+                    <LoadingIndicator>Signing In</LoadingIndicator>
+                </div>
+            );
+        } else {
+            return (
+                <div className={classes.root}>
+                    <Form
+                        className={classes.form}
+                        getApi={this.setFormApi}
+                        onSubmit={onSignIn}
+                    >
+                        <Field label="Email" required={true}>
+                            <TextInput
+                                autoComplete="email"
+                                field="email"
+                                validate={isRequired}
+                                validateOnBlur
+                            />
+                        </Field>
+                        <Field label="Password" required={true}>
+                            <TextInput
+                                autoComplete="current-password"
+                                field="password"
+                                type="password"
+                                validate={isRequired}
+                                validateOnBlur
+                            />
+                        </Field>
+                        <div className={classes.signInButton}>
+                            <Button priority="high" type="submit">
+                                Sign In
+                            </Button>
+                        </div>
+                        <div className={classes.signInError}>
+                            {errorMessage}
+                        </div>
+                        <button
+                            type="button"
+                            className={classes.forgotPassword}
+                            onClick={this.handleForgotPassword}
+                        >
+                            Forgot password?
+                        </button>
+                    </Form>
+                    <div className={classes.signInDivider} />
+                    <div className={classes.showCreateAccountButton}>
+                        <Button
+                            priority="high"
+                            onClick={this.showCreateAccountForm}
+                        >
+                            Create an Account
                         </Button>
                     </div>
-                    <div className={classes.signInError}>{errorMessage}</div>
-                    <button
-                        type="button"
-                        className={classes.forgotPassword}
-                        onClick={this.handleForgotPassword}
-                    >
-                        Forgot password?
-                    </button>
-                </Form>
-                <div className={classes.signInDivider} />
-                <div className={classes.showCreateAccountButton}>
-                    <Button onClick={this.showCreateAccountForm}>
-                        {' '}
-                        Create an Account{' '}
-                    </Button>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 
-    onSignIn = () => {
-        const { username, password } = this.state;
-        this.props.signIn({ username: username, password: password });
-    };
-
-    showCreateAccountForm = () => {
-        this.props.setDefaultUsername(this.state.username);
-        this.props.showCreateAccountForm();
-    };
-
     handleForgotPassword = () => {
-        this.props.setDefaultUsername(this.state.username);
+        const username = this.formApi.getValue('email');
+
+        if (this.props.setDefaultUsername) {
+            this.props.setDefaultUsername(username);
+        }
+
         this.props.onForgotPassword();
     };
 
-    updatePassword = newPassword => {
-        this.setState({ password: newPassword });
+    onSignIn = () => {
+        const username = this.formApi.getValue('email');
+        const password = this.formApi.getValue('password');
+
+        this.props.signIn({ username, password });
     };
 
-    updateUsername = newUsername => {
-        this.setState({ username: newUsername });
+    setFormApi = formApi => {
+        this.formApi = formApi;
+    };
+
+    showCreateAccountForm = () => {
+        const username = this.formApi.getValue('email');
+
+        if (this.props.setDefaultUsername) {
+            this.props.setDefaultUsername(username);
+        }
+
+        this.props.showCreateAccountForm();
     };
 }
 

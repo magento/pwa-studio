@@ -17,7 +17,10 @@ const initialState = {
         firstname: '',
         lastname: ''
     },
+    getDetailsError: {},
+    isGettingDetails: false,
     isSignedIn: isSignedIn(),
+    isSigningIn: false,
     forgotPassword: {
         email: '',
         isInProgress: false
@@ -26,34 +29,53 @@ const initialState = {
 };
 
 const reducerMap = {
+    [actions.signIn.request]: state => {
+        return {
+            ...state,
+            isSigningIn: true,
+            signInError: {}
+        };
+    },
     [actions.signIn.receive]: (state, { payload, error }) => {
         if (error) {
-            return initialState;
+            return {
+                ...initialState,
+                signInError: payload
+            };
         }
 
         return {
             ...state,
             isSignedIn: true,
-            currentUser: payload
+            isSigningIn: false
         };
     },
-    [actions.signInError.receive]: (state, { payload }) => {
+    [actions.getDetails.request]: state => {
         return {
             ...state,
-            isSignedIn: false,
-            signInError: payload
+            getDetailsError: {},
+            isGettingDetails: true
+        };
+    },
+    [actions.getDetails.receive]: (state, { payload, error }) => {
+        if (error) {
+            return {
+                ...state,
+                getDetailsError: payload,
+                isGettingDetails: false
+            };
+        }
+
+        return {
+            ...state,
+            currentUser: payload,
+            isGettingDetails: false
         };
     },
     [actions.createAccountError.receive]: (state, { payload }) => {
         return {
             ...state,
             createAccountError: payload
-        };
-    },
-    [actions.resetSignInError.receive]: state => {
-        return {
-            ...state,
-            signInError: {}
         };
     },
     [actions.resetCreateAccountError.receive]: state => {
