@@ -21,20 +21,7 @@
     }}
     <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-
-    <script>
-      WebFontConfig = {
-          google: { families: ['Muli:300'] }
-      };
-
-      (function(d) {
-          var wf = d.createElement('script'), s = d.scripts[0];
-          wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-          wf.async = true;
-          s.parentNode.insertBefore(wf, s);
-      })(document);
-    </script>
-
+    {{> templates/default-font-include}}
     <link rel="preconnect" href="{{env.MAGENTO_BACKEND_URL}}">
     {{#bundles.prefetch}}
     <link rel="prefetch script" href="{{.}}">
