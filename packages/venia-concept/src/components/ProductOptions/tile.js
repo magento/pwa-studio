@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bool, number, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
-import SwatchTooltip from './swatchTooltip';
+import Tooltip from './toolTip';
 import defaultClasses from './tile.css';
 
 const getClassName = (name, isSelected, hasFocus) =>
@@ -40,11 +40,11 @@ class Tile extends Component {
         const { label } = item;
 
         return (
-            <SwatchTooltip text={label}>
+            <Tooltip text={label}>
                 <button {...restProps} className={className}>
                     <span>{label}</span>
                 </button>
-            </SwatchTooltip>
+            </Tooltip>
         );
     }
 }
