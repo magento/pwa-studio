@@ -1,5 +1,5 @@
-<link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">
 <noscript>
+    <link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">
     <div class="container">
         <img class="veniaClosed" src="./veniaClosed.png">
         <div class="textBlock">
