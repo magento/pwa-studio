@@ -11,6 +11,7 @@ import CloseIcon from 'react-feather/dist/icons/x';
 import Icon from 'src/components/Icon';
 import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';
+import { Modal } from 'src/components/Modal';
 
 class FilterModal extends Component {
     static propTypes = {
@@ -38,36 +39,40 @@ class FilterModal extends Component {
             drawer === 'filter' ? classes.rootOpen : classes.root;
 
         return (
-            <div className={modalClass}>
-                <div className={classes.modalWrapper}>
-                    <div className={classes.header}>
-                        <span className={classes.headerTitle}>FILTER BY</span>
-                        <button onClick={closeDrawer}>
-                            <Icon src={CloseIcon} />
-                        </button>
+            <Modal>
+                <div className={modalClass}>
+                    <div className={classes.modalWrapper}>
+                        <div className={classes.header}>
+                            <span className={classes.headerTitle}>
+                                FILTER BY
+                            </span>
+                            <button onClick={closeDrawer}>
+                                <Icon src={CloseIcon} />
+                            </button>
+                        </div>
+
+                        <FiltersCurrent keyPrefix="modal" />
+
+                        <List
+                            items={this.props.filters}
+                            getItemKey={({ request_var }) => request_var}
+                            render={props => (
+                                <ul className={classes.filterOptionsContainer}>
+                                    {props.children}
+                                </ul>
+                            )}
+                            renderItem={props => (
+                                <FilterBlock
+                                    item={props.item}
+                                    addFilter={this.props.addFilter}
+                                    removeFilter={this.props.removeFilter}
+                                />
+                            )}
+                        />
                     </div>
-
-                    <FiltersCurrent keyPrefix="modal" />
-
-                    <List
-                        items={this.props.filters}
-                        getItemKey={({ request_var }) => request_var}
-                        render={props => (
-                            <ul className={classes.filterOptionsContainer}>
-                                {props.children}
-                            </ul>
-                        )}
-                        renderItem={props => (
-                            <FilterBlock
-                                item={props.item}
-                                addFilter={this.props.addFilter}
-                                removeFilter={this.props.removeFilter}
-                            />
-                        )}
-                    />
+                    <FilterFooter />
                 </div>
-                <FilterFooter />
-            </div>
+            </Modal>
         );
     }
 }
