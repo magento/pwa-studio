@@ -1,31 +1,31 @@
-import{ useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const getSize = () => {
-  return {
-    innerHeight: window.innerHeight,
-    innerWidth: window.innerWidth,
-    outerHeight: window.outerHeight,
-    outerWidth: window.outerWidth,
-  };
-}
+    return {
+        innerHeight: window.innerHeight,
+        innerWidth: window.innerWidth,
+        outerHeight: window.outerHeight,
+        outerWidth: window.outerWidth
+    };
+};
 
 /**
  * A hook that will return inner and outer height and width values whenever
  * the window is resized.
  */
 export const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState(getSize());
+    const [windowSize, setWindowSize] = useState(getSize());
 
-  const handleResize = () => {
-    setWindowSize(getSize());
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
+    const handleResize = () => {
+        setWindowSize(getSize());
     };
-  }, []); // Passing empty array to only run effect on mount and unmount.
 
-  return windowSize;
-}
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []); // Passing empty array to only run effect on mount and unmount.
+
+    return windowSize;
+};
