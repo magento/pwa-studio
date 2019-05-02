@@ -14,7 +14,7 @@
     opacity: 0;
     overflow: hidden;
     width: 100%;
-    z-index: 11;
+    z-index: 3;
     display: grid;
     grid-template-rows: min-content 1fr;
 }
