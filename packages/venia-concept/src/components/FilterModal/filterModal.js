@@ -40,7 +40,7 @@ class FilterModal extends Component {
 
         return (
             <Modal>
-                <div className={modalClass}>
+                <aside className={modalClass}>
                     <div className={classes.modalWrapper}>
                         <div className={classes.header}>
                             <span className={classes.headerTitle}>
@@ -71,7 +71,7 @@ class FilterModal extends Component {
                         />
                     </div>
                     <FilterFooter />
-                </div>
+                </aside>
             </Modal>
         );
     }
