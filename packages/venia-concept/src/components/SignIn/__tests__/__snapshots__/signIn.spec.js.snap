@@ -71,7 +71,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
       </button>
     </div>
     <div>
-      An error occurred. Please try again.
+      The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
     </div>
     <button
       onClick={[Function]}
