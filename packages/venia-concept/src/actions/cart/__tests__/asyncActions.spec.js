@@ -897,30 +897,34 @@ describe('toggleCart', () => {
         expect(dispatch).not.toHaveBeenCalled();
     });
 
-    test('toggleCart thunk opens the drawer and cart is empty', async () => {
+    test('its thunk opens the drawer when cart is empty', async () => {
         getState.mockReturnValueOnce({
             app: { drawer: 'cart' },
             cart: { details: { items_count: 0 } }
         });
         await toggleCart()(...thunkArgs);
-
+        // toggleDrawer
         expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
         expect(dispatch).toHaveBeenCalledTimes(1);
     });
 
-    test('toggleCart thunk opens the drawer and refreshes the cart', async () => {
+    test('its thunk opens the drawer when the cart has no details', async () => {
         getState.mockReturnValueOnce({ app: { drawer: 'cart' }, cart: {} });
         await toggleCart()(...thunkArgs);
+        // toggleDrawer
         expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
         expect(dispatch).toHaveBeenCalledTimes(1);
+    });
 
+    test('its thunk opens the drawer when the cart has details', async () => {
         getState.mockReturnValueOnce({
             app: { drawer: 'cart' },
             cart: { details: { items_count: 2 } }
         });
         await toggleCart()(...thunkArgs);
-        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        // toggleDrawer
+        expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
+        expect(dispatch).toHaveBeenCalledTimes(1);
     });
 
     test('its thunk exits if cart state is not present', async () => {
@@ -948,12 +952,18 @@ describe('toggleCart', () => {
 
     test('its thunk opens the drawer and refreshes the cart', async () => {
         await toggleCart()(...thunkArgs);
+        // toggleDrawer
+        expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
+        expect(dispatch).toHaveBeenCalledTimes(1);
 
+        getState.mockReturnValueOnce({
+            app: { drawer: 'cart' },
+            cart: { details: { items_count: 2 } }
+        });
+        await toggleCart()(...thunkArgs);
+        // Refresh the cart
+        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
         expect(dispatch).toHaveBeenCalledTimes(2);
-        const toggleDrawer = expect.any(Function);
-        expect(dispatch).toHaveBeenNthCalledWith(1, toggleDrawer);
-        const getCartDetails = expect.any(Function);
-        expect(dispatch).toHaveBeenNthCalledWith(2, getCartDetails);
     });
 });
 
