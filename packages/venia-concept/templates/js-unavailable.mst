@@ -1,5 +1,4 @@
 <noscript>
-    {{> templates/default-font-include}}
     <div class="container">
         <img class="veniaClosed" src="./veniaClosed.png">
         <div class="textBlock">
