@@ -6,7 +6,7 @@ import { Util } from '@magento/peregrine';
 import { Adapter } from 'src/drivers';
 import store from 'src/store';
 import app from 'src/actions/app';
-import App from 'src/components/App';
+import AppWrapper from 'src/components/App/AppWrapper';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -37,7 +37,7 @@ ReactDOM.render(
         apollo={{ link: authLink.concat(Adapter.apolloLink(apiBase)) }}
         store={store}
     >
-        <App />
+        <AppWrapper />
     </Adapter>,
     document.getElementById('root')
 );
