@@ -110,7 +110,7 @@ class CreateAccount extends Component {
                         validateOnBlur
                     />
                 </Field>
-                <Field label="Password">
+                <Field label="Password" required={true}>
                     <TextInput
                         field="password"
                         type="password"
@@ -123,7 +123,7 @@ class CreateAccount extends Component {
                         validateOnBlur
                     />
                 </Field>
-                <Field label="Confirm Password">
+                <Field label="Confirm Password" required={true}>
                     <TextInput
                         field="confirm"
                         type="password"
