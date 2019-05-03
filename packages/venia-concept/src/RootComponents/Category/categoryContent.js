@@ -19,22 +19,8 @@ class CategoryContent extends Component {
         })
     };
 
-    constructor(props) {
-        super(props);
-        this.modal = React.createRef();
-    }
-
-    handleOpenDrawer = e => {
-        e.preventDefault();
-        this.props.openDrawer();
-        /* For some reason, modal will not get focused without the timeout
-         * even when using preventDefault()
-         */
-        setTimeout(() => this.modal.current.focus(), 200);
-    };
-
     render() {
-        const { classes, pageControl, data, pageSize } = this.props;
+        const { classes, pageControl, data, pageSize, openDrawer } = this.props;
 
         const items = data ? data.products.items : null;
         const filters = data ? data.products.filters : null;
@@ -54,7 +40,7 @@ class CategoryContent extends Component {
                     {filters && (
                         <div className={classes.headerButtons}>
                             <button
-                                onClick={this.handleOpenDrawer}
+                                onClick={openDrawer}
                                 className={classes.filterButton}
                             >
                                 Filter
@@ -68,9 +54,7 @@ class CategoryContent extends Component {
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
                 </div>
-                {filters && (
-                    <FilterModal modalRef={this.modal} filters={filters} />
-                )}
+                {filters && <FilterModal filters={filters} />}
             </article>
         );
     }
