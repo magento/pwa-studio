@@ -5,10 +5,10 @@ import { resourceUrl } from 'src/drivers';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './thumbnail.css';
 import { transparentPlaceholder } from 'src/shared/images';
-import AppContext from 'src/components/App/context';
+import { WindowSizeContext } from 'src/components/App/WindowSizeContext';
 
 function Thumbnail(props) {
-    const { windowSize } = useContext(AppContext);
+    const { windowSize } = useContext(WindowSizeContext);
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const {
