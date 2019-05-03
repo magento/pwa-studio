@@ -13,7 +13,7 @@ const props = {
 };
 
 test('renders correctly', () => {
-    const component = testRenderer.create(<SignIn {...props} />);
+    const component = createTestInstance(<SignIn {...props} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -26,7 +26,7 @@ test.skip('renders the loading indicator if signing in', () => {
         isSigningIn: true
     };
 
-    const component = testRenderer.create(<SignIn {...testProps} />);
+    const component = createTestInstance(<SignIn {...testProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -37,7 +37,7 @@ test('displays an error message if there is a sign in error', () => {
         signInError: { message: 'foo ' }
     };
 
-    const component = testRenderer.create(<SignIn {...testProps} />);
+    const component = createTestInstance(<SignIn {...testProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -47,11 +47,7 @@ test('calls `onSignIn` when sign in button is pressed', () => {
     const onForgotPassword = jest.fn();
 
     const { root } = createTestInstance(
-        <SignIn
-            signIn={signIn}
-            classes={classes}
-            onForgotPassword={onForgotPassword}
-        />
+        <SignIn signIn={signIn} onForgotPassword={onForgotPassword} />
     );
 
     act(() => {
