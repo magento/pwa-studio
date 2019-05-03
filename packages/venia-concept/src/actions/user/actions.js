@@ -9,11 +9,7 @@ const actionMap = {
         RECEIVE: null,
         RESET: null
     },
-    RESET_SIGN_IN_ERROR: {
-        REQUEST: null,
-        RECEIVE: null
-    },
-    SIGN_IN_ERROR: {
+    GET_DETAILS: {
         REQUEST: null,
         RECEIVE: null
     },
