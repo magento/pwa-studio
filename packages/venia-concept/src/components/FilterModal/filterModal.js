@@ -34,7 +34,7 @@ class FilterModal extends Component {
     };
 
     render() {
-        const { classes, drawer, closeDrawer } = this.props;
+        const { classes, drawer, closeDrawer, modalRef } = this.props;
         const modalClass =
             drawer === 'filter' ? classes.rootOpen : classes.root;
 
@@ -46,7 +46,7 @@ class FilterModal extends Component {
                             <span className={classes.headerTitle}>
                                 FILTER BY
                             </span>
-                            <button onClick={closeDrawer}>
+                            <button ref={modalRef} onClick={closeDrawer}>
                                 <Icon src={CloseIcon} />
                             </button>
                         </div>
