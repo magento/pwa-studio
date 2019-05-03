@@ -13,7 +13,7 @@ export const signIn = credentials =>
     async function thunk(...args) {
         const [dispatch] = args;
 
-        dispatch(actions.resetSignInError.request());
+        dispatch(actions.signIn.request());
 
         try {
             const body = {
@@ -31,18 +31,17 @@ export const signIn = credentials =>
 
             setToken(response);
 
-            const userDetails = await request('/rest/V1/customers/me', {
-                method: 'GET'
-            });
+            await dispatch(actions.signIn.receive(response));
 
-            await dispatch(actions.signIn.receive(userDetails));
+            // Now that we're signed in, get this user's details.
+            dispatch(getUserDetails());
 
             // Now that we're signed in, forget the old (guest) cart
             // and fetch this customer's cart.
             await dispatch(removeCart());
             dispatch(getCartDetails({ forceRefresh: true }));
         } catch (error) {
-            dispatch(actions.signInError.receive(error));
+            dispatch(actions.signIn.receive(error));
         }
     };
 
@@ -66,15 +65,16 @@ export const getUserDetails = () =>
         const { user } = getState();
 
         if (user.isSignedIn) {
-            dispatch(actions.resetSignInError.request());
+            dispatch(actions.getDetails.request());
 
             try {
                 const userDetails = await request('/rest/V1/customers/me', {
                     method: 'GET'
                 });
-                dispatch(actions.signIn.receive(userDetails));
+
+                dispatch(actions.getDetails.receive(userDetails));
             } catch (error) {
-                dispatch(actions.signInError.receive(error));
+                dispatch(actions.getDetails.receive(error));
             }
         }
     };
