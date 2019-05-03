@@ -6,36 +6,12 @@ exports[`renders the correct tree 1`] = `
   onSubmit={[Function]}
 >
   <h3>
-    An account gives you access to rewards!
+    Check out faster, use multiple addresses, track
+                         orders and more by creating an account!
   </h3>
   <div>
     <span>
-      Email
-    </span>
-    <span
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span>
-        <input
-          autoComplete="email"
-          name="customer.email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
-        />
-      </span>
       <span />
-      <span />
-    </span>
-    <p />
-  </div>
-  <div>
-    <span>
       First Name
     </span>
     <span
@@ -62,6 +38,7 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <span>
+      <span />
       Last Name
     </span>
     <span
@@ -76,6 +53,33 @@ exports[`renders the correct tree 1`] = `
         <input
           autoComplete="family-name"
           name="customer.lastname"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p />
+  </div>
+  <div>
+    <span>
+      <span />
+      Email
+    </span>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          autoComplete="email"
+          name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
           value=""
@@ -139,6 +143,23 @@ exports[`renders the correct tree 1`] = `
     </span>
     <p />
   </div>
+  <div>
+    <label>
+      <span />
+      <input
+        checked={false}
+        name="subscribe"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <span>
+        Subscribe to news and updates
+      </span>
+    </label>
+    <p />
+  </div>
+  <div />
   <div>
     <button
       type="submit"
