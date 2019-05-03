@@ -7,7 +7,6 @@ import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
 
-import { validateEmail as asyncValidateEmail } from './asyncValidators';
 import combine from 'src/util/combineValidators';
 import {
     validateEmail,
@@ -108,9 +107,7 @@ class CreateAccount extends Component {
                         field="customer.email"
                         autoComplete="email"
                         validate={combine([isRequired, validateEmail])}
-                        asyncValidate={asyncValidateEmail}
                         validateOnBlur
-                        asyncValidateOnBlur
                     />
                 </Field>
                 <Field label="Password">

@@ -11,7 +11,6 @@ import {
     validateConfirmPassword,
     hasLengthAtLeast
 } from 'src/util/formValidators';
-import { validateEmail as asyncValidateEmail } from '../asyncValidators';
 
 jest.mock('src/util/formValidators');
 jest.mock('../asyncValidators');
@@ -60,7 +59,6 @@ test('executes validators on submit', async () => {
         expect(isRequired).toHaveBeenCalledTimes(5);
         expect(validatePassword).toHaveBeenCalledTimes(1);
         expect(validateConfirmPassword).toHaveBeenCalledTimes(1);
-        expect(asyncValidateEmail).toHaveBeenCalledTimes(1);
     });
 });
 
