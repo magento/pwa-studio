@@ -1,6 +1,5 @@
 # PWA Studio
-
-[![CircleCI](https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg)](https://circleci.com/gh/magento-research/pwa-studio)  [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg)](https://coveralls.io/github/magento-research/pwa-studio)
+  [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg)](https://coveralls.io/github/magento-research/pwa-studio)
 Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.
 
 ## Documentation
@@ -71,7 +70,6 @@ If you have an issue that cannot be resolved, please [create an issue][].
 * To add a dependency, use [workspace commands][] (e.g., `yarn workspace @magento/venia-concept add my-module`). This will associate the dependency with the right package.
 * Before pushing a commit, `yarn run prettier` and `yarn run lint` to format and inspect the source code. (There is also a git hook that will do this automatically.)
 
-[CircleCI]: https://circleci.com/gh/magento-research/pwa-studio.svg?style=svg
 [Contribution guide]: .github/CONTRIBUTING.md
 [Coverage Status]: https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master
 [create an issue]: https://github.com/magento-research/pwa-studio/issues/new
