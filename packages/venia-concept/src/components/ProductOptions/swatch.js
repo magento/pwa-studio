@@ -3,7 +3,7 @@ import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import SwatchTooltip from './swatchTooltip';
+import Tooltip from './toolTip';
 import CheckIcon from 'react-feather/dist/icons/check';
 
 import defaultClasses from './swatch.css';
@@ -68,7 +68,7 @@ class Swatch extends Component {
         });
 
         return (
-            <SwatchTooltip text={label}>
+            <Tooltip text={label}>
                 <button
                     {...restProps}
                     className={className}
@@ -77,7 +77,7 @@ class Swatch extends Component {
                 >
                     {icon}
                 </button>
-            </SwatchTooltip>
+            </Tooltip>
         );
     }
 }
