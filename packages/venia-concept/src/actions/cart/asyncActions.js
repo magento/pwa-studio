@@ -37,7 +37,6 @@ export const createCart = () =>
             const cartEndpoint = user.isSignedIn
                 ? signedInCartEndpoint
                 : guestCartEndpoint;
-
             const cartId = await request(cartEndpoint, {
                 method: 'POST'
             });
@@ -295,7 +294,6 @@ export const closeOptionsDrawer = () => async dispatch =>
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
-
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
         const { cartId } = cart;
@@ -307,7 +305,6 @@ export const getCartDetails = (payload = {}) => {
             await dispatch(createCart());
             return thunk(...arguments);
         }
-
         // Once we have the cart id indicate that we are starting to make
         // async requests for the details.
         dispatch(actions.getDetails.request(cartId));
@@ -315,30 +312,33 @@ export const getCartDetails = (payload = {}) => {
         try {
             const [
                 imageCache,
-                details,
-                paymentMethods,
-                totals
+                details
             ] = await Promise.all([
                 retrieveImageCache(),
                 fetchCartPart({
                     cartId,
                     forceRefresh,
                     isSignedIn
-                }),
+                }, true)
+            ]);
+
+            const [
+                paymentMethods,
+                totals
+            ] = await Promise.all([
                 fetchCartPart({
                     cartId,
                     forceRefresh,
                     isSignedIn,
                     subResource: 'payment-methods'
-                }),
+                }, details.items.length > 0),
                 fetchCartPart({
                     cartId,
                     forceRefresh,
                     isSignedIn,
                     subResource: 'totals'
-                })
+                }, details.items.length > 0)
             ]);
-
             const { items } = details;
 
             // for each item in the cart, look up its image in the cache
@@ -424,14 +424,17 @@ async function fetchCartPart({
     forceRefresh,
     isSignedIn,
     subResource = ''
-}) {
-    const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
-    const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
-    const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
+}, sendRequest) {
+    if (sendRequest) {
+        const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
+        const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
+        const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
 
-    const cache = forceRefresh ? 'reload' : 'default';
+        const cache = forceRefresh ? 'reload' : 'default';
 
-    return request(endpoint, { cache });
+        return request(endpoint, { cache });
+    }
+    return false;
 }
 
 export async function getCartId(dispatch, getState) {
