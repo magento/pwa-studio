@@ -1,4 +1,5 @@
 import { RestApi, Util } from '@magento/peregrine';
+import { isUndefined } from 'util';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
@@ -425,7 +426,7 @@ async function fetchCartPart({
     isSignedIn,
     subResource = ''
 }, sendRequest) {
-    if (sendRequest) {
+    if (sendRequest || isUndefined(sendRequest)) {
         const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
         const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
         const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
