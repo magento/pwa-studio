@@ -89,21 +89,29 @@ Don't forget to install the [Venia sample data][]!
 
 Before you run the server, generate build artifacts for Venia using the following command in the **project root directory**:
 
-`npm run build`
+```sh 
+npm run build
+```
 
 ### Run the server
 
 Use any of the following commands from the **project root directory** to start the server:
 
-`npm run watch:venia`
+```sh
+npm run watch:venia
+```
 
 : Starts the Venia storefront development environment.
 
-`npm run watch:all`
+```sh
+npm run watch:all
+```
 
 : Runs the full PWA Studio developer experience, which include Venia hot-reloading and concurrent Buildpack/Peregrine rebuilds.
 
-`npm run build && npm run stage:venia`
+```sh
+npm run build && npm run stage:venia
+```
 
 : Generates build artifacts and runs the staging environment, which uses more compressed assets and more closely reflects production.
 
