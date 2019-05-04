@@ -1,9 +1,10 @@
 import { RestApi, Util } from '@magento/peregrine';
-import { isUndefined } from 'util';
 
 import { closeDrawer, toggleDrawer } from 'src/actions/app';
 import checkoutActions from 'src/actions/checkout';
 import actions from './actions';
+
+import { isUndefined } from 'util';
 
 const { request } = RestApi.Magento2;
 const { BrowserPersistence } = Util;
@@ -311,34 +312,37 @@ export const getCartDetails = (payload = {}) => {
         dispatch(actions.getDetails.request(cartId));
 
         try {
-            const [
-                imageCache,
-                details
-            ] = await Promise.all([
+            const [imageCache, details] = await Promise.all([
                 retrieveImageCache(),
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn
-                }, true)
+                fetchCartPart(
+                    {
+                        cartId,
+                        forceRefresh,
+                        isSignedIn
+                    },
+                    true
+                )
             ]);
 
-            const [
-                paymentMethods,
-                totals
-            ] = await Promise.all([
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn,
-                    subResource: 'payment-methods'
-                }, details.items.length > 0),
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn,
-                    subResource: 'totals'
-                }, details.items.length > 0)
+            const [paymentMethods, totals] = await Promise.all([
+                fetchCartPart(
+                    {
+                        cartId,
+                        forceRefresh,
+                        isSignedIn,
+                        subResource: 'payment-methods'
+                    },
+                    details.items.length > 0
+                ),
+                fetchCartPart(
+                    {
+                        cartId,
+                        forceRefresh,
+                        isSignedIn,
+                        subResource: 'totals'
+                    },
+                    details.items.length > 0
+                )
             ]);
             const { items } = details;
 
@@ -420,12 +424,10 @@ export const removeCart = () =>
 
 /* helpers */
 
-async function fetchCartPart({
-    cartId,
-    forceRefresh,
-    isSignedIn,
-    subResource = ''
-}, sendRequest) {
+async function fetchCartPart(
+    { cartId, forceRefresh, isSignedIn, subResource = '' },
+    sendRequest
+) {
     if (sendRequest || isUndefined(sendRequest)) {
         const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
         const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
