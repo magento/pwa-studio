@@ -41,7 +41,6 @@ export const createCart = () =>
             const cartId = await request(cartEndpoint, {
                 method: 'POST'
             });
-
             // write to storage in the background
             saveCartId(cartId);
 
@@ -208,16 +207,13 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
 export const removeItemFromCart = payload => {
     const { item } = payload;
-    let lastItemCount = false;
-    
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
 
         const { cart, user } = getState();
-
+        let lastItemCount = false;
         try {
             const { cartId } = cart;
-
             if (!cartId) {
                 const missingCartIdError = new Error(
                     'Missing required information: cartId'
@@ -246,7 +242,7 @@ export const removeItemFromCart = payload => {
             // a price of 0
             const cartItemCount = cart.details ? cart.details.items_count : 0;
             if (cartItemCount === 1) {
-                lastItemCount=true;
+                lastItemCount = true;
             }
 
             dispatch(
@@ -258,7 +254,6 @@ export const removeItemFromCart = payload => {
             );
         } catch (error) {
             const { response, noCartId } = error;
-
             dispatch(actions.removeItem.receive(error));
 
             // check if the cart has expired
@@ -283,9 +278,8 @@ export const removeItemFromCart = payload => {
                 // from an empty cart.
             }
         }
-
         if (!lastItemCount) {
-            await dispatch(getCartDetails({forceRefresh: true}));
+            await dispatch(getCartDetails({ forceRefresh: true }));
         } else {
             await clearCartId();
         }
