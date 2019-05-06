@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import { useWindowSize } from '../useWindowSize';
+import { WindowSizeContextProvider, useWindowSize } from '../WindowSize';
 import createTestInstance from '../../util/createTestInstance';
 
 const spies = new Map();
@@ -22,14 +22,22 @@ const Component = () => {
 };
 
 test('adds an event listener to the window on mount', () => {
-    createTestInstance(<Component />);
+    createTestInstance(
+        <WindowSizeContextProvider>
+            <Component />
+        </WindowSizeContextProvider>
+    );
 
     const spy = spies.get('addEventListener');
     expect(spy).toHaveBeenCalledTimes(5);
 });
 
 test('removes the event listener on unmount', () => {
-    const instance = createTestInstance(<Component />);
+    const instance = createTestInstance(
+        <WindowSizeContextProvider>
+            <Component />
+        </WindowSizeContextProvider>
+    );
 
     act(() => {
         instance.unmount();
