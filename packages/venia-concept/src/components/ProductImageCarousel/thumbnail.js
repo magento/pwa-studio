@@ -20,6 +20,12 @@ class Thumbnail extends Component {
         itemIndex: PropTypes.number,
         onClickHandler: PropTypes.func.isRequired
     };
+    // TODO: When we implement hooks/mergeClasses from #1078 we can replace this
+    // with a useWindowSize hook and rerender when the width changes across the
+    // breakpoint. This is important when changing from portrait to landscape.
+    isDesktop = () => {
+        return window.innerWidth >= 1024;
+    };
 
     onClickHandlerWrapper = () => {
         const { onClickHandler, itemIndex } = this.props;
@@ -32,6 +38,7 @@ class Thumbnail extends Component {
             isActive,
             item: { file, label }
         } = this.props;
+
         const src = file
             ? resourceUrl(file, { type: 'image-product', width: 240 })
             : transparentPlaceholder;
@@ -41,7 +48,9 @@ class Thumbnail extends Component {
                 onClick={this.onClickHandlerWrapper}
                 className={isActive ? classes.rootSelected : classes.root}
             >
-                <img className={classes.image} src={src} alt={label} />
+                {this.isDesktop() ? (
+                    <img className={classes.image} src={src} alt={label} />
+                ) : null}
             </button>
         );
     }

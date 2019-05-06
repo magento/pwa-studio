@@ -39,13 +39,16 @@
     "concurrently": "~4.1.0",
     "intl": "~1.2.5",
     "react": "~16.8.3",
+    "react-apollo": "~2.5.3",
     "react-dom": "~16.8.3",
     "react-router-dom": "~5.0.0",
+    "react-test-renderer": "~16.8.6",
     "rimraf": "~2.6.3"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.2.0",
     "react": "^16.8.0",
+    "react-apollo": "~2.5.3",
     "react-dom": "^16.8.0",
     "react-router-dom": "~5.0.0"
   },

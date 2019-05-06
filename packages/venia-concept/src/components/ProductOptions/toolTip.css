@@ -40,3 +40,9 @@
     top: 100%;
     width: 0;
 }
+
+@media (max-width: 1024px) {
+    .tooltip:before {
+        left: calc(50% - 0.5rem);
+    }
+}
