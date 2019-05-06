@@ -19,7 +19,6 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "build:dev": "yarn workspaces run build:dev",
-    "ci:pr-checks": "./.bin/pr-checks",
     "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
