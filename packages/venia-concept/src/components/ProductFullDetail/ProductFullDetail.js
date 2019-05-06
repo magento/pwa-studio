@@ -2,10 +2,8 @@ import React, { Component, Suspense } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
-import { compose } from 'redux';
 
 import classify from 'src/classify';
-import { connect } from 'src/drivers';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
@@ -253,13 +251,4 @@ class ProductFullDetail extends Component {
     }
 }
 
-const mapStateToProps = ({ cart }) => {
-    return {
-        isAddingItem: cart.isAddingItem
-    };
-};
-
-export default compose(
-    classify(defaultClasses),
-    connect(mapStateToProps)
-)(ProductFullDetail);
+export default classify(defaultClasses)(ProductFullDetail);

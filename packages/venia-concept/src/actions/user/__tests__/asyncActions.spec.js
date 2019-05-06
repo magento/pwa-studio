@@ -53,88 +53,42 @@ afterAll(() => {
     getState.mockRestore();
 });
 
-test('getUserDetails() returns a thunk', () => {
-    expect(getUserDetails()).toBeInstanceOf(Function);
-});
-
 test('createAccount() returns a thunk', () => {
     expect(createAccount()).toBeInstanceOf(Function);
 });
 
-test('createNewUserRequest() returns a thunk', () => {
-    expect(createNewUserRequest()).toBeInstanceOf(Function);
-});
+describe('createNewUserRequest', () => {
+    test('it returns a thunk', () => {
+        expect(createNewUserRequest()).toBeInstanceOf(Function);
+    });
 
-test('getUserDetails thunk makes request to get customer details if user is signed in', async () => {
-    getState.mockImplementationOnce(() => ({
-        user: { isSignedIn: false }
-    }));
+    test('its thunk dispatches resetCreateAccountError', async () => {
+        await createNewUserRequest(accountInfo)(...thunkArgs);
 
-    await getUserDetails()(...thunkArgs);
+        expect(dispatch).toHaveBeenCalledWith(
+            actions.resetCreateAccountError.request()
+        );
+    });
 
-    expect(request.mock.calls).toHaveLength(0);
+    test('its thunk dispatches signIn', async () => {
+        await createNewUserRequest(accountInfo)(...thunkArgs);
 
-    getState.mockImplementationOnce(() => ({
-        user: { isSignedIn: true }
-    }));
+        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+    });
 
-    await getUserDetails()(...thunkArgs);
+    test('its thunk dispatches createAccountError on invalid account info', async () => {
+        const error = new TypeError('ERROR');
+        request.mockRejectedValueOnce(error);
 
-    const firstRequest = request.mock.calls[0];
+        try {
+            await createNewUserRequest({})(...thunkArgs);
+        } catch (e) {}
 
-    expect(firstRequest[0]).toBe('/rest/V1/customers/me');
-    expect(firstRequest[1]).toHaveProperty('method', 'GET');
-});
-
-test('getUserDetails thunk dispatches resetSignInError', async () => {
-    getState.mockImplementationOnce(() => ({
-        user: { isSignedIn: true }
-    }));
-
-    await getUserDetails()(...thunkArgs);
-
-    expect(dispatch).toHaveBeenCalledWith(actions.resetSignInError.request());
-});
-
-test('getUserDetails thunk dispatches signInError on failed request', async () => {
-    const error = new Error('ERROR');
-    getState.mockImplementationOnce(() => ({
-        user: { isSignedIn: true }
-    }));
-    request.mockRejectedValueOnce(error);
-    await getUserDetails()(...thunkArgs);
-    expect(dispatch).toHaveBeenNthCalledWith(
-        2,
-        actions.signInError.receive(error)
-    );
-});
-
-test('createNewUserRequest thunk dispatches resetCreateAccountError', async () => {
-    await createNewUserRequest(accountInfo)(...thunkArgs);
-
-    expect(dispatch).toHaveBeenCalledWith(
-        actions.resetCreateAccountError.request()
-    );
-});
-
-test('createNewUserRequest thunk dispatches signIn', async () => {
-    await createNewUserRequest(accountInfo)(...thunkArgs);
-
-    expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-});
-
-test('createNewUserRequest thunk dispatches createAccountError on invalid account info', async () => {
-    const error = new TypeError('ERROR');
-    request.mockRejectedValueOnce(error);
-
-    try {
-        await createNewUserRequest({})(...thunkArgs);
-    } catch (e) {}
-
-    expect(dispatch).toHaveBeenNthCalledWith(
-        2,
-        actions.createAccountError.receive(error)
-    );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.createAccountError.receive(error)
+        );
+    });
 });
 
 describe('signIn', () => {
@@ -142,19 +96,24 @@ describe('signIn', () => {
         expect(signIn()).toBeInstanceOf(Function);
     });
 
+    test('its thunk returns undefined', async () => {
+        const result = await signIn(credentials)(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
     test('its thunk dispatches actions on success', async () => {
         await signIn(credentials)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(4);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.resetSignInError.request()
-        );
+        expect(dispatch).toHaveBeenCalledTimes(5);
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.signIn.request());
         expect(dispatch).toHaveBeenNthCalledWith(2, actions.signIn.receive());
-        // removeCart
+        // getUserDetails
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        // getCartDetails
+        // removeCart
         expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+        // getCartDetails
+        expect(dispatch).toHaveBeenNthCalledWith(5, expect.any(Function));
     });
 
     test('its thunk dispatches actions on error', async () => {
@@ -167,20 +126,17 @@ describe('signIn', () => {
 
         // Make assertions.
         expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.resetSignInError.request()
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.signIn.request());
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.signInError.receive(error)
+            actions.signIn.receive(error)
         );
     });
 
     test('its thunk makes requests on success', async () => {
         await signIn(credentials)(...thunkArgs);
 
-        expect(request).toHaveBeenCalledTimes(2);
+        expect(request).toHaveBeenCalledTimes(1);
 
         const tokenRequest = request.mock.calls[0];
         const tokenEndpoint = tokenRequest[0];
@@ -195,13 +151,6 @@ describe('signIn', () => {
             username: `${credentials.username}`,
             password: `${credentials.password}`
         });
-
-        const detailsRequest = request.mock.calls[1];
-        const detailsEndpoint = detailsRequest[0];
-        const detailsParams = detailsRequest[1];
-
-        expect(detailsEndpoint).toBe('/rest/V1/customers/me');
-        expect(detailsParams).toHaveProperty('method', 'GET');
     });
 });
 
@@ -225,6 +174,66 @@ describe('signOut', () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, removeCart);
         const getCartDetails = expect.any(Function);
         expect(dispatch).toHaveBeenNthCalledWith(3, getCartDetails);
+    });
+});
+
+describe('getUserDetails', () => {
+    test('it returns a thunk', () => {
+        expect(getUserDetails()).toBeInstanceOf(Function);
+    });
+
+    test('its thunk returns undefined', async () => {
+        const result = await getUserDetails()(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('its thunk dispatches actions on success', async () => {
+        getState.mockImplementationOnce(() => ({
+            user: { isSignedIn: true }
+        }));
+
+        await getUserDetails()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getDetails.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getDetails.receive()
+        );
+    });
+
+    test('its thunk dispatches actions on error', async () => {
+        getState.mockImplementationOnce(() => ({
+            user: { isSignedIn: true }
+        }));
+        const error = new Error('ERROR');
+        request.mockRejectedValueOnce(error);
+
+        await getUserDetails()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getDetails.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getDetails.receive(error)
+        );
+    });
+
+    test('its thunk doesnt dispatch actions if the user is not signed in', async () => {
+        getState.mockImplementationOnce(() => ({
+            user: { isSignedIn: false }
+        }));
+
+        await getUserDetails()(...thunkArgs);
+
+        expect(dispatch).not.toHaveBeenCalled();
     });
 });
 
