@@ -42,14 +42,15 @@ const Category = props => {
                 currentPage: Number(currentPage)
             }
         });
-        window.scrollTo(0);
+        // scrollTo no workie in hook
+        // window.scrollTo(0);
     }, [id, pageSize, currentPage, runQuery, setLoading]);
 
     if (error) return <div>Data Fetch Error</div>;
     // If our pagination component has mounted, then we have
     // a total page count in the store, so we continue to render
     // with our last known total
-    if (loading)
+    if (loading || !data)
         return pageControl.totalPages ? (
             <CategoryContent pageControl={pageControl} pageSize={pageSize} />
         ) : (
