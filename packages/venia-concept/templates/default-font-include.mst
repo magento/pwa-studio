@@ -1,6 +1,20 @@
 {{!
-  Inline the contents of the Google Muli font to avoid initial blocking load
-  via <link>. Apparently css urls are asynchronous.
+  This file contains two things:
+    1) A copy of the css returned by Google's font API that allows us to "skip"
+       a network round trip.
+    2) A link to to the Google Muli font with rel="preload". This tells the
+       browser to prioritize the font file we want.
+
+  All of this is done in the name of speed. CSS requests are _render_ blocking
+  while font requests are only _text_ blocking. By removing the API call we only
+  wait for font request shave off a few ms :)
+}}
+<link rel="preload" href="https://fonts.gstatic.com/s/muli/v13/7Au_p_0qiz-adZnkOCr2z24PMFk-0g.woff2" as="font">
+
+{{!
+  The CSS below this comment is the response copied wholesale from Google's font
+  API. If you ever need to update it, get the response and replace what is below
+  this comment. Remember to replace the preload link above with the src URL!
 }}
 <style type="text/css">
   /* vietnamese */
