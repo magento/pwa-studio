@@ -5,10 +5,11 @@ import { resourceUrl } from 'src/drivers';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './thumbnail.css';
 import { transparentPlaceholder } from 'src/shared/images';
-import { useWindowSize } from '@magento/peregrine/src/hooks/useWindowSize';
+import { useWindowSize } from '@magento/peregrine';
 
 function Thumbnail(props) {
     const windowSize = useWindowSize();
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const {

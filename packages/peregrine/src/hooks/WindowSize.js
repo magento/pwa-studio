@@ -32,7 +32,7 @@ const useWindowSizeListener = () => {
     return windowSize;
 };
 
-const WindowSizeContextProvider = props => {
+export const WindowSizeContextProvider = props => {
     // This hook has side effects of adding listeners so we only want to create it
     // once and store it in context for reference by components.
     const windowSize = useWindowSizeListener();
@@ -44,5 +44,4 @@ const WindowSizeContextProvider = props => {
     );
 };
 
-export default WindowSizeContextProvider;
 export const useWindowSize = () => useContext(WindowSizeContext);
