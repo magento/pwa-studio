@@ -908,7 +908,7 @@ describe('toggleCart', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
     });
 
-    test('its thunk opens the drawer when the cart has no details', async () => {
+    test('its thunk opens the drawer when the cart has no items', async () => {
         getState.mockReturnValueOnce({ app: { drawer: 'cart' }, cart: {} });
         await toggleCart()(...thunkArgs);
         // toggleDrawer
@@ -916,7 +916,7 @@ describe('toggleCart', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
     });
 
-    test('its thunk opens the drawer when the cart has details', async () => {
+    test('its thunk opens the drawer when the cart has items', async () => {
         getState.mockReturnValueOnce({
             app: { drawer: 'cart' },
             cart: { details: { items_count: 2 } }
@@ -948,22 +948,6 @@ describe('toggleCart', () => {
 
         const closeDrawer = expect.any(Function);
         expect(dispatch).toHaveBeenNthCalledWith(1, closeDrawer);
-    });
-
-    test('its thunk opens the drawer and refreshes the cart', async () => {
-        await toggleCart()(...thunkArgs);
-        // toggleDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
-        expect(dispatch).toHaveBeenCalledTimes(1);
-
-        getState.mockReturnValueOnce({
-            app: { drawer: 'cart' },
-            cart: { details: { items_count: 2 } }
-        });
-        await toggleCart()(...thunkArgs);
-        // Refresh the cart
-        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 
