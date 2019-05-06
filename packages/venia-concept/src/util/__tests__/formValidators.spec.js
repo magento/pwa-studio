@@ -120,3 +120,17 @@ describe('validateRegionCode', () => {
         expect(typeof result).toBe('string');
     });
 });
+
+describe('validateTelephone', () => {
+    test('it returns null on success', () => {
+        const result = validators.validateTelephone('00 31 20 555 1111');
+
+        expect(result).toBeNull();
+    });
+
+    test('it returns a string on failure', () => {
+        const result = validators.validateTelephone('test');
+
+        expect(typeof result).toBe('string');
+    });
+});

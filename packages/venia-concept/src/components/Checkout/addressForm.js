@@ -10,7 +10,8 @@ import {
     validateEmail,
     isRequired,
     hasLengthExactly,
-    validateRegionCode
+    validateRegionCode,
+    validateTelephone
 } from 'src/util/formValidators';
 import combine from 'src/util/combineValidators';
 import TextInput from 'src/components/TextInput';
@@ -157,7 +158,7 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.telephone}
                                 field="telephone"
-                                validate={isRequired}
+                                validate={combine([isRequired, validateTelephone])}
                             />
                         </Field>
                     </div>
