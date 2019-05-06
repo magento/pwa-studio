@@ -37,17 +37,17 @@ class CategoryContent extends Component {
                         }}
                     />
                     <div className={classes.categoryTitle}>{categoryTitle}</div>
-                    {filters && (
-                        <div className={classes.headerButtons}>
-                            <button
-                                onClick={openDrawer}
-                                className={classes.filterButton}
-                            >
-                                Filter
-                            </button>
-                        </div>
-                    )}
                 </h1>
+                {filters && (
+                    <div className={classes.headerButtons}>
+                        <button
+                            onClick={openDrawer}
+                            className={classes.filterButton}
+                        >
+                            Filter
+                        </button>
+                    </div>
+                )}
                 <section className={classes.gallery}>
                     <Gallery data={items} title={title} pageSize={pageSize} />
                 </section>

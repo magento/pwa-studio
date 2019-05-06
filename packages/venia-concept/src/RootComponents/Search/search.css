@@ -40,14 +40,12 @@
 }
 
 .filterButton {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     width: 9rem;
-    height: 3rem;
-    border: 1px solid rgb(var(--venia-teal));
+    border: 1px solid black;
     border-radius: 100px;
-    background-color: white;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    color: rgb(var(--venia-teal));
+    color: black;
     outline: none;
 }
