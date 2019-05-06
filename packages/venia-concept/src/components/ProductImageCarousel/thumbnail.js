@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { resourceUrl } from 'src/drivers';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './thumbnail.css';
 import { transparentPlaceholder } from 'src/shared/images';
-import { WindowSizeContext } from 'src/components/App/WindowSizeContext';
+import { useWindowSize } from '@magento/peregrine/src/hooks/useWindowSize';
 
 function Thumbnail(props) {
-    const { windowSize } = useContext(WindowSizeContext);
+    const windowSize = useWindowSize();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const {

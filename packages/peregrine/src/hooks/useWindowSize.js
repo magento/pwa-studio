@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+const WindowSizeContext = createContext();
 
 const getSize = () => {
     return {
@@ -13,7 +15,7 @@ const getSize = () => {
  * A hook that will return inner and outer height and width values whenever
  * the window is resized.
  */
-export const useWindowSize = () => {
+const useWindowSizeListener = () => {
     const [windowSize, setWindowSize] = useState(getSize());
 
     const handleResize = () => {
@@ -29,3 +31,18 @@ export const useWindowSize = () => {
 
     return windowSize;
 };
+
+const WindowSizeContextProvider = props => {
+    // This hook has side effects of adding listeners so we only want to create it
+    // once and store it in context for reference by components.
+    const windowSize = useWindowSizeListener();
+
+    return (
+        <WindowSizeContext.Provider value={windowSize}>
+            {props.children}
+        </WindowSizeContext.Provider>
+    );
+};
+
+export default WindowSizeContextProvider;
+export const useWindowSize = () => useContext(WindowSizeContext);
