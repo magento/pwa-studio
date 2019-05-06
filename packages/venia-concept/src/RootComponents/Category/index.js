@@ -3,4 +3,4 @@
  * description = 'Basic Category Page'
  * pageTypes = CATEGORY
  */
-export { default } from './category';
+export { default } from './category-new';
