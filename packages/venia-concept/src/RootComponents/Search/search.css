@@ -4,6 +4,7 @@
 
 .categoryTop {
     display: flex;
+    flex-wrap: wrap;
     padding: 0 0 1rem 0;
     color: rgb(var(--venia-text-alt));
     justify-content: center;
@@ -29,4 +30,24 @@
 
 .noResult {
     display: flex;
+}
+
+.headerButtons {
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+    padding-top: 0.5rem;
+}
+
+.filterButton {
+    width: 9rem;
+    height: 3rem;
+    border: 1px solid rgb(var(--venia-teal));
+    border-radius: 100px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    color: rgb(var(--venia-teal));
+    outline: none;
 }

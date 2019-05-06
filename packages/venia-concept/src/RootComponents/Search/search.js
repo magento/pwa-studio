@@ -8,6 +8,7 @@ import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import CloseIcon from 'react-feather/dist/icons/x';
+import FilterModal from 'src/components/FilterModal';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -115,6 +116,8 @@ export class Search extends Component {
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
                     if (loading) return loadingIndicator;
+                    const { products } = data;
+                    const { filters, total_count, items } = products;
 
                     if (data.products.items.length === 0)
                         return (
@@ -127,13 +130,25 @@ export class Search extends Component {
                         <article className={classes.root}>
                             <div className={classes.categoryTop}>
                                 <div className={classes.totalPages}>
-                                    {data.products.total_count} items{' '}
+                                    {total_count} items{' '}
                                 </div>
                                 {categoryId &&
                                     getCategoryName(categoryId, classes)}
+                                {filters && (
+                                    <div className={classes.headerButtons}>
+                                        <button
+                                            onClick={this.props.openDrawer}
+                                            className={classes.filterButton}
+                                        >
+                                            Filter
+                                        </button>
+                                    </div>
+                                )}
                             </div>
+
+                            {filters && <FilterModal filters={filters} />}
                             <section className={classes.gallery}>
-                                <Gallery data={data.products.items} />
+                                <Gallery data={items} />
                             </section>
                         </article>
                     );
