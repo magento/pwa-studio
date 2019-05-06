@@ -5,10 +5,10 @@ import { connect } from 'src/drivers';
 
 import { mergeClasses } from 'src/classify';
 import categoryQuery from 'src/queries/getCategory.graphql';
-const classes = mergeClasses(defaultClasses, props.classes);
 import CategoryContent from './categoryContent';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import defaultClasses from './category.css';
 
 const Category = props => {
     const {
@@ -30,6 +30,7 @@ const Category = props => {
     const [queryResult, queryApi] = useQuery(categoryQuery);
     const { data, error, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     useEffect(() => {
         setLoading(true);
