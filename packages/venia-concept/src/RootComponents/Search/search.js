@@ -28,6 +28,7 @@ export class Search extends Component {
             root: string,
             totalPages: string
         }),
+        openDrawer: func.isRequired,
         executeSearch: func.isRequired,
         history: object,
         location: object.isRequired,
@@ -91,7 +92,7 @@ export class Search extends Component {
     };
 
     render() {
-        const { classes, location } = this.props;
+        const { classes, location, openDrawer } = this.props;
         const { getCategoryName } = this;
 
         const inputText = getQueryParameterValue({
@@ -137,7 +138,7 @@ export class Search extends Component {
                                 {filters && (
                                     <div className={classes.headerButtons}>
                                         <button
-                                            onClick={this.props.openDrawer}
+                                            onClick={openDrawer}
                                             className={classes.filterButton}
                                         >
                                             Filter
