@@ -8,7 +8,6 @@
     bottom: 0;
     padding: 1.5rem;
     border-top: 2px solid rgb(var(--venia-border));
-    max-width: 640px;
 }
 
 .footerButton {
