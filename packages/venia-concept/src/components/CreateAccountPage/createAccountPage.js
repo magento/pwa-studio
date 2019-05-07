@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'src/drivers';
 import { compose } from 'redux';
 import CreateAccountForm from 'src/components/CreateAccount';
 import classify from 'src/classify';
