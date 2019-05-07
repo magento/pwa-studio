@@ -158,7 +158,10 @@ class AddressForm extends Component {
                             <TextInput
                                 id={classes.telephone}
                                 field="telephone"
-                                validate={combine([isRequired, validateTelephone])}
+                                validate={combine([
+                                    isRequired,
+                                    validateTelephone
+                                ])}
                             />
                         </Field>
                     </div>
