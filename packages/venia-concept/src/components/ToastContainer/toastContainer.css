@@ -1,0 +1,11 @@
+.container {
+    position: fixed;
+    min-width: 100%;
+    display: grid;
+    grid-row-gap: 1rem;
+
+    /* Necessary to display over page contents */
+    z-index: 9999;
+
+    bottom: 0px;
+}

@@ -1,33 +1,62 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
 import logo from './logo.svg';
+import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
 
-class Logo extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            logo: PropTypes.string
-        }),
-        height: PropTypes.number
-    };
+import CheckIcon from 'react-feather/dist/icons/check';
+import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
-    static defaultProps = {
-        height: 24
-    };
+const Logo = props => {
+    const { height } = props;
+    const classes = mergeClasses({}, props.classes);
 
-    render() {
-        const { height, classes } = this.props;
-
-        return (
-            <img
-                className={classes.logo}
-                src={logo}
-                height={height}
-                alt="Venia"
-                title="Venia"
-            />
+    // DELETE THIS BEFORE MERGE
+    const { addToast } = useToastActions();
+    useEffect(() => {
+        setTimeout(
+            () =>
+                addToast(
+                    'info',
+                    'User dismissed positive message',
+                    true,
+                    CheckIcon
+                ),
+            10
         );
-    }
-}
+        setTimeout(
+            () =>
+                addToast(
+                    'error',
+                    'User dismissed negative message',
+                    true,
+                    AlertCircleIcon
+                ),
+            5000
+        );
+    }, [logo]);
+    /****************/
 
-export default classify({})(Logo);
+    return (
+        <img
+            className={classes.logo}
+            src={logo}
+            height={height}
+            alt="Venia"
+            title="Venia"
+        />
+    );
+};
+
+Logo.propTypes = {
+    classes: PropTypes.shape({
+        logo: PropTypes.string
+    }),
+    height: PropTypes.number
+};
+
+Logo.defaultProps = {
+    height: 24
+};
+
+export default Logo;

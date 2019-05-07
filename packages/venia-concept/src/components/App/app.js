@@ -9,6 +9,7 @@ import OnlineIndicator from 'src/components/OnlineIndicator';
 import ErrorNotifications from './errorNotifications';
 import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
+import ToastContainer from 'src/components/ToastContainer';
 
 class App extends Component {
     static propTypes = {
@@ -43,6 +44,7 @@ class App extends Component {
                         errors={errors}
                         onDismissError={this.recoverFromRenderError}
                     />
+                    <ToastContainer />
                 </Fragment>
             );
         }
@@ -101,6 +103,7 @@ class App extends Component {
                     errors={unhandledErrors}
                     onDismissError={markErrorHandled}
                 />
+                <ToastContainer />
             </Fragment>
         );
     }
