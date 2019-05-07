@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import Header from '../header';
 import defaultClasses from '../header.css';
 import 'src/index.css';
-import { Adapter } from 'src/drivers';
+import { Adapter, Route, Router } from 'src/drivers';
 import store from 'src/store';
 
 const stories = storiesOf('Header', module);
@@ -16,6 +16,7 @@ stories.add('Search Bar Closed', () => (
         apiBase={apiBase}
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
+        using={{ Route, Router }}
     >
         <Header
             classes={defaultClasses}
@@ -30,6 +31,7 @@ stories.add('Search Bar Open', () => (
         apiBase={apiBase}
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
+        using={{ Route, Router }}
     >
         <Header
             classes={defaultClasses}

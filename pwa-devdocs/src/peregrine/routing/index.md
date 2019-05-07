@@ -113,6 +113,7 @@ export default ErrorView;
 ```jsx
 ...
 import { Page } from '@magento/peregrine';
+import { Router, Route } from '@magento/venia-drivers';
 ...
 import ErrorView from 'src/components/ErrorView';
 ...
@@ -125,7 +126,7 @@ class App extends Component {
        return (
            <Fragment>
                <Main isMasked={overlay}>
-                   <Page>{renderRoutingError}</Page>
+                   <Page using={{ Route, Router}} >{renderRoutingError}</Page>
                </Main>
                <Mask isActive={overlay} dismiss={closeDrawer} />
                <Navigation isOpen={navIsOpen} />
@@ -144,6 +145,6 @@ class App extends Component {
 [`Page.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Page/Page.js
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
-[ErrorView]:t://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/ErrorView/errorView.js 
+[ErrorView]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/ErrorView/errorView.js
 [App]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/App/app.js
 [Loading and error message components]: #loading-and-error-message-components

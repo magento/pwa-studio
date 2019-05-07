@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
 
-import { Adapter } from 'src/drivers';
+import { Adapter, Router, Route } from 'src/drivers';
 import store from 'src/store';
 import app from 'src/actions/app';
 import App from 'src/components/App';
@@ -36,6 +36,7 @@ ReactDOM.render(
         apiBase={apiBase}
         apollo={{ link: authLink.concat(Adapter.apolloLink(apiBase)) }}
         store={store}
+        using={{ Route, Router }}
     >
         <App />
     </Adapter>,

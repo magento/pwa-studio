@@ -1,6 +1,5 @@
 import React, { Component, createContext } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { func, object, string } from 'prop-types';
+import { func, object, shape, string } from 'prop-types';
 
 export const { Consumer, Provider } = createContext();
 
@@ -8,16 +7,23 @@ export default class MagentoRouter extends Component {
     static propTypes = {
         apiBase: string.isRequired,
         routerProps: object,
-        using: func // e.g., BrowserRouter, MemoryRouter
+        using: shape({
+            Route: func.isRequired,
+            Router: func.isRequired // e.g., BrowserRouter, MemoryRouter
+        }).isRequired
     };
 
     static defaultProps = {
-        routerProps: {},
-        using: BrowserRouter
+        routerProps: {}
     };
 
     render() {
-        const { apiBase, children, routerProps, using: Router } = this.props;
+        const {
+            apiBase,
+            children,
+            routerProps,
+            using: { Route, Router }
+        } = this.props;
 
         return (
             <Router {...routerProps}>

@@ -48,7 +48,7 @@
 }
 
 .icon {
-    composes: root from 'src/components/Icon/icon.css';
+    composes: root from '../Icon/icon.css';
     color: rgb(var(--venia-notification-icon-color));
 }
 

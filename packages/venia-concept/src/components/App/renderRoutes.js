@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from '@magento/venia-drivers';
 import { Page } from '@magento/peregrine';
 import ErrorView from 'src/components/ErrorView/index';
 import CreateAccountPage from 'src/components/CreateAccountPage/index';
@@ -11,7 +11,11 @@ const renderRoutes = () => (
     <Switch>
         <Route exact path="/search.html" component={Search} />
         <Route exact path="/create-account" component={CreateAccountPage} />
-        <Route render={() => <Page>{renderRoutingError}</Page>} />
+        <Route
+            render={() => (
+                <Page using={{ Route, Router }}>{renderRoutingError}</Page>
+            )}
+        />
     </Switch>
 );
 

@@ -801,10 +801,10 @@
     resolve "^1.8.1"
     semver "^5.5.1"
 
-"@babel/plugin-transform-runtime@~7.3.4":
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.3.4.tgz#57805ac8c1798d102ecd75c03b024a5b3ea9b431"
-  integrity sha512-PaoARuztAdd5MgeVjAxnIDAIUet5KpogqaefQvPOmPYCxYoaPhautxDh3aO8a4xHsKgT/b9gSxR0BKK1MIewPA==
+"@babel/plugin-transform-runtime@~7.4.4":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.4.4.tgz#a50f5d16e9c3a4ac18a1a9f9803c107c380bce08"
+  integrity sha512-aMVojEjPszvau3NRg+TIH14ynZLvPewH4xhlCW1w6A3rkxTS1m4uwzRclYR9oS+rl/dr+kT+pzbfHuAWP/lc7Q==
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
     "@babel/helper-plugin-utils" "^7.0.0"
@@ -1061,7 +1061,7 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@~7.3.4":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1":
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.4.tgz#73d12ba819e365fcf7fd152aed56d6df97d21c83"
   integrity sha512-IvfvnMdSaLBateu0jfsYIpZTxAc2cKEXEMiezGGN75QcBcecDUKd3PgLAncT0oOgxKy8dd8hrJKj9MfzgfZd6g==
@@ -1072,6 +1072,13 @@
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.3.tgz#79888e452034223ad9609187a0ad1fe0d2ad4bdc"
   integrity sha512-9lsJwJLxDh/T3Q3SZszfWOTkk3pHbkmH+3KY+zwIDmsNlxsumuhS2TH3NIpktU4kNvfzy+k3eLT7aTJSPTo0OA==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@babel/runtime@~7.4.2":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
+  integrity sha512-w0+uT71b6Yi7i5SE0co4NioIpSYS6lLiXvCzWzGSKvpK5vdQtCbICHMj+gbAKAOtxiV6HsVh/MBdaF9EQ6faSg==
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -13015,6 +13022,18 @@ react-apollo@~2.5.3:
     ts-invariant "^0.3.2"
     tslib "^1.9.3"
 
+react-apollo@~2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.5.5.tgz#0f27079a8fa9d9ceea8b29a5977eb42885f88fb9"
+  integrity sha512-zoJYlkI3i7+f1ejCbFtWU2GLCxjrmB3Es6RANyEZcbl0yetf5TI6ofMjBzILTvwoqp6tiQHH/8q66vQF0KcLmQ==
+  dependencies:
+    apollo-utilities "^1.2.1"
+    hoist-non-react-statics "^3.3.0"
+    lodash.isequal "^4.5.0"
+    prop-types "^15.7.2"
+    ts-invariant "^0.4.0"
+    tslib "^1.9.3"
+
 react-dev-utils@^6.1.0:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"
@@ -15361,6 +15380,13 @@ ts-invariant@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.3.2.tgz#89a2ffeb70879b777258df1df1c59383c35209b0"
   integrity sha512-QsY8BCaRnHiB5T6iE4DPlJMAKEG3gzMiUco9FEt1jUXQf0XP6zi0idT0i0rMTu8A326JqNSDsmlkA9dRSh1TRg==
+  dependencies:
+    tslib "^1.9.3"
+
+ts-invariant@^0.4.0:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.4.1.tgz#2612cb76626cf7c6debf59e6d284d0abd9caae07"
+  integrity sha512-fdL8AZinDiVKMsOI0cOWHLprS85LWy2p/eVSctVe6fpZF9BAvO59sQYMEWQ37yybBtlKU2zkmILYmy1jrOf6+g==
   dependencies:
     tslib "^1.9.3"
 
