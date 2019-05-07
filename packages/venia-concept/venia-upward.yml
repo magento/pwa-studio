@@ -180,7 +180,7 @@ appShell:
 # The resource object provides information about the page type and which
 # template to use for a requested resource.
 # It uses a ConditionalResolver on the top-level 'urlResolver' object to
-# determine it's 'model' and 'template' properties.
+# determine its 'model' and 'template' properties.
 # See the definition of the 'urlResolver' object for details on how it determines
 # the page type based on the request URL.
 resource:
