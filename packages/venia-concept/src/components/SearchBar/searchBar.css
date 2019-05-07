@@ -18,7 +18,7 @@
     width: 100%;
 }
 
-.searchInner {
+.container {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -27,11 +27,14 @@
     width: 100%;
 }
 
-.SearchAutocompleteWrapper {
-    text-align: left;
-    margin: -0.5rem 0 0.5rem;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+.search {
+    display: grid;
+    position: relative;
+    z-index: 2;
+}
+
+.autocomplete {
+    display: grid;
+    position: relative;
+    z-index: 1;
 }

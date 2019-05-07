@@ -1,31 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
-<button
-  className="root_focused"
+<div
+  className="root"
 >
-  <span>
-    red
-  </span>
-</button>
+  <button
+    aria-describedby="00000000-0000-0000-0000-000000000000"
+    className="root_focused"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+  >
+    <span>
+      red
+    </span>
+  </button>
+</div>
 `;
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
-<button
-  className="root_selected"
+<div
+  className="root"
 >
-  <span>
-    red
-  </span>
-</button>
+  <button
+    aria-describedby="00000000-0000-0000-0000-000000000000"
+    className="root_selected"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+  >
+    <span>
+      red
+    </span>
+  </button>
+</div>
 `;
 
 exports[`renders a Tile correctly 1`] = `
-<button
+<div
   className="root"
 >
-  <span>
-    red
-  </span>
-</button>
+  <button
+    aria-describedby="00000000-0000-0000-0000-000000000000"
+    className="root"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+  >
+    <span>
+      red
+    </span>
+  </button>
+</div>
 `;

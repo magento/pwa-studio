@@ -7,7 +7,6 @@
     align-items: center;
     display: flex;
     font-size: 0.875rem;
-    font-weight: 600;
     line-height: 1rem;
     padding: 0.375rem 0.125rem;
 }
@@ -32,4 +31,12 @@
     box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
         0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
     outline: none;
+}
+
+.requiredSymbol {
+    background-color: black;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    margin-right: 0.4rem;
 }
