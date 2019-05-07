@@ -1,290 +1,180 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import SearchAutocomplete from '../autocomplete';
-import waitForExpect from 'wait-for-expect';
+import { Form, Text } from 'informed';
+import { act } from 'react-test-renderer';
+import { createTestInstance, useQuery } from '@magento/peregrine';
+
+import Autocomplete from '../autocomplete';
 
 jest.mock('src/classify');
+jest.mock('@magento/peregrine');
+jest.mock('../suggestions', () => () => null);
+jest.doMock('react-apollo/ApolloContext', () => React.createContext());
 
-jest.mock('lodash/debounce', debounceTimer =>
-    jest.fn(fn => setTimeout(() => fn, debounceTimer))
-);
+const resetState = jest.fn();
+const runQuery = jest.fn();
+const setLoading = jest.fn();
+runQuery.cancel = jest.fn();
 
-jest.mock('src/components/LoadingIndicator', () => ({
-    loadingIndicator: 'Fetching Data...'
-}));
+const queryState = {
+    data: null,
+    error: null,
+    loading: false
+};
+const queryApi = {
+    resetState,
+    runQuery,
+    setLoading
+};
 
-jest.mock('../suggestedCategories');
-jest.mock('../suggestedProducts');
+useQuery.mockImplementation(() => [queryState, queryApi]);
 
-let mockLoading, mockError, mockData;
+test('renders correctly', () => {
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={false} />
+        </Form>
+    );
 
-jest.mock('src/drivers', () => ({
-    Query: ({ children }) => {
-        return children({
-            loading: mockLoading,
-            error: mockError,
-            data: mockData
-        });
-    }
-}));
-
-beforeEach(() => {
-    mockLoading = false;
-    mockError = false;
-    mockData = {};
+    expect(root.findByProps({ className: 'root_hidden' })).toBeTruthy();
+    expect(root.findByProps({ className: 'message' })).toBeTruthy();
+    expect(root.findByProps({ className: 'suggestions' })).toBeTruthy();
 });
 
-test('Autocomplete query update should be debounced', async () => {
-    const updateAutocompleteVisible = jest
-        .fn()
-        .mockImplementationOnce(() => {});
-    const initialState = '';
-    const testString = 'test';
+test('resets query state if not visible', () => {
+    createTestInstance(
+        <Form>
+            <Autocomplete visible={false} />
+        </Form>
+    );
 
-    const wrapper = shallow(
-        <SearchAutocomplete
-            searchQuery={initialState}
-            autocompleteVisible={true}
-            updateAutocompleteVisible={updateAutocompleteVisible}
-            executeSearch={jest.fn()}
-        />
-    ).dive();
+    expect(resetState).toHaveBeenCalledTimes(1);
+});
 
-    /* Expect component to initialize with empty string */
-    expect(wrapper.instance().state.autocompleteQuery).toEqual(initialState);
+test('resets query state if input is invalid', () => {
+    createTestInstance(
+        <Form initialValues={{ search_query: '' }}>
+            <Autocomplete visible={true} />
+        </Form>
+    );
 
-    wrapper.setProps({ searchQuery: testString });
+    expect(resetState).toHaveBeenCalledTimes(1);
+});
 
-    /* Expect component not to update right away (debounce) */
-    expect(wrapper.instance().state.autocompleteQuery).toEqual(initialState);
+test('sets loading, then runs query', () => {
+    let formApi;
 
-    await waitForExpect(() => {
-        expect(wrapper.instance().state.autocompleteQuery).toEqual(testString);
+    createTestInstance(
+        <Form
+            getApi={api => {
+                formApi = api;
+            }}
+        >
+            <Text field="search_query" initialValue="" />
+            <Autocomplete visible={true} />
+        </Form>
+    );
+
+    act(() => {
+        formApi.setValue('search_query', 'a');
     });
-});
-
-test('Autocomplete should not render if autocompleteVisible is set to false', async () => {
-    const updateAutocompleteVisible = jest
-        .fn()
-        .mockImplementationOnce(() => {});
-    const initialState = '';
-    const testString = 'test';
-
-    const wrapper = shallow(
-        <SearchAutocomplete
-            searchQuery={initialState}
-            autocompleteVisible={false}
-            updateAutocompleteVisible={updateAutocompleteVisible}
-            executeSearch={jest.fn()}
-        />
-    ).dive();
-
-    wrapper.setProps({ searchQuery: testString });
-
-    await waitForExpect(() => {
-        expect(wrapper.instance().render()).toBeNull();
+    act(() => {
+        formApi.setValue('search_query', 'ab');
     });
-});
-
-test('Autocomplete should not render if searchQuery is null or less than 3 chars long', async () => {
-    const updateAutocompleteVisible = jest
-        .fn()
-        .mockImplementationOnce(() => {});
-    const initialState = '';
-    const testString = 'ab';
-
-    const wrapper = shallow(
-        <SearchAutocomplete
-            searchQuery={initialState}
-            autocompleteVisible={true}
-            updateAutocompleteVisible={updateAutocompleteVisible}
-            executeSearch={jest.fn()}
-        />
-    ).dive();
-    /* Expect component to return null if search query is null" */
-    expect(wrapper.instance().render()).toBeNull();
-
-    wrapper.setProps({ searchQuery: testString });
-
-    await waitForExpect(() => {
-        expect(wrapper.instance().render()).toBeNull();
+    act(() => {
+        formApi.setValue('search_query', 'abc');
     });
-});
 
-test('Autocomplete should render if searchQuery and autocompleteVisible props result in true', async () => {
-    const updateAutocompleteVisible = jest
-        .fn()
-        .mockImplementationOnce(() => {});
-    const initialState = '';
-    const testString = 'test';
-
-    const wrapper = shallow(
-        <SearchAutocomplete
-            searchQuery={initialState}
-            autocompleteVisible={true}
-            updateAutocompleteVisible={updateAutocompleteVisible}
-            executeSearch={jest.fn()}
-        />
-    ).dive();
-
-    wrapper.setProps({ searchQuery: testString });
-
-    await waitForExpect(() => {
-        expect(wrapper.instance().render()).not.toBeNull();
-    });
-});
-
-test('renders error', async () => {
-    mockError = true;
-    const props = {
-        searchQuery: 'i display an error',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('renders loading indicator', async () => {
-    mockLoading = true;
-    const props = {
-        searchQuery: 'i display a loading indicator',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('renders no results', async () => {
-    mockData = {
-        products: {
-            items: []
-        }
-    };
-    const props = {
-        searchQuery: 'i display no results',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('renders SuggestedCategories and SuggestedProducts', () => {
-    const mockItem = {
-        id: 1,
-        name: 'pants'
-    };
-    const mockFilter = {
-        name: 'Category',
-        filter_items: [
-            {
-                label: 'foo',
-                value_string: '123'
+    expect(resetState).toHaveBeenCalledTimes(2);
+    expect(setLoading).toHaveBeenCalledTimes(1);
+    expect(runQuery).toHaveBeenCalledTimes(1);
+    expect(runQuery).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+            variables: {
+                inputText: 'abc'
             }
-        ]
-    };
-    mockData = {
-        products: {
-            items: [mockItem],
-            filters: [mockFilter]
-        }
-    };
-    const props = {
-        searchQuery: 'i display no results',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('calls updateAutocompleteVisible prop fn with false on product open', () => {
-    const props = {
-        searchQuery: '',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    component.root.children[0].instance.handleOnProductOpen();
-    expect(props.updateAutocompleteVisible).toHaveBeenCalledWith(false);
-});
-
-test('calls updateAutocompleteVisible prop fn with false and', () => {
-    const props = {
-        searchQuery: '',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
-    const id = 1;
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-
-    component.root.children[0].instance.handleCategorySearch({
-        preventDefault: jest.fn(),
-        currentTarget: { dataset: { id } }
-    });
-
-    expect(props.updateAutocompleteVisible).toHaveBeenCalledWith(false);
-    expect(props.executeSearch).toHaveBeenCalledWith(
-        props.searchQuery,
-        undefined,
-        id
-    );
-
-    props.updateAutocompleteVisible.mockReset();
-    props.executeSearch.mockReset();
-
-    // Test for when currenttarget has no dataset attrs
-    component.root.children[0].instance.handleCategorySearch({
-        preventDefault: jest.fn(),
-        currentTarget: {},
-        srcElement: { dataset: { id } }
-    });
-
-    expect(props.updateAutocompleteVisible).toHaveBeenCalledWith(false);
-    expect(props.executeSearch).toHaveBeenCalledWith(
-        props.searchQuery,
-        undefined,
-        id
+        })
     );
 });
 
-test('updateAutocompleteQuery updates state', async () => {
-    const props = {
-        searchQuery: '',
-        autocompleteVisible: true,
-        updateAutocompleteVisible: jest.fn(),
-        executeSearch: jest.fn()
-    };
+test('renders a hint message', () => {
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={true} />
+        </Form>
+    );
 
-    const component = testRenderer.create(<SearchAutocomplete {...props} />);
-    component.root.children[0].instance.setState = jest.fn();
-    component.root.children[0].instance.updateAutocompleteQuery('foo');
+    expect(root.findByProps({ className: 'message' }).children).toContain(
+        'Search for a product'
+    );
+});
 
-    await waitForExpect(() => {
-        expect(
-            component.root.children[0].instance.setState
-        ).toHaveBeenCalledWith({
-            autocompleteQuery: 'foo',
-            isQueryUpdating: false
-        });
-    });
+test('renders an error message', () => {
+    useQuery.mockReturnValueOnce([
+        { data: null, error: new Error('error'), loading: false },
+        queryApi
+    ]);
+
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={true} />
+        </Form>
+    );
+
+    expect(root.findByProps({ className: 'message' }).children).toContain(
+        'An error occurred while fetching results.'
+    );
+});
+
+test('renders a loading message', () => {
+    useQuery.mockReturnValueOnce([
+        { data: null, error: null, loading: true },
+        queryApi
+    ]);
+
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={true} />
+        </Form>
+    );
+
+    expect(root.findByProps({ className: 'message' }).children).toContain(
+        'Fetching results...'
+    );
+});
+
+test('renders an empty-set message', () => {
+    const data = { products: { filters: [], items: [] } };
+    useQuery.mockReturnValueOnce([
+        { data, error: null, loading: false },
+        queryApi
+    ]);
+
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={true} />
+        </Form>
+    );
+
+    expect(root.findByProps({ className: 'message' }).children).toContain(
+        'No results were found.'
+    );
+});
+
+test('renders a summary message', () => {
+    const data = { products: { filters: [], items: { length: 1 } } };
+    useQuery.mockReturnValueOnce([
+        { data, error: null, loading: false },
+        queryApi
+    ]);
+
+    const { root } = createTestInstance(
+        <Form>
+            <Autocomplete visible={true} />
+        </Form>
+    );
+
+    expect(root.findByProps({ className: 'message' }).children).toContain(
+        '1 items'
+    );
 });
