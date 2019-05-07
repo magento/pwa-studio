@@ -93,6 +93,7 @@ imageOpt:
     headers:
       inline:
         Location:
+          # A UrlResolver is used to generate the URL location
           baseUrl: request.url.query.url
           query:
             inline:
@@ -277,7 +278,7 @@ urlResolverResult:
     inline:
       urlKey: request.url.pathname
 
-# The magentoGQL object uses a TemplateResolver to generate the URL for the
+# The magentoGQL object is a UrlResolver that returns the URL for the
 # GraphQL endpoint using the MAGENTO_BACKEND_URL environment variable.
 magentoGQL:
   baseUrl: env.MAGENTO_BACKEND_URL
