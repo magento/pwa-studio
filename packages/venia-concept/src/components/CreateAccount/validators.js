@@ -22,7 +22,7 @@ const isPasswordComplexEnough = (str = '') => {
 
 export const validators = new Map()
     .set('confirm', (value, values) => {
-        return value !== values.password ? 'Passwords must match.' : null;
+        return value !== values.password ? 'Passwords must match.' : undefined;
     })
     .set('email', value => {
         const trimmed = (value || '').trim();
@@ -30,13 +30,13 @@ export const validators = new Map()
         if (!trimmed) return 'An email address is required.';
         if (!trimmed.includes('@')) return 'A valid email address is required.';
 
-        return null;
+        return undefined;
     })
     .set('firstName', value => {
-        return !(value || '').trim() ? 'A first name is required.' : null;
+        return !(value || '').trim() ? 'A first name is required.' : undefined;
     })
     .set('lastName', value => {
-        return !(value || '').trim() ? 'A last name is required.' : null;
+        return !(value || '').trim() ? 'A last name is required.' : undefined;
     })
     .set('password', value => {
         if (!value || value.length < 8) {
@@ -46,7 +46,7 @@ export const validators = new Map()
             return 'A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.';
         }
 
-        return null;
+        return undefined;
     });
 
 export const asyncValidators = new Map().set('email', async value => {
