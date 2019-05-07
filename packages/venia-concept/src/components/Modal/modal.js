@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 const Modal = ({ parentId, children }) => {
     const getPortalParent = useMemo(
         () => document.getElementById(`${parentId || 'root'}`),
-        [id]
+        [parentId]
     );
 
     return createPortal(children, getPortalParent);
