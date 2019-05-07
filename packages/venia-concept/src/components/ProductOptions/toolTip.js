@@ -4,10 +4,10 @@ import over from 'lodash.over';
 import uuid from 'uuid/v4';
 
 import classify from 'src/classify';
-import defaultClasses from './swatchTooltip.css';
+import defaultClasses from './toolTip.css';
 
 /**
- * NOTE: The SwatchTooltip component, as created, needs to be a parent of the
+ * NOTE: The Tooltip component, as created, needs to be a parent of the
  * component it is a tooltip for. This is necessary for several reasons:
  *  - the Tooltip generates a uuid which is used for the aria-describedby
  *  - the Tooltip currently acts like a controller for event handlers.
@@ -16,7 +16,7 @@ import defaultClasses from './swatchTooltip.css';
  * Peregrine we may change the parent-child relationship pattern. Please be
  * aware of this if you chose to reuse this component. -srugh
  */
-class SwatchTooltip extends Component {
+class Tooltip extends Component {
     static propTypes = {
         classes: shape({
             root: string,
@@ -117,4 +117,4 @@ class SwatchTooltip extends Component {
     }
 }
 
-export default classify(defaultClasses)(SwatchTooltip);
+export default classify(defaultClasses)(Tooltip);

@@ -51,7 +51,7 @@ response:
     # to match the directory, but the resolver is still manually configured to
     # use that directory by name.
     - matches: request.url.pathname
-      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png$)'
+      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png|robots.txt$)'
       use: static
     # Requests with a URL key are handled by the top-level 'appShell' object.
     # The existence of a URL key is determined using the top-level 'urlKey'
@@ -93,22 +93,14 @@ imageOpt:
     headers:
       inline:
         Location:
-          engine: mustache
-          provide:
-            width: $match.$1
-            path: request.url.query.url
-          template:
-            when:
-              # Redirect to the Fastly service, which is presumed to be part
-              # the URL query, when the USE_FASTLY environment value is present
-              # and not set to `0`.
-              - matches: env.USE_FASTLY
-                pattern: '[^0]'
-                use:
-                  inline: '{{path}}?auto=webp&format=pjpg&width={{width}}'
-            # The fallback strategy is to use the uncompressed image
-            default:
-              inline: '{{path}}'
+          baseUrl: request.url.query.url
+          query:
+            inline:
+              auto:
+                inline: webp
+              format:
+                inline: pjpg
+              width: $match.$1
 
 # An object that returns true if the NODE_ENV environment variable is set 
 # to 'development'. Used as a test in other configurations in this file.
@@ -288,11 +280,9 @@ urlResolverResult:
 # The magentoGQL object uses a TemplateResolver to generate the URL for the
 # GraphQL endpoint using the MAGENTO_BACKEND_URL environment variable.
 magentoGQL:
-  engine: mustache
-  template:
-    inline: '{{env.MAGENTO_BACKEND_URL}}/graphql'
-  provide:
-    - env
+  baseUrl: env.MAGENTO_BACKEND_URL
+  pathname:
+    inline: graphql
 
 # The product object is an object containing only the relevant data from the
 # top-level 'productResult' object.
