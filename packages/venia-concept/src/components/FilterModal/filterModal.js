@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { connect } from 'src/drivers';
 import FilterFooter from './FilterFooter';
-import { closeDrawer } from 'src/actions/app';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
@@ -77,20 +74,4 @@ class FilterModal extends Component {
     }
 }
 
-const mapStateToProps = ({ app }) => {
-    return {
-        drawer: app.drawer
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    closeDrawer: () => dispatch(closeDrawer())
-});
-
-export default compose(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
-    classify(defaultClasses)
-)(FilterModal);
+export default classify(defaultClasses)(FilterModal);
