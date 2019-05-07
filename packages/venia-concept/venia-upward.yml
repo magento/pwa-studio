@@ -177,7 +177,7 @@ appShell:
 # See the definition of the 'urlResolver' object for details on how it determines
 # the page type based on the request URL.
 resource:
-   when:
+  when:
     # As with all other context values, `urlResolver` begins resolving the first
     # time its value is requested. If UPWARD has not yet queried the GraphQL
     # service before evaluating this match clause, then it does so now.
