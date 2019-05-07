@@ -57,7 +57,7 @@ This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data
 
 **Example:**
 ``` text
-MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/
+MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
 ```
 
 ### Choosing the Magento 2.3 backend

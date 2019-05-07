@@ -43,10 +43,10 @@ describe('hasLengthExactly', () => {
 });
 
 describe('isRequired', () => {
-    test('it returns null on success', () => {
+    test('it returns undefined on success', () => {
         const result = validators.isRequired('test');
 
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
@@ -63,16 +63,10 @@ describe('isRequired', () => {
 });
 
 describe('validateEmail', () => {
-    test('it returns null on success', () => {
+    test('it returns undefined on success', () => {
         const result = validators.validateEmail('johndoe@domain.com');
 
-        expect(result).toBeNull();
-    });
-
-    test('it returns null on success', () => {
-        const result = validators.validateEmail('');
-
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
@@ -98,23 +92,36 @@ describe('validateRegionCode', () => {
         { id: 'UK' }
     ];
 
-    test('it returns null on success', () => {
+    test('it returns undefined on success', () => {
         const result = validators.validateRegionCode('AL', [], countries);
 
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
-    test('it returns null on success', () => {
-        const result = validators.validateRegionCode('');
-
-        expect(result).toBeNull();
-    });
-
-    test('it returns a string on failure', () => {
+    test('it returns a string on failure due to bad state value', () => {
         const result = validators.validateRegionCode(
             'some_string',
             [],
             countries
+        );
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on failure due to missing country', () => {
+        const result = validators.validateRegionCode('AL', [], []);
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on failure due to no regions', () => {
+        const missingRegions = [...countries];
+        missingRegions[0].available_regions = [];
+
+        const result = validators.validateRegionCode(
+            'some_string',
+            [],
+            missingRegions
         );
 
         expect(typeof result).toBe('string');
