@@ -1,13 +1,22 @@
 import { useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import { node, object } from 'prop-types';
 
-const Modal = ({ parentId, children }) => {
-    const getPortalParent = useMemo(
-        () => document.getElementById(`${parentId || 'root'}`),
-        [parentId]
+const Modal = ({ children, container }) => {
+    const target = useMemo(
+        () =>
+            container instanceof HTMLElement
+                ? container
+                : document.getElementById('root'),
+        [container]
     );
 
-    return createPortal(children, getPortalParent);
+    return createPortal(children, target);
 };
 
 export default Modal;
+
+Modal.propTypes = {
+    children: node,
+    container: object
+};
