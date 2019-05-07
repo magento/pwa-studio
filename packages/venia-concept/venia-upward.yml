@@ -9,7 +9,7 @@ response:
       pattern: '^/img/resize/(\d+)'
       use: imageOpt
     - matches: request.url.pathname
-      pattern: '^/(graphql|rest|media|cache)(/|$)'
+      pattern: '^/(graphql|rest|media)(/|$)'
       use: proxy
     - matches: request.url.pathname
       pattern: '^/create-account'
