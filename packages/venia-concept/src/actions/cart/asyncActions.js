@@ -485,18 +485,27 @@ function toRESTCartItem(cartId, payload) {
         quote_id: cartId
     };
 
-    if (productType === 'ConfigurableProduct') {
-        const { options, parentSku } = payload;
+   if (item.type_id === 'configurable') {
+    cartItem.sku = parentSku;
+    cartItem.product_type = 'configurable';
+    cartItem.product_option = {
+      extension_attributes: {
+        configurable_item_options: options
+      }
+    };
+  }
+  
+  if (item.type_id === 'bundle') {
 
-        cartItem.sku = parentSku;
-        cartItem.product_type = 'configurable';
-        cartItem.product_option = {
-            extension_attributes: {
-                configurable_item_options: options
-            }
-        };
-    }
-
+    
+    cartItem.sku = item.sku;
+    cartItem.product_type = 'bundle';
+    cartItem.product_option = {
+      extension_attributes: {
+        bundle_options: options
+      }
+    };
+  }
     return cartItem;
 }
 
