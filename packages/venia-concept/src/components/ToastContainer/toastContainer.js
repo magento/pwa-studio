@@ -1,5 +1,4 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { shape, string } from 'prop-types';
 import { useToastStore } from '@magento/peregrine/src/Toasts/context';
 import Toast from './toast';
@@ -24,10 +23,8 @@ const ToastContainer = props => {
         return <Toast key={toast.id} {...toastProps} />;
     });
 
-    return createPortal(
-        <div className={classes.container}>{toastList}</div>,
-        document.getElementById('root')
-    );
+    // TODO: Prevent re-render of container when new toasts are added.
+    return <div className={classes.container}>{toastList}</div>;
 };
 
 ToastContainer.propTypes = {
