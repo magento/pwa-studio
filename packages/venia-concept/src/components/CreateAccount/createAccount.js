@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
@@ -17,7 +18,6 @@ import {
 } from 'src/util/formValidators';
 
 import defaultClasses from './createAccount.css';
-import classify from 'src/classify';
 
 class CreateAccount extends Component {
     static propTypes = {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
+import { ApolloContext } from 'react-apollo/ApolloContext';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -69,14 +70,26 @@ export default class VeniaAdapter extends Component {
         this.apolloClient =
             apollo.client || VeniaAdapter.apolloClient(this.props);
     }
+
+    /*
+     * TODO: consolidate react-apollo context providers
+     *
+     * They think they're using the new context API, but they're not.
+     * https://github.com/apollographql/react-apollo/pull/2540
+     *
+     * Need ApolloProvider for Query and ApolloConsumer.
+     * Need ApolloContext for useContext.
+     */
     render() {
         const { children, store, apiBase } = this.props;
         return (
-            <ApolloProvider client={this.apolloClient}>
-                <ReduxProvider store={store}>
-                    <Router apiBase={apiBase}>{children}</Router>
-                </ReduxProvider>
-            </ApolloProvider>
+            <ApolloContext.Provider value={this.apolloClient}>
+                <ApolloProvider client={this.apolloClient}>
+                    <ReduxProvider store={store}>
+                        <Router apiBase={apiBase}>{children}</Router>
+                    </ReduxProvider>
+                </ApolloProvider>
+            </ApolloContext.Provider>
         );
     }
 }
