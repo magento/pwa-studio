@@ -6,3 +6,4 @@ pwa-devdocs
 storybook*
 __test*
 test-results
+asset-manifest.json
