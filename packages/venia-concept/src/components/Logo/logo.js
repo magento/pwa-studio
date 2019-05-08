@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeClasses } from 'src/classify';
 import logo from './logo.svg';
-import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
-
-import CheckIcon from 'react-feather/dist/icons/check';
-import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
 const Logo = props => {
     const { height } = props;
