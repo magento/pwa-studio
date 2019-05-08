@@ -11,16 +11,7 @@ const ToastContainer = props => {
     const toasts = useToastStore();
     const toastList = Object.keys(toasts).map(toastKey => {
         const toast = toasts[toastKey];
-        const toastProps = {
-            id: toast.id,
-            type: toast.type,
-            icon: toast.icon,
-            message: toast.message,
-            actionText: toast.actionText,
-            actionCallback: toast.actionCallback,
-            dismissable: toast.dismissable
-        };
-        return <Toast key={toast.id} {...toastProps} />;
+        return <Toast key={toast.id} {...toast} />;
     });
 
     return (

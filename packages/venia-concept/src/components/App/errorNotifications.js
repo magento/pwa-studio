@@ -1,74 +1,49 @@
-import React, { Component } from 'react';
+import { useCallback, useEffect } from 'react';
 import { arrayOf, object, func, shape, string } from 'prop-types';
-import classify from 'src/classify';
-import { Notification, NotificationStack } from 'src/components/Notifications';
-import defaultClasses from './errorNotifications.css';
+import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
+import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
 
 const dismissers = new WeakMap();
 
-class ErrorNotifications extends Component {
-    static propTypes = {
-        classes: shape({
-            debuginfo: string
-        }).isRequired,
-        errors: arrayOf(
-            shape({
-                error: object.isRequired,
-                id: string.isRequired,
-                loc: string
-            })
-        ),
-        onDismissError: func.isRequired
-    };
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
-
-    dismissNotificationOnClick(e, dismiss) {
-        e.preventDefault();
-        e.stopPropagation();
-        dismiss();
-    }
+const ErrorNotifications = props => {
+    const { onDismissError } = props;
+    const { addToast } = useToastActions();
 
     // Memoize dismisser funcs to reduce re-renders from func identity change.
-    getErrorDismisser(error) {
-        const { onDismissError } = this.props;
-        return dismissers.has(error)
-            ? dismissers.get(error)
-            : dismissers.set(error, () => onDismissError(error)).get(error);
-    }
+    const getErrorDismisser = useCallback(
+        error => {
+            return dismissers.has(error)
+                ? dismissers.get(error)
+                : dismissers.set(error, () => onDismissError(error)).get(error);
+        },
+        [onDismissError]
+    );
 
-    get allNotifications() {
-        const { classes, errors } = this.props;
-        return errors.map(({ error, id, loc }) => (
-            <Notification
-                key={id}
-                type="error"
-                onClick={this.dismissNotificationOnClick}
-                afterDismiss={this.getErrorDismisser(error)}
-            >
-                <div>Sorry! An unexpected error occurred.</div>
-                <small className={classes.debuginfo}>
-                    Debug: {id} {loc}
-                </small>
-            </Notification>
-        ));
-    }
+    return props.errors.map(({ error, id, loc }) => {
+        useEffect(() => {
+            // TODO: Without the enclosing useEffect this endless loops. Why?
+            addToast({
+                type: 'error',
+                message: `Sorry! An unexpected error occurred.\nDebug: ${id} ${loc}`,
+                icon: AlertCircleIcon,
+                dismissable: true,
+                onDismiss: getErrorDismisser(error)
+            });
+        }, [error, id, loc]);
 
-    render() {
-        const { classes, errors } = this.props;
-        if (errors.length > 0) {
-            return (
-                <div className={classes.root}>
-                    <NotificationStack>
-                        {this.allNotifications}
-                    </NotificationStack>
-                </div>
-            );
-        }
         return null;
-    }
-}
+    });
+};
 
-export default classify(defaultClasses)(ErrorNotifications);
+ErrorNotifications.propTypes = {
+    errors: arrayOf(
+        shape({
+            error: object.isRequired,
+            id: string.isRequired,
+            loc: string
+        })
+    ),
+    onDismissError: func.isRequired
+};
+
+export default ErrorNotifications;

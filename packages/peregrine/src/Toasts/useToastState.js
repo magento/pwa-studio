@@ -9,13 +9,7 @@ const reducer = (prevState = initialState, action = {}) => {
             return {
                 ...prevState,
                 [payload.id]: {
-                    id: payload.id,
-                    type: payload.type,
-                    icon: payload.icon,
-                    message: payload.message,
-                    actionText: payload.actionText,
-                    actionCallback: payload.actionCallback,
-                    dismissable: payload.dismissable
+                    ...payload
                 }
             };
         case 'remove':

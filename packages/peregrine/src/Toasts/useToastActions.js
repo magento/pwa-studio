@@ -7,11 +7,11 @@ export const useToastActions = () => {
     const dispatch = useToastDispatch();
 
     const addToast = useCallback(
-        ({ type, message, dismissable, icon, actionText, actionCallback }) => {
+        toastProps => {
             const id = Date.now();
 
             // Queue to delete the toast after some time.
-            if (!dismissable) {
+            if (!toastProps.dismissable) {
                 setTimeout(() => {
                     removeToast(id);
                 }, DEFAULT_TIMEOUT);
@@ -20,13 +20,8 @@ export const useToastActions = () => {
             return dispatch({
                 type: 'add',
                 payload: {
-                    id,
-                    type,
-                    message,
-                    icon,
-                    actionText,
-                    actionCallback,
-                    dismissable
+                    ...toastProps,
+                    id
                 }
             });
         },

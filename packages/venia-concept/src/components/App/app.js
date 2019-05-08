@@ -87,9 +87,12 @@ class App extends Component {
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
-
         return (
             <Fragment>
+                <ErrorNotifications
+                    errors={unhandledErrors}
+                    onDismissError={markErrorHandled}
+                />
                 <Main isMasked={overlay}>
                     {onlineIndicator}
                     {renderRoutes()}
@@ -97,10 +100,6 @@ class App extends Component {
                 <Mask isActive={overlay} dismiss={closeDrawer} />
                 <Navigation isOpen={navIsOpen} />
                 <MiniCart isOpen={cartIsOpen} />
-                <ErrorNotifications
-                    errors={unhandledErrors}
-                    onDismissError={markErrorHandled}
-                />
             </Fragment>
         );
     }

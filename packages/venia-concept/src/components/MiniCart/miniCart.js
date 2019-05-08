@@ -245,6 +245,7 @@ class MiniCart extends Component {
         const className = isOpen ? classes.root_open : classes.root;
         const body = isOptionsDrawerOpen ? productOptions : miniCartInner;
         const title = isOptionsDrawerOpen ? 'Edit Cart Item' : 'Shopping Cart';
+        throw new Error('error in minicart');
 
         return (
             <aside className={className}>

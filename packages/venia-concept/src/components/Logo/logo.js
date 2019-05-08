@@ -11,32 +11,6 @@ const Logo = props => {
     const { height } = props;
     const classes = mergeClasses({}, props.classes);
 
-    // DELETE THIS BEFORE MERGE
-    const { addToast } = useToastActions();
-    useEffect(() => {
-        setTimeout(
-            () =>
-                addToast({
-                    type: 'info',
-                    message: 'User dismissed positive message',
-                    dismissable: true,
-                    icon: CheckIcon
-                }),
-            10
-        );
-        setTimeout(
-            () =>
-                addToast({
-                    type: 'error',
-                    message: 'User dismissed negative message',
-                    dismissable: true,
-                    icon: AlertCircleIcon
-                }),
-            5000
-        );
-    }, [logo]);
-    /****************/
-
     return (
         <img
             className={classes.logo}
