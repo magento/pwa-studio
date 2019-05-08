@@ -3,7 +3,7 @@ const initialState = {};
 
 const reducer = (prevState = initialState, action = {}) => {
     const { type, payload } = action;
-    console.log(payload);
+    console.log(type, payload);
     switch (type) {
         case 'add':
             return {

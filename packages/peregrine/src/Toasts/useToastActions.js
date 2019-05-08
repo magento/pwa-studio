@@ -1,18 +1,20 @@
 import { useCallback } from 'react';
 import { useToastDispatch } from './context';
 
+const DEFAULT_TIMEOUT = 5000;
+
 export const useToastActions = () => {
     const dispatch = useToastDispatch();
 
     const addToast = useCallback(
-        (type, message, dismissable, icon, actionText, actionCallback) => {
+        ({ type, message, dismissable, icon, actionText, actionCallback }) => {
             const id = Date.now();
 
             // Queue to delete the toast after some time.
             if (!dismissable) {
                 setTimeout(() => {
                     removeToast(id);
-                }, 5000);
+                }, DEFAULT_TIMEOUT);
             }
 
             return dispatch({

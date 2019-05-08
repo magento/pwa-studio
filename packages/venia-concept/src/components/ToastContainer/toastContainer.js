@@ -10,8 +10,6 @@ const ToastContainer = props => {
     const toasts = useToastStore();
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // TODO: Figure out how to ADD new toasts to the container without redrawing
-    // or recalculating the list.
     const toastList = Object.keys(toasts).map(toastKey => {
         const toast = toasts[toastKey];
         const toastProps = {
@@ -23,7 +21,6 @@ const ToastContainer = props => {
             actionCallback: toast.actionCallback,
             dismissable: toast.dismissable
         };
-        console.log(toastProps);
         return <Toast key={toast.id} {...toastProps} />;
     });
 

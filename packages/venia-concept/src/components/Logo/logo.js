@@ -16,22 +16,22 @@ const Logo = props => {
     useEffect(() => {
         setTimeout(
             () =>
-                addToast(
-                    'info',
-                    'User dismissed positive message',
-                    true,
-                    CheckIcon
-                ),
+                addToast({
+                    type: 'info',
+                    message: 'User dismissed positive message',
+                    dismissable: true,
+                    icon: CheckIcon
+                }),
             10
         );
         setTimeout(
             () =>
-                addToast(
-                    'error',
-                    'User dismissed negative message',
-                    true,
-                    AlertCircleIcon
-                ),
+                addToast({
+                    type: 'error',
+                    message: 'User dismissed negative message',
+                    dismissable: true,
+                    icon: AlertCircleIcon
+                }),
             5000
         );
     }, [logo]);

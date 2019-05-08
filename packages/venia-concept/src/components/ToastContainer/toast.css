@@ -10,13 +10,13 @@
     font-weight: lighter;
     gap: 1rem;
     grid-template-areas: 'icon message controls';
-    grid-template-rows: repeat(auto-fit, 1fr);
     grid-template-columns: min-content 200px auto;
+    grid-template-rows: repeat(auto-fit, 1fr);
     justify-items: start;
     line-height: 1.25rem;
+    margin: 0 auto;
     padding: 1rem;
     width: 20rem;
-    margin: 0 auto;
 }
 
 .toast.info {
