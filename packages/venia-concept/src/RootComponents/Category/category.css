@@ -5,8 +5,7 @@
 .title {
     font-size: 1.5rem;
     font-weight: 400;
-    margin: 0 0 1rem;
-    padding: 0 0.5rem 0.5rem 0.5rem;
+    padding: 0 0.5rem;
 }
 
 .pagination {
@@ -21,6 +20,7 @@
 .headerButtons {
     display: flex;
     justify-content: center;
+    padding-bottom: 0.75rem;
 }
 
 .filterButton {
@@ -36,7 +36,7 @@
 
 .categoryTitle {
     color: rgb(var(--venia-text));
-    padding-bottom: 1rem;
+    padding-bottom: 0.75rem;
     font-size: 1.375rem;
     font-weight: 300;
     line-height: 1.375rem;
