@@ -43,10 +43,13 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
+if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED
+) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
-            .register(process.env.SERVICE_WORKER)
+            .register('sw.js')
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })

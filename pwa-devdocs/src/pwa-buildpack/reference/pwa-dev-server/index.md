@@ -180,7 +180,7 @@ it will prompt you for your system password.
 ### Specifying a port
 
 There is no configuration option for disabling the unique port generation and usage.
-To override the port for one session, use the environment variable `PWA_STUDIO_PORTS_DEVELOPMENT` to specify a port.
+To override the port for one session, use the environment variable `DEV_SERVER_PORT` to specify a port.
 
 {: .bs-callout .bs-callout-info}
 **Note:**

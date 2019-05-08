@@ -16,33 +16,25 @@ try {
     markDepInvalid('@magento/express-sharp', e);
 }
 
-function addImgOptMiddleware(app, env = process.env) {
-    const imgOptConfig = {
-        baseHost: env.MAGENTO_BACKEND_URL,
-        mountPoint: env.IMAGE_SERVICE_PATH,
-        cacheExpires: env.IMAGE_CACHE_EXPIRES,
-        debugCache: env.IMAGE_CACHE_DEBUG,
-        redis: env.IMAGE_CACHE_REDIS_CLIENT
-    };
+function addImgOptMiddleware(app, config) {
+    const { backendUrl, cacheExpires, cacheDebug, publicPath, redis } = config;
     debug(
-        `mounting onboard image optimization middleware express-sharp with config %o`,
-        imgOptConfig
+        `mounting onboard image optimization middleware express-sharp with backend %s`,
+        backendUrl
     );
     let cacheMiddleware;
     let sharpMiddleware;
     try {
-        cacheMiddleware = cache(imgOptConfig.cacheExpires, null, {
-            debug: imgOptConfig.debugCache,
-            redisClient:
-                imgOptConfig.redis &&
-                require('redis').redisClient(imgOptConfig.redis)
+        cacheMiddleware = cache(cacheExpires, null, {
+            debug: cacheDebug,
+            redisClient: redis && require('redis').redisClient(redis)
         });
     } catch (e) {
         markDepInvalid('apicache', e);
     }
     try {
         sharpMiddleware = expressSharp({
-            baseHost: imgOptConfig.baseHost
+            baseHost: backendUrl
         });
     } catch (e) {
         markDepInvalid('@magento/express-sharp', e);
@@ -57,7 +49,7 @@ If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation`
         );
     } else {
-        app.use(imgOptConfig.mountPoint, cacheMiddleware, sharpMiddleware);
+        app.use(publicPath, cacheMiddleware, sharpMiddleware);
     }
 }
 

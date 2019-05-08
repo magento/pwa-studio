@@ -33,6 +33,7 @@
   "dependencies": {
     "apollo-link": "~1.2.8",
     "apollo-link-http": "~1.5.11",
+    "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
     "debug": "~4.1.1",

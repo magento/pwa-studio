@@ -1,7 +1,5 @@
-const validEnv = require('./validate-environment')(process.env);
-
-const webpack = require('webpack');
 const {
+    configureEnvironment,
     WebpackTools: {
         makeMagentoRootComponentsPlugin,
         ServiceWorkerPlugin,
@@ -10,7 +8,12 @@ const {
         PWADevServer
     }
 } = require('@magento/pwa-buildpack');
+
+const projectConfig = configureEnvironment(__dirname);
+const projectEnv = projectConfig.all();
+
 const path = require('path');
+const webpack = require('webpack');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
@@ -43,12 +46,6 @@ const libs = [
 
 module.exports = async function(env) {
     const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
-
-    const enableServiceWorkerDebugging =
-        validEnv.ENABLE_SERVICE_WORKER_DEBUGGING;
-
-    const serviceWorkerFileName = validEnv.SERVICE_WORKER_FILE_NAME;
-    const braintreeToken = validEnv.BRAINTREE_TOKEN;
 
     const config = {
         mode,
@@ -124,26 +121,9 @@ module.exports = async function(env) {
                 rootComponentsDirs,
                 context: __dirname
             }),
-            new webpack.EnvironmentPlugin(validEnv),
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify(mode),
-                    // Blank the service worker file name to stop the app from
-                    // attempting to register a service worker in index.js.
-                    // Only register a service worker when in production or in the
-                    // special case of debugging the service worker itself.
-                    SERVICE_WORKER: JSON.stringify(
-                        mode === 'production' || enableServiceWorkerDebugging
-                            ? serviceWorkerFileName
-                            : false
-                    ),
-                    BRAINTREE_TOKEN: JSON.stringify(braintreeToken)
-                }
-            }),
+            new webpack.EnvironmentPlugin(projectEnv),
             new ServiceWorkerPlugin({
-                env: { mode },
-                enableServiceWorkerDebugging,
-                serviceWorkerFileName,
+                mode,
                 paths: themePaths,
                 injectManifest: true,
                 injectManifestConfig: {
@@ -190,21 +170,11 @@ module.exports = async function(env) {
     };
     if (mode === 'development') {
         config.devtool = 'eval-source-map';
-        const devServerConfig = {
-            env: validEnv,
+        config.devServer = await PWADevServer.configure({
             publicPath: config.output.publicPath,
-            graphqlPlayground: true
-        };
-        const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
-        if (provideHost) {
-            devServerConfig.provideSecureHost = {
-                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
-                exactDomain:
-                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
-                addUniqueHash: !!validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
-            };
-        }
-        config.devServer = await PWADevServer.configure(devServerConfig);
+            graphqlPlayground: true,
+            projectConfig
+        });
 
         // A DevServer generates its own unique output path at startup. It needs
         // to assign the main outputPath to this value as well.
@@ -215,8 +185,8 @@ module.exports = async function(env) {
             new webpack.HotModuleReplacementPlugin(),
             new UpwardPlugin(
                 config.devServer,
-                validEnv,
-                path.resolve(__dirname, validEnv.UPWARD_JS_UPWARD_PATH)
+                process.env,
+                path.resolve(__dirname, projectEnv.upwardJsUpwardPath)
             )
         );
     } else if (mode === 'production') {

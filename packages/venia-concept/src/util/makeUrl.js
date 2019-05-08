@@ -5,19 +5,11 @@ const joinUrls = (base, url) =>
     (url.startsWith('/') ? url.slice(1) : url);
 
 const mediaBases = new Map()
-    .set(
-        'image-product',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
-            '/media/catalog/product'
-    )
-    .set(
-        'image-category',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATEGORY ||
-            '/media/catalog/category'
-    );
+    .set('image-product', '/media/catalog/product')
+    .set('image-category', '/media/catalog/category');
 
 const resizeBase = joinUrls(
-    process.env.IMAGE_SERVICE_PATH || '/img/',
+    process.env.IMAGE_SERVICE_PUBLIC_PATH || '/img/',
     '/resize/'
 );
 /**

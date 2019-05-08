@@ -14,5 +14,4 @@ export NODE_ENV="production"
 yarn concurrently 'yarn workspace @magento/pwa-buildpack run build' 'yarn workspace @magento/peregrine run build:esm'
 # For the Venia build, any environment variables not set in now.json or other
 # scripts are filled in by copying the default .env file here.
-cp packages/venia-concept/.env.dist packages/venia-concept/.env
 yarn workspace @magento/venia-concept run build:prod

@@ -18,7 +18,7 @@ import classify from 'src/classify';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
-const { BRAINTREE_TOKEN } = process.env;
+const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 
 class BraintreeDropin extends Component {
     static propTypes = {
@@ -90,7 +90,7 @@ class BraintreeDropin extends Component {
 
         // Create an instance of the BrainTree Web Drop In.
         return dropin.create({
-            authorization: BRAINTREE_TOKEN,
+            authorization,
             // Note: this selector must match to some part of this component's rendered HTML.
             container: '#braintree-dropin-container',
             card: {
