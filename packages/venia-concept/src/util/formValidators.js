@@ -65,10 +65,6 @@ export const validateRegionCode = (value, values, countries) => {
 };
 
 export const validatePassword = value => {
-    if (!value) {
-        return null;
-    }
-
     const count = {
         lower: 0,
         upper: 0,
@@ -87,7 +83,7 @@ export const validatePassword = value => {
         return 'A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.';
     }
 
-    return null;
+    return SUCCESS;
 };
 
 export const validateConfirmPassword = (
@@ -95,9 +91,5 @@ export const validateConfirmPassword = (
     values,
     passwordKey = 'password'
 ) => {
-    if (!value) {
-        return null;
-    }
-
-    return value !== values[passwordKey] ? 'Passwords must match.' : null;
+    return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
 };

@@ -5,13 +5,6 @@ import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
-import {
-    validateEmail,
-    isRequired,
-    validatePassword,
-    validateConfirmPassword,
-    hasLengthAtLeast
-} from 'src/util/formValidators';
 
 jest.mock('src/util/formValidators');
 

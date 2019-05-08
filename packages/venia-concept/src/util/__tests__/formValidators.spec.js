@@ -129,19 +129,13 @@ describe('validateRegionCode', () => {
 });
 
 describe('validatePassword', () => {
-    test('it returns null on success', () => {
+    test('it returns undefined on success', () => {
         const result = validators.validatePassword('123qwe_+*');
 
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
-    test('it returns null on success', () => {
-        const result = validators.validatePassword('');
-
-        expect(result).toBeNull();
-    });
-
-    test('it returns a string on failure', () => {
+    test('it returns a string on  failure', () => {
         const result = validators.validatePassword('1111');
 
         expect(typeof result).toBe('string');
@@ -149,23 +143,17 @@ describe('validatePassword', () => {
 });
 
 describe('validateConfirmPassword', () => {
-    test('it returns null on success', () => {
+    test('it returns undefined on success', () => {
         const values = {
             password: 'qwerty12345'
         };
         const password = 'qwerty12345';
         const result = validators.validateConfirmPassword(password, values);
 
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
-    test('it returns null on success', () => {
-        const result = validators.validateConfirmPassword('');
-
-        expect(result).toBeNull();
-    });
-
-    test('it returns null on success', () => {
+    test('it returns undefined on success with a password key', () => {
         const values = {
             password_key: 'qwerty12345'
         };
@@ -177,7 +165,7 @@ describe('validateConfirmPassword', () => {
             passwordKey
         );
 
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
