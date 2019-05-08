@@ -46,7 +46,8 @@ imageOpt:
     headers:
       inline:
         Location:
-          baseUrl: request.url.query.url
+          baseUrl: env.MAGENTO_BACKEND_URL
+          pathname: request.url.query.url
           query:
             inline:
               auto:
