@@ -17,6 +17,9 @@
     margin: 0 auto;
     padding: 1rem;
     width: 20rem;
+
+    border: 1px solid;
+    border-color: #d1d1d1;
 }
 
 .toast.info {

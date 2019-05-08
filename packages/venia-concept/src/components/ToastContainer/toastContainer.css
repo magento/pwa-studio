@@ -7,5 +7,7 @@
     /* Necessary to display over page contents */
     z-index: 9999;
 
+    /* Show toasts on bottom of screen */
     bottom: 0px;
+    margin-bottom: 15px;
 }
