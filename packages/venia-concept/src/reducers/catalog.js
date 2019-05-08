@@ -50,6 +50,17 @@ const reducerMap = {
         state,
         { payload: { newState, group } }
     ) => {
+        if (newState.length === 0 && group) {
+            const { chosenFilterOptions } = state;
+            delete chosenFilterOptions[group];
+
+            return {
+                ...state,
+                chosenFilterOptions: {
+                    ...chosenFilterOptions
+                }
+            };
+        }
         return {
             ...state,
             chosenFilterOptions: {

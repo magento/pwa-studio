@@ -1,15 +1,8 @@
 .root {
     display: flex;
     overflow: auto;
-    margin: 0 1.5rem 1.5rem;
-}
-
-.root::-webkit-scrollbar,
-.root::-webkit-scrollbar-track,
-.root::-webkit-scrollbar-thumb {
-    display: none;
-    background: transparent;
-    border-color: transparent;
+    padding-bottom: 0.5rem;
+    margin: 0 1.5rem 1rem;
 }
 
 .root:empty {

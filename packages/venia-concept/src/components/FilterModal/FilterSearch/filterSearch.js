@@ -51,7 +51,6 @@ const withFilterSearch = WrappedComponent => {
                         <Form className={classes.filterSearch}>
                             <TextInput
                                 placeholder={`Search for a specific ${name}`}
-                                fieldState={{ value: filterQuery }}
                                 onValueChange={handleFilterSearch}
                                 field="filter_search"
                                 after={resetButton}
