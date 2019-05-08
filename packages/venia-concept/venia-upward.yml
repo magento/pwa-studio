@@ -94,7 +94,8 @@ imageOpt:
       inline:
         Location:
           # A UrlResolver is used to generate the URL location
-          baseUrl: request.url.query.url
+          baseUrl: env.MAGENTO_BACKEND_URL
+          pathname: request.url.query.url
           query:
             inline:
               auto:
