@@ -12,7 +12,7 @@ export NODE_ENV="production"
 # once to compile the lambda. So instead of a full build, this command runs a
 # streamlined build to make only what is essential for deploy.
 yarn concurrently 'yarn workspace @magento/pwa-buildpack run build' 'yarn workspace @magento/peregrine run build:esm'
-# For the Venia build, any environment variables not set in now.json or other
-# scripts are filled in by copying the default .env file here.
-cp packages/venia-concept/.env.dist packages/venia-concept/.env
+
+# No .env file generation is necessary, since the only required variable without
+# a default, MAGENTO_BACKEND_URL, is set in the build environment by now.json.
 yarn workspace @magento/venia-concept run build:prod

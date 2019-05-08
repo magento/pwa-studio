@@ -1,4 +1,6 @@
 module.exports = {
     addImgOptMiddleware: require('./addImgOptMiddleware'),
-    configureHost: require('./configureHost')
+    loadEnvironment: require('./loadEnvironment'),
+    configureHost: require('./configureHost'),
+    createDotEnvFile: require('./createDotEnvFile')
 };

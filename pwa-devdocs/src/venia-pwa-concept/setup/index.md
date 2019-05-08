@@ -33,7 +33,7 @@ For this tutorial, the project location is the `/Users/magedev/pwa-studio` direc
 ## Step 2. Install PWA Studio dependencies
 
 {: .bs-callout .bs-callout-warning}
-If you have an existing `node_modules` directory from a previous PWA Studio version installation, remove it to prevent installation errors. 
+If you have an existing `node_modules` directory from a previous PWA Studio version installation, remove it to prevent installation errors.
 
 In the PWA Studio project's root directory, run the following command to install the project dependencies:
 
@@ -43,14 +43,9 @@ yarn install
 
 ## Step 3. Specify the Magento backend server
 
-Under the `packages/venia-concept` directory, copy `.env.dist` into a new `.env` file:
+In the root directory, run `yarn buildpack create-env-file packages/venia-concept`.
 
-**Example command:**
-``` sh
-cp packages/venia-concept/.env.dist packages/venia-concept/.env
-```
-
-In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.  
+In the newly generated `packages/venia-concept/.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
 
 If you are contributing to Venia development or exploring its features, you can use the default `MAGENTO_BACKEND_URL` value.
 This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data][] installed.
@@ -60,11 +55,17 @@ This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data
 MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
 ```
 
+You can do this all in a single command in `bash` or `sh`:
+
+```sh
+MAGENTO_BACKEND_URL=https://some.url yarn buildpack create-env-file packages/venia-concept
+```
+
 ### Choosing the Magento 2.3 backend
 
-The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance. 
+The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance.
 
-The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer. 
+The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer.
 
 **Example:**
 
@@ -123,7 +124,7 @@ Launching staging server...
 
 https://magento-venia.local.pwadev:51828/
 
-Staging server running at the address above.  
+Staging server running at the address above.
 ```
 
 This is the address for your PWA frontend.

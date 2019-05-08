@@ -3,10 +3,12 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 const optionsValidator = require('../../util/options-validator');
 
+// No longer modifiable since v3
+const SW_FILENAME = 'sw.js';
+
 class ServiceWorkerPlugin {
     static validateOptions = optionsValidator('ServiceWorkerPlugin', {
-        'env.mode': 'string',
-        serviceWorkerFileName: 'string',
+        mode: 'string',
         'paths.output': 'string'
     });
     constructor(config) {
@@ -25,7 +27,7 @@ class ServiceWorkerPlugin {
             skipWaiting: true,
 
             // the max scope of a worker is its location
-            swDest: this.config.serviceWorkerFileName
+            swDest: SW_FILENAME
         };
 
         if (this.config.runtimeCacheConfig) {
@@ -54,14 +56,14 @@ class ServiceWorkerPlugin {
     }
 
     apply(compiler) {
-        if (this.config.env.mode === 'development') {
+        if (this.config.mode === 'development') {
             // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
             if (
                 this.config.enableServiceWorkerDebugging &&
                 !this.config.injectManifest
             ) {
                 new WriteFileWebpackPlugin({
-                    test: new RegExp(this.config.serviceWorkerFileName + '$'),
+                    test: new RegExp(SW_FILENAME + '$'),
                     log: true
                 }).apply(compiler);
                 this.applyGenerateSW(compiler);

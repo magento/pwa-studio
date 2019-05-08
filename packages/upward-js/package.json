@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "2.1.0",
+  "version": "3.0.0-alpha.4",
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -11,9 +11,10 @@
     "bin": "./bin"
   },
   "scripts": {
-    "build": "echo 'Skipping upward-js build...'",
-    "build:dev": "yarn run build",
-    "clean": "echo 'Skipping upward-js clean...'",
+    "build": " ",
+    "build:ci": " ",
+    "build:dev": " ",
+    "clean": " ",
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
   },
@@ -33,6 +34,7 @@
   "dependencies": {
     "apollo-link": "~1.2.8",
     "apollo-link-http": "~1.5.11",
+    "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
     "debug": "~4.1.1",
@@ -49,7 +51,7 @@
     "shrink-ray-current": "~4.0.0"
   },
   "devDependencies": {
-    "@magento/upward-spec": "~2.1.0",
+    "@magento/upward-spec": "3.0.0-alpha.4",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },
