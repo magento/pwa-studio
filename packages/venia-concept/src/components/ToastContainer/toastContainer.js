@@ -6,9 +6,9 @@ import { mergeClasses } from 'src/classify';
 import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {
-    const toasts = useToastStore();
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const toasts = useToastStore();
     const toastList = Object.keys(toasts).map(toastKey => {
         const toast = toasts[toastKey];
         const toastProps = {
@@ -23,8 +23,11 @@ const ToastContainer = props => {
         return <Toast key={toast.id} {...toastProps} />;
     });
 
-    // TODO: Prevent re-render of container when new toasts are added.
-    return <div className={classes.container}>{toastList}</div>;
+    return (
+        <div id="toast-root" className={classes.container}>
+            {toastList}
+        </div>
+    );
 };
 
 ToastContainer.propTypes = {
