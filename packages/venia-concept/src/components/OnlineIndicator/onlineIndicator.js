@@ -1,35 +1,38 @@
-import React, { Component } from 'react';
-import Icon from 'src/components/Icon';
+import { useEffect } from 'react';
+import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
+
 import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
 import CheckIcon from 'react-feather/dist/icons/check';
-import PropTypes from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import defaultClasses from './onlineIndicator.css';
+const OnlineIndicator = props => {
+    const { addToast } = useToastActions();
+    const { isOnline } = props;
 
-class OnlineIndicator extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        isOnline: PropTypes.bool
-    };
+    useEffect(() => {
+        if (isOnline) {
+            addToast({
+                type: 'info',
+                icon: CheckIcon,
+                message: 'You are online.'
+            });
+        } else {
+            addToast({
+                type: 'error',
+                icon: CloudOffIcon,
+                message: 'You are offline. Some features may be unavailable.'
+            });
+        }
+    }, [isOnline]);
 
-    render() {
-        const { isOnline, classes } = this.props;
+    return null;
+};
 
-        return !isOnline ? (
-            <div className={classes.offline}>
-                <Icon src={CloudOffIcon} />
-                <p> You are offline. Some features may be unavailable. </p>
-            </div>
-        ) : (
-            <div className={classes.online}>
-                <Icon src={CheckIcon} />
-                <p> You are online. </p>
-            </div>
-        );
-    }
-}
+OnlineIndicator.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    isOnline: bool
+};
 
-export default classify(defaultClasses)(OnlineIndicator);
+export default OnlineIndicator;
