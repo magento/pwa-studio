@@ -81,14 +81,12 @@ export default class VeniaAdapter extends Component {
      * Need ApolloContext for useContext.
      */
     render() {
-        const { children, store, apiBase, using } = this.props;
+        const { children, store, apiBase } = this.props;
         return (
             <ApolloContext.Provider value={this.apolloClient}>
                 <ApolloProvider client={this.apolloClient}>
                     <ReduxProvider store={store}>
-                        <Router apiBase={apiBase} using={using}>
-                            {children}
-                        </Router>
+                        <Router apiBase={apiBase}>{children}</Router>
                     </ReduxProvider>
                 </ApolloProvider>
             </ApolloContext.Provider>

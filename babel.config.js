@@ -73,7 +73,7 @@ const config = api => {
                 ...plugins,
                 [
                     '@babel/plugin-transform-runtime',
-                    { helpers: true, regenerator: true, useESModules: true }
+                    { helpers: true, regenerator: true }
                 ]
             ],
             presets: [

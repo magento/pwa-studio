@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import MagentoRouter, { Consumer as RouteConsumer } from '../Router';
 
@@ -11,10 +11,7 @@ const routerProps = { initialEntries };
 
 test('renders a single, catch-all route', () => {
     const routesWrapper = shallow(
-        <MagentoRouter
-            using={{ Router: MemoryRouter, Route }}
-            apiBase={apiBase}
-        />
+        <MagentoRouter using={MemoryRouter} apiBase={apiBase} />
     ).find('Route');
     expect(routesWrapper.length).toBe(1);
     expect(routesWrapper.prop('path')).toBeUndefined();
@@ -22,7 +19,7 @@ test('renders a single, catch-all route', () => {
 
 test('passes `config` and route props to context provider', () => {
     const fn = jest.fn();
-    const props = { apiBase, using: { Router: MemoryRouter, Route } };
+    const props = { apiBase, using: MemoryRouter };
 
     // we need to test context consumer, so we can't shallow render
     mount(
@@ -43,11 +40,7 @@ test('passes `config` and route props to context provider', () => {
 
 test('passes `routerProps` to router, not context provider', () => {
     const fn = jest.fn();
-    const props = {
-        apiBase,
-        routerProps,
-        using: { Router: MemoryRouter, Route }
-    };
+    const props = { apiBase, routerProps, using: MemoryRouter };
 
     // we need to test context consumer, so we can't shallow render
     const wrapper = mount(

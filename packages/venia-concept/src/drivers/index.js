@@ -1,11 +1,5 @@
 export { Query } from 'react-apollo';
-export {
-    BrowserRouter as Router,
-    Link,
-    Redirect,
-    Route,
-    Switch
-} from 'react-router-dom';
+export { Link, Redirect, Route, Switch } from 'react-router-dom';
 export { default as resourceUrl } from '../util/makeUrl';
 export { default as Adapter } from './adapter';
 export { connect } from 'react-redux';
