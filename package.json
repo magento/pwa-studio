@@ -24,8 +24,6 @@
     "coveralls": "shx cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
     "lint": "eslint \"@(packages|scripts)/**/{*.js,package.json}\" --ignore-pattern node_modules --ignore-pattern storybook-dist",
-    "now-build": "shx cp packages/venia-concept/.env.dist packages/venia-concept/.env && yarn run build",
-    "now-start": "yarn run stage:venia",
     "postbuild": "rimraf \"./packages/*/{esm,dist}/{,**/}__*__\"",
     "prettier": "prettier --write \"@(packages|scripts)/**/*.@(js|css)\" \"*.js\"",
     "prettier:validate": "prettier-check \"@(packages|scripts)/**/*.@(js|css)\" \"*.js\"",
@@ -49,6 +47,7 @@
     "babel-plugin-module-resolver": "~3.2.0",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
+    "concurrently": "^4.1.0",
     "coveralls": "~3.0.3",
     "cross-env": "~5.2.0",
     "danger": "~7.0.17",
@@ -77,10 +76,11 @@
     "wait-for-expect": "~1.1.0"
   },
   "optionalDependencies": {
-    "bundlesize": "~0.17.1"
+    "bundlesize": "~0.17.1",
+    "sharp": "~0.22.1"
   },
   "engines": {
-    "node": ">=10.7.0",
+    "node": "8.10.0 || >=10.7.0",
     "yarn": ">=1.12.0"
   },
   "husky": {
