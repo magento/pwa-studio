@@ -3,6 +3,8 @@ import TestRenderer from 'react-test-renderer';
 import ProductFullDetail from '../ProductFullDetail';
 
 jest.mock('src/classify');
+// TODO: Mock children that aren't relevant to testing this component (thumbnailList, etc);
+jest.mock('src/components/ProductImageCarousel/thumbnail', () => '');
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
