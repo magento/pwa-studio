@@ -27,8 +27,8 @@ class FiltersCurrent extends Component {
         const { title, value, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
-        const { removeFilter, history } = this.props;
-        removeFilter({ title, value, group }, history);
+        const { removeFilter, history, location } = this.props;
+        removeFilter({ title, value, group }, history, location);
     };
 
     getCurrentFilter = (item, key) => {

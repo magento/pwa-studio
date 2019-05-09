@@ -24,21 +24,32 @@ class FilterFooter extends Component {
         closeDrawer: PropTypes.func
     };
 
-    resetFilterOptions = () => {
-        const { history, filterClear, location } = this.props;
+    getPageQueryParam = () => {
+        const { location } = this.props;
         const { search } = location;
         const queryParams = new URLSearchParams(search);
         const pageNumber = queryParams.get('page');
-        queryParams.set('page', pageNumber);
-        pageNumber
-            ? history.push({ search: queryParams.toString() })
+        const newQueryParams = new URLSearchParams();
+        newQueryParams.set('page', pageNumber);
+        return newQueryParams;
+    };
+
+    resetFilterOptions = () => {
+        const { history, filterClear } = this.props;
+        const queryParams = this.getPageQueryParam();
+        console.log('queryParams.toString()', queryParams.toString());
+        queryParams
+            ? history.push('?' + queryParams.toString())
             : history.push();
         filterClear();
     };
 
     handleApplyFilters = () => {
         const { history, chosenFilterOptions, closeDrawer } = this.props;
-        history.push('?' + serialize(chosenFilterOptions));
+        const queryParams = this.getPageQueryParam();
+        history.push(
+            '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
+        );
         closeDrawer();
     };
 

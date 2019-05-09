@@ -33,8 +33,9 @@ export const serialize = (params, keys = [], isArray = false) => {
     return serialized;
 };
 
-const updateCatalogUrl = (filters, history) =>
-    history.push('?' + serialize(filters));
+const updateCatalogUrl = (filters, history, queryParams) => {
+    history.push('?' + queryParams.toString() + '&' + serialize(filters));
+};
 
 export const addFilter = ({ group, title, value }, history) =>
     async function thunk(dispatch, getState) {
@@ -53,11 +54,19 @@ export const addFilter = ({ group, title, value }, history) =>
         }
     };
 
-export const removeFilter = ({ group, title, value }, history) =>
+export const removeFilter = ({ group, title, value }, history, location) =>
     async function thunk(dispatch, getState) {
         const {
             catalog: { chosenFilterOptions }
         } = getState();
+        const newQueryParam = new URLSearchParams();
+
+        if (location) {
+            const { search } = location;
+            const queryParams = new URLSearchParams(search);
+            const pageNumber = queryParams.get('page');
+            newQueryParam.set('page', pageNumber);
+        }
 
         const oldState = chosenFilterOptions[group] || [];
         const newState = oldState.filter(item => {
@@ -68,7 +77,7 @@ export const removeFilter = ({ group, title, value }, history) =>
 
         if (history) {
             const filters = { ...chosenFilterOptions, [group]: newState };
-            updateCatalogUrl(filters, history);
+            updateCatalogUrl(filters, history, newQueryParam);
         }
     };
 
