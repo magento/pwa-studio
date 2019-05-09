@@ -77,7 +77,7 @@ class FilterList extends Component {
                     };
 
                     return (
-                        <li className={classes.filterItem}>
+                        <li className={!isSwatch && classes.filterItem}>
                             {isSwatch ? (
                                 <Swatch {...filterProps} />
                             ) : (

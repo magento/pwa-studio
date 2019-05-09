@@ -25,8 +25,14 @@ class FilterFooter extends Component {
     };
 
     resetFilterOptions = () => {
-        const { history, filterClear } = this.props;
-        history.push();
+        const { history, filterClear, location } = this.props;
+        const { search } = location;
+        const queryParams = new URLSearchParams(search);
+        const pageNumber = queryParams.get('page');
+        queryParams.set('page', pageNumber);
+        pageNumber
+            ? history.push({ search: queryParams.toString() })
+            : history.push();
         filterClear();
     };
 

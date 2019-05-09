@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import TextInput from 'src/components/TextInput';
 import Trigger from 'src/components/Trigger';
-import { Form, useFormApi } from 'informed';
+import { Form } from 'informed';
 import Icon from 'src/components/Icon';
 import ClearIcon from 'react-feather/dist/icons/x';
 import SearchIcon from 'react-feather/dist/icons/search';
