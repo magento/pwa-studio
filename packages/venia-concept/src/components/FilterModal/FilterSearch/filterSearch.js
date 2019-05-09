@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import TextInput from 'src/components/TextInput';
 import Trigger from 'src/components/Trigger';
-import { Form } from 'informed';
+import { Form, useFormApi } from 'informed';
 import Icon from 'src/components/Icon';
 import ClearIcon from 'react-feather/dist/icons/x';
 import SearchIcon from 'react-feather/dist/icons/search';
@@ -19,43 +19,49 @@ const withFilterSearch = WrappedComponent => {
 
         handleFilterSearch = value => this.setState({ filterQuery: value });
 
-        handleResetSearch = () => this.setState({ filterQuery: '' });
-
         getFilteredItems = (items, filterQuery) =>
             items.filter(item =>
                 item.label.toUpperCase().includes(filterQuery.toUpperCase())
             );
 
-        render() {
-            const {
-                handleFilterSearch,
-                getFilteredItems,
-                handleResetSearch
-            } = this;
+        getSearchInput = ({ formApi }) => {
+            const { handleFilterSearch } = this;
+            const handleResetSearch = () => formApi.reset();
+            const { name } = this.props;
             const { filterQuery } = this.state;
-            const { items, classes, options, name, ...rest } = this.props;
-
-            const isSearchable = options && options.searchable;
-
-            const filteredItems = isSearchable
-                ? getFilteredItems(items, filterQuery)
-                : items;
 
             const resetButton = filterQuery && (
                 <Trigger action={handleResetSearch}>{clearIcon}</Trigger>
             );
 
             return (
+                <TextInput
+                    placeholder={`Search for a specific ${name}`}
+                    onValueChange={handleFilterSearch}
+                    field="filter_search"
+                    after={resetButton}
+                    before={searchIcon}
+                />
+            );
+        };
+
+        render() {
+            const { getFilteredItems, getSearchInput } = this;
+            const { filterQuery } = this.state;
+            const { items, classes, options, ...rest } = this.props;
+
+            const isSearchable = options && options.searchable;
+
+            const filteredItems =
+                isSearchable && filterQuery
+                    ? getFilteredItems(items, filterQuery)
+                    : items;
+
+            return (
                 <Fragment>
                     {isSearchable && (
                         <Form className={classes.filterSearch}>
-                            <TextInput
-                                placeholder={`Search for a specific ${name}`}
-                                onValueChange={handleFilterSearch}
-                                field="filter_search"
-                                after={resetButton}
-                                before={searchIcon}
-                            />
+                            {getSearchInput}
                         </Form>
                     )}
                     {filteredItems.length > 0 ? (
