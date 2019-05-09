@@ -25,14 +25,13 @@ function Thumbnail(props) {
 
     const isDesktop = windowSize.innerWidth >= 1024;
 
-    const onClickHandlerWrapper = useCallback(() => {
-        console.log('click handler called')
+    const handleClick = useCallback(() => {
         onClickHandler(itemIndex);
-    }, [onClickHandler, itemIndex])
+    }, [onClickHandler, itemIndex]);
 
     return (
         <button
-            onClick={onClickHandlerWrapper}
+            onClick={handleClick}
             className={isActive ? classes.rootSelected : classes.root}
         >
             {isDesktop ? (
