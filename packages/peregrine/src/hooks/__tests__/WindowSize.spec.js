@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import { WindowSizeContextProvider, useWindowSize } from '../WindowSize';
+import { WindowSizeContextProvider, useWindowSize } from '../useWindowSize';
 import createTestInstance from '../../util/createTestInstance';
 
 const spies = new Map();
