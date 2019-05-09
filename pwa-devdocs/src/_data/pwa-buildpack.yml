@@ -2,22 +2,19 @@ title: PWA Buildpack
 entries:
   - label: Overview
     url: /pwa-buildpack/
-  
+
   - label: Tools reference
     entries:
 
-      - label: magento-layout-loader
-        url: /pwa-buildpack/reference/layout-loader/
-
       - label: MagentoResolver
         url: /pwa-buildpack/reference/magento-resolver/
-      
+
       - label: MagentoRootComponentsPlugin
         url: /pwa-buildpack/reference/root-components-plugin/
 
       - label: Object Types
         url: /pwa-buildpack/reference/object-types/
-      
+
       - label: PWADevServer
         url: /pwa-buildpack/reference/pwa-dev-server/
 
@@ -26,4 +23,4 @@ entries:
 
   - label: Troubleshooting
     url: /pwa-buildpack/troubleshooting/
-      
+

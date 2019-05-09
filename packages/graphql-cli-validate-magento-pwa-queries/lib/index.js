@@ -7,7 +7,7 @@ const eslint = require('eslint');
 const fs = require('fs');
 const semver = require('semver');
 
-const compatibilityDefinitions = require('../../../magento-compatibility');
+const compatibilityDefinitions = require('./magento-compatibility');
 
 const exitCodes = {
     SUCCESS: 0,
