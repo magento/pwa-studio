@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 
+import { isUndefined } from 'util';
+
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
@@ -32,12 +34,17 @@ class Product extends Component {
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProduct(product) {
-        const { description } = product;
-        return {
-            ...product,
-            description:
-                typeof description === 'object' ? description.html : description
-        };
+        if (!isUndefined(product)) {
+            const { description } = product;
+            return {
+                ...product,
+                description:
+                    typeof description === 'object'
+                        ? description.html
+                        : description
+            };
+        }
+        return false;
     }
 
     render() {
@@ -51,13 +58,17 @@ class Product extends Component {
                     if (loading) return loadingIndicator;
 
                     const product = data.productDetail.items[0];
-
-                    return (
-                        <ProductFullDetail
-                            product={this.mapProduct(product)}
-                            addToCart={this.props.addItemToCart}
-                        />
-                    );
+                    const productData = this.mapProduct(product);
+                    if (productData) {
+                        return (
+                            <ProductFullDetail
+                                product={this.mapProduct(product)}
+                                addToCart={this.props.addItemToCart}
+                            />
+                        );
+                    } else {
+                        return <div>Product Out Of Stock</div>;
+                    }
                 }}
             </Query>
         );
