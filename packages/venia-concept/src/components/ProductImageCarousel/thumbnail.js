@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { resourceUrl } from 'src/drivers';
@@ -14,7 +14,9 @@ function Thumbnail(props) {
 
     const {
         isActive,
-        item: { file, label }
+        item: { file, label },
+        onClickHandler,
+        itemIndex
     } = props;
 
     const src = file
@@ -23,10 +25,10 @@ function Thumbnail(props) {
 
     const isDesktop = windowSize.innerWidth >= 1024;
 
-    function onClickHandlerWrapper() {
-        const { onClickHandler, itemIndex } = props;
+    const onClickHandlerWrapper = useCallback(() => {
+        console.log('click handler called')
         onClickHandler(itemIndex);
-    }
+    }, [onClickHandler, itemIndex])
 
     return (
         <button
