@@ -76,8 +76,10 @@ class FilterList extends Component {
                         isSelected: isActive
                     };
 
+                    const filterClass = !isSwatch ? classes.filterItem : null;
+
                     return (
-                        <li className={!isSwatch && classes.filterItem}>
+                        <li className={filterClass}>
                             {isSwatch ? (
                                 <Swatch {...filterProps} />
                             ) : (
