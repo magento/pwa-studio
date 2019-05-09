@@ -22,7 +22,7 @@ try {
  * UPWARD, and then used in various places: here, the UPWARD resolution
  * path itself, the `makeURL` function in the client, etc.
  */
-const isFastlyReq = req => !!req.query.width;
+const wantsResizing = req => !!req.query.width;
 
 function addImgOptMiddleware(app, env = process.env) {
     const imgOptConfig = {
@@ -40,7 +40,7 @@ function addImgOptMiddleware(app, env = process.env) {
     let cacheMiddleware;
     let sharpMiddleware;
     try {
-        cacheMiddleware = cache(imgOptConfig.cacheExpires, isFastlyReq, {
+        cacheMiddleware = cache(imgOptConfig.cacheExpires, wantsResizing, {
             debug: imgOptConfig.debugCache,
             redisClient:
                 imgOptConfig.redis &&
@@ -66,21 +66,21 @@ If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation`
         );
     } else {
-        const fastlyUrlToExpressSharpUrl = (incomingUrl, incomingQuery) => {
+        const toExpressSharpUrl = (incomingUrl, incomingQuery) => {
             const imageUrl = new URL(incomingUrl, imgOptConfig.baseHost);
             debug('imageUrl', imageUrl);
 
-            const fastlyParams = ['auto', 'format', 'width'];
+            const optParamNames = ['auto', 'format', 'width'];
 
             const rewritten = new URL(
                 `https://0.0.0.0/resize/${incomingQuery.width}`
             );
 
             // Start with the original search params, so
-            // we can preserve any non-Fastly parameters
+            // we can preserve any non-imageopt parameters
             // others might want.
             const params = new URLSearchParams(imageUrl.search);
-            for (const param of fastlyParams) {
+            for (const param of optParamNames) {
                 params.delete(param);
             }
             params.set('url', imageUrl.pathname);
@@ -106,11 +106,8 @@ https://github.com/nodejs/node-gyp#installation`
             return { url, query };
         };
         const filterAndRewriteSharp = (req, res, next) => {
-            if (isFastlyReq(req)) {
-                const { url, query } = fastlyUrlToExpressSharpUrl(
-                    req.url,
-                    req.query
-                );
+            if (wantsResizing(req)) {
+                const { url, query } = toExpressSharpUrl(req.url, req.query);
                 req.url = url;
                 req.query = query;
                 res.set('X-Image-Compressed-By', 'PWA Studio Staging Server');

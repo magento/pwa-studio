@@ -1,8 +1,6 @@
-const absoluteUrlRE = /^(?:https?|data|file):/;
-
 // If the root template supplies the backend URL at runtime, use it directly
-const htmlTag = document.querySelector('html');
-const fastlyOrigin = (htmlTag && htmlTag.dataset.fastlyOrigin) || '';
+const { imageOptimizeOn, backend } = document.querySelector('html').dataset;
+const backendOptimizesImages = backend && imageOptimizeOn === 'backend';
 
 const mediaBases = new Map()
     .set(
@@ -19,15 +17,14 @@ const mediaBases = new Map()
 /**
  * Creates an "optimized" url for a provided absolute or relative url based on
  * requested media type and width. Any image URLs (whose type begins with
- * "image-" will also be optimized by default unless the `optimize` option is
- * set to false.)
+ * "image-" will also be optimized.)
  *
  * If a `type` is provided the `path` will be joined with the associated media
  * base.
  *  - `/media/catalog/product/path/to/img.jpg`
  *
  * If a `width` is provided, "resize parameters" are added to the URL for
- * middlewares (either onboard or Fastly) to return using the desired width
+ * middlewares (either onboard or backend) to return using the desired width
  * and original media url.
  *  - `/media/catalog/product/path/to/img.jpg?width=500&auto=webp&format=pjpg
  *
@@ -39,36 +36,42 @@ const mediaBases = new Map()
  * @param {number} props.width - the desired resize width of the image
  */
 const makeOptimizedUrl = (path, { type, width } = {}) => {
-    const isAbsolute = absoluteUrlRE.test(path);
-    const shouldOptimizeByDefault =
-        !isAbsolute && type && type.startsWith('image-');
-    const fastlyBase = shouldOptimizeByDefault && fastlyOrigin;
-    const baseUrl = fastlyBase || window.location.href;
+    const { href, origin } = window.location;
+    let urlObject = new URL(path, href);
 
-    const urlObject = new URL(path, baseUrl);
-    const params = new URLSearchParams(urlObject.search);
-
-    if (!isAbsolute && type && mediaBases.has(type)) {
+    if (type && mediaBases.has(type)) {
         const mediaBase = mediaBases.get(type);
         // prepend media base if it isn't already part of the pathname
         if (!urlObject.pathname.includes(mediaBase)) {
             urlObject.pathname = mediaBase + urlObject.pathname;
         }
+        // add image optimization parameters and optionally change origin
+        if (type.startsWith('image-')) {
+            if (backendOptimizesImages) {
+                urlObject = new URL(
+                    urlObject.href.slice(urlObject.origin.length),
+                    backend
+                );
+            } else if (path.startsWith(backend) && !backendOptimizesImages) {
+                // Some API responses include absolute URLs to images.
+                // The backend won't optimize images, so do not use this
+                // absolute URL; instead, use a relative URL which has a chance
+                // of being passed through image optimization.
+                urlObject = new URL(path.slice(backend.length), origin);
+            }
+            const params = new URLSearchParams(urlObject.search);
+            params.set('auto', 'webp'); // Use the webp format if available
+            params.set('format', 'pjpg'); // Use progressive JPGs at least
+            if (width) {
+                // resize!
+                params.set('width', width);
+            }
+            urlObject.search = params.toString();
+        }
     }
 
-    if (shouldOptimizeByDefault) {
-        params.set('auto', 'webp'); // Use the modern webp format if available
-        params.set('format', 'pjpg'); // Use progressive JPGs at least
-    }
-
-    if (width) {
-        // resize!
-        params.set('width', width);
-    }
-
-    urlObject.search = params.toString();
-    if (urlObject.origin === window.location.origin) {
-        return urlObject.href.slice(window.location.origin.length);
+    if (urlObject.origin === origin) {
+        return urlObject.href.slice(origin.length);
     }
     return urlObject.href;
 };

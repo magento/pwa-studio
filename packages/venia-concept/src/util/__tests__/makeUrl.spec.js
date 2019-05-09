@@ -31,7 +31,7 @@ test('prepends media path for product images', () => {
         `${productBase}${relativePath}?${defaultParams}`
     );
     expect(makeUrl(absoluteUrls[2], { type: 'image-product' })).toBe(
-        absoluteUrls[2]
+        'https://example.com/media/catalog/product/baz.png?auto=webp&format=pjpg'
     );
 });
 
@@ -40,7 +40,7 @@ test('prepends media path for relative category images', () => {
         `${categoryBase}${relativePath}?${defaultParams}`
     );
     expect(makeUrl(absoluteUrls[2], { type: 'image-category' })).toBe(
-        absoluteUrls[2]
+        'https://example.com/media/catalog/category/baz.png?auto=webp&format=pjpg'
     );
 });
 
@@ -57,7 +57,7 @@ test('rewrites absolute url when width is provided', () => {
     const raw = absoluteUrls[2];
 
     expect(makeUrl(raw, { type: 'image-product', width })).toBe(
-        `${raw}?width=100`
+        `https://example.com${productBase}/baz.png?auto=webp&format=pjpg&width=100`
     );
 });
 
@@ -69,17 +69,29 @@ test('includes media path when rewriting for resizing', () => {
     );
 });
 
-test('uses fastly origin if present', () => {
+test('uses absolute origin if present', () => {
     jest.resetModules();
     const width = 100;
-    document
-        .querySelector('html')
-        .setAttribute(
-            'data-fastly-origin',
-            'https://fastly.origin:8000/somewhere'
-        );
-    const makeFastlyUrl = require('../makeUrl').default;
-    expect(makeFastlyUrl(relativePath, { width, type: 'image-product' })).toBe(
-        `https://fastly.origin:8000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+    const htmlTag = document.querySelector('html');
+    htmlTag.setAttribute('data-backend', 'https://cdn.origin:8000/');
+    htmlTag.setAttribute('data-image-optimize-on', 'backend');
+    const makeUrlAbs = require('../makeUrl').default;
+    expect(makeUrlAbs(relativePath, { width, type: 'image-product' })).toBe(
+        `https://cdn.origin:8000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
     );
+});
+
+test('removes absolute origin if configured to', () => {
+    jest.resetModules();
+    const width = 100;
+    const htmlTag = document.querySelector('html');
+    htmlTag.setAttribute('data-backend', 'https://cdn.origin:8000/');
+    htmlTag.setAttribute('data-image-optimize-on', 'origin');
+    const makeUrlAbs = require('../makeUrl').default;
+    expect(
+        makeUrlAbs(
+            `https://cdn.origin:8000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
+            { width, type: 'image-product' }
+        )
+    ).toBe(`${productBase}${relativePath}?auto=webp&format=pjpg&width=100`);
 });
