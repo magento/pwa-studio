@@ -8,7 +8,10 @@ export { useDropdown } from './hooks/useDropdown';
 export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
 export { useSearchParam } from './hooks/useSearchParam';
-export { WindowSizeContextProvider, useWindowSize } from './hooks/WindowSize';
+export {
+    WindowSizeContextProvider,
+    useWindowSize
+} from './hooks/useWindowSize';
 
 // components
 export { default as ContainerChild } from './ContainerChild';

@@ -32,6 +32,14 @@ const useWindowSizeListener = () => {
     return windowSize;
 };
 
+/**
+ * This component contains a hook that listens for resize events. It is
+ * recommended to only create/use a single time at the top level of your app
+ * ex:
+ *   <WindowSizeContextProvider>
+ *     <App />
+ *   </WindowSizeContextProvider>
+ */
 export const WindowSizeContextProvider = props => {
     // This hook has side effects of adding listeners so we only want to create it
     // once and store it in context for reference by components.
