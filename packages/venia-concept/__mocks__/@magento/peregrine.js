@@ -3,29 +3,41 @@ import { BrowserPersistence } from './util/simplePersistence';
 
 const peregrine = jest.requireActual('../../../peregrine/src');
 
-const mockRequest = jest.fn();
-
+// re-exports
 const RestApi = {
     Magento2: {
-        request: mockRequest
+        request: jest.fn()
     }
 };
 
-const Util = {
-    BrowserPersistence: BrowserPersistence
-};
+const Util = { BrowserPersistence };
+
+// hooks
+const useApolloContext = jest.fn(peregrine.useApolloContext);
+const useDocumentListener = jest.fn(peregrine.useDocumentListener);
+const useDropdown = jest.fn(peregrine.useDropdown);
+const useQuery = jest.fn(peregrine.useQuery);
+const useQueryResult = jest.fn(peregrine.useQueryResult);
+const useSearchParam = jest.fn(peregrine.useSearchParam);
+
+// components
 
 /**
  * the Price component from @magento/peregrine
  * has browser-specific functionality and cannot
  * currently by rendered in the test environment
  */
-const Price = () => <div />;
+const Price = jest.fn().mockReturnValue(<div />);
 
 module.exports = {
     ...peregrine,
-    mockRequest,
+    Price,
     RestApi,
     Util,
-    Price
+    useApolloContext,
+    useDocumentListener,
+    useDropdown,
+    useQuery,
+    useQueryResult,
+    useSearchParam
 };
