@@ -1,6 +1,8 @@
 // If the root template supplies the backend URL at runtime, use it directly
-const { imageOptimizeOn, backend } = document.querySelector('html').dataset;
-const backendOptimizesImages = backend && imageOptimizeOn === 'backend';
+const { imageOptimizingOrigin, backend } = document.querySelector(
+    'html'
+).dataset;
+const useBackendForImgs = backend && imageOptimizingOrigin === 'backend';
 
 const mediaBases = new Map()
     .set(
@@ -47,12 +49,12 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
         }
         // add image optimization parameters and optionally change origin
         if (type.startsWith('image-')) {
-            if (backendOptimizesImages) {
+            if (useBackendForImgs) {
                 urlObject = new URL(
                     urlObject.href.slice(urlObject.origin.length),
                     backend
                 );
-            } else if (path.startsWith(backend) && !backendOptimizesImages) {
+            } else if (path.startsWith(backend) && !useBackendForImgs) {
                 // Some API responses include absolute URLs to images.
                 // The backend won't optimize images, so do not use this
                 // absolute URL; instead, use a relative URL which has a chance

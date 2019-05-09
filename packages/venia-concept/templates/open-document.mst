@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-image-optimize-on="{{#env.IMAGE_OPTIMIZE_ON_BACKEND}}backend{{/env.IMAGE_OPTIMIZE_ON_BACKEND}}{{^env.IMAGE_OPTIMIZE_ON_BACKEND}}origin{{/env.IMAGE_OPTIMIZE_ON_BACKEND}}" data-backend="{{env.MAGENTO_BACKEND_URL}}">
+<html lang="en" data-image-optimizing-origin="{{env.IMAGE_OPTIMIZING_ORIGIN}}" data-backend="{{env.MAGENTO_BACKEND_URL}}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

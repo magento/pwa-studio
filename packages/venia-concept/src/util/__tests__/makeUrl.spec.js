@@ -69,24 +69,12 @@ test('includes media path when rewriting for resizing', () => {
     );
 });
 
-test('uses absolute origin if present', () => {
-    jest.resetModules();
-    const width = 100;
-    const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('data-backend', 'https://cdn.origin:8000/');
-    htmlTag.setAttribute('data-image-optimize-on', 'backend');
-    const makeUrlAbs = require('../makeUrl').default;
-    expect(makeUrlAbs(relativePath, { width, type: 'image-product' })).toBe(
-        `https://cdn.origin:8000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
-    );
-});
-
 test('removes absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
     const htmlTag = document.querySelector('html');
     htmlTag.setAttribute('data-backend', 'https://cdn.origin:8000/');
-    htmlTag.setAttribute('data-image-optimize-on', 'origin');
+    htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
         makeUrlAbs(
@@ -94,4 +82,21 @@ test('removes absolute origin if configured to', () => {
             { width, type: 'image-product' }
         )
     ).toBe(`${productBase}${relativePath}?auto=webp&format=pjpg&width=100`);
+});
+
+test('prepends absolute origin if configured to', () => {
+    jest.resetModules();
+    const width = 100;
+    const htmlTag = document.querySelector('html');
+    htmlTag.setAttribute('data-backend', 'https://cdn.origin:9000/');
+    htmlTag.setAttribute('data-image-optimizing-origin', 'backend');
+    const makeUrlAbs = require('../makeUrl').default;
+    expect(
+        makeUrlAbs(
+            `${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
+            { width, type: 'image-product' }
+        )
+    ).toBe(
+        `https://cdn.origin:9000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+    );
 });
