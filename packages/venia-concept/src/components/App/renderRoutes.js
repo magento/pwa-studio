@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route } from '@magento/venia-drivers';
+import { Router, Switch, Route } from 'src/drivers';
 import { Page } from '@magento/peregrine';
 import ErrorView from 'src/components/ErrorView/index';
 import CreateAccountPage from 'src/components/CreateAccountPage/index';
