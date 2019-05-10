@@ -1,5 +1,6 @@
 import actions from './actions';
 import mockData from './mockData';
+import { preserveQueryParams } from 'src/util/preserveQueryParams';
 
 export const serialize = (params, keys = [], isArray = false) => {
     const serialized = Object.keys(params)
@@ -59,14 +60,7 @@ export const removeFilter = ({ group, title, value }, history, location) =>
         const {
             catalog: { chosenFilterOptions }
         } = getState();
-        const newQueryParam = new URLSearchParams();
-
-        if (location) {
-            const { search } = location;
-            const queryParams = new URLSearchParams(search);
-            const pageNumber = queryParams.get('page');
-            newQueryParam.set('page', pageNumber);
-        }
+        const newQueryParam = preserveQueryParams(location, ['page', 'query']);
 
         const oldState = chosenFilterOptions[group] || [];
         const newState = oldState.filter(item => {

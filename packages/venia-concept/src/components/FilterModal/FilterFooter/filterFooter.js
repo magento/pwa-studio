@@ -8,7 +8,7 @@ import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-
+import { preserveQueryParams } from 'src/util/preserveQueryParams';
 class FilterFooter extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -24,20 +24,9 @@ class FilterFooter extends Component {
         closeDrawer: PropTypes.func
     };
 
-    getPageQueryParam = () => {
-        const { location } = this.props;
-        const { search } = location;
-        const queryParams = new URLSearchParams(search);
-        const pageNumber = queryParams.get('page');
-        const newQueryParams = new URLSearchParams();
-        newQueryParams.set('page', pageNumber);
-        return newQueryParams;
-    };
-
     resetFilterOptions = () => {
-        const { history, filterClear } = this.props;
-        const queryParams = this.getPageQueryParam();
-        console.log('queryParams.toString()', queryParams.toString());
+        const { history, filterClear, location } = this.props;
+        const queryParams = preserveQueryParams(location, ['page', 'query']);
         queryParams
             ? history.push('?' + queryParams.toString())
             : history.push();
@@ -45,8 +34,13 @@ class FilterFooter extends Component {
     };
 
     handleApplyFilters = () => {
-        const { history, chosenFilterOptions, closeDrawer } = this.props;
-        const queryParams = this.getPageQueryParam();
+        const {
+            history,
+            chosenFilterOptions,
+            closeDrawer,
+            location
+        } = this.props;
+        const queryParams = preserveQueryParams(location, ['page', 'query']);
         history.push(
             '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
         );
