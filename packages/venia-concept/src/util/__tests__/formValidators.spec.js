@@ -140,7 +140,7 @@ describe('validateTelephone', () => {
         expect(typeof result).toBe('string');
     });
 });
-  
+
 describe('validatePassword', () => {
     test('it returns undefined on success', () => {
         const result = validators.validatePassword('123qwe_+*');

@@ -64,7 +64,6 @@ export const validateRegionCode = (value, values, countries) => {
     return SUCCESS;
 };
 
-
 export const validateTelephone = value => {
     return !/^(\s*)?(\+)?([- ()+]?\d[- ()+]?)*$/i.test(value)
         ? 'The telephone number may only contain numbers'
