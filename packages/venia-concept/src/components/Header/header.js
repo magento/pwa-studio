@@ -9,6 +9,7 @@ import MenuIcon from 'react-feather/dist/icons/menu';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
+import OnlineIndicator from 'src/components/OnlineIndicator';
 
 const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
@@ -34,6 +35,13 @@ class Header extends Component {
         return <Icon src={SearchIcon} />;
     }
 
+    get onlineIndicator() {
+        const { hasBeenOffline, isOnline } = this.props;
+
+        // Only show online indicator when online after being offline.
+        return hasBeenOffline ? <OnlineIndicator isOnline={isOnline} /> : null;
+    }
+
     render() {
         const { searchOpen, classes, toggleSearch } = this.props;
 
@@ -42,14 +50,15 @@ class Header extends Component {
         return (
             <header className={rootClass}>
                 <div className={classes.toolbar}>
-                    <Link to={resourceUrl('/')}>
-                        <Logo classes={{ logo: classes.logo }} />
-                    </Link>
                     <div className={classes.primaryActions}>
                         <NavTrigger>
                             <Icon src={MenuIcon} />
                         </NavTrigger>
                     </div>
+                    {this.onlineIndicator}
+                    <Link to={resourceUrl('/')}>
+                        <Logo classes={{ logo: classes.logo }} />
+                    </Link>
                     <div className={classes.secondaryActions}>
                         <SearchTrigger
                             searchOpen={searchOpen}

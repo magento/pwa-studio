@@ -1,24 +1,29 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
 
 import ErrorNotifications from '../errorNotifications';
-import { Notification } from 'src/components/Notifications';
+import { createTestInstance } from '@magento/peregrine';
+import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
-Object.defineProperty(window, 'scrollTo', {
-    writable: true,
-    value: jest.fn()
+const mockAddToast = jest.fn();
+jest.mock('@magento/peregrine/src/Toasts/useToastActions', () => {
+    const useToastActions = jest.fn(() => ({ addToast: mockAddToast }));
+
+    return { useToastActions };
 });
 
-test('renders null when no errors are present', () => {
-    const renderer = TestRenderer.create(
+beforeEach(() => {
+    mockAddToast.mockClear();
+});
+test('adds no toasts when no errors are present', () => {
+    createTestInstance(
         <ErrorNotifications errors={[]} onDismissError={() => {}} />
     );
 
-    expect(renderer.toJSON()).toBe(null);
+    expect(mockAddToast).not.toHaveBeenCalled();
 });
 
-test('renders an error stack when errors are present', () => {
-    const instance = TestRenderer.create(
+test('adds a toast when errors are present', () => {
+    createTestInstance(
         <ErrorNotifications
             errors={[
                 {
@@ -35,51 +40,15 @@ test('renders an error stack when errors are present', () => {
             onDismissError={() => {}}
         />
     );
-    const notifications = instance.root.findAllByType(Notification);
-    expect(notifications).toHaveLength(2);
-    expect(notifications[0].props).toMatchObject({
-        type: 'error',
-        onClick: expect.any(Function),
-        afterDismiss: expect.any(Function)
-    });
-    expect(
-        notifications[0].find(({ children }) => {
-            return children.includes('stack trace here');
+    expect(mockAddToast).toHaveBeenCalledTimes(2);
+    expect(mockAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+            type: 'error',
+            message: `Sorry! An unexpected error occurred.\nDebug: Error1 stack trace here`,
+            icon: AlertCircleIcon,
+            dismissable: true,
+            timeout: 7000,
+            onDismiss: expect.any(Function)
         })
-    ).toBeTruthy();
-    expect(
-        notifications[1].find(({ children }) => {
-            return children.includes('stack trace here 2');
-        })
-    ).toBeTruthy();
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
-});
-
-test('errors are dismissable', () => {
-    const fakeEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn()
-    };
-    const dismissCallback = jest.fn();
-    const onDismissError = jest.fn();
-    const error = new Error('yup');
-    const { root } = TestRenderer.create(
-        <ErrorNotifications
-            errors={[
-                {
-                    error,
-                    id: 'Error1',
-                    loc: 'stack trace here'
-                }
-            ]}
-            onDismissError={onDismissError}
-        />
     );
-    const notification = root.findByType(Notification).instance;
-    notification.props.onClick(fakeEvent, dismissCallback);
-    expect(fakeEvent.preventDefault).toHaveBeenCalled();
-    expect(fakeEvent.stopPropagation).toHaveBeenCalled();
-    expect(dismissCallback).toHaveBeenCalled();
-    notification.props.afterDismiss();
-    expect(onDismissError).toHaveBeenCalledWith(error);
 });

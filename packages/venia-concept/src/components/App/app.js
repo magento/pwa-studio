@@ -5,7 +5,6 @@ import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
-import OnlineIndicator from 'src/components/OnlineIndicator';
 import ErrorNotifications from './errorNotifications';
 import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
@@ -83,15 +82,19 @@ class App extends Component {
             markErrorHandled,
             unhandledErrors
         } = this.props;
-        const { onlineIndicator } = this;
         const { drawer, overlay } = app;
         const navIsOpen = drawer === 'nav';
         const cartIsOpen = drawer === 'cart';
 
+        const { hasBeenOffline, isOnline } = app;
+
         return (
             <Fragment>
-                <Main isMasked={overlay}>
-                    {onlineIndicator}
+                <Main
+                    isMasked={overlay}
+                    hasBeenOffline={hasBeenOffline}
+                    isOnline={isOnline}
+                >
                     {renderRoutes()}
                 </Main>
                 <Mask isActive={overlay} dismiss={closeDrawer} />

@@ -33,16 +33,8 @@ const OnlineIndicator = props => {
     }, [isOnline]);
 
     return !isOnline ? (
-        <div className={classes.offline}>
-            <Icon src={CloudOffIcon} />
-            <p> You are offline. Some features may be unavailable. </p>
-        </div>
-    ) : (
-        <div className={classes.online}>
-            <Icon src={CheckIcon} />
-            <p> You are online. </p>
-        </div>
-    );
+        <Icon src={CloudOffIcon} className={classes.root} />
+    ) : null;
 };
 
 OnlineIndicator.propTypes = {
