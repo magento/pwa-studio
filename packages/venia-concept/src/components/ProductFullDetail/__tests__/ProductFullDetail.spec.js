@@ -1,6 +1,9 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
 import ProductFullDetail from '../ProductFullDetail';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 
 jest.mock('src/classify');
 
@@ -81,15 +84,18 @@ const mockConfigurableProduct = {
 };
 
 test('Configurable Product has correct media gallery image count', async () => {
-    const { root } = TestRenderer.create(
-        <ProductFullDetail
-            product={mockConfigurableProduct}
-            isAddingItem={false}
-            classes={{}}
-            addToCart={jest.fn()}
-        />
+    const { root } = createTestInstance(
+        <WindowSizeContextProvider>
+            <ProductFullDetail
+                product={mockConfigurableProduct}
+                isAddingItem={false}
+                classes={{}}
+                addToCart={jest.fn()}
+            />
+        </WindowSizeContextProvider>
     );
-    const { instance } = root.children[0];
+
+    const { instance } = root.children[0].children[0];
 
     expect(instance.mediaGalleryEntries).toHaveLength(2);
     instance.setState({

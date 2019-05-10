@@ -14,11 +14,12 @@ const Util = { BrowserPersistence };
 
 // hooks
 const useApolloContext = jest.fn(peregrine.useApolloContext);
-const useDocumentListener = jest.fn(peregrine.useDocumentListener);
+const useEventListener = jest.fn(peregrine.useEventListener);
 const useDropdown = jest.fn(peregrine.useDropdown);
 const useQuery = jest.fn(peregrine.useQuery);
 const useQueryResult = jest.fn(peregrine.useQueryResult);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
+const useWindowSize = jest.fn(peregrine.useWindowSize);
 
 // components
 
@@ -35,9 +36,10 @@ module.exports = {
     RestApi,
     Util,
     useApolloContext,
-    useDocumentListener,
+    useEventListener,
     useDropdown,
     useQuery,
     useQueryResult,
-    useSearchParam
+    useSearchParam,
+    useWindowSize
 };
