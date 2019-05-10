@@ -7,6 +7,12 @@ const reducer = (prevState = initialState, action = {}) => {
     console.log(type, payload);
     switch (type) {
         case 'add':
+            // If we are adding a toast that already exists we need to clear the
+            // old removal timeout effectively resetting the delete timer.
+            if (prevState[payload.id]) {
+                window.clearTimeout(prevState[payload.id].removalTimeoutId);
+            }
+
             return {
                 ...prevState,
                 [payload.id]: {
@@ -17,6 +23,11 @@ const reducer = (prevState = initialState, action = {}) => {
             const newState = {
                 ...prevState
             };
+
+            // Clear the old timeout.
+            window.clearTimeout(newState[payload.id].removalTimeoutId);
+
+            // Delete the toast from the store.
             delete newState[payload.id];
             return newState;
         default:
