@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { useDocumentListener } from './useDocumentListener';
+import { useEventListener } from './useEventListener';
 
 export const useDropdown = () => {
     const elementRef = useRef(null);
@@ -17,7 +17,7 @@ export const useDropdown = () => {
     );
 
     // add listener to document, as an effect
-    useDocumentListener('mousedown', maybeCollapse);
+    useEventListener(document, 'mousedown', maybeCollapse);
 
     return {
         elementRef,

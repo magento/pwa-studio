@@ -3,11 +3,15 @@ import * as Util from './util';
 
 // hooks
 export { useApolloContext } from './hooks/useApolloContext';
-export { useDocumentListener } from './hooks/useDocumentListener';
+export { useEventListener } from './hooks/useEventListener';
 export { useDropdown } from './hooks/useDropdown';
 export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
 export { useSearchParam } from './hooks/useSearchParam';
+export {
+    WindowSizeContextProvider,
+    useWindowSize
+} from './hooks/useWindowSize';
 
 // components
 export { default as ContainerChild } from './ContainerChild';
