@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { useEventListener } from './useEventListener';
 
 const WindowSizeContext = createContext();
 
@@ -22,12 +23,7 @@ const useWindowSizeListener = () => {
         setWindowSize(getSize());
     };
 
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []); // Passing empty array to only run effect on mount and unmount.
+    useEventListener(window, 'resize', handleResize);
 
     return windowSize;
 };
