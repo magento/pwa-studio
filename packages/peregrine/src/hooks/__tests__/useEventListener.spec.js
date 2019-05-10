@@ -17,7 +17,7 @@ spies.set(
 );
 
 const Component = () => {
-    useEventListener('click', handleClick, { once: true });
+    useEventListener(document, 'click', handleClick, { once: true });
 
     return <i />;
 };
