@@ -15,7 +15,7 @@ const Component = () => {
     return <i />;
 };
 
-test.only('adds an event listener to the window on mount', () => {
+test('adds an event listener to the window on mount', () => {
     createTestInstance(
         <WindowSizeContextProvider>
             <Component />
