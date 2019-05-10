@@ -1,8 +1,10 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
 
 import ThumbnailList from '../thumbnailList';
-import { WindowSizeContextProvider } from '@magento/peregrine';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 jest.mock('src/classify');
 
 const updateActiveItemIndexMock = jest.fn();
@@ -22,7 +24,7 @@ const defaultProps = {
 };
 
 test('renders the ThumbnailList component correctly', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <ThumbnailList {...defaultProps} />
         </WindowSizeContextProvider>
@@ -32,7 +34,7 @@ test('renders the ThumbnailList component correctly', () => {
 });
 
 test('sets isActive on active thumbnail based on activeItemIndex', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <ThumbnailList {...defaultProps} />
         </WindowSizeContextProvider>
@@ -44,7 +46,7 @@ test('sets isActive on active thumbnail based on activeItemIndex', () => {
 });
 
 test('calls updateActiveItemIndex with index of clicked thumbnail', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <ThumbnailList {...defaultProps} />
         </WindowSizeContextProvider>

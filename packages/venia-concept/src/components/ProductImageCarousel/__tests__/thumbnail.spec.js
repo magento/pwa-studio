@@ -1,6 +1,8 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
-import { WindowSizeContextProvider } from '@magento/peregrine';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 import Thumbnail from '../thumbnail';
 
 jest.mock('src/classify');
@@ -18,7 +20,7 @@ const defaultProps = {
 };
 
 test('renders the Thumbnail component correctly', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Thumbnail {...defaultProps} />
         </WindowSizeContextProvider>
@@ -28,7 +30,7 @@ test('renders the Thumbnail component correctly', () => {
 });
 
 test('clicking calls click handler with item index', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Thumbnail {...defaultProps} />
         </WindowSizeContextProvider>
@@ -49,7 +51,7 @@ test('renders transparent placeholder when no file name is provided', () => {
             label: 'placeholder-thumbnail'
         }
     };
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Thumbnail {...props} />
         </WindowSizeContextProvider>
@@ -63,7 +65,7 @@ test('renders root class if not the active Thumbnail', () => {
         ...defaultProps,
         isActive: false
     };
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Thumbnail {...props} />
         </WindowSizeContextProvider>

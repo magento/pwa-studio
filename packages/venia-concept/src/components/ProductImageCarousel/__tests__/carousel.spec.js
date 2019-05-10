@@ -1,8 +1,10 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
 import { transparentPlaceholder } from 'src/shared/images';
 import Carousel from '../carousel';
-import { WindowSizeContextProvider } from '@magento/peregrine';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 
 jest.mock('src/classify');
 
@@ -42,7 +44,7 @@ const defaultProps = {
 };
 
 test('renders the Carousel component correctly w/ sorted images', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -60,7 +62,7 @@ test('renders the Carousel component correctly w/ sorted images', () => {
 });
 
 test('renders active item as main image', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -79,7 +81,7 @@ test('renders active item as main image', () => {
 });
 
 test('updates main image when non-active item is clicked', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -103,7 +105,7 @@ test('updates main image when non-active item is clicked', () => {
 });
 
 test('renders prior image when left chevron is clicked', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -128,7 +130,7 @@ test('renders prior image when left chevron is clicked', () => {
 });
 
 test('renders last image when left chevron is clicked and first item is active', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -148,7 +150,7 @@ test('renders last image when left chevron is clicked and first item is active',
 });
 
 test('renders next image when right chevron is clicked', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -168,7 +170,7 @@ test('renders next image when right chevron is clicked', () => {
 });
 
 test('renders first image when right chevron is clicked and last item is active', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>
@@ -193,12 +195,12 @@ test('renders first image when right chevron is clicked and last item is active'
 });
 
 test('renders a transparent main image if no file name is provided', () => {
-    const component = testRenderer.create(<Carousel images={[]} />);
+    const component = createTestInstance(<Carousel images={[]} />);
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('sets main image alt as "image-product" if no label is provided', () => {
-    const component = testRenderer.create(<Carousel images={[]} />);
+    const component = createTestInstance(<Carousel images={[]} />);
 
     const activeImage = component.root.findAllByProps({
         className: 'currentImage'
@@ -209,7 +211,7 @@ test('sets main image alt as "image-product" if no label is provided', () => {
 });
 
 test('renders a placeholder until image is loaded', () => {
-    const component = testRenderer.create(
+    const component = createTestInstance(
         <WindowSizeContextProvider>
             <Carousel {...defaultProps} />
         </WindowSizeContextProvider>

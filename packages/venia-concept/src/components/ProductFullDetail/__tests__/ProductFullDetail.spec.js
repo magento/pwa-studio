@@ -1,7 +1,9 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
 import ProductFullDetail from '../ProductFullDetail';
-import { WindowSizeContextProvider } from '@magento/peregrine';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 
 jest.mock('src/classify');
 
@@ -82,7 +84,7 @@ const mockConfigurableProduct = {
 };
 
 test('Configurable Product has correct media gallery image count', async () => {
-    const { root } = TestRenderer.create(
+    const { root } = createTestInstance(
         <WindowSizeContextProvider>
             <ProductFullDetail
                 product={mockConfigurableProduct}
