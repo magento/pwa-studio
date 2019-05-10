@@ -4,7 +4,6 @@ import testRenderer from 'react-test-renderer';
 import ThumbnailList from '../thumbnailList';
 import { WindowSizeContextProvider } from '@magento/peregrine';
 jest.mock('src/classify');
-// jest.mock('src/components/ProductImageCarousel/thumbnail', () => '');
 
 const updateActiveItemIndexMock = jest.fn();
 const defaultProps = {
