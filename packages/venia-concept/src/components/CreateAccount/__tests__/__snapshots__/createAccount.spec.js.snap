@@ -92,6 +92,7 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <span>
+      <span />
       Password
     </span>
     <span
@@ -119,6 +120,7 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <span>
+      <span />
       Confirm Password
     </span>
     <span

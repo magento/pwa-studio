@@ -127,3 +127,54 @@ describe('validateRegionCode', () => {
         expect(typeof result).toBe('string');
     });
 });
+
+describe('validatePassword', () => {
+    test('it returns undefined on success', () => {
+        const result = validators.validatePassword('123qwe_+*');
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns a string on  failure', () => {
+        const result = validators.validatePassword('1111');
+
+        expect(typeof result).toBe('string');
+    });
+});
+
+describe('validateConfirmPassword', () => {
+    test('it returns undefined on success', () => {
+        const values = {
+            password: 'qwerty12345'
+        };
+        const password = 'qwerty12345';
+        const result = validators.validateConfirmPassword(password, values);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns undefined on success with a password key', () => {
+        const values = {
+            password_key: 'qwerty12345'
+        };
+        const password = 'qwerty12345';
+        const passwordKey = 'password_key';
+        const result = validators.validateConfirmPassword(
+            password,
+            values,
+            passwordKey
+        );
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns a string on failure', () => {
+        const values = {
+            password: 'qwertz12345'
+        };
+        const password = 'qwerty12345';
+        const result = validators.validateConfirmPassword(password, values);
+
+        expect(typeof result).toBe('string');
+    });
+});
