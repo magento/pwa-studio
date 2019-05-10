@@ -29,7 +29,8 @@ test('adds an event listener to the window on mount', () => {
     );
 
     const spy = spies.get('addEventListener');
-    expect(spy).toHaveBeenCalledTimes(5);
+    // React attaches a few listeners to window, we seem to always be the 5th.
+    expect(spy).nthCalledWith(5, 'resize', expect.any(Function));
 });
 
 test('removes the event listener on unmount', () => {
@@ -44,5 +45,6 @@ test('removes the event listener on unmount', () => {
     });
 
     const spy = spies.get('removeEventListener');
-    expect(spy).toHaveBeenCalledTimes(9);
+    // React removes a few listeners to window, we seem to always be the 6th.
+    expect(spy).nthCalledWith(6, 'resize', expect.any(Function));
 });
