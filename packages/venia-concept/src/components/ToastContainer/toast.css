@@ -23,41 +23,25 @@
 }
 
 /* TODO: Figure out how to pulse borders for "identical" react trees */
-@keyframes border-pulsate-info {
+@keyframes toast-pulsate {
     0% {
-        border-color: #d1d1d1;
-        border-bottom: 4px solid rgb(0, 104, 108);
+        opacity: 1;
     }
     50% {
-        border-color: rgb(0, 104, 108);
+        opacity: 0.5;
     }
     100% {
-        border-color: #d1d1d1;
-        border-bottom: 4px solid rgb(0, 104, 108);
-    }
-}
-
-@keyframes border-pulsate-error {
-    0% {
-        border-color: #d1d1d1;
-        border-bottom: 4px solid rgb(220, 20, 60);
-    }
-    50% {
-        border-color: rgb(220, 20, 60);
-    }
-    100% {
-        border-color: #d1d1d1;
-        border-bottom: 4px solid rgb(220, 20, 60);
+        opacity: 1;
     }
 }
 
 .toast.info {
     border-bottom: 4px solid rgb(0, 104, 108);
-    animation: border-pulsate-info 0.5s 1s;
+    animation: toast-pulsate 0.5s 1.5s;
 }
 .toast.error {
     border-bottom: 4px solid rgb(220, 20, 60);
-    animation: border-pulsate-error 0.5s 1s;
+    animation: toast-pulsate 0.5s 1.5s;
 }
 
 .icon {

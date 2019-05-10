@@ -39,10 +39,10 @@ ReactDOM.render(
         store={store}
     >
         <WindowSizeContextProvider>
-          <ToastContextProvider>
-              <ToastContainer />
-              <App />
-          </ToastContextProvider>
+            <ToastContextProvider>
+                <ToastContainer />
+                <App />
+            </ToastContextProvider>
         </WindowSizeContextProvider>
     </Adapter>,
     document.getElementById('root')
