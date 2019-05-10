@@ -41,11 +41,13 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
     const { href, origin } = window.location;
     let urlObject = new URL(path, href);
 
-    if (type && mediaBases.has(type)) {
-        const mediaBase = mediaBases.get(type);
-        // prepend media base if it isn't already part of the pathname
-        if (!urlObject.pathname.includes(mediaBase)) {
-            urlObject.pathname = mediaBase + urlObject.pathname;
+    if (type) {
+        if (mediaBases.has(type)) {
+            const mediaBase = mediaBases.get(type);
+            // prepend media base if it isn't already part of the pathname
+            if (!urlObject.pathname.includes(mediaBase)) {
+                urlObject.pathname = mediaBase + urlObject.pathname;
+            }
         }
         // add image optimization parameters and optionally change origin
         if (type.startsWith('image-')) {
