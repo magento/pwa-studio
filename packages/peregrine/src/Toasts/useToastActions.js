@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useToastDispatch } from './context';
 
+// If a toast _is not_ dismissable remove it in this many milliseconds.
 const DEFAULT_TIMEOUT = 5000;
 
 export const useToastActions = () => {
@@ -9,13 +10,12 @@ export const useToastActions = () => {
     const addToast = useCallback(
         toastProps => {
             const id = Date.now();
+            const { timeout } = toastProps;
 
             // Queue to delete the toast after some time.
-            if (!toastProps.dismissable) {
-                setTimeout(() => {
-                    removeToast(id);
-                }, DEFAULT_TIMEOUT);
-            }
+            setTimeout(() => {
+                removeToast(id);
+            }, timeout ? timeout : DEFAULT_TIMEOUT);
 
             return dispatch({
                 type: 'add',

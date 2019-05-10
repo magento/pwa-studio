@@ -27,6 +27,7 @@ const ErrorNotifications = props => {
                 message: `Sorry! An unexpected error occurred.\nDebug: ${id} ${loc}`,
                 icon: AlertCircleIcon,
                 dismissable: true,
+                timeout: 7000,
                 onDismiss: getErrorDismisser(error)
             });
         }, [error, id, loc]);
