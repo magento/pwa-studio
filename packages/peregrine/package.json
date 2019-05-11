@@ -6,7 +6,6 @@
   },
   "description": "The core runtime of Magento PWA",
   "main": "dist/index.js",
-  "browser": "dist/index.js",
   "scripts": {
     "build": "concurrently --raw yarn:build:cjs yarn:build:esm",
     "build:cjs": "BABEL_ENV=production babel src --out-dir dist --root-mode 'upward' --source-maps",
@@ -33,24 +32,27 @@
     "@babel/plugin-syntax-dynamic-import": "~7.2.0",
     "@babel/plugin-syntax-jsx": "~7.2.0",
     "@babel/plugin-transform-react-jsx": "~7.3.0",
-    "@babel/plugin-transform-runtime": "~7.3.4",
-    "@babel/runtime": "~7.3.4",
+    "@babel/plugin-transform-runtime": "~7.4.4",
+    "@babel/runtime": "~7.4.2",
     "@storybook/react": "~4.1.13",
     "concurrently": "~4.1.0",
     "intl": "~1.2.5",
     "react": "~16.8.3",
+    "react-apollo": "~2.5.3",
     "react-dom": "~16.8.3",
     "react-router-dom": "~5.0.0",
+    "react-test-renderer": "~16.8.6",
     "rimraf": "~2.6.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.4.2",
     "react": "^16.8.0",
+    "react-apollo": "^2.5.3",
     "react-dom": "^16.8.0",
     "react-router-dom": "~5.0.0"
   },
   "engines": {
-    "node": ">=10.7.0",
+    "node": "8.10.0 || >=10.7.0",
     "yarn": ">=1.12.0"
   },
   "module": "esm/index.js",

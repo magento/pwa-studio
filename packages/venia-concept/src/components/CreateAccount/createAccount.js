@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import classify from 'src/classify';
 import Button from 'src/components/Button';
 import Checkbox from 'src/components/Checkbox';
 import Field from 'src/components/Field';
 import TextInput from 'src/components/TextInput';
 
-import { asyncValidators, validators } from './validators';
+import combine from 'src/util/combineValidators';
+import {
+    validateEmail,
+    isRequired,
+    validatePassword,
+    validateConfirmPassword,
+    hasLengthAtLeast
+} from 'src/util/formValidators';
 
 import defaultClasses from './createAccount.css';
-import classify from 'src/classify';
 
 class CreateAccount extends Component {
     static propTypes = {
@@ -83,7 +90,7 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.firstname"
                         autoComplete="given-name"
-                        validate={validators.get('firstName')}
+                        validate={isRequired}
                         validateOnBlur
                     />
                 </Field>
@@ -91,7 +98,7 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.lastname"
                         autoComplete="family-name"
-                        validate={validators.get('lastName')}
+                        validate={isRequired}
                         validateOnBlur
                     />
                 </Field>
@@ -99,26 +106,31 @@ class CreateAccount extends Component {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
-                        validate={validators.get('email')}
-                        asyncValidate={asyncValidators.get('email')}
+                        validate={combine([isRequired, validateEmail])}
                         validateOnBlur
-                        asyncValidateOnBlur
                     />
                 </Field>
-                <Field label="Password">
+                <Field label="Password" required={true}>
                     <TextInput
                         field="password"
                         type="password"
                         autoComplete="new-password"
-                        validate={validators.get('password')}
+                        validate={combine([
+                            isRequired,
+                            [hasLengthAtLeast, 8],
+                            validatePassword
+                        ])}
                         validateOnBlur
                     />
                 </Field>
-                <Field label="Confirm Password">
+                <Field label="Confirm Password" required={true}>
                     <TextInput
                         field="confirm"
                         type="password"
-                        validate={validators.get('confirm')}
+                        validate={combine([
+                            isRequired,
+                            validateConfirmPassword
+                        ])}
                         validateOnBlur
                     />
                 </Field>
