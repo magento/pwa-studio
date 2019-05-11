@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "yarn workspaces run build",
+    "build:ci": "yarn workspaces run build:ci",
     "build:dev": "yarn workspaces run build:dev",
     "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",

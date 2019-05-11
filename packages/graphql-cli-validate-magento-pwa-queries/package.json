@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "cp ../../magento-compatibility.js ./lib/",
+    "build:ci": "yarn run -s build",
+    "build:dev": "yarn run -s build",
     "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
     "test": "jest"
   },

@@ -4,14 +4,20 @@
   "publishConfig": {
     "access": "public"
   },
+  "workspaces": {
+    "nohoist": [
+      "**pwa-buildpack**"
+    ]
+  },
   "description": "Create a PWA Studio app with a single command.",
   "main": "index.js",
   "bin": "./bin/create-pwa",
   "scripts": {
-    "build": "echo 'Skipping create-pwa build...'",
-    "build:dev": "yarn run build",
-    "clean": "echo 'Skipping create-pwa clean...'",
-    "test": "echo 'Skipping create-pwa test...'"
+    "build": " ",
+    "build:ci": " ",
+    "build:dev": " ",
+    "clean": " ",
+    "test": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [

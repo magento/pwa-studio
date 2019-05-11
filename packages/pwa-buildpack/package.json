@@ -11,9 +11,10 @@
   },
   "scripts": {
     "build": "babel src --out-dir dist --root-mode 'root' --source-maps --copy-files",
-    "build:dev": "yarn run build",
+    "build:ci": "yarn run -s build",
+    "build:dev": "yarn run -s build",
     "clean": "rimraf dist",
-    "prebuild": "yarn run clean",
+    "prebuild": "yarn run -s clean",
     "prepublishOnly": "yarn run build",
     "watch": "yarn run build --watch"
   },

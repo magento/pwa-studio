@@ -7,6 +7,7 @@
   },
   "workspaces": {
     "nohoist": [
+      "**pwa-buildpack**",
       "**venia-library**",
       "react-dom/**",
       "**/react-dom/**",
@@ -36,7 +37,8 @@
   "scripts": {
     "build": "yarn run clean && buildpack validate-env . && yarn run validate-queries && yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
-    "build:dev": "echo 'Skipping venia-concept build...'",
+    "build:ci": "buildpack validate-env . && yarn run -s build:prod",
+    "build:dev": " ",
     "build:prod": "webpack -p --color --no-progress --profile --env.mode production",
     "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia",
@@ -56,7 +58,7 @@
   "dependencies": {
     "@babel/runtime": "~7.4.2",
     "@magento/peregrine": "~2.1.0",
-    "@magento/venia-library": "2.1.0",
+    "@magento/venia-library": "~2.1.0",
     "apollo-client": "~2.5.1",
     "apollo-link-context": "~1.0.14",
     "graphql-cli": "~3.0.11",
