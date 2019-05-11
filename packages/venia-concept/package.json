@@ -14,18 +14,6 @@
       "**/react-router-dom/**"
     ]
   },
-  "buildpack": {
-    "template": {
-      "ignore": [
-        "./vscode",
-        "dist",
-        "node_modules",
-        ".env",
-        "build-stats.json",
-        "lastCachedGraphQLSchema.json"
-      ]
-    }
-  },
   "description": "Venia PWA Concept Storefront for Magento 2",
   "main": "src/index.js",
   "browser": {
