@@ -4,11 +4,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": {
-    "nohoist": [
-      "**pwa-buildpack**"
-    ]
-  },
   "description": "Create a PWA Studio app with a single command.",
   "main": "index.js",
   "bin": "./bin/create-pwa",
