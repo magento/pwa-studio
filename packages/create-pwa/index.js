@@ -13,7 +13,7 @@ const {
 } = require('@magento/pwa-buildpack/dist/cli/init-project');
 
 module.exports = async () => {
-    console.log(chalk.greenBright(pkg.name + `version ${pkg.version}`));
+    console.log(chalk.greenBright(`${pkg.name} v${pkg.version}`));
     console.log(
         chalk.white(`Creating a ${chalk.whiteBright('venia-starter')} project`)
     );
@@ -137,7 +137,7 @@ module.exports = async () => {
             `Running ${chalk.whiteBright('buildpack ' + args.join(' '))}`
         )
     );
-    execa('buildpack', args, {
+    await execa('buildpack', args, {
         stdio: 'inherit'
     });
 };
