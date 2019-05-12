@@ -53,7 +53,7 @@ Add any ideas about possible solutions to the problem here.
 <!-- Complete the following sections to help us apply appropriate labels! -->
 **Please let us know what packages this bug is in regards to:**
 - [ ] `create-pwa`
-- [ ] `graphql-cli-validate-magento-pwa-queries`
+- [ ] `graphql-cli-validate-magento2-queries`
 - [ ] `pwa-buildpack`
 - [ ] `peregrine`
 - [ ] `pwa-devdocs`

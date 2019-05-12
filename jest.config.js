@@ -136,7 +136,7 @@ const jestConfig = {
         })),
         // Test the graphql-cli plugin
         configureProject(
-            'graphql-cli-validate-magento-pwa-queries',
+            'graphql-cli-validate-magento2-queries',
             'GraphQL CLI Plugin',
             () => ({
                 testEnvironment: 'node',

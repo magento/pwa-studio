@@ -32,7 +32,7 @@ Add any other context or screenshots about the feature request here.
 
 **Please let us know what packages this feature is in regards to:**
 - [ ] `create-pwa`
-- [ ] `graphql-cli-validate-magento-pwa-queries`
+- [ ] `graphql-cli-validate-magento2-queries`
 - [ ] `pwa-buildpack`
 - [ ] `peregrine`
 - [ ] `pwa-devdocs`

@@ -1,6 +1,6 @@
 # GraphQL Validation Support
 
-We created a `graphql-cli` plugin called `validate-magento-pwa-queries` that lives at `packages/graphql-cli-validate-magento-pwa-queries`.
+We created a `graphql-cli` plugin called `validate-magento-pwa-queries` that lives at `packages/graphql-cli-validate-magento2-queries`.
 
 Venia depends on `graphql-cli` and this `validate-magento-pwa-queries` plugin to do the work of validating the queries,
 replacing the need for `validate-queries.js` in `packages/venia-concept/` itself.

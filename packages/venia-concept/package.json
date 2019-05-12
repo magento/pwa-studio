@@ -59,7 +59,7 @@
     "apollo-client": "~2.5.1",
     "apollo-link-context": "~1.0.14",
     "graphql-cli": "~3.0.11",
-    "graphql-cli-validate-magento-pwa-queries": "3.0.0-alpha.1",
+    "graphql-cli-validate-magento2-queries": "3.0.0-alpha.1",
     "graphql-tag": "~2.10.1",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",

@@ -15,8 +15,8 @@ RUN apk --no-cache --virtual add \
 
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
-COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
-COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
+COPY packages/graphql-cli-validate-magento2-queries/package.json ./packages/graphql-cli-validate-magento2-queries/package.json
+COPY packages/graphql-cli-validate-magento2-queries/package.json ./packages/graphql-cli-validate-magento2-queries/package.json
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
 COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
