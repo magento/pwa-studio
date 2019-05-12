@@ -32,6 +32,7 @@
     "build:ci": "yarn run buildpack validate-env . && yarn run -s build:prod",
     "build:dev": " ",
     "build:prod": "webpack -p --color --no-progress --profile --env.mode production",
+    "buildpack": "buildpack",
     "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia",
     "lint": "eslint --ignore-path .gitignore 'src/**/{*.js,package.json}'",
