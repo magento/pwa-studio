@@ -27,6 +27,7 @@
                     "package.json",
                     ".env",
                     "venia-upward.yml",
+                    "node_modules/@magento/venia-library/esm/queries/*",
                     "static/*",
                     "templates/*"
                 ],

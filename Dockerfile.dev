@@ -33,6 +33,9 @@ RUN yarn install --frozen-lockfile
 # copy over the rest of the package files
 COPY packages ./packages
 
+# install dependencies again to link binaries
+RUN yarn install --frozen-lockfile
+
 # set in docker-compose
 ARG ENVFILEPATH
 # # copy configuration env file from host file system to venia-concept .env for build

@@ -7,6 +7,7 @@
   },
   "workspaces": {
     "nohoist": [
+      "venia-library**",
       "**venia-library**",
       "react-dom/**",
       "**/react-dom/**",
