@@ -9,6 +9,13 @@
   "browser": {
     "@magento/venia-drivers": "src/drivers"
   },
+  "files": [
+    "{esm,src}/*",
+    "{esm,src}/**/*",
+    "CHANGELOG.md",
+    "LICENSE_AFL.txt",
+    "LICENSE.txt"
+  ],
   "scripts": {
     "build": "yarn run -s build:esm",
     "build:ci": "yarn run -s build:esm",
@@ -20,13 +27,6 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
-  "files": [
-    "{esm,src}/*",
-    "{esm,src}/**/*",
-    "CHANGELOG.md",
-    "LICENSE_AFL.txt",
-    "LICENSE.txt"
-  ],
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
@@ -61,6 +61,7 @@
     "@magento/pwa-buildpack": "~2.1.0",
     "@magento/upward-js": "~2.1.0",
     "@storybook/react": "~4.1.13",
+    "apollo-client": "~2.5.1",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
     "babel-loader": "~8.0.5",
@@ -70,12 +71,11 @@
     "enzyme": "~3.9.0",
     "enzyme-adapter-react-16": "~1.9.1",
     "identity-obj-proxy": "~3.0.0",
-    "react-test-renderer": "~16.8.6",
-    "rimraf": "~2.6.3",
-    "apollo-client": "~2.5.1",
     "react": "^16.8.3",
     "react-apollo": "^2.5.5",
-    "redux": "~4.0.1"
+    "react-test-renderer": "~16.8.6",
+    "redux": "~4.0.1",
+    "rimraf": "~2.6.3"
   },
   "peerDependencies": {
     "@magento/peregrine": "~2.1.0",
