@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-spec",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "UPWARD specification, guide, and test suite.",
   "main": "./suite/index.js",
   "bin": {

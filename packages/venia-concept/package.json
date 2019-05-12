@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "publishConfig": {
     "access": "public"
   },
@@ -54,12 +54,12 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
     "@babel/runtime": "~7.4.2",
-    "@magento/peregrine": "3.0.0-alpha.3",
-    "@magento/venia-library": "3.0.0-alpha.3",
+    "@magento/peregrine": "3.0.0-alpha.4",
+    "@magento/venia-library": "3.0.0-alpha.4",
     "apollo-client": "~2.5.1",
     "apollo-link-context": "~1.0.14",
     "graphql-cli": "~3.0.11",
-    "graphql-cli-validate-magento2-queries": "3.0.0-alpha.3",
+    "graphql-cli-validate-magento2-queries": "3.0.0-alpha.4",
     "graphql-tag": "~2.10.1",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",
@@ -78,8 +78,8 @@
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
     "@magento/eslint-config": "~1.4.0",
-    "@magento/pwa-buildpack": "3.0.0-alpha.3",
-    "@magento/upward-js": "3.0.0-alpha.3",
+    "@magento/pwa-buildpack": "3.0.0-alpha.4",
+    "@magento/upward-js": "3.0.0-alpha.4",
     "@storybook/react": "~4.1.13",
     "babel-core": "~7.0.0-bridge.0",
     "babel-eslint": "~10.0.1",

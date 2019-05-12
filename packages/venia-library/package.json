@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-library",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "publishConfig": {
     "access": "public"
   },
@@ -58,8 +58,8 @@
     "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
-    "@magento/pwa-buildpack": "3.0.0-alpha.3",
-    "@magento/upward-js": "3.0.0-alpha.3",
+    "@magento/pwa-buildpack": "3.0.0-alpha.4",
+    "@magento/upward-js": "3.0.0-alpha.4",
     "@storybook/react": "~4.1.13",
     "apollo-client": "~2.5.1",
     "babel-core": "~7.0.0-bridge.0",
