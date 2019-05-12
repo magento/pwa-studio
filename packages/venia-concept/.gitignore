@@ -1,10 +1,10 @@
-.idea
-.vscode
-coverage
-dist
-node_modules
-storybook-dist
-test-results
+.idea{/*,/**/*}
+.vscode{/*,/**/*}
+coverage{/*,/**/*}
+node_modules{/*,/**/*}
+storybook-dist{/*,/**/*}
+test-results{/*,/**/*}
+dist{/*,/**/*}
 .DS_Store
 .env
 build-stats.json

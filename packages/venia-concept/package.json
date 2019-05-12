@@ -56,7 +56,7 @@
   "dependencies": {
     "@babel/runtime": "~7.4.2",
     "@magento/peregrine": "~2.1.0",
-    "@magento/venia-library": "~2.1.0",
+    "@magento/venia-library": "/Users/jzetlen/gits/pwa/pwa-studio/packages/venia-library/magento-venia-library-v2.1.0.tgz",
     "apollo-client": "~2.5.1",
     "apollo-link-context": "~1.0.14",
     "graphql-cli": "~3.0.11",

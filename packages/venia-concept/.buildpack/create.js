@@ -5,7 +5,7 @@ function createProjectFromVenia(fse) {
         .trim()
         .split('\n')
         .join(',');
-    const allIgnoredGlob = `{CHANGELOG*,LICENSE*,.buildpack,${gitIgnoredGlob}}`;
+    const allIgnoredGlob = `{CHANGELOG*,LICENSE*,.buildpack/*,${gitIgnoredGlob}}`;
     const toCopyFromPackageJson = [
         'main',
         'browser',
@@ -20,8 +20,13 @@ function createProjectFromVenia(fse) {
         'build:prod',
         'clean',
         'download-schema',
+        'lint',
+        'prettier',
+        'prettier:check',
+        'prettier:fix',
         'start',
         'start:debug',
+        'test',
         'validate-queries',
         'watch'
     ];
@@ -39,7 +44,7 @@ function createProjectFromVenia(fse) {
                     description:
                         'A new project based on @magento/venia-concept',
                     author,
-                    scripts
+                    scripts: {}
                 };
                 toCopyFromPackageJson.forEach(prop => {
                     pkg[prop] = pkgTpt[prop];
@@ -53,7 +58,9 @@ function createProjectFromVenia(fse) {
                                   /yarn run/g,
                                   'npm run'
                               );
-                scriptsToCopy.forEach(toPackageScript);
+                scriptsToCopy.forEach(name => {
+                    pkg.scripts[name] = toPackageScript(name);
+                });
 
                 fse.writeJsonSync(targetPath, pkg, {
                     spaces: 2

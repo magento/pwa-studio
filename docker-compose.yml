@@ -33,6 +33,8 @@ services:
       - ./packages/peregrine/scripts:/usr/src/app/packages/peregrine/scripts:rw
       - ./packages/peregrine/src:/usr/src/app/packages/peregrine/src:rw
       - ./packages/pwa-buildpack/src:/usr/src/app/packages/pwa-buildpack/src:rw
+      - ./packages/pwa-buildpack/dist:/usr/src/app/packages/pwa-buildpack/dist:rw
+      - ./packages/pwa-buildpack/bin:/usr/src/app/packages/pwa-buildpack/bin:rw
       - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
       - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw
       - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw

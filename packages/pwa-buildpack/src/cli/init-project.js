@@ -9,7 +9,7 @@ const prettyLogger = require('../util/pretty-logger');
 const createProject = require('../Utilities/createProject');
 const { handler: initCustomOrigin } = require('./init-custom-origin');
 const { handler: createEnvFile } = require('./create-env-file');
-const { spawn, execSync } = require('child_process');
+const execa = require('execa');
 
 const tmpDir = os.tmpdir();
 
@@ -42,9 +42,9 @@ async function makeDirFromNpmPackage(packageName) {
     try {
         prettyLogger.info(`Finding ${packageName} tarball on NPM`);
         tarballUrl = JSON.parse(
-            execSync(`npm view --json ${packageName}`, {
+            execa.sync(`npm view --json ${packageName}`, {
                 encoding: 'utf-8'
-            })
+            }).stdout
         ).dist.tarball;
     } catch (e) {
         throw new Error(
@@ -197,14 +197,10 @@ module.exports.handler = async function buildpackCli(argv) {
         );
     }
     if (params.install) {
-        await new Promise((succeed, fail) =>
-            spawn(params.npmClient, ['install'], {
-                cwd: argv.directory,
-                stdio: 'inherit'
-            })
-                .on('error', fail)
-                .on('exit', code => (code ? fail(code) : succeed()))
-        );
+        await execa(params.npmClient, ['install'], {
+            cwd: directory,
+            stdio: 'inherit'
+        });
         prettyLogger.success(`Installed dependencies for '${name}' project`);
     }
 };

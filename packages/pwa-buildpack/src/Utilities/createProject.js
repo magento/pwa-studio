@@ -4,15 +4,15 @@ const fse = require('fs-extra');
 const walk = require('klaw');
 const micromatch = require('micromatch');
 
-function getBuildpackInstructions(directory) {
-    const instructionFolder = resolve(directory, '.buildpack');
+function getBuildpackInstructions(template) {
+    const instructionFolder = resolve(template, '.buildpack');
     try {
         return {
             create: require(resolve(instructionFolder, 'create'))
         };
     } catch (e) {
         throw new Error(
-            `Buildpack createProject('${directory}') could not find a valid './.buildpack/create.js' file in that directory. This file must be present to instruct Buildpack how to copy the template files into a new directory.`
+            `Buildpack createProject('${template}') could not find a valid './.buildpack/create.js' file in that directory. This file must be present to instruct Buildpack how to copy the template files into a new directory.`
         );
     }
 }
@@ -20,7 +20,7 @@ function getBuildpackInstructions(directory) {
 function createProject(options) {
     const { template, directory } = options;
 
-    const instructions = getBuildpackInstructions(directory);
+    const instructions = getBuildpackInstructions(template);
     const { visitor } = instructions.create(fse);
 
     const copyGlobs = Object.keys(visitor);
