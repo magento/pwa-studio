@@ -26,7 +26,9 @@ module.exports = async () => {
             message:
                 'Project root directory (will be created if it does not exist)',
             validate: dir =>
-                isInvalidPath(dir)
+                !dir
+                    ? 'Please enter a directory path'
+                    : isInvalidPath(dir)
                     ? 'Invalid directory path; contains illegal characters'
                     : true
         },
@@ -132,16 +134,16 @@ module.exports = async () => {
         },
         ['init-project', 'venia-starter']
     );
-    console.log(
-        chalk.white(
-            `Running ${chalk.whiteBright('buildpack ' + args.join(' '))}`
-        )
-    );
+
+    const argsString = args.join(' ');
+
+    console.log('Running' + chalk.white(`buildpack ${argsString}`));
+
     const buildpackBinLoc = resolve(
         require.resolve('@magento/pwa-buildpack'),
         '../../bin/buildpack'
     );
-    await execa(buildpackBinLoc, args, {
+    await execa.shell(`${buildpackBinLoc} ${argsString}`, {
         stdio: 'inherit'
     });
 };

@@ -42,7 +42,7 @@ async function makeDirFromNpmPackage(packageName) {
     try {
         prettyLogger.info(`Finding ${packageName} tarball on NPM`);
         tarballUrl = JSON.parse(
-            execa.sync(`npm view --json ${packageName}`, {
+            execa.shellSync(`npm view --json ${packageName}`, {
                 encoding: 'utf-8'
             }).stdout
         ).dist.tarball;
@@ -197,7 +197,7 @@ module.exports.handler = async function buildpackCli(argv) {
         );
     }
     if (params.install) {
-        await execa(params.npmClient, ['install'], {
+        await execa.shell(`${params.npmClient} install`, {
             cwd: directory,
             stdio: 'inherit'
         });
