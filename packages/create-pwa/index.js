@@ -137,7 +137,11 @@ module.exports = async () => {
             `Running ${chalk.whiteBright('buildpack ' + args.join(' '))}`
         )
     );
-    await execa('buildpack', args, {
+    const buildpackBinLoc = resolve(
+        require.resolve('@magento/pwa-buildpack'),
+        '../../bin/buildpack'
+    );
+    await execa(buildpackBinLoc, args, {
         stdio: 'inherit'
     });
 };
