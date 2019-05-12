@@ -1,0 +1,30 @@
+query category($id: Int!, $pageSize: Int!, $currentPage: Int!, $onServer: Boolean!) {
+        category(id: $id) {
+            id
+            description
+            name
+            product_count
+            products(pageSize: $pageSize, currentPage: $currentPage) {
+                items {
+                    id
+                    name
+                    small_image {
+                        url
+                    }
+                    url_key
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                                currency
+                            }
+                        }
+                    }
+                }
+                total_count
+            }
+            meta_title @include(if: $onServer)
+            meta_keywords @include(if: $onServer)
+            meta_description @include(if: $onServer)
+        }
+    }

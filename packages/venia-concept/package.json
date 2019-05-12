@@ -113,15 +113,5 @@
   "engines": {
     "node": "8.10.0 || >=10.7.0",
     "yarn": ">=1.12.0"
-  },
-  "workspaces": {
-    "nohoist": [
-      "venia-library**",
-      "**venia-library**",
-      "react-dom/**",
-      "**/react-dom/**",
-      "react-router-dom/**",
-      "**/react-router-dom/**"
-    ]
   }
 }

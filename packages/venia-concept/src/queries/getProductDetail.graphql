@@ -1,0 +1,63 @@
+query productDetail($urlKey: String, $onServer: Boolean!) {
+    productDetail: products(filter: { url_key: { eq: $urlKey } }) {
+        items {
+            __typename
+            sku
+            name
+            price {
+                regularPrice {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+            }
+            description {
+                html
+            }
+            media_gallery_entries {
+                label
+                position
+                disabled
+                file
+            }
+            ... on ConfigurableProduct {
+                configurable_options {
+                    attribute_code
+                    attribute_id
+                    id
+                    label
+                    values {
+                        default_label
+                        label
+                        store_label
+                        use_default_value
+                        value_index
+                    }
+                }
+                variants {
+                    attributes {
+                        code
+                        value_index
+                    }
+                    product {
+                        id
+                        media_gallery_entries {
+                            disabled
+                            file
+                            label
+                            position
+                        }
+                        sku
+                        stock_status
+                    }
+                }
+            }
+            meta_title @include(if: $onServer)
+            # Yes, Products have `meta_keyword` and
+            # everything else has `meta_keywords`.
+            meta_keyword @include(if: $onServer)
+            meta_description @include(if: $onServer)
+        }
+    }
+}
