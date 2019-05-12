@@ -14,7 +14,7 @@
     "build:ci": "yarn run -s build:esm",
     "build:dev": " ",
     "build:esm": "BABEL_ENV=development babel src --out-dir esm --root-mode 'upward' --source-maps --copy-files",
-    "clean": "rimraf dist esm",
+    "clean": "rimraf esm",
     "prebuild": "yarn run -s clean",
     "prepublishOnly": "yarn run build",
     "storybook": "start-storybook -p 9001 -c .storybook",

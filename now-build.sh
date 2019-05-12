@@ -10,4 +10,4 @@ export NODE_ENV="production"
 
 # This step will happen _twice_ in yarn deploy: once for the static deploy and
 # once to compile the lambda.
-yarn run build
+yarn run build:ci
