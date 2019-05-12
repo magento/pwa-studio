@@ -1,12 +1,29 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { relative, resolve } = require('path');
+const fse = require('fs-extra');
 const walk = require('klaw');
 const micromatch = require('micromatch');
 
-function createProject(options, copyVisitor) {
+function getBuildpackInstructions(directory) {
+    const instructionFolder = resolve(directory, '.buildpack');
+    try {
+        return {
+            create: require(resolve(instructionFolder, 'create'))
+        };
+    } catch (e) {
+        throw new Error(
+            `Buildpack createProject('${directory}') could not find a valid './.buildpack/create.js' file in that directory. This file must be present to instruct Buildpack how to copy the template files into a new directory.`
+        );
+    }
+}
+
+function createProject(options) {
     const { template, directory } = options;
 
-    const copyGlobs = Object.keys(copyVisitor);
+    const instructions = getBuildpackInstructions(directory);
+    const { visitor } = instructions.create(fse);
+
+    const copyGlobs = Object.keys(visitor);
     const visit = ({ stats, path }) => {
         const relativePath = relative(template, path);
         const targetPath = resolve(directory, relativePath);
@@ -15,7 +32,7 @@ function createProject(options, copyVisitor) {
         );
         if (pattern) {
             debug(`visit: ${path} matches ${pattern}`);
-            copyVisitor[pattern]({
+            visitor[pattern]({
                 stats,
                 path,
                 targetPath,

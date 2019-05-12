@@ -20,6 +20,13 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
+  "files": [
+    "{esm,src}/*",
+    "{esm,src}/**/*",
+    "CHANGELOG.md",
+    "LICENSE_AFL.txt",
+    "LICENSE.txt"
+  ],
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",

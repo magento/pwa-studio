@@ -13,54 +13,6 @@ const { spawn, execSync } = require('child_process');
 
 const tmpDir = os.tmpdir();
 
-const toCopyFromPackageJson = [
-    'main',
-    'browser',
-    'scripts',
-    'dependencies',
-    'devDependencies',
-    'optionalDependencies',
-    'engines'
-];
-const defaultCopyVisitor = {
-    'package.json': ({ path, targetPath, options: { name, author } }) => {
-        const pkgTpt = fse.readJsonSync(path);
-        const pkg = {
-            name,
-            version: '0.0.1',
-            description: 'A new project based on @magento/venia-concept',
-            author
-        };
-        toCopyFromPackageJson.forEach(prop => {
-            pkg[prop] = pkgTpt[prop];
-        });
-        fse.writeJsonSync(targetPath, pkg, {
-            spaces: 2
-        });
-    },
-    'package-lock.json': ({ path, targetPath, options: { npmClient } }) => {
-        if (npmClient === 'npm') {
-            fse.copyFileSync(path, targetPath);
-        }
-    },
-    'yarn.lock': ({ path, targetPath, options: { npmClient } }) => {
-        if (npmClient === 'yarn') {
-            fse.copyFileSync(path, targetPath);
-        }
-    },
-    '{CHANGELOG*,LICENSE*}': () => {
-        // do not copy
-        return;
-    },
-    '**/*': ({ stats, path, targetPath }) => {
-        if (stats.isDirectory()) {
-            fse.ensureDirSync(targetPath);
-        } else {
-            fse.copyFileSync(path, targetPath);
-        }
-    }
-};
-
 const templateAliases = {
     'venia-starter': {
         npm: '@magento/venia-concept',
@@ -215,7 +167,7 @@ module.exports.handler = async function buildpackCli(argv) {
     const { directory, name } = params;
     await fse.ensureDir(directory);
     prettyLogger.info(`Creating a new PWA project '${name}' in ${directory}`);
-    await createProject(params, defaultCopyVisitor);
+    await createProject(params);
     prettyLogger.success(`Created new PWA project ${directory}`);
 
     if (params.backendUrl) {
