@@ -274,7 +274,7 @@ urlResolver: urlResolverResult.data.urlResolver
 # shorthand syntax for a FileResolver.
 urlResolverResult:
   url: magentoGQL
-  query: './queries/urlResolver.graphql'
+  query: './src/queries/urlResolver.graphql'
   variables:
     inline:
       urlKey: request.url.pathname
@@ -297,7 +297,7 @@ product: productResult.data.productDetail.items.0
 # This object retrieves information about a specific product.
 productResult:
   url: magentoGQL
-  query: './queries/getProductDetail.graphql'
+  query: './src/queries/getProductDetail.graphql'
   variables:
     inline:
       onServer: true
@@ -315,7 +315,7 @@ category: categoryResult.data.category
 # This object retrieves information about a specific category.
 categoryResult:
   url: magentoGQL
-  query: './queries/getCategory.graphql'
+  query: './src/queries/getCategory.graphql'
   variables:
     inline:
       onServer: true
@@ -336,7 +336,7 @@ cmsPage: cmsPageResult.data.cmsPage
 # This object retrieves information about a specific CMS page.
 cmsPageResult:
   url: magentoGQL
-  query: './queries/getCmsPage.graphql'
+  query: './src/queries/getCmsPage.graphql'
   variables:
     inline:
       onServer: true
