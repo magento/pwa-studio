@@ -150,10 +150,6 @@ be configured to have the same effect as 'id'.
 
             devServerConfig.host = hostname;
             devServerConfig.https = ssl;
-            // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
-            devServerConfig.https.spdy = {
-                protocols: ['http/1.1']
-            };
 
             const requestedPort =
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT || ports.development;
