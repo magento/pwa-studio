@@ -26,6 +26,9 @@ const Logo = props => {
         }, 100);
         setTimeout(() => {
             addToast(toastProps);
+        }, 3000);
+        setTimeout(() => {
+            addToast(toastProps);
         }, 6000);
     }, []);
 

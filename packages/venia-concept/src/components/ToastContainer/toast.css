@@ -20,6 +20,7 @@
 
     border: 1px solid;
     border-color: #d1d1d1;
+    animation: toast-pulsate 0.5s 1.5s;
 }
 
 /* TODO: Figure out how to pulse borders for "identical" react trees */
@@ -37,11 +38,9 @@
 
 .toast.info {
     border-bottom: 4px solid rgb(0, 104, 108);
-    animation: toast-pulsate 0.5s 1.5s;
 }
 .toast.error {
     border-bottom: 4px solid rgb(220, 20, 60);
-    animation: toast-pulsate 0.5s 1.5s;
 }
 
 .icon {

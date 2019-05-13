@@ -22,7 +22,12 @@ const Toast = props => {
     });
 
     return (
-        <div className={classes.toast + ' ' + classes[type]}>
+        // Use a random key to always trigger a recreation of this component
+        // so that we can re-trigger the blink animation.
+        <div
+            key={Math.random()}
+            className={classes.toast + ' ' + classes[type]}
+        >
             {icon ? <Icon className={classes.icon} src={icon} /> : null}
             <div className={classes.message}>{message}</div>
             {dismissable ? (

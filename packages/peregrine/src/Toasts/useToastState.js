@@ -24,11 +24,13 @@ const reducer = (prevState = initialState, action = {}) => {
                 ...prevState
             };
 
-            // Clear the old timeout.
+            // Clear the old toast removal timeout incase an identical toast is
+            // added after this.
             window.clearTimeout(newState[payload.id].removalTimeoutId);
 
             // Delete the toast from the store.
             delete newState[payload.id];
+
             return newState;
         default:
             return prevState;
