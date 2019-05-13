@@ -23,7 +23,6 @@
     animation: toast-pulsate 0.5s 1.5s;
 }
 
-/* TODO: Figure out how to pulse borders for "identical" react trees */
 @keyframes toast-pulsate {
     0% {
         opacity: 1;
