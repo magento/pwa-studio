@@ -7,12 +7,22 @@ import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { toasts } = useToastStore();
 
-    const toasts = useToastStore();
-    const toastList = Object.keys(toasts).map(toastKey => {
+    // Given a map of toasts each with a property "timestamp", sort and display
+    // based on the timestamp.
+    const timestampMap = {};
+    Object.keys(toasts).forEach(toastKey => {
         const toast = toasts[toastKey];
-        return <Toast key={toast.id} {...toast} />;
+        timestampMap[toast.timestamp] = toast;
     });
+
+    const toastList = Object.keys(timestampMap)
+        .sort()
+        .map(timestamp => {
+            const toast = timestampMap[timestamp];
+            return <Toast key={toast.key} {...toast} />;
+        });
 
     return (
         <div id="toast-root" className={classes.container}>

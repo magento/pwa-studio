@@ -16,7 +16,7 @@ const Logo = props => {
     useEffect(() => {
         const toastProps = {
             type: 'info',
-            message: `I'm a duplicate toast`,
+            message: `I'll be a duplicate toast`,
             icon: SmileIcon,
             dismissable: true,
             timeout: 7000
@@ -30,6 +30,24 @@ const Logo = props => {
         setTimeout(() => {
             addToast(toastProps);
         }, 6000);
+
+        setTimeout(() => {
+            // addToast({
+            //     ...toastProps,
+            //     type: 'info',
+            //     message: 'An info toast!'
+            // });
+            addToast({
+                ...toastProps,
+                type: 'warning',
+                message: 'A warning toast!'
+            });
+            addToast({
+                ...toastProps,
+                type: 'error',
+                message: 'An error toast!'
+            });
+        }, 2000);
     }, []);
 
     return (

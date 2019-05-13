@@ -1,4 +1,8 @@
-.toast {
+@value info: rgb(0, 104, 108);
+@value warning: rgb(var(--venia-orange));
+@value error: rgb(220, 20, 60);
+
+.root {
     align-items: start;
     background-color: white;
     border-radius: 2px;
@@ -20,7 +24,7 @@
 
     border: 1px solid;
     border-color: #d1d1d1;
-    animation: toast-pulsate 0.5s 1.5s;
+    animation: toast-pulsate 0.5s 1s;
 }
 
 @keyframes toast-pulsate {
@@ -35,23 +39,34 @@
     }
 }
 
-.toast.info {
-    border-bottom: 4px solid rgb(0, 104, 108);
-}
-.toast.error {
-    border-bottom: 4px solid rgb(220, 20, 60);
+.toast--info {
+    composes: root;
+    border-bottom: 4px solid info;
 }
 
-.icon {
+.toast--warning {
+    composes: root;
+    border-bottom: 4px solid warning;
+}
+
+.toast--error {
+    composes: root;
+    border-bottom: 4px solid error;
+}
+
+.icon--info {
     grid-area: icon;
+    color: info;
 }
 
-.info .icon {
-    color: rgb(0, 104, 108);
+.icon--warning {
+    grid-area: icon;
+    color: warning;
 }
 
-.error .icon {
-    color: rgb(220, 20, 60);
+.icon--error {
+    grid-area: icon;
+    color: error;
 }
 
 .message {

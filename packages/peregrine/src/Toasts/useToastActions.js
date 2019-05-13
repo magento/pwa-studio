@@ -34,6 +34,7 @@ export const useToastActions = () => {
             // Duplicate toasts should extend the timeout so let's generate the
             // id by looking at the props that would indicate a duplicate.
             const id = getToastId(toastProps);
+
             // Queue to delete the toast after some time.
             const removalTimeoutId = setTimeout(
                 () => {
@@ -42,14 +43,17 @@ export const useToastActions = () => {
                 timeout ? timeout : DEFAULT_TIMEOUT
             );
 
-            return dispatch({
+            dispatch({
                 type: 'add',
                 payload: {
                     ...toastProps,
                     id,
-                    removalTimeoutId
+                    removalTimeoutId,
+                    timestamp: Date.now()
                 }
             });
+
+            return id;
         },
         [dispatch]
     );
