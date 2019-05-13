@@ -9,7 +9,20 @@ const DEFAULT_TIMEOUT = 5000;
  * the same identifier for a given set of props.
  */
 const getToastId = props => {
-    return Object.keys(props).reduce((acc, curr) => acc + props[curr]);
+    const combined = Object.keys(props).reduce(
+        (acc, curr) => acc + props[curr]
+    );
+    // The hashing function below should generally avoid accidental collisions.
+    let hash = 0,
+        i,
+        chr;
+    if (combined.length === 0) return hash;
+    for (i = 0; i < combined.length; i++) {
+        chr = combined.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 };
 
 export const useToastActions = () => {
