@@ -1,6 +1,4 @@
 const browsers = require('./browserslist');
-const { resolvePath } = require('babel-plugin-module-resolver');
-
 const plugins = [
     ['@babel/plugin-proposal-class-properties'],
     ['@babel/plugin-proposal-object-rest-spread'],
@@ -22,6 +20,9 @@ const config = api => {
          * Watch mode and build:esm partial transpilation mode.
          * The module-resolver plugin makes Babel recognize import paths from
          * package root, like 'src/classify'.
+         *
+         * BUT VENIA SHOULD NOT USE THEM, because it makes Venia less portable
+         * and Venia should be more portable than an average PWA Studio app.
          */
         development: {
             // Ignore everything with underscores except stories
