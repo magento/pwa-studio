@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classify from 'src/classify';
+import { withRouter } from 'react-router-dom';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
 import FilterDefault from './filterDefault';
@@ -30,12 +31,14 @@ class FilterList extends Component {
     stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
     toggleOption = event => {
-        const { removeFilter, addFilter } = this.props;
+        const { removeFilter, addFilter, history } = this.props;
         const { value, title, dataset } =
             event.currentTarget || event.srcElement;
         const { group } = dataset;
         const item = { title, value, group };
-        this.isOptionActive(item) ? removeFilter(item) : addFilter(item);
+        this.isOptionActive(item)
+            ? removeFilter(item, history, window.location)
+            : addFilter(item);
     };
 
     isOptionActive = option =>
@@ -102,6 +105,7 @@ const mapStateToProps = ({ catalog }, { id }) => {
 };
 
 export default compose(
+    withRouter,
     classify(defaultClasses),
     connect(mapStateToProps),
     WithFilterSearch

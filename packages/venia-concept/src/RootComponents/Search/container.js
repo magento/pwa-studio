@@ -11,7 +11,8 @@ const mapStateToProps = ({ app }) => {
 
 const mapDispatchToProps = dispatch => ({
     openDrawer: () => dispatch(toggleDrawer('filter')),
-    executeSearch: () => dispatch(executeSearch()),
+    executeSearch: (query, history, categoryId) =>
+        dispatch(executeSearch(query, history, categoryId)),
     toggleSearch: () => dispatch(toggleSearch())
 });
 

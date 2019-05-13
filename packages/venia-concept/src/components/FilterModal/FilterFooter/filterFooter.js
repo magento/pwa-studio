@@ -9,6 +9,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import { preserveQueryParams } from 'src/util/preserveQueryParams';
+import { persistentQueries } from 'src/shared/persistentQueries';
 class FilterFooter extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -26,7 +27,7 @@ class FilterFooter extends Component {
 
     resetFilterOptions = () => {
         const { history, filterClear, location } = this.props;
-        const queryParams = preserveQueryParams(location, ['page', 'query']);
+        const queryParams = preserveQueryParams(location, persistentQueries);
         queryParams
             ? history.push('?' + queryParams.toString())
             : history.push();
@@ -40,7 +41,7 @@ class FilterFooter extends Component {
             closeDrawer,
             location
         } = this.props;
-        const queryParams = preserveQueryParams(location, ['page', 'query']);
+        const queryParams = preserveQueryParams(location, persistentQueries);
         history.push(
             '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
         );
