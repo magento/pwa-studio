@@ -1,32 +1,26 @@
 /**
- * Uses react-docgen to create reference content from source code.
+ * Create reference content from source code.
  * Content is placed inside the _includes folder to be used in actual topic files.
  **/
 
-const reactDocs = require('react-docgen');
 const process = require('process');
 const fs = require('fs');
 const path = require('path');
 
 const config = require('./config');
-const templates = require('./templates');
+const createClassDocs = require('./createClassDocs');
+const createFunctionDocs = require('./createFunctionDocs');
 
 const docsProjectRoot = process.cwd();
 
 config.files.forEach(file => {
     let { target, overrides } = file;
 
-    let content = fs.readFileSync(
-        path.join(path.dirname(docsProjectRoot), config.packagesPath, target)
+    let fullTargetPath = path.join(
+        path.dirname(docsProjectRoot),
+        config.packagesPath,
+        target
     );
-
-    let componentInfo = reactDocs.parse(content);
-
-    let { description, props } = componentInfo;
-
-    let fileContent =
-        description +
-        templates.referenceTable({ props, propsOverrides: overrides });
 
     let fileDestination = path.join(
         docsProjectRoot,
@@ -34,12 +28,35 @@ config.files.forEach(file => {
         path.join(path.dirname(target), path.basename(target, '.js')) + '.md'
     );
 
-    console.log(
-        '> Generating reference docs: ' +
-            path.relative(docsProjectRoot, fileDestination)
-    );
+    switch (file.type) {
+        case 'class':
+            createClassDocs(fullTargetPath, overrides).then(fileContent => {
+                writeToFile(fileDestination, fileContent);
+            });
+            break;
 
-    fs.mkdirSync(path.dirname(fileDestination), { recursive: true });
+        case 'function':
+            createFunctionDocs(fullTargetPath, overrides).then(fileContent => {
+                writeToFile(fileDestination, fileContent);
+            });
+            break;
 
-    fs.writeFileSync(fileDestination, fileContent);
+        default:
+            break;
+    }
 });
+
+const writeToFile = (fileDestination, fileContent) => {
+    if (fileContent) {
+        console.log(
+            '> Generating reference docs: ' +
+                path.relative(docsProjectRoot, fileDestination)
+        );
+
+        fs.mkdirSync(path.dirname(fileDestination), { recursive: true });
+
+        fs.writeFileSync(fileDestination, fileContent);
+    } else {
+        console.error('> Skipping empty file content for', target);
+    }
+};
