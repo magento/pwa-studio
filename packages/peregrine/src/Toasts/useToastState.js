@@ -6,7 +6,6 @@ const initialState = {
 const reducer = (prevState = initialState, action = {}) => {
     const { type, payload } = action;
 
-    // console.log(type, payload);
     switch (type) {
         case 'add': {
             // If we are adding a toast that already exists we need to clear the

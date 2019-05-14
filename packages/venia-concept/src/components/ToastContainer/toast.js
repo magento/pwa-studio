@@ -6,20 +6,33 @@ import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
 
 const Toast = props => {
-    const { id, type, icon, message, actionText, dismissable } = props;
+    const {
+        actionText,
+        dismissable,
+        icon,
+        id,
+        message,
+        onAction,
+        onDismiss,
+        type
+    } = props;
     const classes = mergeClasses(defaultClasses, {});
     const { removeToast } = useToastActions();
 
-    // TODO: Can these callbacks be defined within the addToast hook?
-    const handleDismiss = useCallback(() => {
-        removeToast(id);
-        props.onDismiss && props.onDismiss();
-    });
+    let handleDismiss, handleAction;
+    if (dismissable) {
+        handleDismiss = useCallback(() => {
+            removeToast(id);
+            onDismiss && onDismiss();
+        });
+    }
 
-    const handleAction = useCallback(() => {
-        removeToast(id);
-        props.actionCallback && props.actionCallback();
-    });
+    if (onAction) {
+        handleAction = useCallback(() => {
+            removeToast(id);
+            onAction && onAction();
+        });
+    }
 
     return (
         <div className={classes[`toast--${type}`]}>
@@ -41,7 +54,7 @@ const Toast = props => {
                     </button>
                 </div>
             ) : null}
-            {actionText ? (
+            {onAction ? (
                 <div className={classes.actions}>
                     <button
                         className={classes.actionButton}
@@ -56,12 +69,12 @@ const Toast = props => {
 };
 
 Toast.propTypes = {
-    actionCallback: func,
     actionText: string,
     dismissable: bool.isRequired,
     icon: func,
     id: number,
     message: string.isRequired,
+    onAction: func,
     onDismiss: func,
     type: oneOf(['info', 'warning', 'error']).isRequired
 };

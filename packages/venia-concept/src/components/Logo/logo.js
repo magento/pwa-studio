@@ -36,7 +36,7 @@ const Logo = props => {
                 ...toastProps,
                 type: 'warning',
                 message: 'A warning toast!',
-                actionCallback: () => {
+                onAction: () => {
                     console.log("I'm a warning!");
                 },
                 actionText: 'Action link'
@@ -46,7 +46,7 @@ const Logo = props => {
                 type: 'error',
                 message:
                     'Negative message with an action link to perform a repeat request',
-                actionCallback: () => {
+                onAction: () => {
                     console.log("I'm an error!");
                 },
                 actionText: 'Action link'
