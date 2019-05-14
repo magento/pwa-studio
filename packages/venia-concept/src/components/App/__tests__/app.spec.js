@@ -167,25 +167,6 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
     getAndConfirmProps(root, Main, { isOnline: true });
 });
 
-// TODO: Move this test to header.spec.js since the indicator is a child there.
-test.skip('displays no onlineIndicator if online state never changed', () => {
-    const appProps = {
-        app: {
-            drawer: '',
-            overlay: false,
-            hasBeenOffline: false,
-            isOnline: false
-        },
-        closeDrawer: jest.fn(),
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
-    expect(() => root.findByType(OnlineIndicator)).toThrow();
-});
-
 test('displays open nav or drawer', () => {
     const propsWithDrawer = drawer => ({
         app: {
