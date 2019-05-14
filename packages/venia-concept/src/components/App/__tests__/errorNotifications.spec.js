@@ -5,10 +5,13 @@ import { createTestInstance } from '@magento/peregrine';
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
 const mockAddToast = jest.fn();
-jest.mock('@magento/peregrine/src/Toasts/useToastActions', () => {
+jest.mock('@magento/peregrine', () => {
     const useToastActions = jest.fn(() => ({ addToast: mockAddToast }));
 
-    return { useToastActions };
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToastActions
+    };
 });
 
 beforeEach(() => {

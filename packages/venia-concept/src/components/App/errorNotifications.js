@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { arrayOf, object, func, shape, string } from 'prop-types';
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
-import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
+import { useToastActions } from '@magento/peregrine';
 
 const dismissers = new WeakMap();
 

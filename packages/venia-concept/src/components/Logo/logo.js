@@ -4,7 +4,7 @@ import { mergeClasses } from 'src/classify';
 import logo from './logo.svg';
 
 import SmileIcon from 'react-feather/dist/icons/smile';
-import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
+import { useToastActions } from '@magento/peregrine';
 
 const Logo = props => {
     const { height } = props;

@@ -12,6 +12,13 @@ export {
     WindowSizeContextProvider,
     useWindowSize
 } from './hooks/useWindowSize';
+export {
+    useToastActions,
+    useToastDispatch,
+    useToastState,
+    useToastStore,
+    ToastContextProvider
+} from './Toasts';
 
 // components
 export { default as ContainerChild } from './ContainerChild';

@@ -5,7 +5,7 @@ import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
 import CheckIcon from 'react-feather/dist/icons/check';
 
 import { mergeClasses } from 'src/classify';
-import { useToastActions } from '@magento/peregrine/src/Toasts/useToastActions';
+import { useToastActions } from '@magento/peregrine';
 import Icon from 'src/components/Icon';
 import defaultClasses from './onlineIndicator.css';
 
