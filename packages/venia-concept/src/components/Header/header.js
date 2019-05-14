@@ -27,6 +27,8 @@ class Header extends Component {
             secondaryActions: PropTypes.string,
             toolbar: PropTypes.string
         }),
+        hasBeenOffline: PropTypes.bool,
+        isOnline: PropTypes.bool,
         searchOpen: PropTypes.bool,
         toggleSearch: PropTypes.func.isRequired
     };
