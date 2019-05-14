@@ -19,7 +19,7 @@ const Logo = props => {
             message: `I'll be a duplicate toast`,
             icon: SmileIcon,
             dismissable: true,
-            timeout: 7000
+            timeout: 10000
         };
         setTimeout(() => {
             addToast(toastProps);
@@ -32,20 +32,24 @@ const Logo = props => {
         }, 6000);
 
         setTimeout(() => {
-            // addToast({
-            //     ...toastProps,
-            //     type: 'info',
-            //     message: 'An info toast!'
-            // });
             addToast({
                 ...toastProps,
                 type: 'warning',
-                message: 'A warning toast!'
+                message: 'A warning toast!',
+                actionCallback: () => {
+                    console.log("I'm a warning!");
+                },
+                actionText: 'Action link'
             });
             addToast({
                 ...toastProps,
                 type: 'error',
-                message: 'An error toast!'
+                message:
+                    'Negative message with an action link to perform a repeat request',
+                actionCallback: () => {
+                    console.log("I'm an error!");
+                },
+                actionText: 'Action link'
             });
         }, 2000);
     }, []);

@@ -12,10 +12,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.8rem;
     font-weight: lighter;
-    gap: 1rem;
+    gap: 0.5rem 0.75rem;
     grid-template-areas: 'icon message controls';
-    grid-template-columns: min-content 200px auto;
-    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-columns: min-content 215px auto;
     justify-items: start;
     line-height: 1.25rem;
     margin: 0 auto;
@@ -72,7 +71,10 @@
 .message {
     grid-area: message;
     display: flex;
+    font-family: var(--venia-font);
+    font-size: 0.875rem;
 
+    /* For wrapping...*/
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -92,35 +94,32 @@
 .controls {
     grid-area: controls;
     border-left: 1px solid rgb(224, 224, 224);
-    justify-self: center;
-    margin-right: -0.25rem;
     padding-left: 0.75rem;
 }
 
-.action,
-.dismiss {
-    align-items: center;
-    background: none;
-    border: none;
+.clickable {
+    -webkit-appearance: none;
+    cursor: pointer;
     color: rgb(33, 33, 33);
-    display: inline-flex;
-    font-size: 1rem;
-    font-weight: 600;
-    justify-content: center;
     line-height: 1rem;
     margin: 0px;
     min-height: 1rem;
     min-width: 1rem;
     padding: 0px;
-    -webkit-appearance: none;
-    cursor: pointer;
 }
 
-.action {
-    font-size: 0.75rem;
+.actionButton {
+    composes: clickable;
+    font-family: var(--venia-font);
+    font-size: 100%;
+    font-weight: 600;
     text-decoration: underline;
 }
 
-.dismiss {
+.dismissButton {
+    composes: clickable;
+    font-family: var(--venia-font);
+    font-size: 1rem;
+    font-weight: 600;
     color: rgb(112, 112, 112);
 }
