@@ -7,7 +7,7 @@
     "scope": "magento-research",
     "env": {
         "UPWARD_JS_BIND_LOCAL": "false",
-        "USE_FASTLY": "1",
+        "IMAGE_OPTIMIZING_ORIGIN": "backend",
         "MAGENTO_BACKEND_URL": "https://master-7rqtwti-xjmpcdjpe6kzm.us-4.magentosite.cloud/",
         "NODE_ENV": "production"
     },
