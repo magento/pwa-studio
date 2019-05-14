@@ -193,9 +193,7 @@ module.exports = async function(env) {
         const devServerConfig = {
             env: validEnv,
             publicPath: config.output.publicPath,
-            graphqlPlayground: {
-                queryDirs: [path.resolve(themePaths.src, 'queries')]
-            }
+            graphqlPlayground: true
         };
         const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
         if (provideHost) {

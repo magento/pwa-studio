@@ -3,6 +3,12 @@ function validateEnvironment(env) {
     const { str, bool, url } = envalid;
 
     const validation = {
+        IMAGE_OPTIMIZING_ORIGIN: str({
+            choices: ['backend', 'onboard'],
+            desc:
+                'Servic responsible for optimizing images. Set to "backend" to delegate image optimization tasks to the Magento backend, by rendering absolute image URLs to that backend. If the Magento instance uses Fastly IO, then "backend" is strongly recommended. Set to "onboard" to use relative paths for images, and force any absolute image URLs pointing to the backend to be relative instead. This forces use of the onboard PWA Studio Staging Server image optimizer.',
+            default: 'onboard'
+        }),
         IMAGE_SERVICE_PATH: str({
             desc:
                 'Root path to mount the onboard image optimization service in the DevServer and staging server.',
