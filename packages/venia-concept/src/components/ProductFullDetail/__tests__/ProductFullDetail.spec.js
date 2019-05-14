@@ -1,9 +1,10 @@
 import React from 'react';
-import ProductFullDetail from '../ProductFullDetail';
 import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
+
+import ProductFullDetail from '../ProductFullDetail';
 
 jest.mock('src/classify');
 
@@ -95,11 +96,9 @@ test('Configurable Product has correct media gallery image count', async () => {
         </WindowSizeContextProvider>
     );
 
-    const { instance } = root.children[0].children[0];
+    const productFullDetailComponent = root.children[0].children[0];
+    const carouselComponent =
+        productFullDetailComponent.children[0].children[1].children[0];
 
-    expect(instance.mediaGalleryEntries).toHaveLength(2);
-    instance.setState({
-        optionSelections: new Map([['1', 1]])
-    });
-    expect(instance.mediaGalleryEntries).toHaveLength(3);
+    expect(carouselComponent.props.images).toHaveLength(2);
 });
