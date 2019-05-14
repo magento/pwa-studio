@@ -17,7 +17,7 @@
 }
 
 .userMore {
-    composes: root from 'src/components/clickable.css';
+    composes: root from '../../clickable.css';
     height: 3.5rem;
     width: 3.5rem;
 }
