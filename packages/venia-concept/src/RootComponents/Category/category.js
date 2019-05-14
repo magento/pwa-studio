@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { compose } from 'redux';
 import { connect, Query } from 'src/drivers';
-
+import catalogActions from 'src/actions/catalog';
 import classify from 'src/classify';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
@@ -29,6 +29,10 @@ class Category extends Component {
         id: 3
     };
 
+    componentDidMount() {
+        this.props.filterClear();
+    }
+
     componentDidUpdate(prevProps) {
         // If the current page has changed, scroll back up to the top.
         if (this.props.currentPage !== prevProps.currentPage) {
@@ -42,6 +46,7 @@ class Category extends Component {
             classes,
             currentPage,
             prevPageTotal,
+            filterClear,
             pageSize,
             setCurrentPage,
             setPrevPageTotal
@@ -90,6 +95,7 @@ class Category extends Component {
                     return (
                         <CategoryContent
                             classes={classes}
+                            filterClear={filterClear}
                             pageControl={totalWrapper}
                             data={data}
                         />
@@ -110,7 +116,8 @@ const mapStateToProps = ({ catalog }) => {
 
 const mapDispatchToProps = dispatch => ({
     setCurrentPage: payload => dispatch(setCurrentPage(payload)),
-    setPrevPageTotal: payload => dispatch(setPrevPageTotal(payload))
+    setPrevPageTotal: payload => dispatch(setPrevPageTotal(payload)),
+    filterClear: () => dispatch(catalogActions.filterOption.clear())
 });
 
 export default compose(

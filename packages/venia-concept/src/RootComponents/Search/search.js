@@ -39,15 +39,32 @@ export class Search extends Component {
 
     componentDidMount() {
         // Ensure that search is open when the user lands on the search page.
-        const { location, searchOpen, toggleSearch } = this.props;
+        const { location, searchOpen, toggleSearch, filterClear } = this.props;
 
         const inputText = getQueryParameterValue({
             location,
             queryParameter: 'query'
         });
 
+        filterClear();
+
         if (toggleSearch && !searchOpen && inputText) {
             toggleSearch();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const queryPrev = getQueryParameterValue({
+            location: prevProps.location,
+            queryParameter: 'query'
+        });
+
+        const queryCurrent = getQueryParameterValue({
+            location: this.props.location,
+            queryParameter: 'query'
+        });
+        if (queryPrev !== queryCurrent) {
+            this.props.filterClear();
         }
     }
 
