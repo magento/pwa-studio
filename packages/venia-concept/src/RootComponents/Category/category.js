@@ -4,12 +4,13 @@ import { compose } from 'redux';
 import { connect, Query } from 'src/drivers';
 import catalogActions from 'src/actions/catalog';
 import classify from 'src/classify';
+import isObjectEmpty from 'src/util/isObjectEmpty';
 import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import CategoryContent from './categoryContentContainer';
 import defaultClasses from './category.css';
 import categoryQuery from 'src/queries/getCategory.graphql';
-
+import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 class Category extends Component {
     static propTypes = {
         id: number,
@@ -30,7 +31,7 @@ class Category extends Component {
     };
 
     componentDidMount() {
-        this.props.filterClear();
+        isObjectEmpty(getFilterParams()) && this.props.filterClear();
     }
 
     componentDidUpdate(prevProps) {

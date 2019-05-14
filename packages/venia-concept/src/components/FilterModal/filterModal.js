@@ -9,6 +9,7 @@ import Icon from 'src/components/Icon';
 import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';
 import { Modal } from 'src/components/Modal';
+import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 
 class FilterModal extends Component {
     static propTypes = {
@@ -29,6 +30,14 @@ class FilterModal extends Component {
         removeFilter: PropTypes.func,
         closeDrawer: PropTypes.func
     };
+
+    componentDidUpdate() {
+        const { drawer } = this.props;
+
+        if (drawer !== 'filter') {
+            this.props.setToApplied();
+        }
+    }
 
     render() {
         const { classes, drawer, closeDrawer } = this.props;

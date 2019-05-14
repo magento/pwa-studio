@@ -6,7 +6,9 @@ import gql from 'graphql-tag';
 import Gallery from 'src/components/Gallery';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
+import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 import getQueryParameterValue from 'src/util/getQueryParameterValue';
+import isObjectEmpty from 'src/util/isObjectEmpty';
 import CloseIcon from 'react-feather/dist/icons/x';
 import FilterModal from 'src/components/FilterModal';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
@@ -46,7 +48,7 @@ export class Search extends Component {
             queryParameter: 'query'
         });
 
-        filterClear();
+        isObjectEmpty(getFilterParams()) && filterClear();
 
         if (toggleSearch && !searchOpen && inputText) {
             toggleSearch();

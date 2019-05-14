@@ -46,6 +46,12 @@ const reducerMap = {
             prevPageTotal: payload
         };
     },
+    [actions.filterOption.setToApplied]: state => {
+        return {
+            ...state,
+            chosenFilterOptions: getFilterParams()
+        };
+    },
     [actions.filterOption.update]: (
         state,
         { payload: { newState, group } }
