@@ -9,7 +9,6 @@ import Icon from 'src/components/Icon';
 import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';
 import { Modal } from 'src/components/Modal';
-import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 
 class FilterModal extends Component {
     static propTypes = {
