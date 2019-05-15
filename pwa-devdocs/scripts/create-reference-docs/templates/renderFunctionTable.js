@@ -5,31 +5,32 @@ function renderFunctionEntry({ name, type, description }) {
 }
 
 const renderFunctionTable = ({ props, propsOverrides, githubSource }) => {
-    let renderedContent = `
-## Parameters
-
-| Name | Type | Description |
-| --- | :---: | --- |
-`;
+    let renderedContent = '\n\n## Parameters\n\n';
 
     let mergedProps = overrideProps(props, propsOverrides);
-
     let propKeys = Object.keys(mergedProps);
 
-    propKeys.forEach(key => {
-        let prop = mergedProps[key];
+    if (propKeys.length > 0) {
+        renderedContent +=
+            '| Name | Type | Description |\n| --- | :---: | --- |\n';
 
-        templateValues = {
-            name: key,
-            type: prop.type ? prop.type.names.join(', ') : '`-`',
-            description: prop.description ? prop.description : '`-`'
-        };
-        renderedContent += renderFunctionEntry(templateValues);
-    });
+        propKeys.forEach(key => {
+            let prop = mergedProps[key];
 
-    renderedContent += `{:style="table-layout:auto"}
+            templateValues = {
+                name: key,
+                type: prop.type ? prop.type.names.join(', ') : '`-`',
+                description: prop.description ? prop.description : '`-`'
+            };
+            renderedContent += renderFunctionEntry(templateValues);
+        });
 
-[View Source](${githubSource})`;
+        renderedContent += '{:style="table-layout:auto"}\n';
+    } else {
+        renderedContent += 'This function does not take any parameters.\n';
+    }
+
+    renderedContent += `\n[View Source](${githubSource})`;
 
     return renderedContent;
 };
