@@ -44,7 +44,7 @@ config.files.forEach(file => {
             break;
 
         case 'function':
-            createFunctionDocs({ sourcePath, overrides, githubSource }).then(
+            createFunctionDocs({ sourcePath, githubSource }).then(
                 fileContent => {
                     writeToFile(fileDestination, fileContent);
                 }
