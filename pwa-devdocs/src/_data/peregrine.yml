@@ -21,6 +21,9 @@ entries:
         - label: useEventListener
           url: /peregrine/reference/hooks/useEventListener/
 
+        - label: useDropdown
+          url: /peregrine/reference/hooks/useDropdown/
+
   - label: React components
     entries:
 
