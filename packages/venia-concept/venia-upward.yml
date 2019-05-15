@@ -12,7 +12,7 @@
 # in an UPWARD spec file.
 # An UPWARD server uses the resolved values of these properties to create an
 # HTTP response to the client.
-# In this file, these properties get their values from a top-level 
+# In this file, these properties get their values from a top-level
 # 'response' object, which is a recommended and best practice approach.
 status: response.status
 headers: response.headers
@@ -20,24 +20,18 @@ body: response.body
 
 # This is a top-level object used to set values for the root `status`,
 # `headers`, and `body` properties.
-# It is the first branch in an abstract decision tree, which ultimately 
+# It is the first branch in an abstract decision tree, which ultimately
 # resolves to an object that contains values for its own 'status', 'headers',
 # and 'body' properties.
-# This object uses a ConditionalResolver to determine the object value based 
+# This object uses a ConditionalResolver to determine the object value based
 # on the URL pattern in the request object.
 response:
   when:
-    # This URL pattern requests a compressed version of an image from the
-    # server.
-    # The resolution path is directed to the top-level `imageOpt` object.
-    - matches: request.url.pathname
-      pattern: '^/img/resize/(\d+)'
-      use: imageOpt
     # Requests to graphql/rest endpoints, the media library, and cache are
     # handled by the top-level 'proxy' object, which is a ProxyResolver
     # that passes the request through to the backing Magento server.
     - matches: request.url.pathname
-      pattern: '^/(graphql|rest|media|cache/)'
+      pattern: '^/(graphql|rest|media)(/|$)'
       use: proxy
     # Requests to create an account are handled by the top-level 'index'
     # object, which returns a generic app shell
@@ -69,42 +63,7 @@ response:
   # serves the Webpack output assets from the './dist' folder.
   default: bundles
 
-# The imageOpt object returns an HTTP redirect response (301) to Fastly, an 
-# image optimization service.
-#
-# This is mainly used in production mode when the PWA does NOT have a
-# Fastly-specific URL factory.
-# This object forwards to Fastly where it is present, and drops back to the
-# uncompressed image otherwise.
-# If this application runs on a non-FastlyIO server, an onboard resizing service
-# is highly recommended.
-#
-# NOTE: In dev and staging mode, the PWADevServer and Venia's server.js declare
-# the image resizing middleware at `/img/` before the UpwardPlugin declares
-# middleware, so a request should never get here.
-#
-# In production mode when USE_FASTLY is true, the Venia PWA has a
-# Fastly-specific URL factory. It should also never hit this route.
-imageOpt:
-  inline:
-    status: 301
-    body:
-      inline: ''
-    headers:
-      inline:
-        Location:
-          # A UrlResolver is used to generate the URL location
-          baseUrl: env.MAGENTO_BACKEND_URL
-          pathname: request.url.query.url
-          query:
-            inline:
-              auto:
-                inline: webp
-              format:
-                inline: pjpg
-              width: $match.$1
-
-# An object that returns true if the NODE_ENV environment variable is set 
+# An object that returns true if the NODE_ENV environment variable is set
 # to 'development'. Used as a test in other configurations in this file.
 # Returns false otherwise.
 isDevelopment:
@@ -151,7 +110,7 @@ appShell:
       default: 404
     headers:
       inline:
-        # The appShell object will always resolve to a response containing 
+        # The appShell object will always resolve to a response containing
         # 'text/html' content.
         content-type: 'text/html'
     body:
@@ -237,7 +196,7 @@ resource:
 # the templates can render dynamic script tags based on the filenames of the
 # most recent build assets.
 #
-# NOTE: This object uses the shorthand syntax for a FileResolver to help with 
+# NOTE: This object uses the shorthand syntax for a FileResolver to help with
 # readability and as a convenience.
 assetManifest:
   when:

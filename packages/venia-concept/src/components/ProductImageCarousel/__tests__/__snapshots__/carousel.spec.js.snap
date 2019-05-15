@@ -108,7 +108,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       alt="test-thumbnail1"
       className="currentImage"
       onLoad={[Function]}
-      src="/img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+      src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640"
     />
     <img
       alt="test-thumbnail1"
@@ -150,7 +150,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=240"
       />
     </button>
     <button
@@ -160,7 +160,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail2"
         className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
+        src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=240"
       />
     </button>
     <button
@@ -170,7 +170,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail3"
         className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail3.png"
+        src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=240"
       />
     </button>
     <button
@@ -180,7 +180,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail4"
         className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail4.png"
+        src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=240"
       />
     </button>
   </div>
