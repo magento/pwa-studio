@@ -4,41 +4,32 @@
 const jsDocs = require('jsdoc-to-markdown');
 const templates = require('./templates');
 
-let createFunctionDocs = ({ sourcePath, overrides, githubSource }) => {
-    return new Promise((resolve, reject) => {
-        let apiData = jsDocs.getTemplateDataSync({
-            files: [sourcePath]
-        });
+let createFunctionDocs = ({ sourcePath, githubSource }) => {
+    return jsDocs.getTemplateData({ files: [sourcePath] }).then(apiData => {
+        return new Promise((resolve, reject) => {
+            // This assumes the first entry is always the main function and
+            // the second one is a type definition for a return object if it
+            // exists
+            let [functionData, returnData] = apiData;
 
-        let functionData = apiData[0];
+            if (functionData) {
+                let { description, params, returns } = functionData;
 
-        if (functionData) {
-            let { description, params } = functionData;
-
-            let props = {};
-
-            if (params) {
-                params.forEach(param => {
-                    props[param.name] = {
-                        type: param.type,
-                        description: param.description
-                    };
-                });
-            }
-            fileContent =
-                description +
-                templates.functionTable({
+                fileContent = templates.functionDocs({
+                    description,
                     githubSource,
-                    props,
-                    propsOverrides: overrides
+                    parameters: params,
+                    returnData
                 });
-
-            if (fileContent) {
-                resolve(fileContent);
+                if (fileContent) {
+                    resolve(fileContent);
+                } else {
+                    reject(Error('Could not generate docs', sourcePath));
+                }
+            } else {
+                reject(Error('Could not get function data', sourcePath));
             }
-        } else {
-            reject(Error('Could not generate docs', sourcePath));
-        }
+        });
     });
 };
 
