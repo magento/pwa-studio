@@ -10,7 +10,8 @@ const DEFAULT_TIMEOUT = 5000;
  */
 const getToastId = props => {
     const combined = Object.keys(props).reduce(
-        (acc, curr) => acc + props[curr]
+        (acc, curr) => acc + props[curr],
+        ''
     );
     // The hashing function below should generally avoid accidental collisions.
     let hash = 0,
