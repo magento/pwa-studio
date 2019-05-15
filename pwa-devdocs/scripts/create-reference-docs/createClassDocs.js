@@ -12,13 +12,12 @@ let createClassDocs = ({ sourcePath, overrides, githubSource }) => {
         let componentInfo = reactDocs.parse(content);
         let { description, props } = componentInfo;
 
-        let fileContent =
-            description +
-            templates.classTable({
-                githubSource,
-                props,
-                propsOverrides: overrides
-            });
+        let fileContent = templates.classDocs({
+            description,
+            githubSource,
+            props,
+            propsOverrides: overrides
+        });
 
         if (fileContent) {
             resolve(fileContent);
