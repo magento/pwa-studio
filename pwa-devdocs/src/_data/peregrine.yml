@@ -15,6 +15,12 @@ entries:
       - label: REST API client
         url: /peregrine/reference/rest-api-client/
 
+  - label: Custom React hooks
+    entries:
+
+        - label: useEventListener
+          url: /peregrine/reference/hooks/useEventListener/
+
   - label: React components
     entries:
 
