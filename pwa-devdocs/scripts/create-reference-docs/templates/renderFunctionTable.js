@@ -6,7 +6,7 @@ function renderFunctionEntry({ name, type, description }) {
 
 const renderFunctionTable = ({ props, propsOverrides }) => {
     let renderedContent = `
-## Props
+## Parameters
 
 | Name | Type | Description |
 | --- | :---: | --- |
