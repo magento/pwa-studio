@@ -4,10 +4,10 @@
 const jsDocs = require('jsdoc-to-markdown');
 const templates = require('./templates');
 
-let createFunctionDocs = (fullTargetPath, overrides) => {
+let createFunctionDocs = ({ sourcePath, overrides, githubSource }) => {
     return new Promise((resolve, reject) => {
         let apiData = jsDocs.getTemplateDataSync({
-            files: [fullTargetPath]
+            files: [sourcePath]
         });
         let description = apiData[0].description;
         let props = {};
@@ -20,6 +20,7 @@ let createFunctionDocs = (fullTargetPath, overrides) => {
         fileContent =
             description +
             templates.functionTable({
+                githubSource,
                 props,
                 propsOverrides: overrides
             });
@@ -27,7 +28,7 @@ let createFunctionDocs = (fullTargetPath, overrides) => {
         if (fileContent) {
             resolve(fileContent);
         } else {
-            reject(Error('Could not generate docs', fullTargetPath));
+            reject(Error('Could not generate docs', sourcePath));
         }
     });
 };
