@@ -1,7 +1,7 @@
-const renderClassTable = require('./renderClassTable');
+const renderClassDocs = require('./renderClassDocs');
 const renderFunctionDocs = require('./renderFunctionDocs');
 
 module.exports = {
-    classTable: renderClassTable,
+    classDocs: renderClassDocs,
     functionDocs: renderFunctionDocs
 };
