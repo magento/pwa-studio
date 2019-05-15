@@ -4,7 +4,7 @@
 const renderFunctionParameters = parameters => {
     let content = '## Parameters\n\n';
 
-    if (parameters.length > 0) {
+    if (parameters && parameters.length > 0) {
         content += '|Name | Type | Description |\n| --- | :---: | --- |\n';
 
         parameters.forEach(value => {
@@ -29,13 +29,14 @@ const renderReturnObject = returnObject => {
 ## Returned object
 
 | Property | Type | Description |
-| :---: | :---: | --- |
+| --- | :---: | --- |
 `;
         returnObject.properties.forEach(property => {
-            result += `|${property.name}|\`${property.type.names[0]}\`|${
+            result += `|\`${property.name}\`|\`${property.type.names[0]}\`|${
                 property.description
             }|\n`;
         });
+        result += '{:style="table-layout:auto"}';
         return result;
     }
     return '';
@@ -54,7 +55,7 @@ const renderFunctionDocs = ({
 
 [View Source](${githubSource})
 
-${parameters ? renderFunctionParameters(parameters) : ''}
+${renderFunctionParameters(parameters)}
 ${renderReturnObject(returnData)}`;
 };
 
