@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useToastDispatch } from './context';
+import { useToastContext } from './useToastContext';
 
 // If a toast _is not_ dismissable remove it in this many milliseconds.
 const DEFAULT_TIMEOUT = 5000;
@@ -26,9 +26,21 @@ const getToastId = props => {
     return hash;
 };
 
+/**
+ * A hook that provides access to the `addToast` and `removeToast` actions.
+ * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
+ *
+ * @returns {{addToast, removeToast}} addToast and removeToast functions
+ */
 export const useToastActions = () => {
-    const dispatch = useToastDispatch();
+    const [, dispatch] = useToastContext();
 
+    /**
+     * Dispatches a toast to the toast store. Includes all props passed along
+     * with a hash id, a timeout id, and a timestamp.
+     *
+     * @returns {Number} id - the key referencing the toast in the store
+     */
     const addToast = useCallback(
         toastProps => {
             const { timeout } = toastProps;
@@ -59,6 +71,10 @@ export const useToastActions = () => {
         [dispatch]
     );
 
+    /**
+     * Removes a toast from the toast store.
+     * @params {Number} id - the id of the toast to remove
+     */
     const removeToast = useCallback(
         id =>
             dispatch({

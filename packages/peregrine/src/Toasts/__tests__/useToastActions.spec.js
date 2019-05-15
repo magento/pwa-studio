@@ -1,14 +1,14 @@
 import React from 'react';
 import { useToastActions } from '@magento/peregrine';
 
-import { useToastDispatch } from '../context';
+import { useToastContext } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
-jest.mock('../context');
+jest.mock('../useToastContext');
 
 const log = jest.fn();
 const dispatchMock = jest.fn();
-useToastDispatch.mockReturnValue(dispatchMock);
+useToastContext.mockReturnValue([null, dispatchMock]);
 
 beforeEach(() => {
     log.mockReset();

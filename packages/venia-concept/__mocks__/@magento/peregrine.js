@@ -21,9 +21,7 @@ const useQueryResult = jest.fn(peregrine.useQueryResult);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
 const useToastActions = jest.fn(peregrine.useToastActions);
-const useToastDispatch = jest.fn(peregrine.useToastDispatch);
-const useToastState = jest.fn(peregrine.useToastState);
-const useToastStore = jest.fn(peregrine.useToastStore);
+const useToastContext = jest.fn(peregrine.useToastContext);
 const ToastContextProvider = jest.fn(peregrine.ToastContextProvider);
 // components
 
@@ -48,8 +46,6 @@ module.exports = {
     useWindowSize,
 
     useToastActions,
-    useToastDispatch,
-    useToastState,
-    useToastStore,
+    useToastContext,
     ToastContextProvider
 };

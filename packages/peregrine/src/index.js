@@ -14,9 +14,7 @@ export {
 } from './hooks/useWindowSize';
 export {
     useToastActions,
-    useToastDispatch,
-    useToastState,
-    useToastStore,
+    useToastContext,
     ToastContextProvider
 } from './Toasts';
 
