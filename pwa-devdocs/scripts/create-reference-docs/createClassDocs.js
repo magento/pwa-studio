@@ -6,15 +6,16 @@ const fs = require('fs');
 
 const templates = require('./templates');
 
-let createClassDocs = (fullTargetPath, overrides) => {
+let createClassDocs = ({ sourcePath, overrides, githubSource }) => {
     return new Promise((resolve, reject) => {
-        let content = fs.readFileSync(fullTargetPath);
+        let content = fs.readFileSync(sourcePath);
         let componentInfo = reactDocs.parse(content);
         let { description, props } = componentInfo;
 
         let fileContent =
             description +
             templates.classTable({
+                githubSource,
                 props,
                 propsOverrides: overrides
             });
@@ -22,7 +23,7 @@ let createClassDocs = (fullTargetPath, overrides) => {
         if (fileContent) {
             resolve(fileContent);
         } else {
-            reject(Error('Could not generate docs content', fullTargetPath));
+            reject(Error('Could not generate docs content', sourcePath));
         }
     });
 };

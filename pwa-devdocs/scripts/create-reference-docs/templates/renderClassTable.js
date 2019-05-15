@@ -6,7 +6,7 @@ function renderClassEntry({ key, required, defaultValue, propDescription }) {
 
 const requiredProp = '<i class="material-icons green">check_box</i>';
 
-const renderClassTable = ({ props, propsOverrides }) => {
+const renderClassTable = ({ props, propsOverrides, githubSource }) => {
     let renderedContent = `
 ## Props
 
@@ -32,7 +32,9 @@ const renderClassTable = ({ props, propsOverrides }) => {
         renderedContent += renderClassEntry(templateValues);
     });
 
-    renderedContent += '{:style="table-layout:auto"}';
+    renderedContent += `{:style="table-layout:auto"}
+
+[View Source](${githubSource})`;
 
     return renderedContent;
 };

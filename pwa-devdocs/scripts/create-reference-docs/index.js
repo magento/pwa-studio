@@ -16,8 +16,14 @@ const docsProjectRoot = process.cwd();
 config.files.forEach(file => {
     let { target, overrides } = file;
 
-    let fullTargetPath = path.join(
+    let sourcePath = path.join(
         path.dirname(docsProjectRoot),
+        config.packagesPath,
+        target
+    );
+
+    let githubSource = path.join(
+        config.baseGitHubPath,
         config.packagesPath,
         target
     );
@@ -30,15 +36,19 @@ config.files.forEach(file => {
 
     switch (file.type) {
         case 'class':
-            createClassDocs(fullTargetPath, overrides).then(fileContent => {
-                writeToFile(fileDestination, fileContent);
-            });
+            createClassDocs({ sourcePath, overrides, githubSource }).then(
+                fileContent => {
+                    writeToFile(fileDestination, fileContent);
+                }
+            );
             break;
 
         case 'function':
-            createFunctionDocs(fullTargetPath, overrides).then(fileContent => {
-                writeToFile(fileDestination, fileContent);
-            });
+            createFunctionDocs({ sourcePath, overrides, githubSource }).then(
+                fileContent => {
+                    writeToFile(fileDestination, fileContent);
+                }
+            );
             break;
 
         default:

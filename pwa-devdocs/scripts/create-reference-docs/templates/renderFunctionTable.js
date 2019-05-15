@@ -4,7 +4,7 @@ function renderFunctionEntry({ name, type, description }) {
     return `| \`${name}\` | \`${type}\` | ${description} |\n`;
 }
 
-const renderFunctionTable = ({ props, propsOverrides }) => {
+const renderFunctionTable = ({ props, propsOverrides, githubSource }) => {
     let renderedContent = `
 ## Parameters
 
@@ -27,7 +27,9 @@ const renderFunctionTable = ({ props, propsOverrides }) => {
         renderedContent += renderFunctionEntry(templateValues);
     });
 
-    renderedContent += '{:style="table-layout:auto"}';
+    renderedContent += `{:style="table-layout:auto"}
+
+[View Source](${githubSource})`;
 
     return renderedContent;
 };
