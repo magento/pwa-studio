@@ -5,10 +5,9 @@ import { useEventListener } from './useEventListener';
 /**
  * A React Hook for adding dropdown-related logic.
  *
- * [ref]: https://reactjs.org/docs/refs-and-the-dom.html
- * [state hook]: https://reactjs.org/docs/hooks-state.html
+ * @kind function
  *
- * @return {Object} An object containing functions and values to add dropdown logic
+ * @return {ReturnedObject} An object containing functions and values to add dropdown logic
  */
 export const useDropdown = () => {
     const elementRef = useRef(null);
@@ -28,11 +27,13 @@ export const useDropdown = () => {
     useEventListener(document, 'mousedown', maybeCollapse);
 
     /**
+     * The object returned contains the pieces needed to add the dropdown logic to your components
+     * 
      * @typedef ReturnedObject
      * @type {Object}
-     * @property {Object} elementRef - A [ref][] object for attaching to React elements
+     * @property {ref} elementRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
      * @property {bool} expanded - The value of the `expanded` state
-     * @property {function} setExpanded - [State Hook][] function for setting the expanded state
+     * @property {function} setExpanded - [State Hook]{@link https://reactjs.org/docs/hooks-state.html} function for setting the expanded state
      */
     return {
         elementRef,
