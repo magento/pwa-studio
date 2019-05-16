@@ -120,8 +120,7 @@ export const useToastState = () => useContext(ToastContext)[0];
  * A hook that provides access to the toast dispatch function.
  * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
  *
- * @return {Function} An array containing the state and the dispatch
- *                              function for toasts.
+ * @return {Function} The action dispatch function.
  * @example
  *   const dispatch = useToastDispatch();
  */
