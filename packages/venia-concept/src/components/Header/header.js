@@ -33,7 +33,9 @@ const Header = props => {
                     </NavTrigger>
                 </div>
                 {/* Only render the Indicator when going offline or coming online */}
-                {hasBeenOffline ? <OnlineIndicator isOnline={isOnline} /> : null}
+                {hasBeenOffline ? (
+                    <OnlineIndicator isOnline={isOnline} />
+                ) : null}
                 <Link to={resourceUrl('/')}>
                     <Logo classes={{ logo: classes.logo }} />
                 </Link>
