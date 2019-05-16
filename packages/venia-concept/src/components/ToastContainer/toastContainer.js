@@ -1,13 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { useToastContext } from '@magento/peregrine';
+import { useToastState } from '@magento/peregrine';
 import Toast from './toast';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const [{ toasts }] = useToastContext();
+    const { toasts } = useToastState();
     // Given a map of toasts each with a property "timestamp", sort and display
     // based on the timestamp.
     const timestampMap = {};

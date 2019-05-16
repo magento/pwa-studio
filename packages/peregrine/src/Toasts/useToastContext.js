@@ -35,7 +35,7 @@ const reducer = (prevState = initialState, action = {}) => {
             // order of toast emission.
             const timestamp = duplicate
                 ? prevState.toasts[payload.id].timestamp
-                : payload.timestamp;
+                : Date.now();
 
             // Use a random key to trigger a recreation of this component if it
             // is a duplicate so that we can re-trigger the blink animation.
@@ -107,12 +107,22 @@ export const ToastContextProvider = ({ children }) => {
 };
 
 /**
- * A hook that provides access to the toast context object.
+ * A hook that provides access to the toast state object.
  * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
  *
- * @return {[ToastState, Function]} An array containing the state and the dispatch
+ * @return {ToastState} The toast state object.
+ * @example
+ *   const toastState = useToastState();
+ */
+export const useToastState = () => useContext(ToastContext)[0];
+
+/**
+ * A hook that provides access to the toast dispatch function.
+ * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
+ *
+ * @return {Function} An array containing the state and the dispatch
  *                              function for toasts.
  * @example
- *   const [toastState, toastDispatch] = useToastContext();
+ *   const dispatch = useToastDispatch();
  */
-export const useToastContext = () => useContext(ToastContext);
+export const useToastDispatch = () => useContext(ToastContext)[1];

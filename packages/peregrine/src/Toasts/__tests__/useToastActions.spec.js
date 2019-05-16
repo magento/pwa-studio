@@ -1,14 +1,14 @@
 import React from 'react';
 import { useToastActions } from '@magento/peregrine';
 
-import { useToastContext } from '../useToastContext';
+import { useToastDispatch } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
 jest.mock('../useToastContext');
 
 const log = jest.fn();
 const dispatchMock = jest.fn();
-useToastContext.mockReturnValue([null, dispatchMock]);
+useToastDispatch.mockReturnValue(dispatchMock);
 
 beforeEach(() => {
     log.mockReset();
@@ -55,8 +55,7 @@ test("addToast dispatches an 'add' action with expected props", () => {
             // A hash of the props.
             id: expect.any(Number),
             // Will be random, could assert by mocking setTimeout.
-            removalTimeoutId: expect.any(Number),
-            timestamp: expect.any(Number)
+            removalTimeoutId: expect.any(Number)
         })
     });
 });

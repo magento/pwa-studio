@@ -15,6 +15,9 @@ const OnlineIndicator = props => {
     const { addToast } = useToastActions();
     const { isOnline } = props;
 
+    // TODO: The emission of the status toast does not need to live here.
+    // We can eventually move this to the top level App when/if it becomes a
+    // function component.
     useEffect(() => {
         if (isOnline) {
             addToast({

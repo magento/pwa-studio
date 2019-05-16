@@ -1,7 +1,11 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import { ToastContextProvider, useToastContext } from '../useToastContext';
+import {
+    ToastContextProvider,
+    useToastState,
+    useToastDispatch
+} from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
 jest.mock('react', () => {
@@ -17,8 +21,9 @@ beforeEach(() => {
     log.mockReset();
 });
 const Component = () => {
-    const hookOutput = useToastContext();
-    log(...hookOutput);
+    const state = useToastState();
+    const dispatch = useToastDispatch();
+    log(...[state, dispatch]);
 
     return <i />;
 };
@@ -49,13 +54,11 @@ test('handles multiple unique `add` actions', () => {
 
     const firstToastPayload = {
         id: 1,
-        removalTimeoutId: 2,
-        timestamp: 3
+        removalTimeoutId: 2
     };
     const secondToastPayload = {
         id: 2,
-        removalTimeoutId: 3,
-        timestamp: 4
+        removalTimeoutId: 3
     };
     const [, dispatch] = log.mock.calls[0];
 
@@ -88,7 +91,7 @@ test('handles multiple unique `add` actions', () => {
                 '1': {
                     ...firstToastPayload,
                     key: firstToastPayload.id,
-                    timestamp: firstToastPayload.timestamp,
+                    timestamp: expect.any(Number),
                     duplicate: false
                 }
             }
@@ -102,13 +105,13 @@ test('handles multiple unique `add` actions', () => {
                 '1': {
                     ...firstToastPayload,
                     key: firstToastPayload.id,
-                    timestamp: firstToastPayload.timestamp,
+                    timestamp: expect.any(Number),
                     duplicate: false
                 },
                 '2': {
                     ...secondToastPayload,
                     key: secondToastPayload.id,
-                    timestamp: secondToastPayload.timestamp,
+                    timestamp: expect.any(Number),
                     duplicate: false
                 }
             }
@@ -126,8 +129,7 @@ test('handles duplicate `add` actions', () => {
 
     const payload = {
         id: 1,
-        removalTimeoutId: 2,
-        timestamp: 3
+        removalTimeoutId: 2
     };
 
     const [, dispatch] = log.mock.calls[0];
@@ -160,6 +162,7 @@ test('handles duplicate `add` actions', () => {
                 '1': {
                     ...payload,
                     duplicate: false,
+                    timestamp: expect.any(Number),
                     key: payload.id
                 }
             }
@@ -173,6 +176,7 @@ test('handles duplicate `add` actions', () => {
                 '1': {
                     ...payload,
                     duplicate: true,
+                    timestamp: expect.any(Number),
                     key: expect.any(Number) // regenerated on duplicate
                 }
             }
@@ -219,8 +223,7 @@ test('handles `remove` action for existing toasts', () => {
 
     const payload = {
         id: 1,
-        removalTimeoutId: 2,
-        timestamp: 3
+        removalTimeoutId: 2
     };
     const [, dispatch] = log.mock.calls[0];
 
@@ -238,6 +241,7 @@ test('handles `remove` action for existing toasts', () => {
                 '1': {
                     ...payload,
                     duplicate: false,
+                    timestamp: expect.any(Number),
                     key: payload.id
                 }
             }
@@ -270,8 +274,7 @@ test('sets duplicate to false for remaining toasts on removal', () => {
 
     const payload = {
         id: 1,
-        removalTimeoutId: 2,
-        timestamp: 3
+        removalTimeoutId: 2
     };
     const [, dispatch] = log.mock.calls[0];
 
@@ -303,6 +306,7 @@ test('sets duplicate to false for remaining toasts on removal', () => {
                 '1': {
                     ...payload,
                     duplicate: true,
+                    timestamp: expect.any(Number),
                     key: expect.any(Number)
                 }
             }
@@ -324,6 +328,7 @@ test('sets duplicate to false for remaining toasts on removal', () => {
                 '3': {
                     ...payload,
                     duplicate: false,
+                    timestamp: expect.any(Number),
                     id: 3,
                     key: 3
                 }

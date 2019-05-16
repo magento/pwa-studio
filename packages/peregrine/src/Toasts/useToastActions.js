@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useToastContext } from './useToastContext';
+import { useToastDispatch } from './useToastContext';
 
 // If a toast _is not_ dismissable remove it in this many milliseconds.
 const DEFAULT_TIMEOUT = 5000;
@@ -30,25 +30,34 @@ const getToastId = props => {
  * A hook that provides access to the `addToast` and `removeToast` actions.
  * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
  *
- * @returns {{addToast, removeToast}} addToast and removeToast functions
+ * @returns {ToastActions} Object containing addToast and removeToast functions
  */
 export const useToastActions = () => {
-    const [, dispatch] = useToastContext();
+    const dispatch = useToastDispatch();
 
     /**
-     * Dispatches a toast to the toast store. Includes all props passed along
-     * with a hash id, a timeout id, and a timestamp.
+     * Dispatches a add action. Includes all props passed along with a hash id
+     * and a timeout id generated based on the incoming props.
+     *
+     * @function addToast
+     * @param {Object}   toastProps - The object containing props for adding a toast.
+     * @param {string}   toastProps.type - 'info', 'warning' or 'error'.
+     * @param {string}   toastProps.message - The message to display in the toast.
+     * @param {boolean}  toastProps.dismissable - Should the toast be closeable by user?
+     * @param {Icon}     [toastProps.icon] - The Icon component to display in the toast.
+     * @param {function} [toastProps.onDismiss] - callback invoked after dismiss.
+     * @param {string}   [toastProps.actionText] - Text to display as a call to action.
+     * @param {function} [toastProps.onAction] - callback invoked after action text click.
      *
      * @returns {Number} id - the key referencing the toast in the store
      */
     const addToast = useCallback(
         toastProps => {
             const { timeout } = toastProps;
-            // Duplicate toasts should extend the timeout so let's generate the
-            // id by looking at the props that would indicate a duplicate.
+            // Generate the id to use in the removal timeout.
             const id = getToastId(toastProps);
 
-            // Queue to delete the toast after some time.
+            // Queue to delete the toast by id after some time.
             const removalTimeoutId = setTimeout(
                 () => {
                     removeToast(id);
@@ -61,8 +70,7 @@ export const useToastActions = () => {
                 payload: {
                     ...toastProps,
                     id,
-                    removalTimeoutId,
-                    timestamp: Date.now()
+                    removalTimeoutId
                 }
             });
 
@@ -73,6 +81,7 @@ export const useToastActions = () => {
 
     /**
      * Removes a toast from the toast store.
+     * @function removeToast
      * @params {Number} id - the id of the toast to remove
      */
     const removeToast = useCallback(
@@ -84,5 +93,15 @@ export const useToastActions = () => {
         [dispatch]
     );
 
-    return { addToast, removeToast };
+    /**
+     * @typedef ToastActions
+     * @property {addToast} addToast
+     * @property {removeToast} removeToast
+     */
+    const ToastActions = {
+        addToast,
+        removeToast
+    };
+
+    return ToastActions;
 };
