@@ -28,7 +28,7 @@ export const useDropdown = () => {
 
     /**
      * The object returned contains the pieces needed to add the dropdown logic to your components
-     * 
+     *
      * @typedef ReturnedObject
      * @type {Object}
      * @property {ref} elementRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
