@@ -4,7 +4,7 @@ import classify from 'src/classify';
 
 import defaultClasses from './imageLazyLoader.css';
 
-const ImageLazyLoader = ({ classes, src, ...props }) => {
+const ImageLazyLoader = ({ classes, alt, src, ...props }) => {
     const [isLoaded, setLoaded] = useState(false);
 
     return (
@@ -15,6 +15,7 @@ const ImageLazyLoader = ({ classes, src, ...props }) => {
             }`}
             onLoad={() => setLoaded(true)}
             src={src}
+            alt={alt}
         />
     );
 };
@@ -24,6 +25,7 @@ ImageLazyLoader.propTypes = {
         loading: string,
         loaded: string
     }),
+    alt: string,
     src: string.isRequired
 };
 
