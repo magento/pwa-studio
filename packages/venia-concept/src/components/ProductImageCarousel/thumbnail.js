@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { resourceUrl } from 'src/drivers';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './thumbnail.css';
+import ImageLazyLoader from 'src/components/ImageLazyLoader';
 import { transparentPlaceholder } from 'src/shared/images';
 import { useWindowSize } from '@magento/peregrine';
 
@@ -35,7 +36,11 @@ function Thumbnail(props) {
             className={isActive ? classes.rootSelected : classes.root}
         >
             {isDesktop ? (
-                <img className={classes.image} src={src} alt={label} />
+                <ImageLazyLoader
+                    className={classes.image}
+                    src={src}
+                    alt={label}
+                />
             ) : null}
         </button>
     );
