@@ -5,6 +5,7 @@ import * as Util from './util';
 export { useApolloContext } from './hooks/useApolloContext';
 export { useEventListener } from './hooks/useEventListener';
 export { useDropdown } from './hooks/useDropdown';
+export { useItemBeingEdited } from './hooks/useItemBeingEdited';
 export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
 export { useSearchParam } from './hooks/useSearchParam';
