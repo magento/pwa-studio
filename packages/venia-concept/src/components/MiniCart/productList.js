@@ -10,10 +10,17 @@ import defaultClasses from './productList.css';
 class ProductList extends Component {
     static propTypes = {
         beginEditItem: func,
-        cart: object,
+        cart: shape({
+            details: shape({
+                currency: shape({
+                    quote_currency_code: string
+                })
+            })
+        }),
         classes: shape({
             root: string
         }),
+        currencyCode: string,
         isMiniCartMaskOpen: bool,
         items: arrayOf(
             shape({
@@ -26,7 +33,6 @@ class ProductList extends Component {
                 sku: string.isRequired
             })
         ).isRequired,
-        currencyCode: string,
         removeItemFromCart: func
     };
 

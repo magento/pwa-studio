@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
@@ -23,12 +23,12 @@ const Body = props => {
     
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { editItem, isLoading, isEditingItem } = cart;
+    const { editItem, isLoading, isEditingItem, isUpdatingItem } = cart;
 
     // Callbacks.
     const handleEditItem = useCallback(
         item => {
-            beginEditItem(item); //TODO: pass item here?
+            beginEditItem(item);
         },
         [beginEditItem]
     );
@@ -45,9 +45,9 @@ const Body = props => {
     if (isEditingItem) {
         return (
             <EditItem
-                cart={cart}
-                item={editItem}
                 endEditItem={endEditItem}
+                isUpdatingItem={isUpdatingItem}
+                item={editItem}
                 updateItemInCart={updateItemInCart}
             />
         );
@@ -70,11 +70,16 @@ const Body = props => {
 Body.propTypes = {
     beginEditItem: func.isRequired,
     cart: shape({
-        details: object,
+        details: shape({
+            items: array
+        }),
         editItem: object,
         isEditingItem: bool,
         isLoading: bool,
-        totals: object
+        isUpdatingItem: bool,
+        totals: shape({
+            items: array
+        })
     }),
     classes: shape({
         root: string

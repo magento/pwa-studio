@@ -10,11 +10,12 @@ import CartOptions from './cartOptions';
 
 const EditItem = props => {
     // Props.
-    const { cart, item, endEditItem, updateItemInCart } = props;
+    const { endEditItem, isUpdatingItem, item, updateItemInCart } = props;
 
     // We must have an item to edit.
     if (!item) {
-        return <span>TODO - no item to edit</span>;
+        // TODO: log an error?
+        return null;
     }
 
     // State / Hooks.
@@ -32,7 +33,7 @@ const EditItem = props => {
                 cartItem={item}
                 configItem={{}}
                 endEditItem={endEditItem}
-                isUpdatingItem={cart.isUpdatingItem}
+                isUpdatingItem={isUpdatingItem}
                 updateCart={updateItemInCart}
             />
         );
@@ -72,17 +73,15 @@ const EditItem = props => {
             cartItem={item}
             configItem={itemWithOptions}
             endEditItem={endEditItem}
-            isUpdatingItem={cart.isUpdatingItem}
+            isUpdatingItem={isUpdatingItem}
             updateCart={updateItemInCart}
         />
     );
 };
 
 EditItem.propTypes = {
-    cart: shape({
-        isUpdatingItem: bool
-    }),
     endEditItem: func,
+    isUpdatingItem: bool,
     item: object,
     updateItemInCart: func
 };

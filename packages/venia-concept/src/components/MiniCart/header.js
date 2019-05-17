@@ -9,10 +9,9 @@ import defaultClasses from './header.css';
 import Trigger from './trigger';
 
 const Header = props => {
-    const { cart } = props;
+    const { isEditingItem } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { isEditingItem } = cart;
     const title = isEditingItem ? 'Edit Cart Item' : 'Shopping Cart';
 
     return (
@@ -26,13 +25,11 @@ const Header = props => {
 };
 
 Header.propTypes = {
-    cart: shape({
-        isEditingItem: bool
-    }),
     classes: shape({
         root: string,
         title: string
-    })
+    }),
+    isEditingItem: bool
 };
 
 export default Header;
