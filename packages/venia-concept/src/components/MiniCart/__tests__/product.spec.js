@@ -28,15 +28,16 @@ const item = {
 };
 
 test('passed functions are called from nested `Section` components', () => {
+    const beginEditItem = jest.fn();
     const removeItemFromCart = jest.fn();
-    const openOptionsDrawer = jest.fn();
+
     const wrapper = shallow(
         <Product
+            beginEditItem={beginEditItem}
             classes={classes}
             item={item}
             currencyCode={'NZD'}
             removeItemFromCart={removeItemFromCart}
-            openOptionsDrawer={openOptionsDrawer}
         />
     ).dive();
 

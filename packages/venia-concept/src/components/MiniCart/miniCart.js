@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import Body from './body';
 import Header from './header';
@@ -12,6 +12,7 @@ const MiniCart = props => {
     const {
         beginEditItem,
         cart,
+        closeDrawer,
         endEditItem,
         isCartEmpty,
         isMiniCartMaskOpen,
@@ -26,7 +27,10 @@ const MiniCart = props => {
 
     return (
         <aside className={rootClass}>
-            <Header isEditingItem={cart.isEditingItem} />
+            <Header 
+                closeDrawer={closeDrawer}
+                isEditingItem={cart.isEditingItem}
+            />
             <Body
                 beginEditItem={beginEditItem}
                 cart={cart}
@@ -55,6 +59,7 @@ MiniCart.propTypes = {
         root_open: string,
         title: string
     }),
+    closeDrawer: func,
     endEditItem: func.isRequired,
     isCartEmpty: bool,
     isMiniCartMaskOpen: bool,

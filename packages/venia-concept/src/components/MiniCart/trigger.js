@@ -1,38 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'src/drivers';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { func, node, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import { closeDrawer } from 'src/actions/app';
+import { mergeClasses } from 'src/classify';
+
 import defaultClasses from './trigger.css';
 
-class Trigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        closeDrawer: PropTypes.func
-    };
+const Trigger = props => {
+    const { children, onClick } = props;
 
-    render() {
-        const { children, classes, closeDrawer } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-        return (
-            <button className={classes.root} onClick={closeDrawer}>
-                {children}
-            </button>
-        );
-    }
-}
+    return (
+        <button className={classes.root} onClick={onClick}>
+            {children}
+        </button>
+    );
+};
 
-const mapDispatchToProps = { closeDrawer };
+Trigger.propTypes = {
+    children: node,
+    classes: shape({
+        root: string,
+    }),
+    onClick: func
+};
 
-export default compose(
-    classify(defaultClasses),
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(Trigger);
+export default Trigger;

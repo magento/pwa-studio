@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import CloseIcon from 'react-feather/dist/icons/x';
 
 import { mergeClasses } from 'src/classify';
@@ -9,7 +9,7 @@ import defaultClasses from './header.css';
 import Trigger from './trigger';
 
 const Header = props => {
-    const { isEditingItem } = props;
+    const { closeDrawer, isEditingItem } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const title = isEditingItem ? 'Edit Cart Item' : 'Shopping Cart';
@@ -17,7 +17,7 @@ const Header = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{title}</h2>
-            <Trigger>
+            <Trigger onClick={closeDrawer}>
                 <Icon src={CloseIcon} />
             </Trigger>
         </div>
@@ -29,6 +29,7 @@ Header.propTypes = {
         root: string,
         title: string
     }),
+    closeDrawer: func,
     isEditingItem: bool
 };
 

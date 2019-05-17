@@ -1,9 +1,9 @@
 import { connect } from 'src/drivers';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
+import { closeDrawer } from 'src/actions/app';
 import {
     beginEditItem,
     endEditItem,
-    getCartDetails,
     updateItemInCart,
     removeItemFromCart
 } from 'src/actions/cart';
@@ -24,8 +24,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     beginEditItem,
     cancelCheckout,
+    closeDrawer,
     endEditItem,
-    getCartDetails,
     removeItemFromCart,
     updateItemInCart
 };
