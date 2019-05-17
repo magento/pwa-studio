@@ -13,17 +13,12 @@ const getSearchParam = (parameter = '', location = window.location) => {
  *
  * @kind function
  *
- * @param {PropObject} props An Object containing the location, parameter, and setter function.
+ * @param {Object} props An object containing the location, parameter, and setter function.
+ * @param {String} props.location The URL location to search for
+ * @param {String} props.parameter The parameter to search for
+ * @param {Function} props.setValue A setter function that is passed the parameter value found in the URL
  */
 export const useSearchParam = props => {
-    /**
-     * @typedef PropObject
-     * @type {object}
-     *
-     * @property {string} location The URL location to search for
-     * @property {string} parameter The parameter to search for in the URL
-     * @property {function} setValue A setter function that is passed the parameter value found in the URL
-     */
     const { location, parameter, setValue } = props;
     const value = getSearchParam(parameter, location);
 

@@ -44,7 +44,7 @@ const reducer = (state, { payload, type }) => {
  * @typedef useQueryResult
  * @kind function
  *
- * @return {object[]} An array with two entries containing the following content: [ {@link QueryResultState}, {@link API}]
+ * @return {Object[]} An array with two entries containing the following content: [ {@link QueryResultState}, {@link API}]
  */
 export const useQueryResult = () => {
     /**
@@ -63,7 +63,7 @@ export const useQueryResult = () => {
      *
      * @function API.setData
      *
-     * @param {object} data The updated state data
+     * @param {Object} data The updated state data
      */
     const setData = useCallback(
         payload => {
@@ -80,7 +80,7 @@ export const useQueryResult = () => {
      *
      * @function API.setError
      *
-     * @param {object} errorData The error data for the state
+     * @param {Object} errorData The error data for the state
      */
     const setError = useCallback(
         payload => {
@@ -97,7 +97,7 @@ export const useQueryResult = () => {
      *
      * @function API.setLoading
      *
-     * @param {bool} isLoading New value for the loading state
+     * @param {Boolean} isLoading New value for the loading state
      */
     const setLoading = useCallback(
         payload => {
@@ -114,7 +114,7 @@ export const useQueryResult = () => {
      *
      * @function API.receiveResponse
      *
-     * @param {object} payload The query response payload
+     * @param {Object} payload The query response payload
      */
     const receiveResponse = useCallback(
         payload => {
@@ -147,7 +147,7 @@ export const useQueryResult = () => {
      *
      * This object should never change.
      * @typedef API
-     * @type object
+     * @type Object
      */
     const api = useMemo(
         () => ({
@@ -170,19 +170,19 @@ export const useQueryResult = () => {
  * The current state of a query result.
  *
  * @typedef QueryResultState
- * @type object
+ * @type Object
  *
- * @property {object} data The query data or null if it is not available.
- * @property {object} error Error object that is set when there is an error getting the query.
- * @property {bool} loading True if the query is still being loaded. False otherwise.
+ * @property {Object} data The query data or null if it is not available.
+ * @property {Object} error Error object that is set when there is an error getting the query.
+ * @property {Boolean} loading True if the query is still being loaded. False otherwise.
  */
 
 /**
  * An Action object similar to a [Redux Action]{@link https://redux.js.org/basics/actions}.
  *
  * @typedef QueryResultAction
- * @type object
+ * @type Object
  *
- * @property {object} payload The data payload for an action
- * @property {string} type The type of action associated with this object
+ * @property {Object} payload The data payload for an action
+ * @property {String} type The type of action associated with this object
  */

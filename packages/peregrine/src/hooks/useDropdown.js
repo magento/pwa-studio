@@ -7,7 +7,7 @@ import { useDocumentListener } from './useDocumentListener';
  *
  * @kind function
  *
- * @return {ReturnedObject} An object containing functions and values to add dropdown logic
+ * @return {Dropdown} An object containing functions and values to add dropdown logic
  */
 export const useDropdown = () => {
     const elementRef = useRef(null);
@@ -29,11 +29,11 @@ export const useDropdown = () => {
     /**
      * The object returned contains the pieces needed to add the dropdown logic to your components
      *
-     * @typedef ReturnedObject
+     * @typedef Dropdown
      * @type {Object}
-     * @property {ref} elementRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
-     * @property {bool} expanded - The value of the `expanded` state
-     * @property {function} setExpanded - [State Hook]{@link https://reactjs.org/docs/hooks-state.html} function for setting the expanded state
+     * @property {Ref} elementRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
+     * @property {Boolean} expanded - The value of the `expanded` state
+     * @property {Function} setExpanded - [State Hook]{@link https://reactjs.org/docs/hooks-state.html} function for setting the expanded state
      */
     return {
         elementRef,
