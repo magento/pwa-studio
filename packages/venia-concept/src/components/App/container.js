@@ -5,22 +5,21 @@ import appActions, { closeDrawer } from 'src/actions/app';
 import App from './app';
 
 class AppContainer extends Component {
-
     static get initialState() {
         return {
             renderError: null
-        }
+        };
     }
 
     static getDerivedStateFromError(renderError) {
-        return { renderError }
+        return { renderError };
     }
 
     state = AppContainer.initialState;
 
-    render () {
+    render() {
         const { renderError } = this.state;
-        return <ConnectedApp renderError={renderError}/>
+        return <ConnectedApp renderError={renderError} />;
     }
 }
 

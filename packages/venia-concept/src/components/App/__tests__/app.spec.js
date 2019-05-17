@@ -1,14 +1,13 @@
+// TODO: Add/update tests for new error handling after fixing infinite loop.
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
-import ErrorNotifications from '../errorNotifications';
 
 jest.mock('src/components/Main', () => 'Main');
 jest.mock('src/components/MiniCart', () => 'MiniCart');
-jest.mock('../errorNotifications', () => 'ErrorNotifications');
 
 Object.defineProperty(window.location, 'reload', {
     configurable: true
