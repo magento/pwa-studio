@@ -8,7 +8,7 @@ const DEFAULT_TIMEOUT = 5000;
  * Generates an identifier for a toast in a pure manner. Should always return
  * the same identifier for a given set of props.
  */
-const getToastId = props => {
+export const getToastId = props => {
     const combined = Object.keys(props).reduce(
         (acc, curr) => acc + props[curr],
         ''

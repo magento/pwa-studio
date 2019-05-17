@@ -1,5 +1,5 @@
 import React from 'react';
-import { useToastActions } from '@magento/peregrine';
+import { getToastId, useToastActions } from '../useToastActions';
 
 import { useToastDispatch } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
@@ -80,5 +80,21 @@ test("removeToast dispatches an 'remove' action with expected props", () => {
         payload: expect.objectContaining({
             id: expect.any(Number)
         })
+    });
+});
+
+test('getToastId computes the same hash for a identical set of inputs', () => {
+    const testValues = [
+        '',
+        {},
+        { foo: 'bar' },
+        { foo: 'bar', baz: 'bang' },
+        { foo: 'bar', baz: 'bang', func: () => {} },
+        { foo: 'bar', baz: 'bang', func: () => {}, nested: { a: '1' } },
+        true
+    ];
+
+    testValues.forEach(value => {
+        expect(getToastId(value)).toBe(getToastId(value));
     });
 });
