@@ -3,6 +3,16 @@ import { useEventListener } from './useEventListener';
 
 const WindowSizeContext = createContext();
 
+/**
+ * An object that contains the inner and outer dimensions for the browser.
+ *
+ * @typedef WindowSize
+ *
+ * @property {Number} innerHeight The height of the browser's inner window
+ * @property {Number} outerHeight The height of the browser's outer window
+ * @property {Number} innerWidth The width of the browser's inner window
+ * @property {Number} outerWidth The width of the browser's outer window
+ */
 const getSize = () => {
     return {
         innerHeight: window.innerHeight,
@@ -32,11 +42,8 @@ const useWindowSizeListener = () => {
 };
 
 /**
- * This component contains a hook that listens for resize events.
- * Use this component with {@link useWindowSize} to get the value of the resized window.
- *
- * It is recommended to only create/use a single time at the top level of your app
- * @summary A React context provider.
+ * This component provides dynamic window size data for children components that
+ * use the {@link useWindowSize} function.
  *
  * @kind function
  *
@@ -58,11 +65,13 @@ export const WindowSizeContextProvider = props => {
 };
 
 /**
- * The current context value for the window size context.
+ * A function that returns an object with window size data.
  * This value updates whenever the window is resized.
  *
- * Use this inside a {@link WindowSizeContextProvider}.
+ * Use this inside a child component of {@link WindowSizeContextProvider}.
  *
- * @type number
+ * @kind function
+ *
+ * @return {WindowSize} An object containing data about the browser window size.
  */
 export const useWindowSize = () => useContext(WindowSizeContext);

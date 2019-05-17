@@ -12,7 +12,7 @@ import { useQueryResult } from './useQueryResult';
  *
  * @param {DocumentNode} query A GraphQL document containing a query to send to the server
  *
- * @return {object[]} An array with two entries containing the following content: [{@link ../useQueryResult#state--object queryResultState}, {@link API}]
+ * @return {Object[]} An array with two entries containing the following content: [{@link ../useQueryResult#queryresultstate--object QueryResultState}, {@link API}]
  */
 export const useQuery = query => {
     const apolloClient = useApolloContext();
@@ -42,7 +42,7 @@ export const useQuery = query => {
      * this object also contains the API methods from the {@link ../useQueryResult#api--object  useQueryResult hook}.
      *
      * @typedef API
-     * @type object
+     * @type Object
      */
     const api = useMemo(
         () => ({

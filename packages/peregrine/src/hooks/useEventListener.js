@@ -9,7 +9,7 @@ import { useEffect } from 'react';
  * @kind function
  *
  * @param {Object} target The target to attach the listener to
- * @param {String} type The type of [event][] like `resize`, `error`, etc.
+ * @param {String} type The type of [event][], such as `resize`, `error`, etc.
  * @param {Function} listener a callback function to be invoked
  * @param  {...any} rest any other arguments to pass to the function
  */
