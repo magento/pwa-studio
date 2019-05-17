@@ -36,31 +36,32 @@ const reducer = (state, { payload, type }) => {
 };
 
 /**
- * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contain
+ * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains
  * logic for handling a query result.
+ * It returns the state of the query result and an API object for managing that
+ * state object.
  *
- * This is the main entry point for this module.
- *
+ * @typedef useQueryResult
  * @kind function
  *
- * @return {object[]} An array with two entries: [ {@link State}, {@link Api}]
+ * @return {object[]} An array with two entries containing the following content: [ {@link QueryResultState}, {@link API}]
  */
 export const useQueryResult = () => {
     /**
      * A function for dispatching actions specific to this module.
      * This is similar to the [dispatch() function in Redux]{@link https://redux.js.org/api/store#dispatch}
      *
-     * @function Api.dispatch
+     * @function API.dispatch
      *
-     * @param {State} state The current state
-     * @param {Action} action An Action object
+     * @param {QueryResultState} state The current state
+     * @param {QueryResultAction} action A QueryResultAction object
      */
     const [state, dispatch] = useReducer(reducer, initialState);
 
     /**
      * Set the state data
      *
-     * @function Api.setData
+     * @function API.setData
      *
      * @param {object} data The updated state data
      */
@@ -77,7 +78,7 @@ export const useQueryResult = () => {
     /**
      * Set the error state
      *
-     * @function Api.setError
+     * @function API.setError
      *
      * @param {object} errorData The error data for the state
      */
@@ -94,7 +95,7 @@ export const useQueryResult = () => {
     /**
      * Set the loading state
      *
-     * @function Api.setLoading
+     * @function API.setLoading
      *
      * @param {bool} isLoading New value for the loading state
      */
@@ -111,7 +112,7 @@ export const useQueryResult = () => {
     /**
      * Updates the state using the response payload.
      *
-     * @function Api.receiveResponse
+     * @function API.receiveResponse
      *
      * @param {object} payload The query response payload
      */
@@ -128,7 +129,7 @@ export const useQueryResult = () => {
     /**
      * Resets the state to its initial value.
      *
-     * @function Api.resetState
+     * @function API.resetState
      */
     const resetState = useCallback(
         payload => {
@@ -141,9 +142,11 @@ export const useQueryResult = () => {
     );
 
     /**
-     * The API for this module.
+     * The API for managing the query results state.
+     * Use this API to update the various parts of the query result state.
+     *
      * This object should never change.
-     * @typedef Api
+     * @typedef API
      * @type object
      */
     const api = useMemo(
@@ -166,7 +169,7 @@ export const useQueryResult = () => {
 /**
  * The current state of a query result.
  *
- * @typedef State
+ * @typedef QueryResultState
  * @type object
  *
  * @property {object} data The query data or null if it is not available.
@@ -177,7 +180,7 @@ export const useQueryResult = () => {
 /**
  * An Action object similar to a [Redux Action]{@link https://redux.js.org/basics/actions}.
  *
- * @typedef Action
+ * @typedef QueryResultAction
  * @type object
  *
  * @property {object} payload The data payload for an action
