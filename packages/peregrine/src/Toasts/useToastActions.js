@@ -43,7 +43,7 @@ export const useToastActions = () => {
      * @param {Object}   toastProps - The object containing props for adding a toast.
      * @param {string}   toastProps.type - 'info', 'warning' or 'error'.
      * @param {string}   toastProps.message - The message to display in the toast.
-     * @param {boolean}  toastProps.dismissable - Should the toast be closeable by user?
+     * @param {boolean}  [toastProps.dismissable] - Should the toast be closeable by user?
      * @param {Icon}     [toastProps.icon] - The Icon component to display in the toast.
      * @param {function} [toastProps.onDismiss] - callback invoked after dismiss.
      * @param {string}   [toastProps.actionText] - Text to display as a call to action.

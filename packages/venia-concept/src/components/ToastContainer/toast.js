@@ -70,7 +70,7 @@ const Toast = props => {
 
 Toast.propTypes = {
     actionText: string,
-    dismissable: bool.isRequired,
+    dismissable: bool,
     icon: func,
     id: number,
     message: string.isRequired,
