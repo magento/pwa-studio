@@ -21,27 +21,26 @@ const reducer = (prevState = initialState, action = {}) => {
 
     switch (type) {
         case 'add': {
+            const { toasts } = prevState;
+            const { [payload.id]: prevToast } = toasts;
+
             // If we are adding a toast that already exists we need to clear the
             // old removal timeout effectively resetting the delete timer.
-            if (prevState.toasts[payload.id]) {
-                window.clearTimeout(
-                    prevState.toasts[payload.id].removalTimeoutId
-                );
+            if (prevToast) {
+                window.clearTimeout(prevToast.removalTimeoutId);
             }
 
-            const duplicate = !!prevState.toasts[payload.id];
+            const duplicate = !!prevToast;
 
             // For duplicate toasts, do not update the timestamp to maintain
             // order of toast emission.
-            const timestamp = duplicate
-                ? prevState.toasts[payload.id].timestamp
-                : Date.now();
+            const timestamp = duplicate ? prevToast.timestamp : Date.now();
 
             // Use a random key to trigger a recreation of this component if it
             // is a duplicate so that we can re-trigger the blink animation.
             const key = duplicate ? Math.random() : payload.id;
 
-            const newState = {
+            const nextState = {
                 ...prevState,
                 toasts: {
                     ...prevState.toasts,
@@ -54,32 +53,32 @@ const reducer = (prevState = initialState, action = {}) => {
                 }
             };
 
-            return newState;
+            return nextState;
         }
         case 'remove': {
-            const newState = {
+            const nextState = {
                 ...prevState
             };
 
             // It is possible to attempt to delete a non-existant toast so let's
             // gracefully handle that.
-            if (newState.toasts[payload.id]) {
+            if (nextState.toasts[payload.id]) {
                 // Clear the old toast removal timeout incase an identical toast
                 // is added after this.
                 window.clearTimeout(
-                    newState.toasts[payload.id].removalTimeoutId
+                    nextState.toasts[payload.id].removalTimeoutId
                 );
 
                 // Delete the toast from the store.
-                delete newState.toasts[payload.id];
+                delete nextState.toasts[payload.id];
             }
 
             // Do not blink on removal.
-            Object.keys(newState.toasts).forEach(key => {
-                newState.toasts[key].duplicate = false;
+            Object.keys(nextState.toasts).forEach(key => {
+                nextState.toasts[key].duplicate = false;
             });
 
-            return newState;
+            return nextState;
         }
         default:
             return prevState;
@@ -99,10 +98,9 @@ const ToastContext = createContext();
  *   </ToastContextProvider>
  */
 export const ToastContextProvider = ({ children }) => {
+    const store = useReducer(reducer, initialState);
     return (
-        <ToastContext.Provider value={useReducer(reducer, initialState)}>
-            {children}
-        </ToastContext.Provider>
+        <ToastContext.Provider value={store}>{children}</ToastContext.Provider>
     );
 };
 
