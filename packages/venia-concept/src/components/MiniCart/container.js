@@ -1,11 +1,11 @@
 import { connect } from 'src/drivers';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
 import {
+    beginEditItem,
+    endEditItem,
     getCartDetails,
     updateItemInCart,
-    removeItemFromCart,
-    openOptionsDrawer,
-    closeOptionsDrawer
+    removeItemFromCart
 } from 'src/actions/cart';
 import { cancelCheckout } from 'src/actions/checkout';
 
@@ -22,12 +22,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+    beginEditItem,
+    cancelCheckout,
+    endEditItem,
     getCartDetails,
-    updateItemInCart,
     removeItemFromCart,
-    openOptionsDrawer,
-    closeOptionsDrawer,
-    cancelCheckout
+    updateItemInCart
 };
 
 export default connect(

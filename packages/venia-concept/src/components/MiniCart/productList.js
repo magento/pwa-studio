@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import React, { Component, Fragment } from 'react';
+import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import classify from 'src/classify';
+import ProductListFooter from './productListFooter';
 import Product from './product';
 import defaultClasses from './productList.css';
 
 class ProductList extends Component {
     static propTypes = {
+        beginEditItem: func,
+        cart: object,
         classes: shape({
             root: string
         }),
+        isMiniCartMaskOpen: bool,
         items: arrayOf(
             shape({
                 item_id: number.isRequired,
@@ -22,33 +26,44 @@ class ProductList extends Component {
                 sku: string.isRequired
             })
         ).isRequired,
-        currencyCode: string.isRequired
+        currencyCode: string,
+        removeItemFromCart: func
     };
 
     render() {
         const {
+            beginEditItem,
+            cart,
             currencyCode,
+            isMiniCartMaskOpen,
             removeItemFromCart,
-            openOptionsDrawer,
             totalsItems,
             ...otherProps
         } = this.props;
 
+        const currency = currencyCode || cart.details.currency.quote_currency_code;
+
         return (
-            <List
-                render="ul"
-                getItemKey={item => item.item_id}
-                renderItem={props => (
-                    <Product
-                        currencyCode={currencyCode}
-                        removeItemFromCart={removeItemFromCart}
-                        openOptionsDrawer={openOptionsDrawer}
-                        totalsItems={totalsItems}
-                        {...props}
-                    />
-                )}
-                {...otherProps}
-            />
+            <Fragment>
+                <List
+                    render="ul"
+                    getItemKey={item => item.item_id}
+                    renderItem={props => (
+                        <Product
+                            beginEditItem={beginEditItem}
+                            currencyCode={currency}
+                            removeItemFromCart={removeItemFromCart}
+                            totalsItems={totalsItems}
+                            {...props}
+                        />
+                    )}
+                    {...otherProps}
+                />
+                <ProductListFooter
+                    cart={cart}
+                    isMiniCartMaskOpen={isMiniCartMaskOpen}
+                />
+            </Fragment>
         );
     }
 }

@@ -40,9 +40,9 @@ class CartOptions extends Component {
             __typename: string,
             configurable_options: array
         }),
+        endEditItem: func.isRequired,
         isUpdatingItem: bool,
-        updateCart: func.isRequired,
-        closeOptionsDrawer: func.isRequired
+        updateCart: func.isRequired
     };
 
     constructor(props) {
@@ -148,7 +148,7 @@ class CartOptions extends Component {
                     </section>
                 </div>
                 <div className={classes.save}>
-                    <Button onClick={this.props.closeOptionsDrawer}>
+                    <Button onClick={this.props.endEditItem}>
                         <span>Cancel</span>
                     </Button>
                     <Button

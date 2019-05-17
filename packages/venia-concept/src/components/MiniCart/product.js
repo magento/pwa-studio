@@ -12,6 +12,7 @@ const imageHeight = 100;
 
 class Product extends Component {
     static propTypes = {
+        beginEditItem: func.isRequired,
         classes: shape({
             image: string,
             modal: string,
@@ -25,6 +26,7 @@ class Product extends Component {
             quantitySelect: string,
             root: string
         }),
+        currencyCode: string.isRequired,
         item: shape({
             item_id: number.isRequired,
             name: string.isRequired,
@@ -39,9 +41,7 @@ class Product extends Component {
             qty: number.isRequired,
             quote_id: string,
             sku: string.isRequired
-        }).isRequired,
-        currencyCode: string.isRequired,
-        openOptionsDrawer: func.isRequired
+        }).isRequired
     };
 
     // TODO: Manage favorite items using GraphQL/REST when it is ready
@@ -143,7 +143,7 @@ class Product extends Component {
     };
 
     editItem = () => {
-        this.props.openOptionsDrawer(this.props.item);
+        this.props.beginEditItem(this.props.item);
     };
 
     removeItem = () => {

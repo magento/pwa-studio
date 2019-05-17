@@ -1,0 +1,22 @@
+.placeholderButton {
+    text-align: center;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.root {
+    --minicart-footer-padding-top: 1.5rem;
+    --minicart-footer-padding-bottom: 0.5rem;
+    box-shadow: 0 -1px rgb(var(--venia-border));
+    padding: var(--minicart-footer-padding-top) 0
+        var(--minicart-footer-padding-bottom);
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    justify-self: center;
+    width: 100%;
+}
+
+.root_open {
+    composes: root;
+    z-index: 3;
+}

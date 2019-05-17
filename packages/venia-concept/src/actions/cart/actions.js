@@ -25,6 +25,6 @@ const actionMap = {
     }
 };
 
-const actionTypes = ['CLOSE_OPTIONS_DRAWER', 'OPEN_OPTIONS_DRAWER', 'RESET'];
+const actionTypes = ['BEGIN_EDIT_ITEM', 'END_EDIT_ITEM', 'RESET'];
 
 export default createActions(actionMap, ...actionTypes, { prefix });

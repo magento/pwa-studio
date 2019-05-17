@@ -1,80 +1,89 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 
-import { useItemBeingEdited } from '@magento/peregrine';
+import { mergeClasses } from 'src/classify';
+import { loadingIndicator } from 'src/components/LoadingIndicator';
 
+import defaultClasses from './body.css';
+import EditItem from './editItem';
 import EmptyMiniCart from './emptyMiniCart';
-import Footer from './footer';
 import ProductList from './productList';
 
 const Body = props => {
     // Props.
     const {
+        beginEditItem,
         cart,
-        classes,
+        endEditItem,
         isCartEmpty,
         isMiniCartMaskOpen,
-        openOptionsDrawer,
-        removeItemFromCart
+        removeItemFromCart,
+        updateItemInCart
     } = props;
+    
+    // Members.
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { editItem, isLoading, isEditingItem } = cart;
+
+    // Callbacks.
+    const handleEditItem = useCallback(
+        item => {
+            beginEditItem(item); //TODO: pass item here?
+        },
+        [beginEditItem]
+    );
+
+    // Render.
+    if (isLoading) {
+        return loadingIndicator;
+    }
 
     if (isCartEmpty) {
         return <EmptyMiniCart />;
     }
 
-    // State.
-    const [_, setItemBeingEdited] = useItemBeingEdited();
-
-    // Members.
-    const cartId = cart.details.id;
-    const currencyCode = cart.details.currency.quote_currency_code;
-
-    // Callbacks.
-    const handleOpenOptionsDrawer = useCallback(
-        item => {
-            console.log('setting item being edited to', item);
-            setItemBeingEdited(item);
-            openOptionsDrawer();
-        },
-        [openOptionsDrawer, setItemBeingEdited]
-    );
-
-    return (
-        <Fragment>
-            <div className={classes.body}>
-                {cartId && (
-                    <ProductList
-                        currencyCode={currencyCode}
-                        items={cart.details.items}
-                        openOptionsDrawer={handleOpenOptionsDrawer}
-                        removeItemFromCart={removeItemFromCart}
-                        totalsItems={cart.totals.items}
-                    />
-                )}
-            </div>
-            <Footer
+    if (isEditingItem) {
+        return (
+            <EditItem
                 cart={cart}
-                classes={classes}
-                isMiniCartMaskOpen={isMiniCartMaskOpen}
+                item={editItem}
+                endEditItem={endEditItem}
+                updateItemInCart={updateItemInCart}
             />
-        </Fragment>
+        );
+    }
+    
+    return (
+        <div className={classes.root}>
+            <ProductList
+                beginEditItem={handleEditItem}
+                cart={cart}
+                isMiniCartMaskOpen={isMiniCartMaskOpen}
+                items={cart.details.items}
+                removeItemFromCart={removeItemFromCart}
+                totalsItems={cart.totals.items}
+            />
+        </div>
     );
 };
 
 Body.propTypes = {
+    beginEditItem: func.isRequired,
     cart: shape({
         details: object,
+        editItem: object,
+        isEditingItem: bool,
+        isLoading: bool,
         totals: object
     }),
     classes: shape({
-        footer: string,
-        footerMaskOpen: string,
-        summary: string
+        root: string
     }),
+    endEditItem: func,
     isCartEmpty: bool,
     isMiniCartMaskOpen: bool,
-    openOptionsDrawer: func.isRequired,
-    removeItemFromCart: func
+    removeItemFromCart: func,
+    updateItemInCart: func
 };
 
 export default Body;

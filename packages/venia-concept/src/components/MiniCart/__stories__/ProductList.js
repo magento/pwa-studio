@@ -38,6 +38,6 @@ stories.add('Product List With Kebab', () => (
         items={items}
         currencyCode="NZD"
         removeItemFromCart={() => {}}
-        openOptionsDrawer={() => {}}
+        beginEditItem={() => {}}
     />
 ));
