@@ -35,10 +35,10 @@ module.exports = [
         target: 'peregrine/src/hooks/useSearchParam.js',
         type: 'function'
     },
-//    {
-//        target: 'peregrine/src/hooks/useQuery.js',
-//        type: 'function'
-//    },
+    {
+        target: 'peregrine/src/hooks/useQuery.js',
+        type: 'function'
+    },
     {
         target: 'peregrine/src/hooks/useQueryResult.js',
         type: 'function'
