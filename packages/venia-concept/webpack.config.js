@@ -90,6 +90,7 @@ module.exports = async function(env) {
                 },
                 {
                     test: /\.css$/,
+                    exclude: /node_modules/,
                     use: [
                         'style-loader',
                         {
@@ -99,6 +100,20 @@ module.exports = async function(env) {
                                 localIdentName:
                                     '[name]-[local]-[hash:base64:3]',
                                 modules: true
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.css$/,
+                    include: /node_modules/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                modules: false
                             }
                         }
                     ]
@@ -193,9 +208,7 @@ module.exports = async function(env) {
         const devServerConfig = {
             env: validEnv,
             publicPath: config.output.publicPath,
-            graphqlPlayground: {
-                queryDirs: [path.resolve(themePaths.src, 'queries')]
-            }
+            graphqlPlayground: true
         };
         const provideHost = !!validEnv.MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST;
         if (provideHost) {

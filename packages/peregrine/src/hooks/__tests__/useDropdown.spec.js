@@ -1,12 +1,12 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import { useDocumentListener } from '../useDocumentListener';
+import { useEventListener } from '../useEventListener';
 import { useDropdown } from '../useDropdown';
 import createTestInstance from '../../util/createTestInstance';
 
-jest.mock('../useDocumentListener', () => ({
-    useDocumentListener: jest.fn()
+jest.mock('../useEventListener', () => ({
+    useEventListener: jest.fn()
 }));
 
 const log = jest.fn();
@@ -59,7 +59,7 @@ test('collapses on mousedown outside `elementRef`', () => {
 
     createTestInstance(<Component />, { createNodeMock });
 
-    const maybeCollapse = useDocumentListener.mock.calls[0][1];
+    const maybeCollapse = useEventListener.mock.calls[0][2];
     const { setExpanded } = log.mock.calls[0][0];
 
     act(() => {
@@ -87,7 +87,7 @@ test("doesn't collapse on mousedown inside `elementRef`", () => {
 
     createTestInstance(<Component />, { createNodeMock });
 
-    const maybeCollapse = useDocumentListener.mock.calls[0][1];
+    const maybeCollapse = useEventListener.mock.calls[0][2];
     const { setExpanded } = log.mock.calls[0][0];
 
     act(() => {

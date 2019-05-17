@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import { useDocumentListener } from '../useDocumentListener';
+import { useEventListener } from '../useEventListener';
 import createTestInstance from '../../util/createTestInstance';
 
 const spies = new Map();
@@ -17,7 +17,7 @@ spies.set(
 );
 
 const Component = () => {
-    useDocumentListener('click', handleClick, { once: true });
+    useEventListener(document, 'click', handleClick, { once: true });
 
     return <i />;
 };
