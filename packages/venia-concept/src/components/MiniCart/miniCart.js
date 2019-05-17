@@ -233,6 +233,7 @@ class MiniCart extends Component {
     }
 
     render() {
+        throw new Error('oops');
         const { miniCartInner, productOptions, props } = this;
         const {
             cancelCheckout,

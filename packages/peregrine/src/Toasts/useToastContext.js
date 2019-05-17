@@ -11,44 +11,14 @@ const initialState = {
 const reducer = (prevState = initialState, action = {}) => {
     const { type, payload } = action;
 
-    if (!type) {
-        throw new TypeError('action.type is required');
-    }
-
-    if (!payload.id) {
-        throw new TypeError('action.payload.id is required');
-    }
-
     switch (type) {
         case 'add': {
-            const { toasts } = prevState;
-            const { [payload.id]: prevToast } = toasts;
-
-            // If we are adding a toast that already exists we need to clear the
-            // old removal timeout effectively resetting the delete timer.
-            if (prevToast) {
-                window.clearTimeout(prevToast.removalTimeoutId);
-            }
-
-            const duplicate = !!prevToast;
-
-            // For duplicate toasts, do not update the timestamp to maintain
-            // order of toast emission.
-            const timestamp = duplicate ? prevToast.timestamp : Date.now();
-
-            // Use a random key to trigger a recreation of this component if it
-            // is a duplicate so that we can re-trigger the blink animation.
-            const key = duplicate ? Math.random() : payload.id;
-
             const nextState = {
                 ...prevState,
                 toasts: {
                     ...prevState.toasts,
                     [payload.id]: {
-                        ...payload,
-                        timestamp,
-                        duplicate,
-                        key
+                        ...payload
                     }
                 }
             };
@@ -60,23 +30,7 @@ const reducer = (prevState = initialState, action = {}) => {
                 ...prevState
             };
 
-            // It is possible to attempt to delete a non-existant toast so let's
-            // gracefully handle that.
-            if (nextState.toasts[payload.id]) {
-                // Clear the old toast removal timeout incase an identical toast
-                // is added after this.
-                window.clearTimeout(
-                    nextState.toasts[payload.id].removalTimeoutId
-                );
-
-                // Delete the toast from the store.
-                delete nextState.toasts[payload.id];
-            }
-
-            // Do not blink on removal.
-            Object.keys(nextState.toasts).forEach(key => {
-                nextState.toasts[key].duplicate = false;
-            });
+            delete nextState.toasts[payload.id];
 
             return nextState;
         }

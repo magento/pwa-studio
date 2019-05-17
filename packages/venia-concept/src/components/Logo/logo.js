@@ -4,55 +4,55 @@ import { mergeClasses } from 'src/classify';
 import logo from './logo.svg';
 
 import SmileIcon from 'react-feather/dist/icons/smile';
-import { useToastActions } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 
 const Logo = props => {
     const { height } = props;
     const classes = mergeClasses({}, props.classes);
 
-    const { addToast } = useToastActions();
+    const [, { addToast }] = useToasts();
 
     // TODO REMOVE THESE DEMO TOASTS
-    useEffect(() => {
-        const toastProps = {
-            type: 'info',
-            message: `I'll be a duplicate toast`,
-            icon: SmileIcon,
-            dismissable: true,
-            timeout: 10000
-        };
-        setTimeout(() => {
-            addToast(toastProps);
-        }, 100);
-        setTimeout(() => {
-            addToast(toastProps);
-        }, 3000);
-        setTimeout(() => {
-            addToast(toastProps);
-        }, 6000);
+    // useEffect(() => {
+    //     const toastProps = {
+    //         type: 'info',
+    //         message: `I'll be a duplicate toast`,
+    //         icon: SmileIcon,
+    //         dismissable: true,
+    //         timeout: 10000
+    //     };
+    //     setTimeout(() => {
+    //         addToast(toastProps);
+    //     }, 100);
+    //     setTimeout(() => {
+    //         addToast(toastProps);
+    //     }, 3000);
+    //     setTimeout(() => {
+    //         addToast(toastProps);
+    //     }, 6000);
 
-        setTimeout(() => {
-            addToast({
-                ...toastProps,
-                type: 'warning',
-                message: 'A warning toast!',
-                onAction: () => {
-                    console.log("I'm a warning!");
-                },
-                actionText: 'Action link'
-            });
-            addToast({
-                ...toastProps,
-                type: 'error',
-                message:
-                    'Negative message with an action link to perform a repeat request',
-                onAction: () => {
-                    console.log("I'm an error!");
-                },
-                actionText: 'Action link'
-            });
-        }, 2000);
-    }, []);
+    //     setTimeout(() => {
+    //         addToast({
+    //             ...toastProps,
+    //             type: 'warning',
+    //             message: 'A warning toast!',
+    //             onAction: () => {
+    //                 console.log("I'm a warning!");
+    //             },
+    //             actionText: 'Action link'
+    //         });
+    //         addToast({
+    //             ...toastProps,
+    //             type: 'error',
+    //             message:
+    //                 'Negative message with an action link to perform a repeat request',
+    //             onAction: () => {
+    //                 console.log("I'm an error!");
+    //             },
+    //             actionText: 'Action link'
+    //         });
+    //     }, 2000);
+    // }, []);
 
     return (
         <img

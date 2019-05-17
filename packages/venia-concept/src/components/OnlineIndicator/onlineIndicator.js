@@ -5,14 +5,14 @@ import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
 import CheckIcon from 'react-feather/dist/icons/check';
 
 import { mergeClasses } from 'src/classify';
-import { useToastActions } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 import Icon from 'src/components/Icon';
 import defaultClasses from './onlineIndicator.css';
 
 const OnlineIndicator = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { addToast } = useToastActions();
+    const [, { addToast }] = useToasts();
     const { isOnline } = props;
 
     // TODO: The emission of the status toast does not need to live here.

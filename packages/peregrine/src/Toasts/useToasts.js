@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useToastDispatch } from './useToastContext';
+import { useCallback, useMemo } from 'react';
+import { useToastState, useToastDispatch } from './useToastContext';
 
 // If a toast _is not_ dismissable remove it in this many milliseconds.
 const DEFAULT_TIMEOUT = 5000;
@@ -27,13 +27,15 @@ export const getToastId = props => {
 };
 
 /**
- * A hook that provides access to the `addToast` and `removeToast` actions.
- * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
+ * A hook that provides access to the toast state and toast api.
  *
- * @returns {ToastActions} Object containing addToast and removeToast functions
+ * @returns {[ToastState, ToastApi]}
  */
-export const useToastActions = () => {
+export const useToasts = () => {
+    const state = useToastState();
     const dispatch = useToastDispatch();
+
+    const { toasts } = state;
 
     /**
      * Dispatches a add action. Includes all props passed along with a hash id
@@ -53,23 +55,47 @@ export const useToastActions = () => {
      */
     const addToast = useCallback(
         toastProps => {
-            const { timeout } = toastProps;
+            const { message, timeout, type } = toastProps;
+
+            if (!type) {
+                throw new TypeError('toast.type is required');
+            }
+
+            if (!message) {
+                throw new TypeError('toast.message is required');
+            }
+
             // Generate the id to use in the removal timeout.
             const id = getToastId(toastProps);
 
             // Queue to delete the toast by id after some time.
             const removalTimeoutId = setTimeout(
                 () => {
-                    removeToast(id);
+                    // removeToast(id);
                 },
                 timeout ? timeout : DEFAULT_TIMEOUT
             );
+
+            let timestamp;
+            const isDuplicate = !!toasts[id];
+
+            if (isDuplicate) {
+                // For duplicate toasts, do not update the timestamp to maintain
+                // order of toast emission.
+                timestamp = toasts[id].timestamp;
+                // Remove the previous toast timeout to prevent premature removal.
+                window.clearTimeout(toasts[id].removalTimeoutId);
+            } else {
+                timestamp = Date.now();
+            }
 
             dispatch({
                 type: 'add',
                 payload: {
                     ...toastProps,
                     id,
+                    isDuplicate,
+                    timestamp,
                     removalTimeoutId
                 }
             });
@@ -85,23 +111,33 @@ export const useToastActions = () => {
      * @params {Number} id - the id of the toast to remove
      */
     const removeToast = useCallback(
-        id =>
+        id => {
+            const { removalTimeoutId } = toasts[id];
+
+            window.clearTimeout(removalTimeoutId);
+
             dispatch({
                 type: 'remove',
                 payload: { id }
-            }),
+            });
+        },
         [dispatch]
     );
 
     /**
-     * @typedef ToastActions
+     * @typedef ToastApi
      * @property {addToast} addToast
+     * @property {dispatch} dispatch
      * @property {removeToast} removeToast
      */
-    const ToastActions = {
-        addToast,
-        removeToast
-    };
+    const api = useMemo(
+        () => ({
+            addToast,
+            dispatch,
+            removeToast
+        }),
+        [addToast, dispatch, removeToast]
+    );
 
-    return ToastActions;
+    return [state, api];
 };

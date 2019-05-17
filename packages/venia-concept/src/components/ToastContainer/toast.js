@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { bool, func, number, oneOf, string } from 'prop-types';
 import defaultClasses from './toast.css';
-import { useToastActions } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
 
@@ -17,7 +17,7 @@ const Toast = props => {
         type
     } = props;
     const classes = mergeClasses(defaultClasses, {});
-    const { removeToast } = useToastActions();
+    const [, { removeToast }] = useToasts();
 
     let handleDismiss, handleAction;
     if (dismissable) {

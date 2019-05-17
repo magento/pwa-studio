@@ -9,13 +9,14 @@ import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
-import { useToastActions } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 
 const dismissers = new WeakMap();
 
+const errorSet = new Set();
 const App = props => {
     const { renderError } = props;
-    const { addToast } = useToastActions();
+    const [, { addToast }] = useToasts();
 
     let errors = props.unhandledErrors;
 
@@ -34,6 +35,8 @@ const App = props => {
             : dismissers.set(error, () => onDismissError(error)).get(error);
     };
 
+    errorSet.add(errors); // errorSet.size will grow infinitely...
+    console.log(errorSet.size);
     useEffect(() => {
         const toasts = errors.map(({ error, id, loc }) => {
             let onDismissError;

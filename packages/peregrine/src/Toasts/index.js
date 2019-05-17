@@ -1,2 +1,2 @@
-export { useToastActions } from './useToastActions';
-export { useToastState, ToastContextProvider } from './useToastContext';
+export { useToasts } from './useToasts';
+export { ToastContextProvider } from './useToastContext';

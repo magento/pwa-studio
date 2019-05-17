@@ -1,5 +1,5 @@
 import React from 'react';
-import { getToastId, useToastActions } from '../useToastActions';
+import { getToastId, useToasts } from '../useToasts';
 
 import { useToastDispatch } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
@@ -17,7 +17,7 @@ beforeEach(() => {
 
 test('addToast returns the id of the added toast', () => {
     const Component = ({ toastProps }) => {
-        const { addToast } = useToastActions();
+        const [, { addToast }] = useToasts();
         const id = addToast(toastProps);
         log(id);
         return <i />;
@@ -29,14 +29,14 @@ test('addToast returns the id of the added toast', () => {
 
     createTestInstance(<Component toastProps={toastProps} />);
 
-    // getToastId returns a hash. If we exported from the useToastActions
+    // getToastId returns a hash. If we exported from the useToasts
     // file we could just use it here. For now I'm just hard coding the hash.
     expect(log).toHaveBeenCalledWith(3237038);
 });
 
 test("addToast dispatches an 'add' action with expected props", () => {
     const Component = ({ toastProps }) => {
-        const { addToast } = useToastActions();
+        const [, { addToast }] = useToasts();
         addToast(toastProps);
         return <i />;
     };
@@ -62,7 +62,7 @@ test("addToast dispatches an 'add' action with expected props", () => {
 
 test("removeToast dispatches an 'remove' action with expected props", () => {
     const Component = ({ toastProps }) => {
-        const { addToast, removeToast } = useToastActions();
+        const [, { addToast, removeToast }] = useToasts();
         const id = addToast(toastProps);
         removeToast(id);
         return <i />;

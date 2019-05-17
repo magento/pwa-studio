@@ -1,13 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { useToastState } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 import Toast from './toast';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { toasts } = useToastState();
+    const [{ toasts }] = useToasts();
     // Given a map of toasts each with a property "timestamp", sort and display
     // based on the timestamp.
     const timestampMap = {};
@@ -20,7 +20,10 @@ const ToastContainer = props => {
         .sort()
         .map(timestamp => {
             const toast = timestampMap[timestamp];
-            return <Toast key={toast.key} {...toast} />;
+            // Use a random key to trigger a recreation of this component if it
+            // is a duplicate so that we can re-trigger the blink animation.
+            const key = toast.isDuplicate ? Math.random() : toast.id;
+            return <Toast key={key} {...toast} />;
         });
 
     return (
