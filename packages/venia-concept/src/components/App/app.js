@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
 import Main from 'src/components/Main';
@@ -11,56 +11,47 @@ import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
 import { useToasts } from '@magento/peregrine';
 
+const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 const dismissers = new WeakMap();
 
-const errorSet = new Set();
+// Memoize dismisser funcs to reduce re-renders from func identity change.
+const getErrorDismisser = (error, onDismissError) => {
+    return dismissers.has(error)
+        ? dismissers.get(error)
+        : dismissers.set(error, () => onDismissError(error)).get(error);
+};
+
 const App = props => {
-    const { renderError } = props;
+    const { markErrorHandled, renderError, unhandledErrors } = props;
     const [, { addToast }] = useToasts();
 
-    let errors = props.unhandledErrors;
-
-    if (renderError) {
-        errors = [errorRecord(renderError, window, this, renderError.stack)];
-    }
-
-    const recoverFromRenderError = useCallback(() => {
+    const reload = useCallback(() => {
         window.location.reload();
     }, []);
 
-    // Memoize dismisser funcs to reduce re-renders from func identity change.
-    const getErrorDismisser = (error, onDismissError) => {
-        return dismissers.has(error)
-            ? dismissers.get(error)
-            : dismissers.set(error, () => onDismissError(error)).get(error);
-    };
+    const renderErrors = useMemo(
+        () =>
+            renderError
+                ? [errorRecord(renderError, window, App, renderError.stack)]
+                : [],
+        [renderError]
+    );
 
-    errorSet.add(errors); // errorSet.size will grow infinitely...
-    console.log(errorSet.size);
+    const errors = renderError ? renderErrors : unhandledErrors;
+    const handleDismiss = renderError ? reload : markErrorHandled;
+
     useEffect(() => {
-        const toasts = errors.map(({ error, id, loc }) => {
-            let onDismissError;
-            if (renderError) {
-                onDismissError = recoverFromRenderError;
-            } else {
-                onDismissError = props.markErrorHandled;
-            }
-
-            return {
-                type: 'error',
-                message: `Sorry! An unexpected error occurred.\nDebug: ${id} ${loc}`,
-                icon: AlertCircleIcon,
+        for (const { error, id, loc } of errors) {
+            addToast({
                 dismissable: true,
+                icon: AlertCircleIcon,
+                message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
+                onDismiss: getErrorDismisser(error, handleDismiss),
                 timeout: 7000,
-                onDismiss: getErrorDismisser(error, onDismissError)
-            };
-        });
-
-        // TODO: Fix the infinite reload/render of this toast.
-        // Each toast addition triggers a re-render of the App. This may be due
-        // to the use of the context wrapper. Currently this is broken.
-        toasts.forEach(addToast);
-    }, [addToast, errors]);
+                type: 'error'
+            });
+        }
+    }, [errors]);
 
     if (renderError) {
         return (
@@ -69,30 +60,27 @@ const App = props => {
                 <Mask isActive={true} />
             </Fragment>
         );
-    } else {
-        const {
-            app: { drawer, hasBeenOffline, isOnline, overlay },
-            closeDrawer
-        } = props;
-
-        const navIsOpen = drawer === 'nav';
-        const cartIsOpen = drawer === 'cart';
-
-        return (
-            <Fragment>
-                <Main
-                    isMasked={overlay}
-                    hasBeenOffline={hasBeenOffline}
-                    isOnline={isOnline}
-                >
-                    {renderRoutes()}
-                </Main>
-                <Mask isActive={overlay} dismiss={closeDrawer} />
-                <Navigation isOpen={navIsOpen} />
-                <MiniCart isOpen={cartIsOpen} />
-            </Fragment>
-        );
     }
+
+    const { app, closeDrawer } = props;
+    const { drawer, hasBeenOffline, isOnline, overlay } = app;
+    const navIsOpen = drawer === 'nav';
+    const cartIsOpen = drawer === 'cart';
+
+    return (
+        <Fragment>
+            <Main
+                isMasked={overlay}
+                hasBeenOffline={hasBeenOffline}
+                isOnline={isOnline}
+            >
+                {renderRoutes()}
+            </Main>
+            <Mask isActive={overlay} dismiss={closeDrawer} />
+            <Navigation isOpen={navIsOpen} />
+            <MiniCart isOpen={cartIsOpen} />
+        </Fragment>
+    );
 };
 
 App.propTypes = {
