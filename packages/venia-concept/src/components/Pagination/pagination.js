@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { func, number, object, shape, string } from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'src/drivers';
 import { compose } from 'redux';
 
 import classify from 'src/classify';

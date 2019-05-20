@@ -81,9 +81,9 @@ The `PWADevServerOptions` object contains the following properties:
 
 | Property: Type                                        | Description                                                                                                                                                                                                  |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `publicPath: string`                                  | **Required.** The public path to the PWA storefront assets in the backend server.                                                                                                                                     |
-| `provideSecureHost: boolean/SecureHostOptions`        | **Optional.** Use a [secure and unique hostname for the dev server][]                                                                                                                                                      |
-| `graphqlPlayground: boolean/GraphQLPlaygroundOptions` | **Optional.** Enable the [GraphQL Playground feature][]                                                                                                                                                                    |
+| `publicPath: string`                                  | **Required.** The public path to the PWA storefront assets in the backend server.                                                                                                                            |
+| `provideSecureHost: boolean/SecureHostOptions`        | **Optional.** Use a [secure and unique hostname for the dev server][]                                                                                                                                        |
+| `graphqlPlayground: boolean/GraphQLPlaygroundOptions` | **Optional.** Enable the [GraphQL Playground feature][]                                                                                                                                                      |
 | `id: string`                                          | **Deprecated.** Toggles and customizes the [create custom hostname] feature. Create a custom hostname exactly from the ID string, without adding a hash to ensure uniqueness. Overrides `provideSecureHost`. |
 {:style="table-layout:auto"}
 
@@ -111,9 +111,7 @@ module.exports = async env => {
         devServer: await PWADevServer.configure({
             publicPath: '/',
             provideSecureHost: true,
-            graphqlPlayground: {
-              queryDirs: ['src/queries']
-            }
+            graphqlPlayground: true
         })
     };
 
@@ -232,15 +230,6 @@ https://my-special-pwa.local.pwadev
 Enable this feature by setting the `PWADevServerOptions.graphqlPlayground` configuration option to `true`.
 
 Browse to the `/graphiql` path on your PWADevServer to use this feature.
-
-### `GraphQLPlaygroundOptions`
-
-Instead of a boolean value, you can specify the following GraphQL Playground options by passing in a JavaScript object:
-
-| Property              | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `queryDirs: string[]` | A list of directories to scan that contain GraphQL(`.graphql`) files. |
-{:style="table-layout:auto"}
 
 [create SSL certificate]: #creating-an-ssl-certificate
 [secure and unique hostname for the dev server]: #creating-a-secure-and-unique-hostname
