@@ -1,7 +1,7 @@
 import React from 'react';
 import { getToastId, useToasts } from '../useToasts';
 
-import { useToastDispatch } from '../useToastContext';
+import { useToastDispatch, useToastState } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
 jest.mock('../useToastContext');
@@ -9,6 +9,7 @@ jest.mock('../useToastContext');
 const log = jest.fn();
 const dispatchMock = jest.fn();
 useToastDispatch.mockReturnValue(dispatchMock);
+useToastState.mockReturnValue({ toasts: {} });
 
 beforeEach(() => {
     log.mockReset();
@@ -24,14 +25,13 @@ test('addToast returns the id of the added toast', () => {
     };
 
     const toastProps = {
-        type: 'info'
+        type: 'info',
+        message: 'foo'
     };
 
     createTestInstance(<Component toastProps={toastProps} />);
 
-    // getToastId returns a hash. If we exported from the useToasts
-    // file we could just use it here. For now I'm just hard coding the hash.
-    expect(log).toHaveBeenCalledWith(3237038);
+    expect(log).toHaveBeenCalledWith(getToastId(toastProps));
 });
 
 test("addToast dispatches an 'add' action with expected props", () => {
@@ -42,7 +42,8 @@ test("addToast dispatches an 'add' action with expected props", () => {
     };
 
     const toastProps = {
-        type: 'info'
+        type: 'info',
+        message: 'foo'
     };
 
     createTestInstance(<Component toastProps={toastProps} />);
@@ -69,7 +70,8 @@ test("removeToast dispatches an 'remove' action with expected props", () => {
     };
 
     const toastProps = {
-        type: 'info'
+        type: 'info',
+        message: 'foo'
     };
 
     createTestInstance(<Component toastProps={toastProps} />);
