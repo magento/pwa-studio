@@ -11,47 +11,41 @@ const Logo = props => {
     const classes = mergeClasses({}, props.classes);
 
     const [, { addToast }] = useToasts();
+    const toastProps = {
+        type: 'info',
+        message: `I'll be a duplicate toast`,
+        icon: SmileIcon,
+        dismissable: true,
+        timeout: 10000
+    };
 
-    // TODO REMOVE THESE DEMO TOASTS
+    const errorToastProps = {
+        ...toastProps,
+        type: 'error',
+        message:
+            'Negative message with an action link to perform a repeat request',
+        onAction: () => {
+            console.log("I'm an error!");
+        },
+        actionText: 'Action link'
+    };
+
     useEffect(() => {
-        const toastProps = {
-            type: 'info',
-            message: `I'll be a duplicate toast`,
-            icon: SmileIcon,
-            dismissable: true,
-            timeout: 10000
-        };
         setTimeout(() => {
             addToast(toastProps);
         }, 100);
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            addToast(errorToastProps);
+        }, 2000);
+    }, []);
+
+    useEffect(() => {
         setTimeout(() => {
             addToast(toastProps);
         }, 3000);
-        // setTimeout(() => {
-        //     addToast(toastProps);
-        // }, 6000);
-
-        setTimeout(() => {
-            // addToast({
-            //     ...toastProps,
-            //     type: 'warning',
-            //     message: 'A warning toast!',
-            //     onAction: () => {
-            //         console.log("I'm a warning!");
-            //     },
-            //     actionText: 'Action link'
-            // });
-            addToast({
-                ...toastProps,
-                type: 'error',
-                message:
-                    'Negative message with an action link to perform a repeat request',
-                onAction: () => {
-                    console.log("I'm an error!");
-                },
-                actionText: 'Action link'
-            });
-        }, 2000);
     }, []);
 
     return (

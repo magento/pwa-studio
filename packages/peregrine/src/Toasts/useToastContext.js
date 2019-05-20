@@ -14,7 +14,25 @@ const reducer = (prevState = initialState, action = {}) => {
     switch (type) {
         case 'add': {
             const nextToasts = new Map(prevState.toasts);
-            nextToasts.set(payload.id, payload);
+            const prevToast = nextToasts.get(payload.id);
+
+            const isDuplicate = !!prevToast;
+            let timestamp = payload.timestamp;
+            if (isDuplicate) {
+                // If this is a _new_ duplicate toast we need to clear the
+                // previous timeout to prevent premature removal.
+                window.clearTimeout(prevToast.removalTimeoutId);
+
+                // And to retain chronological order of addition, keep the
+                // original timestamp.
+                timestamp = prevToast.timestamp;
+            }
+
+            nextToasts.set(payload.id, {
+                ...payload,
+                timestamp,
+                isDuplicate
+            });
 
             return {
                 ...prevState,
@@ -22,6 +40,11 @@ const reducer = (prevState = initialState, action = {}) => {
             };
         }
         case 'remove': {
+            const prevToast = prevState.toasts.get(payload.id);
+            if (prevToast) {
+                window.clearTimeout(prevToast.removalTimeoutId);
+            }
+
             const nextToasts = new Map(prevState.toasts);
 
             nextToasts.delete(payload.id);

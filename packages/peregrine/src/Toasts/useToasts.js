@@ -34,7 +34,6 @@ export const getToastId = props => {
 export const useToasts = () => {
     const state = useToastState();
     const dispatch = useToastDispatch();
-    const { toasts } = state;
 
     /**
      * Dispatches a add action. Includes all props passed along with a hash id
@@ -70,39 +69,24 @@ export const useToasts = () => {
             // Queue to delete the toast by id after some time.
             const removalTimeoutId = setTimeout(
                 () => {
-                    // removeToast(id);
+                    removeToast(id);
                 },
                 timeout ? timeout : DEFAULT_TIMEOUT
             );
-
-            let timestamp;
-            const prevToast = toasts.get(id);
-            const isDuplicate = !!prevToast;
-
-            if (isDuplicate) {
-                // For duplicate toasts, do not update the timestamp to maintain
-                // order of toast emission.
-                timestamp = prevToast.timestamp;
-                // Remove the previous toast timeout to prevent premature removal.
-                window.clearTimeout(prevToast.removalTimeoutId);
-            } else {
-                timestamp = Date.now();
-            }
 
             dispatch({
                 type: 'add',
                 payload: {
                     ...toastProps,
                     id,
-                    isDuplicate,
-                    timestamp,
+                    timestamp: Date.now(),
                     removalTimeoutId
                 }
             });
 
             return id;
         },
-        [dispatch, toasts]
+        [dispatch]
     );
 
     /**
@@ -112,16 +96,12 @@ export const useToasts = () => {
      */
     const removeToast = useCallback(
         id => {
-            const { removalTimeoutId } = toasts.get(id);
-
-            window.clearTimeout(removalTimeoutId);
-
             dispatch({
                 type: 'remove',
                 payload: { id }
             });
         },
-        [dispatch, toasts]
+        [dispatch]
     );
 
     /**
