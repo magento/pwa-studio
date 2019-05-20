@@ -40,12 +40,12 @@ const reducer = (prevState = initialState, action = {}) => {
             };
         }
         case 'remove': {
-            const prevToast = prevState.toasts.get(payload.id);
+            const nextToasts = new Map(prevState.toasts);
+
+            const prevToast = nextToasts.get(payload.id);
             if (prevToast) {
                 window.clearTimeout(prevToast.removalTimeoutId);
             }
-
-            const nextToasts = new Map(prevState.toasts);
 
             nextToasts.delete(payload.id);
 
