@@ -5,7 +5,7 @@ import React, { createContext, useContext, useReducer } from 'react';
  * @property {Object} toasts - unordered map of id:toast
  */
 const initialState = {
-    toasts: {}
+    toasts: new Map()
 };
 
 const reducer = (prevState = initialState, action = {}) => {
@@ -13,26 +13,23 @@ const reducer = (prevState = initialState, action = {}) => {
 
     switch (type) {
         case 'add': {
-            const nextState = {
-                ...prevState,
-                toasts: {
-                    ...prevState.toasts,
-                    [payload.id]: {
-                        ...payload
-                    }
-                }
-            };
+            const nextToasts = new Map(prevState.toasts);
+            nextToasts.set(payload.id, payload);
 
-            return nextState;
+            return {
+                ...prevState,
+                toasts: nextToasts
+            };
         }
         case 'remove': {
-            const nextState = {
-                ...prevState
+            const nextToasts = new Map(prevState.toasts);
+
+            nextToasts.delete(payload.id);
+
+            return {
+                ...prevState,
+                toasts: nextToasts
             };
-
-            delete nextState.toasts[payload.id];
-
-            return nextState;
         }
         default:
             return prevState;
