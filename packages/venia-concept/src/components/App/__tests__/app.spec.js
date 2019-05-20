@@ -1,30 +1,19 @@
-// TODO: Add/update tests for new error handling after fixing infinite loop.
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
 
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
+import Navigation from 'src/components/Navigation';
 
 jest.mock('src/components/Main', () => 'Main');
 jest.mock('src/components/MiniCart', () => 'MiniCart');
-
+jest.mock('src/components/Navigation', () => 'Navigation');
 Object.defineProperty(window.location, 'reload', {
     configurable: true
 });
 window.location.reload = jest.fn();
 
-// Use doMock so we can reference these mocks from the closure
-let navigationError = false;
-class Navigation extends React.Component {
-    render() {
-        if (navigationError) {
-            throw new Error(navigationError);
-        }
-        return null;
-    }
-}
-jest.doMock('src/components/Navigation', () => Navigation);
 class Routes extends React.Component {
     render() {
         return null;
@@ -43,7 +32,6 @@ const getAndConfirmProps = (parent, type, props) => {
 
 beforeEach(() => {
     jest.clearAllMocks();
-    navigationError = false;
 });
 afterAll(() => window.location.reload.mockRestore());
 
@@ -59,7 +47,11 @@ test('renders a full page with onlineIndicator and routes', () => {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
-    const { root } = TestRenderer.create(<App {...appProps} />);
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
 
     getAndConfirmProps(root, Navigation, { isOpen: false });
     getAndConfirmProps(root, MiniCart, { isOpen: false });
@@ -82,68 +74,7 @@ test('renders a full page with onlineIndicator and routes', () => {
     const {
         parent: { children: siblings }
     } = main;
-    const errorNotifications = getAndConfirmProps(root, ErrorNotifications, {
-        errors: [],
-        onDismissError: appProps.markErrorHandled
-    });
     expect(siblings.indexOf(main)).toBeLessThan(siblings.indexOf(mask));
-    expect(siblings.indexOf(errorNotifications)).toBeGreaterThan(
-        siblings.indexOf(mask)
-    );
-});
-
-test('renders error fallback UI if error is in state', () => {
-    const appProps = {
-        app: {
-            drawer: '',
-            overlay: false,
-            hasBeenOffline: true,
-            isOnline: false
-        },
-        closeDrawer: jest.fn(),
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    navigationError = 'I broke';
-
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
-    const main = getAndConfirmProps(root, Main, {
-        isMasked: true
-    });
-
-    // No routes
-    expect(() => main.findByType(Routes)).toThrow();
-
-    const mask = getAndConfirmProps(root, Mask, {
-        isActive: true
-    });
-
-    const errorNotifications = getAndConfirmProps(root, ErrorNotifications, {
-        errors: expect.arrayContaining([
-            expect.objectContaining({
-                error: expect.any(Error)
-            })
-        ]),
-        onDismissError: expect.any(Function)
-    });
-
-    expect(errorNotifications.props.errors[0].error.message).toMatch(
-        navigationError
-    );
-
-    const {
-        parent: { children: siblings }
-    } = main;
-
-    expect(siblings.indexOf(main)).toBeLessThan(siblings.indexOf(mask));
-    expect(siblings.indexOf(errorNotifications)).toBeGreaterThan(
-        siblings.indexOf(mask)
-    );
-
-    errorNotifications.props.onDismissError();
-    expect(window.location.reload).toHaveBeenCalledTimes(1);
 });
 
 test('displays onlineIndicator online if hasBeenOffline', () => {
@@ -159,8 +90,11 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
         unhandledErrors: []
     };
 
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
     // hasBeenOffline means onlineIndicator
     getAndConfirmProps(root, Main, { isOnline: true });
 });
@@ -178,15 +112,22 @@ test('displays open nav or drawer', () => {
         unhandledErrors: []
     });
 
-    const { root: openNav } = TestRenderer.create(
-        <App {...propsWithDrawer('nav')} />
+    const { root: openNav } = createTestInstance(
+        <ToastContextProvider>
+            <App {...propsWithDrawer('nav')} />
+        </ToastContextProvider>
     );
 
     getAndConfirmProps(openNav, Navigation, { isOpen: true });
 
-    const { root: openCart } = TestRenderer.create(
-        <App {...propsWithDrawer('cart')} />
+    const { root: openCart } = createTestInstance(
+        <ToastContextProvider>
+            <App {...propsWithDrawer('cart')} />
+        </ToastContextProvider>
     );
 
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
 });
+
+test.skip('adds toasts for render errors', () => {});
+test.skip('adds toasts for unhandled errors', () => {});

@@ -39,7 +39,7 @@ test('returns state and dispatch', () => {
     expect(log).toHaveBeenNthCalledWith(
         1,
         {
-            toasts: {}
+            toasts: expect.any(Map)
         },
         expect.any(Function)
     );
@@ -54,10 +54,12 @@ test('handles multiple unique `add` actions', () => {
 
     const firstToastPayload = {
         id: 1,
+        timestamp: Date.now(),
         removalTimeoutId: 2
     };
     const secondToastPayload = {
         id: 2,
+        timestamp: Date.now(),
         removalTimeoutId: 3
     };
     const [, dispatch] = log.mock.calls[0];
@@ -80,41 +82,35 @@ test('handles multiple unique `add` actions', () => {
     expect(log).toHaveBeenNthCalledWith(
         1,
         {
-            toasts: {}
+            toasts: expect.any(Map)
         },
         expect.any(Function)
     );
+    const toastMap = new Map();
+    toastMap.set(1, {
+        ...firstToastPayload,
+        timestamp: expect.any(Number),
+        isDuplicate: false
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         2,
         {
-            toasts: {
-                '1': {
-                    ...firstToastPayload,
-                    key: firstToastPayload.id,
-                    timestamp: expect.any(Number),
-                    duplicate: false
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
+
+    toastMap.set(2, {
+        ...secondToastPayload,
+        timestamp: expect.any(Number),
+        isDuplicate: false
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         3,
         {
-            toasts: {
-                '1': {
-                    ...firstToastPayload,
-                    key: firstToastPayload.id,
-                    timestamp: expect.any(Number),
-                    duplicate: false
-                },
-                '2': {
-                    ...secondToastPayload,
-                    key: secondToastPayload.id,
-                    timestamp: expect.any(Number),
-                    duplicate: false
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
@@ -129,6 +125,7 @@ test('handles duplicate `add` actions', () => {
 
     const payload = {
         id: 1,
+        timestamp: expect.any(Number),
         removalTimeoutId: 2
     };
 
@@ -147,39 +144,40 @@ test('handles duplicate `add` actions', () => {
             type: 'add'
         });
     });
+    const toastMap = new Map();
 
     expect(log).toHaveBeenNthCalledWith(
         1,
         {
-            toasts: {}
+            toasts: toastMap
         },
         expect.any(Function)
     );
+
+    toastMap.set(1, {
+        ...payload,
+        timestamp: expect.any(Number),
+        isDuplicate: false
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         2,
         {
-            toasts: {
-                '1': {
-                    ...payload,
-                    duplicate: false,
-                    timestamp: expect.any(Number),
-                    key: payload.id
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
+
+    toastMap.set(1, {
+        ...payload,
+        timestamp: expect.any(Number),
+        isDuplicate: true
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         3,
         {
-            toasts: {
-                '1': {
-                    ...payload,
-                    duplicate: true,
-                    timestamp: expect.any(Number),
-                    key: expect.any(Number) // regenerated on duplicate
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
@@ -208,7 +206,7 @@ test('handles `remove` action for non-existant toasts', () => {
     expect(log).toHaveBeenNthCalledWith(
         2,
         {
-            toasts: {}
+            toasts: new Map()
         },
         expect.any(Function)
     );
@@ -223,6 +221,7 @@ test('handles `remove` action for existing toasts', () => {
 
     const payload = {
         id: 1,
+        timestamp: Date.now(),
         removalTimeoutId: 2
     };
     const [, dispatch] = log.mock.calls[0];
@@ -234,17 +233,17 @@ test('handles `remove` action for existing toasts', () => {
         });
     });
 
+    const toastMap = new Map();
+    toastMap.set(1, {
+        ...payload,
+        isDuplicate: false,
+        timestamp: expect.any(Number)
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         2,
         {
-            toasts: {
-                '1': {
-                    ...payload,
-                    duplicate: false,
-                    timestamp: expect.any(Number),
-                    key: payload.id
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
@@ -259,7 +258,7 @@ test('handles `remove` action for existing toasts', () => {
     expect(log).toHaveBeenNthCalledWith(
         3,
         {
-            toasts: {}
+            toasts: new Map()
         },
         expect.any(Function)
     );
@@ -274,6 +273,7 @@ test('sets duplicate to false for remaining toasts on removal', () => {
 
     const payload = {
         id: 1,
+        timestamp: Date.now(),
         removalTimeoutId: 2
     };
     const [, dispatch] = log.mock.calls[0];
@@ -298,18 +298,17 @@ test('sets duplicate to false for remaining toasts on removal', () => {
             type: 'add'
         });
     });
+    const toastMap = new Map();
+    toastMap.set(1, {
+        ...payload,
+        isDuplicate: true,
+        timestamp: expect.any(Number)
+    });
 
     expect(log).toHaveBeenNthCalledWith(
         3,
         {
-            toasts: {
-                '1': {
-                    ...payload,
-                    duplicate: true,
-                    timestamp: expect.any(Number),
-                    key: expect.any(Number)
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
@@ -321,18 +320,17 @@ test('sets duplicate to false for remaining toasts on removal', () => {
         });
     });
 
+    toastMap.set(3, {
+        ...payload,
+        isDuplicate: false,
+        timestamp: expect.any(Number),
+        id: 3
+    });
+
     expect(log).toHaveBeenNthCalledWith(
         4,
         {
-            toasts: {
-                '3': {
-                    ...payload,
-                    duplicate: false,
-                    timestamp: expect.any(Number),
-                    id: 3,
-                    key: 3
-                }
-            }
+            toasts: toastMap
         },
         expect.any(Function)
     );
