@@ -34,7 +34,6 @@ export const getToastId = props => {
 export const useToasts = () => {
     const state = useToastState();
     const dispatch = useToastDispatch();
-
     const { toasts } = state;
 
     /**
@@ -77,14 +76,15 @@ export const useToasts = () => {
             );
 
             let timestamp;
-            const isDuplicate = !!toasts[id];
+            const prevToast = toasts.get(id);
+            const isDuplicate = !!prevToast;
 
             if (isDuplicate) {
                 // For duplicate toasts, do not update the timestamp to maintain
                 // order of toast emission.
-                timestamp = toasts[id].timestamp;
+                timestamp = prevToast.timestamp;
                 // Remove the previous toast timeout to prevent premature removal.
-                window.clearTimeout(toasts[id].removalTimeoutId);
+                window.clearTimeout(prevToast.removalTimeoutId);
             } else {
                 timestamp = Date.now();
             }
@@ -112,7 +112,7 @@ export const useToasts = () => {
      */
     const removeToast = useCallback(
         id => {
-            const { removalTimeoutId } = toasts[id];
+            const { removalTimeoutId } = toasts.get(id);
 
             window.clearTimeout(removalTimeoutId);
 

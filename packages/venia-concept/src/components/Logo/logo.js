@@ -13,46 +13,46 @@ const Logo = props => {
     const [, { addToast }] = useToasts();
 
     // TODO REMOVE THESE DEMO TOASTS
-    // useEffect(() => {
-    //     const toastProps = {
-    //         type: 'info',
-    //         message: `I'll be a duplicate toast`,
-    //         icon: SmileIcon,
-    //         dismissable: true,
-    //         timeout: 10000
-    //     };
-    //     setTimeout(() => {
-    //         addToast(toastProps);
-    //     }, 100);
-    //     setTimeout(() => {
-    //         addToast(toastProps);
-    //     }, 3000);
-    //     setTimeout(() => {
-    //         addToast(toastProps);
-    //     }, 6000);
+    useEffect(() => {
+        const toastProps = {
+            type: 'info',
+            message: `I'll be a duplicate toast`,
+            icon: SmileIcon,
+            dismissable: true,
+            timeout: 10000
+        };
+        setTimeout(() => {
+            addToast(toastProps);
+        }, 100);
+        setTimeout(() => {
+            addToast(toastProps);
+        }, 3000);
+        // setTimeout(() => {
+        //     addToast(toastProps);
+        // }, 6000);
 
-    //     setTimeout(() => {
-    //         addToast({
-    //             ...toastProps,
-    //             type: 'warning',
-    //             message: 'A warning toast!',
-    //             onAction: () => {
-    //                 console.log("I'm a warning!");
-    //             },
-    //             actionText: 'Action link'
-    //         });
-    //         addToast({
-    //             ...toastProps,
-    //             type: 'error',
-    //             message:
-    //                 'Negative message with an action link to perform a repeat request',
-    //             onAction: () => {
-    //                 console.log("I'm an error!");
-    //             },
-    //             actionText: 'Action link'
-    //         });
-    //     }, 2000);
-    // }, []);
+        setTimeout(() => {
+            // addToast({
+            //     ...toastProps,
+            //     type: 'warning',
+            //     message: 'A warning toast!',
+            //     onAction: () => {
+            //         console.log("I'm a warning!");
+            //     },
+            //     actionText: 'Action link'
+            // });
+            addToast({
+                ...toastProps,
+                type: 'error',
+                message:
+                    'Negative message with an action link to perform a repeat request',
+                onAction: () => {
+                    console.log("I'm an error!");
+                },
+                actionText: 'Action link'
+            });
+        }, 2000);
+    }, []);
 
     return (
         <img

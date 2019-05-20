@@ -10,9 +10,8 @@ const ToastContainer = props => {
     const [{ toasts }] = useToasts();
     // Given a map of toasts each with a property "timestamp", sort and display
     // based on the timestamp.
-    const timestampMap = {};
-    Object.keys(toasts).forEach(toastKey => {
-        const toast = toasts[toastKey];
+    const timestampMap = new Map();
+    toasts.forEach(toast => {
         timestampMap[toast.timestamp] = toast;
     });
 
