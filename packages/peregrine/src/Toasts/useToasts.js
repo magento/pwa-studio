@@ -102,7 +102,7 @@ export const useToasts = () => {
 
             return id;
         },
-        [dispatch]
+        [dispatch, toasts]
     );
 
     /**
@@ -121,7 +121,7 @@ export const useToasts = () => {
                 payload: { id }
             });
         },
-        [dispatch]
+        [dispatch, toasts]
     );
 
     /**
