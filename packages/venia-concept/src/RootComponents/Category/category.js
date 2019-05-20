@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { string, number, shape } from 'prop-types';
-import { useQuery } from '@magento/peregrine';
+import { usePagination, useQuery } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
 import categoryQuery from 'src/queries/getCategory.graphql';
@@ -9,20 +9,17 @@ import { loadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './category.css';
 
 const Category = props => {
-    const {
-        id,
-        currentPage,
-        pageSize,
-        prevPageTotal,
-        setCurrentPage,
-        setPrevPageTotal
-    } = props;
+    const { id, pageSize } = props;
+
+    const [paginationValues, paginationApi] = usePagination();
+    const { currentPage, totalPages } = paginationValues;
+    const { setCurrentPage, setTotalPages } = paginationApi;
 
     const pageControl = {
-        currentPage: currentPage,
+        currentPage,
         setPage: setCurrentPage,
-        updateTotalPages: setPrevPageTotal,
-        totalPages: prevPageTotal
+        updateTotalPages: setTotalPages,
+        totalPages
     };
 
     const [queryResult, queryApi] = useQuery(categoryQuery);
@@ -40,7 +37,7 @@ const Category = props => {
                 currentPage: Number(currentPage)
             }
         });
-    }, [id, pageSize, currentPage, runQuery, setLoading]);
+    }, [id, pageSize, currentPage]);
 
     useEffect(() => {
         window.scrollTo({
@@ -50,30 +47,21 @@ const Category = props => {
         });
     }, [currentPage]);
 
+    useEffect(() => {
+        if (data) {
+            setTotalPages(data.category.products.page_info.total_pages);
+        }
+    }, [data]);
+
     if (error) return <div>Data Fetch Error</div>;
-    // If our pagination component has mounted, then we have
-    // a total page count in the store, so we continue to render
-    // with our last known total
-    if (loading || !data)
-        return pageControl.totalPages ? (
-            <CategoryContent pageControl={pageControl} pageSize={pageSize} />
-        ) : (
-            loadingIndicator
-        );
+    if (loading && !totalPages) return loadingIndicator;
 
-    // TODO: Retrieve the page total from GraphQL when ready
-    const pageCount = data.category.products.total_count / pageSize;
-    const totalPages = Math.ceil(pageCount);
-    const totalWrapper = {
-        ...pageControl,
-        totalPages: totalPages
-    };
-
+    // if our data is still loading, we want to reset our data state to null
     return (
         <CategoryContent
             classes={classes}
-            pageControl={totalWrapper}
-            data={data}
+            pageControl={pageControl}
+            data={loading ? null : data}
         />
     );
 };
@@ -85,13 +73,12 @@ Category.propTypes = {
         root: string,
         title: string
     }),
-    currentPage: number,
-    pageSize: number,
-    prevPageTotal: number
+    pageSize: number
 };
 
 Category.defaultProps = {
-    id: 3
+    id: 3,
+    pageSize: 6
 };
 
 export default Category;
