@@ -21,7 +21,7 @@ exports[`renders a Receipt component correctly 1`] = `
     <div
       className="textBlock"
     >
-      Track order status and earn rewards for your purchase by creating and account.
+      Track order status and earn rewards for your purchase by creating an account.
     </div>
     <button
       className="root_highPriority"
