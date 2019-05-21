@@ -12,6 +12,26 @@ jest.mock('src/components/Navigation', () => 'Navigation');
 Object.defineProperty(window.location, 'reload', {
     configurable: true
 });
+
+const mockAddToast = jest.fn();
+jest.mock('@magento/peregrine', () => {
+    const useToasts = jest.fn(() => [{}, { addToast: mockAddToast }]);
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
+
+jest.mock('src/util/createErrorRecord', () => ({
+    __esModule: true,
+    default: jest.fn().mockReturnValue({
+        error: { message: 'A render error', stack: 'errorStack' },
+        id: '1',
+        loc: '1'
+    })
+}));
+
 window.location.reload = jest.fn();
 
 class Routes extends React.Component {
@@ -129,5 +149,131 @@ test('displays open nav or drawer', () => {
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
 });
 
-test.skip('adds toasts for render errors', () => {});
-test.skip('adds toasts for unhandled errors', () => {});
+test('renders with renderErrors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: new Error('A render error!')
+    };
+
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(root).toMatchSnapshot();
+});
+
+test('renders with unhandledErrors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [{ error: new Error('A render error!') }],
+        renderError: null
+    };
+
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(root).toMatchSnapshot();
+});
+
+test('adds no toasts when no errors are present', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: null
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).not.toHaveBeenCalled();
+});
+
+test('adds toasts for render errors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: new Error('A render error!')
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).toHaveBeenCalledWith({
+        dismissable: true,
+        icon: expect.any(Function),
+        message: expect.any(String),
+        onDismiss: expect.any(Function),
+        timeout: 7000,
+        type: 'error'
+    });
+});
+
+test('adds toasts for unhandled errors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [{ error: new Error('A render error!') }],
+        renderError: null
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).toHaveBeenCalledWith({
+        dismissable: true,
+        icon: expect.any(Function),
+        message: expect.any(String),
+        onDismiss: expect.any(Function),
+        timeout: 7000,
+        type: 'error'
+    });
+});
