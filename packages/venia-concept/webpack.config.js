@@ -90,6 +90,7 @@ module.exports = async function(env) {
                 },
                 {
                     test: /\.css$/,
+                    exclude: /node_modules/,
                     use: [
                         'style-loader',
                         {
@@ -99,6 +100,20 @@ module.exports = async function(env) {
                                 localIdentName:
                                     '[name]-[local]-[hash:base64:3]',
                                 modules: true
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.css$/,
+                    include: /node_modules/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                modules: false
                             }
                         }
                     ]
