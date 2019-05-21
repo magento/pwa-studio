@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { Fragment, useCallback, useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
@@ -22,57 +22,45 @@ const Receipt = props => {
         // TODO: Implement/connect/redirect to order details page.
     }, [order]);
 
-    if (user.isSignedIn) {
-        return (
-            <div className={classes.root}>
-                <div className={classes.body}>
-                    <h2 className={classes.header}>
-                        Thank you for your purchase!
-                    </h2>
-                    <div className={classes.textBlock}>
-                        You will receive an order confirmation email with order
-                        status and other details.
-                        <br />
-                        You can also visit your account page for more
-                        information.
-                    </div>
-                    <Button
-                        data-id={VIEW_ORDER_DETAILS_BUTTON_ID}
-                        onClick={handleViewOrderDetails}
-                    >
-                        View Order Details
-                    </Button>
+    return (
+        <div className={classes.root}>
+            <div className={classes.body}>
+                <h2 className={classes.header}>Thank you for your purchase!</h2>
+                <div className={classes.textBlock}>
+                    You will receive an order confirmation email with order
+                    status and other details.
                 </div>
+                {user.isSignedIn ? (
+                    <Fragment>
+                        <div className={classes.textBlock}>
+                            You can also visit your account page for more information.
+                        </div>
+                        <Button
+                            data-id={VIEW_ORDER_DETAILS_BUTTON_ID}
+                            onClick={handleViewOrderDetails}
+                        >
+                            View Order Details
+                        </Button>
+                    </Fragment>
+                ) : (
+                    <Fragment>
+                        <hr />
+                        <div className={classes.textBlock}>
+                            Track order status and earn rewards for your
+                            purchase by creating and account.
+                        </div>
+                        <Button
+                            data-id={CREATE_ACCOUNT_BUTTON_ID}
+                            priority="high"
+                            onClick={handleCreateAccount}
+                        >
+                            Create an Account
+                        </Button>
+                    </Fragment>
+                )}
             </div>
-        );
-    } else {
-        return (
-            <div className={classes.root}>
-                <div className={classes.body}>
-                    <h2 className={classes.header}>
-                        Thank you for your purchase!
-                    </h2>
-                    <div className={classes.textBlock}>
-                        You will receive an order confirmation email with order
-                        status and other details.
-                        <br />
-                    </div>
-                    <hr />
-                    <div className={classes.textBlock}>
-                        Track order status and earn rewards for your purchase by
-                        creating and account.
-                    </div>
-                    <Button
-                        data-id={CREATE_ACCOUNT_BUTTON_ID}
-                        priority="high"
-                        onClick={handleCreateAccount}
-                    >
-                        Create an Account
-                    </Button>
-                </div>
-            </div>
-        );
-    }
+        </div>
+    );
 };
 
 Receipt.propTypes = {
