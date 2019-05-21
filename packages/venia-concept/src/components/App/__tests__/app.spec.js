@@ -200,8 +200,8 @@ test('adds no toasts when no errors are present', () => {
         app: {
             drawer: '',
             overlay: false,
-            hasBeenOffline: true,
-            isOnline: false
+            hasBeenOffline: false,
+            isOnline: true
         },
         closeDrawer: jest.fn(),
         markErrorHandled: jest.fn(),

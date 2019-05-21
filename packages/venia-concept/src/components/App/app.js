@@ -7,8 +7,10 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
-import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 
+import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
+import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
+import CheckIcon from 'react-feather/dist/icons/check';
 import { useToasts } from '@magento/peregrine';
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
@@ -66,6 +68,26 @@ const App = props => {
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
     const navIsOpen = drawer === 'nav';
     const cartIsOpen = drawer === 'cart';
+
+    useEffect(() => {
+        if (hasBeenOffline) {
+            if (isOnline) {
+                addToast({
+                    type: 'info',
+                    icon: CheckIcon,
+                    message: 'You are online.',
+                    timeout: 3000
+                });
+            } else {
+                addToast({
+                    type: 'error',
+                    icon: CloudOffIcon,
+                    message:
+                        'You are offline. Some features may be unavailable.'
+                });
+            }
+        }
+    }, [hasBeenOffline, isOnline]);
 
     return (
         <Fragment>
