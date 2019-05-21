@@ -6,9 +6,19 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
 
--   [3.0.0](#whats-new-in-300)
+- [What's new in 3.0.0](#whats-new-in-300)
+- [Updating from 2.1.0](#updating-from-210)
 
 ## What's new in 3.0.0
+
+PWA Studio 3.0.0 contains improvements, new features, and some breaking changes.
+
+### Summary of major changes
+
+- **Peregrine hooks:**
+    Custom [React Hooks][] that contain data and state management logic has been added to the Peregrine library.
+    These hooks allow developers to easily create functional components that focus on presentational logic.
+    This also allows for a more modular use of PWA logic and easier "restyling" of Venia (or any PWA Storefront built using PWA Studio).
 
 ### Peregrine
 
@@ -72,14 +82,50 @@ _For older release notes, see [PWA Studio releases][]._
 | Feature       | Documentation linting tool added                            | [#1140][], [#1177][]                                                        |
 | Bugfix        | Editorial and minor content fixes                           | [#1171][], [#1167][], [#1158][], [#1139][], [#1109][], [#1020][], [#1000][] |
 
-## Breaking changes
+## Updating from 2.1.0
+
+The method for updating to 3.0.0 from 2.1.0 depends on how PWA Studio is incorporated into your project.
+The following are common use cases we have identified and how to update the project code.
+
+### PWA Studio fork
+
+Many PWA Studio users have forked the PWA Studio Git repository.
+Even though their codebase may have diverged a great deal from the current codebase, there is still a Git relationship.
+
+#### Upgrade method: Update using Git
+
+_Pull_ and _Merge_ the changes from the upstream repository using Git.
+Most of the conflicts will be in components that we have fully refactored.
+
+We recommend merging the library code we changed and updating component calls with any new prop signatures introduced in this version.
+
+### Manual code copies
+
+Some PWA Studio users have copied parts of the code into their own projects.
+This is similar to the Git workflow, but without the merging tools Git provides.
+
+#### Upgrade method: Manual copy updates
+
+Updating this code involves manually copying updates for the code they use.
+New code may also need to be copied over if the updated code depends on it.
+
+This method can be a chore, and we hope that some of the features in 3.0.0 will help these users migrate to a package management approach.
+
+### NPM packages
+
+Some users have imported the PWA Studio libraries using NPM.
+This is the easiest way to work with the released versions of PWA Studio.
+
+#### Upgrade method: Update `package.json`
+
+To upgrade to 3.0.0, update the project's `package.json` file and change the dependency version for PWA Studio.
 
 [pwa studio releases]: https://github.com/magento-research/pwa-studio/releases
 [client side caching topic]: https://magento-research.github.io/pwa-studio/technologies/basic-concepts/client-side-caching/
 [`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
 [hello upward]: https://magento-research.github.io/pwa-studio/tutorials/hello-upward/simple-server/
 [magento compatibility table]: https://magento-research.github.io/pwa-studio/technologies/magento-compatibility/
-
+[React Hooks]: https://reactjs.org/docs/hooks-intro.html
 [#1253]: https://github.com/magento-research/pwa-studio/pull/1253
 [#1177]: https://github.com/magento-research/pwa-studio/pull/1177
 [#1058]: https://github.com/magento-research/pwa-studio/pull/1058
@@ -123,3 +169,4 @@ _For older release notes, see [PWA Studio releases][]._
 [#882]: https://github.com/magento-research/pwa-studio/pull/882
 [#797]: https://github.com/magento-research/pwa-studio/pull/797
 [#1078]: https://github.com/magento-research/pwa-studio/pull/1078
+[#1043]: https://github.com/magento-research/pwa-studio/pull/1043
