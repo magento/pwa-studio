@@ -42,7 +42,7 @@ const Receipt = props => {
                         <hr />
                         <div className={classes.textBlock}>
                             Track order status and earn rewards for your
-                            purchase by creating and account.
+                            purchase by creating an account.
                         </div>
                         <Button priority="high" onClick={handleCreateAccount}>
                             Create an Account
