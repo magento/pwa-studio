@@ -51,8 +51,8 @@ const MiniCart = props => {
 MiniCart.propTypes = {
     beginEditItem: func.isRequired,
     cart: shape({
-        isEditingItem: bool
-    }),
+        isEditingItem: bool,
+    }).isRequired,
     classes: shape({
         header: string,
         root: string,

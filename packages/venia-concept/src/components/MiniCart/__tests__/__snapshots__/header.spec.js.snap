@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it changes the title when editing an item 1`] = `
+<div>
+  <h2>
+    Edit Cart Item
+  </h2>
+  ( Trigger Component Here )
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div>
+  <h2>
+    Shopping Cart
+  </h2>
+  ( Trigger Component Here )
+</div>
+`;

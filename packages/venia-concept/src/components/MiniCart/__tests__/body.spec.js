@@ -3,53 +3,23 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Body from '../body';
 
+jest.mock('../editItem');
+jest.mock('../emptyMiniCart');
+jest.mock('../productList');
+
 jest.mock('src/components/LoadingIndicator', () => {
     return {
         __esModule: true,
-        loadingIndicator: <img src="mock_loading_indicator" />
-    };
-});
-jest.mock('../editItem', () => {
-    return {
-        __esModule: true,
-        default: () => <span>Mock Edit Item Dialog</span>
-    };
-});
-jest.mock('../productList', () => {
-    return {
-        __esModule: true,
-        default: () => <span>Mock Product List</span>
+        loadingIndicator: '( Loading Indicator Component Here )'
     };
 });
 
 const baseProps = {
     beginEditItem: jest.fn(),
     cart: {
-        details: {
-            currency: {
-                quote_currency_code: 'US'
-            },
-            items: []
-        },
-        editItem: {
-            item_id: 12,
-            name: 'mock_item',
-            options: [],
-            price: 99,
-            qty: 1
-        },
-        isEditingItem: false,
-        isLoading: false,
-        isUpdatingItem: false,
-        totals: {
-            items: []
-        }
-    },
-    endEditItem: jest.fn(),
-    isCartEmpty: false,
-    isMiniCartMaskOpen: false,
-    removeItemFromCart: jest.fn(),
-    updateItemInCart: jest.fn()
+        details: {},
+        totals: {}
+    }
 };
 
 test('renders the product list when appropriate', () => {

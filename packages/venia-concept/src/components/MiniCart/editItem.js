@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { bool, func, object, shape } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 
 import { useQuery } from '@magento/peregrine';
 
@@ -59,7 +59,7 @@ const EditItem = props => {
     // in an error situation.
     if (!data) {
         let status;
-        if (error) status = <div>Unable to fetch item options</div>;
+        if (error) status = <span>Unable to fetch item options</span>;
         if (loading) status = loadingIndicator;
 
         return <span>{status}</span>;

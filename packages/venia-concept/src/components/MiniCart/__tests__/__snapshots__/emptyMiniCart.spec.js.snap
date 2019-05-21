@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the product list when appropriate 1`] = `
+<div>
+  <h3>
+    There are no items in your shopping cart
+  </h3>
+  ( Trigger Component Here )
+</div>
+`;

@@ -1,6 +1,10 @@
+import React from 'react';
+import { createTestInstance } from '@magento/peregrine';
+
 import Container from '../container';
 import MiniCart from '../miniCart';
 
+jest.mock('../miniCart');
 jest.mock('src/drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
@@ -9,6 +13,10 @@ jest.mock('src/drivers', () => ({
             mapDispatchToProps
         }))
     )
+}));
+jest.mock('src/selectors/cart', () => ({
+    isEmptyCartVisible: jest.fn(() => true),
+    isMiniCartMaskOpen: jest.fn(() => true)
 }));
 
 test('it returns a connected MiniCart component', () => {

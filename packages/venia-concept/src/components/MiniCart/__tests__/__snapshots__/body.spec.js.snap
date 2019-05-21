@@ -1,34 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the edit item dialog when appropriate 1`] = `
-<span>
-  Mock Edit Item Dialog
-</span>
-`;
+exports[`renders the edit item dialog when appropriate 1`] = `"( Edit Item Component Here )"`;
 
-exports[`renders the empty mini cart when appropriate 1`] = `
-<div>
-  <h3>
-    There are no items in your shopping cart
-  </h3>
-  <button>
-    <span>
-      Continue Shopping
-    </span>
-  </button>
-</div>
-`;
+exports[`renders the empty mini cart when appropriate 1`] = `"( Empty Mini Cart Component Here )"`;
 
-exports[`renders the loading indicator when appropriate 1`] = `
-<img
-  src="mock_loading_indicator"
-/>
-`;
+exports[`renders the loading indicator when appropriate 1`] = `"( Loading Indicator Component Here )"`;
 
 exports[`renders the product list when appropriate 1`] = `
 <div>
-  <span>
-    Mock Product List
-  </span>
+  ( Product List Component Here )
 </div>
 `;

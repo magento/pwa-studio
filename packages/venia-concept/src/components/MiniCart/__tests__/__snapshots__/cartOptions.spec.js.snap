@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <span>
+      cartItem name
+    </span>
+    <span>
+      <div />
+    </span>
+  </div>
+  <div>
+    <section>
+      <h2>
+        <span>
+          Quantity
+        </span>
+      </h2>
+      <div>
+        <span
+          style={
+            Object {
+              "--iconsAfter": 1,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span>
+            <select
+              aria-label="product's quantity"
+              name="quantity"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value={99}
+            >
+              <option
+                value={1}
+              >
+                1
+              </option>
+              <option
+                value={2}
+              >
+                2
+              </option>
+              <option
+                value={3}
+              >
+                3
+              </option>
+              <option
+                value={4}
+              >
+                4
+              </option>
+            </select>
+          </span>
+          <span />
+          <span>
+            <span>
+              <svg
+                fill="none"
+                height={18}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={18}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="6 9 12 15 18 9"
+                />
+              </svg>
+            </span>
+          </span>
+        </span>
+        <p />
+      </div>
+    </section>
+  </div>
+  <div>
+    <button
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span>
+        <span>
+          Cancel
+        </span>
+      </span>
+    </button>
+    <button
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        <span>
+          Update Cart
+        </span>
+      </span>
+    </button>
+  </div>
+  <div>
+    ( Configurable Loading Indicator Component Here )
+  </div>
+</form>
+`;

@@ -72,15 +72,15 @@ Body.propTypes = {
     cart: shape({
         details: shape({
             items: array
-        }),
+        }).isRequired,
         editItem: object,
         isEditingItem: bool,
         isLoading: bool,
         isUpdatingItem: bool,
         totals: shape({
             items: array
-        })
-    }),
+        }).isRequired
+    }).isRequired,
     classes: shape({
         root: string
     }),
