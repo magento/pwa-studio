@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
@@ -8,15 +8,11 @@ export const VIEW_ORDER_DETAILS_BUTTON_ID = 'view-order-details-button';
 export const CREATE_ACCOUNT_BUTTON_ID = 'create-account-button';
 
 const Receipt = props => {
-    const { createAccount, history, reset, user } = props;
+    const { createAccount, history, order, reset, user } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    useEffect(() => {
-        return () => {
-            reset();
-        };
-    }, [reset]);
+    useEffect(() => reset, [reset]);
 
     const handleCreateAccount = useCallback(() => {
         createAccount(history);
@@ -24,46 +20,59 @@ const Receipt = props => {
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.
-    }, [props.order]);
+    }, [order]);
 
-    return (
-        <div className={classes.root}>
-            <div className={classes.body}>
-                <h2 className={classes.header}>Thank you for your purchase!</h2>
-                <div className={classes.textBlock}>
-                    You will receive an order confirmation email with order
-                    status and other details.
-                    <br />
-                    {user.isSignedIn &&
-                        'You can also visit your account page for more information.'}
-                </div>
-                {user.isSignedIn && (
+    if (user.isSignedIn) {
+        return (
+            <div className={classes.root}>
+                <div className={classes.body}>
+                    <h2 className={classes.header}>
+                        Thank you for your purchase!
+                    </h2>
+                    <div className={classes.textBlock}>
+                        You will receive an order confirmation email with order
+                        status and other details.
+                        <br />
+                        You can also visit your account page for more
+                        information.
+                    </div>
                     <Button
                         data-id={VIEW_ORDER_DETAILS_BUTTON_ID}
                         onClick={handleViewOrderDetails}
                     >
                         View Order Details
                     </Button>
-                )}
-                {!user.isSignedIn && (
-                    <Fragment>
-                        <hr />
-                        <div className={classes.textBlock}>
-                            Track order status and earn rewards for your
-                            purchase by creating and account.
-                        </div>
-                        <Button
-                            data-id={CREATE_ACCOUNT_BUTTON_ID}
-                            priority="high"
-                            onClick={handleCreateAccount}
-                        >
-                            Create an Account
-                        </Button>
-                    </Fragment>
-                )}
+                </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return (
+            <div className={classes.root}>
+                <div className={classes.body}>
+                    <h2 className={classes.header}>
+                        Thank you for your purchase!
+                    </h2>
+                    <div className={classes.textBlock}>
+                        You will receive an order confirmation email with order
+                        status and other details.
+                        <br />
+                    </div>
+                    <hr />
+                    <div className={classes.textBlock}>
+                        Track order status and earn rewards for your purchase by
+                        creating and account.
+                    </div>
+                    <Button
+                        data-id={CREATE_ACCOUNT_BUTTON_ID}
+                        priority="high"
+                        onClick={handleCreateAccount}
+                    >
+                        Create an Account
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 };
 
 Receipt.propTypes = {
