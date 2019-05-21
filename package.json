@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "2.1.0",
+  "version": "3.0.0-beta.1",
   "private": true,
   "workspaces": [
     "packages/graphql-cli-validate-magento-pwa-queries",
