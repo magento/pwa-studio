@@ -4,9 +4,6 @@ import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './receipt.css';
 
-export const VIEW_ORDER_DETAILS_BUTTON_ID = 'view-order-details-button';
-export const CREATE_ACCOUNT_BUTTON_ID = 'create-account-button';
-
 const Receipt = props => {
     const { createAccount, history, order, reset, user } = props;
 
@@ -33,12 +30,10 @@ const Receipt = props => {
                 {user.isSignedIn ? (
                     <Fragment>
                         <div className={classes.textBlock}>
-                            You can also visit your account page for more information.
+                            You can also visit your account page for more
+                            information.
                         </div>
-                        <Button
-                            data-id={VIEW_ORDER_DETAILS_BUTTON_ID}
-                            onClick={handleViewOrderDetails}
-                        >
+                        <Button onClick={handleViewOrderDetails}>
                             View Order Details
                         </Button>
                     </Fragment>
@@ -49,11 +44,7 @@ const Receipt = props => {
                             Track order status and earn rewards for your
                             purchase by creating and account.
                         </div>
-                        <Button
-                            data-id={CREATE_ACCOUNT_BUTTON_ID}
-                            priority="high"
-                            onClick={handleCreateAccount}
-                        >
+                        <Button priority="high" onClick={handleCreateAccount}>
                             Create an Account
                         </Button>
                     </Fragment>

@@ -16,7 +16,6 @@ exports[`renders a Receipt component correctly 1`] = `
       className="textBlock"
     >
       You will receive an order confirmation email with order status and other details.
-      <br />
     </div>
     <hr />
     <div
@@ -26,7 +25,6 @@ exports[`renders a Receipt component correctly 1`] = `
     </div>
     <button
       className="root_highPriority"
-      data-id="create-account-button"
       onClick={[Function]}
       type="button"
     >

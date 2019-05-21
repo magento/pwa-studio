@@ -3,7 +3,8 @@ import testRenderer, { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 import { shallow } from 'enzyme';
 
-import Receipt, { CREATE_ACCOUNT_BUTTON_ID } from '../receipt';
+import Receipt from '../receipt';
+import Button from 'src/components/Button';
 
 const classes = {
     header: 'header',
@@ -38,10 +39,7 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
         />
     );
 
-    wrapper
-        .findWhere(el => el.prop('data-id') === CREATE_ACCOUNT_BUTTON_ID)
-        .first()
-        .simulate('click');
+    wrapper.find(Button).simulate('click');
 
     expect(handleCreateAccountMock).toBeCalled();
 });
