@@ -30,8 +30,11 @@ const deriveOptionCodesFromProduct = product => {
 
     // Initialize optionCodes based on the options of the product.
     const initialOptionCodes = new Map();
-    for (const option of product.configurable_options) {
-        initialOptionCodes.set(option.attribute_id, option.attribute_code);
+    for (const {
+        attribute_id,
+        attribute_code
+    } of product.configurable_options) {
+        initialOptionCodes.set(attribute_id, attribute_code);
     }
 
     return initialOptionCodes;
