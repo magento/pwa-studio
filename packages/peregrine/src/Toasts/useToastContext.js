@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 /**
  * The state of the toast store.
  * @typedef {Object} ToastState
- * @property {Object} toasts - unordered map of id:toast
+ * @property {Map} toasts - map of id => toast
  */
 const initialState = {
     toasts: new Map()
