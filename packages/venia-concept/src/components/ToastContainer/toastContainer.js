@@ -23,7 +23,7 @@ const ToastContainer = props => {
         });
 
     return (
-        <div id="toast-root" className={classes.container}>
+        <div id="toast-root" className={classes.root}>
             {toastElements}
         </div>
     );
