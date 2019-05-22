@@ -9,11 +9,10 @@ const optionsValidator = require('../util/options-validator');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
-const { readdir: readdirAsync, readFile: readFileAsync } = require('fs');
+const { readFile: readFileAsync } = require('fs');
 const { promisify } = require('util');
-const readdir = promisify(readdirAsync);
 const readFile = promisify(readFileAsync);
-const { resolve, relative } = require('path');
+const { relative } = require('path');
 const boxen = require('boxen');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
@@ -22,7 +21,7 @@ const secureHostWarning = chalk.redBright(`
     highly recommends using the ${chalk.whiteBright(
         '"provideSecureHost"'
     )} configuration
-    option of PWADevServer. 
+    option of PWADevServer.
 `);
 
 const helpText = `
@@ -151,10 +150,6 @@ be configured to have the same effect as 'id'.
 
             devServerConfig.host = hostname;
             devServerConfig.https = ssl;
-            // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
-            devServerConfig.https.spdy = {
-                protocols: ['http/1.1']
-            };
 
             const requestedPort =
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT || ports.development;
@@ -179,47 +174,60 @@ be configured to have the same effect as 'id'.
             console.warn(secureHostWarning + helpText);
         }
 
-        const { graphqlPlayground } = config;
-        if (graphqlPlayground) {
-            const { queryDirs = [] } = config.graphqlPlayground;
+        if (config.graphqlPlayground) {
             const endpoint = '/graphql';
 
-            const queryDirListings = await Promise.all(
-                queryDirs.map(async dir => {
-                    const files = await readdir(dir);
-                    return { dir, files };
-                })
-            );
-
-            const queryDirContents = await Promise.all(
-                queryDirListings.map(({ dir, files }) =>
-                    Promise.all(
-                        files.map(async queryFile => {
-                            const fileAbsPath = resolve(dir, queryFile);
-                            const query = await readFile(fileAbsPath, 'utf8');
-                            const name = relative(process.cwd(), fileAbsPath);
-                            return {
-                                endpoint,
-                                name,
-                                query
-                            };
-                        })
-                    )
-                )
-            );
-            const tabs = [].concat(...queryDirContents); // flatten
-
             const oldBefore = devServerConfig.before;
-            devServerConfig.before = app => {
-                oldBefore(app);
-                // this middleware has a bad habit of calling next() when it
-                // should not, so let's give it a noop next()
-                const noop = () => {};
-                const middleware = playgroundMiddleware({
-                    endpoint,
-                    tabs
+            devServerConfig.before = (app, server) => {
+                oldBefore(app, server);
+                let middleware;
+                const gatheringQueryTabs = new Promise((resolve, reject) => {
+                    const { compiler } = server.middleware.context;
+                    compiler.hooks.done.tap('PWADevServer', async stats => {
+                        const queryFilePaths = [];
+                        for (const filename of stats.compilation
+                            .fileDependencies) {
+                            if (filename.endsWith('.graphql')) {
+                                queryFilePaths.push(filename);
+                            }
+                        }
+                        try {
+                            resolve(
+                                await Promise.all(
+                                    queryFilePaths.map(async queryFile => {
+                                        const query = await readFile(
+                                            queryFile,
+                                            'utf8'
+                                        );
+                                        const name = relative(
+                                            process.cwd(),
+                                            queryFile
+                                        );
+                                        return {
+                                            endpoint,
+                                            name,
+                                            query
+                                        };
+                                    })
+                                )
+                            );
+                        } catch (e) {
+                            reject(e);
+                        }
+                    });
                 });
-                app.get('/graphiql', (req, res) => middleware(req, res, noop));
+                const noop = () => {};
+                app.get('/graphiql', async (req, res) => {
+                    if (!middleware) {
+                        middleware = playgroundMiddleware({
+                            endpoint,
+                            tabs: await gatheringQueryTabs
+                        });
+                    }
+                    // this middleware has a bad habit of calling next() when it
+                    // should not, so let's give it a noop next()
+                    middleware(req, res, noop);
+                });
             };
         }
 
