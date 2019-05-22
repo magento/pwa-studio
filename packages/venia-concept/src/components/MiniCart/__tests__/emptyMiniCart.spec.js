@@ -5,7 +5,7 @@ import EmptyMiniCart from '../emptyMiniCart';
 
 jest.mock('../trigger');
 
-test('renders the product list when appropriate', () => {
+test('renders a "no items" message', () => {
     const tree = createTestInstance(
         <EmptyMiniCart />
     ).toJSON();

@@ -8,4 +8,6 @@ exports[`renders a loading indicator while running query 1`] = `
 
 exports[`renders cart options when item has no options 1`] = `"( Cart Options Component Here )"`;
 
+exports[`renders cart options when item has options 1`] = `"( Cart Options Component Here )"`;
+
 exports[`renders null when item not supplied 1`] = `null`;

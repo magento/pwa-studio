@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a list of Products when items are supplied 1`] = `
+Array [
+  <ul>
+    ( Product Component Here )
+  </ul>,
+  "( Product List Footer Component Here )",
+]
+`;
+
+exports[`renders a list with no items when items are not supplied 1`] = `
+Array [
+  <ul />,
+  "( Product List Footer Component Here )",
+]
+`;
