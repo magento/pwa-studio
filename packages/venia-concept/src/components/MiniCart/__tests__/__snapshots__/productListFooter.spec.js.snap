@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders totals summary and checkout 1`] = `
+exports[`renders totals summary and checkout components 1`] = `
 <div>
   ( Totals Summary Component Here )
   ( Checkout Component Here )

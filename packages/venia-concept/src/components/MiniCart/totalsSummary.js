@@ -14,7 +14,7 @@ const TotalsSummary = props => {
     // Members.
     const cartCurrencyCode = cart.details.currency.quote_currency_code;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const hasSubtotal = cart.totals && 'subtotal' in cart.totals;
+    const hasSubtotal = Boolean(cart.totals.subtotal);
     const itemsQuantity = cart.details.items_qty;
     const itemQuantityText = itemsQuantity === 1 ? 'item' : 'items';
     const totalPrice = cart.totals.subtotal;
@@ -44,11 +44,16 @@ const TotalsSummary = props => {
 TotalsSummary.propTypes = {
     cart: shape({
         details: shape({
-            currency: object,
+            currency: shape({
+                quote_currency_code: string
+            }).isRequired,
             items_qty: number,
             totals: object
+        }).isRequired,
+        totals: shape({
+            subtotal: number
         }).isRequired
-    }),
+    }).isRequired,
     classes: shape({
         root: string,
         subtotalLabel: string,
