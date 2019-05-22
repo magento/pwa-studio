@@ -9,20 +9,22 @@ const stories = storiesOf('Toasts', module);
 const ToastEmitter = ({
     actionText,
     dismissable,
-    type = 'info',
     message = 'Hello, World!',
-    onAction
+    onAction,
+    onDismiss,
+    type = 'info'
 }) => {
     const [, { addToast }] = useToasts();
 
     const toastProps = {
-        type,
-        message,
-        icon: SmileIcon,
+        actionText,
         dismissable,
-        timeout: 10000,
+        icon: SmileIcon,
+        message,
         onAction,
-        actionText
+        onDismiss,
+        timeout: 10000,
+        type
     };
 
     useEffect(() => {
@@ -59,11 +61,53 @@ stories.add('Toasts w/ Call To Action', () => {
         <ToastContextProvider>
             <ToastEmitter
                 type={'error'}
-                dismissable={true}
-                onAction={() => {
+                onAction={remove => {
+                    remove();
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}
+            />
+            <ToastContainer />
+        </ToastContextProvider>
+    );
+});
+
+stories.add('Toasts w/ Async Action/Dismiss', () => {
+    return (
+        <ToastContextProvider>
+            <ToastEmitter
+                type={'error'}
+                message={'I should close _after_ the action callback is done.'}
+                onAction={async remove => {
+                    await new Promise(resolve => {
+                        setTimeout(() => resolve(), 1000);
+                    });
+                    remove();
+                }}
+                actionText={'An async action!'}
+            />
+            <ToastEmitter
+                type={'info'}
+                message={'I should close _after_ the dismiss callback is done.'}
+                onDismiss={async remove => {
+                    await new Promise(resolve => {
+                        setTimeout(() => resolve(), 1000);
+                    });
+                    remove();
+                }}
+            />
+            <ToastEmitter
+                type={'info'}
+                message={
+                    'Im async but should remove immediately before the alert.'
+                }
+                onDismiss={async remove => {
+                    remove();
+                    await new Promise(resolve => {
+                        setTimeout(() => resolve(), 1000);
+                    });
+                    alert('Dismiss callback after 1 second!');
+                }}
             />
             <ToastContainer />
         </ToastContextProvider>
@@ -74,9 +118,9 @@ stories.add('Toasts w/ Wrapping Text', () => {
     return (
         <ToastContextProvider>
             <ToastEmitter
-                type={'info'}
-                message={'A message that doesnt wrap.'}
                 dismissable={true}
+                message={'A message that doesnt wrap.'}
+                type={'info'}
             />
             <ToastEmitter
                 dismissable={true}
@@ -94,7 +138,8 @@ stories.add('Toasts w/ Wrapping Text', () => {
                 type={'error'}
                 message={'A short message with an action.'}
                 dismissable={true}
-                onAction={() => {
+                onAction={remove => {
+                    remove();
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}
@@ -105,7 +150,8 @@ stories.add('Toasts w/ Wrapping Text', () => {
                     'Some really long text that wraps but in a toast that is dismissable and has an action.'
                 }
                 dismissable={true}
-                onAction={() => {
+                onAction={remove => {
+                    remove();
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}
@@ -115,7 +161,8 @@ stories.add('Toasts w/ Wrapping Text', () => {
                 message={
                     'Some really long text that wraps but in a toast that is not dismissable but has an action.'
                 }
-                onAction={() => {
+                onAction={remove => {
+                    remove();
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}

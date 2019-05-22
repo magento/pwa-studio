@@ -46,15 +46,17 @@ const App = props => {
     useEffect(() => {
         for (const { error, id, loc } of errors) {
             addToast({
-                dismissable: true,
                 icon: AlertCircleIcon,
                 message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
-                onDismiss: getErrorDismisser(error, handleDismiss),
+                onDismiss: remove => {
+                    getErrorDismisser(error, handleDismiss)();
+                    remove();
+                },
                 timeout: 7000,
                 type: 'error'
             });
         }
-    }, [errors]);
+    }, [errors, handleDismiss]);
 
     if (renderError) {
         return (

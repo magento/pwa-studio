@@ -20,20 +20,11 @@ const Toast = props => {
     const classes = mergeClasses(defaultClasses, {});
     const [, { removeToast }] = useToasts();
 
-    let handleDismiss, handleAction;
-    if (dismissable) {
-        handleDismiss = useCallback(() => {
-            removeToast(id);
-            onDismiss && onDismiss();
-        });
-    }
+    const handleDismiss = useCallback(() =>
+        onDismiss ? onDismiss(() => removeToast(id)) : removeToast(id)
+    );
 
-    if (onAction) {
-        handleAction = useCallback(() => {
-            removeToast(id);
-            onAction && onAction();
-        });
-    }
+    const handleAction = useCallback(() => onAction(() => removeToast(id)));
 
     return (
         <div className={classes[`${type}Toast`]}>
@@ -45,7 +36,7 @@ const Toast = props => {
                 />
             ) : null}
             <div className={classes.message}>{message}</div>
-            {dismissable ? (
+            {onDismiss || dismissable ? (
                 <div className={classes.controls}>
                     <button
                         className={classes.dismissButton}

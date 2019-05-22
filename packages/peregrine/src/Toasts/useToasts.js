@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useToastContext } from './useToastContext';
 
-// If a toast _is not_ dismissable remove it in this many milliseconds.
+// By default all toasts are dismissed after a timeout.
 const DEFAULT_TIMEOUT = 5000;
 
 /**
@@ -38,15 +38,36 @@ export const useToasts = () => {
      * Dispatches a add action. Includes all props passed along with a hash id
      * and a timeout id generated based on the incoming props.
      *
+     * !Note
+     * If an `onAction` or `onDismiss` callback is provided the implementer MUST
+     * call the passed `remove` function. If no `onDismiss` callback is
+     * provided the toast will be removed immediately
+     *
+     * @example
+     * addToast({
+     *   type: 'error',
+     *   message: 'An error occurred!',
+     *   actionText: 'Retry',
+     *   onAction: remove => {
+     *     async attemptRetry();
+     *     remove();
+     *   },
+     *   onDismiss: remove => {
+     *     async doSomethingOnDismiss();
+     *     remove();
+     *   },
+     *   icon: SadFaceIcon
+     * });
+     *
      * @function addToast
      * @param {Object}   toastProps - The object containing props for adding a toast.
      * @param {string}   toastProps.type - 'info', 'warning' or 'error'.
      * @param {string}   toastProps.message - The message to display in the toast.
-     * @param {boolean}  [toastProps.dismissable] - Should the toast be closeable by user?
+     * @param {boolean}  [toastProps.dismissable] - Boolean indicating whether the toast is dismissable. If `onDismiss` is provided this is assumed to be true.
      * @param {Icon}     [toastProps.icon] - The Icon component to display in the toast.
-     * @param {function} [toastProps.onDismiss] - callback invoked after dismiss.
+     * @param {function} [toastProps.onDismiss] - Callback invoked when a user clicks the dismiss icon.
      * @param {string}   [toastProps.actionText] - Text to display as a call to action.
-     * @param {function} [toastProps.onAction] - callback invoked after action text click.
+     * @param {function} [toastProps.onAction] - Callback invoked when a user clicks the action text.
      *
      * @returns {Number} id - the key referencing the toast in the store
      */
