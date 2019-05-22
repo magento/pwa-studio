@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { bool, func, number, oneOf, string } from 'prop-types';
 import defaultClasses from './toast.css';
-import { useToasts } from '@magento/peregrine';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
 import CloseIcon from 'react-feather/dist/icons/x';
@@ -11,20 +10,15 @@ const Toast = props => {
         actionText,
         dismissable,
         icon,
-        id,
         message,
         onAction,
+        handleAction,
         onDismiss,
+        handleDismiss,
         type
     } = props;
+
     const classes = mergeClasses(defaultClasses, {});
-    const [, { removeToast }] = useToasts();
-
-    const handleDismiss = useCallback(() =>
-        onDismiss ? onDismiss(() => removeToast(id)) : removeToast(id)
-    );
-
-    const handleAction = useCallback(() => onAction(() => removeToast(id)));
 
     return (
         <div className={classes[`${type}Toast`]}>
@@ -68,6 +62,8 @@ Toast.propTypes = {
     message: string.isRequired,
     onAction: func,
     onDismiss: func,
+    handleAction: func,
+    handleDismiss: func,
     type: oneOf(['info', 'warning', 'error']).isRequired
 };
 

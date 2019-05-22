@@ -73,7 +73,7 @@ export const useToasts = () => {
      */
     const addToast = useCallback(
         toastProps => {
-            const { message, timeout, type } = toastProps;
+            const { message, timeout, type, onDismiss, onAction } = toastProps;
 
             if (!type) {
                 throw new TypeError('toast.type is required');
@@ -94,13 +94,22 @@ export const useToasts = () => {
                 timeout ? timeout : DEFAULT_TIMEOUT
             );
 
+            const handleDismiss = () => {
+                onDismiss ? onDismiss(() => removeToast(id)) : removeToast(id);
+            };
+
+            const handleAction = () =>
+                onAction ? onAction(() => removeToast(id)) : () => {};
+
             dispatch({
                 type: 'add',
                 payload: {
                     ...toastProps,
                     id,
                     timestamp: Date.now(),
-                    removalTimeoutId
+                    removalTimeoutId,
+                    handleDismiss,
+                    handleAction
                 }
             });
 
