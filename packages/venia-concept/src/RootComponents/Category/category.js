@@ -37,21 +37,20 @@ const Category = props => {
                 currentPage: Number(currentPage)
             }
         });
-    }, [id, pageSize, currentPage]);
 
-    useEffect(() => {
         window.scrollTo({
             left: 0,
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage]);
+    }, [id, pageSize, currentPage]);
 
+    const totalPagesFromData = data
+        ? data.category.products.page_info.total_pages
+        : null;
     useEffect(() => {
-        if (data) {
-            setTotalPages(data.category.products.page_info.total_pages);
-        }
-    }, [data]);
+        setTotalPages(totalPagesFromData);
+    }, [totalPagesFromData]);
 
     if (error) return <div>Data Fetch Error</div>;
     if (loading && !totalPages) return loadingIndicator;
