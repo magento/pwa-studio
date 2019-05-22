@@ -3,7 +3,7 @@ title: Container extensibility
 ---
 
 A **Container** is an HTML element that contains 0 or more [`ContainerChild`] components.
-It acts as the target for [`magento-loader-layout`] operations.
+It acts as the target for `magento-loader-layout` operations.
 
 ## Creating a Container
 
@@ -32,9 +32,6 @@ This makes it possible to extend a Container using the `magento-loader-layout` t
 * Insert content before a child component in a container
 * Insert content after a child component in a container
 
-See: [Code examples]
 
 [`ContainerChild`]: {{ site.baseurl }}{% link peregrine/reference/container-child/index.md %}
-[`magento-loader-layout`]: {{ site.baseurl }}{% link pwa-buildpack/reference/layout-loader/index.md %}
 [PWA Buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
-[Code examples]: {{ site.baseurl }}{% link pwa-buildpack/reference/layout-loader/index.md %}#examples
