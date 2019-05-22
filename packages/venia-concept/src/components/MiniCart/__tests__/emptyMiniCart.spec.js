@@ -6,9 +6,7 @@ import EmptyMiniCart from '../emptyMiniCart';
 jest.mock('../trigger');
 
 test('renders a "no items" message', () => {
-    const tree = createTestInstance(
-        <EmptyMiniCart />
-    ).toJSON();
+    const tree = createTestInstance(<EmptyMiniCart />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

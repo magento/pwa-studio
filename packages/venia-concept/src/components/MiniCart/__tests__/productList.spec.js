@@ -17,9 +17,7 @@ const baseProps = {
 };
 
 test('renders a list with no items when items are not supplied', () => {
-    const tree = createTestInstance(
-        <ProductList {...baseProps} />
-    ).toJSON();
+    const tree = createTestInstance(<ProductList {...baseProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -27,19 +25,19 @@ test('renders a list with no items when items are not supplied', () => {
 test('renders a list of Products when items are supplied', () => {
     const props = {
         ...baseProps,
-        items: [{
-            item_id: 1,
-            name: 'unit test',
-            price: 99,
-            product_type: 'product type',
-            qty: 1,
-            quote_id: 1,
-            sku: 'sku'
-        }]
+        items: [
+            {
+                item_id: 1,
+                name: 'unit test',
+                price: 99,
+                product_type: 'product type',
+                qty: 1,
+                quote_id: 1,
+                sku: 'sku'
+            }
+        ]
     };
-    const tree = createTestInstance(
-        <ProductList {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<ProductList {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

@@ -24,10 +24,8 @@ test('it renders correctly', () => {
         endEditItem: jest.fn(),
         updateCart: jest.fn()
     };
-    
-    const tree = createTestInstance(
-        <CartOptions {...props} />
-    ).toJSON();
+
+    const tree = createTestInstance(<CartOptions {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

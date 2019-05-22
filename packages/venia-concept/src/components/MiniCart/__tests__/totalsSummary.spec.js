@@ -18,9 +18,7 @@ test('renders correctly when it has a subtotal', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <TotalsSummary {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<TotalsSummary {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -35,12 +33,10 @@ test('renders an empty div when it does not have a subtotal', () => {
                 items_qty: 1
             },
             totals: {}
-        },
+        }
     };
 
-    const tree = createTestInstance(
-        <TotalsSummary {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<TotalsSummary {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

@@ -151,9 +151,7 @@ test('updateItem.receive() returns a proper action object', () => {
 });
 
 test('beginEditItem.toString() returns the proper action type', () => {
-    expect(actions.beginEditItem.toString()).toBe(
-        'CART/BEGIN_EDIT_ITEM'
-    );
+    expect(actions.beginEditItem.toString()).toBe('CART/BEGIN_EDIT_ITEM');
 });
 
 test('beginEditItem() returns a proper action object', () => {
@@ -164,9 +162,7 @@ test('beginEditItem() returns a proper action object', () => {
 });
 
 test('endEditItem.toString() returns the proper action type', () => {
-    expect(actions.endEditItem.toString()).toBe(
-        'CART/END_EDIT_ITEM'
-    );
+    expect(actions.endEditItem.toString()).toBe('CART/END_EDIT_ITEM');
 });
 
 test('endEditItem() returns a proper action object', () => {

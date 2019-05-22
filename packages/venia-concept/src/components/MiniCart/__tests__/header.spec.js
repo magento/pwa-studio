@@ -9,15 +9,12 @@ jest.mock('src/components/Icon', () => ({
     default: () => <span>Mock Icon Component</span>
 }));
 
-
 test('it renders correctly', () => {
     const props = {
         isEditingItem: false
     };
-    
-    const tree = createTestInstance(
-        <Header {...props} />
-    ).toJSON();
+
+    const tree = createTestInstance(<Header {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -26,10 +23,8 @@ test('it changes the title when editing an item', () => {
     const props = {
         isEditingItem: true
     };
-    
-    const tree = createTestInstance(
-        <Header {...props} />
-    ).toJSON();
+
+    const tree = createTestInstance(<Header {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

@@ -20,7 +20,7 @@ const Trigger = props => {
 Trigger.propTypes = {
     children: node,
     classes: shape({
-        root: string,
+        root: string
     }),
     onClick: func
 };

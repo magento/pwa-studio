@@ -20,7 +20,7 @@ const Body = props => {
         removeItemFromCart,
         updateItemInCart
     } = props;
-    
+
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
     const { editItem, isLoading, isEditingItem, isUpdatingItem } = cart;
@@ -52,7 +52,7 @@ const Body = props => {
             />
         );
     }
-    
+
     return (
         <div className={classes.root}>
             <ProductList

@@ -17,9 +17,7 @@ jest.mock('src/components/LoadingIndicator', () => {
 });
 
 test('renders null when item not supplied', () => {
-    const tree = createTestInstance(
-        <EditItem />
-    ).toJSON();
+    const tree = createTestInstance(<EditItem />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -31,9 +29,7 @@ test('renders cart options when item has no options', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <EditItem {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<EditItem {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -45,9 +41,7 @@ test('renders a loading indicator while running query', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <EditItem {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<EditItem {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -64,7 +58,7 @@ test('renders cart options when item has options', () => {
             }
         }
     };
-    useQuery.mockReturnValueOnce([ queryResult, queryApi ]);
+    useQuery.mockReturnValueOnce([queryResult, queryApi]);
     useEffect.mockReturnValueOnce(undefined);
 
     const props = {
@@ -73,9 +67,7 @@ test('renders cart options when item has options', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <EditItem {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<EditItem {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

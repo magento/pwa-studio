@@ -25,7 +25,7 @@ const EditItem = props => {
 
     // Members.
     const itemHasOptions = item.options.length > 0;
-    
+
     // Don't have to run the query for non-configurable items.
     if (!itemHasOptions) {
         return (

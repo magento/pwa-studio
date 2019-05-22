@@ -23,9 +23,7 @@ const baseProps = {
 };
 
 test('renders the product list when appropriate', () => {
-    const tree = createTestInstance(
-        <Body {...baseProps} />
-    ).toJSON();
+    const tree = createTestInstance(<Body {...baseProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -39,9 +37,7 @@ test('renders the loading indicator when appropriate', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <Body {...testProps} />
-    ).toJSON();
+    const tree = createTestInstance(<Body {...testProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -52,9 +48,7 @@ test('renders the empty mini cart when appropriate', () => {
         isCartEmpty: true
     };
 
-    const tree = createTestInstance(
-        <Body {...testProps} />
-    ).toJSON();
+    const tree = createTestInstance(<Body {...testProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -68,9 +62,7 @@ test('renders the edit item dialog when appropriate', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <Body {...testProps} />
-    ).toJSON();
+    const tree = createTestInstance(<Body {...testProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

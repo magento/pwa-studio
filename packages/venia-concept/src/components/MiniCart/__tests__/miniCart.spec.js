@@ -15,9 +15,7 @@ test('renders correctly', () => {
         }
     };
 
-    const tree = createTestInstance(
-        <MiniCart {...props} />
-    ).toJSON();
+    const tree = createTestInstance(<MiniCart {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

@@ -4,7 +4,9 @@ import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
-import LoadingIndicator, { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator, {
+    loadingIndicator
+} from 'src/components/LoadingIndicator';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
@@ -29,11 +31,17 @@ const getIsMissingOptions = (cartItem, configItem, numSelections) => {
     const numProductOptions = configurable_options.length;
 
     return numSelections < numProductOptions;
-}
+};
 
 const CartOptions = props => {
     // Props.
-    const { cartItem, configItem, endEditItem, isUpdatingItem, updateCart } = props;
+    const {
+        cartItem,
+        configItem,
+        endEditItem,
+        isUpdatingItem,
+        updateCart
+    } = props;
     const { name, price, qty } = cartItem;
 
     // State.
@@ -43,10 +51,11 @@ const CartOptions = props => {
     // Callbacks.
     const handleOptionsSelectionsChangeed = useCallback(
         (optionId, selection) => {
-            setOptionSelections(new Map(optionSelections.set(
-                optionId,
-                Array.from(selection).pop()
-            )));
+            setOptionSelections(
+                new Map(
+                    optionSelections.set(optionId, Array.from(selection).pop())
+                )
+            );
         },
         [optionSelections, setOptionSelections]
     );
@@ -72,10 +81,12 @@ const CartOptions = props => {
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
-    const isMissingOptions = getIsMissingOptions(cartItem, configItem, optionSelections.size);
-    const modalClass = isUpdatingItem
-        ? classes.modal_active
-        : classes.modal;
+    const isMissingOptions = getIsMissingOptions(
+        cartItem,
+        configItem,
+        optionSelections.size
+    );
+    const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
     // Render.
     const options = isProductConfigurable(configItem) ? (

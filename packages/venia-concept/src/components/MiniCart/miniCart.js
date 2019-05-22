@@ -27,7 +27,7 @@ const MiniCart = props => {
 
     return (
         <aside className={rootClass}>
-            <Header 
+            <Header
                 closeDrawer={closeDrawer}
                 isEditingItem={cart.isEditingItem}
             />
@@ -40,10 +40,10 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />
-            { /* Note: A footer only appears when the ProductList
-               * component is visible. As such, the footer component
-               * now lives in ProductList.
-            */ }
+            {/* Note: A footer only appears when the ProductList
+             * component is visible. As such, the footer component
+             * now lives in ProductList.
+             */}
         </aside>
     );
 };
@@ -51,7 +51,7 @@ const MiniCart = props => {
 MiniCart.propTypes = {
     beginEditItem: func.isRequired,
     cart: shape({
-        isEditingItem: bool,
+        isEditingItem: bool
     }).isRequired,
     classes: shape({
         header: string,
