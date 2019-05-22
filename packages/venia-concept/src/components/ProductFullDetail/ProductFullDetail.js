@@ -83,35 +83,6 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     return { key, value };
 };
 
-const getProductOptions = (product, optionSelections, setOptionSelections) => {
-    const { configurable_options } = product;
-    const isConfigurable = isProductConfigurable(product);
-
-    if (!isConfigurable) {
-        return null;
-    }
-
-    const handleSelectionChange = useCallback(
-        (optionId, selection) => {
-            // We must create a new Map here so that React knows that the value
-            // of optionSelections has changed.
-            const newOptionSelections = new Map([...optionSelections]);
-            newOptionSelections.set(optionId, Array.from(selection).pop());
-            setOptionSelections(newOptionSelections);
-        },
-        [optionSelections]
-    );
-
-    return (
-        <Suspense fallback={loadingIndicator}>
-            <Options
-                options={configurable_options}
-                onSelectionChange={handleSelectionChange}
-            />
-        </Suspense>
-    );
-};
-
 const ProductFullDetail = props => {
     // Props.
     const { addToCart, isAddingItem, product } = props;
@@ -133,11 +104,6 @@ const ProductFullDetail = props => {
         optionCodes,
         optionSelections
     );
-    const productOptions = getProductOptions(
-        product,
-        optionSelections,
-        setOptionSelections
-    );
 
     // Event handlers.
     const handleAddToCart = useCallback(() => {
@@ -153,6 +119,17 @@ const ProductFullDetail = props => {
 
         addToCart(payload);
     }, [addToCart, optionCodes, optionSelections, product, quantity]);
+
+    const handleSelectionChange = useCallback(
+        (optionId, selection) => {
+            // We must create a new Map here so that React knows that the value
+            // of optionSelections has changed.
+            const newOptionSelections = new Map([...optionSelections]);
+            newOptionSelections.set(optionId, Array.from(selection).pop());
+            setOptionSelections(newOptionSelections);
+        },
+        [optionSelections]
+    );
 
     return (
         <Form className={classes.root}>
@@ -171,7 +148,14 @@ const ProductFullDetail = props => {
                     key={mediaGalleryEntries.key}
                 />
             </section>
-            <section className={classes.options}>{productOptions}</section>
+            <section className={classes.options}>
+                <Suspense fallback={loadingIndicator}>
+                    <Options
+                        onSelectionChange={handleSelectionChange}
+                        product={product}
+                    />
+                </Suspense>
+            </section>
             <section className={classes.quantity}>
                 <h2 className={classes.quantityTitle}>Quantity</h2>
                 <Quantity initialValue={quantity} onValueChange={setQuantity} />
