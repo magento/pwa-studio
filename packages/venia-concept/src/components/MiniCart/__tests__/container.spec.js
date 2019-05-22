@@ -1,6 +1,3 @@
-import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
-
 import Container from '../container';
 import MiniCart from '../miniCart';
 

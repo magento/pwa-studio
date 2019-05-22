@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
