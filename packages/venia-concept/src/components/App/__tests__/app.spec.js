@@ -9,6 +9,8 @@ import Navigation from 'src/components/Navigation';
 jest.mock('src/components/Main', () => 'Main');
 jest.mock('src/components/MiniCart', () => 'MiniCart');
 jest.mock('src/components/Navigation', () => 'Navigation');
+jest.mock('src/components/ToastContainer', () => 'ToastContainer');
+
 Object.defineProperty(window.location, 'reload', {
     configurable: true
 });
@@ -50,9 +52,6 @@ const getAndConfirmProps = (parent, type, props) => {
     return instance;
 };
 
-beforeEach(() => {
-    jest.clearAllMocks();
-});
 afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {

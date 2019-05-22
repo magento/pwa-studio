@@ -1,11 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 
-import {
-    ToastContextProvider,
-    useToastState,
-    useToastDispatch
-} from '../useToastContext';
+import { ToastContextProvider, useToastContext } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
 jest.mock('react', () => {
@@ -17,12 +13,8 @@ jest.mock('react', () => {
 
 const log = jest.fn();
 
-beforeEach(() => {
-    log.mockReset();
-});
 const Component = () => {
-    const state = useToastState();
-    const dispatch = useToastDispatch();
+    const [state, dispatch] = useToastContext();
     log(...[state, dispatch]);
 
     return <i />;

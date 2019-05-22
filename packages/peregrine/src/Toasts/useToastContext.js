@@ -79,21 +79,11 @@ export const ToastContextProvider = ({ children }) => {
 };
 
 /**
- * A hook that provides access to the toast state object.
+ * A hook that provides access to the toast state and dispatch.
  * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
  *
- * @return {ToastState} The toast state object.
+ * @return {[ToastState, Function]} The toast context value.
  * @example
- *   const toastState = useToastState();
+ *   const [toastState, dispatch] = useToastState();
  */
-export const useToastState = () => useContext(ToastContext)[0];
-
-/**
- * A hook that provides access to the toast dispatch function.
- * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
- *
- * @return {Function} The action dispatch function.
- * @example
- *   const dispatch = useToastDispatch();
- */
-export const useToastDispatch = () => useContext(ToastContext)[1];
+export const useToastContext = () => useContext(ToastContext);

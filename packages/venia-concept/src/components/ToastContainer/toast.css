@@ -38,32 +38,32 @@
     }
 }
 
-.toast--info {
+.infoToast {
     composes: root;
     border-bottom: 4px solid info;
 }
 
-.toast--warning {
-    composes: root;
-    border-bottom: 4px solid warning;
-}
-
-.toast--error {
-    composes: root;
-    border-bottom: 4px solid error;
-}
-
-.icon--info {
+.infoToast > .icon {
     grid-area: icon;
     color: info;
 }
 
-.icon--warning {
+.warningToast {
+    composes: root;
+    border-bottom: 4px solid warning;
+}
+
+.warningToast > .icon {
     grid-area: icon;
     color: warning;
 }
 
-.icon--error {
+.errorToast {
+    composes: root;
+    border-bottom: 4px solid error;
+}
+
+.errorToast > .icon {
     grid-area: icon;
     color: error;
 }
@@ -97,29 +97,12 @@
     padding-left: 0.75rem;
 }
 
-.clickable {
-    -webkit-appearance: none;
-    cursor: pointer;
-    color: rgb(33, 33, 33);
-    line-height: 1rem;
-    margin: 0px;
-    min-height: 1rem;
-    min-width: 1rem;
-    padding: 0px;
-}
-
 .actionButton {
-    composes: clickable;
-    font-family: var(--venia-font);
-    font-size: 100%;
     font-weight: 600;
     text-decoration: underline;
+    color: rgb(33, 33, 33);
 }
 
 .dismissButton {
-    composes: clickable;
-    font-family: var(--venia-font);
-    font-size: 1rem;
-    font-weight: 600;
     color: rgb(112, 112, 112);
 }

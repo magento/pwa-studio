@@ -7,6 +7,7 @@ import MiniCart from 'src/components/MiniCart';
 import Navigation from 'src/components/Navigation';
 import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
+import ToastContainer from 'src/components/ToastContainer';
 
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
@@ -60,6 +61,7 @@ const App = props => {
             <Fragment>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
+                <ToastContainer />
             </Fragment>
         );
     }
@@ -101,6 +103,7 @@ const App = props => {
             <Mask isActive={overlay} dismiss={closeDrawer} />
             <Navigation isOpen={navIsOpen} />
             <MiniCart isOpen={cartIsOpen} />
+            <ToastContainer />
         </Fragment>
     );
 };

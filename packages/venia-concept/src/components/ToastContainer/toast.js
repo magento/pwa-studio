@@ -4,6 +4,7 @@ import defaultClasses from './toast.css';
 import { useToasts } from '@magento/peregrine';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
+import CloseIcon from 'react-feather/dist/icons/x';
 
 const Toast = props => {
     const {
@@ -35,10 +36,10 @@ const Toast = props => {
     }
 
     return (
-        <div className={classes[`toast--${type}`]}>
+        <div className={classes[`${type}Toast`]}>
             {icon ? (
                 <Icon
-                    className={classes[`icon--${type}`]}
+                    className={classes.icon}
                     src={icon}
                     attrs={{ width: 18 }}
                 />
@@ -50,7 +51,7 @@ const Toast = props => {
                         className={classes.dismissButton}
                         onClick={handleDismiss}
                     >
-                        {'×'}
+                        <Icon src={CloseIcon} attrs={{ width: 14 }} />
                     </button>
                 </div>
             ) : null}

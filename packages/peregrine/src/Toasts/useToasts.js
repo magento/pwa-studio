@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useToastState, useToastDispatch } from './useToastContext';
+import { useToastContext } from './useToastContext';
 
 // If a toast _is not_ dismissable remove it in this many milliseconds.
 const DEFAULT_TIMEOUT = 5000;
@@ -32,8 +32,7 @@ export const getToastId = props => {
  * @returns {[ToastState, ToastApi]}
  */
 export const useToasts = () => {
-    const state = useToastState();
-    const dispatch = useToastDispatch();
+    const [state, dispatch] = useToastContext();
 
     /**
      * Dispatches a add action. Includes all props passed along with a hash id

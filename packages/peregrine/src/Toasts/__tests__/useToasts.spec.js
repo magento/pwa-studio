@@ -1,20 +1,14 @@
 import React from 'react';
 import { getToastId, useToasts } from '../useToasts';
 
-import { useToastDispatch, useToastState } from '../useToastContext';
+import { useToastContext } from '../useToastContext';
 import createTestInstance from '../../util/createTestInstance';
 
 jest.mock('../useToastContext');
 
 const log = jest.fn();
 const dispatchMock = jest.fn();
-useToastDispatch.mockReturnValue(dispatchMock);
-useToastState.mockReturnValue({ toasts: {} });
-
-beforeEach(() => {
-    log.mockReset();
-    dispatchMock.mockReset();
-});
+useToastContext.mockReturnValue([{ toasts: {} }, dispatchMock]);
 
 test('addToast returns the id of the added toast', () => {
     const Component = ({ toastProps }) => {

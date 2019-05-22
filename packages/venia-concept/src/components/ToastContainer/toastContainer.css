@@ -5,9 +5,9 @@
     grid-row-gap: 1rem;
 
     /* Necessary to display over page contents */
-    z-index: 9999;
+    z-index: 6;
 
     /* Show toasts on bottom of screen */
     bottom: 0px;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
 }

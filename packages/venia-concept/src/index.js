@@ -8,7 +8,7 @@ import app from 'src/actions/app';
 import App from 'src/components/App';
 import './index.css';
 import { ToastContextProvider } from '@magento/peregrine';
-import ToastContainer from 'src/components/ToastContainer';
+
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -39,7 +39,6 @@ ReactDOM.render(
     >
         <WindowSizeContextProvider>
             <ToastContextProvider>
-                <ToastContainer />
                 <App />
             </ToastContextProvider>
         </WindowSizeContextProvider>

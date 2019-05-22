@@ -8,26 +8,23 @@ import defaultClasses from './toastContainer.css';
 const ToastContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const [{ toasts }] = useToasts();
+
     // Given a map of toasts each with a property "timestamp", sort and display
     // based on the timestamp.
-    const timestampMap = new Map();
-    toasts.forEach(toast => {
-        timestampMap[toast.timestamp] = toast;
-    });
+    const sortByTimestamp = ([, toastA], [, toastB]) =>
+        toastA.timestamp - toastB.timestamp;
 
-    const toastList = Object.keys(timestampMap)
-        .sort()
-        .map(timestamp => {
-            const toast = timestampMap[timestamp];
-            // Use a random key to trigger a recreation of this component if it
-            // is a duplicate so that we can re-trigger the blink animation.
-            const key = toast.isDuplicate ? Math.random() : toast.id;
+    const toastElements = Array.from(toasts)
+        .sort(sortByTimestamp)
+        .map(([id, toast]) => {
+            const key = toast.isDuplicate ? Math.random() : id;
+
             return <Toast key={key} {...toast} />;
         });
 
     return (
         <div id="toast-root" className={classes.container}>
-            {toastList}
+            {toastElements}
         </div>
     );
 };
