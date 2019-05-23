@@ -5,6 +5,8 @@ const WindowSizeContext = createContext();
 
 /**
  * An object that contains the inner and outer dimensions for the browser.
+ * 
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window}
  *
  * @typedef WindowSize
  *

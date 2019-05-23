@@ -4,18 +4,10 @@ const requiredProp = '<i class="material-icons green">check_box</i>';
  * Function for overriding template props
  */
 const overrideProps = (props, propsOverrides) => {
-    if (propsOverrides == undefined) {
+    if (!propsOverrides) {
         return props;
     }
-    let result = Object.assign({}, props);
-
-    let propKeys = Object.keys(props);
-
-    propKeys.forEach(key => {
-        if (propsOverrides[key]) {
-            result[key] = propsOverrides[key];
-        }
-    });
+    const result = Object.assign({}, props, propsOverrides);
 
     return result;
 };
@@ -33,7 +25,7 @@ const renderPropEntry = ({ key, required, defaultValue, propDescription }) => {
 const renderClassPropsTable = props => {
     let result = `## Props\n\n `;
 
-    let propsKeys = Object.keys(props);
+    const propsKeys = Object.keys(props);
 
     if (propsKeys.length > 0) {
         result +=

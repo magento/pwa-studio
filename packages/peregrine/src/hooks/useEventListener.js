@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 
 /**
- * A React Hook that attaches an [event][] listener to a target object on mount.
+ * A React Hook that attaches an {@link https://developer.mozilla.org/en-US/docs/Web/Events event} listener to a target object on mount.
  * The listener is removed when the target unmounts.
- *
- * [event]: https://developer.mozilla.org/en-US/docs/Web/Events
  *
  * @kind function
  *
  * @param {Object} target The target to attach the listener to
- * @param {String} type The type of [event][], such as `resize`, `error`, etc.
+ * @param {String} type The type of {@link https://developer.mozilla.org/en-US/docs/Web/Events event}, such as `resize`, `error`, etc.
  * @param {Function} listener a callback function to be invoked
  * @param  {...any} rest any other arguments to pass to the function
  */

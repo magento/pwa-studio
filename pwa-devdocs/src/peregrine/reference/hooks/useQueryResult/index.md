@@ -20,7 +20,14 @@ let [queryResultState, useQueryResultApi] = useQueryResult();
 Updating the `queryResultState` with new payload data:
 
 ```js
-let payload = await apolloClient.query({ query, variables  });
+
+import { useApolloContext } from "./useApolloContext";
+
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
+
+const apolloClient = useApolloContext();
+
+let payload = await apolloClient.query({ PRODUCT_SEARCH, variables  });
 
 useQueryResultApi.receiveResponse(payload);
 ```

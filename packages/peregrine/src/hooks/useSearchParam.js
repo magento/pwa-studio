@@ -14,7 +14,7 @@ const getSearchParam = (parameter = '', location = window.location) => {
  * @kind function
  *
  * @param {Object} props An object containing the location, parameter, and setter function.
- * @param {String} props.location The URL location to search for
+ * @param {String} props.location The URL location to search in
  * @param {String} props.parameter The parameter to search for
  * @param {Function} props.setValue A setter function that is passed the parameter value found in the URL
  */
