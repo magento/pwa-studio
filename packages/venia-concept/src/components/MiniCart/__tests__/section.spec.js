@@ -51,4 +51,3 @@ test('it overrides icon attributes when given them', () => {
 
     expect(tree).toMatchSnapshot();
 });
-

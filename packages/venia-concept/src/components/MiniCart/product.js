@@ -28,40 +28,34 @@ const Product = props => {
     useEffect(() => {
         // After the imageRef mounts, get its --image-width so
         // we can pass it to `resourceUrl`.
-        const imageWidth = getComputedStyle(imageRef.current)
-            .getPropertyValue('--image-width');
+        const imageWidth = getComputedStyle(imageRef.current).getPropertyValue(
+            '--image-width'
+        );
 
         if (imageWidth) {
             // parseFloat to strip off any units like 'px'.
             const parsedImageWidth = parseFloat(imageWidth);
-            setBackgroundImage(`url(${resourceUrl(image.file, {
-                type: 'image-product',
-                width: parsedImageWidth
-            })})`);
+            setBackgroundImage(
+                `url(${resourceUrl(image.file, {
+                    type: 'image-product',
+                    width: parsedImageWidth
+                })})`
+            );
         }
     }, [imageRef]);
 
-    const handleFavoriteItem = useCallback(
-        () => {
-            setIsFavorite(!isFavorite);
-        },
-        [isFavorite, setIsFavorite]
-    );
-    const handleEditItem = useCallback(
-        () => {
-            beginEditItem(item);
-        },
-        [beginEditItem, item]
-    );
-    const handleRemoveItem = useCallback(
-        () => {
-            setIsLoading(true);
+    const handleFavoriteItem = useCallback(() => {
+        setIsFavorite(!isFavorite);
+    }, [isFavorite, setIsFavorite]);
+    const handleEditItem = useCallback(() => {
+        beginEditItem(item);
+    }, [beginEditItem, item]);
+    const handleRemoveItem = useCallback(() => {
+        setIsLoading(true);
 
-            // TODO: prompt user to confirm this action?
-            removeItemFromCart({ item });
-        },
-        [item, removeItemFromCart, setIsLoading]
-    );
+        // TODO: prompt user to confirm this action?
+        removeItemFromCart({ item });
+    }, [item, removeItemFromCart, setIsLoading]);
 
     return (
         <li className={classes.root}>
@@ -77,10 +71,7 @@ const Product = props => {
                     <span>{qty}</span>
                     <span className={classes.quantityOperator}>{'×'}</span>
                     <span className={classes.price}>
-                        <Price
-                            currencyCode={currencyCode}
-                            value={price}
-                        />
+                        <Price currencyCode={currencyCode} value={price} />
                     </span>
                 </div>
             </div>
@@ -90,9 +81,7 @@ const Product = props => {
                     text="Add to favorites"
                     onClick={handleFavoriteItem}
                     icon="Heart"
-                    iconAttributes={
-                        isFavorite ? FAVORITES_FILL : {}
-                    }
+                    iconAttributes={isFavorite ? FAVORITES_FILL : {}}
                 />
                 <Section
                     text="Edit item"

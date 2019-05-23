@@ -23,14 +23,12 @@ const Kebab = props => {
         },
         [kebabButtonRef, setIsOpen]
     );
-    
+
     useEventListener(document, 'mousedown', handleDocumentClick);
     useEventListener(document, 'touchend', handleDocumentClick);
 
-    const toggleClass = isOpen
-        ? classes.dropdown_active
-        : classes.dropdown;
-        
+    const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
+
     return (
         <div className={classes.root}>
             <button className={classes.kebab} ref={kebabButtonRef}>

@@ -22,14 +22,10 @@ const ProductOptions = props => {
                     {label} : {value}
                 </dt>
             </Fragment>
-        )
+        );
     });
 
-    return (
-        <dl className={classes.options}>
-            {displayOptions}
-        </dl>
-    );
+    return <dl className={classes.options}>{displayOptions}</dl>;
 };
 
 ProductOptions.propTypes = {
