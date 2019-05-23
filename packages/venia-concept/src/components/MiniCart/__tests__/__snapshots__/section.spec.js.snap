@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it does not render an icon when not passed one 1`] = `
+<li>
+  <button>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it does not render an icon when passed an invalid one 1`] = `
+<li>
+  <button>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it overrides icon attributes when given them 1`] = `
+<li>
+  <button>
+    <span>
+      <svg
+        fill="none"
+        height="25px"
+        stroke="black"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width="50px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+        />
+      </svg>
+    </span>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it renders an icon when passed a valid one 1`] = `
+<li>
+  <button>
+    <span>
+      <svg
+        fill="none"
+        height="14px"
+        stroke="rgb(var(--venia-teal))"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width="14px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+        />
+      </svg>
+    </span>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
