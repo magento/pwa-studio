@@ -1,64 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createTestInstance } from '@magento/peregrine';
 
 import Kebab from '../kebab';
 
-const classes = {
-    root: 'a',
-    dropdown: 'b',
-    dropdown_active: 'c'
-};
+jest.mock('src/components/Icon', () => ({
+    __esModule: true,
+    default: () => <span>Mock Icon Component</span>
+}));
 
-const items = [
-    {
-        id: 1,
-        name: 'Test Product 1',
-        small_image: {
-            url: '/test/product/1.png'
-        },
-        price: {
-            regularPrice: {
-                amount: {
-                    value: 100,
-                    currency: 'USD'
-                }
-            }
-        }
-    },
-    {
-        id: 2,
-        name: 'Backward Compatible Test Product 2',
-        small_image: '/test/product/1.png',
-        price: {
-            regularPrice: {
-                amount: {
-                    value: 100,
-                    currency: 'USD'
-                }
-            }
-        }
-    }
-];
+test('it renders correctly without children', () => {
+    const tree = createTestInstance(<Kebab />).toJSON();
 
-test('renders with item data', () => {
-    items.forEach(item => {
-        const wrapper = shallow(<Kebab classes={classes} item={item} />).dive();
-        expect(wrapper.hasClass(classes.root)).toBe(true);
-    });
+    expect(tree).toMatchSnapshot();
 });
 
-test('list is inactive when kebab is closed', () => {
-    const wrapper = shallow(<Kebab classes={classes} isOpen={false} />).dive();
+test('it renders children passed to it', () => {
+    const tree = createTestInstance(
+        <Kebab>
+            <div>Child 1</div>
+            <div>Child 2</div>
+            <div>Child 3</div>
+        </Kebab>
+    ).toJSON();
 
-    const menu = wrapper.find('ul');
-    expect(menu.hasClass(classes.dropdown)).toBe(true);
-    expect(menu.hasClass(classes.dropdown_active)).toBe(false);
-});
-
-test('list gains "active" class when kebab is open', () => {
-    const wrapper = shallow(<Kebab classes={classes} />).dive();
-    wrapper.setState({ isOpen: true });
-
-    const menu = wrapper.find('ul');
-    expect(menu.hasClass(classes.dropdown_active)).toBe(true);
+    expect(tree).toMatchSnapshot();
 });
