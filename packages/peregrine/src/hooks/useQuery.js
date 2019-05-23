@@ -10,7 +10,7 @@ import { useQueryResult } from './useQueryResult';
  *
  * @kind function
  *
- * @param {DocumentNode} query A GraphQL document containing a query to send to the server
+ * @param {DocumentNode} query A GraphQL document containing a query to send to the server. See {@link https://github.com/apollographql/graphql-tag graphql-tag}
  *
  * @return {Object[]} An array with two entries containing the following content: [{@link ../useQueryResult#queryresultstate--object QueryResultState}, {@link API}]
  */
