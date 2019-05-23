@@ -28,14 +28,16 @@ const ProductList = props => {
                 getItemKey={item => item.item_id}
                 items={items}
                 render="ul"
-                renderItem={props => (
-                    <Product
-                        beginEditItem={beginEditItem}
-                        currencyCode={currency}
-                        removeItemFromCart={removeItemFromCart}
-                        {...props}
-                    />
-                )}
+                renderItem={props => {
+                    return (
+                        <Product
+                            beginEditItem={beginEditItem}
+                            currencyCode={currency}
+                            item={props.item}
+                            removeItemFromCart={removeItemFromCart}
+                        />
+                    );
+                }}
             />
             <ProductListFooter
                 cart={cart}

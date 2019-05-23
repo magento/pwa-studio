@@ -25,7 +25,7 @@ const Section = props => {
     const { icon, iconAttributes, onClick, text } = props;
 
     const attributes = iconAttributes
-        ? Object.assign(defaultIconAttributes, iconAttributes)
+        ? Object.assign({}, defaultIconAttributes, iconAttributes)
         : defaultIconAttributes;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconSrc = icons[icon];

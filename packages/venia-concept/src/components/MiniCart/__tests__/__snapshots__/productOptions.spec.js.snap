@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly when options is not empty 1`] = `
+<dl>
+  <dt>
+    Label 1
+     : 
+    Value 1
+  </dt>
+  <dt>
+    Label 2
+     : 
+    Value 2
+  </dt>
+</dl>
+`;
+
+exports[`it renders null when options are missing 1`] = `null`;
+
+exports[`it renders null when options is empty 1`] = `null`;

@@ -1,95 +1,50 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React, { useState } from 'react';
+import { createTestInstance } from '@magento/peregrine';
 
 import Product from '../product';
-import Section from '../section';
 
-const classes = { firstSection: 'a', optionLabel: 'b', name: 'c' };
+global.getComputedStyle = jest.fn().mockReturnValue({
+    getPropertyValue: jest.fn().mockReturnValue('80px')
+});
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    return Object.assign(React, { useState: jest.fn(React.useState) });
+});
 
-const item = {
-    item_id: 1,
-    name: 'Product 1',
-    price: 10,
-    qty: 1,
-    sku: 'TEST1',
-    image: {
-        file: 'test.jpg'
-    },
-    options: [
-        {
-            label: 'testLabel',
-            value: 'testValue'
+jest.mock('../productOptions');
+jest.mock('../kebab');
+
+const props = {
+    beginEditItem: jest.fn(),
+    currencyCode: 'US',
+    item: {
+        image: {
+            file: 'unittest'
         },
-        {
-            label: 'testLabel2',
-            value: 'testValue2'
-        }
-    ]
+        name: 'Unit Test Product',
+        options: [],
+        price: 99,
+        qty: 1
+    },
+    removeItemFromCart: jest.fn()
 };
 
-test('passed functions are called from nested `Section` components', () => {
-    const beginEditItem = jest.fn();
-    const removeItemFromCart = jest.fn();
+test('it renders correctly', () => {
+    const tree = createTestInstance(<Product {...props} />).toJSON();
 
-    const wrapper = shallow(
-        <Product
-            beginEditItem={beginEditItem}
-            classes={classes}
-            item={item}
-            currencyCode={'NZD'}
-            removeItemFromCart={removeItemFromCart}
-        />
-    ).dive();
-
-    const favoriteItem = jest.spyOn(wrapper.instance(), 'favoriteItem');
-    const editItem = jest.spyOn(wrapper.instance(), 'editItem');
-    const removeItem = jest.spyOn(wrapper.instance(), 'removeItem');
-
-    wrapper.instance().forceUpdate();
-
-    const buttons = wrapper.find(Section);
-
-    buttons.forEach(button => {
-        button.simulate('click');
-    });
-
-    expect(favoriteItem).toHaveBeenCalled();
-    expect(editItem).toHaveBeenCalled();
-    expect(removeItem).toHaveBeenCalled();
+    expect(tree).toMatchSnapshot();
 });
 
-test('Product name is rendered', () => {
-    const openOptionsDrawer = jest.fn();
-    const wrapper = shallow(
-        <Product
-            item={item}
-            currencyCode={'EUR'}
-            classes={classes}
-            openOptionsDrawer={openOptionsDrawer}
-        />
-    ).dive();
+test('it renders a mask div above the kebab if it is loading', () => {
+    useState
+        // backgroundImage
+        .mockReturnValueOnce([null, jest.fn()])
+        // isFavorite
+        .mockReturnValueOnce([false, jest.fn()])
+        // isLoading
+        .mockReturnValueOnce([true, jest.fn()]);
 
-    expect(
-        wrapper
-            .find(`.${classes.name}`)
-            .at(0)
-            .text()
-    ).toContain(item.name);
-});
+    const tree = createTestInstance(<Product {...props} />).toJSON();
 
-test('Product variants are rendered', () => {
-    const openOptionsDrawer = jest.fn();
-    const wrapper = shallow(
-        <Product
-            item={item}
-            currencyCode={'EUR'}
-            classes={classes}
-            openOptionsDrawer={openOptionsDrawer}
-        />
-    ).dive();
-
-    wrapper.find(`.${classes.optionLabel}`).forEach((optionLabel, i) => {
-        expect(optionLabel.text()).toContain(item.options[i].label);
-        expect(optionLabel.text()).toContain(item.options[i].value);
-    });
+    expect(tree).toMatchSnapshot();
 });

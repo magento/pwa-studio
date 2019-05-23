@@ -18,9 +18,6 @@ const Kebab = props => {
 
     const handleDocumentClick = useCallback(
         event => {
-            console.log('inside handle', kebabButtonRef.current);
-            console.log('comparing against', event.target);
-
             const shouldBeOpen = kebabButtonRef.current.contains(event.target);
             setIsOpen(shouldBeOpen);
         },

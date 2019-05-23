@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders a mask div above the kebab if it is loading 1`] = `
+<li>
+  <div
+    style={
+      Object {
+        "backgroundImage": null,
+      }
+    }
+  />
+  <div>
+    Unit Test Product
+  </div>
+  ( Product Options Component Here )
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+      <span>
+        ×
+      </span>
+      <span>
+        <div />
+      </span>
+    </div>
+  </div>
+  <div />
+  ( Kebab Component Here )
+</li>
+`;
+
+exports[`it renders correctly 1`] = `
+<li>
+  <div
+    style={
+      Object {
+        "backgroundImage": "url(/media/catalog/product/unittest?auto=webp&format=pjpg&width=80)",
+      }
+    }
+  />
+  <div>
+    Unit Test Product
+  </div>
+  ( Product Options Component Here )
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+      <span>
+        ×
+      </span>
+      <span>
+        <div />
+      </span>
+    </div>
+  </div>
+  ( Kebab Component Here )
+</li>
+`;
