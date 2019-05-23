@@ -1,15 +1,18 @@
 import { connect } from 'src/drivers';
 import SignIn from './signIn';
-import { signIn, assignGuestCartToCustomer } from 'src/actions/user';
+import { signIn } from 'src/actions/user';
 
 const mapStateToProps = ({ user }) => {
-    const { signInError } = user;
+    const { isGettingDetails, isSigningIn, signInError } = user;
+
     return {
+        isGettingDetails,
+        isSigningIn,
         signInError
     };
 };
 
-const mapDispatchToProps = { signIn, assignGuestCartToCustomer };
+const mapDispatchToProps = { signIn };
 
 export default connect(
     mapStateToProps,

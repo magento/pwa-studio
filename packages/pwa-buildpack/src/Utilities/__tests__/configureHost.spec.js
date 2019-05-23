@@ -212,7 +212,7 @@ test('fails after a timeout if devcert never fulfills', async () => {
     const oldIsTTY = process.stdin.isTTY;
     process.stdin.isTTY = true;
     let resolveHangingPromise;
-    let promise = new Promise(resolve => (resolveHangingPromise = resolve));
+    const promise = new Promise(resolve => (resolveHangingPromise = resolve));
     devcert.certificateFor.mockReturnValueOnce(promise);
     const certPromise = configureHost({ subdomain: 'no-hurry' });
     jest.advanceTimersByTime(35000);

@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { setContext } from 'apollo-link-context';
-import { Util } from '@magento/peregrine';
-
+import { Util, WindowSizeContextProvider } from '@magento/peregrine';
 import { Adapter } from 'src/drivers';
 import store from 'src/store';
 import app from 'src/actions/app';
@@ -18,9 +17,8 @@ const apiBase = new URL('/graphql', location.origin).toString();
  * so we add an auth implementation here and prepend it to the Apollo Link list.
  */
 const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
+    // get the authentication token from local storage if it exists.
     const storage = new BrowserPersistence();
-    // TODO: Get correct token expire time from API
     const token = storage.getItem('signin_token');
 
     // return the headers to the context so httpLink can read them
@@ -38,7 +36,9 @@ ReactDOM.render(
         apollo={{ link: authLink.concat(Adapter.apolloLink(apiBase)) }}
         store={store}
     >
-        <App />
+        <WindowSizeContextProvider>
+            <App />
+        </WindowSizeContextProvider>
     </Adapter>,
     document.getElementById('root')
 );

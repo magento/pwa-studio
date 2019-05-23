@@ -15,6 +15,7 @@ test('Resolvers exports', () => {
         inline: expect.any(Function),
         proxy: expect.any(Function),
         service: expect.any(Function),
-        template: expect.any(Function)
+        template: expect.any(Function),
+        url: expect.any(Function)
     });
 });

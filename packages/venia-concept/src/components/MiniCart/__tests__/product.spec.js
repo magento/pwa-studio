@@ -12,7 +12,9 @@ const item = {
     price: 10,
     qty: 1,
     sku: 'TEST1',
-    image: 'test.jpg',
+    image: {
+        file: 'test.jpg'
+    },
     options: [
         {
             label: 'testLabel',
@@ -28,7 +30,7 @@ const item = {
 test('passed functions are called from nested `Section` components', () => {
     const removeItemFromCart = jest.fn();
     const openOptionsDrawer = jest.fn();
-    let wrapper = shallow(
+    const wrapper = shallow(
         <Product
             classes={classes}
             item={item}

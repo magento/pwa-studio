@@ -1,6 +1,7 @@
 query productDetailByName($name: String, $onServer: Boolean!) {
     products(filter: { name: { eq: $name } }) {
         items {
+            __typename
             id
             sku
             name

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const debug = require('../util/debug').makeFileLogger(__filename);
 const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
@@ -8,28 +9,28 @@ const optionsValidator = require('../util/options-validator');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
-const { readdir: readdirAsync, readFile: readFileAsync } = require('fs');
+const { readFile: readFileAsync } = require('fs');
 const { promisify } = require('util');
-const readdir = promisify(readdirAsync);
 const readFile = promisify(readFileAsync);
-const { resolve, relative } = require('path');
+const { relative } = require('path');
 const boxen = require('boxen');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
-const secureHostWarning = chalk.redBright(
-    `  To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
-  highly recommends using the ${chalk.whiteBright(
-      '"provideSecureHost"'
-  )} configuration
-  option of PWADevServer. `
-);
+const secureHostWarning = chalk.redBright(`
+    To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
+    highly recommends using the ${chalk.whiteBright(
+        '"provideSecureHost"'
+    )} configuration
+    option of PWADevServer.
+`);
 
-const helpText = `To autogenerate a unique host based on project name
-  and location on disk, simply add:
+const helpText = `
+    To autogenerate a unique host based on project name
+    and location on disk, simply add:
     ${chalk.whiteBright('provideSecureHost: true')}
-  to PWADevServer configuration options.
+    to PWADevServer configuration options.
 
-  More options for this feature are described in documentation.
+    More options for this feature are described in documentation.
 `;
 
 const PWADevServer = {
@@ -41,11 +42,21 @@ const PWADevServer = {
         debug('configure() invoked', config);
         PWADevServer.validateConfig('.configure(config)', config);
         const devServerConfig = {
+            public: process.env.PWA_STUDIO_PUBLIC_PATH || '',
             contentBase: false, // UpwardPlugin serves static files
             compress: true,
             hot: true,
+            watchOptions: {
+                // polling is CPU intensive - provide the option to turn it on if needed
+                poll:
+                    !!parseInt(
+                        process.env.PWA_STUDIO_HOT_RELOAD_WITH_POLLING
+                    ) || false
+            },
             host: '0.0.0.0',
-            port: await portscanner.findAPortNotInUse(10000),
+            port:
+                process.env.PWA_STUDIO_PORTS_DEVELOPMENT ||
+                (await portscanner.findAPortNotInUse(10000)),
             stats: {
                 all: !process.env.NODE_DEBUG ? false : undefined,
                 builtAt: true,
@@ -139,10 +150,6 @@ be configured to have the same effect as 'id'.
 
             devServerConfig.host = hostname;
             devServerConfig.https = ssl;
-            // workaround for https://github.com/webpack/webpack-dev-server/issues/1491
-            devServerConfig.https.spdy = {
-                protocols: ['http/1.1']
-            };
 
             const requestedPort =
                 process.env.PWA_STUDIO_PORTS_DEVELOPMENT || ports.development;
@@ -167,59 +174,74 @@ be configured to have the same effect as 'id'.
             console.warn(secureHostWarning + helpText);
         }
 
-        const { graphqlPlayground } = config;
-        if (graphqlPlayground) {
-            const { queryDirs = [] } = config.graphqlPlayground;
+        if (config.graphqlPlayground) {
             const endpoint = '/graphql';
 
-            const queryDirListings = await Promise.all(
-                queryDirs.map(async dir => {
-                    const files = await readdir(dir);
-                    return { dir, files };
-                })
-            );
-
-            const queryDirContents = await Promise.all(
-                queryDirListings.map(({ dir, files }) =>
-                    Promise.all(
-                        files.map(async queryFile => {
-                            const fileAbsPath = resolve(dir, queryFile);
-                            const query = await readFile(fileAbsPath, 'utf8');
-                            const name = relative(process.cwd(), fileAbsPath);
-                            return {
-                                endpoint,
-                                name,
-                                query
-                            };
-                        })
-                    )
-                )
-            );
-            const tabs = [].concat(...queryDirContents); // flatten
-
             const oldBefore = devServerConfig.before;
-            devServerConfig.before = app => {
-                oldBefore(app);
-                // this middleware has a bad habit of calling next() when it
-                // should not, so let's give it a noop next()
-                const noop = () => {};
-                const middleware = playgroundMiddleware({
-                    endpoint,
-                    tabs
+            devServerConfig.before = (app, server) => {
+                oldBefore(app, server);
+                let middleware;
+                const gatheringQueryTabs = new Promise((resolve, reject) => {
+                    const { compiler } = server.middleware.context;
+                    compiler.hooks.done.tap('PWADevServer', async stats => {
+                        const queryFilePaths = [];
+                        for (const filename of stats.compilation
+                            .fileDependencies) {
+                            if (filename.endsWith('.graphql')) {
+                                queryFilePaths.push(filename);
+                            }
+                        }
+                        try {
+                            resolve(
+                                await Promise.all(
+                                    queryFilePaths.map(async queryFile => {
+                                        const query = await readFile(
+                                            queryFile,
+                                            'utf8'
+                                        );
+                                        const name = relative(
+                                            process.cwd(),
+                                            queryFile
+                                        );
+                                        return {
+                                            endpoint,
+                                            name,
+                                            query
+                                        };
+                                    })
+                                )
+                            );
+                        } catch (e) {
+                            reject(e);
+                        }
+                    });
                 });
-                app.get('/graphiql', (req, res) => middleware(req, res, noop));
+                const noop = () => {};
+                app.get('/graphiql', async (req, res) => {
+                    if (!middleware) {
+                        middleware = playgroundMiddleware({
+                            endpoint,
+                            tabs: await gatheringQueryTabs
+                        });
+                    }
+                    // this middleware has a bad habit of calling next() when it
+                    // should not, so let's give it a noop next()
+                    middleware(req, res, noop);
+                });
             };
         }
 
         // Public path must be an absolute URL to enable hot module replacement
-        devServerConfig.publicPath = url.format({
-            protocol: devServerConfig.https ? 'https:' : 'http:',
-            hostname: devServerConfig.host,
-            port: devServerConfig.port,
-            // ensure trailing slash
-            pathname: config.publicPath.replace(/([^\/])$/, '$1/')
-        });
-
+        // If public key is set, then publicPath should equal the public key value - supports proxying https://bit.ly/2EOBVYL
+        devServerConfig.publicPath = devServerConfig.public
+            ? `https://${devServerConfig.public}/`
+            : url.format({
+                  protocol: devServerConfig.https ? 'https:' : 'http:',
+                  hostname: devServerConfig.host,
+                  port: devServerConfig.port,
+                  // ensure trailing slash
+                  pathname: config.publicPath.replace(/([^\/])$/, '$1/')
+              });
         return devServerConfig;
     }
 };

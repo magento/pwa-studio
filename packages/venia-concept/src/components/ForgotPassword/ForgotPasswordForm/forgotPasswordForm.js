@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'informed';
 
-import Input from 'src/components/Input';
 import Button from 'src/components/Button';
+import Field from 'src/components/Field';
+import TextInput from 'src/components/TextInput';
+
+import { isRequired } from 'src/util/formValidators';
+
 import classify from 'src/classify';
 import defaultClasses from './forgotPasswordForm.css';
 
@@ -23,20 +27,23 @@ class ForgotPasswordForm extends Component {
         initialValues: {}
     };
 
-    // There is an issue with handling initial values in Input.
-    // TODO: Pass initial value to email input after fixing this bug.
     render() {
-        const { classes, onSubmit } = this.props;
+        const { classes, initialValues, onSubmit } = this.props;
 
         return (
-            <Form className={classes.form} onSubmit={onSubmit}>
-                <Input
-                    label="Email Address"
-                    autoComplete="email"
-                    field="email"
-                    required
-                    selected
-                />
+            <Form
+                className={classes.root}
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+            >
+                <Field label="Email Address" required={true}>
+                    <TextInput
+                        autoComplete="email"
+                        field="email"
+                        validate={isRequired}
+                        validateOnBlur
+                    />
+                </Field>
                 <div className={classes.buttonContainer}>
                     <Button type="submit" priority="high">
                         Submit
