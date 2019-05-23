@@ -1,5 +1,5 @@
 import actions from 'src/actions/checkoutReceipt';
-import { continueShopping, createAccount } from 'src/actions/checkout';
+import { createAccount } from 'src/actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
 
@@ -24,7 +24,6 @@ test('returns a connected Receipt component', () => {
     expect(Container.component).toBe(Receipt);
     expect(Container.mapStateToProps).toBeInstanceOf(Function);
     expect(Container.mapDispatchToProps).toMatchObject({
-        continueShopping,
         createAccount,
         reset: actions.reset
     });
