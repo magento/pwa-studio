@@ -2,6 +2,10 @@ const { fail, danger, markdown, schedule, warn } = require('danger');
 const labels = require('danger-plugin-labels').default;
 
 /**
+ * TODO:
+ *  - Replace danger env token in build with reference to aws param store after fixing credentials
+ */
+
 /**
  * Automatically applies labels for proposed change type from contributor
  */
