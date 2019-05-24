@@ -146,9 +146,11 @@ stories.add('Editing', () => {
         ...baseProps,
         cart: {
             ...baseProps.cart,
-            editItem: configurableItem,
-            isEditingItem: true
-        }
+            editItem: nonConfigurableItem,
+            isEditingItem: true,
+            isLoading: false,
+        },
+        isCartEmpty: false
     };
 
     return (
