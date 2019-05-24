@@ -5,15 +5,20 @@ import { useToastContext } from './useToastContext';
 const DEFAULT_TIMEOUT = 5000;
 
 /**
- * Generates an identifier for a toast in a pure manner. Should always return
- * the same identifier for a given set of props.
+ * Generates an identifier for a toast by inspecting the properties that would
+ * differentiate the toasts visually from one another.
  */
-export const getToastId = props => {
-    const combined = Object.keys(props).reduce(
-        (acc, curr) => acc + props[curr],
-        ''
-    );
+export const getToastId = ({
+    type,
+    message,
+    dismissable = true,
+    actionText = '',
+    icon = () => {}
+}) => {
+    const combined = [type, message, dismissable, actionText, icon].join();
+
     // The hashing function below should generally avoid accidental collisions.
+    // It exists to give a "readable" identifier to toasts for debugging.
     let hash = 0,
         i,
         chr;
