@@ -35,6 +35,7 @@ const MiniCart = props => {
             <Body
                 beginEditItem={beginEditItem}
                 cart={cart}
+                closeDrawer={closeDrawer}
                 endEditItem={endEditItem}
                 isCartEmpty={isCartEmpty}
                 isMiniCartMaskOpen={isMiniCartMaskOpen}

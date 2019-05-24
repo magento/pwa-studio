@@ -1,11 +1,13 @@
 import React from 'react';
-import { string, shape } from 'prop-types';
+import { func, string, shape } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import Trigger from './trigger';
 import defaultClasses from './emptyMiniCart.css';
 
 const EmptyMiniCart = props => {
+    const { closeDrawer } = props;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -13,7 +15,7 @@ const EmptyMiniCart = props => {
             <h3 className={classes.emptyTitle}>
                 There are no items in your shopping cart
             </h3>
-            <Trigger>
+            <Trigger onClick={closeDrawer}>
                 <span className={classes.continue}>Continue Shopping</span>
             </Trigger>
         </div>
@@ -25,7 +27,8 @@ EmptyMiniCart.propTypes = {
         root: string,
         emptyTitle: string,
         continue: string
-    })
+    }),
+    closeDrawer: func
 };
 
 export default EmptyMiniCart;
