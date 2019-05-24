@@ -148,7 +148,7 @@ stories.add('Editing', () => {
             ...baseProps.cart,
             editItem: nonConfigurableItem,
             isEditingItem: true,
-            isLoading: false,
+            isLoading: false
         },
         isCartEmpty: false
     };
