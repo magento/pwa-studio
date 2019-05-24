@@ -37,4 +37,8 @@ schedule(labels({
 
     return true;
   }
-}))
+}));
+
+schedule(() => {
+  console.log(Object.keys(danger.git))
+})
