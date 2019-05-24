@@ -1,4 +1,5 @@
-import { fail, warn, markdown, danger } from 'danger';
+import { fail, danger, markdown, schedule, warn } from 'danger';
+import labels  from 'danger-plugin-labels';
 
 const fromRoot = p => require('path').relative('', p);
 
@@ -339,3 +340,20 @@ const runTasks = async tasks => {
         throw 'Danger found errors. See stack trace above.';
     }
 })();
+
+schedule(labels({
+  rules: [
+    {
+      match: /major (e.g x.0.0 - a breaking change)/i,
+      label: "version: Major"
+    },
+    {
+      match: /minor (e.g 0.x.0 - a backwards compatible addition)/i,
+      label: "version: Minor"
+    },
+    {
+      match: /patch (e.g 0.0.x - a bug fix)/i,
+      label: "version: Patch"
+    }
+  ]
+}))
