@@ -30,7 +30,6 @@ test('returns null when cart is empty', () => {
     const props = {
         ...baseProps,
         isCartEmpty: true
-
     };
     const tree = createTestInstance(<Footer {...props} />).toJSON();
 
