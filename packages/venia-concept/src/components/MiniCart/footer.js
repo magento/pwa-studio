@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { bool, object, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import Checkout from 'src/components/Checkout';
