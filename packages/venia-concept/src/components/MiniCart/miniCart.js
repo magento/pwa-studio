@@ -2,6 +2,7 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import Body from './body';
+import Footer from './footer';
 import Header from './header';
 
 import { mergeClasses } from 'src/classify';
@@ -40,10 +41,11 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />
-            {/* Note: A footer only appears when the ProductList
-             * component is visible. As such, the footer component
-             * now lives in ProductList.
-             */}
+            <Footer
+                cart={cart}
+                isCartEmpty={isCartEmpty}
+                isMiniCartMaskOpen={isMiniCartMaskOpen}
+            />
         </aside>
     );
 };

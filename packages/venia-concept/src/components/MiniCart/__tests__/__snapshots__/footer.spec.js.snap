@@ -6,3 +6,9 @@ exports[`renders totals summary and checkout components 1`] = `
   ( Checkout Component Here )
 </div>
 `;
+
+exports[`returns null when cart is editing item 1`] = `null`;
+
+exports[`returns null when cart is empty 1`] = `null`;
+
+exports[`returns null when cart is loading 1`] = `null`;

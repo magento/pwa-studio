@@ -72,6 +72,26 @@ const baseProps = {
 
 const stories = storiesOf('MiniCart', module);
 
+stories.add('Loading', () => {
+    const props = {
+        ...baseProps,
+        cart: {
+            ...baseProps.cart,
+            isLoading: true
+        }
+    };
+
+    return (
+        <Adapter
+            apiBase={apiBase}
+            apollo={{ link: Adapter.apolloLink(apiBase) }}
+            store={store}
+        >
+            <MiniCart {...props} />
+        </Adapter>
+    );
+});
+
 stories.add('Empty Cart', () => {
     const props = {
         ...baseProps
@@ -108,6 +128,27 @@ stories.add('Many Items', () => {
             }
         },
         isCartEmpty: false
+    };
+
+    return (
+        <Adapter
+            apiBase={apiBase}
+            apollo={{ link: Adapter.apolloLink(apiBase) }}
+            store={store}
+        >
+            <MiniCart {...props} />
+        </Adapter>
+    );
+});
+
+stories.add('Editing', () => {
+    const props = {
+        ...baseProps,
+        cart: {
+            ...baseProps.cart,
+            editItem: configurableItem,
+            isEditingItem: true
+        }
     };
 
     return (

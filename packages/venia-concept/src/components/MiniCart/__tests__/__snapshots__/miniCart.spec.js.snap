@@ -4,5 +4,6 @@ exports[`renders correctly 1`] = `
 <aside>
   ( Header Component Here )
   ( Body Component Here )
+  ( Footer Component Here )
 </aside>
 `;

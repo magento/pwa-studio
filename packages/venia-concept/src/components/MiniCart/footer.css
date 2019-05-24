@@ -10,10 +10,6 @@
     padding: var(--minicart-footer-padding-top) 0
         var(--minicart-footer-padding-bottom);
     background-color: white;
-    position: fixed;
-    bottom: 0;
-    justify-self: center;
-    width: 100%;
 }
 
 .root_open {

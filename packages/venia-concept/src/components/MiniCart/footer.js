@@ -5,14 +5,13 @@ import { mergeClasses } from 'src/classify';
 import Checkout from 'src/components/Checkout';
 import CheckoutButton from 'src/components/Checkout/checkoutButton';
 
-import defaultClasses from './productListFooter.css';
+import defaultClasses from './footer.css';
 import TotalsSummary from './totalsSummary';
 
-const ProductListFooter = props => {
-    // Props.
-    const { cart, isMiniCartMaskOpen } = props;
+const Footer = props => {
+    const { cart, isCartEmpty, isMiniCartMaskOpen } = props;
+    const { isEditingItem, isLoading } = cart;
 
-    // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
     const footerClassName = isMiniCartMaskOpen
         ? classes.root_open
@@ -22,6 +21,10 @@ const ProductListFooter = props => {
             <CheckoutButton ready={false} />
         </div>
     );
+
+    if (isCartEmpty || isLoading || isEditingItem) {
+        return null;
+    }
 
     return (
         <div className={footerClassName}>
@@ -33,15 +36,19 @@ const ProductListFooter = props => {
     );
 };
 
-ProductListFooter.propTypes = {
-    cart: object,
+Footer.propTypes = {
+    cart: shape({
+        isEditingItem: bool,
+        isLoading: bool
+    }).isRequired,
     classes: shape({
         placeholderButton: string,
         root: string,
         root_open: string,
         summary: string
     }),
+    isCartEmpty: bool,
     isMiniCartMaskOpen: bool
 };
 
-export default ProductListFooter;
+export default Footer;

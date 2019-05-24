@@ -5,6 +5,7 @@ import MiniCart from '../miniCart';
 
 jest.mock('../body');
 jest.mock('../header');
+jest.mock('../footer');
 
 test('renders correctly', () => {
     const props = {

@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import React from 'react';
+import { arrayOf, func, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
 
-import ProductListFooter from './productListFooter';
 import Product from './product';
 import defaultClasses from './productList.css';
 
@@ -13,7 +12,6 @@ const ProductList = props => {
         beginEditItem,
         cart,
         currencyCode,
-        isMiniCartMaskOpen,
         items,
         removeItemFromCart
     } = props;
@@ -22,28 +20,22 @@ const ProductList = props => {
     const currency = currencyCode || cart.details.currency.quote_currency_code;
 
     return (
-        <Fragment>
-            <List
-                classes={classes}
-                getItemKey={item => item.item_id}
-                items={items}
-                render="ul"
-                renderItem={props => {
-                    return (
-                        <Product
-                            beginEditItem={beginEditItem}
-                            currencyCode={currency}
-                            item={props.item}
-                            removeItemFromCart={removeItemFromCart}
-                        />
-                    );
-                }}
-            />
-            <ProductListFooter
-                cart={cart}
-                isMiniCartMaskOpen={isMiniCartMaskOpen}
-            />
-        </Fragment>
+        <List
+            classes={classes}
+            getItemKey={item => item.item_id}
+            items={items}
+            render="ul"
+            renderItem={props => {
+                return (
+                    <Product
+                        beginEditItem={beginEditItem}
+                        currencyCode={currency}
+                        item={props.item}
+                        removeItemFromCart={removeItemFromCart}
+                    />
+                );
+            }}
+        />
     );
 };
 
@@ -60,7 +52,6 @@ ProductList.propTypes = {
         root: string
     }),
     currencyCode: string,
-    isMiniCartMaskOpen: bool,
     items: arrayOf(
         shape({
             item_id: number,

@@ -4,7 +4,6 @@ import { createTestInstance } from '@magento/peregrine';
 import ProductList from '../productList';
 
 jest.mock('../product');
-jest.mock('../productListFooter');
 
 const baseProps = {
     cart: {
@@ -33,7 +32,16 @@ test('renders a list of Products when items are supplied', () => {
                 product_type: 'product type',
                 qty: 1,
                 quote_id: 1,
-                sku: 'sku'
+                sku: 'sku1'
+            },
+            {
+                item_id: 2,
+                name: 'unit test',
+                price: 99,
+                product_type: 'product type',
+                qty: 1,
+                quote_id: 1,
+                sku: 'sku2'
             }
         ]
     };
