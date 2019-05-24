@@ -39,6 +39,6 @@ schedule(labels({
   }
 }));
 
-schedule(() => {
-  console.log(Object.keys(danger.git))
-})
+// schedule(() => {
+//   console.log(Object.keys(danger.github.api))
+// })

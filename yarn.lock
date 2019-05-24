@@ -6026,12 +6026,11 @@ damerau-levenshtein@^1.0.4:
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.4.tgz#03191c432cb6eea168bb77f3a55ffdccb8978514"
   integrity sha1-AxkcQyy27qFou3fzpV/9zLiXhRQ=
 
-danger-plugin-labels@^2.1.1:
+"danger-plugin-labels@https://github.com/sirugh/danger-plugin-labels.git":
   version "2.1.1"
-  resolved "https://registry.yarnpkg.com/danger-plugin-labels/-/danger-plugin-labels-2.1.1.tgz#6bc2cea522a169778661e11dce166a98012032db"
-  integrity sha512-2SFL7CDPATzl27xZzB7RXJBWHiqTzmEyVfYzhl+oOIRGHeSeGUFfRtmK2s/EUZhxLURaPjq51Cp6wyyiCwok5Q==
+  resolved "https://github.com/sirugh/danger-plugin-labels.git#294597d6fa0b24bf3a2d807754c23ee125c2dd32"
   dependencies:
-    github-webhook-event-types "^1.0.0"
+    github-webhook-event-types "^1.1.0"
   optionalDependencies:
     esdoc "^0.5.2"
 
@@ -8060,7 +8059,7 @@ github-from-package@0.0.0:
   resolved "https://registry.yarnpkg.com/github-from-package/-/github-from-package-0.0.0.tgz#97fb5d96bfde8973313f20e8288ef9a167fa64ce"
   integrity sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4=
 
-github-webhook-event-types@^1.0.0:
+github-webhook-event-types@^1.1.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/github-webhook-event-types/-/github-webhook-event-types-1.2.1.tgz#3427ec2d7625457ef9c1bac5e929cb59b63bd667"
   integrity sha512-S0/O8tggnJwNYx4Gp39pgarBjO9/bY5/PAY8zlx8HuacWVULqk05M9wmZ0n42ueN+YSPWx/1BAItBKzv//4GfA==
