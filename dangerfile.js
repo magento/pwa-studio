@@ -5,6 +5,7 @@ const labels = require('danger-plugin-labels').default;
  * TODO:
  *  - Replace danger env token in build with reference to aws param store after fixing credentials
  *  - Merge back with pwa-studio-cicd
+ *  - Remove actor_id gate from webhook
  */
 
 /**
