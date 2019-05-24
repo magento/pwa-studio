@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a loading indicator while running query 1`] = `
-<span>
-  ( Loading Indicator Component Here )
-</span>
-`;
+exports[`renders a loading indicator while running query 1`] = `"( Loading Indicator Component Here )"`;
 
 exports[`renders cart options when item has no options 1`] = `"( Cart Options Component Here )"`;
 

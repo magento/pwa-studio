@@ -12,36 +12,22 @@ const EditItem = props => {
     // Props.
     const { endEditItem, isUpdatingItem, item, updateItemInCart } = props;
 
-    // We must have an item to edit.
-    if (!item) {
-        // TODO: log an error?
-        return null;
-    }
-
     // State / Hooks.
     const [queryResult, queryApi] = useQuery(PRODUCT_DETAILS);
-    const { data, error, loading } = queryResult;
+    const { data, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
 
     // Members.
-    const itemHasOptions = item.options.length > 0;
-
-    // Don't have to run the query for non-configurable items.
-    if (!itemHasOptions) {
-        return (
-            <CartOptions
-                cartItem={item}
-                configItem={{}}
-                endEditItem={endEditItem}
-                isUpdatingItem={isUpdatingItem}
-                updateCart={updateItemInCart}
-            />
-        );
-    }
+    const itemHasOptions = item && item.options && item.options.length > 0;
 
     // Run the query once on mount and again whenever the
     // item being edited changes.
     useEffect(() => {
+        // We must have an item with options.
+        if (!(item && itemHasOptions)) {
+            return;
+        }
+
         setLoading(true);
         runQuery({
             variables: {
@@ -55,14 +41,36 @@ const EditItem = props => {
      * Render.
      */
 
+    // We must have an item to edit.
+    if (!item) {
+        // TODO: log an error? Pop a toast?
+        return null;
+    }
+
+    // This is a non-configurable item, just set configItem to an empty object.
+    if (!itemHasOptions) {
+        return (
+            <CartOptions
+                cartItem={item}
+                configItem={{}}
+                endEditItem={endEditItem}
+                isUpdatingItem={isUpdatingItem}
+                updateCart={updateItemInCart}
+            />
+        );
+    }
+
     // We don't have data yet, we're either loading it or
     // in an error situation.
     if (!data) {
-        let status;
-        if (error) status = <span>Unable to fetch item options</span>;
-        if (loading) status = loadingIndicator;
+        if (loading) {
+            return loadingIndicator;
+        }
 
-        return <span>{status}</span>;
+        // There was an error.
+        // We have the details in queryResult.error but
+        // purposefully don't show them to the end user for security.
+        return <span>Unable to fetch item options.</span>;
     }
 
     // We do have this item's data.
