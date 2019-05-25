@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useCarousel = carouselSize => {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -15,11 +15,6 @@ export const useCarousel = carouselSize => {
     const handleNext = useCallback(() =>
         setActiveItemIndex((activeItemIndex + 1) % carouselSize)
     );
-
-    useEffect(() => {
-        setCurrentImageLoaded(true);
-        return () => setCurrentImageLoaded(false);
-    }, []);
 
     return {
         activeItemIndex,
