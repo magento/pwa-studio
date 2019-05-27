@@ -16,22 +16,3 @@
     letter-spacing: 0.25rem;
     text-transform: uppercase;
 }
-
-.indicator {
-    animation-direction: alternate;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-    animation-name: pulse;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes pulse {
-    0% {
-        filter: grayscale(1);
-        transform: scale(0.75) rotate(-540deg);
-    }
-    100% {
-        filter: grayscale(0);
-        transform: scale(1) rotate(0deg);
-    }
-}
