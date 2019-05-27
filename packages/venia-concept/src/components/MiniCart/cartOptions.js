@@ -116,17 +116,6 @@ class CartOptions extends Component {
             ? classes.modal_active
             : classes.modal;
 
-        const options = isProductConfigurable(configItem) ? (
-            <Suspense fallback={fallback}>
-                <section className={classes.options}>
-                    <Options
-                        options={configItem.configurable_options}
-                        onSelectionChange={handleSelectionChange}
-                    />
-                </section>
-            </Suspense>
-        ) : null;
-
         return (
             <Form className={classes.root}>
                 <div className={classes.focusItem}>
@@ -136,7 +125,14 @@ class CartOptions extends Component {
                     </span>
                 </div>
                 <div className={classes.form}>
-                    {options}
+                    <section className={classes.options}>
+                        <Suspense fallback={fallback}>
+                            <Options
+                                onSelectionChange={handleSelectionChange}
+                                product={configItem}
+                            />
+                        </Suspense>
+                    </section>
                     <section className={classes.quantity}>
                         <h2 className={classes.quantityTitle}>
                             <span>Quantity</span>
