@@ -1,10 +1,9 @@
 {{> templates/open-document}}
     <title>Venia -- Not Found</title>
   {{> templates/open-body }}
-    <div class="i-c i-c-loading">
+    <div class="i-c">
         <h1 class="i-c-heading">Not found!</h1>
         <img class="i-c-logo i-c-gray" alt="Not Found" src="/{{assets.svg.logo}}">
         <h2 class="i-c-subhead">Error 404</h2>
     </div>
-  {{> templates/seed-bundles}}
 {{> templates/close-document}}

@@ -1,4 +1,4 @@
 <div id="root">
-{{> templates/noscript-notice }}
+{{> templates/js-unavailable }}
 {{> templates/loading-this-entity }}
 </div>

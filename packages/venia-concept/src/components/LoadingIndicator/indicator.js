@@ -5,6 +5,9 @@ import defaultClasses from './indicator.css';
 
 import logo from '../Logo/logo.svg';
 
+// The <img> tag below has a hardcoded className, because it is
+// sharing its animation styles with the spinner code inlined
+// into the app shell. See templates/critical-style.mst.
 class LoadingIndicator extends Component {
     render() {
         const { props } = this;
@@ -13,7 +16,7 @@ class LoadingIndicator extends Component {
         return (
             <div className={classes.root}>
                 <img
-                    className={classes.indicator}
+                    className="i-c-spin"
                     src={logo}
                     width="64"
                     height="64"
