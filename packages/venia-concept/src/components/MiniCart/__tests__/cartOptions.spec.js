@@ -2,12 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CartOptions from '../cartOptions';
 
-const classes = {
-    root: 'root',
-    options: 'options',
-    save: 'save'
-};
-
 const cartItem = {
     qty: 1,
     name: 'Test',
@@ -49,40 +43,6 @@ const configItem = {
         }
     ]
 };
-
-test('renders with options when passed a configurable item', () => {
-    const updateCart = jest.fn();
-    const closeOptionsDrawer = jest.fn();
-    const wrapper = shallow(
-        <CartOptions
-            cartItem={cartItem}
-            configItem={configItem}
-            updateCart={updateCart}
-            closeOptionsDrawer={closeOptionsDrawer}
-            classes={classes}
-        />
-    ).dive();
-
-    const options = wrapper.find('section.options');
-    expect(options.length).toBe(1);
-});
-
-test('renders with an empty configurable item, does not display options', () => {
-    const updateCart = jest.fn();
-    const closeOptionsDrawer = jest.fn();
-    const wrapper = shallow(
-        <CartOptions
-            cartItem={cartItem}
-            configItem={{}}
-            updateCart={updateCart}
-            closeOptionsDrawer={closeOptionsDrawer}
-            classes={classes}
-        />
-    ).dive();
-    const options = wrapper.find('section.options');
-    expect(options.length).toBe(0);
-    expect(wrapper.hasClass(classes.root)).toBe(true);
-});
 
 test('submit action updates the cart item using configurable product data', () => {
     const { id, sku } = configItem.variants[0].product;
