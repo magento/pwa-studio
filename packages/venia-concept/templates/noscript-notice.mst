@@ -1,0 +1,13 @@
+<noscript>
+    <style>
+        .i-c-loading {
+            display: none;
+        }
+    </style>
+    <div class="i-c">
+        <img class="i-c-closed" alt="JavaScript is disabled" src="/veniaClosed.png">
+        <h1>Oops! JavaScript is disabled</h1>
+        <h2>To browse the Venia store,</h2>
+        <a href="https://www.enable-javascript.com">enable JavaScript in your browser.</a>
+    </div>
+</noscript>

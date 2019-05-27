@@ -126,7 +126,8 @@ appShell:
       # on the data each one provides.
       provide:
         model: resource.model
-        bundles: assetManifest.bundles
+        name: resource.name
+        assets: assetManifest
         urlResolver: urlResolver
         env: env
 
@@ -147,6 +148,7 @@ resource:
         inline:
           # See the top-level 'cmsPage' object for details on its resolved data
           model: cmsPage
+          name: cmsPage.title
           template: './templates/cmspage-shell.mst'
     - matches: urlResolver.type
       pattern: 'CATEGORY'
@@ -154,6 +156,7 @@ resource:
         inline:
           # See the top-level 'category' object for details on its resolved data
           model: category
+          name: category.name
           template: './templates/category-shell.mst'
     - matches: urlResolver.type
       pattern: 'PRODUCT'
@@ -161,6 +164,7 @@ resource:
         inline:
           # See the top-level 'product' object for details on its resolved data
           model: product
+          name: product.name
           template: './templates/product-shell.mst'
     # CMS_PAGE, CATEGORY, and PRODUCT are known page types with specific
     # data models and template files for each type.

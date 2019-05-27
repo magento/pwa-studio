@@ -1,0 +1,4 @@
+<div id="root">
+{{> templates/noscript-notice }}
+{{> templates/loading-this-entity }}
+</div>
