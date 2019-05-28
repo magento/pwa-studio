@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders correctly 1`] = `
+exports[`it renders the correct tree 1`] = `
 <t>
   <div>
     <span>

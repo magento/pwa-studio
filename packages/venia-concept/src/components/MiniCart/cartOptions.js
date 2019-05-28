@@ -93,8 +93,8 @@ const CartOptions = props => {
         <Suspense fallback={loadingIndicator}>
             <section className={classes.options}>
                 <Options
-                    options={configItem.configurable_options}
                     onSelectionChange={handleOptionsSelectionsChangeed}
+                    product={configItem}
                 />
             </section>
         </Suspense>

@@ -5,7 +5,7 @@ import CartOptions from '../cartOptions';
 
 const renderer = new ShallowRenderer();
 
-test('it renders correctly', () => {
+test('it renders the correct tree', () => {
     const props = {
         cartItem: {
             item_id: 99,
