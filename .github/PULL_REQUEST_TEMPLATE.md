@@ -27,7 +27,7 @@ Closes #ISSUE_NUMBER.
 2. Verify the BAR shows up.
 3. Make sure BAZ does a thing.
 
-## How Have YOU Tested this?
+## How have YOU tested this?
 <!--- Please describe in detail how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
 <!--- see how your change affects other areas of the code, etc. -->

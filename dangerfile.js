@@ -31,12 +31,12 @@ if (danger.github) {
             {
                 text:
                     'TODO: Please describe in detail how you tested your changes.',
-                header: 'How Have YOU Tested this?'
+                header: 'How have YOU tested this?'
             }
         ];
 
         rules.forEach(({ text, header }) => {
-            if (!danger.github.pr.body.match(`## ${header}`)) {
+            if (!danger.github.pr.body.match(`[#]+ ${header}`)) {
                 fail(
                     `Missing "${header}" section. Please add it back, with detail.`
                 );
