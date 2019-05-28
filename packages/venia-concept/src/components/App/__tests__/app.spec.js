@@ -17,7 +17,10 @@ Object.defineProperty(window.location, 'reload', {
 
 const mockAddToast = jest.fn();
 jest.mock('@magento/peregrine', () => {
-    const useToasts = jest.fn(() => [{}, { addToast: mockAddToast }]);
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: mockAddToast }
+    ]);
 
     return {
         ...jest.requireActual('@magento/peregrine'),
