@@ -15,18 +15,18 @@ module.exports = [
             }
         }
     },
-    {
-        target: 'peregrine/src/hooks/useEventListener.js',
-        type: 'function'
-    },
+//    {
+//        target: 'peregrine/src/hooks/useEventListener.js',
+//        type: 'function'
+//    },
     {
         target: 'peregrine/src/hooks/useDropdown.js',
         type: 'function'
     },
-    {
-        target: 'peregrine/src/hooks/useWindowSize.js',
-        type: 'function'
-    },
+//    {
+//        target: 'peregrine/src/hooks/useWindowSize.js',
+//        type: 'function'
+//    },
     {
         target: 'peregrine/src/hooks/useApolloContext.js',
         type: 'function'

@@ -10,7 +10,7 @@
     "scripts": {
         "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-compatibility-table build-html",
         "build-compatibility-table": "node scripts/create-compatibility-table.js",
-        "build-css": "node-sass --output-style compact --include-path src/_scss src/_scss/main.scss src/builds/css/main.css",
+        "build-css": "sass --style=compressed src/_scss/main.scss:src/builds/css/main.css",
         "build-html": "bundle exec jekyll build --source src -I",
         "build-js": "webpack --config webpack.config.js",
         "build-production": "npm-run-all -s clean build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
