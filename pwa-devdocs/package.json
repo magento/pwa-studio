@@ -5,12 +5,12 @@
     "description": "A documentation site for Magento PWA",
     "main": "gulpfile.js",
     "dependencies": {
-        "jquery": "^3.3.1"
+        "jquery": "^3.4.1"
     },
     "scripts": {
         "build": "npm-run-all -s build-js build-css build-reference-doc-snippets build-compatibility-table build-html",
         "build-compatibility-table": "node scripts/create-compatibility-table.js",
-        "build-css": "node-sass --output-style compact --include-path src/_scss src/_scss/main.scss src/builds/css/main.css",
+        "build-css": "sass --style=compressed src/_scss/main.scss:src/builds/css/main.css",
         "build-html": "bundle exec jekyll build --source src -I",
         "build-js": "webpack --config webpack.config.js",
         "build-production": "npm-run-all -s clean build-js build-css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
@@ -30,9 +30,9 @@
     },
     "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-devdocs#readme",
     "devDependencies": {
-        "browser-sync": "^2.26.3",
+        "browser-sync": "^2.26.5",
         "css-loader": "^2.1.0",
-        "node-sass": "^4.11.0",
+        "jsdoc-to-markdown": "^5.0.0",
         "npm-run-all": "^4.1.5",
         "react-docgen": "^3.0.0",
         "remark": "^10.0.1",
@@ -85,6 +85,7 @@
         "remark-lint-strong-marker": "^1.0.2",
         "remark-lint-unordered-list-marker-style": "^1.0.2",
         "remark-preset-lint-markdown-style-guide": "^2.1.2",
+        "sass": "^1.20.1",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",
         "to-vfile": "^5.0.2",
