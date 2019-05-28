@@ -11,7 +11,7 @@ import ToastContainer from 'src/components/ToastContainer';
 
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
-import CheckIcon from 'react-feather/dist/icons/check';
+import WifiIcon from 'react-feather/dist/icons/wifi';
 import { useToasts } from '@magento/peregrine';
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
@@ -78,7 +78,7 @@ const App = props => {
             if (isOnline) {
                 addToast({
                     type: 'info',
-                    icon: CheckIcon,
+                    icon: WifiIcon,
                     message: 'You are online.',
                     timeout: 3000
                 });
