@@ -1,41 +1,63 @@
-const { fail, danger, markdown, schedule, warn } = require('danger');
+const { fail, danger, schedule, warn } = require('danger');
 /**
  * TODO:
  *  - Replace danger env token in build with reference to aws param store after fixing credentials
  *  - Merge back with pwa-studio-cicd
- *  - Remove actor_id gate from webhook
- *  - switch danger-plugin-labels back to owner after they update the github api ref
+ *  - Remove branch gate from webhook
+ *  - Check for removal of PR template
  */
 
 if (danger.github) {
-    schedule(async function validatePrFilled() {
+    schedule(async function verifyNoTodos() {
+        if (danger.github.pr.body.match(/todo/i)) {
+            warn(
+                `Found the word "TODO" in the PR description. Just letting you know incase you forgot :)`
+            );
+        }
+    });
+
+    schedule(async function verifyPrFilled() {
+        let failures = false;
         // If any of these strings, pulled from the PR template, are found in the PR
         // description we should fail the PR as whomever opened it did not follow
         // ze rules.
-        const failIfFound = [
+        const rules = [
             {
                 text: 'TODO: Describe your changes in detail here.',
-                location: 'Description'
+                header: 'Description'
             },
-            { text: 'Closes #ISSUE_NUMBER', location: 'Related Issue' },
-            { text: '1. Go to the FOO page.', location: 'Verification Steps' },
+            { text: 'Closes #ISSUE_NUMBER', header: 'Related Issue' },
+            { text: '1. Go to the FOO page.', header: 'Verification Steps' },
             {
                 text:
                     'TODO: Please describe in detail how you tested your changes.',
-                location: 'How Have YOU Tested this?'
+                header: 'How Have YOU Tested this?'
             }
         ];
 
-        failIfFound.forEach(({ text, location }) => {
+        rules.forEach(({ text, header }) => {
+            if (!danger.github.pr.body.match(`## ${header}`)) {
+                fail(
+                    `Missing "${header}" section. Please add it back, with detail.`
+                );
+                failures = true;
+            }
             if (danger.github.pr.body.match(text)) {
                 fail(
-                    `Missing information in PR. Please fill out the "${location}" section.`
+                    `Missing information in PR. Please fill out the "${header}" section.`
                 );
+                failures = true;
             }
         });
+
+        if (failures) {
+            markdown(
+                'If your PR is missing information, check against the original template [here](https://raw.githubusercontent.com/magento-research/pwa-studio/develop/.github/PULL_REQUEST_TEMPLATE.md).'
+            );
+        }
     });
 
-    schedule(async function validateIssueIsOpen() {
+    schedule(async function verifyIssueIsOpen() {
         const { github } = danger;
         const { owner, repo } = github.thisPR;
 
@@ -57,7 +79,6 @@ if (danger.github) {
         const { github } = danger;
 
         const { owner, number: issue_number, repo } = github.thisPR;
-        console.log(owner);
         const { data } = await github.api.issues.listLabelsOnIssue({
             owner,
             repo,
