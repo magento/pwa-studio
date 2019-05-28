@@ -91,20 +91,20 @@ export const useToasts = () => {
             // Generate the id to use in the removal timeout.
             const id = getToastId(toastProps);
 
-            // Queue to delete the toast by id after some time.
-            const removalTimeoutId = setTimeout(
-                () => {
-                    removeToast(id);
-                },
-                timeout ? timeout : DEFAULT_TIMEOUT
-            );
-
             const handleDismiss = () => {
                 onDismiss ? onDismiss(() => removeToast(id)) : removeToast(id);
             };
 
             const handleAction = () =>
                 onAction ? onAction(() => removeToast(id)) : () => {};
+
+            // Queue to delete the toast by id after some time.
+            const removalTimeoutId = setTimeout(
+                () => {
+                    handleDismiss();
+                },
+                timeout ? timeout : DEFAULT_TIMEOUT
+            );
 
             dispatch({
                 type: 'add',
