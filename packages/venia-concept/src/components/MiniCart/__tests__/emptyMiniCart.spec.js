@@ -1,12 +1,12 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import EmptyMiniCart from '../emptyMiniCart';
 
-jest.mock('../trigger');
+const renderer = new ShallowRenderer();
 
 test('renders a "no items" message', () => {
-    const tree = createTestInstance(<EmptyMiniCart />).toJSON();
+    const tree = renderer.render(<EmptyMiniCart />);
 
     expect(tree).toMatchSnapshot();
 });

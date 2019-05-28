@@ -1,9 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`renders the correct tree 1`] = `
 <aside>
-  ( Header Component Here )
-  ( Body Component Here )
-  ( Footer Component Here )
+  <Header
+    isEditingItem={false}
+  />
+  <Body
+    beginEditItem={[MockFunction]}
+    cart={
+      Object {
+        "isEditingItem": false,
+      }
+    }
+    endEditItem={[MockFunction]}
+  />
+  <Footer
+    cart={
+      Object {
+        "isEditingItem": false,
+      }
+    }
+  />
 </aside>
 `;

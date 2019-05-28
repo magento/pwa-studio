@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a button with no children when children not supplied 1`] = `<button />`;
-
-exports[`renders children inside of a button 1`] = `
+exports[`renders the correct tree 1`] = `
 <button>
   <span>
     Hi, I'm a child
   </span>
 </button>
 `;
+
+exports[`renders the correct tree when children not supplied 1`] = `<button />`;

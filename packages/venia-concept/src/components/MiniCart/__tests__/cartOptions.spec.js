@@ -1,15 +1,10 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import CartOptions from '../cartOptions';
 
-jest.mock('src/components/LoadingIndicator', () => {
-    return {
-        __esModule: true,
-        default: () => '( Configurable Loading Indicator Component Here )',
-        loadingIndicator: '( Loading Indicator Component Here )'
-    };
-});
+const renderer = new ShallowRenderer();
+
 test('it renders correctly', () => {
     const props = {
         cartItem: {
@@ -25,7 +20,7 @@ test('it renders correctly', () => {
         updateCart: jest.fn()
     };
 
-    const tree = createTestInstance(<CartOptions {...props} />).toJSON();
+    const tree = renderer.render(<CartOptions {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders correctly 1`] = `
-<form
-  onReset={[Function]}
-  onSubmit={[Function]}
->
+<t>
   <div>
     <span>
       cartItem name
     </span>
     <span>
-      <div />
+      <mockConstructor
+        currencyCode="USD"
+        value={99}
+      />
     </span>
   </div>
   <div>
@@ -20,95 +20,34 @@ exports[`it renders correctly 1`] = `
           Quantity
         </span>
       </h2>
-      <div>
-        <span
-          style={
-            Object {
-              "--iconsAfter": 1,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span>
-            <select
-              aria-label="product's quantity"
-              name="quantity"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value={99}
-            >
-              <option
-                value={1}
-              >
-                1
-              </option>
-              <option
-                value={2}
-              >
-                2
-              </option>
-              <option
-                value={3}
-              >
-                3
-              </option>
-              <option
-                value={4}
-              >
-                4
-              </option>
-            </select>
-          </span>
-          <span />
-          <span>
-            <span>
-              <svg
-                fill="none"
-                height={18}
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width={18}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <polyline
-                  points="6 9 12 15 18 9"
-                />
-              </svg>
-            </span>
-          </span>
-        </span>
-        <p />
-      </div>
+      <Classify(Quantity)
+        initialValue={99}
+        onValueChange={[Function]}
+      />
     </section>
   </div>
   <div>
-    <button
+    <Classify(Button)
       onClick={[MockFunction]}
-      type="button"
     >
       <span>
-        <span>
-          Cancel
-        </span>
+        Cancel
       </span>
-    </button>
-    <button
+    </Classify(Button)>
+    <Classify(Button)
       disabled={false}
       onClick={[Function]}
-      type="button"
+      priority="high"
     >
       <span>
-        <span>
-          Update Cart
-        </span>
+        Update Cart
       </span>
-    </button>
+    </Classify(Button)>
   </div>
   <div>
-    ( Configurable Loading Indicator Component Here )
+    <Classify(LoadingIndicator)>
+      Updating Cart
+    </Classify(LoadingIndicator)>
   </div>
-</form>
+</t>
 `;

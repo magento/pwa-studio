@@ -1,10 +1,12 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import ProductOptions from '../productOptions';
 
+const renderer = new ShallowRenderer();
+
 test('it renders null when options are missing', () => {
-    const tree = createTestInstance(<ProductOptions />);
+    const tree = renderer.render(<ProductOptions />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -13,12 +15,12 @@ test('it renders null when options is empty', () => {
     const props = {
         options: []
     };
-    const tree = createTestInstance(<ProductOptions {...props} />);
+    const tree = renderer.render(<ProductOptions {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
 
-test('it renders correctly when options is not empty', () => {
+test('it renders the correct tree', () => {
     const props = {
         options: [
             {
@@ -31,7 +33,7 @@ test('it renders correctly when options is not empty', () => {
             }
         ]
     };
-    const tree = createTestInstance(<ProductOptions {...props} />).toJSON();
+    const tree = renderer.render(<ProductOptions {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

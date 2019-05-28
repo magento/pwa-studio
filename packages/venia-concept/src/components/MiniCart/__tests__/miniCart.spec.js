@@ -1,13 +1,11 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import MiniCart from '../miniCart';
 
-jest.mock('../body');
-jest.mock('../header');
-jest.mock('../footer');
+const renderer = new ShallowRenderer();
 
-test('renders correctly', () => {
+test('renders the correct tree', () => {
     const props = {
         beginEditItem: jest.fn(),
         endEditItem: jest.fn(),
@@ -16,7 +14,7 @@ test('renders correctly', () => {
         }
     };
 
-    const tree = createTestInstance(<MiniCart {...props} />).toJSON();
+    const tree = renderer.render(<MiniCart {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

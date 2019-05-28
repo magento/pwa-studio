@@ -1,7 +1,9 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import Section from '../section';
+
+const renderer = new ShallowRenderer();
 
 test('it renders an icon when passed a valid one', () => {
     const props = {
@@ -9,7 +11,7 @@ test('it renders an icon when passed a valid one', () => {
         text: 'Unit Test Text'
     };
 
-    const tree = createTestInstance(<Section {...props} />).toJSON();
+    const tree = renderer.render(<Section {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -20,7 +22,7 @@ test('it does not render an icon when passed an invalid one', () => {
         text: 'Unit Test Text'
     };
 
-    const tree = createTestInstance(<Section {...props} />).toJSON();
+    const tree = renderer.render(<Section {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -31,7 +33,7 @@ test('it does not render an icon when not passed one', () => {
         text: 'Unit Test Text'
     };
 
-    const tree = createTestInstance(<Section {...props} />).toJSON();
+    const tree = renderer.render(<Section {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -47,7 +49,7 @@ test('it overrides icon attributes when given them', () => {
         text: 'Unit Test Text'
     };
 
-    const tree = createTestInstance(<Section {...props} />).toJSON();
+    const tree = renderer.render(<Section {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

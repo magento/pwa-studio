@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import Product from '../product';
 
@@ -8,11 +8,12 @@ global.getComputedStyle = jest.fn().mockReturnValue({
 });
 jest.mock('react', () => {
     const React = jest.requireActual('react');
-    return Object.assign(React, { useState: jest.fn(React.useState) });
+    const spy = jest.spyOn(React, 'useState');
+
+    return Object.assign(React, { useState: spy });
 });
 
-jest.mock('../productOptions');
-jest.mock('../kebab');
+const renderer = new ShallowRenderer();
 
 const props = {
     beginEditItem: jest.fn(),
@@ -30,12 +31,12 @@ const props = {
 };
 
 test('it renders correctly', () => {
-    const tree = createTestInstance(<Product {...props} />).toJSON();
+    const tree = renderer.render(<Product {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
 
-test('it renders a mask div above the kebab if it is loading', () => {
+test('it renders a mask div before the kebab if it is loading', () => {
     useState
         // backgroundImage
         .mockReturnValueOnce([null, jest.fn()])
@@ -44,7 +45,7 @@ test('it renders a mask div above the kebab if it is loading', () => {
         // isLoading
         .mockReturnValueOnce([true, jest.fn()]);
 
-    const tree = createTestInstance(<Product {...props} />).toJSON();
+    const tree = renderer.render(<Product {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

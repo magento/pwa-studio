@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders a mask div above the kebab if it is loading 1`] = `
+exports[`it renders a mask div before the kebab if it is loading 1`] = `
 <li>
   <div
     style={
@@ -12,7 +12,9 @@ exports[`it renders a mask div above the kebab if it is loading 1`] = `
   <div>
     Unit Test Product
   </div>
-  ( Product Options Component Here )
+  <ProductOptions
+    options={Array []}
+  />
   <div>
     <div>
       <span>
@@ -22,12 +24,32 @@ exports[`it renders a mask div above the kebab if it is loading 1`] = `
         ×
       </span>
       <span>
-        <div />
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
       </span>
     </div>
   </div>
   <div />
-  ( Kebab Component Here )
+  <Kebab>
+    <Section
+      icon="Heart"
+      iconAttributes={Object {}}
+      onClick={[Function]}
+      text="Add to favorites"
+    />
+    <Section
+      icon="Edit2"
+      onClick={[Function]}
+      text="Edit item"
+    />
+    <Section
+      icon="Trash"
+      onClick={[Function]}
+      text="Remove item"
+    />
+  </Kebab>
 </li>
 `;
 
@@ -36,14 +58,16 @@ exports[`it renders correctly 1`] = `
   <div
     style={
       Object {
-        "backgroundImage": "url(/media/catalog/product/unittest?auto=webp&format=pjpg&width=80)",
+        "backgroundImage": null,
       }
     }
   />
   <div>
     Unit Test Product
   </div>
-  ( Product Options Component Here )
+  <ProductOptions
+    options={Array []}
+  />
   <div>
     <div>
       <span>
@@ -53,10 +77,30 @@ exports[`it renders correctly 1`] = `
         ×
       </span>
       <span>
-        <div />
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
       </span>
     </div>
   </div>
-  ( Kebab Component Here )
+  <Kebab>
+    <Section
+      icon="Heart"
+      iconAttributes={Object {}}
+      onClick={[Function]}
+      text="Add to favorites"
+    />
+    <Section
+      icon="Edit2"
+      onClick={[Function]}
+      text="Edit item"
+    />
+    <Section
+      icon="Trash"
+      onClick={[Function]}
+      text="Remove item"
+    />
+  </Kebab>
 </li>
 `;

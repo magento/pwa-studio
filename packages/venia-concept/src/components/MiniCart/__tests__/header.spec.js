@@ -1,30 +1,30 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import Header from '../header';
 
-jest.mock('../trigger');
-jest.mock('src/components/Icon', () => ({
-    __esModule: true,
-    default: () => <span>Mock Icon Component</span>
-}));
+const renderer = new ShallowRenderer();
 
-test('it renders correctly', () => {
+test('it renders the correct tree', () => {
     const props = {
         isEditingItem: false
     };
 
-    const tree = createTestInstance(<Header {...props} />).toJSON();
+    const tree = renderer.render(<Header {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
 
-test('it changes the title when editing an item', () => {
+test('it renders a different title while editing', () => {
     const props = {
         isEditingItem: true
     };
 
-    const tree = createTestInstance(<Header {...props} />).toJSON();
+    renderer.render(<Header {...props} />);
+    const result = renderer.getRenderOutput();
 
-    expect(tree).toMatchSnapshot();
+    const headerTag = result.props.children[0];
+    const title = headerTag.props.children;
+    
+    expect(title).toBe('Edit Cart Item');
 });

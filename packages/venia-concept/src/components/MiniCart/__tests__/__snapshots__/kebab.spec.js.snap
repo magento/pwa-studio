@@ -3,9 +3,9 @@
 exports[`it renders children passed to it 1`] = `
 <div>
   <button>
-    <span>
-      Mock Icon Component
-    </span>
+    <Classify(Icon)
+      src={[Function]}
+    />
   </button>
   <ul>
     <div>
@@ -24,9 +24,9 @@ exports[`it renders children passed to it 1`] = `
 exports[`it renders correctly without children 1`] = `
 <div>
   <button>
-    <span>
-      Mock Icon Component
-    </span>
+    <Classify(Icon)
+      src={[Function]}
+    />
   </button>
   <ul />
 </div>

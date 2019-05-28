@@ -1,15 +1,12 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import MiniCartMask from '../mask';
 
-jest.mock('src/components/Mask', () => ({
-    __esModule: true,
-    default: () => '( Shared Mask Component Here )'
-}));
+const renderer = new ShallowRenderer();
 
 test('it renders the shared Mask component', () => {
-    const tree = createTestInstance(<MiniCartMask />).toJSON();
+    const tree = renderer.render(<MiniCartMask />);
 
     expect(tree).toMatchSnapshot();
 });

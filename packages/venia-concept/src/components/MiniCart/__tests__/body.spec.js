@@ -1,18 +1,9 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import Body from '../body';
 
-jest.mock('../editItem');
-jest.mock('../emptyMiniCart');
-jest.mock('../productList');
-
-jest.mock('src/components/LoadingIndicator', () => {
-    return {
-        __esModule: true,
-        loadingIndicator: '( Loading Indicator Component Here )'
-    };
-});
+const renderer = new ShallowRenderer();
 
 const baseProps = {
     beginEditItem: jest.fn(),
@@ -23,7 +14,7 @@ const baseProps = {
 };
 
 test('renders the product list when appropriate', () => {
-    const tree = createTestInstance(<Body {...baseProps} />).toJSON();
+    const tree = renderer.render(<Body {...baseProps} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -37,7 +28,7 @@ test('renders the loading indicator when appropriate', () => {
         }
     };
 
-    const tree = createTestInstance(<Body {...testProps} />).toJSON();
+    const tree = renderer.render(<Body {...testProps} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -48,7 +39,7 @@ test('renders the empty mini cart when appropriate', () => {
         isCartEmpty: true
     };
 
-    const tree = createTestInstance(<Body {...testProps} />).toJSON();
+    const tree = renderer.render(<Body {...testProps} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -62,7 +53,7 @@ test('renders the edit item dialog when appropriate', () => {
         }
     };
 
-    const tree = createTestInstance(<Body {...testProps} />).toJSON();
+    const tree = renderer.render(<Body {...testProps} />);
 
     expect(tree).toMatchSnapshot();
 });

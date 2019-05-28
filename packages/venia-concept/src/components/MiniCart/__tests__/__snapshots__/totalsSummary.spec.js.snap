@@ -8,7 +8,10 @@ exports[`renders correctly when it has a subtotal 1`] = `
     <dt>
       <span>
         Cart Total : 
-        <div />
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
       </span>
     </dt>
     <dd>

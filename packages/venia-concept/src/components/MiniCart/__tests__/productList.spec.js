@@ -1,9 +1,9 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import ProductList from '../productList';
 
-jest.mock('../product');
+const renderer = new ShallowRenderer();
 
 const baseProps = {
     cart: {
@@ -16,7 +16,7 @@ const baseProps = {
 };
 
 test('renders a list with no items when items are not supplied', () => {
-    const tree = createTestInstance(<ProductList {...baseProps} />).toJSON();
+    const tree = renderer.render(<ProductList {...baseProps} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -45,7 +45,7 @@ test('renders a list of Products when items are supplied', () => {
             }
         ]
     };
-    const tree = createTestInstance(<ProductList {...props} />).toJSON();
+    const tree = renderer.render(<ProductList {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

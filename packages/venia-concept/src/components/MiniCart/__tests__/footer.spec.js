@@ -1,15 +1,9 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import Footer from '../footer';
 
-jest.mock('../totalsSummary');
-jest.mock('src/components/Checkout', () => {
-    return jest.fn().mockReturnValue('( Checkout Component Here )');
-});
-jest.mock('src/components/Checkout/checkoutButton', () => {
-    return jest.fn().mockReturnValue('( Checkout Button Component Here )');
-});
+const renderer = new ShallowRenderer();
 
 const baseProps = {
     cart: {
@@ -21,7 +15,7 @@ const baseProps = {
 };
 
 test('renders totals summary and checkout components', () => {
-    const tree = createTestInstance(<Footer {...baseProps} />).toJSON();
+    const tree = renderer.render(<Footer {...baseProps} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -31,7 +25,7 @@ test('returns null when cart is empty', () => {
         ...baseProps,
         isCartEmpty: true
     };
-    const tree = createTestInstance(<Footer {...props} />).toJSON();
+    const tree = renderer.render(<Footer {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -44,7 +38,7 @@ test('returns null when cart is loading', () => {
             isLoading: true
         }
     };
-    const tree = createTestInstance(<Footer {...props} />).toJSON();
+    const tree = renderer.render(<Footer {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -57,7 +51,7 @@ test('returns null when cart is editing item', () => {
             isEditingItem: true
         }
     };
-    const tree = createTestInstance(<Footer {...props} />).toJSON();
+    const tree = renderer.render(<Footer {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

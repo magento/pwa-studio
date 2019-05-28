@@ -2,8 +2,32 @@
 
 exports[`renders totals summary and checkout components 1`] = `
 <div>
-  ( Totals Summary Component Here )
-  ( Checkout Component Here )
+  <TotalsSummary
+    cart={
+      Object {
+        "isEditingItem": false,
+        "isLoading": false,
+      }
+    }
+  />
+  <React.Suspense
+    fallback={
+      <div>
+        <CheckoutButton
+          ready={false}
+        />
+      </div>
+    }
+  >
+    <Connect(CheckoutWrapper)
+      cart={
+        Object {
+          "isEditingItem": false,
+          "isLoading": false,
+        }
+      }
+    />
+  </React.Suspense>
 </div>
 `;
 

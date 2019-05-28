@@ -1,7 +1,9 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import TotalsSummary from '../totalsSummary';
+
+const renderer = new ShallowRenderer();
 
 test('renders correctly when it has a subtotal', () => {
     const props = {
@@ -18,7 +20,7 @@ test('renders correctly when it has a subtotal', () => {
         }
     };
 
-    const tree = createTestInstance(<TotalsSummary {...props} />).toJSON();
+    const tree = renderer.render(<TotalsSummary {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
@@ -36,7 +38,7 @@ test('renders an empty div when it does not have a subtotal', () => {
         }
     };
 
-    const tree = createTestInstance(<TotalsSummary {...props} />).toJSON();
+    const tree = renderer.render(<TotalsSummary {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
