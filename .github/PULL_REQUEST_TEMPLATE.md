@@ -11,13 +11,13 @@ Feel free to remove this section before creating this PR. Thank you for your con
 -->
 
 ## Description
-<!--- Describe your changes in detail here -->
+TODO: Describe your changes in detail here.
 
 ## Related Issue
 <!--- This project only accepts pull requests related to open issues -->
 <!--- If suggesting a new feature or change, please discuss it in an issue first -->
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
-<!--- Please link to the issue here with the specific wording: "Closes #<issue>" -->
+<!--- Please link to the issue here by replacing ISSUE_NUMBER with your actual issue number. -->
 <!--- Using the above wording causes Github to automatically close the issue on merge. -->
 Closes #ISSUE_NUMBER.
 
@@ -31,6 +31,7 @@ Closes #ISSUE_NUMBER.
 <!--- Please describe in detail how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
 <!--- see how your change affects other areas of the code, etc. -->
+TODO: Please describe in detail how you tested your changes.
 
 ## Screenshots / Screen Captures (if appropriate):
 
