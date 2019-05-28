@@ -95,5 +95,9 @@
       "path": "./packages/venia-concept/dist/js/[0-9]-*.js",
       "maxSize": "21 kB"
     }
-  ]
+  ],
+  "dependencies": {
+    "react-image-magnify": "^2.7.4",
+    "react-slick": "^0.24.0"
+  }
 }

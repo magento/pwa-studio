@@ -1,24 +1,17 @@
 .root {
-    display: grid;
-    grid-template-areas:
-        'main'
-        'thumbs';
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+    display: block;
 }
 
-@media (min-width: 1024px) {
-    .root {
-        grid-gap: 1.5rem;
-        grid-template-areas: 'thumbs main';
-        grid-template-columns: 17fr 80fr;
-    }
-}
+
 
 .imageContainer {
-    display: grid;
-    grid-area: main;
-    grid-template-columns: repeat(3, 1fr);
+    display: block;
+    width: 64%;
+    float: left;
+}
+
+.imageContainer div {
+    margin: 0 auto;
 }
 
 .currentImage {
@@ -51,5 +44,15 @@
     .chevron-left,
     .chevron-right {
         display: none;
+    }
+    .imageContainer {
+        float: right;
+    }
+}
+@media (max-width: 767px) {
+    .imageContainer {
+        display: block;
+        width: 100%;
+        float: right;
     }
 }

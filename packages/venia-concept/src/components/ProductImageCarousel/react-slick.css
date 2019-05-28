@@ -1,0 +1,29 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css";
+
+.react-slick * {
+    min-height: 0;
+    min-width: 0;
+}
+
+.react-slick .slick-prev, .react-slick .slick-next {
+    background-color: rgb(187, 184, 184);
+    border-radius: 10px;
+}
+
+.react-slick .fluid__instructions {
+    margin-top: 30px;
+}
+.slick-track {
+    transform: none !important;
+}
+@media (min-width: 480px) {
+    .react-slick .fluid__image-container{
+        margin: 40px;
+    }
+
+    .react-slick .fluid__instructions {
+        margin: 0 20px;
+        padding-top: 20px;
+    }
+}
