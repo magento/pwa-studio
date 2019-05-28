@@ -6,8 +6,8 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
 
-- [What's new in 3.0.0](#whats-new-in-300)
-- [Updating from 2.1.0](#updating-from-210)
+-   [What's new in 3.0.0](#whats-new-in-300)
+-   [Updating from 2.1.0](#updating-from-210)
 
 ## What's new in 3.0.0
 
@@ -15,29 +15,41 @@ PWA Studio 3.0.0 contains improvements, new features, and some breaking changes.
 
 ### Summary of major changes
 
-- **Peregrine hooks:**
+-   **Peregrine hooks:**
     Custom [React Hooks][] that contain data and state management logic has been added to the Peregrine library.
     These hooks allow developers to easily create functional components that focus on presentational logic.
-    This also allows for a more modular use of PWA logic and easier "restyling" of Venia (or any PWA Storefront built using PWA Studio).
+    These also allow for a more modular use of PWA logic and easier "restyling" of Venia (or any PWA storefront built using PWA Studio).
 
-### Peregrine
+### Summary of breaking changes
+
+-   PR [#1169][] includes the following breaking changes:
+
+    -   Removed some public user actions
+    -   Prop type removed in the `CreateAccount` component
+    -   Deleted the `ErrorDisplay` component
+    -   Deleted the `Input` component
+
+-   PR [#1078][] includes the following breaking changes:
+
+    -   `SearchBar` component converted into a React hook that uses custom Peregrine hooks
+
+### Peregrine changes
 
 | Change type | Description                         | PR        |
 | ----------- | ----------------------------------- | --------- |
 | Feature     | New custom React hooks              | [#1078][] |
 | Update      | Upgrade `react-router-dom` to 5.0.0 | [#1063][] |
 
-### UPWARD
+### UPWARD changes
 
 | Change type | Description                     | PR                   |
 | ----------- | ------------------------------- | -------------------- |
 | Feature     | New resolver added: UrlResolver | [#1058][], [#1175][] |
 
-### Venia
+### Venia changes
 
 | Change type | Description                                                                 | PR        |
 | ----------- | --------------------------------------------------------------------------- | --------- |
-| Feature     | Layered navigation (filters) modal component                                | [#797][]  |
 | Feature     | New SwatchTooltip component                                                 | [#956][]  |
 | Feature     | Focus search input on search icon button click                              | [#1019][] |
 | Update      | Improve the usability of the "Remove item" feature in the MiniCart          | [#882][]  |
@@ -56,13 +68,13 @@ PWA Studio 3.0.0 contains improvements, new features, and some breaking changes.
 | Bugfix      | Hide menu item from navigation if it is disabled in the Magento admin       | [#1022][] |
 | Bugfix      | Prevent adding to cart during rapid multi-clicking                          | [#910][]  |
 
-### Buildpack
+### Buildpack changes
 
 | Change type | Description                           | PR        |
 | ----------- | ------------------------------------- | --------- |
 | Update      | Update `workbox-webpack-plugin` to v4 | [#1102][] |
 
-### Misc project updates
+### Misc project changes
 
 | Change type    | Description                            | PR                                         |
 | -------------- | -------------------------------------- | ------------------------------------------ |
@@ -125,7 +137,7 @@ To upgrade to 3.0.0, update the project's `package.json` file and change the dep
 [`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
 [hello upward]: https://magento-research.github.io/pwa-studio/tutorials/hello-upward/simple-server/
 [magento compatibility table]: https://magento-research.github.io/pwa-studio/technologies/magento-compatibility/
-[React Hooks]: https://reactjs.org/docs/hooks-intro.html
+[react hooks]: https://reactjs.org/docs/hooks-intro.html
 [#1253]: https://github.com/magento-research/pwa-studio/pull/1253
 [#1177]: https://github.com/magento-research/pwa-studio/pull/1177
 [#1058]: https://github.com/magento-research/pwa-studio/pull/1058
@@ -167,6 +179,5 @@ To upgrade to 3.0.0, update the project's `package.json` file and change the dep
 [#956]: https://github.com/magento-research/pwa-studio/pull/956
 [#910]: https://github.com/magento-research/pwa-studio/pull/910
 [#882]: https://github.com/magento-research/pwa-studio/pull/882
-[#797]: https://github.com/magento-research/pwa-studio/pull/797
 [#1078]: https://github.com/magento-research/pwa-studio/pull/1078
 [#1043]: https://github.com/magento-research/pwa-studio/pull/1043
