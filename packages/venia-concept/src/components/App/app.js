@@ -87,7 +87,8 @@ const App = props => {
                     type: 'error',
                     icon: CloudOffIcon,
                     message:
-                        'You are offline. Some features may be unavailable.'
+                        'You are offline. Some features may be unavailable.',
+                    timeout: 3000
                 });
             }
         }
