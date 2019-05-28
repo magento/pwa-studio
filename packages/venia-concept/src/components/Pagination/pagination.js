@@ -27,11 +27,6 @@ class Pagination extends Component {
     };
 
     componentDidMount() {
-        // updateTotalPages pushes the current page count of a category query to
-        // redux so it knows how many tiles to render even in the Query
-        // component's loading state
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
         this.syncPage();
     }
 
@@ -171,28 +166,31 @@ class Pagination extends Component {
         const { location, pageControl } = this.props;
         const { currentPage, setPage, totalPages } = pageControl;
 
-        const queryPage = Math.max(
-            1,
-            // Note: The ~ operator is a bitwise NOT operator.
-            // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
-            // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
-            // For positive numbers, applying this operator twice has the same effect as Math.floor.
-            ~~getQueryParameterValue({
-                location,
-                queryParameter: 'page'
-            })
-        );
+        // Indicator that our data has been loaded and we know enough to bounds check
+        if (totalPages) {
+            const queryPage = Math.max(
+                1,
+                // Note: The ~ operator is a bitwise NOT operator.
+                // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
+                // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
+                // For positive numbers, applying this operator twice has the same effect as Math.floor.
+                ~~getQueryParameterValue({
+                    location,
+                    queryParameter: 'page'
+                })
+            );
 
-        // if the page in the query string doesn't match client state
-        // update client state
-        if (queryPage !== currentPage) {
-            // if the query page is not a valid page number
-            // set it to `1` instead
-            // and make sure to update the URL
-            if (queryPage > totalPages) {
-                this.setPage(1, true);
-            } else {
-                setPage(queryPage);
+            // if the page in the query string doesn't match client state
+            // update client state
+            if (queryPage !== currentPage) {
+                // if the query page is not a valid page number
+                // set it to `1` instead
+                // and make sure to update the URL
+                if (queryPage > totalPages) {
+                    this.setPage(1, true);
+                } else {
+                    setPage(queryPage);
+                }
             }
         }
     };
