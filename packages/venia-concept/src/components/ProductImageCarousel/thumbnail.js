@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback} from 'react';
+import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { resourceUrl } from 'src/drivers';
@@ -34,10 +34,9 @@ function Thumbnail(props) {
             {isDesktop ? (
                 <button
                     onClick={handleClick}
-                    className={isActive ? classes.rootSelected : classes.root} >
-
-                        <img className={classes.image} src={src} alt={label} />
-
+                    className={isActive ? classes.rootSelected : classes.root}
+                >
+                    <img className={classes.image} src={src} alt={label} />
                 </button>
             ) : null}
         </Fragment>
@@ -59,5 +58,3 @@ Thumbnail.propTypes = {
 };
 
 export default Thumbnail;
-
-

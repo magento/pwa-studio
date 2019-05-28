@@ -15,8 +15,6 @@
     background-color: rgb(var(--venia-text));
 }
 
-
-
 /* For desktop mode where buttons are an image... */
 @media (min-width: 1024px) {
     .root {

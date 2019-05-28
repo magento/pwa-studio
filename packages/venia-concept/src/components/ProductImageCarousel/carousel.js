@@ -9,17 +9,11 @@ import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
 
-
-import Zoom from "./zoom";
-import Slider from "react-slick";
-import "./react-slick.css";
-
-
+import Zoom from './zoom';
+import Slider from 'react-slick';
+import './react-slick.css';
 
 class Carousel extends Component {
-
-
-
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
@@ -68,7 +62,6 @@ class Carousel extends Component {
         return this.sortAndFilterImages(images);
     }
 
-
     render() {
         const slickSettings = {
             dots: true,
@@ -83,34 +76,34 @@ class Carousel extends Component {
 
         const sortedImages = this.sortedImages;
 
-
         return (
             <div className={classes.root}>
                 <div className={classes.imageContainer}>
                     <div className={classes.ZoomGallery}>
-                        <Slider {...slickSettings} ref={slider => (this.slider = slider)} >
+                        <Slider
+                            {...slickSettings}
+                            ref={slider => (this.slider = slider)}
+                        >
                             {this.sortedImages.map((slide, index) => (
                                 <Zoom
-                                    item = {slide}
-                                    data-index={index} key={index}
-                                    transparentPlaceholder = {transparentPlaceholder}
-                                    resourceUrl = {resourceUrl}
+                                    item={slide}
+                                    data-index={index}
+                                    key={index}
+                                    transparentPlaceholder={
+                                        transparentPlaceholder
+                                    }
+                                    resourceUrl={resourceUrl}
                                 />
                             ))}
                         </Slider>
                     </div>
                 </div>
 
-
-
-
                 <ThumbnailList
                     items={sortedImages}
                     activeItemIndex={this.state.activeItemIndex}
                     updateActiveItemIndex={this.updateActiveItemIndex}
                 />
-
-
             </div>
         );
     }

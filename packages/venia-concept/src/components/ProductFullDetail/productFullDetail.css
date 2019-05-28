@@ -8,12 +8,12 @@
         display: grid;
         grid-auto-flow: row;
         grid-template-areas:
-                'images title'
-                'images actions'
-                'images options'
-                'images quantity'
-                'images cart'
-                'images .';
+            'images title'
+            'images actions'
+            'images options'
+            'images quantity'
+            'images cart'
+            'images .';
         grid-template-columns: 66% 36%;
         grid-template-rows: repeat(5, min-content) 1fr [fold];
         padding: 2.5rem 4rem;
@@ -82,7 +82,6 @@
 @media (min-width: 1024px) {
     .root {
         grid-template-columns: 1.5625fr 1fr;
-
     }
     .imageCarousel {
         margin: 0;
