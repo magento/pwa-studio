@@ -33,26 +33,20 @@ Add your PWA Studio storefront to the list of dependencies in this file.
 
 ## Add Composer dependencies
 
-Add the repository information for the UPWARD PHP server and UPWARD Connector to the `repositories` section in your `composer.json`.
+Add the repository information for the UPWARD PHP server to the `repositories` section in your `composer.json`.
 
 ```json
 "upward-connector": {
     "type": "vcs",
         "url": "https://github.com/magento-research/magento2-upward-connector"
 
-},
-  "upward-php": {
-      "type": "vcs",
-          "url": "https://github.com/magento-research/upward-php"
-
-  }
+}
 ```
 
-To have composer install these packages, add them to the `require` section of the `composer.json` file.
+To have composer install this package, add it to the `require` section of the `composer.json` file.
 
 ```json
-"magento/module-upward-connector": "^1.0.0",
-"magento/upward": "^1.0.0"
+"magento/module-upward-connector": "^1.0.0"
 ```
 
 ## Add Venia sample data (optional)
