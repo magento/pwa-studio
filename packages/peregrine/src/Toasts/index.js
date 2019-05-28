@@ -1,2 +1,2 @@
-export { useToasts } from './useToasts';
+export { getToastId, useToasts } from './useToasts';
 export { ToastContextProvider } from './useToastContext';

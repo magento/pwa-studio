@@ -12,7 +12,7 @@ import ToastContainer from 'src/components/ToastContainer';
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
 import WifiIcon from 'react-feather/dist/icons/wifi';
-import { useToasts } from '@magento/peregrine';
+import { getToastId, useToasts } from '@magento/peregrine';
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 const dismissers = new WeakMap();
@@ -26,7 +26,7 @@ const getErrorDismisser = (error, onDismissError) => {
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
-    const [, { addToast }] = useToasts();
+    const [{ toasts }, { addToast }] = useToasts();
 
     const reload = useCallback(() => {
         window.location.reload();
@@ -45,7 +45,7 @@ const App = props => {
 
     useEffect(() => {
         for (const { error, id, loc } of errors) {
-            addToast({
+            const errorToastProps = {
                 icon: AlertCircleIcon,
                 message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
                 onDismiss: remove => {
@@ -54,7 +54,14 @@ const App = props => {
                 },
                 timeout: 7000,
                 type: 'error'
-            });
+            };
+            // Only add a toast for new errors. Without this condition we would
+            // re-add toasts when one error is removed even if there were two
+            // added at the same time.
+            const errorToastId = getToastId(errorToastProps);
+            if (!toasts.get(errorToastId)) {
+                addToast(errorToastProps);
+            }
         }
     }, [errors, handleDismiss]);
 
