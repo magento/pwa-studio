@@ -8,23 +8,32 @@ jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
 const onSelectionChangeMock = jest.fn();
 const defaultProps = {
-    options: [
-        {
-            attribute_id: '1',
-            attribute_code: 'fashion_color',
-            label: 'option-1',
-            values: []
-        },
-        {
-            attribute_id: '2',
-            attribute_code: '',
-            label: 'option-1',
-            values: []
-        }
-    ]
+    product: {
+        __typename: 'ConfigurableProduct',
+        configurable_options: [
+            {
+                attribute_id: '1',
+                attribute_code: 'fashion_color',
+                label: 'option-1',
+                values: []
+            },
+            {
+                attribute_id: '2',
+                attribute_code: '',
+                label: 'option-1',
+                values: []
+            }
+        ]
+    }
 };
 test('renders Options component correctly', () => {
     const component = testRenderer.create(<Options {...defaultProps} />);
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('renders null if product is not configurable', () => {
+    const simpleProduct = {};
+    const component = testRenderer.create(<Options product={simpleProduct} />);
     expect(component.toJSON()).toMatchSnapshot();
 });
 
