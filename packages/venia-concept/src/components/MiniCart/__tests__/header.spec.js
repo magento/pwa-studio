@@ -25,6 +25,6 @@ test('it renders a different title while editing', () => {
 
     const headerTag = result.props.children[0];
     const title = headerTag.props.children;
-    
+
     expect(title).toBe('Edit Cart Item');
 });
