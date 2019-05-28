@@ -79,7 +79,7 @@ const App = props => {
                 addToast({
                     type: 'info',
                     icon: WifiIcon,
-                    message: 'You are back online.',
+                    message: 'You are online.',
                     timeout: 3000
                 });
             } else {
