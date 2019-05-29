@@ -24,7 +24,7 @@ function Thumbnail(props) {
         : transparentPlaceholder;
 
     const isDesktop = windowSize.innerWidth >= 1024;
-    console.log(windowSize.innerWidth);
+
     const handleClick = useCallback(() => {
         onClickHandler(itemIndex);
     }, [onClickHandler, itemIndex]);

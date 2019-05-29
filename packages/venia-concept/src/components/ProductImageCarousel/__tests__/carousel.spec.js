@@ -1,10 +1,11 @@
 import React from 'react';
-import { transparentPlaceholder } from 'src/shared/images';
+
 import Carousel from '../carousel';
 import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
+import Slider from "react-slick/lib";
 
 jest.mock('src/classify');
 
@@ -42,7 +43,7 @@ const defaultProps = {
         }
     ]
 };
-
+/*
 test('renders the Carousel component correctly w/ sorted images', () => {
     const component = createTestInstance(
         <WindowSizeContextProvider>
@@ -231,4 +232,30 @@ test('renders a placeholder until image is loaded', () => {
     });
 
     expect(images.length).toEqual(1);
+});
+*/
+const slickSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+};
+
+
+test('Check slick gallery is loaded', () => {
+
+
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Slider  {...slickSettings} />
+        </WindowSizeContextProvider>
+    );
+
+    const slickGallery = component.root.findAllByProps({
+        className: 'ZoomGallery'
+    });
+
+
+    expect(slickGallery).toBeDefined();
 });

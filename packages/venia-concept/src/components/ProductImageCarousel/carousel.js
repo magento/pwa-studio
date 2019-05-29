@@ -8,7 +8,7 @@ import classify from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
-
+import './setupTests.js';
 import Zoom from './zoom';
 import Slider from 'react-slick';
 import './react-slick.css';
