@@ -166,7 +166,6 @@ class Pagination extends Component {
         const { location, pageControl } = this.props;
         const { currentPage, setPage, totalPages } = pageControl;
 
-        // Indicator that our data has been loaded and we know enough to bounds check
         const queryPage = Math.max(
             1,
             // Note: The ~ operator is a bitwise NOT operator.
