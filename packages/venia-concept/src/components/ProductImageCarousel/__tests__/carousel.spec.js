@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Carousel from '../carousel';
+import '../setupTests';
 import {
     WindowSizeContextProvider,
     createTestInstance
@@ -8,7 +8,7 @@ import {
 import Slider from 'react-slick/lib';
 
 jest.mock('src/classify');
-
+/*
 const defaultProps = {
     // This order is specifically set to test sorting/filtering. Do not modify.
     images: [
@@ -43,7 +43,7 @@ const defaultProps = {
         }
     ]
 };
-/*
+
 test('renders the Carousel component correctly w/ sorted images', () => {
     const component = createTestInstance(
         <WindowSizeContextProvider>
