@@ -53,7 +53,7 @@ const Category = props => {
     }, [totalPagesFromData]);
 
     if (error) return <div>Data Fetch Error</div>;
-    if (loading && !totalPages) return loadingIndicator;
+    if (!totalPages) return loadingIndicator;
 
     // if our data is still loading, we want to reset our data state to null
     return (
