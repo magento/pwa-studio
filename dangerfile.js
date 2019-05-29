@@ -1,12 +1,6 @@
 const { fail, danger, schedule, warn } = require('danger');
-/**
- * TODO:
- *  - Replace danger env token in build with reference to aws param store after fixing credentials
- *  - Merge back with pwa-studio-cicd
- *  - Remove branch gate from webhook
- *  - Check for removal of PR template
- */
 
+// Running `danger local` doesn't proxy the github API so gracefully exit.
 if (danger.github) {
     schedule(async function verifyNoTodos() {
         if (danger.github.pr.body.match(/todo/i)) {
@@ -18,9 +12,10 @@ if (danger.github) {
 
     schedule(async function verifyPrFilled() {
         let failures = false;
-        // If any of these strings, pulled from the PR template, are found in the PR
-        // description we should fail the PR as whomever opened it did not follow
-        // ze rules.
+        // This is a map of headers and the default contents. If a header is
+        // missing or if the default content is still present we should fail as
+        // this means the contributor either deleted the section or did not
+        // fill it out.
         const rules = [
             {
                 text: 'TODO: Describe your changes in detail here.',
@@ -52,7 +47,7 @@ if (danger.github) {
 
         if (failures) {
             markdown(
-                'If your PR is missing information, check against the original template [here](https://raw.githubusercontent.com/magento-research/pwa-studio/develop/.github/PULL_REQUEST_TEMPLATE.md).'
+                'If your PR is missing information, check against the original template [here](https://raw.githubusercontent.com/magento-research/pwa-studio/develop/.github/PULL_REQUEST_TEMPLATE.md). At a minimum you must have the section headers from the template and provide some information in each section.'
             );
         }
     });
