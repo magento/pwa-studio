@@ -2,6 +2,11 @@ const { fail, danger, schedule, warn } = require('danger');
 
 // Running `danger local` doesn't proxy the github API so gracefully exit.
 if (danger.github) {
+    // TODO: DELETE THIS FUNCTION
+    schedule(async function echoEnv() {
+        console.log(process.env)
+    });
+
     schedule(async function verifyNoTodos() {
         if (danger.github.pr.body.match(/todo/i)) {
             warn(
