@@ -6,14 +6,17 @@ export const useCarousel = carouselSize => {
 
     const handleImageLoad = () => setCurrentImageLoaded(true);
 
-    const handlePrevious = useCallback(() =>
-        activeItemIndex > 0
-            ? setActiveItemIndex(activeItemIndex - 1)
-            : setActiveItemIndex(carouselSize - 1), [activeItemIndex]
+    const handlePrevious = useCallback(
+        () =>
+            activeItemIndex > 0
+                ? setActiveItemIndex(activeItemIndex - 1)
+                : setActiveItemIndex(carouselSize - 1),
+        [activeItemIndex]
     );
 
-    const handleNext = useCallback(() =>
-        setActiveItemIndex((activeItemIndex + 1) % carouselSize), [activeItemIndex]
+    const handleNext = useCallback(
+        () => setActiveItemIndex((activeItemIndex + 1) % carouselSize),
+        [activeItemIndex]
     );
 
     return {
