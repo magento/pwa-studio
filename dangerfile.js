@@ -2,11 +2,6 @@ const { fail, danger, schedule, warn } = require('danger');
 
 // Running `danger local` doesn't proxy the github API so gracefully exit.
 if (danger.github) {
-    // TODO: DELETE THIS FUNCTION
-    schedule(async function echoEnv() {
-        console.log(process.env)
-    });
-
     schedule(async function verifyNoTodos() {
         if (danger.github.pr.body.match(/todo/i)) {
             warn(
@@ -62,16 +57,23 @@ if (danger.github) {
         const { owner, repo } = github.thisPR;
 
         const linkedIssue = danger.github.pr.body.match(/closes #([0-9]*)/i)[1];
-        const { data } = await danger.github.api.issues.get({
-            owner,
-            repo,
-            issue_number: linkedIssue
-        });
 
-        if (data.closed_at) {
+        if (!linkedIssue) {
             fail(
-                `Issue ${linkedIssue} is closed. Please link a relevant open issue.`
+                'No linked issue found. Please link a relevant open issue by adding the text "closes #<issue_number>" in your PR.'
             );
+        } else {
+            const { data } = await danger.github.api.issues.get({
+                owner,
+                repo,
+                issue_number: linkedIssue
+            });
+
+            if (data.closed_at) {
+                fail(
+                    `Issue ${linkedIssue} is closed. Please link a relevant open issue by adding the text "closes #<issue_number>" in your PR.`
+                );
+            }
         }
     });
 
