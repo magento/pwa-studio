@@ -9,11 +9,11 @@ export const useCarousel = carouselSize => {
     const handlePrevious = useCallback(() =>
         activeItemIndex > 0
             ? setActiveItemIndex(activeItemIndex - 1)
-            : setActiveItemIndex(carouselSize - 1)
+            : setActiveItemIndex(carouselSize - 1), [activeItemIndex]
     );
 
     const handleNext = useCallback(() =>
-        setActiveItemIndex((activeItemIndex + 1) % carouselSize)
+        setActiveItemIndex((activeItemIndex + 1) % carouselSize), [activeItemIndex]
     );
 
     return {
