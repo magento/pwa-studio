@@ -5,7 +5,7 @@ import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
-import Slider from "react-slick/lib";
+import Slider from 'react-slick/lib';
 
 jest.mock('src/classify');
 
@@ -242,20 +242,16 @@ const slickSettings = {
     slidesToScroll: 1
 };
 
-
 test('Check slick gallery is loaded', () => {
-
-
     const component = createTestInstance(
         <WindowSizeContextProvider>
-            <Slider  {...slickSettings} />
+            <Slider {...slickSettings} />
         </WindowSizeContextProvider>
     );
 
     const slickGallery = component.root.findAllByProps({
         className: 'ZoomGallery'
     });
-
 
     expect(slickGallery).toBeDefined();
 });
