@@ -79,7 +79,6 @@ if (danger.github) {
 
     schedule(async function checkVersionLabel() {
         const { github } = danger;
-
         const { owner, number: issue_number, repo } = github.thisPR;
         const { data } = await github.api.issues.listLabelsOnIssue({
             owner,
