@@ -21,6 +21,9 @@ query category($id: Int!, $pageSize: Int!, $currentPage: Int!, $onServer: Boolea
                         }
                     }
                 }
+                page_info {
+                    total_pages
+                }
                 total_count
             }
             meta_title @include(if: $onServer)
