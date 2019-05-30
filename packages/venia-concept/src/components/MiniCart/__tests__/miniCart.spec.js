@@ -1,6 +1,8 @@
 import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
+import { useWindowSize } from '@magento/peregrine';
+
 import MiniCart from '../miniCart';
 
 const renderer = new ShallowRenderer();
@@ -13,6 +15,8 @@ test('renders the correct tree', () => {
             isEditingItem: false
         }
     };
+
+    useWindowSize.mockReturnValueOnce({ innerHeight: 719 });
 
     const tree = renderer.render(<MiniCart {...props} />);
 
