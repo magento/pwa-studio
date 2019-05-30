@@ -1,7 +1,7 @@
-# Release 3.0
+# Release 3.0.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio 3.0 and above._
+_This changelog only contains release notes for PWA Studio 3.0.0 and above._
 _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
@@ -76,11 +76,11 @@ PWA Studio 3.0.0 contains improvements, new features, and some breaking changes.
 
 ### Misc project changes
 
-| Change type    | Description                            | PR                                         |
-| -------------- | -------------------------------------- | ------------------------------------------ |
-| Update         | Update eslint configuration version    | [#1088][]                                  |
-| Infrastructure | CICD and devops fixes and improvements | [#1132][], [#1155][], [#1087][], [#1043][] |
-| Infrastructure | GitHub template updates                | [#1077][], [#1048][]                       |
+| Change type    | Description                             | PR                                         |
+| -------------- | --------------------------------------- | ------------------------------------------ |
+| Update         | Update eslint configuration version     | [#1088][]                                  |
+| Infrastructure | CI/CD and DevOps fixes and improvements | [#1132][], [#1155][], [#1087][], [#1043][] |
+| Infrastructure | GitHub template updates                 | [#1077][], [#1048][]                       |
 
 ## Documentation changes
 
