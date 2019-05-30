@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<article
+  className="a"
+>
+  <h1
+    className="b"
+  >
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "test",
+        }
+      }
+    />
+    <div />
+  </h1>
+  <section
+    className="c"
+  >
+    <Classify(Gallery)
+      data={
+        Object {
+          "id": 1,
+        }
+      }
+      pageSize={6}
+      title="test"
+    />
+  </section>
+  <div
+    className="d"
+  >
+    <withRouter(Classify(Pagination))
+      pageControl={Object {}}
+    />
+  </div>
+</article>
+`;
