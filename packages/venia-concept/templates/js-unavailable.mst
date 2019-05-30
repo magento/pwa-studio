@@ -3,10 +3,6 @@
         .i-c-loading {
             display: none;
         }
-        .i-c-nojs {
-            margin: 1rem 0;
-            gap: 2rem;
-        }
         .i-c-nojs a {
             color: currentColor;
         }

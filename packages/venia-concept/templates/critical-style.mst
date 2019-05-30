@@ -29,9 +29,6 @@
     height: 64px;
     width: 64px;
 }
-.i-c-gray {
-    filter: grayscale(0.75);
-}
 .i-c-spin {
     animation-direction: alternate;
     animation-duration: 1.5s;
