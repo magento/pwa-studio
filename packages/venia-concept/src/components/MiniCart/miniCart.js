@@ -1,6 +1,8 @@
 import React from 'react';
 import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
+import { useWindowSize } from '@magento/peregrine';
+
 import Body from './body';
 import Footer from './footer';
 import Header from './header';
@@ -26,12 +28,18 @@ const MiniCart = props => {
     } = props;
     const { editItem, isEditingItem, isLoading, isUpdatingItem } = cart;
 
+    // Hooks.
+    const { innerHeight: viewportHeight } = useWindowSize();
+
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
     const currencyCode = getCurrencyCode(cart);
     const cartItems = cart.details.items;
     const numItems = cart.details.items_qty;
     const rootClass = isOpen ? classes.root_open : classes.root;
+    const rootStyle = {
+        '--minicart-height-unit': `${viewportHeight * 0.01}px`
+    };
     const subtotal = cart.totals.subtotal;
 
     const showFooter = !(isCartEmpty || isLoading || isEditingItem);
@@ -46,7 +54,7 @@ const MiniCart = props => {
     ) : null;
 
     return (
-        <aside className={rootClass}>
+        <aside className={rootClass} style={rootStyle}>
             <Header closeDrawer={closeDrawer} isEditingItem={isEditingItem} />
             <Body
                 beginEditItem={beginEditItem}

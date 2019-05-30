@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders the correct tree 1`] = `
-<aside>
+<aside
+  style={
+    Object {
+      "--minicart-height-unit": "7.19px",
+    }
+  }
+>
   <Header
     closeDrawer={[MockFunction]}
     isEditingItem={false}
