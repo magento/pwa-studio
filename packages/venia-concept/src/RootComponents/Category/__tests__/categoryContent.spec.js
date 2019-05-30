@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import CategoryContent from '../categoryContent';
 
@@ -21,15 +21,16 @@ const data = {
     }
 };
 
-test('renders with props', () => {
-    const pageSize = 6;
-    const wrapper = shallow(
+test('renders the correct tree', () => {
+    const shallowRenderer = new ShallowRenderer();
+    const tree = shallowRenderer.render(
         <CategoryContent
             pageControl={{}}
             data={data}
-            pageSize={pageSize}
+            pageSize={6}
             classes={classes}
         />
-    ).dive();
-    expect(wrapper.hasClass(classes.root)).toBe(true);
+    );
+
+    expect(tree).toMatchSnapshot();
 });
