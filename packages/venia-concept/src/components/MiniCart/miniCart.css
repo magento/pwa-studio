@@ -1,7 +1,9 @@
 .root {
     --base-z-index: 4;
-    --minicart-height: 100vh;
     --minicart-header-height: 3.5rem;
+    --minicart-height: calc(
+        var(--minicart-height-unit, 1vh) * 100
+    ); /* Note: --minicart-height-unit set by JS */
     align-content: start;
     background-color: white;
     bottom: 0;
