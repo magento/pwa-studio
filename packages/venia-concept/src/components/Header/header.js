@@ -46,7 +46,7 @@ const Header = props => {
                     <CartTrigger />
                 </div>
             </div>
-            <Suspense fallback={searchIcon}>
+            <Suspense fallback={searchOpen ? searchIcon : null}>
                 <Route
                     render={({ history, location }) => (
                         <SearchBar
