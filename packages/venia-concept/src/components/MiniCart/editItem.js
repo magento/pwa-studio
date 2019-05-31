@@ -35,7 +35,7 @@ const EditItem = props => {
                 onServer: false
             }
         });
-    }, [item]);
+    }, [item, itemHasOptions]);
 
     /*
      * Render.
