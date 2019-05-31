@@ -3,7 +3,7 @@ import { func, string, shape } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import Trigger from './trigger';
-import defaultClasses from './emptyMiniCart.css';
+import defaultClasses from './emptyMiniCartBody.css';
 
 const EmptyMiniCart = props => {
     const { closeDrawer } = props;

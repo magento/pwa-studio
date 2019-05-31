@@ -6,7 +6,7 @@ import { loadingIndicator } from 'src/components/LoadingIndicator';
 
 import defaultClasses from './body.css';
 import EditItem from './editItem';
-import EmptyMiniCart from './emptyMiniCart';
+import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
 
 const Body = props => {
@@ -40,7 +40,7 @@ const Body = props => {
     }
 
     if (isCartEmpty) {
-        return <EmptyMiniCart closeDrawer={closeDrawer} />;
+        return <EmptyMiniCartBody closeDrawer={closeDrawer} />;
     }
 
     if (isEditingItem) {
