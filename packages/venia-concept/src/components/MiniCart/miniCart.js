@@ -4,6 +4,7 @@ import { bool, func, shape, string } from 'prop-types';
 import Body from './body';
 import Footer from './footer';
 import Header from './header';
+import Mask from './mask';
 
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './miniCart.css';
@@ -12,6 +13,7 @@ const MiniCart = props => {
     // Props.
     const {
         beginEditItem,
+        cancelCheckout,
         cart,
         closeDrawer,
         endEditItem,
@@ -44,6 +46,7 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />
+            <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             {footer}
         </aside>
     );
@@ -51,6 +54,7 @@ const MiniCart = props => {
 
 MiniCart.propTypes = {
     beginEditItem: func.isRequired,
+    cancelCheckout: func,
     cart: shape({
         isEditingItem: bool,
         isLoading: bool

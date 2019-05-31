@@ -32,7 +32,7 @@ test('doesnt render a footer when cart is empty', () => {
     renderer.render(<MiniCart {...props} />);
     const result = renderer.getRenderOutput();
 
-    const footer = result.props.children[2];
+    const footer = result.props.children[3];
     expect(footer).toBeNull();
 });
 
@@ -48,7 +48,7 @@ test('doesnt render a footer when cart is editing', () => {
     renderer.render(<MiniCart {...props} />);
     const result = renderer.getRenderOutput();
 
-    const footer = result.props.children[2];
+    const footer = result.props.children[3];
     expect(footer).toBeNull();
 });
 
@@ -64,6 +64,6 @@ test('doesnt render a footer when cart is loading', () => {
     renderer.render(<MiniCart {...props} />);
     const result = renderer.getRenderOutput();
 
-    const footer = result.props.children[2];
+    const footer = result.props.children[3];
     expect(footer).toBeNull();
 });
