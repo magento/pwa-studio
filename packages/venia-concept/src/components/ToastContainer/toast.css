@@ -38,13 +38,16 @@
     }
 }
 
+.icon {
+    grid-area: icon;
+}
+
 .infoToast {
     composes: root;
     border-bottom: 4px solid info;
 }
 
 .infoToast > .icon {
-    grid-area: icon;
     color: info;
 }
 
@@ -54,7 +57,6 @@
 }
 
 .warningToast > .icon {
-    grid-area: icon;
     color: warning;
 }
 
@@ -64,7 +66,6 @@
 }
 
 .errorToast > .icon {
-    grid-area: icon;
     color: error;
 }
 

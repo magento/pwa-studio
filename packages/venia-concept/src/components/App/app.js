@@ -8,11 +8,17 @@ import Navigation from 'src/components/Navigation';
 import renderRoutes from './renderRoutes';
 import errorRecord from 'src/util/createErrorRecord';
 import ToastContainer from 'src/components/ToastContainer';
+import Icon from 'src/components/Icon';
+
+import { getToastId, useToasts } from '@magento/peregrine';
 
 import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
 import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
 import WifiIcon from 'react-feather/dist/icons/wifi';
-import { getToastId, useToasts } from '@magento/peregrine';
+
+const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
+const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
+const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 const dismissers = new WeakMap();
@@ -46,7 +52,7 @@ const App = props => {
     useEffect(() => {
         for (const { error, id, loc } of errors) {
             const errorToastProps = {
-                icon: AlertCircleIcon,
+                icon: ErrorIcon,
                 message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
                 onDismiss: remove => {
                     getErrorDismisser(error, handleDismiss)();
@@ -85,14 +91,14 @@ const App = props => {
             if (isOnline) {
                 addToast({
                     type: 'info',
-                    icon: WifiIcon,
+                    icon: OnlineIcon,
                     message: 'You are online.',
                     timeout: 3000
                 });
             } else {
                 addToast({
                     type: 'error',
-                    icon: CloudOffIcon,
+                    icon: OfflineIcon,
                     message:
                         'You are offline. Some features may be unavailable.',
                     timeout: 3000

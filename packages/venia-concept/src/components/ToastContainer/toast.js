@@ -3,6 +3,7 @@ import { bool, func, number, oneOf, string } from 'prop-types';
 import defaultClasses from './toast.css';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
+
 import CloseIcon from 'react-feather/dist/icons/x';
 
 const Toast = props => {
@@ -20,36 +21,29 @@ const Toast = props => {
 
     const classes = mergeClasses(defaultClasses, {});
 
+    const iconElement = icon ? <>{icon}</> : null;
+
+    const controls =
+        onDismiss || dismissable ? (
+            <button className={classes.dismissButton} onClick={handleDismiss}>
+                <Icon src={CloseIcon} attrs={{ width: 14 }} />
+            </button>
+        ) : null;
+
+    const actions = onAction ? (
+        <div className={classes.actions}>
+            <button className={classes.actionButton} onClick={handleAction}>
+                {actionText}
+            </button>
+        </div>
+    ) : null;
+
     return (
         <div className={classes[`${type}Toast`]}>
-            {icon ? (
-                <Icon
-                    className={classes.icon}
-                    src={icon}
-                    attrs={{ width: 18 }}
-                />
-            ) : null}
+            <span className={classes.icon}>{iconElement}</span>
             <div className={classes.message}>{message}</div>
-            {onDismiss || dismissable ? (
-                <div className={classes.controls}>
-                    <button
-                        className={classes.dismissButton}
-                        onClick={handleDismiss}
-                    >
-                        <Icon src={CloseIcon} attrs={{ width: 14 }} />
-                    </button>
-                </div>
-            ) : null}
-            {onAction ? (
-                <div className={classes.actions}>
-                    <button
-                        className={classes.actionButton}
-                        onClick={handleAction}
-                    >
-                        {actionText}
-                    </button>
-                </div>
-            ) : null}
+            <div className={classes.controls}>{controls}</div>
+            {actions}
         </div>
     );
 };

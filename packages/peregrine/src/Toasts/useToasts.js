@@ -62,7 +62,7 @@ export const useToasts = () => {
      *     async doSomethingOnDismiss();
      *     remove();
      *   },
-     *   icon: SadFaceIcon
+     *   icon: <Icon src={SadFaceIcon} />
      * });
      *
      * @function addToast
@@ -70,7 +70,7 @@ export const useToasts = () => {
      * @param {string}   toastProps.type - 'info', 'warning' or 'error'.
      * @param {string}   toastProps.message - The message to display in the toast.
      * @param {boolean}  [toastProps.dismissable] - Boolean indicating whether the toast is dismissable. If `onDismiss` is provided this is assumed to be true.
-     * @param {Icon}     [toastProps.icon] - The Icon component to display in the toast.
+     * @param {React.Element} [toastProps.icon] - The icon element to display
      * @param {function} [toastProps.onDismiss] - Callback invoked when a user clicks the dismiss icon.
      * @param {string}   [toastProps.actionText] - Text to display as a call to action.
      * @param {function} [toastProps.onAction] - Callback invoked when a user clicks the action text.

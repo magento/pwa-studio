@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 import ToastContainer from '../toastContainer';
 import { ToastContextProvider, useToasts } from '@magento/peregrine';
+import Icon from 'src/components/Icon';
+
 import SmileIcon from 'react-feather/dist/icons/smile';
 
 const stories = storiesOf('Toasts', module);
@@ -9,6 +11,7 @@ const stories = storiesOf('Toasts', module);
 const ToastEmitter = ({
     actionText,
     dismissable,
+    icon = <Icon src={SmileIcon} attrs={{ width: 18 }} />,
     message = 'Hello, World!',
     onAction,
     onDismiss,
@@ -20,7 +23,7 @@ const ToastEmitter = ({
     const toastProps = {
         actionText,
         dismissable,
-        icon: SmileIcon,
+        icon,
         message,
         onAction,
         onDismiss,
@@ -35,7 +38,7 @@ const ToastEmitter = ({
     return null;
 };
 
-stories.add('Dismissable Toasts', () => {
+stories.add('Toast Types', () => {
     return (
         <ToastContextProvider>
             <ToastEmitter type={'info'} dismissable={true} />
@@ -46,7 +49,55 @@ stories.add('Dismissable Toasts', () => {
     );
 });
 
-stories.add('Non-Dismissable Toasts', () => {
+stories.add('Toasts with Icons', () => {
+    return (
+        <ToastContextProvider>
+            <ToastEmitter type={'info'} dismissable={true} />
+            <ToastEmitter type={'info'} icon={null} dismissable={true} />
+
+            <ToastEmitter type={'info'} dismissable={false} />
+            <ToastEmitter
+                type={'info'}
+                dismissable={true}
+                onAction={remove => remove()}
+                actionText={'An action!'}
+            />
+            <ToastEmitter
+                type={'info'}
+                dismissable={false}
+                onAction={remove => remove()}
+                actionText={'An action!'}
+            />
+            <ToastContainer />
+        </ToastContextProvider>
+    );
+});
+
+stories.add('Toasts without Icons', () => {
+    return (
+        <ToastContextProvider>
+            <ToastEmitter type={'info'} icon={null} dismissable={true} />
+            <ToastEmitter type={'info'} icon={null} dismissable={false} />
+            <ToastEmitter
+                type={'info'}
+                icon={null}
+                dismissable={true}
+                onAction={remove => remove()}
+                actionText={'An action!'}
+            />
+            <ToastEmitter
+                type={'info'}
+                icon={null}
+                dismissable={false}
+                onAction={remove => remove()}
+                actionText={'An action!'}
+            />
+            <ToastContainer />
+        </ToastContextProvider>
+    );
+});
+
+stories.add('Non-Dismissable Toasts that time out', () => {
     return (
         <ToastContextProvider>
             <ToastEmitter type={'info'} timeout={3000} />
@@ -134,7 +185,7 @@ stories.add('Toasts w/ Wrapping Text', () => {
                 message={
                     'Some really long text that wraps but in a toast that is not dismissable.'
                 }
-                timeout={3000}
+                timeout={10000}
             />
             <ToastEmitter
                 type={'error'}
@@ -168,7 +219,7 @@ stories.add('Toasts w/ Wrapping Text', () => {
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}
-                timeout={3000}
+                timeout={10000}
             />
             <ToastContainer />
         </ToastContextProvider>

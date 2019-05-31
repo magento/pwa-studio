@@ -241,7 +241,7 @@ test('adds toasts for render errors', () => {
     );
 
     expect(mockAddToast).toHaveBeenCalledWith({
-        icon: expect.any(Function),
+        icon: expect.any(Object),
         message: expect.any(String),
         onDismiss: expect.any(Function),
         timeout: expect.any(Number),
@@ -270,7 +270,7 @@ test('adds toasts for unhandled errors', () => {
     );
 
     expect(mockAddToast).toHaveBeenCalledWith({
-        icon: expect.any(Function),
+        icon: expect.any(Object),
         message: expect.any(String),
         onDismiss: expect.any(Function),
         timeout: expect.any(Number),
