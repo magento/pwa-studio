@@ -4,11 +4,11 @@
 }
 
 .root {
-    --minicart-footer-padding-top: 1.5rem;
+    /* This variable is also used by the payments form. */
     --minicart-footer-padding-bottom: 0.5rem;
+
     box-shadow: 0 -1px rgb(var(--venia-border));
-    padding: var(--minicart-footer-padding-top) 0
-        var(--minicart-footer-padding-bottom);
+    padding: 1.5rem 0 var(--minicart-footer-padding-bottom);
     background-color: white;
 }
 
