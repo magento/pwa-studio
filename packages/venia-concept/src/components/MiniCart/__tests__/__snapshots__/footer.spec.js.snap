@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders totals summary and checkout components 1`] = `
+exports[`renders the correct tree 1`] = `
 <div>
   <TotalsSummary
     cart={
@@ -30,9 +30,3 @@ exports[`renders totals summary and checkout components 1`] = `
   </React.Suspense>
 </div>
 `;
-
-exports[`returns null when cart is editing item 1`] = `null`;
-
-exports[`returns null when cart is empty 1`] = `null`;
-
-exports[`returns null when cart is loading 1`] = `null`;

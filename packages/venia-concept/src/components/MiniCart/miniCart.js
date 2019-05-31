@@ -21,17 +21,20 @@ const MiniCart = props => {
         removeItemFromCart,
         updateItemInCart
     } = props;
+    const { isEditingItem, isLoading } = cart;
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
+    const showFooter = !(isCartEmpty || isLoading || isEditingItem);
+    const footer = showFooter ? (
+        <Footer cart={cart} isMiniCartMaskOpen={isMiniCartMaskOpen} />
+    ) : null;
+
     return (
         <aside className={rootClass}>
-            <Header
-                closeDrawer={closeDrawer}
-                isEditingItem={cart.isEditingItem}
-            />
+            <Header closeDrawer={closeDrawer} isEditingItem={isEditingItem} />
             <Body
                 beginEditItem={beginEditItem}
                 cart={cart}
@@ -42,11 +45,7 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />
-            <Footer
-                cart={cart}
-                isCartEmpty={isCartEmpty}
-                isMiniCartMaskOpen={isMiniCartMaskOpen}
-            />
+            {footer}
         </aside>
     );
 };
@@ -54,7 +53,8 @@ const MiniCart = props => {
 MiniCart.propTypes = {
     beginEditItem: func.isRequired,
     cart: shape({
-        isEditingItem: bool
+        isEditingItem: bool,
+        isLoading: bool
     }).isRequired,
     classes: shape({
         header: string,

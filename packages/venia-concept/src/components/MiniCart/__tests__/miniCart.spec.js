@@ -18,3 +18,52 @@ test('renders the correct tree', () => {
 
     expect(tree).toMatchSnapshot();
 });
+
+test('doesnt render a footer when cart is empty', () => {
+    const props = {
+        beginEditItem: jest.fn(),
+        cart: {
+            isEditingItem: false
+        },
+        endEditItem: jest.fn(),
+        isCartEmpty: true
+    };
+
+    renderer.render(<MiniCart {...props} />);
+    const result = renderer.getRenderOutput();
+
+    const footer = result.props.children[2];
+    expect(footer).toBeNull();
+});
+
+test('doesnt render a footer when cart is editing', () => {
+    const props = {
+        beginEditItem: jest.fn(),
+        cart: {
+            isEditingItem: true
+        },
+        endEditItem: jest.fn()
+    };
+
+    renderer.render(<MiniCart {...props} />);
+    const result = renderer.getRenderOutput();
+
+    const footer = result.props.children[2];
+    expect(footer).toBeNull();
+});
+
+test('doesnt render a footer when cart is loading', () => {
+    const props = {
+        beginEditItem: jest.fn(),
+        cart: {
+            isLoading: true
+        },
+        endEditItem: jest.fn()
+    };
+
+    renderer.render(<MiniCart {...props} />);
+    const result = renderer.getRenderOutput();
+
+    const footer = result.props.children[2];
+    expect(footer).toBeNull();
+});

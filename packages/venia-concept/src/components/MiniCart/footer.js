@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import Checkout from 'src/components/Checkout';
@@ -9,8 +9,7 @@ import defaultClasses from './footer.css';
 import TotalsSummary from './totalsSummary';
 
 const Footer = props => {
-    const { cart, isCartEmpty, isMiniCartMaskOpen } = props;
-    const { isEditingItem, isLoading } = cart;
+    const { cart, isMiniCartMaskOpen } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const footerClassName = isMiniCartMaskOpen
@@ -21,10 +20,6 @@ const Footer = props => {
             <CheckoutButton ready={false} />
         </div>
     );
-
-    if (isCartEmpty || isLoading || isEditingItem) {
-        return null;
-    }
 
     return (
         <div className={footerClassName}>
@@ -37,17 +32,13 @@ const Footer = props => {
 };
 
 Footer.propTypes = {
-    cart: shape({
-        isEditingItem: bool,
-        isLoading: bool
-    }).isRequired,
+    cart: object,
     classes: shape({
         placeholderButton: string,
         root: string,
         root_open: string,
         summary: string
     }),
-    isCartEmpty: bool,
     isMiniCartMaskOpen: bool
 };
 
