@@ -77,7 +77,7 @@ const CartOptions = props => {
         }
 
         updateCart(payload, cartItem.item_id);
-    });
+    }, [cartItem, configItem, quantity, optionSelections]);
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
