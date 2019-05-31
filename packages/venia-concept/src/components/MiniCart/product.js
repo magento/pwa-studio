@@ -18,7 +18,7 @@ const Product = props => {
     const { image, name, options, price, qty } = item;
 
     const imageRef = useRef(null);
-    const [backgroundImage, setBackgroundImage] = useState(null);
+    const [imageSource, setImageSource] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -35,11 +35,11 @@ const Product = props => {
         if (imageWidth) {
             // parseFloat to strip off any units like 'px'.
             const parsedImageWidth = parseFloat(imageWidth);
-            setBackgroundImage(
-                `url(${resourceUrl(image.file, {
+            setImageSource(
+                `${resourceUrl(image.file, {
                     type: 'image-product',
                     width: parsedImageWidth
-                })})`
+                })}`
             );
         }
     }, [imageRef]);
@@ -59,10 +59,11 @@ const Product = props => {
 
     return (
         <li className={classes.root}>
-            <div
+            <img
+                alt={name}
                 className={classes.image}
                 ref={imageRef}
-                style={{ backgroundImage }}
+                src={imageSource}
             />
             <div className={classes.name}>{name}</div>
             <ProductOptions options={options} />

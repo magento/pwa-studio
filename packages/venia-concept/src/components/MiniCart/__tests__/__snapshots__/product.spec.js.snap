@@ -2,12 +2,9 @@
 
 exports[`it renders a mask div before the kebab if it is loading 1`] = `
 <li>
-  <div
-    style={
-      Object {
-        "backgroundImage": null,
-      }
-    }
+  <img
+    alt="Unit Test Product"
+    src={null}
   />
   <div>
     Unit Test Product
@@ -55,12 +52,9 @@ exports[`it renders a mask div before the kebab if it is loading 1`] = `
 
 exports[`it renders correctly 1`] = `
 <li>
-  <div
-    style={
-      Object {
-        "backgroundImage": null,
-      }
-    }
+  <img
+    alt="Unit Test Product"
+    src={null}
   />
   <div>
     Unit Test Product
