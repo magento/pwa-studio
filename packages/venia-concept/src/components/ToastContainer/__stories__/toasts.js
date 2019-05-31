@@ -12,6 +12,7 @@ const ToastEmitter = ({
     message = 'Hello, World!',
     onAction,
     onDismiss,
+    timeout = 0,
     type = 'info'
 }) => {
     const [, { addToast }] = useToasts();
@@ -23,7 +24,7 @@ const ToastEmitter = ({
         message,
         onAction,
         onDismiss,
-        timeout: 10000,
+        timeout,
         type
     };
 
@@ -48,9 +49,9 @@ stories.add('Dismissable Toasts', () => {
 stories.add('Non-Dismissable Toasts', () => {
     return (
         <ToastContextProvider>
-            <ToastEmitter type={'info'} />
-            <ToastEmitter type={'warning'} />
-            <ToastEmitter type={'error'} />
+            <ToastEmitter type={'info'} timeout={3000} />
+            <ToastEmitter type={'warning'} timeout={3000} />
+            <ToastEmitter type={'error'} timeout={3000} />
             <ToastContainer />
         </ToastContextProvider>
     );
@@ -133,6 +134,7 @@ stories.add('Toasts w/ Wrapping Text', () => {
                 message={
                     'Some really long text that wraps but in a toast that is not dismissable.'
                 }
+                timeout={3000}
             />
             <ToastEmitter
                 type={'error'}
@@ -166,6 +168,7 @@ stories.add('Toasts w/ Wrapping Text', () => {
                     alert('Action click!');
                 }}
                 actionText={'Click me!'}
+                timeout={3000}
             />
             <ToastContainer />
         </ToastContextProvider>

@@ -20,7 +20,8 @@ test('addToast returns the id of the added toast', () => {
 
     const toastProps = {
         type: 'info',
-        message: 'foo'
+        message: 'foo',
+        timeout: 3000
     };
 
     createTestInstance(<Component toastProps={toastProps} />);
@@ -37,7 +38,8 @@ test("addToast dispatches an 'add' action with expected props", () => {
 
     const toastProps = {
         type: 'info',
-        message: 'foo'
+        message: 'foo',
+        timeout: 3000
     };
 
     createTestInstance(<Component toastProps={toastProps} />);
@@ -65,7 +67,8 @@ test("removeToast dispatches an 'remove' action with expected props", () => {
 
     const toastProps = {
         type: 'info',
-        message: 'foo'
+        message: 'foo',
+        timeout: 3000
     };
 
     createTestInstance(<Component toastProps={toastProps} />);

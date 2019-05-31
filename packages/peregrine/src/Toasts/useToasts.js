@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useToastContext } from './useToastContext';
 
-// By default all toasts are dismissed after a timeout.
+// By default all toasts are dismissed after a timeout unless specified by the
+// implementer via `timeout = 0` or `timeout = false`.
 const DEFAULT_TIMEOUT = 5000;
 
 /**
@@ -73,12 +74,20 @@ export const useToasts = () => {
      * @param {function} [toastProps.onDismiss] - Callback invoked when a user clicks the dismiss icon.
      * @param {string}   [toastProps.actionText] - Text to display as a call to action.
      * @param {function} [toastProps.onAction] - Callback invoked when a user clicks the action text.
+     * @param {Number} [toastProps.timeout] - time, in ms, before the toast is automatically dismissed. If `0` or `false` is passed, the toast will not timeout.
      *
      * @returns {Number} id - the key referencing the toast in the store
      */
     const addToast = useCallback(
         toastProps => {
-            const { message, timeout, type, onDismiss, onAction } = toastProps;
+            const {
+                dismissable,
+                message,
+                timeout,
+                type,
+                onDismiss,
+                onAction
+            } = toastProps;
 
             if (!type) {
                 throw new TypeError('toast.type is required');
@@ -86,6 +95,15 @@ export const useToasts = () => {
 
             if (!message) {
                 throw new TypeError('toast.message is required');
+            }
+
+            if (
+                !(timeout || timeout === 0 || timeout === false) &&
+                !(onDismiss || dismissable)
+            ) {
+                throw new TypeError(
+                    'Toast should be user-dismissable or have a timeout'
+                );
             }
 
             // Generate the id to use in the removal timeout.
@@ -98,13 +116,16 @@ export const useToasts = () => {
             const handleAction = () =>
                 onAction ? onAction(() => removeToast(id)) : () => {};
 
-            // Queue to delete the toast by id after some time.
-            const removalTimeoutId = setTimeout(
-                () => {
-                    handleDismiss();
-                },
-                timeout ? timeout : DEFAULT_TIMEOUT
-            );
+            // A timeout of 0 means no auto-dismiss.
+            let removalTimeoutId;
+            if (timeout !== 0 && timeout !== false) {
+                removalTimeoutId = setTimeout(
+                    () => {
+                        handleDismiss();
+                    },
+                    timeout ? timeout : DEFAULT_TIMEOUT
+                );
+            }
 
             dispatch({
                 type: 'add',
