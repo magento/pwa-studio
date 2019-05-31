@@ -41,7 +41,6 @@ const MiniCart = props => {
                 closeDrawer={closeDrawer}
                 endEditItem={endEditItem}
                 isCartEmpty={isCartEmpty}
-                isMiniCartMaskOpen={isMiniCartMaskOpen}
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />

@@ -24,26 +24,32 @@ test('renders a list with no items when items are not supplied', () => {
 test('renders a list of Products when items are supplied', () => {
     const props = {
         ...baseProps,
-        items: [
-            {
-                item_id: 1,
-                name: 'unit test',
-                price: 99,
-                product_type: 'product type',
-                qty: 1,
-                quote_id: 1,
-                sku: 'sku1'
-            },
-            {
-                item_id: 2,
-                name: 'unit test',
-                price: 99,
-                product_type: 'product type',
-                qty: 1,
-                quote_id: 1,
-                sku: 'sku2'
+        cart: {
+            ...baseProps.cart,
+            details: {
+                ...baseProps.cart.details,
+                items: [
+                    {
+                        item_id: 1,
+                        name: 'unit test',
+                        price: 99,
+                        product_type: 'product type',
+                        qty: 1,
+                        quote_id: 1,
+                        sku: 'sku1'
+                    },
+                    {
+                        item_id: 2,
+                        name: 'unit test',
+                        price: 99,
+                        product_type: 'product type',
+                        qty: 1,
+                        quote_id: 1,
+                        sku: 'sku2'
+                    }
+                ]
             }
-        ]
+        }
     };
     const tree = renderer.render(<ProductList {...props} />);
 

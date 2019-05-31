@@ -17,7 +17,6 @@ const Body = props => {
         closeDrawer,
         endEditItem,
         isCartEmpty,
-        isMiniCartMaskOpen,
         removeItemFromCart,
         updateItemInCart
     } = props;
@@ -59,10 +58,7 @@ const Body = props => {
             <ProductList
                 beginEditItem={handleEditItem}
                 cart={cart}
-                isMiniCartMaskOpen={isMiniCartMaskOpen}
-                items={cart.details.items}
                 removeItemFromCart={removeItemFromCart}
-                totalsItems={cart.totals.items}
             />
         </div>
     );
@@ -88,7 +84,6 @@ Body.propTypes = {
     closeDrawer: func,
     endEditItem: func,
     isCartEmpty: bool,
-    isMiniCartMaskOpen: bool,
     removeItemFromCart: func,
     updateItemInCart: func
 };

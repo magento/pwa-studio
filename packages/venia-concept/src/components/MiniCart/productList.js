@@ -8,13 +8,8 @@ import Product from './product';
 import defaultClasses from './productList.css';
 
 const ProductList = props => {
-    const {
-        beginEditItem,
-        cart,
-        currencyCode,
-        items,
-        removeItemFromCart
-    } = props;
+    const { beginEditItem, cart, currencyCode, removeItemFromCart } = props;
+    const { items } = cart.details;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const currency = currencyCode || cart.details.currency.quote_currency_code;
@@ -45,24 +40,24 @@ ProductList.propTypes = {
         details: shape({
             currency: shape({
                 quote_currency_code: string
-            }).isRequired
+            }).isRequired,
+            items: arrayOf(
+                shape({
+                    item_id: number,
+                    name: string,
+                    price: number,
+                    product_type: string,
+                    qty: number,
+                    quote_id: string,
+                    sku: string
+                })
+            )
         }).isRequired
     }).isRequired,
     classes: shape({
         root: string
     }),
     currencyCode: string,
-    items: arrayOf(
-        shape({
-            item_id: number,
-            name: string,
-            price: number,
-            product_type: string,
-            qty: number,
-            quote_id: string,
-            sku: string
-        })
-    ),
     removeItemFromCart: func
 };
 
