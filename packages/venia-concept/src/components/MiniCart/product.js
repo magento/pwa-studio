@@ -46,7 +46,7 @@ const Product = props => {
 
     const handleFavoriteItem = useCallback(() => {
         setIsFavorite(!isFavorite);
-    }, [isFavorite, setIsFavorite]);
+    }, [isFavorite]);
     const handleEditItem = useCallback(() => {
         beginEditItem(item);
     }, [beginEditItem, item]);
@@ -55,7 +55,7 @@ const Product = props => {
 
         // TODO: prompt user to confirm this action?
         removeItemFromCart({ item });
-    }, [item, removeItemFromCart, setIsLoading]);
+    }, [item, removeItemFromCart]);
 
     return (
         <li className={classes.root}>
