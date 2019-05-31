@@ -52,7 +52,7 @@ const App = props => {
                     getErrorDismisser(error, handleDismiss)();
                     remove();
                 },
-                timeout: 7000,
+                timeout: 15000,
                 type: 'error'
             };
             // Only add a toast for new errors. Without this condition we would

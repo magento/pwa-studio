@@ -244,7 +244,7 @@ test('adds toasts for render errors', () => {
         icon: expect.any(Function),
         message: expect.any(String),
         onDismiss: expect.any(Function),
-        timeout: 7000,
+        timeout: expect.any(Number),
         type: 'error'
     });
 });
@@ -273,7 +273,7 @@ test('adds toasts for unhandled errors', () => {
         icon: expect.any(Function),
         message: expect.any(String),
         onDismiss: expect.any(Function),
-        timeout: 7000,
+        timeout: expect.any(Number),
         type: 'error'
     });
 });
