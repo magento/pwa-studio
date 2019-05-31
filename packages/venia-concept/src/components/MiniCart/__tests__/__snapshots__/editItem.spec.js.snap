@@ -1,11 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders a loading indicator if no data 1`] = `
+<Classify(LoadingIndicator)>
+  <span>
+    Fetching Data...
+  </span>
+</Classify(LoadingIndicator)>
+`;
+
 exports[`renders a loading indicator while running query 1`] = `
 <Classify(LoadingIndicator)>
   <span>
     Fetching Data...
   </span>
 </Classify(LoadingIndicator)>
+`;
+
+exports[`renders an error message when an error occurs 1`] = `
+<span>
+  Unable to fetch item options.
+</span>
 `;
 
 exports[`renders cart options when item has no options 1`] = `

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ShallowRenderer from 'react-test-renderer/Shallow';
 import { useQuery } from '@magento/peregrine';
 
@@ -13,6 +13,10 @@ jest.mock('react', () => {
 jest.mock('@magento/peregrine');
 
 const renderer = new ShallowRenderer();
+const queryApi = {
+    runQuery: jest.fn(),
+    setLoading: jest.fn()
+};
 
 test('renders null when item not supplied', () => {
     const tree = renderer.render(<EditItem />);
@@ -33,6 +37,51 @@ test('renders cart options when item has no options', () => {
 });
 
 test('renders a loading indicator while running query', () => {
+    const queryResult = {
+        data: null,
+        error: false,
+        loading: true
+    };
+    useQuery.mockReturnValueOnce([queryResult, queryApi]);
+
+    const props = {
+        item: {
+            options: ['a', 'b', 'c']
+        }
+    };
+
+    const tree = renderer.render(<EditItem {...props} />);
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('renders a loading indicator if no data', () => {
+    const queryResult = {
+        data: null,
+        error: false,
+        loading: false
+    };
+    useQuery.mockReturnValueOnce([queryResult, queryApi]);
+
+    const props = {
+        item: {
+            options: ['a', 'b', 'c']
+        }
+    };
+
+    const tree = renderer.render(<EditItem {...props} />);
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('renders an error message when an error occurs', () => {
+    const queryResult = {
+        data: null,
+        error: true,
+        loading: false
+    };
+    useQuery.mockReturnValueOnce([queryResult, queryApi]);
+
     const props = {
         item: {
             options: ['a', 'b', 'c']
@@ -45,10 +94,6 @@ test('renders a loading indicator while running query', () => {
 });
 
 test('renders cart options when item has options', () => {
-    const queryApi = {
-        runQuery: jest.fn(),
-        setLoading: jest.fn()
-    };
     const queryResult = {
         data: {
             products: {
@@ -57,7 +102,6 @@ test('renders cart options when item has options', () => {
         }
     };
     useQuery.mockReturnValueOnce([queryResult, queryApi]);
-    useEffect.mockReturnValueOnce(undefined);
 
     const props = {
         item: {

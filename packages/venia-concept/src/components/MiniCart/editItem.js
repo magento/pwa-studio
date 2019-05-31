@@ -14,7 +14,7 @@ const EditItem = props => {
 
     // State / Hooks.
     const [queryResult, queryApi] = useQuery(PRODUCT_DETAILS);
-    const { data, error } = queryResult;
+    const { data, error, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
 
     // Members.
@@ -60,13 +60,10 @@ const EditItem = props => {
         );
     }
 
-    // We don't have data yet, we're either loading it or
-    // in an error situation.
-    if (!data) {
-        if (error) {
-            return <span>Unable to fetch item options.</span>;
-        }
-
+    if (error) {
+        return <span>Unable to fetch item options.</span>;
+    }
+    if (loading || !data) {
         return loadingIndicator;
     }
 
