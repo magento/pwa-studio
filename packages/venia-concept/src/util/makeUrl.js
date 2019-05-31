@@ -5,7 +5,7 @@ const {
 } = document.querySelector('html').dataset;
 const useBackendForImgs = imageOptimizingOrigin === 'backend';
 
-// Tests if a URL begins with `http://` or `https://` or `data:`
+// Tests if a URL begins with `http:` or `https:` or `data:`
 const absoluteUrl = /^(data|http|https)?:/i;
 
 // Simple path joiner that guarantees one and only one slash between segments
@@ -49,34 +49,27 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
     const isAbsolute = absoluteUrl.test(path);
     let baseURL = new URL(path, mediaBackend);
 
-    if (type) {
-        // If URL is relative and has a supported type, prepend media base onto path
-        if (!isAbsolute && mediaBases.has(type)) {
-            const mediaBase = mediaBases.get(type);
-            if (!baseURL.pathname.includes(mediaBase)) {
-                baseURL = new URL(joinUrls(mediaBase, path), mediaBackend);
-            }
-        }
-
-        // If type matches image pattern append image optimization parameters
-        if (type.startsWith('image-')) {
-            if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
-                baseURL = new URL(
-                    baseURL.href.slice(baseURL.origin.length),
-                    origin
-                );
-            }
-
-            const params = new URLSearchParams(baseURL.search);
-            params.set('auto', 'webp'); // Use the webp format if available
-            params.set('format', 'pjpg'); // Use progressive JPGs at least
-            if (width) {
-                // resize!
-                params.set('width', width);
-            }
-            baseURL.search = params.toString();
+    // If URL is relative and has a supported type, prepend media base onto path
+    if (!isAbsolute && mediaBases.has(type)) {
+        const mediaBase = mediaBases.get(type);
+        if (!baseURL.pathname.includes(mediaBase)) {
+            baseURL = new URL(joinUrls(mediaBase, path), mediaBackend);
         }
     }
+
+    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
+        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), origin);
+    }
+
+    // Append image optimization parameters
+    const params = new URLSearchParams(baseURL.search);
+    params.set('auto', 'webp'); // Use the webp format if available
+    params.set('format', 'pjpg'); // Use progressive JPGs at least
+    if (width) {
+        // resize!
+        params.set('width', width);
+    }
+    baseURL.search = params.toString();
 
     if (baseURL.origin === origin) {
         return baseURL.href.slice(baseURL.origin.length);

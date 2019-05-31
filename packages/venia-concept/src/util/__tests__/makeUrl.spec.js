@@ -46,7 +46,7 @@ test("doesn't prepend media path if it's already included", () => {
     ).toBeTruthy();
 });
 
-test('appends opt params to absolute url when media base and width it provided', () => {
+test('appends opt params to absolute url when width is provided', () => {
     const width = 100;
     const raw = absoluteUrls[2];
 
