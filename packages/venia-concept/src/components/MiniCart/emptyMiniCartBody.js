@@ -2,7 +2,8 @@ import React from 'react';
 import { func, string, shape } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
-import Trigger from './trigger';
+import Trigger from 'src/components/Trigger';
+
 import defaultClasses from './emptyMiniCartBody.css';
 
 const EmptyMiniCart = props => {
@@ -15,7 +16,7 @@ const EmptyMiniCart = props => {
             <h3 className={classes.emptyTitle}>
                 There are no items in your shopping cart
             </h3>
-            <Trigger onClick={closeDrawer}>
+            <Trigger action={closeDrawer}>
                 <span className={classes.continue}>Continue Shopping</span>
             </Trigger>
         </div>

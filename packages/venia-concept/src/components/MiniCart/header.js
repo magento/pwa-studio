@@ -4,9 +4,9 @@ import CloseIcon from 'react-feather/dist/icons/x';
 
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
+import Trigger from 'src/components/Trigger';
 
 import defaultClasses from './header.css';
-import Trigger from './trigger';
 
 const Header = props => {
     const { closeDrawer, isEditingItem } = props;
@@ -17,7 +17,7 @@ const Header = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{title}</h2>
-            <Trigger onClick={closeDrawer}>
+            <Trigger action={closeDrawer}>
                 <Icon src={CloseIcon} />
             </Trigger>
         </div>

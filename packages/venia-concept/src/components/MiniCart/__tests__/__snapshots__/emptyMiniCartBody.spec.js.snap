@@ -5,10 +5,10 @@ exports[`renders a "no items" message 1`] = `
   <h3>
     There are no items in your shopping cart
   </h3>
-  <Trigger>
+  <Classify(Trigger)>
     <span>
       Continue Shopping
     </span>
-  </Trigger>
+  </Classify(Trigger)>
 </div>
 `;
