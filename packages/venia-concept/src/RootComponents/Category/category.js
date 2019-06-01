@@ -1,130 +1,112 @@
-import React, { Component } from 'react';
-import { string, number, shape } from 'prop-types';
-import { compose } from 'redux';
-import { connect, Query } from 'src/drivers';
+import React, { useEffect } from 'react';
+import { number, shape, string } from 'prop-types';
+import { usePagination, useQuery } from '@magento/peregrine';
+
+import { toggleDrawer } from 'src/actions/app';
 import catalogActions from 'src/actions/catalog';
-import classify from 'src/classify';
-import isObjectEmpty from 'src/util/isObjectEmpty';
-import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
+import { mergeClasses } from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
-import CategoryContent from './categoryContentContainer';
-import defaultClasses from './category.css';
+import { connect } from 'src/drivers';
 import categoryQuery from 'src/queries/getCategory.graphql';
+import isObjectEmpty from 'src/util/isObjectEmpty';
 import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
-class Category extends Component {
-    static propTypes = {
-        id: number,
-        classes: shape({
-            gallery: string,
-            root: string,
-            title: string
-        }),
-        currentPage: number,
-        prevPageTotal: number,
-        pageSize: number
+import CategoryContent from './categoryContent';
+import defaultClasses from './category.css';
+
+const Category = props => {
+    const { filterClear, id, openDrawer, pageSize } = props;
+
+    const [paginationValues, paginationApi] = usePagination();
+    const { currentPage, totalPages } = paginationValues;
+    const { setCurrentPage, setTotalPages } = paginationApi;
+
+    const pageControl = {
+        currentPage,
+        setPage: setCurrentPage,
+        updateTotalPages: setTotalPages,
+        totalPages
     };
 
-    // TODO: Should not be a default here, we just don't have
-    // the wiring in place to map route info down the tree (yet)
-    static defaultProps = {
-        id: 3
-    };
+    const [queryResult, queryApi] = useQuery(categoryQuery);
+    const { data, error, loading } = queryResult;
+    const { runQuery, setLoading } = queryApi;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    componentDidMount() {
-        isObjectEmpty(getFilterParams()) && this.props.filterClear();
-    }
-
-    componentDidUpdate(prevProps) {
-        // If the current page has changed, scroll back up to the top.
-        if (this.props.currentPage !== prevProps.currentPage) {
-            window.scrollTo(0, 0);
+    // clear any stale filters
+    useEffect(() => {
+        if (isObjectEmpty(getFilterParams())) {
+            filterClear();
         }
-    }
+    }, []);
 
-    render() {
-        const {
-            id,
-            classes,
-            currentPage,
-            prevPageTotal,
-            filterClear,
-            pageSize,
-            setCurrentPage,
-            setPrevPageTotal
-        } = this.props;
+    // run the category query
+    useEffect(() => {
+        setLoading(true);
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                id: Number(id),
+                idString: String(id),
+                onServer: false,
+                pageSize: Number(pageSize)
+            }
+        });
 
-        const pageControl = {
-            currentPage: currentPage,
-            setPage: setCurrentPage,
-            updateTotalPages: setPrevPageTotal,
-            totalPages: prevPageTotal
-        };
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage, id, pageSize]);
 
-        const queryVariables = {
-            id: Number(id),
-            onServer: false,
-            pageSize: Number(pageSize),
-            currentPage: Number(currentPage),
-            idString: String(id)
-        };
+    const totalPagesFromData = data
+        ? data.products.page_info.total_pages
+        : null;
 
-        return (
-            <Query query={categoryQuery} variables={queryVariables}>
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    // If our pagination component has mounted, then we have
-                    // a total page count in the store, so we continue to render
-                    // with our last known total
-                    if (loading)
-                        return pageControl.totalPages ? (
-                            <CategoryContent
-                                pageControl={pageControl}
-                                pageSize={pageSize}
-                            />
-                        ) : (
-                            loadingIndicator
-                        );
+    useEffect(() => {
+        setTotalPages(totalPagesFromData);
+    }, [totalPagesFromData]);
 
-                    // Retrieve the total page count from GraphQL when ready
-                    const pageCount = data.products.total_count / pageSize;
-                    const totalPages = Math.ceil(pageCount);
-                    const totalWrapper = {
-                        ...pageControl,
-                        totalPages: totalPages
-                    };
+    if (error) return <div>Data Fetch Error</div>;
 
-                    return (
-                        <CategoryContent
-                            classes={classes}
-                            filterClear={filterClear}
-                            pageControl={totalWrapper}
-                            data={data}
-                        />
-                    );
-                }}
-            </Query>
-        );
-    }
-}
+    // show loading indicator until data has been fetched
+    // and pagination state has been updated
+    if (!totalPages) return loadingIndicator;
 
-const mapStateToProps = ({ catalog }) => {
-    return {
-        currentPage: catalog.currentPage,
-        pageSize: catalog.pageSize,
-        prevPageTotal: catalog.prevPageTotal
-    };
+    return (
+        <CategoryContent
+            classes={classes}
+            data={loading ? null : data}
+            filterClear={filterClear}
+            openDrawer={openDrawer}
+            pageControl={pageControl}
+        />
+    );
+};
+
+// export default Category;
+
+Category.propTypes = {
+    classes: shape({
+        gallery: string,
+        root: string,
+        title: string
+    }),
+    id: number,
+    pageSize: number
+};
+
+Category.defaultProps = {
+    id: 3,
+    pageSize: 6
 };
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentPage: payload => dispatch(setCurrentPage(payload)),
-    setPrevPageTotal: payload => dispatch(setPrevPageTotal(payload)),
-    filterClear: () => dispatch(catalogActions.filterOption.clear())
+    filterClear: () => dispatch(catalogActions.filterOption.clear()),
+    openDrawer: () => dispatch(toggleDrawer('filter'))
 });
 
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
+export default connect(
+    null,
+    mapDispatchToProps
 )(Category);

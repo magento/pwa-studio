@@ -9,6 +9,7 @@ query category(
         id
         description
         name
+        product_count
         meta_title @include(if: $onServer)
         meta_keywords @include(if: $onServer)
         meta_description @include(if: $onServer)
@@ -18,6 +19,15 @@ query category(
         currentPage: $currentPage
         filter: { category_id: { eq: $idString } }
     ) {
+        filters {
+            name
+            filter_items_count
+            request_var
+            filter_items {
+                label
+                value_string
+            }
+        }
         items {
             id
             name
@@ -34,15 +44,9 @@ query category(
                 }
             }
         }
-        total_count
-        filters {
-            name
-            filter_items_count
-            request_var
-            filter_items {
-                label
-                value_string
-            }
+        page_info {
+            total_pages
         }
+        total_count
     }
 }
