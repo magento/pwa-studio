@@ -13,8 +13,9 @@ const mapStateToProps = ({ app }) => {
 
 const mapDispatchToProps = dispatch => ({
     closeDrawer: () => dispatch(closeDrawer()),
-    addFilter: payload => dispatch(addFilter(payload)),
-    removeFilter: payload => dispatch(removeFilter(payload)),
+    addFilter: (item, history) => dispatch(addFilter(item, history)),
+    removeFilter: (item, history, location) =>
+        dispatch(removeFilter(item, history, location)),
     setToApplied: () => dispatch(catalogActions.filterOption.setToApplied())
 });
 
