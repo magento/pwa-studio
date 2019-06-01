@@ -52,13 +52,14 @@
 /* Fields. */
 
 .city,
+.postcode,
 .region_code {
     grid-column-end: span 1;
 }
 
 .address_check,
+.email,
 .braintree,
-.postcode,
 .street0 {
     grid-column-end: span 2;
 }
