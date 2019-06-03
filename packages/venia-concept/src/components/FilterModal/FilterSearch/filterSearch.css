@@ -1,0 +1,10 @@
+.filterSearch {
+    align-items: center;
+    display: grid;
+    justify-items: stretch;
+    width: 100%;
+}
+
+.noFilters {
+    padding: 1rem 1rem 1.5rem;
+}
