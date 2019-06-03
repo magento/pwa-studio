@@ -3,7 +3,7 @@
 .i-c {
     align-content: center;
     align-items: center;
-    color: rgb(112, 112, 112);
+    color: #212121;
     display: grid;
     gap: 2rem;
     height: calc(100% - 6rem);
