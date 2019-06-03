@@ -1,4 +1,5 @@
 .root {
+    /* Even though this is empty, we leave it in to support overriding. */
 }
 
 .subtotalLabel {
