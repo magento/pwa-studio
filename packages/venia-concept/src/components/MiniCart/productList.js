@@ -3,16 +3,17 @@ import { arrayOf, func, number, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
+import getCurrencyCode from 'src/util/getCurrencyCode';
 
 import Product from './product';
 import defaultClasses from './productList.css';
 
 const ProductList = props => {
-    const { beginEditItem, cart, currencyCode, removeItemFromCart } = props;
+    const { beginEditItem, cart, removeItemFromCart } = props;
     const { items } = cart.details;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const currency = currencyCode || cart.details.currency.quote_currency_code;
+    const currency = getCurrencyCode(cart);
 
     return (
         <List
@@ -57,7 +58,6 @@ ProductList.propTypes = {
     classes: shape({
         root: string
     }),
-    currencyCode: string,
     removeItemFromCart: func
 };
 

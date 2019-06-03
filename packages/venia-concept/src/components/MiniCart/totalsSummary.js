@@ -4,6 +4,7 @@ import { number, object, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
+import getCurrencyCode from 'src/util/getCurrencyCode';
 
 import defaultClasses from './totalsSummary.css';
 
@@ -12,7 +13,7 @@ const TotalsSummary = props => {
     const { cart } = props;
 
     // Members.
-    const cartCurrencyCode = cart.details.currency.quote_currency_code;
+    const cartCurrencyCode = getCurrencyCode(cart);
     const classes = mergeClasses(defaultClasses, props.classes);
     const hasSubtotal = Boolean(cart.totals.subtotal);
     const itemsQuantity = cart.details.items_qty;
