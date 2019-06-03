@@ -1,0 +1,49 @@
+.footer {
+    position: fixed;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.5rem;
+    border-top: 2px solid rgb(var(--venia-border));
+}
+
+.footerButton {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: 9rem;
+    border: 1px solid black;
+    border-radius: 100px;
+    color: black;
+    outline: none;
+}
+
+.footerButtonDisabled {
+    composes: footerButton;
+    border: 1px solid #d1d1d1;
+    color: #d1d1d1;
+}
+
+.resetButton {
+    composes: footerButton;
+}
+
+.resetButtonDisabled {
+    composes: footerButtonDisabled;
+    background-color: white;
+}
+
+.applyButton {
+    composes: footerButton;
+    color: white;
+    background-color: black;
+}
+
+.applyButtonDisabled {
+    composes: footerButtonDisabled;
+    color: white;
+    background-color: #d1d1d1;
+}
