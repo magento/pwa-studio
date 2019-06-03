@@ -12,12 +12,12 @@ const classes = {
 
 const data = {
     category: {
-        products: {
-            items: {
-                id: 1
-            }
-        },
         description: 'test'
+    },
+    products: {
+        items: {
+            id: 1
+        }
     }
 };
 

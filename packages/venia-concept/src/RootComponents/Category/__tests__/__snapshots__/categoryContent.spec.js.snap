@@ -7,13 +7,6 @@ exports[`renders the correct tree 1`] = `
   <h1
     className="b"
   >
-    <div
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "test",
-        }
-      }
-    />
     <div />
   </h1>
   <section
@@ -26,7 +19,6 @@ exports[`renders the correct tree 1`] = `
         }
       }
       pageSize={6}
-      title="test"
     />
   </section>
   <div
