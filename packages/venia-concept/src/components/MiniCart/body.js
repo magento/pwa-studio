@@ -3,6 +3,7 @@ import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
+import getCurrencyCode from 'src/util/getCurrencyCode';
 
 import defaultClasses from './body.css';
 import EditItem from './editItem';
@@ -23,6 +24,7 @@ const Body = props => {
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
+    const currencyCode = getCurrencyCode(cart);
     const { editItem, isLoading, isEditingItem, isUpdatingItem } = cart;
 
     // Callbacks.
@@ -45,6 +47,7 @@ const Body = props => {
     if (isEditingItem) {
         return (
             <EditItem
+                currencyCode={currencyCode}
                 endEditItem={endEditItem}
                 isUpdatingItem={isUpdatingItem}
                 item={editItem}

@@ -14,9 +14,6 @@ import isProductConfigurable from 'src/util/isProductConfigurable';
 
 import defaultClasses from './cartOptions.css';
 
-// TODO: get real currencyCode for cartItem
-const currencyCode = 'USD';
-
 const Options = React.lazy(() => import('../ProductOptions'));
 
 const getIsMissingOptions = (cartItem, configItem, numSelections) => {
@@ -38,6 +35,7 @@ const CartOptions = props => {
     const {
         cartItem,
         configItem,
+        currencyCode,
         endEditItem,
         isUpdatingItem,
         updateCart
@@ -140,6 +138,12 @@ const CartOptions = props => {
 };
 
 CartOptions.propTypes = {
+    cartItem: shape({
+        item_id: number.isRequired,
+        name: string.isRequired,
+        price: number.isRequired,
+        qty: number.isRequired
+    }),
     classes: shape({
         root: string,
         focusItem: string,
@@ -152,16 +156,11 @@ CartOptions.propTypes = {
         modal_active: string,
         options: string
     }),
-    cartItem: shape({
-        item_id: number.isRequired,
-        name: string.isRequired,
-        price: number.isRequired,
-        qty: number.isRequired
-    }),
     configItem: shape({
         __typename: string,
         configurable_options: array
     }).isRequired,
+    currencyCode: string,
     endEditItem: func.isRequired,
     isUpdatingItem: bool,
     updateCart: func.isRequired

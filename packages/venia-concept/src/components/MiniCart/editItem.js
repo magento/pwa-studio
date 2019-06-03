@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { bool, func, object } from 'prop-types';
+import { bool, func, object, string } from 'prop-types';
 
 import { useQuery } from '@magento/peregrine';
 
@@ -10,7 +10,13 @@ import CartOptions from './cartOptions';
 
 const EditItem = props => {
     // Props.
-    const { endEditItem, isUpdatingItem, item, updateItemInCart } = props;
+    const {
+        currencyCode,
+        endEditItem,
+        isUpdatingItem,
+        item,
+        updateItemInCart
+    } = props;
 
     // State / Hooks.
     const [queryResult, queryApi] = useQuery(PRODUCT_DETAILS);
@@ -53,6 +59,7 @@ const EditItem = props => {
             <CartOptions
                 cartItem={item}
                 configItem={{}}
+                currencyCode={currencyCode}
                 endEditItem={endEditItem}
                 isUpdatingItem={isUpdatingItem}
                 updateCart={updateItemInCart}
@@ -74,6 +81,7 @@ const EditItem = props => {
         <CartOptions
             cartItem={item}
             configItem={itemWithOptions}
+            currencyCode={currencyCode}
             endEditItem={endEditItem}
             isUpdatingItem={isUpdatingItem}
             updateCart={updateItemInCart}
@@ -82,6 +90,7 @@ const EditItem = props => {
 };
 
 EditItem.propTypes = {
+    currencyCode: string,
     endEditItem: func,
     isUpdatingItem: bool,
     item: object,

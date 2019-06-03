@@ -16,6 +16,7 @@ test('it renders the correct tree', () => {
         configItem: {
             __typename: 'simple'
         },
+        currencyCode: 'USD',
         endEditItem: jest.fn(),
         updateCart: jest.fn()
     };
