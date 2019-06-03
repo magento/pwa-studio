@@ -49,10 +49,6 @@ beforeEach(() => {
 });
 afterAll(() => window.location.reload.mockRestore());
 
-test('fails for danger', () => {
-    expect(true).toBe('false');
-});
-
 test('renders a full page with onlineIndicator and routes', () => {
     const appProps = {
         app: {
