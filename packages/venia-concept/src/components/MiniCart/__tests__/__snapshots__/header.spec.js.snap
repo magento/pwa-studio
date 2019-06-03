@@ -5,10 +5,10 @@ exports[`it renders the correct tree 1`] = `
   <h2>
     Shopping Cart
   </h2>
-  <Classify(Trigger)>
+  <Trigger>
     <Classify(Icon)
       src={[Function]}
     />
-  </Classify(Trigger)>
+  </Trigger>
 </div>
 `;
