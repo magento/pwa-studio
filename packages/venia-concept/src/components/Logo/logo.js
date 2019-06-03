@@ -1,33 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
 import logo from './logo.svg';
 
-class Logo extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            logo: PropTypes.string
-        }),
-        height: PropTypes.number
-    };
+const Logo = props => {
+    const { height } = props;
+    const classes = mergeClasses({}, props.classes);
 
-    static defaultProps = {
-        height: 24
-    };
+    return (
+        <img
+            className={classes.logo}
+            src={logo}
+            height={height}
+            alt="Venia"
+            title="Venia"
+        />
+    );
+};
 
-    render() {
-        const { height, classes } = this.props;
+Logo.propTypes = {
+    classes: PropTypes.shape({
+        logo: PropTypes.string
+    }),
+    height: PropTypes.number
+};
 
-        return (
-            <img
-                className={classes.logo}
-                src={logo}
-                height={height}
-                alt="Venia"
-                title="Venia"
-            />
-        );
-    }
-}
+Logo.defaultProps = {
+    height: 24
+};
 
-export default classify({})(Logo);
+export default Logo;
