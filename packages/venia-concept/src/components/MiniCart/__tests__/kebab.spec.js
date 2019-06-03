@@ -1,5 +1,5 @@
 import React from 'react';
-import ShallowRenderer from 'react-test-renderer/Shallow';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import Kebab from '../kebab';
 

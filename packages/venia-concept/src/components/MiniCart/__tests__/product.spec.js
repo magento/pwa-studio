@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import ShallowRenderer from 'react-test-renderer/Shallow';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import Product from '../product';
 
