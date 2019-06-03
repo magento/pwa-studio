@@ -1,33 +1,52 @@
-query category($id: Int!, $pageSize: Int!, $currentPage: Int!, $onServer: Boolean!) {
-        category(id: $id) {
-            id
-            description
-            name
-            product_count
-            products(pageSize: $pageSize, currentPage: $currentPage) {
-                items {
-                    id
-                    name
-                    small_image {
-                        url
-                    }
-                    url_key
-                    price {
-                        regularPrice {
-                            amount {
-                                value
-                                currency
-                            }
-                        }
-                    }
-                }
-                page_info {
-                    total_pages
-                }
-                total_count
-            }
-            meta_title @include(if: $onServer)
-            meta_keywords @include(if: $onServer)
-            meta_description @include(if: $onServer)
-        }
+query category(
+    $id: Int!
+    $pageSize: Int!
+    $currentPage: Int!
+    $onServer: Boolean!
+    $idString: String
+) {
+    category(id: $id) {
+        id
+        description
+        name
+        product_count
+        meta_title @include(if: $onServer)
+        meta_keywords @include(if: $onServer)
+        meta_description @include(if: $onServer)
     }
+    products(
+        pageSize: $pageSize
+        currentPage: $currentPage
+        filter: { category_id: { eq: $idString } }
+    ) {
+        filters {
+            name
+            filter_items_count
+            request_var
+            filter_items {
+                label
+                value_string
+            }
+        }
+        items {
+            id
+            name
+            small_image {
+                url
+            }
+            url_key
+            price {
+                regularPrice {
+                    amount {
+                        value
+                        currency
+                    }
+                }
+            }
+        }
+        page_info {
+            total_pages
+        }
+        total_count
+    }
+}

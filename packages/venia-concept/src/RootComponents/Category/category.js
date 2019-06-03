@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
-import { string, number, shape } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
+import { toggleDrawer } from 'src/actions/app';
+import catalogActions from 'src/actions/catalog';
 import { mergeClasses } from 'src/classify';
-import categoryQuery from 'src/queries/getCategory.graphql';
-import CategoryContent from './categoryContent';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { connect } from 'src/drivers';
+import categoryQuery from 'src/queries/getCategory.graphql';
+import isObjectEmpty from 'src/util/isObjectEmpty';
+import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
+import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
 const Category = props => {
-    const { id, pageSize } = props;
+    const { filterClear, id, openDrawer, pageSize } = props;
 
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
@@ -27,14 +32,23 @@ const Category = props => {
     const { runQuery, setLoading } = queryApi;
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    // clear any stale filters
+    useEffect(() => {
+        if (isObjectEmpty(getFilterParams())) {
+            filterClear();
+        }
+    }, []);
+
+    // run the category query
     useEffect(() => {
         setLoading(true);
         runQuery({
             variables: {
+                currentPage: Number(currentPage),
                 id: Number(id),
+                idString: String(id),
                 onServer: false,
-                pageSize: Number(pageSize),
-                currentPage: Number(currentPage)
+                pageSize: Number(pageSize)
             }
         });
 
@@ -43,36 +57,40 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [id, pageSize, currentPage]);
+    }, [currentPage, id, pageSize]);
 
     const totalPagesFromData = data
-        ? data.category.products.page_info.total_pages
+        ? data.products.page_info.total_pages
         : null;
+
     useEffect(() => {
         setTotalPages(totalPagesFromData);
     }, [totalPagesFromData]);
 
     if (error) return <div>Data Fetch Error</div>;
-    // show loading indicator until our data has been fetched and pagination state has been updated
+
+    // show loading indicator until data has been fetched
+    // and pagination state has been updated
     if (!totalPages) return loadingIndicator;
 
-    // if our data is still loading, we want to reset our data state to null
     return (
         <CategoryContent
             classes={classes}
-            pageControl={pageControl}
             data={loading ? null : data}
+            filterClear={filterClear}
+            openDrawer={openDrawer}
+            pageControl={pageControl}
         />
     );
 };
 
 Category.propTypes = {
-    id: number,
     classes: shape({
         gallery: string,
         root: string,
         title: string
     }),
+    id: number,
     pageSize: number
 };
 
@@ -81,4 +99,12 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-export default Category;
+const mapDispatchToProps = dispatch => ({
+    filterClear: () => dispatch(catalogActions.filterOption.clear()),
+    openDrawer: () => dispatch(toggleDrawer('filter'))
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Category);
