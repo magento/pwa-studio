@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, number, oneOf, string } from 'prop-types';
+import { bool, func, number, object, oneOf, string } from 'prop-types';
 import defaultClasses from './toast.css';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
@@ -51,7 +51,7 @@ const Toast = props => {
 Toast.propTypes = {
     actionText: string,
     dismissable: bool,
-    icon: func,
+    icon: object,
     id: number,
     message: string.isRequired,
     onAction: func,
