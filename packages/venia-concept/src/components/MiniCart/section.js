@@ -19,7 +19,6 @@ const icons = {
     Edit2: Edit2Icon,
     Trash: TrashIcon
 };
-const friendlyIconNames = Object.keys(icons);
 
 const Section = props => {
     const { icon, iconAttributes, onClick, text } = props;
@@ -45,7 +44,7 @@ Section.propTypes = {
         menuItem: string,
         text: string
     }),
-    icon: oneOf(friendlyIconNames),
+    icon: oneOf(Object.keys(icons)),
     iconAttributes: object,
     onClick: func,
     text: string
