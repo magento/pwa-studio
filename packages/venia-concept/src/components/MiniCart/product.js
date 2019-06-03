@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
@@ -13,36 +13,25 @@ import defaultClasses from './product.css';
 
 const FAVORITES_FILL = { fill: 'rgb(var(--venia-teal))' };
 
+const imageWidth = 80;
+
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
     const { image, name, options, price, qty } = item;
 
-    const imageRef = useRef(null);
-    const [imageSource, setImageSource] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const mask = isLoading ? <div className={classes.mask} /> : null;
-
-    useEffect(() => {
-        // After the imageRef mounts, get its --image-width so
-        // we can pass it to `resourceUrl`.
-        const imageWidth = getComputedStyle(imageRef.current).getPropertyValue(
-            '--image-width'
-        );
-
-        if (imageWidth) {
-            // parseFloat to strip off any units like 'px'.
-            const parsedImageWidth = parseFloat(imageWidth);
-            setImageSource(
-                `${resourceUrl(image.file, {
-                    type: 'image-product',
-                    width: parsedImageWidth
-                })}`
-            );
-        }
-    }, [imageRef]);
+    const imageSource = useMemo(
+        () =>
+            resourceUrl(image.file, {
+                type: 'image-product',
+                width: imageWidth
+            }),
+        [image]
+    );
 
     const handleFavoriteItem = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -59,12 +48,7 @@ const Product = props => {
 
     return (
         <li className={classes.root}>
-            <img
-                alt={name}
-                className={classes.image}
-                ref={imageRef}
-                src={imageSource}
-            />
+            <img alt={name} className={classes.image} src={imageSource} />
             <div className={classes.name}>{name}</div>
             <ProductOptions options={options} />
             <div className={classes.quantity}>

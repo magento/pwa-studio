@@ -12,14 +12,13 @@
 }
 
 .image {
-    --image-height: 100px;
-    --image-width: 80px;
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
     grid-area: image;
-    min-height: var(--image-height);
-    width: var(--image-width);
+    width: 80px;
+    max-width: 80px;
+    min-height: 100px;
 }
 
 .name {

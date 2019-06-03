@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import ShallowRenderer from 'react-test-renderer/Shallow';
 
 import Product from '../product';
@@ -8,9 +8,13 @@ global.getComputedStyle = jest.fn().mockReturnValue({
 });
 jest.mock('react', () => {
     const React = jest.requireActual('react');
-    const spy = jest.spyOn(React, 'useState');
+    const memoSpy = jest.spyOn(React, 'useMemo');
+    const stateSpy = jest.spyOn(React, 'useState');
 
-    return Object.assign(React, { useState: spy });
+    return Object.assign(React, {
+        useMemo: memoSpy,
+        useState: stateSpy
+    });
 });
 
 const renderer = new ShallowRenderer();
@@ -38,12 +42,12 @@ test('it renders correctly', () => {
 
 test('it renders a mask div before the kebab if it is loading', () => {
     useState
-        // backgroundImage
-        .mockReturnValueOnce([null, jest.fn()])
         // isFavorite
         .mockReturnValueOnce([false, jest.fn()])
         // isLoading
         .mockReturnValueOnce([true, jest.fn()]);
+
+    useMemo.mockReturnValueOnce('path/to/image/source');
 
     const tree = renderer.render(<Product {...props} />);
 

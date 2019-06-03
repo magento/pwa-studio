@@ -4,7 +4,7 @@ exports[`it renders a mask div before the kebab if it is loading 1`] = `
 <li>
   <img
     alt="Unit Test Product"
-    src={null}
+    src="path/to/image/source"
   />
   <div>
     Unit Test Product
@@ -54,7 +54,7 @@ exports[`it renders correctly 1`] = `
 <li>
   <img
     alt="Unit Test Product"
-    src={null}
+    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80"
   />
   <div>
     Unit Test Product
