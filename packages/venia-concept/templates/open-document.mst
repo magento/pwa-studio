@@ -21,8 +21,7 @@
     }}
     <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-    <link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">
-
+    {{> templates/default-font-include}}
     <link rel="preconnect" href="{{env.MAGENTO_BACKEND_URL}}">
     {{#bundles.prefetch}}
     <link rel="prefetch script" href="{{.}}">

@@ -1,35 +1,30 @@
-import React, { Component } from 'react';
-import Icon from 'src/components/Icon';
-import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
-import CheckIcon from 'react-feather/dist/icons/check';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { bool, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
+import { mergeClasses } from 'src/classify';
+
+import Icon from 'src/components/Icon';
 import defaultClasses from './onlineIndicator.css';
 
-class OnlineIndicator extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        isOnline: PropTypes.bool
-    };
+/**
+ * Renders an online indicator when the app goes offline.
+ */
+const OnlineIndicator = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { hasBeenOffline, isOnline } = props;
 
-    render() {
-        const { isOnline, classes } = this.props;
+    return hasBeenOffline && !isOnline ? (
+        <Icon src={CloudOffIcon} className={classes.root} />
+    ) : null;
+};
 
-        return !isOnline ? (
-            <div className={classes.offline}>
-                <Icon src={CloudOffIcon} />
-                <p> You are offline. Some features may be unavailable. </p>
-            </div>
-        ) : (
-            <div className={classes.online}>
-                <Icon src={CheckIcon} />
-                <p> You are online. </p>
-            </div>
-        );
-    }
-}
+OnlineIndicator.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    isOnline: bool,
+    hasBeenOffline: bool
+};
 
-export default classify(defaultClasses)(OnlineIndicator);
+export default OnlineIndicator;
