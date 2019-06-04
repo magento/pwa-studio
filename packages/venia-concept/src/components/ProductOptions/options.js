@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { arrayOf, func, shape, string } from 'prop-types';
+import { func, object } from 'prop-types';
+
+import isProductConfigurable from 'src/util/isProductConfigurable';
 
 import Option from './option';
 
 class Options extends Component {
     static propTypes = {
         onSelectionChange: func,
-        options: arrayOf(
-            shape({
-                attribute_id: string.isRequired
-            })
-        ).isRequired
+        product: object
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -23,9 +21,15 @@ class Options extends Component {
 
     render() {
         const { handleSelectionChange, props } = this;
-        const { options } = props;
+        const { product } = props;
 
-        return options.map(option => (
+        if (!isProductConfigurable(product)) {
+            // Non-configurable products don't have options.
+            return null;
+        }
+
+        const { configurable_options } = product;
+        return configurable_options.map(option => (
             <Option
                 {...option}
                 key={option.attribute_id}
