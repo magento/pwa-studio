@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 
-import { isUndefined } from 'util';
-
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
+import ErrorView from 'src/components/ErrorView';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
@@ -34,17 +33,12 @@ class Product extends Component {
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
     mapProduct(product) {
-        if (!isUndefined(product)) {
-            const { description } = product;
-            return {
-                ...product,
-                description:
-                    typeof description === 'object'
-                        ? description.html
-                        : description
-            };
-        }
-        return false;
+        const { description } = product;
+        return {
+            ...product,
+            description:
+                typeof description === 'object' ? description.html : description
+        };
     }
 
     render() {
@@ -58,17 +52,17 @@ class Product extends Component {
                     if (loading) return loadingIndicator;
 
                     const product = data.productDetail.items[0];
-                    const productData = this.mapProduct(product);
-                    if (productData) {
-                        return (
-                            <ProductFullDetail
-                                product={this.mapProduct(product)}
-                                addToCart={this.props.addItemToCart}
-                            />
-                        );
-                    } else {
-                        return <div>Product Out Of Stock</div>;
+
+                    if (!product) {
+                        return <ErrorView outOfStock={true} />;
                     }
+
+                    return (
+                        <ProductFullDetail
+                            product={this.mapProduct(product)}
+                            addToCart={this.props.addItemToCart}
+                        />
+                    );
                 }}
             </Query>
         );
