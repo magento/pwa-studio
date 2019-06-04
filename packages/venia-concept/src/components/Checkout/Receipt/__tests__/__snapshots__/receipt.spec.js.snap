@@ -15,36 +15,16 @@ exports[`renders a Receipt component correctly 1`] = `
     <div
       className="textBlock"
     >
-      Your order # is
-       
-      <span
-        className="orderId"
-      >
-        123
-      </span>
-      <br />
-      We’ll email you an order confirmation with details and tracking info
+      You will receive an order confirmation email with order status and other details.
     </div>
-    <button
-      className="root_normalPriority"
-      data-id="continue-shopping-button"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Continue Shopping
-      </span>
-    </button>
+    <hr />
     <div
       className="textBlock"
     >
-      Track order status and earn rewards for your purchase by creating and account.
+      Track order status and earn rewards for your purchase by creating an account.
     </div>
     <button
       className="root_highPriority"
-      data-id="create-account-button"
       onClick={[Function]}
       type="button"
     >

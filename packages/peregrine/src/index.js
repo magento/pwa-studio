@@ -5,6 +5,7 @@ import * as Util from './util';
 export { useApolloContext } from './hooks/useApolloContext';
 export { useEventListener } from './hooks/useEventListener';
 export { useDropdown } from './hooks/useDropdown';
+export { usePagination } from './hooks/usePagination';
 export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
 export { useSearchParam } from './hooks/useSearchParam';
@@ -12,6 +13,7 @@ export {
     WindowSizeContextProvider,
     useWindowSize
 } from './hooks/useWindowSize';
+export { getToastId, useToasts, ToastContextProvider } from './Toasts';
 
 // components
 export { default as ContainerChild } from './ContainerChild';
