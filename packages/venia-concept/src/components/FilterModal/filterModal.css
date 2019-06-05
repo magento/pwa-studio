@@ -1,0 +1,56 @@
+.root {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    transform: translate3d(0, 100%, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    width: 100%;
+    z-index: 3;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    height: 100%;
+}
+
+.rootOpen {
+    composes: root;
+    box-shadow: 1px 0 rgb(var(--venia-border));
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 224ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    visibility: visible;
+}
+
+.modalWrapper {
+    overflow: auto;
+    max-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.headerTitle {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+}
+
+.filterOptionsContainer {
+    padding: 0.5rem 1.5rem 7.5rem;
+}
+
+.searchFilterContainer {
+    margin-bottom: 1.125rem;
+}
