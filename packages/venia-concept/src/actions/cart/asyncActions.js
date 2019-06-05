@@ -282,10 +282,11 @@ export const removeItemFromCart = payload => {
         }
 
         // When removing the last item in the cart, perform a reset of the Cart ID
-        // to prevent a bug where the next item added to the cart has a price of 0.
-        // Otherwise refresh cart details to get updated totals.
+        // and create a new cart to prevent a bug where the next item added to the
+        // cart has a price of 0. Otherwise refresh cart details to get updated totals.
         if (isLastItem) {
             await clearCartId();
+            dispatch(createCart());
         } else {
             await dispatch(getCartDetails({ forceRefresh: true }));
         }
