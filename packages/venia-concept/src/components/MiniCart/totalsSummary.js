@@ -1,24 +1,20 @@
 import React from 'react';
-import { number, object, shape, string } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
-import getCurrencyCode from 'src/util/getCurrencyCode';
 
 import defaultClasses from './totalsSummary.css';
 
 const TotalsSummary = props => {
     // Props.
-    const { cart } = props;
+    const { currencyCode, numItems, subtotal } = props;
 
     // Members.
-    const cartCurrencyCode = getCurrencyCode(cart);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const hasSubtotal = Boolean(cart.totals.subtotal);
-    const itemsQuantity = cart.details.items_qty;
-    const itemQuantityText = itemsQuantity === 1 ? 'item' : 'items';
-    const totalPrice = cart.totals.subtotal;
+    const hasSubtotal = Boolean(subtotal);
+    const numItemsText = numItems === 1 ? 'item' : 'items';
 
     return (
         <div className={classes.root}>
@@ -28,13 +24,13 @@ const TotalsSummary = props => {
                         <span>
                             Cart Total :&nbsp;
                             <Price
-                                currencyCode={cartCurrencyCode}
-                                value={totalPrice}
+                                currencyCode={currencyCode}
+                                value={subtotal}
                             />
                         </span>
                     </dt>
                     <dd className={classes.subtotalValue}>
-                        ({itemsQuantity} {itemQuantityText})
+                        ({numItems} {numItemsText})
                     </dd>
                 </dl>
             )}
@@ -43,24 +39,15 @@ const TotalsSummary = props => {
 };
 
 TotalsSummary.propTypes = {
-    cart: shape({
-        details: shape({
-            currency: shape({
-                quote_currency_code: string
-            }).isRequired,
-            items_qty: number,
-            totals: object
-        }).isRequired,
-        totals: shape({
-            subtotal: number
-        }).isRequired
-    }).isRequired,
     classes: shape({
         root: string,
         subtotalLabel: string,
         subtotalValue: string,
         totals: string
-    })
+    }),
+    currencyCode: string,
+    numItems: number,
+    subtotal: number
 };
 
 export default TotalsSummary;

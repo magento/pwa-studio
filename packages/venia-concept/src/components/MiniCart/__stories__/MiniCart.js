@@ -54,9 +54,11 @@ const baseProps = {
             items: [],
             items_qty: 0
         },
+        editItem: null,
         isEditingItem: false,
+        isLoading: false,
+        isUpdatingItem: false,
         totals: {
-            items: [],
             subtotal: 49
         }
     },
@@ -117,12 +119,14 @@ stories.add('Many Items', () => {
                 ...baseProps.cart.details,
                 items: [
                     configurableItem,
-                    nonConfigurableItem,
-                    configurableItem,
-                    nonConfigurableItem,
-                    configurableItem,
-                    nonConfigurableItem,
-                    configurableItem
+                    // Give each of these a new item_id
+                    // to avoid React duplicate key warnings.
+                    { ...nonConfigurableItem, item_id: 2 },
+                    { ...configurableItem, item_id: 3 },
+                    { ...nonConfigurableItem, item_id: 4 },
+                    { ...configurableItem, item_id: 5 },
+                    { ...nonConfigurableItem, item_id: 6 },
+                    { ...configurableItem, item_id: 7 }
                 ],
                 items_qty: 7
             }

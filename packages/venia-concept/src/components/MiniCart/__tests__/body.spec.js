@@ -6,11 +6,7 @@ import Body from '../body';
 const renderer = new ShallowRenderer();
 
 const baseProps = {
-    beginEditItem: jest.fn(),
-    cart: {
-        details: {},
-        totals: {}
-    }
+    beginEditItem: jest.fn()
 };
 
 test('renders the product list when appropriate', () => {
@@ -20,40 +16,34 @@ test('renders the product list when appropriate', () => {
 });
 
 test('renders the loading indicator when appropriate', () => {
-    const testProps = {
+    const props = {
         ...baseProps,
-        cart: {
-            ...baseProps.cart,
-            isLoading: true
-        }
+        isLoading: true
     };
 
-    const tree = renderer.render(<Body {...testProps} />);
+    const tree = renderer.render(<Body {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
 
 test('renders the empty mini cart when appropriate', () => {
-    const testProps = {
+    const props = {
         ...baseProps,
         isCartEmpty: true
     };
 
-    const tree = renderer.render(<Body {...testProps} />);
+    const tree = renderer.render(<Body {...props} />);
 
     expect(tree).toMatchSnapshot();
 });
 
 test('renders the edit item dialog when appropriate', () => {
-    const testProps = {
+    const props = {
         ...baseProps,
-        cart: {
-            ...baseProps.cart,
-            isEditingItem: true
-        }
+        isEditingItem: true
     };
 
-    const tree = renderer.render(<Body {...testProps} />);
+    const tree = renderer.render(<Body {...props} />);
 
     expect(tree).toMatchSnapshot();
 });

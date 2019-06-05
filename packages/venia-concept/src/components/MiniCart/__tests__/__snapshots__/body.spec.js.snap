@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the edit item dialog when appropriate 1`] = `
-<EditItem
-  currencyCode="USD"
-/>
-`;
+exports[`renders the edit item dialog when appropriate 1`] = `<EditItem />`;
 
 exports[`renders the empty mini cart when appropriate 1`] = `<EmptyMiniCart />`;
 
@@ -20,12 +16,6 @@ exports[`renders the product list when appropriate 1`] = `
 <div>
   <ProductList
     beginEditItem={[Function]}
-    cart={
-      Object {
-        "details": Object {},
-        "totals": Object {},
-      }
-    }
   />
 </div>
 `;

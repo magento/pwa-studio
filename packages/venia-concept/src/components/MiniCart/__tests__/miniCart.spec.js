@@ -5,27 +5,53 @@ import MiniCart from '../miniCart';
 
 const renderer = new ShallowRenderer();
 
-test('renders the correct tree', () => {
-    const props = {
-        beginEditItem: jest.fn(),
-        endEditItem: jest.fn(),
-        cart: {
-            isEditingItem: false
+const baseProps = {
+    beginEditItem: jest.fn(),
+    cancelCheckout: jest.fn(),
+    cart: {
+        details: {
+            currency: {
+                quote_currency_code: 'NZD'
+            },
+            items: [
+                {
+                    item_id: 1,
+                    name: 'Unit Test Item',
+                    price: 99,
+                    product_type: 'configurable',
+                    qty: 1,
+                    quote_id: '1234',
+                    sku: 'SKU'
+                }
+            ],
+            items_qty: 1
+        },
+        editItem: null,
+        isEditingItem: false,
+        isLoading: false,
+        isUpdatingItem: false,
+        totals: {
+            subtotal: 99
         }
-    };
+    },
+    closeDrawer: jest.fn(),
+    endEditItem: jest.fn(),
+    isCartEmpty: false,
+    isMiniCartMaskOpen: false,
+    isOpen: true,
+    removeItemFromCart: jest.fn(),
+    updateItemInCart: jest.fn()
+};
 
-    const tree = renderer.render(<MiniCart {...props} />);
+test('renders the correct tree', () => {
+    const tree = renderer.render(<MiniCart {...baseProps} />);
 
     expect(tree).toMatchSnapshot();
 });
 
 test('doesnt render a footer when cart is empty', () => {
     const props = {
-        beginEditItem: jest.fn(),
-        cart: {
-            isEditingItem: false
-        },
-        endEditItem: jest.fn(),
+        ...baseProps,
         isCartEmpty: true
     };
 
@@ -38,11 +64,11 @@ test('doesnt render a footer when cart is empty', () => {
 
 test('doesnt render a footer when cart is editing', () => {
     const props = {
-        beginEditItem: jest.fn(),
+        ...baseProps,
         cart: {
+            ...baseProps.cart,
             isEditingItem: true
-        },
-        endEditItem: jest.fn()
+        }
     };
 
     renderer.render(<MiniCart {...props} />);
@@ -54,11 +80,11 @@ test('doesnt render a footer when cart is editing', () => {
 
 test('doesnt render a footer when cart is loading', () => {
     const props = {
-        beginEditItem: jest.fn(),
+        ...baseProps,
         cart: {
+            ...baseProps.cart,
             isLoading: true
-        },
-        endEditItem: jest.fn()
+        }
     };
 
     renderer.render(<MiniCart {...props} />);

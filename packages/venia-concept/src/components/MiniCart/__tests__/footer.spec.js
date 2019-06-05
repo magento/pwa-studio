@@ -6,10 +6,6 @@ import Footer from '../footer';
 const renderer = new ShallowRenderer();
 
 const baseProps = {
-    cart: {
-        isEditingItem: false,
-        isLoading: false
-    },
     isCartEmpty: false,
     isMiniCartMaskOpen: false
 };

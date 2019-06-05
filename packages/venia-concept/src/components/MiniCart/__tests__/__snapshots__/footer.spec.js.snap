@@ -2,14 +2,7 @@
 
 exports[`renders the correct tree 1`] = `
 <div>
-  <TotalsSummary
-    cart={
-      Object {
-        "isEditingItem": false,
-        "isLoading": false,
-      }
-    }
-  />
+  <TotalsSummary />
   <React.Suspense
     fallback={
       <div>
@@ -19,14 +12,7 @@ exports[`renders the correct tree 1`] = `
       </div>
     }
   >
-    <Connect(CheckoutWrapper)
-      cart={
-        Object {
-          "isEditingItem": false,
-          "isLoading": false,
-        }
-      }
-    />
+    <Connect(CheckoutWrapper) />
   </React.Suspense>
 </div>
 `;

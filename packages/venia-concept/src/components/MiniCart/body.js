@@ -3,7 +3,6 @@ import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
-import getCurrencyCode from 'src/util/getCurrencyCode';
 
 import defaultClasses from './body.css';
 import EditItem from './editItem';
@@ -14,18 +13,21 @@ const Body = props => {
     // Props.
     const {
         beginEditItem,
-        cart,
+        cartItems,
         closeDrawer,
+        currencyCode,
+        editItem,
         endEditItem,
         isCartEmpty,
+        isEditingItem,
+        isLoading,
+        isUpdatingItem,
         removeItemFromCart,
         updateItemInCart
     } = props;
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
-    const currencyCode = getCurrencyCode(cart);
-    const { editItem, isLoading, isEditingItem, isUpdatingItem } = cart;
 
     // Callbacks.
     const handleEditItem = useCallback(
@@ -60,7 +62,8 @@ const Body = props => {
         <div className={classes.root}>
             <ProductList
                 beginEditItem={handleEditItem}
-                cart={cart}
+                cartItems={cartItems}
+                currencyCode={currencyCode}
                 removeItemFromCart={removeItemFromCart}
             />
         </div>
@@ -69,24 +72,18 @@ const Body = props => {
 
 Body.propTypes = {
     beginEditItem: func.isRequired,
-    cart: shape({
-        details: shape({
-            items: array
-        }).isRequired,
-        editItem: object,
-        isEditingItem: bool,
-        isLoading: bool,
-        isUpdatingItem: bool,
-        totals: shape({
-            items: array
-        }).isRequired
-    }).isRequired,
+    cartItems: array,
     classes: shape({
         root: string
     }),
     closeDrawer: func,
+    currencyCode: string,
+    editItem: object,
     endEditItem: func,
     isCartEmpty: bool,
+    isEditingItem: bool,
+    isLoading: bool,
+    isUpdatingItem: bool,
     removeItemFromCart: func,
     updateItemInCart: func
 };
