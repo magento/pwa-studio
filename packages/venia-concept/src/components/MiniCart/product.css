@@ -16,7 +16,6 @@
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
     grid-area: image;
-    width: 80px;
     max-width: 80px;
     min-height: 100px;
 }
