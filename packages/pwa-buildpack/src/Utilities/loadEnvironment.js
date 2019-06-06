@@ -13,7 +13,7 @@ const buildpackReleaseName = `PWA Studio Buildpack v${buildpackVersion}`;
 
 // All environment variables Buildpack and PWA Studio use should be defined in
 // envVarDefinitions.json, along with recent changes to those vars for logging.
-const { sections, changes } = require('../../envVarDefinitions.json');
+const { sections, changes = [] } = require('../../envVarDefinitions.json');
 
 /**
  * Turn the JSON entries from envVarDefinitions.json, e.g.
@@ -63,9 +63,7 @@ class EnvironmentInvalidError extends Error {
         const invalidVarsOutput = [];
         for (const [key, err] of validationErrors) {
             if (err.name === 'EnvMissingError') {
-                missingVarsOutput.push(
-                    `${key}: ${err.message || '(required)'}`
-                );
+                missingVarsOutput.push(`${key}: ${err.message}`);
             } else {
                 invalidVarsOutput.push(`${key}: ${err.message}`);
             }
@@ -92,7 +90,7 @@ class EnvironmentInvalidError extends Error {
         this.validationErrors = validationErrors;
     }
 }
-function throwReport({ errors = {} }) {
+function throwReport({ errors }) {
     const errorEntries = Object.entries(errors);
     if (errorEntries.length) {
         throw new EnvironmentInvalidError(errorEntries);
@@ -279,7 +277,7 @@ function applyBackwardsCompatChanges(env, log) {
                         }
                     } else {
                         logMsg +=
-                            '\nThe old variable is longer functional. Please migrate to the new ${change.update} variable as soon as possible.';
+                            '\nThe old variable is no longer functional. Please migrate to the new ${change.update} variable as soon as possible.';
                     }
                     log.warn(logMsg);
                 }

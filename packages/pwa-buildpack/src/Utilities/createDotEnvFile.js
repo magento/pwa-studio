@@ -13,7 +13,7 @@ const { sections } = require('../../envVarDefinitions.json');
 const blankline = '#\n';
 const hashes = length => Array.from({ length }, () => '#').join('');
 const endSection = hashes(MAX_WIDTH) + '\n';
-const startSection = (label = '', offset = 4) => {
+const startSection = (label, offset) => {
     const start = `${hashes(offset)} ${label} `;
     return start + hashes(MAX_WIDTH - start.length) + '\n';
 };
@@ -29,12 +29,11 @@ module.exports = function printEnvFile(
     useEnv = process.env,
     log = prettyLogger
 ) {
-    const { env, error } = loadEnvironment(useEnv);
+    const { env, error } = loadEnvironment(useEnv, log);
     if (error) {
         log.warn(
             `The current environment is not yet valid; please edit the .env file and provide any missing variables to build the project.`
         );
-        return { error };
     }
     let contents = startSection('PWA Studio Environment Variables', 8);
     contents += blankline;
