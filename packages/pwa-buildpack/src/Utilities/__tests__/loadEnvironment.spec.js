@@ -304,14 +304,16 @@ test('logs all types of change', () => {
         LIVE_DIE_REPEAT: 'already using updated name'
     });
     expect(console.warn).toHaveBeenCalledTimes(6);
-    expect(console.warn.mock.calls[0][0]).toMatch(/Old value: old default/);
-    expect(console.warn.mock.calls[1][0]).toMatch(/Old value: old example/);
-    expect(console.warn.mock.calls[2][0]).toMatch(/removed/);
-    expect(console.warn.mock.calls[2][0]).toMatch(/ignored/);
-    expect(console.warn.mock.calls[3][0]).toMatch(/new name is METTA/);
-    expect(console.warn.mock.calls[3][0]).toMatch(/continue to work/);
-    expect(console.warn.mock.calls[4][0]).toMatch(/new name is KAREEM/);
-    expect(console.warn.mock.calls[4][0]).toMatch(/no longer functional/);
+    // Short test strings to support line breaks from word wrapping
+    expect(console.warn.mock.calls[0][0]).toMatch('Old value: old default');
+    expect(console.warn.mock.calls[1][0]).toMatch('Old value: old example');
+    expect(console.warn.mock.calls[2][0]).toMatch('removed');
+    expect(console.warn.mock.calls[2][0]).toMatch('ignored');
+    expect(console.warn.mock.calls[3][0]).toMatch('new');
+    expect(console.warn.mock.calls[3][0]).toMatch('METTA');
+    expect(console.warn.mock.calls[3][0]).toMatch('continue');
+    expect(console.warn.mock.calls[4][0]).toMatch('KAREEM');
+    expect(console.warn.mock.calls[4][0]).toMatch('functional');
 });
 
 test('throws if change defs are invalid', () => {
