@@ -3,6 +3,7 @@ import { string, func } from 'prop-types';
 
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
+import ErrorView from 'src/components/ErrorView';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
@@ -51,6 +52,10 @@ class Product extends Component {
                     if (loading) return loadingIndicator;
 
                     const product = data.productDetail.items[0];
+
+                    if (!product) {
+                        return <ErrorView outOfStock={true} />;
+                    }
 
                     return (
                         <ProductFullDetail

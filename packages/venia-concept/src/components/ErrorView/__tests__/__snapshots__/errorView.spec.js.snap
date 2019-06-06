@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the correct tree when loading 1`] = `
+<h1>
+  <Classify(LoadingIndicator)>
+    <span>
+      Fetching Data...
+    </span>
+  </Classify(LoadingIndicator)>
+</h1>
+`;
+
+exports[`it renders the correct tree when out of stock 1`] = `
+<h1>
+  This Product is currently out of stock. Please try again later.
+</h1>
+`;
+
+exports[`it renders the correct tree when page not found 1`] = `
+<h1>
+  That page could not be found. Please try again.
+</h1>
+`;
+
+exports[`it renders the internal error tree otherwise 1`] = `
+<h1>
+  Something went wrong. Please try again.
+</h1>
+`;
