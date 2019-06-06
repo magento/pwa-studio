@@ -58,7 +58,10 @@ class ShippingForm extends Component {
             <Form className={classes.root} onSubmit={this.submit}>
                 <div className={classes.body}>
                     <h2 className={classes.heading}>Shipping Information</h2>
-                    <div className={classes.shippingMethod}>
+                    <div
+                        className={classes.shippingMethod}
+                        id={classes.shippingMethod}
+                    >
                         <Label htmlFor={classes.shippingMethod}>
                             Shipping Method
                         </Label>
