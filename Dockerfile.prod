@@ -7,7 +7,7 @@ RUN apk --no-cache --virtual add \
     python \
     make \
     g++ \
-    yarn 
+    yarn
 
 # copy just the dependency files and configs needed for install
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
@@ -29,9 +29,9 @@ COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 # run yarn again to reestablish workspace symlinks
 RUN yarn install --frozen-lockfile
 
-ENV NODE_ENV=production 
+ENV NODE_ENV=production
 # build the app
-RUN yarn run build 
+RUN yarn run build
 
 
 # MULTI-STAGE BUILD
@@ -44,6 +44,6 @@ RUN chown -R node:node /usr/src/app
 COPY --from=build /usr/src/app .
 USER node
 EXPOSE 8080
-ENV NODE_ENV=production 
+ENV NODE_ENV=production
 # command to run application
 CMD [ "yarn", "stage:venia" ]
