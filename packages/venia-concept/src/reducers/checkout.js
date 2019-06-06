@@ -55,7 +55,11 @@ const reducerMap = {
     [actions.billingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
-            billingAddress: payload
+            billingAddress: {
+                ...state.billingAddress,
+                ...payload,
+                street: [...payload.street]
+            }
         };
     },
     [actions.billingAddress.reject]: state => state,
@@ -83,7 +87,11 @@ const reducerMap = {
         return {
             ...state,
             editing: null,
-            shippingAddress: payload,
+            shippingAddress: {
+                ...state.shippingAddress,
+                ...payload,
+                street: [...payload.street]
+            },
             step: 'form',
             submitting: false,
             isAddressIncorrect: false,

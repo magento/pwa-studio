@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Form } from 'informed';
-import memoize from 'memoize-one';
-import { bool, func, shape, string, array } from 'prop-types';
+import { array, bool, func, object, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './addressForm.css';
 import {
@@ -27,180 +26,175 @@ const fields = [
     'telephone'
 ];
 
-const filterInitialValues = memoize(values =>
-    fields.reduce((acc, key) => {
-        acc[key] = values[key];
-        return acc;
-    }, {})
-);
+const AddressForm = props => {
+    const {
+        cancel,
+        countries,
+        isAddressIncorrect,
+        incorrectAddressMessage,
+        initialValues,
+        submit,
+        submitting
+    } = props;
 
-class AddressForm extends Component {
-    static propTypes = {
-        cancel: func.isRequired,
-        classes: shape({
-            body: string,
-            button: string,
-            city: string,
-            email: string,
-            firstname: string,
-            footer: string,
-            lastname: string,
-            postcode: string,
-            region_code: string,
-            street0: string,
-            telephone: string,
-            textInput: string,
-            validation: string
-        }),
-        incorrectAddressMessage: string,
-        submit: func.isRequired,
-        submitting: bool,
-        countries: array
-    };
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const validationMessage = isAddressIncorrect
+        ? incorrectAddressMessage
+        : null;
 
-    static defaultProps = {
-        initialValues: {}
-    };
+    const values = useMemo(
+        () =>
+            fields.reduce((acc, key) => {
+                acc[key] = initialValues[key];
+                return acc;
+            }, {}),
+        [fields, initialValues]
+    );
 
-    validationBlock = () => {
-        const { isAddressIncorrect, incorrectAddressMessage } = this.props;
-        if (isAddressIncorrect) {
-            return incorrectAddressMessage;
-        } else {
-            return null;
-        }
-    };
+    const handleCancel = useCallback(() => {
+        cancel();
+    }, [cancel]);
 
-    render() {
-        const { children, props } = this;
-        const { classes, initialValues } = props;
-        const values = filterInitialValues(initialValues);
+    const handleSubmit = useCallback(
+        values => {
+            submit(values);
+        },
+        [submit]
+    );
 
-        return (
-            <Form
-                className={classes.root}
-                initialValues={values}
-                onSubmit={this.submit}
-            >
-                {children}
-            </Form>
-        );
-    }
-
-    children = () => {
-        const { classes, submitting, countries } = this.props;
-
-        return (
-            <Fragment>
-                <div className={classes.body}>
-                    <h2 className={classes.heading}>Shipping Address</h2>
-                    <div className={classes.firstname}>
-                        <Field label="First Name">
-                            <TextInput
-                                id={classes.firstname}
-                                field="firstname"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.lastname}>
-                        <Field label="Last Name">
-                            <TextInput
-                                id={classes.lastname}
-                                field="lastname"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.street0}>
-                        <Field label="Street">
-                            <TextInput
-                                id={classes.street0}
-                                field="street[0]"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.city}>
-                        <Field label="City">
-                            <TextInput
-                                id={classes.city}
-                                field="city"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.postcode}>
-                        <Field label="ZIP">
-                            <TextInput
-                                id={classes.postcode}
-                                field="postcode"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.region_code}>
-                        <Field label="State">
-                            <TextInput
-                                id={classes.region_code}
-                                field="region_code"
-                                validate={combine([
-                                    isRequired,
-                                    [hasLengthExactly, 2],
-                                    [validateRegionCode, countries]
-                                ])}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.telephone}>
-                        <Field label="Phone">
-                            <TextInput
-                                id={classes.telephone}
-                                field="telephone"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.email}>
-                        <Field label="Email">
-                            <TextInput
-                                id={classes.email}
-                                field="email"
-                                validate={combine([isRequired, validateEmail])}
-                            />
-                        </Field>
-                    </div>
-                    <div className={classes.validation}>
-                        {this.validationBlock()}
-                    </div>
+    return (
+        <Form
+            className={classes.root}
+            initialValues={values}
+            onSubmit={handleSubmit}
+        >
+            <div className={classes.body}>
+                <h2 className={classes.heading}>Shipping Address</h2>
+                <div className={classes.firstname}>
+                    <Field label="First Name">
+                        <TextInput
+                            id={classes.firstname}
+                            field="firstname"
+                            validate={isRequired}
+                        />
+                    </Field>
                 </div>
-                <div className={classes.footer}>
-                    <Button className={classes.button} onClick={this.cancel}>
-                        Cancel
-                    </Button>
-                    <Button
-                        className={classes.button}
-                        type="submit"
-                        priority="high"
-                        disabled={submitting}
-                    >
-                        Use Address
-                    </Button>
+                <div className={classes.lastname}>
+                    <Field label="Last Name">
+                        <TextInput
+                            id={classes.lastname}
+                            field="lastname"
+                            validate={isRequired}
+                        />
+                    </Field>
                 </div>
-            </Fragment>
-        );
-    };
+                <div className={classes.street0}>
+                    <Field label="Street">
+                        <TextInput
+                            id={classes.street0}
+                            field="street[0]"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.city}>
+                    <Field label="City">
+                        <TextInput
+                            id={classes.city}
+                            field="city"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.postcode}>
+                    <Field label="ZIP">
+                        <TextInput
+                            id={classes.postcode}
+                            field="postcode"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.region_code}>
+                    <Field label="State">
+                        <TextInput
+                            id={classes.region_code}
+                            field="region_code"
+                            validate={combine([
+                                isRequired,
+                                [hasLengthExactly, 2],
+                                [validateRegionCode, countries]
+                            ])}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.telephone}>
+                    <Field label="Phone">
+                        <TextInput
+                            id={classes.telephone}
+                            field="telephone"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.email}>
+                    <Field label="Email">
+                        <TextInput
+                            id={classes.email}
+                            field="email"
+                            validate={combine([isRequired, validateEmail])}
+                        />
+                    </Field>
+                </div>
+                <div className={classes.validation}>{validationMessage}</div>
+            </div>
+            <div className={classes.footer}>
+                <Button className={classes.button} onClick={handleCancel}>
+                    Cancel
+                </Button>
+                <Button
+                    className={classes.button}
+                    type="submit"
+                    priority="high"
+                    disabled={submitting}
+                >
+                    Use Address
+                </Button>
+            </div>
+        </Form>
+    );
+};
 
-    cancel = () => {
-        this.props.cancel();
-    };
+AddressForm.propTypes = {
+    cancel: func.isRequired,
+    classes: shape({
+        body: string,
+        button: string,
+        city: string,
+        email: string,
+        firstname: string,
+        footer: string,
+        lastname: string,
+        postcode: string,
+        region_code: string,
+        street0: string,
+        telephone: string,
+        textInput: string,
+        validation: string
+    }),
+    countries: array,
+    incorrectAddressMessage: string,
+    initialValues: object,
+    isAddressIncorrect: bool,
+    submit: func.isRequired,
+    submitting: bool
+};
 
-    submit = values => {
-        this.props.submit(values);
-    };
-}
+AddressForm.defaultProps = {
+    initialValues: {}
+};
 
-export default classify(defaultClasses)(AddressForm);
+export default AddressForm;
 
 /*
 const mockAddress = {

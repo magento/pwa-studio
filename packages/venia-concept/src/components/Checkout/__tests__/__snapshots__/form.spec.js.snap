@@ -3,7 +3,14 @@
 exports[`renders an editable Form component if editing 1`] = `
 <div
   className="root"
-/>
+>
+  <
+    cancel={[Function]}
+    countries={Array []}
+    submit={[Function]}
+    submitting={false}
+  />
+</div>
 `;
 
 exports[`renders an overview Form component if not editing 1`] = `
