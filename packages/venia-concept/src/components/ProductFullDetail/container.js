@@ -1,5 +1,5 @@
 import { connect } from 'src/drivers';
-import ProductFullDetail from './ProductFullDetail';
+import ProductFullDetail from './productFullDetail';
 
 const mapStateToProps = ({ cart }) => {
     return {
