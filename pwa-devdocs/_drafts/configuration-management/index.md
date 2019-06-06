@@ -64,8 +64,6 @@ The `create-env-file` subcommand makes that easy:
 npx @magento/pwa-buildpack create-env-file .
 ```
 
-The `create-env-file`
-
 ### `buildpack load-env <dir>`
 
 The `load-env` subcommand loads and validates the local environment according to the [Project Environment Definitions](#project-environment-definitions), including deprecated and changed settings.

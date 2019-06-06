@@ -52,9 +52,8 @@ for (const section of sections) {
 }
 
 /**
- * Replace the envalid default reporter, which crashes the process, with an
+ * Replaces the envalid default reporter, which crashes the process, with an
  * error-returning reporter that a consumer can handle.
- *
  */
 class EnvironmentInvalidError extends Error {
     constructor(validationErrors) {

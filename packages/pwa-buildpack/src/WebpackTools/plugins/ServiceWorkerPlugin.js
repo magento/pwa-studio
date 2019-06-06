@@ -3,7 +3,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 const optionsValidator = require('../../util/options-validator');
 
-// No longer modifiable since v3
+// No longer modifiable since v4
 const SW_FILENAME = 'sw.js';
 
 class ServiceWorkerPlugin {
