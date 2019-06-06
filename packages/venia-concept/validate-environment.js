@@ -36,18 +36,6 @@ function validateEnvironment(env) {
             example: 'sw.js',
             default: 'sw.js'
         }),
-        MAGENTO_BACKEND_MEDIA_PATH_PRODUCT: str({
-            desc:
-                'URL path where the PWA expects Magento to serve product media.',
-            example: '/media/catalog/product',
-            default: '/media/catalog/product'
-        }),
-        MAGENTO_BACKEND_MEDIA_PATH_CATEGORY: str({
-            desc:
-                'URL path where the PWA expects Magento to serve category media.',
-            example: '/media/catalog/category',
-            default: '/media/catalog/category'
-        }),
         MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST: bool({
             desc:
                 'On first run, create a secure, unique hostname and generate a trusted SSL certificate.',
