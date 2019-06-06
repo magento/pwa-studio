@@ -30,17 +30,11 @@ test('prepends media path for product images', () => {
     expect(makeUrl(relativePath, { type: 'image-product' })).toBe(
         `${productBase}${relativePath}?${defaultParams}`
     );
-    expect(makeUrl(absoluteUrls[2], { type: 'image-product' })).toBe(
-        'https://example.com/media/catalog/product/baz.png?auto=webp&format=pjpg'
-    );
 });
 
 test('prepends media path for relative category images', () => {
     expect(makeUrl(relativePath, { type: 'image-category' })).toBe(
         `${categoryBase}${relativePath}?${defaultParams}`
-    );
-    expect(makeUrl(absoluteUrls[2], { type: 'image-category' })).toBe(
-        'https://example.com/media/catalog/category/baz.png?auto=webp&format=pjpg'
     );
 });
 
@@ -52,12 +46,12 @@ test("doesn't prepend media path if it's already included", () => {
     ).toBeTruthy();
 });
 
-test('rewrites absolute url when width is provided', () => {
+test('appends opt params to absolute url when width is provided', () => {
     const width = 100;
     const raw = absoluteUrls[2];
 
     expect(makeUrl(raw, { type: 'image-product', width })).toBe(
-        `https://example.com${productBase}/baz.png?auto=webp&format=pjpg&width=100`
+        `https://example.com/baz.png?auto=webp&format=pjpg&width=100`
     );
 });
 
@@ -73,7 +67,7 @@ test('removes absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('data-backend', 'https://cdn.origin:8000/');
+    htmlTag.setAttribute('data-media-backend', 'https://cdn.origin:8000/');
     htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
@@ -88,7 +82,7 @@ test('prepends absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('data-backend', 'https://cdn.origin:9000/');
+    htmlTag.setAttribute('data-media-backend', 'https://cdn.origin:9000/');
     htmlTag.setAttribute('data-image-optimizing-origin', 'backend');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
