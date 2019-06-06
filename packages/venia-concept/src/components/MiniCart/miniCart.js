@@ -135,7 +135,7 @@ class MiniCart extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.placeholderButton}>
-                <CheckoutButton ready={false} />
+                <CheckoutButton disabled={true} />
             </div>
         );
     }

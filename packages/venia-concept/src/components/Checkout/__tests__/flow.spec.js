@@ -7,20 +7,24 @@ import Form from '../form';
 import Receipt from '../Receipt';
 
 jest.mock('src/classify');
-jest.mock('../cart');
 jest.mock('../form');
 jest.mock('../Receipt', () => '');
 
 const defaultProps = {
-    actions: {},
-    checkout: {
-        step: 'cart'
-    }
+    actions: {}
 };
 
 test('renders Cart component', () => {
     const props = {
-        ...defaultProps
+        ...defaultProps,
+        actions: {
+            beginCheckout: jest.fn()
+        },
+        checkout: {
+            step: 'cart',
+            submitting: false
+        },
+        isCartReady: true
     };
     const component = testRenderer.create(<Flow {...props} />);
 
@@ -51,6 +55,7 @@ test('renders Receipt component', () => {
     expect(() => component.root.findByType(Receipt)).not.toThrow();
 });
 
+// TODO: Rewrite this test for all invalid cases and not _just_ falsy.
 test('renders null if checkout/cart props are falsy', () => {
     const props = {
         ...defaultProps,
