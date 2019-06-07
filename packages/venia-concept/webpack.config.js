@@ -10,7 +10,6 @@ const {
 } = require('@magento/pwa-buildpack');
 
 const projectConfig = loadEnvironment(__dirname);
-const projectEnv = projectConfig.all();
 
 const path = require('path');
 const webpack = require('webpack');
@@ -44,8 +43,9 @@ const libs = [
     'redux-thunk'
 ];
 
-module.exports = async function(env) {
-    const mode = (env && env.mode) || process.env.NODE_ENV || 'development';
+module.exports = async function(env = {}) {
+    const mode =
+        env.mode || (projectConfig.isProd ? 'production' : 'development');
 
     const config = {
         mode,
@@ -136,7 +136,7 @@ module.exports = async function(env) {
                 rootComponentsDirs,
                 context: __dirname
             }),
-            new webpack.EnvironmentPlugin(projectEnv),
+            new webpack.EnvironmentPlugin(projectConfig.env),
             new ServiceWorkerPlugin({
                 mode,
                 paths: themePaths,
@@ -206,15 +206,20 @@ module.exports = async function(env) {
             new webpack.HotModuleReplacementPlugin(),
             new UpwardPlugin(
                 config.devServer,
-                process.env,
-                path.resolve(__dirname, projectEnv.upwardJsUpwardPath)
+                projectConfig.env,
+                path.resolve(
+                    __dirname,
+                    projectConfig.section('upwardJs').upwardPath
+                )
             )
         );
     } else if (mode === 'production') {
         config.performance = {
             hints: 'warning'
         };
-        if (!process.env.DEBUG_BEAUTIFY) {
+        if (projectConfig.env.DEBUG_BEAUTIFY) {
+            config.optimization.minimize = false;
+        } else {
             config.optimization.minimizer = [
                 new TerserPlugin({
                     parallel: true,
