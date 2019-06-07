@@ -7,10 +7,6 @@ import PaymentsForm from '../paymentsForm';
 import ShippingForm from '../shippingForm';
 
 jest.mock('src/classify');
-jest.mock('../addressForm', () => '');
-jest.mock('../paymentsForm');
-// jest.mock('../section')
-jest.mock('../shippingForm');
 
 const mockCancelCheckout = jest.fn();
 const mockEditOrder = jest.fn();
