@@ -20,15 +20,16 @@ exports[`it does not render an icon when passed an invalid one 1`] = `
 </li>
 `;
 
-exports[`it overrides icon attributes when given them 1`] = `
+exports[`it fills the icon when isFilled is true 1`] = `
 <li>
   <button>
     <Classify(Icon)
       attrs={
         Object {
-          "color": "black",
-          "height": "25px",
-          "width": "50px",
+          "color": "rgb(var(--venia-teal))",
+          "fill": "rgb(var(--venia-teal))",
+          "height": "14px",
+          "width": "14px",
         }
       }
       src={[Function]}

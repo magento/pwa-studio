@@ -32,7 +32,7 @@ exports[`it renders a mask div before the kebab if it is loading 1`] = `
   <Kebab>
     <Section
       icon="Heart"
-      iconAttributes={Object {}}
+      isFilled={false}
       onClick={[Function]}
       text="Add to favorites"
     />
@@ -81,7 +81,7 @@ exports[`it renders correctly 1`] = `
   <Kebab>
     <Section
       icon="Heart"
-      iconAttributes={Object {}}
+      isFilled={false}
       onClick={[Function]}
       text="Add to favorites"
     />

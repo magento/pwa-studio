@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object, oneOf, shape, string } from 'prop-types';
+import { bool, func, oneOf, shape, string } from 'prop-types';
 import HeartIcon from 'react-feather/dist/icons/heart';
 import Edit2Icon from 'react-feather/dist/icons/edit-2';
 import TrashIcon from 'react-feather/dist/icons/trash';
@@ -14,6 +14,10 @@ const defaultIconAttributes = {
     width: '14px',
     height: '14px'
 };
+const filledIconAttributes = {
+    ...defaultIconAttributes,
+    fill: 'rgb(var(--venia-teal))'
+};
 const icons = {
     Heart: HeartIcon,
     Edit2: Edit2Icon,
@@ -21,11 +25,9 @@ const icons = {
 };
 
 const Section = props => {
-    const { icon, iconAttributes, onClick, text } = props;
+    const { icon, isFilled, onClick, text } = props;
 
-    const attributes = iconAttributes
-        ? Object.assign({}, defaultIconAttributes, iconAttributes)
-        : defaultIconAttributes;
+    const attributes = isFilled ? filledIconAttributes : defaultIconAttributes;
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconSrc = icons[icon];
 
@@ -45,7 +47,7 @@ Section.propTypes = {
         text: string
     }),
     icon: oneOf(Object.keys(icons)),
-    iconAttributes: object,
+    isFilled: bool,
     onClick: func,
     text: string
 };

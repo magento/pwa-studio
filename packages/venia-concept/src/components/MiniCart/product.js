@@ -11,8 +11,6 @@ import Section from './section';
 
 import defaultClasses from './product.css';
 
-const FAVORITES_FILL = { fill: 'rgb(var(--venia-teal))' };
-
 const imageWidth = 80;
 
 const Product = props => {
@@ -66,7 +64,7 @@ const Product = props => {
                     text="Add to favorites"
                     onClick={handleFavoriteItem}
                     icon="Heart"
-                    iconAttributes={isFavorite ? FAVORITES_FILL : {}}
+                    isFilled={isFavorite}
                 />
                 <Section
                     text="Edit item"

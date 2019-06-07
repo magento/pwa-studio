@@ -38,14 +38,10 @@ test('it does not render an icon when not passed one', () => {
     expect(tree).toMatchSnapshot();
 });
 
-test('it overrides icon attributes when given them', () => {
+test('it fills the icon when isFilled is true', () => {
     const props = {
         icon: 'Heart',
-        iconAttributes: {
-            color: 'black',
-            height: '25px',
-            width: '50px'
-        },
+        isFilled: true,
         text: 'Unit Test Text'
     };
 
