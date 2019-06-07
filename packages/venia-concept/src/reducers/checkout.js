@@ -53,14 +53,23 @@ const reducerMap = {
     },
     [actions.billingAddress.submit]: state => state,
     [actions.billingAddress.accept]: (state, { payload }) => {
-        return {
-            ...state,
-            billingAddress: {
-                ...state.billingAddress,
+        // Billing address can either be an object with address props OR
+        // an object with a single prop, `sameAsShippingAddress`, so we need
+        // to do some special handling to make sure the store reflects that.
+        const newState = {
+            ...state
+        };
+        if (payload.sameAsShippingAddress) {
+            newState.billingAddress = {
+                ...payload
+            };
+        } else if (!payload.sameAsShippingAddress) {
+            newState.billingAddress = {
                 ...payload,
                 street: [...payload.street]
-            }
-        };
+            };
+        }
+        return newState;
     },
     [actions.billingAddress.reject]: state => state,
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {

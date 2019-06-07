@@ -1,9 +1,11 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import PaymentsForm from '../paymentsForm';
 import { Form } from 'informed';
 import BraintreeDropin from '../braintreeDropin';
+import Button from 'src/components/Button';
 
 jest.mock('src/classify');
 
@@ -18,8 +20,9 @@ beforeEach(() => {
     mockCancel.mockReset();
     mockSubmit.mockReset();
 });
+
 test('renders a PaymentsForm component', () => {
-    const component = testRenderer.create(<PaymentsForm {...defaultProps} />);
+    const component = createTestInstance(<PaymentsForm {...defaultProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -29,7 +32,7 @@ test('sets addresses_same true if no initial form values', () => {
         ...defaultProps,
         initialValues: {}
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
 
     expect(
         component.root.findByType(Form).props.initialValues.addresses_same
@@ -43,7 +46,7 @@ test('sets addresses_same true if initialValues.sameAsShippingAddress is true', 
             sameAsShippingAddress: true
         }
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
 
     expect(
         component.root.findByType(Form).props.initialValues.addresses_same
@@ -57,7 +60,7 @@ test('sets addresses_same false if initialValues.sameAsShippingAddress is false'
             sameAsShippingAddress: false
         }
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
 
     expect(
         component.root.findByType(Form).props.initialValues.addresses_same
@@ -71,7 +74,7 @@ test('renders billing address fields if addresses_same checkbox unchecked', () =
             sameAsShippingAddress: false
         }
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
     expect(component.root.findByProps({ className: 'street0' })).toBeTruthy();
 });
@@ -83,10 +86,13 @@ test('setPaymentNonce function submits billing address and payment method', () =
             sameAsShippingAddress: true
         }
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
 
     const testNonce = 'testData';
-    component.root.children[0].instance.setPaymentNonce(testNonce);
+    const dropin = component.root.findByType(BraintreeDropin);
+    act(() => {
+        dropin.props.onSuccess(testNonce);
+    });
 
     expect(mockSubmit).toHaveBeenCalledWith({
         billingAddress: {
@@ -106,11 +112,13 @@ test('setPaymentNonce function gets billing address from form if not same as shi
             sameAsShippingAddress: false
         }
     };
-    const component = testRenderer.create(<PaymentsForm {...props} />);
+    const component = createTestInstance(<PaymentsForm {...props} />);
 
     const testNonce = 'testData';
-    component.root.children[0].instance.setPaymentNonce(testNonce);
-
+    const dropin = component.root.findByType(BraintreeDropin);
+    act(() => {
+        dropin.props.onSuccess(testNonce);
+    });
     expect(mockSubmit).toHaveBeenCalledWith({
         billingAddress: {
             city: undefined,
@@ -126,17 +134,20 @@ test('setPaymentNonce function gets billing address from form if not same as shi
 });
 
 test('cancel instance function calls props cancel function', () => {
-    const component = testRenderer.create(<PaymentsForm {...defaultProps} />);
-    component.root.children[0].instance.cancel();
+    const component = createTestInstance(<PaymentsForm {...defaultProps} />);
+    const button = component.root.findAllByType(Button)[0];
+    button.props.onClick();
 
     expect(mockCancel).toHaveBeenCalled();
 });
 
 test('submit instance function sets isRequestingPaymentNonce true in state', () => {
-    const component = testRenderer.create(<PaymentsForm {...defaultProps} />);
+    const component = createTestInstance(<PaymentsForm {...defaultProps} />);
 
-    component.root.children[0].instance.submit();
-
+    const form = component.root.findByType(Form);
+    act(() => {
+        form.props.onSubmit();
+    });
     expect(
         component.root.findByType(BraintreeDropin).props
             .isRequestingPaymentNonce
@@ -144,9 +155,10 @@ test('submit instance function sets isRequestingPaymentNonce true in state', () 
 });
 
 test('cancelPaymentNonceRequest instance function sets isRequestingPaymentNonce false in state', () => {
-    const component = testRenderer.create(<PaymentsForm {...defaultProps} />);
+    const component = createTestInstance(<PaymentsForm {...defaultProps} />);
 
-    component.root.children[0].instance.cancelPaymentNonceRequest();
+    const dropin = component.root.findByType(BraintreeDropin);
+    dropin.props.onError();
 
     expect(
         component.root.findByType(BraintreeDropin).props
