@@ -7,7 +7,7 @@ import Form from '../form';
 import Receipt from '../Receipt';
 
 jest.mock('src/classify');
-jest.mock('../form');
+jest.mock('../form', () => '');
 jest.mock('../Receipt', () => '');
 
 const defaultProps = {

@@ -5,6 +5,8 @@ import Form from '../form';
 import AddressForm from '../addressForm';
 import PaymentsForm from '../paymentsForm';
 import ShippingForm from '../shippingForm';
+import Section from '../section';
+import Button from 'src/components/Button';
 
 jest.mock('src/classify');
 
@@ -61,7 +63,7 @@ test('renders an editable Form component if editing', () => {
 test('dismissCheckout instance function calls props.cancelCheckout', () => {
     const component = testRenderer.create(<Form {...defaultProps} />);
 
-    component.root.children[0].instance.dismissCheckout();
+    component.root.findAllByType(Button)[0].props.onClick();
 
     expect(mockCancelCheckout).toHaveBeenCalled();
 });
@@ -69,7 +71,7 @@ test('dismissCheckout instance function calls props.cancelCheckout', () => {
 test('editAddress instance function calls props.editOrder with "address"', () => {
     const component = testRenderer.create(<Form {...defaultProps} />);
 
-    component.root.children[0].instance.editAddress();
+    component.root.findAllByType(Section)[0].props.onClick();
 
     expect(mockEditOrder).toHaveBeenCalledWith('address');
 });
@@ -77,7 +79,7 @@ test('editAddress instance function calls props.editOrder with "address"', () =>
 test('editPaymentMethod instance function calls props.editOrder with "paymentMethod"', () => {
     const component = testRenderer.create(<Form {...defaultProps} />);
 
-    component.root.children[0].instance.editPaymentMethod();
+    component.root.findAllByType(Section)[1].props.onClick();
 
     expect(mockEditOrder).toHaveBeenCalledWith('paymentMethod');
 });
@@ -85,26 +87,32 @@ test('editPaymentMethod instance function calls props.editOrder with "paymentMet
 test('editShippingMethod instance function calls props.editOrder with "shippingMethod"', () => {
     const component = testRenderer.create(<Form {...defaultProps} />);
 
-    component.root.children[0].instance.editShippingMethod();
+    component.root.findAllByType(Section)[2].props.onClick();
 
     expect(mockEditOrder).toHaveBeenCalledWith('shippingMethod');
 });
 
 test('stopEditing instance function calls props.editOrder with null', () => {
-    const component = testRenderer.create(<Form {...defaultProps} />);
+    const component = testRenderer.create(
+        <Form {...defaultProps} editing={'address'} />
+    );
 
-    component.root.children[0].instance.stopEditing();
+    component.root.findAllByType(AddressForm)[0].props.cancel();
 
     expect(mockEditOrder).toHaveBeenCalledWith(null);
 });
 
 test('submitShippingAddress instance function calls props.submitShippingAddress with values', () => {
-    const component = testRenderer.create(<Form {...defaultProps} />);
+    const component = testRenderer.create(
+        <Form {...defaultProps} editing={'address'} />
+    );
 
     const formValues = {
         foo: 'bar'
     };
-    component.root.children[0].instance.submitShippingAddress(formValues);
+
+    const form = component.root.findByType(AddressForm);
+    form.props.submit(formValues);
 
     expect(mockSubmitShippingAddress).toHaveBeenCalledWith({
         type: 'shippingAddress',
@@ -113,14 +121,15 @@ test('submitShippingAddress instance function calls props.submitShippingAddress 
 });
 
 test('submitPaymentMethodAndBillingAddress instance function calls props.submitPaymentMethodAndBillingAddress with values', () => {
-    const component = testRenderer.create(<Form {...defaultProps} />);
+    const component = testRenderer.create(
+        <Form {...defaultProps} editing={'paymentMethod'} />
+    );
 
     const formValues = {
         foo: 'bar'
     };
-    component.root.children[0].instance.submitPaymentMethodAndBillingAddress(
-        formValues
-    );
+    const form = component.root.findByType(PaymentsForm);
+    form.props.submit(formValues);
 
     expect(mockSubmitPaymentMethodAndBillingAddress).toHaveBeenCalledWith({
         formValues
@@ -128,12 +137,15 @@ test('submitPaymentMethodAndBillingAddress instance function calls props.submitP
 });
 
 test('submitShippingMethod instance function calls props.submitShippingMethod with values', () => {
-    const component = testRenderer.create(<Form {...defaultProps} />);
+    const component = testRenderer.create(
+        <Form {...defaultProps} editing={'shippingMethod'} />
+    );
 
     const formValues = {
         foo: 'bar'
     };
-    component.root.children[0].instance.submitShippingMethod(formValues);
+    const form = component.root.findByType(ShippingForm);
+    form.props.submit(formValues);
 
     expect(mockSubmitShippingMethod).toHaveBeenCalledWith({
         type: 'shippingMethod',
