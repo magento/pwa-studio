@@ -34,13 +34,20 @@ const EditItem = props => {
             return;
         }
 
-        setLoading(true);
-        runQuery({
-            variables: {
-                name: item.name,
-                onServer: false
-            }
-        });
+        const fetchItemOptions = async () => {
+            setLoading(true);
+
+            await runQuery({
+                variables: {
+                    name: item.name,
+                    onServer: false
+                }
+            });
+
+            setLoading(false);
+        };
+
+        fetchItemOptions();
     }, [item, itemHasOptions]);
 
     /*
