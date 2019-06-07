@@ -11,7 +11,6 @@ jest.mock('../addressForm', () => '');
 jest.mock('../paymentsForm');
 // jest.mock('../section')
 jest.mock('../shippingForm');
-jest.mock('../submitButton');
 
 const mockCancelCheckout = jest.fn();
 const mockEditOrder = jest.fn();

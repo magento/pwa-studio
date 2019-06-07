@@ -146,6 +146,18 @@ exports[`renders an overview Form component if not editing 1`] = `
         Back to Cart
       </span>
     </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -281,6 +293,18 @@ exports[`renders billing info CTA if no payment method is entered 1`] = `
         className="content"
       >
         Back to Cart
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
       </span>
     </button>
   </div>
@@ -446,6 +470,18 @@ exports[`renders empty strings if payment data is not defined 1`] = `
         Back to Cart
       </span>
     </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -603,6 +639,18 @@ exports[`renders name and street if shipping address is entered 1`] = `
         className="content"
       >
         Back to Cart
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
       </span>
     </button>
   </div>
@@ -768,6 +816,18 @@ exports[`renders payment method summary if payment method entered 1`] = `
         Back to Cart
       </span>
     </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -905,6 +965,18 @@ exports[`renders shipping address CTA if no shipping address is entered 1`] = `
         Back to Cart
       </span>
     </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -1040,6 +1112,18 @@ exports[`renders shipping method CTA if no shipping method selected 1`] = `
         className="content"
       >
         Back to Cart
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
       </span>
     </button>
   </div>
@@ -1195,6 +1279,18 @@ exports[`renders shipping title if shipping method is selected 1`] = `
         className="content"
       >
         Back to Cart
+      </span>
+    </button>
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Confirm Order
       </span>
     </button>
   </div>

@@ -6,11 +6,12 @@ import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import Section from './section';
 import ShippingForm from './shippingForm';
-import SubmitButton from './submitButton';
 
 import classify from 'src/classify';
 import Button from 'src/components/Button';
 import defaultClasses from './form.css';
+
+const isSubmitDisabled = (busy, valid) => busy || !valid;
 
 class Form extends Component {
     static propTypes = {
@@ -191,11 +192,13 @@ class Form extends Component {
                 </div>
                 <div className={classes.footer}>
                     <Button onClick={this.dismissCheckout}>Back to Cart</Button>
-                    <SubmitButton
-                        submitting={submitting}
-                        valid={ready}
-                        submitOrder={submitOrder}
-                    />
+                    <Button
+                        priority="high"
+                        disabled={isSubmitDisabled(submitting, ready)}
+                        onClick={submitOrder}
+                    >
+                        Confirm Order
+                    </Button>
                 </div>
             </Fragment>
         );
