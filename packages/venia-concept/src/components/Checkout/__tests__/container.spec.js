@@ -10,8 +10,8 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
-import ConnectedCheckoutWrapper from '../index';
-import { CheckoutWrapper } from '../wrapper';
+import ConnectedCheckoutContainer from '../index';
+import { CheckoutContainer } from '../container';
 import Flow from '../flow';
 
 jest.mock('src/classify');
@@ -47,10 +47,10 @@ const defaultProps = {
     submitShippingMethod
 };
 
-test('returns a connected CheckoutWrapper component', () => {
-    expect(ConnectedCheckoutWrapper.component).toBeInstanceOf(Function);
-    expect(ConnectedCheckoutWrapper.mapStateToProps).toBeInstanceOf(Function);
-    expect(ConnectedCheckoutWrapper.mapDispatchToProps).toMatchObject({
+test('returns a connected CheckoutContainer component', () => {
+    expect(ConnectedCheckoutContainer.component).toBeInstanceOf(Function);
+    expect(ConnectedCheckoutContainer.mapStateToProps).toBeInstanceOf(Function);
+    expect(ConnectedCheckoutContainer.mapDispatchToProps).toMatchObject({
         beginCheckout,
         cancelCheckout,
         editOrder,
@@ -62,7 +62,7 @@ test('returns a connected CheckoutWrapper component', () => {
 });
 
 test('mapStateToProps correctly maps state to props', () => {
-    const { mapStateToProps } = ConnectedCheckoutWrapper;
+    const { mapStateToProps } = ConnectedCheckoutContainer;
 
     const state = {
         cart: {},
@@ -87,7 +87,7 @@ test('returns a Flow component', () => {
             details: {}
         }
     };
-    const component = testRenderer.create(<CheckoutWrapper {...props} />);
+    const component = testRenderer.create(<CheckoutContainer {...props} />);
 
     expect(() => component.root.findByType(Flow)).not.toThrow();
 });
@@ -103,7 +103,7 @@ test('does not render Flow component if cart/checkout are falsy', () => {
         cart: false,
         checkout: false
     };
-    const component = testRenderer.create(<CheckoutWrapper {...props} />);
+    const component = testRenderer.create(<CheckoutContainer {...props} />);
 
     expect(() => component.root.findByType(Flow)).toThrow();
 });
