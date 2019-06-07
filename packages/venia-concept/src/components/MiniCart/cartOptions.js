@@ -16,7 +16,7 @@ import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
-const getIsMissingOptions = (cartItem, configItem, numSelections) => {
+const isItemMissingOptions = (cartItem, configItem, numSelections) => {
     // Non-configurable products can't be missing options
     if (cartItem.product_type !== 'configurable') {
         return false;
@@ -47,23 +47,18 @@ const CartOptions = props => {
     const [quantity, setQuantity] = useState(qty);
 
     // Callbacks.
-    const handleOptionsSelectionsChangeed = useCallback(
+    const handleSelectionChange = useCallback(
         (optionId, selection) => {
             setOptionSelections(
-                new Map(
-                    optionSelections.set(optionId, Array.from(selection).pop())
+                new Map(optionSelections).set(
+                    optionId,
+                    Array.from(selection).pop()
                 )
             );
         },
-        [optionSelections, setOptionSelections]
+        [optionSelections]
     );
-    const handleQuantityValueChanged = useCallback(
-        newQuantity => {
-            setQuantity(newQuantity);
-        },
-        [setQuantity]
-    );
-    const handleUpdateButtonClicked = useCallback(() => {
+    const handleUpdateClick = useCallback(() => {
         const payload = {
             item: configItem,
             productType: configItem.__typename,
@@ -75,11 +70,11 @@ const CartOptions = props => {
         }
 
         updateCart(payload, cartItem.item_id);
-    }, [cartItem, configItem, quantity, optionSelections]);
+    }, [cartItem, configItem, quantity, optionSelections, updateCart]);
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
-    const isMissingOptions = getIsMissingOptions(
+    const isMissingOptions = isItemMissingOptions(
         cartItem,
         configItem,
         optionSelections.size
@@ -91,7 +86,7 @@ const CartOptions = props => {
         <Suspense fallback={loadingIndicator}>
             <section className={classes.options}>
                 <Options
-                    onSelectionChange={handleOptionsSelectionsChangeed}
+                    onSelectionChange={handleSelectionChange}
                     product={configItem}
                 />
             </section>
@@ -112,10 +107,7 @@ const CartOptions = props => {
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>
                     </h2>
-                    <Quantity
-                        initialValue={qty}
-                        onValueChange={handleQuantityValueChanged}
-                    />
+                    <Quantity initialValue={qty} onValueChange={setQuantity} />
                 </section>
             </div>
             <div className={classes.save}>
@@ -124,7 +116,7 @@ const CartOptions = props => {
                 </Button>
                 <Button
                     priority="high"
-                    onClick={handleUpdateButtonClicked}
+                    onClick={handleUpdateClick}
                     disabled={isMissingOptions}
                 >
                     <span>Update Cart</span>
