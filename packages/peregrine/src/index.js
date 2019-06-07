@@ -21,6 +21,7 @@ export { default as List, Items, Item } from './List';
 export { default as Page } from './Page';
 export { default as Price } from './Price';
 export { default as Router } from './Router';
+export { default as Peregrine } from './Peregrine';
 
 // misc
 export { RestApi };

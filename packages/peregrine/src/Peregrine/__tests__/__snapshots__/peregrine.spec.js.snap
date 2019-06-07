@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render wraps children with peregrine context providers 1`] = `
+<WindowSizeContextProvider>
+  <ToastContextProvider>
+    <i />
+  </ToastContextProvider>
+</WindowSizeContextProvider>
+`;
