@@ -15,7 +15,6 @@ import { CheckoutContainer } from '../container';
 import Flow from '../flow';
 
 jest.mock('src/classify');
-jest.mock('../flow');
 jest.mock('src/drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
