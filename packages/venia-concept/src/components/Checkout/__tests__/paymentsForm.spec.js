@@ -8,7 +8,7 @@ import BraintreeDropin from '../braintreeDropin';
 import Button from 'src/components/Button';
 
 jest.mock('src/classify');
-
+jest.mock('../braintreeDropin', () => 'BraintreeDropin');
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
 const defaultProps = {
@@ -141,20 +141,21 @@ test('cancel instance function calls props cancel function', () => {
     expect(mockCancel).toHaveBeenCalled();
 });
 
-test('submit instance function sets isRequestingPaymentNonce true in state', () => {
+test('submit instance function sets shouldRequestPaymentNonce true in state', async () => {
     const component = createTestInstance(<PaymentsForm {...defaultProps} />);
 
     const form = component.root.findByType(Form);
     act(() => {
         form.props.onSubmit();
     });
+
     expect(
         component.root.findByType(BraintreeDropin).props
-            .isRequestingPaymentNonce
+            .shouldRequestPaymentNonce
     ).toEqual(true);
 });
 
-test('cancelPaymentNonceRequest instance function sets isRequestingPaymentNonce false in state', () => {
+test('cancelPaymentNonceRequest instance function sets shouldRequestPaymentNonce false in state', () => {
     const component = createTestInstance(<PaymentsForm {...defaultProps} />);
 
     const dropin = component.root.findByType(BraintreeDropin);
@@ -162,6 +163,6 @@ test('cancelPaymentNonceRequest instance function sets isRequestingPaymentNonce 
 
     expect(
         component.root.findByType(BraintreeDropin).props
-            .isRequestingPaymentNonce
+            .shouldRequestPaymentNonce
     ).toEqual(false);
 });

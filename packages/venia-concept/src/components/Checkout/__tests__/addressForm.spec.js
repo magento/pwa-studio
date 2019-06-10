@@ -1,7 +1,5 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
-import { Form } from 'informed';
-
 import AddressForm from '../addressForm';
 
 jest.mock('src/classify');
@@ -51,14 +49,4 @@ test('cancel instance function calls props cancel function', () => {
     const button = root.findAllByProps({ className: 'button' })[0];
     button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
-});
-
-test('submit instance function sets isRequestingPaymentNonce true in state', () => {
-    const { root } = testRenderer.create(<AddressForm {...defaultProps} />);
-    const value = 'foo';
-
-    const form = root.findByType(Form);
-    form.props.onSubmit(value);
-
-    expect(mockSubmit).toHaveBeenCalledWith(value);
 });

@@ -73,49 +73,53 @@ const FormChildren = props => {
         cancel,
         classes,
         countries,
-        formApi,
-        isRequestingPaymentNonce,
-        setIsRequestingPaymentNonce,
+        isSubmitting,
+        setIsSubmitting,
         submit,
         submitting
     } = props;
+
+    // Currently form state toggles dirty from false to true because of how
+    // informed is implemented. This effectively causes this child components
+    // to re-render multiple times. Keep tabs on the following issue:
+    //   https://github.com/joepuzzo/informed/issues/138
+    // If they resolve it or we move away from informed we can probably get some
+    // extra performance.
     const formState = useFormState();
 
     const billingAddressFields = !formState.values.addresses_same ? (
         <BillingAddressFields classes={classes} countries={countries} />
     ) : null;
 
-    const handleError = useCallback(() => {
-        setIsRequestingPaymentNonce(false);
-    });
-
     const handleCancel = useCallback(() => {
         cancel();
     }, [cancel]);
 
+    const handleError = useCallback(() => {
+        setIsSubmitting(false);
+    });
+
+    // The success callback. Unfortunately since form state is created first and
+    // then modified when using initialValues any component who uses this
+    // callback will be rendered multiple times on first render. See above
+    // comments for more info.
     const handleSuccess = useCallback(
         value => {
-            setIsRequestingPaymentNonce(false);
-
-            // Build up the billing address payload.
-            const formValue = formApi.getValue;
-            const sameAsShippingAddress = formValue('addresses_same') || false;
-
+            setIsSubmitting(false);
+            const sameAsShippingAddress = formState.values['addresses_same'];
             let billingAddress;
             if (!sameAsShippingAddress) {
                 billingAddress = {
-                    city: formValue('city'),
-                    postcode: formValue('postcode'),
-                    region_code: formValue('region_code'),
-                    street: formValue('street')
+                    city: formState.values['city'],
+                    postcode: formState.values['postcode'],
+                    region_code: formState.values['region_code'],
+                    street: formState.values['street']
                 };
             } else {
                 billingAddress = {
                     sameAsShippingAddress
                 };
             }
-
-            // Submit the payment method and billing address payload.
             submit({
                 billingAddress,
                 paymentMethod: {
@@ -124,7 +128,7 @@ const FormChildren = props => {
                 }
             });
         },
-        [formApi]
+        [formState.values]
     );
 
     return (
@@ -133,7 +137,7 @@ const FormChildren = props => {
                 <h2 className={classes.heading}>Billing Information</h2>
                 <div className={classes.braintree}>
                     <BraintreeDropin
-                        isRequestingPaymentNonce={isRequestingPaymentNonce}
+                        shouldRequestPaymentNonce={isSubmitting}
                         onError={handleError}
                         onSuccess={handleSuccess}
                     />
@@ -166,16 +170,11 @@ const FormChildren = props => {
 const PaymentsForm = props => {
     const { initialValues } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    // We request the payment nonce when the form submits. That action is
-    // dispatched by this PaymentsForm component
-    const [isRequestingPaymentNonce, setIsRequestingPaymentNonce] = useState(
-        false
-    );
 
-    const [formApi, setFormApi] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = useCallback(() => {
-        setIsRequestingPaymentNonce(true);
+        setIsSubmitting(true);
     });
 
     let initialFormValues;
@@ -201,15 +200,13 @@ const PaymentsForm = props => {
     const formChildrenProps = {
         ...props,
         classes,
-        formApi,
-        isRequestingPaymentNonce,
-        setIsRequestingPaymentNonce
+        isSubmitting,
+        setIsSubmitting
     };
 
     return (
         <Form
             className={classes.root}
-            getApi={setFormApi}
             initialValues={initialFormValues}
             onSubmit={handleSubmit}
         >

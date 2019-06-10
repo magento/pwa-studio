@@ -17,13 +17,11 @@ exports[`renders a PaymentsForm component 1`] = `
     <div
       className="braintree"
     >
-      <div
-        className="root"
-      >
-        <div
-          id="braintree-dropin-container"
-        />
-      </div>
+      <BraintreeDropin
+        onError={[Function]}
+        onSuccess={[Function]}
+        shouldRequestPaymentNonce={false}
+      />
     </div>
     <div
       className="address_check"
@@ -118,13 +116,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     <div
       className="braintree"
     >
-      <div
-        className="root"
-      >
-        <div
-          id="braintree-dropin-container"
-        />
-      </div>
+      <BraintreeDropin
+        onError={[Function]}
+        onSuccess={[Function]}
+        shouldRequestPaymentNonce={false}
+      />
     </div>
     <div
       className="address_check"
