@@ -21,19 +21,23 @@ Running it with no arguments produces this output:
 buildpack <command>
 
 Commands:
-  buildpack create-env-file <directory>  Generate a .env file in the provided
-                                         directory to store project
-                                         configuration as environment variables
-  buildpack load-env <directory>         Load and validate the current
-                                         environment, including .env file if
-                                         present, to ensure all required
-                                         configuration is in place.
+  buildpack create-custom-origin            Get or create a secure, unique
+  <directory>                               hostname/port combination and a
+                                            trusted SSL certificate for local
+                                            development, which enables all PWA
+                                            features.
+  buildpack create-env-file <directory>     Generate a .env file in the provided
+                                            directory to store project
+                                            configuration as environment
+                                            variables
+  buildpack load-env <directory>            Load and validate the current
+                                            environment, including .env file if
+                                            present, to ensure all required
+                                            configuration is in place.
 
 Options:
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
-
-Invoke buildpack with a subcommand (eg. `buildpack create-env-file`) and the arguments to that subcommand.
 ```
 
 A project with `@magento/pwa-buildpack` installed may use the `buildpack` command in NPM scripts.
@@ -77,6 +81,61 @@ npx @magento/pwa-buildpack load-env .
 ```
 
 _Note: It would be unusual to use the above example directly; the more common use of `buildpack load-env` is in NPM scripts as described above._
+
+### `buildpack create-custom-origin <dir>`
+
+The `create-custom-origin` subcommand creates a unique local hostname and trusted SSL certificate for your project.
+
+This feature requires administrative access, so
+it may prompt you for an administrative password at the command line.
+It does not permanently elevate permissions for the dev process;
+instead, it launches a privileged subprocess to execute one command.
+
+#### Why PWA development requires a secure custom origin
+
+- **HTTPS is required.**
+  PWA features like ServiceWorkers and Push Notifications are only available on HTTPS secure domains (though some browsers make exceptions for the domain `localhost`, but that is non-standard).
+
+  HTTPS development is becoming the norm, but creating a self-signed certificate and configuring your server and browser to support this is a complex process.
+  
+  The `buildpack create-custom-origin <dir>` automates this process reliably on most operating systems.
+  It uses [devcert](https://github.com/davewasmer/devcert) to edit your local hostfile, create and manage certificates, and try to configure web browsers to "trust" the certificate. This prevents security errors in browsers.
+
+  In the future, browsers will start requiring trust, as well as SSL itself, to enable some features.
+
+  **Note:**
+  PWADevServer uses OpenSSL to generate these certificates; your operating system must have an `openssl` command of version 1.0 or above to use this feature.
+
+- **Unique domains prevent ServiceWorker collisions.**
+  PWA features, such as ServiceWorkers, use the concept of a 'scope' to separate installed ServiceWorkers from each other.
+  A scope is a combination of a domain name, port, and path.
+  If you use `localhost` for developing multiple PWAs, you run the risk of Service Workers overriding or colliding with each other.
+
+```sh
+npx @magento/pwa-buildpack create-custom-origin .
+```
+
+{: .bs-callout .bs-callout-info}
+**Note:**
+This command should be used only in a development environment, and never as part of a production deployment process.
+
+#### Customization
+
+Use environment variables in the `CUSTOM_ORIGIN_` namespace to change the behavior of `create-custom-origin`.
+
+| Environment Variable Name | Description | Default |
+| --- | --- | --- |
+| `CUSTOM_ORIGIN_ENABLED` | Enable the custom origin feature. | `true` |
+| `CUSTOM_ORIGIN_ADD_UNIQUE_HASH` | Add a unique hash string to the custom origin, based on filesystem location. This naturally separates domains when running multiple project folders on one developer machine. | `true` |
+| `CUSTOM_ORIGIN_SUBDOMAIN` | Specify the subdomain prefix of the custom origin manually, instead of using the package name. | |
+| `CUSTOM_ORIGIN_EXACT_DOMAIN` | Specify the _exact_ domain of the custom origin manually. If this is not set, the domains will be created as subdomains of `.local.pwadev`. | |
+
+Set these variables permanently in your `.env` file, or argue them at the command line for overrides:
+
+```sh
+CUSTOM_ORIGIN_EXACT_DOMAIN="my.pwa" \
+npx @magento/pwa-buildpack create-custom-origin .
+```
 
 ### Flags
 

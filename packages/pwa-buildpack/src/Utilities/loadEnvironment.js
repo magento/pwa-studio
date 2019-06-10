@@ -199,7 +199,7 @@ function parseEnvFile(dir, log) {
             if (e.code === 'ENOENT') {
                 log.warn(
                     `No .env file in ${dir}\n\tYou can autogenerate an .env file in your PWA project root by running the command ${chalk.whiteBright(
-                        'npx @magento/pwa-buildpack create-env-file'
+                        'npx @magento/pwa-buildpack create-env-file .'
                     )}.`
                 );
             } else {
