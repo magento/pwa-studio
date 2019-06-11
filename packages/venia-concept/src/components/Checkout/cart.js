@@ -5,8 +5,6 @@ import classify from 'src/classify';
 import CheckoutButton from './checkoutButton';
 import defaultClasses from './cart.css';
 
-let foo = 3;
-
 class Cart extends Component {
     static propTypes = {
         beginCheckout: func.isRequired,
@@ -16,7 +14,6 @@ class Cart extends Component {
         ready: bool.isRequired,
         submitting: bool.isRequired
     };
-    
 
     render() {
         const { beginCheckout, classes, ready, submitting } = this.props;
