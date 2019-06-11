@@ -9,19 +9,15 @@ import { loadingIndicator } from 'src/components/LoadingIndicator';
 const TestComponent = () => {
     const [restResponse, restApi] = useRestApi('/rest/V1/guest-carts');
     const { data, error, loading } = restResponse;
-    const { sendRequest, setLoading } = restApi;
+    const { sendRequest } = restApi;
 
     useEffect(() => {
         const signIn = async () => {
-            setLoading(true);
-
             await sendRequest({
                 options: {
                     method: 'POST'
                 }
             });
-
-            setLoading(false);
         };
 
         signIn();
