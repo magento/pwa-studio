@@ -1,13 +1,12 @@
 import React, { Component, Suspense } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
-import { Form } from 'informed';
+import { Form, Text } from 'informed';
 import { Price } from '@magento/peregrine';
 
 import LoadingIndicator from 'src/components/LoadingIndicator';
 import classify from 'src/classify';
 import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
-import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 import isProductConfigurable from 'src/util/isProductConfigurable';
 
@@ -102,6 +101,20 @@ class CartOptions extends Component {
         return numProductSelections < numProductOptions;
     }
 
+    incrementQty = formApi => {
+        var currentQuantity = parseInt(this.state.quantity) || 0;
+        const incrementedQty = currentQuantity + 1;
+        this.setQuantity(incrementedQty);
+        formApi.setValue('quantity_update', incrementedQty);
+    };
+
+    decrementQty = formApi => {
+        var currentQuantity = parseInt(this.state.quantity) || 0;
+        const decrementedQty = currentQuantity - 1;
+        this.setQuantity(decrementedQty);
+        formApi.setValue('quantity_update', decrementedQty);
+    };
+
     render() {
         const {
             fallback,
@@ -116,48 +129,104 @@ class CartOptions extends Component {
             ? classes.modal_active
             : classes.modal;
 
+        const IncrementButtonFormApi = ({ formApi }) => {
+            return (
+                <button
+                    type="button"
+                    onClick={() => {
+                        this.incrementQty(formApi);
+                    }}
+                >
+                    +
+                </button>
+            );
+        };
+
+        const DecrementButtonFormApi = ({ formApi }) => {
+            return (
+                <button
+                    type="button"
+                    onClick={() => {
+                        this.decrementQty(formApi);
+                    }}
+                >
+                    -
+                </button>
+            );
+        };
+
+        const validateQuantity = value => {
+            return value == undefined
+                ? 'Please enter a valid number in this field.'
+                : value <= 0
+                ? 'Please enter a quantity greater than 0.'
+                : undefined;
+        };
+
         return (
             <Form className={classes.root}>
-                <div className={classes.focusItem}>
-                    <span className={classes.name}>{name}</span>
-                    <span className={classes.price}>
-                        <Price currencyCode={currencyCode} value={price} />
-                    </span>
-                </div>
-                <div className={classes.form}>
-                    <section className={classes.options}>
-                        <Suspense fallback={fallback}>
-                            <Options
-                                onSelectionChange={handleSelectionChange}
-                                product={configItem}
-                            />
-                        </Suspense>
-                    </section>
-                    <section className={classes.quantity}>
-                        <h2 className={classes.quantityTitle}>
-                            <span>Quantity</span>
-                        </h2>
-                        <Quantity
-                            initialValue={props.cartItem.qty}
-                            onValueChange={this.setQuantity}
-                        />
-                    </section>
-                </div>
-                <div className={classes.save}>
-                    <Button onClick={this.props.closeOptionsDrawer}>
-                        <span>Cancel</span>
-                    </Button>
-                    <Button
-                        priority="high"
-                        onClick={this.handleClick}
-                        disabled={isMissingOptions}
-                    >
-                        <span>Update Cart</span>
-                    </Button>
-                </div>
-                <div className={modalClass}>
-                    <LoadingIndicator>Updating Cart</LoadingIndicator>
-                </div>
+                {({ formState, formApi }) => (
+                    <>
+                        <div className={classes.focusItem}>
+                            <span className={classes.name}>{name}</span>
+                            <span className={classes.price}>
+                                <Price
+                                    currencyCode={currencyCode}
+                                    value={price}
+                                />
+                            </span>
+                        </div>
+                        <div className={classes.form}>
+                            <section className={classes.options}>
+                                <Suspense fallback={fallback}>
+                                    <Options
+                                        onSelectionChange={
+                                            handleSelectionChange
+                                        }
+                                        product={configItem}
+                                    />
+                                </Suspense>
+                            </section>
+                            <section className={classes.quantity}>
+                                <h2 className={classes.quantityTitle}>
+                                    <span>Quantity</span>
+                                </h2>
+                                <DecrementButtonFormApi formApi={formApi} />
+                                <Text
+                                    type="number"
+                                    field="quantity_update"
+                                    initialValue={props.cartItem.qty}
+                                    onValueChange={this.setQuantity}
+                                    validateOnChange
+                                    validate={validateQuantity}
+                                    className={classes.qtyfield}
+                                />
+                                <IncrementButtonFormApi formApi={formApi} />
+                                <p className={classes.errors}>
+                                    {formState.errors.quantity_update}
+                                </p>
+                            </section>
+                        </div>
+                        <div className={classes.save}>
+                            <Button onClick={this.props.closeOptionsDrawer}>
+                                <span>Cancel</span>
+                            </Button>
+                            <Button
+                                priority="high"
+                                onClick={this.handleClick}
+                                disabled={
+                                    isMissingOptions ||
+                                    formState.errors.quantity_update
+                                }
+                            >
+                                <span>Update Cart</span>
+                            </Button>
+                        </div>
+                        <div className={modalClass}>
+                            <LoadingIndicator>Updating Cart</LoadingIndicator>
+                        </div>
+                    </>
+                )}
             </Form>
         );
     }

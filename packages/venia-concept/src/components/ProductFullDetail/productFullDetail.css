@@ -95,6 +95,41 @@
     composes: section;
     grid-area: quantity;
 }
+.quantity button {
+    height: 36px;
+    background-color: #ccc;
+    border: 0;
+    border-radius: 4px;
+    width: 36px;
+    font-size: 28px;
+    line-height: 30px;
+    padding: 0px 0 6px 0;
+    vertical-align: top;
+}
+.quantity button:hover {
+    background-color: #333;
+    color: #fff;
+}
+.qtyfield {
+    width: 70px;
+    text-align: center;
+    height: 36px;
+    border: #333 solid 1px;
+    font-size: 18px;
+    border-radius: 2px;
+    margin: 0 10px;
+    -webkit-appearance: none;
+}
+input.qtyfield[type='number']::-webkit-inner-spin-button,
+input.qtyfield[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.errors {
+    color: red;
+    padding-top: 10px;
+}
 
 .quantityTitle {
     composes: title from '../../components/ProductOptions/option.css';

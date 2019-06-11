@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useState } from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
-import { Form } from 'informed';
+import { Form, Text } from 'informed';
 import { Price } from '@magento/peregrine';
 
 import defaultClasses from './productFullDetail.css';
@@ -9,7 +9,6 @@ import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
 import { loadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
-import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
 
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
@@ -131,54 +130,123 @@ const ProductFullDetail = props => {
         [optionSelections]
     );
 
+    const incrementQty = formApi => {
+        var currentQuantity = parseInt(formApi.getValue('quantity')) || 0;
+        const incrementedQty = currentQuantity + 1;
+        formApi.setValue('quantity', incrementedQty);
+        setQuantity(formApi.getValue('quantity'));
+    };
+
+    const decrementQty = formApi => {
+        var currentQuantity = parseInt(formApi.getValue('quantity')) || 0;
+        const decrementedQty = currentQuantity - 1;
+        formApi.setValue('quantity', decrementedQty);
+        setQuantity(formApi.getValue('quantity'));
+    };
+
+    const IncrementButtonFormApi = ({ formApi }) => {
+        return (
+            <button
+                type="button"
+                onClick={() => {
+                    incrementQty(formApi);
+                }}
+            >
+                +
+            </button>
+        );
+    };
+
+    const DecrementButtonFormApi = ({ formApi }) => {
+        return (
+            <button
+                type="button"
+                onClick={() => {
+                    decrementQty(formApi);
+                }}
+            >
+                -
+            </button>
+        );
+    };
+
+    const validateQuantity = value => {
+        return value == undefined
+            ? 'Please enter a valid number in this field.'
+            : value <= 0
+            ? 'Please enter a quantity greater than 0.'
+            : undefined;
+    };
+
     return (
         <Form className={classes.root}>
-            <section className={classes.title}>
-                <h1 className={classes.productName}>{product.name}</h1>
-                <p className={classes.productPrice}>
-                    <Price
-                        currencyCode={productPrice.currency}
-                        value={productPrice.value}
-                    />
-                </p>
-            </section>
-            <section className={classes.imageCarousel}>
-                <Carousel
-                    images={mediaGalleryEntries.value}
-                    key={mediaGalleryEntries.key}
-                />
-            </section>
-            <section className={classes.options}>
-                <Suspense fallback={loadingIndicator}>
-                    <Options
-                        onSelectionChange={handleSelectionChange}
-                        product={product}
-                    />
-                </Suspense>
-            </section>
-            <section className={classes.quantity}>
-                <h2 className={classes.quantityTitle}>Quantity</h2>
-                <Quantity initialValue={quantity} onValueChange={setQuantity} />
-            </section>
-            <section className={classes.cartActions}>
-                <Button
-                    priority="high"
-                    onClick={handleAddToCart}
-                    disabled={isAddingItem || isMissingOptions}
-                >
-                    Add to Cart
-                </Button>
-            </section>
-            <section className={classes.description}>
-                <h2 className={classes.descriptionTitle}>
-                    Product Description
-                </h2>
-                <RichText content={product.description} />
-            </section>
-            <section className={classes.details}>
-                <h2 className={classes.detailsTitle}>SKU</h2>
-                <strong>{product.sku}</strong>
-            </section>
+            {({ formState, formApi }) => (
+                <>
+                    <section className={classes.title}>
+                        <h1 className={classes.productName}>{product.name}</h1>
+                        <p className={classes.productPrice}>
+                            <Price
+                                currencyCode={productPrice.currency}
+                                value={productPrice.value}
+                            />
+                        </p>
+                    </section>
+                    <section className={classes.imageCarousel}>
+                        <Carousel
+                            images={mediaGalleryEntries.value}
+                            key={mediaGalleryEntries.key}
+                        />
+                    </section>
+                    <section className={classes.options}>
+                        <Suspense fallback={loadingIndicator}>
+                            <Options
+                                onSelectionChange={handleSelectionChange}
+                                product={product}
+                            />
+                        </Suspense>
+                    </section>
+                    <section className={classes.quantity}>
+                        <h2 className={classes.quantityTitle}>Quantity</h2>
+                        <DecrementButtonFormApi formApi={formApi} />
+                        <Text
+                            type="number"
+                            field="quantity"
+                            initialValue={quantity}
+                            onValueChange={setQuantity}
+                            validateOnChange
+                            validate={validateQuantity}
+                            className={classes.qtyfield}
+                        />
+                        <IncrementButtonFormApi formApi={formApi} />
+                        <p className={classes.errors}>
+                            {formState.errors.quantity}
+                        </p>
+                    </section>
+                    <section className={classes.cartActions}>
+                        <Button
+                            priority="high"
+                            onClick={handleAddToCart}
+                            disabled={
+                                isAddingItem ||
+                                isMissingOptions ||
+                                formState.errors.quantity
+                            }
+                        >
+                            Add to Cart
+                        </Button>
+                    </section>
+                    <section className={classes.description}>
+                        <h2 className={classes.descriptionTitle}>
+                            Product Description
+                        </h2>
+                        <RichText content={product.description} />
+                    </section>
+                    <section className={classes.details}>
+                        <h2 className={classes.detailsTitle}>SKU</h2>
+                        <strong>{product.sku}</strong>
+                    </section>
+                </>
+            )}
         </Form>
     );
 };
