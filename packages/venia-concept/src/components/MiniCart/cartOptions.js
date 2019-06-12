@@ -9,6 +9,7 @@ import defaultClasses from './cartOptions.css';
 import Button from 'src/components/Button';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 import isProductConfigurable from 'src/util/isProductConfigurable';
+import { Plus, Minus } from 'react-feather';
 
 // TODO: get real currencyCode for cartItem
 const currencyCode = 'USD';
@@ -132,12 +133,13 @@ class CartOptions extends Component {
         const IncrementButtonFormApi = ({ formApi }) => {
             return (
                 <button
+                    aria-label="Quantity Increment"
                     type="button"
                     onClick={() => {
                         this.incrementQty(formApi);
                     }}
                 >
-                    +
+                    <Plus />
                 </button>
             );
         };
@@ -145,21 +147,23 @@ class CartOptions extends Component {
         const DecrementButtonFormApi = ({ formApi }) => {
             return (
                 <button
+                    aria-label="Quantity Decrement"
                     type="button"
                     onClick={() => {
                         this.decrementQty(formApi);
                     }}
                 >
-                    -
+                    <Minus />
                 </button>
             );
         };
 
         const validateQuantity = value => {
-            return value == undefined
-                ? 'Please enter a valid number in this field.'
-                : value <= 0
+            var validateRegex = /^[1-9]\d*(\.\d+)?$/;
+            return value <= 0
                 ? 'Please enter a quantity greater than 0.'
+                : value == undefined || !validateRegex.test(value)
+                ? 'Please enter a valid number in this field.'
                 : undefined;
         };
 
@@ -192,14 +196,16 @@ class CartOptions extends Component {
                                     <span>Quantity</span>
                                 </h2>
                                 <DecrementButtonFormApi formApi={formApi} />
+                                <label htmlFor="quantity_update" />
                                 <Text
-                                    type="number"
+                                    id="quantity_update"
+                                    type="text"
                                     field="quantity_update"
                                     initialValue={props.cartItem.qty}
                                     onValueChange={this.setQuantity}
                                     validateOnChange
                                     validate={validateQuantity}
-                                    className={classes.qtyfield}
+                                    className={classes.quantityInput}
                                 />
                                 <IncrementButtonFormApi formApi={formApi} />
                                 <p className={classes.errors}>

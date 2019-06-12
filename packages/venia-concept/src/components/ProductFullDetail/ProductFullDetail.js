@@ -15,6 +15,8 @@ import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
 import findMatchingVariant from 'src/util/findMatchingProductVariant';
 import isProductConfigurable from 'src/util/isProductConfigurable';
 
+import { Plus, Minus } from 'react-feather';
+
 const Options = React.lazy(() => import('../ProductOptions'));
 
 const INITIAL_OPTION_CODES = new Map();
@@ -147,12 +149,13 @@ const ProductFullDetail = props => {
     const IncrementButtonFormApi = ({ formApi }) => {
         return (
             <button
+                aria-label="Quantity Increment"
                 type="button"
                 onClick={() => {
                     incrementQty(formApi);
                 }}
             >
-                +
+                <Plus />
             </button>
         );
     };
@@ -160,21 +163,23 @@ const ProductFullDetail = props => {
     const DecrementButtonFormApi = ({ formApi }) => {
         return (
             <button
+                aria-label="Quantity Decrement"
                 type="button"
                 onClick={() => {
                     decrementQty(formApi);
                 }}
             >
-                -
+                <Minus />
             </button>
         );
     };
 
     const validateQuantity = value => {
-        return value == undefined
-            ? 'Please enter a valid number in this field.'
-            : value <= 0
+        var validateRegex = /^[1-9]\d*(\.\d+)?$/;
+        return value <= 0
             ? 'Please enter a quantity greater than 0.'
+            : value == undefined || !validateRegex.test(value)
+            ? 'Please enter a valid number in this field.'
             : undefined;
     };
 
@@ -208,14 +213,16 @@ const ProductFullDetail = props => {
                     <section className={classes.quantity}>
                         <h2 className={classes.quantityTitle}>Quantity</h2>
                         <DecrementButtonFormApi formApi={formApi} />
+                        <label htmlFor="quantity" />
                         <Text
-                            type="number"
+                            id="quantity"
+                            type="text"
                             field="quantity"
                             initialValue={quantity}
                             onValueChange={setQuantity}
                             validateOnChange
                             validate={validateQuantity}
-                            className={classes.qtyfield}
+                            className={classes.quantityInput}
                         />
                         <IncrementButtonFormApi formApi={formApi} />
                         <p className={classes.errors}>

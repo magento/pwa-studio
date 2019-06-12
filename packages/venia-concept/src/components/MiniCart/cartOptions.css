@@ -68,15 +68,15 @@
     border-radius: 4px;
     width: 36px;
     font-size: 28px;
-    line-height: 30px;
-    padding: 0px 0 6px 0;
+    line-height: 1;
+    padding: 1px 0 0;
     vertical-align: top;
 }
 .quantity button:hover {
     background-color: #333;
     color: #fff;
 }
-.qtyfield {
+.quantityInput {
     width: 70px;
     text-align: center;
     height: 36px;
@@ -84,12 +84,6 @@
     font-size: 18px;
     border-radius: 2px;
     margin: 0 10px;
-    -webkit-appearance: none;
-}
-input.qtyfield[type='number']::-webkit-inner-spin-button,
-input.qtyfield[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
 
 .errors {
