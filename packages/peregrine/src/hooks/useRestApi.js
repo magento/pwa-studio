@@ -19,8 +19,6 @@ export const useRestApi = endpoint => {
             receiveResponse(response);
         } catch (error) {
             receiveError(error);
-        } finally {
-            setLoading(false);
         }
     }, [receiveError, receiveResponse, setLoading]);
 
