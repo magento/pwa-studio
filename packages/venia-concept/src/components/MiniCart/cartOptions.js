@@ -196,17 +196,18 @@ class CartOptions extends Component {
                                     <span>Quantity</span>
                                 </h2>
                                 <DecrementButtonFormApi formApi={formApi} />
-                                <label htmlFor="quantity_update" />
-                                <Text
-                                    id="quantity_update"
-                                    type="text"
-                                    field="quantity_update"
-                                    initialValue={props.cartItem.qty}
-                                    onValueChange={this.setQuantity}
-                                    validateOnChange
-                                    validate={validateQuantity}
-                                    className={classes.quantityInput}
-                                />
+                                <label htmlFor="quantity_update">
+                                    <Text
+                                        id="quantity_update"
+                                        type="text"
+                                        field="quantity_update"
+                                        initialValue={props.cartItem.qty}
+                                        onValueChange={this.setQuantity}
+                                        validateOnChange
+                                        validate={validateQuantity}
+                                        className={classes.quantityInput}
+                                    />
+                                </label>
                                 <IncrementButtonFormApi formApi={formApi} />
                                 <p className={classes.errors}>
                                     {formState.errors.quantity_update}

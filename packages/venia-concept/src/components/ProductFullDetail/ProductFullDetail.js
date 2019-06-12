@@ -213,17 +213,18 @@ const ProductFullDetail = props => {
                     <section className={classes.quantity}>
                         <h2 className={classes.quantityTitle}>Quantity</h2>
                         <DecrementButtonFormApi formApi={formApi} />
-                        <label htmlFor="quantity" />
-                        <Text
-                            id="quantity"
-                            type="text"
-                            field="quantity"
-                            initialValue={quantity}
-                            onValueChange={setQuantity}
-                            validateOnChange
-                            validate={validateQuantity}
-                            className={classes.quantityInput}
-                        />
+                        <label htmlFor="quantity">
+                            <Text
+                                id="quantity"
+                                type="text"
+                                field="quantity"
+                                initialValue={quantity}
+                                onValueChange={setQuantity}
+                                validateOnChange
+                                validate={validateQuantity}
+                                className={classes.quantityInput}
+                            />
+                        </label>
                         <IncrementButtonFormApi formApi={formApi} />
                         <p className={classes.errors}>
                             {formState.errors.quantity}
