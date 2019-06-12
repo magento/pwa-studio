@@ -115,7 +115,6 @@ test('submitShippingAddress instance function calls props.submitShippingAddress 
     form.props.submit(formValues);
 
     expect(mockSubmitShippingAddress).toHaveBeenCalledWith({
-        type: 'shippingAddress',
         formValues
     });
 });
@@ -148,7 +147,6 @@ test('submitShippingMethod instance function calls props.submitShippingMethod wi
     form.props.submit(formValues);
 
     expect(mockSubmitShippingMethod).toHaveBeenCalledWith({
-        type: 'shippingMethod',
         formValues
     });
 });

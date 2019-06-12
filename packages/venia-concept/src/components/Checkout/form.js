@@ -32,7 +32,6 @@ const EditableForm = props => {
     const handleSubmitAddressForm = useCallback(
         formValues => {
             submitShippingAddress({
-                type: 'shippingAddress',
                 formValues
             });
         },
@@ -51,7 +50,6 @@ const EditableForm = props => {
     const handleSubmitShippingForm = useCallback(
         formValues => {
             submitShippingMethod({
-                type: 'shippingMethod',
                 formValues
             });
         },
