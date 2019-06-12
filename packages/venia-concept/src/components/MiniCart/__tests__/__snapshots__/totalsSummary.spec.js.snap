@@ -7,7 +7,7 @@ exports[`renders correctly when it has a subtotal 1`] = `
   <dl>
     <dt>
       <span>
-        Cart Total : 
+        Cart Total : 
         <mockConstructor
           value={99}
         />
