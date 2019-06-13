@@ -73,8 +73,9 @@
     width: 2em;
     height: 2em;
     animation-fill-mode: both;
-    animation: load7 1.8s infinite ease-in-out;
+    animation: pulse 1.8s infinite ease-in-out;
 }
+
 .loader {
     color: rgb(var(--venia-grey-dark));
     font-size: 6px;
@@ -83,22 +84,26 @@
     transform: translateZ(0);
     animation-delay: -0.16s;
 }
+
 .loader:before,
 .loader:after {
     content: '';
     position: absolute;
     top: 0;
 }
+
 .loader:before {
     color: rgb(var(--venia-grey));
     left: -3.5em;
     animation-delay: -0.32s;
 }
+
 .loader:after {
     color: rgb(var(--venia-text-alt));
     left: 3.5em;
 }
-@keyframes load7 {
+
+@keyframes pulse {
     0%,
     80%,
     100% {
