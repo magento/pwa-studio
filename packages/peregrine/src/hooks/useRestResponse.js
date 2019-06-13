@@ -114,7 +114,15 @@ export const useRestResponse = () => {
             setError,
             setLoading
         }),
-        [dispatch, receiveError, receiveResponse, resetState, setData, setError, setLoading]
+        [
+            dispatch,
+            receiveError,
+            receiveResponse,
+            resetState,
+            setData,
+            setError,
+            setLoading
+        ]
     );
 
     return [state, api];

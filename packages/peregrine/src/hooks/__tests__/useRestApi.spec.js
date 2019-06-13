@@ -22,9 +22,9 @@ jest.mock('../useRestResponse', () => {
     return { useRestResponse };
 });
 jest.mock('../../RestApi', () => ({
-   Magento2: {
-       request: jest.fn(() => 'result')
-   }
+    Magento2: {
+        request: jest.fn(() => 'result')
+    }
 }));
 
 const log = jest.fn();

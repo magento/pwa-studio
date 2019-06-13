@@ -59,13 +59,15 @@ test('handles `set data` action', () => {
         dispatch({
             payload,
             type: 'set data'
-        })
+        });
     });
 
     const resultState = log.mock.calls[1][0];
-    expect(resultState).toEqual(expect.objectContaining({
-        data: payload
-    }));
+    expect(resultState).toEqual(
+        expect.objectContaining({
+            data: payload
+        })
+    );
 });
 
 test('handles `set error` action', () => {
@@ -79,13 +81,15 @@ test('handles `set error` action', () => {
         dispatch({
             payload,
             type: 'set error'
-        })
+        });
     });
 
     const resultState = log.mock.calls[1][0];
-    expect(resultState).toEqual(expect.objectContaining({
-        error: payload
-    }));
+    expect(resultState).toEqual(
+        expect.objectContaining({
+            error: payload
+        })
+    );
 });
 
 test('handles `set loading` action', () => {
@@ -99,13 +103,15 @@ test('handles `set loading` action', () => {
         dispatch({
             payload,
             type: 'set loading'
-        })
+        });
     });
 
     const resultState = log.mock.calls[1][0];
-    expect(resultState).toEqual(expect.objectContaining({
-        loading: payload
-    }));
+    expect(resultState).toEqual(
+        expect.objectContaining({
+            loading: payload
+        })
+    );
 });
 
 test('handles `receive error` action', () => {
@@ -119,7 +125,7 @@ test('handles `receive error` action', () => {
         dispatch({
             payload,
             type: 'receive error'
-        })
+        });
     });
 
     const resultState = log.mock.calls[1][0];
@@ -141,7 +147,7 @@ test('handles receive response action', () => {
         dispatch({
             payload,
             type: 'receive response'
-        })
+        });
     });
 
     const resultState = log.mock.calls[1][0];
@@ -171,7 +177,7 @@ test('handles reset state action', () => {
     act(() => {
         dispatch({
             type: 'reset state'
-        })
+        });
     });
 
     const initialState = {
@@ -194,7 +200,7 @@ test('handles invalid action as a noop', () => {
         dispatch({
             payload,
             type: 'foo'
-        })
+        });
     });
 
     // If it is a noop, then the state will not have changed.
@@ -205,7 +211,7 @@ test('handles invalid action as a noop', () => {
 
 test('setData dispatches the "set data" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -217,18 +223,15 @@ test('setData dispatches the "set data" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'set data'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'set data'
+    });
 });
 
 test('setError dispatches the "set error" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -240,18 +243,15 @@ test('setError dispatches the "set error" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'set error'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'set error'
+    });
 });
 
 test('setLoading dispatches the "set loading" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -263,18 +263,15 @@ test('setLoading dispatches the "set loading" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'set loading'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'set loading'
+    });
 });
 
 test('resetState dispatches the "reset state" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -286,18 +283,15 @@ test('resetState dispatches the "reset state" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'reset state'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'reset state'
+    });
 });
 
 test('receiveResponse dispatches the "receive response" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -309,18 +303,15 @@ test('receiveResponse dispatches the "receive response" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'receive response'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'receive response'
+    });
 });
 
 test('receiveError dispatches the "receive error" action', () => {
     useReducer.mockReturnValueOnce([{}, mockDispatch]);
-    
+
     createTestInstance(<TestComponent />);
 
     const payload = {};
@@ -332,11 +323,8 @@ test('receiveError dispatches the "receive error" action', () => {
     });
 
     expect(mockDispatch).toHaveBeenCalledTimes(1);
-    expect(mockDispatch).toHaveBeenNthCalledWith(
-        1,
-        {
-            payload,
-            type: 'receive error'
-        }
-    );
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+        payload,
+        type: 'receive error'
+    });
 });

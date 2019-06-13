@@ -11,16 +11,19 @@ export const useRestApi = endpoint => {
 
     // Define a callback that performs a query
     // either as an effect or in response to user interaction.
-    const sendRequest = useCallback(async ({ options }) => {
-        setLoading(true);
+    const sendRequest = useCallback(
+        async ({ options }) => {
+            setLoading(true);
 
-        try {
-            const response = await request(endpoint, options);
-            receiveResponse(response);
-        } catch (error) {
-            receiveError(error);
-        }
-    }, [receiveError, receiveResponse, setLoading]);
+            try {
+                const response = await request(endpoint, options);
+                receiveResponse(response);
+            } catch (error) {
+                receiveError(error);
+            }
+        },
+        [receiveError, receiveResponse, setLoading]
+    );
 
     const api = useMemo(
         () => ({
