@@ -17,12 +17,12 @@ const Overview = props => {
         cancelCheckout,
         cart,
         classes,
-        editOrder,
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
         paymentData,
         ready,
+        setEditing,
         shippingAddress,
         shippingTitle,
         submitOrder,
@@ -30,16 +30,16 @@ const Overview = props => {
     } = props;
 
     const handleAddressFormClick = useCallback(() => {
-        editOrder('address');
-    }, [editOrder]);
+        setEditing('address');
+    }, [setEditing]);
 
     const handlePaymentFormClick = useCallback(() => {
-        editOrder('paymentMethod');
-    }, [editOrder]);
+        setEditing('paymentMethod');
+    }, [setEditing]);
 
     const handleShippingFormClick = useCallback(() => {
-        editOrder('shippingMethod');
-    }, [editOrder]);
+        setEditing('shippingMethod');
+    }, [setEditing]);
 
     return (
         <Fragment>
@@ -116,12 +116,12 @@ Overview.propTypes = {
         body: string,
         footer: string
     }),
-    editOrder: func.isRequired,
     hasPaymentMethod: bool,
     hasShippingAddress: bool,
     hasShippingMethod: bool,
     paymentData: object,
     ready: bool,
+    setEditing: func,
     shippingAddress: object,
     shippingTitle: string,
     submitOrder: func,

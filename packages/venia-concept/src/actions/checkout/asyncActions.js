@@ -30,11 +30,6 @@ export const resetCheckout = () =>
         dispatch(actions.reset());
     };
 
-export const editOrder = section =>
-    async function thunk(dispatch) {
-        dispatch(actions.edit(section));
-    };
-
 export const getShippingMethods = () => {
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
@@ -112,7 +107,7 @@ export const submitBillingAddress = payload =>
                 desiredBillingAddress = formatAddress(payload, countries);
             } catch (error) {
                 dispatch(actions.billingAddress.reject(error));
-                return;
+                throw error;
             }
         }
 
@@ -156,7 +151,7 @@ export const submitShippingAddress = payload =>
                     invalidAddressMessage: error.message
                 })
             );
-            return null;
+            throw error;
         }
 
         await saveShippingAddress(address);

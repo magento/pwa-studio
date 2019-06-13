@@ -12,7 +12,7 @@ import ShippingForm from './shippingForm';
 const EditableForm = props => {
     const {
         editing,
-        editOrder,
+        setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
@@ -23,34 +23,37 @@ const EditableForm = props => {
     } = props;
 
     const handleCancel = useCallback(() => {
-        editOrder(null);
-    }, [editOrder]);
+        setEditing(null);
+    }, [setEditing]);
 
     const handleSubmitAddressForm = useCallback(
-        formValues => {
-            submitShippingAddress({
+        async formValues => {
+            await submitShippingAddress({
                 formValues
             });
+            setEditing(null);
         },
-        [submitShippingAddress]
+        [setEditing, submitShippingAddress]
     );
 
     const handleSubmitPaymentsForm = useCallback(
-        formValues => {
-            submitPaymentMethodAndBillingAddress({
+        async formValues => {
+            await submitPaymentMethodAndBillingAddress({
                 formValues
             });
+            setEditing(null);
         },
-        [submitPaymentMethodAndBillingAddress]
+        [setEditing, submitPaymentMethodAndBillingAddress]
     );
 
     const handleSubmitShippingForm = useCallback(
-        formValues => {
-            submitShippingMethod({
+        async formValues => {
+            await submitShippingMethod({
                 formValues
             });
+            setEditing(null);
         },
-        [submitShippingMethod]
+        [setEditing, submitShippingMethod]
     );
 
     switch (editing) {
@@ -103,7 +106,7 @@ const EditableForm = props => {
 EditableForm.propTypes = {
     availableShippingMethods: array,
     editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
-    editOrder: func.isRequired,
+    setEditing: func.isRequired,
     shippingAddress: object,
     shippingMethod: string,
     submitShippingAddress: func.isRequired,

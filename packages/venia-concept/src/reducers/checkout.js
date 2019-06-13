@@ -11,7 +11,6 @@ export const name = 'checkout';
 const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
-    editing: null,
     paymentCode: '', // TODO: Is this used? I couldn't find any refs besides here in the store. -srugh
     paymentData: null,
     shippingAddress: null,
@@ -40,15 +39,7 @@ const reducerMap = {
                 storedShippingMethod && storedShippingMethod.carrier_code,
             shippingTitle:
                 storedShippingMethod && storedShippingMethod.carrier_title,
-            editing: null,
             step: 'form'
-        };
-    },
-    [actions.edit]: (state, { payload }) => {
-        return {
-            ...state,
-            editing: payload,
-            invalidAddressMessage: ''
         };
     },
     [actions.billingAddress.submit]: state => state,
@@ -95,7 +86,6 @@ const reducerMap = {
     [actions.shippingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
-            editing: null,
             shippingAddress: {
                 ...state.shippingAddress,
                 ...payload,
@@ -130,7 +120,6 @@ const reducerMap = {
     [actions.paymentMethod.accept]: (state, { payload }) => {
         return {
             ...state,
-            editing: null,
             paymentCode: payload.code,
             paymentData: payload.data,
             step: 'form',
@@ -152,7 +141,6 @@ const reducerMap = {
     [actions.shippingMethod.accept]: (state, { payload }) => {
         return {
             ...state,
-            editing: null,
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title,
             step: 'form',
@@ -176,7 +164,6 @@ const reducerMap = {
     [actions.order.accept]: state => {
         return {
             ...state,
-            editing: null,
             step: 'receipt',
             submitting: false
         };
