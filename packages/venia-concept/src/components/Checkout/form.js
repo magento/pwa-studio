@@ -12,6 +12,10 @@ import defaultClasses from './form.css';
 
 const isSubmitDisabled = (busy, valid) => busy || !valid;
 
+/**
+ * The EditableForm component renders the actual edit forms for the sections
+ * within the form.
+ */
 const EditableForm = props => {
     const {
         editing,
@@ -175,6 +179,10 @@ const ShippingMethodSummary = props => {
     );
 };
 
+/**
+ * The Overview component renders summaries for each section of the editable
+ * form.
+ */
 const Overview = props => {
     const {
         cart,
@@ -267,6 +275,10 @@ const Overview = props => {
     );
 };
 
+/**
+ * The Form component is similar to Flow in that it renders either the overview
+ * or the editable form based on the 'editing' state value.
+ */
 const Form = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     let child;

@@ -22,6 +22,10 @@ const isCheckoutReady = checkout => {
     );
 };
 
+/**
+ * This Flow component's primary purpose is to take relevant state and actions
+ * and pass them to the relevent checkout step.
+ */
 const Flow = props => {
     const {
         // state
