@@ -23,7 +23,8 @@ class Navigation extends PureComponent {
             root: string,
             root_open: string,
             signIn_closed: string,
-            signIn_open: string
+            signIn_open: string,
+            isRoot: string
         }),
         closeDrawer: func.isRequired,
         completePasswordReset: func.isRequired,
@@ -80,6 +81,14 @@ class Navigation extends PureComponent {
                 onNavigate={closeDrawer}
             />
         ) : null;
+    }
+
+    get isCategoryRoot() {
+        const {
+            props,
+            state: { rootNodeId }
+        } = this;
+        return props.rootCategoryId === rootNodeId;
     }
 
     get footer() {
@@ -266,7 +275,8 @@ class Navigation extends PureComponent {
             forgotPasswordForm,
             hideForgotPasswordForm,
             props,
-            state
+            state,
+            isCategoryRoot
         } = this;
 
         const {
@@ -307,11 +317,16 @@ class Navigation extends PureComponent {
 
         return (
             <aside className={className}>
-                <div className={classes.header}>
+                <div
+                    className={`${classes.header} ${
+                        isCategoryRoot ? classes.isRoot : null
+                    }`}
+                >
                     <NavHeader
                         title={title}
                         onBack={handleBack}
                         onClose={closeDrawer}
+                        isCategoryRoot={isCategoryRoot}
                     />
                 </div>
                 <nav className={classes.body}>{categoryTree}</nav>
