@@ -4,7 +4,7 @@ import { bool, func, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import CheckoutButton from './checkoutButton';
 import defaultClasses from './cart.css';
-
+let foo=3;
 class Cart extends Component {
     static propTypes = {
         beginCheckout: func.isRequired,
