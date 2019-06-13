@@ -12,7 +12,7 @@ const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
     editing: null,
-    paymentCode: '',
+    paymentCode: '', // TODO: Is this used? I couldn't find any refs besides here in the store. -srugh
     paymentData: null,
     shippingAddress: null,
     shippingMethod: '',

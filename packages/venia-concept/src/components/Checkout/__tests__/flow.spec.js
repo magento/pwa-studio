@@ -7,24 +7,24 @@ import Form from '../form';
 import Receipt from '../Receipt';
 
 jest.mock('src/classify');
-jest.mock('../form', () => '');
-jest.mock('../Receipt', () => '');
+jest.mock('../form', () => 'Form');
+jest.mock('../Receipt', () => 'Receipt');
+jest.mock('../cart', () => 'Cart');
 
 const defaultProps = {
-    actions: {}
+    cart: {
+        details: {}
+    },
+    checkout: {}
 };
 
 test('renders Cart component', () => {
     const props = {
         ...defaultProps,
-        actions: {
-            beginCheckout: jest.fn()
-        },
         checkout: {
             step: 'cart',
             submitting: false
-        },
-        isCartReady: true
+        }
     };
     const component = testRenderer.create(<Flow {...props} />);
 

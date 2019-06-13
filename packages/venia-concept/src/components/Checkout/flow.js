@@ -7,23 +7,30 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 
-const Flow = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
-
+const hasData = value => !!value;
+const isCartReady = cart => cart.details && cart.details.items_count > 0;
+const isCheckoutReady = checkout => {
     const {
-        actions,
+        billingAddress,
+        paymentData,
+        shippingAddress,
+        shippingMethod
+    } = checkout;
+
+    return [billingAddress, paymentData, shippingAddress, shippingMethod].every(
+        hasData
+    );
+};
+
+const Flow = props => {
+    const {
+        // state
         cart,
         checkout,
-        hasPaymentMethod,
-        hasShippingAddress,
-        hasShippingMethod,
         directory,
-        isCartReady,
-        isCheckoutReady,
-        user
-    } = props;
+        user,
 
-    const {
+        // actions
         beginCheckout,
         cancelCheckout,
         editOrder,
@@ -31,14 +38,14 @@ const Flow = props => {
         submitOrder,
         submitPaymentMethodAndBillingAddress,
         submitShippingMethod
-    } = actions;
+    } = props;
 
     const {
         availableShippingMethods,
         billingAddress,
         editing,
-        isAddressIncorrect,
         incorrectAddressMessage,
+        isAddressIncorrect,
         paymentData,
         shippingAddress,
         shippingMethod,
@@ -47,13 +54,20 @@ const Flow = props => {
         submitting
     } = checkout;
 
+    // ensure state slices are present
+    if (!(cart && checkout)) {
+        return null;
+    }
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     let child;
 
     switch (step) {
         case 'cart': {
             const stepProps = {
                 beginCheckout,
-                ready: isCartReady,
+                ready: isCartReady(cart),
                 submitting
             };
 
@@ -69,13 +83,13 @@ const Flow = props => {
                 directory,
                 editOrder,
                 editing,
-                hasPaymentMethod,
-                hasShippingAddress,
-                hasShippingMethod,
+                hasPaymentMethod: hasData(paymentData),
+                hasShippingAddress: hasData(shippingAddress),
+                hasShippingMethod: hasData(shippingMethod),
                 incorrectAddressMessage,
                 isAddressIncorrect,
                 paymentData,
-                ready: isCheckoutReady,
+                ready: isCheckoutReady(checkout),
                 shippingAddress,
                 shippingMethod,
                 shippingTitle,
@@ -106,87 +120,34 @@ const Flow = props => {
 };
 
 Flow.propTypes = {
-    actions: shape({
-        beginCheckout: func,
-        cancelCheckout: func,
-        editOrder: func,
-        submitShippingAddress: func,
-        submitOrder: func,
-        submitPaymentMethodAndBillingAddress: func,
-        submitShippingMethod: func
-    }).isRequired,
+    beginCheckout: func,
+    cancelCheckout: func,
     cart: shape({
-        details: object,
-        cartId: string,
-        totals: object
+        details: object.isRequired
     }),
     checkout: shape({
         availableShippingMethods: array,
-        billingAddress: shape({
-            city: string,
-            country_id: string,
-            email: string,
-            firstname: string,
-            lastname: string,
-            postcode: string,
-            region_id: string,
-            region_code: string,
-            region: string,
-            street: array,
-            telephone: string
-        }),
+        billingAddress: object,
         editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
         incorrectAddressMessage: string,
         isAddressIncorrect: bool,
-        paymentCode: string,
-        paymentData: shape({
-            description: string,
-            details: shape({
-                cardType: string
-            }),
-            nonce: string
-        }),
-        shippingAddress: shape({
-            city: string,
-            country_id: string,
-            email: string,
-            firstname: string,
-            lastname: string,
-            postcode: string,
-            region_id: string,
-            region_code: string,
-            region: string,
-            street: array,
-            telephone: string
-        }),
+        paymentData: object,
+        shippingAddress: object,
         shippingMethod: string,
         shippingTitle: string,
         step: oneOf(['cart', 'form', 'receipt']).isRequired,
         submitting: bool
     }).isRequired,
-    directory: shape({
-        countries: array
-    }),
     classes: shape({
         root: string
     }),
-    hasPaymentMethod: bool,
-    hasShippingAddress: bool,
-    hasShippingMethod: bool,
-    isCartReady: bool,
-    isCheckoutReady: bool,
-    paymentData: shape({
-        description: string,
-        details: shape({
-            cardType: string
-        }),
-        nonce: string
-    }),
-    shippingMethod: string,
-    shippingTitle: string,
-    user: shape({
-        isSignedIn: bool
-    })
+    directory: object,
+    editOrder: func,
+    submitOrder: func,
+    submitPaymentMethodAndBillingAddress: func,
+    submitShippingAddress: func,
+    submitShippingMethod: func,
+    user: object
 };
 
 export default Flow;
