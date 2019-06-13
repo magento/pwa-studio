@@ -20,7 +20,7 @@ const reducer = (state, { payload, type }) => {
         case 'receive error': {
             return {
                 data: null,
-                error: payload.message,
+                error: payload,
                 loading: false
             };
         }

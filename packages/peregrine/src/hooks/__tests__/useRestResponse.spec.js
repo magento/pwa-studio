@@ -131,7 +131,7 @@ test('handles `receive error` action', () => {
     const resultState = log.mock.calls[1][0];
     expect(resultState).toEqual({
         data: null,
-        error: payload.message,
+        error: payload,
         loading: false
     });
 });

@@ -191,21 +191,12 @@ class M2ApiRequest {
                             // includes the original context of the request,
                             // and formats the server response.
                             .then(bodyText => {
-                                // throw new M2ApiResponseError({
-                                //     method: this.opts.method,
-                                //     resourceUrl: this.resourceUrl,
-                                //     response,
-                                //     bodyText
-                                // });
-
-                                let message;
-                                try {
-                                    message = JSON.parse(bodyText).message;
-                                } catch {
-                                    message = bodyText;
-                                }
-
-                                throw new Error(message);
+                                throw new M2ApiResponseError({
+                                    method: this.opts.method,
+                                    resourceUrl: this.resourceUrl,
+                                    response,
+                                    bodyText
+                                });
                             })
                     );
                 }

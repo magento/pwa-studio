@@ -19,7 +19,8 @@ export const useRestApi = endpoint => {
                 const response = await request(endpoint, options);
                 receiveResponse(response);
             } catch (error) {
-                receiveError(error);
+                // error is of type M2ApiResponseError here.
+                receiveError(error.baseMessage);
             }
         },
         [receiveError, receiveResponse, setLoading]
