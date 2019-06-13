@@ -43,7 +43,7 @@ export default class M2ApiResponseError extends Error {
         this.response = response;
         this.method = method;
         this.resourceUrl = resourceUrl;
-        
+
         // Preserve the original error message.
         this.baseMessage = parsedBodyText ? parsedBodyText.message : bodyText;
     }

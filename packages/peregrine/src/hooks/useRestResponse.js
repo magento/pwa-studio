@@ -40,6 +40,10 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
+/**
+ * Exposes the current state of the REST response
+ * as well as an API for updating that state.
+ */
 export const useRestResponse = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
