@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useCarousel, useImageSort } from '@magento/peregrine';
+import React, { useCallback, useState } from 'react';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
+import { useCarousel } from '@magento/peregrine';
 
 import { resourceUrl } from 'src/drivers';
 import Icon from 'src/components/Icon';
@@ -8,7 +8,7 @@ import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
@@ -18,36 +18,65 @@ const ChevronIcons = {
     right: ChevronRightIcon
 };
 
-const Carousel = ({ classes, images }) => {
-    const { sortAndFilterImages } = useImageSort();
-    const sortedImages = sortAndFilterImages(images);
+const Carousel = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    const {
-        activeItemIndex,
-        setActiveItemIndex,
-        currentImageLoaded,
-        handleImageLoad,
-        handlePrevious,
-        handleNext
-    } = useCarousel(sortedImages.length);
+    const [carouselState, carouselApi] = useCarousel(props.images);
 
-    const mainImage = sortedImages[activeItemIndex] || {};
-    const src = mainImage.file
-        ? resourceUrl(mainImage.file, { type: 'image-product', width: 640 })
-        : transparentPlaceholder;
-    const alt = mainImage.label || 'image-product';
+    const { activeItemIndex, currentImage, sortedImages } = carouselState;
+    const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
+    const [currentImageLoaded, setCurrentImageLoaded] = useState(false);
 
-    const getChevron = useCallback(direction => {
-        return (
-            <button
-                onClick={direction === 'left' ? handlePrevious : handleNext}
-                className={classes[`chevron-${direction}`]}
-            >
-                <Icon src={ChevronIcons[direction]} size={40} />
-            </button>
-        );
+    const handleLeftChevron = useCallback(() => {
+        setCurrentImageLoaded(false);
+        handlePrevious();
+    }, [handlePrevious]);
+
+    const handleRightChevron = useCallback(() => {
+        setCurrentImageLoaded(false);
+        handleNext();
+    }, [handleNext]);
+
+    const handleThumbnailClick = useCallback(index => {
+        setCurrentImageLoaded(false);
+        setActiveItemIndex(index);
     });
 
+    const src = currentImage.file
+        ? resourceUrl(currentImage.file, { type: 'image-product', width: 640 })
+        : transparentPlaceholder;
+
+    const alt = currentImage.label || 'image-product';
+
+    const getChevron = useCallback(
+        direction => {
+            return (
+                <button
+                    onClick={
+                        direction === 'left'
+                            ? handleLeftChevron
+                            : handleRightChevron
+                    }
+                    className={classes[`chevron-${direction}`]}
+                >
+                    <Icon src={ChevronIcons[direction]} size={40} />
+                </button>
+            );
+        },
+        [handleLeftChevron, handleRightChevron]
+    );
+
+    const placeholderImage = !currentImageLoaded && (
+        <img
+            className={classes.currentImage}
+            src={transparentPlaceholder}
+            alt={alt}
+        />
+    );
+
+    const handleImageLoad = useCallback(() => setCurrentImageLoaded(true));
+
+    // TODO: Evaluate why the re-render is occurring.
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
@@ -58,40 +87,34 @@ const Carousel = ({ classes, images }) => {
                     src={src}
                     alt={alt}
                 />
-                {!currentImageLoaded && (
-                    <img
-                        className={classes.currentImage}
-                        src={transparentPlaceholder}
-                        alt={alt}
-                    />
-                )}
+                {placeholderImage}
                 {getChevron('right')}
             </div>
             <ThumbnailList
                 items={sortedImages}
                 activeItemIndex={activeItemIndex}
-                updateActiveItemIndex={setActiveItemIndex}
+                updateActiveItemIndex={handleThumbnailClick}
             />
         </div>
     );
 };
 
 Carousel.propTypes = {
-    classes: PropTypes.shape({
-        root: PropTypes.string,
-        currentImage: PropTypes.string,
-        imageContainer: PropTypes.string,
-        'chevron-left': PropTypes.string,
-        'chevron-right': PropTypes.string
+    classes: shape({
+        root: string,
+        currentImage: string,
+        imageContainer: string,
+        'chevron-left': string,
+        'chevron-right': string
     }),
-    images: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string,
-            position: PropTypes.number,
-            disabled: PropTypes.bool,
-            file: PropTypes.string.isRequired
+    images: arrayOf(
+        shape({
+            label: string,
+            position: number,
+            disabled: bool,
+            file: string.isRequired
         })
     ).isRequired
 };
 
-export default classify(defaultClasses)(Carousel);
+export default Carousel;

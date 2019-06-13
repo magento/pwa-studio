@@ -5,6 +5,7 @@ import * as Util from './util';
 export { useApolloContext } from './hooks/useApolloContext';
 export { useEventListener } from './hooks/useEventListener';
 export { useCarousel } from './hooks/useCarousel';
+export { useSortedImages } from './hooks/useSortedImages';
 export { useDropdown } from './hooks/useDropdown';
 export { usePagination } from './hooks/usePagination';
 export { useQuery } from './hooks/useQuery';
