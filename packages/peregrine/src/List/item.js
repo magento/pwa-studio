@@ -1,54 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
 
-class Item extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        hasFocus: PropTypes.bool,
-        isSelected: PropTypes.bool,
-        item: PropTypes.any.isRequired,
-        itemIndex: PropTypes.number.isRequired,
-        render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-            .isRequired
-    };
+const isString = item => typeof item === 'string';
 
-    static defaultProps = {
-        classes: {},
-        hasFocus: false,
-        isSelected: false,
-        render: 'div'
-    };
+const getChild = item => (isString(item) ? item : null);
 
-    get children() {
-        const { item } = this.props;
-        const isString = typeof item === 'string';
-
-        return isString ? item : null;
-    }
-
-    render() {
-        const {
-            classes,
-            hasFocus,
-            isSelected,
-            item,
-            itemIndex,
-            render,
-            ...restProps
-        } = this.props;
-        const customProps = { classes, hasFocus, isSelected, item, itemIndex };
-        const Root = fromRenderProp(render, Object.keys(customProps));
-
-        return (
-            <Root className={classes.root} {...customProps} {...restProps}>
-                {this.children}
-            </Root>
-        );
-    }
+function Item(props) {
+    const {
+        classes,
+        hasFocus,
+        isSelected,
+        item,
+        itemIndex,
+        render,
+        ...restProps
+    } = props;
+    const customProps = { classes, hasFocus, isSelected, item, itemIndex };
+    const Root = fromRenderProp(render, Object.keys(customProps));
+    return (
+        <Root className={classes.root} {...customProps} {...restProps}>
+            {getChild(item)}
+        </Root>
+    );
 }
+
+Item.propTypes = {
+    classes: PropTypes.shape({
+        root: PropTypes.string
+    }),
+    hasFocus: PropTypes.bool,
+    isSelected: PropTypes.bool,
+    item: PropTypes.any.isRequired,
+    itemIndex: PropTypes.number.isRequired,
+    render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired
+};
+
+Item.defaultProps = {
+    classes: {},
+    hasFocus: false,
+    isSelected: false,
+    render: 'div'
+};
 
 export default Item;
