@@ -56,3 +56,55 @@
     grid-template-columns: 1fr 1fr;
     justify-items: end;
 }
+
+.searchFallback {
+    composes: form from '../SearchBar/searchBar.css';
+    padding: 0 1rem;
+}
+
+.input {
+    composes: input from '../TextInput/textInput.css';
+}
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    animation-fill-mode: both;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: rgb(var(--venia-grey-dark));
+    font-size: 6px;
+    margin: calc(-2em + 6px) auto 0;
+    position: relative;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    color: rgb(var(--venia-grey));
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    color: rgb(var(--venia-text-alt));
+    left: 3.5em;
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2em 0 0;
+    }
+}
