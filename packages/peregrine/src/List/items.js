@@ -1,104 +1,112 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useReducer, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import memoize from '../util/unaryMemoize';
 import iterable from '../validators/iterable';
 import ListItem from './item';
+import Item from './item';
 
-const removeFocus = () => ({
-    hasFocus: false
-});
-
-const updateCursor = memoize(index => () => ({
-    cursor: index,
-    hasFocus: true
-}));
-
-const updateSelection = memoize(key => (prevState, props) => {
-    const { selectionModel } = props;
+const updateSelection = (key, prevSelection, selectionModel) => {
     let selection;
-
     if (selectionModel === 'radio') {
         selection = new Set().add(key);
     }
-
     if (selectionModel === 'checkbox') {
-        selection = new Set(prevState.selection);
-
+        selection = new Set(prevSelection);
         if (selection.has(key)) {
             selection.delete(key);
         } else {
             selection.add(key);
         }
     }
-
     return { selection };
-});
+};
 
-class Items extends Component {
-    static propTypes = {
-        getItemKey: PropTypes.func.isRequired,
-        items: iterable.isRequired,
-        renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-        selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
-    };
-
-    static defaultProps = {
-        getItemKey: ({ id }) => id,
-        selectionModel: 'radio'
-    };
-
-    state = {
-        cursor: null,
-        hasFocus: false,
-        selection: new Set()
-    };
-
-    render() {
-        const { getItemKey, items, renderItem } = this.props;
-        const { cursor, hasFocus, selection } = this.state;
-
-        const children = Array.from(items, (item, index) => {
-            const key = getItemKey(item, index);
-
-            return (
-                <ListItem
-                    key={key}
-                    item={item}
-                    itemIndex={index}
-                    render={renderItem}
-                    hasFocus={hasFocus && cursor === index}
-                    isSelected={selection.has(key)}
-                    onBlur={this.handleBlur}
-                    onClick={this.getClickHandler(key)}
-                    onFocus={this.getFocusHandler(index)}
-                />
-            );
-        });
-
-        return <Fragment>{children}</Fragment>;
-    }
-
-    syncSelection() {
-        const { selection } = this.state;
-        const { onSelectionChange } = this.props;
-
-        if (onSelectionChange) {
-            onSelectionChange(selection);
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'REMOVE_FOCUS':
+            return {
+                ...state,
+                hasFocus: false
+            };
+        case 'SET_FOCUS':
+            return {
+                ...state,
+                hasFocus: true,
+                cursor: action.key
+            };
+        case 'UPDATE_SELECTION': {
+            const { key, selectionModel } = action;
+            return {
+                ...state,
+                selection: updateSelection(key, state.selection, selectionModel)
+            };
         }
+        default:
+            return state;
     }
+};
 
-    handleBlur = () => {
-        this.setState(removeFocus);
-    };
+const initialState = {
+    cursor: null,
+    hasFocus: false,
+    selection: new Set()
+};
 
-    getClickHandler = memoize(key => () => {
-        this.setState(updateSelection(key), this.syncSelection);
+const usc = fn => useCallback(fn, []);
+
+function Items(props) {
+    const {
+        getItemKey,
+        items,
+        renderItem,
+        selectionModel,
+        onSelectionChange
+    } = props;
+    const [{ cursor, hasFocus, selection }, dispatch] = useReducer(
+        reducer,
+        initialState
+    );
+    useEffect(() => {
+        onSelectionChange && onSelectionChange(selection);
+    }, [Array.from(selection).toString()]); // when ever the selection changes, make the call
+    const removeFocus = usc(() => dispatch({ type: 'REMOVE_FOCUS' }));
+    const updateSelection = usc(key =>
+        dispatch({
+            type: 'UPDATE_SELECTION',
+            key,
+            selectionModel
+        })
+    );
+    const setFocus = usc(key => dispatch({ type: 'SET_FOCUS', key }));
+    const children = items.map((item, index) => {
+        const key = getItemKey(item, index);
+        return (
+            <ListItem
+                key={key}
+                item={item}
+                itemIndex={index}
+                render={renderItem}
+                hasFocus={hasFocus && cursor === key}
+                isSelected={selection.has(key)}
+                onBlur={removeFocus}
+                onClick={updateSelection(key)}
+                onFocus={setFocus(key)}
+            />
+        );
     });
-
-    getFocusHandler = memoize(index => () => {
-        this.setState(updateCursor(index));
-    });
+    return <Fragment>{children}</Fragment>;
 }
+
+Item.propTypes = {
+    getItemKey: PropTypes.func.isRequired,
+    items: iterable.isRequired,
+    renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
+};
+
+Items.defaultProps = {
+    getItemKey: ({ id }) => id,
+    selectionModel: 'radio'
+};
 
 export default Items;
