@@ -1,51 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { List } from '@magento/peregrine';
+import React, { useCallback } from 'react';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import { mergeClasses } from 'src/classify';
 import Thumbnail from './thumbnail';
 import defaultClasses from './thumbnailList.css';
 
-const ThumbnailList = ({
-    activeItemIndex,
-    classes,
-    items,
-    updateActiveItemIndex
-}) => {
-    const updateActiveItemHandler = newActiveItemIndex => {
-        updateActiveItemIndex(newActiveItemIndex);
-    };
+const ThumbnailList = props => {
+    const { activeItemIndex, items, onItemClick } = props;
 
-    return (
-        <List
-            items={items}
-            renderItem={props => (
-                <Thumbnail
-                    {...props}
-                    isActive={activeItemIndex === props.itemIndex}
-                    onClickHandler={updateActiveItemHandler}
-                />
-            )}
-            getItemKey={i => i.file}
-            classes={classes}
-        />
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const handleThumbnailClick = useCallback(
+        index => {
+            onItemClick(index);
+        },
+        [onItemClick]
     );
+
+    const thumbnails = items.map((item, index) => (
+        <Thumbnail
+            key={index}
+            item={item}
+            itemIndex={index}
+            isActive={activeItemIndex === index}
+            onClickHandler={handleThumbnailClick}
+        />
+    ));
+
+    return <div className={classes.root}>{thumbnails}</div>;
 };
 
 ThumbnailList.propTypes = {
-    activeItemIndex: PropTypes.number,
-    classes: PropTypes.shape({
-        root: PropTypes.string
+    activeItemIndex: number,
+    classes: shape({
+        root: string
     }),
-    items: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string,
-            position: PropTypes.number,
-            disabled: PropTypes.bool,
-            file: PropTypes.string.isRequired
+    items: arrayOf(
+        shape({
+            label: string,
+            position: number,
+            disabled: bool,
+            file: string.isRequired
         })
     ).isRequired,
-    updateActiveItemIndex: PropTypes.func.isRequired
+    onItemClick: func.isRequired
 };
 
-export default classify(defaultClasses)(ThumbnailList);
+export default ThumbnailList;

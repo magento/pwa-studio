@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useCarousel } from '@magento/peregrine';
 
@@ -12,41 +12,33 @@ import { mergeClasses } from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
+import Image from 'src/components/Image';
 
 const ChevronIcons = {
     left: ChevronLeftIcon,
     right: ChevronRightIcon
 };
 
+const DEFAULT_IMAGE_WIDTH = 640;
+
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [carouselState, carouselApi] = useCarousel(props.images);
-
     const { activeItemIndex, currentImage, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
-    const [currentImageLoaded, setCurrentImageLoaded] = useState(false);
 
     const handleLeftChevron = useCallback(() => {
-        setCurrentImageLoaded(false);
         handlePrevious();
     }, [handlePrevious]);
 
     const handleRightChevron = useCallback(() => {
-        setCurrentImageLoaded(false);
         handleNext();
     }, [handleNext]);
 
     const handleThumbnailClick = useCallback(index => {
-        setCurrentImageLoaded(false);
         setActiveItemIndex(index);
-    });
-
-    const src = currentImage.file
-        ? resourceUrl(currentImage.file, { type: 'image-product', width: 640 })
-        : transparentPlaceholder;
-
-    const alt = currentImage.label || 'image-product';
+    }, []);
 
     const getChevron = useCallback(
         direction => {
@@ -66,34 +58,32 @@ const Carousel = props => {
         [handleLeftChevron, handleRightChevron]
     );
 
-    const placeholderImage = !currentImageLoaded && (
-        <img
-            className={classes.currentImage}
-            src={transparentPlaceholder}
-            alt={alt}
-        />
-    );
+    const src =
+        currentImage && currentImage.file
+            ? resourceUrl(currentImage.file, {
+                  type: 'image-product',
+                  width: DEFAULT_IMAGE_WIDTH
+              })
+            : transparentPlaceholder;
 
-    const handleImageLoad = useCallback(() => setCurrentImageLoaded(true));
+    const alt = (currentImage && currentImage.label) || 'image-product';
 
-    // TODO: Evaluate why the re-render is occurring.
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
                 {getChevron('left')}
-                <img
-                    onLoad={handleImageLoad}
-                    className={classes.currentImage}
+                <Image
+                    classes={{ root: classes.currentImage }}
                     src={src}
                     alt={alt}
+                    placeholder={transparentPlaceholder}
                 />
-                {placeholderImage}
                 {getChevron('right')}
             </div>
             <ThumbnailList
                 items={sortedImages}
                 activeItemIndex={activeItemIndex}
-                updateActiveItemIndex={handleThumbnailClick}
+                onItemClick={handleThumbnailClick}
             />
         </div>
     );

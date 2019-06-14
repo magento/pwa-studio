@@ -7,7 +7,7 @@ import {
 } from '@magento/peregrine';
 jest.mock('src/classify');
 
-const updateActiveItemIndexMock = jest.fn();
+const onItemClick = jest.fn();
 const defaultProps = {
     activeItemIndex: 0,
     items: [
@@ -20,7 +20,7 @@ const defaultProps = {
             label: 'test-thumbnail2'
         }
     ],
-    updateActiveItemIndex: updateActiveItemIndexMock
+    onItemClick: onItemClick
 };
 
 test('renders the ThumbnailList component correctly', () => {
@@ -59,7 +59,7 @@ test('calls updateActiveItemIndex with index of clicked thumbnail', () => {
 
     inactiveThumbnail.props.onClick();
 
-    expect(updateActiveItemIndexMock).toHaveBeenCalledWith(1);
+    expect(onItemClick).toHaveBeenCalledWith(1);
 
-    updateActiveItemIndexMock.mockReset();
+    onItemClick.mockReset();
 });

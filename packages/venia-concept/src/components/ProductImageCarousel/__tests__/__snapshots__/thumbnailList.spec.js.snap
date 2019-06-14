@@ -10,8 +10,15 @@ exports[`renders the ThumbnailList component correctly 1`] = `
   >
     <img
       alt="test-thumbnail1"
-      className="image"
+      className="root notLoaded"
+      onError={[Function]}
+      onLoad={[Function]}
       src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=240"
+    />
+    <img
+      alt="test-thumbnail1"
+      className="root"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
   </button>
   <button
@@ -20,8 +27,15 @@ exports[`renders the ThumbnailList component correctly 1`] = `
   >
     <img
       alt="test-thumbnail2"
-      className="image"
+      className="root notLoaded"
+      onError={[Function]}
+      onLoad={[Function]}
       src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=240"
+    />
+    <img
+      alt="test-thumbnail2"
+      className="root"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
   </button>
 </div>

@@ -7,8 +7,15 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 >
   <img
     alt="test-thumbnail"
-    className="image"
+    className="root notLoaded"
+    onError={[Function]}
+    onLoad={[Function]}
     src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
+  />
+  <img
+    alt="test-thumbnail"
+    className="root"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
 `;
@@ -20,8 +27,15 @@ exports[`renders the Thumbnail component correctly 1`] = `
 >
   <img
     alt="test-thumbnail"
-    className="image"
+    className="root notLoaded"
+    onError={[Function]}
+    onLoad={[Function]}
     src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
+  />
+  <img
+    alt="test-thumbnail"
+    className="root"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
 `;
@@ -33,7 +47,14 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
 >
   <img
     alt="placeholder-thumbnail"
-    className="image"
+    className="root notLoaded"
+    onError={[Function]}
+    onLoad={[Function]}
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+  />
+  <img
+    alt="placeholder-thumbnail"
+    className="root"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>

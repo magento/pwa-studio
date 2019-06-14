@@ -33,13 +33,14 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     </button>
     <img
       alt="image-product"
-      className="currentImage"
+      className="root notLoaded"
+      onError={[Function]}
       onLoad={[Function]}
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <img
       alt="image-product"
-      className="currentImage"
+      className="root"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
@@ -106,13 +107,14 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     </button>
     <img
       alt="test-thumbnail1"
-      className="currentImage"
+      className="root notLoaded"
+      onError={[Function]}
       onLoad={[Function]}
       src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640"
     />
     <img
       alt="test-thumbnail1"
-      className="currentImage"
+      className="root"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
@@ -149,8 +151,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail1"
-        className="image"
+        className="root notLoaded"
+        onError={[Function]}
+        onLoad={[Function]}
         src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=240"
+      />
+      <img
+        alt="test-thumbnail1"
+        className="root"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -159,8 +168,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail2"
-        className="image"
+        className="root notLoaded"
+        onError={[Function]}
+        onLoad={[Function]}
         src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=240"
+      />
+      <img
+        alt="test-thumbnail2"
+        className="root"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -169,8 +185,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail3"
-        className="image"
+        className="root notLoaded"
+        onError={[Function]}
+        onLoad={[Function]}
         src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=240"
+      />
+      <img
+        alt="test-thumbnail3"
+        className="root"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -179,8 +202,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail4"
-        className="image"
+        className="root notLoaded"
+        onError={[Function]}
+        onLoad={[Function]}
         src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=240"
+      />
+      <img
+        alt="test-thumbnail4"
+        className="root"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
   </div>

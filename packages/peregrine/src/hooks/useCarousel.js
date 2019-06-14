@@ -1,6 +1,12 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useSortedImages } from './useSortedImages';
 
+/**
+ * A hook for interacting with the state of a carousel of images.
+ *
+ * @param {Array} images an array of image objects
+ * @param {number} startIndex the index at which to start the carousel
+ */
 export const useCarousel = (images, startIndex = 0) => {
     const sortedImages = useSortedImages(images);
     const [activeItemIndex, setActiveItemIndex] = useState(startIndex);
