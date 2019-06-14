@@ -88,12 +88,16 @@ function Items(props) {
     } = props;
     const [
         { cursor, hasFocus, selection },
-        { setFocus, removeFocus, updateSelection }
+        { setFocus: _setFocus, removeFocus, updateSelection: _updateSelection }
     ] = useListState({ selectionModel, onSelectionChange });
     return (
         <Fragment>
             {items.map((item, index) => {
                 const key = getItemKey(item, index);
+                const updateSelection = useMemo(() => _updateSelection(key), [
+                    key
+                ]);
+                const setFocus = useMemo(() => _setFocus(key), [key]);
                 return (
                     <ListItem
                         key={key}
