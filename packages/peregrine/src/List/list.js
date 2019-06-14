@@ -21,19 +21,19 @@ function List(props) {
         ...restProps
     } = props;
     const customProps = useMemo(
-        {
+        () => ({
             classes,
             getItemKey,
             items,
             onSelectionChange,
             selectionModel
-        },
+        }),
         [classes, getItemKey, items, onSelectionChange, selectionModel]
     );
-    const Root = useMemo(fromRenderProp(render, Object.keys(customProps)), [
-        render,
-        customProps
-    ]);
+    const Root = useMemo(
+        () => fromRenderProp(render, Object.keys(customProps)),
+        [render, customProps]
+    );
     const handleSelectionChange = selection => {
         onSelectionChange && onSelectionChange(selection);
     };
