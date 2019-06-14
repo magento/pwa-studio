@@ -63,19 +63,18 @@ const useListState = ({ selectionModel, onSelectionChange }) => {
         () => dispatch({ type: 'REMOVE_FOCUS' }),
         []
     );
-    const updateSelection = useCallback(
-        key =>
-            dispatch({
-                type: 'UPDATE_SELECTION',
-                key,
-                selectionModel
-            }),
-        []
-    );
-    const setFocus = useCallback(
-        key => dispatch({ type: 'SET_FOCUS', key }),
-        []
-    );
+    const updateSelection = key =>
+        useCallback(
+            () =>
+                dispatch({
+                    type: 'UPDATE_SELECTION',
+                    key,
+                    selectionModel
+                }),
+            []
+        );
+    const setFocus = key =>
+        useCallback(() => dispatch({ type: 'SET_FOCUS', key }), []);
     return [state, { setFocus, removeFocus, updateSelection }];
 };
 
