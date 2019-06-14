@@ -18,7 +18,7 @@ const updateSelection = (key, prevSelection, selectionModel) => {
             selection.add(key);
         }
     }
-    return { selection };
+    return selection;
 };
 
 const reducer = (state, action) => {
