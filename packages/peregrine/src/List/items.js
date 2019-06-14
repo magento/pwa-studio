@@ -52,8 +52,6 @@ const initialState = {
     selection: new Set()
 };
 
-const usc = fn => useCallback(fn, []);
-
 function Items(props) {
     const {
         getItemKey,
@@ -69,15 +67,23 @@ function Items(props) {
     useEffect(() => {
         onSelectionChange && onSelectionChange(selection);
     }, [Array.from(selection).toString()]); // when ever the selection changes, make the call
-    const removeFocus = usc(() => dispatch({ type: 'REMOVE_FOCUS' }));
-    const updateSelection = usc(key =>
-        dispatch({
-            type: 'UPDATE_SELECTION',
-            key,
-            selectionModel
-        })
+    const removeFocus = useCallback(
+        () => dispatch({ type: 'REMOVE_FOCUS' }),
+        []
     );
-    const setFocus = usc(key => dispatch({ type: 'SET_FOCUS', key }));
+    const updateSelection = useCallback(
+        key =>
+            dispatch({
+                type: 'UPDATE_SELECTION',
+                key,
+                selectionModel
+            }),
+        []
+    );
+    const setFocus = useCallback(
+        key => dispatch({ type: 'SET_FOCUS', key }),
+        []
+    );
     const children = items.map((item, index) => {
         const key = getItemKey(item, index);
         return (
