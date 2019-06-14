@@ -27,13 +27,23 @@ It uses modern [tools and libraries][] to create a build system and framework th
 
 The Magento PWA Studio project provides the following tools:
 
--   **[pwa-buildpack][]** - Contains the main build and development tools for a Magento PWA.
--   **[peregrine][]** - Contains a collection of UI components and custom React hooks for a Magento PWA.
--   **[Venia storefront][]** - A proof of concept Magento 2 storefront built using the PWA Studio tools.
+-   **[pwa-buildpack][] CLI tools** - Contains the main build and development tools for a Magento PWA.
+-   **[Peregrine][] hooks and components** - Contains a collection of UI components and custom React hooks for a Magento PWA.
+-   **[Venia][] store and UI components** - The Venia package contains  proof of concept Magento 2 storefront built using the PWA Studio tools.
     It also provides UI components you can use in your own projects.
+-   **[UPWARD][]** - A specification for a file that determines the behavior of the application server.
+    The project provides [UPWARD-JS][], which is a JavaScript implementation of an UPWARD server.
+-   **[pwastudio.io][]** - The project provides documentation to help guide developers towards creating a Magento PWA storefront.
+-   **Shared Magento server** - Developers have access to a Magento application running in the Cloud to help jumpstart storefront development.
+    This server contains sample data and is maintained by the team to ensure that you are developing on the latest version of Magento.
+    This shared instance is open to all PWA Studio developers.
 
 [tools and libraries]: {{site.baseurl}}{% link technologies/tools-libraries/index.md %}
 [pwa-buildpack]: {{site.baseurl}}{% link pwa-buildpack/index.md %}
 [peregrine]: {{site.baseurl}}{% link peregrine/index.md %}
-[venia storefront]: {{site.baseurl}}{% link venia-pwa-concept/index.md %}
+[venia]: {{site.baseurl}}{% link venia-pwa-concept/index.md %}
+[upward]: {{site.baseurl}}{% link technologies/upward/index.md %}
+[upward-js]: {{site.baseurl}}{% link technologies/upward/reference-implementation/index.md %}
 [pwa studio overview]: {{site.baseurl}}{%link technologies/overview/images/pwa-studio-developer-overview.png %}
+
+[pwastudio.io]: https://pwastudio.io
