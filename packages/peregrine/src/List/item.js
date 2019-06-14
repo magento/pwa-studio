@@ -7,7 +7,7 @@ const isString = item => typeof item === 'string';
 
 const getChild = item => (isString(item) ? item : null);
 
-function Item(props) {
+const Item = props => {
     const {
         classes,
         hasFocus,
@@ -24,7 +24,7 @@ function Item(props) {
             {getChild(item)}
         </Root>
     );
-}
+};
 
 Item.propTypes = {
     classes: PropTypes.shape({

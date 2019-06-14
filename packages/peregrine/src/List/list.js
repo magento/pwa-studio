@@ -9,7 +9,7 @@ import Items from './items';
  * The **List** component maps a collection of data objects into an array of elements.
  * It also manages the selection and focus of those elements.
  */
-function List(props) {
+const List = props => {
     const {
         classes,
         getItemKey,
@@ -48,7 +48,7 @@ function List(props) {
             />
         </Root>
     );
-}
+};
 
 List.propTypes = {
     /**

@@ -78,7 +78,7 @@ const useListState = ({ selectionModel, onSelectionChange }) => {
     return [state, { setFocus, removeFocus, updateSelection }];
 };
 
-function Items(props) {
+const Items = props => {
     const {
         getItemKey,
         items,
@@ -114,7 +114,7 @@ function Items(props) {
             })}
         </Fragment>
     );
-}
+};
 
 Item.propTypes = {
     getItemKey: PropTypes.func.isRequired,
