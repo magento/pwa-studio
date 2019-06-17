@@ -100,8 +100,8 @@ https://github.com/nodejs/node-gyp#installation`
             if (incomingQuery.auto === 'webp') {
                 params.set('format', 'webp');
             }
-            if (incomingQuery.crop === 'true') {
-                params.set('true', 'crop');
+            if (incomingQuery.crop) {
+                params.set('crop', true);
             }
 
             rewritten.search = params.toString();

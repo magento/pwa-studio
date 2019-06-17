@@ -75,7 +75,7 @@ const makeOptimizedUrl = (path, { type, width, height, crop } = {}) => {
         params.set('height', height);
     }
     if (crop) {
-        params.set('crop', true);
+        params.set('crop', `${width},${height}`);
     }
 
     baseURL.search = params.toString();
