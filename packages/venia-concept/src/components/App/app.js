@@ -69,17 +69,7 @@ const App = props => {
                 addToast(errorToastProps);
             }
         }
-    }, [errors, handleDismiss]);
-
-    if (renderError) {
-        return (
-            <Fragment>
-                <Main isMasked={true} />
-                <Mask isActive={true} />
-                <ToastContainer />
-            </Fragment>
-        );
-    }
+    }, [addToast, errors, handleDismiss, toasts]);
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
@@ -105,7 +95,17 @@ const App = props => {
                 });
             }
         }
-    }, [hasBeenOffline, isOnline]);
+    }, [addToast, hasBeenOffline, isOnline]);
+
+    if (renderError) {
+        return (
+            <Fragment>
+                <Main isMasked={true} />
+                <Mask isActive={true} />
+                <ToastContainer />
+            </Fragment>
+        );
+    }
 
     return (
         <Fragment>
