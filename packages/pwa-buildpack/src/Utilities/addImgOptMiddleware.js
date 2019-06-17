@@ -70,12 +70,22 @@ https://github.com/nodejs/node-gyp#installation`
             const imageUrl = new URL(incomingUrl, imgOptConfig.baseHost);
             debug('imageUrl', imageUrl);
 
-            const optParamNames = ['auto', 'format', 'width'];
+            const optParamNames = ['auto', 'format', 'width', 'height', 'crop'];
 
-            const rewritten = new URL(
-                `https://0.0.0.0/resize/${incomingQuery.width}`
-            );
+            const { width, height } = incomingQuery;
+            let rewrittenUrl = 'https://0.0.0.0/resize/';
 
+            if (width) {
+                rewrittenUrl += `${width}/`;
+            } else {
+                throw new Error('width is required: /resize/:width/');
+            }
+
+            if (height) {
+                rewrittenUrl += `${height}/`;
+            }
+
+            const rewritten = new URL(rewrittenUrl);
             // Start with the original search params, so
             // we can preserve any non-imageopt parameters
             // others might want.
@@ -90,6 +100,10 @@ https://github.com/nodejs/node-gyp#installation`
             if (incomingQuery.auto === 'webp') {
                 params.set('format', 'webp');
             }
+            if (incomingQuery.crop === 'true') {
+                params.set('true', 'crop');
+            }
+
             rewritten.search = params.toString();
 
             debug({ rewritten });
