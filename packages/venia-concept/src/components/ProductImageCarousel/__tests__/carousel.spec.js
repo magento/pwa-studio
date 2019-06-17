@@ -54,6 +54,11 @@ test('renders the Carousel component correctly w/ sorted images', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('renders a transparent main image if no file name is provided', () => {
+    const component = createTestInstance(<Carousel images={[]} />);
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('renders active item as main image', () => {
     const component = createTestInstance(
         <WindowSizeContextProvider>
@@ -110,7 +115,7 @@ test('renders prior image when left chevron is clicked', () => {
     });
 
     const leftButton = component.root.findByProps({
-        className: 'chevron-left'
+        className: 'chevronLeft'
     });
 
     act(() => {
@@ -131,7 +136,7 @@ test('renders last image when left chevron is clicked and first item is active',
     );
 
     const leftButton = component.root.findByProps({
-        className: 'chevron-left'
+        className: 'chevronLeft'
     });
 
     act(() => {
@@ -151,12 +156,12 @@ test('renders next image when right chevron is clicked', () => {
         </WindowSizeContextProvider>
     );
 
-    const leftButton = component.root.findByProps({
-        className: 'chevron-right'
+    const rightButton = component.root.findByProps({
+        className: 'chevronRight'
     });
 
     act(() => {
-        leftButton.props.onClick();
+        rightButton.props.onClick();
     });
 
     const activeImage = component.root.findAllByType(Image)[0];
@@ -179,23 +184,18 @@ test('renders first image when right chevron is clicked and last item is active'
             .parent.props.onClick();
     });
 
-    const leftButton = component.root.findByProps({
-        className: 'chevron-right'
+    const rightButton = component.root.findByProps({
+        className: 'chevronRight'
     });
 
     act(() => {
-        leftButton.props.onClick();
+        rightButton.props.onClick();
     });
 
     const activeImage = component.root.findAllByType(Image)[1];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
-});
-
-test('renders a transparent main image if no file name is provided', () => {
-    const component = createTestInstance(<Carousel images={[]} />);
-    expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('sets main image alt as "image-product" if no label is provided', () => {

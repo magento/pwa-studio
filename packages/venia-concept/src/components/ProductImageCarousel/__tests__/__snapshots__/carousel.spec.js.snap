@@ -8,7 +8,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     className="imageContainer"
   >
     <button
-      className="chevron-left"
+      className="chevronLeft"
       onClick={[Function]}
     >
       <span
@@ -44,7 +44,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
-      className="chevron-right"
+      className="chevronRight"
       onClick={[Function]}
     >
       <span
@@ -82,7 +82,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     className="imageContainer"
   >
     <button
-      className="chevron-left"
+      className="chevronLeft"
       onClick={[Function]}
     >
       <span
@@ -118,7 +118,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
-      className="chevron-right"
+      className="chevronRight"
       onClick={[Function]}
     >
       <span

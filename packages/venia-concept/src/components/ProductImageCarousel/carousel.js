@@ -21,6 +21,14 @@ const ChevronIcons = {
 
 const DEFAULT_IMAGE_WIDTH = 640;
 
+const Chevron = ({ className, direction, onClick }) => {
+    return (
+        <button onClick={onClick} className={className}>
+            <Icon src={ChevronIcons[direction]} size={40} />
+        </button>
+    );
+};
+
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -40,24 +48,6 @@ const Carousel = props => {
         setActiveItemIndex(index);
     }, []);
 
-    const getChevron = useCallback(
-        direction => {
-            return (
-                <button
-                    onClick={
-                        direction === 'left'
-                            ? handleLeftChevron
-                            : handleRightChevron
-                    }
-                    className={classes[`chevron-${direction}`]}
-                >
-                    <Icon src={ChevronIcons[direction]} size={40} />
-                </button>
-            );
-        },
-        [handleLeftChevron, handleRightChevron]
-    );
-
     const src =
         currentImage && currentImage.file
             ? resourceUrl(currentImage.file, {
@@ -71,14 +61,22 @@ const Carousel = props => {
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
-                {getChevron('left')}
+                <Chevron
+                    direction={'left'}
+                    className={classes.chevronLeft}
+                    onClick={handleLeftChevron}
+                />
                 <Image
                     classes={{ root: classes.currentImage }}
                     src={src}
                     alt={alt}
                     placeholder={transparentPlaceholder}
                 />
-                {getChevron('right')}
+                <Chevron
+                    direction={'right'}
+                    className={classes.chevronRight}
+                    onClick={handleRightChevron}
+                />
             </div>
             <ThumbnailList
                 items={sortedImages}
