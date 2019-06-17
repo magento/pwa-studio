@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
@@ -34,9 +34,12 @@ const List = props => {
         () => fromRenderProp(render, Object.keys(customProps)),
         [render, customProps]
     );
-    const handleSelectionChange = selection => {
-        onSelectionChange && onSelectionChange(selection);
-    };
+    const handleSelectionChange = useCallback(
+        selection => {
+            onSelectionChange && onSelectionChange(selection);
+        },
+        [onSelectionChange]
+    );
     return (
         <Root className={classes.root} {...customProps} {...restProps}>
             <Items
