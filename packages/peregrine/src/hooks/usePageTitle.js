@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const TITLE_CHANGED = 'TITLE_CHANGED';
 
@@ -21,6 +21,10 @@ const unSubscribeToTitleChangeEvent = onPageTitleChange => {
     document.removeEventListener(TITLE_CHANGED, onPageTitleChange);
 };
 
+/**
+ * Hook that can be used to subscribe to title changes.
+ * @param {(string) => void} _onPageTitleChange
+ */
 export const usePageTitleSubscription = _onPageTitleChange => {
     const onPageTitleChange = useCallback(() => {
         _onPageTitleChange(document.title);
@@ -33,8 +37,6 @@ export const usePageTitleSubscription = _onPageTitleChange => {
 
 /**
  * A hook that will return current page title and an updater.
- * It also subscribes to page title change and executes
- * onPageTitleChange callback if provided.
  */
 export const usePageTitle = () => {
     const { title } = document;
