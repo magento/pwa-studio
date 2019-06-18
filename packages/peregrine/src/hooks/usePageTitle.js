@@ -1,14 +1,34 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+const TITLE_CHANGED = 'TITLE_CHANGED';
 
 /**
  * A custom event for non react parts of the code to listen to
  * when page change has been triggerd.
  */
 const dispatchTitleChangeEvent = () => {
-    document.dispatchEvent(new Event('TITLE_CHANGED'), {
+    document.dispatchEvent(new Event(TITLE_CHANGED), {
         bubbles: true,
         cancelable: false
     });
+};
+
+const subscribeToTitleChangeEvent = onPageTitleChange => {
+    document.addEventListener(TITLE_CHANGED, onPageTitleChange);
+};
+
+const unSubscribeToTitleChangeEvent = onPageTitleChange => {
+    document.removeEventListener(TITLE_CHANGED, onPageTitleChange);
+};
+
+export const usePageTitleSubscription = _onPageTitleChange => {
+    const onPageTitleChange = useCallback(() => {
+        _onPageTitleChange(document.title);
+    }, [_onPageTitleChange]);
+    useEffect(() => {
+        subscribeToTitleChangeEvent(onPageTitleChange);
+        return () => unSubscribeToTitleChangeEvent(onPageTitleChange);
+    }, [onPageTitleChange]);
 };
 
 /**
@@ -16,7 +36,7 @@ const dispatchTitleChangeEvent = () => {
  * It also subscribes to page title change and executes
  * onPageTitleChange callback if provided.
  */
-const usePageTitle = onPageTitleChange => {
+export const usePageTitle = () => {
     const { title } = document;
     const updateTitle = useCallback(newTitle => {
         if (newTitle) {
@@ -24,10 +44,5 @@ const usePageTitle = onPageTitleChange => {
             dispatchTitleChangeEvent();
         }
     }, []);
-    useEffect(() => {
-        onPageTitleChange && onPageTitleChange(title);
-    }, [title]);
     return [title, updateTitle];
 };
-
-export default usePageTitle;
