@@ -58,12 +58,15 @@
 }
 
 .searchFallback {
-    composes: form from '../SearchBar/searchBar.css';
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
     padding: 0 1rem;
 }
 
 .input {
     composes: input from '../TextInput/textInput.css';
+    max-width: 24rem;
 }
 
 .loader,
