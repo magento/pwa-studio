@@ -21,8 +21,26 @@ const DEFAULT_FORM_VALUES = {
     addresses_same: true
 };
 
-const BillingAddressFields = ({ classes, countries }) => {
-    return (
+const PaymentsFormChildren = props => {
+    const {
+        cancel,
+        classes,
+        countries,
+        isSubmitting,
+        setIsSubmitting,
+        submit,
+        submitting
+    } = props;
+
+    // Currently form state toggles dirty from false to true because of how
+    // informed is implemented. This effectively causes this child components
+    // to re-render multiple times. Keep tabs on the following issue:
+    //   https://github.com/joepuzzo/informed/issues/138
+    // If they resolve it or we move away from informed we can probably get some
+    // extra performance.
+    const formState = useFormState();
+
+    const billingAddressFields = !formState.values.addresses_same ? (
         <Fragment>
             <div className={classes.street0}>
                 <Field label="Street">
@@ -65,30 +83,6 @@ const BillingAddressFields = ({ classes, countries }) => {
                 </Field>
             </div>
         </Fragment>
-    );
-};
-
-const FormChildren = props => {
-    const {
-        cancel,
-        classes,
-        countries,
-        isSubmitting,
-        setIsSubmitting,
-        submit,
-        submitting
-    } = props;
-
-    // Currently form state toggles dirty from false to true because of how
-    // informed is implemented. This effectively causes this child components
-    // to re-render multiple times. Keep tabs on the following issue:
-    //   https://github.com/joepuzzo/informed/issues/138
-    // If they resolve it or we move away from informed we can probably get some
-    // extra performance.
-    const formState = useFormState();
-
-    const billingAddressFields = !formState.values.addresses_same ? (
-        <BillingAddressFields classes={classes} countries={countries} />
     ) : null;
 
     const handleCancel = useCallback(() => {
@@ -97,7 +91,7 @@ const FormChildren = props => {
 
     const handleError = useCallback(() => {
         setIsSubmitting(false);
-    });
+    }, [setIsSubmitting]);
 
     // The success callback. Unfortunately since form state is created first and
     // then modified when using initialValues any component who uses this
@@ -128,7 +122,7 @@ const FormChildren = props => {
                 }
             });
         },
-        [formState.values]
+        [formState.values, setIsSubmitting, submit]
     );
 
     return (
@@ -175,7 +169,7 @@ const PaymentsForm = props => {
 
     const handleSubmit = useCallback(() => {
         setIsSubmitting(true);
-    });
+    }, [setIsSubmitting]);
 
     let initialFormValues;
     if (isObjectEmpty(initialValues)) {
@@ -210,7 +204,7 @@ const PaymentsForm = props => {
             initialValues={initialFormValues}
             onSubmit={handleSubmit}
         >
-            <FormChildren {...formChildrenProps} />
+            <PaymentsFormChildren {...formChildrenProps} />
         </Form>
     );
 };
@@ -227,8 +221,7 @@ PaymentsForm.propTypes = {
         heading: string,
         postcode: string,
         region_code: string,
-        street0: string,
-        textInput: string
+        street0: string
     }),
     countries: array,
     initialValues: shape({

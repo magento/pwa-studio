@@ -48,7 +48,7 @@ const AddressForm = props => {
                 acc[key] = initialValues[key];
                 return acc;
             }, {}),
-        [fields, initialValues]
+        [initialValues]
     );
 
     const handleCancel = useCallback(() => {
@@ -174,12 +174,13 @@ AddressForm.propTypes = {
         email: string,
         firstname: string,
         footer: string,
+        heading: string,
         lastname: string,
         postcode: string,
+        root: string,
         region_code: string,
         street0: string,
         telephone: string,
-        textInput: string,
         validation: string
     }),
     countries: array,
