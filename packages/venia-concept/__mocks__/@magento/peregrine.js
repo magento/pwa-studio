@@ -21,6 +21,8 @@ const useQueryResult = jest.fn(peregrine.useQueryResult);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
 const useToasts = jest.fn(peregrine.useToasts);
+const usePageTitle = jest.fn(peregrine.usePageTitle);
+const usePageTitleSubscription = jest.fn(peregrine.usePageTitleSubscription);
 // components
 
 /**
@@ -42,6 +44,7 @@ module.exports = {
     useQueryResult,
     useSearchParam,
     useWindowSize,
-
-    useToasts
+    useToasts,
+    usePageTitle,
+    usePageTitleSubscription
 };
