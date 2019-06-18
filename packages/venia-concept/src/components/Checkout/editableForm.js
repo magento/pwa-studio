@@ -13,9 +13,9 @@ const EditableForm = props => {
     const {
         editing,
         editOrder,
+        submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
-        submitPaymentMethodAndBillingAddress,
         submitting,
         isAddressIncorrect,
         incorrectAddressMessage,

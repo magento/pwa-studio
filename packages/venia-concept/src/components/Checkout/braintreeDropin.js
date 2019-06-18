@@ -31,7 +31,7 @@ const CONTAINER_ID = 'braintree-dropin-container';
  * 2) On submission (triggered by a parent), request the payment nonce.
  */
 const BraintreeDropin = props => {
-    const { shouldRequestPaymentNonce, onError, onSuccess } = props;
+    const { onError, onSuccess, shouldRequestPaymentNonce } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
@@ -139,9 +139,9 @@ BraintreeDropin.propTypes = {
         root: string,
         error: string
     }),
-    shouldRequestPaymentNonce: bool,
     onError: func.isRequired,
-    onSuccess: func.isRequired
+    onSuccess: func.isRequired,
+    shouldRequestPaymentNonce: bool
 };
 
 export default BraintreeDropin;

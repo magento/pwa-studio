@@ -4,9 +4,9 @@ import {
     beginCheckout,
     cancelCheckout,
     editOrder,
-    submitShippingAddress,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
+    submitShippingAddress,
     submitShippingMethod
 } from 'src/actions/checkout';
 
@@ -23,9 +23,9 @@ const mapDispatchToProps = {
     beginCheckout,
     cancelCheckout,
     editOrder,
-    submitShippingAddress,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
+    submitShippingAddress,
     submitShippingMethod
 };
 
