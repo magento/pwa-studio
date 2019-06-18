@@ -120,8 +120,7 @@ class GalleryItem extends Component {
                 src={resourceUrl(small_image, {
                     type: 'image-product',
                     width: imageWidth,
-                    height: imageHeight,
-                    crop: true
+                    height: imageHeight
                 })}
                 alt={name}
                 width={imageWidth}

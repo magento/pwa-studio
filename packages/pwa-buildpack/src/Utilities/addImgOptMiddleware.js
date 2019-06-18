@@ -70,7 +70,7 @@ https://github.com/nodejs/node-gyp#installation`
             const imageUrl = new URL(incomingUrl, imgOptConfig.baseHost);
             debug('imageUrl', imageUrl);
 
-            const optParamNames = ['auto', 'format', 'width', 'height', 'crop'];
+            const optParamNames = ['auto', 'format', 'width', 'height'];
 
             const { width, height } = incomingQuery;
             let rewrittenUrl = 'https://0.0.0.0/resize/';
@@ -100,7 +100,16 @@ https://github.com/nodejs/node-gyp#installation`
             if (incomingQuery.auto === 'webp') {
                 params.set('format', 'webp');
             }
-            if (incomingQuery.crop) {
+
+            // If we received height and width we should force crop since our
+            // implementation of express sharp defaults fit to "outside" if crop
+            // is falsy. `outside` sizes the image, retaining the aspect ratio
+            // but may fall "outside" the desired height or width. `cover`
+            // retains the aspect ratio like `outside` but clips to fit desired
+            // height and width.
+            //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
+            //   https://sharp.pixelplumbing.com/en/stable/api-resize/
+            if (height && width) {
                 params.set('crop', true);
             }
 
