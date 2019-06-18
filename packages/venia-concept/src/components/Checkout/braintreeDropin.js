@@ -89,7 +89,7 @@ const BraintreeDropin = props => {
         return () => {
             didClose = true;
         };
-    }, [dropIn]);
+    }, []);
 
     useEffect(() => {
         async function requestPaymentNonce() {
