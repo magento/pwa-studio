@@ -31,7 +31,7 @@ response:
     # handled by the top-level 'proxy' object, which is a ProxyResolver
     # that passes the request through to the backing Magento server.
     - matches: request.url.pathname
-      pattern: '^/(graphql|rest|media)(/|$)'
+      pattern: '^/(graphql|rest)(/|$)'
       use: proxy
     # Requests to create an account are handled by the top-level 'index'
     # object, which returns a generic app shell
@@ -130,6 +130,7 @@ appShell:
         assets: assetManifest
         urlResolver: urlResolver
         env: env
+        mediaBackendURL: mediaBackendURL
 
 # The resource object provides information about the page type and which
 # template to use for a requested resource.
@@ -243,6 +244,15 @@ urlResolverResult:
   variables:
     inline:
       urlKey: request.url.pathname
+
+# Extract base media URL from ServiceResolver result
+mediaBackendURL: mediaBackendResult.data.storeConfig.secure_base_media_url
+
+# Retrieve base media URL with ServiceResolver query
+mediaBackendResult:
+  url: magentoGQL
+  query:
+    inline: 'query { storeConfig { secure_base_media_url } }'
 
 # The magentoGQL object is a UrlResolver that returns the URL for the
 # GraphQL endpoint using the MAGENTO_BACKEND_URL environment variable.
