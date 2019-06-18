@@ -33,7 +33,7 @@ const Section = props => {
 
     return (
         <li className={classes.menuItem}>
-            <button onClick={onClick}>
+            <button onMouseDown={onClick}>
                 {iconSrc && <Icon src={iconSrc} attrs={attributes} />}
                 <span className={classes.text}>{text}</span>
             </button>

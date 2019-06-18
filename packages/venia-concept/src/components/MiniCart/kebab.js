@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { node, shape, string } from 'prop-types';
+import { func, node, shape, string } from 'prop-types';
 import MoreVerticalIcon from 'react-feather/dist/icons/more-vertical';
+
 import { useEventListener } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
@@ -11,27 +12,32 @@ import defaultClasses from './kebab.css';
 const Kebab = props => {
     const { children } = props;
 
-    const kebabButtonRef = useRef(null);
+    const kebabRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const handleDocumentClick = useCallback(
-        event => {
-            const shouldBeOpen = kebabButtonRef.current.contains(event.target);
-            setIsOpen(shouldBeOpen);
-        },
-        [kebabButtonRef, setIsOpen]
-    );
-
-    useEventListener(document, 'mousedown', handleDocumentClick);
-    useEventListener(document, 'touchend', handleDocumentClick);
-
     const toggleClass = isOpen ? classes.dropdown_active : classes.dropdown;
+
+    const handleKebabClick = useCallback(() => {
+        setIsOpen(!isOpen);
+    }, [isOpen]);
+    const handleOutsideKebabClick = useCallback(event => {
+        // Ensure we're truly outside of the kebab.
+        if (!kebabRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    }, []);
+
+    useEventListener(document, 'mousedown', handleOutsideKebabClick);
+    useEventListener(document, 'touchend', handleOutsideKebabClick);
 
     return (
         <div className={classes.root}>
-            <button className={classes.kebab} ref={kebabButtonRef}>
+            <button
+                className={classes.kebab}
+                onClick={handleKebabClick}
+                ref={kebabRef}
+            >
                 <Icon src={MoreVerticalIcon} />
             </button>
             <ul className={toggleClass}>{children}</ul>
@@ -46,7 +52,8 @@ Kebab.propTypes = {
         dropdown_active: string,
         kebab: string,
         root: string
-    })
+    }),
+    onChildClick: func
 };
 
 export default Kebab;
