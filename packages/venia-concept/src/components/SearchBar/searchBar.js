@@ -30,7 +30,9 @@ const SearchBar = props => {
     // navigate on submit
     const handleSubmit = useCallback(
         ({ search_query }) => {
-            history.push(`/search.html?query=${search_query}`);
+            if (search_query != undefined && search_query.trim().length > 0) {
+                history.push(`/search.html?query=${search_query}`);
+            }
         },
         [history]
     );
