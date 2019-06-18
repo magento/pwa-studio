@@ -78,6 +78,7 @@ export const useToasts = () => {
      *
      * @returns {Number} id - the key referencing the toast in the store
      */
+    let allowToastToDie = true;
     const addToast = useCallback(
         toastProps => {
             const {
@@ -116,16 +117,30 @@ export const useToasts = () => {
             const handleAction = () =>
                 onAction ? onAction(() => removeToast(id)) : () => {};
 
-            // A timeout of 0 means no auto-dismiss.
-            let removalTimeoutId;
-            if (timeout !== 0 && timeout !== false) {
-                removalTimeoutId = setTimeout(
-                    () => {
-                        handleDismiss();
-                    },
-                    timeout ? timeout : DEFAULT_TIMEOUT
-                );
+
+            const pauseToast = () => {
+                allowToastToDie = false;
             }
+
+            const unpauseToast = () => {
+                allowToastToDie = true;
+                setNewTimeout();
+            }
+
+            let removalTimeoutId;
+            const setNewTimeout = () => {
+                // A timeout of 0 means no auto-dismiss.
+                if (timeout !== 0 && timeout !== false) {
+                    removalTimeoutId = setTimeout(
+                        () => {
+                            if (allowToastToDie)
+                                handleDismiss();
+                        },
+                        timeout ? timeout : DEFAULT_TIMEOUT
+                    );
+                }
+            }
+            setNewTimeout();
 
             dispatch({
                 type: 'add',
@@ -135,7 +150,9 @@ export const useToasts = () => {
                     timestamp: Date.now(),
                     removalTimeoutId,
                     handleDismiss,
-                    handleAction
+                    handleAction,
+                    pauseToast,
+                    unpauseToast
                 }
             });
 
@@ -159,6 +176,19 @@ export const useToasts = () => {
         [dispatch]
     );
 
+    const pauseAllToasts = () => {
+        dispatch({
+            type: 'pause',
+            payload: {}
+        })
+    }
+    const unpauseAllToasts = () => {
+        dispatch({
+            type: 'unpause',
+            payload: {}
+        })
+    }
+
     /**
      * @typedef ToastApi
      * @property {addToast} addToast
@@ -169,9 +199,11 @@ export const useToasts = () => {
         () => ({
             addToast,
             dispatch,
-            removeToast
+            removeToast,
+            pauseAllToasts,
+            unpauseAllToasts
         }),
-        [addToast, dispatch, removeToast]
+        [addToast, dispatch, removeToast, pauseAllToasts, unpauseAllToasts]
     );
 
     return [state, api];

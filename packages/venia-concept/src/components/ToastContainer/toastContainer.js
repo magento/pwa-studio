@@ -7,7 +7,7 @@ import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const [{ toasts }] = useToasts();
+    const [{ toasts }, api] = useToasts();
 
     // Given a map of toasts each with a property "timestamp", sort and display
     // based on the timestamp.
@@ -23,7 +23,12 @@ const ToastContainer = props => {
         });
 
     return (
-        <div id="toast-root" className={classes.root}>
+        <div 
+            id="toast-root" 
+            className={classes.root}
+            onMouseEnter={api.pauseAllToasts} 
+            onMouseLeave={api.unpauseAllToasts}
+        >
             {toastElements}
         </div>
     );
