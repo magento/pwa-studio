@@ -178,15 +178,17 @@ resource:
       use:
         inline:
           model: unknownPageType
+          name: unknownPageType.title
           template: './templates/generic-shell.mst'
     # This entry makes '/search.html' a valid resource path.
-    # It uses the top-level 'genericObject' object as its resolve data and uses
+    # It uses the top-level 'searchResultPage' object as its resolve data and uses
     # the generic shell as its template file.
     - matches: request.url.pathname
       pattern: '/search.html'
       use:
         inline:
-          model: genericObject
+          model: searchResultPage
+          name: searchResultPage.title
           template: './templates/generic-shell.mst'
   default:
     # If none of the resolver conditions pass, no 'model' property is set and
@@ -324,13 +326,16 @@ urlKey:
   default:
     inline: ''
 
-# The genericObject object is the data object used by the top-level 'appShell'
+# The searchResultPage object is the data object used by the top-level 'appShell'
 # object for the '/search.html' path
-genericObject:
+searchResultPage:
   inline:
-    name:
-      inline:
-        "Hello world!"
+    title:
+      engine: mustache
+      template:
+        inline: 'Search: {{term}}'
+      provide:
+        term: request.url.query.query
 
 # The bundles object is a DirectoryResolver that allows access to the bundled
 # files in the project's './dist' diretory.
