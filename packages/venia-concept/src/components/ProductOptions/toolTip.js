@@ -65,7 +65,7 @@ class Tooltip extends Component {
 
         // Creates a timer to hide the tooltip after 2.5s
         this.timeoutId = setTimeout(() => {
-          this.setState({ isShowing: false });
+            this.setState({ isShowing: false });
         }, 2500);
     };
 
