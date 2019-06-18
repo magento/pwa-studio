@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { func, node, shape, string } from 'prop-types';
+import { node, shape, string } from 'prop-types';
 import MoreVerticalIcon from 'react-feather/dist/icons/more-vertical';
 
 import { useEventListener } from '@magento/peregrine';
@@ -52,8 +52,7 @@ Kebab.propTypes = {
         dropdown_active: string,
         kebab: string,
         root: string
-    }),
-    onChildClick: func
+    })
 };
 
 export default Kebab;
