@@ -2,17 +2,18 @@
 /* initial content */
 .i-c {
     align-content: center;
-    align-items: center;
-    color: #212121;
     display: grid;
-    gap: 2rem;
-    height: calc(100% - 6rem);
-    justify-content: center;
+    gap: 3rem;
     justify-items: center;
-    margin: 3rem 0;
-    text-align: center;
+    position: fixed;
+    top: -1.5rem;
+    left: 0;
+    margin: 0;
+    height: 100%;
     width: 100%;
+    text-align: center;
     font: 1rem/1.6em Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #212121;
 }
 .i-c-heading {
     font-size: 1.5rem;

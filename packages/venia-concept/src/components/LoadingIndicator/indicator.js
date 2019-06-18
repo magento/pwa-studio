@@ -2,30 +2,30 @@ import React, { Component } from 'react';
 
 import classify from 'src/classify';
 import defaultClasses from './indicator.css';
+import { mergeClasses } from 'src/classify';
 
 import logo from '../Logo/logo.svg';
 
 // The <img> tag below has a hardcoded className, because it is
 // sharing its animation styles with the spinner code inlined
 // into the app shell. See templates/critical-style.mst.
-class LoadingIndicator extends Component {
-    render() {
-        const { props } = this;
-        const { children, classes } = props;
+const LoadingIndicator = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    // `global` renders a fixed-position full-page indicator.
+    const className = props.global ? classes.global : classes.root;
 
-        return (
-            <div className={classes.root}>
-                <img
-                    className="i-c-spin"
-                    src={logo}
-                    width="64"
-                    height="64"
-                    alt="Loading indicator"
-                />
-                <span className={classes.message}>{children}</span>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={className}>
+            <img
+                className="i-c-spin"
+                src={logo}
+                width="64"
+                height="64"
+                alt="Loading indicator"
+            />
+            <span className={classes.message}>{props.children}</span>
+        </div>
+    );
+};
 
-export default classify(defaultClasses)(LoadingIndicator);
+export default LoadingIndicator;

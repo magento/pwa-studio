@@ -23,8 +23,12 @@ import defaultClasses from './miniCart.css';
 import { isEmptyCartVisible, isMiniCartMaskOpen } from 'src/selectors/cart';
 import CartOptions from './cartOptions';
 import getProductDetailByName from '../../queries/getProductDetailByName.graphql';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import { Query } from 'react-apollo';
+
+const loadingIndicator = (
+    <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>
+);
 
 const Checkout = React.lazy(() => import('src/components/Checkout'));
 

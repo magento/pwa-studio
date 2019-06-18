@@ -7,7 +7,7 @@ import defaultClasses from './productFullDetail.css';
 import { mergeClasses } from 'src/classify';
 
 import Button from 'src/components/Button';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
 import Carousel from 'src/components/ProductImageCarousel';
 import Quantity from 'src/components/ProductQuantity';
 import RichText from 'src/components/RichText';
@@ -149,7 +149,7 @@ const ProductFullDetail = props => {
                 />
             </section>
             <section className={classes.options}>
-                <Suspense fallback={loadingIndicator}>
+                <Suspense fallback={fullPageLoadingIndicator}>
                     <Options
                         onSelectionChange={handleSelectionChange}
                         product={product}
