@@ -14,7 +14,8 @@ export {
     useWindowSize
 } from './hooks/useWindowSize';
 export { getToastId, useToasts, ToastContextProvider } from './Toasts';
-export { usePageTitle, usePageTitleSubscription } from './hooks/usePageTitle';
+export {useDOMQuery} from './hooks/useDOMQuery';
+export { usePageTitle } from './hooks/usePageTitle';
 
 // components
 export { default as ContainerChild } from './ContainerChild';
