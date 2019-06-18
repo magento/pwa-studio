@@ -37,9 +37,8 @@ class Tooltip extends Component {
     };
 
     componentWillUnmount() {
-        if (this.timeoutId) {
-            window.clearTimeout(this.timeoutId);
-        }
+        window.clearTimeout(this.timeoutIdBlur);
+        window.clearTimeout(this.timeoutIdFocus);
     }
 
     /*
@@ -49,7 +48,7 @@ class Tooltip extends Component {
      *  @see https://reactjs.org/docs/accessibility.html#mouse-and-pointer-events.
      */
     onBlur = () => {
-        this.timeoutId = setTimeout(() => {
+        this.timeoutIdBlur = setTimeout(() => {
             this.setState({ isShowing: false });
         }, 0);
     };
@@ -59,12 +58,13 @@ class Tooltip extends Component {
      */
     onFocus = () => {
         // If a child receives focus, do not close the tooltip yet.
-        clearTimeout(this.timeoutId);
+        window.clearTimeout(this.timeoutIdBlur);
+        window.clearTimeout(this.timeoutIdFocus);
 
         this.setState({ isShowing: true });
 
         // Creates a timer to hide the tooltip after 2.5s
-        this.timeoutId = setTimeout(() => {
+        this.timeoutIdFocus = setTimeout(() => {
             this.setState({ isShowing: false });
         }, 2500);
     };
