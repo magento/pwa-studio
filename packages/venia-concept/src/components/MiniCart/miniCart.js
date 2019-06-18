@@ -4,6 +4,7 @@ import { connect } from 'src/drivers';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import classify from 'src/classify';
+import { closeDrawer } from 'src/actions/app';
 import {
     getCartDetails,
     updateItemInCart,
@@ -57,7 +58,8 @@ class MiniCart extends Component {
         updateItemInCart: func,
         openOptionsDrawer: func.isRequired,
         closeOptionsDrawer: func.isRequired,
-        isMiniCartMaskOpen: bool
+        isMiniCartMaskOpen: bool,
+        closeDrawer: func
     };
 
     constructor(...args) {
@@ -212,10 +214,10 @@ class MiniCart extends Component {
 
     get miniCartInner() {
         const { checkout, productList, props } = this;
-        const { classes, isCartEmpty, isMiniCartMaskOpen } = props;
+        const { classes, isCartEmpty, isMiniCartMaskOpen, closeDrawer } = props;
 
         if (isCartEmpty) {
-            return <EmptyMiniCart />;
+            return <EmptyMiniCart closeDrawer={closeDrawer} />;
         }
 
         const footer = checkout;
@@ -279,7 +281,8 @@ const mapDispatchToProps = {
     removeItemFromCart,
     openOptionsDrawer,
     closeOptionsDrawer,
-    cancelCheckout
+    cancelCheckout,
+    closeDrawer
 };
 
 export default compose(
