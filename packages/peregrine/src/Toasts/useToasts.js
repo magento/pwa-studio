@@ -117,15 +117,14 @@ export const useToasts = () => {
             const handleAction = () =>
                 onAction ? onAction(() => removeToast(id)) : () => {};
 
-
             const pauseToast = () => {
                 allowToastToDie = false;
-            }
+            };
 
             const unpauseToast = () => {
                 allowToastToDie = true;
                 setNewTimeout();
-            }
+            };
 
             let removalTimeoutId;
             const setNewTimeout = () => {
@@ -133,13 +132,12 @@ export const useToasts = () => {
                 if (timeout !== 0 && timeout !== false) {
                     removalTimeoutId = setTimeout(
                         () => {
-                            if (allowToastToDie)
-                                handleDismiss();
+                            if (allowToastToDie) handleDismiss();
                         },
                         timeout ? timeout : DEFAULT_TIMEOUT
                     );
                 }
-            }
+            };
             setNewTimeout();
 
             dispatch({
@@ -180,14 +178,14 @@ export const useToasts = () => {
         dispatch({
             type: 'pause',
             payload: {}
-        })
-    }
+        });
+    };
     const unpauseAllToasts = () => {
         dispatch({
             type: 'unpause',
             payload: {}
-        })
-    }
+        });
+    };
 
     /**
      * @typedef ToastApi

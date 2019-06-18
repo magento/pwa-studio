@@ -23,10 +23,10 @@ const ToastContainer = props => {
         });
 
     return (
-        <div 
-            id="toast-root" 
+        <div
+            id="toast-root"
             className={classes.root}
-            onMouseEnter={api.pauseAllToasts} 
+            onMouseEnter={api.pauseAllToasts}
             onMouseLeave={api.unpauseAllToasts}
         >
             {toastElements}

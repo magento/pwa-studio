@@ -54,23 +54,23 @@ const reducer = (prevState = initialState, action = {}) => {
                 toasts: nextToasts
             };
         }
-        case 'pause' : {
+        case 'pause': {
             const nextToasts = new Map(prevState.toasts);
-            nextToasts.forEach((toast) => {
+            nextToasts.forEach(toast => {
                 toast.pauseToast();
-            })
+            });
             return {
                 ...prevState
-            }
+            };
         }
-        case 'unpause' : {
+        case 'unpause': {
             const nextToasts = new Map(prevState.toasts);
-            nextToasts.forEach((toast) => {
+            nextToasts.forEach(toast => {
                 toast.unpauseToast();
-            })
+            });
             return {
                 ...prevState
-            }
+            };
         }
         default:
             return prevState;
