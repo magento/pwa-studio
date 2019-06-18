@@ -12,13 +12,3 @@
     line-height: 1.25;
     margin-bottom: 1.5rem;
 }
-
-.continue {
-    composes: root from '../Button/button.css';
-    color: white;
-    background-color: rgb(var(--venia-teal));
-}
-
-.continue:hover {
-    color: rgb(var(--venia-teal));
-}

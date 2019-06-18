@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 
 import classify from 'src/classify';
-import Trigger from './trigger';
+import Button from 'src/components/Button';
 import defaultClasses from './emptyMiniCart.css';
 
 class EmptyMiniCart extends Component {
@@ -22,9 +22,7 @@ class EmptyMiniCart extends Component {
                 <h3 className={classes.emptyTitle}>
                     There are no items in your shopping cart
                 </h3>
-                <Trigger>
-                    <span className={classes.continue}>Continue Shopping</span>
-                </Trigger>
+                <Button priority="high">Continue Shopping</Button>
             </div>
         );
     }
