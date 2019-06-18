@@ -5,13 +5,11 @@ import { mergeClasses } from 'src/classify';
 import CheckoutButton from './checkoutButton';
 import defaultClasses from './cart.css';
 
-const isDisabled = (busy, valid) => busy || !valid;
-
 const Cart = props => {
     const { beginCheckout, ready, submitting } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const disabled = isDisabled(submitting, ready);
+    const disabled = submitting || !ready;
 
     return (
         <div className={classes.root}>

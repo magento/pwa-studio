@@ -1,13 +1,22 @@
 import React from 'react';
-import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
+import {
+    array,
+    bool,
+    func,
+    number,
+    object,
+    oneOf,
+    shape,
+    string
+} from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import Cart from './cart';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
+import isObjectEmpty from 'src/util/isObjectEmpty';
 
-const hasData = value => !!value;
 const isCartReady = cart => cart.details && cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
     const {
@@ -17,9 +26,17 @@ const isCheckoutReady = checkout => {
         shippingMethod
     } = checkout;
 
-    return [billingAddress, paymentData, shippingAddress, shippingMethod].every(
-        hasData
-    );
+    const objectsHaveData = [
+        billingAddress,
+        paymentData,
+        shippingAddress
+    ].every(data => {
+        return !!data && !isObjectEmpty(data);
+    });
+
+    const stringsHaveData = !!shippingMethod && shippingMethod.length > 0;
+
+    return objectsHaveData && stringsHaveData;
 };
 
 /**
@@ -58,11 +75,6 @@ const Flow = props => {
         submitting
     } = checkout;
 
-    // ensure state slices are present
-    if (!(cart && checkout)) {
-        return null;
-    }
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
@@ -87,9 +99,11 @@ const Flow = props => {
                 directory,
                 editOrder,
                 editing,
-                hasPaymentMethod: hasData(paymentData),
-                hasShippingAddress: hasData(shippingAddress),
-                hasShippingMethod: hasData(shippingMethod),
+                hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
+                hasShippingAddress:
+                    !!shippingAddress && !isObjectEmpty(shippingAddress),
+                hasShippingMethod:
+                    !!shippingMethod && !isObjectEmpty(shippingMethod),
                 incorrectAddressMessage,
                 isAddressIncorrect,
                 paymentData,
@@ -127,7 +141,9 @@ Flow.propTypes = {
     beginCheckout: func,
     cancelCheckout: func,
     cart: shape({
-        details: object.isRequired
+        details: shape({
+            items_count: number
+        })
     }),
     checkout: shape({
         availableShippingMethods: array,

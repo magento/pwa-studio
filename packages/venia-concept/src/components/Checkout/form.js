@@ -10,8 +10,6 @@ import Section from './section';
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './form.css';
 
-const isSubmitDisabled = (busy, valid) => busy || !valid;
-
 /**
  * The EditableForm component renders the actual edit forms for the sections
  * within the form.
@@ -265,7 +263,7 @@ const Overview = props => {
                 <Button onClick={handleDismiss}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={isSubmitDisabled(submitting, ready)}
+                    disabled={submitting || !ready}
                     onClick={submitOrder}
                 >
                     Confirm Order
@@ -281,12 +279,11 @@ const Overview = props => {
  */
 const Form = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    let child;
-    if (props.editing) {
-        child = <EditableForm {...props} />;
-    } else {
-        child = <Overview classes={classes} {...props} />;
-    }
+    const child = props.editing ? (
+        <EditableForm {...props} />
+    ) : (
+        <Overview classes={classes} {...props} />
+    );
 
     return <div className={classes.root}>{child}</div>;
 };

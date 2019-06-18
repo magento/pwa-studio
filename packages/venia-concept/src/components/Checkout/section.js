@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, node, shape, string } from 'prop-types';
+import { bool, node, shape, string } from 'prop-types';
 import EditIcon from 'react-feather/dist/icons/edit-2';
 
 import { mergeClasses } from 'src/classify';
@@ -13,14 +13,20 @@ const editIconAttrs = {
 const EDIT_ICON = <Icon src={EditIcon} attrs={editIconAttrs} />;
 
 const Section = props => {
-    const { children, label, onClick, showEditIcon = false } = props;
+    const {
+        children,
+        classes: propClasses,
+        label,
+        showEditIcon = false,
+        ...restProps
+    } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const icon = showEditIcon ? EDIT_ICON : null;
 
     return (
-        <button className={classes.root} onClick={onClick}>
+        <button className={classes.root} {...restProps}>
             <span className={classes.content}>
                 <span className={classes.label}>
                     <span>{label}</span>
@@ -41,7 +47,6 @@ Section.propTypes = {
         summary: string
     }),
     label: node,
-    onClick: func,
     showEditIcon: bool
 };
 
