@@ -35,7 +35,7 @@ const ToastEmitter = ({
         setTimeout(() => {
             addToast(toastProps);
         }, 0);
-    }, []);
+    }, []); // eslint-disable-line
 
     return null;
 };
