@@ -32,7 +32,9 @@ const ToastEmitter = ({
     };
 
     useEffect(() => {
-        addToast(toastProps);
+        setTimeout(() => {
+            addToast(toastProps);
+        }, 0);
     }, []);
 
     return null;

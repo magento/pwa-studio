@@ -8,6 +8,7 @@ export { useDropdown } from './hooks/useDropdown';
 export { usePagination } from './hooks/usePagination';
 export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
+export { useReducerWithLogger } from './hooks/useReducerWithLogger';
 export { useSearchParam } from './hooks/useSearchParam';
 export {
     WindowSizeContextProvider,
