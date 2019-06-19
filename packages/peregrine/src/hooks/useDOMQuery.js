@@ -1,40 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const findDOMElement = queryString => document.querySelector(queryString);
+const findDOMElements = queryString =>
+    document.querySelectorAll(queryString) || [];
 
-const findDOMElements = queryString => document.querySelectorAll(queryString);
-
-const findElement = (queryString, shouldFindAll) =>
-    shouldFindAll ? findDOMElements(queryString) : findDOMElement(queryString);
-
-export const useDOMQuery = (queryString, shouldFindAll = false) => {
-    const [element, setElement] = useState();
+export const useDOMQuery = queryString => {
+    const [elements, setElements] = useState([]);
     useEffect(() => {
-        setElement(findElement(queryString, shouldFindAll));
+        setElements(findDOMElements(queryString));
     }, []);
     const setInnerHTMl = useCallback(
         content => {
-            if (element) {
+            elements.forEach(element => {
                 element.innerHTMl = content || element.innerHTMl;
-            }
+            });
         },
-        [element]
+        [elements]
     );
     const setInnerText = useCallback(
         content => {
-            if (element) {
+            elements.forEach(element => {
                 element.innerText = content || element.innerText;
-            }
+            });
         },
-        [element]
+        [elements]
     );
     const setAttribute = useCallback(
         (attribute, value) => {
-            if (element) {
-                element[attribute] = value || element[attribute];
-            }
+            elements.forEach(element => {
+                element.setAttribute(attribute, value);
+            });
         },
-        [element]
+        [elements]
     );
-    return [element, { setInnerHTMl, setInnerText, setAttribute }];
+    return [elements, { setInnerHTMl, setInnerText, setAttribute }];
 };
