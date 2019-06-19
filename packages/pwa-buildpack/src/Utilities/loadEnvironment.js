@@ -100,9 +100,9 @@ function throwReport({ errors }) {
  * objects out of subsets of configuration values.
  */
 class Configuration {
-    constructor(env) {
+    constructor(env, envFilePresent) {
         this.env = env;
-
+        this.envFilePresent = envFilePresent;
         this.isProd = env.isProd;
         this.isProduction = env.isProduction;
         this.isDev = env.isDev;
@@ -170,7 +170,7 @@ function loadEnvironment(dirOrEnv, logger = prettyLogger) {
                     '\n'
             );
         }
-        return new Configuration(loadedEnv);
+        return new Configuration(loadedEnv, envFilePresent);
     } catch (error) {
         if (!error.validationErrors) {
             throw error;
