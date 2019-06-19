@@ -17,17 +17,25 @@ test('is a yargs builder', () => {
     });
 });
 
-test('handler exits clean on load', () => {
+test('handler exits nonzero on errors', () => {
     jest.resetModules();
-    loadEnvCliBuilder.handler({
-        directory: { MAGENTO_BACKEND_URL: 'https://example.com' }
-    });
-    expect(process.exit).not.toHaveBeenCalled();
-});
-
-test('handler exits clean on load', () => {
-    jest.resetModules();
+    // missing required variables
     loadEnvCliBuilder.handler({ directory: {} });
     expect(process.exit).toHaveBeenCalled();
     expect(console.error).toHaveBeenCalled();
+});
+
+test('handler loads from dotenv file', () => {
+    jest.resetModules();
+    process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    jest.doMock('dotenv', () => ({
+        config: () => ({
+            parsed: process.env
+        })
+    }));
+    loadEnvCliBuilder.handler({
+        directory: '.'
+    });
+    expect(process.exit).not.toHaveBeenCalled();
+    process.env.MAGENTO_BACKEND_URL = '';
 });

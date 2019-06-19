@@ -1,7 +1,6 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { inspect } = require('util');
 const path = require('path');
-const chalk = require('chalk');
 const dotenv = require('dotenv');
 const envalid = require('envalid');
 const camelspace = require('camelspace');
@@ -125,15 +124,16 @@ class Configuration {
     }
 }
 
-function loadEnvironment(dirOrEnv, log = prettyLogger) {
+function loadEnvironment(dirOrEnv, logger = prettyLogger) {
     let incomingEnv = process.env;
+    let envFilePresent;
     if (typeof dirOrEnv === 'string') {
         /**
          * Ensure .env file is present. If not present and not in production
          * mode, a warning will be logged, but the app will still function if
          * all required environment variables are present via other means.
          */
-        parseEnvFile(dirOrEnv, log);
+        envFilePresent = parseEnvFile(dirOrEnv, logger);
     } else {
         incomingEnv = dirOrEnv;
     }
@@ -142,7 +142,7 @@ function loadEnvironment(dirOrEnv, log = prettyLogger) {
      * Check to see if any deprecated, changed, or renamed variables are set,
      * warn the developer, and reassign variables for legacy support.
      */
-    const compatEnv = applyBackwardsCompatChanges(incomingEnv, log);
+    const compatEnv = applyBackwardsCompatChanges(incomingEnv, logger);
 
     /**
      * Validate the environment object with envalid and throw errors for the
@@ -175,8 +175,8 @@ function loadEnvironment(dirOrEnv, log = prettyLogger) {
         if (!error.validationErrors) {
             throw error;
         }
-        log.error(error.originalMessage);
-        return { error, env: compatEnv };
+        logger.error(error.originalMessage);
+        return { error, env: compatEnv, envFilePresent };
     }
 }
 
@@ -187,26 +187,21 @@ function parseEnvFile(dir, log) {
         if (error) {
             throw error;
         }
-        log.info(
+        debug(
             `Using environment variables from ${path.relative(
                 process.cwd(),
                 envPath
-            )}`
+            )}: %s`,
+            parsed
         );
-        debug('Env vars from .env:', parsed);
     } catch (e) {
-        if (process.env.NODE_ENV !== 'production') {
-            if (e.code === 'ENOENT') {
-                log.warn(
-                    `No .env file in ${dir}\n\tYou can autogenerate an .env file in your PWA project root by running the command ${chalk.whiteBright(
-                        'npx @magento/pwa-buildpack create-env-file .'
-                    )}.`
-                );
-            } else {
-                log.warn(`\nCould not retrieve and parse ${envPath}.`, e);
-            }
+        if (e.code === 'ENOENT') {
+            return false;
+        } else {
+            log.warn(`\nCould not retrieve and parse ${envPath}.`, e);
         }
     }
+    return true;
 }
 
 // display changes alphabetically by env var name

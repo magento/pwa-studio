@@ -65,7 +65,8 @@ test('parses dotenv file if argument is path string', () => {
     jest.isolateModules(() => {
         loadEnvironment = require('../loadEnvironment');
     });
-    loadEnvironment('/path/to/dir');
+    const { envFilePresent } = loadEnvironment('/path/to/dir');
+    expect(envFilePresent).toBe(true);
     expect(dotenv.config).toHaveBeenCalledWith({ path: '/path/to/dir/.env' });
 });
 
@@ -85,7 +86,7 @@ test('debug logs environment in human readable way', () => {
     debug.enabled = true;
 });
 
-test('warns but continues if .env is missing', () => {
+test('sets envFilePresent to false if .env is missing', () => {
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
     dotenv.config.mockReturnValueOnce({
@@ -95,10 +96,8 @@ test('warns but continues if .env is missing', () => {
     jest.isolateModules(() => {
         loadEnvironment = require('../loadEnvironment');
     });
-    loadEnvironment('/path/to/dir');
-    expect(console.warn).toHaveBeenCalledWith(
-        expect.stringMatching(/No \.env file/i)
-    );
+    const { envFilePresent } = loadEnvironment('/path/to/dir');
+    expect(envFilePresent).toBe(false);
 });
 
 test('warns but continues if .env has errors', () => {
@@ -114,24 +113,6 @@ test('warns but continues if .env has errors', () => {
         expect.stringMatching(/could not.*parse/i),
         expect.any(Error)
     );
-});
-
-test('does not warn in prod if .env missing', () => {
-    const oldEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
-    dotenv.config.mockReturnValueOnce({
-        error: new Error('blagh')
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
-    loadEnvironment('/path/to/dir');
-    expect(console.warn).not.toHaveBeenCalledWith(
-        expect.stringMatching(/could not.*parse/i),
-        expect.any(Error)
-    );
-    process.env.NODE_ENV = oldEnv;
 });
 
 test('emits errors on type mismatch', () => {

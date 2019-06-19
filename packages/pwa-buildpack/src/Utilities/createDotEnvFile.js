@@ -26,12 +26,12 @@ const graf = txt =>
 const paragraphs = (...grafs) => grafs.map(graf).join(blankline);
 
 module.exports = function printEnvFile(
-    useEnv = process.env,
-    log = prettyLogger
+    useEnv,
+    { logger = prettyLogger, useExamples } = {}
 ) {
-    const { env, error } = loadEnvironment(useEnv, log);
+    const { env, error, envFilePresent } = loadEnvironment(useEnv, logger);
     if (error) {
-        log.warn(
+        logger.warn(
             `The current environment is not yet valid; please edit the .env file and provide any missing variables to build the project.`
         );
     }
@@ -46,12 +46,17 @@ module.exports = function printEnvFile(
     for (const section of sections) {
         contents += '\n' + startSection(section.name, 4) + blankline;
         for (const variable of section.variables) {
-            const isSet = env.hasOwnProperty(variable.name);
-            const currentValue = isSet ? env[variable.name] : '';
+            let isSet;
+            let currentValue;
+            if (env.hasOwnProperty(variable.name)) {
+                isSet = true;
+                currentValue = env[variable.name];
+            } else if (useExamples && variable.hasOwnProperty('example')) {
+                isSet = true;
+                currentValue = variable.example;
+            }
             const hasDefault = variable.hasOwnProperty('default');
-            const isSetCustom = isSet && currentValue !== variable.default;
-            const isUnsetButRequired = !isSet && !hasDefault;
-            const shouldSetInEnv = isSetCustom || isUnsetButRequired;
+            const shouldSetInEnv = isSet || !hasDefault;
 
             contents += graf(variable.desc);
 

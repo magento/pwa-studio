@@ -6,11 +6,20 @@ module.exports.command = 'create-env-file <directory>';
 module.exports.describe =
     'Generate a .env file in the provided directory to store project configuration as environment variables';
 
-module.exports.handler = function buildpackCli({ directory }) {
+module.exports.builder = {
+    useExamples: {
+        type: 'bool',
+        desc: 'Auto-populate the .env file with example values'
+    }
+};
+
+module.exports.handler = function buildpackCli({ directory, useExamples }) {
     const envFilePath = resolve(directory, '.env');
     writeFileSync(
         envFilePath,
-        require('../Utilities/createDotEnvFile')(),
+        require('../Utilities/createDotEnvFile')(process.env, {
+            useExamples
+        }),
         'utf8'
     );
     prettyLogger.info(
