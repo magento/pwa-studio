@@ -381,52 +381,6 @@ ReactTestInstance {
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": Object {
@@ -437,8 +391,6 @@ Debug: 1 1",
                       "loc": "1",
                     },
                   ],
-                  [Function],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -558,52 +510,6 @@ Debug: 1 1",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": Object {
@@ -614,8 +520,6 @@ Debug: 1 1",
                           "loc": "1",
                         },
                       ],
-                      [Function],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -709,52 +613,6 @@ Debug: 1 1",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -765,8 +623,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -1161,52 +1017,6 @@ Debug: 1 1",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": Object {
@@ -1217,8 +1027,6 @@ Debug: 1 1",
                       "loc": "1",
                     },
                   ],
-                  [Function],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -1338,52 +1146,6 @@ Debug: 1 1",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": Object {
@@ -1394,8 +1156,6 @@ Debug: 1 1",
                           "loc": "1",
                         },
                       ],
-                      [Function],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -1489,52 +1249,6 @@ Debug: 1 1",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -1545,8 +1259,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -1921,52 +1633,6 @@ Debug: 1 1",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": Object {
@@ -1977,8 +1643,6 @@ Debug: 1 1",
                       "loc": "1",
                     },
                   ],
-                  [Function],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -2098,52 +1762,6 @@ Debug: 1 1",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": Object {
@@ -2154,8 +1772,6 @@ Debug: 1 1",
                           "loc": "1",
                         },
                       ],
-                      [Function],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -2249,52 +1865,6 @@ Debug: 1 1",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -2305,8 +1875,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -2756,52 +2324,6 @@ Debug: 1 1",
             "memoizedState": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -2812,8 +2334,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": Object {
@@ -2933,52 +2453,6 @@ Debug: 1 1",
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    [MockFunction] {
-                      "calls": Array [
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                            "onDismiss": [Function],
-                            "timeout": 15000,
-                            "type": "error",
-                          },
-                        ],
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "You are offline. Some features may be unavailable.",
-                            "timeout": 3000,
-                            "type": "error",
-                          },
-                        ],
-                      ],
-                      "results": Array [
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                      ],
-                    },
                     Array [
                       Object {
                         "error": Object {
@@ -2989,8 +2463,6 @@ Debug: 1 1",
                         "loc": "1",
                       },
                     ],
-                    [Function],
-                    Map {},
                   ],
                   "destroy": undefined,
                   "next": [Circular],
@@ -3189,52 +2661,6 @@ Debug: 1 1",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                      "onDismiss": [Function],
-                      "timeout": 15000,
-                      "type": "error",
-                    },
-                  ],
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "You are offline. Some features may be unavailable.",
-                      "timeout": 3000,
-                      "type": "error",
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
               Array [
                 Object {
                   "error": Object {
@@ -3245,8 +2671,6 @@ Debug: 1 1",
                   "loc": "1",
                 },
               ],
-              [Function],
-              Map {},
             ],
             "destroy": undefined,
             "next": [Circular],
@@ -3621,52 +3045,6 @@ Debug: 1 1",
             "memoizedState": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -3677,8 +3055,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": Object {
@@ -3798,52 +3174,6 @@ Debug: 1 1",
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    [MockFunction] {
-                      "calls": Array [
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                            "onDismiss": [Function],
-                            "timeout": 15000,
-                            "type": "error",
-                          },
-                        ],
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "You are offline. Some features may be unavailable.",
-                            "timeout": 3000,
-                            "type": "error",
-                          },
-                        ],
-                      ],
-                      "results": Array [
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                      ],
-                    },
                     Array [
                       Object {
                         "error": Object {
@@ -3854,8 +3184,6 @@ Debug: 1 1",
                         "loc": "1",
                       },
                     ],
-                    [Function],
-                    Map {},
                   ],
                   "destroy": undefined,
                   "next": [Circular],
@@ -4054,52 +3382,6 @@ Debug: 1 1",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                      "onDismiss": [Function],
-                      "timeout": 15000,
-                      "type": "error",
-                    },
-                  ],
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "You are offline. Some features may be unavailable.",
-                      "timeout": 3000,
-                      "type": "error",
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
               Array [
                 Object {
                   "error": Object {
@@ -4110,8 +3392,6 @@ Debug: 1 1",
                   "loc": "1",
                 },
               ],
-              [Function],
-              Map {},
             ],
             "destroy": undefined,
             "next": [Circular],
@@ -4692,52 +3972,6 @@ Debug: 1 1",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": Object {
@@ -4748,8 +3982,6 @@ Debug: 1 1",
                       "loc": "1",
                     },
                   ],
-                  [Function],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -4869,52 +4101,6 @@ Debug: 1 1",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": Object {
@@ -4925,8 +4111,6 @@ Debug: 1 1",
                           "loc": "1",
                         },
                       ],
-                      [Function],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -5125,52 +4309,6 @@ Debug: 1 1",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": Object {
@@ -5181,8 +4319,6 @@ Debug: 1 1",
                     "loc": "1",
                   },
                 ],
-                [Function],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -5995,59 +5131,11 @@ ReactTestInstance {
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": [Error: A render error!],
                     },
                   ],
-                  [MockFunction],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -6167,59 +5255,11 @@ Debug: undefined undefined",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": [Error: A render error!],
                         },
                       ],
-                      [MockFunction],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -6317,59 +5357,11 @@ Debug: undefined undefined",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -7062,59 +6054,11 @@ Debug: undefined undefined",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": [Error: A render error!],
                     },
                   ],
-                  [MockFunction],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -7234,59 +6178,11 @@ Debug: undefined undefined",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": [Error: A render error!],
                         },
                       ],
-                      [MockFunction],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -7384,59 +6280,11 @@ Debug: undefined undefined",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -8109,59 +6957,11 @@ Debug: undefined undefined",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": [Error: A render error!],
                     },
                   ],
-                  [MockFunction],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -8281,59 +7081,11 @@ Debug: undefined undefined",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": [Error: A render error!],
                         },
                       ],
-                      [MockFunction],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -8431,59 +7183,11 @@ Debug: undefined undefined",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
@@ -9243,59 +7947,11 @@ Debug: undefined undefined",
             "memoizedState": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": Object {
@@ -9415,59 +8071,11 @@ Debug: undefined undefined",
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    [MockFunction] {
-                      "calls": Array [
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                            "onDismiss": [Function],
-                            "timeout": 15000,
-                            "type": "error",
-                          },
-                        ],
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "You are offline. Some features may be unavailable.",
-                            "timeout": 3000,
-                            "type": "error",
-                          },
-                        ],
-                      ],
-                      "results": Array [
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                      ],
-                    },
                     Array [
                       Object {
                         "error": [Error: A render error!],
                       },
                     ],
-                    [MockFunction],
-                    Map {},
                   ],
                   "destroy": undefined,
                   "next": [Circular],
@@ -9682,59 +8290,11 @@ Debug: undefined undefined",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                      "onDismiss": [Function],
-                      "timeout": 15000,
-                      "type": "error",
-                    },
-                  ],
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "You are offline. Some features may be unavailable.",
-                      "timeout": 3000,
-                      "type": "error",
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
               Array [
                 Object {
                   "error": [Error: A render error!],
                 },
               ],
-              [MockFunction],
-              Map {},
             ],
             "destroy": undefined,
             "next": [Circular],
@@ -10407,59 +8967,11 @@ Debug: undefined undefined",
             "memoizedState": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": Object {
@@ -10579,59 +9091,11 @@ Debug: undefined undefined",
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    [MockFunction] {
-                      "calls": Array [
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                            "onDismiss": [Function],
-                            "timeout": 15000,
-                            "type": "error",
-                          },
-                        ],
-                        Array [
-                          Object {
-                            "icon": <Classify(Icon)
-                              attrs={
-                                Object {
-                                  "width": 18,
-                                }
-                              }
-                              src={[Function]}
-                            />,
-                            "message": "You are offline. Some features may be unavailable.",
-                            "timeout": 3000,
-                            "type": "error",
-                          },
-                        ],
-                      ],
-                      "results": Array [
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                        Object {
-                          "type": "return",
-                          "value": undefined,
-                        },
-                      ],
-                    },
                     Array [
                       Object {
                         "error": [Error: A render error!],
                       },
                     ],
-                    [MockFunction],
-                    Map {},
                   ],
                   "destroy": undefined,
                   "next": [Circular],
@@ -10846,59 +9310,11 @@ Debug: undefined undefined",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                      "onDismiss": [Function],
-                      "timeout": 15000,
-                      "type": "error",
-                    },
-                  ],
-                  Array [
-                    Object {
-                      "icon": <Classify(Icon)
-                        attrs={
-                          Object {
-                            "width": 18,
-                          }
-                        }
-                        src={[Function]}
-                      />,
-                      "message": "You are offline. Some features may be unavailable.",
-                      "timeout": 3000,
-                      "type": "error",
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
               Array [
                 Object {
                   "error": [Error: A render error!],
                 },
               ],
-              [MockFunction],
-              Map {},
             ],
             "destroy": undefined,
             "next": [Circular],
@@ -11824,59 +10240,11 @@ Debug: undefined undefined",
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
-                  [MockFunction] {
-                    "calls": Array [
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                          "onDismiss": [Function],
-                          "timeout": 15000,
-                          "type": "error",
-                        },
-                      ],
-                      Array [
-                        Object {
-                          "icon": <Classify(Icon)
-                            attrs={
-                              Object {
-                                "width": 18,
-                              }
-                            }
-                            src={[Function]}
-                          />,
-                          "message": "You are offline. Some features may be unavailable.",
-                          "timeout": 3000,
-                          "type": "error",
-                        },
-                      ],
-                    ],
-                    "results": Array [
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                      Object {
-                        "type": "return",
-                        "value": undefined,
-                      },
-                    ],
-                  },
                   Array [
                     Object {
                       "error": [Error: A render error!],
                     },
                   ],
-                  [MockFunction],
-                  Map {},
                 ],
                 "destroy": undefined,
                 "next": Object {
@@ -11996,59 +10364,11 @@ Debug: undefined undefined",
                   "next": Object {
                     "create": [Function],
                     "deps": Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "You are offline. Some features may be unavailable.",
-                              "timeout": 3000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
                       Array [
                         Object {
                           "error": [Error: A render error!],
                         },
                       ],
-                      [MockFunction],
-                      Map {},
                     ],
                     "destroy": undefined,
                     "next": [Circular],
@@ -12263,59 +10583,11 @@ Debug: undefined undefined",
             "next": Object {
               "create": [Function],
               "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
                 Array [
                   Object {
                     "error": [Error: A render error!],
                   },
                 ],
-                [MockFunction],
-                Map {},
               ],
               "destroy": undefined,
               "next": [Circular],
