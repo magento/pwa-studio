@@ -33,7 +33,7 @@ const ToastEmitter = ({
 
     useEffect(() => {
         addToast(toastProps);
-    }, []);
+    }, []); // eslint-disable-line
 
     return null;
 };

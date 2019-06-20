@@ -7,14 +7,11 @@ export const useDropdown = () => {
     const [expanded, setExpanded] = useState(false);
 
     // collapse on mousedown outside of this element
-    const maybeCollapse = useCallback(
-        ({ target }) => {
-            if (!elementRef.current.contains(target)) {
-                setExpanded(false);
-            }
-        },
-        [elementRef.current]
-    );
+    const maybeCollapse = useCallback(({ target }) => {
+        if (!elementRef.current.contains(target)) {
+            setExpanded(false);
+        }
+    }, []);
 
     // add listener to document, as an effect
     useEventListener(document, 'mousedown', maybeCollapse);
