@@ -69,7 +69,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     </button>
   </div>
   <div
-    className="root"
+    className="thumbnailList"
   />
 </div>
 `;
@@ -143,7 +143,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     </button>
   </div>
   <div
-    className="root"
+    className="thumbnailList"
   >
     <button
       className="rootSelected"

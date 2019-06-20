@@ -33,7 +33,7 @@ const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [carouselState, carouselApi] = useCarousel(props.images);
-    const { activeItemIndex, currentImage, sortedImages } = carouselState;
+    const { activeItemIndex, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
 
     const handleThumbnailClick = useCallback(
@@ -42,6 +42,8 @@ const Carousel = props => {
         },
         [setActiveItemIndex]
     );
+
+    const currentImage = sortedImages[activeItemIndex] || {};
 
     const src = currentImage.file
         ? resourceUrl(currentImage.file, {

@@ -31,7 +31,6 @@ export const useCarousel = (images, startIndex = 0) => {
 
     const state = {
         activeItemIndex,
-        currentImage: sortedImages[activeItemIndex],
         sortedImages
     };
 
