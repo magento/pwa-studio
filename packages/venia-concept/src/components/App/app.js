@@ -49,6 +49,9 @@ const App = props => {
     const errors = renderError ? renderErrors : unhandledErrors;
     const handleDismiss = renderError ? reload : markErrorHandled;
 
+    // Only add toasts for errors if the errors list changes. Since `addToast`
+    // and `toasts` changes each render we cannot add it as an effect dependency
+    // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
             const errorToastProps = {
