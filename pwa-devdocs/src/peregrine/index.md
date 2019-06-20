@@ -2,9 +2,49 @@
 title: Peregrine
 ---
 
-The Peregrine project is a collection of UI components for Magento PWA projects.
-Use, extend, or remix these components to create a unique Magento PWA storefront.
+The Peregrine package is a collection of functions that act as the brains of your visual components.
+They provide pieces of logic for UI components, such as the ones provided by the [Venia][] library.
+Use or remix these functions and components to create a unique Magento PWA storefront.
 
-Visit the [`peregrine`] repository to contribute to this project.
+## Custom React hooks
+
+Many of the functions provided by Peregrine are [custom React hooks][].
+This lets them maintain an internal state without relying on an external library, such as Redux.
+
+Peregrine hooks are designed to be flexible, and non-opinionated.
+They contain code for providing data or behavior logic and do not render content themselves.
+Rendering content, such as HTML elements, is left up to UI components.
+
+Separating logic and presentation code gives developers more flexibility on how to use PWA Studio components with their own custom code.
+A developer may choose to use a Venia feature that use certain Peregrine hooks with minor visual modifications, or
+they can use those same Peregrine hooks to develop their own feature with a different UI.
+
+### Return signatures
+
+Peregrine hooks follow the same pattern as [`useState()`][] and [`useReducer()`][] of returning an array instead of an object.
+This lets you specify the variable names of the provided objects when you [destructure][] the array.
+
+Array destructuring example:
+
+```js
+const [myDataObject, myDataObjectApi] = usePeregrineHook();
+```
+
+## JSDoc blocks
+
+Most of the reference docs in this section are generated from [JSDoc][] blocks.
+The currently published docs reflect what is available from the most recent release, but
+the JSDoc blocks in the source are kept up to date for developers who want to work with unreleased code.
+
+## Source
+
+Visit the [`peregrine`][] package to view the source or contribute to this project.
+
+[venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
 
 [`peregrine`]: https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine
+[custom react hooks]: https://reactjs.org/docs/hooks-custom.html
+[destructure]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+[jsdoc]: https://devdocs.io/jsdoc/
+[`usestate()`]: https://reactjs.org/docs/hooks-reference.html#usestate
+[`usereducer()`]: https://reactjs.org/docs/hooks-reference.html#usereducer
