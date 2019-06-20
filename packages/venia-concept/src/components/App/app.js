@@ -69,7 +69,7 @@ const App = props => {
                 addToast(errorToastProps);
             }
         }
-    }, [addToast, errors, handleDismiss, toasts]);
+    }, [errors]); // eslint-disable-line
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
