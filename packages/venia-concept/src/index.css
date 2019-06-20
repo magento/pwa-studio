@@ -13,13 +13,14 @@
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
     --venia-grey: 246, 246, 246;
     --venia-grey-dark: 209, 209, 209;
+    --venia-grey-darker: 112, 112, 112;
     --venia-orange: 241, 99, 33;
     --venia-teal: 0, 115, 120;
     --venia-teal-alt: 224, 240, 241;
     --venia-teal-dark: 0, 104, 108;
     --venia-teal-light: 212, 243, 238;
     --venia-text: 33, 33, 33;
-    --venia-text-alt: 112, 112, 112;
+    --venia-text-alt: var(--venia-grey-darker);
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
     --venia-warning-dark: 249, 93, 94;
