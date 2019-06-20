@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useCarousel } from '@magento/peregrine';
 
@@ -9,7 +9,7 @@ import {
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
 import { mergeClasses } from 'src/classify';
-import ThumbnailList from './thumbnailList';
+import Thumbnail from './thumbnail';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
 import Image from 'src/components/Image';
@@ -36,27 +36,35 @@ const Carousel = props => {
     const { activeItemIndex, currentImage, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
 
-    const handleLeftChevron = useCallback(() => {
-        handlePrevious();
-    }, [handlePrevious]);
+    const handleThumbnailClick = useCallback(
+        index => {
+            setActiveItemIndex(index);
+        },
+        [setActiveItemIndex]
+    );
 
-    const handleRightChevron = useCallback(() => {
-        handleNext();
-    }, [handleNext]);
+    const src = currentImage.file
+        ? resourceUrl(currentImage.file, {
+              type: 'image-product',
+              width: DEFAULT_IMAGE_WIDTH
+          })
+        : transparentPlaceholder;
 
-    const handleThumbnailClick = useCallback(index => {
-        setActiveItemIndex(index);
-    }, []);
+    const alt = currentImage.label || 'image-product';
 
-    const src =
-        currentImage && currentImage.file
-            ? resourceUrl(currentImage.file, {
-                  type: 'image-product',
-                  width: DEFAULT_IMAGE_WIDTH
-              })
-            : transparentPlaceholder;
-
-    const alt = (currentImage && currentImage.label) || 'image-product';
+    const thumbnails = useMemo(
+        () =>
+            sortedImages.map((item, index) => (
+                <Thumbnail
+                    key={index}
+                    item={item}
+                    itemIndex={index}
+                    isActive={activeItemIndex === index}
+                    onClickHandler={handleThumbnailClick}
+                />
+            )),
+        [activeItemIndex, handleThumbnailClick, sortedImages]
+    );
 
     return (
         <div className={classes.root}>
@@ -64,7 +72,7 @@ const Carousel = props => {
                 <Chevron
                     direction={'left'}
                     className={classes.chevronLeft}
-                    onClick={handleLeftChevron}
+                    onClick={handlePrevious}
                 />
                 <Image
                     classes={{ root: classes.currentImage }}
@@ -75,14 +83,10 @@ const Carousel = props => {
                 <Chevron
                     direction={'right'}
                     className={classes.chevronRight}
-                    onClick={handleRightChevron}
+                    onClick={handleNext}
                 />
             </div>
-            <ThumbnailList
-                items={sortedImages}
-                activeItemIndex={activeItemIndex}
-                onItemClick={handleThumbnailClick}
-            />
+            <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
     );
 };

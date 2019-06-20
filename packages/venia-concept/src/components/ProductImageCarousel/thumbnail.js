@@ -34,7 +34,7 @@ const Thumbnail = props => {
                 src={src}
             />
         ) : null;
-    }, [file, transparentPlaceholder, isDesktop, label, classes.image]);
+    }, [file, isDesktop, label, classes.image]);
 
     const handleClick = useCallback(() => {
         onClickHandler(itemIndex);
