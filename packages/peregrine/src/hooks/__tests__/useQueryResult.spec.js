@@ -1,14 +1,15 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { act } from 'react-test-renderer';
 
 import { useQueryResult } from '../useQueryResult';
 import createTestInstance from '../../util/createTestInstance';
+import { useReducerWithLogger } from '../useReducerWithLogger';
 
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-    const spy = jest.spyOn(React, 'useReducer');
+jest.mock('../useReducerWithLogger', () => {
+    const actual = jest.requireActual('../useReducerWithLogger');
+    const spy = jest.spyOn(actual, 'useReducerWithLogger');
 
-    return Object.assign(React, { useReducer: spy });
+    return Object.assign(actual, { useReducerwithLogger: spy });
 });
 
 const log = jest.fn();
@@ -241,7 +242,7 @@ test('handles an unexpected action as a noop', () => {
 });
 
 test('`setData` dispatches a `set data` action', () => {
-    useReducer.mockReturnValueOnce([{}, mockDispatch]);
+    useReducerWithLogger.mockReturnValueOnce([{}, mockDispatch]);
     createTestInstance(<Component />);
 
     const payload = {};
@@ -259,7 +260,7 @@ test('`setData` dispatches a `set data` action', () => {
 });
 
 test('`setError` dispatches a `set error` action', () => {
-    useReducer.mockReturnValueOnce([{}, mockDispatch]);
+    useReducerWithLogger.mockReturnValueOnce([{}, mockDispatch]);
     createTestInstance(<Component />);
 
     const payload = new Error('foo');
@@ -277,7 +278,7 @@ test('`setError` dispatches a `set error` action', () => {
 });
 
 test('`setLoading` dispatches a `set loading` action', () => {
-    useReducer.mockReturnValueOnce([{}, mockDispatch]);
+    useReducerWithLogger.mockReturnValueOnce([{}, mockDispatch]);
     createTestInstance(<Component />);
 
     const { dispatch, setLoading } = log.mock.calls[0][1];
@@ -294,7 +295,7 @@ test('`setLoading` dispatches a `set loading` action', () => {
 });
 
 test('`resetState` dispatches a `reset state` action', () => {
-    useReducer.mockReturnValueOnce([{}, mockDispatch]);
+    useReducerWithLogger.mockReturnValueOnce([{}, mockDispatch]);
     createTestInstance(<Component />);
 
     const { dispatch, resetState } = log.mock.calls[0][1];
@@ -310,7 +311,7 @@ test('`resetState` dispatches a `reset state` action', () => {
 });
 
 test('`receiveResponse` dispatches a `receive response` action', () => {
-    useReducer.mockReturnValueOnce([{}, mockDispatch]);
+    useReducerWithLogger.mockReturnValueOnce([{}, mockDispatch]);
     createTestInstance(<Component />);
 
     const payload = {};
