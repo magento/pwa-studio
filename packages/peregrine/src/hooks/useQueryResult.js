@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useReducerWithLogger as useReducer } from '@magento/peregrine';
+import { useReducerWithLogger as useReducer } from './useReducerWithLogger';
 
 const initialState = {
     data: null,

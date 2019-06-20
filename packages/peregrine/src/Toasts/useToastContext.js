@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useReducerWithLogger as useReducer } from '@magento/peregrine';
+import { useReducerWithLogger as useReducer } from '../hooks/useReducerWithLogger';
 /**
  * The state of the toast store.
  * @typedef {Object} ToastState
