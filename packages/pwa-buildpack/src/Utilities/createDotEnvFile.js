@@ -29,7 +29,7 @@ module.exports = function printEnvFile(
     useEnv,
     { logger = prettyLogger, useExamples } = {}
 ) {
-    const { env, error, envFilePresent } = loadEnvironment(useEnv, logger);
+    const { env, error } = loadEnvironment(useEnv, logger);
     if (error) {
         logger.warn(
             `The current environment is not yet valid; please edit the .env file and provide any missing variables to build the project.`
