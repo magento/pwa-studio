@@ -14,7 +14,9 @@ Using these tools, you can keep global configuration values in a central locatio
 
 ## Command Line Interface
 
-The `buildpack` command is a toolkit with subcommands.
+The `buildpack` command is a toolkit with subcommands available in the `pwa-buildpack` module.
+
+When you have the module added as a dependency in your project, you can run it in the command line: `npx buildpack`
 Running it with no arguments produces this output:
 
 ```text
