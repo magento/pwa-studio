@@ -11,6 +11,7 @@ Feel free to remove this section before creating this PR. Thank you for your con
 -->
 
 ## Description
+
 TODO: Describe your changes in detail here.
 
 ## Related Issue
@@ -27,13 +28,7 @@ Closes #ISSUE_NUMBER.
 2. Verify the BAR shows up.
 3. Make sure BAZ does a thing.
 
-## How have YOU tested this?
-<!--- Please describe in detail how you tested your changes. -->
-<!--- Include details of your testing environment, and the tests you ran to -->
-<!--- see how your change affects other areas of the code, etc. -->
-TODO: Please describe in detail how you tested your changes.
-
-## Screenshots / Screen Captures (if appropriate):
+## Screenshots / Screen Captures (if appropriate)
 
 ## Proposed Labels for Change Type/Package
 <!--- What type of change level would you suggest for this PR? -->

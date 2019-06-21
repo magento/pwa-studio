@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders a mask div before the kebab if it is loading 1`] = `
+<li>
+  <img
+    alt="Unit Test Product"
+    src="path/to/image/source"
+  />
+  <div>
+    Unit Test Product
+  </div>
+  <ProductOptions
+    options={Array []}
+  />
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+      <span>
+        ×
+      </span>
+      <span>
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
+      </span>
+    </div>
+  </div>
+  <div />
+  <Kebab>
+    <Section
+      icon="Heart"
+      isFilled={false}
+      onClick={[Function]}
+      text="Add to favorites"
+    />
+    <Section
+      icon="Edit2"
+      onClick={[Function]}
+      text="Edit item"
+    />
+    <Section
+      icon="Trash"
+      onClick={[Function]}
+      text="Remove item"
+    />
+  </Kebab>
+</li>
+`;
+
+exports[`it renders correctly 1`] = `
+<li>
+  <img
+    alt="Unit Test Product"
+    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80"
+  />
+  <div>
+    Unit Test Product
+  </div>
+  <ProductOptions
+    options={Array []}
+  />
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+      <span>
+        ×
+      </span>
+      <span>
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
+      </span>
+    </div>
+  </div>
+  <Kebab>
+    <Section
+      icon="Heart"
+      isFilled={false}
+      onClick={[Function]}
+      text="Add to favorites"
+    />
+    <Section
+      icon="Edit2"
+      onClick={[Function]}
+      text="Edit item"
+    />
+    <Section
+      icon="Trash"
+      onClick={[Function]}
+      text="Remove item"
+    />
+  </Kebab>
+</li>
+`;
