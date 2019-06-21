@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import classify from 'src/classify';
 import defaultClasses from './indicator.css';
 import { mergeClasses } from 'src/classify';
 
