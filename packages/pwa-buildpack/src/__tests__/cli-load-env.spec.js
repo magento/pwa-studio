@@ -1,13 +1,14 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
 const dotenv = require('dotenv');
-const loadEnvCliBuilder = require('../cli/load-env');
+let loadEnvCliBuilder;
 const createEnv = require('../cli/create-env-file').handler;
 
 beforeEach(() => {
     jest.spyOn(process, 'exit').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
+    loadEnvCliBuilder = require('../cli/load-env');
 });
 afterEach(() => {
     jest.resetAllMocks();
