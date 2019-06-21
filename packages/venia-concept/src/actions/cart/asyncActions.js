@@ -201,8 +201,8 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
         await dispatch(getCartDetails({ forceRefresh: true }));
 
-        // Close the options drawer only after the cart is finished updating.
-        dispatch(closeOptionsDrawer());
+        // Close the edit dialog only after the cart is finished updating.
+        dispatch(endEditItem());
     };
 };
 
@@ -293,11 +293,11 @@ export const removeItemFromCart = payload => {
     };
 };
 
-export const openOptionsDrawer = () => async dispatch =>
-    dispatch(actions.openOptionsDrawer());
+export const beginEditItem = item => async dispatch =>
+    dispatch(actions.beginEditItem(item));
 
-export const closeOptionsDrawer = () => async dispatch =>
-    dispatch(actions.closeOptionsDrawer());
+export const endEditItem = () => async dispatch =>
+    dispatch(actions.endEditItem());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
