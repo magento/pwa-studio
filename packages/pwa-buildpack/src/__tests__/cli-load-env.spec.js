@@ -25,7 +25,8 @@ test('is a yargs builder', () => {
 test('handler exits nonzero on errors', () => {
     // missing required variables
     dotenv.config.mockReturnValueOnce({
-        parsed: {}
+        parsed: {},
+        error: {}
     });
     loadEnvCliBuilder.handler({ directory: '.' });
     expect(process.exit).toHaveBeenCalled();
