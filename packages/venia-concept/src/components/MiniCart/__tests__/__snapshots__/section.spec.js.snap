@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it does not render an icon when not passed one 1`] = `
+<li>
+  <button>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it does not render an icon when passed an invalid one 1`] = `
+<li>
+  <button>
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it fills the icon when isFilled is true 1`] = `
+<li>
+  <button>
+    <Classify(Icon)
+      attrs={
+        Object {
+          "color": "rgb(var(--venia-teal))",
+          "fill": "rgb(var(--venia-teal))",
+          "height": "14px",
+          "width": "14px",
+        }
+      }
+      src={[Function]}
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
+
+exports[`it renders an icon when passed a valid one 1`] = `
+<li>
+  <button>
+    <Classify(Icon)
+      attrs={
+        Object {
+          "color": "rgb(var(--venia-teal))",
+          "height": "14px",
+          "width": "14px",
+        }
+      }
+      src={[Function]}
+    />
+    <span>
+      Unit Test Text
+    </span>
+  </button>
+</li>
+`;
