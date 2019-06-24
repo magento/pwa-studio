@@ -11,12 +11,12 @@ Use or remix these functions and components to create a unique Magento PWA store
 Many of the functions provided by Peregrine are [custom React hooks][].
 This lets them maintain an internal state without relying on an external library, such as Redux.
 
-Peregrine hooks are designed to be flexible, and non-opinionated.
+Peregrine hooks are designed to be flexible, and non-opinionated about UI.
 They contain code for providing data or behavior logic and do not render content themselves.
-Rendering content, such as HTML elements, is left up to UI components.
+Rendering content is left up to UI components.
 
 Separating logic and presentation code gives developers more flexibility on how to use PWA Studio components with their own custom code.
-A developer may choose to use a Venia feature that use certain Peregrine hooks with minor visual modifications, or
+A developer may choose to use a Venia feature that uses certain Peregrine hooks with minor visual modifications, or
 they can use those same Peregrine hooks to develop their own feature with a different UI.
 
 ### Return signatures
