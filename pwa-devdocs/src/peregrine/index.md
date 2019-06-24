@@ -19,16 +19,18 @@ Separating logic and presentation code gives developers more flexibility on how 
 A developer may choose to use a Venia feature that uses certain Peregrine hooks with minor visual modifications, or
 they can use those same Peregrine hooks to develop their own feature with a different UI.
 
+For more information about custom hooks, see the React documentation for [Building Your Own Hooks][].
+
 ### Return signatures
 
-Peregrine hooks follow the same pattern as [`useState()`][] and [`useReducer()`][] of returning an array instead of an object.
+The return signatures of Peregrine hooks vary and is dependent on their purpose.
+
+Some return an array with *state* and *api* objects, which follow the same pattern as [`useState()`][] and [`useReducer()`].
 This lets you specify the variable names of the provided objects when you [destructure][] the array.
 
-Array destructuring example:
+Other Peregrine hooks return a single object.
 
-```js
-const [myDataObject, myDataObjectApi] = usePeregrineHook();
-```
+Use the reference docs on this site or in the [JSDoc][] blocks in the source code learn the API for each hook.
 
 ## JSDoc blocks
 
@@ -48,3 +50,4 @@ Visit the [`peregrine`][] package to view the source or contribute to this proje
 [jsdoc]: https://devdocs.io/jsdoc/
 [`usestate()`]: https://reactjs.org/docs/hooks-reference.html#usestate
 [`usereducer()`]: https://reactjs.org/docs/hooks-reference.html#usereducer
+[building your own hooks]: https://reactjs.org/docs/hooks-custom.html
