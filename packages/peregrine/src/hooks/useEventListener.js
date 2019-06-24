@@ -17,5 +17,5 @@ export const useEventListener = (target, type, listener, ...rest) => {
         return () => {
             target.removeEventListener(type, listener, ...rest);
         };
-    }, [target, listener, type]);
+    }, [listener, rest, target, type]);
 };
