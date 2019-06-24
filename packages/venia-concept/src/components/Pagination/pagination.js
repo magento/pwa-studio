@@ -34,12 +34,6 @@ class Pagination extends Component {
         this.syncPage();
     }
 
-    componentWillUnmount() {
-        // Reset page total to keep other instances from rendering incorrectly
-        const { updateTotalPages } = this.props.pageControl;
-        updateTotalPages(null);
-    }
-
     get navigationTiles() {
         const { classes, pageControl } = this.props;
         const { currentPage, totalPages } = pageControl;
@@ -125,13 +119,15 @@ class Pagination extends Component {
     }
 
     setPage = (pageNumber, shouldReplace = false) => {
-        const { history, location } = this.props;
+        const { history, location, pageControl } = this.props;
         const { search } = location;
         const queryParams = new URLSearchParams(search);
         const method = shouldReplace ? 'replace' : 'push';
 
         queryParams.set('page', pageNumber);
         history[method]({ search: queryParams.toString() });
+
+        pageControl.setPage(pageNumber);
     };
 
     slideNavLeft = () => {
@@ -164,7 +160,7 @@ class Pagination extends Component {
 
     syncPage = () => {
         const { location, pageControl } = this.props;
-        const { currentPage, setPage, totalPages } = pageControl;
+        const { currentPage, totalPages } = pageControl;
 
         const queryPage = Math.max(
             1,
@@ -187,7 +183,7 @@ class Pagination extends Component {
             if (queryPage > totalPages) {
                 this.setPage(1, true);
             } else {
-                setPage(queryPage);
+                this.setPage(queryPage);
             }
         }
     };

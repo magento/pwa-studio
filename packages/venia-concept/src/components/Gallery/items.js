@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
-const pageSize = 12;
+// Default of 6 to match the default category page size.
+const pageSize = 6;
 const emptyData = Array.from({ length: pageSize }).fill(null);
 
 // inline the placeholder elements, since they're constant

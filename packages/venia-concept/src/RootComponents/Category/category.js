@@ -1,22 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
 import { toggleDrawer } from 'src/actions/app';
 import catalogActions from 'src/actions/catalog';
 import { mergeClasses } from 'src/classify';
+
 import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
-import { connect } from 'src/drivers';
+import { connect, withRouter } from 'src/drivers';
+import { compose } from 'redux';
 import categoryQuery from 'src/queries/getCategory.graphql';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import getQueryParameterValue from 'src/util/getQueryParameterValue';
 
 const Category = props => {
-    const { filterClear, id, openDrawer, pageSize } = props;
+    const { filterClear, id, location, openDrawer, pageSize } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [paginationValues, paginationApi] = usePagination();
+    // Check the query param for the initial page to provide to the pagination
+    // hook. Without this we may load `page=4` but `usePagination` will init to
+    // 1, so it'll fetch page 1 _and_ page 4 (bad!).
+    const initialPage = useMemo(
+        () =>
+            Math.max(
+                1,
+                Math.floor(
+                    ~~getQueryParameterValue({
+                        location,
+                        queryParameter: 'page'
+                    })
+                )
+            ),
+        [location]
+    );
+
+    const [paginationValues, paginationApi] = usePagination(initialPage);
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
@@ -30,7 +51,6 @@ const Category = props => {
     const [queryResult, queryApi] = useQuery(categoryQuery);
     const { data, error, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     // clear any stale filters
     useEffect(() => {
@@ -65,9 +85,19 @@ const Category = props => {
 
     useEffect(() => {
         setTotalPages(totalPagesFromData);
+        return () => {
+            setTotalPages(null);
+        };
     }, [setTotalPages, totalPagesFromData]);
 
-    if (error) return <div>Data Fetch Error</div>;
+    // Retry 3 times and then display the fallback error.
+    const [errorCount, setErrorCount] = useState(0);
+    if (error && errorCount <= 3) {
+        setCurrentPage(1);
+        setErrorCount(errorCount + 1);
+    } else if (error) {
+        return <div>Data Fetch Error</div>;
+    }
 
     // show loading indicator until data has been fetched
     // and pagination state has been updated
@@ -104,7 +134,10 @@ const mapDispatchToProps = dispatch => ({
     openDrawer: () => dispatch(toggleDrawer('filter'))
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
+export default compose(
+    withRouter,
+    connect(
+        null,
+        mapDispatchToProps
+    )
 )(Category);
