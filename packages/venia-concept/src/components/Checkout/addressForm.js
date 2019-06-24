@@ -51,10 +51,6 @@ const AddressForm = props => {
         [initialValues]
     );
 
-    const handleCancel = useCallback(() => {
-        cancel();
-    }, [cancel]);
-
     const handleSubmit = useCallback(
         values => {
             submit(values);
@@ -149,7 +145,7 @@ const AddressForm = props => {
                 <div className={classes.validation}>{validationMessage}</div>
             </div>
             <div className={classes.footer}>
-                <Button className={classes.button} onClick={handleCancel}>
+                <Button className={classes.button} onClick={cancel}>
                     Cancel
                 </Button>
                 <Button
