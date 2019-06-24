@@ -1,18 +1,16 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
 const dotenv = require('dotenv');
-let loadEnvCliBuilder;
+const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
 
-beforeEach(() => {
-    jest.spyOn(process, 'exit').mockImplementation(() => {});
-    jest.spyOn(console, 'warn').mockImplementation(() => {});
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    loadEnvCliBuilder = require('../cli/load-env');
-});
-afterEach(() => {
-    jest.resetAllMocks();
-});
+const mocks = {
+    exit: jest.spyOn(process, 'exit').mockImplementation(() => {}),
+    warn: jest.spyOn(console, 'warn').mockImplementation(() => {}),
+    error: jest.spyOn(console, 'error').mockImplementation(() => {})
+};
+
+beforeEach(jest.resetAllMocks);
 
 test('is a yargs builder', () => {
     expect(loadEnvCliBuilder).toMatchObject({
@@ -29,8 +27,8 @@ test('handler exits nonzero on errors', () => {
         error: {}
     });
     loadEnvCliBuilder.handler({ directory: '.' });
-    expect(process.exit).toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalled();
+    expect(mocks.exit).toHaveBeenCalled();
+    expect(mocks.error).toHaveBeenCalled();
 });
 
 test('handler loads from dotenv file', () => {
@@ -41,7 +39,7 @@ test('handler loads from dotenv file', () => {
     loadEnvCliBuilder.handler({
         directory: '.'
     });
-    expect(process.exit).not.toHaveBeenCalled();
+    expect(mocks.exit).not.toHaveBeenCalled();
     process.env.MAGENTO_BACKEND_URL = '';
 });
 
@@ -56,10 +54,10 @@ test('warns if dotenv file does not exist', () => {
     loadEnvCliBuilder.handler({
         directory: '.'
     });
-    expect(console.warn).toHaveBeenCalledWith(
+    expect(mocks.warn).toHaveBeenCalledWith(
         expect.stringContaining('No .env file')
     );
-    expect(process.exit).not.toHaveBeenCalled();
+    expect(mocks.exit).not.toHaveBeenCalled();
     process.env.MAGENTO_BACKEND_URL = '';
 });
 
@@ -75,10 +73,10 @@ test('creates a .env file from example values if --core-dev-mode', () => {
         directory: '.',
         coreDevMode: true
     });
-    expect(console.warn).toHaveBeenCalledWith(
+    expect(mocks.warn).toHaveBeenCalledWith(
         expect.stringContaining('Creating new .env file')
     );
     expect(createEnv).toHaveBeenCalled();
-    expect(process.exit).not.toHaveBeenCalled();
+    expect(mocks.exit).not.toHaveBeenCalled();
     process.env.MAGENTO_BACKEND_URL = '';
 });
