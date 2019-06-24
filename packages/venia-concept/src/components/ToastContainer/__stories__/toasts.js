@@ -33,7 +33,7 @@ const ToastEmitter = ({
 
     // Only add toasts once on mount. Since `addToast` changes each render
     // we cannot add it as an effect dependency otherwise we infinitely loop.
-    useEffect(() => {        
+    useEffect(() => {
         setTimeout(() => {
             addToast(toastProps);
         }, 0);
