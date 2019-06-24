@@ -1,22 +1,51 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import Section from '../section';
 
-const classes = { text: 'a' };
+const renderer = new ShallowRenderer();
 
-test('renders with passed icon name', () => {
-    const wrapper = shallow(<Section icon="Heart" text="Test" />).dive();
+test('it renders an icon when passed a valid one', () => {
+    const props = {
+        icon: 'Heart',
+        text: 'Unit Test Text'
+    };
 
-    const icon = wrapper.instance().icon;
-    expect(typeof icon).toBe('object');
+    const tree = renderer.render(<Section {...props} />);
+
+    expect(tree).toMatchSnapshot();
 });
 
-test('renders without icon', () => {
-    const wrapper = shallow(<Section classes={classes} text="Test" />).dive();
+test('it does not render an icon when passed an invalid one', () => {
+    const props = {
+        icon: 'INVALID',
+        text: 'Unit Test Text'
+    };
 
-    const icon = wrapper.instance().icon;
-    expect(icon).toBe(null);
+    const tree = renderer.render(<Section {...props} />);
 
-    expect(wrapper.find({ className: classes.text }).text()).toEqual('Test');
+    expect(tree).toMatchSnapshot();
+});
+
+test('it does not render an icon when not passed one', () => {
+    const props = {
+        /* icon property purposefully not supplied. */
+        text: 'Unit Test Text'
+    };
+
+    const tree = renderer.render(<Section {...props} />);
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('it fills the icon when isFilled is true', () => {
+    const props = {
+        icon: 'Heart',
+        isFilled: true,
+        text: 'Unit Test Text'
+    };
+
+    const tree = renderer.render(<Section {...props} />);
+
+    expect(tree).toMatchSnapshot();
 });

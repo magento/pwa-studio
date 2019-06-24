@@ -5,7 +5,7 @@ import Button from 'src/components/Button';
 import defaultClasses from './receipt.css';
 
 const Receipt = props => {
-    const { createAccount, history, order, reset, user } = props;
+    const { createAccount, history, reset, user } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -17,7 +17,7 @@ const Receipt = props => {
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.
-    }, [order]);
+    }, []);
 
     return (
         <div className={classes.root}>
