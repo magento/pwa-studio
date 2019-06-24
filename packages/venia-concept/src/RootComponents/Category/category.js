@@ -37,7 +37,7 @@ const Category = props => {
         if (isObjectEmpty(getFilterParams())) {
             filterClear();
         }
-    }, []);
+    }, [filterClear]);
 
     // run the category query
     useEffect(() => {
@@ -57,7 +57,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize]);
+    }, [currentPage, id, pageSize, runQuery, setLoading]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -65,7 +65,7 @@ const Category = props => {
 
     useEffect(() => {
         setTotalPages(totalPagesFromData);
-    }, [totalPagesFromData]);
+    }, [setTotalPages, totalPagesFromData]);
 
     if (error) return <div>Data Fetch Error</div>;
 
