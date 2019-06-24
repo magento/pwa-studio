@@ -48,7 +48,7 @@ const EditItem = props => {
         };
 
         fetchItemOptions();
-    }, [item, itemHasOptions]);
+    }, [item, itemHasOptions, runQuery, setLoading]);
 
     /*
      * Render.

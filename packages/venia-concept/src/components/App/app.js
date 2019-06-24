@@ -49,6 +49,9 @@ const App = props => {
     const errors = renderError ? renderErrors : unhandledErrors;
     const handleDismiss = renderError ? reload : markErrorHandled;
 
+    // Only add toasts for errors if the errors list changes. Since `addToast`
+    // and `toasts` changes each render we cannot add it as an effect dependency
+    // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
             const errorToastProps = {
@@ -69,17 +72,7 @@ const App = props => {
                 addToast(errorToastProps);
             }
         }
-    }, [errors, handleDismiss]);
-
-    if (renderError) {
-        return (
-            <Fragment>
-                <Main isMasked={true} />
-                <Mask isActive={true} />
-                <ToastContainer />
-            </Fragment>
-        );
-    }
+    }, [errors, handleDismiss]); // eslint-disable-line
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
@@ -105,7 +98,17 @@ const App = props => {
                 });
             }
         }
-    }, [hasBeenOffline, isOnline]);
+    }, [addToast, hasBeenOffline, isOnline]);
+
+    if (renderError) {
+        return (
+            <Fragment>
+                <Main isMasked={true} />
+                <Mask isActive={true} />
+                <ToastContainer />
+            </Fragment>
+        );
+    }
 
     return (
         <Fragment>
