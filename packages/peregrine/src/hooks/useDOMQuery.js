@@ -8,10 +8,10 @@ export const useDOMQuery = queryString => {
     useEffect(() => {
         setElements(findDOMElements(queryString));
     }, []);
-    const setInnerHTMl = useCallback(
+    const setInnerHTML = useCallback(
         content => {
             elements.forEach(element => {
-                element.innerHTMl = content || element.innerHTMl;
+                element.innerHTML = content || element.innerHTML;
             });
         },
         [elements]
@@ -32,5 +32,5 @@ export const useDOMQuery = queryString => {
         },
         [elements]
     );
-    return [elements, { setInnerHTMl, setInnerText, setAttribute }];
+    return [elements, { setInnerHTML, setInnerText, setAttribute }];
 };
