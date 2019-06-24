@@ -29,10 +29,6 @@ const Overview = props => {
         submitting
     } = props;
 
-    const handleDismiss = useCallback(() => {
-        cancelCheckout();
-    }, [cancelCheckout]);
-
     const handleAddressFormClick = useCallback(() => {
         editOrder('address');
     }, [editOrder]);
@@ -91,7 +87,7 @@ const Overview = props => {
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleDismiss}>Back to Cart</Button>
+                <Button onClick={cancelCheckout}>Back to Cart</Button>
                 <Button
                     priority="high"
                     disabled={submitting || !ready}

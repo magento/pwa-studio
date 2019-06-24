@@ -527,7 +527,7 @@ exports[`renders an overview Form component if not editing 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -676,7 +676,7 @@ exports[`renders billing info CTA if no payment method is entered 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -851,7 +851,7 @@ exports[`renders empty strings if payment data is not defined 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -1022,7 +1022,7 @@ exports[`renders name and street if shipping address is entered 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -1197,7 +1197,7 @@ exports[`renders payment method summary if payment method entered 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -1346,7 +1346,7 @@ exports[`renders shipping address CTA if no shipping address is entered 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -1495,7 +1495,7 @@ exports[`renders shipping method CTA if no shipping method selected 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -1662,7 +1662,7 @@ exports[`renders shipping title if shipping method is selected 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
