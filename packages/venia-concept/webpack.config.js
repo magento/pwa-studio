@@ -167,6 +167,14 @@ module.exports = async function(env = {}) {
                                 : [value];
                             assets.bundles.prefetch.push(...filenames);
                         }
+                        const ext = path.extname(name);
+                        const type = ext && ext.replace(/^\./, '');
+                        if (type) {
+                            if (!assets[type]) {
+                                assets[type] = {};
+                            }
+                            assets[type][path.basename(name, ext)] = value;
+                        }
                     });
                 }
             })

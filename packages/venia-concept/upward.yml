@@ -126,7 +126,9 @@ appShell:
       # on the data each one provides.
       provide:
         model: resource.model
-        bundles: assetManifest.bundles
+        name: resource.name
+        entityTypeName: resource.entityTypeName
+        assets: assetManifest
         urlResolver: urlResolver
         env: env
         mediaBackendURL: mediaBackendURL
@@ -148,6 +150,9 @@ resource:
         inline:
           # See the top-level 'cmsPage' object for details on its resolved data
           model: cmsPage
+          name: cmsPage.title
+          entityTypeName:
+            inline: "Page"
           template: './templates/cmspage-shell.mst'
     - matches: urlResolver.type
       pattern: 'CATEGORY'
@@ -155,6 +160,9 @@ resource:
         inline:
           # See the top-level 'category' object for details on its resolved data
           model: category
+          name: category.name
+          entityTypeName:
+            inline: "Category"
           template: './templates/category-shell.mst'
     - matches: urlResolver.type
       pattern: 'PRODUCT'
@@ -162,6 +170,9 @@ resource:
         inline:
           # See the top-level 'product' object for details on its resolved data
           model: product
+          name: product.name
+          entityTypeName:
+            inline: "Product Details"
           template: './templates/product-shell.mst'
     # CMS_PAGE, CATEGORY, and PRODUCT are known page types with specific
     # data models and template files for each type.
@@ -174,15 +185,19 @@ resource:
       use:
         inline:
           model: unknownPageType
+          name: unknownPageType.title
+          entityTypeName:
+            inline: "Page"
           template: './templates/generic-shell.mst'
-    # This entry makes '/search.html' a valid resource path.
-    # It uses the top-level 'genericObject' object as its resolve data and uses
-    # the generic shell as its template file.
+    # This entry makes '/search.html' a valid resource path. It uses a simple
+    # inline object as its resolve data and uses the generic shell as its
+    # template file.
     - matches: request.url.pathname
       pattern: '/search.html'
       use:
         inline:
-          model: genericObject
+          entityTypeName:
+            inline: "Search Results"
           template: './templates/generic-shell.mst'
   default:
     # If none of the resolver conditions pass, no 'model' property is set and
@@ -319,14 +334,6 @@ urlKey:
       use: $match.$1
   default:
     inline: ''
-
-# The genericObject object is the data object used by the top-level 'appShell'
-# object for the '/search.html' path
-genericObject:
-  inline:
-    name:
-      inline:
-        "Hello world!"
 
 # The bundles object is a DirectoryResolver that allows access to the bundled
 # files in the project's './dist' diretory.

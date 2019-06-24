@@ -2,11 +2,11 @@
 
 exports[`it renders the correct tree when loading 1`] = `
 <h1>
-  <Classify(LoadingIndicator)>
-    <span>
-      Fetching Data...
-    </span>
-  </Classify(LoadingIndicator)>
+  <LoadingIndicator
+    global={true}
+  >
+    Fetching Data...
+  </LoadingIndicator>
 </h1>
 `;
 

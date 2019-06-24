@@ -1,19 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a loading indicator if no data 1`] = `
-<Classify(LoadingIndicator)>
-  <span>
-    Fetching Data...
-  </span>
-</Classify(LoadingIndicator)>
+<LoadingIndicator>
+  Fetching Item Options...
+</LoadingIndicator>
 `;
 
 exports[`renders a loading indicator while running query 1`] = `
-<Classify(LoadingIndicator)>
-  <span>
-    Fetching Data...
-  </span>
-</Classify(LoadingIndicator)>
+<LoadingIndicator>
+  Fetching Item Options...
+</LoadingIndicator>
 `;
 
 exports[`renders an error message when an error occurs 1`] = `
