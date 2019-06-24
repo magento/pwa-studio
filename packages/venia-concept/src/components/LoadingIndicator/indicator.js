@@ -16,7 +16,7 @@ const LoadingIndicator = props => {
     return (
         <div className={className}>
             <img
-                className="i-c-spin"
+                className={classes.indicator}
                 src={logo}
                 width="64"
                 height="64"
