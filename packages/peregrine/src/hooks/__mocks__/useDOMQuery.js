@@ -20,10 +20,7 @@ export const TestValidComponent = ({ newText, newHTML, newName }) => {
     );
 };
 
-export const TestInvalidComponent = ({
-    selector,
-    callWithElements
-}) => {
+export const TestInvalidComponent = ({ selector, callWithElements }) => {
     const [elements] = useDOMQuery(selector);
     useEffect(() => {
         callWithElements(elements);
