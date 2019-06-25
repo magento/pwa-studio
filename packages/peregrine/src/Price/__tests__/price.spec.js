@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { shallow } from 'enzyme';
-import Price from '../Price';
+import Price from '../price';
 import IntlPolyfill from 'intl';
 
 if (!global.Intl.NumberFormat.prototype.formatToParts) {
