@@ -36,10 +36,10 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
-const WrappedReducer = withLogger(reducer);
+const wrappedReducer = withLogger(reducer);
 
 export const useQueryResult = () => {
-    const [state, dispatch] = useReducer(WrappedReducer, initialState);
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
 
     const setData = useCallback(
         payload => {

@@ -62,7 +62,7 @@ const reducer = (prevState = initialState, action = {}) => {
 
 const ToastContext = createContext();
 
-const WrappedReducer = withLogger(reducer);
+const wrappedReducer = withLogger(reducer);
 
 /**
  * A context provider that provides the toast state object and the dispatch
@@ -75,7 +75,7 @@ const WrappedReducer = withLogger(reducer);
  *   </ToastContextProvider>
  */
 export const ToastContextProvider = ({ children }) => {
-    const store = useReducer(WrappedReducer, initialState);
+    const store = useReducer(wrappedReducer, initialState);
     return (
         <ToastContext.Provider value={store}>{children}</ToastContext.Provider>
     );
