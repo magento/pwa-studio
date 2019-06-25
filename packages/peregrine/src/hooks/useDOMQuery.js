@@ -1,24 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const findDOMElements = queryString =>
-    document.querySelectorAll(queryString) || [];
+const findDOMElements = querySelector =>
+    document.querySelectorAll(querySelector) || [];
 
 /**
  * A custom hook that will return the array of elements that
- * match the queryString. document.querySelectorAll is used
+ * match the querySelector. document.querySelectorAll is used
  * to find all elements.
  *
- * @param {string} queryString
+ * @param {string} querySelector
  * @return Array<HTMLElement> and {
  *  setInnerHTML: (string) => void,
  *  setInnerText: (string) => void,
  *  setAttribute: (string, any) => void
  * }
  */
-export const useDOMQuery = queryString => {
+export const useDOMQuery = querySelector => {
     const [elements, setElements] = useState([]);
     useEffect(() => {
-        setElements(findDOMElements(queryString));
+        setElements(findDOMElements(querySelector));
     }, []);
     const setInnerHTML = useCallback(
         content => {
