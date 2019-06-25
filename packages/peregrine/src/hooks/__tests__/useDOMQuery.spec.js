@@ -115,7 +115,7 @@ it('setInnerText should not change inner text of the given valid selector if an 
          * because JSDOM is not creating innerText by default.
          * This is JSDOM's default behavior since innerText is
          * astetic stuff and JSDOM does not have a UI implementation.
-         * 
+         *
          * https://github.com/jsdom/jsdom/issues/1245#issuecomment-243231866
          */
         expect(wrapper.find('#testDiv').text()).toBe(oldText);
