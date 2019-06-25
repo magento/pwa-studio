@@ -4,10 +4,7 @@ exports[`renders with renderErrors 1`] = `
 ReactTestInstance {
   "_fiber": FiberNode {
     "_debugHookTypes": Array [
-      "useRef",
       "useReducer",
-      "useCallback",
-      "useMemo",
     ],
     "_debugID": 56,
     "_debugIsCurrentlyTiming": false,
@@ -3436,56 +3433,22 @@ Debug: 1 1",
       />,
     },
     "memoizedState": Object {
-      "baseState": null,
+      "baseState": Object {
+        "toasts": Map {},
+      },
       "baseUpdate": null,
       "memoizedState": Object {
-        "current": Object {
-          "state": Object {
-            "toasts": Map {},
-          },
-        },
+        "toasts": Map {},
       },
-      "next": Object {
-        "baseState": Object {
+      "next": null,
+      "queue": Object {
+        "dispatch": [Function],
+        "last": null,
+        "lastRenderedReducer": [Function],
+        "lastRenderedState": Object {
           "toasts": Map {},
         },
-        "baseUpdate": null,
-        "memoizedState": Object {
-          "toasts": Map {},
-        },
-        "next": Object {
-          "baseState": null,
-          "baseUpdate": null,
-          "memoizedState": Array [
-            [Function],
-            Array [],
-          ],
-          "next": Object {
-            "baseState": null,
-            "baseUpdate": null,
-            "memoizedState": Array [
-              undefined,
-              Array [
-                Object {
-                  "toasts": Map {},
-                },
-              ],
-            ],
-            "next": null,
-            "queue": null,
-          },
-          "queue": null,
-        },
-        "queue": Object {
-          "dispatch": [Function],
-          "last": null,
-          "lastRenderedReducer": [Function],
-          "lastRenderedState": Object {
-            "toasts": Map {},
-          },
-        },
       },
-      "queue": null,
     },
     "mode": 0,
     "nextEffect": null,
@@ -4511,10 +4474,7 @@ exports[`renders with unhandledErrors 1`] = `
 ReactTestInstance {
   "_fiber": FiberNode {
     "_debugHookTypes": Array [
-      "useRef",
       "useReducer",
-      "useCallback",
-      "useMemo",
     ],
     "_debugID": 66,
     "_debugIsCurrentlyTiming": false,
@@ -9420,56 +9380,22 @@ Debug: undefined undefined",
       />,
     },
     "memoizedState": Object {
-      "baseState": null,
+      "baseState": Object {
+        "toasts": Map {},
+      },
       "baseUpdate": null,
       "memoizedState": Object {
-        "current": Object {
-          "state": Object {
-            "toasts": Map {},
-          },
-        },
+        "toasts": Map {},
       },
-      "next": Object {
-        "baseState": Object {
+      "next": null,
+      "queue": Object {
+        "dispatch": [Function],
+        "last": null,
+        "lastRenderedReducer": [Function],
+        "lastRenderedState": Object {
           "toasts": Map {},
         },
-        "baseUpdate": null,
-        "memoizedState": Object {
-          "toasts": Map {},
-        },
-        "next": Object {
-          "baseState": null,
-          "baseUpdate": null,
-          "memoizedState": Array [
-            [Function],
-            Array [],
-          ],
-          "next": Object {
-            "baseState": null,
-            "baseUpdate": null,
-            "memoizedState": Array [
-              undefined,
-              Array [
-                Object {
-                  "toasts": Map {},
-                },
-              ],
-            ],
-            "next": null,
-            "queue": null,
-          },
-          "queue": null,
-        },
-        "queue": Object {
-          "dispatch": [Function],
-          "last": null,
-          "lastRenderedReducer": [Function],
-          "lastRenderedState": Object {
-            "toasts": Map {},
-          },
-        },
       },
-      "queue": null,
     },
     "mode": 0,
     "nextEffect": null,
