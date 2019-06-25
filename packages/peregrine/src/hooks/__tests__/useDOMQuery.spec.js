@@ -3,21 +3,23 @@ import { mount } from 'enzyme';
 
 import { useDOMQuery } from '../useDOMQuery';
 
+let container;
+
+const oldText = 'I am a Test Div';
+
 const TestValidComponent = ({ newText, newHTML, newName }) => {
-    const [, { setInnerText }] = useDOMQuery('#div1');
-    const [, { setInnerHTML, setAttribute }] = useDOMQuery('#div2');
+    const [, { setInnerText, setInnerHTML, setAttribute }] = useDOMQuery(
+        '#testDiv'
+    );
     useEffect(() => {
         setInnerText(newText);
         setInnerHTML(newHTML);
         setAttribute('name', newName);
     }, [setInnerText, setInnerHTML, setAttribute]);
     return (
-        <React.Fragment>
-            <div id="div1">{'I am Test Div 1'}</div>
-            <div id="div2" name="oldName">
-                {'I am Test Div 2'}
-            </div>
-        </React.Fragment>
+        <div id="testDiv" name="oldName">
+            {oldText}
+        </div>
     );
 };
 
@@ -29,34 +31,104 @@ const TestInvalidComponent = ({ selector, callWithElements }) => {
     return <div id="abc" />;
 };
 
-beforeAll(() => {
-    const div = document.createElement('div');
-    window.domNode = div;
-    document.body.appendChild(div);
-});
-
-it('setInnerText, setInnerHTML and setAttribute manipulate DOM when a valid query selector is provided', () => {
-    const newText = 'Changed after mount.';
-    const newHTML = '<i>Changed after mount.</i>';
-    const newName = 'newName';
-    const wrapper = mount(
-        <TestValidComponent
-            newText={newText}
-            newHTML={newHTML}
-            newName={newName}
-        />,
-        { attachTo: window.domNode }
-    );
-    return new Promise(resolve => {
+const dummyPromise = fn =>
+    new Promise(resolve => {
         setTimeout(() => {
             resolve();
         }, 0);
-    }).then(() => {
-        const div1 = wrapper.find('#div1').getDOMNode();
-        const div2 = wrapper.find('#div2').getDOMNode();
-        expect(div1.innerText).toBe(newText);
-        expect(div2.innerHTML).toBe(newHTML);
-        expect(div2.getAttribute('name')).toBe(newName);
+    }).then(fn);
+
+beforeEach(() => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+});
+
+afterEach(() => {
+    document.body.removeChild(container);
+    container = null;
+});
+
+it('setInnerText should change inner text of the given valid selector', () => {
+    const newText = 'Changed after mount.';
+    const wrapper = mount(<TestValidComponent newText={newText} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(wrapper.find('#testDiv').getDOMNode().innerText).toBe(newText);
+    });
+});
+
+it('setInnerHTML should change HTML of the given valid selector', () => {
+    const newHTML = '<i>Changed after mount.</i>';
+    const wrapper = mount(<TestValidComponent newHTML={newHTML} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(wrapper.find('#testDiv').getDOMNode().innerHTML).toBe(newHTML);
+    });
+});
+
+it('setAttribute should change the attribute value of the given valid selector', () => {
+    const newName = 'newName';
+    const wrapper = mount(<TestValidComponent newName={newName} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(
+            wrapper
+                .find('#testDiv')
+                .getDOMNode()
+                .getAttribute('name')
+        ).toBe(newName);
+    });
+});
+
+it('setInnerText should clear inner text of the given valid selector if an empty string is provided', () => {
+    const newText = '';
+    const wrapper = mount(<TestValidComponent newText={newText} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(wrapper.find('#testDiv').getDOMNode().innerText).toBe(newText);
+    });
+});
+
+it('setInnerHTML should clear inner HTML of the given valid selector if an empty string is provided', () => {
+    const newHTML = '';
+    const wrapper = mount(<TestValidComponent newHTML={newHTML} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(wrapper.find('#testDiv').getDOMNode().innerHTML).toBe(newHTML);
+    });
+});
+
+it('setInnerText should not change inner text of the given valid selector if an invalid input is provided', () => {
+    const newText = 1234;
+    const wrapper = mount(<TestValidComponent newText={newText} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        /**
+         * using wrapper.find('#testDiv').text() instead of
+         * wrapper.find('#testDiv').getDOMNode().innerText
+         * because JSDOM is not creating innerText by default.
+         * This is JSDOM's default behavior since innerText is
+         * astetic stuff and JSDOM does not have a UI implementation.
+         * 
+         * https://github.com/jsdom/jsdom/issues/1245#issuecomment-243231866
+         */
+        expect(wrapper.find('#testDiv').text()).toBe(oldText);
+    });
+});
+
+it('setInnerHTML should not change inner HTML of the given valid selector if an invalid input is provided', () => {
+    const newHTML = null;
+    const wrapper = mount(<TestValidComponent newHTML={newHTML} />, {
+        attachTo: container
+    });
+    return dummyPromise(() => {
+        expect(wrapper.find('#testDiv').getDOMNode().innerHTML).toBe(oldText);
     });
 });
 
