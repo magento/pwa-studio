@@ -1,3 +1,8 @@
+/**
+ * Logs action type, payload, and result state to the browser console.
+ * @param {*} reducer a reducing function to wrap with logging
+ * @returns {Function} a wrapped reducer function
+ */
 const withLogger = reducer => (state, action) => {
     const result = reducer(state, action);
 
