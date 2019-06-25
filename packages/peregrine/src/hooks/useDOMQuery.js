@@ -3,6 +3,9 @@ import { useState, useEffect, useCallback } from 'react';
 const findDOMElements = querySelector =>
     document.querySelectorAll(querySelector) || [];
 
+const isValidString = str =>
+    str !== undefined && str != null && typeof str === 'string';
+
 /**
  * A custom hook that will return the array of elements that
  * match the querySelector. document.querySelectorAll is used
@@ -22,25 +25,31 @@ export const useDOMQuery = querySelector => {
     }, []);
     const setInnerHTML = useCallback(
         content => {
-            elements.forEach(element => {
-                element.innerHTML = content || element.innerHTML;
-            });
+            if (isValidString(content)) {
+                elements.forEach(element => {
+                    element.innerHTML = content;
+                });
+            }
         },
         [elements]
     );
     const setInnerText = useCallback(
         content => {
-            elements.forEach(element => {
-                element.innerText = content || element.innerText;
-            });
+            if (isValidString(content)) {
+                elements.forEach(element => {
+                    element.innerText = content;
+                });
+            }
         },
         [elements]
     );
     const setAttribute = useCallback(
         (attribute, value) => {
-            elements.forEach(element => {
-                element.setAttribute(attribute, value);
-            });
+            if (isValidString(attribute)) {
+                elements.forEach(element => {
+                    element.setAttribute(attribute, value);
+                });
+            }
         },
         [elements]
     );
