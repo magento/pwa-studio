@@ -25,8 +25,8 @@ test('renders an AddressForm component', () => {
 test('renders validation block with message if address is incorrect', () => {
     const props = {
         ...defaultProps,
-        isAddressIncorrect: true,
-        incorrectAddressMessage: 'whoops'
+        isAddressInvalid: true,
+        invalidAddressMessage: 'whoops'
     };
     const component = testRenderer.create(<AddressForm {...props} />);
 
@@ -36,7 +36,7 @@ test('renders validation block with message if address is incorrect', () => {
 test('does not renders validation block with message if address is incorrect but no incorrect address message', () => {
     const props = {
         ...defaultProps,
-        isAddressIncorrect: true
+        isAddressInvalid: true
     };
     const component = testRenderer.create(<AddressForm {...props} />);
 

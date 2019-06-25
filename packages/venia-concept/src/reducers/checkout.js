@@ -19,8 +19,8 @@ const initialState = {
     shippingTitle: '',
     step: 'cart',
     submitting: false,
-    isAddressIncorrect: false,
-    incorrectAddressMessage: ''
+    isAddressInvalid: false,
+    invalidAddressMessage: ''
 };
 
 const reducerMap = {
@@ -48,7 +48,7 @@ const reducerMap = {
         return {
             ...state,
             editing: payload,
-            incorrectAddressMessage: ''
+            invalidAddressMessage: ''
         };
     },
     [actions.billingAddress.submit]: state => state,
@@ -103,22 +103,22 @@ const reducerMap = {
             },
             step: 'form',
             submitting: false,
-            isAddressIncorrect: false,
-            incorrectAddressMessage: ''
+            isAddressInvalid: false,
+            invalidAddressMessage: ''
         };
     },
     [actions.shippingAddress.reject]: (state, actionArgs) => {
-        const incorrectAddressMessage = get(
+        const invalidAddressMessage = get(
             actionArgs,
-            'payload.incorrectAddressMessage',
+            'payload.invalidAddressMessage',
             ''
         );
 
         return {
             ...state,
             submitting: false,
-            isAddressIncorrect: incorrectAddressMessage ? true : false,
-            incorrectAddressMessage
+            isAddressInvalid: invalidAddressMessage ? true : false,
+            invalidAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -157,8 +157,8 @@ const reducerMap = {
             shippingTitle: payload.carrier_title,
             step: 'form',
             submitting: false,
-            isAddressIncorrect: false,
-            incorrectAddressMessage: ''
+            isAddressInvalid: false,
+            invalidAddressMessage: ''
         };
     },
     [actions.shippingMethod.reject]: state => {

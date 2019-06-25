@@ -17,8 +17,8 @@ const EditableForm = props => {
         submitShippingAddress,
         submitShippingMethod,
         submitting,
-        isAddressIncorrect,
-        incorrectAddressMessage,
+        isAddressInvalid,
+        invalidAddressMessage,
         directory: { countries }
     } = props;
 
@@ -61,8 +61,8 @@ const EditableForm = props => {
                 <AddressForm
                     cancel={handleCancel}
                     countries={countries}
-                    isAddressIncorrect={isAddressIncorrect}
-                    incorrectAddressMessage={incorrectAddressMessage}
+                    isAddressInvalid={isAddressInvalid}
+                    invalidAddressMessage={invalidAddressMessage}
                     initialValues={shippingAddress}
                     submit={handleSubmitAddressForm}
                     submitting={submitting}
@@ -110,8 +110,8 @@ EditableForm.propTypes = {
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
     submitting: bool,
-    isAddressIncorrect: bool,
-    incorrectAddressMessage: string,
+    isAddressInvalid: bool,
+    invalidAddressMessage: string,
     directory: shape({
         countries: array
     })

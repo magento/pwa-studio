@@ -30,17 +30,15 @@ const AddressForm = props => {
     const {
         cancel,
         countries,
-        isAddressIncorrect,
-        incorrectAddressMessage,
+        isAddressInvalid,
+        invalidAddressMessage,
         initialValues,
         submit,
         submitting
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const validationMessage = isAddressIncorrect
-        ? incorrectAddressMessage
-        : null;
+    const validationMessage = isAddressInvalid ? invalidAddressMessage : null;
 
     const values = useMemo(
         () =>
@@ -180,9 +178,9 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    incorrectAddressMessage: string,
+    invalidAddressMessage: string,
     initialValues: object,
-    isAddressIncorrect: bool,
+    isAddressInvalid: bool,
     submit: func.isRequired,
     submitting: bool
 };
