@@ -1,0 +1,50 @@
+<style>
+/* initial content */
+.i-c {
+    align-content: center;
+    display: grid;
+    gap: 3rem;
+    justify-items: center;
+    position: fixed;
+    top: -1.5rem;
+    left: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font: 1rem/1.6em Muli, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #212121;
+}
+.i-c-heading {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin: 0;
+}
+.i-c-subhead {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+}
+.i-c-logo {
+    height: 64px;
+    width: 64px;
+}
+.i-c-spin {
+    animation-direction: alternate;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes pulse {
+    0% {
+        filter: grayscale(1);
+        transform: scale(0.75) rotate(-540deg);
+    }
+    100% {
+        filter: grayscale(0);
+        transform: scale(1) rotate(0deg);
+    }
+}
+</style>

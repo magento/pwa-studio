@@ -16,4 +16,5 @@
     padding-top: 1px;
     padding-left: 0.4rem;
     font-size: 11px;
+    pointer-events: none;
 }

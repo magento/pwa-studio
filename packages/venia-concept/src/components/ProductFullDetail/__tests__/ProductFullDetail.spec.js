@@ -125,7 +125,6 @@ test('Configurable Product with selections has correct media gallery image count
         // optionSelections
         .mockReturnValueOnce([new Map([['1', 1]]), jest.fn()]);
 
-    debugger;
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
             <ProductFullDetail

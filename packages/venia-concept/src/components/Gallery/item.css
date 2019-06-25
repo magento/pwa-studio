@@ -4,6 +4,7 @@
 .images {
     display: grid;
     grid-template-areas: 'main';
+    margin-bottom: 0.65rem;
 }
 
 .image {

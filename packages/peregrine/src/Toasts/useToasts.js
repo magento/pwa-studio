@@ -41,6 +41,21 @@ export const useToasts = () => {
     const [state, dispatch] = useToastContext();
 
     /**
+     * Removes a toast from the toast store.
+     * @function removeToast
+     * @params {Number} id - the id of the toast to remove
+     */
+    const removeToast = useCallback(
+        id => {
+            dispatch({
+                type: 'remove',
+                payload: { id }
+            });
+        },
+        [dispatch]
+    );
+
+    /**
      * Dispatches a add action. Includes all props passed along with a hash id
      * and a timeout id generated based on the incoming props.
      *
@@ -141,22 +156,7 @@ export const useToasts = () => {
 
             return id;
         },
-        [dispatch]
-    );
-
-    /**
-     * Removes a toast from the toast store.
-     * @function removeToast
-     * @params {Number} id - the id of the toast to remove
-     */
-    const removeToast = useCallback(
-        id => {
-            dispatch({
-                type: 'remove',
-                payload: { id }
-            });
-        },
-        [dispatch]
+        [dispatch, removeToast]
     );
 
     /**
