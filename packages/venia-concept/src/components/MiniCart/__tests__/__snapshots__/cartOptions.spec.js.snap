@@ -45,9 +45,9 @@ exports[`it renders the correct tree 1`] = `
     </Classify(Button)>
   </div>
   <div>
-    <Classify(LoadingIndicator)>
+    <LoadingIndicator>
       Updating Cart
-    </Classify(LoadingIndicator)>
+    </LoadingIndicator>
   </div>
 </t>
 `;
