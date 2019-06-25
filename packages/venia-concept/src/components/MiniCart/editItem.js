@@ -3,10 +3,14 @@ import { bool, func, object, string } from 'prop-types';
 
 import { useQuery } from '@magento/peregrine';
 
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import PRODUCT_DETAILS from 'src/queries/getProductDetailByName.graphql';
 
 import CartOptions from './cartOptions';
+
+const loadingIndicator = (
+    <LoadingIndicator>{`Fetching Item Options...`}</LoadingIndicator>
+);
 
 const EditItem = props => {
     // Props.

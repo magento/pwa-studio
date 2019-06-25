@@ -15,7 +15,9 @@
     "prepublishOnly": "yarn run clean && yarn run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist",
-    "watch": "yarn run build --watch"
+    "watch": "yarn run clean && concurrently --raw yarn:watch:cjs yarn:watch:esm",
+    "watch:cjs": "yarn run build:cjs --watch",
+    "watch:esm": "yarn run build:esm --watch"
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
