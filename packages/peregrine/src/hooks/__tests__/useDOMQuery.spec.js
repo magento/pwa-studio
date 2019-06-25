@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { mount } from 'enzyme';
 
-import {
-    TestValidComponent,
-    TestInvalidComponent
-} from '../__mocks__/useDOMQuery';
+import { useDOMQuery } from '../useDOMQuery';
+
+const TestValidComponent = ({ newText, newHTML, newName }) => {
+    const [, { setInnerText }] = useDOMQuery('#div1');
+    const [, { setInnerHTML, setAttribute }] = useDOMQuery('#div2');
+    useEffect(() => {
+        setInnerText(newText);
+        setInnerHTML(newHTML);
+        setAttribute('name', newName);
+    }, [setInnerText, setInnerHTML, setAttribute]);
+    return (
+        <React.Fragment>
+            <div id="div1">{'I am Test Div 1'}</div>
+            <div id="div2" name="oldName">
+                {'I am Test Div 2'}
+            </div>
+        </React.Fragment>
+    );
+};
+
+const TestInvalidComponent = ({ selector, callWithElements }) => {
+    const [elements] = useDOMQuery(selector);
+    useEffect(() => {
+        callWithElements(elements);
+    }, [elements]);
+    return <div id="abc" />;
+};
 
 beforeAll(() => {
     const div = document.createElement('div');
