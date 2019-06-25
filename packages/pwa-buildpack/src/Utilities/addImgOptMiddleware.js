@@ -77,8 +77,6 @@ https://github.com/nodejs/node-gyp#installation`
 
             if (width) {
                 rewrittenUrl += `${width}/`;
-            } else {
-                throw new Error('width is required: /resize/:width/');
             }
 
             if (height) {
