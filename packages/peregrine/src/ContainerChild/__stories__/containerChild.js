@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import ContainerChild from '..';
-import docs from '../__docs__/ContainerChild.md';
+import docs from '../__docs__/containerChild.md';
 import { withReadme } from 'storybook-readme';
 
 const stories = storiesOf('ContainerChild', module);
