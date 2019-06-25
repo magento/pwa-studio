@@ -4,7 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import LoadingIndicator from 'src/components/LoadingIndicator';
 import PurchaseDetails from '../purchaseDetails';
 
-jest.mock('src/components/LoadingIndicator');
+jest.mock('src/components/LoadingIndicator', () => 'LoadingIndicator');
 
 const fetchOrderDetailsMock = jest.fn();
 

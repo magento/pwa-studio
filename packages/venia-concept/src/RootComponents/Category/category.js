@@ -5,7 +5,7 @@ import { usePagination, useQuery } from '@magento/peregrine';
 import { toggleDrawer } from 'src/actions/app';
 import catalogActions from 'src/actions/catalog';
 import { mergeClasses } from 'src/classify';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
 import { connect } from 'src/drivers';
 import categoryQuery from 'src/queries/getCategory.graphql';
 import isObjectEmpty from 'src/util/isObjectEmpty';
@@ -37,7 +37,7 @@ const Category = props => {
         if (isObjectEmpty(getFilterParams())) {
             filterClear();
         }
-    }, []);
+    }, [filterClear]);
 
     // run the category query
     useEffect(() => {
@@ -57,7 +57,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize]);
+    }, [currentPage, id, pageSize, runQuery, setLoading]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -65,13 +65,13 @@ const Category = props => {
 
     useEffect(() => {
         setTotalPages(totalPagesFromData);
-    }, [totalPagesFromData]);
+    }, [setTotalPages, totalPagesFromData]);
 
     if (error) return <div>Data Fetch Error</div>;
 
     // show loading indicator until data has been fetched
     // and pagination state has been updated
-    if (!totalPages) return loadingIndicator;
+    if (!totalPages) return fullPageLoadingIndicator;
 
     return (
         <CategoryContent
