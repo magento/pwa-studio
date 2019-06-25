@@ -173,7 +173,6 @@ class Pagination extends Component {
                 queryParameter: 'page'
             })
         );
-
         // if the page in the query string doesn't match client state
         // update client state
         if (queryPage !== currentPage) {
