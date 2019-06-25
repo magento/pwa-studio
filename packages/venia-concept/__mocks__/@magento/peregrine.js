@@ -18,7 +18,6 @@ const useEventListener = jest.fn(peregrine.useEventListener);
 const useDropdown = jest.fn(peregrine.useDropdown);
 const useQuery = jest.fn(peregrine.useQuery);
 const useQueryResult = jest.fn(peregrine.useQueryResult);
-const useReducerWithLogger = jest.fn(peregrine.useReducerWithLogger);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
 const useToasts = jest.fn(peregrine.useToasts);
@@ -41,7 +40,6 @@ module.exports = {
     useDropdown,
     useQuery,
     useQueryResult,
-    useReducerWithLogger,
     useSearchParam,
     useWindowSize,
 

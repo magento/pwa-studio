@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
-import { useReducerWithLogger as useReducer } from './useReducerWithLogger';
+import { useCallback, useMemo, useReducer } from 'react';
+import withLogger from '../util/withLogger';
 
 const initialState = {
     data: null,
@@ -36,8 +36,10 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
+const WrappedReducer = withLogger(reducer);
+
 export const useQueryResult = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(WrappedReducer, initialState);
 
     const setData = useCallback(
         payload => {
