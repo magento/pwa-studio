@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { usePageTitle } from '../usePageTitle';
 
 const TestComponent = ({ newTitle }) => {
-    const updateTitle = usePageTitle();
+    const [, updateTitle] = usePageTitle();
     useEffect(() => {
         updateTitle(newTitle);
     }, [updateTitle]);
