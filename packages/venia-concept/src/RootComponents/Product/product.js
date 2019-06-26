@@ -4,7 +4,7 @@ import { string, func } from 'prop-types';
 import { connect, Query } from 'src/drivers';
 import { addItemToCart } from 'src/actions/cart';
 import ErrorView from 'src/components/ErrorView';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
 import ProductFullDetail from 'src/components/ProductFullDetail';
 import getUrlKey from 'src/util/getUrlKey';
 import productQuery from 'src/queries/getProductDetail.graphql';
@@ -49,7 +49,7 @@ class Product extends Component {
             >
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return loadingIndicator;
+                    if (loading) return fullPageLoadingIndicator;
 
                     const product = data.productDetail.items[0];
 

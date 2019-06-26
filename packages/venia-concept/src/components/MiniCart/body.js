@@ -2,12 +2,16 @@ import React, { useCallback } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 
 import defaultClasses from './body.css';
 import EditItem from './editItem';
 import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
+
+const loadingIndicator = (
+    <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>
+);
 
 const Body = props => {
     // Props.
