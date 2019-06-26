@@ -1,3 +1,4 @@
+const debug = require('../util/debug').makeFileLogger(__filename);
 const wordwrap = require('word-wrap');
 const loadEnvironment = require('./loadEnvironment');
 const prettyLogger = require('../util/pretty-logger');
@@ -29,10 +30,11 @@ module.exports = function printEnvFile(
     useEnv,
     { logger = prettyLogger, useExamples } = {}
 ) {
+    const passedEnv = typeof useEnv === 'string' ? {} : useEnv;
     const { env, error } = loadEnvironment(useEnv, logger);
-    if (error) {
+    if (error && !useExamples) {
         logger.warn(
-            `The current environment is not yet valid; please edit the .env file and provide any missing variables to build the project.`
+            `The current environment is not yet valid; please set any missing variables to build the project before generating a .env file.`
         );
     }
     let contents = startSection('PWA Studio Environment Variables', 8);
@@ -46,17 +48,22 @@ module.exports = function printEnvFile(
     for (const section of sections) {
         contents += '\n' + startSection(section.name, 4) + blankline;
         for (const variable of section.variables) {
-            let isSet;
-            let currentValue;
-            if (env.hasOwnProperty(variable.name)) {
-                isSet = true;
+            debug('section "%s" variable %s', section.name, variable.name);
+            const hasDefault = variable.hasOwnProperty('default');
+            const setFromArgument = passedEnv.hasOwnProperty(variable.name);
+            const setNotDefault =
+                hasDefault &&
+                env.hasOwnProperty(variable.name) &&
+                env[variable.name] !== variable.default;
+            const shouldSetExample =
+                useExamples && variable.hasOwnProperty('example');
+            const isSet = setFromArgument || setNotDefault || shouldSetExample;
+            let currentValue = '';
+            if (setFromArgument || setNotDefault) {
                 currentValue = env[variable.name];
-            } else if (useExamples && variable.hasOwnProperty('example')) {
-                isSet = true;
+            } else if (shouldSetExample) {
                 currentValue = variable.example;
             }
-            const hasDefault = variable.hasOwnProperty('default');
-            const shouldSetInEnv = isSet || !hasDefault;
 
             contents += graf(variable.desc);
 
@@ -66,7 +73,7 @@ module.exports = function printEnvFile(
             if (hasDefault) {
                 contents += graf(`- Default when not set: ${variable.default}`);
             }
-            if (shouldSetInEnv) {
+            if (isSet) {
                 contents += `${variable.name}=${currentValue}\n`;
             } else {
                 // Print this line as an example of how to set the variable, but
@@ -78,6 +85,5 @@ module.exports = function printEnvFile(
         }
         contents += endSection;
     }
-
     return contents;
 };

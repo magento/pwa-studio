@@ -14,9 +14,7 @@ Using these tools, you can keep global configuration values in a central locatio
 
 ## Command Line Interface
 
-The `buildpack` command is a toolkit with subcommands available in the `pwa-buildpack` module.
-
-When you have the module added as a dependency in your project, you can run it in the command line: `npx buildpack`
+The `buildpack` command is a toolkit with subcommands.
 Running it with no arguments produces this output:
 
 ```text
@@ -30,7 +28,7 @@ Commands:
                                             features.
   buildpack create-env-file <directory>     Generate a .env file in the provided
                                             directory to store project
-                                            configuration as environment
+                                         configuration as environment variables
                                             variables
   buildpack load-env <directory>            Load and validate the current
                                             environment, including .env file if
@@ -40,6 +38,8 @@ Commands:
 Options:
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
+
+Invoke buildpack with a subcommand (eg. `buildpack create-env-file`) and the arguments to that subcommand.
 ```
 
 A project with `@magento/pwa-buildpack` installed may use the `buildpack` command in NPM scripts.
@@ -58,8 +58,8 @@ You can also invoke `buildpack` directly using the `npx` tool, which installs pa
 npx @magento/pwa-buildpack <command>
 ```
 
-_Note: It is not recommended to globally install buildpack with `yarn global add`._
-_Individual projects should use their own versions and a globally installed buildpack can cause unexpected behavior._
+_Note: It is not recommended to globally install buildpack with `yarn global add` or `npm install --global`._
+_Individual projects should use their own versions, to guarantee expected behavior._
 
 ### `buildpack create-env-file <dir>`
 
@@ -70,19 +70,39 @@ The `create-env-file` subcommand makes that easy:
 npx @magento/pwa-buildpack create-env-file .
 ```
 
+The `create-env-file` command generates a `.env` file in the provided directory.
+The `.env` file follows the `dotenv` file format: it includes documentation comments and environment variable declarations.
+`create-env-file` generates this from the [Project Environment Definitions](#Project-Environment-Definitions) defined in the PWA Studio source code.
+
+#### How variables are defined
+
+- If you set one or more of these defined environment variables before running the `create-env-file` command, using shell scripting or otherwise, then `create-env-file` will respect those environment variables and set declarations for them in the file, so they persist for later.
+- If the `--use-examples` flag is set, and the Project Environment Definitions declare an example value for the variable, then the `.env` file will include an explicit declaration of that environment variable, set to the example value.
+- If the Project Environment Definitions declare a default value for the variable, then the `.env` file will include an _example_ variable declaration, but it will be commented out.
+- Otherwise, the the `.env` file will include a declaration of an empty value, e.g. `MAGENTO_BACKEND_URL=`.
+
+#### Flags for `buildpack create-env-file`
+
+- `--use-examples`: As described in [How variables are defined](#How-variables-are-defined), this flag instructs `create-env-file` to explicitly set example values for all variables that have example values defined in [Project Environment Definitions](#Project-Environment-Definitions).
+
 ### `buildpack load-env <dir>`
 
 The `load-env` subcommand loads and validates the local environment according to the [Project Environment Definitions](#project-environment-definitions), including deprecated and changed settings.
-A command, shell script, or spawned subprocess can override individual environment variables at start time.
-When loading from `.env`, Buildpack will not overwrite variables that have already been declared.
-The command does not require a `.env` file to be present; however, if one is _not_ present, _and_ the variable `NODE_ENV` is _not_ set to `production`, then it will log a warning.
-If a `.env` file is not present, the environment may still be valid, because required variables may already be set by another process or command.
 
 ```sh
 npx @magento/pwa-buildpack load-env .
 ```
 
+A command, shell script, or spawned subprocess can override individual environment variables at start time.
+When loading from `.env`, Buildpack will not override variables that have already been declared.
+The command does not require a `.env` file to be present; however, if one is _not_ present, _and_ the variable `NODE_ENV` is _not_ set to `production`, then it will log a warning.
+If a `.env` file is not present, the environment may still be valid, because required variables may already be set by another process or command.
+
 _Note: It would be unusual to use the above example directly; the more common use of `buildpack load-env` is in NPM scripts as described above._
+
+#### Flags for `buildpack load-env`
+
+- `--core-dev-mode`: This flag is only for use when working on the core PWA Studio repository. It looks for an existing `.env` file, and if one does _not_ exist, it runs `buildpack create-env-file --use-examples` in the passed directory. It is used for quick setup of a new core dev environment.
 
 ### `buildpack create-custom-origin <dir>`
 
@@ -125,12 +145,12 @@ This command should be used only in a development environment, and never as part
 
 Use environment variables in the `CUSTOM_ORIGIN_` namespace to change the behavior of `create-custom-origin`.
 
-| Environment Variable Name | Description | Default |
-| --- | --- | --- |
-| `CUSTOM_ORIGIN_ENABLED` | Enable the custom origin feature. | `true` |
-| `CUSTOM_ORIGIN_ADD_UNIQUE_HASH` | Add a unique hash string to the custom origin, based on filesystem location. This naturally separates domains when running multiple project folders on one developer machine. | `true` |
-| `CUSTOM_ORIGIN_SUBDOMAIN` | Specify the subdomain prefix of the custom origin manually, instead of using the package name. | |
-| `CUSTOM_ORIGIN_EXACT_DOMAIN` | Specify the _exact_ domain of the custom origin manually. If this is not set, the domains will be created as subdomains of `.local.pwadev`. | |
+| Environment Variable Name       | Description                                                                                                                                                                   | Default |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `CUSTOM_ORIGIN_ENABLED`         | Enable the custom origin feature.                                                                                                                                             | `true`  |
+| `CUSTOM_ORIGIN_ADD_UNIQUE_HASH` | Add a unique hash string to the custom origin, based on filesystem location. This naturally separates domains when running multiple project folders on one developer machine. | `true`  |
+| `CUSTOM_ORIGIN_SUBDOMAIN`       | Specify the subdomain prefix of the custom origin manually, instead of using the package name.                                                                                |         |
+| `CUSTOM_ORIGIN_EXACT_DOMAIN`    | Specify the _exact_ domain of the custom origin manually. If this is not set, the domains will be created as subdomains of `.local.pwadev`.                                   |         |
 
 Set these variables permanently in your `.env` file, or argue them at the command line for overrides:
 
@@ -139,32 +159,40 @@ CUSTOM_ORIGIN_EXACT_DOMAIN="my.pwa" \
 npx @magento/pwa-buildpack create-custom-origin .
 ```
 
-### Flags
+### General Flags
 
 - `npx @magento/pwa-buildpack --version`: Display the current version of the Buildpack CLI
 - `npx @magento/pwa-buildpack --help` Display a usage guide.
 
 ## Programmatic API
 
-In a Node script, use the [`loadEnvironment()`](#loadenvironment) function to populate the environment from the `.env` file and translate it into usable JS objects.
-The method will also test that a given environment object is valid according to the [Project Environment Definitions](#project-environment-definitions), including deprecated and changed settings.
-
-You may also use the [`validateEnvironment()`](#validateenvironment) function to 
-The `loadEnvironment()` method runs `validateEnvironment()` on the parsed env file before creating its Configuration object.
+Each Buildpack command has an equivalent JavaScript function.
+The Buildpack CLI calls these functions from the command line, but they can be used directly in Node scripts.
 
 ### `loadEnvironment(directory, [logger])`
 
 The API for `buildpack load-env` is a function called `loadEnvironment`.
 
+```js
+const { loadEnvironment } = require('@magento/pwa-buildpack');
+
+const configuration = loadEnvironment(process.cwd());
+```
+
+Populates the `process.env` environment from the `.env` file, validates it against the [Project Environment Definitions](#Project-Environment-Definitions), and translates it into convenient, usable JS objects.
+
 `loadEnvironment(directory)` returns a `Configuration` object.
 Instead of a plain object of configuration values, the `Configuration` has methods which can quickly create these values and format them for specific uses.
 
-#### Parameters
+#### `loadEnvironment` Parameters
 
-- `dir`: Path to the project root. This folder may or may not contain a `.env` file.
+- `dirOrEnv`: Path to the project root. This folder may or may not contain a `.env` file.
+    _Optionally, this can be an object to be interpreted as a `process.env`._
+    _In this case, `loadEnvironment` will not attempt to parse a `.env` file.
+
 - `logger`: An optional logger object that `loadEnvironment(dir, logger)` will use instead of the default console.
 
-### `Configuration`
+#### The returned `Configuration` object
 
 Using `Configuration` objects returned by `loadEnvironment()`, a project can use a single source of truth for configuration without sharing a single, huge plain object full of global configuration values.
 
@@ -181,7 +209,31 @@ Using `Configuration` objects returned by `loadEnvironment()`, a project can use
 - `.isDevelopment`: True if `NODE_ENV=development`. Alias `.isDev`.
 - `.isTest`: True if `NODE_ENV=test`.
 
-### Examples
+### `createDotEnvFile(directory, options)`
+
+The API for `buildpack create-env-file` is a function called `createDotEnvFile`.
+
+```js
+const { createDotEnvFile } = require('@magento/pwa-buildpack');
+
+const fileContents = createDotEnvFile(process.cwd());
+```
+
+Reads from the current environment and the [Project Environment Definitions](#Project-Environment-Definitions), generates the contents of a `.env` file, and returns them as a string.
+The return string is ready to be parsed by the `dotenv` API, or written out to the filesystem.
+
+#### `createDotEnvFile` Parameters
+
+- `dirOrEnv`: Path to the project root. This folder may or may not contain a `.env` file which will be read before being overwritten, so its variables are preserved.
+    _Optionally, this can be an object to be interpreted as a `process.env`._
+    _In this case, `createDotEnvFile` will not attempt to parse an existing `.env` file before writing one.
+- `options`: An object which can contain a `logger` property which will be used as a logger, and a `useExamples` boolean which, if set `true`, will populate with example values as described in the [`create-env-file`](#buildpack-create-env-file-dir) documentation.
+
+### `configureHost(directory, options)`
+
+(Documentation TBA when `create-pwa` project is fully merged.)
+
+### Further Examples
 
 ```js
 import { loadEnvironment } from '@magento/pwa-buildpack';
