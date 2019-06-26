@@ -1,11 +1,40 @@
 import { useCallback, useMemo, useReducer } from 'react';
 
+/**
+ * An object containing state.
+ * @typedef {object} QueryState
+ * @prop {any | null} data
+ * @prop {any | null} error
+ * @prop {boolean} loading
+ */
+
+/**
+ * @type {QueryState}
+ */
 const initialState = {
     data: null,
     error: null,
     loading: false
 };
 
+/**
+ * An object describing a state change.
+ * @typedef {object} Action
+ * @prop {any} payload
+ * @prop {"receive response" | "reset state" | "set data" | "set error" | "set loading"} type
+ */
+
+/**
+ * A reducing function that returns new state objects.
+ * @callback QueryReducer
+ * @param {QueryState} state
+ * @param {Action} action
+ * @returns {QueryState}
+ */
+
+/**
+ * @type {QueryReducer}
+ */
 const reducer = (state, { payload, type }) => {
     switch (type) {
         case 'set data': {
@@ -38,6 +67,15 @@ const reducer = (state, { payload, type }) => {
 export const useQueryResult = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    /**
+     * @callback BoundActionCreator
+     * @param {any} payload
+     * @returns {void}
+     */
+
+    /**
+     * @type {BoundActionCreator}
+     */
     const setData = useCallback(
         payload => {
             dispatch({
@@ -48,6 +86,9 @@ export const useQueryResult = () => {
         [dispatch]
     );
 
+    /**
+     * @type {BoundActionCreator}
+     */
     const setError = useCallback(
         payload => {
             dispatch({
@@ -58,6 +99,9 @@ export const useQueryResult = () => {
         [dispatch]
     );
 
+    /**
+     * @type {BoundActionCreator}
+     */
     const setLoading = useCallback(
         payload => {
             dispatch({
@@ -68,6 +112,9 @@ export const useQueryResult = () => {
         [dispatch]
     );
 
+    /**
+     * @type {BoundActionCreator}
+     */
     const receiveResponse = useCallback(
         payload => {
             dispatch({
@@ -78,6 +125,9 @@ export const useQueryResult = () => {
         [dispatch]
     );
 
+    /**
+     * @type {BoundActionCreator}
+     */
     const resetState = useCallback(
         payload => {
             dispatch({
@@ -88,7 +138,15 @@ export const useQueryResult = () => {
         [dispatch]
     );
 
-    // this object should never change
+    /**
+     * @typedef {object} QueryApi
+     * @prop {typeof dispatch} dispatch
+     * @prop {typeof receiveResponse} receiveResponse
+     * @prop {BoundActionCreator} resetState
+     * @prop {BoundActionCreator} setData
+     * @prop {BoundActionCreator} setError
+     * @prop {BoundActionCreator} setLoading
+     */
     const api = useMemo(
         () => ({
             dispatch,
