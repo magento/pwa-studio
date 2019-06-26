@@ -4,7 +4,7 @@ import {
     createTestInstance
 } from '@magento/peregrine';
 
-import ProductFullDetail from '../ProductFullDetail';
+import ProductFullDetail from '../productFullDetail';
 
 jest.mock('react', () => {
     const React = jest.requireActual('react');
