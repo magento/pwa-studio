@@ -127,7 +127,12 @@ module.exports = async function(env) {
                         }
                     ]
                 }
-            ]
+            ],
+            // TODO: Replace this with whatever future configuration Webpack
+            // will use to enforce errors on missing ES6 imports. Webpack
+            // currently logs only warnings when ES6 imports are missing, and
+            // this is the cleanest way to make those into real errors.
+            strictExportPresence: true
         },
         resolve: await MagentoResolver.configure({
             paths: {
