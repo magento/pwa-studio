@@ -1,5 +1,5 @@
 import React from 'react';
-import MagentoRouteHandler from '../MagentoRouteHandler';
+import MagentoRouteHandler from '../magentoRouteHandler';
 import { shallow } from 'enzyme';
 import resolveUnknownRoute from '../resolveUnknownRoute';
 

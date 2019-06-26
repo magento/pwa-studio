@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
-import OrderItemsList from '../OrderItemsList';
+import OrderItemsList from '../orderItemsList';
 
 jest.mock('src/classify');
 

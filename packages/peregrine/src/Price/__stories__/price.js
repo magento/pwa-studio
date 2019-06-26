@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withReadme } from 'storybook-readme';
-import Price from '../Price';
-import docs from '../__docs__/Price.md';
+import Price from '../price';
+import docs from '../__docs__/price.md';
 
 const stories = storiesOf('Price', module);
 
