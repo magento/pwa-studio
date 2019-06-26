@@ -5,7 +5,7 @@ import { mergeClasses } from 'src/classify';
 
 import logo from '../Logo/logo.svg';
 
-const LoadingIndicator = (props) => {
+const LoadingIndicator = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const className = props.global ? classes.global : classes.root;
 
