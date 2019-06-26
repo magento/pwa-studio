@@ -14,6 +14,8 @@ import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
+const loadingIndicator = (<LoadingIndicator><span>{'Fetching Options...'}</span></LoadingIndicator>);
+
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
     // Non-configurable products can't be missing options
     if (cartItem.product_type !== 'configurable') {
