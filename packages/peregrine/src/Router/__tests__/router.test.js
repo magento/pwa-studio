@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 
-import MagentoRouter, { Consumer as RouteConsumer } from '../Router';
+import MagentoRouter, { Consumer as RouteConsumer } from '../router';
 
 const apiBase = 'https://store.com';
 
