@@ -11,7 +11,7 @@ import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import CloseIcon from 'react-feather/dist/icons/x';
 import FilterModal from 'src/components/FilterModal';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
@@ -135,7 +135,7 @@ export class Search extends Component {
             <Query query={PRODUCT_SEARCH} variables={queryVariable}>
                 {({ loading, error, data }) => {
                     if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return loadingIndicator;
+                    if (loading) return fullPageLoadingIndicator;
                     const { products } = data;
                     const { filters, total_count, items } = products;
 
