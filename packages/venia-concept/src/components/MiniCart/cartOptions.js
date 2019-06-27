@@ -4,9 +4,7 @@ import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from 'src/classify';
-import LoadingIndicator, {
-    loadingIndicator
-} from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import Button from 'src/components/Button';
 import Quantity from 'src/components/ProductQuantity';
 import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
@@ -15,6 +13,12 @@ import isProductConfigurable from 'src/util/isProductConfigurable';
 import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
+
+const loadingIndicator = (
+    <LoadingIndicator>
+        <span>{'Fetching Options...'}</span>
+    </LoadingIndicator>
+);
 
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
     // Non-configurable products can't be missing options
