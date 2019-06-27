@@ -52,7 +52,7 @@ This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data
 
 **Example:**
 ``` text
-MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
+MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
 ```
 
 You can do this all in a single command in `bash` or `sh`:

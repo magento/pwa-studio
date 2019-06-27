@@ -31,9 +31,11 @@ const { sections, changes = [] } = require('../../envVarDefinitions.json');
  *         })
  *     }
  */
+const varsByName = {};
 const envalidValidationConfig = {};
 for (const section of sections) {
     for (const variable of section.variables) {
+        varsByName[variable.name] = variable;
         const typeFac = envalid[variable.type];
         if (typeof typeFac !== 'function') {
             throw new Error(
@@ -209,20 +211,20 @@ const sortedChanges = changes.slice().sort();
 function applyBackwardsCompatChanges(env, log) {
     const mappedLegacyValues = {};
     for (const change of sortedChanges) {
-        // the env isn't using the var with changes, no need to log
         const isSet = env.hasOwnProperty(change.name);
         switch (change.type) {
             case 'defaultChanged':
                 // Example change only affects you if you have NOT set this var.
                 if (env[change.name] === change.original) {
+                    const updatedValue = varsByName[change.name].default;
                     log.warn(
                         `Default value for ${
                             change.name
                         } has changed in ${buildpackReleaseName}, due to ${
                             change.reason
-                        }.\nOld value: ${change.original}\nNew value: ${
-                            change.update
-                        }\nThis project has not set a value for ${
+                        }.\nOld value: ${
+                            change.original
+                        }\nNew value: ${updatedValue}\nThis project has not set a value for ${
                             change.name
                         }, so it is using the default value; check to make sure the change does not cause regressions.`
                     );
@@ -231,14 +233,15 @@ function applyBackwardsCompatChanges(env, log) {
             case 'exampleChanged':
                 // Example change only affects you if you have NOT set this var.
                 if (env[change.name] === change.original) {
+                    const updatedValue = varsByName[change.name].example;
                     log.warn(
                         `Example value for ${
                             change.name
                         } has changed in ${buildpackReleaseName}, due to ${
                             change.reason
-                        }.\nOld value: ${change.original}\nNew value: ${
-                            change.update
-                        }\nThis project is using the old example value; check to make sure this is intentional.`
+                        }.\nOld value: ${
+                            change.original
+                        }\nNew value: ${updatedValue}\nThis project is using the old example value; check to make sure this is intentional.`
                     );
                 }
                 break;

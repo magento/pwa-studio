@@ -67,7 +67,7 @@ module.exports = function printEnvFile(
 
             contents += graf(variable.desc);
 
-            if (variable.example) {
+            if (!isSet && variable.example) {
                 contents += graf(`- Example: ${variable.example}`);
             }
             if (hasDefault) {

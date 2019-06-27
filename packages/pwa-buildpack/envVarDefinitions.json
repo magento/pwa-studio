@@ -157,22 +157,19 @@
             "name": "UPWARD_JS_UPWARD_PATH",
             "type": "defaultChanged",
             "reason": "a new requirement that UPWARD definition files have a standardized name, to enable extensibility. You may need to rename the UPWARD definition file in your project",
-            "original": "venia-upward.yml",
-            "update": "upward.yml"
+            "original": "venia-upward.yml"
         },
         {
             "name": "MAGENTO_BACKEND_URL",
             "type": "exampleChanged",
             "reason": "updates to our backend cloud instances",
-            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/",
-            "update": "https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
+            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
         },
         {
             "name": "MAGENTO_BACKEND_URL",
             "type": "exampleChanged",
             "reason": "updates to our backend cloud instances",
-            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/",
-            "update": "https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
+            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
         },
         {
             "name": "MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST",

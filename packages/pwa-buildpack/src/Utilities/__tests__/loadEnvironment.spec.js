@@ -1,4 +1,5 @@
 jest.doMock('dotenv');
+jest.doMock('word-wrap', () => x => x);
 let definitions;
 jest.doMock('../../../envVarDefinitions.json', () => definitions);
 const debug = jest.fn().mockName('debug');
@@ -214,8 +215,7 @@ test('logs all types of change', () => {
                 type: 'defaultChanged',
                 name: 'HAS_DEFAULT_CHANGE',
                 original: 'old default',
-                reason: 'whimsy',
-                update: 'new default'
+                reason: 'whimsy'
             },
             {
                 type: 'defaultChanged',
@@ -228,8 +228,7 @@ test('logs all types of change', () => {
                 type: 'exampleChanged',
                 name: 'HAS_EXAMPLE_CHANGE',
                 original: 'old example',
-                reason: 'capriciousness',
-                update: 'new example'
+                reason: 'capriciousness'
             },
             {
                 type: 'removed',
@@ -287,7 +286,9 @@ test('logs all types of change', () => {
     expect(console.warn).toHaveBeenCalledTimes(6);
     // Short test strings to support line breaks from word wrapping
     expect(console.warn.mock.calls[0][0]).toMatch('Old value: old default');
+    expect(console.warn.mock.calls[0][0]).toMatch('New value: new default');
     expect(console.warn.mock.calls[1][0]).toMatch('Old value: old example');
+    expect(console.warn.mock.calls[1][0]).toMatch('New value: new example');
     expect(console.warn.mock.calls[2][0]).toMatch('removed');
     expect(console.warn.mock.calls[2][0]).toMatch('ignored');
     expect(console.warn.mock.calls[3][0]).toMatch('new');

@@ -49,3 +49,14 @@ test('populates with examples where available', () => {
     const fileText = createDotEnvFile({}, { useExamples: true });
     expect(dotenv.parse(fileText)).toMatchObject(examples);
 });
+
+test('does not print example comment if value is set custom', () => {
+    const fileText = createDotEnvFile({
+        MAGENTO_BACKEND_URL: 'https://other.magento.site',
+        IMAGE_SERVICE_CACHE_EXPIRES: 'a million years'
+    });
+    expect(fileText).not.toMatch(examples.MAGENTO_BACKEND_URL);
+    expect(fileText).not.toMatch(
+        `Example: ${examples.IMAGE_SERVICE_CACHE_EXPIRES}`
+    );
+});
