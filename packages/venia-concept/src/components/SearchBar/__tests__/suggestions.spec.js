@@ -14,7 +14,7 @@ const filters = [
 test('renders correctly', () => {
     const products = {
         filters: [],
-        items: []
+        items: [{}]
     };
 
     const instance = createTestInstance(
@@ -63,10 +63,23 @@ test('renders null if visible is false', () => {
     expect(root.children).toEqual([]);
 });
 
+test('renders null if items array is empty', () => {
+    const products = {
+        filters: [],
+        items: []
+    };
+
+    const { root } = createTestInstance(
+        <Suggestions products={products} visible={true} />
+    );
+
+    expect(root.children).toEqual([]);
+});
+
 test('renders a category list', () => {
     const products = {
         filters,
-        items: []
+        items: [{}]
     };
 
     const { root } = createTestInstance(

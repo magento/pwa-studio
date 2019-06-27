@@ -1,5 +1,4 @@
 </head>
-{{> templates/js-unavailable}}
 {{#urlResolver}}
 <body data-model-type="{{type}}" data-model-id="{{id}}">
 {{/urlResolver}}

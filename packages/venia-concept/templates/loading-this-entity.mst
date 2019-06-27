@@ -1,0 +1,6 @@
+
+<div class="i-c i-c-loading">
+    <h1 class="i-c-heading">{{entityTypeName}}</h1>
+    <img class="i-c-logo i-c-spin" alt="Venia" src="{{assets.svg.logo}}">
+    <h2 class="i-c-subhead">Loading...</h2>
+</div>
