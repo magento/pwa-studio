@@ -21,7 +21,11 @@ class SearchTrigger extends Component {
 
         return (
             <Fragment>
-                <button className={searchClass} name="button" onClick={toggleSearch}>
+                <button
+                    className={searchClass}
+                    name="button"
+                    onClick={toggleSearch}
+                >
                     {children}
                 </button>
             </Fragment>
