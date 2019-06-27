@@ -166,12 +166,6 @@
             "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
         },
         {
-            "name": "MAGENTO_BACKEND_URL",
-            "type": "exampleChanged",
-            "reason": "updates to our backend cloud instances",
-            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
-        },
-        {
             "name": "MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST",
             "type": "renamed",
             "update": "CUSTOM_ORIGIN_ENABLED",
