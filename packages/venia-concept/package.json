@@ -15,7 +15,7 @@
     "build:ci": "buildpack load-env . && yarn run -s build:prod",
     "build:dev": " ",
     "build:prod": "webpack -p --color --no-progress --profile --env.mode production",
-    "clean": "rimraf dist esm",
+    "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia --insecure",
     "now-build": "../../now-build.sh",
     "prepublishOnly": "yarn run build",
@@ -102,7 +102,7 @@
     "node": "8.10.0 || >=10.7.0",
     "yarn": ">=1.12.0"
   },
-  "module": "esm/index.js",
+  "module": "src/index.js",
   "es2015": "src/index.js",
   "esnext": "src/index.js",
   "sideEffects": [

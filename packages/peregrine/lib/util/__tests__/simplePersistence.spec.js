@@ -4,7 +4,6 @@ const NAME = 'UnitTest';
 const KEY = `M2_VENIA_BROWSER_PERSISTENCE__${NAME}`;
 const MOCK_VALUE = { unit: 'test' };
 
-const previousLocalStorage = window.localStorage;
 const mockGetItem = jest.fn();
 const mockRemoveItem = jest.fn();
 const mockSetItem = jest.fn();
@@ -14,7 +13,7 @@ const localStorageMock = {
     setItem: mockSetItem
 };
 
-let instance;
+const instance = new BrowserPersistence(localStorageMock);
 
 /**
  * The BrowserPersistence class enforces a particular shape for
@@ -34,22 +33,6 @@ const shape = ({ value, timeStored, ttl }) => {
         ttl
     });
 };
-
-beforeAll(() => {
-    // Mock window.localStorage so we can control it.
-    Object.defineProperty(window, 'localStorage', {
-        value: localStorageMock
-    });
-
-    instance = new BrowserPersistence();
-});
-
-afterAll(() => {
-    // Set window.localStorage back to what it was.
-    Object.defineProperty(window, 'localStorage', {
-        value: previousLocalStorage
-    });
-});
 
 describe('getItem', () => {
     test('it returns the item if found', () => {

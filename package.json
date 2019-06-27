@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "private": true,
   "workspaces": [
+    "packages/babel-preset-peregrine",
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
@@ -25,7 +26,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
-    "postbuild": "rimraf \"./packages/*/{esm,dist}/{,**/}__*__\"",
+    "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
     "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:validate": "prettier-check '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
@@ -43,9 +44,9 @@
     "watch:venia": "yarn workspace @magento/venia-concept run watch; cd - >/dev/null"
   },
   "devDependencies": {
+    "@magento/babel-preset-peregrine": "~2.1.0",
     "@magento/eslint-config": "~1.4.1",
     "babel-eslint": "~10.0.1",
-    "babel-plugin-module-resolver": "~3.2.0",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
     "concurrently": "^4.1.0",
