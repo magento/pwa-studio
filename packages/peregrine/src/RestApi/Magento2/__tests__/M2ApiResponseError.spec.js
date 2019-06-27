@@ -60,3 +60,35 @@ test('does not call Error.captureStackTrace if unavailable', () => {
     });
     Error.captureStackTrace = capture;
 });
+
+test('exposes the original error message for json', () => {
+    const jsonError = new M2ApiResponseError({
+        method: 'GET',
+        resourceUrl: 'bad-path',
+        response: {
+            status: 500,
+            statusText: 'Just the worst'
+        },
+        bodyText: JSON.stringify({
+            message: 'Server error 1',
+            trace: 'Server error 1 trace',
+            randomProp: 12
+        })
+    });
+
+    expect(jsonError.baseMessage).toEqual('Server error 1');
+});
+
+test('exposes the original error message for non-json', () => {
+    const error = new M2ApiResponseError({
+        method: 'GET',
+        resourceUrl: 'bad-path',
+        response: {
+            status: 500,
+            statusText: 'Just the worst'
+        },
+        bodyText: '<p>I am unparseable</p>'
+    });
+
+    expect(error.baseMessage).toEqual('<p>I am unparseable</p>');
+});

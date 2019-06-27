@@ -200,6 +200,7 @@ class M2ApiRequest {
                             })
                     );
                 }
+
                 return response;
             });
     }
