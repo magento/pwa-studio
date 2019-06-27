@@ -7,6 +7,7 @@ Array [
   >
     <img
       alt="Product Name"
+      className="thumbnail"
     />
   </span>,
   <span
