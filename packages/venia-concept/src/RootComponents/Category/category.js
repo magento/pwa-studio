@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
@@ -14,30 +14,16 @@ import isObjectEmpty from 'src/util/isObjectEmpty';
 import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
-import getQueryParameterValue from 'src/util/getQueryParameterValue';
 
 const Category = props => {
-    const { filterClear, id, location, openDrawer, pageSize } = props;
+    const { filterClear, id, openDrawer, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // Check the query param for the initial page to provide to the pagination
-    // hook. Without this we may load `page=4` but `usePagination` will init to
-    // 1, so it'll fetch page 1 _and_ page 4 (bad!).
-    const initialPage = useMemo(
-        () =>
-            Math.max(
-                1,
-                Math.floor(
-                    ~~getQueryParameterValue({
-                        location,
-                        queryParameter: 'page'
-                    })
-                )
-            ),
-        [location]
-    );
+    const [paginationValues, paginationApi] = usePagination({
+        history: props.history,
+        location: props.location
+    });
 
-    const [paginationValues, paginationApi] = usePagination(initialPage);
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 

@@ -4,7 +4,6 @@ import { withRouter } from 'src/drivers';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
-import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import defaultClasses from './pagination.css';
 import NavButton from './navButton';
 import { navButtons } from './constants';
@@ -26,17 +25,9 @@ class Pagination extends Component {
         })
     };
 
-    componentDidMount() {
-        this.syncPage();
-    }
-
-    componentDidUpdate() {
-        this.syncPage();
-    }
-
     get navigationTiles() {
         const { classes, pageControl } = this.props;
-        const { currentPage, totalPages } = pageControl;
+        const { currentPage, setPage, totalPages } = pageControl;
 
         // Begin building page navigation tiles
         const tiles = [];
@@ -58,7 +49,7 @@ class Pagination extends Component {
                 <button
                     className={classes.tileButton}
                     key={tile}
-                    onClick={() => this.setPage(tile)}
+                    onClick={() => setPage(tile)}
                 >
                     {tileMarker}
                     {tile}
@@ -69,7 +60,7 @@ class Pagination extends Component {
 
     render() {
         const { classes } = this.props;
-        const { currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
         const { navigationTiles } = this;
 
         if (!this.props.pageControl || totalPages == 1) {
@@ -92,7 +83,7 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.firstPage.name}
                     active={isActiveLeft}
-                    onClick={() => this.setPage(leftSkip)}
+                    onClick={() => setPage(leftSkip)}
                     buttonLabel={navButtons.firstPage.buttonLabel}
                 />
                 <NavButton
@@ -111,36 +102,24 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.lastPage.name}
                     active={isActiveRight}
-                    onClick={() => this.setPage(rightSkip)}
+                    onClick={() => setPage(rightSkip)}
                     buttonLabel={navButtons.lastPage.buttonLabel}
                 />
             </div>
         );
     }
 
-    setPage = (pageNumber, shouldReplace = false) => {
-        const { history, location, pageControl } = this.props;
-        const { search } = location;
-        const queryParams = new URLSearchParams(search);
-        const method = shouldReplace ? 'replace' : 'push';
-
-        queryParams.set('page', pageNumber);
-        history[method]({ search: queryParams.toString() });
-
-        pageControl.setPage(pageNumber);
-    };
-
     slideNavLeft = () => {
-        const { currentPage } = this.props.pageControl;
+        const { currentPage, setPage } = this.props.pageControl;
         if (currentPage > 1) {
-            this.setPage(currentPage - 1);
+            setPage(currentPage - 1);
         }
     };
 
     slideNavRight = () => {
-        const { currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            this.setPage(currentPage + 1);
+            setPage(currentPage + 1);
         }
     };
 
@@ -156,35 +135,6 @@ class Pagination extends Component {
             leadTile = Math.max(totalPages - tileBuffer * 2, 1);
         }
         return leadTile;
-    };
-
-    syncPage = () => {
-        const { location, pageControl } = this.props;
-        const { currentPage, totalPages } = pageControl;
-
-        const queryPage = Math.max(
-            1,
-            // Note: The ~ operator is a bitwise NOT operator.
-            // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
-            // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
-            // For positive numbers, applying this operator twice has the same effect as Math.floor.
-            ~~getQueryParameterValue({
-                location,
-                queryParameter: 'page'
-            })
-        );
-        // if the page in the query string doesn't match client state
-        // update client state
-        if (queryPage !== currentPage) {
-            // if the query page is not a valid page number
-            // set it to `1` instead
-            // and make sure to update the URL
-            if (queryPage > totalPages) {
-                this.setPage(1, true);
-            } else {
-                this.setPage(queryPage);
-            }
-        }
     };
 }
 
