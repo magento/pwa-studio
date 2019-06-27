@@ -10,6 +10,7 @@
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;
     grid-template-rows: min-content 1fr;
+    height: 100vh; /* fallback for browsers that don't support custom properties */
     height: var(--minicart-height);
     opacity: 0;
     overflow: hidden;
