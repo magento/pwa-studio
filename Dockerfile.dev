@@ -32,6 +32,9 @@ ARG ENVFILEPATH
 # copy configuration env file from host file system to venia-concept .env for build
 COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 
+# run yarn again to reestablish workspace symlinks
+RUN yarn install --frozen-lockfile
+
 # build the app
 RUN yarn run build 
 

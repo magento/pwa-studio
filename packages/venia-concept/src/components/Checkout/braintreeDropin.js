@@ -20,7 +20,7 @@ import dropIn from 'braintree-web-drop-in';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
-const { BRAINTREE_TOKEN } = process.env;
+const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 const CONTAINER_ID = 'braintree-dropin-container';
 
 /**
@@ -41,7 +41,7 @@ const BraintreeDropin = props => {
         async function createDropinInstance() {
             try {
                 const dropinInstance = await dropIn.create({
-                    authorization: BRAINTREE_TOKEN,
+                    authorization,
                     container: `#${CONTAINER_ID}`,
                     card: {
                         overrides: {

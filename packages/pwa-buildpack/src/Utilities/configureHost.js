@@ -15,7 +15,9 @@ const { username } = os.userInfo();
  */
 const devCertUtils = require('devcert/dist/utils');
 const MacOSPlatform = require('devcert/dist/platforms/darwin');
+/* istanbul ignore next: temporary until we switch to devcert fork */
 const proto = (MacOSPlatform.default || MacOSPlatform).prototype;
+/* istanbul ignore next: temporary until we switch to devcert fork */
 proto.isNSSInstalled = function() {
     try {
         return devCertUtils
@@ -87,7 +89,7 @@ Please enter the password for ${chalk.whiteBright(
 
 function getUniqueDomainAndPorts(customName, addUniqueHash) {
     let name = DEFAULT_NAME;
-    if (typeof customName === 'string') {
+    if (customName && typeof customName === 'string') {
         name = customName;
     } else {
         const pkgLoc = join(process.cwd(), 'package.json');
