@@ -224,7 +224,7 @@ function applyBackwardsCompatChanges(env, log) {
                             change.reason
                         }.\nOld value: ${
                             change.original
-                        }\nNew value: ${updatedValue}\nThis project has not set a value for ${
+                        }\nNew value: ${updatedValue}\nThis project has not set a custom value for ${
                             change.name
                         }, so it is using the default value; check to make sure the change does not cause regressions.`
                     );

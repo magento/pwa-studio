@@ -153,7 +153,7 @@ export const submitShippingAddress = payload =>
         } catch (error) {
             dispatch(
                 actions.shippingAddress.reject({
-                    incorrectAddressMessage: error.message
+                    invalidAddressMessage: error.message
                 })
             );
             return null;
