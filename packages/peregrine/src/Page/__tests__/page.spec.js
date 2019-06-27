@@ -2,9 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { RouteProvider } from '../../Router';
-import Page from '../Page';
+import Page from '../page';
 
-jest.mock('../../Router/MagentoRouteHandler');
+jest.mock('../../Router/magentoRouteHandler');
 
 const context = { one: 1 };
 
