@@ -12,6 +12,11 @@
     justify-content: center;
 }
 
+.thumbnail {
+    max-height: 75px;
+    max-width: 60px;
+}
+
 .name {
     word-break: break-word;
 }

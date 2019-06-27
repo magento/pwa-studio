@@ -1,5 +1,7 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
+import { Form } from 'informed';
+import Button from 'src/components/Button';
 
 import ShippingForm from '../shippingForm';
 
@@ -50,13 +52,15 @@ test('renders no initial value and no shipping methods if no availableShippingMe
 
 test('calls props.cancel on cancel', () => {
     const component = testRenderer.create(<ShippingForm {...defaultProps} />);
-    component.root.children[0].instance.cancel();
+    const button = component.root.findAllByType(Button)[0];
+    button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
 });
 
 test('calls props.submit with selected shipping method matching code', () => {
     const component = testRenderer.create(<ShippingForm {...defaultProps} />);
-    component.root.children[0].instance.submit({ shippingMethod: 'flatrate' });
+    const form = component.root.findByType(Form);
+    form.props.onSubmit({ shippingMethod: 'flatrate' });
     expect(mockSubmit).toHaveBeenCalledWith({
         shippingMethod: availableShippingMethods[0]
     });
@@ -64,6 +68,7 @@ test('calls props.submit with selected shipping method matching code', () => {
 
 test('calls props.cancel on submit if could not find matching shipping method/code', () => {
     const component = testRenderer.create(<ShippingForm {...defaultProps} />);
-    component.root.children[0].instance.submit({ shippingMethod: 'UNKNOWN' });
+    const form = component.root.findByType(Form);
+    form.props.onSubmit({ shippingMethod: 'UNKNOWN' });
     expect(mockCancel).toHaveBeenCalled();
 });
