@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
+import debounce from 'lodash.debounce';
 
 import { useWindowSize } from '@magento/peregrine';
 
@@ -29,7 +30,24 @@ const MiniCart = props => {
     const { editItem, isEditingItem, isLoading, isUpdatingItem } = cart;
 
     // Hooks.
-    const { innerHeight: viewportHeight } = useWindowSize();
+    const { innerHeight } = useWindowSize();
+    const [viewportHeight, setViewportHeight] = useState(innerHeight);
+    // We need innerHeight to be mutable so its value is not captured in
+    // our debounced function.
+    const innerHeightMutableRef = useRef(innerHeight);
+
+    // Always update the innerHeight mutable ref with innerHeight's latest value.
+    innerHeightMutableRef.current = innerHeight;
+
+    const setViewportHeightDebounced = debounce(() => {
+        // We're really just doing setViewportHeight(innerHeight) here
+        // but because we're within a debounced function, innerHeight
+        // gets captured (never updates).
+        // So we use this ref instead to ensure we always have the latest value.
+        setViewportHeight(innerHeightMutableRef.current);
+    }, 1000);
+    const setViewportHeightDebouncedRef = useRef(setViewportHeightDebounced);
+    useEffect(setViewportHeightDebouncedRef.current, [innerHeight]);
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
