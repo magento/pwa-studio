@@ -23,7 +23,7 @@ class SearchTrigger extends Component {
             <Fragment>
                 <button
                     className={searchClass}
-                    name="button"
+                    role="button"
                     onClick={toggleSearch}
                 >
                     {children}
