@@ -23,6 +23,7 @@ const setQueryParam = ({ location, history, parameter, value }) => {
  * @param {String} namespace the namespace to apply to the pagination query
  * @param {String} parameter the name of the query parameter to use for page
  * @param {Number} initialPage the initial current page value
+ * @param {Number} intialTotalPages the total pages expected to be usable by this hook
  *
  * TODO update with defaults
  *
@@ -33,10 +34,11 @@ export const usePagination = ({
     history = window.history,
     namespace = '',
     parameter = 'page',
-    initialPage = 1
+    initialPage = 1,
+    intialTotalPages = 1
 }) => {
     const [currentPage, setCurrentPage] = useState(initialPage);
-    const [totalPages, setTotalPages] = useState(null);
+    const [totalPages, setTotalPages] = useState(intialTotalPages);
 
     const setValue = useCallback(
         val => {
