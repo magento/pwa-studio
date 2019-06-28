@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
-// Default of 6 to match the default category page size.
+// TODO: This can be replaced by the value from `storeConfig when the PR,
+// https://github.com/magento/graphql-ce/pull/650, is released.
 const pageSize = 6;
 const emptyData = Array.from({ length: pageSize }).fill(null);
 
