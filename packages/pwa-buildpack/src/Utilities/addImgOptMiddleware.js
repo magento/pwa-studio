@@ -81,7 +81,7 @@ https://github.com/nodejs/node-gyp#installation`
             }
 
             const { width, height } = incomingQuery;
-            let rewrittenUrl = `https://0.0.0.0/resize/${width}/`;
+            let rewrittenUrl = `https://0.0.0.0/resize/${width}`;
 
             // If we received height and width we should force crop since our
             // implementation of express sharp defaults fit to "outside" if crop
@@ -92,7 +92,7 @@ https://github.com/nodejs/node-gyp#installation`
             //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
             //   https://sharp.pixelplumbing.com/en/stable/api-resize/
             if (height) {
-                rewrittenUrl += `${height}/`;
+                rewrittenUrl += `/${height}`;
                 params.set('crop', true);
             }
 
