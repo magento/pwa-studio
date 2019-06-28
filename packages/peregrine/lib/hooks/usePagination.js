@@ -41,6 +41,7 @@ export const usePagination = ({
     const setValue = useCallback(
         val => {
             // Fallback to initial value if NaN ie page='foo'.
+            // TODO: handle negative initial values as well.
             setCurrentPage(parseInt(val) || initialPage);
         },
         [initialPage]
