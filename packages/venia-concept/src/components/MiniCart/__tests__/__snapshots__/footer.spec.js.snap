@@ -7,12 +7,12 @@ exports[`renders the correct tree 1`] = `
     fallback={
       <div>
         <CheckoutButton
-          ready={false}
+          disabled={true}
         />
       </div>
     }
   >
-    <Connect(CheckoutWrapper) />
+    <Connect(Flow) />
   </React.Suspense>
 </div>
 `;
