@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 require('dotenv').config();
-
-const config = require('../lib/envToConfig')(process.env);
+const config = require('camelspace')('upwardJs')(process.env);
 
 require('../lib/createUpwardServer.js')(config).catch(e => {
     console.error(e.stack);

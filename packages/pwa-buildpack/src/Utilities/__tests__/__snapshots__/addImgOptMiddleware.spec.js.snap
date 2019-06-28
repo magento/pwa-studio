@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`recovers from missing apicache dep 1`] = `
+Array [
+  "Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
+- apicache: Reason: apicache not here
+- apicache: Reason: cache is not a function
+
+Images will be served uncompressed.
+
+If possible, install additional tools to build NodeJS native dependencies:
+https://github.com/nodejs/node-gyp#installation",
+]
+`;
+
+exports[`recovers from missing express-sharp dep 1`] = `
+Array [
+  "Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
+- apicache: Reason: apicache not here
+- @magento/express-sharp: Reason: express-sharp was not compatible
+- apicache: Reason: cache is not a function
+- @magento/express-sharp: Reason: expressSharp is not a function
+
+Images will be served uncompressed.
+
+If possible, install additional tools to build NodeJS native dependencies:
+https://github.com/nodejs/node-gyp#installation",
+]
+`;

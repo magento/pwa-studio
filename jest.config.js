@@ -139,7 +139,11 @@ const jestConfig = {
             'graphql-cli-validate-magento-pwa-queries',
             'GraphQL CLI Plugin',
             () => ({
-                testEnvironment: 'node'
+                testEnvironment: 'node',
+                moduleNameMapper: {
+                    './magento-compatibility':
+                        '<rootDir>/magento-compatibility.js'
+                }
             })
         )
     ],
