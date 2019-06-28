@@ -151,7 +151,7 @@ test('renders and closes shipping method form', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-// TODO: Update act with async when 16.9.0 is released
+// TODO: Update act with async when React 16.9.0 is released
 test('submit address form calls action with type and values', () => {
     const component = createTestInstance(<Form {...defaultProps} />);
 
@@ -172,7 +172,7 @@ test('submit address form calls action with type and values', () => {
     });
 });
 
-// TODO: Update act with async when 16.9.0 is released
+// TODO: Update act with async when React 16.9.0 is released
 test('submit payments form calls action with type and values', () => {
     const component = createTestInstance(<Form {...defaultProps} />);
 
@@ -193,7 +193,7 @@ test('submit payments form calls action with type and values', () => {
     });
 });
 
-// TODO: Update act with async when 16.9.0 is released
+// TODO: Update act with async when React 16.9.0 is released
 test('submit shipping form calls action with type and values', () => {
     const component = createTestInstance(<Form {...defaultProps} />);
 
