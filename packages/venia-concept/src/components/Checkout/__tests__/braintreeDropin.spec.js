@@ -5,7 +5,7 @@ import dropin from 'braintree-web-drop-in';
 
 import BraintreeDropin from '../braintreeDropin';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('@magento/peregrine', () => ({
     ...jest.requireActual('@magento/peregrine'),
     Util: {

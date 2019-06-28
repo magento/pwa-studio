@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { array, func, oneOfType, shape, string } from 'prop-types';
 
-import { Query } from 'src/drivers';
-import classify from 'src/classify';
+import { Query } from '@magento/venia-drivers';
+import classify from '../../classify';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
 import getCmsBlocks from '../../queries/getCmsBlocks.graphql';

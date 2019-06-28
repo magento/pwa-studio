@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 
 import Branch from '../categoryBranch';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const props = {
     name: 'a',

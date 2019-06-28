@@ -1,4 +1,4 @@
-import actions from 'src/actions/checkoutReceipt';
+import actions from '../../actions/checkoutReceipt';
 import reducer from '../checkoutReceipt';
 
 const order = { id: 1, billing_address: {} };

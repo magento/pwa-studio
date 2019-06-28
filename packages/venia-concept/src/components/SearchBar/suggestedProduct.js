@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import classify from 'src/classify';
-import { Link, resourceUrl } from 'src/drivers';
+import classify from '../../classify';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import defaultClasses from './suggestedProduct.css';
 

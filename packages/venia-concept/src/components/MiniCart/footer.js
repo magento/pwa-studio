@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { bool, number, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import Checkout from 'src/components/Checkout';
-import CheckoutButton from 'src/components/Checkout/checkoutButton';
+import { mergeClasses } from '../../classify';
+import Checkout from '../Checkout';
+import CheckoutButton from '../Checkout/checkoutButton';
 
 import defaultClasses from './footer.css';
 import TotalsSummary from './totalsSummary';

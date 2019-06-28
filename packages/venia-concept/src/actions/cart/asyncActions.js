@@ -1,7 +1,7 @@
 import { RestApi, Util } from '@magento/peregrine';
 
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
-import checkoutActions from 'src/actions/checkout';
+import { closeDrawer, toggleDrawer } from '../app';
+import checkoutActions from '../checkout';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;

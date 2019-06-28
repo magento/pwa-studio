@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import actions from 'src/actions/checkoutReceipt';
+import actions from '../actions/checkoutReceipt';
 
 const initialState = {
     order: {}

@@ -79,10 +79,10 @@ The Venia Adapter wraps around Venia components to satisfy any implicit external
 ### Venia drivers
 
 The [`src/drivers`][] dependency is a centralized module for Venia components that rely on external dependencies, such as GraphQL clients and Redux stores.
-Instead of importing these dependencies directly, Venia components import them from `src/drivers`.
+Instead of importing these dependencies directly, Venia components import them from the virtual dependency `@magento/venia-drivers`.
 
 ```js
-import { Link, resourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 ```
 
 The default implementation, which is used in the Venia storefront, provides modules that work with the components provided by the [Venia Adapter][].

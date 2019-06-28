@@ -5,6 +5,7 @@ import { createTestInstance, usePagination } from '@magento/peregrine';
 import { navButtons } from '../constants';
 import Pagination from '../pagination';
 
+jest.mock('../../../classify');
 jest.mock('../navButton');
 
 const PaginationWrapper = ({ currentPage = 1, totalPages = 3 }) => {

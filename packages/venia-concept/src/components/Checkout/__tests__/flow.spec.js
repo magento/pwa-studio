@@ -6,7 +6,7 @@ import Cart from '../cart';
 import Form from '../form';
 import Receipt from '../Receipt';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 jest.mock('../cart', () => 'Cart');

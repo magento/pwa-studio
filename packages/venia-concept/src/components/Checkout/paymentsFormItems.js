@@ -9,17 +9,17 @@ import { useFormState } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
 import BraintreeDropin from './braintreeDropin';
-import Button from 'src/components/Button';
-import Checkbox from 'src/components/Checkbox';
-import Field from 'src/components/Field';
-import TextInput from 'src/components/TextInput';
+import Button from '../Button';
+import Checkbox from '../Checkbox';
+import Field from '../Field';
+import TextInput from '../TextInput';
 import {
     isRequired,
     hasLengthExactly,
     validateRegionCode,
     validateEmail
-} from 'src/util/formValidators';
-import combine from 'src/util/combineValidators';
+} from '../../util/formValidators';
+import combine from '../../util/combineValidators';
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes

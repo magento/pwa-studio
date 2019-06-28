@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import get from 'lodash/get';
 import { Util } from '@magento/peregrine';
-import actions from 'src/actions/checkout';
+import actions from '../actions/checkout';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();

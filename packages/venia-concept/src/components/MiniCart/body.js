@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import LoadingIndicator from 'src/components/LoadingIndicator';
+import { mergeClasses } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
 
 import defaultClasses from './body.css';
 import EditItem from './editItem';

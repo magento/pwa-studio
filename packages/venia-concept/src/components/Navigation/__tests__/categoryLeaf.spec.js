@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import Leaf from '../categoryLeaf';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const props = {
     name: 'a',

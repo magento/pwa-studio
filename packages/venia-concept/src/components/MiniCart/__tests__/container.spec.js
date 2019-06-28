@@ -2,7 +2,7 @@ import Container from '../container';
 import MiniCart from '../miniCart';
 
 jest.mock('../miniCart');
-jest.mock('src/drivers', () => ({
+jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
             component,
@@ -11,7 +11,7 @@ jest.mock('src/drivers', () => ({
         }))
     )
 }));
-jest.mock('src/selectors/cart', () => ({
+jest.mock('../../../selectors/cart', () => ({
     isEmptyCartVisible: jest.fn(() => true),
     isMiniCartMaskOpen: jest.fn(() => true)
 }));
