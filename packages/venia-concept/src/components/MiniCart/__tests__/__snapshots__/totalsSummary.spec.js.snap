@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an empty div when it does not have a subtotal 1`] = `<div />`;
+
+exports[`renders correctly when it has a subtotal 1`] = `
+<div>
+  <dl>
+    <dt>
+      <span>
+        Cart Total : 
+        <mockConstructor
+          value={99}
+        />
+      </span>
+    </dt>
+    <dd>
+      (
+       
+      items
+      )
+    </dd>
+  </dl>
+</div>
+`;

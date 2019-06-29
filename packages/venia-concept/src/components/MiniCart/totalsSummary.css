@@ -1,0 +1,19 @@
+.root {
+    /* Even though this is empty, we leave it in to support overriding. */
+}
+
+.subtotalLabel {
+    color: rgb(var(--venia-text-alt));
+}
+
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.totals {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

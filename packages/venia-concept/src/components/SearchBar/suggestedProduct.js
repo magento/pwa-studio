@@ -26,7 +26,8 @@ class SuggestedProduct extends Component {
             root: string,
             image: string,
             name: string,
-            price: string
+            price: string,
+            thumbnail: string
         })
     };
 
@@ -49,6 +50,7 @@ class SuggestedProduct extends Component {
                 <span className={classes.image}>
                     <img
                         alt={name}
+                        className={classes.thumbnail}
                         src={resourceUrl(small_image, {
                             type: 'image-product',
                             width: 60

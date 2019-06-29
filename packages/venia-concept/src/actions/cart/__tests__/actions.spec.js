@@ -150,28 +150,24 @@ test('updateItem.receive() returns a proper action object', () => {
     });
 });
 
-test('openOptionsDrawer.toString() returns the proper action type', () => {
-    expect(actions.openOptionsDrawer.toString()).toBe(
-        'CART/OPEN_OPTIONS_DRAWER'
-    );
+test('beginEditItem.toString() returns the proper action type', () => {
+    expect(actions.beginEditItem.toString()).toBe('CART/BEGIN_EDIT_ITEM');
 });
 
-test('openOptionsDrawer() returns a proper action object', () => {
-    expect(actions.openOptionsDrawer(payload)).toEqual({
-        type: 'CART/OPEN_OPTIONS_DRAWER',
+test('beginEditItem() returns a proper action object', () => {
+    expect(actions.beginEditItem(payload)).toEqual({
+        type: 'CART/BEGIN_EDIT_ITEM',
         payload
     });
 });
 
-test('closeOptionsDrawer.toString() returns the proper action type', () => {
-    expect(actions.closeOptionsDrawer.toString()).toBe(
-        'CART/CLOSE_OPTIONS_DRAWER'
-    );
+test('endEditItem.toString() returns the proper action type', () => {
+    expect(actions.endEditItem.toString()).toBe('CART/END_EDIT_ITEM');
 });
 
-test('closeOptionsDrawer() returns a proper action object', () => {
-    expect(actions.closeOptionsDrawer(payload)).toEqual({
-        type: 'CART/CLOSE_OPTIONS_DRAWER',
+test('endEditItem() returns a proper action object', () => {
+    expect(actions.endEditItem(payload)).toEqual({
+        type: 'CART/END_EDIT_ITEM',
         payload
     });
 });

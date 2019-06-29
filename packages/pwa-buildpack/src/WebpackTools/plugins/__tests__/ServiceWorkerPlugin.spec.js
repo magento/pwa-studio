@@ -8,13 +8,12 @@ const ServiceWorkerPlugin = require('../ServiceWorkerPlugin');
 
 test('throws if options are missing', () => {
     expect(() => new ServiceWorkerPlugin({})).toThrow(
-        'env.mode must be of type string'
+        'mode must be of type string'
     );
     expect(
         () =>
             new ServiceWorkerPlugin({
-                env: { mode: 'development' },
-                serviceWorkerFileName: 'file.name'
+                mode: 'development'
             })
     ).toThrow('paths.output must be of type string');
 });
@@ -22,10 +21,7 @@ test('throws if options are missing', () => {
 test('returns a valid Webpack plugin', () => {
     expect(
         new ServiceWorkerPlugin({
-            env: {
-                mode: 'development'
-            },
-            serviceWorkerFileName: 'sw.js',
+            mode: 'development',
             runtimeCacheAssetPath: 'https://location/of/assets',
             paths: {
                 output: 'path/to/assets'
@@ -36,10 +32,7 @@ test('returns a valid Webpack plugin', () => {
 
 test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
     const plugin = new ServiceWorkerPlugin({
-        env: {
-            mode: 'production'
-        },
-        serviceWorkerFileName: 'sw.js',
+        mode: 'production',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
             output: 'path/to/assets'
@@ -66,10 +59,7 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
 
 test('.apply calls nothing but warns in console in dev', () => {
     const plugin = new ServiceWorkerPlugin({
-        env: {
-            mode: 'development'
-        },
-        serviceWorkerFileName: 'sw.js',
+        mode: 'development',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
             output: 'path/to/assets'
@@ -93,11 +83,8 @@ test('.apply calls nothing but warns in console in dev', () => {
 
 test('.apply generates and writes out a serviceworker when enableServiceWorkerDebugging is set', () => {
     const plugin = new ServiceWorkerPlugin({
-        env: {
-            mode: 'development'
-        },
+        mode: 'development',
         enableServiceWorkerDebugging: true,
-        serviceWorkerFileName: 'sw.js',
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
             output: 'path/to/assets'
@@ -141,11 +128,8 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
         swDest: 'path/to/dest'
     };
     const plugin = new ServiceWorkerPlugin({
-        env: {
-            mode: 'development'
-        },
+        mode: 'development',
         enableServiceWorkerDebugging: true,
-        serviceWorkerFileName: 'sw.js',
         injectManifest: true,
         paths: {
             output: 'path/to/assets'

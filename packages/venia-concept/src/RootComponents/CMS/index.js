@@ -4,4 +4,4 @@
  * pageTypes = CMS_PAGE
  */
 
-export { default } from './CMS';
+export { default } from './cms';
