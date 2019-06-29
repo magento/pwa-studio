@@ -1,3 +1,5 @@
+# :x: :bangbang: THIS DOCUMENT IS DEPRECATED. MUCH OF IT IS OUT OF DATE. USE A SCAFFOLDING GENERATOR INSTEAD OF BUILDING A PROJECT FROM SCRATCH. :bangbang: :x:
+
 ---
 title: Create configuration files
 ---

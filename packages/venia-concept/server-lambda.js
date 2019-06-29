@@ -1,20 +1,23 @@
 process.chdir(__dirname);
-const validEnv = require('./validate-environment')(process.env);
-const {
-    bestPractices,
-    createUpwardServer,
-    envToConfig
-} = require('@magento/upward-js');
+const { bestPractices, createUpwardServer } = require('@magento/upward-js');
+
+const loadEnvironment = require('@magento/pwa-buildpack/dist/Utilities/loadEnvironment');
 
 async function serve() {
-    const config = Object.assign({}, envToConfig(validEnv), {
-        env: validEnv,
-        before: app => {
-            app.use(bestPractices());
+    const config = loadEnvironment(__dirname);
+    const upwardServerOptions = Object.assign(
+        {},
+        config.section('upwardJs'),
+        config.section('stagingServer'),
+        {
+            env: process.env,
+            before: app => {
+                app.use(bestPractices());
+            }
         }
-    });
+    );
 
-    const server = await createUpwardServer(config);
+    const server = await createUpwardServer(upwardServerOptions);
     return server;
 }
 

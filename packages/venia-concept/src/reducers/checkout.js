@@ -12,15 +12,15 @@ const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
     editing: null,
-    paymentCode: '',
+    paymentCode: '', // TODO: Is this used? I couldn't find any refs besides here in the store. -srugh
     paymentData: null,
     shippingAddress: null,
     shippingMethod: '',
     shippingTitle: '',
     step: 'cart',
     submitting: false,
-    isAddressIncorrect: false,
-    incorrectAddressMessage: ''
+    isAddressInvalid: false,
+    invalidAddressMessage: ''
 };
 
 const reducerMap = {
@@ -48,15 +48,28 @@ const reducerMap = {
         return {
             ...state,
             editing: payload,
-            incorrectAddressMessage: ''
+            invalidAddressMessage: ''
         };
     },
     [actions.billingAddress.submit]: state => state,
     [actions.billingAddress.accept]: (state, { payload }) => {
-        return {
-            ...state,
-            billingAddress: payload
+        // Billing address can either be an object with address props OR
+        // an object with a single prop, `sameAsShippingAddress`, so we need
+        // to do some special handling to make sure the store reflects that.
+        const newState = {
+            ...state
         };
+        if (payload.sameAsShippingAddress) {
+            newState.billingAddress = {
+                ...payload
+            };
+        } else if (!payload.sameAsShippingAddress) {
+            newState.billingAddress = {
+                ...payload,
+                street: [...payload.street]
+            };
+        }
+        return newState;
     },
     [actions.billingAddress.reject]: state => state,
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {
@@ -83,25 +96,29 @@ const reducerMap = {
         return {
             ...state,
             editing: null,
-            shippingAddress: payload,
+            shippingAddress: {
+                ...state.shippingAddress,
+                ...payload,
+                street: [...payload.street]
+            },
             step: 'form',
             submitting: false,
-            isAddressIncorrect: false,
-            incorrectAddressMessage: ''
+            isAddressInvalid: false,
+            invalidAddressMessage: ''
         };
     },
     [actions.shippingAddress.reject]: (state, actionArgs) => {
-        const incorrectAddressMessage = get(
+        const invalidAddressMessage = get(
             actionArgs,
-            'payload.incorrectAddressMessage',
+            'payload.invalidAddressMessage',
             ''
         );
 
         return {
             ...state,
             submitting: false,
-            isAddressIncorrect: incorrectAddressMessage ? true : false,
-            incorrectAddressMessage
+            isAddressInvalid: invalidAddressMessage ? true : false,
+            invalidAddressMessage
         };
     },
     [actions.paymentMethod.submit]: state => {
@@ -140,8 +157,8 @@ const reducerMap = {
             shippingTitle: payload.carrier_title,
             step: 'form',
             submitting: false,
-            isAddressIncorrect: false,
-            incorrectAddressMessage: ''
+            isAddressInvalid: false,
+            invalidAddressMessage: ''
         };
     },
     [actions.shippingMethod.reject]: state => {

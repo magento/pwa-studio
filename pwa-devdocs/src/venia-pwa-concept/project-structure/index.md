@@ -12,13 +12,6 @@ It's not part of a Magento code base but a separate instance that communicates w
 
 In addition to the NPM packages.json and Venia specific validation and testing files, the root directory contains the following important files:
 
-[`.env.dist`][]
-: A sample configuration file that defines important environment variables.
-  Copy this file into a new `.env` file to use the project default values.
-
-  The first change to make here is adjusting the `MAGENTO_BACKEND_URL` variable to the fully qualified URL of a Magento 2.3 instance.
-  Read more on the [Venia setup][] page.
-
 [`deployVeniaSampleData.sh`][]
 : This file helps you to [Install Venia sample data][] into your Magento installation.
   Copy and execute this file in a Magento instance to install the sample data.
@@ -26,13 +19,7 @@ In addition to the NPM packages.json and Venia specific validation and testing f
 [`server.js`][]
 : A node script that runs the UPWARD staging server when the `yarn run stage:venia` command is used.
 
-[`validate-environment.js`][]
-: A node script that validates the `.env` environment file.
-
-[`validate-queries.js`][]
-: validates that all `.graphql` query files in the project are valid for the GraphQL schema of the Magento backend instance specified in `.env`.
-
-[`venia-upward.yml`][]
+[`upward.yml`][]
 : The [UPWARD server specification][] for the Venia PWA storefront.
   This file describes the server behavior for the middle tier service between the PWA and Magento.
 
@@ -172,13 +159,10 @@ The `src/sw.js` file contains the service worker configuration.
 [Redux middleware pattern]: https://redux.js.org/advanced/middleware
 [UPWARD server specification]: {{site.baseurl}}{%link technologies/upward/index.md %}
 [mustache]: https://mustache.github.io/
-[`.env.dist`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/.env.dist
 [`deployVeniaSampleData.sh`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/deployVeniaSampleData.sh
 [`server.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/server.js
-[`validate-environment.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/validate-environment.js
 [`venia-concept`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
-[`validate-queries.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/validate-queries.js
-[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/venia-upward.yml
+[`upward.yml`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/upward.yml
 [`templates`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/templates
 [`static`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/static
 [`src`]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src
