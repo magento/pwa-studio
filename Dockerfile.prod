@@ -26,6 +26,9 @@ COPY packages ./packages
 # copy configuration env file from host file system to venia-concept .env for build
 COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 
+# run yarn again to reestablish workspace symlinks
+RUN yarn install --frozen-lockfile
+
 ENV NODE_ENV=production
 # build the app
 RUN yarn run build
