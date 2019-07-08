@@ -4,7 +4,7 @@ import { BasicSelect, Option, asField } from 'informed';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
-import { Fields, Message } from 'src/components/Field';
+import { FieldIcons, Message } from 'src/components/Field';
 import defaultClasses from './select.css';
 
 import Icon from 'src/components/Icon';
