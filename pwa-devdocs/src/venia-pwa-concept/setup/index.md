@@ -40,6 +40,10 @@ In the PWA Studio project's root directory, run the following command to install
 ``` sh
 yarn install
 ```
+and
+``` sh
+yarn build
+```
 
 ## Step 3. Specify the Magento backend server
 
