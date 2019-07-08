@@ -153,7 +153,7 @@ export const submitShippingAddress = payload =>
         } catch (error) {
             dispatch(
                 actions.shippingAddress.reject({
-                    incorrectAddressMessage: error.message
+                    invalidAddressMessage: error.message
                 })
             );
             return null;
@@ -278,12 +278,6 @@ export const createAccount = history => async (dispatch, getState) => {
     await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
-};
-
-export const continueShopping = history => async dispatch => {
-    await dispatch(resetCheckout());
-
-    history.push('/');
 };
 
 /* helpers */

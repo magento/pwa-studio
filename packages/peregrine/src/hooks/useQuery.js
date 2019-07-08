@@ -31,7 +31,7 @@ export const useQuery = query => {
             const payload = await apolloClient.query({ query, variables });
             receiveResponse(payload);
         },
-        [query, receiveResponse]
+        [apolloClient, query, receiveResponse]
     );
 
     /**

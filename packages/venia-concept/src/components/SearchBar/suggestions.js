@@ -15,7 +15,7 @@ const Suggestions = props => {
         setVisible(false);
     }, [setVisible]);
 
-    if (!visible || !filters || !items) {
+    if (!visible || !filters || !items || !items.length) {
         return null;
     }
 

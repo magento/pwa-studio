@@ -63,3 +63,33 @@ export const validateRegionCode = (value, values, countries) => {
 
     return SUCCESS;
 };
+
+export const validatePassword = value => {
+    const count = {
+        lower: 0,
+        upper: 0,
+        digit: 0,
+        special: 0
+    };
+
+    for (const char of value) {
+        if (/[a-z]/.test(char)) count.lower++;
+        else if (/[A-Z]/.test(char)) count.upper++;
+        else if (/\d/.test(char)) count.digit++;
+        else if (/\S/.test(char)) count.special++;
+    }
+
+    if (Object.values(count).filter(Boolean).length < 3) {
+        return 'A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.';
+    }
+
+    return SUCCESS;
+};
+
+export const validateConfirmPassword = (
+    value,
+    values,
+    passwordKey = 'password'
+) => {
+    return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
+};

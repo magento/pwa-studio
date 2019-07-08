@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { useDocumentListener } from './useDocumentListener';
+import { useEventListener } from './useEventListener';
 
 /**
  * A React Hook for adding dropdown-related logic.
@@ -14,17 +14,14 @@ export const useDropdown = () => {
     const [expanded, setExpanded] = useState(false);
 
     // collapse on mousedown outside of this element
-    const maybeCollapse = useCallback(
-        ({ target }) => {
-            if (!elementRef.current.contains(target)) {
-                setExpanded(false);
-            }
-        },
-        [elementRef.current]
-    );
+    const maybeCollapse = useCallback(({ target }) => {
+        if (!elementRef.current.contains(target)) {
+            setExpanded(false);
+        }
+    }, []);
 
     // add listener to document, as an effect
-    useDocumentListener('mousedown', maybeCollapse);
+    useEventListener(document, 'mousedown', maybeCollapse);
 
     /**
      * The object returned contains the pieces needed to add the dropdown logic to your components

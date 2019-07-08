@@ -4,8 +4,8 @@
   "description": "graphql-cli plugin for validating all queries in a Magento 2 PWA project",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'Skipping graphql-cli-validate-magento-pwa-queries build...'",
-    "clean": "rimraf ./node_modules",
+    "build": "cp ../../magento-compatibility.js ./lib/",
+    "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
     "test": "jest"
   },
   "repository": "https://github.com/magento-research/pwa-studio",

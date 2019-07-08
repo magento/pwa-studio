@@ -8,7 +8,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
   <img
     alt="test-thumbnail"
     className="image"
-    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
   />
 </button>
 `;
@@ -21,7 +21,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
   <img
     alt="test-thumbnail"
     className="image"
-    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
   />
 </button>
 `;

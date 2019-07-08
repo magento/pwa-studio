@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { func, number, object, shape, string } from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'src/drivers';
 import { compose } from 'redux';
 
 import classify from 'src/classify';
@@ -27,11 +27,6 @@ class Pagination extends Component {
     };
 
     componentDidMount() {
-        // updateTotalPages pushes the current page count of a category query to
-        // redux so it knows how many tiles to render even in the Query
-        // component's loading state
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
         this.syncPage();
     }
 

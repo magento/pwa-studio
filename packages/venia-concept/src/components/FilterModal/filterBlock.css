@@ -1,0 +1,61 @@
+.root:first-child {
+    border-top: 2px solid rgb(var(--venia-border));
+    border-bottom: 2px solid rgb(var(--venia-border));
+}
+
+.root {
+    border-bottom: 2px solid rgb(var(--venia-border));
+}
+
+.layout {
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.layoutGrid {
+    composes: layout;
+    padding-bottom: 1rem;
+    padding-top: 0;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.clearIcon {
+    display: flex;
+}
+
+.optionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionNameExpanded {
+    font-weight: 600;
+}
+
+.optionToggleButton {
+    outline: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.filterList {
+    display: none;
+    padding-right: 2.75rem;
+}
+
+.filterListExpanded {
+    composes: filterList;
+    display: block;
+}
+
+.closeWrapper {
+    display: inline-flex;
+    align-items: center;
+}
