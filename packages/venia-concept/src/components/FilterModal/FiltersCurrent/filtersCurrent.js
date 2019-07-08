@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import Icon from 'src/components/Icon';
-import { Remove } from 'react-feather';
+import { X as Remove } from 'react-feather';
 import classify from 'src/classify';
 import { withRouter } from 'react-router-dom';
 import defaultClasses from './filtersCurrent.css';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, node, shape, string } from 'prop-types';
-import { EditIcon } from 'react-feather';
+import { Edit as EditIcon } from 'react-feather';
 
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';

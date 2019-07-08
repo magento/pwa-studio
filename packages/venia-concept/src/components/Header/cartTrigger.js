@@ -7,7 +7,7 @@ import { toggleCart } from 'src/actions/cart';
 import CartCounter from './cartCounter';
 
 import Icon from 'src/components/Icon';
-import { ShoppingCartIcon } from 'react-feather';
+import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 import classify from 'src/classify';
 import defaultClasses from './cartTrigger.css';
 

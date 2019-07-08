@@ -4,7 +4,7 @@ import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
 import Tooltip from './toolTip';
-import { CheckIcon } from 'react-feather';
+import { Check as CheckIcon } from 'react-feather';
 
 import defaultClasses from './swatch.css';
 

@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { MessageSquareIcon } from 'react-feather';
-import { ShoppingCartIcon } from 'react-feather';
+import { MessageSquare as MessageSquareIcon } from 'react-feather';
+import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 import { Share2Icon } from 'react-feather';
 
 import classify from 'src/classify';

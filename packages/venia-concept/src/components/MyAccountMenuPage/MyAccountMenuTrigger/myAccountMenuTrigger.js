@@ -6,7 +6,7 @@ import Icon from 'src/components/Icon';
 import defaultClasses from './myAccountMenuTrigger.css';
 import UserInformation from '../UserInformation';
 import MyAccountMenuPage from '../MyAccountMenuPage';
-import { ChevronUpIcon } from 'react-feather';
+import { ChevronUp as ChevronUpIcon } from 'react-feather';
 
 class MyAccountMenuTrigger extends Component {
     static propTypes = {

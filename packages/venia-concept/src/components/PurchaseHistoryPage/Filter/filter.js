@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
 
 import Icon from 'src/components/Icon';
-import { FilterIcon } from 'react-feather';
+import { Filter as FilterIcon } from 'react-feather';
 import classify from 'src/classify';
 import defaultClasses from './filter.css';
 

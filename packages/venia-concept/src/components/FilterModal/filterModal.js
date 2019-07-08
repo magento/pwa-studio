@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
 import classify from 'src/classify';
-import { CloseIcon } from 'react-feather';
+import { X as CloseIcon } from 'react-feather';
 import Icon from 'src/components/Icon';
 import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';

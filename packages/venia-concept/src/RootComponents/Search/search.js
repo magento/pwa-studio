@@ -9,7 +9,7 @@ import Icon from 'src/components/Icon';
 import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
 import getQueryParameterValue from 'src/util/getQueryParameterValue';
 import isObjectEmpty from 'src/util/isObjectEmpty';
-import CloseIcon from 'react-feather';
+import { X as CloseIcon } from 'react-feather';
 import FilterModal from 'src/components/FilterModal';
 import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
 import defaultClasses from './search.css';

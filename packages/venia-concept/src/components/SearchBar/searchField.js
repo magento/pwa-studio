@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
 import { useFieldState, useFormApi } from 'informed';
-import { ClearIcon } from 'react-feather';
-import { SearchIcon } from 'react-feather';
+import { X as ClearIcon } from 'react-feather';
+import { Search as SearchIcon } from 'react-feather';
 import { useSearchParam } from '@magento/peregrine';
 
 import Icon from 'src/components/Icon';

@@ -4,7 +4,7 @@ import defaultClasses from './toast.css';
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';
 
-import { CloseIcon } from 'react-feather';
+import { X as CloseIcon } from 'react-feather';
 
 const Toast = props => {
     const {
