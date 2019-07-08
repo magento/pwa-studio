@@ -4,7 +4,7 @@ entries:
     url: /pwa-buildpack/
   
   - label: Configuration management
-    url: /pwa-buildpack/configuration-management
+    url: /pwa-buildpack/configuration-management/
 
   - label: buildpack CLI reference
     url: /pwa-buildpack/reference/buildpack-cli/
