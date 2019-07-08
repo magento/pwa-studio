@@ -39,7 +39,9 @@ const BraintreeDropin = props => {
         let didClose = false;
         async function createDropinInstance() {
             try {
-                const { default: dropIn } = await import('braintree-web-drop-in');
+                const {
+                    default: dropIn
+                } = await import('braintree-web-drop-in');
                 const dropinInstance = await dropIn.create({
                     authorization,
                     container: `#${CONTAINER_ID}`,
