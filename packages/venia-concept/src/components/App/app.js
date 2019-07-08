@@ -12,9 +12,9 @@ import Icon from 'src/components/Icon';
 
 import { getToastId, useToasts } from '@magento/peregrine';
 
-import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
-import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
-import WifiIcon from 'react-feather/dist/icons/wifi';
+import { AlertCircleIcon } from 'react-feather';
+import { CloudOffIcon } from 'react-feather';
+import { WifiIcon } from 'react-feather';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;

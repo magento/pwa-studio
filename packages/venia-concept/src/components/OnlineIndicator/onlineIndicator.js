@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, shape, string } from 'prop-types';
 
-import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
+import { CloudOffIcon } from 'react-feather';
 import { mergeClasses } from 'src/classify';
 
 import Icon from 'src/components/Icon';

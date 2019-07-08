@@ -3,7 +3,7 @@ import { bool, func } from 'prop-types';
 
 import Button from 'src/components/Button';
 import Icon from 'src/components/Icon';
-import LockIcon from 'react-feather/dist/icons/lock';
+import { LockIcon } from 'react-feather';
 
 const CheckoutButton = ({ disabled, onClick }) => {
     return (

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { node, shape, string } from 'prop-types';
-import MoreVerticalIcon from 'react-feather/dist/icons/more-vertical';
+import { MoreVerticalIcon } from 'react-feather';
 
 import { useEventListener } from '@magento/peregrine';
 

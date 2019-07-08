@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import CloseIcon from 'react-feather/dist/icons/x';
+import { CloseIcon } from 'react-feather';
 
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';

@@ -4,8 +4,8 @@ import memoize from 'memoize-one';
 
 import { resourceUrl } from 'src/drivers';
 import Icon from 'src/components/Icon';
-import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
-import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
+import { ChevronLeftIcon } from 'react-feather';
+import { ChevronRightIcon } from 'react-feather';
 import classify from 'src/classify';
 import ThumbnailList from './thumbnailList';
 import defaultClasses from './carousel.css';
