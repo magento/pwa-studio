@@ -48,24 +48,17 @@ yarn workspace @magento/pwa-buildpack build
 
 ## Step 4. Create the `.env` file
 
-In the root directory, use the `create-env-file` subcommand for the `buildpack` CLI tool to create a `.env` file for Venia.
+Use the `create-env-file` subcommand for the `buildpack` CLI tool to create a `.env` file for Venia.
+The subcommand generates a `packages/venia-concept/.env` file where you can set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
 
-This command generates a `packages/venia-concept/.env` file where you can set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
-
-If you are contributing to Venia development or exploring its features, you can use the default `MAGENTO_BACKEND_URL` value.
-This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data][] installed.
-
-**Example `.env` file entry:**
-
-``` text
-MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
-```
-
-You can also create the `.env` file and set the `MAGENTO_BACKEND_URL` value in a single `bash` or `sh` command:
+You can create the `.env` file and set the `MAGENTO_BACKEND_URL` value at the same time using the following command:
 
 ```sh
 MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/" yarn buildpack create-env-file packages/venia-concept
 ```
+
+If you are contributing to Venia development or exploring its features, you can use the `MAGENTO_BACKEND_URL` value provided in the example command.
+This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data][] installed.
 
 ### Choosing the Magento 2.3 backend
 
