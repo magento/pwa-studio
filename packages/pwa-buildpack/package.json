@@ -78,7 +78,7 @@
     "terser-webpack-plugin": "~1.2.3"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }

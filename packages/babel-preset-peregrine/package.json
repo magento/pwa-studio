@@ -34,7 +34,7 @@
     "babel-plugin-graphql-tag": "~2.0.0"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }

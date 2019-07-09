@@ -28,7 +28,7 @@ const config = (api, opts = {}) => {
             prod: require('./browserslist'),
             // The Jest test runner provides a synthetic DOM, but  not a real
             // browser environment; instead, it's Node.
-            test: 'node 8'
+            test: 'node 10'
         },
         opts.targets
     );
