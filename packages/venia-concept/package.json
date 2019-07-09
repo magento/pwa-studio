@@ -10,7 +10,7 @@
     "@magento/venia-drivers": "src/drivers"
   },
   "scripts": {
-    "build": "yarn run clean && buildpack load-env --core-dev-mode . && yarn run validate-queries && yarn run build:prod",
+    "build": "yarn run clean && node ../pwa-buildpack/bin/buildpack load-env --core-dev-mode . && yarn run validate-queries && yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
     "build:ci": "buildpack load-env . && yarn run -s build:prod",
     "build:dev": " ",
