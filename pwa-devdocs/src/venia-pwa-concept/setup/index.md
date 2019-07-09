@@ -91,7 +91,7 @@ The Venia storefront has been verified to be compatible with the following local
 
 Don't forget to install the [Venia sample data][]!
 
-## Step 4. Generate SSL certificate
+## Step 5. Generate SSL certificate
 
 PWA features require an HTTPS secure domain.
 
@@ -106,7 +106,7 @@ This feature requires administrative access, so
 it may prompt you for an administrative password at the command line.
 It does not permanently elevate permissions for the dev process but instead, launches a privileged subprocess to execute one command.
 
-## Step 5. Start the server
+## Step 6. Start the server
 
 ### Build artifacts
 
