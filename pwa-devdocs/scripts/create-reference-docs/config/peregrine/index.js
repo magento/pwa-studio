@@ -1,6 +1,6 @@
 module.exports = [
     {
-        target: 'peregrine/lib/Price/price.js'
+        target: 'peregrine/lib/Price/price.js',
         type: 'class'
     },
     {
