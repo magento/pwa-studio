@@ -18,10 +18,8 @@
     "url": "https://github.com/magento-research/pwa-studio/issues"
   },
   "scripts": {
-    "build": "yarn workspaces run build",
-    "build:ci": "yarn workspaces run build:ci",
-    "build:dev": "yarn workspaces run build:dev",
-    "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
+    "build": "yarn workspace @magento/venia-concept run build",
+    "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
@@ -39,8 +37,6 @@
     "test:dev": "jest --watch",
     "validate-queries": "yarn workspace @magento/venia-concept run validate-queries",
     "watch:all": "node scripts/watch-all.js",
-    "watch:buildpack": "yarn workspace @magento/pwa-buildpack run watch; cd - >/dev/null",
-    "watch:peregrine": "yarn workspace @magento/peregrine run watch; cd - >/dev/null",
     "watch:venia": "yarn workspace @magento/venia-concept run watch; cd - >/dev/null"
   },
   "devDependencies": {
@@ -67,13 +63,11 @@
     "jest-fetch-mock": "~2.1.1",
     "jest-junit": "~6.3.0",
     "jest-transform-graphql": "~2.1.0",
-    "keypress": "~0.2.1",
     "lerna": "~3.13.0",
     "lodash.debounce": "~4.0.8",
-    "multispinner": "~0.2.1",
     "prettier": "~1.16.4",
     "prettier-check": "~2.0.0",
-    "stream-snitch": "~0.0.3",
+    "rimraf": "~2.6.3",
     "wait-for-expect": "~1.1.0"
   },
   "optionalDependencies": {

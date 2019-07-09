@@ -7,14 +7,9 @@
   "description": "The core runtime of Magento PWA",
   "main": "lib/index.js",
   "scripts": {
-    "build": " ",
-    "build:ci": " ",
-    "build:cjs": " ",
-    "build:dev": " ",
     "clean": " ",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist",
-    "watch": " "
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
@@ -30,8 +25,7 @@
     "react-apollo": "~2.5.3",
     "react-dom": "~16.8.3",
     "react-router-dom": "~5.0.0",
-    "react-test-renderer": "~16.8.6",
-    "rimraf": "~2.6.3"
+    "react-test-renderer": "~16.8.6"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.4.2",

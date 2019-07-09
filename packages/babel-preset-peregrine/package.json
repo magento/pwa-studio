@@ -7,11 +7,7 @@
   "description": "Babel configuration common to progressive web projects build with Peregrine",
   "main": "index.js",
   "scripts": {
-    "build": " ",
-    "build:ci": " ",
-    "build:dev": " ",
-    "clean": " ",
-    "watch": " "
+    "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
