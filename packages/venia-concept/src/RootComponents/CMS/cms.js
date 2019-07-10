@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link } from 'src/drivers';
 import { useQuery } from '@magento/peregrine';
-import RichText from 'src/components/RichText';
+import RichContent from 'src/components/RichContent';
 import CategoryList from 'src/components/CategoryList';
 import cmsPageQuery from 'src/queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
@@ -33,8 +32,7 @@ const CMSPage = props => {
     if (data) {
         return (
             <div>
-                <Link to="/zetlen-rich-content-api-test">click me</Link>
-                <RichText content={data.cmsPage.content} />
+                <RichContent>{data.cmsPage.content}</RichContent>
                 <CategoryList title="Shop by category" id={2} />
             </div>
         );
