@@ -38,14 +38,19 @@ class ProxyResolver extends AbstractResolver {
 
         let server = ProxyResolver.servers.get(targetUrl);
         if (!server) {
+            const target = new URL(targetUrl);
             debug(`creating new server for ${targetUrl}`);
-            server = proxyMiddleware({
+            const opts = {
                 target: targetUrl.toString(),
                 secure: !ignoreSSLErrors,
                 changeOrigin: true,
                 autoRewrite: true,
                 cookieDomainRewrite: ''
-            });
+            };
+            if (target.username) {
+                opts.auth = [target.username, target.password].join(':');
+            }
+            server = proxyMiddleware(opts);
             ProxyResolver.servers.set(targetUrl, server);
         }
 

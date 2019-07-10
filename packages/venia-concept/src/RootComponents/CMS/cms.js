@@ -33,7 +33,9 @@ const CMSPage = props => {
     if (data) {
         return (
             <div>
-                <Link to="/zetlen-rich-content-api-test">click me</Link>
+                <Link to="/experience/arctic-surfing-in-lofoten">
+                    experience/arctic-surfing-in-lofoten
+                </Link>
                 <RichText content={data.cmsPage.content} />
                 <CategoryList title="Shop by category" id={2} />
             </div>

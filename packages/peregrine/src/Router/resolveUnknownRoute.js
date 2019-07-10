@@ -87,7 +87,10 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE" | "AEM_PAGE"}}
  */
 function fetchRoute(opts) {
-    return fetchAEMRoute(opts).catch(() => fetchMagentoRoute(opts));
+    return fetchAEMRoute(opts).catch(e => {
+        console.error('AEM route fetch failed:', e);
+        return fetchMagentoRoute(opts);
+    });
 }
 
 /**
@@ -96,14 +99,23 @@ function fetchRoute(opts) {
  * @returns {Promise<{type: "AEM_PAGE"}>}
  */
 function fetchAEMRoute(opts) {
-    const url = new URL('/aem', opts.apiBase);
-    const params = new URLSearchParams();
-    params.set('route', opts.route);
-    url.search = params;
+    const url = new URL(
+        `/content/we-retail/us/en${opts.route}.json`,
+        opts.apiBase
+    );
+    console.log('fetchAEMRoute', url.href);
     return fetch(url, {
         method: 'GET',
         credentials: 'include'
-    });
+    })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+            return {
+                type: 'AEM_PAGE',
+                id: opts.route
+            };
+        });
 }
 
 /**
