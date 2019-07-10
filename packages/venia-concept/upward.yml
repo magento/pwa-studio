@@ -38,7 +38,7 @@ response:
       pattern: '^/content.*\.json$'
       use:
         target:
-          inline: http://admin:admin@10.132.4.170:4502/
+          inline: http://admin:admin@localhost:4502/
     # Requests to create an account are handled by the top-level 'index'
     # object, which returns a generic app shell
     - matches: request.url.pathname
