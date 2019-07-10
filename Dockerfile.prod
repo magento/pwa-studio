@@ -32,6 +32,8 @@ RUN yarn install --frozen-lockfile
 RUN pwd
 RUN ls
 RUN cd ./packages/venia-concept
+RUN pwd
+RUN ls
 RUN cat .env
 
 ENV NODE_ENV=production
