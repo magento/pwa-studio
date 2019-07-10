@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import parseStorageHtml from './parseStorageHtml';
 import Row from './row';
 import Column from './column';
 import ColumnGroup from './columnGroup';

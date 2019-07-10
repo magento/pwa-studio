@@ -55,7 +55,7 @@ const makeElement = dom => {
 
 const walk = dom => {
     const widgets = [];
-    json.elements = {};
+    const elementMap = new WeakMap();
 
     const tree = document.createTreeWalker(
         dom,
@@ -66,6 +66,11 @@ const walk = dom => {
     while (tree.currentNode) {
         if (isWidget(tree.currentNode)) {
             widgets.push(walk(tree.currentNode));
+            tree.nextSibling();
+            continue;
+        }
+        if (tree.currentNode.dataset.element) {
+            const json = {};
         }
     }
 };
