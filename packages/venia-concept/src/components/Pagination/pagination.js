@@ -27,11 +27,6 @@ class Pagination extends Component {
     };
 
     componentDidMount() {
-        // updateTotalPages pushes the current page count of a category query to
-        // redux so it knows how many tiles to render even in the Query
-        // component's loading state
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
         this.syncPage();
     }
 

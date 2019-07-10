@@ -10,6 +10,7 @@ import { Link, resourceUrl, Route } from 'src/drivers';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
+import OnlineIndicator from 'src/components/OnlineIndicator';
 
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './header.css';
@@ -17,25 +18,34 @@ import defaultClasses from './header.css';
 const SearchBar = React.lazy(() => import('src/components/SearchBar'));
 
 const Header = props => {
-    // Props.
-    const { searchOpen, toggleSearch } = props;
+    const { hasBeenOffline, isOnline, searchOpen, toggleSearch } = props;
 
-    // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = searchOpen ? classes.open : classes.closed;
     const searchIcon = <Icon src={SearchIcon} />;
+    const suspenseFallback = (
+        <div className={classes.searchFallback}>
+            <div className={classes.input}>
+                <div className={classes.loader} />
+            </div>
+        </div>
+    );
 
     return (
         <header className={rootClass}>
             <div className={classes.toolbar}>
-                <Link to={resourceUrl('/')}>
-                    <Logo classes={{ logo: classes.logo }} />
-                </Link>
                 <div className={classes.primaryActions}>
                     <NavTrigger>
                         <Icon src={MenuIcon} />
                     </NavTrigger>
                 </div>
+                <OnlineIndicator
+                    hasBeenOffline={hasBeenOffline}
+                    isOnline={isOnline}
+                />
+                <Link to={resourceUrl('/')}>
+                    <Logo classes={{ logo: classes.logo }} />
+                </Link>
                 <div className={classes.secondaryActions}>
                     <SearchTrigger
                         searchOpen={searchOpen}
@@ -46,7 +56,7 @@ const Header = props => {
                     <CartTrigger />
                 </div>
             </div>
-            <Suspense fallback={searchOpen ? searchIcon : null}>
+            <Suspense fallback={searchOpen ? suspenseFallback : null}>
                 <Route
                     render={({ history, location }) => (
                         <SearchBar

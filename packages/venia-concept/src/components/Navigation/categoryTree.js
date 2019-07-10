@@ -3,12 +3,14 @@ import { func, number, objectOf, shape, string } from 'prop-types';
 
 import { Query } from 'src/drivers';
 import classify from 'src/classify';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import LoadingIndicator from 'src/components/LoadingIndicator';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
 import CategoryTree from './categoryTree';
 import defaultClasses from './categoryTree.css';
 import navigationMenu from '../../queries/getNavigationMenu.graphql';
+
+const loadingIndicator = <LoadingIndicator>{`Fetching...`}</LoadingIndicator>;
 
 class Tree extends Component {
     static propTypes = {

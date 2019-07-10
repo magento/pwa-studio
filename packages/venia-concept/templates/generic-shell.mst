@@ -6,8 +6,7 @@
     <title>Venia</title>
     {{/model}}
   {{> templates/open-body }}
-    <div id="root">
-        Loading {{model.title}}...
-    </div>
+  {{> templates/default-initial-contents }}
   {{> templates/seed-bundles}}
 {{> templates/close-document}}
+
