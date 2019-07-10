@@ -33,6 +33,12 @@ response:
     - matches: request.url.pathname
       pattern: '^/(graphql|rest)(/|$)'
       use: proxy
+    # Requests to AEM go to a different proxy.
+    - matches: request.url.pathname
+      pattern: '^/content.*\.json$'
+      use:
+        target:
+          inline: http://admin:admin@10.132.4.170:4502/
     # Requests to create an account are handled by the top-level 'index'
     # object, which returns a generic app shell
     - matches: request.url.pathname
@@ -47,21 +53,24 @@ response:
     - matches: request.url.pathname
       pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png|robots.txt$)'
       use: static
-    # Requests with a URL key are handled by the top-level 'appShell' object.
-    # The existence of a URL key is determined using the top-level 'urlKey'
-    # object.
-    - matches: urlKey
-      pattern: '.'
-      use: appShell
-    # Requests to the document root, i.e. having no URL key, is also handled
-    # by the top-level 'appShell' object.
-    - matches: request.url.pathname
-      pattern: '^/$'
-      use: appShell
+    # # Requests with a URL key are handled by the top-level 'appShell' object.
+    # # The existence of a URL key is determined using the top-level 'urlKey'
+    # # object.
+    # - matches: urlKey
+    #   pattern: '.'
+    #   use: appShell
+    # # Requests to the document root, i.e. having no URL key, is also handled
+    # # by the top-level 'appShell' object.
+    # - matches: request.url.pathname
+    #   pattern: '^/$'
+    #   use: appShell
   # If the none of the tested conditions pass, the default handler for the
   # request is the top-level 'bundles' object, which is a DirectoryResolver that
   # serves the Webpack output assets from the './dist' folder.
-  default: bundles
+    - matches: request.url.pathname
+      pattern: '^/js/'
+      use: bundles
+  default: appShell
 
 # An object that returns true if the NODE_ENV environment variable is set
 # to 'development'. Used as a test in other configurations in this file.

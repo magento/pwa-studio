@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'src/drivers';
 import { useQuery } from '@magento/peregrine';
 import RichContent from 'src/components/RichContent';
 import CategoryList from 'src/components/CategoryList';
@@ -32,6 +33,9 @@ const CMSPage = props => {
     if (data) {
         return (
             <div>
+                <Link to="/experience/arctic-surfing-in-lofoten">
+                    experience/arctic-surfing-in-lofoten
+                </Link>
                 <RichContent>{data.cmsPage.content}</RichContent>
                 <CategoryList title="Shop by category" id={2} />
             </div>
