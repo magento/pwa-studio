@@ -356,6 +356,7 @@ index:
       engine: mustache
       template: './templates/generic-shell.mst'
       provide:
+        assets: assetManifest
         isDevelopment: isDevelopment
 
 # The static object is a DirectoryResolver that allows access to the files
