@@ -4,8 +4,7 @@ import classify from 'src/classify';
 import FilterList from './FilterList';
 import Icon from 'src/components/Icon';
 import { filterModes, filterRenderOptions, filterLayouts } from './constants';
-import { ChevronDown as ArrowDown } from 'react-feather';
-import { ChevronUp as ArrowUp } from 'react-feather';
+import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import defaultClasses from './filterBlock.css';
 
 class FilterBlock extends Component {

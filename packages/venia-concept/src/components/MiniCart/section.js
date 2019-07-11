@@ -1,8 +1,10 @@
 import React from 'react';
 import { bool, func, oneOf, shape, string } from 'prop-types';
-import { Heart as HeartIcon } from 'react-feather';
-import { Edit2 as Edit2Icon } from 'react-feather';
-import { Trash as TrashIcon } from 'react-feather';
+import {
+    Edit2 as Edit2Icon,
+    Heart as HeartIcon,
+    Trash as TrashIcon
+} from 'react-feather';
 
 import { mergeClasses } from 'src/classify';
 import Icon from 'src/components/Icon';

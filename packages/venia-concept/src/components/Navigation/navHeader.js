@@ -3,8 +3,7 @@ import { func, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import Icon from 'src/components/Icon';
-import { ArrowLeft as ArrowLeftIcon } from 'react-feather';
-import { X as CloseIcon } from 'react-feather';
+import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 import Trigger from 'src/components/Trigger';
 import defaultClasses from './navHeader.css';
 

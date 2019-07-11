@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { Menu as MenuIcon } from 'react-feather';
-import { Search as SearchIcon } from 'react-feather';
+import { Menu as MenuIcon, Search as SearchIcon } from 'react-feather';
 
 import Icon from 'src/components/Icon';
 import Logo from 'src/components/Logo';

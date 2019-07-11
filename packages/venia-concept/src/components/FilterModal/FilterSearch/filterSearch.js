@@ -3,8 +3,7 @@ import TextInput from 'src/components/TextInput';
 import Trigger from 'src/components/Trigger';
 import { Form } from 'informed';
 import Icon from 'src/components/Icon';
-import { X as ClearIcon } from 'react-feather';
-import { Search as SearchIcon } from 'react-feather';
+import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 import classify from 'src/classify';
 import defaultClasses from './filterSearch.css';
 
