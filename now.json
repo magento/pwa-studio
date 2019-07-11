@@ -8,12 +8,12 @@
     "env": {
         "UPWARD_JS_BIND_LOCAL": "false",
         "IMAGE_OPTIMIZING_ORIGIN": "backend",
-        "MAGENTO_BACKEND_URL": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/",
+        "MAGENTO_BACKEND_URL": "https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud",
         "NODE_ENV": "production"
     },
     "build": {
         "env": {
-            "MAGENTO_BACKEND_URL": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
+            "MAGENTO_BACKEND_URL": "https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud"
         }
     },
     "builds": [
@@ -26,7 +26,7 @@
                 "includeFiles": [
                     "package.json",
                     ".env",
-                    "venia-upward.yml",
+                    "upward.yml",
                     "static/*",
                     "templates/*"
                 ],
@@ -38,7 +38,11 @@
     ],
     "routes": [
         {
-            "src": "^/([0-9A-Fa-e]\\.svg)",
+            "src": "^/([0-9A-Fa-e]+\\.svg)",
+            "dest": "packages/venia-concept/$1"
+        },
+        {
+            "src": "^/(manifest\\.json)$",
             "dest": "packages/venia-concept/$1"
         },
         {
