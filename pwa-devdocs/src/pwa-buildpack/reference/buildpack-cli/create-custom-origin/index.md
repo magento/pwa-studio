@@ -7,7 +7,7 @@ The `create-custom-origin` is a [`buildpack`][] CLI subcommand which creates a u
 Usage example with `npx`:
 
 ```sh
-npx @magento/pwa-buildpack create-custom-origin .
+npx @magento/pwa-buildpack create-custom-origin <dir>
 ```
 
 This feature requires administrative access, so
