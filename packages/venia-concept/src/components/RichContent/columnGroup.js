@@ -1,8 +1,6 @@
 import React from 'react';
-import getContentNodeStyle from './getContentNodeStyle';
+import GenericElement from './genericElement';
 
-const ColumnGroup = props => {
-    return <div style={getContentNodeStyle(props)}>{props.children}</div>;
-};
+const ColumnGroup = props => <GenericElement {...props} />;
 
 export default ColumnGroup;

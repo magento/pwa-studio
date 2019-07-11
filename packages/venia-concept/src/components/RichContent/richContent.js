@@ -3,21 +3,21 @@ import parseStorageHtml from './parseStorageHtml';
 import Row from './row';
 import Column from './column';
 import ColumnGroup from './columnGroup';
+import GenericElement from './genericElement';
 
 export const Widgets = {
     static: {
         row: Row,
         column: Column,
-        columnGroup: ColumnGroup
+        'column-group': ColumnGroup
     },
     dynamic: {
-        tabs: React.lazy(() => import('./tabs')),
-        tabItem: React.lazy(() => import('./tabItem'))
+        tabs: React.lazy(() => import('./tabs'))
     }
 };
 
-const walk = ({ children }) =>
-    children.map(node => <RichContent data={node} />);
+const walk = ({ widgets }) =>
+    widgets.map((node, i) => <RichContent key={i} data={node} />);
 
 const RichContent = ({ data, html }) => {
     const fallback = html ? (
@@ -32,8 +32,8 @@ const RichContent = ({ data, html }) => {
     const Widget = Widgets.static[dataNode.type];
     if (Widget) {
         return (
-            <Widget data={data} html={html}>
-                {walk(data)}
+            <Widget data={dataNode} html={html}>
+                {walk(dataNode)}
             </Widget>
         );
     }
@@ -42,12 +42,14 @@ const RichContent = ({ data, html }) => {
     if (DynamicWidget) {
         return (
             <Suspense fallback={fallback}>
-                <DynamicWidget data={data} html={html}>
-                    {walk(data)}
+                <DynamicWidget data={dataNode} html={html}>
+                    {walk(dataNode)}
                 </DynamicWidget>
             </Suspense>
         );
     }
 
-    return fallback;
+    return <GenericElement data={dataNode}>{walk(dataNode)}</GenericElement>;
 };
+
+export default RichContent;

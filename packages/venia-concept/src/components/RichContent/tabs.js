@@ -1,23 +1,47 @@
-import React from 'react';
-import { Tabs, TabList, Tab } from 'react-tabs';
+import React, { Children } from 'react';
+import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+import defaultClasses from './tabs.css';
+import { mergeClasses } from '../../classify';
 
 const PageBuilderTabs = props => {
     const {
         children,
         data: {
             elements: { navigation },
-            ...tabsProps
+            element: { domAttributes: tabsProps }
         }
     } = props;
-    const { children: tabNodes, ...tabListProps } = navigation[0];
-    const tabs = tabNodes.map(({ children: tabChildren, ...tabProps }) => {
-        const [title] = tabChildren[0];
-        return <Tab {...tabProps}>{title}</Tab>;
-    });
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const [{ children: tabNodes, domAttributes: tabListProps }] = navigation;
+    const tabs = tabNodes.map(
+        ({ children: tabChildren, domAttributes: tabProps }, index) => {
+            const title = tabChildren[0].children[0].children[0];
+            return (
+                <Tab {...tabProps} className={classes.tab} key={index}>
+                    {title}
+                </Tab>
+            );
+        }
+    );
     return (
-        <Tabs {...tabsProps}>
-            <TabList {...tabListProps}>{tabs}</TabList>
-            {children}
+        <Tabs
+            {...tabsProps}
+            className={classes.root}
+            disabledTabClassName={classes.tabDisabled}
+            selectedTabClassName={classes.tabSelected}
+        >
+            <TabList {...tabListProps} className={classes.tabList}>
+                {tabs}
+            </TabList>
+            {Children.map(children, (child, index) => (
+                <TabPanel
+                    key={index}
+                    className={classes.tabPanel}
+                    selectedClassName={classes.tabPanelSelected}
+                >
+                    {child}
+                </TabPanel>
+            ))}
         </Tabs>
     );
 };

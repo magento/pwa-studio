@@ -1,14 +1,14 @@
 import React from 'react';
-import getContentNodeStyle from './getContentNodeStyle';
+import GenericElement from './genericElement';
 
-const Row = props => {
-    const innerStyle = getContentNodeStyle(props.data.elements.inner[0]);
+const Row = ({ data, children }) => {
+    const inner = data.elements.inner[0];
     return (
-        <div className="pb-row">
-            <div className="pb-row-inner" style={innerStyle}>
-                >{props.children}
-            </div>
-        </div>
+        <GenericElement data={data}>
+            <GenericElement data={{ element: inner }}>
+                {children}
+            </GenericElement>
+        </GenericElement>
     );
 };
 

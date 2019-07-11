@@ -33,10 +33,7 @@ const CMSPage = props => {
     if (data) {
         return (
             <div>
-                <Link to="/experience/arctic-surfing-in-lofoten">
-                    experience/arctic-surfing-in-lofoten
-                </Link>
-                <RichContent>{data.cmsPage.content}</RichContent>
+                <RichContent html={data.cmsPage.content} />
                 <CategoryList title="Shop by category" id={2} />
             </div>
         );

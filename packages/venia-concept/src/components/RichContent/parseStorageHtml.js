@@ -1,121 +1,118 @@
-const isWidget = node => !!node.dataset.contentType;
-const makeWidgetsFilter = myParent => ({
-    acceptNode(node) {
-        const parent = node.parentNode;
-        if (parent !== myParent && isWidget(parent)) {
-            return NodeFilter.FILTER_REJECT;
-        }
-        if (isWidget(node)) {
-            return NodeFilter.FILTER_ACCEPT;
-        }
-        return NodeFilter.FILTER_SKIP;
-    }
-});
-
-const elementsFilter = {
-    acceptNode(node) {
-        if (isWidget(node)) {
-            return NodeFilter.FILTER_REJECT;
-        }
-        if (node.dataset.element) {
-            return NodeFilter.FILTER_ACCEPT;
-        }
-        return NodeFilter.FILTER_SKIP;
-    }
+const attrToProp = {
+    class: 'className',
+    allowfullscreen: 'allowFullScreen',
+    frameborder: 'frameBorder'
 };
 
+let smallScreen;
 const makeElement = dom => {
-    const json = {};
-    json.domAttributes = {};
+    if (dom.nodeType === Node.TEXT_NODE) {
+        return dom.textContent;
+    }
+    const element = {
+        children: [],
+        domAttributes: {},
+        dataAttributes: {},
+        tagName: dom.tagName.toLowerCase()
+    };
+
     for (const attr of dom.attributes) {
-        if (attr.name === 'style' || attr.name.startsWith('data-')) {
-            json.domAttributes[attr.name] = attr.value;
+        if (attrToProp.hasOwnProperty(attr.name)) {
+            element.domAttributes[attrToProp[attr.name]] = attr.value;
+        } else if (!(attr.name === 'style' || attr.name.startsWith('data-'))) {
+            element.domAttributes[attr.name] = attr.value;
         }
     }
 
-    json.dataAttributes = {};
-    Object.assign(json.dataAttributes, dom.dataset);
+    Object.assign(element.dataAttributes, dom.dataset);
 
-    json.type = json.dataAttributes.contentType;
-
-    json.style = {};
-    if (dom.style) {
-        Object.assign(json.style, dom.style);
+    const style = (element.domAttributes.style = {});
+    const styleLen = dom.style.length;
+    for (let i = 0; i < styleLen; i++) {
+        const domName = dom.style[i]
+            .replace(/\-\-/, '')
+            .replace(/\-([a-z])/g, match => match[1].toUpperCase());
+        style[domName] = dom.style[domName];
     }
 
-    if (json.dataAttributes.backgroundImages) {
-        const bgImgs = JSON.parse(json.dataAttributes.backgroundImages);
+    if (element.dataAttributes.backgroundImages) {
+        const bgImgs = JSON.parse(
+            element.dataAttributes.backgroundImages.replace(/\\"/g, '"')
+        );
         let backgroundImage = bgImgs.desktop_image || bgImgs.mobile_image;
+        smallScreen = smallScreen || window.matchMedia('(max-width: 768px)');
         if (smallScreen.matches && bgImgs.mobile_image) {
             backgroundImage = bgImgs.mobile_image;
         }
-        json.domAttributes.style.backgroundImage = `url('${backgroundImage}')`;
+        if (backgroundImage) {
+            style.backgroundImage = `url('${backgroundImage}')`;
+        }
     }
+    return element;
 };
 
-const walk = dom => {
-    const widgets = [];
+const makeNode = dom => {
+    const element = makeElement(dom);
+    const node = {
+        element,
+        elements: {},
+        type: element.dataAttributes.contentType,
+        widgets: []
+    };
+    return node;
+};
+
+const walk = rootDom => {
     const elementMap = new WeakMap();
 
-    const tree = document.createTreeWalker(
-        dom,
-        NodeFilter.SHOW_ELEMENT & NodeFilter.SHOW_TEXT
-    );
-    tree.nextNode();
+    const root = makeNode(rootDom);
+    elementMap.set(rootDom, root.element);
 
-    while (tree.currentNode) {
-        if (isWidget(tree.currentNode)) {
-            widgets.push(walk(tree.currentNode));
-            tree.nextSibling();
+    const tree = document.createTreeWalker(
+        rootDom,
+        NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT
+    );
+
+    let currentNode = tree.nextNode();
+    while (currentNode) {
+        const isElementNode = currentNode.nodeType === Node.ELEMENT_NODE;
+        if (isElementNode && currentNode.dataset.contentType) {
+            root.widgets.push(walk(currentNode));
+            currentNode = tree.nextSibling();
             continue;
         }
-        if (tree.currentNode.dataset.element) {
-            const json = {};
+
+        const element = makeElement(currentNode);
+        elementMap.set(currentNode, element);
+
+        const parentElement = elementMap.get(currentNode.parentNode);
+        if (!parentElement) {
+            throw new Error(
+                'parentElement not found for parent node of',
+                currentNode
+            );
         }
+        parentElement.children.push(element);
+
+        if (isElementNode) {
+            const elementName = element.dataAttributes.element;
+            if (elementName) {
+                const theseElements =
+                    root.elements[elementName] ||
+                    (root.elements[elementName] = []);
+                theseElements.push(element);
+            }
+        }
+        currentNode = tree.nextNode();
     }
+    return root;
 };
+
 const parseStorageHtml = html => {
     const container = document.createElement('div');
     container.innerHTML = html;
-    const root = {
-        json: { html },
-        dom: container.querySelector('[data-element="main"]')
-    };
-    if (!root.dom) {
-        return {};
-    }
-
-    const smallScreen = window.matchMedia('(max-width: 768px)');
-
-    const stack = [root];
-
-    let current;
-    walk: while ((current = stack.pop())) {
-        const { json, dom } = current;
-
-        json.domAttributes = {};
-        for (const attr of dom.attributes) {
-            if (attr.name === 'style' || attr.name.startsWith('data-')) {
-                json.domAttributes[attr.name] = attr.value;
-            }
-        }
-
-        json.dataAttributes = {};
-        Object.assign(current.obj.dataAttributes, current.node.datalist);
-        current.obj.type = current.node.datalist.contentType;
-        if (current.node.style) {
-            Object.assign(current.obj.style, current.node.style);
-        }
-
-        if (obj.dataAttributes.backgroundImages) {
-            const bgImgs = JSON.parse(obj.dataAttributes.backgroundImages);
-            let backgroundImage = bgImgs.desktop_image || bgImgs.mobile_image;
-            if (smallScreen.matches && bgImgs.mobile_image) {
-                backgroundImage = bgImgs.mobile_image;
-            }
-            obj.domAttributes.style.backgroundImage = `url('${backgroundImage}')`;
-        }
-    }
+    const rootDom = container.querySelector('[data-element="main"]');
+    return rootDom ? walk(rootDom) : {};
 };
 
 export default parseStorageHtml;
