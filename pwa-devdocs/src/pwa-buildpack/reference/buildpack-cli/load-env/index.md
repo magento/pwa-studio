@@ -73,11 +73,11 @@ This lets you pass smaller objects instead of a single, plain object full of glo
 
 `section(sectionName)`
 : Returns a plain object with environment variables in the `sectionName` namespace.
-  The property keys are [camelCased][] for convenience.
+The property keys are [camelCased][] for convenience.
 
 `sections(...sectionNames)`
 : Returns a plain object with environment variables from the specified namespaces.
-  The namespaces are assigned to different camelCased properties named after the section name.
+The namespaces are assigned to different camelCased properties named after the section name.
 
 `all()`
 : Returns the entire environment object, camelCased for convenience, with no namespace separations.
