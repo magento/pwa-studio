@@ -19,8 +19,8 @@ The `create-env-file` command uses the [`envVarDefinitions.json`][] file in the 
 
 ## Command flags
 
-| Name             | Description                                                        |
-| ---------------- | ------------------------------------------------------------------ |
+| Name             | Description                                                          |
+| ---------------- | -------------------------------------------------------------------- |
 | `--use-examples` | Use `example` values for all variables in the generated `.env` file. |
 
 ## Defining variables for the `.env` file
@@ -49,14 +49,22 @@ Adding the `@magento/pwa-buildpack` dependency to your project gives you access 
 
 Uses the current environment variables and [`envVarDefinitions.json`][] file to generate the contents of a `.env` file.
 
+#### Example
+
+```js
+const { createDotEnvFile } = require('@magento/pwa-buildpack');
+
+const fileContents = createDotEnvFile(process.cwd());
+```
+
 #### Parameters
 
-| Parameter | Data type | Description |
-| --- | --- | --- |
-| `dirOrEnv` | `string` path or a `process.env`-like object | Provides the path to the project root. |
-| `options` | `object` | An object containing additional options. |
-| `options.logger` | `object` | The object to use for logging. |
-| `options.useExamples` | `boolean` | Whether to populate the `.env` file with `example` values. |
+| Parameter             | Data type                                    | Description                                                |
+| --------------------- | -------------------------------------------- | ---------------------------------------------------------- |
+| `dirOrEnv`            | `string` path or a `process.env`-like object | Provides the path to the project root.                     |
+| `options`             | `object`                                     | An object containing additional options.                   |
+| `options.logger`      | `object`                                     | The object to use for logging.                             |
+| `options.useExamples` | `boolean`                                    | Whether to populate the `.env` file with `example` values. |
 
 If `dirOrEnv` is a string and the specified directory contains a `.env` file, it is read before being overwritten to preserve existing variables.
 
@@ -67,13 +75,5 @@ If `dirOrEnv` is a `process.env`-like object, the `.env` file is not parsed befo
 The return value is the string value of a `.env` file.
 
 Parse this value using the `dotenv` API or write it out to the filesystem.
-
-#### Example
-
-```js
-const { createDotEnvFile } = require('@magento/pwa-buildpack');
-
-const fileContents = createDotEnvFile(process.cwd());
-```
 
 [`envvardefinitions.json`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
