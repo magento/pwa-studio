@@ -200,7 +200,7 @@ PaymentsFormItems.propTypes = {
         braintree: string,
         firstname: string,
         lastname: string,
-        telephone:string,
+        telephone: string,
         city: string,
         footer: string,
         heading: string,
