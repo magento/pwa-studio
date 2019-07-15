@@ -135,9 +135,13 @@ const PaymentsFormItems = props => {
             if (!sameAsShippingAddress) {
                 billingAddress = {
                     city: formState.values['city'],
+                    email: formState.values['email'],
+                    firstname: formState.values['firstname'],
+                    lastname: formState.values['lastname'],
                     postcode: formState.values['postcode'],
                     region_code: formState.values['region_code'],
-                    street: formState.values['street']
+                    street: formState.values['street'],
+                    telephone: formState.values['telephone']
                 };
             } else {
                 billingAddress = {
