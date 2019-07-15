@@ -22,7 +22,7 @@ config.files.forEach(file => {
         target
     );
 
-    let githubSource = path.join(
+    let githubSource = "https://"+ path.join(
         config.baseGitHubPath,
         config.packagesPath,
         target
