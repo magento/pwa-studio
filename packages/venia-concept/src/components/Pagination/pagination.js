@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { func, number, object, shape, string } from 'prop-types';
-import { withRouter } from 'src/drivers';
-import { compose } from 'redux';
+import { func, number, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './pagination.css';
@@ -15,8 +13,6 @@ class Pagination extends Component {
         classes: shape({
             root: string
         }),
-        history: object,
-        location: object,
         pageControl: shape({
             currentPage: number,
             setPage: func,
@@ -138,7 +134,4 @@ class Pagination extends Component {
     };
 }
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(Pagination);
+export default classify(defaultClasses)(Pagination);

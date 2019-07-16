@@ -10,8 +10,12 @@ const setQueryParam = ({ location, history, parameter, value }) => {
     const queryParams = new URLSearchParams(search);
     queryParams.set(parameter, value);
 
-    const fn = history.push || history.pushState;
-    fn({ search: queryParams.toString() });
+    if (history.push) {
+        history.push({ search: queryParams.toString() });
+    } else {
+        // Use the native pushState. See https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState()_method
+        history.pushState({ search: queryParams.toString() }, '');
+    }
 };
 
 /**
@@ -35,11 +39,10 @@ export const usePagination = ({
     namespace = '',
     parameter = 'page',
     initialPage = 1,
-    intialTotalPages = 1
-}) => {
+    initialTotalPages = 1
+} = {}) => {
     const [currentPage, setCurrentPage] = useState(initialPage);
-    const [totalPages, setTotalPages] = useState(intialTotalPages);
-
+    const [totalPages, setTotalPages] = useState(initialTotalPages);
     const setValue = useCallback(
         val => {
             // Fallback to initial value if NaN ie page='foo'.
