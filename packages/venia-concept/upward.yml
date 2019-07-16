@@ -193,7 +193,7 @@ resource:
           model: createAccountModel
           name: createAccountModel.title
           entityTypeName:
-            inline: "Create Account"
+            inline: "Create Account Page"
           template: './templates/generic-shell.mst'
   default:
     # If none of the resolver conditions pass, no 'model' property is set and
