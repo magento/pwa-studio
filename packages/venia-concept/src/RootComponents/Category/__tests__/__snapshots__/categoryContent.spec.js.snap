@@ -24,7 +24,7 @@ exports[`renders the correct tree 1`] = `
   <div
     className="d"
   >
-    <withRouter(Classify(Pagination))
+    <Classify(Pagination)
       pageControl={Object {}}
     />
   </div>
