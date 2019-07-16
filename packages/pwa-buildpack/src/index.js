@@ -1,4 +1,8 @@
+const Utilities = require('./Utilities');
+const WebpackTools = require('./WebpackTools');
 module.exports = {
-    WebpackTools: require('./WebpackTools'),
-    Utilities: require('./Utilities')
+    ...Utilities,
+    ...WebpackTools,
+    Utilities,
+    WebpackTools
 };

@@ -16,7 +16,6 @@ const log = store => next => action => {
     console.log(store.getState());
     console.groupEnd();
     console.groupEnd();
-
     return result;
 };
 

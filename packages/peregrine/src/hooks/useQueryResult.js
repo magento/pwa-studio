@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useReducer } from 'react';
+import withLogger from '../util/withLogger';
 
 const initialState = {
     data: null,
@@ -34,6 +35,7 @@ const reducer = (state, { payload, type }) => {
         }
     }
 };
+const wrappedReducer = withLogger(reducer);
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains
@@ -56,7 +58,7 @@ export const useQueryResult = () => {
      * @param {QueryResultState} state The current state
      * @param {QueryResultAction} action A QueryResultAction object
      */
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
 
     /**
      * Set the state data

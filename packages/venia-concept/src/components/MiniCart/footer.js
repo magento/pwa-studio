@@ -23,7 +23,7 @@ const Footer = props => {
         : classes.root;
     const placeholderButton = (
         <div className={classes.placeholderButton}>
-            <CheckoutButton ready={false} />
+            <CheckoutButton disabled={true} />
         </div>
     );
 
