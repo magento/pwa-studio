@@ -33,11 +33,10 @@ response:
     - matches: request.url.pathname
       pattern: '^/(graphql|rest)(/|$)'
       use: proxy
-    # Requests to create an account are handled by the top-level 'index'
-    # object, which returns a generic app shell
+    # Requests to create an account are handled by the 'appShell' object.
     - matches: request.url.pathname
       pattern: '^/create-account'
-      use: index
+      use: appShell
     # Requests for static resources provided by the application project, such
     # as icons, manifests, and static images, are handled by the top-level
     # 'static' object, which defines a DirectoryResolver that serves assets
@@ -62,18 +61,6 @@ response:
   # request is the top-level 'bundles' object, which is a DirectoryResolver that
   # serves the Webpack output assets from the './dist' folder.
   default: bundles
-
-# An object that returns true if the NODE_ENV environment variable is set
-# to 'development'. Used as a test in other configurations in this file.
-# Returns false otherwise.
-isDevelopment:
-  when:
-    - matches: env.NODE_ENV
-      pattern: 'development'
-      use:
-        inline: true
-  default:
-    inline: false
 
 # A ProxyResolver object that passes a request to the backend Magento
 # server defined in the MAGENTO_BACKEND_URL environment variable.
@@ -198,6 +185,15 @@ resource:
         inline:
           entityTypeName:
             inline: "Search Results"
+          template: './templates/generic-shell.mst'
+    - matches: request.url.pathname
+      pattern: '/create-account'
+      use:
+        inline:
+          model: createAccountModel
+          name: createAccountModel.title
+          entityTypeName:
+            inline: "Create Account"
           template: './templates/generic-shell.mst'
   default:
     # If none of the resolver conditions pass, no 'model' property is set and
@@ -344,20 +340,12 @@ bundles:
   directory:
     inline: './dist'
 
-# The index object contains response data for rendering a generic app shell
-index:
+# The createAccountModel object contains a single 'title' property that is used
+# in the template file as the page title.
+createAccountModel:
   inline:
-    status: 200
-    headers:
-      inline:
-        content-type:
-          inline: text/html
-    body:
-      engine: mustache
-      template: './templates/generic-shell.mst'
-      provide:
-        assets: assetManifest
-        isDevelopment: isDevelopment
+    title:
+      inline: 'Create Account'
 
 # The static object is a DirectoryResolver that allows access to the files
 # inside the project's './static' directory.
