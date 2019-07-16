@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that gives
- * gives you the ability to add a callback function when an event is triggered
- * on an object.
+ * you the ability to add a callback function when an event is triggered on
+ * an object.
  *
  * This function attaches an event listener to a target object on mount
  * and removes the listener on unmount.
