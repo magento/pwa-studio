@@ -16,8 +16,7 @@ class Pagination extends Component {
         pageControl: shape({
             currentPage: number,
             setPage: func,
-            totalPages: number,
-            updateTotalPages: func
+            totalPages: number
         })
     };
 

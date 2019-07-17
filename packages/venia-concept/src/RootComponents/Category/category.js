@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
@@ -30,7 +30,6 @@ const Category = props => {
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
-        updateTotalPages: setTotalPages,
         totalPages
     };
 
@@ -76,18 +75,22 @@ const Category = props => {
         };
     }, [setTotalPages, totalPagesFromData]);
 
-    // Retry 3 times and then display the fallback error.
-    const [errorCount, setErrorCount] = useState(0);
-    if (error && errorCount <= 3) {
-        setCurrentPage(1);
-        setErrorCount(errorCount + 1);
-    } else if (error) {
+    // If we get an error after loading we should try to reset to page 1.
+    // If we continue to have errors after that, render an error message.
+    useEffect(() => {
+        if (error && !loading && currentPage !== 1) {
+            setCurrentPage(1);
+        }
+    }, [currentPage, error, loading, setCurrentPage]);
+
+    if (error && currentPage === 1 && !loading) {
         return <div>Data Fetch Error</div>;
     }
 
-    // show loading indicator until data has been fetched
-    // and pagination state has been updated
-    if (!totalPages) return fullPageLoadingIndicator;
+    // Show the loading indicator until data has been fetched.
+    if (!totalPagesFromData) {
+        return fullPageLoadingIndicator;
+    }
 
     return (
         <CategoryContent
