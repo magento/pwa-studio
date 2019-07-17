@@ -2,7 +2,11 @@
 const htmlDataset = document.querySelector('html').dataset;
 const { imageOptimizingOrigin } = htmlDataset;
 // Protect against potential falsy values for `mediaBackend`.
-const mediaBackend = htmlDataset.mediaBackend || 'https://backend.test/media/';
+let mediaBackend = htmlDataset.mediaBackend;
+if (!mediaBackend) {
+    console.warn('A media backend URL should be defined in your config.');
+    mediaBackend = 'https://backend.test/media/';
+}
 
 const useBackendForImgs = imageOptimizingOrigin === 'backend';
 
