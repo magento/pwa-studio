@@ -128,6 +128,26 @@ appShell:
 # the page type based on the request URL.
 resource:
   when:
+    # This entry makes '/search.html' a valid resource path. It uses a simple
+    # inline object as its resolve data and uses the generic shell as its
+    # template file.
+    - matches: request.url.pathname
+      pattern: '/search.html'
+      use:
+        inline:
+          entityTypeName:
+            inline: "Search Results"
+          template: './templates/generic-shell.mst'
+    # This entry makes '/create-account' a valid resource path.
+    - matches: request.url.pathname
+      pattern: '/create-account'
+      use:
+        inline:
+          model: createAccountModel
+          name: createAccountModel.title
+          entityTypeName:
+            inline: "Create Account Page"
+          template: './templates/generic-shell.mst'
     # As with all other context values, `urlResolver` begins resolving the first
     # time its value is requested. If UPWARD has not yet queried the GraphQL
     # service before evaluating this match clause, then it does so now.
@@ -175,25 +195,6 @@ resource:
           name: unknownPageType.title
           entityTypeName:
             inline: "Page"
-          template: './templates/generic-shell.mst'
-    # This entry makes '/search.html' a valid resource path. It uses a simple
-    # inline object as its resolve data and uses the generic shell as its
-    # template file.
-    - matches: request.url.pathname
-      pattern: '/search.html'
-      use:
-        inline:
-          entityTypeName:
-            inline: "Search Results"
-          template: './templates/generic-shell.mst'
-    - matches: request.url.pathname
-      pattern: '/create-account'
-      use:
-        inline:
-          model: createAccountModel
-          name: createAccountModel.title
-          entityTypeName:
-            inline: "Create Account Page"
           template: './templates/generic-shell.mst'
   default:
     # If none of the resolver conditions pass, no 'model' property is set and
