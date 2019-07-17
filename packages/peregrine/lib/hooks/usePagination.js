@@ -47,7 +47,8 @@ export const usePagination = ({
         // We need to synchronously fetch the initial page value from the query
         // param otherwise we would initialize this value twice.
         initialPage = parseInt(
-            getSearchParam(`${namespace}_${parameter}`) || defaultInitialPage
+            getSearchParam(`${namespace}_${parameter}`, location) ||
+                defaultInitialPage
         );
     }
 
