@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useSearchParam } from './useSearchParam';
+import { getSearchParam } from './useSearchParam';
 
 /**
  * Sets a query parameter in history. Attempt to use React Router if provided
@@ -17,6 +17,8 @@ const setQueryParam = ({ location, history, parameter, value }) => {
         history.pushState({ search: queryParams.toString() }, '');
     }
 };
+
+const defaultInitialPage = 1;
 
 /**
  * `usePagination` provides a pagination state with `currentPage` and
@@ -38,25 +40,19 @@ export const usePagination = ({
     history = window.history,
     namespace = '',
     parameter = 'page',
-    initialPage = 1,
+    initialPage,
     initialTotalPages = 1
 } = {}) => {
+    if (!initialPage) {
+        // We need to synchronously fetch the initial page value from the query
+        // param otherwise we would initialize this value twice.
+        initialPage = parseInt(
+            getSearchParam(`${namespace}_${parameter}`) || defaultInitialPage
+        );
+    }
+
     const [currentPage, setCurrentPage] = useState(initialPage);
     const [totalPages, setTotalPages] = useState(initialTotalPages);
-    const setValue = useCallback(
-        val => {
-            // Fallback to initial value if NaN ie page='foo'.
-            // TODO: handle negative initial values as well.
-            setCurrentPage(parseInt(val) || initialPage);
-        },
-        [initialPage]
-    );
-
-    useSearchParam({
-        location,
-        parameter: `${namespace}_${parameter}`,
-        setValue
-    });
 
     const setPage = useCallback(
         page => {
