@@ -1,9 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useCarousel } from '@magento/peregrine';
-
 import { resourceUrl } from 'src/drivers';
-import Icon from 'src/components/Icon';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
@@ -12,22 +10,11 @@ import { mergeClasses } from 'src/classify';
 import Thumbnail from './thumbnail';
 import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from 'src/shared/images';
+import Icon from 'src/components/Icon';
 import Image from 'src/components/Image';
-
-const ChevronIcons = {
-    left: ChevronLeftIcon,
-    right: ChevronRightIcon
-};
+import Button from 'src/components/Button';
 
 const DEFAULT_IMAGE_WIDTH = 640;
-
-const Chevron = ({ className, direction, onClick }) => {
-    return (
-        <button onClick={onClick} className={className}>
-            <Icon src={ChevronIcons[direction]} size={40} />
-        </button>
-    );
-};
 
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -71,22 +58,28 @@ const Carousel = props => {
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
-                <Chevron
-                    direction={'left'}
-                    className={classes.chevronLeft}
+                <Button
+                    classes={{
+                        root_normalPriority: classes.previousButton
+                    }}
                     onClick={handlePrevious}
-                />
+                >
+                    <Icon src={ChevronLeftIcon} size={40} />
+                </Button>
                 <Image
                     classes={{ root: classes.currentImage }}
                     src={src}
                     alt={alt}
                     placeholder={transparentPlaceholder}
                 />
-                <Chevron
-                    direction={'right'}
-                    className={classes.chevronRight}
+                <Button
+                    classes={{
+                        root_normalPriority: classes.nextButton
+                    }}
                     onClick={handleNext}
-                />
+                >
+                    <Icon src={ChevronRightIcon} size={40} />
+                </Button>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
@@ -95,11 +88,11 @@ const Carousel = props => {
 
 Carousel.propTypes = {
     classes: shape({
-        root: string,
         currentImage: string,
         imageContainer: string,
-        'chevron-left': string,
-        'chevron-right': string
+        nextButton: string,
+        previousButton: string,
+        root: string
     }),
     images: arrayOf(
         shape({
