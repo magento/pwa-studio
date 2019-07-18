@@ -26,7 +26,7 @@
                 "includeFiles": [
                     "package.json",
                     ".env",
-                    "venia-upward.yml",
+                    "upward.yml",
                     "static/*",
                     "templates/*"
                 ],
