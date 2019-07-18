@@ -43,6 +43,12 @@ body {
     padding: 0;
 }
 
+html[data-scroll-lock='true'],
+html[data-scroll-lock='true'] body {
+    overflow: hidden;
+    position: fixed;
+}
+
 body,
 input,
 select,
