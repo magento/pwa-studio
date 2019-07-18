@@ -3,14 +3,12 @@
 
 .body {
     composes: body from './form.css';
+    align-content: start;
+    background-color: white;
     grid-gap: 0.5rem;
-    height: calc(
-        var(--minicart-height) - var(--flow-footer-height) -
-            var(--minicart-footer-padding-bottom)
-    );
-    overflow-y: scroll;
+    height: 30rem;
+    overflow: auto;
     padding: 0 1.5rem;
-    grid-auto-rows: max-content;
 }
 
 .footer {
@@ -18,13 +16,17 @@
 }
 
 .heading {
+    background-color: white;
     font-size: 0.875rem;
     font-weight: 600;
     grid-column-end: span 2;
     line-height: 1rem;
-    padding: 0.75rem 0;
+    padding: 1.5rem 0 1.25rem;
+    position: sticky;
     text-align: center;
     text-transform: uppercase;
+    top: 0;
+    z-index: 1;
 }
 
 .button {
@@ -84,4 +86,8 @@
  */
 [data-braintree-id='upper-container'] {
     z-index: unset;
+}
+
+:global .braintree-placeholder {
+    display: none;
 }

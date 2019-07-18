@@ -25,7 +25,6 @@
 
 .form {
     overflow: auto;
-    height: 1fr;
 }
 
 .modal {
@@ -62,16 +61,5 @@
 }
 
 .save {
-    box-shadow: 0 -1px rgb(var(--venia-border));
-    background-color: #fff;
-    justify-content: center;
-    padding: 1rem 0;
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-}
-
-.save button {
-    margin-right: 5px;
-    margin-left: 5px;
+    composes: footer from '../../components/Checkout/flow.css';
 }
