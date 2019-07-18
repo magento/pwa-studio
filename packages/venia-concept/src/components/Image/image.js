@@ -12,7 +12,7 @@ import defaultClasses from './image.css';
  * @param {string} props.src the source of the image
  */
 const Image = props => {
-    const { alt, placeholder, src } = props;
+    const { alt, placeholder, src, ...rest } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -34,7 +34,7 @@ const Image = props => {
 
     // Render a placeholder until the image is loaded.
     const placeholderImage = placeholder && !isLoaded && (
-        <img className={classes.root} src={placeholder} alt={alt} />
+        <img className={classes.root} src={placeholder} alt={alt} {...rest} />
     );
 
     const imageClass =
@@ -47,6 +47,7 @@ const Image = props => {
             onError={handleError}
             onLoad={handleImageLoad}
             src={src}
+            {...rest}
         />
     );
 
