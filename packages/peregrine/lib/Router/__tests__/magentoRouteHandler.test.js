@@ -1,6 +1,7 @@
 import React from 'react';
-import MagentoRouteHandler from '../magentoRouteHandler';
+import waitForExpect from 'wait-for-expect';
 import { shallow } from 'enzyme';
+import MagentoRouteHandler from '../magentoRouteHandler';
 import resolveUnknownRoute from '../resolveUnknownRoute';
 
 const fetchRootComponent = (global.fetchRootComponent = jest.fn());
@@ -52,9 +53,9 @@ test('renders `internalError` if `resolveUnknownRoute` fails', async () => {
     resolveUnknownRoute.mockRejectedValue(new Error());
     shallow(<MagentoRouteHandler {...props} />);
 
-    await Promise.resolve(); // resolveUnknownRoute
+    // resolveUnknownRoute
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(2));
 
-    expect(children).toHaveBeenCalledTimes(2);
     expect(children).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
@@ -73,9 +74,9 @@ test('renders `notFound` if resolved route is not matched', async () => {
     resolveUnknownRoute.mockResolvedValue({ matched: false });
     shallow(<MagentoRouteHandler {...props} />);
 
-    await Promise.resolve(); // resolveUnknownRoute
+    // resolveUnknownRoute
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(2));
 
-    expect(children).toHaveBeenCalledTimes(2);
     expect(children).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
@@ -96,11 +97,10 @@ test('renders `internalError` if `fetchRootComponent` fails', async () => {
 
     const wrapper = shallow(<MagentoRouteHandler {...props} />);
 
-    await Promise.resolve(); // resolveUnknownRoute
-    await Promise.resolve(); // fetchRootComponent
+    // resolveUnknownRoute, fetchRootComponent
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(2));
 
     expect(wrapper.state('componentMap').size).toBe(1);
-    expect(children).toHaveBeenCalledTimes(2);
     expect(children).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
@@ -123,10 +123,9 @@ test('renders RootComponent if `fetchRootComponent` succeeds', async () => {
 
     const wrapper = shallow(<MagentoRouteHandler {...props} />);
 
-    await Promise.resolve(); // resolveUnknownRoute
-    await Promise.resolve(); // fetchRootComponent
+    // resolveUnknownRoute, fetchRootComponent
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(1));
 
-    expect(children).toHaveBeenCalledTimes(1);
     expect(children).toHaveBeenNthCalledWith(1, {
         hasError: false,
         internalError: false,
@@ -144,22 +143,20 @@ test('skips `fetchRootComponent` if path is known', async () => {
 
     const wrapper = shallow(<MagentoRouteHandler {...props} />);
 
-    await Promise.resolve(); // resolveUnknownRoute
-    await Promise.resolve(); // fetchRootComponent
+    // resolveUnknownRoute, fetchRootComponent
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(1));
 
     // navigate to `bar`
     wrapper.setProps({ ...props, location: { pathname: '/bar.html' } });
 
-    await Promise.resolve(); // resolveUnknownRoute
-    await Promise.resolve(); // fetchRootComponent
-
     // navigate back to `foo`
     wrapper.setProps(props);
 
-    await Promise.resolve(); // resolveUnknownRoute
-    await Promise.resolve(); // fetchRootComponent
+    // resolveUnknownRoute, fetchRootComponent
+    await waitForExpect(() =>
+        expect(fetchRootComponent).toHaveBeenCalledTimes(2)
+    );
 
     expect(children).toHaveBeenCalledTimes(2);
-    expect(fetchRootComponent).toHaveBeenCalledTimes(2);
     expect(wrapper.find(RootComponent)).toHaveLength(1);
 });
