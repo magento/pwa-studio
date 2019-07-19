@@ -501,6 +501,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
         />
       </div>
     </div>
+    <span />
   </div>
   <div
     className="footer"
