@@ -4,7 +4,7 @@ import ToastContainer from '../toastContainer';
 import { ToastContextProvider, useToasts } from '@magento/peregrine';
 import Icon from 'src/components/Icon';
 
-import SmileIcon from 'react-feather/dist/icons/smile';
+import { Smile as SmileIcon } from 'react-feather';
 
 const stories = storiesOf('Toasts', module);
 
@@ -34,7 +34,9 @@ const ToastEmitter = ({
     // Only add toasts once on mount. Since `addToast` changes each render
     // we cannot add it as an effect dependency otherwise we infinitely loop.
     useEffect(() => {
-        addToast(toastProps);
+        setTimeout(() => {
+            addToast(toastProps);
+        }, 0);
     }, []); // eslint-disable-line
 
     return null;
