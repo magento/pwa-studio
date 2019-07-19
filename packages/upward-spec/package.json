@@ -7,9 +7,6 @@
     "upward-spec": "./bin/upward-spec"
   },
   "scripts": {
-    "build": " ",
-    "build:ci": " ",
-    "build:dev": " ",
     "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
@@ -38,7 +35,7 @@
     "tape": "~4.10.1"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }
