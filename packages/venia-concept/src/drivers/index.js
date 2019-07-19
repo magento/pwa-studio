@@ -39,7 +39,7 @@ export { connect } from 'react-redux';
  * directly from the non-aliased Venia module:
  *
  * ```js
- * import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/esm/drivers';
+ * import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/src/drivers';
  *
  * const proxyBase = new URL('/proxy-to-store', window.location.origin);
  * export function resourceUrl(...args) {

@@ -7,7 +7,7 @@ Formatting of prices and currency symbol selection is handled entirely by the EC
 ## Usage
 
 ```jsx
-import Price from '@peregrine/Price';
+import Price from '@magento/peregrine/lib/components/Price';
 import cssModule from './my-pricing-styles';
 
 <Price value={100.99} currencyCode="USD" classes={cssModule} />;
