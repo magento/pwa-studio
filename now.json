@@ -33,7 +33,7 @@
                 "maxLambdaSize": "20mb"
             },
             "src": "packages/venia-concept/server-lambda.js",
-            "use": "@now/node"
+            "use": "@now/node@0.11.1"
         }
     ],
     "routes": [
