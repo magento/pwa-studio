@@ -2,7 +2,5 @@
 __fixtures__
 # Minified build assets
 dist
-# Babelified ES modules for NPM dependents
-esm
 # Devdocs is a separate project
 pwa-devdocs

@@ -7,10 +7,6 @@ const optionsValidator = require('../../util/options-validator');
 const SW_FILENAME = 'sw.js';
 
 class ServiceWorkerPlugin {
-    static validateOptions = optionsValidator('ServiceWorkerPlugin', {
-        mode: 'string',
-        'paths.output': 'string'
-    });
     constructor(config) {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
         this.config = config;
@@ -92,4 +88,12 @@ class ServiceWorkerPlugin {
         }
     }
 }
+
+// Must define methods like this on prototype until Node natively supports
+// static class properties.
+ServiceWorkerPlugin.validateOptions = optionsValidator('ServiceWorkerPlugin', {
+    mode: 'string',
+    'paths.output': 'string'
+});
+
 module.exports = ServiceWorkerPlugin;

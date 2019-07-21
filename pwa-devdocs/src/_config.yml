@@ -59,4 +59,4 @@ algolia:
     - static
 
 google:
-  analytics: 'UA-66243208-1'
+  gtm: GTM-KRCLXBB

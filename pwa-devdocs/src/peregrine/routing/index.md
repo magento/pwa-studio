@@ -137,11 +137,11 @@ class App extends Component {
 ...
 ```
 
-[`router.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/router.js
-[`magentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/magentoRouteHandler.js
-[`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/resolveUnknownRoute.js
-[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/webpackInterop.js
-[`page.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Page/page.js
+[`router.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/lib/Router/router.js
+[`magentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/lib/Router/magentoRouteHandler.js
+[`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/lib/Router/resolveUnknownRoute.js
+[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/lib/Router/webpackInterop.js
+[`page.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/lib/Page/page.js
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
 [ErrorView]:t://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/ErrorView/errorView.js
