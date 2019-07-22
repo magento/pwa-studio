@@ -22,8 +22,6 @@
     grid-column-end: span 2;
     line-height: 1rem;
     padding: 1.5rem 0 1.25rem;
-    position: -webkit-sticky;
-    position: sticky;
     text-align: center;
     text-transform: uppercase;
     top: 0;
