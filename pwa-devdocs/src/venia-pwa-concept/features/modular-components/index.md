@@ -31,11 +31,11 @@ yarn add @magento/venia-concept
 
 ## Import Venia components
 
-Individual Venia components are imported from the `esm` directory of the Venia package.
+Individual Venia components are imported from the `src` directory of the Venia package.
 
 ```js
-import VeniaProductDetail from '@magento/venia-concept/esm/components/ProductFullDetail';
-import Product from '@magento/venia-concept/esm/RootComponents/Product';
+import VeniaProductDetail from '@magento/venia-concept/src/components/ProductFullDetail';
+import Product from '@magento/venia-concept/src/RootComponents/Product';
 ```
 
 These components are defined in the project as [ES Modules][] to help with [Webpack optimization][].
@@ -57,7 +57,7 @@ To use complex components in your own project, you have the following options:
 Import and use the [Venia Adapter][] in your project if your storefront already uses [Apollo][] and [React Redux][]
 
 ```jsx
-import VeniaAdapter from '@magento/venia-concept/esm/drivers/adapter';
+import VeniaAdapter from '@magento/venia-concept/src/drivers/adapter';
 
 import { createStore } from 'redux';
 import { ApolloClient } from 'apollo-client';
@@ -128,7 +128,7 @@ module: {
 
 ```jsx
 import React, { Component } from 'react';
-import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/esm/drivers';
+import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/src/drivers';
 
 // A replacement Query that loads forever
 export class Query extends Component {
