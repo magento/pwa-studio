@@ -163,7 +163,6 @@ const jestConfig = {
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
         'dist',
-        'esm',
         'node_modules',
         '__fixtures__',
         '__helpers__',

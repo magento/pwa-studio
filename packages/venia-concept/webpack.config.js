@@ -72,7 +72,7 @@ module.exports = async function(env = {}) {
                     ]
                 },
                 {
-                    include: [themePaths.src, /peregrine\/src\//],
+                    include: [themePaths.src, /peregrine/],
                     test: /\.(mjs|js)$/,
                     use: [
                         {
