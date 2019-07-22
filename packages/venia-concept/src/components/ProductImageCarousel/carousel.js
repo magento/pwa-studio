@@ -45,7 +45,7 @@ const Carousel = props => {
         () =>
             sortedImages.map((item, index) => (
                 <Thumbnail
-                    key={index}
+                    key={`${item.file}--${item.label}`}
                     item={item}
                     itemIndex={index}
                     isActive={activeItemIndex === index}
