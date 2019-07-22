@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 import defaultClasses from './image.css';
@@ -12,8 +12,7 @@ import defaultClasses from './image.css';
  * @param {string} props.src the source of the image
  */
 const Image = props => {
-    const { alt, placeholder, src, ...rest } = props;
-
+    const { alt, onError, onLoad, placeholder, src, ...rest } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -21,11 +20,19 @@ const Image = props => {
 
     const handleImageLoad = useCallback(() => {
         setIsLoaded(true);
-    }, []);
+
+        if (typeof onLoad === 'function') {
+            onLoad();
+        }
+    }, [onLoad]);
 
     const handleError = useCallback(() => {
         setError(true);
-    }, []);
+
+        if (typeof onError === 'function') {
+            onError();
+        }
+    }, [onError]);
 
     // On mount, reset loaded to false.
     useEffect(() => {
@@ -42,12 +49,12 @@ const Image = props => {
 
     const actualImage = !error && (
         <img
+            {...rest}
             alt={alt}
             className={imageClass}
             onError={handleError}
             onLoad={handleImageLoad}
             src={src}
-            {...rest}
         />
     );
 
@@ -60,15 +67,16 @@ const Image = props => {
 };
 
 Image.propTypes = {
-    className: string,
+    alt: string,
     classes: shape({
         loaded: string,
         notLoaded: string,
         root: string
     }),
-    alt: string,
-    src: string,
-    placeholder: string
+    onError: func,
+    onLoad: func,
+    placeholder: string,
+    src: string
 };
 
 export default Image;
