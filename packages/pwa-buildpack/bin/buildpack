@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 require('yargs')
-    .commandDir('../dist/cli')
+    .commandDir('../lib/cli')
     .demandCommand(
         1,
         'Invoke buildpack with a subcommand (eg. `buildpack create-env-file`) and the arguments to that subcommand.'

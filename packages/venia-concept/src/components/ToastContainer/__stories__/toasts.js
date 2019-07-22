@@ -4,7 +4,7 @@ import ToastContainer from '../toastContainer';
 import { ToastContextProvider, useToasts } from '@magento/peregrine';
 import Icon from 'src/components/Icon';
 
-import SmileIcon from 'react-feather/dist/icons/smile';
+import { Smile as SmileIcon } from 'react-feather';
 
 const stories = storiesOf('Toasts', module);
 

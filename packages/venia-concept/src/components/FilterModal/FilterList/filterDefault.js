@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'src/components/Icon';
-import Checkmark from 'react-feather/dist/icons/check';
+import { Check as Checkmark } from 'react-feather';
 import classify from 'src/classify';
 import defaultClasses from './filterDefault.css';
 
