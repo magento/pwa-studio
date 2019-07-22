@@ -1,8 +1,13 @@
 // If the root template supplies the backend URL at runtime, use it directly
-const {
-    imageOptimizingOrigin,
-    mediaBackend = 'https://backend.test/media/'
-} = document.querySelector('html').dataset;
+const htmlDataset = document.querySelector('html').dataset;
+const { imageOptimizingOrigin } = htmlDataset;
+// Protect against potential falsy values for `mediaBackend`.
+let mediaBackend = htmlDataset.mediaBackend;
+if (!mediaBackend) {
+    console.warn('A media backend URL should be defined in your config.');
+    mediaBackend = 'https://backend.test/media/';
+}
+
 const useBackendForImgs = imageOptimizingOrigin === 'backend';
 
 // Tests if a URL begins with `http:` or `https:` or `data:`

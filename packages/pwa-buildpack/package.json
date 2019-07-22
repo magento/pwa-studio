@@ -5,18 +5,12 @@
     "access": "public"
   },
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "bin": {
     "buildpack": "./bin/buildpack"
   },
   "scripts": {
-    "build": "babel src --out-dir dist --root-mode 'root' --source-maps --copy-files",
-    "build:ci": "yarn run -s build",
-    "build:dev": "yarn run -s build",
-    "clean": "rimraf dist",
-    "prebuild": "yarn run -s clean",
-    "prepublishOnly": "yarn run build",
-    "watch": "yarn run build --watch"
+    "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -32,10 +26,6 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
-    "@babel/core": "~7.3.4",
-    "@babel/helper-module-imports": "~7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
-    "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@magento/directive-parser": "~0.1.6",
     "@magento/express-sharp": "~2.1.1-newdeps.1",
     "@magento/upward-js": "~2.2.0",
@@ -68,9 +58,6 @@
     "yargs": "~13.2.2"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "@babel/plugin-proposal-class-properties": "~7.3.4",
-    "dedent": "~0.7.0",
     "memory-fs": "~0.4.1",
     "rimraf": "~2.6.3",
     "sharp": "~0.21.2",
@@ -78,7 +65,7 @@
     "terser-webpack-plugin": "~1.2.3"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { RouteProvider } from '../../Router';
-import Page from '../page';
+import Page from '../';
 
 jest.mock('../../Router/magentoRouteHandler');
 
