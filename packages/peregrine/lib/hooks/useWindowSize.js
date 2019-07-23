@@ -15,7 +15,7 @@ const getSize = () => {
 /**
  * A hook that will return inner and outer height and width values whenever
  * the window is resized.
- * 
+ *
  * @kind function
  * @private
  */
