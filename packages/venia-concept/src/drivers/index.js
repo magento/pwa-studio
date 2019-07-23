@@ -30,7 +30,7 @@ export { connect } from 'react-redux';
  * ```
  *
  * Venia components build URLs based on assumptions about the local origin,
- * which are declared in venia-upward.yml. Nevertheless, third parties will use
+ * which are declared in upward.yml. Nevertheless, third parties will use
  * Venia components outside of the app which defines those UPWARD requirements.
  *
  * Therefore, Venia uses the `resourceUrl()` function to generate all URLs, and
@@ -39,7 +39,7 @@ export { connect } from 'react-redux';
  * directly from the non-aliased Venia module:
  *
  * ```js
- * import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/esm/drivers';
+ * import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/src/drivers';
  *
  * const proxyBase = new URL('/proxy-to-store', window.location.origin);
  * export function resourceUrl(...args) {

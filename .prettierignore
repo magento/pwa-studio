@@ -3,7 +3,8 @@ coverage
 # Minified build assets
 dist
 storybook-dist
-# Babelified ES modules for NPM dependents
-esm
 # Devdocs is a separate project
 pwa-devdocs
+
+# Dangerfile is maintained in the pwa-studio-cicd repo and symlinked during build
+dangerfile.js

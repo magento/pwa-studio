@@ -1,32 +1,44 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
 
-import OnlineIndicator from 'src/components/OnlineIndicator';
 import Main from 'src/components/Main';
 import Mask from 'src/components/Mask';
 import MiniCart from 'src/components/MiniCart';
-import ErrorNotifications from '../errorNotifications';
+import Navigation from 'src/components/Navigation';
 
 jest.mock('src/components/Main', () => 'Main');
 jest.mock('src/components/MiniCart', () => 'MiniCart');
-jest.mock('../errorNotifications', () => 'ErrorNotifications');
+jest.mock('src/components/Navigation', () => 'Navigation');
+jest.mock('src/components/ToastContainer', () => 'ToastContainer');
 
 Object.defineProperty(window.location, 'reload', {
     configurable: true
 });
+
+const mockAddToast = jest.fn();
+jest.mock('@magento/peregrine', () => {
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: mockAddToast }
+    ]);
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
+
+jest.mock('src/util/createErrorRecord', () => ({
+    __esModule: true,
+    default: jest.fn().mockReturnValue({
+        error: { message: 'A render error', stack: 'errorStack' },
+        id: '1',
+        loc: '1'
+    })
+}));
+
 window.location.reload = jest.fn();
 
-// Use doMock so we can reference these mocks from the closure
-let navigationError = false;
-class Navigation extends React.Component {
-    render() {
-        if (navigationError) {
-            throw new Error(navigationError);
-        }
-        return null;
-    }
-}
-jest.doMock('src/components/Navigation', () => Navigation);
 class Routes extends React.Component {
     render() {
         return null;
@@ -43,10 +55,6 @@ const getAndConfirmProps = (parent, type, props) => {
     return instance;
 };
 
-beforeEach(() => {
-    jest.clearAllMocks();
-    navigationError = false;
-});
 afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
@@ -61,7 +69,11 @@ test('renders a full page with onlineIndicator and routes', () => {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
-    const { root } = TestRenderer.create(<App {...appProps} />);
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
 
     getAndConfirmProps(root, Navigation, { isOpen: false });
     getAndConfirmProps(root, MiniCart, { isOpen: false });
@@ -71,7 +83,7 @@ test('renders a full page with onlineIndicator and routes', () => {
     });
 
     // hasBeenOffline means onlineIndicator
-    getAndConfirmProps(main, OnlineIndicator, { isOnline: false });
+    getAndConfirmProps(root, Main, { isOnline: false });
     // renderRoutes should just return a fake component here
     expect(main.findByType(Routes)).toBeTruthy();
 
@@ -84,68 +96,7 @@ test('renders a full page with onlineIndicator and routes', () => {
     const {
         parent: { children: siblings }
     } = main;
-    const errorNotifications = getAndConfirmProps(root, ErrorNotifications, {
-        errors: [],
-        onDismissError: appProps.markErrorHandled
-    });
     expect(siblings.indexOf(main)).toBeLessThan(siblings.indexOf(mask));
-    expect(siblings.indexOf(errorNotifications)).toBeGreaterThan(
-        siblings.indexOf(mask)
-    );
-});
-
-test('renders error fallback UI if error is in state', () => {
-    const appProps = {
-        app: {
-            drawer: '',
-            overlay: false,
-            hasBeenOffline: true,
-            isOnline: false
-        },
-        closeDrawer: jest.fn(),
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    navigationError = 'I broke';
-
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
-    const main = getAndConfirmProps(root, Main, {
-        isMasked: true
-    });
-
-    // No routes
-    expect(() => main.findByType(Routes)).toThrow();
-
-    const mask = getAndConfirmProps(root, Mask, {
-        isActive: true
-    });
-
-    const errorNotifications = getAndConfirmProps(root, ErrorNotifications, {
-        errors: expect.arrayContaining([
-            expect.objectContaining({
-                error: expect.any(Error)
-            })
-        ]),
-        onDismissError: expect.any(Function)
-    });
-
-    expect(errorNotifications.props.errors[0].error.message).toMatch(
-        navigationError
-    );
-
-    const {
-        parent: { children: siblings }
-    } = main;
-
-    expect(siblings.indexOf(main)).toBeLessThan(siblings.indexOf(mask));
-    expect(siblings.indexOf(errorNotifications)).toBeGreaterThan(
-        siblings.indexOf(mask)
-    );
-
-    errorNotifications.props.onDismissError();
-    expect(window.location.reload).toHaveBeenCalledTimes(1);
 });
 
 test('displays onlineIndicator online if hasBeenOffline', () => {
@@ -161,28 +112,13 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
         unhandledErrors: []
     };
 
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
     // hasBeenOffline means onlineIndicator
-    getAndConfirmProps(root, OnlineIndicator, { isOnline: true });
-});
-
-test('displays no onlineIndicator if online state never changed', () => {
-    const appProps = {
-        app: {
-            drawer: '',
-            overlay: false,
-            hasBeenOffline: false,
-            isOnline: false
-        },
-        closeDrawer: jest.fn(),
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    const { root } = TestRenderer.create(<App {...appProps} />);
-
-    expect(() => root.findByType(OnlineIndicator)).toThrow();
+    getAndConfirmProps(root, Main, { isOnline: true });
 });
 
 test('displays open nav or drawer', () => {
@@ -198,15 +134,146 @@ test('displays open nav or drawer', () => {
         unhandledErrors: []
     });
 
-    const { root: openNav } = TestRenderer.create(
-        <App {...propsWithDrawer('nav')} />
+    const { root: openNav } = createTestInstance(
+        <ToastContextProvider>
+            <App {...propsWithDrawer('nav')} />
+        </ToastContextProvider>
     );
 
     getAndConfirmProps(openNav, Navigation, { isOpen: true });
 
-    const { root: openCart } = TestRenderer.create(
-        <App {...propsWithDrawer('cart')} />
+    const { root: openCart } = createTestInstance(
+        <ToastContextProvider>
+            <App {...propsWithDrawer('cart')} />
+        </ToastContextProvider>
     );
 
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
+});
+
+test('renders with renderErrors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: new Error('A render error!')
+    };
+
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(root).toMatchSnapshot();
+});
+
+test('renders with unhandledErrors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [{ error: new Error('A render error!') }],
+        renderError: null
+    };
+
+    const { root } = createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(root).toMatchSnapshot();
+});
+
+test('adds no toasts when no errors are present', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: false,
+            isOnline: true
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: null
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).not.toHaveBeenCalled();
+});
+
+test('adds toasts for render errors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [],
+        renderError: new Error('A render error!')
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).toHaveBeenCalledWith({
+        icon: expect.any(Object),
+        message: expect.any(String),
+        onDismiss: expect.any(Function),
+        timeout: expect.any(Number),
+        type: 'error'
+    });
+});
+
+test('adds toasts for unhandled errors', () => {
+    const appProps = {
+        app: {
+            drawer: '',
+            overlay: false,
+            hasBeenOffline: true,
+            isOnline: false
+        },
+        closeDrawer: jest.fn(),
+        markErrorHandled: jest.fn(),
+        unhandledErrors: [{ error: new Error('A render error!') }],
+        renderError: null
+    };
+
+    createTestInstance(
+        <ToastContextProvider>
+            <App {...appProps} />
+        </ToastContextProvider>
+    );
+
+    expect(mockAddToast).toHaveBeenCalledWith({
+        icon: expect.any(Object),
+        message: expect.any(String),
+        onDismiss: expect.any(Function),
+        timeout: expect.any(Number),
+        type: 'error'
+    });
 });

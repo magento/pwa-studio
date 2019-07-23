@@ -201,8 +201,8 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
         await dispatch(getCartDetails({ forceRefresh: true }));
 
-        // Close the options drawer only after the cart is finished updating.
-        dispatch(closeOptionsDrawer());
+        // Close the edit dialog only after the cart is finished updating.
+        dispatch(endEditItem());
     };
 };
 
@@ -213,6 +213,7 @@ export const removeItemFromCart = payload => {
         dispatch(actions.removeItem.request(payload));
 
         const { cart, user } = getState();
+        let isLastItem = false;
 
         try {
             const { cartId } = cart;
@@ -240,12 +241,9 @@ export const removeItemFromCart = payload => {
                 method: 'DELETE'
             });
 
-            // When removing the last item in the cart, perform a reset
-            // to prevent a bug where the next item added to the cart has
-            // a price of 0
             const cartItemCount = cart.details ? cart.details.items_count : 0;
             if (cartItemCount === 1) {
-                await clearCartId();
+                isLastItem = true;
             }
 
             dispatch(
@@ -283,15 +281,23 @@ export const removeItemFromCart = payload => {
             }
         }
 
-        await dispatch(getCartDetails({ forceRefresh: true }));
+        // When removing the last item in the cart, perform a reset of the Cart ID
+        // and create a new cart to prevent a bug where the next item added to the
+        // cart has a price of 0. Otherwise refresh cart details to get updated totals.
+        if (isLastItem) {
+            await clearCartId();
+            dispatch(createCart());
+        } else {
+            await dispatch(getCartDetails({ forceRefresh: true }));
+        }
     };
 };
 
-export const openOptionsDrawer = () => async dispatch =>
-    dispatch(actions.openOptionsDrawer());
+export const beginEditItem = item => async dispatch =>
+    dispatch(actions.beginEditItem(item));
 
-export const closeOptionsDrawer = () => async dispatch =>
-    dispatch(actions.closeOptionsDrawer());
+export const endEditItem = () => async dispatch =>
+    dispatch(actions.endEditItem());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;

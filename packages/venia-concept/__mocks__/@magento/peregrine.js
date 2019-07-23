@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserPersistence } from './util/simplePersistence';
 
-const peregrine = jest.requireActual('../../../peregrine/src');
+const peregrine = jest.requireActual('../../../peregrine/lib');
 
 // re-exports
 const RestApi = {
@@ -20,7 +20,7 @@ const useQuery = jest.fn(peregrine.useQuery);
 const useQueryResult = jest.fn(peregrine.useQueryResult);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
-
+const useToasts = jest.fn(peregrine.useToasts);
 // components
 
 /**
@@ -41,5 +41,7 @@ module.exports = {
     useQuery,
     useQueryResult,
     useSearchParam,
-    useWindowSize
+    useWindowSize,
+
+    useToasts
 };

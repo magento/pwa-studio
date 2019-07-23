@@ -1,15 +1,13 @@
 {
   "name": "@magento/upward-spec",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "UPWARD specification, guide, and test suite.",
   "main": "./suite/index.js",
   "bin": {
     "upward-spec": "./bin/upward-spec"
   },
   "scripts": {
-    "build": "echo 'Skipping upward-spec build...'",
-    "build:dev": "echo 'Skipping upward-spec build...'",
-    "clean": "echo 'Skipping upward-spec clean...'"
+    "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -37,7 +35,7 @@
     "tape": "~4.10.1"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }

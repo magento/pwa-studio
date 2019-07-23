@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { setContext } from 'apollo-link-context';
-import { Util, WindowSizeContextProvider } from '@magento/peregrine';
+import { Util } from '@magento/peregrine';
 import { Adapter } from 'src/drivers';
 import store from 'src/store';
 import app from 'src/actions/app';
-import App from 'src/components/App';
+import App, { AppContextProvider } from 'src/components/App';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -36,24 +36,27 @@ ReactDOM.render(
         apollo={{ link: authLink.concat(Adapter.apolloLink(apiBase)) }}
         store={store}
     >
-        <WindowSizeContextProvider>
+        <AppContextProvider>
             <App />
-        </WindowSizeContextProvider>
+        </AppContextProvider>
     </Adapter>,
     document.getElementById('root')
 );
 
-if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED
+) {
+    window.addEventListener('load', () =>
         navigator.serviceWorker
-            .register(process.env.SERVICE_WORKER)
+            .register('sw.js')
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })
             .catch(error => {
                 console.log('Service worker registration failed: ', error);
-            });
-    });
+            })
+    );
 }
 
 window.addEventListener('online', () => {

@@ -1,0 +1,26 @@
+.root {
+    align-content: center;
+    align-items: center;
+    background-color: rgb(var(--venia-grey));
+    box-shadow: 0 1px rgb(var(--venia-border));
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-auto-rows: 3rem;
+    grid-template-columns: 1fr;
+    height: var(--minicart-header-height);
+    justify-content: end;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-right: auto;
+    padding: 0;
+    text-transform: uppercase;
+}
