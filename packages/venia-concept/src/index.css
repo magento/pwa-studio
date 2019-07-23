@@ -45,8 +45,10 @@ body {
 
 html[data-scroll-lock='true'],
 html[data-scroll-lock='true'] body {
+    height: 100%;
     overflow: hidden;
     position: fixed;
+    width: 100%;
 }
 
 body,
