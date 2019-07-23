@@ -864,8 +864,8 @@ exports[`renders empty strings if payment data is not defined 1`] = `
               width={18}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <polygon
-                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
               />
             </svg>
           </span>
@@ -1007,8 +1007,8 @@ exports[`renders name and street if shipping address is entered 1`] = `
               width={18}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <polygon
-                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
               />
             </svg>
           </span>
@@ -1210,8 +1210,8 @@ exports[`renders payment method summary if payment method entered 1`] = `
               width={18}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <polygon
-                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
               />
             </svg>
           </span>
@@ -1703,8 +1703,8 @@ exports[`renders shipping title if shipping method is selected 1`] = `
               width={18}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <polygon
-                points="16 3 21 8 8 21 3 21 3 16 16 3"
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
               />
             </svg>
           </span>

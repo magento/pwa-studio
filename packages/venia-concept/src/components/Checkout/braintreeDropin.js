@@ -16,7 +16,6 @@ import { Util } from '@magento/peregrine';
 
 import defaultClasses from './braintreeDropin.css';
 import { mergeClasses } from 'src/classify';
-import dropIn from 'braintree-web-drop-in';
 
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
@@ -40,6 +39,9 @@ const BraintreeDropin = props => {
         let didClose = false;
         async function createDropinInstance() {
             try {
+                const {
+                    default: dropIn
+                } = await import('braintree-web-drop-in');
                 const dropinInstance = await dropIn.create({
                     authorization,
                     container: `#${CONTAINER_ID}`,
