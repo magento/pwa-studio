@@ -15,10 +15,10 @@ module.exports = [
             }
         }
     },
-//    {
-//        target: 'peregrine/lib/hooks/useEventListener.js',
-//        type: 'function'
-//    },
+    {
+        target: 'peregrine/lib/hooks/useEventListener.js',
+        type: 'function'
+    },
     {
         target: 'peregrine/lib/hooks/useDropdown.js',
         type: 'function'
