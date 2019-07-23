@@ -1,31 +1,17 @@
 .root {
 }
 
+.heading {
+    composes: heading from './flow.css';
+}
+
 .body {
-    composes: body from './form.css';
-    align-content: start;
-    background-color: white;
-    grid-gap: 0.5rem;
+    composes: body from './flow.css';
     height: 30rem;
-    overflow: auto;
-    padding: 0 1.5rem;
 }
 
 .footer {
-    composes: footer from './form.css';
-}
-
-.heading {
-    background-color: white;
-    font-size: 0.875rem;
-    font-weight: 600;
-    grid-column-end: span 2;
-    line-height: 1rem;
-    padding: 1.5rem 0 1.25rem;
-    text-align: center;
-    text-transform: uppercase;
-    top: 0;
-    z-index: 1;
+    composes: footer from './flow.css';
 }
 
 .button {

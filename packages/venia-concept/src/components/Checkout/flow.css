@@ -2,7 +2,21 @@
     position: relative;
 }
 
+.heading {
+    background-color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    grid-column-end: span 2;
+    line-height: 1rem;
+    padding: 1.5rem 0 1.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    top: 0;
+    z-index: 1;
+}
+
 .body {
+    align-content: start;
     animation-duration: 224ms;
     animation-iteration-count: 1;
     animation-name: enter;
@@ -10,7 +24,10 @@
     bottom: 5rem;
     box-shadow: 0 -1px rgb(var(--venia-border));
     display: grid;
+    grid-gap: 0.5rem;
     left: 0;
+    overflow: auto;
+    padding: 0 1.5rem;
     position: absolute;
     right: 0;
 }
