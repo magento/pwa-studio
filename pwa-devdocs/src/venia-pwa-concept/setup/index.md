@@ -36,17 +36,7 @@ In the PWA Studio project's root directory, run the following command to install
 yarn install
 ```
 
-## Step 3. Build the pwa-buildpack package
-
-Setting up Venia requires the use of the `buildpack` CLI tool in the pwa-buildpack package.
-
-Build the pwa-buildpack package to enable the use of this tool:
-
-```sh
-yarn workspace @magento/pwa-buildpack build
-```
-
-## Step 4. Create the `.env` file
+## Step 3. Create the `.env` file
 
 Use the `create-env-file` subcommand for the `buildpack` CLI tool to create a `.env` file for Venia.
 The subcommand generates a `packages/venia-concept/.env` file where you can set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
@@ -84,7 +74,7 @@ The Venia storefront has been verified to be compatible with the following local
 
 Don't forget to install the [Venia sample data][]!
 
-## Step 5. Generate SSL certificate
+## Step 4. Generate SSL certificate
 
 PWA features require an HTTPS secure domain.
 
@@ -99,7 +89,7 @@ This feature requires administrative access, so
 it may prompt you for an administrative password at the command line.
 It does not permanently elevate permissions for the dev process but instead, launches a privileged subprocess to execute one command.
 
-## Step 6. Start the server
+## Step 5. Start the server
 
 ### Build artifacts
 
