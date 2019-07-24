@@ -1,0 +1,14 @@
+.button {
+    grid-row-start: 1;
+    outline: none;
+}
+
+.marker {
+    position: absolute;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid;
+    border-radius: 2px;
+    bottom: 0.75rem;
+    margin-bottom: 2px;
+}

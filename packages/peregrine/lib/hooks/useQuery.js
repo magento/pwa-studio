@@ -28,7 +28,14 @@ export const useQuery = query => {
      */
     const runQuery = useCallback(
         async ({ variables }) => {
-            const payload = await apolloClient.query({ query, variables });
+            let payload;
+            try {
+                payload = await apolloClient.query({ query, variables });
+            } catch (e) {
+                payload = {
+                    error: e
+                };
+            }
             receiveResponse(payload);
         },
         [apolloClient, query, receiveResponse]
