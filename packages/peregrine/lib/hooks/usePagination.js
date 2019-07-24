@@ -43,12 +43,12 @@ export const usePagination = ({
     initialPage,
     initialTotalPages = 1
 } = {}) => {
+    const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
     if (!initialPage) {
         // We need to synchronously fetch the initial page value from the query
         // param otherwise we would initialize this value twice.
         initialPage = parseInt(
-            getSearchParam(`${namespace}_${parameter}`, location) ||
-                defaultInitialPage
+            getSearchParam(searchParam, location) || defaultInitialPage
         );
     }
 
@@ -61,14 +61,14 @@ export const usePagination = ({
             setQueryParam({
                 location,
                 history,
-                parameter: `${namespace}_${parameter}`,
+                parameter: searchParam,
                 value: page
             });
 
             // Update the state object.
             setCurrentPage(page);
         },
-        [history, location, namespace, parameter]
+        [history, location, searchParam]
     );
 
     /**

@@ -3,7 +3,6 @@ import { act } from 'react-test-renderer';
 import { createTestInstance, usePagination } from '@magento/peregrine';
 
 import { navButtons } from '../constants';
-
 import Pagination from '../pagination';
 
 jest.mock('../navButton');
@@ -22,9 +21,7 @@ const PaginationWrapper = ({ currentPage = 1, totalPages = 3 }) => {
     };
 
     const classes = {
-        root: 'root',
-        tileButton: 'tileButton',
-        tileMarker: 'tileMarker'
+        root: 'root'
     };
 
     return <Pagination pageControl={pageControl} classes={classes} />;
@@ -47,15 +44,15 @@ test('renders nothing when there is only 1 page', () => {
 test('tiles set the appropriate page number on click', () => {
     const { root } = createTestInstance(<PaginationWrapper />);
 
-    const tile = root.findAllByProps({ className: 'tileButton' })[2];
+    const button = root.findAllByType('button')[2];
 
     act(() => {
-        tile.props.onClick();
+        button.props.onClick();
     });
 
     const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
     expect(setPageSpy).toHaveBeenCalledTimes(1);
-    expect(setPageSpy).toHaveBeenLastCalledWith(3);
+    expect(setPageSpy).toHaveBeenCalledWith(3);
 });
 
 test('prevPage button decrements page by 1', () => {

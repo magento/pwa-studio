@@ -3,6 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 
 import classify from 'src/classify';
 import defaultClasses from './pagination.css';
+import Tile from './tile';
 import NavButton from './navButton';
 import { navButtons } from './constants';
 
@@ -21,7 +22,7 @@ class Pagination extends Component {
     };
 
     get navigationTiles() {
-        const { classes, pageControl } = this.props;
+        const { pageControl } = this.props;
         const { currentPage, setPage, totalPages } = pageControl;
 
         // Begin building page navigation tiles
@@ -35,41 +36,27 @@ class Pagination extends Component {
         }
         // End building page navigation tiles
 
-        return tiles.map(tile => {
-            const tileMarker =
-                tile == currentPage ? (
-                    <div className={classes.tileMarker} />
-                ) : null;
+        return tiles.map(tileNumber => {
             return (
-                <button
-                    className={classes.tileButton}
-                    key={tile}
-                    onClick={() => setPage(tile)}
-                >
-                    {tileMarker}
-                    {tile}
-                </button>
+                <Tile
+                    isActive={tileNumber === currentPage}
+                    key={tileNumber}
+                    number={tileNumber}
+                    onClick={setPage}
+                />
             );
         });
     }
 
     render() {
         const { classes } = this.props;
-        const { currentPage, setPage, totalPages } = this.props.pageControl;
-        const { navigationTiles } = this;
+        const { currentPage, totalPages } = this.props.pageControl;
 
         if (!this.props.pageControl || totalPages == 1) {
             return null;
         }
 
-        const leadTile = this.getLeadTile(currentPage, totalPages);
-
-        const rightSkip = Math.min(
-            totalPages,
-            leadTile + tileBuffer * 2 + (tileBuffer + 1)
-        );
-        const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
-
+        const { navigationTiles } = this;
         const isActiveLeft = !(currentPage == 1);
         const isActiveRight = !(currentPage == totalPages);
 
@@ -78,7 +65,7 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.firstPage.name}
                     active={isActiveLeft}
-                    onClick={() => setPage(leftSkip)}
+                    onClick={this.leftSkip}
                     buttonLabel={navButtons.firstPage.buttonLabel}
                 />
                 <NavButton
@@ -97,12 +84,32 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.lastPage.name}
                     active={isActiveRight}
-                    onClick={() => setPage(rightSkip)}
+                    onClick={this.rightSkip}
                     buttonLabel={navButtons.lastPage.buttonLabel}
                 />
             </div>
         );
     }
+
+    leftSkip = () => {
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
+        const leadTile = this.getLeadTile(currentPage, totalPages);
+
+        const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
+
+        setPage(leftSkip);
+    };
+
+    rightSkip = () => {
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
+        const leadTile = this.getLeadTile(currentPage, totalPages);
+        const rightSkip = Math.min(
+            totalPages,
+            leadTile + tileBuffer * 2 + (tileBuffer + 1)
+        );
+
+        setPage(rightSkip);
+    };
 
     slideNavLeft = () => {
         const { currentPage, setPage } = this.props.pageControl;
