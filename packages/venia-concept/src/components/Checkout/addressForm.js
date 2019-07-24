@@ -82,6 +82,15 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
+                <div className={classes.email}>
+                    <Field label="Email">
+                        <TextInput
+                            id={classes.email}
+                            field="email"
+                            validate={combine([isRequired, validateEmail])}
+                        />
+                    </Field>
+                </div>
                 <div className={classes.street0}>
                     <Field label="Street">
                         <TextInput
@@ -100,15 +109,6 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.postcode}>
-                    <Field label="ZIP">
-                        <TextInput
-                            id={classes.postcode}
-                            field="postcode"
-                            validate={isRequired}
-                        />
-                    </Field>
-                </div>
                 <div className={classes.region_code}>
                     <Field label="State">
                         <TextInput
@@ -122,21 +122,21 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
+                <div className={classes.postcode}>
+                    <Field label="ZIP">
+                        <TextInput
+                            id={classes.postcode}
+                            field="postcode"
+                            validate={isRequired}
+                        />
+                    </Field>
+                </div>
                 <div className={classes.telephone}>
                     <Field label="Phone">
                         <TextInput
                             id={classes.telephone}
                             field="telephone"
                             validate={isRequired}
-                        />
-                    </Field>
-                </div>
-                <div className={classes.email}>
-                    <Field label="Email">
-                        <TextInput
-                            id={classes.email}
-                            field="email"
-                            validate={combine([isRequired, validateEmail])}
                         />
                     </Field>
                 </div>
