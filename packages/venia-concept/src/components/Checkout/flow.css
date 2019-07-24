@@ -26,6 +26,7 @@
     display: grid;
     grid-gap: 0.5rem;
     left: 0;
+    max-height: calc(100vh - 8.5rem);
     overflow: auto;
     padding: 0 1.5rem;
     position: absolute;
