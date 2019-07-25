@@ -8,7 +8,6 @@ import Autocomplete from '../autocomplete';
 jest.mock('src/classify');
 jest.mock('@magento/peregrine');
 jest.mock('../suggestions', () => () => null);
-jest.doMock('react-apollo', () => React.createContext());
 
 const resetState = jest.fn();
 const runQuery = jest.fn();
