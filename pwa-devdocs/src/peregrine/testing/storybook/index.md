@@ -2,10 +2,10 @@
 title: Storybook testing
 ---
 
-[Storybook][] is an independent application that lets you view and test UI components outside of a project.
-It also serves as a library for all the UI components in a project and how they look in isolation under different conditions.
+[Storybook][] is an independent application that lets you view and test React components outside of a project.
+It also serves as a library for all the visual components in a project and how they look in isolation under different conditions.
 
-Currently, the Peregrine package is the only project set up to use Storybook as a development and testing environment for its UI components.
+Currently, the Peregrine package is the only project set up to use Storybook as a development and testing environment for its components.
 
 {: .bs-callout .bs-callout-info }
 **Note:**
@@ -15,13 +15,13 @@ For more detailed information and topics on Storybook, see the [official Storybo
 ## Where to create Storybook stories
 
 In PWA Studio, Storybook is configured to look for files in a `__stories__` directory.  
-This directory should be created in the same directory as UI components, and
+This directory should be created in the same directory as components, and
 Storybook files should have the same name as the components they test.
 
 ## Writing Storybook stories
 
-Storybook uses what it calls a __story__ to represent a visual test case.
-A story contains a single state for a component, and 
+Storybook uses what it calls a **story** to represent a visual test case.
+A story contains a single state for a component, and
 multiple stories for a component make up a storybook file that the Storybook application uses to present the different states of a component.
 
 Storybook stories should cover the different visual states and behaviors of a component under different conditions.
@@ -52,7 +52,6 @@ stories.add(
 
 Since Storybook can also be used to generate a reference guide for components, it also includes reference documentation that describe the component and its props.
 This documentation lives in a markdown file inside a separate `__docs__` directory.
-
 
 Use the `withReadme` module from the `storybook-readme` add-on to include reference documentation with your stories:
 
@@ -136,5 +135,5 @@ This command starts the Storybook application that is accessed through the brows
 http://localhost:9001/
 ```
 
-[Storybook]: https://storybook.js.org/
-[official Storybook documentation]: https://storybook.js.org/basics/introduction/
+[storybook]: https://storybook.js.org/
+[official storybook documentation]: https://storybook.js.org/basics/introduction/
