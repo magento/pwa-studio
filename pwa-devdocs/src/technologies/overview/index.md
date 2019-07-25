@@ -29,7 +29,7 @@ The Magento PWA Studio project provides the following tools:
 
 -   **[pwa-buildpack][] CLI tools** - Contains the main build and development tools for a Magento PWA.
 -   **[Peregrine][] hooks and components** - Contains a collection of useful components and custom React hooks for a Magento PWA.
--   **[Venia][] store and visual components** - The Venia package contains  proof of concept Magento 2 storefront built using the PWA Studio tools.
+-   **[Venia][] store and visual components** - The Venia package contains a proof of concept Magento 2 storefront built using the PWA Studio tools.
     It also provides visual components you can use in your own projects.
 -   **[UPWARD][]** - A specification for a file that determines the behavior of the application server.
     The project provides [UPWARD-JS][], which is a JavaScript implementation of an UPWARD server.
