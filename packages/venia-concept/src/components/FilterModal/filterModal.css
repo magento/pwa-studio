@@ -4,18 +4,18 @@
     bottom: 0;
     right: 0;
     background-color: white;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(-100%, 0, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     opacity: 0;
     overflow: hidden;
-    width: 100%;
     z-index: 3;
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
+    width: 360px;
 }
 
 .rootOpen {
@@ -26,6 +26,7 @@
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     visibility: visible;
+    width: 360px;
 }
 
 .modalWrapper {
