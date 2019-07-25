@@ -15,6 +15,9 @@ const getSize = () => {
 /**
  * A hook that will return inner and outer height and width values whenever
  * the window is resized.
+ *
+ * @kind function
+ * @private
  */
 const useWindowSizeListener = () => {
     const [windowSize, setWindowSize] = useState(getSize());
@@ -29,12 +32,18 @@ const useWindowSizeListener = () => {
 };
 
 /**
- * This component contains a hook that listens for resize events. It is
- * recommended to only create/use a single time at the top level of your app
- * ex:
- *   <WindowSizeContextProvider>
- *     <App />
- *   </WindowSizeContextProvider>
+ * This component contains a hook that listens for resize events.
+ * Use this component with {@link useWindowSize} to get the value of the resized window.
+ *
+ * It is recommended to only create/use a single time at the top level of your app
+ * @summary A React context provider.
+ *
+ * @kind function
+ *
+ * @param {Object} props - React component props
+ *
+ * @return {Context.Provider} A [React context provider]{@link https://reactjs.org/docs/context.html}
+ *
  */
 export const WindowSizeContextProvider = props => {
     // This hook has side effects of adding listeners so we only want to create it
@@ -48,4 +57,12 @@ export const WindowSizeContextProvider = props => {
     );
 };
 
+/**
+ * The current context value for the window size context.
+ * This value updates whenever the window is resized.
+ *
+ * Use this inside a {@link WindowSizeContextProvider}.
+ *
+ * @type number
+ */
 export const useWindowSize = () => useContext(WindowSizeContext);

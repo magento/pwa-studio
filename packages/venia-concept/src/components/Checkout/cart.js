@@ -13,9 +13,7 @@ const Cart = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.footer}>
-                <CheckoutButton disabled={disabled} onClick={beginCheckout} />
-            </div>
+            <CheckoutButton disabled={disabled} onClick={beginCheckout} />
         </div>
     );
 };
