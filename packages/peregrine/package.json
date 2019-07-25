@@ -22,7 +22,7 @@
     "@storybook/react": "~4.1.13",
     "intl": "~1.2.5",
     "react": "~16.8.3",
-    "react-apollo": "~2.5.3",
+    "react-apollo": "~2.5.5",
     "react-dom": "~16.8.3",
     "react-router-dom": "~5.0.0",
     "react-test-renderer": "~16.8.6"

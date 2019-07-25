@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApolloContext } from 'react-apollo/ApolloContext';
+import { ApolloContext } from 'react-apollo';
 
 import { useApolloContext } from '../useApolloContext';
 import createTestInstance from '../../util/createTestInstance';
@@ -7,18 +7,19 @@ import createTestInstance from '../../util/createTestInstance';
 const log = jest.fn();
 
 const Component = () => {
-    const hookProps = useApolloContext();
+    const client = useApolloContext();
 
-    log(hookProps);
+    log(client);
 
     return <i />;
 };
 
 test('returns an Apollo client', () => {
     const query = jest.fn(async () => ({}));
+    const client = { query };
 
     createTestInstance(
-        <ApolloContext.Provider value={{ query }}>
+        <ApolloContext.Provider value={{ client }}>
             <Component />
         </ApolloContext.Provider>
     );
