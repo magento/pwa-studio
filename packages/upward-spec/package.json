@@ -28,7 +28,7 @@
     "csv-parse": "~4.3.3",
     "graphql": "~14.2.1",
     "graphql-tag": "~2.10.1",
-    "js-yaml": "~3.12.1",
+    "js-yaml": "~3.13.1",
     "node-fetch": "~2.3.0",
     "tap-diff": "~0.1.1",
     "tap-xunit": "~2.3.0",
