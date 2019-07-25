@@ -9,13 +9,14 @@
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
+    max-width: 360px;
     opacity: 0;
     overflow: hidden;
     z-index: 3;
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
-    width: 360px;
+    width: 100%;
 }
 
 .rootOpen {
@@ -26,7 +27,6 @@
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     visibility: visible;
-    width: 360px;
 }
 
 .modalWrapper {
