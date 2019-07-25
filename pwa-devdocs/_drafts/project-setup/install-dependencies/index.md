@@ -20,7 +20,7 @@ In this topic you will initialize the `package.json` file and install project de
    react react-dom react-redux react-router-dom redux@3
    ```
 
-   These dependencies allow you to use the UI components and services provided by the peregrine project to develop your theme.
+   These dependencies allow you to use the hooks, components, and services provided by the peregrine project to develop your theme.
 
 1. Run the following command to install [pwa-buildpack] and its standard peer dependencies:
 
