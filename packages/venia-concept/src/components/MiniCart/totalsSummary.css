@@ -1,5 +1,8 @@
 .root {
-    /* Even though this is empty, we leave it in to support overriding. */
+    box-shadow: 0 -1px rgb(var(--venia-border));
+    line-height: 2rem;
+    margin: 0 1.5rem;
+    padding-top: 1.5rem;
 }
 
 .subtotalLabel {

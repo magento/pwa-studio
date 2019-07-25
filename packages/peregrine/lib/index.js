@@ -11,6 +11,7 @@ export { useQuery } from './hooks/useQuery';
 export { useQueryResult } from './hooks/useQueryResult';
 export { useRestApi } from './hooks/useRestApi';
 export { useRestResponse } from './hooks/useRestResponse';
+export { useScrollLock } from './hooks/useScrollLock';
 export { useSearchParam } from './hooks/useSearchParam';
 export {
     WindowSizeContextProvider,

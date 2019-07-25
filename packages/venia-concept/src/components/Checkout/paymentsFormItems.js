@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import { useFormState } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -37,8 +37,10 @@ const PaymentsFormItems = props => {
     // If they resolve it or we move away from informed we can probably get some
     // extra performance.
     const formState = useFormState();
+    const anchorRef = useRef(null);
+    const addressDiffers = formState.values.addresses_same === false;
 
-    const billingAddressFields = !formState.values.addresses_same ? (
+    const billingAddressFields = addressDiffers ? (
         <Fragment>
             <div className={classes.firstname}>
                 <Field label="First Name">
@@ -116,6 +118,7 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
+            <span ref={anchorRef} />
         </Fragment>
     ) : null;
 
@@ -158,6 +161,19 @@ const PaymentsFormItems = props => {
         },
         [formState.values, setIsSubmitting, submit]
     );
+
+    // When the address checkbox is unchecked, additional fields are rendered.
+    // This causes the form to grow, and potentially to overflow, so the new
+    // fields may go unnoticed. To reveal them, we scroll them into view.
+    useEffect(() => {
+        if (addressDiffers) {
+            const { current: element } = anchorRef;
+
+            if (element instanceof HTMLElement) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [addressDiffers]);
 
     return (
         <Fragment>
