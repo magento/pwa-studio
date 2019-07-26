@@ -2,10 +2,7 @@
 
 exports[`it renders a mask div before the kebab if it is loading 1`] = `
 <li>
-  <img
-    alt="Unit Test Product"
-    src="path/to/image/source"
-  />
+  path/to/image/source
   <div>
     Unit Test Product
   </div>
@@ -52,9 +49,15 @@ exports[`it renders a mask div before the kebab if it is loading 1`] = `
 
 exports[`it renders correctly 1`] = `
 <li>
-  <img
+  <Image
     alt="Unit Test Product"
-    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80"
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80&height=100"
   />
   <div>
     Unit Test Product

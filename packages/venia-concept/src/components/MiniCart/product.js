@@ -28,13 +28,14 @@ const Product = props => {
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
     const productImage = useMemo(() => {
-        const src = image && image.file
-            ? resourceUrl(image.file, {
-                  type: 'image-product',
-                  width: imageWidth,
-                  height: imageHeight
-              })
-            : transparentPlaceholder;
+        const src =
+            image && image.file
+                ? resourceUrl(image.file, {
+                      type: 'image-product',
+                      width: imageWidth,
+                      height: imageHeight
+                  })
+                : transparentPlaceholder;
 
         return (
             <Image
