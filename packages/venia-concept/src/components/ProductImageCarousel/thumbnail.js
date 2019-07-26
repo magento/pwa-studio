@@ -8,6 +8,9 @@ import { transparentPlaceholder } from 'src/shared/images';
 import Image from 'src/components/Image';
 import { useWindowSize } from '@magento/peregrine';
 
+const DEFAULT_THUMBNAIL_WIDTH = 240;
+const DEFAULT_THUMBNAIL_HEIGHT = 300;
+
 const Thumbnail = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -23,7 +26,11 @@ const Thumbnail = props => {
 
     const thumbnailImage = useMemo(() => {
         const src = file
-            ? resourceUrl(file, { type: 'image-product', width: 240 })
+            ? resourceUrl(file, {
+                type: 'image-product',
+                width: DEFAULT_THUMBNAIL_WIDTH,
+                height: DEFAULT_THUMBNAIL_HEIGHT
+            })
             : transparentPlaceholder;
 
         return isDesktop ? (
