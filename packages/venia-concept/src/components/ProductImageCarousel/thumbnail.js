@@ -27,10 +27,10 @@ const Thumbnail = props => {
     const thumbnailImage = useMemo(() => {
         const src = file
             ? resourceUrl(file, {
-                type: 'image-product',
-                width: DEFAULT_THUMBNAIL_WIDTH,
-                height: DEFAULT_THUMBNAIL_HEIGHT
-            })
+                  type: 'image-product',
+                  width: DEFAULT_THUMBNAIL_WIDTH,
+                  height: DEFAULT_THUMBNAIL_HEIGHT
+              })
             : transparentPlaceholder;
 
         return isDesktop ? (
