@@ -68,6 +68,9 @@ PaymentsForm.propTypes = {
         root: string
     }),
     initialValues: shape({
+        firstname: string,
+        lastname: string,
+        telephone: string,
         city: string,
         postcode: string,
         region_code: string,

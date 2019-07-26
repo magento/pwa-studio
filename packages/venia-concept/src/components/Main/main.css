@@ -7,8 +7,6 @@
 
 .root_masked {
     composes: root;
-    height: 100vh;
-    overflow: hidden;
 }
 
 .page {

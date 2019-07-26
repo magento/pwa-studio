@@ -190,16 +190,6 @@ export const submitOrder = () =>
 
         if (billing_address.sameAsShippingAddress) {
             billing_address = shipping_address;
-        } else {
-            const { email, firstname, lastname, telephone } = shipping_address;
-
-            billing_address = {
-                email,
-                firstname,
-                lastname,
-                telephone,
-                ...billing_address
-            };
         }
 
         try {

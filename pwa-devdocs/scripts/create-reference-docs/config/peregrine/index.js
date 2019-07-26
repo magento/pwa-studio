@@ -23,10 +23,10 @@ module.exports = [
         target: 'peregrine/lib/hooks/useDropdown.js',
         type: 'function'
     },
-//    {
-//        target: 'peregrine/lib/hooks/useWindowSize.js',
-//        type: 'function'
-//    },
+    {
+        target: 'peregrine/lib/hooks/useWindowSize.js',
+        type: 'function'
+    },
     {
         target: 'peregrine/lib/hooks/useApolloContext.js',
         type: 'function'

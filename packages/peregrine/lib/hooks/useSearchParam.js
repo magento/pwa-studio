@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const getSearchParam = (parameter = '', location = window.location) => {
+export const getSearchParam = (parameter = '', location = window.location) => {
     const params = new URLSearchParams(location.search);
 
     return params.get(parameter) || '';
