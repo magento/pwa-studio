@@ -105,12 +105,12 @@ Overview.propTypes = {
     cart: shape({
         details: shape({
             items_qty: number
-        }),
+        }).isRequired,
         cartId: string,
         totals: shape({
             quote_currency_code: string,
             subtotal: number
-        })
+        }).isRequired
     }).isRequired,
     classes: shape({
         body: string,

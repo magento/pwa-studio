@@ -1,4 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+    Fragment,
+    useCallback,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import { useFormState } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 

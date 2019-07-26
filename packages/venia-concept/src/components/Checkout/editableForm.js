@@ -117,7 +117,7 @@ EditableForm.propTypes = {
     invalidAddressMessage: string,
     directory: shape({
         countries: array
-    })
+    }).isRequired
 };
 
 export default EditableForm;
