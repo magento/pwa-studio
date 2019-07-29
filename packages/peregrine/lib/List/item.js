@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
@@ -9,15 +9,31 @@ const getChild = item => (isString(item) ? item : null);
 
 const Item = props => {
     const {
+        key,
         classes,
         hasFocus,
         isSelected,
         item,
         itemIndex,
         render,
+        updateSelection: _updateSelection,
+        setFocus: _setFocus,
         ...restProps
     } = props;
-    const customProps = { classes, hasFocus, isSelected, item, itemIndex };
+    const updateSelection = useCallback(() => _updateSelection(key), [
+        _updateSelection,
+        key
+    ]);
+    const setFocus = useCallback(() => _setFocus(key), [_setFocus, key]);
+    const customProps = {
+        classes,
+        hasFocus,
+        isSelected,
+        item,
+        itemIndex,
+        updateSelection,
+        setFocus
+    };
     const Root = fromRenderProp(render, Object.keys(customProps));
     return (
         <Root className={classes.root} {...customProps} {...restProps}>

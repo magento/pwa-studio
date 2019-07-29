@@ -3,7 +3,6 @@ import React, {
     useReducer,
     useCallback,
     useEffect,
-    useMemo
 } from 'react';
 import PropTypes from 'prop-types';
 
@@ -69,18 +68,19 @@ const useListState = ({ selectionModel, onSelectionChange }) => {
         () => dispatch({ type: 'REMOVE_FOCUS' }),
         []
     );
-    const updateSelection = key =>
-        useCallback(
-            () =>
-                dispatch({
-                    type: 'UPDATE_SELECTION',
-                    key,
-                    selectionModel
-                }),
-            []
-        );
-    const setFocus = key =>
-        useCallback(() => dispatch({ type: 'SET_FOCUS', key }), []);
+    const updateSelection = useCallback(
+        key =>
+            dispatch({
+                type: 'UPDATE_SELECTION',
+                key,
+                selectionModel
+            }),
+        [selectionModel]
+    );
+    const setFocus = useCallback(
+        key => dispatch({ type: 'SET_FOCUS', key }),
+        []
+    );
     return [state, { setFocus, removeFocus, updateSelection }];
 };
 
@@ -94,32 +94,25 @@ const Items = props => {
     } = props;
     const [
         { cursor, hasFocus, selection },
-        { setFocus: _setFocus, removeFocus, updateSelection: _updateSelection }
+        { setFocus, removeFocus, updateSelection }
     ] = useListState({ selectionModel, onSelectionChange });
-    return (
-        <Fragment>
-            {items.map((item, index) => {
-                const key = getItemKey(item, index);
-                const updateSelection = useMemo(() => _updateSelection(key), [
-                    key
-                ]);
-                const setFocus = useMemo(() => _setFocus(key), [key]);
-                return (
-                    <ListItem
-                        key={key}
-                        item={item}
-                        itemIndex={index}
-                        render={renderItem}
-                        hasFocus={hasFocus && cursor === key}
-                        isSelected={selection.has(key)}
-                        onBlur={removeFocus}
-                        onClick={updateSelection(key)}
-                        onFocus={setFocus(key)}
-                    />
-                );
-            })}
-        </Fragment>
-    );
+    const itemsElements = items.map((item, index) => {
+        const key = getItemKey(item, index);
+        return (
+            <ListItem
+                key={key}
+                item={item}
+                itemIndex={index}
+                render={renderItem}
+                hasFocus={hasFocus && cursor === key}
+                isSelected={selection.has(key)}
+                onBlur={removeFocus}
+                onClick={updateSelection}
+                onFocus={setFocus}
+            />
+        );
+    });
+    return <Fragment>{itemsElements}</Fragment>;
 };
 
 Item.propTypes = {
