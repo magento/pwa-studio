@@ -14,7 +14,7 @@
 }
 
 .currentImage {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     border-radius: 2px;
     width: 100%;
     grid-area: 1 / 1 / 2 / 4;
