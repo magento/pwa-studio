@@ -3,7 +3,6 @@ import { connect } from 'src/drivers';
 import {
     beginCheckout,
     cancelCheckout,
-    editOrder,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
     submitShippingAddress,
@@ -22,7 +21,6 @@ const mapStateToProps = ({ cart, checkout, directory, user }) => ({
 const mapDispatchToProps = {
     beginCheckout,
     cancelCheckout,
-    editOrder,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
     submitShippingAddress,

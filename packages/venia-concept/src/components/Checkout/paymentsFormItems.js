@@ -1,4 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useRef } from 'react';
+import React, {
+    Fragment,
+    useCallback,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import { useFormState } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -20,14 +26,15 @@ import combine from 'src/util/combineValidators';
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
+    const [isReady, setIsReady] = useState(false);
+
     const {
         cancel,
         classes,
         countries,
         isSubmitting,
         setIsSubmitting,
-        submit,
-        submitting
+        submit: submitPaymentData
     } = props;
 
     // Currently form state toggles dirty from false to true because of how
@@ -151,7 +158,7 @@ const PaymentsFormItems = props => {
                     sameAsShippingAddress
                 };
             }
-            submit({
+            submitPaymentData({
                 billingAddress,
                 paymentMethod: {
                     code: 'braintree',
@@ -159,7 +166,7 @@ const PaymentsFormItems = props => {
                 }
             });
         },
-        [formState.values, setIsSubmitting, submit]
+        [formState.values, setIsSubmitting, submitPaymentData]
     );
 
     // When the address checkbox is unchecked, additional fields are rendered.
@@ -184,6 +191,7 @@ const PaymentsFormItems = props => {
                         shouldRequestPaymentNonce={isSubmitting}
                         onError={handleError}
                         onSuccess={handleSuccess}
+                        onReady={setIsReady}
                     />
                 </div>
                 <div className={classes.address_check}>
@@ -202,7 +210,7 @@ const PaymentsFormItems = props => {
                     className={classes.button}
                     priority="high"
                     type="submit"
-                    disabled={submitting}
+                    disabled={!isReady || isSubmitting}
                 >
                     Use Card
                 </Button>
@@ -231,8 +239,7 @@ PaymentsFormItems.propTypes = {
     countries: array,
     isSubmitting: bool,
     setIsSubmitting: func.isRequired,
-    submit: func.isRequired,
-    submitting: bool
+    submit: func.isRequired
 };
 
 export default PaymentsFormItems;

@@ -1,5 +1,5 @@
-import React from 'react';
-import { oneOf, shape, string } from 'prop-types';
+import React, { useState } from 'react';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from 'src/classify';
 
@@ -13,10 +13,11 @@ import defaultClasses from './form.css';
  */
 const Form = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const child = props.editing ? (
-        <EditableForm {...props} />
+    const [editing, setEditing] = useState(null);
+    const child = editing ? (
+        <EditableForm editing={editing} setEditing={setEditing} {...props} />
     ) : (
-        <Overview classes={classes} {...props} />
+        <Overview classes={classes} {...props} setEditing={setEditing} />
     );
 
     return <div className={classes.root}>{child}</div>;
@@ -25,8 +26,7 @@ const Form = props => {
 Form.propTypes = {
     classes: shape({
         root: string
-    }),
-    editing: oneOf(['address', 'paymentMethod', 'shippingMethod'])
+    })
 };
 
 export default Form;
