@@ -4,7 +4,7 @@
     "alias": [
         "magento-venia-develop"
     ],
-    "scope": "magento-research",
+    "scope": "magento",
     "env": {
         "UPWARD_JS_BIND_LOCAL": "false",
         "IMAGE_OPTIMIZING_ORIGIN": "backend",
