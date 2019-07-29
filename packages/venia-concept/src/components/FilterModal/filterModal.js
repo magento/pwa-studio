@@ -14,6 +14,7 @@ class FilterModal extends Component {
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
+            root_open: PropTypes.string,
             modalWrapper: PropTypes.string,
             header: PropTypes.string,
             headerTitle: PropTypes.string,
@@ -41,7 +42,7 @@ class FilterModal extends Component {
     render() {
         const { classes, drawer, closeDrawer } = this.props;
         const modalClass =
-            drawer === 'filter' ? classes.rootOpen : classes.root;
+            drawer === 'filter' ? classes.root_open : classes.root;
 
         return (
             <Modal>
