@@ -179,7 +179,7 @@ The following table lists the required environment variables for the Venia store
 
 | Name                                 | Value                                                                                                    |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/venia-upward.yml` (absolute path to UPWARD YAML configuration) |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/upward.yml` (absolute path to UPWARD YAML configuration) |
 | `NODE_ENV`                           | `production`                                                                                             |
 | `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                          |
 | `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                 |

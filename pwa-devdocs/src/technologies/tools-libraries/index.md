@@ -65,7 +65,7 @@ The library provides the following features that make PWA development easier:
     React allows you to describe how your interface should look for a specific application state, and
     the library takes care of rendering the UI correctly when the state changes.
 
--   **Modular** - React encourages developers to create modular and reusable UI components.
+-   **Modular** - React encourages developers to create modular and reusable components.
     Taking a modular approach to development makes your code easier to debug and maintain.
 
 ### Hooks

@@ -1,0 +1,11 @@
+.root {
+    /* For customization, we provide an empty root. */
+}
+
+.loaded {
+    display: block;
+}
+
+.notLoaded {
+    display: none;
+}

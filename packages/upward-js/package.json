@@ -11,9 +11,6 @@
     "bin": "./bin"
   },
   "scripts": {
-    "build": " ",
-    "build:ci": " ",
-    "build:dev": " ",
     "clean": " ",
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
@@ -44,7 +41,7 @@
     "graphql-tag": "~2.10.1",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.1",
-    "js-yaml": "~3.12.1",
+    "js-yaml": "~3.13.1",
     "lodash": "~4.17.11",
     "morgan": "~1.9.1",
     "node-fetch": "~2.3.0",
@@ -63,7 +60,7 @@
     "node-zopfli-es": "^1.0.3"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": "10.x",
     "yarn": ">=1.12.0"
   }
 }
