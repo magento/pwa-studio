@@ -95,14 +95,15 @@ const Items = props => {
         return (
             <Item
                 key={key}
+                uniqueID={key}
                 item={item}
                 itemIndex={index}
                 render={renderItem}
                 hasFocus={hasFocus && cursor === key}
                 isSelected={selection.has(key)}
+                updateSelection={updateSelection}
+                setFocus={setFocus}
                 onBlur={removeFocus}
-                onClick={updateSelection}
-                onFocus={setFocus}
             />
         );
     });

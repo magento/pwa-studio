@@ -9,30 +9,30 @@ const getChild = item => (isString(item) ? item : null);
 
 const Item = props => {
     const {
-        key,
+        uniqueID: key,
         classes,
         hasFocus,
         isSelected,
         item,
         itemIndex,
         render,
-        updateSelection: _updateSelection,
-        setFocus: _setFocus,
+        updateSelection,
+        setFocus,
         ...restProps
     } = props;
-    const updateSelection = useCallback(() => _updateSelection(key), [
-        _updateSelection,
+    const onClick = useCallback(() => updateSelection(key), [
+        updateSelection,
         key
     ]);
-    const setFocus = useCallback(() => _setFocus(key), [_setFocus, key]);
+    const onFocus = useCallback(() => setFocus(key), [setFocus, key]);
     const customProps = {
         classes,
         hasFocus,
         isSelected,
         item,
         itemIndex,
-        updateSelection,
-        setFocus
+        onClick,
+        onFocus
     };
     const Root = fromRenderProp(render, Object.keys(customProps));
     return (
