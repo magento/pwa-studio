@@ -35,7 +35,7 @@ const defaultInitialPage = 1;
  *
  * @param {Object} config.location=window.location The location object, such as window.location or from react router
  * @param {Object} config.history=window.history The history object, such as window.history or from react router
- * @param {String} config.namespace='' The namespace to apply to the pagination query
+ * @param {String} config.namespace='' The namespace to append to config.parameter in the query. For example: ?namespace_parameter=value
  * @param {String} config.parameter='page' The name of the query parameter to use for page
  * @param {Number} config.initialPage The initial current page value
  * @param {Number} config.intialTotalPages=1 The total pages expected to be usable by this hook
