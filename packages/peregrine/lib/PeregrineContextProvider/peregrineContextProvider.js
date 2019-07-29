@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CheckoutContextProvider } from '../state/Checkout';
 import { UserContextProvider } from '../state/User';
 
 /**
@@ -7,7 +8,7 @@ import { UserContextProvider } from '../state/User';
  *
  * @property {React.Component[]} contextProviders
  */
-const contextProviders = [UserContextProvider];
+const contextProviders = [CheckoutContextProvider, UserContextProvider];
 
 const PeregrineContextProvider = ({ children }) => {
     return contextProviders.reduceRight((memo, ContextProvider) => {
