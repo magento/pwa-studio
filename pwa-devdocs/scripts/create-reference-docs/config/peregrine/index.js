@@ -42,5 +42,9 @@ module.exports = [
     {
         target: 'peregrine/lib/hooks/useQueryResult.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/hooks/usePagination.js',
+        type: 'function'
     }
 ];
