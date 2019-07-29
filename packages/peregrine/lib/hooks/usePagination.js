@@ -4,6 +4,8 @@ import { getSearchParam } from './useSearchParam';
 /**
  * Sets a query parameter in history. Attempt to use React Router if provided
  * otherwise fallback to builtins.
+ *
+ * @private
  */
 const setQueryParam = ({ location, history, parameter, value }) => {
     const { search } = location;
@@ -21,19 +23,24 @@ const setQueryParam = ({ location, history, parameter, value }) => {
 const defaultInitialPage = 1;
 
 /**
- * `usePagination` provides a pagination state with `currentPage` and
- * `totalPages` as well as an API for interacting with the state.
+ * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that provides
+ * pagination logic.
  *
- * @param {Object} location the location object, like window.location, or from react router
- * @param {Object} history the history object, like window.history, or from react router
- * @param {String} namespace the namespace to apply to the pagination query
- * @param {String} parameter the name of the query parameter to use for page
- * @param {Number} initialPage the initial current page value
- * @param {Number} intialTotalPages the total pages expected to be usable by this hook
+ * Use this hook to implement components that need to navigate through paged
+ * data.
  *
- * TODO update with defaults
+ * @kind function
  *
- * @returns {[PaginationState, PaginationApi]}
+ * @param {Object} config An object containing configuration values
+ *
+ * @param {Object} config.location=window.location The location object, such as window.location or from react router
+ * @param {Object} config.history=window.history The history object, such as window.history or from react router
+ * @param {String} config.namespace='' The namespace to append to config.parameter in the query. For example: ?namespace_parameter=value
+ * @param {String} config.parameter='page' The name of the query parameter to use for page
+ * @param {Number} config.initialPage The initial current page value
+ * @param {Number} config.intialTotalPages=1 The total pages expected to be usable by this hook
+ *
+ * @return {Object[]} An array with two entries containing the following content: [ {@link PaginationState}, {@link API} ]
  */
 export const usePagination = ({
     location = window.location,
@@ -72,16 +79,37 @@ export const usePagination = ({
     );
 
     /**
+     * The current pagination state
+     *
      * @typedef PaginationState
-     * @property {Number} currentPage the current page
-     * @property {Number} totalPages the total pages
+     *
+     * @kind Object
+     *
+     * @property {Number} currentPage The current page number
+     * @property {Number} totalPages The total number of pages
      */
     const paginationState = { currentPage, totalPages };
 
     /**
-     * @typedef PaginationApi
-     * @property {Function} setCurrentPage
-     * @property {Function} setTotalPages
+     * The API object used for modifying the PaginationState.
+     *
+     * @typedef API
+     *
+     * @kind Object
+     */
+    /**
+     * Set the current page
+     *
+     * @function API.setCurrentPage
+     *
+     * @param {Number} page The number to assign to the current page
+     */
+    /**
+     * Set the total number of pages
+     *
+     * @function API.setTotalPages
+     *
+     * @param {Number} total The number to set the amount of pages available
      */
     const api = useMemo(
         () => ({
