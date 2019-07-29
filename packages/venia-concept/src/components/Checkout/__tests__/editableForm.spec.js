@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
-import EditableForm from '../EditableForm';
+import EditableForm from '../editableForm';
 import AddressForm from '../addressForm';
 import PaymentsForm from '../paymentsForm';
 import ShippingForm from '../shippingForm';
