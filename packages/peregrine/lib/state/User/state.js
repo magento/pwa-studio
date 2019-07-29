@@ -53,6 +53,7 @@ export const useUserState = () => {
 
     const api = useMemo(
         () => ({
+            dispatch,
             reset,
             setUser
         }),
