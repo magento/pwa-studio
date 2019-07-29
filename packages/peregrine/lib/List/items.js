@@ -2,7 +2,6 @@ import React, { Fragment, useReducer, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import iterable from '../validators/iterable';
-import ListItem from './item';
 import Item from './item';
 
 const updateSelection = (key, prevSelection, selectionModel) => {
@@ -94,7 +93,7 @@ const Items = props => {
     const itemsElements = items.map((item, index) => {
         const key = getItemKey(item, index);
         return (
-            <ListItem
+            <Item
                 key={key}
                 item={item}
                 itemIndex={index}
@@ -110,7 +109,7 @@ const Items = props => {
     return <Fragment>{itemsElements}</Fragment>;
 };
 
-Item.propTypes = {
+Items.propTypes = {
     getItemKey: PropTypes.func.isRequired,
     items: iterable.isRequired,
     renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
