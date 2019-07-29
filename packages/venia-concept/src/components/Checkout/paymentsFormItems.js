@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import { useFormState } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -10,7 +10,8 @@ import TextInput from 'src/components/TextInput';
 import {
     isRequired,
     hasLengthExactly,
-    validateRegionCode
+    validateRegionCode,
+    validateEmail
 } from 'src/util/formValidators';
 import combine from 'src/util/combineValidators';
 
@@ -36,9 +37,38 @@ const PaymentsFormItems = props => {
     // If they resolve it or we move away from informed we can probably get some
     // extra performance.
     const formState = useFormState();
+    const anchorRef = useRef(null);
+    const addressDiffers = formState.values.addresses_same === false;
 
-    const billingAddressFields = !formState.values.addresses_same ? (
+    const billingAddressFields = addressDiffers ? (
         <Fragment>
+            <div className={classes.firstname}>
+                <Field label="First Name">
+                    <TextInput
+                        id={classes.firstname}
+                        field="firstname"
+                        validate={isRequired}
+                    />
+                </Field>
+            </div>
+            <div className={classes.lastname}>
+                <Field label="Last Name">
+                    <TextInput
+                        id={classes.lastname}
+                        field="lastname"
+                        validate={isRequired}
+                    />
+                </Field>
+            </div>
+            <div className={classes.email}>
+                <Field label="Email">
+                    <TextInput
+                        id={classes.email}
+                        field="email"
+                        validate={combine([isRequired, validateEmail])}
+                    />
+                </Field>
+            </div>
             <div className={classes.street0}>
                 <Field label="Street">
                     <TextInput
@@ -79,6 +109,16 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
+            <div className={classes.telephone}>
+                <Field label="Phone">
+                    <TextInput
+                        id={classes.telephone}
+                        field="telephone"
+                        validate={isRequired}
+                    />
+                </Field>
+            </div>
+            <span ref={anchorRef} />
         </Fragment>
     ) : null;
 
@@ -98,9 +138,13 @@ const PaymentsFormItems = props => {
             if (!sameAsShippingAddress) {
                 billingAddress = {
                     city: formState.values['city'],
+                    email: formState.values['email'],
+                    firstname: formState.values['firstname'],
+                    lastname: formState.values['lastname'],
                     postcode: formState.values['postcode'],
                     region_code: formState.values['region_code'],
-                    street: formState.values['street']
+                    street: formState.values['street'],
+                    telephone: formState.values['telephone']
                 };
             } else {
                 billingAddress = {
@@ -117,6 +161,19 @@ const PaymentsFormItems = props => {
         },
         [formState.values, setIsSubmitting, submit]
     );
+
+    // When the address checkbox is unchecked, additional fields are rendered.
+    // This causes the form to grow, and potentially to overflow, so the new
+    // fields may go unnoticed. To reveal them, we scroll them into view.
+    useEffect(() => {
+        if (addressDiffers) {
+            const { current: element } = anchorRef;
+
+            if (element instanceof HTMLElement) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [addressDiffers]);
 
     return (
         <Fragment>
@@ -161,6 +218,9 @@ PaymentsFormItems.propTypes = {
         body: string,
         button: string,
         braintree: string,
+        firstname: string,
+        lastname: string,
+        telephone: string,
         city: string,
         footer: string,
         heading: string,

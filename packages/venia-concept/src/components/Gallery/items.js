@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
-const pageSize = 12;
+// TODO: This can be replaced by the value from `storeConfig when the PR,
+// https://github.com/magento/graphql-ce/pull/650, is released.
+const pageSize = 6;
 const emptyData = Array.from({ length: pageSize }).fill(null);
 
 // inline the placeholder elements, since they're constant

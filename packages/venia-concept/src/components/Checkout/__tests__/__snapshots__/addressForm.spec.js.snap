@@ -103,6 +103,50 @@ exports[`does not renders validation block with message if address is incorrect 
       </div>
     </div>
     <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Email
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="street0"
     >
       <div
@@ -191,50 +235,6 @@ exports[`does not renders validation block with message if address is incorrect 
       </div>
     </div>
     <div
-      className="postcode"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          ZIP
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="postcode"
-              name="postcode"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
       className="region_code"
     >
       <div
@@ -279,6 +279,50 @@ exports[`does not renders validation block with message if address is incorrect 
       </div>
     </div>
     <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          ZIP
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="postcode"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="telephone"
     >
       <div
@@ -305,50 +349,6 @@ exports[`does not renders validation block with message if address is incorrect 
               className="input"
               id="telephone"
               name="telephone"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
-      className="email"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          Email
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="email"
-              name="email"
               onBlur={[Function]}
               onChange={[Function]}
               value=""
@@ -501,6 +501,50 @@ exports[`renders an AddressForm component 1`] = `
       </div>
     </div>
     <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Email
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="street0"
     >
       <div
@@ -589,50 +633,6 @@ exports[`renders an AddressForm component 1`] = `
       </div>
     </div>
     <div
-      className="postcode"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          ZIP
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="postcode"
-              name="postcode"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
       className="region_code"
     >
       <div
@@ -677,6 +677,50 @@ exports[`renders an AddressForm component 1`] = `
       </div>
     </div>
     <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          ZIP
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="postcode"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="telephone"
     >
       <div
@@ -703,50 +747,6 @@ exports[`renders an AddressForm component 1`] = `
               className="input"
               id="telephone"
               name="telephone"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
-      className="email"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          Email
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="email"
-              name="email"
               onBlur={[Function]}
               onChange={[Function]}
               value=""
@@ -899,6 +899,50 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       </div>
     </div>
     <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Email
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="street0"
     >
       <div
@@ -987,50 +1031,6 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       </div>
     </div>
     <div
-      className="postcode"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          ZIP
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="postcode"
-              name="postcode"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
       className="region_code"
     >
       <div
@@ -1075,6 +1075,50 @@ exports[`renders validation block with message if address is incorrect 1`] = `
       </div>
     </div>
     <div
+      className="postcode"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          ZIP
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="postcode"
+              name="postcode"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
       className="telephone"
     >
       <div
@@ -1101,50 +1145,6 @@ exports[`renders validation block with message if address is incorrect 1`] = `
               className="input"
               id="telephone"
               name="telephone"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
-      className="email"
-    >
-      <div
-        className="root"
-      >
-        <span
-          className="label"
-        >
-          Email
-        </span>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="email"
-              name="email"
               onBlur={[Function]}
               onChange={[Function]}
               value=""
