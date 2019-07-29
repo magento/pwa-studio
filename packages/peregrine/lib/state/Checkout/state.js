@@ -12,11 +12,11 @@ const initialState = {
     paymentData: null,
     shippingAddress: null,
     shippingMethod: '',
-    shippingTitle: '',
+    shippingTitle: ''
     // step: 'cart', TODO: Migrate this state to UI
     // submitting: false, TODO: Migrate this state to UI
-    isAddressInvalid: false,
-    invalidAddressMessage: ''
+    // isAddressInvalid: false, TODO: Migrate to request state
+    // invalidAddressMessage: '' TODO: Migrate to request state
 };
 
 const reducer = (state, { payload, type }) => {
@@ -71,19 +71,6 @@ const reducer = (state, { payload, type }) => {
             }
             return newState;
         }
-        case 'set invalid address error message': {
-            const invalidAddressMessage = get(
-                payload, // TODO: verify this works.
-                'payload.invalidAddressMessage',
-                ''
-            );
-
-            return {
-                ...state,
-                isAddressInvalid: invalidAddressMessage ? true : false,
-                invalidAddressMessage
-            };
-        }
         case 'set payment method': {
             return {
                 ...state,
@@ -99,18 +86,14 @@ const reducer = (state, { payload, type }) => {
                     ...state.shippingAddress,
                     ...payload,
                     street: [...payload.street]
-                },
-                isAddressInvalid: false,
-                invalidAddressMessage: ''
+                }
             };
         }
         case 'set shipping method': {
             return {
                 ...state,
                 shippingMethod: payload.carrier_code,
-                shippingTitle: payload.carrier_title,
-                isAddressInvalid: false,
-                invalidAddressMessage: ''
+                shippingTitle: payload.carrier_title
             };
         }
         default: {
@@ -162,16 +145,6 @@ export const useCheckoutState = () => {
         [dispatch]
     );
 
-    const setInvalidAddressErrorMessage = useCallback(
-        payload => {
-            dispatch({
-                payload,
-                type: 'set invalid address error message'
-            });
-        },
-        [dispatch]
-    );
-
     const setPaymentMethod = useCallback(
         payload => {
             dispatch({
@@ -218,7 +191,6 @@ export const useCheckoutState = () => {
             reset,
             setAvailableShippingMethods,
             setBillingAddress,
-            setInvalidAddressErrorMessage,
             setPaymentMethod,
             setShippingAddress,
             setShippingMethod
