@@ -181,7 +181,6 @@ export const useCheckoutState = () => {
             reset,
             setAvailableShippingMethods,
             setBillingAddress,
-            setInvalidAddressErrorMessage,
             setPaymentMethod,
             setShippingAddress,
             setShippingMethod
