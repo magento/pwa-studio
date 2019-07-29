@@ -7,9 +7,7 @@
   "description": "The core runtime of Magento PWA",
   "main": "lib/index.js",
   "scripts": {
-    "clean": " ",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+    "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "author": "Magento Commerce",
@@ -19,7 +17,6 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
-    "@storybook/react": "~4.1.13",
     "intl": "~1.2.5",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",

@@ -6,9 +6,6 @@ entries:
     - label: Routing in PWA Studio
       url: /peregrine/routing/
 
-    - label: Storybook UI testing
-      url: /peregrine/testing/storybook/
-
     - label: Utility modules
       entries:
           - label: REST API client
