@@ -54,7 +54,6 @@ const Flow = props => {
         // actions
         beginCheckout,
         cancelCheckout,
-        editOrder,
         submitShippingAddress,
         submitOrder,
         submitPaymentMethodAndBillingAddress,
@@ -64,7 +63,6 @@ const Flow = props => {
     const {
         availableShippingMethods,
         billingAddress,
-        editing,
         invalidAddressMessage,
         isAddressInvalid,
         paymentData,
@@ -97,8 +95,6 @@ const Flow = props => {
                 cancelCheckout,
                 cart,
                 directory,
-                editOrder,
-                editing,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
@@ -148,7 +144,6 @@ Flow.propTypes = {
     checkout: shape({
         availableShippingMethods: array,
         billingAddress: object,
-        editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
         invalidAddressMessage: string,
         isAddressInvalid: bool,
         paymentData: object,
@@ -162,7 +157,6 @@ Flow.propTypes = {
         root: string
     }),
     directory: object,
-    editOrder: func,
     submitOrder: func,
     submitPaymentMethodAndBillingAddress: func,
     submitShippingAddress: func,
