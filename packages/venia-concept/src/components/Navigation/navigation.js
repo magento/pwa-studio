@@ -16,14 +16,6 @@ const ancestors = {
     MENU: null
 };
 
-const titles = {
-    CREATE_ACCOUNT: 'Create Account',
-    FORGOT_PASSWORD: 'Forgot Password',
-    MY_ACCOUNT: 'My Account',
-    SIGN_IN: 'Sign In',
-    MENU: 'Main Menu'
-};
-
 const Navigation = props => {
     const {
         categories,
@@ -85,9 +77,10 @@ const Navigation = props => {
         <aside className={rootClassName}>
             <header className={classes.header}>
                 <NavHeader
+                    isTopLevel={isTopLevel}
                     onBack={handleBack}
                     onClose={closeDrawer}
-                    title={titles[view]}
+                    view={view}
                 />
             </header>
             <div className={bodyClassName}>
