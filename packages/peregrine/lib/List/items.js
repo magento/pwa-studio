@@ -58,7 +58,7 @@ const useListState = ({ selectionModel, onSelectionChange }) => {
     // when ever the selection changes, make the call
     useEffect(() => {
         onSelectionChange && onSelectionChange(state.selection);
-    }, [Array.from(state.selection).toString()]);
+    }, [onSelectionChange, state.selection]);
     const removeFocus = useCallback(
         () => dispatch({ type: 'REMOVE_FOCUS' }),
         []
