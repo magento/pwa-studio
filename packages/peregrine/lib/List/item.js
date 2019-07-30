@@ -26,7 +26,6 @@ const Item = props => {
     ]);
     const onFocus = useCallback(() => setFocus(key), [setFocus, key]);
     const customProps = {
-        uniqueID: key,
         classes,
         hasFocus,
         isSelected,
