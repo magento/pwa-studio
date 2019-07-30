@@ -24,6 +24,9 @@ const Autocomplete = props => {
 
     if (error) {
         message = 'An error occurred while fetching results.';
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(error);
+        }
     } else if (loading) {
         message = 'Fetching results...';
     } else if (!data) {

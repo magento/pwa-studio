@@ -84,6 +84,9 @@ const Category = props => {
     }, [currentPage, error, loading, setCurrentPage]);
 
     if (error && currentPage === 1 && !loading) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(error);
+        }
         return <div>Data Fetch Error</div>;
     }
 

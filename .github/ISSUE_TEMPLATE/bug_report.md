@@ -53,6 +53,7 @@ Add any ideas about possible solutions to the problem here.
 <!-- Complete the following sections to help us apply appropriate labels! -->
 **Please let us know what packages this bug is in regards to:**
 - [ ] `venia-concept`
+- [ ] `venia-ui`
 - [ ] `pwa-buildpack`
 - [ ] `peregrine`
 - [ ] `pwa-devdocs`

@@ -33,9 +33,11 @@ services:
       - ./packages/pwa-buildpack/lib:/usr/src/app/packages/pwa-buildpack/lib:rw
       - ./packages/pwa-buildpack/bin:/usr/src/app/packages/pwa-buildpack/bin:rw
       - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
-      - ./packages/venia-concept/.storybook:/usr/src/app/packages/venia-concept/.storybook:rw
       - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw
       - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw
+      - ./packages/venia-ui/.storybook:/usr/src/app/packages/venia-ui/.storybook:rw
+      - ./packages/venia-ui/lib:/usr/src/app/packages/venia-ui/lib:rw
+      - ./packages/venia-ui/templates:/usr/src/app/packages/venia-ui/templates:rw
     links:
       - nginx-proxy
     environment:
