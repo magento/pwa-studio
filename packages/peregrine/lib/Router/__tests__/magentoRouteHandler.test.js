@@ -72,7 +72,7 @@ test('renders `internalError` if `resolveUnknownRoute` fails', async () => {
 
 test('renders `notFound` if urlResolver returns null', async () => {
     resolveUnknownRoute.mockResolvedValue(null);
-    shallow(<MagentoRouteHandler {...props}/>);
+    shallow(<MagentoRouteHandler {...props} />);
 
     // resolveUnknownRoute
     await waitForExpect(() => expect(children).toHaveBeenCalledTimes(2));
