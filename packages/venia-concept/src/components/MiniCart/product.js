@@ -5,6 +5,9 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from 'src/classify';
 import { resourceUrl } from 'src/drivers';
 
+import Image from 'src/components/Image';
+import { transparentPlaceholder } from 'src/shared/images';
+
 import Kebab from './kebab';
 import ProductOptions from './productOptions';
 import Section from './section';
@@ -12,6 +15,7 @@ import Section from './section';
 import defaultClasses from './product.css';
 
 const imageWidth = 80;
+const imageHeight = 100;
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -22,14 +26,26 @@ const Product = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const mask = isLoading ? <div className={classes.mask} /> : null;
-    const imageSource = useMemo(
-        () =>
-            resourceUrl(image.file, {
-                type: 'image-product',
-                width: imageWidth
-            }),
-        [image]
-    );
+
+    const productImage = useMemo(() => {
+        const src =
+            image && image.file
+                ? resourceUrl(image.file, {
+                      type: 'image-product',
+                      width: imageWidth,
+                      height: imageHeight
+                  })
+                : transparentPlaceholder;
+
+        return (
+            <Image
+                alt={name}
+                classes={{ root: classes.image }}
+                placeholder={transparentPlaceholder}
+                src={src}
+            />
+        );
+    }, [image, name, classes.image]);
 
     const handleFavoriteItem = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -46,7 +62,7 @@ const Product = props => {
 
     return (
         <li className={classes.root}>
-            <img alt={name} className={classes.image} src={imageSource} />
+            {productImage}
             <div className={classes.name}>{name}</div>
             <ProductOptions options={options} />
             <div className={classes.quantity}>
@@ -86,8 +102,8 @@ Product.propTypes = {
     currencyCode: string,
     item: shape({
         image: shape({
-            file: string.isRequired
-        }).isRequired,
+            file: string
+        }),
         name: string,
         options: array,
         price: number,

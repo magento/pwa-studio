@@ -15,6 +15,7 @@ import Image from 'src/components/Image';
 import Button from 'src/components/Button';
 
 const DEFAULT_IMAGE_WIDTH = 640;
+const DEFAULT_IMAGE_HEIGHT = 800;
 
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -35,7 +36,8 @@ const Carousel = props => {
     const src = currentImage.file
         ? resourceUrl(currentImage.file, {
               type: 'image-product',
-              width: DEFAULT_IMAGE_WIDTH
+              width: DEFAULT_IMAGE_WIDTH,
+              height: DEFAULT_IMAGE_HEIGHT
           })
         : transparentPlaceholder;
 
