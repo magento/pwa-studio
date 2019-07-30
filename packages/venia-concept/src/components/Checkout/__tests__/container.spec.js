@@ -1,7 +1,6 @@
 import {
     beginCheckout,
     cancelCheckout,
-    editOrder,
     submitShippingAddress,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
@@ -34,7 +33,6 @@ test('returns a connected CheckoutContainer component', () => {
     expect(ConnectedCheckoutContainer.mapDispatchToProps).toMatchObject({
         beginCheckout,
         cancelCheckout,
-        editOrder,
         submitShippingAddress,
         submitOrder,
         submitPaymentMethodAndBillingAddress,

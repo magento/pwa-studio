@@ -4,18 +4,19 @@
     bottom: 0;
     right: 0;
     background-color: white;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(-100%, 0, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
+    max-width: 360px;
     opacity: 0;
     overflow: hidden;
-    width: 100%;
     z-index: 3;
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
+    width: 100%;
 }
 
 .rootOpen {
