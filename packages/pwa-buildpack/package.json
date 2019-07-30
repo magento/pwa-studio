@@ -42,6 +42,7 @@
     "execa": "~1.0.0",
     "figures": "~2.0.0",
     "fs-extra": "~7.0.1",
+    "gitignore-to-glob": "~0.3.0",
     "graphql-playground-middleware-express": "~1.7.12",
     "is-valid-npm-name": "~0.0.4",
     "js-yaml": "~3.13.1",
@@ -67,14 +68,14 @@
     "strip-ansi": "~5.0.0",
     "terser-webpack-plugin": "~1.2.3",
     "wait-for-expect": "~1.2.0",
-    "webpack": "~4.29.5",
+    "webpack": "~4.38.0",
     "workbox-webpack-plugin": "~4.2.0"
   },
   "peerDependencies": {
     "babel-loader": "~8.0.5",
     "css-loader": "~2.1.1",
     "terser-webpack-plugin": "~1.2.3",
-    "webpack": "~4.29.5",
+    "webpack": "~4.38.0",
     "workbox-webpack-plugin": "~4.2.0"
   },
   "engines": {
