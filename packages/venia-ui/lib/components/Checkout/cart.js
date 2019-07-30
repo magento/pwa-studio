@@ -29,93 +29,83 @@ const CART_METHOD_OPTIONS = {
 };
 
 const Cart = props => {
-    const [cartState, cartApi] = useCartContext();
     const [userState] = useUserContext();
+    const [cartState, cartApi] = useCartContext();
     const [checkoutState, checkoutApi] = useCheckoutContext();
 
-    const [authedCartResponseState, authedCartRestApi] = useRestApi(
-        AUTHED_CART_ENDPOINT
-    );
-    const [guestCartResponseState, guestCartRestApi] = useRestApi(
-        GUEST_CART_ENDPOINT
-    );
+    const { cartId } = cartState;
+    const { isSignedIn } = userState;
 
+    const cartEndpoint = isSignedIn
+        ? AUTHED_CART_ENDPOINT
+        : GUEST_CART_ENDPOINT;
+    const [cartResponseState, cartRequestApi] = useRestApi(cartEndpoint);
+    const { data: cartData } = cartResponseState;
+
+    const shippingMethodsEndpoint = isSignedIn
+        ? AUTHED_SHIPPING_METHOD_ENDPOINT
+        : `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
+    const [
+        shippingMethodsResponseState,
+        shippingMethodsRequestApi
+    ] = useRestApi(shippingMethodsEndpoint);
+    const { data: shippingMethodsData } = shippingMethodsResponseState;
+
+    // create a cart if necessary
     useEffect(() => {
-        if (!cartState.cartId) {
-            if (userState.isSignedIn) {
-                const { loading, data } = authedCartResponseState;
-                if (!loading && !data) {
-                    authedCartRestApi.sendRequest({
-                        options: CART_METHOD_OPTIONS
-                    });
-                }
-            } else {
-                const { loading, data } = guestCartResponseState;
-                if (!loading && !data) {
-                    guestCartRestApi.sendRequest({
-                        options: CART_METHOD_OPTIONS
-                    });
-                }
+        if (!cartId) {
+            const { data, loading } = cartResponseState;
+
+            if (!loading && !data) {
+                cartRequestApi.sendRequest({
+                    options: CART_METHOD_OPTIONS
+                });
             }
         }
     }, [
-        authedCartResponseState,
-        authedCartRestApi,
-        cartState.cartId,
-        guestCartResponseState,
-        guestCartRestApi,
-        userState.isSignedIn
+        cartId,
+        cartRequestApi,
+        cartRequestApi.sendRequest,
+        cartResponseState,
+        cartResponseState.data,
+        cartResponseState.loading,
+        isSignedIn
     ]);
 
-    const cartData =
-        authedCartResponseState.data || guestCartResponseState.data;
-
+    // write cart contents to client cart state
     useEffect(() => {
         if (cartData) {
             cartApi.setCartId(cartData);
         }
     }, [cartApi, cartData]);
 
-    const [authedShippingResponseState, authedShippingRestApi] = useRestApi(
-        AUTHED_SHIPPING_METHOD_ENDPOINT
-    );
-    const [guestShippingResponseState, guestShippingRestApi] = useRestApi(
-        `/rest/V1/guest-carts/${cartState.cartId}/estimate-shipping-methods`
-    );
-
+    // fetch shipping methods
     useEffect(() => {
-        if (userState.isSignedIn) {
-            const { loading, data } = authedShippingResponseState;
+        if (isSignedIn || cartId) {
+            const { data, loading } = shippingMethodsResponseState;
+
             if (!loading && !data) {
-                authedShippingRestApi.sendRequest({
-                    options: SHIPPING_METHOD_OPTIONS
-                });
-            }
-        } else if (cartState.cartId) {
-            const { loading, data } = guestShippingResponseState;
-            if (!loading && !data) {
-                guestShippingRestApi.sendRequest({
+                shippingMethodsRequestApi.sendRequest({
                     options: SHIPPING_METHOD_OPTIONS
                 });
             }
         }
     }, [
-        cartState.cartId,
-        userState.isSignedIn,
-        authedShippingRestApi,
-        authedShippingResponseState,
-        guestShippingRestApi,
-        guestShippingResponseState
+        cartId,
+        isSignedIn,
+        shippingMethodsRequestApi,
+        shippingMethodsRequestApi.sendRequest,
+        shippingMethodsResponseState,
+        shippingMethodsResponseState.data,
+        shippingMethodsResponseState.loading
     ]);
 
-    const shippingMethodData =
-        authedShippingResponseState.data || guestShippingResponseState.data;
-
+    // write shipping methods to client checkout state
     useEffect(() => {
-        if (shippingMethodData) {
-            checkoutApi.setAvailableShippingMethods(shippingMethodData);
+        if (shippingMethodsData) {
+            checkoutApi.setAvailableShippingMethods(shippingMethodsData);
         }
-    }, [checkoutApi, shippingMethodData]);
+    }, [checkoutApi, shippingMethodsData]);
 
     const handleBeginCheckout = useCallback(async () => {
         checkoutApi.setCheckoutStateFromStorage();
