@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useReducer } from 'react';
-
+import withLogger from '../../util/withLogger';
 import { BrowserPersistence } from '../../util';
 
 const storage = new BrowserPersistence();
@@ -28,8 +28,9 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
+const wrappedReducer = withLogger(reducer);
 export const useUserState = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
 
     const setUser = useCallback(
         payload => {

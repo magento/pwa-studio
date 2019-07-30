@@ -18,7 +18,7 @@ export const useRestApi = endpoint => {
     // Define a callback that sends a request
     // either as an effect or in response to user interaction.
     const sendRequest = useCallback(
-        async ({ options }) => {
+        async ({ options } = {}) => {
             // setLoading to true before making the call.
             // There is no need to setLoading to false after because
             // both receiveResponse and receiveError handle that.

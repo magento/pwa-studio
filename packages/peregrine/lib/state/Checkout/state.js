@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useReducer } from 'react';
+import withLogger from '../../util/withLogger';
 
 import { BrowserPersistence } from '../../util';
 
@@ -102,8 +103,9 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
+const wrappedReducer = withLogger(reducer);
 export const useCheckoutState = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
 
     const beginCheckout = useCallback(
         payload => {
