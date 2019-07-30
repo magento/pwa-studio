@@ -26,6 +26,7 @@ const Item = props => {
     ]);
     const onFocus = useCallback(() => setFocus(key), [setFocus, key]);
     const customProps = {
+        uniqueID: key,
         classes,
         hasFocus,
         isSelected,
@@ -50,7 +51,8 @@ Item.propTypes = {
     isSelected: PropTypes.bool,
     item: PropTypes.any.isRequired,
     itemIndex: PropTypes.number.isRequired,
-    render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired
+    render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+    uniqueID: PropTypes.number
 };
 
 Item.defaultProps = {
