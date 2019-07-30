@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CartContextProvider } from '../state/Cart';
 import { CatalogContextProvider } from '../state/Catalog';
 import { CheckoutContextProvider } from '../state/Checkout';
 import { UserContextProvider } from '../state/User';
@@ -10,6 +11,7 @@ import { UserContextProvider } from '../state/User';
  * @property {React.Component[]} contextProviders
  */
 const contextProviders = [
+    CartContextProvider,
     CatalogContextProvider,
     CheckoutContextProvider,
     UserContextProvider

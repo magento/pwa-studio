@@ -1,11 +1,9 @@
 import { useCallback, useMemo, useReducer } from 'react';
 
-const defaultRootCategoryId = 2;
-
-const init = rootCategoryId => ({
+const initialState = {
     categories: {},
-    rootCategoryId
-});
+    rootCategoryId: 2 // TODO: get from env?
+};
 
 const reducer = (state, { payload, type }) => {
     switch (type) {
@@ -26,7 +24,7 @@ const reducer = (state, { payload, type }) => {
 };
 
 export const useCatalogState = () => {
-    const [state, dispatch] = useReducer(reducer, defaultRootCategoryId, init);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const setRootCategory = useCallback(
         payload => {
