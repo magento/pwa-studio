@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
+import classify from '../../../classify';
 import { withRouter } from 'react-router-dom';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
 import FilterDefault from './filterDefault';
-import Swatch from 'src/components/ProductOptions/swatch';
-import { WithFilterSearch } from 'src/components/FilterModal/FilterSearch';
+import Swatch from '../../ProductOptions/swatch';
+import { WithFilterSearch } from '../../FilterModal/FilterSearch';
 
 class FilterList extends Component {
     static propTypes = {

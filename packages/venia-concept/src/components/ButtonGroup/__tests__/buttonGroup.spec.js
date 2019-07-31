@@ -4,7 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import Button from '../button';
 import ButtonGroup from '../buttonGroup';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../button');
 
 test('renders a div', () => {

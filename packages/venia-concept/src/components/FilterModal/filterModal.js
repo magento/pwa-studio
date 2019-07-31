@@ -3,12 +3,12 @@ import FilterFooter from './FilterFooter';
 import PropTypes from 'prop-types';
 import { List } from '@magento/peregrine';
 import { FiltersCurrent } from './FiltersCurrent';
-import classify from 'src/classify';
+import classify from '../../classify';
 import { X as CloseIcon } from 'react-feather';
-import Icon from 'src/components/Icon';
+import Icon from '../Icon';
 import FilterBlock from './filterBlock';
 import defaultClasses from './filterModal.css';
-import { Modal } from 'src/components/Modal';
+import { Modal } from '../Modal';
 
 class FilterModal extends Component {
     static propTypes = {

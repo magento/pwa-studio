@@ -2,7 +2,7 @@ import React from 'react';
 import { array, func, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 import Product from './product';
 import defaultClasses from './productList.css';

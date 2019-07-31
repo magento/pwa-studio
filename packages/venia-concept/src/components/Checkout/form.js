@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 import EditableForm from './editableForm';
 import Overview from './overview';

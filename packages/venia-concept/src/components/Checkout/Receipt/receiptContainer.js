@@ -1,9 +1,9 @@
-import { connect, withRouter } from 'src/drivers';
+import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import actions from 'src/actions/checkoutReceipt';
-import { createAccount } from 'src/actions/checkout';
+import actions from '../../../actions/checkoutReceipt';
+import { createAccount } from '../../../actions/checkout';
 import Receipt from './receipt';
-import { getOrderInformation } from 'src/selectors/checkoutReceipt';
+import { getOrderInformation } from '../../../selectors/checkoutReceipt';
 
 const { reset } = actions;
 

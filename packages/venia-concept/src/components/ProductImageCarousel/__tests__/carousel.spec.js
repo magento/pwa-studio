@@ -1,13 +1,13 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import Carousel from '../carousel';
-import Image from 'src/components/Image';
+import Image from '../../Image';
 import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const defaultProps = {
     // This order is specifically set to test sorting/filtering. Do not modify.

@@ -1,6 +1,6 @@
-import reducer, { initialState } from 'src/reducers/cart';
-import actions from 'src/actions/cart';
-import checkoutActions from 'src/actions/checkout';
+import reducer, { initialState } from '../cart';
+import actions from '../../actions/cart';
+import checkoutActions from '../../actions/checkout';
 
 const state = { ...initialState };
 

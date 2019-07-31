@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classify from 'src/classify';
+import classify from '../../classify';
 import PropTypes from 'prop-types';
 
 import defaultClasses from './cartCounter.css';

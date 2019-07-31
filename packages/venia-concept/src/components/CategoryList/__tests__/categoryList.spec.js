@@ -4,12 +4,12 @@ import TestRenderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 
-import LoadingIndicator from 'src/components/LoadingIndicator';
+import LoadingIndicator from '../../LoadingIndicator';
 import CategoryTile from '../categoryTile';
 import CategoryList from '../categoryList';
 import getCategoryList from '../../../queries/getCategoryList.graphql';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const withRouterAndApolloClient = (mocks, renderFn) => (
     <MemoryRouter initialIndex={0} initialEntries={['/']}>

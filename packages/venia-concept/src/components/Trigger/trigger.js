@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './trigger.css';
 
 const Trigger = props => {

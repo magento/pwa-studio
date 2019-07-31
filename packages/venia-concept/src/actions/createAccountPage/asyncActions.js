@@ -1,4 +1,4 @@
-import { createNewUserRequest } from 'src/actions/user';
+import { createNewUserRequest } from '../user';
 
 export const createAccount = ({ accountInfo, history }) => async dispatch => {
     /*

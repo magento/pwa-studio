@@ -1,8 +1,8 @@
 import React from 'react';
 import { func, string, shape } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import Trigger from 'src/components/Trigger';
+import { mergeClasses } from '../../classify';
+import Trigger from '../Trigger';
 
 import defaultClasses from './emptyMiniCartBody.css';
 

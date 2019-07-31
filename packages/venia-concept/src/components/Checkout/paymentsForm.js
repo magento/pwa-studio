@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { Form } from 'informed';
 import { array, bool, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './paymentsForm.css';
-import isObjectEmpty from 'src/util/isObjectEmpty';
+import isObjectEmpty from '../../util/isObjectEmpty';
 import PaymentsFormItems from './paymentsFormItems';
 
 const DEFAULT_FORM_VALUES = {

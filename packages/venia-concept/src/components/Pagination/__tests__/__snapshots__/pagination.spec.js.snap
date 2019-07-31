@@ -7,17 +7,22 @@ exports[`renders when there is more than 1 page 1`] = `
   className="root"
 >
   <button
+    className="button"
     onClick={[Function]}
   >
-    <div />
+    <div
+      className="marker"
+    />
     1
   </button>
   <button
+    className="button"
     onClick={[Function]}
   >
     2
   </button>
   <button
+    className="button"
     onClick={[Function]}
   >
     3

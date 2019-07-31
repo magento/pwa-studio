@@ -14,7 +14,7 @@ To update this section, update the doc blocks in the source code
 Send a product search query to the server and get back the query result state object.
 
 ```js
-import PRODUCT_SEARCH from 'src/queries/productSearch.graphql';
+import PRODUCT_SEARCH from '../queries/productSearch.graphql';
 
 const [queryResult, queryApi] = useQuery(PRODUCT_SEARCH);
 
