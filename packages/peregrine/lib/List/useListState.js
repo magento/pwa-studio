@@ -1,5 +1,17 @@
-import { useReducer, useCallback, useEffect } from 'react';
+import { useMemo, useReducer, useCallback, useEffect } from 'react';
 
+import withLogger from '../util/withLogger';
+
+/**
+ * Helper function to update selection of given key in the items list.
+ *
+ * @function updateSelection
+ *
+ * @param {Key} key
+ * @param {Set} prevSelection
+ * @param {Set} selectionModel
+ * @returns {Set}
+ */
 const updateSelection = (key, prevSelection, selectionModel) => {
     let selection;
     if (selectionModel === 'radio') {
@@ -16,8 +28,20 @@ const updateSelection = (key, prevSelection, selectionModel) => {
     return selection;
 };
 
-const reducer = (state, action) => {
-    switch (action.type) {
+/**
+ * Reducer function that is used by the useReducer hook inside the useListState hook.
+ *
+ * @function reducer
+ *
+ * @param {ListState} state
+ * @param {Object} action
+ * @param {string} action.type
+ * @param {Object} action.payload
+ * @param {Key} action.payload.key
+ * @param {string} action.payload.selectionModel
+ */
+const reducer = (state, { type, payload: { key, selectionModel } }) => {
+    switch (type) {
         case 'REMOVE_FOCUS':
             return {
                 ...state,
@@ -27,10 +51,9 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 hasFocus: true,
-                cursor: action.key
+                cursor: key
             };
         case 'UPDATE_SELECTION': {
-            const { key, selectionModel } = action;
             return {
                 ...state,
                 selection: updateSelection(key, state.selection, selectionModel)
@@ -41,14 +64,29 @@ const reducer = (state, action) => {
     }
 };
 
+const wrappedReducer = withLogger(reducer);
+
 const initialState = {
     cursor: null,
     hasFocus: false,
     selection: new Set()
 };
 
+/**
+ * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains
+ * logic for handling a list of items.
+ *
+ * It returns the state of the list and an API object for managing the items in the list.
+ *
+ * @typedef {function} useListState
+ *
+ * @param {Object} config
+ * @param {string} config.selectionModel - type of the items selection that needs to be implemented (radio or checkbox)
+ * @param {function(Set):void} config.onSelectionChange - function to be called when a item in the list is clicked.
+ * @return {Object[]} An array with two entries containing the following content: [ {@link ListState}, {@link API}]
+ */
 export const useListState = ({ selectionModel, onSelectionChange }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
     // when ever the selection changes, make the call
     useEffect(() => {
         onSelectionChange && onSelectionChange(state.selection);
@@ -61,14 +99,77 @@ export const useListState = ({ selectionModel, onSelectionChange }) => {
         key =>
             dispatch({
                 type: 'UPDATE_SELECTION',
-                key,
-                selectionModel
+                payload: { key, selectionModel }
             }),
         [selectionModel]
     );
     const setFocus = useCallback(
-        key => dispatch({ type: 'SET_FOCUS', key }),
+        key => dispatch({ type: 'SET_FOCUS', payload: { key } }),
         []
     );
-    return [state, { setFocus, removeFocus, updateSelection }];
+    const api = useMemo(
+        () => ({
+            setFocus,
+            removeFocus,
+            updateSelection
+        }),
+        [setFocus, removeFocus, updateSelection]
+    );
+    return [state, api];
 };
+
+// Custom Type Definitions
+
+/**
+ * Item's key type.
+ *
+ * @typedef {(string|number)} Key
+ */
+
+/**
+ * Function to set focus on a given item in the list.
+ *
+ * @typedef {function} SetFocus
+ *
+ * @param {Key} key - Key of the item to set focus on.
+ * @returns {void}
+ */
+
+/**
+ * Function to remove focus on any item if it has focus.
+ *
+ * @typedef {function} RemoveFocus
+ *
+ * @param {void}
+ * @returns {void}
+ */
+
+/**
+ * Function to update selection.
+ *
+ * @typedef {function} UpdateSelection
+ *
+ * @param {Key} key - The key of the item in the list to select.
+ * @returns {void}
+ */
+
+/**
+ * The API for managing the Items inside the List.
+ *
+ * This object should never change.
+ * @typedef {Object} API
+ *
+ * @property {SetFocus} setFocus
+ * @property {RemoveFocus} removeFocus
+ * @property {UpdateSelection} updateSelection
+ */
+
+/**
+ * The current state of List.
+ *
+ * @typedef {Object} ListState
+ *
+ * @property {Key} cursor
+ * @property {boolean} hasFocus
+ * @property {Set} selection
+ */
