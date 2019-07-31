@@ -3,8 +3,8 @@ import { bool, func, shape, string } from 'prop-types';
 import { useFieldState } from 'informed';
 import { useQuery } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
-import PRODUCT_SEARCH from 'src/queries/productSearch.graphql';
+import { mergeClasses } from '../../classify';
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import Suggestions from './suggestions';
 import defaultClasses from './autocomplete.css';
 

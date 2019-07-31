@@ -3,7 +3,7 @@ import { number, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 import defaultClasses from './totalsSummary.css';
 

@@ -3,10 +3,10 @@ import TestRenderer from 'react-test-renderer';
 import Navigation from '../navigation';
 import { MyAccountMenuTrigger } from '../../MyAccountMenuPage';
 
-jest.mock('src/classify');
-jest.mock('src/components/CreateAccount');
-jest.mock('src/components/ForgotPassword');
-jest.mock('src/components/SignIn');
+jest.mock('../../../classify');
+jest.mock('../../CreateAccount');
+jest.mock('../../ForgotPassword');
+jest.mock('../../SignIn');
 jest.mock('../../MyAccountMenuPage');
 
 const closeDrawer = jest.fn();

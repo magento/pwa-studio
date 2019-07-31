@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { transparentPlaceholder } from 'src/shared/images';
+import { transparentPlaceholder } from '../../../shared/images';
 import Image from '../image';
-import 'src/index.css';
+import '../../../index.css';
 
 import classes from './image.css';
 const stories = storiesOf('Image', module);

@@ -1,7 +1,7 @@
-import { connect } from 'src/drivers';
-import { transformItems } from 'src/selectors/purchaseHistory';
+import { connect } from '@magento/venia-drivers';
+import { transformItems } from '../../../selectors/purchaseHistory';
 import PurchaseHistory from './purchaseHistory';
-import actions, { getPurchaseHistory } from 'src/actions/purchaseHistory';
+import actions, { getPurchaseHistory } from '../../../actions/purchaseHistory';
 
 const mapStateToProps = ({ purchaseHistory }) => {
     const { isFetching } = purchaseHistory;

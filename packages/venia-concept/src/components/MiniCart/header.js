@@ -2,9 +2,9 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
-import { mergeClasses } from 'src/classify';
-import Icon from 'src/components/Icon';
-import Trigger from 'src/components/Trigger';
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
+import Trigger from '../Trigger';
 
 import defaultClasses from './header.css';
 

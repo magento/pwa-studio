@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.css';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 const CONTAINER_ID = 'braintree-dropin-container';

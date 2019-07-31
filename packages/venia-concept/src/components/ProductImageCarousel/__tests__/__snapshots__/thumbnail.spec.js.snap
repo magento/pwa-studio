@@ -15,7 +15,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
     }
     onError={[Function]}
     onLoad={[Function]}
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
   />
   <img
     alt="test-thumbnail"
@@ -45,7 +45,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
     }
     onError={[Function]}
     onLoad={[Function]}
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
   />
   <img
     alt="test-thumbnail"

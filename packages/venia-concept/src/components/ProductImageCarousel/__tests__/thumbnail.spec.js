@@ -5,7 +5,7 @@ import {
 } from '@magento/peregrine';
 import Thumbnail from '../thumbnail';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const onClickHandler = jest.fn();
 const itemIndex = 0;

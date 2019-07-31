@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import catalogActions, { serialize } from 'src/actions/catalog';
+import catalogActions, { serialize } from '../../../actions/catalog';
 import { withRouter } from 'react-router-dom';
-import { closeDrawer } from 'src/actions/app';
-import classify from 'src/classify';
+import { closeDrawer } from '../../../actions/app';
+import classify from '../../../classify';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import isObjectEmpty from 'src/util/isObjectEmpty';
-import { preserveQueryParams } from 'src/util/preserveQueryParams';
-import { persistentQueries } from 'src/shared/persistentQueries';
+import isObjectEmpty from '../../../util/isObjectEmpty';
+import { preserveQueryParams } from '../../../util/preserveQueryParams';
+import { persistentQueries } from '../../../shared/persistentQueries';
 class FilterFooter extends Component {
     static propTypes = {
         classes: PropTypes.shape({

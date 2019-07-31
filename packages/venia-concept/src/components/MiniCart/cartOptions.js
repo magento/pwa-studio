@@ -3,12 +3,12 @@ import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
-import LoadingIndicator from 'src/components/LoadingIndicator';
-import Button from 'src/components/Button';
-import Quantity from 'src/components/ProductQuantity';
-import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
-import isProductConfigurable from 'src/util/isProductConfigurable';
+import { mergeClasses } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
+import Button from '../Button';
+import Quantity from '../ProductQuantity';
+import appendOptionsToPayload from '../../util/appendOptionsToPayload';
+import isProductConfigurable from '../../util/isProductConfigurable';
 
 import defaultClasses from './cartOptions.css';
 

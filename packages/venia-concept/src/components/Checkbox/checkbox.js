@@ -3,9 +3,9 @@ import { bool, node, shape, string } from 'prop-types';
 import { BasicCheckbox, asField } from 'informed';
 import { compose } from 'redux';
 
-import classify from 'src/classify';
-import { Message } from 'src/components/Field';
-import Icon from 'src/components/Icon';
+import classify from '../../classify';
+import { Message } from '../Field';
+import Icon from '../Icon';
 import { Check as CheckIcon } from 'react-feather';
 import defaultClasses from './checkbox.css';
 

@@ -2,18 +2,18 @@ import React, { useCallback, useMemo } from 'react';
 import { Form } from 'informed';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import Button from 'src/components/Button';
+import { mergeClasses } from '../../classify';
+import Button from '../Button';
 import defaultClasses from './addressForm.css';
 import {
     validateEmail,
     isRequired,
     hasLengthExactly,
     validateRegionCode
-} from 'src/util/formValidators';
-import combine from 'src/util/combineValidators';
-import TextInput from 'src/components/TextInput';
-import Field from 'src/components/Field';
+} from '../../util/formValidators';
+import combine from '../../util/combineValidators';
+import TextInput from '../TextInput';
+import Field from '../Field';
 
 const fields = [
     'city',

@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 
 import OrderItemsList from '../orderItemsList';
 
-jest.mock('src/classify');
+jest.mock('../../../../classify');
 
 const itemsMock = [
     {

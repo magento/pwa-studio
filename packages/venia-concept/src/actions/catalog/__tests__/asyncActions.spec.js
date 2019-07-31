@@ -1,4 +1,4 @@
-import { dispatch, getState } from 'src/store';
+import { dispatch, getState } from '../../../store';
 import actions from '../actions';
 import mockData from '../mockData';
 import {
@@ -7,7 +7,7 @@ import {
     setPrevPageTotal
 } from '../asyncActions';
 
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
 
-import Main from 'src/components/Main';
-import Mask from 'src/components/Mask';
-import MiniCart from 'src/components/MiniCart';
-import Navigation from 'src/components/Navigation';
+import Main from '../../Main';
+import Mask from '../../Mask';
+import MiniCart from '../../MiniCart';
+import Navigation from '../../Navigation';
 
-jest.mock('src/components/Main', () => 'Main');
-jest.mock('src/components/MiniCart', () => 'MiniCart');
-jest.mock('src/components/Navigation', () => 'Navigation');
-jest.mock('src/components/ToastContainer', () => 'ToastContainer');
+jest.mock('../../Main', () => 'Main');
+jest.mock('../../MiniCart', () => 'MiniCart');
+jest.mock('../../Navigation', () => 'Navigation');
+jest.mock('../../ToastContainer', () => 'ToastContainer');
 
 Object.defineProperty(window.location, 'reload', {
     configurable: true
@@ -28,7 +28,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('src/util/createErrorRecord', () => ({
+jest.mock('../../../util/createErrorRecord', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue({
         error: { message: 'A render error', stack: 'errorStack' },

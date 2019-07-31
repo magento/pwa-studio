@@ -2,9 +2,9 @@ import React from 'react';
 import { bool, shape, string } from 'prop-types';
 import { useScrollLock } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
-import Footer from 'src/components/Footer';
-import Header from 'src/components/Header';
+import { mergeClasses } from '../../classify';
+import Footer from '../Footer';
+import Header from '../Header';
 import defaultClasses from './main.css';
 
 const Main = props => {

@@ -1,4 +1,4 @@
-import { connect } from 'src/drivers';
+import { connect } from '@magento/venia-drivers';
 import ProductFullDetail from './productFullDetail';
 
 const mapStateToProps = ({ cart }) => {

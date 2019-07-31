@@ -1,20 +1,21 @@
 import React, { useCallback, useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useCarousel } from '@magento/peregrine';
-import { resourceUrl } from 'src/drivers';
+import { resourceUrl } from '@magento/venia-drivers';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import Thumbnail from './thumbnail';
 import defaultClasses from './carousel.css';
-import { transparentPlaceholder } from 'src/shared/images';
-import Icon from 'src/components/Icon';
-import Image from 'src/components/Image';
-import Button from 'src/components/Button';
+import { transparentPlaceholder } from '../../shared/images';
+import Icon from '../Icon';
+import Image from '../Image';
+import Button from '../Button';
 
 const DEFAULT_IMAGE_WIDTH = 640;
+const DEFAULT_IMAGE_HEIGHT = 800;
 
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -35,7 +36,8 @@ const Carousel = props => {
     const src = currentImage.file
         ? resourceUrl(currentImage.file, {
               type: 'image-product',
-              width: DEFAULT_IMAGE_WIDTH
+              width: DEFAULT_IMAGE_WIDTH,
+              height: DEFAULT_IMAGE_HEIGHT
           })
         : transparentPlaceholder;
 

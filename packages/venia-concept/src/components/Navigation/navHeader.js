@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import Icon from 'src/components/Icon';
+import classify from '../../classify';
+import Icon from '../Icon';
 import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
-import Trigger from 'src/components/Trigger';
+import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
 
 class NavHeader extends Component {

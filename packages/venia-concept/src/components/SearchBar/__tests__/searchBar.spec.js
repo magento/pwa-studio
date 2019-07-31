@@ -7,7 +7,7 @@ import Autocomplete from '../autocomplete';
 import SearchBar from '../searchBar';
 import SearchField from '../searchField';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../autocomplete', () => () => null);
 jest.mock('../searchField', () => () => null);
 
