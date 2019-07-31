@@ -40,7 +40,7 @@ const updateSelection = (key, prevSelection, selectionModel) => {
  * @param {Key} action.payload.key
  * @param {string} action.payload.selectionModel
  */
-const reducer = (state, { type, payload: { key, selectionModel } }) => {
+const reducer = (state, { type, payload }) => {
     switch (type) {
         case 'REMOVE_FOCUS':
             return {
@@ -51,12 +51,16 @@ const reducer = (state, { type, payload: { key, selectionModel } }) => {
             return {
                 ...state,
                 hasFocus: true,
-                cursor: key
+                cursor: payload.key
             };
         case 'UPDATE_SELECTION': {
             return {
                 ...state,
-                selection: updateSelection(key, state.selection, selectionModel)
+                selection: updateSelection(
+                    payload.key,
+                    state.selection,
+                    payload.selectionModel
+                )
             };
         }
         default:
