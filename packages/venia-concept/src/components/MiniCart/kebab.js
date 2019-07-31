@@ -4,8 +4,8 @@ import { MoreVertical as MoreVerticalIcon } from 'react-feather';
 
 import { useEventListener } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
-import Icon from 'src/components/Icon';
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
 
 import defaultClasses from './kebab.css';
 

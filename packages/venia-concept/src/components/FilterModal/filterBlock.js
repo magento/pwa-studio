@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
+import classify from '../../classify';
 import FilterList from './FilterList';
-import Icon from 'src/components/Icon';
+import Icon from '../Icon';
 import { filterModes, filterRenderOptions, filterLayouts } from './constants';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import defaultClasses from './filterBlock.css';

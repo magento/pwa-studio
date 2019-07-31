@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import Toast from './toast';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './toastContainer.css';
 
 const ToastContainer = props => {

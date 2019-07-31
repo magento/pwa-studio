@@ -3,11 +3,11 @@ import { Form } from 'informed';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
-import Trigger from 'src/components/Trigger';
+import Trigger from '../../Trigger';
 import SearchField from '../searchField';
 
-jest.mock('src/classify');
-jest.mock('src/components/Trigger', () => () => null);
+jest.mock('../../../classify');
+jest.mock('../../Trigger', () => () => null);
 
 const onChange = jest.fn();
 const onFocus = jest.fn();

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 const messages = new Map()
     .set('loading', fullPageLoadingIndicator)

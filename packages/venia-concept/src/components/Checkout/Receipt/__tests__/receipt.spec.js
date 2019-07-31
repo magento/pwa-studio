@@ -4,14 +4,14 @@ import { createTestInstance } from '@magento/peregrine';
 import { shallow } from 'enzyme';
 
 import Receipt from '../receipt';
-import Button from 'src/components/Button';
+import Button from '../../../Button';
 
 const classes = {
     header: 'header',
     textBlock: 'textBlock'
 };
 
-jest.mock('src/classify');
+jest.mock('../../../../classify');
 
 const userProp = { isSignedIn: false };
 

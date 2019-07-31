@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
-import { Adapter } from 'src/drivers';
-import store from 'src/store';
-import app from 'src/actions/app';
-import App, { AppContextProvider } from 'src/components/App';
+import { Adapter } from '@magento/venia-drivers';
+import store from './store';
+import app from './actions/app';
+import App, { AppContextProvider } from './components/App';
 import './index.css';
 
 const { BrowserPersistence } = Util;

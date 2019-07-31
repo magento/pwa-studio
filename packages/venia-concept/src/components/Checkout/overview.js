@@ -5,7 +5,7 @@ import PaymentMethodSummary from './paymentMethodSummary';
 import ShippingAddressSummary from './shippingAddressSummary';
 import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
-import Button from 'src/components/Button';
+import Button from '../Button';
 import { Price } from '@magento/peregrine';
 
 /**

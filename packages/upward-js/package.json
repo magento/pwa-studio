@@ -60,7 +60,7 @@
     "node-zopfli-es": "^1.0.3"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -3,7 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Form from '../form';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../editableForm', () => 'EditableForm');
 jest.mock('../overview', () => 'Overview');
 

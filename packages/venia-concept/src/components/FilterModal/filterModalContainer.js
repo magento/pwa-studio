@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import FilterModal from './filterModal';
-import { closeDrawer } from 'src/actions/app';
-import catalogActions, { addFilter, removeFilter } from 'src/actions/catalog';
+import { closeDrawer } from '../../actions/app';
+import catalogActions, { addFilter, removeFilter } from '../../actions/catalog';
 
 const mapStateToProps = ({ app }) => {
     const { drawer } = app;

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
 
-import { Query } from 'src/drivers';
-import classify from 'src/classify';
-import LoadingIndicator from 'src/components/LoadingIndicator';
+import { Query } from '@magento/venia-drivers';
+import classify from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
 import CategoryTree from './categoryTree';

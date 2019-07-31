@@ -1,4 +1,4 @@
-import { connect } from 'src/drivers';
+import { connect } from '@magento/venia-drivers';
 
 import {
     beginCheckout,
@@ -7,7 +7,7 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingAddress,
     submitShippingMethod
-} from 'src/actions/checkout';
+} from '../../actions/checkout';
 
 import Flow from './flow';
 

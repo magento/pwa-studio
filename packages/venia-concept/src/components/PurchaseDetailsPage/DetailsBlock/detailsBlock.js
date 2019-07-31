@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { arrayOf, node, shape, string } from 'prop-types';
-import classify from 'src/classify';
+import classify from '../../../classify';
 import defaultClasses from './detailsBlock.css';
 
 class DetailsBlock extends Component {

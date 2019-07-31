@@ -2,11 +2,11 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
-import { resourceUrl } from 'src/drivers';
+import { mergeClasses } from '../../classify';
+import { resourceUrl } from '@magento/venia-drivers';
 
-import Image from 'src/components/Image';
-import { transparentPlaceholder } from 'src/shared/images';
+import Image from '../Image';
+import { transparentPlaceholder } from '../../shared/images';
 
 import Kebab from './kebab';
 import ProductOptions from './productOptions';

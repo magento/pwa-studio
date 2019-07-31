@@ -7,7 +7,7 @@ import AddressForm from '../addressForm';
 import PaymentsForm from '../paymentsForm';
 import ShippingForm from '../shippingForm';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../addressForm', () => 'AddressForm');
 jest.mock('../paymentsForm', () => 'PaymentsForm');
 jest.mock('../shippingForm', () => 'ShippingForm');

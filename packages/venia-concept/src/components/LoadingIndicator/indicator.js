@@ -1,7 +1,7 @@
 import React from 'react';
 
 import defaultClasses from './indicator.css';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 import logo from '../Logo/logo.svg';
 

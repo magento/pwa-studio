@@ -5,9 +5,9 @@ import { createTestInstance } from '@magento/peregrine';
 import PaymentsForm from '../paymentsForm';
 import { Form } from 'informed';
 import BraintreeDropin from '../braintreeDropin';
-import Button from 'src/components/Button';
+import Button from '../../Button';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../braintreeDropin', () => 'BraintreeDropin');
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
