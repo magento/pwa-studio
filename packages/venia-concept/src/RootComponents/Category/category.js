@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import categoryQuery from 'src/queries/getCategory.graphql';
 import isObjectEmpty from 'src/util/isObjectEmpty';
 import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
+import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 
@@ -88,11 +89,13 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (!totalPagesFromData) {
+    if (!totalPagesFromData && totalPagesFromData !== 0) {
         return fullPageLoadingIndicator;
     }
 
-    return (
+    return totalPagesFromData === 0 ? (
+        <NoProductsFound categoryName={data.category.name} />
+    ) : (
         <CategoryContent
             classes={classes}
             data={loading ? null : data}
