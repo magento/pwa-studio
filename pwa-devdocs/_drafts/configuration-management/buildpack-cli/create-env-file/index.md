@@ -76,4 +76,4 @@ The return value is the string value of a `.env` file.
 
 Parse this value using the `dotenv` API or write it out to the filesystem.
 
-[`envvardefinitions.json`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
+[`envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json

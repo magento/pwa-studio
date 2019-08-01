@@ -22,13 +22,13 @@
         "lint": "node scripts/lint",
         "start": "npm-run-all -s clean develop"
     },
-    "repository": "github:magento-research/pwa-studio",
+    "repository": "github:magento/pwa-studio",
     "author": "James Calcaben",
     "license": "OSL-3.0",
     "bugs": {
-        "url": "https://github.com/magento-research/pwa-studio/issues"
+        "url": "https://github.com/magento/pwa-studio/issues"
     },
-    "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-devdocs#readme",
+    "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-devdocs#readme",
     "devDependencies": {
         "browser-sync": "^2.26.7",
         "css-loader": "^2.1.1",
