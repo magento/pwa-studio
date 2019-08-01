@@ -186,36 +186,39 @@ const ProductFullDetail = props => {
 
     return (
         <Form className={classes.root}>
-			{({ formState, formApi }) => (
-			<>
-            <section className={classes.title}>
-                <h1 className={classes.productName}>{product.name}</h1>
-                <p className={classes.productPrice}>
-                    <Price
-                        currencyCode={productPrice.currency}
-                        value={productPrice.value}
-                    />
-                </p>
-            </section>
-            <section className={classes.imageCarousel}>
-                <Carousel
-                    images={mediaGalleryEntries.value}
-                    key={mediaGalleryEntries.key}
-                />
-            </section>
-            <section className={classes.options}>
-                <Suspense fallback={fullPageLoadingIndicator}>
-                    <Options
-                        onSelectionChange={handleSelectionChange}
-                        product={product}
-                    />
-                </Suspense>
-            </section>
-            <section className={classes.quantity}>
-                <h2 className={classes.quantityTitle}>Quantity</h2>
-                <Quantity initialValue={quantity} onValueChange={setQuantity} />
-            </section>
-            <section className={classes.quantity}>
+            {({ formState, formApi }) => (
+                <>
+                    <section className={classes.title}>
+                        <h1 className={classes.productName}>{product.name}</h1>
+                        <p className={classes.productPrice}>
+                            <Price
+                                currencyCode={productPrice.currency}
+                                value={productPrice.value}
+                            />
+                        </p>
+                    </section>
+                    <section className={classes.imageCarousel}>
+                        <Carousel
+                            images={mediaGalleryEntries.value}
+                            key={mediaGalleryEntries.key}
+                        />
+                    </section>
+                    <section className={classes.options}>
+                        <Suspense fallback={fullPageLoadingIndicator}>
+                            <Options
+                                onSelectionChange={handleSelectionChange}
+                                product={product}
+                            />
+                        </Suspense>
+                    </section>
+                    <section className={classes.quantity}>
+                        <h2 className={classes.quantityTitle}>Quantity</h2>
+                        <Quantity
+                            initialValue={quantity}
+                            onValueChange={setQuantity}
+                        />
+                    </section>
+                    <section className={classes.quantity}>
                         <h2 className={classes.quantityTitle}>Quantity</h2>
                         <DecrementButtonFormApi formApi={formApi} />
                         <label htmlFor="quantity">
@@ -235,26 +238,26 @@ const ProductFullDetail = props => {
                             {formState.errors.quantity}
                         </p>
                     </section>
-            <section className={classes.cartActions}>
-                <Button
-                    priority="high"
-                    onClick={handleAddToCart}
-                    disabled={isAddingItem || isMissingOptions}
-                >
-                    Add to Cart
-                </Button>
-            </section>
-            <section className={classes.description}>
-                <h2 className={classes.descriptionTitle}>
-                    Product Description
-                </h2>
-                <RichText content={product.description} />
-            </section>
-            <section className={classes.details}>
-                <h2 className={classes.detailsTitle}>SKU</h2>
-                <strong>{product.sku}</strong>
-            </section>
-            </>
+                    <section className={classes.cartActions}>
+                        <Button
+                            priority="high"
+                            onClick={handleAddToCart}
+                            disabled={isAddingItem || isMissingOptions}
+                        >
+                            Add to Cart
+                        </Button>
+                    </section>
+                    <section className={classes.description}>
+                        <h2 className={classes.descriptionTitle}>
+                            Product Description
+                        </h2>
+                        <RichText content={product.description} />
+                    </section>
+                    <section className={classes.details}>
+                        <h2 className={classes.detailsTitle}>SKU</h2>
+                        <strong>{product.sku}</strong>
+                    </section>
+                </>
             )}
         </Form>
     );
