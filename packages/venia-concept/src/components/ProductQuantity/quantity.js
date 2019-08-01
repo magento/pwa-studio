@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text } from 'informed';
 import { Plus, Minus } from 'react-feather';
 import classify from 'src/classify';
-import {arrayOf, number, shape, string} from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 
 import defaultClasses from './quantity.css';
 
@@ -46,8 +46,8 @@ const Quantity = props => {
                     validate={validateQuantity}
                     className={classes.quantityField}
                 />
-                 <button
-                    disabled = {initialValue <= 1 ? true : false}
+                <button
+                    disabled={initialValue <= 1 ? true : false}
                     aria-label="Quantity Decrement"
                     type="button"
                     onClick={() => {
@@ -66,9 +66,7 @@ const Quantity = props => {
                     <Plus />
                 </button>
             </label>
-            <p className={classes.errors}>
-                    {formState.errors.quantity}
-            </p>
+            <p className={classes.errors}>{formState.errors.quantity}</p>
         </div>
     );
 };
@@ -85,7 +83,7 @@ Quantity.propTypes = {
     )
 };
 
-export default classify(defaultClasses) (Quantity);
+export default classify(defaultClasses)(Quantity);
 
 // import React, { Component } from 'react';
 // import { arrayOf, number, shape, string } from 'prop-types';

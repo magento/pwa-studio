@@ -100,38 +100,45 @@ const CartOptions = props => {
     return (
         <Form className={classes.root}>
             {({ formState, formApi }) => (
-                 <>
-            <div className={classes.focusItem}>
-                <span className={classes.name}>{name}</span>
-                <span className={classes.price}>
-                    <Price currencyCode={currencyCode} value={price} />
-                </span>
-            </div>
-            <div className={classes.form}>
-                {options}
-                <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>
-                        <span>Quantity</span>
-                    </h2>
-                    <Quantity initialValue={qty} onValueChange={setQuantity} formApi={formApi} formState={formState} />
-                </section>
-            </div>
-            <div className={classes.save}>
-                <Button onClick={endEditItem}>
-                    <span>Cancel</span>
-                </Button>
-                <Button
-                    priority="high"
-                    onClick={handleUpdateClick}
-                    disabled={isMissingOptions || formState.errors.quantity}
-                >
-                    <span>Update Cart</span>
-                </Button>
-            </div>
-            <div className={modalClass}>
-                <LoadingIndicator>Updating Cart</LoadingIndicator>
-            </div>
-            </>
+                <>
+                    <div className={classes.focusItem}>
+                        <span className={classes.name}>{name}</span>
+                        <span className={classes.price}>
+                            <Price currencyCode={currencyCode} value={price} />
+                        </span>
+                    </div>
+                    <div className={classes.form}>
+                        {options}
+                        <section className={classes.quantity}>
+                            <h2 className={classes.quantityTitle}>
+                                <span>Quantity</span>
+                            </h2>
+                            <Quantity
+                                initialValue={qty}
+                                onValueChange={setQuantity}
+                                formApi={formApi}
+                                formState={formState}
+                            />
+                        </section>
+                    </div>
+                    <div className={classes.save}>
+                        <Button onClick={endEditItem}>
+                            <span>Cancel</span>
+                        </Button>
+                        <Button
+                            priority="high"
+                            onClick={handleUpdateClick}
+                            disabled={
+                                isMissingOptions || formState.errors.quantity
+                            }
+                        >
+                            <span>Update Cart</span>
+                        </Button>
+                    </div>
+                    <div className={modalClass}>
+                        <LoadingIndicator>Updating Cart</LoadingIndicator>
+                    </div>
+                </>
             )}
         </Form>
     );
