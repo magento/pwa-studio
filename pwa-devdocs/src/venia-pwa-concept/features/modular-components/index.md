@@ -170,7 +170,7 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [peregrine router]: {{site.baseurl}}{%link peregrine/reference/router/index.md %}
 
 [react]: https://reactjs.org/
-[venia-consumer-example]: https://github.com/magento/venia-consumer-example
+[venia-consumer-example]: https://github.com/magento-research/venia-consumer-example
 [es modules]: https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 [webpack optimization]: https://webpack.js.org/guides/tree-shaking/
 [loadingindicator]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
