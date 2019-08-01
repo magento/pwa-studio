@@ -10,6 +10,20 @@ import defaultClasses from './option.css';
 const getItemKey = ({ value_index }) => value_index;
 
 class Option extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {optionSelection: null};
+        this.valuesMap = new Map(
+            this.props.values.map(
+            value => [
+                value.value_index,
+                value.store_label
+            ]
+        )
+        );
+    }
+
     static propTypes = {
         attribute_id: string,
         attribute_code: string.isRequired,
@@ -28,6 +42,7 @@ class Option extends Component {
         if (onSelectionChange) {
             onSelectionChange(attribute_id, selection);
         }
+        this.setState({optionSelection: selection});
     };
 
     get listComponent() {
@@ -43,7 +58,7 @@ class Option extends Component {
     render() {
         const { handleSelectionChange, listComponent: ValueList, props } = this;
         const { classes, label, values } = props;
-
+        let selectedValue = this.state.optionSelection;
         return (
             <div className={classes.root}>
                 <h3 className={classes.title}>
@@ -54,6 +69,9 @@ class Option extends Component {
                     items={values}
                     onSelectionChange={handleSelectionChange}
                 />
+                <p className={classes.selection}>
+                    {selectedValue?`Selected ${label} : ${this.valuesMap.get(Array.from(selectedValue).pop())}`:''}
+                </p>
             </div>
         );
     }

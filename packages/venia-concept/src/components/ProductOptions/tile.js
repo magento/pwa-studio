@@ -40,11 +40,11 @@ class Tile extends Component {
         const { label } = item;
 
         return (
-            <Tooltip text={label}>
-                <button {...restProps} className={className}>
-                    <span>{label}</span>
-                </button>
-            </Tooltip>
+
+            <button {...restProps} className={className}>
+                <span>{label}</span>
+            </button>
+
         );
     }
 }

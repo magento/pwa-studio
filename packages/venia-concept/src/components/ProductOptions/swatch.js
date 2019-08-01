@@ -68,16 +68,13 @@ class Swatch extends Component {
         });
 
         return (
-            <Tooltip text={label}>
-                <button
-                    {...restProps}
-                    className={className}
-                    style={finalStyle}
-                    title={label}
-                >
-                    {icon}
-                </button>
-            </Tooltip>
+            <button
+                {...restProps}
+                className={className}
+                style={finalStyle}
+            >
+                {icon}
+            </button>
         );
     }
 }
