@@ -38,7 +38,7 @@ Add the repository information for the UPWARD PHP server to the `repositories` s
 ```json
 "upward-connector": {
     "type": "vcs",
-        "url": "https://github.com/magento/magento2-upward-connector"
+        "url": "https://github.com/magento-research/magento2-upward-connector"
 
 }
 ```
