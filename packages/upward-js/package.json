@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -11,9 +11,7 @@
     "bin": "./bin"
   },
   "scripts": {
-    "build": "echo 'Skipping upward-js build...'",
-    "build:dev": "yarn run build",
-    "clean": "echo 'Skipping upward-js clean...'",
+    "clean": " ",
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
   },
@@ -33,6 +31,7 @@
   "dependencies": {
     "apollo-link": "~1.2.8",
     "apollo-link-http": "~1.5.11",
+    "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
     "debug": "~4.1.1",
@@ -42,14 +41,14 @@
     "graphql-tag": "~2.10.1",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.1",
-    "js-yaml": "~3.12.1",
+    "js-yaml": "~3.13.1",
     "lodash": "~4.17.11",
     "morgan": "~1.9.1",
     "node-fetch": "~2.3.0",
     "shrink-ray-current": "~4.0.0"
   },
   "devDependencies": {
-    "@magento/upward-spec": "~2.1.0",
+    "@magento/upward-spec": "~2.2.0",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },
@@ -61,7 +60,7 @@
     "node-zopfli-es": "^1.0.3"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

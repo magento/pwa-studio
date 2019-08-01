@@ -1,6 +1,5 @@
 .root {
     --base-z-index: 4;
-    --minicart-height: 100vh;
     --minicart-header-height: 3.5rem;
     align-content: start;
     background-color: white;
@@ -8,7 +7,7 @@
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;
     grid-template-rows: min-content 1fr;
-    height: var(--minicart-height);
+    height: 100%;
     opacity: 0;
     overflow: hidden;
     position: fixed;
@@ -33,70 +32,4 @@
     transition-duration: 224ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     visibility: visible;
-}
-
-.body {
-    overflow: auto;
-}
-
-.footer {
-    --minicart-footer-padding-top: 1.5rem;
-    --minicart-footer-padding-bottom: 0.5rem;
-    box-shadow: 0 -1px rgb(var(--venia-border));
-    padding: var(--minicart-footer-padding-top) 0
-        var(--minicart-footer-padding-bottom);
-    background-color: white;
-}
-
-.footerMaskOpen {
-    composes: footer;
-    z-index: 3;
-}
-
-.header {
-    align-content: center;
-    align-items: center;
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
-    display: grid;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-auto-rows: 3rem;
-    grid-template-columns: 1fr;
-    height: var(--minicart-header-height);
-    justify-content: end;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-}
-
-.subtotalLabel {
-    color: rgb(var(--venia-text-alt));
-}
-
-.subtotalValue {
-    font-weight: 600;
-    margin-left: 0.5rem;
-}
-
-.title {
-    align-items: center;
-    display: inline-flex;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-right: auto;
-    padding: 0;
-    text-transform: uppercase;
-}
-
-.totals {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.placeholderButton {
-    text-align: center;
-    margin: 1.5rem 0 1rem 0;
 }

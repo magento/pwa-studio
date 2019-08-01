@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
-import { ApolloContext } from 'react-apollo/ApolloContext';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloContext, ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -12,7 +11,7 @@ import { Router } from '@magento/peregrine';
 /**
  * The counterpart to "@magento/venia-drivers" is an adapter which provides
  * context objects to the driver dependencies. The default implementation in
- * 'src/drivers' uses components like 'react-apollo' and 'react-redux', which
+ * '@magento/venia-drivers' uses components like 'react-apollo' and 'react-redux', which
  * have implicit external dependencies. This adapter provides all of them at
  * once.
  *

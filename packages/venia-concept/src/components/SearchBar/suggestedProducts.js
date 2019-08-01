@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, func, number, oneOfType, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import mapProduct from './mapProduct';
 import SuggestedProduct from './suggestedProduct';
 import defaultClasses from './suggestedProducts.css';

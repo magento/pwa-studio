@@ -1,12 +1,12 @@
-import { connect } from 'src/drivers';
-import { closeDrawer } from 'src/actions/app';
-import { getAllCategories } from 'src/actions/catalog';
+import { connect } from '@magento/venia-drivers';
+import { closeDrawer } from '../../actions/app';
+import { getAllCategories } from '../../actions/catalog';
 import {
     completePasswordReset,
     createAccount,
     getUserDetails,
     resetPassword
-} from 'src/actions/user';
+} from '../../actions/user';
 import Navigation from './navigation';
 
 const mapStateToProps = ({ catalog, user }) => {

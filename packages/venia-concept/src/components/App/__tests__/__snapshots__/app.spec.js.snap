@@ -23,6 +23,7 @@ ReactTestInstance {
           "useCallback",
           "useMemo",
           "useEffect",
+          "useEffect",
         ],
         "_debugID": 58,
         "_debugIsCurrentlyTiming": false,
@@ -393,10 +394,144 @@ ReactTestInstance {
                   [Function],
                 ],
                 "destroy": undefined,
-                "next": [Circular],
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
                 "tag": 192,
               },
-              "next": null,
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      Array [
+                        Object {
+                          "error": Object {
+                            "message": "A render error",
+                            "stack": "errorStack",
+                          },
+                          "id": "1",
+                          "loc": "1",
+                        },
+                      ],
+                      [Function],
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": null,
+                "queue": null,
+              },
               "queue": null,
             },
             "queue": null,
@@ -427,20 +562,75 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
-              Array [
-                Object {
-                  "error": Object {
-                    "message": "A render error",
-                    "stack": "errorStack",
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
                   },
-                  "id": "1",
-                  "loc": "1",
-                },
-              ],
-              [Function],
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              true,
+              false,
             ],
             "destroy": undefined,
-            "next": [Circular],
+            "next": Object {
+              "create": [Function],
+              "deps": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                [Function],
+              ],
+              "destroy": undefined,
+              "next": [Circular],
+              "tag": 192,
+            },
             "tag": 192,
           },
         },
@@ -472,434 +662,6 @@ ReactTestInstance {
           "useCallback",
           "useMemo",
           "useEffect",
-        ],
-        "_debugID": 58,
-        "_debugIsCurrentlyTiming": false,
-        "_debugOwner": null,
-        "_debugSource": null,
-        "alternate": null,
-        "child": FiberNode {
-          "_debugHookTypes": null,
-          "_debugID": 59,
-          "_debugIsCurrentlyTiming": false,
-          "_debugOwner": [Circular],
-          "_debugSource": null,
-          "alternate": null,
-          "child": null,
-          "childExpirationTime": 0,
-          "contextDependencies": null,
-          "effectTag": 0,
-          "elementType": "Main",
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 0,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {
-            "isMasked": true,
-          },
-          "memoizedState": null,
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {
-            "isMasked": true,
-          },
-          "ref": null,
-          "return": [Circular],
-          "sibling": FiberNode {
-            "_debugHookTypes": null,
-            "_debugID": 60,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": [Circular],
-            "_debugSource": null,
-            "alternate": null,
-            "child": FiberNode {
-              "_debugHookTypes": null,
-              "_debugID": 62,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": [Circular],
-              "_debugSource": null,
-              "alternate": null,
-              "child": FiberNode {
-                "_debugHookTypes": null,
-                "_debugID": 63,
-                "_debugIsCurrentlyTiming": false,
-                "_debugOwner": [Circular],
-                "_debugSource": null,
-                "alternate": null,
-                "child": null,
-                "childExpirationTime": 0,
-                "contextDependencies": null,
-                "effectTag": 0,
-                "elementType": "button",
-                "expirationTime": 0,
-                "firstEffect": null,
-                "index": 0,
-                "key": null,
-                "lastEffect": null,
-                "memoizedProps": Object {
-                  "className": undefined,
-                  "onClick": undefined,
-                },
-                "memoizedState": null,
-                "mode": 0,
-                "nextEffect": null,
-                "pendingProps": Object {
-                  "className": undefined,
-                  "onClick": undefined,
-                },
-                "ref": null,
-                "return": [Circular],
-                "sibling": null,
-                "stateNode": Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {
-                    "className": undefined,
-                    "onClick": undefined,
-                  },
-                  "rootContainerInstance": Object {
-                    "children": Array [
-                      Object {
-                        "children": Array [],
-                        "isHidden": false,
-                        "props": Object {
-                          "isMasked": true,
-                        },
-                        "rootContainerInstance": [Circular],
-                        "tag": "INSTANCE",
-                        "type": "Main",
-                      },
-                      [Circular],
-                      Object {
-                        "children": Array [],
-                        "isHidden": false,
-                        "props": Object {},
-                        "rootContainerInstance": [Circular],
-                        "tag": "INSTANCE",
-                        "type": "ToastContainer",
-                      },
-                    ],
-                    "createNodeMock": [Function],
-                    "tag": "CONTAINER",
-                  },
-                  "tag": "INSTANCE",
-                  "type": "button",
-                },
-                "tag": 5,
-                "type": "button",
-                "updateQueue": null,
-              },
-              "childExpirationTime": 0,
-              "contextDependencies": null,
-              "effectTag": 1,
-              "elementType": [Function],
-              "expirationTime": 0,
-              "firstEffect": null,
-              "index": 0,
-              "key": null,
-              "lastEffect": null,
-              "memoizedProps": Object {
-                "classes": Object {},
-                "isActive": true,
-              },
-              "memoizedState": null,
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": Object {
-                "classes": Object {},
-                "isActive": true,
-              },
-              "ref": null,
-              "return": [Circular],
-              "sibling": null,
-              "stateNode": Mask {
-                "_reactInternalFiber": [Circular],
-                "_reactInternalInstance": Object {},
-                "context": Object {},
-                "props": Object {
-                  "classes": Object {},
-                  "isActive": true,
-                },
-                "refs": Object {},
-                "state": null,
-                "updater": Object {
-                  "enqueueForceUpdate": [Function],
-                  "enqueueReplaceState": [Function],
-                  "enqueueSetState": [Function],
-                  "isMounted": [Function],
-                },
-              },
-              "tag": 1,
-              "type": [Function],
-              "updateQueue": null,
-            },
-            "childExpirationTime": 0,
-            "contextDependencies": null,
-            "effectTag": 1,
-            "elementType": [Function],
-            "expirationTime": 0,
-            "firstEffect": null,
-            "index": 1,
-            "key": null,
-            "lastEffect": null,
-            "memoizedProps": Object {
-              "isActive": true,
-            },
-            "memoizedState": null,
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": Object {
-              "isActive": true,
-            },
-            "ref": null,
-            "return": [Circular],
-            "sibling": FiberNode {
-              "_debugHookTypes": null,
-              "_debugID": 61,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": [Circular],
-              "_debugSource": null,
-              "alternate": null,
-              "child": null,
-              "childExpirationTime": 0,
-              "contextDependencies": null,
-              "effectTag": 0,
-              "elementType": "ToastContainer",
-              "expirationTime": 0,
-              "firstEffect": null,
-              "index": 2,
-              "key": null,
-              "lastEffect": null,
-              "memoizedProps": Object {},
-              "memoizedState": null,
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": Object {},
-              "ref": null,
-              "return": [Circular],
-              "sibling": null,
-              "stateNode": Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {},
-                "rootContainerInstance": Object {
-                  "children": Array [
-                    Object {
-                      "children": Array [],
-                      "isHidden": false,
-                      "props": Object {
-                        "isMasked": true,
-                      },
-                      "rootContainerInstance": [Circular],
-                      "tag": "INSTANCE",
-                      "type": "Main",
-                    },
-                    Object {
-                      "children": Array [],
-                      "isHidden": false,
-                      "props": Object {
-                        "className": undefined,
-                        "onClick": undefined,
-                      },
-                      "rootContainerInstance": [Circular],
-                      "tag": "INSTANCE",
-                      "type": "button",
-                    },
-                    [Circular],
-                  ],
-                  "createNodeMock": [Function],
-                  "tag": "CONTAINER",
-                },
-                "tag": "INSTANCE",
-                "type": "ToastContainer",
-              },
-              "tag": 5,
-              "type": "ToastContainer",
-              "updateQueue": null,
-            },
-            "stateNode": _class {
-              "_reactInternalFiber": [Circular],
-              "_reactInternalInstance": Object {},
-              "context": Object {},
-              "props": Object {
-                "isActive": true,
-              },
-              "refs": Object {},
-              "state": null,
-              "updater": Object {
-                "enqueueForceUpdate": [Function],
-                "enqueueReplaceState": [Function],
-                "enqueueSetState": [Function],
-                "isMounted": [Function],
-              },
-            },
-            "tag": 1,
-            "type": [Function],
-            "updateQueue": null,
-          },
-          "stateNode": Object {
-            "children": Array [],
-            "isHidden": false,
-            "props": Object {
-              "isMasked": true,
-            },
-            "rootContainerInstance": Object {
-              "children": Array [
-                [Circular],
-                Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {
-                    "className": undefined,
-                    "onClick": undefined,
-                  },
-                  "rootContainerInstance": [Circular],
-                  "tag": "INSTANCE",
-                  "type": "button",
-                },
-                Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {},
-                  "rootContainerInstance": [Circular],
-                  "tag": "INSTANCE",
-                  "type": "ToastContainer",
-                },
-              ],
-              "createNodeMock": [Function],
-              "tag": "CONTAINER",
-            },
-            "tag": "INSTANCE",
-            "type": "Main",
-          },
-          "tag": 5,
-          "type": "Main",
-          "updateQueue": null,
-        },
-        "childExpirationTime": 0,
-        "contextDependencies": null,
-        "effectTag": 517,
-        "elementType": [Function],
-        "expirationTime": 0,
-        "firstEffect": null,
-        "index": 0,
-        "key": null,
-        "lastEffect": null,
-        "memoizedProps": Object {
-          "app": Object {
-            "drawer": "",
-            "hasBeenOffline": true,
-            "isOnline": false,
-            "overlay": false,
-          },
-          "closeDrawer": [MockFunction],
-          "markErrorHandled": [MockFunction],
-          "renderError": [Error: A render error!],
-          "unhandledErrors": Array [],
-        },
-        "memoizedState": Object {
-          "baseState": null,
-          "baseUpdate": null,
-          "memoizedState": Array [
-            [Function],
-            Array [],
-          ],
-          "next": Object {
-            "baseState": null,
-            "baseUpdate": null,
-            "memoizedState": Array [
-              Array [
-                Object {
-                  "error": Object {
-                    "message": "A render error",
-                    "stack": "errorStack",
-                  },
-                  "id": "1",
-                  "loc": "1",
-                },
-              ],
-              Array [
-                [Error: A render error!],
-              ],
-            ],
-            "next": Object {
-              "baseState": null,
-              "baseUpdate": null,
-              "memoizedState": Object {
-                "create": [Function],
-                "deps": Array [
-                  Array [
-                    Object {
-                      "error": Object {
-                        "message": "A render error",
-                        "stack": "errorStack",
-                      },
-                      "id": "1",
-                      "loc": "1",
-                    },
-                  ],
-                  [Function],
-                ],
-                "destroy": undefined,
-                "next": [Circular],
-                "tag": 192,
-              },
-              "next": null,
-              "queue": null,
-            },
-            "queue": null,
-          },
-          "queue": null,
-        },
-        "mode": 0,
-        "nextEffect": [Circular],
-        "pendingProps": Object {
-          "app": Object {
-            "drawer": "",
-            "hasBeenOffline": true,
-            "isOnline": false,
-            "overlay": false,
-          },
-          "closeDrawer": [MockFunction],
-          "markErrorHandled": [MockFunction],
-          "renderError": [Error: A render error!],
-          "unhandledErrors": Array [],
-        },
-        "ref": null,
-        "return": [Circular],
-        "sibling": null,
-        "stateNode": null,
-        "tag": 0,
-        "type": [Function],
-        "updateQueue": Object {
-          "lastEffect": Object {
-            "create": [Function],
-            "deps": Array [
-              Array [
-                Object {
-                  "error": Object {
-                    "message": "A render error",
-                    "stack": "errorStack",
-                  },
-                  "id": "1",
-                  "loc": "1",
-                },
-              ],
-              [Function],
-            ],
-            "destroy": undefined,
-            "next": [Circular],
-            "tag": 192,
-          },
-        },
-      },
-      "index": 0,
-      "key": null,
-      "lastEffect": FiberNode {
-        "_debugHookTypes": Array [
-          "useCallback",
-          "useMemo",
           "useEffect",
         ],
         "_debugID": 58,
@@ -1271,10 +1033,144 @@ ReactTestInstance {
                   [Function],
                 ],
                 "destroy": undefined,
-                "next": [Circular],
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
                 "tag": 192,
               },
-              "next": null,
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      Array [
+                        Object {
+                          "error": Object {
+                            "message": "A render error",
+                            "stack": "errorStack",
+                          },
+                          "id": "1",
+                          "loc": "1",
+                        },
+                      ],
+                      [Function],
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": null,
+                "queue": null,
+              },
               "queue": null,
             },
             "queue": null,
@@ -1305,6 +1201,424 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              true,
+              false,
+            ],
+            "destroy": undefined,
+            "next": Object {
+              "create": [Function],
+              "deps": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                [Function],
+              ],
+              "destroy": undefined,
+              "next": [Circular],
+              "tag": 192,
+            },
+            "tag": 192,
+          },
+        },
+      },
+      "index": 0,
+      "key": null,
+      "lastEffect": FiberNode {
+        "_debugHookTypes": Array [
+          "useCallback",
+          "useMemo",
+          "useEffect",
+          "useEffect",
+        ],
+        "_debugID": 58,
+        "_debugIsCurrentlyTiming": false,
+        "_debugOwner": null,
+        "_debugSource": null,
+        "alternate": null,
+        "child": FiberNode {
+          "_debugHookTypes": null,
+          "_debugID": 59,
+          "_debugIsCurrentlyTiming": false,
+          "_debugOwner": [Circular],
+          "_debugSource": null,
+          "alternate": null,
+          "child": null,
+          "childExpirationTime": 0,
+          "contextDependencies": null,
+          "effectTag": 0,
+          "elementType": "Main",
+          "expirationTime": 0,
+          "firstEffect": null,
+          "index": 0,
+          "key": null,
+          "lastEffect": null,
+          "memoizedProps": Object {
+            "isMasked": true,
+          },
+          "memoizedState": null,
+          "mode": 0,
+          "nextEffect": null,
+          "pendingProps": Object {
+            "isMasked": true,
+          },
+          "ref": null,
+          "return": [Circular],
+          "sibling": FiberNode {
+            "_debugHookTypes": null,
+            "_debugID": 60,
+            "_debugIsCurrentlyTiming": false,
+            "_debugOwner": [Circular],
+            "_debugSource": null,
+            "alternate": null,
+            "child": FiberNode {
+              "_debugHookTypes": null,
+              "_debugID": 62,
+              "_debugIsCurrentlyTiming": false,
+              "_debugOwner": [Circular],
+              "_debugSource": null,
+              "alternate": null,
+              "child": FiberNode {
+                "_debugHookTypes": null,
+                "_debugID": 63,
+                "_debugIsCurrentlyTiming": false,
+                "_debugOwner": [Circular],
+                "_debugSource": null,
+                "alternate": null,
+                "child": null,
+                "childExpirationTime": 0,
+                "contextDependencies": null,
+                "effectTag": 0,
+                "elementType": "button",
+                "expirationTime": 0,
+                "firstEffect": null,
+                "index": 0,
+                "key": null,
+                "lastEffect": null,
+                "memoizedProps": Object {
+                  "className": undefined,
+                  "onClick": undefined,
+                },
+                "memoizedState": null,
+                "mode": 0,
+                "nextEffect": null,
+                "pendingProps": Object {
+                  "className": undefined,
+                  "onClick": undefined,
+                },
+                "ref": null,
+                "return": [Circular],
+                "sibling": null,
+                "stateNode": Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {
+                    "className": undefined,
+                    "onClick": undefined,
+                  },
+                  "rootContainerInstance": Object {
+                    "children": Array [
+                      Object {
+                        "children": Array [],
+                        "isHidden": false,
+                        "props": Object {
+                          "isMasked": true,
+                        },
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "Main",
+                      },
+                      [Circular],
+                      Object {
+                        "children": Array [],
+                        "isHidden": false,
+                        "props": Object {},
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "ToastContainer",
+                      },
+                    ],
+                    "createNodeMock": [Function],
+                    "tag": "CONTAINER",
+                  },
+                  "tag": "INSTANCE",
+                  "type": "button",
+                },
+                "tag": 5,
+                "type": "button",
+                "updateQueue": null,
+              },
+              "childExpirationTime": 0,
+              "contextDependencies": null,
+              "effectTag": 1,
+              "elementType": [Function],
+              "expirationTime": 0,
+              "firstEffect": null,
+              "index": 0,
+              "key": null,
+              "lastEffect": null,
+              "memoizedProps": Object {
+                "classes": Object {},
+                "isActive": true,
+              },
+              "memoizedState": null,
+              "mode": 0,
+              "nextEffect": null,
+              "pendingProps": Object {
+                "classes": Object {},
+                "isActive": true,
+              },
+              "ref": null,
+              "return": [Circular],
+              "sibling": null,
+              "stateNode": Mask {
+                "_reactInternalFiber": [Circular],
+                "_reactInternalInstance": Object {},
+                "context": Object {},
+                "props": Object {
+                  "classes": Object {},
+                  "isActive": true,
+                },
+                "refs": Object {},
+                "state": null,
+                "updater": Object {
+                  "enqueueForceUpdate": [Function],
+                  "enqueueReplaceState": [Function],
+                  "enqueueSetState": [Function],
+                  "isMounted": [Function],
+                },
+              },
+              "tag": 1,
+              "type": [Function],
+              "updateQueue": null,
+            },
+            "childExpirationTime": 0,
+            "contextDependencies": null,
+            "effectTag": 1,
+            "elementType": [Function],
+            "expirationTime": 0,
+            "firstEffect": null,
+            "index": 1,
+            "key": null,
+            "lastEffect": null,
+            "memoizedProps": Object {
+              "isActive": true,
+            },
+            "memoizedState": null,
+            "mode": 0,
+            "nextEffect": null,
+            "pendingProps": Object {
+              "isActive": true,
+            },
+            "ref": null,
+            "return": [Circular],
+            "sibling": FiberNode {
+              "_debugHookTypes": null,
+              "_debugID": 61,
+              "_debugIsCurrentlyTiming": false,
+              "_debugOwner": [Circular],
+              "_debugSource": null,
+              "alternate": null,
+              "child": null,
+              "childExpirationTime": 0,
+              "contextDependencies": null,
+              "effectTag": 0,
+              "elementType": "ToastContainer",
+              "expirationTime": 0,
+              "firstEffect": null,
+              "index": 2,
+              "key": null,
+              "lastEffect": null,
+              "memoizedProps": Object {},
+              "memoizedState": null,
+              "mode": 0,
+              "nextEffect": null,
+              "pendingProps": Object {},
+              "ref": null,
+              "return": [Circular],
+              "sibling": null,
+              "stateNode": Object {
+                "children": Array [],
+                "isHidden": false,
+                "props": Object {},
+                "rootContainerInstance": Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "isHidden": false,
+                      "props": Object {
+                        "isMasked": true,
+                      },
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "Main",
+                    },
+                    Object {
+                      "children": Array [],
+                      "isHidden": false,
+                      "props": Object {
+                        "className": undefined,
+                        "onClick": undefined,
+                      },
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "button",
+                    },
+                    [Circular],
+                  ],
+                  "createNodeMock": [Function],
+                  "tag": "CONTAINER",
+                },
+                "tag": "INSTANCE",
+                "type": "ToastContainer",
+              },
+              "tag": 5,
+              "type": "ToastContainer",
+              "updateQueue": null,
+            },
+            "stateNode": _class {
+              "_reactInternalFiber": [Circular],
+              "_reactInternalInstance": Object {},
+              "context": Object {},
+              "props": Object {
+                "isActive": true,
+              },
+              "refs": Object {},
+              "state": null,
+              "updater": Object {
+                "enqueueForceUpdate": [Function],
+                "enqueueReplaceState": [Function],
+                "enqueueSetState": [Function],
+                "isMounted": [Function],
+              },
+            },
+            "tag": 1,
+            "type": [Function],
+            "updateQueue": null,
+          },
+          "stateNode": Object {
+            "children": Array [],
+            "isHidden": false,
+            "props": Object {
+              "isMasked": true,
+            },
+            "rootContainerInstance": Object {
+              "children": Array [
+                [Circular],
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {
+                    "className": undefined,
+                    "onClick": undefined,
+                  },
+                  "rootContainerInstance": [Circular],
+                  "tag": "INSTANCE",
+                  "type": "button",
+                },
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {},
+                  "rootContainerInstance": [Circular],
+                  "tag": "INSTANCE",
+                  "type": "ToastContainer",
+                },
+              ],
+              "createNodeMock": [Function],
+              "tag": "CONTAINER",
+            },
+            "tag": "INSTANCE",
+            "type": "Main",
+          },
+          "tag": 5,
+          "type": "Main",
+          "updateQueue": null,
+        },
+        "childExpirationTime": 0,
+        "contextDependencies": null,
+        "effectTag": 517,
+        "elementType": [Function],
+        "expirationTime": 0,
+        "firstEffect": null,
+        "index": 0,
+        "key": null,
+        "lastEffect": null,
+        "memoizedProps": Object {
+          "app": Object {
+            "drawer": "",
+            "hasBeenOffline": true,
+            "isOnline": false,
+            "overlay": false,
+          },
+          "closeDrawer": [MockFunction],
+          "markErrorHandled": [MockFunction],
+          "renderError": [Error: A render error!],
+          "unhandledErrors": Array [],
+        },
+        "memoizedState": Object {
+          "baseState": null,
+          "baseUpdate": null,
+          "memoizedState": Array [
+            [Function],
+            Array [],
+          ],
+          "next": Object {
+            "baseState": null,
+            "baseUpdate": null,
+            "memoizedState": Array [
               Array [
                 Object {
                   "error": Object {
@@ -1315,10 +1629,266 @@ ReactTestInstance {
                   "loc": "1",
                 },
               ],
-              [Function],
+              Array [
+                [Error: A render error!],
+              ],
+            ],
+            "next": Object {
+              "baseState": null,
+              "baseUpdate": null,
+              "memoizedState": Object {
+                "create": [Function],
+                "deps": Array [
+                  Array [
+                    Object {
+                      "error": Object {
+                        "message": "A render error",
+                        "stack": "errorStack",
+                      },
+                      "id": "1",
+                      "loc": "1",
+                    },
+                  ],
+                  [Function],
+                ],
+                "destroy": undefined,
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
+                "tag": 192,
+              },
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      Array [
+                        Object {
+                          "error": Object {
+                            "message": "A render error",
+                            "stack": "errorStack",
+                          },
+                          "id": "1",
+                          "loc": "1",
+                        },
+                      ],
+                      [Function],
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": null,
+                "queue": null,
+              },
+              "queue": null,
+            },
+            "queue": null,
+          },
+          "queue": null,
+        },
+        "mode": 0,
+        "nextEffect": [Circular],
+        "pendingProps": Object {
+          "app": Object {
+            "drawer": "",
+            "hasBeenOffline": true,
+            "isOnline": false,
+            "overlay": false,
+          },
+          "closeDrawer": [MockFunction],
+          "markErrorHandled": [MockFunction],
+          "renderError": [Error: A render error!],
+          "unhandledErrors": Array [],
+        },
+        "ref": null,
+        "return": [Circular],
+        "sibling": null,
+        "stateNode": null,
+        "tag": 0,
+        "type": [Function],
+        "updateQueue": Object {
+          "lastEffect": Object {
+            "create": [Function],
+            "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              true,
+              false,
             ],
             "destroy": undefined,
-            "next": [Circular],
+            "next": Object {
+              "create": [Function],
+              "deps": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                [Function],
+              ],
+              "destroy": undefined,
+              "next": [Circular],
+              "tag": 192,
+            },
             "tag": 192,
           },
         },
@@ -1405,539 +1975,6 @@ ReactTestInstance {
         "useCallback",
         "useMemo",
         "useEffect",
-      ],
-      "_debugID": 58,
-      "_debugIsCurrentlyTiming": false,
-      "_debugOwner": null,
-      "_debugSource": null,
-      "alternate": null,
-      "child": FiberNode {
-        "_debugHookTypes": null,
-        "_debugID": 59,
-        "_debugIsCurrentlyTiming": false,
-        "_debugOwner": [Circular],
-        "_debugSource": null,
-        "alternate": null,
-        "child": null,
-        "childExpirationTime": 0,
-        "contextDependencies": null,
-        "effectTag": 0,
-        "elementType": "Main",
-        "expirationTime": 0,
-        "firstEffect": null,
-        "index": 0,
-        "key": null,
-        "lastEffect": null,
-        "memoizedProps": Object {
-          "isMasked": true,
-        },
-        "memoizedState": null,
-        "mode": 0,
-        "nextEffect": null,
-        "pendingProps": Object {
-          "isMasked": true,
-        },
-        "ref": null,
-        "return": [Circular],
-        "sibling": FiberNode {
-          "_debugHookTypes": null,
-          "_debugID": 60,
-          "_debugIsCurrentlyTiming": false,
-          "_debugOwner": [Circular],
-          "_debugSource": null,
-          "alternate": null,
-          "child": FiberNode {
-            "_debugHookTypes": null,
-            "_debugID": 62,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": [Circular],
-            "_debugSource": null,
-            "alternate": null,
-            "child": FiberNode {
-              "_debugHookTypes": null,
-              "_debugID": 63,
-              "_debugIsCurrentlyTiming": false,
-              "_debugOwner": [Circular],
-              "_debugSource": null,
-              "alternate": null,
-              "child": null,
-              "childExpirationTime": 0,
-              "contextDependencies": null,
-              "effectTag": 0,
-              "elementType": "button",
-              "expirationTime": 0,
-              "firstEffect": null,
-              "index": 0,
-              "key": null,
-              "lastEffect": null,
-              "memoizedProps": Object {
-                "className": undefined,
-                "onClick": undefined,
-              },
-              "memoizedState": null,
-              "mode": 0,
-              "nextEffect": null,
-              "pendingProps": Object {
-                "className": undefined,
-                "onClick": undefined,
-              },
-              "ref": null,
-              "return": [Circular],
-              "sibling": null,
-              "stateNode": Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {
-                  "className": undefined,
-                  "onClick": undefined,
-                },
-                "rootContainerInstance": Object {
-                  "children": Array [
-                    Object {
-                      "children": Array [],
-                      "isHidden": false,
-                      "props": Object {
-                        "isMasked": true,
-                      },
-                      "rootContainerInstance": [Circular],
-                      "tag": "INSTANCE",
-                      "type": "Main",
-                    },
-                    [Circular],
-                    Object {
-                      "children": Array [],
-                      "isHidden": false,
-                      "props": Object {},
-                      "rootContainerInstance": [Circular],
-                      "tag": "INSTANCE",
-                      "type": "ToastContainer",
-                    },
-                  ],
-                  "createNodeMock": [Function],
-                  "tag": "CONTAINER",
-                },
-                "tag": "INSTANCE",
-                "type": "button",
-              },
-              "tag": 5,
-              "type": "button",
-              "updateQueue": null,
-            },
-            "childExpirationTime": 0,
-            "contextDependencies": null,
-            "effectTag": 1,
-            "elementType": [Function],
-            "expirationTime": 0,
-            "firstEffect": null,
-            "index": 0,
-            "key": null,
-            "lastEffect": null,
-            "memoizedProps": Object {
-              "classes": Object {},
-              "isActive": true,
-            },
-            "memoizedState": null,
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": Object {
-              "classes": Object {},
-              "isActive": true,
-            },
-            "ref": null,
-            "return": [Circular],
-            "sibling": null,
-            "stateNode": Mask {
-              "_reactInternalFiber": [Circular],
-              "_reactInternalInstance": Object {},
-              "context": Object {},
-              "props": Object {
-                "classes": Object {},
-                "isActive": true,
-              },
-              "refs": Object {},
-              "state": null,
-              "updater": Object {
-                "enqueueForceUpdate": [Function],
-                "enqueueReplaceState": [Function],
-                "enqueueSetState": [Function],
-                "isMounted": [Function],
-              },
-            },
-            "tag": 1,
-            "type": [Function],
-            "updateQueue": null,
-          },
-          "childExpirationTime": 0,
-          "contextDependencies": null,
-          "effectTag": 1,
-          "elementType": [Function],
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 1,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {
-            "isActive": true,
-          },
-          "memoizedState": null,
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {
-            "isActive": true,
-          },
-          "ref": null,
-          "return": [Circular],
-          "sibling": FiberNode {
-            "_debugHookTypes": null,
-            "_debugID": 61,
-            "_debugIsCurrentlyTiming": false,
-            "_debugOwner": [Circular],
-            "_debugSource": null,
-            "alternate": null,
-            "child": null,
-            "childExpirationTime": 0,
-            "contextDependencies": null,
-            "effectTag": 0,
-            "elementType": "ToastContainer",
-            "expirationTime": 0,
-            "firstEffect": null,
-            "index": 2,
-            "key": null,
-            "lastEffect": null,
-            "memoizedProps": Object {},
-            "memoizedState": null,
-            "mode": 0,
-            "nextEffect": null,
-            "pendingProps": Object {},
-            "ref": null,
-            "return": [Circular],
-            "sibling": null,
-            "stateNode": Object {
-              "children": Array [],
-              "isHidden": false,
-              "props": Object {},
-              "rootContainerInstance": Object {
-                "children": Array [
-                  Object {
-                    "children": Array [],
-                    "isHidden": false,
-                    "props": Object {
-                      "isMasked": true,
-                    },
-                    "rootContainerInstance": [Circular],
-                    "tag": "INSTANCE",
-                    "type": "Main",
-                  },
-                  Object {
-                    "children": Array [],
-                    "isHidden": false,
-                    "props": Object {
-                      "className": undefined,
-                      "onClick": undefined,
-                    },
-                    "rootContainerInstance": [Circular],
-                    "tag": "INSTANCE",
-                    "type": "button",
-                  },
-                  [Circular],
-                ],
-                "createNodeMock": [Function],
-                "tag": "CONTAINER",
-              },
-              "tag": "INSTANCE",
-              "type": "ToastContainer",
-            },
-            "tag": 5,
-            "type": "ToastContainer",
-            "updateQueue": null,
-          },
-          "stateNode": _class {
-            "_reactInternalFiber": [Circular],
-            "_reactInternalInstance": Object {},
-            "context": Object {},
-            "props": Object {
-              "isActive": true,
-            },
-            "refs": Object {},
-            "state": null,
-            "updater": Object {
-              "enqueueForceUpdate": [Function],
-              "enqueueReplaceState": [Function],
-              "enqueueSetState": [Function],
-              "isMounted": [Function],
-            },
-          },
-          "tag": 1,
-          "type": [Function],
-          "updateQueue": null,
-        },
-        "stateNode": Object {
-          "children": Array [],
-          "isHidden": false,
-          "props": Object {
-            "isMasked": true,
-          },
-          "rootContainerInstance": Object {
-            "children": Array [
-              [Circular],
-              Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {
-                  "className": undefined,
-                  "onClick": undefined,
-                },
-                "rootContainerInstance": [Circular],
-                "tag": "INSTANCE",
-                "type": "button",
-              },
-              Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {},
-                "rootContainerInstance": [Circular],
-                "tag": "INSTANCE",
-                "type": "ToastContainer",
-              },
-            ],
-            "createNodeMock": [Function],
-            "tag": "CONTAINER",
-          },
-          "tag": "INSTANCE",
-          "type": "Main",
-        },
-        "tag": 5,
-        "type": "Main",
-        "updateQueue": null,
-      },
-      "childExpirationTime": 0,
-      "contextDependencies": null,
-      "effectTag": 517,
-      "elementType": [Function],
-      "expirationTime": 0,
-      "firstEffect": null,
-      "index": 0,
-      "key": null,
-      "lastEffect": null,
-      "memoizedProps": Object {
-        "app": Object {
-          "drawer": "",
-          "hasBeenOffline": true,
-          "isOnline": false,
-          "overlay": false,
-        },
-        "closeDrawer": [MockFunction],
-        "markErrorHandled": [MockFunction],
-        "renderError": [Error: A render error!],
-        "unhandledErrors": Array [],
-      },
-      "memoizedState": Object {
-        "baseState": null,
-        "baseUpdate": null,
-        "memoizedState": Array [
-          [Function],
-          Array [],
-        ],
-        "next": Object {
-          "baseState": null,
-          "baseUpdate": null,
-          "memoizedState": Array [
-            Array [
-              Object {
-                "error": Object {
-                  "message": "A render error",
-                  "stack": "errorStack",
-                },
-                "id": "1",
-                "loc": "1",
-              },
-            ],
-            Array [
-              [Error: A render error!],
-            ],
-          ],
-          "next": Object {
-            "baseState": null,
-            "baseUpdate": null,
-            "memoizedState": Object {
-              "create": [Function],
-              "deps": Array [
-                Array [
-                  Object {
-                    "error": Object {
-                      "message": "A render error",
-                      "stack": "errorStack",
-                    },
-                    "id": "1",
-                    "loc": "1",
-                  },
-                ],
-                [Function],
-              ],
-              "destroy": undefined,
-              "next": [Circular],
-              "tag": 192,
-            },
-            "next": null,
-            "queue": null,
-          },
-          "queue": null,
-        },
-        "queue": null,
-      },
-      "mode": 0,
-      "nextEffect": [Circular],
-      "pendingProps": Object {
-        "app": Object {
-          "drawer": "",
-          "hasBeenOffline": true,
-          "isOnline": false,
-          "overlay": false,
-        },
-        "closeDrawer": [MockFunction],
-        "markErrorHandled": [MockFunction],
-        "renderError": [Error: A render error!],
-        "unhandledErrors": Array [],
-      },
-      "ref": null,
-      "return": FiberNode {
-        "_debugHookTypes": null,
-        "_debugID": 57,
-        "_debugIsCurrentlyTiming": false,
-        "_debugOwner": [Circular],
-        "_debugSource": null,
-        "alternate": null,
-        "child": [Circular],
-        "childExpirationTime": 0,
-        "contextDependencies": null,
-        "effectTag": 0,
-        "elementType": Object {
-          "$$typeof": Symbol(react.provider),
-          "_context": Object {
-            "$$typeof": Symbol(react.context),
-            "Consumer": Object {
-              "$$typeof": Symbol(react.context),
-              "_calculateChangedBits": null,
-              "_context": [Circular],
-            },
-            "Provider": [Circular],
-            "_calculateChangedBits": null,
-            "_currentRenderer": null,
-            "_currentRenderer2": Object {},
-            "_currentValue": undefined,
-            "_currentValue2": undefined,
-            "_threadCount": 0,
-          },
-        },
-        "expirationTime": 0,
-        "firstEffect": [Circular],
-        "index": 0,
-        "key": null,
-        "lastEffect": [Circular],
-        "memoizedProps": Object {
-          "children": <App
-            app={
-              Object {
-                "drawer": "",
-                "hasBeenOffline": true,
-                "isOnline": false,
-                "overlay": false,
-              }
-            }
-            closeDrawer={[MockFunction]}
-            markErrorHandled={[MockFunction]}
-            renderError={[Error: A render error!]}
-            unhandledErrors={Array []}
-          />,
-          "value": Array [
-            Object {
-              "toasts": Map {},
-            },
-            [Function],
-          ],
-        },
-        "memoizedState": null,
-        "mode": 0,
-        "nextEffect": null,
-        "pendingProps": Object {
-          "children": <App
-            app={
-              Object {
-                "drawer": "",
-                "hasBeenOffline": true,
-                "isOnline": false,
-                "overlay": false,
-              }
-            }
-            closeDrawer={[MockFunction]}
-            markErrorHandled={[MockFunction]}
-            renderError={[Error: A render error!]}
-            unhandledErrors={Array []}
-          />,
-          "value": Array [
-            Object {
-              "toasts": Map {},
-            },
-            [Function],
-          ],
-        },
-        "ref": null,
-        "return": [Circular],
-        "sibling": null,
-        "stateNode": null,
-        "tag": 10,
-        "type": Object {
-          "$$typeof": Symbol(react.provider),
-          "_context": Object {
-            "$$typeof": Symbol(react.context),
-            "Consumer": Object {
-              "$$typeof": Symbol(react.context),
-              "_calculateChangedBits": null,
-              "_context": [Circular],
-            },
-            "Provider": [Circular],
-            "_calculateChangedBits": null,
-            "_currentRenderer": null,
-            "_currentRenderer2": Object {},
-            "_currentValue": undefined,
-            "_currentValue2": undefined,
-            "_threadCount": 0,
-          },
-        },
-        "updateQueue": null,
-      },
-      "sibling": null,
-      "stateNode": null,
-      "tag": 0,
-      "type": [Function],
-      "updateQueue": Object {
-        "lastEffect": Object {
-          "create": [Function],
-          "deps": Array [
-            Array [
-              Object {
-                "error": Object {
-                  "message": "A render error",
-                  "stack": "errorStack",
-                },
-                "id": "1",
-                "loc": "1",
-              },
-            ],
-            [Function],
-          ],
-          "destroy": undefined,
-          "next": [Circular],
-          "tag": 192,
-        },
-      },
-    },
-    "index": 0,
-    "key": null,
-    "lastEffect": FiberNode {
-      "_debugHookTypes": Array [
-        "useCallback",
-        "useMemo",
         "useEffect",
       ],
       "_debugID": 58,
@@ -2309,10 +2346,144 @@ ReactTestInstance {
                 [Function],
               ],
               "destroy": undefined,
-              "next": [Circular],
+              "next": Object {
+                "create": [Function],
+                "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  true,
+                  false,
+                ],
+                "destroy": undefined,
+                "next": [Circular],
+                "tag": 192,
+              },
               "tag": 192,
             },
-            "next": null,
+            "next": Object {
+              "baseState": null,
+              "baseUpdate": null,
+              "memoizedState": Object {
+                "create": [Function],
+                "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  true,
+                  false,
+                ],
+                "destroy": undefined,
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": Object {
+                          "message": "A render error",
+                          "stack": "errorStack",
+                        },
+                        "id": "1",
+                        "loc": "1",
+                      },
+                    ],
+                    [Function],
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
+                "tag": 192,
+              },
+              "next": null,
+              "queue": null,
+            },
             "queue": null,
           },
           "queue": null,
@@ -2448,6 +2619,424 @@ ReactTestInstance {
         "lastEffect": Object {
           "create": [Function],
           "deps": Array [
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "You are offline. Some features may be unavailable.",
+                    "timeout": 3000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
+            true,
+            false,
+          ],
+          "destroy": undefined,
+          "next": Object {
+            "create": [Function],
+            "deps": Array [
+              Array [
+                Object {
+                  "error": Object {
+                    "message": "A render error",
+                    "stack": "errorStack",
+                  },
+                  "id": "1",
+                  "loc": "1",
+                },
+              ],
+              [Function],
+            ],
+            "destroy": undefined,
+            "next": [Circular],
+            "tag": 192,
+          },
+          "tag": 192,
+        },
+      },
+    },
+    "index": 0,
+    "key": null,
+    "lastEffect": FiberNode {
+      "_debugHookTypes": Array [
+        "useCallback",
+        "useMemo",
+        "useEffect",
+        "useEffect",
+      ],
+      "_debugID": 58,
+      "_debugIsCurrentlyTiming": false,
+      "_debugOwner": null,
+      "_debugSource": null,
+      "alternate": null,
+      "child": FiberNode {
+        "_debugHookTypes": null,
+        "_debugID": 59,
+        "_debugIsCurrentlyTiming": false,
+        "_debugOwner": [Circular],
+        "_debugSource": null,
+        "alternate": null,
+        "child": null,
+        "childExpirationTime": 0,
+        "contextDependencies": null,
+        "effectTag": 0,
+        "elementType": "Main",
+        "expirationTime": 0,
+        "firstEffect": null,
+        "index": 0,
+        "key": null,
+        "lastEffect": null,
+        "memoizedProps": Object {
+          "isMasked": true,
+        },
+        "memoizedState": null,
+        "mode": 0,
+        "nextEffect": null,
+        "pendingProps": Object {
+          "isMasked": true,
+        },
+        "ref": null,
+        "return": [Circular],
+        "sibling": FiberNode {
+          "_debugHookTypes": null,
+          "_debugID": 60,
+          "_debugIsCurrentlyTiming": false,
+          "_debugOwner": [Circular],
+          "_debugSource": null,
+          "alternate": null,
+          "child": FiberNode {
+            "_debugHookTypes": null,
+            "_debugID": 62,
+            "_debugIsCurrentlyTiming": false,
+            "_debugOwner": [Circular],
+            "_debugSource": null,
+            "alternate": null,
+            "child": FiberNode {
+              "_debugHookTypes": null,
+              "_debugID": 63,
+              "_debugIsCurrentlyTiming": false,
+              "_debugOwner": [Circular],
+              "_debugSource": null,
+              "alternate": null,
+              "child": null,
+              "childExpirationTime": 0,
+              "contextDependencies": null,
+              "effectTag": 0,
+              "elementType": "button",
+              "expirationTime": 0,
+              "firstEffect": null,
+              "index": 0,
+              "key": null,
+              "lastEffect": null,
+              "memoizedProps": Object {
+                "className": undefined,
+                "onClick": undefined,
+              },
+              "memoizedState": null,
+              "mode": 0,
+              "nextEffect": null,
+              "pendingProps": Object {
+                "className": undefined,
+                "onClick": undefined,
+              },
+              "ref": null,
+              "return": [Circular],
+              "sibling": null,
+              "stateNode": Object {
+                "children": Array [],
+                "isHidden": false,
+                "props": Object {
+                  "className": undefined,
+                  "onClick": undefined,
+                },
+                "rootContainerInstance": Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "isHidden": false,
+                      "props": Object {
+                        "isMasked": true,
+                      },
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "Main",
+                    },
+                    [Circular],
+                    Object {
+                      "children": Array [],
+                      "isHidden": false,
+                      "props": Object {},
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "ToastContainer",
+                    },
+                  ],
+                  "createNodeMock": [Function],
+                  "tag": "CONTAINER",
+                },
+                "tag": "INSTANCE",
+                "type": "button",
+              },
+              "tag": 5,
+              "type": "button",
+              "updateQueue": null,
+            },
+            "childExpirationTime": 0,
+            "contextDependencies": null,
+            "effectTag": 1,
+            "elementType": [Function],
+            "expirationTime": 0,
+            "firstEffect": null,
+            "index": 0,
+            "key": null,
+            "lastEffect": null,
+            "memoizedProps": Object {
+              "classes": Object {},
+              "isActive": true,
+            },
+            "memoizedState": null,
+            "mode": 0,
+            "nextEffect": null,
+            "pendingProps": Object {
+              "classes": Object {},
+              "isActive": true,
+            },
+            "ref": null,
+            "return": [Circular],
+            "sibling": null,
+            "stateNode": Mask {
+              "_reactInternalFiber": [Circular],
+              "_reactInternalInstance": Object {},
+              "context": Object {},
+              "props": Object {
+                "classes": Object {},
+                "isActive": true,
+              },
+              "refs": Object {},
+              "state": null,
+              "updater": Object {
+                "enqueueForceUpdate": [Function],
+                "enqueueReplaceState": [Function],
+                "enqueueSetState": [Function],
+                "isMounted": [Function],
+              },
+            },
+            "tag": 1,
+            "type": [Function],
+            "updateQueue": null,
+          },
+          "childExpirationTime": 0,
+          "contextDependencies": null,
+          "effectTag": 1,
+          "elementType": [Function],
+          "expirationTime": 0,
+          "firstEffect": null,
+          "index": 1,
+          "key": null,
+          "lastEffect": null,
+          "memoizedProps": Object {
+            "isActive": true,
+          },
+          "memoizedState": null,
+          "mode": 0,
+          "nextEffect": null,
+          "pendingProps": Object {
+            "isActive": true,
+          },
+          "ref": null,
+          "return": [Circular],
+          "sibling": FiberNode {
+            "_debugHookTypes": null,
+            "_debugID": 61,
+            "_debugIsCurrentlyTiming": false,
+            "_debugOwner": [Circular],
+            "_debugSource": null,
+            "alternate": null,
+            "child": null,
+            "childExpirationTime": 0,
+            "contextDependencies": null,
+            "effectTag": 0,
+            "elementType": "ToastContainer",
+            "expirationTime": 0,
+            "firstEffect": null,
+            "index": 2,
+            "key": null,
+            "lastEffect": null,
+            "memoizedProps": Object {},
+            "memoizedState": null,
+            "mode": 0,
+            "nextEffect": null,
+            "pendingProps": Object {},
+            "ref": null,
+            "return": [Circular],
+            "sibling": null,
+            "stateNode": Object {
+              "children": Array [],
+              "isHidden": false,
+              "props": Object {},
+              "rootContainerInstance": Object {
+                "children": Array [
+                  Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {
+                      "isMasked": true,
+                    },
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "Main",
+                  },
+                  Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {
+                      "className": undefined,
+                      "onClick": undefined,
+                    },
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "button",
+                  },
+                  [Circular],
+                ],
+                "createNodeMock": [Function],
+                "tag": "CONTAINER",
+              },
+              "tag": "INSTANCE",
+              "type": "ToastContainer",
+            },
+            "tag": 5,
+            "type": "ToastContainer",
+            "updateQueue": null,
+          },
+          "stateNode": _class {
+            "_reactInternalFiber": [Circular],
+            "_reactInternalInstance": Object {},
+            "context": Object {},
+            "props": Object {
+              "isActive": true,
+            },
+            "refs": Object {},
+            "state": null,
+            "updater": Object {
+              "enqueueForceUpdate": [Function],
+              "enqueueReplaceState": [Function],
+              "enqueueSetState": [Function],
+              "isMounted": [Function],
+            },
+          },
+          "tag": 1,
+          "type": [Function],
+          "updateQueue": null,
+        },
+        "stateNode": Object {
+          "children": Array [],
+          "isHidden": false,
+          "props": Object {
+            "isMasked": true,
+          },
+          "rootContainerInstance": Object {
+            "children": Array [
+              [Circular],
+              Object {
+                "children": Array [],
+                "isHidden": false,
+                "props": Object {
+                  "className": undefined,
+                  "onClick": undefined,
+                },
+                "rootContainerInstance": [Circular],
+                "tag": "INSTANCE",
+                "type": "button",
+              },
+              Object {
+                "children": Array [],
+                "isHidden": false,
+                "props": Object {},
+                "rootContainerInstance": [Circular],
+                "tag": "INSTANCE",
+                "type": "ToastContainer",
+              },
+            ],
+            "createNodeMock": [Function],
+            "tag": "CONTAINER",
+          },
+          "tag": "INSTANCE",
+          "type": "Main",
+        },
+        "tag": 5,
+        "type": "Main",
+        "updateQueue": null,
+      },
+      "childExpirationTime": 0,
+      "contextDependencies": null,
+      "effectTag": 517,
+      "elementType": [Function],
+      "expirationTime": 0,
+      "firstEffect": null,
+      "index": 0,
+      "key": null,
+      "lastEffect": null,
+      "memoizedProps": Object {
+        "app": Object {
+          "drawer": "",
+          "hasBeenOffline": true,
+          "isOnline": false,
+          "overlay": false,
+        },
+        "closeDrawer": [MockFunction],
+        "markErrorHandled": [MockFunction],
+        "renderError": [Error: A render error!],
+        "unhandledErrors": Array [],
+      },
+      "memoizedState": Object {
+        "baseState": null,
+        "baseUpdate": null,
+        "memoizedState": Array [
+          [Function],
+          Array [],
+        ],
+        "next": Object {
+          "baseState": null,
+          "baseUpdate": null,
+          "memoizedState": Array [
             Array [
               Object {
                 "error": Object {
@@ -2458,10 +3047,371 @@ ReactTestInstance {
                 "loc": "1",
               },
             ],
+            Array [
+              [Error: A render error!],
+            ],
+          ],
+          "next": Object {
+            "baseState": null,
+            "baseUpdate": null,
+            "memoizedState": Object {
+              "create": [Function],
+              "deps": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                [Function],
+              ],
+              "destroy": undefined,
+              "next": Object {
+                "create": [Function],
+                "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  true,
+                  false,
+                ],
+                "destroy": undefined,
+                "next": [Circular],
+                "tag": 192,
+              },
+              "tag": 192,
+            },
+            "next": Object {
+              "baseState": null,
+              "baseUpdate": null,
+              "memoizedState": Object {
+                "create": [Function],
+                "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
+                  true,
+                  false,
+                ],
+                "destroy": undefined,
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": Object {
+                          "message": "A render error",
+                          "stack": "errorStack",
+                        },
+                        "id": "1",
+                        "loc": "1",
+                      },
+                    ],
+                    [Function],
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
+                "tag": 192,
+              },
+              "next": null,
+              "queue": null,
+            },
+            "queue": null,
+          },
+          "queue": null,
+        },
+        "queue": null,
+      },
+      "mode": 0,
+      "nextEffect": [Circular],
+      "pendingProps": Object {
+        "app": Object {
+          "drawer": "",
+          "hasBeenOffline": true,
+          "isOnline": false,
+          "overlay": false,
+        },
+        "closeDrawer": [MockFunction],
+        "markErrorHandled": [MockFunction],
+        "renderError": [Error: A render error!],
+        "unhandledErrors": Array [],
+      },
+      "ref": null,
+      "return": FiberNode {
+        "_debugHookTypes": null,
+        "_debugID": 57,
+        "_debugIsCurrentlyTiming": false,
+        "_debugOwner": [Circular],
+        "_debugSource": null,
+        "alternate": null,
+        "child": [Circular],
+        "childExpirationTime": 0,
+        "contextDependencies": null,
+        "effectTag": 0,
+        "elementType": Object {
+          "$$typeof": Symbol(react.provider),
+          "_context": Object {
+            "$$typeof": Symbol(react.context),
+            "Consumer": Object {
+              "$$typeof": Symbol(react.context),
+              "_calculateChangedBits": null,
+              "_context": [Circular],
+            },
+            "Provider": [Circular],
+            "_calculateChangedBits": null,
+            "_currentRenderer": null,
+            "_currentRenderer2": Object {},
+            "_currentValue": undefined,
+            "_currentValue2": undefined,
+            "_threadCount": 0,
+          },
+        },
+        "expirationTime": 0,
+        "firstEffect": [Circular],
+        "index": 0,
+        "key": null,
+        "lastEffect": [Circular],
+        "memoizedProps": Object {
+          "children": <App
+            app={
+              Object {
+                "drawer": "",
+                "hasBeenOffline": true,
+                "isOnline": false,
+                "overlay": false,
+              }
+            }
+            closeDrawer={[MockFunction]}
+            markErrorHandled={[MockFunction]}
+            renderError={[Error: A render error!]}
+            unhandledErrors={Array []}
+          />,
+          "value": Array [
+            Object {
+              "toasts": Map {},
+            },
             [Function],
           ],
+        },
+        "memoizedState": null,
+        "mode": 0,
+        "nextEffect": null,
+        "pendingProps": Object {
+          "children": <App
+            app={
+              Object {
+                "drawer": "",
+                "hasBeenOffline": true,
+                "isOnline": false,
+                "overlay": false,
+              }
+            }
+            closeDrawer={[MockFunction]}
+            markErrorHandled={[MockFunction]}
+            renderError={[Error: A render error!]}
+            unhandledErrors={Array []}
+          />,
+          "value": Array [
+            Object {
+              "toasts": Map {},
+            },
+            [Function],
+          ],
+        },
+        "ref": null,
+        "return": [Circular],
+        "sibling": null,
+        "stateNode": null,
+        "tag": 10,
+        "type": Object {
+          "$$typeof": Symbol(react.provider),
+          "_context": Object {
+            "$$typeof": Symbol(react.context),
+            "Consumer": Object {
+              "$$typeof": Symbol(react.context),
+              "_calculateChangedBits": null,
+              "_context": [Circular],
+            },
+            "Provider": [Circular],
+            "_calculateChangedBits": null,
+            "_currentRenderer": null,
+            "_currentRenderer2": Object {},
+            "_currentValue": undefined,
+            "_currentValue2": undefined,
+            "_threadCount": 0,
+          },
+        },
+        "updateQueue": null,
+      },
+      "sibling": null,
+      "stateNode": null,
+      "tag": 0,
+      "type": [Function],
+      "updateQueue": Object {
+        "lastEffect": Object {
+          "create": [Function],
+          "deps": Array [
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "You are offline. Some features may be unavailable.",
+                    "timeout": 3000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
+            true,
+            false,
+          ],
           "destroy": undefined,
-          "next": [Circular],
+          "next": Object {
+            "create": [Function],
+            "deps": Array [
+              Array [
+                Object {
+                  "error": Object {
+                    "message": "A render error",
+                    "stack": "errorStack",
+                  },
+                  "id": "1",
+                  "loc": "1",
+                },
+              ],
+              [Function],
+            ],
+            "destroy": undefined,
+            "next": [Circular],
+            "tag": 192,
+          },
           "tag": 192,
         },
       },
@@ -2679,6 +3629,7 @@ ReactTestInstance {
           "useCallback",
           "useMemo",
           "useEffect",
+          "useEffect",
         ],
         "_debugID": 58,
         "_debugIsCurrentlyTiming": false,
@@ -3049,10 +4000,144 @@ ReactTestInstance {
                   [Function],
                 ],
                 "destroy": undefined,
-                "next": [Circular],
+                "next": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": [Circular],
+                  "tag": 192,
+                },
                 "tag": 192,
               },
-              "next": null,
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
+                    true,
+                    false,
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      Array [
+                        Object {
+                          "error": Object {
+                            "message": "A render error",
+                            "stack": "errorStack",
+                          },
+                          "id": "1",
+                          "loc": "1",
+                        },
+                      ],
+                      [Function],
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": null,
+                "queue": null,
+              },
               "queue": null,
             },
             "queue": null,
@@ -3188,20 +4273,75 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
-              Array [
-                Object {
-                  "error": Object {
-                    "message": "A render error",
-                    "stack": "errorStack",
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
                   },
-                  "id": "1",
-                  "loc": "1",
-                },
-              ],
-              [Function],
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              true,
+              false,
             ],
             "destroy": undefined,
-            "next": [Circular],
+            "next": Object {
+              "create": [Function],
+              "deps": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                [Function],
+              ],
+              "destroy": undefined,
+              "next": [Circular],
+              "tag": 192,
+            },
             "tag": 192,
           },
         },
@@ -4020,6 +5160,52 @@ ReactTestInstance {
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -4035,6 +5221,52 @@ ReactTestInstance {
                 "memoizedState": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -4092,6 +5324,52 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
               true,
               false,
             ],
@@ -4808,6 +6086,52 @@ ReactTestInstance {
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -4823,6 +6147,52 @@ ReactTestInstance {
                 "memoizedState": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -4880,6 +6250,52 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
               true,
               false,
             ],
@@ -5576,6 +6992,52 @@ ReactTestInstance {
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -5591,6 +7053,52 @@ ReactTestInstance {
                 "memoizedState": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -5648,6 +7156,52 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
               true,
               false,
             ],
@@ -6431,6 +7985,52 @@ ReactTestInstance {
               "next": Object {
                 "create": [Function],
                 "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
                   true,
                   false,
                 ],
@@ -6446,6 +8046,52 @@ ReactTestInstance {
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
                   true,
                   false,
                 ],
@@ -6620,6 +8266,52 @@ ReactTestInstance {
         "lastEffect": Object {
           "create": [Function],
           "deps": Array [
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "You are offline. Some features may be unavailable.",
+                    "timeout": 3000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
             true,
             false,
           ],
@@ -7316,6 +9008,52 @@ ReactTestInstance {
               "next": Object {
                 "create": [Function],
                 "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
                   true,
                   false,
                 ],
@@ -7331,6 +9069,52 @@ ReactTestInstance {
               "memoizedState": Object {
                 "create": [Function],
                 "deps": Array [
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                          "onDismiss": [Function],
+                          "timeout": 15000,
+                          "type": "error",
+                        },
+                      ],
+                      Array [
+                        Object {
+                          "icon": <Classify(Icon)
+                            attrs={
+                              Object {
+                                "width": 18,
+                              }
+                            }
+                            src={[Function]}
+                          />,
+                          "message": "You are offline. Some features may be unavailable.",
+                          "timeout": 3000,
+                          "type": "error",
+                        },
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  },
                   true,
                   false,
                 ],
@@ -7505,6 +9289,52 @@ ReactTestInstance {
         "lastEffect": Object {
           "create": [Function],
           "deps": Array [
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "You are offline. Some features may be unavailable.",
+                    "timeout": 3000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
             true,
             false,
           ],
@@ -8454,6 +10284,52 @@ ReactTestInstance {
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -8469,6 +10345,52 @@ ReactTestInstance {
                 "memoizedState": Object {
                   "create": [Function],
                   "deps": Array [
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                            "onDismiss": [Function],
+                            "timeout": 15000,
+                            "type": "error",
+                          },
+                        ],
+                        Array [
+                          Object {
+                            "icon": <Classify(Icon)
+                              attrs={
+                                Object {
+                                  "width": 18,
+                                }
+                              }
+                              src={[Function]}
+                            />,
+                            "message": "You are offline. Some features may be unavailable.",
+                            "timeout": 3000,
+                            "type": "error",
+                          },
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    },
                     true,
                     false,
                   ],
@@ -8643,6 +10565,52 @@ ReactTestInstance {
           "lastEffect": Object {
             "create": [Function],
             "deps": Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are offline. Some features may be unavailable.",
+                      "timeout": 3000,
+                      "type": "error",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
               true,
               false,
             ],

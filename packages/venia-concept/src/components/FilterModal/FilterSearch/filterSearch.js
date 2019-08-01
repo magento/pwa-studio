@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
-import TextInput from 'src/components/TextInput';
-import Trigger from 'src/components/Trigger';
+import TextInput from '../../TextInput';
+import Trigger from '../../Trigger';
 import { Form } from 'informed';
-import Icon from 'src/components/Icon';
-import ClearIcon from 'react-feather/dist/icons/x';
-import SearchIcon from 'react-feather/dist/icons/search';
-import classify from 'src/classify';
+import Icon from '../../Icon';
+import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
+import classify from '../../../classify';
 import defaultClasses from './filterSearch.css';
 
 const clearIcon = <Icon src={ClearIcon} size={18} />;

@@ -17,13 +17,12 @@ exports[`renders a PaymentsForm component 1`] = `
     <div
       className="braintree"
     >
-      <div
-        className="root"
-      >
-        <div
-          id="braintree-dropin-container"
-        />
-      </div>
+      <BraintreeDropin
+        onError={[Function]}
+        onReady={[Function]}
+        onSuccess={[Function]}
+        shouldRequestPaymentNonce={false}
+      />
     </div>
     <div
       className="address_check"
@@ -78,7 +77,7 @@ exports[`renders a PaymentsForm component 1`] = `
   >
     <button
       className="button"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -89,6 +88,7 @@ exports[`renders a PaymentsForm component 1`] = `
     </button>
     <button
       className="button"
+      disabled={true}
       type="submit"
     >
       <span
@@ -118,13 +118,12 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     <div
       className="braintree"
     >
-      <div
-        className="root"
-      >
-        <div
-          id="braintree-dropin-container"
-        />
-      </div>
+      <BraintreeDropin
+        onError={[Function]}
+        onReady={[Function]}
+        onSuccess={[Function]}
+        shouldRequestPaymentNonce={false}
+      />
     </div>
     <div
       className="address_check"
@@ -152,6 +151,138 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <p
         className="root"
       />
+    </div>
+    <div
+      className="firstname"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          First Name
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="firstname"
+              name="firstname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="lastname"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Last Name
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="lastname"
+              name="lastname"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <div
+      className="email"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Email
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
     </div>
     <div
       className="street0"
@@ -329,13 +460,58 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
         />
       </div>
     </div>
+    <div
+      className="telephone"
+    >
+      <div
+        className="root"
+      >
+        <span
+          className="label"
+        >
+          Phone
+        </span>
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 0,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="telephone"
+              name="telephone"
+              onBlur={[Function]}
+              onChange={[Function]}
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          />
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+      </div>
+    </div>
+    <span />
   </div>
   <div
     className="footer"
   >
     <button
       className="button"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -346,6 +522,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     </button>
     <button
       className="button"
+      disabled={true}
       type="submit"
     >
       <span

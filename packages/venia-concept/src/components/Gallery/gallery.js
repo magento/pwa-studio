@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { string, shape, array, number } from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import GalleryItems, { emptyData } from './items';
 import defaultClasses from './gallery.css';
 

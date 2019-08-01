@@ -1,0 +1,14 @@
+.root {
+    background-color: white;
+    padding: 0;
+}
+
+.root_open {
+    composes: root;
+    z-index: 3;
+}
+
+.placeholderButton {
+    text-align: center;
+    margin: 1.5rem 0 1rem 0;
+}

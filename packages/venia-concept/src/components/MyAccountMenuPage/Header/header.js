@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
-import Trigger from 'src/components/Trigger';
-import Icon from 'src/components/Icon';
-import CloseIcon from 'react-feather/dist/icons/x';
+import classify from '../../../classify';
+import Trigger from '../../Trigger';
+import Icon from '../../Icon';
+import { X as CloseIcon } from 'react-feather';
 import UserInformation from '../UserInformation';
 import defaultClasses from './header.css';
 

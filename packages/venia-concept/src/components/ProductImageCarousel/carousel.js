@@ -1,136 +1,109 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import memoize from 'memoize-one';
-
-import { resourceUrl } from 'src/drivers';
-import Icon from 'src/components/Icon';
-import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
-import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
-import classify from 'src/classify';
-import ThumbnailList from './thumbnailList';
+import React, { useCallback, useMemo } from 'react';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
+import { useCarousel } from '@magento/peregrine';
+import { resourceUrl } from '@magento/venia-drivers';
+import {
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon
+} from 'react-feather';
+import { mergeClasses } from '../../classify';
+import Thumbnail from './thumbnail';
 import defaultClasses from './carousel.css';
-import { transparentPlaceholder } from 'src/shared/images';
+import { transparentPlaceholder } from '../../shared/images';
+import Icon from '../Icon';
+import Image from '../Image';
+import Button from '../Button';
 
-const ChevronIcons = {
-    left: ChevronLeftIcon,
-    right: ChevronRightIcon
+const DEFAULT_IMAGE_WIDTH = 640;
+const DEFAULT_IMAGE_HEIGHT = 800;
+
+const Carousel = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const [carouselState, carouselApi] = useCarousel(props.images);
+    const { activeItemIndex, sortedImages } = carouselState;
+    const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
+
+    const handleThumbnailClick = useCallback(
+        index => {
+            setActiveItemIndex(index);
+        },
+        [setActiveItemIndex]
+    );
+
+    const currentImage = sortedImages[activeItemIndex] || {};
+
+    const src = currentImage.file
+        ? resourceUrl(currentImage.file, {
+              type: 'image-product',
+              width: DEFAULT_IMAGE_WIDTH,
+              height: DEFAULT_IMAGE_HEIGHT
+          })
+        : transparentPlaceholder;
+
+    const alt = currentImage.label || 'image-product';
+
+    const thumbnails = useMemo(
+        () =>
+            sortedImages.map((item, index) => (
+                <Thumbnail
+                    key={`${item.file}--${item.label}`}
+                    item={item}
+                    itemIndex={index}
+                    isActive={activeItemIndex === index}
+                    onClickHandler={handleThumbnailClick}
+                />
+            )),
+        [activeItemIndex, handleThumbnailClick, sortedImages]
+    );
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.imageContainer}>
+                <Button
+                    classes={{
+                        root_normalPriority: classes.previousButton
+                    }}
+                    onClick={handlePrevious}
+                >
+                    <Icon src={ChevronLeftIcon} size={40} />
+                </Button>
+                <Image
+                    classes={{ root: classes.currentImage }}
+                    src={src}
+                    alt={alt}
+                    placeholder={transparentPlaceholder}
+                />
+                <Button
+                    classes={{
+                        root_normalPriority: classes.nextButton
+                    }}
+                    onClick={handleNext}
+                >
+                    <Icon src={ChevronRightIcon} size={40} />
+                </Button>
+            </div>
+            <div className={classes.thumbnailList}>{thumbnails}</div>
+        </div>
+    );
 };
 
-class Carousel extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            currentImage: PropTypes.string,
-            imageContainer: PropTypes.string,
-            'chevron-left': PropTypes.string,
-            'chevron-right': PropTypes.string
-        }),
-        images: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.string,
-                position: PropTypes.number,
-                disabled: PropTypes.bool,
-                file: PropTypes.string.isRequired
-            })
-        ).isRequired
-    };
+Carousel.propTypes = {
+    classes: shape({
+        currentImage: string,
+        imageContainer: string,
+        nextButton: string,
+        previousButton: string,
+        root: string
+    }),
+    images: arrayOf(
+        shape({
+            label: string,
+            position: number,
+            disabled: bool,
+            file: string.isRequired
+        })
+    ).isRequired
+};
 
-    state = {
-        activeItemIndex: 0,
-        currentImageLoaded: false
-    };
-
-    updateActiveItemIndex = index => {
-        this.setState({ activeItemIndex: index });
-    };
-
-    // The spec does not guarantee a position parameter,
-    // so the rule will be to order items without position last.
-    // See https://github.com/magento/graphql-ce/issues/113.
-    // Memoize this expensive operation based on reference equality
-    // of the `images` array. Apollo cache should return a new array
-    // only when it does a new fetch.
-    sortAndFilterImages = memoize(items =>
-        items
-            .filter(i => !i.disabled)
-            .sort((a, b) => {
-                const aPos = isNaN(a.position) ? 9999 : a.position;
-                const bPos = isNaN(b.position) ? 9999 : b.position;
-                return aPos - bPos;
-            })
-    );
-
-    get sortedImages() {
-        const { images } = this.props;
-        return this.sortAndFilterImages(images);
-    }
-
-    leftChevronHandler = () => {
-        const sortedImages = this.sortedImages;
-        const { activeItemIndex } = this.state;
-        activeItemIndex > 0
-            ? this.updateActiveItemIndex(activeItemIndex - 1)
-            : this.updateActiveItemIndex(sortedImages.length - 1);
-    };
-
-    rightChevronHandler = () => {
-        const sortedImages = this.sortedImages;
-        const { activeItemIndex } = this.state;
-        this.updateActiveItemIndex((activeItemIndex + 1) % sortedImages.length);
-    };
-
-    getChevron = direction => (
-        <button
-            onClick={this[`${direction}ChevronHandler`]}
-            className={this.props.classes[`chevron-${direction}`]}
-        >
-            <Icon src={ChevronIcons[direction]} size={40} />
-        </button>
-    );
-
-    setCurrentImageLoaded = () => {
-        this.setState({
-            currentImageLoaded: true
-        });
-    };
-
-    render() {
-        const { classes } = this.props;
-
-        const sortedImages = this.sortedImages;
-
-        const mainImage = sortedImages[this.state.activeItemIndex] || {};
-        const src = mainImage.file
-            ? resourceUrl(mainImage.file, { type: 'image-product', width: 640 })
-            : transparentPlaceholder;
-        const alt = mainImage.label || 'image-product';
-        return (
-            <div className={classes.root}>
-                <div className={classes.imageContainer}>
-                    {this.getChevron('left')}
-                    <img
-                        onLoad={this.setCurrentImageLoaded}
-                        className={classes.currentImage}
-                        src={src}
-                        alt={alt}
-                    />
-                    {!this.state.currentImageLoaded ? (
-                        <img
-                            className={classes.currentImage}
-                            src={transparentPlaceholder}
-                            alt={alt}
-                        />
-                    ) : null}
-                    {this.getChevron('right')}
-                </div>
-                <ThumbnailList
-                    items={sortedImages}
-                    activeItemIndex={this.state.activeItemIndex}
-                    updateActiveItemIndex={this.updateActiveItemIndex}
-                />
-            </div>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Carousel);
+export default Carousel;

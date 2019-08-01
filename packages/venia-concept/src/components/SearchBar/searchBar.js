@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useDropdown } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
 import defaultClasses from './searchBar.css';
@@ -18,19 +18,24 @@ const SearchBar = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
     // expand or collapse on input change
-    const handleChange = useCallback(value => {
-        setExpanded(!!value);
-    }, []);
+    const handleChange = useCallback(
+        value => {
+            setExpanded(!!value);
+        },
+        [setExpanded]
+    );
 
     // expand on focus
     const handleFocus = useCallback(() => {
         setExpanded(true);
-    }, []);
+    }, [setExpanded]);
 
     // navigate on submit
     const handleSubmit = useCallback(
         ({ search_query }) => {
-            history.push(`/search.html?query=${search_query}`);
+            if (search_query != undefined && search_query.trim().length > 0) {
+                history.push(`/search.html?query=${search_query}`);
+            }
         },
         [history]
     );

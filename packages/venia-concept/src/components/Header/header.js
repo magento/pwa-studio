@@ -1,21 +1,20 @@
 import React, { Suspense } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import MenuIcon from 'react-feather/dist/icons/menu';
-import SearchIcon from 'react-feather/dist/icons/search';
+import { Menu as MenuIcon, Search as SearchIcon } from 'react-feather';
 
-import Icon from 'src/components/Icon';
-import Logo from 'src/components/Logo';
-import { Link, resourceUrl, Route } from 'src/drivers';
+import Icon from '../Icon';
+import Logo from '../Logo';
+import { Link, resourceUrl, Route } from '@magento/venia-drivers';
 
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
-import OnlineIndicator from 'src/components/OnlineIndicator';
+import OnlineIndicator from '../OnlineIndicator';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
 
-const SearchBar = React.lazy(() => import('src/components/SearchBar'));
+const SearchBar = React.lazy(() => import('../SearchBar'));
 
 const Header = props => {
     const { hasBeenOffline, isOnline, searchOpen, toggleSearch } = props;
@@ -23,6 +22,13 @@ const Header = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = searchOpen ? classes.open : classes.closed;
     const searchIcon = <Icon src={SearchIcon} />;
+    const suspenseFallback = (
+        <div className={classes.searchFallback}>
+            <div className={classes.input}>
+                <div className={classes.loader} />
+            </div>
+        </div>
+    );
 
     return (
         <header className={rootClass}>
@@ -49,7 +55,7 @@ const Header = props => {
                     <CartTrigger />
                 </div>
             </div>
-            <Suspense fallback={searchOpen ? searchIcon : null}>
+            <Suspense fallback={searchOpen ? suspenseFallback : null}>
                 <Route
                     render={({ history, location }) => (
                         <SearchBar

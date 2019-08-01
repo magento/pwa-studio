@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { arrayOf, func, number, shape, string } from 'prop-types';
-import { Link } from 'src/drivers';
+import { Link } from '@magento/venia-drivers';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import getLocation from './getLocation';
 import defaultClasses from './suggestedCategories.css';
 

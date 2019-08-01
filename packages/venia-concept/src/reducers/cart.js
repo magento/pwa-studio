@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 
-import actions from 'src/actions/cart';
-import checkoutActions from 'src/actions/checkout';
+import actions from '../actions/cart';
+import checkoutActions from '../actions/checkout';
 
 export const name = 'cart';
 
@@ -10,8 +10,9 @@ export const initialState = {
     cartId: null,
     details: {},
     detailsError: null,
+    editItem: null,
     isLoading: false,
-    isOptionsDrawerOpen: false,
+    isEditingItem: false,
     isUpdatingItem: false,
     isAddingItem: false,
     paymentMethods: [],
@@ -118,16 +119,18 @@ const reducerMap = {
             ...payload
         };
     },
-    [actions.openOptionsDrawer]: state => {
+    [actions.beginEditItem]: (state, { payload }) => {
         return {
             ...state,
-            isOptionsDrawerOpen: true
+            editItem: payload,
+            isEditingItem: true
         };
     },
-    [actions.closeOptionsDrawer]: state => {
+    [actions.endEditItem]: state => {
         return {
             ...state,
-            isOptionsDrawerOpen: false
+            editItem: null,
+            isEditingItem: false
         };
     },
     [checkoutActions.order.accept]: () => {

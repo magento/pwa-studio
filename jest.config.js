@@ -139,7 +139,11 @@ const jestConfig = {
             'graphql-cli-validate-magento-pwa-queries',
             'GraphQL CLI Plugin',
             () => ({
-                testEnvironment: 'node'
+                testEnvironment: 'node',
+                moduleNameMapper: {
+                    './magento-compatibility':
+                        '<rootDir>/magento-compatibility.js'
+                }
             })
         )
     ],
@@ -159,7 +163,6 @@ const jestConfig = {
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
         'dist',
-        'esm',
         'node_modules',
         '__fixtures__',
         '__helpers__',

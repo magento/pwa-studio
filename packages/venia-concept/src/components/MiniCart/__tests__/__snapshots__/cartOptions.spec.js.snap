@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the correct tree 1`] = `
+<t>
+  <div>
+    <span>
+      cartItem name
+    </span>
+    <span>
+      <mockConstructor
+        currencyCode="USD"
+        value={99}
+      />
+    </span>
+  </div>
+  <div>
+    <section>
+      <h2>
+        <span>
+          Quantity
+        </span>
+      </h2>
+      <Classify(Quantity)
+        initialValue={99}
+        onValueChange={[Function]}
+      />
+    </section>
+  </div>
+  <div>
+    <Classify(Button)
+      onClick={[MockFunction]}
+    >
+      <span>
+        Cancel
+      </span>
+    </Classify(Button)>
+    <Classify(Button)
+      disabled={false}
+      onClick={[Function]}
+      priority="high"
+    >
+      <span>
+        Update Cart
+      </span>
+    </Classify(Button)>
+  </div>
+  <div>
+    <LoadingIndicator>
+      Updating Cart
+    </LoadingIndicator>
+  </div>
+</t>
+`;

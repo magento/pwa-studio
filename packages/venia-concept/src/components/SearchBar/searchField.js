@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
 import { useFieldState, useFormApi } from 'informed';
-import ClearIcon from 'react-feather/dist/icons/x';
-import SearchIcon from 'react-feather/dist/icons/search';
+import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 import { useSearchParam } from '@magento/peregrine';
 
-import Icon from 'src/components/Icon';
-import TextInput from 'src/components/TextInput';
-import Trigger from 'src/components/Trigger';
+import Icon from '../Icon';
+import TextInput from '../TextInput';
+import Trigger from '../Trigger';
 
 const clearIcon = <Icon src={ClearIcon} size={18} />;
 const searchIcon = <Icon src={SearchIcon} size={18} />;

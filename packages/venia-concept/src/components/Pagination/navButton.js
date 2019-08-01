@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './navButton.css';
 import Icon from '../Icon';
-import RewindIcon from 'react-feather/dist/icons/rewind';
-import ChevronLeftIcon from 'react-feather/dist/icons/chevron-left';
-import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
-import FastForwardIcon from 'react-feather/dist/icons/fast-forward';
+import {
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    FastForward as FastForwardIcon,
+    Rewind as RewindIcon
+} from 'react-feather';
 
 const NavIcons = {
     Rewind: RewindIcon,

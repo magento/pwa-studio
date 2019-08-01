@@ -1,20 +1,22 @@
 import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
-import Main from 'src/components/Main';
-import Mask from 'src/components/Mask';
-import MiniCart from 'src/components/MiniCart';
-import Navigation from 'src/components/Navigation';
+import Main from '../Main';
+import Mask from '../Mask';
+import MiniCart from '../MiniCart';
+import Navigation from '../Navigation';
 import renderRoutes from './renderRoutes';
-import errorRecord from 'src/util/createErrorRecord';
-import ToastContainer from 'src/components/ToastContainer';
-import Icon from 'src/components/Icon';
+import errorRecord from '../../util/createErrorRecord';
+import ToastContainer from '../ToastContainer';
+import Icon from '../Icon';
 
 import { getToastId, useToasts } from '@magento/peregrine';
 
-import AlertCircleIcon from 'react-feather/dist/icons/alert-circle';
-import CloudOffIcon from 'react-feather/dist/icons/cloud-off';
-import WifiIcon from 'react-feather/dist/icons/wifi';
+import {
+    AlertCircle as AlertCircleIcon,
+    CloudOff as CloudOffIcon,
+    Wifi as WifiIcon
+} from 'react-feather';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
@@ -49,6 +51,9 @@ const App = props => {
     const errors = renderError ? renderErrors : unhandledErrors;
     const handleDismiss = renderError ? reload : markErrorHandled;
 
+    // Only add toasts for errors if the errors list changes. Since `addToast`
+    // and `toasts` changes each render we cannot add it as an effect dependency
+    // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
             const errorToastProps = {
@@ -69,17 +74,7 @@ const App = props => {
                 addToast(errorToastProps);
             }
         }
-    }, [errors, handleDismiss]);
-
-    if (renderError) {
-        return (
-            <Fragment>
-                <Main isMasked={true} />
-                <Mask isActive={true} />
-                <ToastContainer />
-            </Fragment>
-        );
-    }
+    }, [errors, handleDismiss]); // eslint-disable-line
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
@@ -105,7 +100,17 @@ const App = props => {
                 });
             }
         }
-    }, [hasBeenOffline, isOnline]);
+    }, [addToast, hasBeenOffline, isOnline]);
+
+    if (renderError) {
+        return (
+            <Fragment>
+                <Main isMasked={true} />
+                <Mask isActive={true} />
+                <ToastContainer />
+            </Fragment>
+        );
+    }
 
     return (
         <Fragment>

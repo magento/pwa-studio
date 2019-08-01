@@ -2,8 +2,7 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 import Cart from '../cart';
 
-jest.mock('src/classify');
-jest.mock('../checkoutButton');
+jest.mock('../../../classify');
 
 test('renders a Cart component', () => {
     const props = {

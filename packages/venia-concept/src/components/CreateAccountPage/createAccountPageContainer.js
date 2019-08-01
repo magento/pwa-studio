@@ -1,5 +1,5 @@
-import { connect } from 'src/drivers';
-import { createAccount } from 'src/actions/createAccountPage';
+import { connect } from '@magento/venia-drivers';
+import { createAccount } from '../../actions/createAccountPage';
 import CreateAccountPage from './createAccountPage';
 
 export default connect(

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, number, object, oneOfType, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './icon.css';
 
 /**

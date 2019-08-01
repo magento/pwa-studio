@@ -1,8 +1,13 @@
 // If the root template supplies the backend URL at runtime, use it directly
-const {
-    imageOptimizingOrigin,
-    mediaBackend = 'https://backend.test/media/'
-} = document.querySelector('html').dataset;
+const htmlDataset = document.querySelector('html').dataset;
+const { imageOptimizingOrigin } = htmlDataset;
+// Protect against potential falsy values for `mediaBackend`.
+let mediaBackend = htmlDataset.mediaBackend;
+if (!mediaBackend) {
+    console.warn('A media backend URL should be defined in your config.');
+    mediaBackend = 'https://backend.test/media/';
+}
+
 const useBackendForImgs = imageOptimizingOrigin === 'backend';
 
 // Tests if a URL begins with `http:` or `https:` or `data:`
@@ -38,8 +43,9 @@ const mediaBases = new Map()
  * @param {Object} props - properties describing desired optimizations
  * @param {string} props.type - "image-product" or "image-category"
  * @param {number} props.width - the desired resize width of the image
+ * @param {number} props.height - the desired resize height of the image
  */
-const makeOptimizedUrl = (path, { type, width } = {}) => {
+const makeOptimizedUrl = (path, { type, width, height } = {}) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;
@@ -66,9 +72,12 @@ const makeOptimizedUrl = (path, { type, width } = {}) => {
     params.set('auto', 'webp'); // Use the webp format if available
     params.set('format', 'pjpg'); // Use progressive JPGs at least
     if (width) {
-        // resize!
         params.set('width', width);
     }
+    if (height) {
+        params.set('height', height);
+    }
+
     baseURL.search = params.toString();
 
     if (baseURL.origin === origin) {

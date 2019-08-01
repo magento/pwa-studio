@@ -1,11 +1,11 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { mergeClasses } from 'src/classify';
-import Button from 'src/components/Button';
+import { mergeClasses } from '../../../classify';
+import Button from '../../Button';
 import defaultClasses from './receipt.css';
 
 const Receipt = props => {
-    const { createAccount, history, order, reset, user } = props;
+    const { createAccount, history, reset, user } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -17,7 +17,7 @@ const Receipt = props => {
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.
-    }, [order]);
+    }, []);
 
     return (
         <div className={classes.root}>

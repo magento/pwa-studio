@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { number, oneOfType, shape, string } from 'prop-types';
-import { Link, resourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 
-import Icon from 'src/components/Icon';
-import ChevronRightIcon from 'react-feather/dist/icons/chevron-right';
+import Icon from '../../Icon';
+import { ChevronRight as ChevronRightIcon } from 'react-feather';
 
-import classify from 'src/classify';
+import classify from '../../../classify';
 import defaultClasses from './purchaseHistoryItem.css';
 import { processDate } from './helpers';
 

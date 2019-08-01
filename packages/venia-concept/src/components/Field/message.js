@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { node, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './message.css';
 
 export class Message extends Component {

@@ -1,77 +1,68 @@
-import React, { Component, Suspense } from 'react';
+import React, { Suspense, useCallback, useState } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
-import { Form, Text } from 'informed';
+import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
 
-import LoadingIndicator from 'src/components/LoadingIndicator';
-import classify from 'src/classify';
-import defaultClasses from './cartOptions.css';
-import Button from 'src/components/Button';
-import appendOptionsToPayload from 'src/util/appendOptionsToPayload';
-import isProductConfigurable from 'src/util/isProductConfigurable';
-import { Plus, Minus } from 'react-feather';
+import { mergeClasses } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
+import Button from '../Button';
+import Quantity from '../ProductQuantity';
+import appendOptionsToPayload from '../../util/appendOptionsToPayload';
+import isProductConfigurable from '../../util/isProductConfigurable';
 
-// TODO: get real currencyCode for cartItem
-const currencyCode = 'USD';
+import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
-class CartOptions extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string,
-            focusItem: string,
-            price: string,
-            form: string,
-            quantity: string,
-            quantityTitle: string,
-            save: string,
-            modal: string,
-            modal_active: string,
-            options: string
-        }),
-        cartItem: shape({
-            item_id: number.isRequired,
-            name: string.isRequired,
-            price: number.isRequired,
-            qty: number.isRequired
-        }),
-        configItem: shape({
-            __typename: string,
-            configurable_options: array
-        }),
-        isUpdatingItem: bool,
-        updateCart: func.isRequired,
-        closeOptionsDrawer: func.isRequired
-    };
+const loadingIndicator = (
+    <LoadingIndicator>
+        <span>{'Fetching Options...'}</span>
+    </LoadingIndicator>
+);
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            optionSelections: new Map(),
-            quantity: props.cartItem.qty
-        };
+const isItemMissingOptions = (cartItem, configItem, numSelections) => {
+    // Non-configurable products can't be missing options
+    if (cartItem.product_type !== 'configurable') {
+        return false;
     }
 
-    get fallback() {
-        return <LoadingIndicator>Fetching Data</LoadingIndicator>;
-    }
+    // Configurable products are missing options if we have fewer
+    // option selections than the product has options.
+    const { configurable_options } = configItem;
+    const numProductOptions = configurable_options.length;
 
-    setQuantity = quantity => this.setState({ quantity });
+    return numSelections < numProductOptions;
+};
 
-    handleSelectionChange = (optionId, selection) => {
-        this.setState(({ optionSelections }) => ({
-            optionSelections: new Map(optionSelections).set(
-                optionId,
-                Array.from(selection).pop()
-            )
-        }));
-    };
+const CartOptions = props => {
+    // Props.
+    const {
+        cartItem,
+        configItem,
+        currencyCode,
+        endEditItem,
+        isUpdatingItem,
+        updateCart
+    } = props;
+    const { name, price, qty } = cartItem;
 
-    handleClick = async () => {
-        const { updateCart, cartItem, configItem } = this.props;
-        const { optionSelections, quantity } = this.state;
+    // State.
+    const [optionSelections, setOptionSelections] = useState(new Map());
+    const [quantity, setQuantity] = useState(qty);
 
+    // Callbacks.
+    const handleSelectionChange = useCallback(
+        (optionId, selection) => {
+            setOptionSelections(
+                new Map(optionSelections).set(
+                    optionId,
+                    Array.from(selection).pop()
+                )
+            );
+        },
+        [optionSelections]
+    );
+    const handleUpdateClick = useCallback(() => {
         const payload = {
             item: configItem,
             productType: configItem.__typename,
@@ -83,160 +74,92 @@ class CartOptions extends Component {
         }
 
         updateCart(payload, cartItem.item_id);
-    };
+    }, [cartItem, configItem, quantity, optionSelections, updateCart]);
 
-    get isMissingOptions() {
-        const { configItem, cartItem } = this.props;
+    // Members.
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const isMissingOptions = isItemMissingOptions(
+        cartItem,
+        configItem,
+        optionSelections.size
+    );
+    const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
-        // Non-configurable products can't be missing options
-        if (cartItem.product_type !== 'configurable') {
-            return false;
-        }
+    // Render.
+    const options = isProductConfigurable(configItem) ? (
+        <Suspense fallback={loadingIndicator}>
+            <section className={classes.options}>
+                <Options
+                    onSelectionChange={handleSelectionChange}
+                    product={configItem}
+                />
+            </section>
+        </Suspense>
+    ) : null;
 
-        // Configurable products are missing options if we have fewer
-        // option selections than the product has options.
-        const { configurable_options } = configItem;
-        const numProductOptions = configurable_options.length;
-        const numProductSelections = this.state.optionSelections.size;
-
-        return numProductSelections < numProductOptions;
-    }
-
-    incrementQty = formApi => {
-        var currentQuantity = parseInt(this.state.quantity) || 0;
-        const incrementedQty = currentQuantity + 1;
-        this.setQuantity(incrementedQty);
-        formApi.setValue('quantity_update', incrementedQty);
-    };
-
-    decrementQty = formApi => {
-        var currentQuantity = parseInt(this.state.quantity) || 0;
-        const decrementedQty = currentQuantity - 1;
-        this.setQuantity(decrementedQty);
-        formApi.setValue('quantity_update', decrementedQty);
-    };
-
-    render() {
-        const {
-            fallback,
-            handleSelectionChange,
-            isMissingOptions,
-            props
-        } = this;
-        const { classes, cartItem, configItem, isUpdatingItem } = props;
-        const { name, price } = cartItem;
-
-        const modalClass = isUpdatingItem
-            ? classes.modal_active
-            : classes.modal;
-
-        const IncrementButtonFormApi = ({ formApi }) => {
-            return (
-                <button
-                    aria-label="Quantity Increment"
-                    type="button"
-                    onClick={() => {
-                        this.incrementQty(formApi);
-                    }}
+    return (
+        <Form className={classes.root}>
+            <div className={classes.focusItem}>
+                <span className={classes.name}>{name}</span>
+                <span className={classes.price}>
+                    <Price currencyCode={currencyCode} value={price} />
+                </span>
+            </div>
+            <div className={classes.form}>
+                {options}
+                <section className={classes.quantity}>
+                    <h2 className={classes.quantityTitle}>
+                        <span>Quantity</span>
+                    </h2>
+                    <Quantity initialValue={qty} onValueChange={setQuantity} />
+                </section>
+            </div>
+            <div className={classes.save}>
+                <Button onClick={endEditItem}>
+                    <span>Cancel</span>
+                </Button>
+                <Button
+                    priority="high"
+                    onClick={handleUpdateClick}
+                    disabled={isMissingOptions}
                 >
-                    <Plus />
-                </button>
-            );
-        };
+                    <span>Update Cart</span>
+                </Button>
+            </div>
+            <div className={modalClass}>
+                <LoadingIndicator>Updating Cart</LoadingIndicator>
+            </div>
+        </Form>
+    );
+};
 
-        const DecrementButtonFormApi = ({ formApi }) => {
-            return (
-                <button
-                    aria-label="Quantity Decrement"
-                    type="button"
-                    onClick={() => {
-                        this.decrementQty(formApi);
-                    }}
-                >
-                    <Minus />
-                </button>
-            );
-        };
+CartOptions.propTypes = {
+    cartItem: shape({
+        item_id: number.isRequired,
+        name: string.isRequired,
+        price: number.isRequired,
+        qty: number.isRequired
+    }),
+    classes: shape({
+        root: string,
+        focusItem: string,
+        price: string,
+        form: string,
+        quantity: string,
+        quantityTitle: string,
+        save: string,
+        modal: string,
+        modal_active: string,
+        options: string
+    }),
+    configItem: shape({
+        __typename: string,
+        configurable_options: array
+    }).isRequired,
+    currencyCode: string,
+    endEditItem: func.isRequired,
+    isUpdatingItem: bool,
+    updateCart: func.isRequired
+};
 
-        const validateQuantity = value => {
-            var validateRegex = /^[1-9]\d*(\.\d+)?$/;
-            return value <= 0
-                ? 'Please enter a quantity greater than 0.'
-                : value == undefined || !validateRegex.test(value)
-                ? 'Please enter a valid number in this field.'
-                : undefined;
-        };
-
-        return (
-            <Form className={classes.root}>
-                {({ formState, formApi }) => (
-                    <>
-                        <div className={classes.focusItem}>
-                            <span className={classes.name}>{name}</span>
-                            <span className={classes.price}>
-                                <Price
-                                    currencyCode={currencyCode}
-                                    value={price}
-                                />
-                            </span>
-                        </div>
-                        <div className={classes.form}>
-                            <section className={classes.options}>
-                                <Suspense fallback={fallback}>
-                                    <Options
-                                        onSelectionChange={
-                                            handleSelectionChange
-                                        }
-                                        product={configItem}
-                                    />
-                                </Suspense>
-                            </section>
-                            <section className={classes.quantity}>
-                                <h2 className={classes.quantityTitle}>
-                                    <span>Quantity</span>
-                                </h2>
-                                <DecrementButtonFormApi formApi={formApi} />
-                                <label htmlFor="quantity_update">
-                                    <Text
-                                        id="quantity_update"
-                                        type="text"
-                                        field="quantity_update"
-                                        initialValue={props.cartItem.qty}
-                                        onValueChange={this.setQuantity}
-                                        validateOnChange
-                                        validate={validateQuantity}
-                                        className={classes.quantityInput}
-                                    />
-                                </label>
-                                <IncrementButtonFormApi formApi={formApi} />
-                                <p className={classes.errors}>
-                                    {formState.errors.quantity_update}
-                                </p>
-                            </section>
-                        </div>
-                        <div className={classes.save}>
-                            <Button onClick={this.props.closeOptionsDrawer}>
-                                <span>Cancel</span>
-                            </Button>
-                            <Button
-                                priority="high"
-                                onClick={this.handleClick}
-                                disabled={
-                                    isMissingOptions ||
-                                    formState.errors.quantity_update
-                                }
-                            >
-                                <span>Update Cart</span>
-                            </Button>
-                        </div>
-                        <div className={modalClass}>
-                            <LoadingIndicator>Updating Cart</LoadingIndicator>
-                        </div>
-                    </>
-                )}
-            </Form>
-        );
-    }
-}
-
-export default classify(defaultClasses)(CartOptions);
+export default CartOptions;

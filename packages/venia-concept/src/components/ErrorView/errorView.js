@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 const messages = new Map()
-    .set('loading', loadingIndicator)
+    .set('loading', fullPageLoadingIndicator)
     .set('notFound', 'That page could not be found. Please try again.')
     .set('internalError', 'Something went wrong. Please try again.')
     .set(

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders null when options are missing 1`] = `null`;
+
+exports[`it renders null when options is empty 1`] = `null`;
+
+exports[`it renders the correct tree 1`] = `
+<dl>
+  <React.Fragment>
+    <dt>
+      Label 1
+       : 
+      Value 1
+    </dt>
+  </React.Fragment>
+  <React.Fragment>
+    <dt>
+      Label 2
+       : 
+      Value 2
+    </dt>
+  </React.Fragment>
+</dl>
+`;

@@ -1,18 +1,16 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "publishConfig": {
     "access": "public"
   },
   "description": "Build/Layout optimization tooling and Peregrine framework adapters for the Magento PWA",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "bin": {
+    "buildpack": "./bin/buildpack"
+  },
   "scripts": {
-    "build": "babel src --out-dir dist --root-mode 'root' --source-maps --copy-files",
-    "build:dev": "yarn run build",
-    "clean": "rimraf dist",
-    "prebuild": "yarn run clean",
-    "prepublishOnly": "yarn run build",
-    "watch": "yarn run build --watch"
+    "clean": " "
   },
   "repository": "github:magento-research/pwa-studio",
   "keywords": [
@@ -28,25 +26,23 @@
   },
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
-    "@babel/core": "~7.3.4",
-    "@babel/helper-module-imports": "~7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
-    "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@magento/directive-parser": "~0.1.6",
     "@magento/express-sharp": "~2.1.1-newdeps.1",
-    "@magento/upward-js": "~2.1.0",
-    "ajv": "~6.9.2",
+    "@magento/upward-js": "~2.2.0",
     "apicache": "~1.4.0",
     "babel-loader": "~8.0.5",
     "boxen": "~3.0.0",
+    "camelspace": "~1.0.0",
     "chalk": "~2.4.2",
     "css-loader": "~2.1.1",
     "debug": "~4.1.1",
     "debug-error-middleware": "~1.3.0",
     "devcert": "~1.0.0",
     "dotenv": "~6.2.0",
+    "envalid": "~4.2.2",
     "execa": "~1.0.0",
     "express": "~4.16.4",
+    "figures": "~2.0.0",
     "graphql-playground-middleware-express": "~1.7.12",
     "lodash": "~4.17.11",
     "node-fetch": "~2.3.0",
@@ -56,13 +52,12 @@
     "virtual-module-webpack-plugin": "~0.4.1",
     "webpack": "~4.29.5",
     "webpack-sources": "~1.3.0",
+    "word-wrap": "~1.2.3",
     "workbox-webpack-plugin": "~4.2.0",
-    "write-file-webpack-plugin": "~4.5.0"
+    "write-file-webpack-plugin": "~4.5.0",
+    "yargs": "~13.2.2"
   },
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "@babel/plugin-proposal-class-properties": "~7.3.4",
-    "dedent": "~0.7.0",
     "memory-fs": "~0.4.1",
     "rimraf": "~2.6.3",
     "sharp": "~0.21.2",
@@ -70,7 +65,7 @@
     "terser-webpack-plugin": "~1.2.3"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

@@ -1,9 +1,9 @@
-import actions from 'src/actions/checkoutReceipt';
-import { createAccount } from 'src/actions/checkout';
+import actions from '../../../../actions/checkoutReceipt';
+import { createAccount } from '../../../../actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
 
-jest.mock('src/drivers', () => ({
+jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
             component,

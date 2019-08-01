@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import classify from 'src/classify';
-import { Link, resourceUrl } from 'src/drivers';
+import classify from '../../classify';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import defaultClasses from './suggestedProduct.css';
 
@@ -26,7 +26,8 @@ class SuggestedProduct extends Component {
             root: string,
             image: string,
             name: string,
-            price: string
+            price: string,
+            thumbnail: string
         })
     };
 
@@ -49,6 +50,7 @@ class SuggestedProduct extends Component {
                 <span className={classes.image}>
                     <img
                         alt={name}
+                        className={classes.thumbnail}
                         src={resourceUrl(small_image, {
                             type: 'image-product',
                             width: 60

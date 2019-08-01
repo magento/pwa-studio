@@ -1,59 +1,57 @@
-import React, { Component } from 'react';
-import { func, object, oneOf, shape, string } from 'prop-types';
-import Icon from 'src/components/Icon';
-import HeartIcon from 'react-feather/dist/icons/heart';
-import Edit2Icon from 'react-feather/dist/icons/edit-2';
-import TrashIcon from 'react-feather/dist/icons/trash';
-import classify from 'src/classify';
+import React from 'react';
+import { bool, func, oneOf, shape, string } from 'prop-types';
+import {
+    Edit2 as Edit2Icon,
+    Heart as HeartIcon,
+    Trash as TrashIcon
+} from 'react-feather';
+
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
+
 import defaultClasses from './section.css';
 
-const SectionIcons = {
+const defaultIconAttributes = {
+    color: 'rgb(var(--venia-teal))',
+    width: '14px',
+    height: '14px'
+};
+const filledIconAttributes = {
+    ...defaultIconAttributes,
+    fill: 'rgb(var(--venia-teal))'
+};
+const icons = {
     Heart: HeartIcon,
     Edit2: Edit2Icon,
     Trash: TrashIcon
 };
 
-class Section extends Component {
-    static propTypes = {
-        classes: shape({
-            menuItem: string,
-            text: string
-        }),
-        icon: oneOf(['Heart', 'Edit2', 'Trash']),
-        iconAttributes: object,
-        onClick: func,
+const Section = props => {
+    const { icon, isFilled, onClick, text } = props;
+
+    const attributes = isFilled ? filledIconAttributes : defaultIconAttributes;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const iconSrc = icons[icon];
+
+    return (
+        <li className={classes.menuItem}>
+            <button onMouseDown={onClick}>
+                {iconSrc && <Icon src={iconSrc} attrs={attributes} />}
+                <span className={classes.text}>{text}</span>
+            </button>
+        </li>
+    );
+};
+
+Section.propTypes = {
+    classes: shape({
+        menuItem: string,
         text: string
-    };
+    }),
+    icon: oneOf(Object.keys(icons)),
+    isFilled: bool,
+    onClick: func,
+    text: string
+};
 
-    get icon() {
-        const { icon } = this.props;
-        const defaultAttributes = {
-            color: 'rgb(var(--venia-teal))',
-            width: '14px',
-            height: '14px'
-        };
-        const iconAttributes = this.props.iconAttributes
-            ? Object.assign(defaultAttributes, this.props.iconAttributes)
-            : defaultAttributes;
-
-        return icon ? (
-            <Icon src={SectionIcons[icon]} attrs={iconAttributes} />
-        ) : null;
-    }
-
-    render() {
-        const { icon } = this;
-        const { classes, onClick, text } = this.props;
-
-        return (
-            <li className={classes.menuItem}>
-                <button onClick={onClick}>
-                    {icon}
-                    <span className={classes.text}>{text}</span>
-                </button>
-            </li>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Section);
+export default Section;
