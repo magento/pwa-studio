@@ -89,7 +89,7 @@ https://github.com/nodejs/node-gyp#installation`
             // but may fall "outside" the desired height or width. `cover`
             // retains the aspect ratio like `outside` but clips to fit desired
             // height and width.
-            //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
+            //   https://github.com/magento/express-sharp/blob/develop/lib/transform.js#L23
             //   https://sharp.pixelplumbing.com/en/stable/api-resize/
             if (height) {
                 rewrittenUrl += `/${height}`;
