@@ -99,6 +99,8 @@ const CartOptions = props => {
 
     return (
         <Form className={classes.root}>
+            {({ formState, formApi }) => (
+                 <>
             <div className={classes.focusItem}>
                 <span className={classes.name}>{name}</span>
                 <span className={classes.price}>
@@ -111,7 +113,7 @@ const CartOptions = props => {
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>
                     </h2>
-                    <Quantity initialValue={qty} onValueChange={setQuantity} />
+                    <Quantity initialValue={qty} onValueChange={setQuantity} formApi={formApi} formState={formState} />
                 </section>
             </div>
             <div className={classes.save}>
@@ -121,7 +123,7 @@ const CartOptions = props => {
                 <Button
                     priority="high"
                     onClick={handleUpdateClick}
-                    disabled={isMissingOptions}
+                    disabled={isMissingOptions || formState.errors.quantity}
                 >
                     <span>Update Cart</span>
                 </Button>
@@ -129,6 +131,8 @@ const CartOptions = props => {
             <div className={modalClass}>
                 <LoadingIndicator>Updating Cart</LoadingIndicator>
             </div>
+            </>
+            )}
         </Form>
     );
 };

@@ -95,35 +95,6 @@
     composes: section;
     grid-area: quantity;
 }
-.quantity button {
-    height: 36px;
-    background-color: #ccc;
-    border: 0;
-    border-radius: 4px;
-    width: 36px;
-    font-size: 28px;
-    line-height: 1;
-    padding: 1px 0 0px 0;
-    vertical-align: top;
-}
-.quantity button:hover {
-    background-color: #333;
-    color: #fff;
-}
-.quantityInput {
-    width: 70px;
-    text-align: center;
-    height: 36px;
-    border: #333 solid 1px;
-    font-size: 18px;
-    border-radius: 2px;
-    margin: 0 10px;
-}
-
-.errors {
-    color: red;
-    padding-top: 10px;
-}
 
 .quantityTitle {
     composes: title from '../../components/ProductOptions/option.css';
