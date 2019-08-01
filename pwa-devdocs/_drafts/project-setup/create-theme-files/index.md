@@ -53,7 +53,7 @@ In this part of the [Project setup tutorial], you will create the initial files 
         "require": {
             "php": "~7.1.0|~7.2.0",
             "magento/framework": "100.3.*",
-            "magento/theme-frontend-pwa": "*"
+            "magento-research/theme-frontend-pwa": "*"
         },
         "type": "magento2-theme",
         "license": "OSL-3.0",
@@ -91,4 +91,4 @@ Now that you have the basic directory structure for your theme project, you need
 [Magento Marketplace]: https://marketplace.magento.com/
 [install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
 [Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
-[PWA base theme]: https://github.com/magento/theme-frontend-pwa
+[PWA base theme]: https://github.com/magento-research/theme-frontend-pwa
