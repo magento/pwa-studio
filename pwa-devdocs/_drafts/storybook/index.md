@@ -2,6 +2,8 @@
 title: Storybook testing
 ---
 
+<!-- TODO: Update this topic to reflect current usage of Storybook in PWA Studio and recommendations -->
+
 [Storybook][] is an independent application that lets you view and test React components outside of a project.
 It also serves as a library for all the visual components in a project and how they look in isolation under different conditions.
 

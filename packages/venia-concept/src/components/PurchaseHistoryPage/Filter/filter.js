@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { shape, string } from 'prop-types';
 
-import Icon from 'src/components/Icon';
+import Icon from '../../Icon';
 import { Filter as FilterIcon } from 'react-feather';
-import classify from 'src/classify';
+import classify from '../../../classify';
 import defaultClasses from './filter.css';
 
 const FILTER_ICON_ATTRS = {

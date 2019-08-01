@@ -1,5 +1,5 @@
 import purchaseHistoryReducer from '../purchaseHistory';
-import actions from 'src/actions/purchaseHistory';
+import actions from '../../actions/purchaseHistory';
 
 const mockInitialState = { items: [], isFetching: false };
 

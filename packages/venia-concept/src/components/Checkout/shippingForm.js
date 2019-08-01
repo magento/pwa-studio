@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
-import Button from 'src/components/Button';
+import Button from '../Button';
 import Label from './label';
-import Select from 'src/components/Select';
+import Select from '../Select';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './shippingForm.css';
 
 const ShippingForm = props => {

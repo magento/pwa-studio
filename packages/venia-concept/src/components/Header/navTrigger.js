@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'src/drivers';
+import { connect } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
-import classify from 'src/classify';
-import { toggleDrawer } from 'src/actions/app';
+import classify from '../../classify';
+import { toggleDrawer } from '../../actions/app';
 import defaultClasses from './navTrigger.css';
 
 class Trigger extends Component {

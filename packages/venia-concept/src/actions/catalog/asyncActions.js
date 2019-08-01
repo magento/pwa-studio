@@ -1,7 +1,7 @@
 import actions from './actions';
 import mockData from './mockData';
-import { preserveQueryParams } from 'src/util/preserveQueryParams';
-import { persistentQueries } from 'src/shared/persistentQueries';
+import { preserveQueryParams } from '../../util/preserveQueryParams';
+import { persistentQueries } from '../../shared/persistentQueries';
 
 export const serialize = (params, keys = [], isArray = false) => {
     const serialized = Object.keys(params)

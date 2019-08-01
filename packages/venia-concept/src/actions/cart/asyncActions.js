@@ -1,7 +1,7 @@
 import { RestApi, Util } from '@magento/peregrine';
 
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
-import checkoutActions from 'src/actions/checkout';
+import { closeDrawer, toggleDrawer } from '../app';
+import checkoutActions from '../checkout';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -350,6 +350,9 @@ export const getCartDetails = (payload = {}) => {
             // for each item in the cart, look up its image in the cache
             // and merge it into the item object
             // then assign its options from the totals subResource
+            // TODO: If we don't have the image in cache we should probably try
+            // to find it some other way otherwise we have no image to display
+            // in the cart and will have to fall back to a placeholder.
             if (imageCache && Array.isArray(items) && items.length) {
                 const validTotals = totals && totals.items;
                 items.forEach(item => {

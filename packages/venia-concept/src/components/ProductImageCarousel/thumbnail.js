@@ -1,12 +1,15 @@
 import React, { useCallback, useMemo } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
-import { resourceUrl } from 'src/drivers';
-import { mergeClasses } from 'src/classify';
+import { resourceUrl } from '@magento/venia-drivers';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './thumbnail.css';
-import { transparentPlaceholder } from 'src/shared/images';
-import Image from 'src/components/Image';
+import { transparentPlaceholder } from '../../shared/images';
+import Image from '../Image';
 import { useWindowSize } from '@magento/peregrine';
+
+const DEFAULT_THUMBNAIL_WIDTH = 240;
+const DEFAULT_THUMBNAIL_HEIGHT = 300;
 
 const Thumbnail = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -23,7 +26,11 @@ const Thumbnail = props => {
 
     const thumbnailImage = useMemo(() => {
         const src = file
-            ? resourceUrl(file, { type: 'image-product', width: 240 })
+            ? resourceUrl(file, {
+                  type: 'image-product',
+                  width: DEFAULT_THUMBNAIL_WIDTH,
+                  height: DEFAULT_THUMBNAIL_HEIGHT
+              })
             : transparentPlaceholder;
 
         return isDesktop ? (

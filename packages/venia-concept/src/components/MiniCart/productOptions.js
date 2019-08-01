@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
 import defaultClasses from './productOptions.css';
 

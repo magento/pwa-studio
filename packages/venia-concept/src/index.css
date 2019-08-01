@@ -7,6 +7,7 @@
     --venia-anim-in: cubic-bezier(0, 0, 0.2, 1);
     --venia-anim-out: cubic-bezier(0.4, 0, 1, 1);
     --venia-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --venia-background-color: 255, 255, 255;
     --venia-border: 224, 224, 224;
     --venia-error: 192, 18, 63;
     --venia-error-alt: 255, 226, 234;

@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
-import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
+import { getFilterParams } from '../util/getFilterParamsFromUrl';
 
-import actions from 'src/actions/catalog';
+import actions from '../actions/catalog';
 
 export const name = 'catalog';
 

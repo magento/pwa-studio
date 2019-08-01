@@ -3,7 +3,7 @@ import testRenderer from 'react-test-renderer';
 
 import Filter from '../filter';
 
-jest.mock('src/classify');
+jest.mock('../../../../classify');
 
 test('it renders a Filter correctly', () => {
     const component = testRenderer.create(<Filter />);

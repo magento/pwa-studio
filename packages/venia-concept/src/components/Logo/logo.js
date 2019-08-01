@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import logo from './logo.svg';
 
 const Logo = props => {

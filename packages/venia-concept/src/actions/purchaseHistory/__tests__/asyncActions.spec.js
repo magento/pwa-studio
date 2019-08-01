@@ -1,9 +1,9 @@
-import { dispatch } from 'src/store';
+import { dispatch } from '../../../store';
 import actions from '../actions';
 import { getPurchaseHistory } from '../asyncActions';
 import mockData from '../mockData';
 
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch];
 

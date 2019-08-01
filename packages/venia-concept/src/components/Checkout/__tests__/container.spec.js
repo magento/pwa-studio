@@ -1,17 +1,16 @@
 import {
     beginCheckout,
     cancelCheckout,
-    editOrder,
     submitShippingAddress,
     submitOrder,
     submitPaymentMethodAndBillingAddress,
     submitShippingMethod
-} from 'src/actions/checkout';
+} from '../../../actions/checkout';
 
 import ConnectedCheckoutContainer from '../index';
 
-jest.mock('src/classify');
-jest.mock('src/drivers', () => ({
+jest.mock('../../../classify');
+jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
             component,
@@ -34,7 +33,6 @@ test('returns a connected CheckoutContainer component', () => {
     expect(ConnectedCheckoutContainer.mapDispatchToProps).toMatchObject({
         beginCheckout,
         cancelCheckout,
-        editOrder,
         submitShippingAddress,
         submitOrder,
         submitPaymentMethodAndBillingAddress,

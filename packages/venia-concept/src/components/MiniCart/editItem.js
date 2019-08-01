@@ -3,8 +3,8 @@ import { bool, func, object, string } from 'prop-types';
 
 import { useQuery } from '@magento/peregrine';
 
-import LoadingIndicator from 'src/components/LoadingIndicator';
-import PRODUCT_DETAILS from 'src/queries/getProductDetailByName.graphql';
+import LoadingIndicator from '../LoadingIndicator';
+import PRODUCT_DETAILS from '../../queries/getProductDetailByName.graphql';
 
 import CartOptions from './cartOptions';
 

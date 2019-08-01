@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import over from 'lodash.over';
 import uuid from 'uuid/v4';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './toolTip.css';
 
 /**
