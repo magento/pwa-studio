@@ -98,6 +98,6 @@ _Please avoid creating GitHub issues asking for help on bugs in your project tha
 [official repository]: https://github.com/magento/pwa-studio
 [meaningful commit messages]: https://chris.beams.io/posts/git-commit/
 [github issue]: https://github.com/magento/pwa-studio/issues/new
-[magento research]: https://github.com/magento-research
+[magento research]: https://github.com/magento
 [help wanted]: https://github.com/magento/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
 [Venia storefront setup]: {{site.baseurl}}{%link venia-pwa-concept/setup/index.md %}

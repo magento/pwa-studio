@@ -51,7 +51,7 @@ To have composer install this package, add it to the `require` section of the `c
 
 ## Add Venia sample data (optional)
 
-The Venia storefront works best with the Venia sample data installed. There is an [automated script](https://magento-research.github.io/pwa-studio/venia-pwa-concept/install-sample-data/) in the `@magento/venia-concept` package, or you can follow the manual steps here.
+The Venia storefront works best with the Venia sample data installed. There is an [automated script](https://magento.github.io/pwa-studio/venia-pwa-concept/install-sample-data/) in the `@magento/venia-concept` package, or you can follow the manual steps here.
 
 If you are deploying your own custom storefront, you may skip this step and continue to the next section.
 
