@@ -33,7 +33,7 @@ Closes #ISSUE_NUMBER.
 ## Proposed Labels for Change Type/Package
 <!--- What type of change level would you suggest for this PR? -->
 <!--- Major, Minor, or Patch? -->
-<!--- See https://magento.github.io/pwa-studio/technologies/versioning/ for help -->
+<!--- See https://pwastudio.io/technologies/versioning/ for help -->
 - [ ] major (e.g x.0.0 - a breaking change)
 - [ ] minor (e.g 0.x.0 - a backwards compatible addition)
 - [ ] patch (e.g 0.0.x - a bug fix)

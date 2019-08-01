@@ -14,7 +14,7 @@ const exitCodes = {
     FAILURE: 1
 };
 const DOCS_COMPAT_TABLE_PATH =
-    'https://magento.github.io/pwa-studio/technologies/magento-compatibility/';
+    'https://pwastudio.io/technologies/magento-compatibility/';
 const plugin = {
     COMMAND: 'validate-magento-pwa-queries',
     DESCRIPTION:

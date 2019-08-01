@@ -76,8 +76,8 @@ If you have an issue that cannot be resolved, please [create an issue][].
 [documentation site]: https://pwastudio.io
 [Git hook]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
 [NPM]: https://www.npmjs.com/org/magento
-[Troubleshooting]: https://magento.github.io/pwa-studio/pwa-buildpack/troubleshooting/
-[Venia storefront setup]: https://magento.github.io/pwa-studio/venia-pwa-concept/setup/
+[Troubleshooting]: https://pwastudio.io/pwa-buildpack/troubleshooting/
+[Venia storefront setup]: https://pwastudio.io/venia-pwa-concept/setup/
 [workspace commands]: https://yarnpkg.com/en/docs/cli/workspace
 [Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
 

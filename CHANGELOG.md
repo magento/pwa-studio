@@ -133,10 +133,10 @@ This is the easiest way to work with the released versions of PWA Studio.
 To upgrade to 3.0.0, update the project's `package.json` file and change the dependency version for PWA Studio.
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
-[client side caching topic]: https://magento.github.io/pwa-studio/technologies/basic-concepts/client-side-caching/
+[client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
 [`venia-upward.yml`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
-[hello upward]: https://magento.github.io/pwa-studio/tutorials/hello-upward/simple-server/
-[magento compatibility table]: https://magento.github.io/pwa-studio/technologies/magento-compatibility/
+[hello upward]: https://pwastudio.io/tutorials/hello-upward/simple-server/
+[magento compatibility table]: https://pwastudio.io/technologies/magento-compatibility/
 [react hooks]: https://reactjs.org/docs/hooks-intro.html
 [#1253]: https://github.com/magento/pwa-studio/pull/1253
 [#1177]: https://github.com/magento/pwa-studio/pull/1177
