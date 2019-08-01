@@ -13,14 +13,14 @@ const Quantity = props => {
         var currentQuantity = parseInt(formApi.getValue('quantity')) || 0;
         const incrementedQty = currentQuantity + 1;
         formApi.setValue('quantity', incrementedQty);
-        props.onValueChange(formApi.getValue('quantity'));
+        onValueChange(formApi.getValue('quantity'));
     };
 
     const decrementQty = formApi => {
         var currentQuantity = parseInt(formApi.getValue('quantity')) || 0;
         const decrementedQty = currentQuantity - 1;
         formApi.setValue('quantity', decrementedQty);
-        props.onValueChange(formApi.getValue('quantity'));
+        onValueChange(formApi.getValue('quantity'));
     };
 
     const validateQuantity = value => {
@@ -47,7 +47,7 @@ const Quantity = props => {
                     className={classes.quantityField}
                 />
                 <button
-                    disabled={initialValue <= 1 ? true : false}
+                    disabled={formApi.getValue('quantity') <= 1 ? true : false}
                     aria-label="Quantity Decrement"
                     type="button"
                     onClick={() => {

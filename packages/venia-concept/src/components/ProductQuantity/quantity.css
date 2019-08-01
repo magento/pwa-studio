@@ -18,6 +18,12 @@
     background: #333;
     color: #fff;
 }
+
+.quantityFieldbox button:disabled:focus,
+.quantityFieldbox button:disabled {
+    background: #ccc;
+    color: #000;
+}
 .quantityField {
     padding: 8px 10px;
     height: 36px;
@@ -34,3 +40,4 @@
     color: red;
     padding-top: 10px;
 }
+
