@@ -195,4 +195,4 @@ If you are contributing to the PWA Studio project and want to add new functional
 [twelve-factor app]: https://12factor.net/config 
 [envalid]: https://npmjs.com/package/envalid
 [camelspace]: https://npmjs.com/package/camelspace
-[`packages/pwa-buildpack/envvardefinitions.json`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
+[`packages/pwa-buildpack/envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
