@@ -1,0 +1,1 @@
+Testing Magento CLA after repo move from magento-research to magento.
