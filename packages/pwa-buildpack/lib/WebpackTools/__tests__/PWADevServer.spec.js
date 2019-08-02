@@ -7,6 +7,8 @@ jest.mock('../../Utilities/configureHost');
 const fs = require('fs');
 jest.spyOn(fs, 'readFile');
 
+const mockContext = require('path').resolve(__dirname, '../../../../../');
+
 const debugErrorMiddleware = require('debug-error-middleware');
 const waitForExpect = require('wait-for-expect');
 const portscanner = require('portscanner');
@@ -58,18 +60,13 @@ afterEach(() => {
 });
 
 test('.configure() returns a configuration object for the `devServer` property of a webpack config', async () => {
-    const devServer = await PWADevServer.configure({
+    const devServer = await PWADevServer.configure(mockContext, {
         publicPath: 'full/path/to/publicPath'
     });
 
     expect(devServer).toMatchObject({
-        contentBase: false,
-        compress: true,
-        hot: true,
         host: '0.0.0.0',
-        port: expect.any(Number),
-        stats: expect.objectContaining({ all: false }),
-        after: expect.any(Function)
+        port: expect.any(Number)
     });
 
     expect(console.warn).toHaveBeenCalledWith(
@@ -78,7 +75,7 @@ test('.configure() returns a configuration object for the `devServer` property o
 });
 
 test('.configure() logs that a custom origin has not yet been created', async () => {
-    const server = await PWADevServer.configure({
+    const server = await PWADevServer.configure(mockContext, {
         publicPath: 'bork',
         customOrigin: {
             enabled: true
@@ -96,7 +93,7 @@ test('.configure() logs that a custom origin has not yet been created', async ()
 
 test('.configure() creates a project-unique host if customOrigin config set in env', async () => {
     simulate.uniqueHostProvided().portIsFree();
-    const server = await PWADevServer.configure({
+    const server = await PWADevServer.configure(mockContext, {
         publicPath: 'bork',
         customOrigin: {
             enabled: true
@@ -118,7 +115,7 @@ test('.configure() creates a project-unique host if customOrigin config set in e
 
 test('.configure() lets devServer.host override customOrigin.host', async () => {
     simulate.uniqueHostProvided().portIsFree();
-    const server = await PWADevServer.configure({
+    const server = await PWADevServer.configure(mockContext, {
         publicPath: 'bork',
         customOrigin: {
             enabled: true
@@ -142,7 +139,7 @@ test('.configure() lets devServer.host override customOrigin.host', async () => 
 });
 test('.configure() falls back to an open port if desired port is not available, and warns', async () => {
     simulate.uniqueHostProvided().portIsInUse();
-    const server = await PWADevServer.configure({
+    const server = await PWADevServer.configure(mockContext, {
         publicPath: 'bork',
         customOrigin: {
             enabled: true
@@ -164,7 +161,7 @@ test('.configure() falls back to an open port if desired port is not available, 
 
 test('.configure() allows customization of provided host', async () => {
     simulate.uniqueHostProvided().portIsFree();
-    await PWADevServer.configure({
+    await PWADevServer.configure(mockContext, {
         publicPath: 'bork',
         customOrigin: {
             enabled: true,
@@ -172,6 +169,7 @@ test('.configure() allows customization of provided host', async () => {
         }
     });
     expect(configureHost).toHaveBeenCalledWith(
+        mockContext,
         expect.objectContaining({
             exactDomain: 'flippy.bird'
         })
@@ -186,7 +184,7 @@ test('debugErrorMiddleware and notifier attached', async () => {
     const debugMiddleware = () => {};
     debugErrorMiddleware.express.mockReturnValueOnce(debugMiddleware);
 
-    const devServer = await PWADevServer.configure(config);
+    const devServer = await PWADevServer.configure(mockContext, config);
 
     expect(devServer.after).toBeInstanceOf(Function);
     const app = {
@@ -225,7 +223,7 @@ test('graphql-playground middleware attached', async () => {
     const middleware = jest.fn();
     playgroundMiddleware.mockReturnValueOnce(middleware);
 
-    const devServer = await PWADevServer.configure(config);
+    const devServer = await PWADevServer.configure(mockContext, config);
 
     expect(devServer.before).toBeInstanceOf(Function);
     const app = {
@@ -317,7 +315,7 @@ test('graphql-playground middleware handles error during project query read', as
     const middleware = jest.fn();
     playgroundMiddleware.mockReturnValueOnce(middleware);
 
-    const devServer = await PWADevServer.configure(config);
+    const devServer = await PWADevServer.configure(mockContext, config);
 
     expect(devServer.before).toBeInstanceOf(Function);
     const app = {
@@ -367,7 +365,7 @@ test('graphql-playground middleware handles error during project query read', as
 });
 
 test('.configure() allows a `public` override', async () => {
-    const devServer = await PWADevServer.configure({
+    const devServer = await PWADevServer.configure(mockContext, {
         publicPath: 'full/path/to/publicPath',
         devServer: {
             public: 'docker.local'

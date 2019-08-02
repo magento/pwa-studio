@@ -6,7 +6,7 @@ const configureHost = require('../Utilities/configureHost');
 const loadEnvironment = require('../Utilities/loadEnvironment');
 
 beforeEach(() => {
-    configureHost.mockImplementation(({ exactDomain }) => ({
+    configureHost.mockImplementation((dir, { exactDomain }) => ({
         hostname: `https://${exactDomain}`,
         ports: {
             development: 9999,
@@ -41,6 +41,7 @@ test('runs configureHost from environment settings in passed directory', async (
     expect(process.chdir).not.toHaveBeenCalled();
     expect(loadEnvironment).toHaveBeenCalledWith(process.cwd());
     expect(configureHost).toHaveBeenCalledWith(
+        expect.any(String),
         expect.objectContaining({
             interactive: true,
             exactDomain: 'fake.domain'
@@ -49,24 +50,6 @@ test('runs configureHost from environment settings in passed directory', async (
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching('cert for https://fake.domain')
     );
-});
-
-test('changes to passed directory to run configureHost', async () => {
-    loadEnvironment.mockReturnValueOnce({
-        section: () => ({
-            exactDomain: 'fake2.domain'
-        })
-    });
-
-    await createCustomOriginBuilder.handler({ directory: 'path/to/elsewhere' });
-    expect(process.chdir).toHaveBeenNthCalledWith(
-        1,
-        expect.stringMatching(/path\/to\/elsewhere$/)
-    );
-    expect(loadEnvironment).toHaveBeenCalledWith(
-        process.chdir.mock.calls[0][0]
-    );
-    expect(process.chdir).toHaveBeenNthCalledWith(2, process.cwd());
 });
 
 test('errors out if environment is invalid', async () => {

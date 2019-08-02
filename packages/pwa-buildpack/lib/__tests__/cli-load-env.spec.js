@@ -1,14 +1,13 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
 const dotenv = require('dotenv');
-let loadEnvCliBuilder;
+const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
 
 beforeEach(() => {
     jest.spyOn(process, 'exit').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    loadEnvCliBuilder = require('../cli/load-env');
 });
 afterEach(() => {
     jest.resetAllMocks();
@@ -20,6 +19,16 @@ test('is a yargs builder', () => {
         describe: expect.stringContaining('environment'),
         handler: expect.any(Function)
     });
+});
+
+test('handler exits nonzero on errors', () => {
+    // missing required variables
+    dotenv.config.mockReturnValueOnce({
+        parsed: {}
+    });
+    loadEnvCliBuilder.handler({ directory: '.' });
+    expect(process.exit).toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalled();
 });
 
 test('handler loads from dotenv file', () => {

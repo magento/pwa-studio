@@ -9,10 +9,6 @@ module.exports.describe =
 
 module.exports.handler = async function buildpackCli({ directory }) {
     const projectRoot = resolve(directory);
-    const workDir = process.cwd();
-    if (workDir !== projectRoot) {
-        process.chdir(projectRoot);
-    }
     try {
         const projectConfig = loadEnvironment(projectRoot);
         if (projectConfig.error) {
@@ -33,7 +29,7 @@ module.exports.handler = async function buildpackCli({ directory }) {
             // eslint-disable-next-line no-process-exit
             process.exit(1);
         }
-        const { hostname, ports } = await configureHost({
+        const { hostname, ports } = await configureHost(projectRoot, {
             ...config,
             interactive: true
         });
@@ -42,10 +38,9 @@ module.exports.handler = async function buildpackCli({ directory }) {
                 ports.development
             } and staging server will run on port ${ports.staging}.`
         );
-    } finally {
-        // change back if we changed directories
-        if (workDir !== projectRoot) {
-            process.chdir(workDir);
-        }
+    } catch (e) {
+        prettyLogger.error(e.message);
+        // eslint-disable-next-line no-process-exit
+        process.exit(2);
     }
 };

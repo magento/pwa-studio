@@ -1,4 +1,5 @@
-process.chdir(__dirname);
+const path = require('path');
+process.chdir(path.resolve(__dirname, 'dist'));
 const { bestPractices, createUpwardServer } = require('@magento/upward-js');
 
 const loadEnvironment = require('@magento/pwa-buildpack/lib/Utilities/loadEnvironment');

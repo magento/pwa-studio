@@ -35,6 +35,7 @@ class UpwardMiddleware {
             let response;
             try {
                 response = await buildResponse(
+                    this.upwardPath,
                     this.io,
                     this.env,
                     this.definition,

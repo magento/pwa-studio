@@ -33,7 +33,7 @@ const helpText = `
 `;
 
 const PWADevServer = {
-    async configure(config) {
+    async configure(context, config) {
         debug('configure() invoked', config);
         const {
             devServer = {},
@@ -45,9 +45,10 @@ const PWADevServer = {
         } = config;
 
         const webpackDevServerOptions = {
-            contentBase: false, // UpwardPlugin serves static files
+            contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
+            writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
                 poll: !!parseInt(devServer.watchOptionsUsePolling) || false
@@ -55,17 +56,7 @@ const PWADevServer = {
             host: '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: {
-                all: false,
-                builtAt: true,
-                colors: true,
-                errors: true,
-                errorDetails: true,
-                moduleTrace: true,
-                timings: true,
-                version: true,
-                warnings: true
-            },
+            stats: 'normal',
             after(app, server) {
                 app.use(debugErrorMiddleware());
                 let readyNotice = chalk.green(
@@ -115,6 +106,7 @@ const PWADevServer = {
                 webpackDevServerOptions.host = host;
             } else {
                 const customOriginConfig = await configureHost(
+                    context,
                     Object.assign(customOrigin, {
                         interactive: false
                     })
@@ -181,7 +173,7 @@ const PWADevServer = {
                                             'utf8'
                                         );
                                         const name = relative(
-                                            process.cwd(),
+                                            context,
                                             queryFile
                                         );
                                         return {
