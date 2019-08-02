@@ -67,11 +67,7 @@ class Swatch extends Component {
         });
 
         return (
-            <button
-                {...restProps}
-                className={className}
-                style={finalStyle}
-            >
+            <button {...restProps} className={className} style={finalStyle}>
                 {icon}
             </button>
         );

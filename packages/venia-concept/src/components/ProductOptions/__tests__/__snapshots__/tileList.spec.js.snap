@@ -4,23 +4,15 @@ exports[`renders TileList component correctly 1`] = `
 <div
   className="root"
 >
-  <div
+  <button
     className="root"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
   >
-    <button
-      aria-describedby="00000000-0000-0000-0000-000000000000"
-      className="root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-    >
-      <span>
-        foo
-      </span>
-    </button>
-  </div>
+    <span>
+      foo
+    </span>
+  </button>
 </div>
 `;

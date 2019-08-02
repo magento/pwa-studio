@@ -39,11 +39,9 @@ class Tile extends Component {
         const { label } = item;
 
         return (
-
             <button {...restProps} className={className}>
                 <span>{label}</span>
             </button>
-
         );
     }
 }
