@@ -3,7 +3,6 @@ import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
 import classify from '../../classify';
 import Icon from '../Icon';
-import Tooltip from './toolTip';
 import { Check as CheckIcon } from 'react-feather';
 
 import defaultClasses from './swatch.css';
@@ -53,7 +52,7 @@ class Swatch extends Component {
         } = props;
 
         const className = classes[getClassName('root', isSelected, hasFocus)];
-        const { label, value_index } = item;
+        const { value_index } = item;
 
         // TODO: use the colors from graphQL when they become available.
         const randomColor = memoizedGetRandomColor(value_index);

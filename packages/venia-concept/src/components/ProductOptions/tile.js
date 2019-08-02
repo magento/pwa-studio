@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bool, number, shape, string } from 'prop-types';
 
 import classify from '../../classify';
-import Tooltip from './toolTip';
 import defaultClasses from './tile.css';
 
 const getClassName = (name, isSelected, hasFocus) =>

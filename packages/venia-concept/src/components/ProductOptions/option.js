@@ -58,7 +58,7 @@ class Option extends Component {
     render() {
         const { handleSelectionChange, listComponent: ValueList, props } = this;
         const { classes, label, values } = props;
-        let selectedValue = this.state.optionSelection;
+        const selectedValue = this.state.optionSelection;
         return (
             <div className={classes.root}>
                 <h3 className={classes.title}>
