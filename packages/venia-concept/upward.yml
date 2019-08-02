@@ -1,7 +1,7 @@
 # This is the UPWARD specification file for the Venia storefront.
 # It is used by an UPWARD server implementation, such as upward-js and
 # upward-php, to describe how the server responds to requests.
-# See: https://magento-research.github.io/pwa-studio/technologies/upward/
+# See: https://pwastudio.io/technologies/upward/
 
 # The root properties of an UPWARD spec file are part of a global context
 # that includes request and environment data.

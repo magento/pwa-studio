@@ -9,7 +9,7 @@
   "scripts": {
     "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -19,9 +19,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-spec#readme",
   "dependencies": {
     "apollo-server": "~2.4.6",
     "chalk": "~2.4.2",

@@ -5,7 +5,7 @@ let files = [].concat(peregrineFiles, veniaConceptFiles);
 
 module.exports = {
     baseGitHubPath:
-        'github.com/magento-research/pwa-studio/blob/master/',
+        'github.com/magento/pwa-studio/blob/develop/',
     packagesPath: 'packages',
     includesPath: 'src/_includes/auto-generated',
     files: files

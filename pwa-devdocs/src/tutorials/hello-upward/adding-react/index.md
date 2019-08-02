@@ -173,4 +173,4 @@ When you navigate to the server, you will see the React application render the "
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [babel]: https://babeljs.io/
 [webpack]: https://webpack.js.org/
-[FileResolver]: https://github.com/magento-research/pwa-studio/tree/develop/packages/upward-spec#fileresolver
+[FileResolver]: https://github.com/magento/pwa-studio/tree/develop/packages/upward-spec#fileresolver

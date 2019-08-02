@@ -9,13 +9,13 @@
   "scripts": {
     "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
     "intl": "~1.2.5",
     "react": "~16.8.3",
