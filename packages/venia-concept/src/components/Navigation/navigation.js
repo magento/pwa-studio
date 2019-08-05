@@ -20,6 +20,7 @@ const Navigation = props => {
     const {
         categories,
         closeDrawer,
+        createAccount,
         getUserDetails,
         isSignedIn,
         isOpen,
@@ -103,10 +104,12 @@ const Navigation = props => {
             </div>
             <div className={modalClassName}>
                 <AuthModal
+                    createAccount={createAccount}
                     showCreateAccount={showCreateAccount}
                     showForgotPassword={showForgotPassword}
                     showMyAccount={showMyAccount}
                     showSignIn={showSignIn}
+                    user={user}
                     view={view}
                 />
             </div>

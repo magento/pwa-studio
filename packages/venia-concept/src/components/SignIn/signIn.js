@@ -1,144 +1,226 @@
-import React, { Component } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import { mergeClasses } from 'src/classify';
 import Button from 'src/components/Button';
 import Field from 'src/components/Field';
 import LoadingIndicator from 'src/components/LoadingIndicator';
 import TextInput from 'src/components/TextInput';
-
 import { isRequired } from 'src/util/formValidators';
 
 import defaultClasses from './signIn.css';
-import classify from 'src/classify';
 
-class SignIn extends Component {
-    static propTypes = {
-        classes: shape({
-            forgotPassword: string,
-            form: string,
-            modal: string,
-            modal_active: string,
-            root: string,
-            showCreateAccountButton: string,
-            signInDivider: string,
-            signInError: string,
-            signInSection: string
-        }),
-        isGettingDetails: bool,
-        isSigningIn: bool,
-        onForgotPassword: func.isRequired,
-        setDefaultUsername: func,
-        signIn: func,
-        signInError: object
-    };
+const SignIn = props => {
+    const {
+        isGettingDetails,
+        isSigningIn,
+        setDefaultUsername,
+        showCreateAccount,
+        signIn
+    } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const formRef = useRef(null);
 
-    get errorMessage() {
-        const { signInError } = this.props;
-        const hasError = signInError && Object.keys(signInError).length;
+    const handleSubmit = useCallback(
+        ({ email: username, password }) => {
+            if (typeof signIn === 'function') {
+                signIn({ username, password });
+            }
+        },
+        [signIn]
+    );
 
-        if (hasError) {
-            // Note: we can't access the actual message that comes back from the server
-            // without doing some fragile string manipulation. Hardcoded for now.
-            return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
-        }
+    const handleCreateAccount = useCallback(() => {
+        const { current: form } = formRef;
+
+        if (!form) return;
+
+        const email = form.formApi.getValue('email');
+
+        setDefaultUsername(email);
+        showCreateAccount();
+    }, []);
+
+    if (isGettingDetails || isSigningIn) {
+        return (
+            <div className={classes.modal_active}>
+                <LoadingIndicator>{'Signing In'}</LoadingIndicator>
+            </div>
+        );
     }
 
-    render() {
-        const { classes, isGettingDetails, isSigningIn } = this.props;
-        const { onSignIn, errorMessage } = this;
-
-        if (isGettingDetails || isSigningIn) {
-            return (
-                <div className={classes.modal_active}>
-                    <LoadingIndicator>Signing In</LoadingIndicator>
+    return (
+        <div className={classes.root}>
+            <Form
+                ref={formRef}
+                className={classes.form}
+                onSubmit={handleSubmit}
+            >
+                <Field label="Email" required={true}>
+                    <TextInput
+                        autoComplete="email"
+                        field="email"
+                        validate={isRequired}
+                    />
+                </Field>
+                <Field label="Password" required={true}>
+                    <TextInput
+                        autoComplete="current-password"
+                        field="password"
+                        type="password"
+                        validate={isRequired}
+                    />
+                </Field>
+                <div className={classes.signInButton}>
+                    <Button priority="high" type="submit">
+                        {'Sign In'}
+                    </Button>
                 </div>
-            );
-        } else {
-            return (
-                <div className={classes.root}>
-                    <Form
-                        className={classes.form}
-                        getApi={this.setFormApi}
-                        onSubmit={onSignIn}
-                    >
-                        <Field label="Email" required={true}>
-                            <TextInput
-                                autoComplete="email"
-                                field="email"
-                                validate={isRequired}
-                                validateOnBlur
-                            />
-                        </Field>
-                        <Field label="Password" required={true}>
-                            <TextInput
-                                autoComplete="current-password"
-                                field="password"
-                                type="password"
-                                validate={isRequired}
-                                validateOnBlur
-                            />
-                        </Field>
-                        <div className={classes.signInButton}>
-                            <Button priority="high" type="submit">
-                                Sign In
-                            </Button>
-                        </div>
-                        <div className={classes.signInError}>
-                            {errorMessage}
-                        </div>
-                        <button
-                            type="button"
-                            className={classes.forgotPassword}
-                            onClick={this.handleForgotPassword}
-                        >
-                            Forgot password?
-                        </button>
-                    </Form>
-                    <div className={classes.signInDivider} />
-                    <div className={classes.showCreateAccountButton}>
-                        <Button
-                            priority="high"
-                            onClick={this.showCreateAccountForm}
-                        >
-                            Create an Account
-                        </Button>
-                    </div>
-                </div>
-            );
-        }
-    }
+            </Form>
+            <div className={classes.signInDivider} />
+            <div className={classes.createAccountButton}>
+                <Button
+                    priority="normal"
+                    type="button"
+                    onClick={handleCreateAccount}
+                >
+                    {'Create an Account'}
+                </Button>
+            </div>
+        </div>
+    );
+};
 
-    handleForgotPassword = () => {
-        const username = this.formApi.getValue('email');
+export default SignIn;
 
-        if (this.props.setDefaultUsername) {
-            this.props.setDefaultUsername(username);
-        }
+// class SignIn extends Component {
+//     static propTypes = {
+//         classes: shape({
+//             forgotPassword: string,
+//             form: string,
+//             modal: string,
+//             modal_active: string,
+//             root: string,
+//             showCreateAccountButton: string,
+//             signInDivider: string,
+//             signInError: string,
+//             signInSection: string
+//         }),
+//         isGettingDetails: bool,
+//         isSigningIn: bool,
+//         onForgotPassword: func.isRequired,
+//         setDefaultUsername: func,
+//         signIn: func,
+//         signInError: object
+//     };
 
-        this.props.onForgotPassword();
-    };
+//     get errorMessage() {
+//         const { signInError } = this.props;
+//         const hasError = signInError && Object.keys(signInError).length;
 
-    onSignIn = () => {
-        const username = this.formApi.getValue('email');
-        const password = this.formApi.getValue('password');
+//         if (hasError) {
+//             // Note: we can't access the actual message that comes back from the server
+//             // without doing some fragile string manipulation. Hardcoded for now.
+//             return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
+//         }
+//     }
 
-        this.props.signIn({ username, password });
-    };
+//     render() {
+//         const { classes, isGettingDetails, isSigningIn } = this.props;
+//         const { onSignIn, errorMessage } = this;
 
-    setFormApi = formApi => {
-        this.formApi = formApi;
-    };
+//         if (isGettingDetails || isSigningIn) {
+//             return (
+//                 <div className={classes.modal_active}>
+//                     <LoadingIndicator>Signing In</LoadingIndicator>
+//                 </div>
+//             );
+//         } else {
+//             return (
+//                 <div className={classes.root}>
+//                     <Form
+//                         className={classes.form}
+//                         getApi={this.setFormApi}
+//                         onSubmit={onSignIn}
+//                     >
+//                         <Field label="Email" required={true}>
+//                             <TextInput
+//                                 autoComplete="email"
+//                                 field="email"
+//                                 validate={isRequired}
+//                                 validateOnBlur
+//                             />
+//                         </Field>
+//                         <Field label="Password" required={true}>
+//                             <TextInput
+//                                 autoComplete="current-password"
+//                                 field="password"
+//                                 type="password"
+//                                 validate={isRequired}
+//                                 validateOnBlur
+//                             />
+//                         </Field>
+//                         <div className={classes.signInButton}>
+//                             <Button priority="high" type="submit">
+//                                 Sign In
+//                             </Button>
+//                         </div>
+//                         <div className={classes.signInError}>
+//                             {errorMessage}
+//                         </div>
+//                         <button
+//                             type="button"
+//                             className={classes.forgotPassword}
+//                             onClick={this.handleForgotPassword}
+//                         >
+//                             Forgot password?
+//                         </button>
+//                     </Form>
+//                     <div className={classes.signInDivider} />
+//                     <div className={classes.showCreateAccountButton}>
+//                         <Button
+//                             priority="high"
+//                             onClick={this.showCreateAccountForm}
+//                         >
+//                             Create an Account
+//                         </Button>
+//                     </div>
+//                 </div>
+//             );
+//         }
+//     }
 
-    showCreateAccountForm = () => {
-        const username = this.formApi.getValue('email');
+//     handleForgotPassword = () => {
+//         const username = this.formApi.getValue('email');
 
-        if (this.props.setDefaultUsername) {
-            this.props.setDefaultUsername(username);
-        }
+//         if (this.props.setDefaultUsername) {
+//             this.props.setDefaultUsername(username);
+//         }
 
-        this.props.showCreateAccountForm();
-    };
-}
+//         this.props.onForgotPassword();
+//     };
 
-export default classify(defaultClasses)(SignIn);
+//     onSignIn = () => {
+//         const username = this.formApi.getValue('email');
+//         const password = this.formApi.getValue('password');
+
+//         this.props.signIn({ username, password });
+//     };
+
+//     setFormApi = formApi => {
+//         this.formApi = formApi;
+//     };
+
+//     showCreateAccountForm = () => {
+//         const username = this.formApi.getValue('email');
+
+//         if (this.props.setDefaultUsername) {
+//             this.props.setDefaultUsername(username);
+//         }
+
+//         this.props.showCreateAccountForm();
+//     };
+// }
+
+// export default classify(defaultClasses)(SignIn);

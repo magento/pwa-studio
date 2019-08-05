@@ -27,6 +27,7 @@ class CreateAccount extends Component {
             root: string,
             subscribe: string
         }),
+        createAccount: func.isRequired,
         createAccountError: shape({
             message: string
         }),
@@ -64,10 +65,11 @@ class CreateAccount extends Component {
     }
 
     handleSubmit = values => {
-        const { onSubmit } = this.props;
+        const { createAccount } = this.props;
 
-        if (typeof onSubmit === 'function') {
-            onSubmit(values);
+        console.log('submit', values);
+        if (typeof createAccount === 'function') {
+            createAccount(values);
         }
     };
 
