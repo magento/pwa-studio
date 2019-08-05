@@ -73,5 +73,3 @@ test('onFocus function is memoized on setFocus prop', () => {
 
     expect(firstOnFocus).not.toEqual(renderer.root.children[0].props.onFocus);
 });
-
-
