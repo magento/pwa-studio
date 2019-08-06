@@ -38,7 +38,7 @@ class UpwardIncludePlugin {
         };
         this.dirs = new Set([...this.upwardDirs, context]);
         const definitions = await Promise.all(
-            [...this.dirs].map(async dir => {
+            Array.from(this.dirs, async dir => {
                 const definition = await this.readUpwardFile(dir);
                 await this.populateAssetMap(dir, definition);
                 return definition;
