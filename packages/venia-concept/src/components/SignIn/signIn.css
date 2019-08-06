@@ -63,5 +63,5 @@
 }
 
 .signInError:empty {
-    background-color: transparent;
+    display: none;
 }
