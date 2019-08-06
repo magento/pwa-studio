@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
+    "@testing-library/react-hooks": "~1.1.0",
     "intl": "~1.2.5",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",
