@@ -5,6 +5,7 @@ const walk = require('klaw');
 const directiveParser = require('@magento/directive-parser');
 const VirtualModulePlugin = require('virtual-module-webpack-plugin');
 const { isAbsolute, join, relative } = require('path');
+const micromatch = require('micromatch');
 
 const prettyLogger = require('../../util/pretty-logger');
 
@@ -58,11 +59,13 @@ class RootComponentsPlugin {
         }).apply(this.compiler);
     }
     findRootComponentsIn(dir) {
+        const ignore = this.opts.ignore || ['__*__'];
         return new Promise(resolve => {
             const jsFiles = [];
             const done = () => resolve(jsFiles);
             const fs = this.fs;
             walk(dir, {
+                filter: x => !micromatch.some(x, ignore, { basename: true }),
                 fs: {
                     readdir: fs.readdir.bind(fs),
                     stat: fs.stat.bind(fs)
