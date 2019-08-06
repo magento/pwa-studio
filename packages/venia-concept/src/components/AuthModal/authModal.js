@@ -58,9 +58,9 @@ const AuthForm = props => {
         case 'SIGN_IN': {
             child = (
                 <SignIn
-                    onForgotPassword={showForgotPassword}
                     setDefaultUsername={setUsername}
                     showCreateAccount={showCreateAccount}
+                    showForgotPassword={showForgotPassword}
                     showMyAccount={showMyAccount}
                 />
             );

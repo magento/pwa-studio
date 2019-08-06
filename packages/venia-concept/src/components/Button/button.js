@@ -12,9 +12,10 @@ export class Button extends Component {
             content: string,
             root: string,
             root_highPriority: string,
+            root_lowPriority: string,
             root_normalPriority: string
         }).isRequired,
-        priority: oneOf(['high', 'normal']).isRequired,
+        priority: oneOf(['high', 'low', 'normal']).isRequired,
         type: oneOf(['button', 'reset', 'submit']).isRequired
     };
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from 'src/classify';
@@ -11,25 +11,44 @@ import { isRequired } from 'src/util/formValidators';
 
 import defaultClasses from './signIn.css';
 
+// Note: we can't access the actual message that comes back from the server
+// without doing some fragile string manipulation. Hardcoded for now.
+const ERROR_MESSAGE =
+    'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
+
 const SignIn = props => {
     const {
         isGettingDetails,
         isSigningIn,
         setDefaultUsername,
         showCreateAccount,
-        signIn
+        showForgotPassword,
+        signIn,
+        signInError
     } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+
     const formRef = useRef(null);
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const hasError = signInError && Object.keys(signInError).length;
+    const errorMessage = hasError ? ERROR_MESSAGE : null;
 
     const handleSubmit = useCallback(
         ({ email: username, password }) => {
-            if (typeof signIn === 'function') {
-                signIn({ username, password });
-            }
+            signIn({ username, password });
         },
         [signIn]
     );
+
+    const handleForgotPassword = useCallback(() => {
+        const { current: form } = formRef;
+
+        if (!form) return;
+
+        const email = form.formApi.getValue('email');
+
+        setDefaultUsername(email);
+        showForgotPassword();
+    }, [setDefaultUsername, showForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
         const { current: form } = formRef;
@@ -40,8 +59,9 @@ const SignIn = props => {
 
         setDefaultUsername(email);
         showCreateAccount();
-    }, []);
+    }, [setDefaultUsername, showCreateAccount]);
 
+    // if a request is in progress, avoid rendering the form
     if (isGettingDetails || isSigningIn) {
         return (
             <div className={classes.modal_active}>
@@ -78,6 +98,16 @@ const SignIn = props => {
                     </Button>
                 </div>
             </Form>
+            <div className={classes.signInError}>{errorMessage}</div>
+            <div className={classes.forgotPasswordButton}>
+                <Button
+                    priority="low"
+                    type="button"
+                    onClick={handleForgotPassword}
+                >
+                    {'Forgot Password?'}
+                </Button>
+            </div>
             <div className={classes.signInDivider} />
             <div className={classes.createAccountButton}>
                 <Button
@@ -94,133 +124,21 @@ const SignIn = props => {
 
 export default SignIn;
 
-// class SignIn extends Component {
-//     static propTypes = {
-//         classes: shape({
-//             forgotPassword: string,
-//             form: string,
-//             modal: string,
-//             modal_active: string,
-//             root: string,
-//             showCreateAccountButton: string,
-//             signInDivider: string,
-//             signInError: string,
-//             signInSection: string
-//         }),
-//         isGettingDetails: bool,
-//         isSigningIn: bool,
-//         onForgotPassword: func.isRequired,
-//         setDefaultUsername: func,
-//         signIn: func,
-//         signInError: object
-//     };
-
-//     get errorMessage() {
-//         const { signInError } = this.props;
-//         const hasError = signInError && Object.keys(signInError).length;
-
-//         if (hasError) {
-//             // Note: we can't access the actual message that comes back from the server
-//             // without doing some fragile string manipulation. Hardcoded for now.
-//             return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
-//         }
-//     }
-
-//     render() {
-//         const { classes, isGettingDetails, isSigningIn } = this.props;
-//         const { onSignIn, errorMessage } = this;
-
-//         if (isGettingDetails || isSigningIn) {
-//             return (
-//                 <div className={classes.modal_active}>
-//                     <LoadingIndicator>Signing In</LoadingIndicator>
-//                 </div>
-//             );
-//         } else {
-//             return (
-//                 <div className={classes.root}>
-//                     <Form
-//                         className={classes.form}
-//                         getApi={this.setFormApi}
-//                         onSubmit={onSignIn}
-//                     >
-//                         <Field label="Email" required={true}>
-//                             <TextInput
-//                                 autoComplete="email"
-//                                 field="email"
-//                                 validate={isRequired}
-//                                 validateOnBlur
-//                             />
-//                         </Field>
-//                         <Field label="Password" required={true}>
-//                             <TextInput
-//                                 autoComplete="current-password"
-//                                 field="password"
-//                                 type="password"
-//                                 validate={isRequired}
-//                                 validateOnBlur
-//                             />
-//                         </Field>
-//                         <div className={classes.signInButton}>
-//                             <Button priority="high" type="submit">
-//                                 Sign In
-//                             </Button>
-//                         </div>
-//                         <div className={classes.signInError}>
-//                             {errorMessage}
-//                         </div>
-//                         <button
-//                             type="button"
-//                             className={classes.forgotPassword}
-//                             onClick={this.handleForgotPassword}
-//                         >
-//                             Forgot password?
-//                         </button>
-//                     </Form>
-//                     <div className={classes.signInDivider} />
-//                     <div className={classes.showCreateAccountButton}>
-//                         <Button
-//                             priority="high"
-//                             onClick={this.showCreateAccountForm}
-//                         >
-//                             Create an Account
-//                         </Button>
-//                     </div>
-//                 </div>
-//             );
-//         }
-//     }
-
-//     handleForgotPassword = () => {
-//         const username = this.formApi.getValue('email');
-
-//         if (this.props.setDefaultUsername) {
-//             this.props.setDefaultUsername(username);
-//         }
-
-//         this.props.onForgotPassword();
-//     };
-
-//     onSignIn = () => {
-//         const username = this.formApi.getValue('email');
-//         const password = this.formApi.getValue('password');
-
-//         this.props.signIn({ username, password });
-//     };
-
-//     setFormApi = formApi => {
-//         this.formApi = formApi;
-//     };
-
-//     showCreateAccountForm = () => {
-//         const username = this.formApi.getValue('email');
-
-//         if (this.props.setDefaultUsername) {
-//             this.props.setDefaultUsername(username);
-//         }
-
-//         this.props.showCreateAccountForm();
-//     };
-// }
-
-// export default classify(defaultClasses)(SignIn);
+SignIn.propTypes = {
+    classes: shape({
+        createAccountButton: string,
+        form: string,
+        forgotPasswordButton: string,
+        root: string,
+        signInButton: string,
+        signInDivider: string,
+        signInError: string
+    }),
+    isGettingDetails: bool,
+    isSigningIn: bool,
+    setDefaultUsername: func.isRequired,
+    showCreateAccount: func.isRequired,
+    showForgotPassword: func.isRequired,
+    signIn: func.isRequired,
+    signInError: shape({})
+};
