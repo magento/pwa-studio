@@ -5,7 +5,7 @@ import { createTestInstance } from '@magento/peregrine';
 import Overview from '../overview';
 import Section from '../section';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../paymentMethodSummary', () => 'PaymentMethodSummary');
 jest.mock('../shippingAddressSummary', () => 'ShippingAddressSummary');
 jest.mock('../shippingMethodSummary', () => 'shippingMethodSummary');

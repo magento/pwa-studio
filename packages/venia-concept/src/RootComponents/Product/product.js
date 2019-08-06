@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { string, func } from 'prop-types';
 
-import { connect, Query } from 'src/drivers';
-import { addItemToCart } from 'src/actions/cart';
-import ErrorView from 'src/components/ErrorView';
-import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
-import ProductFullDetail from 'src/components/ProductFullDetail';
-import getUrlKey from 'src/util/getUrlKey';
-import productQuery from 'src/queries/getProductDetail.graphql';
+import { connect, Query } from '@magento/venia-drivers';
+import { addItemToCart } from '../../actions/cart';
+import ErrorView from '../../components/ErrorView';
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import ProductFullDetail from '../../components/ProductFullDetail';
+import getUrlKey from '../../util/getUrlKey';
+import productQuery from '../../queries/getProductDetail.graphql';
 
 /**
  * As of this writing, there is no single Product query type in the M2.3 schema.

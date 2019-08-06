@@ -1,5 +1,5 @@
-import { dispatch, getState } from 'src/store';
-jest.mock('src/store');
+import { dispatch, getState } from '../../../store';
+jest.mock('../../../store');
 const thunkArgs = [dispatch, getState];
 
 import { createAccount } from '../index';

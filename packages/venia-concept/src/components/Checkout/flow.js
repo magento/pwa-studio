@@ -10,12 +10,12 @@ import {
     string
 } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import Cart from './cart';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
-import isObjectEmpty from 'src/util/isObjectEmpty';
+import isObjectEmpty from '../../util/isObjectEmpty';
 
 const isCartReady = cart => cart.details && cart.details.items_count > 0;
 const isCheckoutReady = checkout => {

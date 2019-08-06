@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import BraintreeDropin from '../braintreeDropin';
-import 'src/index.css';
+import '../../../index.css';
 
 const stories = storiesOf('Checkout/BraintreeDropin', module);
 

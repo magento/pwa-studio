@@ -1,10 +1,10 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import { Link } from 'src/drivers';
+import { Link } from '@magento/venia-drivers';
 import SuggestedCategories from '../suggestedCategories';
 
-jest.mock('src/drivers', () => ({
+jest.mock('@magento/venia-drivers', () => ({
     Link: jest.fn(() => null)
 }));
 

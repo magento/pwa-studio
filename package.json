@@ -13,9 +13,9 @@
   ],
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "homepage": "https://github.com/magento-research/pwa-studio",
+  "homepage": "https://github.com/magento/pwa-studio",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
   "scripts": {
     "build": "yarn workspace @magento/venia-concept run build",
@@ -75,7 +75,7 @@
     "sharp": "~0.22.1"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   },
   "husky": {

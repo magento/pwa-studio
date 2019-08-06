@@ -1,11 +1,11 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
 import { Form } from 'informed';
-import Button from 'src/components/Button';
+import Button from '../../Button';
 
 import ShippingForm from '../shippingForm';
 
-jest.mock('src/components/Select');
+jest.mock('../../Select');
 const availableShippingMethods = [
     {
         carrier_code: 'flatrate',

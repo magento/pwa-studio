@@ -7,8 +7,8 @@ import Header from './header';
 import Mask from './mask';
 import defaultClasses from './miniCart.css';
 
-import { mergeClasses } from 'src/classify';
-import getCurrencyCode from 'src/util/getCurrencyCode';
+import { mergeClasses } from '../../classify';
+import getCurrencyCode from '../../util/getCurrencyCode';
 
 const MiniCart = props => {
     // Props.

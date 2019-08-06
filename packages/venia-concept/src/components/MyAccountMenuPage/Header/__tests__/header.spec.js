@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from '../header';
-import Trigger from 'src/components/Trigger';
+import Trigger from '../../../Trigger';
 import UserInformation from '../../UserInformation';
 import OnlineIndicator from '../../../OnlineIndicator';
 

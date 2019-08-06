@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import getDisplayName from 'src/util/getDisplayName';
+import getDisplayName from './util/getDisplayName';
 
 export const mergeClasses = (...args) => Object.assign({}, ...args);
 

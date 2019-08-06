@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, object } from 'prop-types';
 
-import isProductConfigurable from 'src/util/isProductConfigurable';
+import isProductConfigurable from '../../util/isProductConfigurable';
 
 import Option from './option';
 

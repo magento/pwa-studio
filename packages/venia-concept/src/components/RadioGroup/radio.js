@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { node, shape, string } from 'prop-types';
 import { Radio } from 'informed';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './radio.css';
 
 /* TODO: change lint config to use `label-has-associated-control` */

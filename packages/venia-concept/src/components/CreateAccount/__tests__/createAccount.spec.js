@@ -6,7 +6,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
 
-jest.mock('src/util/formValidators');
+jest.mock('../../../util/formValidators');
 
 export const submitCallback = jest.fn();
 
