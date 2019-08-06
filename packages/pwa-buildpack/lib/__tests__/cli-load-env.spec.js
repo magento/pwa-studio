@@ -26,8 +26,7 @@ test('handler exits nonzero on errors', () => {
     dotenv.config.mockReturnValueOnce({
         parsed: {}
     });
-    loadEnvCliBuilder.handler({ directory: '.' });
-    expect(process.exit).toHaveBeenCalled();
+    expect(() => loadEnvCliBuilder.handler({ directory: '.' })).toThrow();
     expect(console.error).toHaveBeenCalled();
 });
 

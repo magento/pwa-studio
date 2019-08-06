@@ -30,9 +30,24 @@ test('is a yargs builder', () => {
     });
 });
 
+test('fails if customOrigin is disabled', async () => {
+    loadEnvironment.mockReturnValueOnce({
+        section: () => ({
+            enabled: false
+        })
+    });
+
+    await expect(
+        createCustomOriginBuilder.handler({ directory: process.cwd() })
+    ).rejects.toThrow();
+    expect(process.chdir).not.toHaveBeenCalled();
+    expect(loadEnvironment).toHaveBeenCalledWith(process.cwd());
+});
+
 test('runs configureHost from environment settings in passed directory', async () => {
     loadEnvironment.mockReturnValueOnce({
         section: () => ({
+            enabled: true,
             exactDomain: 'fake.domain'
         })
     });
@@ -57,8 +72,9 @@ test('errors out if environment is invalid', async () => {
         error: [new Error('test')]
     });
 
-    await createCustomOriginBuilder.handler({ directory: 'path/to/elsewhere' });
-    expect(process.exit).toHaveBeenCalled();
+    await expect(
+        createCustomOriginBuilder.handler({ directory: 'path/to/elsewhere' })
+    ).rejects.toThrow();
 });
 
 test('errors out if custom origins are disabled', async () => {
@@ -68,9 +84,10 @@ test('errors out if custom origins are disabled', async () => {
         })
     });
 
-    await createCustomOriginBuilder.handler({ directory: 'path/to/elsewhere' });
+    await expect(
+        createCustomOriginBuilder.handler({ directory: 'path/to/elsewhere' })
+    ).rejects.toThrow();
     expect(console.error).toHaveBeenCalledWith(
         expect.stringMatching('Custom origins in this project are disabled')
     );
-    expect(process.exit).toHaveBeenCalled();
 });

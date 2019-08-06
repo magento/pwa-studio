@@ -39,23 +39,24 @@ async function serve() {
     );
 
     let envPort;
-        if (process.env.PORT) {
-            console.log(`PORT is set in environment: ${process.env.PORT}`);
-            envPort = process.env.PORT;
-        } else if (stagingServerSettings.port) {
-            console.log(
-                `STAGING_SERVER_PORT is configured: ${stagingServerSettings.port}`
-            );
-            envPort = stagingServerSettings.port;
-        }
+    if (process.env.PORT) {
+        console.log(`PORT is set in environment: ${process.env.PORT}`);
+        envPort = process.env.PORT;
+    } else if (stagingServerSettings.port) {
+        console.log(
+            `STAGING_SERVER_PORT is configured: ${stagingServerSettings.port}`
+        );
+        envPort = stagingServerSettings.port;
+    }
 
     if (config.isProd) {
-        console.log(`NODE_ENV=production, will not attempt to use custom host or port`);
+        console.log(
+            `NODE_ENV=production, will not attempt to use custom host or port`
+        );
 
         if (envPort) {
-        upwardServerOptions.port = envPort;
+            upwardServerOptions.port = envPort;
         } else {
-
             console.log(`No port set. Binding to random open port`);
             upwardServerOptions.port = 0;
         }
