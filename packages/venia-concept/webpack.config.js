@@ -27,7 +27,7 @@ module.exports = async env => {
             // '@magento/venia-library': {
             //     cssModules: true,
             //     esModules: true,
-            //     graphQLQueries: true,
+            //     graphqlQueries: true,
             //     rootComponents: true,
             //     upward: true
             // }

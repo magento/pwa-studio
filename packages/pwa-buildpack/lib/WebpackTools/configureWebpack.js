@@ -107,7 +107,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
             rules: [
                 {
                     test: /\.graphql$/,
-                    include: [paths.src, ...hasFlag('graphQLQueries')],
+                    include: [paths.src, ...hasFlag('graphqlQueries')],
                     use: [
                         {
                             loader: 'graphql-tag/loader'

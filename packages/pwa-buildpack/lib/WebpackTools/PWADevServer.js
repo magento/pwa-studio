@@ -196,6 +196,7 @@ const PWADevServer = {
                         }
                     });
                 });
+                /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
                     if (!middleware) {
