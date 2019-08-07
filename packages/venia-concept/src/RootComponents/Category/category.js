@@ -12,9 +12,9 @@ import { compose } from 'redux';
 import categoryQuery from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '../../util/getFilterParamsFromUrl';
-import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import NoProductsFound from './NoProductsFound';
 
 const Category = props => {
     const { filterClear, id, openDrawer, pageSize } = props;
