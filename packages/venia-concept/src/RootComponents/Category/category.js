@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
-import { toggleDrawer } from 'src/actions/app';
-import catalogActions from 'src/actions/catalog';
-import { mergeClasses } from 'src/classify';
+import { toggleDrawer } from '../../actions/app';
+import catalogActions from '../../actions/catalog';
+import { mergeClasses } from '../../classify';
 
-import { fullPageLoadingIndicator } from 'src/components/LoadingIndicator';
-import { connect, withRouter } from 'src/drivers';
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import categoryQuery from 'src/queries/getCategory.graphql';
-import isObjectEmpty from 'src/util/isObjectEmpty';
-import { getFilterParams } from 'src/util/getFilterParamsFromUrl';
+import categoryQuery from '../../queries/getCategory.graphql';
+import isObjectEmpty from '../../util/isObjectEmpty';
+import { getFilterParams } from '../../util/getFilterParamsFromUrl';
 import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -89,7 +89,7 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (!totalPagesFromData && totalPagesFromData !== 0) {
+    if (totalPagesFromData === null) {
         return fullPageLoadingIndicator;
     }
 
