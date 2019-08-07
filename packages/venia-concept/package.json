@@ -26,13 +26,13 @@
     "validate-queries": "yarn run download-schema && graphql validate-magento-pwa-queries --project venia",
     "watch": "webpack-dev-server --progress --color --env.mode development"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
     "@babel/runtime": "~7.4.2",
     "@magento/peregrine": "~3.0.0",

@@ -9,7 +9,7 @@ const { username } = os.userInfo();
 
 /**
  * Monkeypatch devcert to fix
- * https://github.com/magento-research/pwa-studio/issues/679 which is blocked by
+ * https://github.com/magento/pwa-studio/issues/679 which is blocked by
  * https://github.com/davewasmer/devcert/pull/30.
  * TODO: Remove this when a release of devcert without this bug is available
  */
