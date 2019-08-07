@@ -24,7 +24,7 @@ module.exports = async env => {
             '@magento/peregrine': {
                 esModules: true
             }
-            // '@magento/venia-library': {
+            // '@magento/venia-ui': {
             //     cssModules: true,
             //     esModules: true,
             //     graphqlQueries: true,
