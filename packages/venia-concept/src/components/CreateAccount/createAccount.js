@@ -18,6 +18,9 @@ import {
 
 import defaultClasses from './createAccount.css';
 
+const LEAD =
+    'Check out faster, use multiple addresses, track orders and more by creating an account!';
+
 class CreateAccount extends Component {
     static propTypes = {
         classes: shape({
@@ -83,10 +86,7 @@ class CreateAccount extends Component {
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
-                <h3 className={classes.lead}>
-                    {`Check out faster, use multiple addresses, track
-                         orders and more by creating an account!`}
-                </h3>
+                <h3 className={classes.lead}>{LEAD}</h3>
                 <Field label="First Name" required={true}>
                     <TextInput
                         field="customer.firstname"

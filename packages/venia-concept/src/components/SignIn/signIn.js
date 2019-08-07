@@ -92,13 +92,13 @@ const SignIn = props => {
                         validate={isRequired}
                     />
                 </Field>
+                <div className={classes.signInError}>{errorMessage}</div>
                 <div className={classes.signInButton}>
                     <Button priority="high" type="submit">
                         {'Sign In'}
                     </Button>
                 </div>
             </Form>
-            <div className={classes.signInError}>{errorMessage}</div>
             <div className={classes.forgotPasswordButton}>
                 <Button
                     priority="low"
