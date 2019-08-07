@@ -8,35 +8,10 @@ exports[`renders Option component correctly 1`] = `
     className="title"
   >
     <span>
-      Color
+      Foo
     </span>
   </h3>
-  <div
-    className="root"
-  >
-    <button
-      className="root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      style={
-        Object {
-          "--venia-swatch-bg": "123,123,123",
-        }
-      }
-    />
-    <button
-      className="root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      style={
-        Object {
-          "--venia-swatch-bg": "123,123,123",
-        }
-      }
-    />
-  </div>
+  <i />
   <p
     className="selection"
   >
