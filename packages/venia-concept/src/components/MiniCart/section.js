@@ -6,8 +6,8 @@ import {
     Trash as TrashIcon
 } from 'react-feather';
 
-import { mergeClasses } from 'src/classify';
-import Icon from 'src/components/Icon';
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
 
 import defaultClasses from './section.css';
 

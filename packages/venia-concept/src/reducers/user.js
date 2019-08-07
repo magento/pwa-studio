@@ -5,7 +5,7 @@ const { BrowserPersistence } = Util;
 
 const storage = new BrowserPersistence();
 
-import actions from 'src/actions/user';
+import actions from '../actions/user';
 
 export const name = 'user';
 

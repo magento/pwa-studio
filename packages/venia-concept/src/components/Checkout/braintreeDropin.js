@@ -12,13 +12,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { Util } from '@magento/peregrine';
 
 import defaultClasses from './braintreeDropin.css';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 const CONTAINER_ID = 'braintree-dropin-container';
 
@@ -30,7 +27,7 @@ const CONTAINER_ID = 'braintree-dropin-container';
  * 2) On submission (triggered by a parent), request the payment nonce.
  */
 const BraintreeDropin = props => {
-    const { onError, onSuccess, shouldRequestPaymentNonce } = props;
+    const { onError, onReady, onSuccess, shouldRequestPaymentNonce } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
@@ -65,6 +62,7 @@ const BraintreeDropin = props => {
                     dropinInstance.teardown();
                 } else {
                     setDropinInstance(dropinInstance);
+                    onReady(true);
                 }
             } catch (err) {
                 console.error(
@@ -91,7 +89,7 @@ const BraintreeDropin = props => {
         return () => {
             didClose = true;
         };
-    }, []);
+    }, [onReady]);
 
     useEffect(() => {
         async function requestPaymentNonce() {
@@ -99,17 +97,8 @@ const BraintreeDropin = props => {
                 const paymentNonce = await dropinInstance.requestPaymentMethod();
                 onSuccess(paymentNonce);
             } catch (e) {
-                // If payment details were missing or invalid but we have data
-                // from a previous successful submission, use the previous data.
-                const storedPayment = storage.getItem('paymentMethod');
-                if (storedPayment) {
-                    onSuccess(storedPayment.data);
-                    return;
-                }
-
-                // An error occurred and we have no stored data.
-                // BrainTree will update the UI with error messaging,
-                // but signal that there was an error.
+                // An error occurred. BrainTree will update the UI with error
+                // messaging, but we should signal that there was an error.
                 console.error(`Invalid Payment Details. \n${e}`);
                 onError();
             }
@@ -142,6 +131,7 @@ BraintreeDropin.propTypes = {
         error: string
     }),
     onError: func.isRequired,
+    onReady: func.isRequired,
     onSuccess: func.isRequired,
     shouldRequestPaymentNonce: bool
 };

@@ -15,7 +15,7 @@
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -25,9 +25,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
     "apollo-link": "~1.2.8",
     "apollo-link-http": "~1.5.11",
@@ -60,7 +60,7 @@
     "node-zopfli-es": "^1.0.3"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

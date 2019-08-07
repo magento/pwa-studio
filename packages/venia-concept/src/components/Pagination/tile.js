@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './tile.css';
 
 const Tile = props => {

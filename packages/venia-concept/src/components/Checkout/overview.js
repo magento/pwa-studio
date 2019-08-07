@@ -5,7 +5,7 @@ import PaymentMethodSummary from './paymentMethodSummary';
 import ShippingAddressSummary from './shippingAddressSummary';
 import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
-import Button from 'src/components/Button';
+import Button from '../Button';
 import { Price } from '@magento/peregrine';
 
 /**
@@ -17,12 +17,12 @@ const Overview = props => {
         cancelCheckout,
         cart,
         classes,
-        editOrder,
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
         paymentData,
         ready,
+        setEditing,
         shippingAddress,
         shippingTitle,
         submitOrder,
@@ -30,16 +30,16 @@ const Overview = props => {
     } = props;
 
     const handleAddressFormClick = useCallback(() => {
-        editOrder('address');
-    }, [editOrder]);
+        setEditing('address');
+    }, [setEditing]);
 
     const handlePaymentFormClick = useCallback(() => {
-        editOrder('paymentMethod');
-    }, [editOrder]);
+        setEditing('paymentMethod');
+    }, [setEditing]);
 
     const handleShippingFormClick = useCallback(() => {
-        editOrder('shippingMethod');
-    }, [editOrder]);
+        setEditing('shippingMethod');
+    }, [setEditing]);
 
     return (
         <Fragment>
@@ -105,23 +105,23 @@ Overview.propTypes = {
     cart: shape({
         details: shape({
             items_qty: number
-        }),
+        }).isRequired,
         cartId: string,
         totals: shape({
             quote_currency_code: string,
             subtotal: number
-        })
+        }).isRequired
     }).isRequired,
     classes: shape({
         body: string,
         footer: string
     }),
-    editOrder: func.isRequired,
     hasPaymentMethod: bool,
     hasShippingAddress: bool,
     hasShippingMethod: bool,
     paymentData: object,
     ready: bool,
+    setEditing: func,
     shippingAddress: object,
     shippingTitle: string,
     submitOrder: func,

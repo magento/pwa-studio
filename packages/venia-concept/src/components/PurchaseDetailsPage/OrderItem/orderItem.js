@@ -7,9 +7,9 @@ import {
     MessageSquare as MessageSquareIcon
 } from 'react-feather';
 
-import classify from 'src/classify';
-import ButtonGroup from 'src/components/ButtonGroup';
-import Icon from 'src/components/Icon';
+import classify from '../../../classify';
+import ButtonGroup from '../../ButtonGroup';
+import Icon from '../../Icon';
 import defaultClasses from './orderItem.css';
 
 const noop = () => {};

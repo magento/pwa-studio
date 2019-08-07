@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './footer.css';
 import storeConfigDataQuery from '../../queries/getStoreConfigData.graphql';
-import { Query } from 'src/drivers';
+import { Query } from '@magento/venia-drivers';
 
 class Footer extends Component {
     static propTypes = {

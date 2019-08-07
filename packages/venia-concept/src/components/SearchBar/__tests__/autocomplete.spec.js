@@ -5,7 +5,7 @@ import { createTestInstance, useQuery } from '@magento/peregrine';
 
 import Autocomplete from '../autocomplete';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('@magento/peregrine');
 jest.mock('../suggestions', () => () => null);
 

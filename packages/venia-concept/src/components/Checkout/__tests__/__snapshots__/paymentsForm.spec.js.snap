@@ -19,6 +19,7 @@ exports[`renders a PaymentsForm component 1`] = `
     >
       <BraintreeDropin
         onError={[Function]}
+        onReady={[Function]}
         onSuccess={[Function]}
         shouldRequestPaymentNonce={false}
       />
@@ -87,6 +88,7 @@ exports[`renders a PaymentsForm component 1`] = `
     </button>
     <button
       className="button"
+      disabled={true}
       type="submit"
     >
       <span
@@ -118,6 +120,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     >
       <BraintreeDropin
         onError={[Function]}
+        onReady={[Function]}
         onSuccess={[Function]}
         shouldRequestPaymentNonce={false}
       />
@@ -519,6 +522,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     </button>
     <button
       className="button"
+      disabled={true}
       type="submit"
     >
       <span

@@ -7,19 +7,16 @@
   "description": "The core runtime of Magento PWA",
   "main": "lib/index.js",
   "scripts": {
-    "clean": " ",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+    "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
-    "@storybook/react": "~4.1.13",
     "intl": "~1.2.5",
     "react": "~16.8.3",
     "react-apollo": "~2.5.5",
@@ -35,7 +32,7 @@
     "react-router-dom": "~5.0.0"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   },
   "module": "lib/index.js",

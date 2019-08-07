@@ -11,7 +11,7 @@ jest.mock('react', () => {
 
     return Object.assign(React, { useState: jest.fn(React.useState) });
 });
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',

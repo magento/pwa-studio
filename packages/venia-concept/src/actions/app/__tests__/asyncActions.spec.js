@@ -1,8 +1,8 @@
-import { dispatch, getState } from 'src/store';
+import { dispatch, getState } from '../../../store';
 import actions from '../actions';
 import { closeDrawer, toggleDrawer, toggleSearch } from '../asyncActions';
 
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
 

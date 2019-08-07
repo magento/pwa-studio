@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import FiltersCurrent from './filtersCurrent';
-import { removeFilter } from 'src/actions/catalog';
+import { removeFilter } from '../../../actions/catalog';
 
 const mapStateToProps = ({ catalog }) => {
     const { chosenFilterOptions } = catalog;

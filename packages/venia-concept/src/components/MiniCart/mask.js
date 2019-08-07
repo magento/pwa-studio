@@ -1,8 +1,8 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import Mask from 'src/components/Mask';
+import { mergeClasses } from '../../classify';
+import Mask from '../Mask';
 
 import defaultClasses from './mask.css';
 

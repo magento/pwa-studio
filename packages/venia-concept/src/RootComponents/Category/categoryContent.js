@@ -1,10 +1,10 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import FilterModal from 'src/components/FilterModal';
-import Gallery from 'src/components/Gallery';
-import Pagination from 'src/components/Pagination';
+import { mergeClasses } from '../../classify';
+import FilterModal from '../../components/FilterModal';
+import Gallery from '../../components/Gallery';
+import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 
 const CategoryContent = props => {

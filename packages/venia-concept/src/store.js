@@ -1,8 +1,8 @@
 import { createStore } from 'redux';
 
-import middleware from 'src/middleware';
-import errorHandler from 'src/middleware/errorHandler';
-import reducer from 'src/reducers';
-import composeEnhancers from 'src/util/composeEnhancers';
+import middleware from './middleware';
+import errorHandler from './middleware/errorHandler';
+import reducer from './reducers';
+import composeEnhancers from './util/composeEnhancers';
 
 export default createStore(reducer, composeEnhancers(middleware, errorHandler));

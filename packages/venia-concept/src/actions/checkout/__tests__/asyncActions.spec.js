@@ -1,6 +1,6 @@
 import { RestApi } from '@magento/peregrine';
 
-import { dispatch, getState } from 'src/store';
+import { dispatch, getState } from '../../../store';
 import {
     mockGetItem,
     mockSetItem,
@@ -10,7 +10,6 @@ import {
 import actions from '../actions';
 import {
     beginCheckout,
-    editOrder,
     formatAddress,
     getShippingMethods,
     resetCheckout,
@@ -21,9 +20,9 @@ import {
     submitShippingMethod,
     submitPaymentMethodAndBillingAddress
 } from '../asyncActions';
-import checkoutReceiptActions from 'src/actions/checkoutReceipt';
+import checkoutReceiptActions from '../../checkoutReceipt';
 
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
 const { request } = RestApi.Magento2;
@@ -111,26 +110,6 @@ describe('resetCheckout', () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
         expect(dispatch).toHaveBeenNthCalledWith(3, actions.reset());
         expect(dispatch).toHaveBeenCalledTimes(3);
-    });
-});
-
-describe('editOrder', () => {
-    test('editOrder() returns a thunk', () => {
-        expect(editOrder()).toBeInstanceOf(Function);
-    });
-
-    test('editOrder thunk returns undefined', async () => {
-        const result = await editOrder()(...thunkArgs);
-
-        expect(result).toBeUndefined();
-    });
-
-    test('editOrder thunk dispatches actions', async () => {
-        const payload = 'PAYLOAD';
-        await editOrder(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledWith(actions.edit(payload));
-        expect(dispatch).toHaveBeenCalledTimes(1);
     });
 });
 

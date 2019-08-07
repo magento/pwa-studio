@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { mergeClasses } from 'src/classify';
-import Button from 'src/components/Button';
+import { mergeClasses } from '../../../classify';
+import Button from '../../Button';
 import defaultClasses from './receipt.css';
 
 const Receipt = props => {

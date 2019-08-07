@@ -4,9 +4,9 @@ import { useFieldState, useFormApi } from 'informed';
 import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 import { useSearchParam } from '@magento/peregrine';
 
-import Icon from 'src/components/Icon';
-import TextInput from 'src/components/TextInput';
-import Trigger from 'src/components/Trigger';
+import Icon from '../Icon';
+import TextInput from '../TextInput';
+import Trigger from '../Trigger';
 
 const clearIcon = <Icon src={ClearIcon} size={18} />;
 const searchIcon = <Icon src={SearchIcon} size={18} />;

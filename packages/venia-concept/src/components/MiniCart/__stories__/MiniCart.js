@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import 'src/index.css';
-import { Adapter } from 'src/drivers';
-import store from 'src/store';
+import '../../../index.css';
+import { Adapter } from '@magento/venia-drivers';
+import store from '../../../store';
 
 import MiniCart from '../miniCart';
 import defaultClasses from '../miniCart.css';

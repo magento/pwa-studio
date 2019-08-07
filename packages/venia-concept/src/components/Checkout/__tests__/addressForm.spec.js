@@ -2,7 +2,7 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 import AddressForm from '../addressForm';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();

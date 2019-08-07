@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import classify from 'src/classify';
-import Button from 'src/components/Button';
-import Checkbox from 'src/components/Checkbox';
-import Field from 'src/components/Field';
-import TextInput from 'src/components/TextInput';
+import classify from '../../classify';
+import Button from '../Button';
+import Checkbox from '../Checkbox';
+import Field from '../Field';
+import TextInput from '../TextInput';
 
-import combine from 'src/util/combineValidators';
+import combine from '../../util/combineValidators';
 import {
     validateEmail,
     isRequired,
     validatePassword,
     validateConfirmPassword,
     hasLengthAtLeast
-} from 'src/util/formValidators';
+} from '../../util/formValidators';
 
 import defaultClasses from './createAccount.css';
 

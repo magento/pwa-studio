@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useDropdown } from '@magento/peregrine';
 
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
 import defaultClasses from './searchBar.css';

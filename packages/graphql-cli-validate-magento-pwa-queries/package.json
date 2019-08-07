@@ -11,7 +11,7 @@
     "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
     "test": "jest"
   },
-  "repository": "https://github.com/magento-research/pwa-studio",
+  "repository": "https://github.com/magento/pwa-studio",
   "keywords": [
     "graphql",
     "graphql-cli",

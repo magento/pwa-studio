@@ -2,9 +2,9 @@ import React from 'react';
 import { bool, shape, string } from 'prop-types';
 
 import { CloudOff as CloudOffIcon } from 'react-feather';
-import { mergeClasses } from 'src/classify';
+import { mergeClasses } from '../../classify';
 
-import Icon from 'src/components/Icon';
+import Icon from '../Icon';
 import defaultClasses from './onlineIndicator.css';
 
 /**

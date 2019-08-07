@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
-import { Link, resourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
-import classify from 'src/classify';
-import { transparentPlaceholder } from 'src/shared/images';
+import classify from '../../classify';
+import { transparentPlaceholder } from '../../shared/images';
 import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
