@@ -22,7 +22,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 Clone the [PWA Studio][] repository into your development environment.
 
 ``` sh
-git clone https://github.com/magento-research/pwa-studio.git
+git clone https://github.com/magento/pwa-studio.git
 ```
 
 ## Step 2. Install PWA Studio dependencies
@@ -140,8 +140,8 @@ Congratulations! You have set up your development environment for the Venia stor
 [venia sample data]: {{site.baseurl}}{% link venia-pwa-concept/install-sample-data/index.md %}
 [troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
 
-[venia pwa concept storefront]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
+[venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
 [vagrant box for magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
-[pwa studio]: https://github.com/magento-research/pwa-studio
+[pwa studio]: https://github.com/magento/pwa-studio
 [local development instance]: https://devdocs.magento.com/guides/v2.3/install-gde/bk-install-guide.html
 [valet-plus]: https://github.com/weprovide/valet-plus

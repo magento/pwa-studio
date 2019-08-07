@@ -61,4 +61,4 @@ Log into the Admin section or visit the store of your Magento instance to verify
 ![Sample data installed in Magento](images/sample-data-installed.png)
 
 [remove the sample data modules]: https://devdocs.magento.com/guides/v2.3/install-gde/install/cli/install-cli-sample-data-other.html#inst-sample-remove
-[PWA Studio]: https://github.com/magento-research/pwa-studio
+[PWA Studio]: https://github.com/magento/pwa-studio
