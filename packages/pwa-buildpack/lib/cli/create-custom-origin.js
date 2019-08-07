@@ -36,8 +36,9 @@ module.exports.handler = async function buildpackCli({ directory }) {
             );
             failExpected('custom origin disabled');
         }
-        const { hostname, ports } = await configureHost(projectRoot, {
+        const { hostname, ports } = await configureHost({
             ...config,
+            dir: projectRoot,
             interactive: true
         });
         prettyLogger.info(

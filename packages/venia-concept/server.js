@@ -68,8 +68,8 @@ async function serve() {
                 Utilities: { configureHost }
             } = require('@magento/pwa-buildpack');
             const { hostname, ports, ssl } = await configureHost(
-                __dirname,
                 Object.assign(config.section('customOrigin'), {
+                    dir: __dirname,
                     interactive: false
                 })
             );

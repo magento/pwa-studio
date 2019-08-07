@@ -70,8 +70,7 @@
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
     "prettier-check": "~2.0.0",
-    "rimraf": "~2.6.3",
-    "stream-snitch": "~0.0.3"
+    "rimraf": "~2.6.3"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",

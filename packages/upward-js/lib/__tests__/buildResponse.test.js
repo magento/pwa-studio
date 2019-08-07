@@ -29,11 +29,11 @@ test('builds a response from a static definition', async () => {
     const definition = await scenarios.getDefinition('hello-inline-only');
     return expect(
         buildResponse(
-            upwardPath,
             mockIO,
             process.env,
             definition,
-            stubRequest()
+            stubRequest(),
+            upwardPath
         )
     ).resolves.toMatchObject({
         status: 200,
@@ -50,11 +50,11 @@ test('handles implicit resolvers', async () => {
     );
     return expect(
         buildResponse(
-            upwardPath,
             mockIO,
             process.env,
             definition,
-            stubRequest()
+            stubRequest(),
+            upwardPath
         )
     ).resolves.toMatchObject({
         status: 200,
@@ -69,11 +69,11 @@ test('handles env interpolation', async () => {
     const definition = await scenarios.getDefinition('hello-env-interpolation');
     return expect(
         buildResponse(
-            upwardPath,
             mockIO,
             { UPWARD_TEST_RESPONSE_BODY: 'Hello, environment!' },
             definition,
-            stubRequest()
+            stubRequest(),
+            upwardPath
         )
     ).resolves.toMatchObject({
         status: 200,
@@ -90,11 +90,11 @@ test('handles inline templates', async () => {
     );
     return expect(
         buildResponse(
-            upwardPath,
             mockIO,
             { ADDRESSEE: 'Earth' },
             definition,
-            stubRequest()
+            stubRequest(),
+            upwardPath
         )
     ).resolves.toMatchObject({
         status: 200,
@@ -111,11 +111,11 @@ test('handles file resolvers and context interpolation', async () => {
     );
     return expect(
         buildResponse(
-            upwardPath,
             mockIO,
             { sender: 'world' },
             definition,
-            stubRequest()
+            stubRequest(),
+            upwardPath
         )
     ).resolves.toMatchObject({
         status: 200,
@@ -131,13 +131,13 @@ test('handles deep template resolvers, can return json', async () => {
         'hello-context-inline-template-json'
     );
     const response = await buildResponse(
-        upwardPath,
         mockIO,
         {
             ADDRESSEE: 'deep space'
         },
         definition,
-        stubRequest()
+        stubRequest(),
+        upwardPath
     );
     expect(response).toMatchObject({
         status: 200,
@@ -153,13 +153,3 @@ test('handles deep template resolvers, can return json', async () => {
         })
     );
 });
-
-// test.skip('makes GQL queries');
-
-// test.skip('conditionally resolves');
-
-// test.skip('conditional resolution falls through in order');
-
-// test.skip('conditional resolution yields to default');
-
-// test.skip('responds to request data');

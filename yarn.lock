@@ -14636,11 +14636,6 @@ stream-shift@^1.0.0:
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
   integrity sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
 
-stream-snitch@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/stream-snitch/-/stream-snitch-0.0.3.tgz#897a78f13a2714fa844aa77be15477a896d852a9"
-  integrity sha1-iXp48TonFPqESqd74VR3qJbYUqk=
-
 streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"

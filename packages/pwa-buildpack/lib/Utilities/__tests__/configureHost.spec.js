@@ -87,7 +87,7 @@ const hostRegex = (
 test('produces a secure domain, port set, and ssl cert from default name if no package.json is found', async () => {
     simulate.noPackageFound().certCached();
 
-    const { hostname, ports, ssl } = await configureHost(FAKE_CWD);
+    const { hostname, ports, ssl } = await configureHost({ dir: FAKE_CWD });
     expect(hostname).toMatch(hostRegex());
     expect(ports.development).toBeGreaterThanOrEqual(8000);
     expect(ports.development).toBeLessThan(9000);
@@ -104,14 +104,14 @@ test('produces a secure domain, port set, and ssl cert from default name if no p
 
     // expect same port set per host
     simulate.noPackageFound().certCached();
-    const { ports: secondPorts } = await configureHost(FAKE_CWD);
+    const { ports: secondPorts } = await configureHost({ dir: FAKE_CWD });
     expect(secondPorts).toEqual(ports);
 });
 
 test('produces a secure domain with default name if package name is unusable', async () => {
     simulate.packageNameIs(undefined).certCached();
 
-    const { hostname } = await configureHost(FAKE_CWD);
+    const { hostname } = await configureHost({ dir: FAKE_CWD });
     expect(hostname).toMatch(hostRegex());
 
     expect(console.warn.mock.calls[0]).toMatchObject([
@@ -121,13 +121,14 @@ test('produces a secure domain with default name if package name is unusable', a
 
 test('produces a secure domain from package name', async () => {
     simulate.packageNameIs('package-name-yay').certCached();
-    const { hostname } = await configureHost(FAKE_CWD);
+    const { hostname } = await configureHost({ dir: FAKE_CWD });
     expect(hostname).toMatch(hostRegex('package-name-yay'));
 });
 
 test('produces a secure domain from custom subdomain', async () => {
     simulate.packageNameIs('package-name-yay').certCached();
-    const { hostname } = await configureHost(FAKE_CWD, {
+    const { hostname } = await configureHost({
+        dir: FAKE_CWD,
         subdomain: 'friends-of-desoto'
     });
     expect(hostname).toMatch(hostRegex('friends-of-desoto'));
@@ -136,7 +137,8 @@ test('produces a secure domain from custom subdomain', async () => {
 
 test('produces a secure domain from custom subdomain without unique autogen', async () => {
     simulate.certCached();
-    const { hostname } = await configureHost(FAKE_CWD, {
+    const { hostname } = await configureHost({
+        dir: FAKE_CWD,
         subdomain: 'friends-of-desoto',
         addUniqueHash: false
     });
@@ -147,7 +149,8 @@ test('produces a secure domain from custom subdomain without unique autogen', as
 
 test('autogenerates a secure domain without unique autogen', async () => {
     simulate.certCached().packageNameIs('bigdog');
-    const { hostname } = await configureHost(FAKE_CWD, {
+    const { hostname } = await configureHost({
+        dir: FAKE_CWD,
         addUniqueHash: false
     });
     expect(hostname).toMatch(
@@ -157,7 +160,8 @@ test('autogenerates a secure domain without unique autogen', async () => {
 
 test('produces a secure domain from exact domain provided', async () => {
     simulate.certCached();
-    const { hostname } = await configureHost(FAKE_CWD, {
+    const { hostname } = await configureHost({
+        dir: FAKE_CWD,
         exactDomain: 'gagh.biz'
     });
     expect(hostname).toBe('gagh.biz');
@@ -167,11 +171,11 @@ test('warns about sudo prompt if cert needs to be created', async () => {
     simulate.certCreated();
     const oldIsTTY = process.stdin.isTTY;
     process.stdin.isTTY = true;
-    await configureHost(FAKE_CWD, { subdomain: 'best-boss-i-ever-had' });
+    await configureHost({ dir: FAKE_CWD, subdomain: 'best-boss-i-ever-had' });
     expect(console.warn).not.toHaveBeenCalled();
     simulate.certCreated();
     execa.shell.mockRejectedValueOnce(new Error('wat'));
-    await configureHost(FAKE_CWD, { subdomain: 'bar-none' });
+    await configureHost({ dir: FAKE_CWD, subdomain: 'bar-none' });
     process.stdin.isTTY = oldIsTTY;
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching('requires temporary administrative privileges')
@@ -181,7 +185,8 @@ test('warns about sudo prompt if cert needs to be created', async () => {
 test('returns false if not already provisioned and non-interactive specified', async () => {
     simulate.certNotCached();
     expect(
-        await configureHost(FAKE_CWD, {
+        await configureHost({
+            dir: FAKE_CWD,
             subdomain: 'no-prod-for-you',
             interactive: false
         })
@@ -191,7 +196,7 @@ test('returns false if not already provisioned and non-interactive specified', a
 test('fails informatively if devcert fails', async () => {
     simulate.certFailed();
     await expect(
-        configureHost(FAKE_CWD, { subdomain: 'uss.hood' })
+        configureHost({ dir: FAKE_CWD, subdomain: 'uss.hood' })
     ).rejects.toThrowError('Could not setup development domain');
 });
 
@@ -200,7 +205,7 @@ test('fails if process is not connected to tty', async () => {
     const oldIsTTY = process.stdin.isTTY;
     process.stdin.isTTY = false;
     await expect(
-        configureHost(FAKE_CWD, { subdomain: 'uss.hood' })
+        configureHost({ dir: FAKE_CWD, subdomain: 'uss.hood' })
     ).rejects.toThrowError('interactive');
     process.stdin.isTTY = oldIsTTY;
 });
@@ -214,7 +219,7 @@ test('fails after a timeout if devcert never fulfills', async () => {
     let resolveHangingPromise;
     const promise = new Promise(resolve => (resolveHangingPromise = resolve));
     devcert.certificateFor.mockReturnValueOnce(promise);
-    const certPromise = configureHost(FAKE_CWD, { subdomain: 'no-hurry' });
+    const certPromise = configureHost({ dir: FAKE_CWD, subdomain: 'no-hurry' });
     jest.advanceTimersByTime(35000);
     await expect(certPromise).rejects.toThrowError(
         'Timed out waiting for SSL certificate generation and trust.'

@@ -8,9 +8,9 @@ A typical webpack local development environment uses the [`devServer`][] setting
 
 ## Basic Features
 
-PWADevServer creates an optimized `devServer` for Magento API-backed PWA development.
+PWADevServer adds an optimized PWA development server to a Webpack configuration object.
 
-The `devServer` provides the following useful features:
+The dev server provides the following useful features:
 
 ### Hot reload
 
@@ -19,39 +19,39 @@ It uses Webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-m
 
 ### Proxy server
 
-The `devServer` acts as a proxy server for API and media requests to Magento.
+The dev server acts as a proxy server for API and media requests to Magento.
 It is configured using environment variables.
 
-The `MAGENTO_BACKEND_DOMAIN` environment variable configures the proxy server to accept GraphQL, REST, and media requests and passes them to Magento.
+The `MAGENTO_BACKEND_URL` environment variable configures the proxy server to accept GraphQL, REST, and media requests and passes them to Magento.
 
 The proxy server also transforms host and referral headers to make them compatible with Magento settings.
 
 ### Root level ServiceWorker
 
-The `devServer` serves a JavaScript file at the root path that registers a ServiceWorker scoped to the whole website.
+The dev server serves a JavaScript file at the root path that registers a ServiceWorker scoped to the whole website.
 It can also disable that ServiceWorker when caching would interfere with realtime changes.
 
 ### Verbose debugging
 
-The `devServer` adds verbose debugging information to error pages to help with development.
+The dev server adds verbose debugging information to error pages to help with development.
 
 ## Optional Features
 
-The following `devServer` features are optional and are available on the initial run and confirmed on subsequent runs.
-They are configured in the `.env` file, which the `webpack.config.js` file uses to source the configuration it passes to `PWADevServer.configure()`.
+The following dev server features are optional and are available on the initial run and confirmed on subsequent runs.
+They are configured in the `.env` file.
 
 ### Custom hostname
 
 The custom hostname feature uses a local hostname for the current project.
-This hostname must be created for the current project by running `buildpack create-custom-origin`.
+This hostname must be created for the current project by running `buildpack create-custom-origin .`.
 
 ### GraphQL Playground IDE
 
-The `devServer` can be configured to provide a [GraphQL Playground IDE][GraphQL Playground feature] to debug the GraphQL queries in the project.
+The dev server provides a [GraphQL Playground IDE][GraphQL Playground feature] to debug the GraphQL queries in the project.
 
 ### SSL certificate configuration
 
-The `devServer` can be configured to create and cache a 'self-signed' SSL certificate that allow the use of HTTPS-only features during development.
+The dev server creates and cache a 'self-signed' SSL certificate that allow the use of HTTPS-only features during development.
 
 {: .bs-callout .bs-callout-info}
 **Note:**

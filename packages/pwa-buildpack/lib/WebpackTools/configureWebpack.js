@@ -9,7 +9,6 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const RootComponentsPlugin = require('./plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('./plugins/ServiceWorkerPlugin');
-const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const UpwardIncludePlugin = require('./plugins/UpwardIncludePlugin');
 const PWADevServer = require('./PWADevServer');
 const MagentoResolver = require('./MagentoResolver');
@@ -271,31 +270,19 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
 
         if (isDevServer()) {
             config.devtool = 'cheap-source-map';
-            config.devServer = await PWADevServer.configure(context, {
-                publicPath: config.output.publicPath,
-                graphqlPlayground: true,
-                ...projectConfig.sections(
-                    'devServer',
-                    'imageService',
-                    'customOrigin'
-                ),
-                ...projectConfig.section('magento')
-            });
-            // A DevServer generates its own unique output path at startup. It needs
-            // to assign the main outputPath to this value as well.
 
-            config.output.publicPath = config.devServer.publicPath;
-
-            config.plugins.push(
-                new webpack.HotModuleReplacementPlugin(),
-                new UpwardDevServerPlugin(
-                    config.devServer,
-                    process.env,
-                    path.resolve(
-                        config.output.path,
-                        projectConfig.section('upwardJs').upwardPath
-                    )
-                )
+            await PWADevServer.configure(
+                {
+                    graphqlPlayground: true,
+                    ...projectConfig.sections(
+                        'devServer',
+                        'imageService',
+                        'customOrigin'
+                    ),
+                    ...projectConfig.section('magento'),
+                    upwardPath: projectConfig.section('upwardJs').upwardPath
+                },
+                config
             );
         }
     } else if (mode === 'production') {

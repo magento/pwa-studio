@@ -29,7 +29,9 @@ test('handler throws on env missing required variables on errors', () => {
     dotenv.config.mockReturnValueOnce({
         parsed: {}
     });
-    expect(() => loadEnvCliBuilder.handler({ directory: '.' })).toThrow('MAGENTO_BACKEND_URL');
+    expect(() => loadEnvCliBuilder.handler({ directory: '.' })).toThrow(
+        'MAGENTO_BACKEND_URL'
+    );
     expect(console.error).toHaveBeenCalled();
 });
 

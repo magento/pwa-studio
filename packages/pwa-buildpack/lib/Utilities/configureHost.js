@@ -196,16 +196,17 @@ function getUniqueDomainAndPorts(directory, customName, addUniqueHash) {
     };
 }
 
-async function configureHost(directory, options = {}) {
-    debug('directory %s, %o', directory, options);
+async function configureHost(options = {}) {
+    debug('options %o', options);
     const {
         addUniqueHash = true,
+        dir = process.cwd(),
         subdomain,
         exactDomain,
         interactive = true
     } = options;
     const { uniqueSubdomain, ports } = getUniqueDomainAndPorts(
-        directory,
+        dir,
         exactDomain || subdomain,
         addUniqueHash
     );

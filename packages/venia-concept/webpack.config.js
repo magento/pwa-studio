@@ -22,8 +22,7 @@ module.exports = async env => {
         ],
         special: {
             '@magento/peregrine': {
-                esModules: true,
-                cssModules: true
+                esModules: true
             }
             // '@magento/venia-library': {
             //     cssModules: true,

@@ -11,8 +11,10 @@ const portscanner = require('portscanner');
 const { readFile: readFileAsync } = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(readFileAsync);
-const { relative } = require('path');
+const path = require('path');
 const boxen = require('boxen');
+const webpack = require('webpack');
+const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
 const secureHostWarning = chalk.redBright(`
@@ -33,16 +35,21 @@ const helpText = `
 `;
 
 const PWADevServer = {
-    async configure(context, config) {
-        debug('configure() invoked', config);
+    async configure(devServerConfig, webpackConfig) {
+        debug('configure() invoked', devServerConfig);
         const {
             devServer = {},
             customOrigin = {},
             imageService = {},
             backendUrl,
             graphqlPlayground,
-            publicPath
-        } = config;
+            upwardPath = 'upward.yml'
+        } = devServerConfig;
+
+        const {
+            context,
+            output: { publicPath }
+        } = webpackConfig;
 
         const webpackDevServerOptions = {
             contentBase: false, // UpwardDevServerPlugin serves static files
@@ -106,8 +113,8 @@ const PWADevServer = {
                 webpackDevServerOptions.host = host;
             } else {
                 const customOriginConfig = await configureHost(
-                    context,
                     Object.assign(customOrigin, {
+                        dir: context,
                         interactive: false
                     })
                 );
@@ -172,7 +179,7 @@ const PWADevServer = {
                                             queryFile,
                                             'utf8'
                                         );
-                                        const name = relative(
+                                        const name = path.relative(
                                             context,
                                             queryFile
                                         );
@@ -215,6 +222,24 @@ const PWADevServer = {
                   // ensure trailing slash
                   pathname: publicPath.replace(/([^\/])$/, '$1/')
               });
+
+        // now decorate the webpack config object itself!
+        webpackConfig.devServer = webpackDevServerOptions;
+
+        // A DevServer generates its own unique output path at startup. It needs
+        // to assign the main outputPath to this value as well.
+        webpackConfig.output.publicPath = webpackDevServerOptions.publicPath;
+
+        const plugins = webpackConfig.plugins || (webpackConfig.plugins = []);
+        plugins.push(
+            new webpack.HotModuleReplacementPlugin(),
+            new UpwardDevServerPlugin(
+                webpackDevServerOptions,
+                process.env,
+                path.resolve(webpackConfig.output.path, upwardPath)
+            )
+        );
+
         return webpackDevServerOptions;
     }
 };

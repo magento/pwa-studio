@@ -35,11 +35,11 @@ class UpwardMiddleware {
             let response;
             try {
                 response = await buildResponse(
-                    this.upwardPath,
                     this.io,
                     this.env,
                     this.definition,
-                    req
+                    req,
+                    this.upwardPath
                 );
                 if (typeof response === 'function') {
                     debug('buildResponse returned function');

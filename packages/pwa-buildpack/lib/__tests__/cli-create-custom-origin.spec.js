@@ -6,7 +6,7 @@ const configureHost = require('../Utilities/configureHost');
 const loadEnvironment = require('../Utilities/loadEnvironment');
 
 beforeEach(() => {
-    configureHost.mockImplementation((dir, { exactDomain }) => ({
+    configureHost.mockImplementation(({ exactDomain }) => ({
         hostname: `https://${exactDomain}`,
         ports: {
             development: 9999,
@@ -56,7 +56,6 @@ test('runs configureHost from environment settings in passed directory', async (
     expect(process.chdir).not.toHaveBeenCalled();
     expect(loadEnvironment).toHaveBeenCalledWith(process.cwd());
     expect(configureHost).toHaveBeenCalledWith(
-        expect.any(String),
         expect.objectContaining({
             interactive: true,
             exactDomain: 'fake.domain'
