@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshot testing Item 1`] = `
+exports[`Item renders correctly 1`] = `
 Object {
   "instance": null,
   "nodeType": "component",
@@ -8,7 +8,7 @@ Object {
     "classes": Object {
       "root": "abc",
     },
-    "hasFocus": [MockFunction],
+    "hasFocus": false,
     "isSelected": false,
     "item": Object {
       "id": "001",
@@ -22,7 +22,7 @@ Object {
       },
       "small_image": "/test/product/1.png",
     },
-    "itemIndex": 0,
+    "itemIndex": 1,
     "render": [MockFunction] {
       "calls": Array [
         Array [
@@ -32,7 +32,7 @@ Object {
             "classes": Object {
               "root": "abc",
             },
-            "hasFocus": [MockFunction],
+            "hasFocus": false,
             "isSelected": false,
             "item": Object {
               "id": "001",
@@ -46,9 +46,7 @@ Object {
               },
               "small_image": "/test/product/1.png",
             },
-            "itemIndex": 0,
-            "onClick": [Function],
-            "onFocus": [Function],
+            "itemIndex": 1,
           },
           Object {},
         ],
@@ -60,9 +58,7 @@ Object {
         },
       ],
     },
-    "setFocus": [MockFunction],
-    "uniqueID": "001",
-    "updateSelection": [MockFunction],
+    "uniqueId": 1,
   },
   "rendered": Object {
     "instance": null,
@@ -73,7 +69,7 @@ Object {
       "classes": Object {
         "root": "abc",
       },
-      "hasFocus": [MockFunction],
+      "hasFocus": false,
       "isSelected": false,
       "item": Object {
         "id": "001",
@@ -87,9 +83,7 @@ Object {
         },
         "small_image": "/test/product/1.png",
       },
-      "itemIndex": 0,
-      "onClick": [Function],
-      "onFocus": [Function],
+      "itemIndex": 1,
     },
     "rendered": Object {
       "instance": null,
@@ -107,7 +101,7 @@ Object {
             "classes": Object {
               "root": "abc",
             },
-            "hasFocus": [MockFunction],
+            "hasFocus": false,
             "isSelected": false,
             "item": Object {
               "id": "001",
@@ -121,9 +115,7 @@ Object {
               },
               "small_image": "/test/product/1.png",
             },
-            "itemIndex": 0,
-            "onClick": [Function],
-            "onFocus": [Function],
+            "itemIndex": 1,
           },
           Object {},
         ],
