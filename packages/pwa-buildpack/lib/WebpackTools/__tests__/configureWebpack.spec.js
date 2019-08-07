@@ -129,9 +129,10 @@ test('works in developer mode from fallback', async () => {
         .statsAsDirectory()
         .statsAsMissing()
         .devEnvironment();
-    await expect(
-        configureWebpack({ context: '.' })
-    ).resolves.toHaveProperty('mode', 'development');
+    await expect(configureWebpack({ context: '.' })).resolves.toHaveProperty(
+        'mode',
+        'development'
+    );
 });
 
 test('errors when mode unrecognized', async () => {

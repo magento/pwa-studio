@@ -33,11 +33,14 @@ test('returns dev config if api.env() returns "development"', () => {
 
 test('accepts options', () => {
     env.mockReturnValueOnce(undefined);
-    const config = preset({ env }, {
-        targets: {
-            dev: 'Nokia WAP'
+    const config = preset(
+        { env },
+        {
+            targets: {
+                dev: 'Nokia WAP'
+            }
         }
-    });
+    );
     const presetEnv = findBabelModule(config.presets, '@babel/preset-env');
     expect(presetEnv[1].targets).toBe('Nokia WAP');
     expect(env).toHaveBeenCalled();
