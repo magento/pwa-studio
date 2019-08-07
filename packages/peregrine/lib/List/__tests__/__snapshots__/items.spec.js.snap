@@ -8,6 +8,9 @@ Object {
     "getItemKey": [MockFunction] {
       "calls": Array [
         Array [
+          Object {},
+        ],
+        Array [
           Object {
             "id": "001",
             "name": "Test Product 1",
@@ -41,6 +44,10 @@ Object {
       "results": Array [
         Object {
           "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
           "value": "001",
         },
         Object {
@@ -49,6 +56,7 @@ Object {
         },
       ],
     },
+    "initialSelection": Object {},
     "items": Array [
       Object {
         "id": "001",
@@ -75,19 +83,7 @@ Object {
         "small_image": "/test/product/2.png",
       },
     ],
-    "onSelectionChange": [MockFunction] {
-      "calls": Array [
-        Array [
-          Set {},
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    },
+    "onSelectionChange": [MockFunction],
     "renderItem": [MockFunction] {
       "calls": Array [
         Array [
@@ -110,7 +106,7 @@ Object {
               "small_image": "/test/product/1.png",
             },
             "itemIndex": 0,
-            "onBlur": [Function],
+            "onBlur": undefined,
             "onClick": [Function],
             "onFocus": [Function],
           },
@@ -136,7 +132,7 @@ Object {
               "small_image": "/test/product/2.png",
             },
             "itemIndex": 1,
-            "onBlur": [Function],
+            "onBlur": undefined,
             "onClick": [Function],
             "onFocus": [Function],
           },
@@ -177,7 +173,9 @@ Object {
           "small_image": "/test/product/1.png",
         },
         "itemIndex": 0,
-        "onBlur": [Function],
+        "onBlur": undefined,
+        "onClick": [Function],
+        "onFocus": [Function],
         "render": [MockFunction] {
           "calls": Array [
             Array [
@@ -200,7 +198,7 @@ Object {
                   "small_image": "/test/product/1.png",
                 },
                 "itemIndex": 0,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -226,7 +224,7 @@ Object {
                   "small_image": "/test/product/2.png",
                 },
                 "itemIndex": 1,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -244,9 +242,7 @@ Object {
             },
           ],
         },
-        "setFocus": [Function],
-        "uniqueID": "001",
-        "updateSelection": [Function],
+        "uniqueId": "001",
       },
       "rendered": Object {
         "instance": null,
@@ -270,7 +266,7 @@ Object {
             "small_image": "/test/product/1.png",
           },
           "itemIndex": 0,
-          "onBlur": [Function],
+          "onBlur": undefined,
           "onClick": [Function],
           "onFocus": [Function],
         },
@@ -303,7 +299,7 @@ Object {
                   "small_image": "/test/product/1.png",
                 },
                 "itemIndex": 0,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -329,7 +325,7 @@ Object {
                   "small_image": "/test/product/2.png",
                 },
                 "itemIndex": 1,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -370,7 +366,9 @@ Object {
           "small_image": "/test/product/2.png",
         },
         "itemIndex": 1,
-        "onBlur": [Function],
+        "onBlur": undefined,
+        "onClick": [Function],
+        "onFocus": [Function],
         "render": [MockFunction] {
           "calls": Array [
             Array [
@@ -393,7 +391,7 @@ Object {
                   "small_image": "/test/product/1.png",
                 },
                 "itemIndex": 0,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -419,7 +417,7 @@ Object {
                   "small_image": "/test/product/2.png",
                 },
                 "itemIndex": 1,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -437,9 +435,7 @@ Object {
             },
           ],
         },
-        "setFocus": [Function],
-        "uniqueID": "002",
-        "updateSelection": [Function],
+        "uniqueId": "002",
       },
       "rendered": Object {
         "instance": null,
@@ -463,7 +459,7 @@ Object {
             "small_image": "/test/product/2.png",
           },
           "itemIndex": 1,
-          "onBlur": [Function],
+          "onBlur": undefined,
           "onClick": [Function],
           "onFocus": [Function],
         },
@@ -496,7 +492,7 @@ Object {
                   "small_image": "/test/product/1.png",
                 },
                 "itemIndex": 0,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
@@ -522,7 +518,7 @@ Object {
                   "small_image": "/test/product/2.png",
                 },
                 "itemIndex": 1,
-                "onBlur": [Function],
+                "onBlur": undefined,
                 "onClick": [Function],
                 "onFocus": [Function],
               },
