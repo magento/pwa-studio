@@ -10,14 +10,16 @@ const mockContext = () => ({
     get: jest.fn()
 });
 
+const upwardPath = '/path/to/upward.yml';
+
 test('binds itself to supplied context', async () => {
     const context = mockContext();
-    const visitor = new ResolverVisitor(null, null, context);
+    const visitor = new ResolverVisitor(null, null, context, upwardPath);
     expect(context.setVisitor).toHaveBeenCalledWith(visitor);
 });
 
 test('.upward() errors on a value not found in definition', async () => {
-    const visitor = new ResolverVisitor(null, null, mockContext());
+    const visitor = new ResolverVisitor(null, null, mockContext(), upwardPath);
     await expect(visitor.upward({}, 'foo')).rejects.toThrow(
         "Context value 'foo' not defined"
     );
@@ -28,7 +30,7 @@ test('.upward() derives resolvers from shortcut strings', async () => {
     const context = mockContext();
     context.get.mockRejectedValue('Should have resolved FileResolver shortcut');
     io.readFile.mockReturnValueOnce('sepia');
-    const visitor = new ResolverVisitor(io, null, context);
+    const visitor = new ResolverVisitor(io, null, context, upwardPath);
     await expect(
         visitor.upward({ cuttlefish: './ink' }, 'cuttlefish')
     ).resolves.toEqual('sepia');
@@ -39,20 +41,25 @@ test('.upward() derives resolvers from shortcut strings', async () => {
 test('.upward() gets primitive from context', async () => {
     const context = mockContext();
     context.get.mockResolvedValueOnce('green');
-    const visitor = new ResolverVisitor(null, null, context);
+    const visitor = new ResolverVisitor(null, null, context, upwardPath);
     await expect(visitor.upward({ foo: 'bar' }, 'foo')).resolves.toBe('green');
     expect(context.get).toHaveBeenCalledWith('bar');
 });
 
 test('.upward() errors on a non-primitive, non-object value', async () => {
-    const visitor = new ResolverVisitor(null, null, mockContext());
+    const visitor = new ResolverVisitor(null, null, mockContext(), upwardPath);
     await expect(visitor.upward({ foo: () => {} }, 'foo')).rejects.toThrow(
         'Unexpected value'
     );
 });
 
 test('.upward() finds resolvers using `resolver` property', async () => {
-    const visitor = new ResolverVisitor(mockIO(), null, mockContext());
+    const visitor = new ResolverVisitor(
+        mockIO(),
+        null,
+        mockContext(),
+        upwardPath
+    );
     await expect(
         visitor.upward(
             { foo: { resolver: 'inline', inline: 'fighters' } },
@@ -62,21 +69,36 @@ test('.upward() finds resolvers using `resolver` property', async () => {
 });
 
 test('.upward() throws on an unrecognized `resolver` property', async () => {
-    const visitor = new ResolverVisitor(mockIO(), null, mockContext());
+    const visitor = new ResolverVisitor(
+        mockIO(),
+        null,
+        mockContext(),
+        upwardPath
+    );
     await expect(
         visitor.upward({ foo: { resolver: 'wat', no: 'really?' } }, 'foo')
     ).rejects.toThrow('Unrecognized resolver type');
 });
 
 test('.upward() derives resolver from telltale property', async () => {
-    const visitor = new ResolverVisitor(mockIO(), null, mockContext());
+    const visitor = new ResolverVisitor(
+        mockIO(),
+        null,
+        mockContext(),
+        upwardPath
+    );
     await expect(
         visitor.upward({ foo: { inline: 'fighters' } }, 'foo')
     ).resolves.toEqual('fighters');
 });
 
 test('.upward() throws if it cannot derive a resolver strategy', async () => {
-    const visitor = new ResolverVisitor(mockIO(), null, mockContext());
+    const visitor = new ResolverVisitor(
+        mockIO(),
+        null,
+        mockContext(),
+        upwardPath
+    );
     await expect(
         visitor.upward({ foo: { hopeless: 'case' } }, 'foo')
     ).rejects.toThrow('Unrecognized configuration. Could not match a resolver');
@@ -85,7 +107,12 @@ test('.upward() throws if it cannot derive a resolver strategy', async () => {
 test('.downward() calls visitor.upward() with root definition', async () => {
     const context = mockContext();
     context.get.mockResolvedValueOnce('green');
-    const visitor = new ResolverVisitor(null, { frog: 'kermit' }, context);
+    const visitor = new ResolverVisitor(
+        null,
+        { frog: 'kermit' },
+        context,
+        upwardPath
+    );
     await expect(visitor.downward(['frog'])).resolves.toEqual({
         frog: 'green'
     });
