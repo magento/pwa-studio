@@ -19,6 +19,14 @@ const { PWADevServer } = require('../');
 
 portscanner.findAPortNotInUse.mockResolvedValue(10001);
 
+const mockConfig = () => ({
+    context: require('path').resolve(__dirname, '../../../../../'),
+    output: {
+        path: 'src',
+        publicPath: '/bork/'
+    }
+});
+
 const simulate = {
     uniqueHostProvided(
         hostname = 'bork.bork.bork',
@@ -57,20 +65,17 @@ afterEach(() => {
     console.log.mockRestore();
 });
 
-test('.configure() returns a configuration object for the `devServer` property of a webpack config', async () => {
-    const devServer = await PWADevServer.configure({
-        publicPath: 'full/path/to/publicPath'
+test('.configure() adds `devServer` and plugins to webpack config', async () => {
+    const config = mockConfig();
+    config.plugins = [];
+    await PWADevServer.configure({}, config);
+
+    expect(config.devServer).toMatchObject({
+        host: '0.0.0.0',
+        port: expect.any(Number)
     });
 
-    expect(devServer).toMatchObject({
-        contentBase: false,
-        compress: true,
-        hot: true,
-        host: '0.0.0.0',
-        port: expect.any(Number),
-        stats: expect.objectContaining({ all: false }),
-        after: expect.any(Function)
-    });
+    expect(config.plugins.length).toBeGreaterThan(0);
 
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching(/avoid\s+ServiceWorker\s+collisions/m)
@@ -78,13 +83,16 @@ test('.configure() returns a configuration object for the `devServer` property o
 });
 
 test('.configure() logs that a custom origin has not yet been created', async () => {
-    const server = await PWADevServer.configure({
-        publicPath: 'bork',
-        customOrigin: {
-            enabled: true
-        }
-    });
-    expect(server).toMatchObject({
+    const config = mockConfig();
+    await PWADevServer.configure(
+        {
+            customOrigin: {
+                enabled: true
+            }
+        },
+        config
+    );
+    expect(config.devServer).toMatchObject({
         contentBase: false,
         compress: true,
         hot: true,
@@ -95,14 +103,17 @@ test('.configure() logs that a custom origin has not yet been created', async ()
 });
 
 test('.configure() creates a project-unique host if customOrigin config set in env', async () => {
+    const config = mockConfig();
     simulate.uniqueHostProvided().portIsFree();
-    const server = await PWADevServer.configure({
-        publicPath: 'bork',
-        customOrigin: {
-            enabled: true
-        }
-    });
-    expect(server).toMatchObject({
+    await PWADevServer.configure(
+        {
+            customOrigin: {
+                enabled: true
+            }
+        },
+        config
+    );
+    expect(config.devServer).toMatchObject({
         contentBase: false,
         compress: true,
         hot: true,
@@ -118,16 +129,19 @@ test('.configure() creates a project-unique host if customOrigin config set in e
 
 test('.configure() lets devServer.host override customOrigin.host', async () => {
     simulate.uniqueHostProvided().portIsFree();
-    const server = await PWADevServer.configure({
-        publicPath: 'bork',
-        customOrigin: {
-            enabled: true
+    const config = mockConfig();
+    const server = await PWADevServer.configure(
+        {
+            customOrigin: {
+                enabled: true
+            },
+            devServer: {
+                host: 'borque.borque',
+                port: 8001
+            }
         },
-        devServer: {
-            host: 'borque.borque',
-            port: 8001
-        }
-    });
+        config
+    );
     expect(server).toMatchObject({
         contentBase: false,
         compress: true,
@@ -142,13 +156,16 @@ test('.configure() lets devServer.host override customOrigin.host', async () => 
 });
 test('.configure() falls back to an open port if desired port is not available, and warns', async () => {
     simulate.uniqueHostProvided().portIsInUse();
-    const server = await PWADevServer.configure({
-        publicPath: 'bork',
-        customOrigin: {
-            enabled: true
-        }
-    });
-    expect(server).toMatchObject({
+    const config = mockConfig();
+    await PWADevServer.configure(
+        {
+            customOrigin: {
+                enabled: true
+            }
+        },
+        config
+    );
+    expect(config.devServer).toMatchObject({
         host: 'bork.bork.bork',
         port: 10001,
         https: {
@@ -163,32 +180,35 @@ test('.configure() falls back to an open port if desired port is not available, 
 });
 
 test('.configure() allows customization of provided host', async () => {
+    const config = mockConfig();
     simulate.uniqueHostProvided().portIsFree();
-    await PWADevServer.configure({
-        publicPath: 'bork',
-        customOrigin: {
-            enabled: true,
-            exactDomain: 'flippy.bird'
-        }
-    });
+    await PWADevServer.configure(
+        {
+            customOrigin: {
+                enabled: true,
+                exactDomain: 'flippy.bird'
+            }
+        },
+        config
+    );
     expect(configureHost).toHaveBeenCalledWith(
         expect.objectContaining({
+            dir: config.context,
             exactDomain: 'flippy.bird'
         })
     );
 });
 
 test('debugErrorMiddleware and notifier attached', async () => {
-    const config = {
-        publicPath: 'full/path/to/publicPath'
-    };
+    const config = mockConfig();
+    config.publicPath = 'full/path/to/publicPath';
 
     const debugMiddleware = () => {};
     debugErrorMiddleware.express.mockReturnValueOnce(debugMiddleware);
 
-    const devServer = await PWADevServer.configure(config);
+    await PWADevServer.configure({}, config);
 
-    expect(devServer.after).toBeInstanceOf(Function);
+    expect(config.devServer.after).toBeInstanceOf(Function);
     const app = {
         use: jest.fn()
     };
@@ -198,7 +218,7 @@ test('debugErrorMiddleware and notifier attached', async () => {
             waitUntilValid
         }
     };
-    devServer.after(app, server);
+    config.devServer.after(app, server);
     expect(app.use).toHaveBeenCalledWith(debugMiddleware);
     expect(waitUntilValid).toHaveBeenCalled();
     const [notifier] = waitUntilValid.mock.calls[0];
@@ -209,10 +229,7 @@ test('debugErrorMiddleware and notifier attached', async () => {
 });
 
 test('graphql-playground middleware attached', async () => {
-    const config = {
-        publicPath: 'full/path/to/publicPath',
-        graphqlPlayground: true
-    };
+    const config = mockConfig();
 
     const mockFileContents = {
         'path/to/query.graphql': '{ foo { bar } }',
@@ -225,9 +242,14 @@ test('graphql-playground middleware attached', async () => {
     const middleware = jest.fn();
     playgroundMiddleware.mockReturnValueOnce(middleware);
 
-    const devServer = await PWADevServer.configure(config);
+    await PWADevServer.configure(
+        {
+            graphqlPlayground: true
+        },
+        config
+    );
 
-    expect(devServer.before).toBeInstanceOf(Function);
+    expect(config.devServer.before).toBeInstanceOf(Function);
     const app = {
         get: jest.fn(),
         use: jest.fn()
@@ -263,7 +285,7 @@ test('graphql-playground middleware attached', async () => {
             }
         }
     };
-    devServer.before(app, server);
+    config.devServer.before(app, server);
     await waitForExpect(() => {
         expect(app.get).toHaveBeenCalled();
     });
@@ -293,7 +315,7 @@ test('graphql-playground middleware attached', async () => {
         ]
     });
     expect(middleware).toHaveBeenCalledWith(req, res, expect.any(Function));
-    devServer.after(app, server);
+    config.devServer.after(app, server);
     expect(waitUntilValid).toHaveBeenCalled();
     const [notifier] = waitUntilValid.mock.calls[0];
     notifier();
@@ -305,10 +327,7 @@ test('graphql-playground middleware attached', async () => {
 });
 
 test('graphql-playground middleware handles error during project query read', async () => {
-    const config = {
-        publicPath: 'full/path/to/publicPath',
-        graphqlPlayground: true
-    };
+    const config = mockConfig();
 
     fs.readFile.mockImplementation((p, opts, cb) =>
         cb(new Error(`ENOENT: ${p} not found`))
@@ -317,9 +336,9 @@ test('graphql-playground middleware handles error during project query read', as
     const middleware = jest.fn();
     playgroundMiddleware.mockReturnValueOnce(middleware);
 
-    const devServer = await PWADevServer.configure(config);
+    await PWADevServer.configure({ graphqlPlayground: true }, config);
 
-    expect(devServer.before).toBeInstanceOf(Function);
+    expect(config.devServer.before).toBeInstanceOf(Function);
     const app = {
         get: jest.fn(),
         use: jest.fn()
@@ -354,7 +373,7 @@ test('graphql-playground middleware handles error during project query read', as
             }
         }
     };
-    devServer.before(app, server);
+    config.devServer.before(app, server);
     await waitForExpect(() => {
         expect(app.get).toHaveBeenCalled();
         expect(readHook).toBeTruthy();
@@ -367,14 +386,17 @@ test('graphql-playground middleware handles error during project query read', as
 });
 
 test('.configure() allows a `public` override', async () => {
-    const devServer = await PWADevServer.configure({
-        publicPath: 'full/path/to/publicPath',
-        devServer: {
-            public: 'docker.local'
-        }
-    });
+    const config = mockConfig();
+    await PWADevServer.configure(
+        {
+            devServer: {
+                public: 'docker.local'
+            }
+        },
+        config
+    );
 
-    expect(devServer).toMatchObject({
+    expect(config.devServer).toMatchObject({
         publicPath: 'https://docker.local/'
     });
 });

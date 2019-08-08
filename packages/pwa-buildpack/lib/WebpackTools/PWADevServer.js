@@ -11,8 +11,10 @@ const portscanner = require('portscanner');
 const { readFile: readFileAsync } = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(readFileAsync);
-const { relative } = require('path');
+const path = require('path');
 const boxen = require('boxen');
+const webpack = require('webpack');
+const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
 const secureHostWarning = chalk.redBright(`
@@ -33,21 +35,27 @@ const helpText = `
 `;
 
 const PWADevServer = {
-    async configure(config) {
-        debug('configure() invoked', config);
+    async configure(devServerConfig, webpackConfig) {
+        debug('configure() invoked', devServerConfig);
         const {
             devServer = {},
             customOrigin = {},
             imageService = {},
             backendUrl,
             graphqlPlayground,
-            publicPath
-        } = config;
+            upwardPath = 'upward.yml'
+        } = devServerConfig;
+
+        const {
+            context,
+            output: { publicPath }
+        } = webpackConfig;
 
         const webpackDevServerOptions = {
-            contentBase: false, // UpwardPlugin serves static files
+            contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
+            writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
                 poll: !!parseInt(devServer.watchOptionsUsePolling) || false
@@ -55,17 +63,7 @@ const PWADevServer = {
             host: '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: {
-                all: false,
-                builtAt: true,
-                colors: true,
-                errors: true,
-                errorDetails: true,
-                moduleTrace: true,
-                timings: true,
-                version: true,
-                warnings: true
-            },
+            stats: 'normal',
             after(app, server) {
                 app.use(debugErrorMiddleware());
                 let readyNotice = chalk.green(
@@ -116,6 +114,7 @@ const PWADevServer = {
             } else {
                 const customOriginConfig = await configureHost(
                     Object.assign(customOrigin, {
+                        dir: context,
                         interactive: false
                     })
                 );
@@ -180,8 +179,8 @@ const PWADevServer = {
                                             queryFile,
                                             'utf8'
                                         );
-                                        const name = relative(
-                                            process.cwd(),
+                                        const name = path.relative(
+                                            context,
                                             queryFile
                                         );
                                         return {
@@ -197,6 +196,7 @@ const PWADevServer = {
                         }
                     });
                 });
+                /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
                     if (!middleware) {
@@ -223,6 +223,24 @@ const PWADevServer = {
                   // ensure trailing slash
                   pathname: publicPath.replace(/([^\/])$/, '$1/')
               });
+
+        // now decorate the webpack config object itself!
+        webpackConfig.devServer = webpackDevServerOptions;
+
+        // A DevServer generates its own unique output path at startup. It needs
+        // to assign the main outputPath to this value as well.
+        webpackConfig.output.publicPath = webpackDevServerOptions.publicPath;
+
+        const plugins = webpackConfig.plugins || (webpackConfig.plugins = []);
+        plugins.push(
+            new webpack.HotModuleReplacementPlugin(),
+            new UpwardDevServerPlugin(
+                webpackDevServerOptions,
+                process.env,
+                path.resolve(webpackConfig.output.path, upwardPath)
+            )
+        );
+
         return webpackDevServerOptions;
     }
 };
