@@ -96,8 +96,8 @@ const Navigation = props => {
             <div className={classes.footer}>
                 <AuthBar
                     disabled={hasModal}
-                    onSignIn={showSignIn}
-                    onViewAccount={showMyAccount}
+                    showMyAccount={showMyAccount}
+                    showSignIn={showSignIn}
                     user={user}
                     userIsSignedIn={isSignedIn}
                 />

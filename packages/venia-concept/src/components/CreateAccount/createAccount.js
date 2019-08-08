@@ -70,7 +70,6 @@ class CreateAccount extends Component {
     handleSubmit = values => {
         const { createAccount } = this.props;
 
-        console.log('submit', values);
         if (typeof createAccount === 'function') {
             createAccount(values);
         }
