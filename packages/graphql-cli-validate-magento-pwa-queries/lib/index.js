@@ -7,7 +7,14 @@ const eslint = require('eslint');
 const fs = require('fs');
 const semver = require('semver');
 
-const compatibilityDefinitions = require('./magento-compatibility');
+let compatibilityDefinitions;
+try {
+    // they should have been copied into this directory by the prepublish script
+    compatibilityDefinitions = require('./magento-compatibility');
+} catch (e) {
+    // dynamically pull them from root if the project has not been built
+    compatibilityDefinitions = require('../../../magento-compatibility');
+}
 
 const exitCodes = {
     SUCCESS: 0,

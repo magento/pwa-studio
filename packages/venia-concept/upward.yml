@@ -44,7 +44,7 @@ response:
     # to match the directory, but the resolver is still manually configured to
     # use that directory by name.
     - matches: request.url.pathname
-      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|veniaClosed.png|robots.txt$)'
+      pattern: '^/(icons/.+|favicon.ico$|manifest.json$|.+\\.png|robots.txt$)'
       use: static
     # Requests with a URL key are handled by the top-level 'appShell' object.
     # The existence of a URL key is determined using the top-level 'urlKey'
@@ -211,12 +211,7 @@ resource:
 #
 # NOTE: This object uses the shorthand syntax for a FileResolver to help with
 # readability and as a convenience.
-assetManifest:
-  when:
-    - matches: env.NODE_ENV
-      pattern: 'development'
-      use: ./asset-manifest.json
-  default: ./dist/asset-manifest.json
+assetManifest: ./asset-manifest.json
 
 # The unknownPageType object contains a single 'title' property that is used
 # in the template file as the page title.
@@ -339,7 +334,7 @@ urlKey:
 # DirectoryResolver because of the presence of the 'directory' property.
 bundles:
   directory:
-    inline: './dist'
+    inline: '.'
 
 # The createAccountModel object contains a single 'title' property that is used
 # in the template file as the page title.
@@ -353,3 +348,13 @@ createAccountModel:
 static:
   directory:
     inline: './static'
+
+# This is a no-op at runtime; nothing refers to this context value in the rest
+# of this file. It exists to declare that template evaluation requires _all_
+# files in `./templates`, not just the ones detected by mention in this file.
+# This is the only way that the UpwardIncludePlugin dependency detector can
+# know about the _template partials_, which are only used inside template
+# evaluation and cannot be easily statically analyzed by the plugin.
+#
+# TLDR: mentioning './templates' makes Webpack copy the whole dir into ./dist
+veniaTemplateIncludes: './templates'

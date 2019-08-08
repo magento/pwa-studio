@@ -68,6 +68,9 @@ const configureProject = (dir, displayName, cb) =>
     );
 const jestConfig = {
     projects: [
+        configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
+            testEnvironment: 'node'
+        })),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
