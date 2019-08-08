@@ -73,7 +73,6 @@
     "@magento/pwa-buildpack": "~3.0.0",
     "@magento/upward-js": "~2.2.0",
     "@storybook/react": "~4.1.13",
-    "@testing-library/react-hooks": "~1.1.0",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
     "babel-loader": "~8.0.5",
