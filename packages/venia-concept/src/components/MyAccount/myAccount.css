@@ -10,6 +10,6 @@
     grid-auto-flow: row;
 }
 
-.email {
+.subtitle {
     color: rgb(var(--venia-text-alt));
 }

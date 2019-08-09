@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { bool, func, number, objectOf, shape, string } from 'prop-types';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { shape, string } from 'prop-types';
 
-import { mergeClasses } from 'src/classify';
-import AuthBar from 'src/components/AuthBar';
-import AuthModal from 'src/components/AuthModal';
+import { mergeClasses } from '../../classify';
+import AuthBar from '../AuthBar';
+import AuthModal from '../AuthModal';
+import { AppContext, CatalogContext, UserContext } from './container';
 import Tree from './categoryTree';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
@@ -17,22 +18,20 @@ const ancestors = {
 };
 
 const Navigation = props => {
-    const {
-        categories,
-        closeDrawer,
-        createAccount,
-        getUserDetails,
-        isSignedIn,
-        isOpen,
-        rootCategoryId,
-        updateCategories,
-        user
-    } = props;
+    // retrieve app state from context
+    const [appState, { closeDrawer }] = useContext(AppContext);
+    const [catalogState, { updateCategories }] = useContext(CatalogContext);
+    const [, { getUserDetails }] = useContext(UserContext);
 
     // call async actions
     useEffect(() => {
         getUserDetails();
     }, [getUserDetails]);
+
+    // extract relevant data from app state
+    const { drawer } = appState;
+    const isOpen = drawer === 'nav';
+    const { categories, rootCategoryId } = catalogState;
 
     // get local state
     const [view, setView] = useState('MENU');
@@ -98,18 +97,14 @@ const Navigation = props => {
                     disabled={hasModal}
                     showMyAccount={showMyAccount}
                     showSignIn={showSignIn}
-                    user={user}
-                    userIsSignedIn={isSignedIn}
                 />
             </div>
             <div className={modalClassName}>
                 <AuthModal
-                    createAccount={createAccount}
                     showCreateAccount={showCreateAccount}
                     showForgotPassword={showForgotPassword}
                     showMyAccount={showMyAccount}
                     showSignIn={showSignIn}
-                    user={user}
                     view={view}
                 />
             </div>
@@ -120,11 +115,6 @@ const Navigation = props => {
 export default Navigation;
 
 Navigation.propTypes = {
-    categories: objectOf(
-        shape({
-            parentId: number
-        })
-    ),
     classes: shape({
         body: string,
         form_closed: string,
@@ -135,12 +125,5 @@ Navigation.propTypes = {
         root_open: string,
         signIn_closed: string,
         signIn_open: string
-    }),
-    closeDrawer: func.isRequired,
-    getUserDetails: func.isRequired,
-    isOpen: bool,
-    isSignedIn: bool,
-    rootCategoryId: number.isRequired,
-    updateCategories: func.isRequired,
-    user: shape({})
+    })
 };

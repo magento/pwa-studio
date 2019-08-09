@@ -1,31 +1,85 @@
+import React, { createContext, useMemo } from 'react';
 import { connect } from 'src/drivers';
 import { closeDrawer } from 'src/actions/app';
 import catalogActions from 'src/actions/catalog';
-import { createAccount, getUserDetails } from 'src/actions/user';
+import { createAccount, getUserDetails, signOut } from 'src/actions/user';
 import Navigation from './navigation';
 
-const { updateCategories } = catalogActions;
+/**
+ * This file does more than connect to the Redux store.
+ *
+ * It also bridges the gap between the current architecture and
+ * the upcoming one in which app state will be available via
+ * context.
+ */
 
-const mapStateToProps = ({ catalog, user }) => {
-    const { categories, rootCategoryId } = catalog;
-    const { currentUser, isSignedIn } = user;
+// TODO: get these contexts from peregrine instead
+export const AppContext = createContext();
+export const CatalogContext = createContext();
+export const UserContext = createContext();
 
-    return {
-        categories,
-        isSignedIn,
-        rootCategoryId,
-        user: currentUser
-    };
+const Container = props => {
+    const {
+        app: appState,
+        catalog: catalogState,
+        closeDrawer,
+        createAccount,
+        getUserDetails,
+        signOut,
+        updateCategories,
+        user: userState
+    } = props;
+
+    // create the api object for each slice
+    // TODO: extract from this file
+    const appApi = useMemo(() => ({ closeDrawer }), [closeDrawer]);
+
+    const catalogApi = useMemo(() => ({ updateCategories }), [
+        updateCategories
+    ]);
+
+    const userApi = useMemo(
+        () => ({ createAccount, getUserDetails, signOut }),
+        [createAccount, getUserDetails, signOut]
+    );
+
+    // create the context value for each slice
+    // TODO: extract from this file
+    const app = useMemo(() => [appState, appApi], [appState, appApi]);
+
+    const catalog = useMemo(() => [catalogState, catalogApi], [
+        catalogState,
+        catalogApi
+    ]);
+
+    const user = useMemo(() => [userState, userApi], [userState, userApi]);
+
+    // render providers for each slice
+    // TODO: extract from this file and lift up
+    return (
+        <AppContext.Provider value={app}>
+            <UserContext.Provider value={user}>
+                <CatalogContext.Provider value={catalog}>
+                    <Navigation />
+                </CatalogContext.Provider>
+            </UserContext.Provider>
+        </AppContext.Provider>
+    );
 };
+
+const mapStateToProps = ({ app, catalog, user }) => ({ app, catalog, user });
+// const { categories, rootCategoryId } = catalog;
+// const { currentUser, isSignedIn } = user;
 
 const mapDispatchToProps = {
     closeDrawer,
     createAccount,
     getUserDetails,
-    updateCategories
+    signOut,
+    updateCategories: catalogActions.updateCategories
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Navigation);
+)(Container);
