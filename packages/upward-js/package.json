@@ -1,6 +1,9 @@
 {
   "name": "@magento/upward-js",
   "version": "2.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
