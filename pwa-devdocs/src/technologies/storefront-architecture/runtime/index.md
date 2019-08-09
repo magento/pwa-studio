@@ -2,30 +2,52 @@
 title: Runtime architecture
 ---
 
-A PWA Studio storefront's runtime architecture describes how each of its pieces work together when it is deployed.
+A PWA Studio storefront's runtime architecture describes how each of its pieces interact with Magento when it is deployed.
+
+The following sections describe characteristics for the runtime architecture of storefronts built using PWA Studio.
+Many of these characteristics follow Magento's vision for [service isolation][].
 
 ## API-only relationships
 
-* GraphQL for client data and store behavior
-* REST for patching missing GraphQL coverage
-* REST/RPC for potential admin-authorized UPWARD calls
-* HTTPS for passing through to static & media resources
+A PWA Studio storefront application communicates with Magento using its external API.
+Those external API services communicate with Magento's interal service modules and returns any results through that same external API.
+
+**GraphQL** is the main service to use for client data and store behavior.
+GraphQL coverage increases with every Magento release, but
+until full coverage is complete, developers can use the **REST** service to fill in these coverage gaps.
+
+To make secure, admin-authorized calls, configure the storefront's [UPWARD][] server to make the request using REST/RPC.
+
+Use **HTTPS** when passing requests through the UPWARD server to static and media resources in Magento.
 
 ## One-way coupling
 
-* Magento attached as service
-* Admin "unaware" of PWA
-* Future: Staging/Preview adds naive concept of "staging domains" only
+The coupling between a PWA Studio storefront and Magento should go in one direction.
+The storefront has a dependency on Magento, which is attached as a service, but
+the Magento application should not know about or be aware of the storefront.
 
 ## Decoupled deployments
 
-* Storefront and backend deployed on separate hardware
-* UPWARD allows even separate technology stacks
-* Optionally deploy UPWARD on the Magento instance directly (legacy)
-* Config dependency at build-time only
+A PWA Studio storefront and it's backing Magento instance should be deployed as separate instances on separate hardware.
+Using [UPWARD][] allows you to deploy these applications using different technology stacks with the dependency configured at build-time.
+
+Another option is to deploy the storefront to the Magento server directly using the [PHP implementation of UPWARD][].
+This is a possible option if the Magento instance is hosted in the [Magento cloud][].
 
 ## Storefront replacement mechanism
 
-* Via reverse proxy
-* Via magento-upward-connector
-* Future: via Magento native configuration
+A PWA Studio storefront replaces Magento's frontend theme.
+
+Since the coupling between the storefront and Magento is one way, Magento does not know to direct front end traffic to the storefront application.
+This means that the Magento frontend theme, such as Luma, is still available by connecting directly to the Magento server.
+
+Use a [reverse proxy][] in your Magento server to route incoming frontend traffic to the storefront application.
+If the storefront application is deployed in the same server as Magento, which can be the case if you are using [Magento cloud][] hosting, then the `magento-upward-connector` module will handle the frontend replacement.
+
+[upward]: {{site.baseurl}}{% link technologies/upward/index.md %}
+[magento cloud]: {{site.baseurl}}{%link tutorials/cloud-deploy/index.md %}
+
+[service isolation]: https://github.com/magento/architecture/blob/master/design-documents/service-isolation.md
+[php implementation of upward]: https://github.com/magento-research/upward-php
+[reverse proxy]: https://en.wikipedia.org/wiki/Reverse_proxy
+
