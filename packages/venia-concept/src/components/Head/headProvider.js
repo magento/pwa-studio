@@ -9,7 +9,7 @@ const filterOutTitleTags = titleTags => {
         });
 };
 
-export default props => {
+const HeadProvider = props => {
     useEffect(() => {
         const titleTagsToRemove = document.getElementsByTagName('title');
         filterOutTitleTags([...titleTagsToRemove]);
@@ -17,3 +17,5 @@ export default props => {
 
     return <_HeadProvider>{props.children}</_HeadProvider>;
 };
+
+export default HeadProvider;

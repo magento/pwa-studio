@@ -22,7 +22,7 @@ test('HeadProvider should delete all title tags if any', () => {
     expect(document.getElementsByTagName('title').length).toBe(0);
 });
 
-test('HeadProvider should render title if provided', () => {
+test('HeadProvider should render title if provided with data-synthetictag set to true', () => {
     const newTitle = 'New Title';
     render(
         <HeadProvider>
@@ -30,8 +30,11 @@ test('HeadProvider should render title if provided', () => {
         </HeadProvider>
     );
 
-    expect(document.getElementsByTagName('title').length).toBe(1);
     expect(document.title).toBe(newTitle);
+    expect(document.getElementsByTagName('title').length).toBe(1);
+    expect(
+        document.getElementsByTagName('title')[0].dataset.synthetictag
+    ).toBeTruthy();
 });
 
 test('HeadProvider should replace all previous title tags with the latest tag', () => {
@@ -48,7 +51,7 @@ test('HeadProvider should replace all previous title tags with the latest tag', 
     expect(document.title).toBe(newTitle);
 });
 
-test('HeadProvider should be able to render single or multiple meta tags', () => {
+test('HeadProvider should be able to render multiple meta tags', () => {
     expect(document.getElementsByTagName('meta').length).toBe(0);
 
     render(
@@ -62,7 +65,7 @@ test('HeadProvider should be able to render single or multiple meta tags', () =>
     expect(document.getElementsByTagName('meta').length).toBe(3);
 });
 
-test('HeadProvider should be able to render single or multiple link tags', () => {
+test('HeadProvider should be able to render multiple link tags', () => {
     expect(document.getElementsByTagName('link').length).toBe(0);
 
     render(
@@ -80,7 +83,7 @@ test('HeadProvider should be able to render single or multiple link tags', () =>
     expect(document.getElementsByTagName('link').length).toBe(3);
 });
 
-test('HeadProvider should be able to render single or multiple style tags', () => {
+test('HeadProvider should be able to render multiple style tags', () => {
     expect(document.getElementsByTagName('style').length).toBe(0);
 
     render(
@@ -92,8 +95,13 @@ test('HeadProvider should be able to render single or multiple style tags', () =
                     justify-content: center;
                 }`}
             </Style>
+            <Style type="text/css">
+                {`.button {
+                    color: green;
+                }`}
+            </Style>
         </HeadProvider>
     );
 
-    expect(document.getElementsByTagName('style').length).toBe(1);
+    expect(document.getElementsByTagName('style').length).toBe(2);
 });
