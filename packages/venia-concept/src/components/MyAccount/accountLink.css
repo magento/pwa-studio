@@ -1,0 +1,31 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    width: 100%;
+}
+
+.content {
+    align-items: center;
+    display: grid;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: 2rem 1fr;
+    height: 3rem;
+    justify-items: start;
+}
+
+.icon {
+    align-items: center;
+    color: rgb(var(--venia-teal));
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+}
+
+.text {
+    font-size: 0.875rem;
+    line-height: 1rem;
+}
+
+.root_normalPriority {
+    composes: root;
+}

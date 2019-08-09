@@ -4,14 +4,14 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from 'src/classify';
 import CreateAccount from 'src/components/CreateAccount';
 import ForgotPassword from 'src/components/ForgotPassword';
-import MyAccountMenuPage from 'src/components/MyAccountMenuPage';
+import MyAccount from 'src/components/MyAccount';
 import SignIn from 'src/components/SignIn';
 import defaultClasses from './authModal.css';
 
 const noop = () => {};
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
-const AuthForm = props => {
+const AuthModal = props => {
     const {
         createAccount,
         showCreateAccount,
@@ -52,7 +52,7 @@ const AuthForm = props => {
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccountMenuPage onClose={noop} />;
+            child = <MyAccount user={user} />;
             break;
         }
         case 'SIGN_IN': {
@@ -71,9 +71,9 @@ const AuthForm = props => {
     return <div className={classes.root}>{child}</div>;
 };
 
-export default AuthForm;
+export default AuthModal;
 
-AuthForm.propTypes = {
+AuthModal.propTypes = {
     classes: shape({
         root: string
     }),
