@@ -59,7 +59,7 @@ The currently recommended Magento version to use with PWA Studio is **2.3.1**, w
 **Example:**
 
 ```sh
-composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:2.3.1 [destination directory]
+composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:2.3.X [destination directory]
 ```
 
 Use the default cloud instance as the backend or set up your own [local development instance][].
