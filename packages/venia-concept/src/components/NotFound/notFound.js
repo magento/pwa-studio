@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'src/drivers';
+import { Link } from '@magento/venia-drivers';
 
 import './notFound.css';
 

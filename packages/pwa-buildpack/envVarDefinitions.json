@@ -1,0 +1,261 @@
+{
+    "sections": [
+        {
+            "name": "Connecting to a Magento store",
+            "variables": [
+                {
+                    "name": "MAGENTO_BACKEND_URL",
+                    "type": "url",
+                    "desc": "Connect to an instance of Magento 2.3 by specifying its public domain name.",
+                    "example": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
+                }
+            ]
+        },
+        {
+            "name": "Custom local origin",
+            "variables": [
+                {
+                    "name": "CUSTOM_ORIGIN_ENABLED",
+                    "type": "bool",
+                    "desc": "Get or create a secure, unique hostname/port combination and a trusted SSL certificate for local development.",
+                    "default": true
+                },
+                {
+                    "name": "CUSTOM_ORIGIN_ADD_UNIQUE_HASH",
+                    "type": "bool",
+                    "desc": "Add a unique hash string to the custom origin, based on filesystem location. This naturally separates domains when running multiple project folders on one developer machine.",
+                    "default": true
+                },
+                {
+                    "name": "CUSTOM_ORIGIN_SUBDOMAIN",
+                    "type": "str",
+                    "desc": "Specify the subdomain prefix of the custom origin manually, instead of using the package name.",
+                    "default": ""
+                },
+                {
+                    "name": "CUSTOM_ORIGIN_EXACT_DOMAIN",
+                    "type": "str",
+                    "desc": "Specify the exact domain of the custom origin manually.",
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "name": "Development server",
+            "variables": [
+                {
+                    "name": "DEV_SERVER_HOST",
+                    "type": "str",
+                    "desc": "Specify the hostname the dev server should bind to. If this is set, it overrides the host chosen by custom origin settings.",
+                    "default": ""
+                },
+                {
+                    "name": "DEV_SERVER_PORT",
+                    "type": "num",
+                    "desc": "Specify the port the dev server should bind to. If this is set, it overrides the port chosen by custom origin settings.",
+                    "default": 0
+                },
+                {
+                    "name": "DEV_SERVER_SERVICE_WORKER_ENABLED",
+                    "type": "bool",
+                    "desc": "Use a service worker in developer mode (PWADevServer), which are disabled in dev mode normally to simplify cache. Good for debugging.",
+                    "default": false
+                },
+                {
+                    "name": "DEV_SERVER_WATCH_OPTIONS_USE_POLLING",
+                    "type": "num",
+                    "desc": "Set to a number greater than 0 to denote a polling interval in milliseconds. If this is greater than 0, the dev server will use filesystem polling instead of native filesystem events to watch for changes. Can increase CPU usage, but sometimes is the best option for exotic filesystems (e.g. NFS).",
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "name": "Staging server",
+            "variables": [
+                {
+                    "name": "STAGING_SERVER_HOST",
+                    "type": "str",
+                    "desc": "Specify the hostname the staging server should bind to. If this is set, it overrides the host chosen by custom origin settings.",
+                    "default": ""
+                },
+                {
+                    "name": "STAGING_SERVER_PORT",
+                    "type": "num",
+                    "desc": "Specify the port the staging server should bind to. If this is set, it overrides the port chosen by custom origin settings.",
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "name": "Onboard image optimization service",
+            "variables": [
+                {
+                    "name": "IMAGE_SERVICE_PUBLIC_PATH",
+                    "type": "str",
+                    "desc": "Root path to mount the onboard image optimization service in the DevServer and staging server.",
+                    "example": "/img/",
+                    "default": "/img/"
+                },
+                {
+                    "name": "IMAGE_SERVICE_CACHE_EXPIRES",
+                    "type": "str",
+                    "desc": "Lifetime of images in the local cache of resized images. Format is \"[length] [unit]\", as in \"10 minutes\" or \"1 day\".",
+                    "example": "5 minutes",
+                    "default": "1 hour"
+                },
+                {
+                    "name": "IMAGE_SERVICE_CACHE_DEBUG",
+                    "type": "bool",
+                    "desc": "Log image cache debug info to the console.",
+                    "default": false
+                },
+                {
+                    "name": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
+                    "type": "str",
+                    "desc": "To use a Redis instance instead of a local memory cache for persistence between server processes, set this variable to the socket or URL of the Redis instance.",
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "name": "UPWARD server settings",
+            "variables": [
+                {
+                    "name": "UPWARD_JS_UPWARD_PATH",
+                    "type": "str",
+                    "desc": "UPWARD configuration file to use for the PWADevServer and the \"stage:venia\" sample server.",
+                    "default": "upward.yml"
+                },
+                {
+                    "name": "UPWARD_JS_BIND_LOCAL",
+                    "type": "bool",
+                    "desc": "Upon launching the staging server, automatically attach to a local port and listen.",
+                    "default": true
+                },
+                {
+                    "name": "UPWARD_JS_LOG_URL",
+                    "type": "bool",
+                    "desc": "Log the bound URL to stdout once the sever is listening. Useful in testing and discovery scenarios, but may be disabled in production.",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "name": "Checkout and payment settings",
+            "variables": [
+                {
+                    "name": "CHECKOUT_BRAINTREE_TOKEN",
+                    "type": "str",
+                    "desc": "Specify a Braintree API token token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
+                    "default": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+                }
+            ]
+        }
+    ],
+    "changes": [
+        {
+            "name": "UPWARD_JS_UPWARD_PATH",
+            "type": "defaultChanged",
+            "reason": "a new requirement that UPWARD definition files have a standardized name, to enable extensibility. You may need to rename the UPWARD definition file in your project",
+            "original": "venia-upward.yml"
+        },
+        {
+            "name": "MAGENTO_BACKEND_URL",
+            "type": "exampleChanged",
+            "reason": "updates to our backend cloud instances",
+            "original": "https://release-dev-rxvv2iq-zddsyhrdimyra.us-4.magentosite.cloud/"
+        },
+        {
+            "name": "MAGENTO_BUILDPACK_PROVIDE_SECURE_HOST",
+            "type": "renamed",
+            "update": "CUSTOM_ORIGIN_ENABLED",
+            "supportLegacy": true
+        },
+        {
+            "name": "MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN",
+            "type": "renamed",
+            "update": "CUSTOM_ORIGIN_SUBDOMAIN",
+            "supportLegacy": true
+        },
+        {
+            "name": "MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN",
+            "type": "renamed",
+            "update": "CUSTOM_ORIGIN_EXACT_DOMAIN",
+            "supportLegacy": true
+        },
+        {
+            "name": "MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH",
+            "type": "renamed",
+            "update": "CUSTOM_ORIGIN_ADD_UNIQUE_HASH",
+            "supportLegacy": true
+        },
+        {
+            "name": "ENABLE_SERVICE_WORKER_DEBUGGING",
+            "type": "renamed",
+            "update": "DEV_SERVER_SERVICE_WORKER_ENABLED",
+            "supportLegacy": true
+        },
+        {
+            "name": "BRAINTREE_TOKEN",
+            "type": "renamed",
+            "update": "CHECKOUT_BRAINTREE_TOKEN",
+            "supportLegacy": true
+        },
+        {
+            "name": "MAGENTO_BACKEND_MEDIA_PATH_PRODUCT",
+            "type": "removed",
+            "reason": "PWA Studio now reads media paths directly from instance configuration."
+        },
+        {
+            "name": "MAGENTO_BACKEND_MEDIA_PATH_CATEGORY",
+            "type": "removed",
+            "reason": "PWA Studio now reads media paths directly from instance configuration."
+        },
+        {
+            "name": "PWA_STUDIO_PORTS_DEVELOPMENT",
+            "type": "renamed",
+            "update": "DEV_SERVER_PORT",
+            "supportLegacy": true
+        },
+        {
+            "name": "PWA_STUDIO_HOT_RELOAD_WITH_POLLING",
+            "type": "renamed",
+            "update": "DEV_SERVER_WATCH_OPTIONS_USE_POLLING",
+            "supportLegacy": true
+        },
+        {
+            "name": "IMAGE_SERVICE_PATH",
+            "type": "renamed",
+            "update": "IMAGE_SERVICE_PUBLIC_PATH",
+            "supportLegacy": true
+        },
+        {
+            "name": "IMAGE_CACHE_EXPIRES",
+            "type": "renamed",
+            "update": "IMAGE_SERVICE_CACHE_EXPIRES",
+            "supportLegacy": true
+        },
+        {
+            "name": "IMAGE_CACHE_DEBUG",
+            "type": "renamed",
+            "update": "IMAGE_SERVICE_CACHE_DEBUG",
+            "supportLegacy": true
+        },
+        {
+            "name": "IMAGE_CACHE_REDIS_CLIENT",
+            "type": "renamed",
+            "update": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
+            "supportLegacy": true
+        },
+        {
+            "name": "SERVICE_WORKER_FILE_NAME",
+            "type": "removed",
+            "reason": "The standard filename 'sw.js' is better for caching, stability, and compatibility, and a PWA Studio project should not register more than one ServiceWorker."
+        },
+        {
+            "name": "PWA_STUDIO_PUBLIC_PATH",
+            "type": "removed",
+            "reason": "The new environment variables DEV_SERVER_HOST and STAGING_SERVER_HOST now provide the host override functionality for the Docker setup."
+        }
+    ]
+}

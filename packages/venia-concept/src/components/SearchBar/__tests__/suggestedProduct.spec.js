@@ -3,8 +3,8 @@ import TestRenderer from 'react-test-renderer';
 
 import SuggestedProduct from '../suggestedProduct';
 
-jest.mock('src/classify');
-jest.mock('src/drivers', () => ({
+jest.mock('../../../classify');
+jest.mock('@magento/venia-drivers', () => ({
     Link: ({ children }) => children,
     resourceUrl: jest.fn()
 }));

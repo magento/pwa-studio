@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import Button from 'src/components/Button';
-import Field from 'src/components/Field';
-import LoadingIndicator from 'src/components/LoadingIndicator';
-import TextInput from 'src/components/TextInput';
+import Button from '../Button';
+import Field from '../Field';
+import LoadingIndicator from '../LoadingIndicator';
+import TextInput from '../TextInput';
 
-import { isRequired } from 'src/util/formValidators';
+import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './signIn.css';
-import classify from 'src/classify';
+import classify from '../../classify';
 
 class SignIn extends Component {
     static propTypes = {
@@ -35,9 +35,9 @@ class SignIn extends Component {
 
     get errorMessage() {
         const { signInError } = this.props;
-        const errorIsEmpty = Object.keys(signInError).length === 0;
+        const hasError = signInError && Object.keys(signInError).length;
 
-        if (signInError && !errorIsEmpty) {
+        if (hasError) {
             // Note: we can't access the actual message that comes back from the server
             // without doing some fragile string manipulation. Hardcoded for now.
             return 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';

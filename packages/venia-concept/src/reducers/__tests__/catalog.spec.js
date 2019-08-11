@@ -1,5 +1,5 @@
 import reducer, { initialState } from '../catalog';
-import actions from 'src/actions/catalog';
+import actions from '../../actions/catalog';
 
 const state = { ...initialState };
 

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<div>
+  <TotalsSummary />
+  <React.Suspense
+    fallback={
+      <div>
+        <CheckoutButton
+          disabled={true}
+        />
+      </div>
+    }
+  >
+    <Connect(Flow) />
+  </React.Suspense>
+</div>
+`;

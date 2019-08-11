@@ -1,6 +1,6 @@
-import reducer, { initialState } from 'src/reducers/cart';
-import actions from 'src/actions/cart';
-import checkoutActions from 'src/actions/checkout';
+import reducer, { initialState } from '../cart';
+import actions from '../../actions/cart';
+import checkoutActions from '../../actions/checkout';
 
 const state = { ...initialState };
 
@@ -191,31 +191,34 @@ describe('removeItem.receive', () => {
     });
 });
 
-describe('openOptionsDrawer', () => {
-    const actionType = actions.openOptionsDrawer;
+describe('beginEditItem', () => {
+    const actionType = actions.beginEditItem;
 
-    test('it sets isOptionsDrawerOpen to true', () => {
+    test('it sets isEditingItem to true and editItem to payload', () => {
         const action = {
-            type: actionType
+            type: actionType,
+            payload: { item_id: 1 }
         };
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('isOptionsDrawerOpen', true);
+        expect(result).toHaveProperty('isEditingItem', true);
+        expect(result).toHaveProperty('editItem', action.payload);
     });
 });
 
-describe('closeOptionsDrawer', () => {
-    const actionType = actions.closeOptionsDrawer;
+describe('endEditItem', () => {
+    const actionType = actions.endEditItem;
 
-    test('it sets isOptionsDrawerOpen to false', () => {
+    test('it sets isEditingItem to false and editItem to null', () => {
         const action = {
             type: actionType
         };
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('isOptionsDrawerOpen', false);
+        expect(result).toHaveProperty('isEditingItem', false);
+        expect(result).toHaveProperty('editItem', null);
     });
 });
 

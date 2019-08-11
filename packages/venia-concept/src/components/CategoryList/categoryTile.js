@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
-import classify from 'src/classify';
-import { Link, resourceUrl } from 'src/drivers';
+import classify from '../../classify';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import defaultClasses from './categoryTile.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready

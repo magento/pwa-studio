@@ -7,8 +7,25 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 >
   <img
     alt="test-thumbnail"
-    className="image"
-    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+    className="root notLoaded"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
+    onError={[Function]}
+    onLoad={[Function]}
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
+  />
+  <img
+    alt="test-thumbnail"
+    className="root"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
 `;
@@ -20,8 +37,25 @@ exports[`renders the Thumbnail component correctly 1`] = `
 >
   <img
     alt="test-thumbnail"
-    className="image"
-    src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail.png"
+    className="root notLoaded"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
+    onError={[Function]}
+    onLoad={[Function]}
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
+  />
+  <img
+    alt="test-thumbnail"
+    className="root"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
 `;
@@ -33,7 +67,24 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
 >
   <img
     alt="placeholder-thumbnail"
-    className="image"
+    className="root notLoaded"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
+    onError={[Function]}
+    onLoad={[Function]}
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+  />
+  <img
+    alt="placeholder-thumbnail"
+    className="root"
+    classes={
+      Object {
+        "root": "image",
+      }
+    }
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>

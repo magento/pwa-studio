@@ -18,11 +18,11 @@ The following is a list of files provided by Peregrine to support routing:
 
 | File                         | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
-| [`Router.js`][]              | Defines the **MagentoRouter** component              |
-| [`MagentoRouteHandler.js`][] | Renders the correct component based on a given route |
+| [`router.js`][]              | Defines the **MagentoRouter** component              |
+| [`magentoRouteHandler.js`][] | Renders the correct component based on a given route |
 | [`resolveUnknownRoute.js`][] | Gets the appropriate page type for a route           |
 | [`webpackInterop.js`][]      | Load the Webpack chunk for a component               |
-| [`Page.js`][]                | Sets up the MagentoRouteHandler as a router consumer |
+| [`page.js`][]                | Sets up the MagentoRouteHandler as a router consumer |
 
 ## How it works
 
@@ -114,7 +114,7 @@ export default ErrorView;
 ...
 import { Page } from '@magento/peregrine';
 ...
-import ErrorView from 'src/components/ErrorView';
+import ErrorView from '../ErrorView';
 ...
 const renderRoutingError = props => <ErrorView {...props} />;
 
@@ -137,13 +137,13 @@ class App extends Component {
 ...
 ```
 
-[`Router.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/Router.js
-[`MagentoRouteHandler.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/MagentoRouteHandler.js
-[`resolveUnknownRoute.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/resolveUnknownRoute.js
-[`webpackInterop.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Router/webpackInterop.js
-[`Page.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/peregrine/src/Page/Page.js
+[`router.js`]: https://github.com/magento/pwa-studio/blob/master/packages/peregrine/lib/Router/router.js
+[`magentoRouteHandler.js`]: https://github.com/magento/pwa-studio/blob/master/packages/peregrine/lib/Router/magentoRouteHandler.js
+[`resolveUnknownRoute.js`]: https://github.com/magento/pwa-studio/blob/master/packages/peregrine/lib/Router/resolveUnknownRoute.js
+[`webpackInterop.js`]: https://github.com/magento/pwa-studio/blob/master/packages/peregrine/lib/Router/webpackInterop.js
+[`page.js`]: https://github.com/magento/pwa-studio/blob/master/packages/peregrine/lib/Page/page.js
 [`react-router`]: https://github.com/ReactTraining/react-router
 [React Context]: https://reactjs.org/docs/context.html
-[ErrorView]:t://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/ErrorView/errorView.js 
-[App]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/App/app.js
+[ErrorView]:t://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/ErrorView/errorView.js
+[App]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/App/app.js
 [Loading and error message components]: #loading-and-error-message-components

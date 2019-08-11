@@ -1,11 +1,10 @@
 .root {
-    padding: 0 1.5rem 1rem;
+    border-top: 1px solid rgb(var(--venia-border));
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
 }
 
-.item {
-    padding-bottom: 0.72rem;
-}
-
-.item:last-child {
-    padding-bottom: 0;
+.root:empty {
+    display: none;
 }

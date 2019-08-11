@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
-import { Link, resourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
-import classify from 'src/classify';
-import { transparentPlaceholder } from 'src/shared/images';
+import classify from '../../classify';
+import { transparentPlaceholder } from '../../shared/images';
 import defaultClasses from './item.css';
 
+// The placeholder image is 4:5, so we should make sure to size our product
+// images appropriately.
 const imageWidth = '300';
-const imageHeight = '372';
+const imageHeight = '375';
 
 const ItemPlaceholder = ({ children, classes }) => (
     <div className={classes.root_pending}>
@@ -103,10 +105,6 @@ class GalleryItem extends Component {
         );
     };
 
-    /**
-     * TODO: Product images are currently broken and pending a fix from the `graphql-ce` project
-     * https://github.com/magento/graphql-ce/issues/88
-     */
     renderImage = () => {
         const { classes, item } = this.props;
 
@@ -121,7 +119,8 @@ class GalleryItem extends Component {
                 className={classes.image}
                 src={resourceUrl(small_image, {
                     type: 'image-product',
-                    width: imageWidth
+                    width: imageWidth,
+                    height: imageHeight
                 })}
                 alt={name}
                 width={imageWidth}

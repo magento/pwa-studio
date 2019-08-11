@@ -1,161 +1,115 @@
-import React, { Component, Fragment } from 'react';
-import { arrayOf, func, number, shape, string } from 'prop-types';
+import React, { useCallback, useMemo, useState } from 'react';
+import { array, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import { resourceUrl } from 'src/drivers';
+
+import { mergeClasses } from '../../classify';
+import { resourceUrl } from '@magento/venia-drivers';
+
+import Image from '../Image';
+import { transparentPlaceholder } from '../../shared/images';
+
 import Kebab from './kebab';
+import ProductOptions from './productOptions';
 import Section from './section';
-import classify from 'src/classify';
+
 import defaultClasses from './product.css';
 
 const imageWidth = 80;
 const imageHeight = 100;
 
-class Product extends Component {
-    static propTypes = {
-        classes: shape({
-            image: string,
-            modal: string,
-            name: string,
-            optionLabel: string,
-            options: string,
-            price: string,
-            quantity: string,
-            quantityOperator: string,
-            quantityRow: string,
-            quantitySelect: string,
-            root: string
-        }),
-        item: shape({
-            item_id: number.isRequired,
-            name: string.isRequired,
-            options: arrayOf(
-                shape({
-                    label: string,
-                    value: string
-                })
-            ),
-            price: number.isRequired,
-            product_type: string,
-            qty: number.isRequired,
-            quote_id: string,
-            sku: string.isRequired
-        }).isRequired,
-        currencyCode: string.isRequired,
-        openOptionsDrawer: func.isRequired
-    };
+const Product = props => {
+    const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
+    const { image, name, options, price, qty } = item;
 
-    // TODO: Manage favorite items using GraphQL/REST when it is ready
-    constructor() {
-        super();
-        this.state = {
-            isLoading: false,
-            isFavorite: false
-        };
-    }
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    get options() {
-        const { classes, item } = this.props;
-        const options = item.options;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const mask = isLoading ? <div className={classes.mask} /> : null;
 
-        return options && options.length > 0 ? (
-            <dl className={classes.options}>
-                {options.map(({ label, value }) => (
-                    <Fragment key={`${label}${value}`}>
-                        <dt className={classes.optionLabel}>
-                            {label} : {value}
-                        </dt>
-                    </Fragment>
-                ))}
-            </dl>
-        ) : null;
-    }
-
-    get mask() {
-        const { classes } = this.props;
-        return this.state.isLoading ? <div className={classes.mask} /> : null;
-    }
-
-    styleImage(image) {
-        return {
-            minHeight: imageHeight, // min-height instead of height so image will always align with grid bottom
-            width: imageWidth,
-            backgroundImage: `url(${resourceUrl(image.file, {
-                type: 'image-product',
-                width: imageWidth
-            })})`
-        };
-    }
-
-    render() {
-        const { options, props, mask } = this;
-        const { classes, item, currencyCode } = props;
-        const favoritesFill = { fill: 'rgb(var(--venia-teal))' };
+    const productImage = useMemo(() => {
+        const src =
+            image && image.file
+                ? resourceUrl(image.file, {
+                      type: 'image-product',
+                      width: imageWidth,
+                      height: imageHeight
+                  })
+                : transparentPlaceholder;
 
         return (
-            <li className={classes.root}>
-                <div
-                    className={classes.image}
-                    style={this.styleImage(item.image)}
-                />
-                <div className={classes.name}>{item.name}</div>
-                {options}
-                <div className={classes.quantity}>
-                    <div className={classes.quantityRow}>
-                        <span>{item.qty}</span>
-                        <span className={classes.quantityOperator}>{'×'}</span>
-                        <span className={classes.price}>
-                            <Price
-                                currencyCode={currencyCode}
-                                value={item.price}
-                            />
-                        </span>
-                    </div>
-                </div>
-                {mask}
-                <Kebab>
-                    <Section
-                        text="Add to favorites"
-                        onClick={this.favoriteItem}
-                        icon="Heart"
-                        iconAttributes={
-                            this.state.isFavorite ? favoritesFill : {}
-                        }
-                    />
-                    <Section
-                        text="Edit item"
-                        onClick={this.editItem}
-                        icon="Edit2"
-                    />
-                    <Section
-                        text="Remove item"
-                        onClick={this.removeItem}
-                        icon="Trash"
-                    />
-                </Kebab>
-            </li>
+            <Image
+                alt={name}
+                classes={{ root: classes.image }}
+                placeholder={transparentPlaceholder}
+                src={src}
+            />
         );
-    }
+    }, [image, name, classes.image]);
 
-    favoriteItem = () => {
-        this.setState({
-            isFavorite: true
-        });
-    };
+    const handleFavoriteItem = useCallback(() => {
+        setIsFavorite(!isFavorite);
+    }, [isFavorite]);
+    const handleEditItem = useCallback(() => {
+        beginEditItem(item);
+    }, [beginEditItem, item]);
+    const handleRemoveItem = useCallback(() => {
+        setIsLoading(true);
 
-    editItem = () => {
-        this.props.openOptionsDrawer(this.props.item);
-    };
+        // TODO: prompt user to confirm this action?
+        removeItemFromCart({ item });
+    }, [item, removeItemFromCart]);
 
-    removeItem = () => {
-        this.setState({
-            isLoading: true
-        });
+    return (
+        <li className={classes.root}>
+            {productImage}
+            <div className={classes.name}>{name}</div>
+            <ProductOptions options={options} />
+            <div className={classes.quantity}>
+                <div className={classes.quantityRow}>
+                    <span>{qty}</span>
+                    <span className={classes.quantityOperator}>{'×'}</span>
+                    <span className={classes.price}>
+                        <Price currencyCode={currencyCode} value={price} />
+                    </span>
+                </div>
+            </div>
+            {mask}
+            <Kebab>
+                <Section
+                    text="Add to favorites"
+                    onClick={handleFavoriteItem}
+                    icon="Heart"
+                    isFilled={isFavorite}
+                />
+                <Section
+                    text="Edit item"
+                    onClick={handleEditItem}
+                    icon="Edit2"
+                />
+                <Section
+                    text="Remove item"
+                    onClick={handleRemoveItem}
+                    icon="Trash"
+                />
+            </Kebab>
+        </li>
+    );
+};
 
-        // TODO: prompt user to confirm this action
-        this.props.removeItemFromCart({
-            item: this.props.item
-        });
-    };
-}
+Product.propTypes = {
+    beginEditItem: func.isRequired,
+    currencyCode: string,
+    item: shape({
+        image: shape({
+            file: string
+        }),
+        name: string,
+        options: array,
+        price: number,
+        qty: number
+    }).isRequired,
+    removeItemFromCart: func.isRequired
+};
 
-export default classify(defaultClasses)(Product);
+export default Product;

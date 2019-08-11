@@ -1,5 +1,5 @@
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     color: rgb(var(--venia-text));
     position: relative;
     z-index: 1;
@@ -7,8 +7,6 @@
 
 .root_masked {
     composes: root;
-    height: 100vh;
-    overflow: hidden;
 }
 
 .page {

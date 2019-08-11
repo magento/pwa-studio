@@ -1,0 +1,4 @@
+<div id="root">
+{{> templates/js-unavailable }}
+{{> templates/loading-this-entity }}
+</div>

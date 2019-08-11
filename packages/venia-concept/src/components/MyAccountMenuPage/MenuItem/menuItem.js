@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
+import classify from '../../../classify';
 import defaultClasses from './menuItem.css';
 
 class MenuItem extends Component {

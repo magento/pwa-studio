@@ -1,44 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bool, shape, string } from 'prop-types';
+import { useScrollLock } from '@magento/peregrine';
 
-import classify from 'src/classify';
-import Footer from 'src/components/Footer';
-import Header from 'src/components/Header';
+import { mergeClasses } from '../../classify';
+import Footer from '../Footer';
+import Header from '../Header';
 import defaultClasses from './main.css';
 
-class Main extends Component {
-    static propTypes = {
-        classes: shape({
-            page: string,
-            page_masked: string,
-            root: string,
-            root_masked: string
-        }),
-        isMasked: bool
-    };
+const Main = props => {
+    const { children, hasBeenOffline, isMasked, isOnline } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    get classes() {
-        const { classes, isMasked } = this.props;
-        const suffix = isMasked ? '_masked' : '';
+    const rootClass = isMasked ? classes.root_masked : classes.root;
+    const pageClass = isMasked ? classes.page_masked : classes.page;
 
-        return ['page', 'root'].reduce(
-            (acc, val) => ({ ...acc, [val]: classes[`${val}${suffix}`] }),
-            {}
-        );
-    }
+    useScrollLock(isMasked);
 
-    render() {
-        const { classes, props } = this;
-        const { children } = props;
+    return (
+        <main className={rootClass}>
+            <Header hasBeenOffline={hasBeenOffline} isOnline={isOnline} />
+            <div className={pageClass}>{children}</div>
+            <Footer />
+        </main>
+    );
+};
 
-        return (
-            <main className={classes.root}>
-                <Header />
-                <div className={classes.page}>{children}</div>
-                <Footer />
-            </main>
-        );
-    }
-}
+export default Main;
 
-export default classify(defaultClasses)(Main);
+Main.propTypes = {
+    classes: shape({
+        page: string,
+        page_masked: string,
+        root: string,
+        root_masked: string
+    }),
+    hasBeenOffline: bool,
+    isMasked: bool,
+    isOnline: bool
+};

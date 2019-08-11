@@ -1,197 +1,140 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
+import { act } from 'react-test-renderer';
+import { createTestInstance, usePagination } from '@magento/peregrine';
 
 import { navButtons } from '../constants';
-import NavButton from '../navButton';
 import Pagination from '../pagination';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('../navButton');
 
-const setPage = jest.fn();
-const updateTotalPages = jest.fn();
-void NavButton;
+const PaginationWrapper = ({ currentPage = 1, totalPages = 3 }) => {
+    const [paginationValues, paginationApi] = usePagination({
+        initialPage: currentPage,
+        initialTotalPages: totalPages
+    });
 
-const defaultPageControl = {
-    currentPage: 1,
-    setPage,
-    totalPages: 3,
-    updateTotalPages
+    const pageControl = {
+        currentPage: paginationValues.currentPage || currentPage,
+        setPage: jest.spyOn(paginationApi, 'setCurrentPage'),
+        updateTotalPages: jest.spyOn(paginationApi, 'setTotalPages'),
+        totalPages: paginationValues.totalPages || totalPages
+    };
+
+    const classes = {
+        root: 'root'
+    };
+
+    return <Pagination pageControl={pageControl} classes={classes} />;
 };
 
 test('renders when there is more than 1 page', () => {
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={defaultPageControl} />
-        </MemoryRouter>
-    );
+    const instance = createTestInstance(<PaginationWrapper />);
 
-    expect(root.findByProps({ className: 'root' })).toBeTruthy();
+    expect(instance.toJSON()).toMatchSnapshot();
+    expect(instance.root.findByProps({ className: 'root' })).toBeTruthy();
 });
 
 test('renders nothing when there is only 1 page', () => {
-    const pageControl = { ...defaultPageControl, totalPages: 1 };
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const instance = createTestInstance(<PaginationWrapper totalPages={1} />);
 
-    expect(root.findAllByProps({ className: 'root' })).toHaveLength(0);
+    expect(instance.toJSON()).toMatchSnapshot();
+    expect(instance.root.findAllByProps({ className: 'root' })).toHaveLength(0);
 });
 
 test('tiles set the appropriate page number on click', () => {
-    const pageControl = { ...defaultPageControl };
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper />);
 
-    const tile = root.findAllByProps({ className: 'tileButton' })[2];
+    const button = root.findAllByType('button')[2];
 
-    tile.props.onClick();
+    act(() => {
+        button.props.onClick();
+    });
 
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(3);
-});
-
-test('sets the current page based on the query param', async () => {
-    const pageControl = { ...defaultPageControl };
-
-    TestRenderer.create(
-        <MemoryRouter
-            initialEntries={[{ pathname: '/index.html', search: '?page=2' }]}
-            initialIndex={0}
-        >
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
-
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(2);
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenCalledWith(3);
 });
 
 test('prevPage button decrements page by 1', () => {
-    const pageControl = { ...defaultPageControl, currentPage: 2 };
-    const { root } = TestRenderer.create(
-        <MemoryRouter
-            initialEntries={[{ pathname: '/index.html', search: '?page=2' }]}
-            initialIndex={0}
-        >
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper currentPage={2} />);
 
     const prevPage = root.findByProps({ name: navButtons.prevPage.name });
+    act(() => {
+        prevPage.props.onClick();
+    });
 
-    prevPage.props.onClick();
-
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(1);
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenLastCalledWith(1);
 });
 
 test('prevPage button does nothing if currentPage is 1', () => {
-    const pageControl = { ...defaultPageControl };
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper />);
 
     const prevPage = root.findByProps({ name: navButtons.prevPage.name });
 
-    prevPage.props.onClick();
+    act(() => {
+        prevPage.props.onClick();
+    });
 
-    expect(setPage).not.toHaveBeenCalled();
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).not.toHaveBeenCalled();
 });
 
 test('nextPage button increments page by 1', () => {
-    const pageControl = { ...defaultPageControl };
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper />);
 
     const nextPage = root.findByProps({ name: navButtons.nextPage.name });
 
-    nextPage.props.onClick();
+    act(() => {
+        nextPage.props.onClick();
+    });
 
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(2);
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenLastCalledWith(2);
 });
 
 test('nextPage button does nothing on last page', () => {
-    const pageControl = { ...defaultPageControl, currentPage: 3 };
-    const { root } = TestRenderer.create(
-        <MemoryRouter
-            initialEntries={[{ pathname: '/index.html', search: '?page=3' }]}
-            initialIndex={0}
-        >
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper currentPage={3} />);
 
     const nextPage = root.findByProps({ name: navButtons.nextPage.name });
 
-    nextPage.props.onClick();
+    act(() => {
+        nextPage.props.onClick();
+    });
 
-    expect(setPage).not.toHaveBeenCalled();
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).not.toHaveBeenCalled();
 });
 
 test('leftSkip skips toward first page', () => {
-    const pageControl = {
-        ...defaultPageControl,
-        currentPage: 8,
-        totalPages: 10
-    };
-
-    const { root } = TestRenderer.create(
-        <MemoryRouter
-            initialEntries={[{ pathname: '/index.html', search: '?page=8' }]}
-            initialIndex={0}
-        >
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
+    const { root } = createTestInstance(
+        <PaginationWrapper currentPage={8} totalPages={10} />
     );
 
     const firstPage = root.findByProps({ name: navButtons.firstPage.name });
 
-    firstPage.props.onClick();
+    act(() => {
+        firstPage.props.onClick();
+    });
 
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(3);
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
+    expect(setPageSpy).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenLastCalledWith(3);
 });
 
 test('rightSkip skips toward last page', () => {
-    const pageControl = {
-        ...defaultPageControl,
-        currentPage: 1,
-        totalPages: 10
-    };
-
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={pageControl} />
-        </MemoryRouter>
-    );
+    const { root } = createTestInstance(<PaginationWrapper />);
 
     const lastPage = root.findByProps({ name: navButtons.lastPage.name });
+    const setPageSpy = root.findByType(Pagination).props.pageControl.setPage;
 
-    lastPage.props.onClick();
+    act(() => {
+        lastPage.props.onClick();
+    });
 
-    expect(setPage).toHaveBeenCalledTimes(1);
-    expect(setPage).toHaveBeenLastCalledWith(8);
-});
-
-test('updateTotalPages is called on component mount', () => {
-    TestRenderer.create(
-        <MemoryRouter>
-            <Pagination pageControl={defaultPageControl} />
-        </MemoryRouter>
-    );
-
-    expect(updateTotalPages).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenCalledTimes(1);
+    expect(setPageSpy).toHaveBeenLastCalledWith(3);
 });

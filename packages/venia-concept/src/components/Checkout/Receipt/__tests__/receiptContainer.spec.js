@@ -1,23 +1,29 @@
-import actions from 'src/actions/checkoutReceipt';
-import { continueShopping, createAccount } from 'src/actions/checkout';
+import actions from '../../../../actions/checkoutReceipt';
+import { createAccount } from '../../../../actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
 
-jest.mock('src/drivers', () => ({
+jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
             component,
             mapStateToProps,
             mapDispatchToProps
         }))
-    )
+    ),
+    withRouter: component => {
+        component.defaultProps = {
+            ...component.defaultProps,
+            router: { pathname: 'mocked-path' }
+        };
+        return component;
+    }
 }));
 
 test('returns a connected Receipt component', () => {
     expect(Container.component).toBe(Receipt);
     expect(Container.mapStateToProps).toBeInstanceOf(Function);
     expect(Container.mapDispatchToProps).toMatchObject({
-        continueShopping,
         createAccount,
         reset: actions.reset
     });

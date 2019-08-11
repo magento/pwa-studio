@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { bool, number, object, oneOfType, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import Icon from 'src/components/Icon';
+import classify from '../../classify';
+import Icon from '../Icon';
 import Tooltip from './toolTip';
-import CheckIcon from 'react-feather/dist/icons/check';
+import { Check as CheckIcon } from 'react-feather';
 
 import defaultClasses from './swatch.css';
 
-import { memoizedGetRandomColor } from 'src/util/getRandomColor';
+import { memoizedGetRandomColor } from '../../util/getRandomColor';
 
 const getClassName = (name, isSelected, hasFocus) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;

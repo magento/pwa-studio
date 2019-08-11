@@ -1,26 +1,33 @@
-import { closeDrawer } from 'src/actions/app';
-import { getAllCategories } from 'src/actions/catalog';
+import { closeDrawer } from '../../../actions/app';
+import { getAllCategories } from '../../../actions/catalog';
 import {
     completePasswordReset,
     createAccount,
     getUserDetails,
     resetPassword
-} from 'src/actions/user';
+} from '../../../actions/user';
 import Container from '../container';
 import Navigation from '../navigation';
 
-jest.mock('src/drivers', () => ({
+jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(component => ({
             component,
             mapStateToProps,
             mapDispatchToProps
         }))
-    )
+    ),
+    withRouter: component => {
+        component.defaultProps = {
+            ...component.defaultProps,
+            router: { pathname: 'mocked-path' }
+        };
+        return component;
+    }
 }));
-jest.mock('src/actions/app');
-jest.mock('src/actions/catalog');
-jest.mock('src/actions/user');
+jest.mock('../../../actions/app');
+jest.mock('../../../actions/catalog');
+jest.mock('../../../actions/user');
 jest.mock('../navigation');
 
 test('returns a connected Navigation component', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Icon from 'src/components/Icon';
+import Icon from '../../../Icon';
 import UserInformation from '../userInformation';
 
 const classes = {

@@ -1,11 +1,11 @@
 .root {
-    position: inherit;
     display: grid;
-    grid-template-rows: min-content 1fr auto auto;
-    width: 100%;
-    bottom: 0;
-    right: 0;
+    grid-template-rows: min-content 1fr;
+    height: calc(100% - var(--minicart-header-height));
+    left: 0;
+    position: absolute;
     top: 3.5rem;
+    width: 100%;
 }
 
 .focusItem {
@@ -25,7 +25,6 @@
 
 .form {
     overflow: auto;
-    height: 1fr;
 }
 
 .modal {
@@ -62,16 +61,5 @@
 }
 
 .save {
-    box-shadow: 0 -1px rgb(var(--venia-border));
-    background-color: #fff;
-    justify-content: center;
-    padding: 1rem 0;
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-}
-
-.save button {
-    margin-right: 5px;
-    margin-left: 5px;
+    composes: footer from '../../components/Checkout/flow.css';
 }

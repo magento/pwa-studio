@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import actions from 'src/actions/purchaseDetails';
+import actions from '../actions/purchaseDetails';
 
 const initialState = {
     item: {},

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'informed';
 
-import Button from 'src/components/Button';
-import Field from 'src/components/Field';
-import TextInput from 'src/components/TextInput';
+import Button from '../../Button';
+import Field from '../../Field';
+import TextInput from '../../TextInput';
 
-import { isRequired } from 'src/util/formValidators';
+import { isRequired } from '../../../util/formValidators';
 
-import classify from 'src/classify';
+import classify from '../../../classify';
 import defaultClasses from './forgotPasswordForm.css';
 
 class ForgotPasswordForm extends Component {

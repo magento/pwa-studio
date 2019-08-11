@@ -4,7 +4,7 @@ import { MockedProvider } from 'react-apollo/test-utils';
 import TestRenderer from 'react-test-renderer';
 
 import Footer from '../footer';
-import storeConfigDataQuery from 'src/queries/getStoreConfigData.graphql';
+import storeConfigDataQuery from '../../../queries/getStoreConfigData.graphql';
 
 test('footer renders copyright', () => {
     const mocks = [

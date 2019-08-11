@@ -1,7 +1,7 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
 import Section from '../section';
-import Icon from 'src/components/Icon';
+import Icon from '../../Icon';
 
 test('renders a Section component', () => {
     const component = testRenderer.create(<Section />);

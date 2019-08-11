@@ -1,5 +1,5 @@
 .buttonArrow {
-    composes: tileButton from './pagination.css';
+    composes: button from './tile.css';
     display: grid;
     padding-bottom: 1px;
 }

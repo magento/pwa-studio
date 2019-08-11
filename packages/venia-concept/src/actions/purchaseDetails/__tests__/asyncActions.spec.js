@@ -1,8 +1,8 @@
-import { dispatch, getState } from 'src/store';
+import { dispatch, getState } from '../../../store';
 import { fetchOrderDetails } from '../asyncActions';
 
 //TODO: write the rest part of the test when fetching async action will be in working condition(currently it's mock)
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
 

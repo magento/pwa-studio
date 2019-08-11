@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+require('yargs')
+    .commandDir('../lib/cli')
+    .demandCommand(
+        1,
+        'Invoke buildpack with a subcommand (eg. `buildpack create-env-file`) and the arguments to that subcommand.'
+    )
+    .strict()
+    .fail((msg, err) => {
+        if (!err.expected) {
+            throw err;
+        }
+        // eslint-disable-next-line no-process-exit
+        process.exit(1);
+    })
+    .help().argv;

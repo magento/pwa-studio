@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<form
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <span
+    className="root"
+    style={
+      Object {
+        "--iconsAfter": 0,
+        "--iconsBefore": 1,
+      }
+    }
+  >
+    <span
+      className="input"
+    >
+      <input
+        className="input"
+        name="search_query"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[MockFunction]}
+        value=""
+      />
+    </span>
+    <span
+      className="before"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={18}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={18}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="11"
+            cy="11"
+            r="8"
+          />
+          <line
+            x1="21"
+            x2="16.65"
+            y1="21"
+            y2="16.65"
+          />
+        </svg>
+      </span>
+    </span>
+    <span
+      className="after"
+    />
+  </span>
+  <p
+    className="root"
+  />
+</form>
+`;

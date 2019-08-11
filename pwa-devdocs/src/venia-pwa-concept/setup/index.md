@@ -12,28 +12,23 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 
 ## Prerequisites
 
-* [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
-* [Yarn >=1.13.0](https://yarnpkg.com)
-* Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
-* [A running instance of Magento 2.3.1 or above](#choosing-the-magento-23-backend)
-
+-   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
+-   [Yarn >=1.13.0](https://yarnpkg.com)
+-   Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
+-   [A running instance of Magento 2.3.1 or above](#choosing-the-magento-23-backend)
 
 ## Step 1. Clone the PWA Studio repository
 
-Clone the [PWA Studio] repository into your development environment.
+Clone the [PWA Studio][] repository into your development environment.
 
 ``` sh
-git clone https://github.com/magento-research/pwa-studio.git
+git clone https://github.com/magento/pwa-studio.git
 ```
-
-{: .bs-callout .bs-callout-info}
-**Note:**
-For this tutorial, the project location is the `/Users/magedev/pwa-studio` directory.
 
 ## Step 2. Install PWA Studio dependencies
 
 {: .bs-callout .bs-callout-warning}
-If you have an existing `node_modules` directory from a previous PWA Studio version installation, remove it to prevent installation errors. 
+If you have an existing `node_modules` directory from a previous PWA Studio version installation, remove it to prevent installation errors.
 
 In the PWA Studio project's root directory, run the following command to install the project dependencies:
 
@@ -41,30 +36,25 @@ In the PWA Studio project's root directory, run the following command to install
 yarn install
 ```
 
-## Step 3. Specify the Magento backend server
+## Step 3. Create the `.env` file
 
-Under the `packages/venia-concept` directory, copy `.env.dist` into a new `.env` file:
+Use the `create-env-file` subcommand for the `buildpack` CLI tool to create a `.env` file for Venia.
+The subcommand generates a `packages/venia-concept/.env` file where you can set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
 
-**Example command:**
-``` sh
-cp packages/venia-concept/.env.dist packages/venia-concept/.env
+You can create the `.env` file and set the `MAGENTO_BACKEND_URL` value at the same time using the following command:
+
+```sh
+MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/" yarn buildpack create-env-file packages/venia-concept
 ```
 
-In the `.env` file set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.  
-
-If you are contributing to Venia development or exploring its features, you can use the default `MAGENTO_BACKEND_URL` value.
+If you are contributing to Venia development or exploring its features, you can use the `MAGENTO_BACKEND_URL` value provided in the example command.
 This URL points to a cloud instance of Magento 2.3.1 with the [Venia sample data][] installed.
-
-**Example:**
-``` text
-MAGENTO_BACKEND_URL="https://release-dev-231-npzdaky-zddsyhrdimyra.us-4.magentosite.cloud/"
-```
 
 ### Choosing the Magento 2.3 backend
 
-The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance. 
+The most recent version of the Venia storefront runs on top of any Magento 2.3.1 instance.
 
-The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer. 
+The currently recommended Magento version to use with PWA Studio is **2.3.1**, which can be installed using composer.
 
 **Example:**
 
@@ -76,15 +66,30 @@ Use the default cloud instance as the backend or set up your own [local developm
 
 The Venia storefront has been verified to be compatible with the following local setups:
 
-* Magento 2 installed using [valet-plus][]
+-   Magento 2 installed using [valet-plus][]
 
-  **Note:** If you are having `Magento2ValetDriver` problems, try downgrading to version **1.0.21**.
+    **Note:** If you are having `Magento2ValetDriver` problems, try downgrading to version **1.0.21**.
 
-* [Vagrant Box for Magento 2 developers][]
+-   [Vagrant Box for Magento 2 developers][]
 
 Don't forget to install the [Venia sample data][]!
 
-## Step 4. Start the server
+## Step 4. Generate SSL certificate
+
+PWA features require an HTTPS secure domain.
+
+In the root directory, use the `create-custom-origin` sub-command for the `buildpack` CLI tool to generate a trusted SSL certificate for the Venia package:
+
+```sh
+yarn buildpack create-custom-origin packages/venia-concept
+```
+
+{: .bs-callout .bs-callout-info}
+This feature requires administrative access, so
+it may prompt you for an administrative password at the command line.
+It does not permanently elevate permissions for the dev process but instead, launches a privileged subprocess to execute one command.
+
+## Step 5. Start the server
 
 ### Build artifacts
 
@@ -113,7 +118,7 @@ Use any of the following commands from the **project root directory** to start t
 After the development server is up and running, look for a similar line in the terminal output (the port may differ for your instance):
 
 ``` sh
-PWADevServer ready at https://magento-venia.local.pwadev:8001
+PWADevServer ready at https://magento-venia-concept-abcde.local.pwadev:8001
 ```
 
 OR
@@ -121,9 +126,9 @@ OR
 ``` sh
 Launching staging server...
 
-https://magento-venia.local.pwadev:51828/
+https://magento-venia-concept-abcde.local.pwadev:51828/
 
-Staging server running at the address above.  
+Staging server running at the address above.
 ```
 
 This is the address for your PWA frontend.
@@ -132,11 +137,11 @@ for PWA development on the frontend, use this new address.
 
 Congratulations! You have set up your development environment for the Venia storefront project.
 
-[Venia PWA concept storefront]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
-[Vagrant Box for Magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
-[Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
-[PWA Studio]: https://github.com/magento-research/pwa-studio
+[venia sample data]: {{site.baseurl}}{% link venia-pwa-concept/install-sample-data/index.md %}
+[troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+
+[venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
+[vagrant box for magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
+[pwa studio]: https://github.com/magento/pwa-studio
 [local development instance]: https://devdocs.magento.com/guides/v2.3/install-gde/bk-install-guide.html
 [valet-plus]: https://github.com/weprovide/valet-plus
-[remove the sample data modules]: https://devdocs.magento.com/guides/v2.3/install-gde/install/cli/install-cli-sample-data-other.html#inst-sample-remove
-[Venia sample data]: {{site.baseurl}}{% link venia-pwa-concept/install-sample-data/index.md %}

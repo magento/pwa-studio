@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 
 import DetailsBlock from '../detailsBlock';
 
-jest.mock('src/classify');
+jest.mock('../../../../classify');
 
 const rows = [
     { property: 'Order No', value: '84322' },

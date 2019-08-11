@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the shared Mask component 1`] = `
+<Classify(Mask)
+  classes={
+    Object {
+      "root_active": undefined,
+    }
+  }
+/>
+`;

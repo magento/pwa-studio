@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Button from 'src/components/Button';
+import Button from '../../../Button';
 import FormSubmissionSuccessful from '../formSubmissionSuccessful';
 
 const classes = {

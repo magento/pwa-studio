@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import actions from 'src/actions/directory';
+import actions from '../actions/directory';
 
 export const name = 'directory';
 

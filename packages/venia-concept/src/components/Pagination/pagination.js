@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { func, number, object, shape, string } from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
+import { func, number, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
-import getQueryParameterValue from 'src/util/getQueryParameterValue';
+import classify from '../../classify';
 import defaultClasses from './pagination.css';
+import Tile from './tile';
 import NavButton from './navButton';
 import { navButtons } from './constants';
 
@@ -16,38 +14,16 @@ class Pagination extends Component {
         classes: shape({
             root: string
         }),
-        history: object,
-        location: object,
         pageControl: shape({
             currentPage: number,
             setPage: func,
-            totalPages: number,
-            updateTotalPages: func
+            totalPages: number
         })
     };
 
-    componentDidMount() {
-        // updateTotalPages pushes the current page count of a category query to
-        // redux so it knows how many tiles to render even in the Query
-        // component's loading state
-        const { updateTotalPages, totalPages } = this.props.pageControl;
-        updateTotalPages(totalPages);
-        this.syncPage();
-    }
-
-    componentDidUpdate() {
-        this.syncPage();
-    }
-
-    componentWillUnmount() {
-        // Reset page total to keep other instances from rendering incorrectly
-        const { updateTotalPages } = this.props.pageControl;
-        updateTotalPages(null);
-    }
-
     get navigationTiles() {
-        const { classes, pageControl } = this.props;
-        const { currentPage, totalPages } = pageControl;
+        const { pageControl } = this.props;
+        const { currentPage, setPage, totalPages } = pageControl;
 
         // Begin building page navigation tiles
         const tiles = [];
@@ -60,20 +36,14 @@ class Pagination extends Component {
         }
         // End building page navigation tiles
 
-        return tiles.map(tile => {
-            const tileMarker =
-                tile == currentPage ? (
-                    <div className={classes.tileMarker} />
-                ) : null;
+        return tiles.map(tileNumber => {
             return (
-                <button
-                    className={classes.tileButton}
-                    key={tile}
-                    onClick={() => this.setPage(tile)}
-                >
-                    {tileMarker}
-                    {tile}
-                </button>
+                <Tile
+                    isActive={tileNumber === currentPage}
+                    key={tileNumber}
+                    number={tileNumber}
+                    onClick={setPage}
+                />
             );
         });
     }
@@ -81,20 +51,12 @@ class Pagination extends Component {
     render() {
         const { classes } = this.props;
         const { currentPage, totalPages } = this.props.pageControl;
-        const { navigationTiles } = this;
 
         if (!this.props.pageControl || totalPages == 1) {
             return null;
         }
 
-        const leadTile = this.getLeadTile(currentPage, totalPages);
-
-        const rightSkip = Math.min(
-            totalPages,
-            leadTile + tileBuffer * 2 + (tileBuffer + 1)
-        );
-        const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
-
+        const { navigationTiles } = this;
         const isActiveLeft = !(currentPage == 1);
         const isActiveRight = !(currentPage == totalPages);
 
@@ -103,7 +65,7 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.firstPage.name}
                     active={isActiveLeft}
-                    onClick={() => this.setPage(leftSkip)}
+                    onClick={this.leftSkip}
                     buttonLabel={navButtons.firstPage.buttonLabel}
                 />
                 <NavButton
@@ -122,34 +84,44 @@ class Pagination extends Component {
                 <NavButton
                     name={navButtons.lastPage.name}
                     active={isActiveRight}
-                    onClick={() => this.setPage(rightSkip)}
+                    onClick={this.rightSkip}
                     buttonLabel={navButtons.lastPage.buttonLabel}
                 />
             </div>
         );
     }
 
-    setPage = (pageNumber, shouldReplace = false) => {
-        const { history, location } = this.props;
-        const { search } = location;
-        const queryParams = new URLSearchParams(search);
-        const method = shouldReplace ? 'replace' : 'push';
+    leftSkip = () => {
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
+        const leadTile = this.getLeadTile(currentPage, totalPages);
 
-        queryParams.set('page', pageNumber);
-        history[method]({ search: queryParams.toString() });
+        const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
+
+        setPage(leftSkip);
+    };
+
+    rightSkip = () => {
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
+        const leadTile = this.getLeadTile(currentPage, totalPages);
+        const rightSkip = Math.min(
+            totalPages,
+            leadTile + tileBuffer * 2 + (tileBuffer + 1)
+        );
+
+        setPage(rightSkip);
     };
 
     slideNavLeft = () => {
-        const { currentPage } = this.props.pageControl;
+        const { currentPage, setPage } = this.props.pageControl;
         if (currentPage > 1) {
-            this.setPage(currentPage - 1);
+            setPage(currentPage - 1);
         }
     };
 
     slideNavRight = () => {
-        const { currentPage, totalPages } = this.props.pageControl;
+        const { currentPage, setPage, totalPages } = this.props.pageControl;
         if (currentPage < totalPages) {
-            this.setPage(currentPage + 1);
+            setPage(currentPage + 1);
         }
     };
 
@@ -166,39 +138,6 @@ class Pagination extends Component {
         }
         return leadTile;
     };
-
-    syncPage = () => {
-        const { location, pageControl } = this.props;
-        const { currentPage, setPage, totalPages } = pageControl;
-
-        const queryPage = Math.max(
-            1,
-            // Note: The ~ operator is a bitwise NOT operator.
-            // Bitwise NOTing any number x yields -(x + 1). For example, ~-5 yields 4.
-            // Importantly, it truncates any fractional component of x. For example, ~-5.7 also yields 4.
-            // For positive numbers, applying this operator twice has the same effect as Math.floor.
-            ~~getQueryParameterValue({
-                location,
-                queryParameter: 'page'
-            })
-        );
-
-        // if the page in the query string doesn't match client state
-        // update client state
-        if (queryPage !== currentPage) {
-            // if the query page is not a valid page number
-            // set it to `1` instead
-            // and make sure to update the URL
-            if (queryPage > totalPages) {
-                this.setPage(1, true);
-            } else {
-                setPage(queryPage);
-            }
-        }
-    };
 }
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(Pagination);
+export default classify(defaultClasses)(Pagination);

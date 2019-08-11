@@ -17,7 +17,7 @@ exports[`renders a shipping form 1`] = `
   </div>
   <div>
     <button
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span>
@@ -52,7 +52,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
   </div>
   <div>
     <button
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span>

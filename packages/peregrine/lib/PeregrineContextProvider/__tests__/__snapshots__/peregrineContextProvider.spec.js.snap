@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render wraps children with all peregrine context providers 1`] = `<i />`;

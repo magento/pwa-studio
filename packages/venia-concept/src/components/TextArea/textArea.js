@@ -3,8 +3,8 @@ import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
 import { BasicTextArea, asField } from 'informed';
 import { compose } from 'redux';
 
-import classify from 'src/classify';
-import { Message } from 'src/components/Field';
+import classify from '../../classify';
+import { Message } from '../Field';
 import defaultClasses from './textArea.css';
 
 export class TextArea extends Component {

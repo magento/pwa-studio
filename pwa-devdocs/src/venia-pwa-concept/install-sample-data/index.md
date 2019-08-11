@@ -7,7 +7,7 @@ title: Install Venia sample data
 The Venia storefront looks best when running against a Magento 2 backend with the Venia sample data installed.
 
 {: .bs-callout .bs-callout-info}
-The sample `.env.dist` file in the Venia project already contains the URL for a Magento 2 cloud instance that has the Venia sample data installed, so
+The `builpack create-env-file` command defaults to the URL for a Magento 2 cloud instance that has the Venia sample data installed, so
 setting up a Magento 2 instance and installing sample data into it is now an optional step.
 
 Follow the instructions on this page to install the Venia sample data into your Magento 2 development instance.
@@ -56,9 +56,9 @@ bin/magento indexer:reindex
 
 ## Step 5. Verify installation
 
-Log into the Admin section or visit the store of your Magento instance to verify the sample data installation. 
+Log into the Admin section or visit the store of your Magento instance to verify the sample data installation.
 
 ![Sample data installed in Magento](images/sample-data-installed.png)
 
 [remove the sample data modules]: https://devdocs.magento.com/guides/v2.3/install-gde/install/cli/install-cli-sample-data-other.html#inst-sample-remove
-[PWA Studio]: https://github.com/magento-research/pwa-studio
+[PWA Studio]: https://github.com/magento/pwa-studio

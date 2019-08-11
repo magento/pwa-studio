@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the edit item dialog when appropriate 1`] = `<EditItem />`;
+
+exports[`renders the empty mini cart when appropriate 1`] = `<EmptyMiniCart />`;
+
+exports[`renders the loading indicator when appropriate 1`] = `
+<LoadingIndicator>
+  Fetching Cart...
+</LoadingIndicator>
+`;
+
+exports[`renders the product list when appropriate 1`] = `
+<div>
+  <ProductList
+    beginEditItem={[Function]}
+  />
+</div>
+`;

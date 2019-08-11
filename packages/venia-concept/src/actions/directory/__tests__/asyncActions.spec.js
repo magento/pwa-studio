@@ -1,10 +1,10 @@
 import { RestApi } from '@magento/peregrine';
 
-import { dispatch, getState } from 'src/store';
+import { dispatch, getState } from '../../../store';
 import actions from '../actions';
 import { getCountries } from '../asyncActions';
 
-jest.mock('src/store');
+jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
 const { request } = RestApi.Magento2;

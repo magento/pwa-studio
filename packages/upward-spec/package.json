@@ -1,17 +1,15 @@
 {
   "name": "@magento/upward-spec",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "UPWARD specification, guide, and test suite.",
   "main": "./suite/index.js",
   "bin": {
     "upward-spec": "./bin/upward-spec"
   },
   "scripts": {
-    "build": "echo 'Skipping upward-spec build...'",
-    "build:dev": "echo 'Skipping upward-spec build...'",
-    "clean": "echo 'Skipping upward-spec clean...'"
+    "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -21,23 +19,23 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-spec#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-spec#readme",
   "dependencies": {
-    "apollo-server": "~2.4.6",
+    "apollo-server": "~2.6.3",
     "chalk": "~2.4.2",
     "csv-parse": "~4.3.3",
-    "graphql": "~14.1.1",
+    "graphql": "~14.3.1",
     "graphql-tag": "~2.10.1",
-    "js-yaml": "~3.12.1",
+    "js-yaml": "~3.13.1",
     "node-fetch": "~2.3.0",
     "tap-diff": "~0.1.1",
     "tap-xunit": "~2.3.0",
     "tape": "~4.10.1"
   },
   "engines": {
-    "node": ">=10.7.0",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

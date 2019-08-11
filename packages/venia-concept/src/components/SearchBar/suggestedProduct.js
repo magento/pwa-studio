@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import classify from 'src/classify';
-import { Link, resourceUrl } from 'src/drivers';
+import classify from '../../classify';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import defaultClasses from './suggestedProduct.css';
 
@@ -10,10 +10,10 @@ const productUrlSuffix = '.html';
 
 class SuggestedProduct extends Component {
     static propTypes = {
-        handleOnProductOpen: func.isRequired,
         url_key: string.isRequired,
         small_image: string.isRequired,
         name: string.isRequired,
+        onNavigate: func,
         price: shape({
             regularPrice: shape({
                 amount: shape({
@@ -24,49 +24,47 @@ class SuggestedProduct extends Component {
         }).isRequired,
         classes: shape({
             root: string,
-            productName: string,
-            productImage: string
+            image: string,
+            name: string,
+            price: string,
+            thumbnail: string
         })
     };
 
-    render() {
-        const {
-            handleOnProductOpen,
-            classes,
-            url_key,
-            small_image,
-            name,
-            price
-        } = this.props;
+    handleClick = () => {
+        const { onNavigate } = this.props;
 
-        const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
+        if (typeof onNavigate === 'function') {
+            onNavigate();
+        }
+    };
+
+    render() {
+        const { handleClick, props } = this;
+        const { classes, url_key, small_image, name, price } = props;
+
+        const uri = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
         return (
-            <li className={classes.root}>
-                <Link onClick={handleOnProductOpen} to={productLink}>
+            <Link className={classes.root} to={uri} onClick={handleClick}>
+                <span className={classes.image}>
                     <img
-                        className={classes.productImage}
                         alt={name}
+                        className={classes.thumbnail}
                         src={resourceUrl(small_image, {
                             type: 'image-product',
                             width: 60
                         })}
                     />
-                </Link>
-                <Link
-                    onClick={handleOnProductOpen}
-                    className={classes.productName}
-                    to={productLink}
-                >
-                    {name}
-                </Link>
-                <Link onClick={handleOnProductOpen} to={productLink}>
+                </span>
+                <span className={classes.name}>{name}</span>
+                <span className={classes.price}>
                     <Price
                         currencyCode={price.regularPrice.amount.currency}
                         value={price.regularPrice.amount.value}
                     />
-                </Link>
-            </li>
+                </span>
+            </Link>
         );
     }
 }

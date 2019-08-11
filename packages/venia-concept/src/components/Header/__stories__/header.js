@@ -3,9 +3,9 @@ import { storiesOf } from '@storybook/react';
 
 import Header from '../header';
 import defaultClasses from '../header.css';
-import 'src/index.css';
-import { Adapter } from 'src/drivers';
-import store from 'src/store';
+import '../../../index.css';
+import { Adapter } from '@magento/venia-drivers';
+import store from '../../../store';
 
 const stories = storiesOf('Header', module);
 const apiBase = new URL('/graphql', location.origin).toString();

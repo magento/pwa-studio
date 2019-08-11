@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './categoryLeaf.css';
 
 class Branch extends Component {

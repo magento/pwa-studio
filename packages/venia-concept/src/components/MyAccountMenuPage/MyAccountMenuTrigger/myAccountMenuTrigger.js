@@ -1,12 +1,12 @@
 import React, { Fragment, Component } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
-import Icon from 'src/components/Icon';
+import classify from '../../../classify';
+import Icon from '../../Icon';
 import defaultClasses from './myAccountMenuTrigger.css';
 import UserInformation from '../UserInformation';
 import MyAccountMenuPage from '../MyAccountMenuPage';
-import ChevronUpIcon from 'react-feather/dist/icons/chevron-up';
+import { ChevronUp as ChevronUpIcon } from 'react-feather';
 
 class MyAccountMenuTrigger extends Component {
     static propTypes = {

@@ -1,56 +1,50 @@
-import React, { Component } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import React from 'react';
+import { array, func, shape, string } from 'prop-types';
 import { List } from '@magento/peregrine';
 
-import classify from 'src/classify';
+import { mergeClasses } from '../../classify';
+
 import Product from './product';
 import defaultClasses from './productList.css';
 
-class ProductList extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string
-        }),
-        items: arrayOf(
-            shape({
-                item_id: number.isRequired,
-                name: string.isRequired,
-                price: number.isRequired,
-                product_type: string,
-                qty: number.isRequired,
-                quote_id: string,
-                sku: string.isRequired
-            })
-        ).isRequired,
-        currencyCode: string.isRequired
-    };
+const ProductList = props => {
+    const {
+        beginEditItem,
+        cartItems,
+        currencyCode,
+        removeItemFromCart
+    } = props;
 
-    render() {
-        const {
-            currencyCode,
-            removeItemFromCart,
-            openOptionsDrawer,
-            totalsItems,
-            ...otherProps
-        } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-        return (
-            <List
-                render="ul"
-                getItemKey={item => item.item_id}
-                renderItem={props => (
+    return (
+        <List
+            classes={classes}
+            getItemKey={item => item.item_id}
+            items={cartItems}
+            render="ul"
+            renderItem={props => {
+                return (
                     <Product
+                        beginEditItem={beginEditItem}
                         currencyCode={currencyCode}
+                        item={props.item}
                         removeItemFromCart={removeItemFromCart}
-                        openOptionsDrawer={openOptionsDrawer}
-                        totalsItems={totalsItems}
-                        {...props}
                     />
-                )}
-                {...otherProps}
-            />
-        );
-    }
-}
+                );
+            }}
+        />
+    );
+};
 
-export default classify(defaultClasses)(ProductList);
+ProductList.propTypes = {
+    beginEditItem: func,
+    cartItems: array,
+    classes: shape({
+        root: string
+    }),
+    currencyCode: string,
+    removeItemFromCart: func
+};
+
+export default ProductList;

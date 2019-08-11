@@ -8,67 +8,88 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     className="imageContainer"
   >
     <button
-      className="chevron-left"
+      className="root_normalPriority"
       onClick={[Function]}
+      type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={40}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={40}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <polyline
-            points="15 18 9 12 15 6"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={40}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={40}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="15 18 9 12 15 6"
+            />
+          </svg>
+        </span>
       </span>
     </button>
     <img
       alt="image-product"
-      className="currentImage"
+      className="root notLoaded"
+      classes={
+        Object {
+          "root": "currentImage",
+        }
+      }
+      onError={[Function]}
       onLoad={[Function]}
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <img
       alt="image-product"
-      className="currentImage"
+      className="root"
+      classes={
+        Object {
+          "root": "currentImage",
+        }
+      }
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
-      className="chevron-right"
+      className="root_normalPriority"
       onClick={[Function]}
+      type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={40}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={40}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <polyline
-            points="9 18 15 12 9 6"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={40}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={40}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="9 18 15 12 9 6"
+            />
+          </svg>
+        </span>
       </span>
     </button>
   </div>
   <div
-    className="root"
+    className="thumbnailList"
   />
 </div>
 `;
@@ -81,67 +102,88 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     className="imageContainer"
   >
     <button
-      className="chevron-left"
+      className="root_normalPriority"
       onClick={[Function]}
+      type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={40}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={40}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <polyline
-            points="15 18 9 12 15 6"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={40}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={40}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="15 18 9 12 15 6"
+            />
+          </svg>
+        </span>
       </span>
     </button>
     <img
       alt="test-thumbnail1"
-      className="currentImage"
+      className="root notLoaded"
+      classes={
+        Object {
+          "root": "currentImage",
+        }
+      }
+      onError={[Function]}
       onLoad={[Function]}
-      src="/img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+      src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800"
     />
     <img
       alt="test-thumbnail1"
-      className="currentImage"
+      className="root"
+      classes={
+        Object {
+          "root": "currentImage",
+        }
+      }
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
     <button
-      className="chevron-right"
+      className="root_normalPriority"
       onClick={[Function]}
+      type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={40}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={40}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <polyline
-            points="9 18 15 12 9 6"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={40}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={40}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="9 18 15 12 9 6"
+            />
+          </svg>
+        </span>
       </span>
     </button>
   </div>
   <div
-    className="root"
+    className="thumbnailList"
   >
     <button
       className="rootSelected"
@@ -149,8 +191,25 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail1"
-        className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail1.png"
+        className="root notLoaded"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=240&height=300"
+      />
+      <img
+        alt="test-thumbnail1"
+        className="root"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -159,8 +218,25 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail2"
-        className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail2.png"
+        className="root notLoaded"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=240&height=300"
+      />
+      <img
+        alt="test-thumbnail2"
+        className="root"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -169,8 +245,25 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail3"
-        className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail3.png"
+        className="root notLoaded"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=240&height=300"
+      />
+      <img
+        alt="test-thumbnail3"
+        className="root"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
     <button
@@ -179,8 +272,25 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     >
       <img
         alt="test-thumbnail4"
-        className="image"
-        src="/img/resize/240?url=%2Fmedia%2Fcatalog%2Fproduct%2Fthumbnail4.png"
+        className="root notLoaded"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        onError={[Function]}
+        onLoad={[Function]}
+        src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=240&height=300"
+      />
+      <img
+        alt="test-thumbnail4"
+        className="root"
+        classes={
+          Object {
+            "root": "image",
+          }
+        }
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
     </button>
   </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { arrayOf, node, shape, string } from 'prop-types';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import Button from './button';
 import defaultClasses from './buttonGroup.css';
 

@@ -1,0 +1,24 @@
+.root {
+    position: fixed;
+    display: grid;
+    grid-row-gap: 1rem;
+
+    /* Necessary to display over page contents */
+    z-index: 6;
+
+    /* Show toasts on bottom of screen */
+    bottom: 0px;
+    margin-bottom: 1rem;
+
+    /* Display in center */
+    min-width: 100%;
+}
+
+/* On desktop, display on right */
+@media (min-width: 1024px) {
+    .root {
+        composes: root;
+        right: 2rem;
+        min-width: auto;
+    }
+}

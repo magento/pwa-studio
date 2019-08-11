@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
-import Logo from 'src/components/Logo';
+import classify from '../../../classify';
+import Logo from '../../Logo';
 import MyAccountMenu from '../MyAccountMenu';
 import Header from '../Header';
 import defaultClasses from './myAccountMenuPage.css';

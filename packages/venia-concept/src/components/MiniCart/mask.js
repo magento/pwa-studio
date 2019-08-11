@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import Mask from 'src/components/Mask';
+import { mergeClasses } from '../../classify';
+import Mask from '../Mask';
 
-import classify from 'src/classify';
 import defaultClasses from './mask.css';
 
-class MiniCartMask extends Component {
-    static propTypes = {
-        classes: shape({
-            root_active: string
-        }),
-        dismiss: func,
-        isActive: bool
-    };
+const MiniCartMask = props => {
+    const { dismiss, isActive } = props;
 
-    render() {
-        const { classes, dismiss, isActive } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-        // We're rendering the shared Mask component but passing it
-        // our own custom class for its active state.
-        return (
-            <Mask
-                classes={{ root_active: classes.root_active }}
-                dismiss={dismiss}
-                isActive={isActive}
-            />
-        );
-    }
-}
+    // We're rendering the shared Mask component but passing it
+    // our own custom class for its active state.
+    return (
+        <Mask
+            classes={{ root_active: classes.root_active }}
+            dismiss={dismiss}
+            isActive={isActive}
+        />
+    );
+};
 
-export default classify(defaultClasses)(MiniCartMask);
+MiniCartMask.propTypes = {
+    classes: shape({
+        root_active: string
+    }),
+    dismiss: func,
+    isActive: bool
+};
+
+export default MiniCartMask;

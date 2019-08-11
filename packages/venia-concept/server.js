@@ -2,81 +2,90 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'test';
 }
-const validEnv = require('./validate-environment')(process.env);
 const {
-    Utilities: { addImgOptMiddleware }
+    Utilities: { addImgOptMiddleware, loadEnvironment }
 } = require('@magento/pwa-buildpack');
-const {
-    bestPractices,
-    createUpwardServer,
-    envToConfig
-} = require('@magento/upward-js');
+const { bestPractices, createUpwardServer } = require('@magento/upward-js');
+const path = require('path');
 
 async function serve() {
-    const config = Object.assign(
+    const config = loadEnvironment(__dirname);
+
+    const stagingServerSettings = config.section('stagingServer');
+
+    process.chdir(path.join(__dirname, 'dist'));
+
+    const upwardServerOptions = Object.assign(
+        // defaults
         {
             bindLocal: true,
             logUrl: true
         },
-        envToConfig(validEnv),
+        config.section('upwardJs'),
+        stagingServerSettings, // overrides upward options
         {
-            env: validEnv,
-            before: app => {
-                addImgOptMiddleware(app, validEnv);
+            env: process.env,
+            before(app) {
+                addImgOptMiddleware(
+                    app,
+                    Object.assign(
+                        config.section('magento'),
+                        config.section('imageService')
+                    )
+                );
                 app.use(bestPractices());
             }
         }
     );
 
-    if (validEnv.isProduction) {
-        if (process.env.PORT) {
-            console.log(
-                `NODE_ENV=production and PORT set. Binding to localhost:${
-                    process.env.PORT
-                }`
-            );
-            config.port = process.env.PORT;
-        } else {
-            console.log(
-                `NODE_ENV=production and no PORT set. Binding to localhost with random port`
-            );
-            config.port = 0;
-        }
-        await createUpwardServer(config);
-        console.log(`UPWARD Server listening in production mode.`);
-        return;
+    let envPort;
+    if (process.env.PORT) {
+        console.log(`PORT is set in environment: ${process.env.PORT}`);
+        envPort = process.env.PORT;
+    } else if (stagingServerSettings.port) {
+        console.log(
+            `STAGING_SERVER_PORT is configured: ${stagingServerSettings.port}`
+        );
+        envPort = stagingServerSettings.port;
     }
 
-    if (!config.host) {
+    if (config.isProd) {
+        console.log(
+            `NODE_ENV=production, will not attempt to use custom host or port`
+        );
+
+        if (envPort) {
+            upwardServerOptions.port = envPort;
+        } else {
+            console.log(`No port set. Binding to random open port`);
+            upwardServerOptions.port = 0;
+        }
+    } else {
         try {
+            // don't require configureHost until you need to, since loading
+            // the devcert library can have side effects.
             const {
                 Utilities: { configureHost }
             } = require('@magento/pwa-buildpack');
-            const { hostname, ports, ssl } = await configureHost({
-                interactive: false,
-                subdomain: validEnv.MAGENTO_BUILDPACK_SECURE_HOST_SUBDOMAIN,
-                exactDomain:
-                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_EXACT_DOMAIN,
-                addUniqueHash:
-                    validEnv.MAGENTO_BUILDPACK_SECURE_HOST_ADD_UNIQUE_HASH
-            });
-            config.host = hostname;
-            config.https = ssl;
-            config.port = ports.staging;
+            const { hostname, ports, ssl } = await configureHost(
+                Object.assign(config.section('customOrigin'), {
+                    dir: __dirname,
+                    interactive: false
+                })
+            );
+            upwardServerOptions.host = hostname;
+            upwardServerOptions.https = ssl;
+            upwardServerOptions.port = envPort || ports.staging || 0;
         } catch (e) {
             console.log(
-                'Could not configure or access custom host. Using loopback...'
+                'Could not configure or access custom host. Using loopback...',
+                e.message
             );
         }
     }
-
-    await createUpwardServer(config);
-    if (config.logUrl) {
-        console.log('\nStaging server running at the address above.\n');
-    } else {
-        console.log('\nUPWARD server listening in staging mode.\n');
-    }
+    console.log('Launching UPWARD server\n');
+    await createUpwardServer(upwardServerOptions);
+    console.log('\nUPWARD server running.');
 }
 
-console.log('Launching staging server...\n');
 serve();

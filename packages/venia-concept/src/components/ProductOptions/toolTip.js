@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import over from 'lodash.over';
 import uuid from 'uuid/v4';
 
-import classify from 'src/classify';
+import classify from '../../classify';
 import defaultClasses from './toolTip.css';
 
 /**
@@ -35,6 +35,12 @@ class Tooltip extends Component {
     state = {
         isShowing: false
     };
+
+    componentWillUnmount() {
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);
+        }
+    }
 
     /*
      *  Close the tooltip on the next tick.

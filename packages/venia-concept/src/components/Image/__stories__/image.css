@@ -1,0 +1,9 @@
+.root {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 2px;
+    width: 100%;
+}
+
+.container {
+    width: 400px;
+}

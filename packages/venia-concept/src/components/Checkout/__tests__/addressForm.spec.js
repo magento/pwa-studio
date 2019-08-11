@@ -1,9 +1,8 @@
 import React from 'react';
 import testRenderer from 'react-test-renderer';
-
 import AddressForm from '../addressForm';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
@@ -26,8 +25,8 @@ test('renders an AddressForm component', () => {
 test('renders validation block with message if address is incorrect', () => {
     const props = {
         ...defaultProps,
-        isAddressIncorrect: true,
-        incorrectAddressMessage: 'whoops'
+        isAddressInvalid: true,
+        invalidAddressMessage: 'whoops'
     };
     const component = testRenderer.create(<AddressForm {...props} />);
 
@@ -37,7 +36,7 @@ test('renders validation block with message if address is incorrect', () => {
 test('does not renders validation block with message if address is incorrect but no incorrect address message', () => {
     const props = {
         ...defaultProps,
-        isAddressIncorrect: true
+        isAddressInvalid: true
     };
     const component = testRenderer.create(<AddressForm {...props} />);
 
@@ -45,16 +44,9 @@ test('does not renders validation block with message if address is incorrect but
 });
 
 test('cancel instance function calls props cancel function', () => {
-    const component = testRenderer.create(<AddressForm {...defaultProps} />);
-    component.root.children[0].instance.cancel();
+    const { root } = testRenderer.create(<AddressForm {...defaultProps} />);
 
+    const button = root.findAllByProps({ className: 'button' })[0];
+    button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
-});
-
-test('submit instance function sets isRequestingPaymentNonce true in state', () => {
-    const component = testRenderer.create(<AddressForm {...defaultProps} />);
-    const value = 'foo';
-    component.root.children[0].instance.submit(value);
-
-    expect(mockSubmit).toHaveBeenCalledWith(value);
 });

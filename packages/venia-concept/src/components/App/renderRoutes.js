@@ -1,9 +1,9 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from '@magento/venia-drivers';
 import { Page } from '@magento/peregrine';
-import ErrorView from 'src/components/ErrorView/index';
-import CreateAccountPage from 'src/components/CreateAccountPage/index';
-import Search from 'src/RootComponents/Search';
+import ErrorView from '../ErrorView/index';
+import CreateAccountPage from '../CreateAccountPage/index';
+import Search from '../../RootComponents/Search';
 
 const renderRoutingError = props => <ErrorView {...props} />;
 

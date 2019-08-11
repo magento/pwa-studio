@@ -15,15 +15,7 @@ This lets you leverage Venia functionality in your own PWA projects.
 
 ## Install package dependency
 
-Use **NPM** or **Yarn** to install the `@magento/venia-concept` package.
-
-Install using **NPM**:
-
-```sh
-npm install @magento/venia-concept
-```
-
-Install using **Yarn**:
+Use **Yarn** to install the `@magento/venia-concept` package:
 
 ```sh
 yarn add @magento/venia-concept
@@ -31,11 +23,11 @@ yarn add @magento/venia-concept
 
 ## Import Venia components
 
-Individual Venia components are imported from the `esm` directory of the Venia package.
+Individual Venia components are imported from the `src` directory of the Venia package.
 
 ```js
-import VeniaProductDetail from '@magento/venia-concept/esm/components/ProductFullDetail';
-import Product from '@magento/venia-concept/esm/RootComponents/Product';
+import VeniaProductDetail from '@magento/venia-concept/src/components/ProductFullDetail';
+import Product from '@magento/venia-concept/src/RootComponents/Product';
 ```
 
 These components are defined in the project as [ES Modules][] to help with [Webpack optimization][].
@@ -57,7 +49,7 @@ To use complex components in your own project, you have the following options:
 Import and use the [Venia Adapter][] in your project if your storefront already uses [Apollo][] and [React Redux][]
 
 ```jsx
-import VeniaAdapter from '@magento/venia-concept/esm/drivers/adapter';
+import VeniaAdapter from '@magento/venia-concept/src/drivers/adapter';
 
 import { createStore } from 'redux';
 import { ApolloClient } from 'apollo-client';
@@ -83,16 +75,28 @@ The Venia Adapter wraps around Venia components to satisfy any implicit external
 | `client`  | [Apollo Client][] | Client object to pass on to an `ApolloProvider` component                  |
 | `store`   | [Redux Store][]   | The application store to pass on to a [Redux `Provider`][] component       |
 | `apiBase` | `string`          | Root URL of the Magento store to use in the [Peregrine Router][] component |
-{:style="table-layout:auto"}
 
 ### Venia drivers
 
 The [`src/drivers`][] dependency is a centralized module for Venia components that rely on external dependencies, such as GraphQL clients and Redux stores.
-Instead of importing these dependencies directly, Venia components import them from `src/drivers`.
+Instead of importing these dependencies directly, Venia components import them from the virtual dependency `@magento/venia-drivers`.
 
 ```js
-import { Link, resourceUrl } from 'src/drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 ```
+
+The `@magento/venia-drivers` dependency is not listed in `package.json` or available on the NPM registry.
+Instead, this works because of the following configuration in `venia-library/package.json`:
+
+```json
+"browser": {
+  "@magento/venia-drivers": "src/drivers"
+}
+```
+
+Webpack treats this package.json configuration as equivalent to a Webpack alias configuration, as required by [this draft specification](https://github.com/defunctzombie/package-browser-field-spec).
+An app which imports anything from `@magento/venia-library` will substitute the virtual dependency for the real file at build time.
+In your app, you can override the implementation of `src/drivers` and the `"browser"` field which aliases it, by specifying a Webpack alias as described below.
 
 The default implementation, which is used in the Venia storefront, provides modules that work with the components provided by the [Venia Adapter][].
 
@@ -105,7 +109,6 @@ The default implementation, which is used in the Venia storefront, provides modu
 | `resourceUrl` | [`makeUrl.js`][]   |
 | `Adapter`     | [`adapter.js`][]   |
 | `connect`     | `react-redux`      |
-{:style="table-layout:auto"}
 
 #### Custom drivers
 
@@ -128,7 +131,7 @@ module: {
 
 ```jsx
 import React, { Component } from 'react';
-import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/esm/drivers';
+import { resourceUrl as veniaResourceUrl } from '@magento/venia-concept/src/drivers';
 
 // A replacement Query that loads forever
 export class Query extends Component {
@@ -176,16 +179,19 @@ This means that any module that imports from `src/drivers` will import from `myR
 
 See the [venia-consumer-example][] project to see how a non-Venia application can import and use Venia components using this approach.
 
+[peregrine]: {{site.baseurl}}{%link peregrine/index.md %}
+[peregrine router]: {{site.baseurl}}{%link peregrine/reference/router/index.md %}
+
 [react]: https://reactjs.org/
 [venia-consumer-example]: https://github.com/magento-research/venia-consumer-example
 [es modules]: https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 [webpack optimization]: https://webpack.js.org/guides/tree-shaking/
-[loadingindicator]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
-[richtext]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/RichText
-[venia adapter]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
-[productfulldetail]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail
-[categorylist]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList
-[`src/drivers`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js
+[loadingindicator]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
+[richtext]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/RichText
+[venia adapter]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
+[productfulldetail]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail
+[categorylist]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList
+[`src/drivers`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js
 [apollo]: https://www.apollographql.com/docs/react/
 [react redux]: https://react-redux.js.org/
 [redux store]: https://redux.js.org/api/store
@@ -193,8 +199,5 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [apollo client]: https://www.apollographql.com/docs/react/essentials/get-started.html#creating-client
 [webpack]: https://webpack.js.org/
 [rollup]: https://rollupjs.org/guide/en
-[`makeUrl.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js
-[`adapter.js`]: https://github.com/magento-research/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js
-
-[Peregrine]: {{site.baseurl}}{%link peregrine/index.md %}
-[Peregrine Router]: {{site.baseurl}}{%link peregrine/reference/router/index.md %}
+[`makeurl.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js
+[`adapter.js`]: https://github.com/magento/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js

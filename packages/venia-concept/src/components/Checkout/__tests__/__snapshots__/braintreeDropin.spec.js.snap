@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders an error if isError state is true 1`] = `
-<span
-  className="error"
+<div
+  className="root"
 >
-  There was an error loading payment options. Please try again later.
-</span>
+  <div
+    id="braintree-dropin-container"
+  />
+</div>
 `;

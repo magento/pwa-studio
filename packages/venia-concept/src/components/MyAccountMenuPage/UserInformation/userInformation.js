@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classify from 'src/classify';
-import Icon from 'src/components/Icon';
-import UserIcon from 'react-feather/dist/icons/user';
+import classify from '../../../classify';
+import Icon from '../../Icon';
+import { User as UserIcon } from 'react-feather';
 import defaultClasses from './userInformation.css';
 
 class UserInformation extends Component {

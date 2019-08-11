@@ -1,17 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a suggestedProduct component 1`] = `
-<ul
-  className="root"
->
-  <li
-    className="item"
-  >
-    <strong>
-      query
-    </strong>
-     in 
-    label
-  </li>
+exports[`renders correctly 1`] = `
+<ul>
+  <li />
+  <li />
+  <li />
+  <li />
 </ul>
 `;

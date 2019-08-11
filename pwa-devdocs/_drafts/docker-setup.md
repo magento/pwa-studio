@@ -3,7 +3,7 @@
 1. Install Docker for your system: https://docs.docker.com/install
 2. Clone the repository:
     ```
-    git clone https://github.com/magento-research/pwa-studio
+    git clone https://github.com/magento/pwa-studio
     ```
     *Note*: Windows users will want to ensure that [shared drives](https://docs.docker.com/docker-for-windows/#shared-drives) are enabled.
 3. In the root of the repository, run 
@@ -22,7 +22,7 @@ To use a custom .env file for configuration, pass it to the `run-docker` script 
 
 ## Service Workers and Hot Reloading
 
-Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `ENABLE_SERVICE_WORKER_DEBUGGING=0` to `ENABLE_SERVICE_WORKER_DEBUGGING=1` in `.env.docker`.
+Service workers are disabled by default when running the `docker/run-docker` script, but they can easily be turned on by changing the default value of `DEV_SERVER_SERVICE_WORKER_ENABLED=0` to `DEV_SERVER_SERVICE_WORKER_ENABLED=1` in `.env.docker`.
 
 Hot reloading is enabled by default when running the `docker/run-docker` script and automatically refreshes the browser on changes made in the container as well as on the host machine, ie your local file system. 
 
@@ -34,4 +34,4 @@ For more details check out the [dev tools docs](https://bit.ly/2tTGWc0).
 
 ### Hot Reloading is not working
 
-If you find that hot reloading is not working for you the webpack docs recommend using [polling](https://webpack.js.org/configuration/watch/#watchoptionspoll) as watching does not work with network file systems and machines in VirtualBox. To enable polling, set `PWA_STUDIO_HOT_RELOAD_WITH_POLLING=1` in `.env.docker`.
+If you find that hot reloading is not working for you the webpack docs recommend using [polling](https://webpack.js.org/configuration/watch/#watchoptionspoll) as watching does not work with network file systems and machines in VirtualBox. To enable polling, set `DEV_SERVER_WATCH_OPTIONS_USE_POLLING=1` in `.env.docker`.

@@ -4,7 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import OrderItem from '../orderItem';
 import classes from '../orderItem.css';
 
-jest.mock('src/classify');
+jest.mock('../../../../classify');
 
 const itemMock = {
     id: 1,

@@ -1,5 +1,5 @@
 import errorHandlerEnhancer from '../errorHandler';
-import app from 'src/actions/app';
+import app from '../../actions/app';
 const APP_DISMISS_ERROR = app.markErrorHandled.toString();
 
 const rootReducer = jest.fn(() => ({ other: 'stuff' }));

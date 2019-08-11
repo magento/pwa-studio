@@ -1,0 +1,12 @@
+.options {
+    font-size: 13px;
+    grid-area: options;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+    max-height: 54px;
+    overflow-y: auto;
+}
+
+.optionLabel {
+    display: inline-block;
+}

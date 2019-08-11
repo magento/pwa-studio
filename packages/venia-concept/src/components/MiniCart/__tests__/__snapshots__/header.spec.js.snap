@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders the correct tree 1`] = `
+<div>
+  <h2>
+    Shopping Cart
+  </h2>
+  <Trigger>
+    <Classify(Icon)
+      src={[Function]}
+    />
+  </Trigger>
+</div>
+`;

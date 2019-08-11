@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Form } from 'informed';
 
-import Button from 'src/components/Button';
+import Button from '../../../Button';
 import ForgotPasswordForm from '../forgotPasswordForm';
 
 test('renders correctly', () => {

@@ -1,8 +1,7 @@
-import { connect } from 'src/drivers';
+import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { signOut } from 'src/actions/user';
-import { getUserInformation } from 'src/selectors/user';
+import { signOut } from '../../../actions/user';
+import { getUserInformation } from '../../../selectors/user';
 import MyAccountMenuPage from './myAccountMenuPage';
 
 export default compose(

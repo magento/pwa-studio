@@ -1,119 +1,134 @@
-import React, { Component } from 'react';
-import { string, number, shape } from 'prop-types';
-import { compose } from 'redux';
-import { connect, Query } from 'src/drivers';
+import React, { useEffect } from 'react';
+import { number, shape, string } from 'prop-types';
+import { usePagination, useQuery } from '@magento/peregrine';
 
-import classify from 'src/classify';
-import { setCurrentPage, setPrevPageTotal } from 'src/actions/catalog';
-import { loadingIndicator } from 'src/components/LoadingIndicator';
+import { toggleDrawer } from '../../actions/app';
+import catalogActions from '../../actions/catalog';
+import { mergeClasses } from '../../classify';
+
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { connect, withRouter } from '@magento/venia-drivers';
+import { compose } from 'redux';
+import categoryQuery from '../../queries/getCategory.graphql';
+import isObjectEmpty from '../../util/isObjectEmpty';
+import { getFilterParams } from '../../util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
-import categoryQuery from 'src/queries/getCategory.graphql';
 
-class Category extends Component {
-    static propTypes = {
-        id: number,
-        classes: shape({
-            gallery: string,
-            root: string,
-            title: string
-        }),
-        currentPage: number,
-        pageSize: number,
-        prevPageTotal: number
+const Category = props => {
+    const { filterClear, id, openDrawer, pageSize } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const [paginationValues, paginationApi] = usePagination({
+        history: props.history,
+        location: props.location
+    });
+
+    const { currentPage, totalPages } = paginationValues;
+    const { setCurrentPage, setTotalPages } = paginationApi;
+
+    const pageControl = {
+        currentPage,
+        setPage: setCurrentPage,
+        totalPages
     };
 
-    // TODO: Should not be a default here, we just don't have
-    // the wiring in place to map route info down the tree (yet)
-    static defaultProps = {
-        id: 3
-    };
+    const [queryResult, queryApi] = useQuery(categoryQuery);
+    const { data, error, loading } = queryResult;
+    const { runQuery, setLoading } = queryApi;
 
-    componentDidUpdate(prevProps) {
-        // If the current page has changed, scroll back up to the top.
-        if (this.props.currentPage !== prevProps.currentPage) {
-            window.scrollTo(0, 0);
+    // clear any stale filters
+    useEffect(() => {
+        if (isObjectEmpty(getFilterParams())) {
+            filterClear();
         }
-    }
+    }, [filterClear]);
 
-    render() {
-        const {
-            id,
-            classes,
-            currentPage,
-            pageSize,
-            prevPageTotal,
-            setCurrentPage,
-            setPrevPageTotal
-        } = this.props;
+    // run the category query
+    useEffect(() => {
+        setLoading(true);
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                id: Number(id),
+                idString: String(id),
+                onServer: false,
+                pageSize: Number(pageSize)
+            }
+        });
 
-        const pageControl = {
-            currentPage: currentPage,
-            setPage: setCurrentPage,
-            updateTotalPages: setPrevPageTotal,
-            totalPages: prevPageTotal
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage, id, pageSize, runQuery, setLoading]);
+
+    const totalPagesFromData = data
+        ? data.products.page_info.total_pages
+        : null;
+
+    useEffect(() => {
+        setTotalPages(totalPagesFromData);
+        return () => {
+            setTotalPages(null);
         };
+    }, [setTotalPages, totalPagesFromData]);
 
-        return (
-            <Query
-                query={categoryQuery}
-                variables={{
-                    id: Number(id),
-                    onServer: false,
-                    pageSize: Number(pageSize),
-                    currentPage: Number(currentPage)
-                }}
-            >
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    // If our pagination component has mounted, then we have
-                    // a total page count in the store, so we continue to render
-                    // with our last known total
-                    if (loading)
-                        return pageControl.totalPages ? (
-                            <CategoryContent
-                                pageControl={pageControl}
-                                pageSize={pageSize}
-                            />
-                        ) : (
-                            loadingIndicator
-                        );
+    // If we get an error after loading we should try to reset to page 1.
+    // If we continue to have errors after that, render an error message.
+    useEffect(() => {
+        if (error && !loading && currentPage !== 1) {
+            setCurrentPage(1);
+        }
+    }, [currentPage, error, loading, setCurrentPage]);
 
-                    // TODO: Retrieve the page total from GraphQL when ready
-                    const pageCount =
-                        data.category.products.total_count / pageSize;
-                    const totalPages = Math.ceil(pageCount);
-                    const totalWrapper = {
-                        ...pageControl,
-                        totalPages: totalPages
-                    };
-
-                    return (
-                        <CategoryContent
-                            classes={classes}
-                            pageControl={totalWrapper}
-                            data={data}
-                        />
-                    );
-                }}
-            </Query>
-        );
+    if (error && currentPage === 1 && !loading) {
+        return <div>Data Fetch Error</div>;
     }
-}
 
-const mapStateToProps = ({ catalog }) => {
-    return {
-        currentPage: catalog.currentPage,
-        pageSize: catalog.pageSize,
-        prevPageTotal: catalog.prevPageTotal
-    };
+    // Show the loading indicator until data has been fetched.
+    if (!totalPagesFromData) {
+        return fullPageLoadingIndicator;
+    }
+
+    return (
+        <CategoryContent
+            classes={classes}
+            data={loading ? null : data}
+            filterClear={filterClear}
+            openDrawer={openDrawer}
+            pageControl={pageControl}
+        />
+    );
 };
-const mapDispatchToProps = { setCurrentPage, setPrevPageTotal };
+
+Category.propTypes = {
+    classes: shape({
+        gallery: string,
+        root: string,
+        title: string
+    }),
+    id: number,
+    pageSize: number
+};
+
+Category.defaultProps = {
+    id: 3,
+    // TODO: This can be replaced by the value from `storeConfig when the PR,
+    // https://github.com/magento/graphql-ce/pull/650, is released.
+    pageSize: 6
+};
+
+const mapDispatchToProps = dispatch => ({
+    filterClear: () => dispatch(catalogActions.filterOption.clear()),
+    openDrawer: () => dispatch(toggleDrawer('filter'))
+});
 
 export default compose(
-    classify(defaultClasses),
+    withRouter,
     connect(
-        mapStateToProps,
+        null,
         mapDispatchToProps
     )
 )(Category);

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders children when supplied 1`] = `
+<button
+  onClick={[MockFunction]}
+  type="button"
+>
+  Unit test child element
+</button>
+`;
+
+exports[`renders the correct tree 1`] = `
+<button
+  onClick={[MockFunction]}
+  type="button"
+/>
+`;

@@ -31,7 +31,7 @@ It describes how the server should handle a request and build the response for i
 
 A PWA project can include an UPWARD definition file to specify its service dependencies.
 Using this definition file, an UPWARD server can be created using any language.
-The [`venia-upward.yml`][] file in the Venia storefront package is an example of an UPWARD definition file, and
+The [`upward.yml`][] file in the Venia storefront package is an example of an UPWARD definition file, and
 the [upward-js][] server is JavaScript implementation of that specification.
 
 A PWA project can also use a definition file to discover the services for an existing UPWARD server and build around that specification.
@@ -85,9 +85,9 @@ This supports the need for content that a PWA can [cache and reuse when offline]
 [HTTPS]: https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 [edge servers]: https://en.wikipedia.org/wiki/Content_delivery_network
 [idempotent]: https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
-[RATIONALE.md]: https://github.com/magento-research/pwa-studio/blob/master/packages/upward-spec/RATIONALE.md
-[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/venia-upward.yml
-[upward-js]: https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js
+[RATIONALE.md]: https://github.com/magento/pwa-studio/blob/master/packages/upward-spec/RATIONALE.md
+[`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
+[upward-js]: https://github.com/magento/pwa-studio/tree/master/packages/upward-js
 [cache and reuse when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
 [Reference Implementation]: {{ site.baseurl }}{% link technologies/upward/reference-implementation/index.md %}

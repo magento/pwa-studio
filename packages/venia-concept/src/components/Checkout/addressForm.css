@@ -1,24 +1,16 @@
 .root {
 }
 
+.heading {
+    composes: heading from './flow.css';
+}
+
 .body {
-    composes: body from './form.css';
-    grid-gap: 0.5rem;
-    padding: 0 1.5rem;
+    composes: body from './flow.css';
 }
 
 .footer {
-    composes: footer from './form.css';
-}
-
-.heading {
-    font-size: 0.875rem;
-    font-weight: 600;
-    grid-column-end: span 2;
-    line-height: 1rem;
-    padding: 0.75rem 0;
-    text-align: center;
-    text-transform: uppercase;
+    composes: footer from './flow.css';
 }
 
 /* fields */

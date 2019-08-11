@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { Form } from 'informed';
 import TextArea from '../textArea';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const fieldState = {
     value: ''

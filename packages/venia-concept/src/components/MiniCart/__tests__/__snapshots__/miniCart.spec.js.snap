@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<aside>
+  <Header
+    closeDrawer={[MockFunction]}
+    isEditingItem={false}
+  />
+  <Body
+    beginEditItem={[MockFunction]}
+    cartItems={
+      Array [
+        Object {
+          "item_id": 1,
+          "name": "Unit Test Item",
+          "price": 99,
+          "product_type": "configurable",
+          "qty": 1,
+          "quote_id": "1234",
+          "sku": "SKU",
+        },
+      ]
+    }
+    closeDrawer={[MockFunction]}
+    currencyCode="NZD"
+    editItem={null}
+    endEditItem={[MockFunction]}
+    isCartEmpty={false}
+    isEditingItem={false}
+    isLoading={false}
+    isUpdatingItem={false}
+    removeItemFromCart={[MockFunction]}
+    updateItemInCart={[MockFunction]}
+  />
+  <MiniCartMask
+    dismiss={[MockFunction]}
+    isActive={false}
+  />
+  <Footer
+    cart={
+      Object {
+        "details": Object {
+          "currency": Object {
+            "quote_currency_code": "NZD",
+          },
+          "items": Array [
+            Object {
+              "item_id": 1,
+              "name": "Unit Test Item",
+              "price": 99,
+              "product_type": "configurable",
+              "qty": 1,
+              "quote_id": "1234",
+              "sku": "SKU",
+            },
+          ],
+          "items_qty": 1,
+        },
+        "editItem": null,
+        "isEditingItem": false,
+        "isLoading": false,
+        "isUpdatingItem": false,
+        "totals": Object {
+          "subtotal": 99,
+        },
+      }
+    }
+    currencyCode="NZD"
+    isMiniCartMaskOpen={false}
+    numItems={1}
+    subtotal={99}
+  />
+</aside>
+`;

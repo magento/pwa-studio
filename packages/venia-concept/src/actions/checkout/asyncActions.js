@@ -1,10 +1,10 @@
 import { RestApi, Util } from '@magento/peregrine';
 
-import { closeDrawer } from 'src/actions/app';
-import { clearCartId, createCart } from 'src/actions/cart';
-import { getCountries } from 'src/actions/directory';
-import { getAccountInformation } from 'src/selectors/checkoutReceipt';
-import checkoutReceiptActions from 'src/actions/checkoutReceipt';
+import { closeDrawer } from '../app';
+import { clearCartId, createCart } from '../cart';
+import { getCountries } from '../directory';
+import { getAccountInformation } from '../../selectors/checkoutReceipt';
+import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -28,11 +28,6 @@ export const resetCheckout = () =>
         await dispatch(closeDrawer());
         await dispatch(createCart());
         dispatch(actions.reset());
-    };
-
-export const editOrder = section =>
-    async function thunk(dispatch) {
-        dispatch(actions.edit(section));
     };
 
 export const getShippingMethods = () => {
@@ -112,7 +107,7 @@ export const submitBillingAddress = payload =>
                 desiredBillingAddress = formatAddress(payload, countries);
             } catch (error) {
                 dispatch(actions.billingAddress.reject(error));
-                return;
+                throw error;
             }
         }
 
@@ -153,10 +148,10 @@ export const submitShippingAddress = payload =>
         } catch (error) {
             dispatch(
                 actions.shippingAddress.reject({
-                    incorrectAddressMessage: error.message
+                    invalidAddressMessage: error.message
                 })
             );
-            return null;
+            throw error;
         }
 
         await saveShippingAddress(address);
@@ -195,16 +190,6 @@ export const submitOrder = () =>
 
         if (billing_address.sameAsShippingAddress) {
             billing_address = shipping_address;
-        } else {
-            const { email, firstname, lastname, telephone } = shipping_address;
-
-            billing_address = {
-                email,
-                firstname,
-                lastname,
-                telephone,
-                ...billing_address
-            };
         }
 
         try {
@@ -278,12 +263,6 @@ export const createAccount = history => async (dispatch, getState) => {
     await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
-};
-
-export const continueShopping = history => async dispatch => {
-    await dispatch(resetCheckout());
-
-    history.push('/');
 };
 
 /* helpers */

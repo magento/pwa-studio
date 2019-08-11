@@ -3,6 +3,8 @@
 
 .body {
     composes: body from './flow.css';
+    grid-gap: 0;
+    padding: 0;
 }
 
 .footer {

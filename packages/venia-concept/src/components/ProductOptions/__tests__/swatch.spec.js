@@ -2,10 +2,10 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 
 import Swatch from '../swatch';
-import Icon from 'src/components/Icon';
+import Icon from '../../Icon';
 
-jest.mock('src/classify');
-jest.mock('src/util/getRandomColor');
+jest.mock('../../../classify');
+jest.mock('../../../util/getRandomColor');
 jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
 const defaultProps = {

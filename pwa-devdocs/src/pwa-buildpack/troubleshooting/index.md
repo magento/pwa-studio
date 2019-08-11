@@ -27,8 +27,8 @@ Paste the result console output into the issue. Thank you!
 
 **Validation errors when running developer mode**{:#validation-errors}
 
-Make sure you copied over the `.env.dist` file into a new `.env` file in the `packages/venia-concept` directory.
-This file should specify variables for your local development environment.
+Make sure you ran `npx @magento/pwa-buildpack create-env-file packages/venia-concept` in the root directory.
+The file that command generates will hold variables for your local development environment.
 
 **Venia queries to GraphQL produce validation errors**{:#graphql-validation-errors}
 
@@ -84,13 +84,13 @@ You can install higher versions of OpenSSL with [Homebrew] on OSX, [Chocolatey] 
 
 If you're running Linux, make sure that `libnss3-tools` (or whatever the equivalent is) is installed on your system. Further information provided in [this section of the devcert readme][].
 
-Some users have suggested deleting the `devcert` folder to trigger certificate regeneration.  
+Some users have suggested deleting the `devcert` folder to trigger certificate regeneration.
 
 * For MacOS users, this folder is usually found at:
   ```sh
 ~/Library/Application Support/devcert
   ```
-* For Windows users, this folder is usually found at: 
+* For Windows users, this folder is usually found at:
   ```text
 ${User}\AppData\Local\devcert
   ```

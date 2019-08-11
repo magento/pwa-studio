@@ -8,7 +8,7 @@
 }
 
 .closeButton {
-    composes: root from 'src/components/Trigger/trigger.css';
+    composes: root from '../../Trigger/trigger.css';
     display: flex;
     justify-content: center;
     align-items: center;

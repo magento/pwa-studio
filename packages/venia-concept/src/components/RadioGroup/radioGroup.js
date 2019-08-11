@@ -3,8 +3,8 @@ import { arrayOf, node, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 import { compose } from 'redux';
 
-import classify from 'src/classify';
-import { Message } from 'src/components/Field';
+import classify from '../../classify';
+import { Message } from '../Field';
 import Radio from './radio';
 import defaultClasses from './radioGroup.css';
 

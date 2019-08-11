@@ -1,37 +1,49 @@
 title: Peregrine
 entries:
-  - label: Overview
-    url: /peregrine/
+    - label: Overview
+      url: /peregrine/
 
-  - label: Routing in PWA Studio
-    url: /peregrine/routing/
+    - label: Routing in PWA Studio
+      url: /peregrine/routing/
 
-  - label: Storybook UI testing
-    url: /peregrine/testing/storybook/
+    - label: Utility modules
+      entries:
+          - label: REST API client
+            url: /peregrine/reference/rest-api-client/
 
-  - label: Utility modules
-    entries:
+    - label: Custom React hooks
+      entries:
+          - label: useApolloContext
+            url: /peregrine/reference/hooks/useApolloContext/
 
-      - label: REST API client
-        url: /peregrine/reference/rest-api-client/
+          - label: useDropdown
+            url: /peregrine/reference/hooks/useDropdown/
 
-  - label: React components
-    entries:
+          - label: useQuery
+            url: /peregrine/reference/hooks/useQuery/
 
-      - label: ContainerChild
-        url: /peregrine/reference/container-child/
+          - label: useQueryResult
+            url: /peregrine/reference/hooks/useQueryResult/
 
-      - label: Item
-        url: /peregrine/reference/item/
+          - label: useSearchParam
+            url: /peregrine/reference/hooks/useSearchParam/
 
-      - label: Items
-        url: /peregrine/reference/items/
+    - label: React components
+      entries:
+          - label: ContainerChild
+            url: /peregrine/reference/container-child/
 
-      - label: List
-        url: /peregrine/reference/list/
+          - label: Item
+            url: /peregrine/reference/item/
 
-      - label: Price
-        url: /peregrine/reference/price/
+          - label: Items
+            url: /peregrine/reference/items/
 
-      - label: Router
-        url: /peregrine/reference/router/
+          - label: List
+            url: /peregrine/reference/list/
+
+          - label: Price
+            url: /peregrine/reference/price/
+
+          - label: Router
+            url: /peregrine/reference/router/

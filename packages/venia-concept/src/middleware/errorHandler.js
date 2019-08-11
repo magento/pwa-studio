@@ -20,8 +20,8 @@
  * error as payload, and this reducer will remove it from the array.
  *
  */
-import app from 'src/actions/app';
-import errorRecord from 'src/util/createErrorRecord';
+import app from '../actions/app';
+import errorRecord from '../util/createErrorRecord';
 const APP_DISMISS_ERROR = app.markErrorHandled.toString();
 
 /**

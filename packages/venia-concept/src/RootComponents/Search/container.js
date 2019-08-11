@@ -1,7 +1,8 @@
-import { connect } from 'src/drivers';
-
+import { connect } from '@magento/venia-drivers';
+import { toggleDrawer } from '../../actions/app';
 import Search from './search';
-import { executeSearch, toggleSearch } from 'src/actions/app';
+import catalogActions from '../../actions/catalog';
+import { executeSearch, toggleSearch } from '../../actions/app';
 
 const mapStateToProps = ({ app }) => {
     const { searchOpen } = app;
@@ -9,7 +10,13 @@ const mapStateToProps = ({ app }) => {
     return { searchOpen };
 };
 
-const mapDispatchToProps = { executeSearch, toggleSearch };
+const mapDispatchToProps = dispatch => ({
+    openDrawer: () => dispatch(toggleDrawer('filter')),
+    filterClear: () => dispatch(catalogActions.filterOption.clear()),
+    executeSearch: (query, history, categoryId) =>
+        dispatch(executeSearch(query, history, categoryId)),
+    toggleSearch: () => dispatch(toggleSearch())
+});
 
 export default connect(
     mapStateToProps,

@@ -1,36 +1,41 @@
-// ensure there's exactly one slash between segments
+// If the root template supplies the backend URL at runtime, use it directly
+const htmlDataset = document.querySelector('html').dataset;
+const { imageOptimizingOrigin } = htmlDataset;
+// Protect against potential falsy values for `mediaBackend`.
+let mediaBackend = htmlDataset.mediaBackend;
+if (!mediaBackend) {
+    console.warn('A media backend URL should be defined in your config.');
+    mediaBackend = 'https://backend.test/media/';
+}
+
+const useBackendForImgs = imageOptimizingOrigin === 'backend';
+
+// Tests if a URL begins with `http:` or `https:` or `data:`
+const absoluteUrl = /^(data|http|https)?:/i;
+
+// Simple path joiner that guarantees one and only one slash between segments
 const joinUrls = (base, url) =>
     (base.endsWith('/') ? base.slice(0, -1) : base) +
     '/' +
     (url.startsWith('/') ? url.slice(1) : url);
 
 const mediaBases = new Map()
-    .set(
-        'image-product',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_PRODUCT ||
-            '/media/catalog/product'
-    )
-    .set(
-        'image-category',
-        process.env.MAGENTO_BACKEND_MEDIA_PATH_CATEGORY ||
-            '/media/catalog/category'
-    );
+    .set('image-product', 'catalog/product/')
+    .set('image-category', 'catalog/category/');
 
-const resizeBase = joinUrls(
-    process.env.IMAGE_SERVICE_PATH || '/img/',
-    '/resize/'
-);
 /**
- * Creates an "optimized" url for a provided absolute or relative url based on
- * requested media type and width.
+ * Creates an "optimized" url for a provided relative url based on
+ * requested media type and width. Any image URLs (whose type begins with
+ * "image-" will also be optimized.)
  *
  * If a `type` is provided the `path` will be joined with the associated media
  * base.
- *  - "/media/catalog/product/some/path/to/img.jpg"
+ *  - `catalog/product/path/to/img.jpg`
  *
- * If a `width` is provided a "resize url" is returned using the desired width
+ * If a `width` is provided, "resize parameters" are added to the URL for
+ * middlewares (either onboard or backend) to return using the desired width
  * and original media url.
- *  - /img/resize/640?url=%2Fmedia%2Fcatalog%2Fproduct%2Fsome%2Fpath%2Fto%2F/image.jpg
+ *  - `catalog/product/path/to/img.jpg?width=500&auto=webp&format=pjpg
  *
  * If only `path` is provided it is returned unaltered.
  *
@@ -38,37 +43,48 @@ const resizeBase = joinUrls(
  * @param {Object} props - properties describing desired optimizations
  * @param {string} props.type - "image-product" or "image-category"
  * @param {number} props.width - the desired resize width of the image
+ * @param {number} props.height - the desired resize height of the image
  */
-const makeOptimizedUrl = (path, { type, width } = {}) => {
-    const { location } = window;
-    const urlObject = new URL(path, location.href);
-    const params = new URLSearchParams(urlObject.search);
+const makeOptimizedUrl = (path, { type, width, height } = {}) => {
+    // Immediate return if there's no image optimization to attempt
+    if (!type || !type.startsWith('image-')) {
+        return path;
+    }
 
-    if (type) {
-        if (!mediaBases.has(type)) {
-            throw new Error(`Unrecognized media type ${type}`);
-        }
+    const { origin } = window.location;
+    const isAbsolute = absoluteUrl.test(path);
+    let baseURL = new URL(path, mediaBackend);
 
+    // If URL is relative and has a supported type, prepend media base onto path
+    if (!isAbsolute && mediaBases.has(type)) {
         const mediaBase = mediaBases.get(type);
-
-        // prepend media base if it isn't already part of the pathname
-        if (!urlObject.pathname.includes(mediaBase)) {
-            urlObject.pathname = joinUrls(mediaBase, urlObject.pathname);
+        if (!baseURL.pathname.includes(mediaBase)) {
+            baseURL = new URL(joinUrls(mediaBase, path), mediaBackend);
         }
-
-        // check for width before returning
     }
 
+    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
+        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), origin);
+    }
+
+    // Append image optimization parameters
+    const params = new URLSearchParams(baseURL.search);
+    params.set('auto', 'webp'); // Use the webp format if available
+    params.set('format', 'pjpg'); // Use progressive JPGs at least
     if (width) {
-        // set pathname as query param
-        // encodeURIComponent would be redundant
-        params.set('url', urlObject.pathname);
-
-        return `${resizeBase}${width}?${params}`;
+        params.set('width', width);
+    }
+    if (height) {
+        params.set('height', height);
     }
 
-    // return unaltered path if we didn't operate on it
-    return type ? urlObject.pathname : path;
+    baseURL.search = params.toString();
+
+    if (baseURL.origin === origin) {
+        return baseURL.href.slice(baseURL.origin.length);
+    }
+
+    return baseURL.href;
 };
 
 export default makeOptimizedUrl;

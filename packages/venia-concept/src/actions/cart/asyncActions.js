@@ -1,7 +1,7 @@
 import { RestApi, Util } from '@magento/peregrine';
 
-import { closeDrawer, toggleDrawer } from 'src/actions/app';
-import checkoutActions from 'src/actions/checkout';
+import { closeDrawer, toggleDrawer } from '../app';
+import checkoutActions from '../checkout';
 import actions from './actions';
 
 const { request } = RestApi.Magento2;
@@ -201,8 +201,8 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
         await dispatch(getCartDetails({ forceRefresh: true }));
 
-        // Close the options drawer only after the cart is finished updating.
-        dispatch(closeOptionsDrawer());
+        // Close the edit dialog only after the cart is finished updating.
+        dispatch(endEditItem());
     };
 };
 
@@ -213,6 +213,7 @@ export const removeItemFromCart = payload => {
         dispatch(actions.removeItem.request(payload));
 
         const { cart, user } = getState();
+        let isLastItem = false;
 
         try {
             const { cartId } = cart;
@@ -240,12 +241,9 @@ export const removeItemFromCart = payload => {
                 method: 'DELETE'
             });
 
-            // When removing the last item in the cart, perform a reset
-            // to prevent a bug where the next item added to the cart has
-            // a price of 0
             const cartItemCount = cart.details ? cart.details.items_count : 0;
             if (cartItemCount === 1) {
-                await clearCartId();
+                isLastItem = true;
             }
 
             dispatch(
@@ -283,15 +281,23 @@ export const removeItemFromCart = payload => {
             }
         }
 
-        await dispatch(getCartDetails({ forceRefresh: true }));
+        // When removing the last item in the cart, perform a reset of the Cart ID
+        // and create a new cart to prevent a bug where the next item added to the
+        // cart has a price of 0. Otherwise refresh cart details to get updated totals.
+        if (isLastItem) {
+            await clearCartId();
+            dispatch(createCart());
+        } else {
+            await dispatch(getCartDetails({ forceRefresh: true }));
+        }
     };
 };
 
-export const openOptionsDrawer = () => async dispatch =>
-    dispatch(actions.openOptionsDrawer());
+export const beginEditItem = item => async dispatch =>
+    dispatch(actions.beginEditItem(item));
 
-export const closeOptionsDrawer = () => async dispatch =>
-    dispatch(actions.closeOptionsDrawer());
+export const endEditItem = () => async dispatch =>
+    dispatch(actions.endEditItem());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
@@ -344,6 +350,9 @@ export const getCartDetails = (payload = {}) => {
             // for each item in the cart, look up its image in the cache
             // and merge it into the item object
             // then assign its options from the totals subResource
+            // TODO: If we don't have the image in cache we should probably try
+            // to find it some other way otherwise we have no image to display
+            // in the cart and will have to fall back to a placeholder.
             if (imageCache && Array.isArray(items) && items.length) {
                 const validTotals = totals && totals.items;
                 items.forEach(item => {

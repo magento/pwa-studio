@@ -1,12 +1,13 @@
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import React, { useState } from 'react';
+import { createTestInstance } from '@magento/peregrine';
 import waitForExpect from 'wait-for-expect';
 import dropin from 'braintree-web-drop-in';
 
 import BraintreeDropin from '../braintreeDropin';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 jest.mock('@magento/peregrine', () => ({
+    ...jest.requireActual('@magento/peregrine'),
     Util: {
         BrowserPersistence: function() {
             return {
@@ -19,10 +20,16 @@ jest.mock('@magento/peregrine', () => ({
     }
 }));
 
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+
+    return Object.assign(React, { useState: jest.fn(React.useState) });
+});
+
 // Mock our component props.
 const mockError = jest.fn();
 const mockSuccess = jest.fn();
-const props = {
+const defaultProps = {
     onError: mockError,
     onSuccess: mockSuccess
 };
@@ -33,24 +40,23 @@ beforeEach(() => {
 });
 
 test('renders two divs', () => {
-    const { root } = TestRenderer.create(<BraintreeDropin {...props} />);
+    const { root } = createTestInstance(<BraintreeDropin {...defaultProps} />);
 
     expect(root.findAllByType('div')).toHaveLength(2);
 });
 
-test('renders an error if isError state is true', () => {
-    const component = TestRenderer.create(<BraintreeDropin {...props} />);
-    component.root.children[0].instance.createDropinInstance = jest
-        .fn()
-        .mockImplementation(() => {
-            throw new Error();
-        });
-    component.root.children[0].instance.componentDidMount();
+test.only('renders an error if isError state is true', async () => {
+    dropin.create.mockImplementation(() => {
+        throw new Error();
+    });
+
+    const component = createTestInstance(<BraintreeDropin {...defaultProps} />);
+
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('creates an instance of the underlying dropin on mount', async () => {
-    TestRenderer.create(<BraintreeDropin {...props} />);
+    createTestInstance(<BraintreeDropin {...defaultProps} />);
 
     await waitForExpect(() => {
         expect(dropin.create).toHaveProperty('mock');
@@ -59,55 +65,64 @@ test('creates an instance of the underlying dropin on mount', async () => {
 });
 
 test('returns paymentNonce', async () => {
-    const component = TestRenderer.create(<BraintreeDropin {...props} />);
-    const nonce = 'imanonce';
-    component.root.children[0].instance.dropinInstance = {
-        requestPaymentMethod: jest.fn().mockImplementation(() => nonce)
+    const props = {
+        ...defaultProps,
+        shouldRequestPaymentNonce: true
     };
-    await component.root.children[0].instance.requestPaymentNonce();
+    const nonce = 'imanonce';
 
-    expect(mockSuccess).toHaveBeenCalledWith(nonce);
+    useState.mockReturnValue([
+        {
+            requestPaymentMethod: jest.fn().mockImplementation(() => nonce)
+        },
+        jest.fn()
+    ]);
+
+    createTestInstance(<BraintreeDropin {...props} />);
+
+    await waitForExpect(() => {
+        expect(mockSuccess).toHaveBeenCalledWith(nonce);
+    });
 });
 
 test('returns stored payment info on failure to get payment nonce', async () => {
-    const component = TestRenderer.create(<BraintreeDropin {...props} />);
-    component.root.children[0].instance.dropinInstance = {
-        requestPaymentMethod: jest.fn().mockImplementation(() => {
-            throw new Error();
-        })
+    const props = {
+        ...defaultProps,
+        shouldRequestPaymentNonce: true
     };
-    await component.root.children[0].instance.requestPaymentNonce();
+    useState.mockReturnValue([
+        {
+            requestPaymentMethod: jest.fn().mockImplementation(() => {
+                throw new Error();
+            })
+        },
+        jest.fn()
+    ]);
 
-    expect(mockSuccess).toHaveBeenCalledWith('storedData');
+    createTestInstance(<BraintreeDropin {...props} />);
+
+    await waitForExpect(() => {
+        expect(mockSuccess).toHaveBeenCalledWith('storedData');
+    });
 });
 
 test('throws an error on failure to get payment nonce and no stored payment info', async () => {
-    const component = TestRenderer.create(<BraintreeDropin {...props} />);
-    component.root.children[0].instance.dropinInstance = {
-        requestPaymentMethod: jest.fn().mockImplementation(() => {
-            throw new Error();
-        })
+    const props = {
+        ...defaultProps,
+        shouldRequestPaymentNonce: true
     };
-    await component.root.children[0].instance.requestPaymentNonce();
+    useState.mockReturnValue([
+        {
+            requestPaymentMethod: jest.fn().mockImplementation(() => {
+                throw new Error();
+            })
+        },
+        jest.fn()
+    ]);
 
-    expect(mockError).toHaveBeenCalled();
-});
+    createTestInstance(<BraintreeDropin {...props} />);
 
-test('requests the payment nonce if instructed by parent', () => {
-    const component = TestRenderer.create(
-        <BraintreeDropin
-            isRequestingPaymentNonce={true}
-            onError={mockError}
-            onSuccess={mockSuccess}
-        />
-    );
-
-    const mockRequestPaymentNonce = jest.fn();
-    component.root.children[0].instance.requestPaymentNonce = mockRequestPaymentNonce;
-    component.root.children[0].instance.dropinInstance = true;
-    component.root.children[0].instance.componentDidUpdate({
-        isRequestingPaymentNonce: false
+    await waitForExpect(() => {
+        expect(mockError).toHaveBeenCalled();
     });
-
-    expect(mockRequestPaymentNonce).toHaveBeenCalled();
 });

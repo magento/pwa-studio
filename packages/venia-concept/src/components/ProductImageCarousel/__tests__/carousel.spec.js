@@ -1,9 +1,13 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
-import { transparentPlaceholder } from 'src/shared/images';
+import { act } from 'react-test-renderer';
 import Carousel from '../carousel';
+import Image from '../../Image';
+import {
+    WindowSizeContextProvider,
+    createTestInstance
+} from '@magento/peregrine';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 const defaultProps = {
     // This order is specifically set to test sorting/filtering. Do not modify.
@@ -41,28 +45,31 @@ const defaultProps = {
 };
 
 test('renders the Carousel component correctly w/ sorted images', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-
-    const buttons = component.root.findAll(
-        el => el.type === 'button' && el.children[0].type === 'img'
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
     );
 
-    // The first button/image should be thumbnail1 according to position prop.
-    expect(buttons[0].children[0].props.alt).toEqual('test-thumbnail1');
-    expect(buttons[1].children[0].props.alt).toEqual('test-thumbnail2');
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('renders a transparent main image if no file name is provided', () => {
+    const component = createTestInstance(<Carousel images={[]} />);
+    expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('renders active item as main image', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
     const button = component.root.findByProps({ className: 'rootSelected' });
     const activeImageThumbnailAlt = button.children[0].props.alt;
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[0];
+    const activeImage = component.root.findAllByType(Image)[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
@@ -70,130 +77,132 @@ test('renders active item as main image', () => {
 });
 
 test('updates main image when non-active item is clicked', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
     // Click the second image
-    component.root
-        .findByProps({ alt: 'test-thumbnail2' })
-        .parent.props.onClick();
+    act(() => {
+        component.root
+            .findByProps({ alt: 'test-thumbnail2' })
+            .parent.props.onClick();
+    });
 
     const button = component.root.findByProps({ className: 'rootSelected' });
     const activeImageThumbnailAlt = button.children[0].props.alt;
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[0];
+    const activeImage = component.root.findAllByType(Image)[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail2');
     expect(activeImageAlt).toEqual(activeImageThumbnailAlt);
 });
 
-test('renders prior image when left chevron is clicked', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+test('renders prior image when previous button is clicked', () => {
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
     // Click the second image to set it as active for this test.
-    component.root
-        .findByProps({ alt: 'test-thumbnail2' })
-        .parent.props.onClick();
-
-    const leftButton = component.root.findByProps({
-        className: 'chevron-left'
+    act(() => {
+        component.root
+            .findByProps({ alt: 'test-thumbnail2' })
+            .parent.props.onClick();
     });
-    leftButton.props.onClick();
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
+    const leftButton = component.root.findAllByProps({
+        className: 'root_normalPriority'
     })[0];
+
+    act(() => {
+        leftButton.props.onClick();
+    });
+
+    const activeImage = component.root.findAllByType(Image)[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
 });
 
-test('renders last image when left chevron is clicked and first item is active', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+test('renders last image when previous button is clicked and first item is active', () => {
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
-    const leftButton = component.root.findByProps({
-        className: 'chevron-left'
-    });
-    leftButton.props.onClick();
-
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
+    const leftButton = component.root.findAllByProps({
+        className: 'root_normalPriority'
     })[0];
+
+    act(() => {
+        leftButton.props.onClick();
+    });
+
+    const activeImage = component.root.findAllByType(Image)[4];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail4');
 });
 
-test('renders next image when right chevron is clicked', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+test('renders next image when next Button is clicked', () => {
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
-    const leftButton = component.root.findByProps({
-        className: 'chevron-right'
+    const rightButton = component.root.findAllByProps({
+        className: 'root_normalPriority'
+    })[1];
+
+    act(() => {
+        rightButton.props.onClick();
     });
-    leftButton.props.onClick();
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[0];
+    const activeImage = component.root.findAllByType(Image)[0];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail2');
 });
 
-test('renders first image when right chevron is clicked and last item is active', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
+test('renders first image when next Button is clicked and last item is active', () => {
+    const component = createTestInstance(
+        <WindowSizeContextProvider>
+            <Carousel {...defaultProps} />
+        </WindowSizeContextProvider>
+    );
 
     // Click the last image to set it as active for this test.
-    component.root
-        .findByProps({ alt: 'test-thumbnail4' })
-        .parent.props.onClick();
-
-    const leftButton = component.root.findByProps({
-        className: 'chevron-right'
+    act(() => {
+        component.root
+            .findByProps({ alt: 'test-thumbnail4' })
+            .parent.props.onClick();
     });
-    leftButton.props.onClick();
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[0];
+    const rightButton = component.root.findAllByProps({
+        className: 'root_normalPriority'
+    })[1];
+
+    act(() => {
+        rightButton.props.onClick();
+    });
+
+    const activeImage = component.root.findAllByType(Image)[1];
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('test-thumbnail1');
 });
 
-test('renders a transparent main image if no file name is provided', () => {
-    const component = testRenderer.create(<Carousel images={[]} />);
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
 test('sets main image alt as "image-product" if no label is provided', () => {
-    const component = testRenderer.create(<Carousel images={[]} />);
+    const component = createTestInstance(<Carousel images={[]} />);
 
-    const activeImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[0];
+    const activeImage = component.root.findByType(Image);
     const activeImageAlt = activeImage.props.alt;
 
     expect(activeImageAlt).toEqual('image-product');
-});
-
-test('renders a placeholder until image is loaded', () => {
-    const component = testRenderer.create(<Carousel {...defaultProps} />);
-
-    const placeholderImage = component.root.findAllByProps({
-        className: 'currentImage'
-    })[1];
-    const placeholderImageSrc = placeholderImage.props.src;
-
-    expect(placeholderImageSrc).toEqual(transparentPlaceholder);
-
-    component.root.children[0].instance.setCurrentImageLoaded();
-
-    const images = component.root.findAllByProps({
-        className: 'currentImage'
-    });
-
-    expect(images.length).toEqual(1);
 });

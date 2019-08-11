@@ -14,5 +14,4 @@ lerna-debug.log
 .env
 yarn-error.log
 # Packages that build partially transpiled ES modules put them here
-packages/*/esm/*
 docker/certs

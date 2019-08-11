@@ -2,7 +2,7 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 import Label from '../label';
 
-jest.mock('src/classify');
+jest.mock('../../../classify');
 
 test('renders a Label component as span if plain is true', () => {
     const props = {
