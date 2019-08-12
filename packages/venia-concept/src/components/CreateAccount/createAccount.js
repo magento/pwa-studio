@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from '@magento/venia-drivers';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -7,7 +8,6 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import { Redirect } from 'src/drivers';
 
 import combine from '../../util/combineValidators';
 import {
