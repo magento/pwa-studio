@@ -8,7 +8,6 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-
 import combine from '../../util/combineValidators';
 import {
     validateEmail,
@@ -17,8 +16,10 @@ import {
     validateConfirmPassword,
     hasLengthAtLeast
 } from '../../util/formValidators';
-
 import defaultClasses from './createAccount.css';
+
+const LEAD =
+    'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 class CreateAccount extends Component {
     static propTypes = {
@@ -29,6 +30,7 @@ class CreateAccount extends Component {
             root: string,
             subscribe: string
         }),
+        createAccount: func.isRequired,
         createAccountError: shape({
             message: string
         }),
@@ -66,10 +68,10 @@ class CreateAccount extends Component {
     }
 
     handleSubmit = values => {
-        const { onSubmit } = this.props;
+        const { createAccount } = this.props;
 
-        if (typeof onSubmit === 'function') {
-            onSubmit(values);
+        if (typeof createAccount === 'function') {
+            createAccount(values);
         }
     };
 
@@ -86,10 +88,7 @@ class CreateAccount extends Component {
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
-                <h3 className={classes.lead}>
-                    {`Check out faster, use multiple addresses, track
-                         orders and more by creating an account!`}
-                </h3>
+                <h3 className={classes.lead}>{LEAD}</h3>
                 <Field label="First Name" required={true}>
                     <TextInput
                         field="customer.firstname"

@@ -1,20 +1,48 @@
+/* animation helpers */
+
+.enter {
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.exit {
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* module */
+
 .root {
+    composes: exit hidden;
     background-color: white;
     bottom: 0;
     display: grid;
     grid-template-rows: auto 1fr auto;
     left: 0;
-    opacity: 0;
+    max-width: 360px;
+    overflow: hidden;
     position: fixed;
     top: 0;
     transform: translate3d(-100%, 0, 0);
-    transition-duration: 192ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     transition-property: opacity, transform, visibility;
-    visibility: hidden;
     width: 100%;
-    max-width: 360px;
     z-index: 3;
+}
+
+.root_open {
+    composes: root enter visible;
+    box-shadow: 1px 0 rgb(var(--venia-border));
+    transform: translate3d(0, 0, 0);
 }
 
 .header {
@@ -32,129 +60,33 @@
 }
 
 .body {
+    composes: exit visible;
     min-height: 0;
     overflow: auto;
+    transition-property: opacity, visibility;
+}
+
+.body_masked {
+    composes: body enter hidden;
 }
 
 .footer {
     box-shadow: 0 -1px rgb(var(--venia-border));
 }
 
-.authBar {
-    align-items: center;
+.modal {
+    composes: exit hidden;
     background-color: white;
-    display: flex;
-    height: 5.5rem;
-    justify-content: center;
-    padding: 1.5rem 1rem 1rem;
-    width: 100%;
-}
-
-.userChip {
-    align-content: center;
-    align-items: center;
-    background-color: rgb(var(--venia-grey));
-    display: grid;
-    flex: 0 0 100%;
-    grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: 3.5rem;
-    height: 4rem;
-    padding: 0 1rem;
-    width: 100%;
-}
-
-.userEmail {
-    color: rgb(var(--venia-text-alt));
-    font-size: 0.8125rem;
-    line-height: 1rem;
-}
-
-.userAvatar,
-.userMore {
-    composes: root from '../clickable.css';
-    height: 3.5rem;
-    width: 3.5rem;
-}
-
-.signIn {
-    animation-duration: 244ms;
-    animation-fill-mode: forwards;
-    background: white;
     bottom: 0;
     left: 0;
-    padding-top: 4.5rem;
     position: absolute;
     right: 0;
-    top: 0;
-    overflow-y: auto;
+    top: 3.5rem;
+    transform: translate3d(-100%, 0, 0);
+    transition-property: opacity, transform, visibility;
 }
 
-.signIn_open {
-    composes: signIn;
-    animation-name: slidein;
-}
-
-.signIn_closed {
-    composes: signIn;
-    animation-name: slideout;
-}
-
-.form_open {
-    composes: signIn;
-    animation-name: slideinSide;
-}
-
-.form_closed {
-    composes: signIn;
-    animation-name: slideoutSide;
-}
-
-/* state: open */
-
-.root_open {
-    composes: root;
-    box-shadow: 1px 0 rgb(var(--venia-border));
-    opacity: 1;
+.modal_open {
+    composes: modal enter visible;
     transform: translate3d(0, 0, 0);
-    transition-duration: 224ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    visibility: visible;
-}
-
-/* keyframes */
-
-@keyframes slidein {
-    from {
-        transform: translate3d(0, 100%, 0);
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes slideout {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(0, 100%, 0);
-    }
-}
-
-@keyframes slideinSide {
-    from {
-        transform: translate3d(-100%, 0, 0);
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes slideoutSide {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(-100%, 0, 0);
-    }
 }
