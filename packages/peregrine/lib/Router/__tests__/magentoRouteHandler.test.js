@@ -70,6 +70,27 @@ test('renders `internalError` if `resolveUnknownRoute` fails', async () => {
     });
 });
 
+test('renders `notFound` if urlResolver returns null', async () => {
+    resolveUnknownRoute.mockResolvedValue(null);
+    shallow(<MagentoRouteHandler {...props} />);
+
+    // resolveUnknownRoute
+    await waitForExpect(() => expect(children).toHaveBeenCalledTimes(2));
+
+    expect(children).toHaveBeenNthCalledWith(1, {
+        hasError: false,
+        internalError: false,
+        loading: true,
+        notFound: false
+    });
+    expect(children).toHaveBeenNthCalledWith(2, {
+        hasError: true,
+        internalError: false,
+        loading: false,
+        notFound: true
+    });
+});
+
 test('renders `notFound` if resolved route is not matched', async () => {
     resolveUnknownRoute.mockResolvedValue({ matched: false });
     shallow(<MagentoRouteHandler {...props} />);
