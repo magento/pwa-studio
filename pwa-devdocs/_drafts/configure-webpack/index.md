@@ -84,7 +84,7 @@ module.exports = async env => {
             '@magento/peregrine': {
                 esModules: true
             }
-            // Treat code originating in the `@magento/venia-library` as though
+            // Treat code originating in the `@magento/venia-ui` as though
             // it uses ES Modules, CSS Modules, GraphQL queries, RootComponents,
             // and UPWARD definitions. This is the right set of flags for a UI
             // library that makes up the bulk of your project.
