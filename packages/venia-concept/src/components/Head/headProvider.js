@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { HeadProvider } from 'react-head';
 
-const filterOutTitleTags = titleTags => {
+const removeExistingTitleTags = titleTags => {
     titleTags.forEach(titleTag => {
         if (titleTag) titleTag.parentNode.removeChild(titleTag);
     });
@@ -10,7 +10,7 @@ const filterOutTitleTags = titleTags => {
 const VeniaHeadProvider = props => {
     useEffect(() => {
         const titleTagsToRemove = document.getElementsByTagName('title');
-        filterOutTitleTags([...titleTagsToRemove]);
+        removeExistingTitleTags([...titleTagsToRemove]);
     }, []);
 
     return <HeadProvider>{props.children}</HeadProvider>;
