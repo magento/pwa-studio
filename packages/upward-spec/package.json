@@ -1,6 +1,9 @@
 {
   "name": "@magento/upward-spec",
   "version": "2.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "UPWARD specification, guide, and test suite.",
   "main": "./suite/index.js",
   "bin": {
