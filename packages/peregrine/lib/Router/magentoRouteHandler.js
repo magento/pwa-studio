@@ -95,7 +95,7 @@ export default class MagentoRouteHandler extends Component {
             });
 
             // urlResolver query returns null if a route can't be found
-            if (resolvedRoute === null) {
+            if (!resolvedRoute) {
                 throw new Error('404');
             }
 
