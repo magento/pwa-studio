@@ -1,16 +1,9 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
-import TestRenderer from 'react-test-renderer';
 
 import { HeadProvider, Title, Link, Meta, Style } from '../';
 
 afterEach(cleanup);
-
-test('snapshot testing HeadProvider', () => {
-    const root = TestRenderer.create(<HeadProvider />);
-
-    expect(root.toJSON()).toMatchSnapshot();
-});
 
 test('HeadProvider should delete all title tags if any', () => {
     document.head.appendChild(document.createElement('title'));
