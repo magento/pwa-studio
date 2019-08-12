@@ -4,8 +4,8 @@ import { shape, string } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
 import AuthModal from '../AuthModal';
+import CategoryTree from '../CategoryTree';
 import { AppContext, CatalogContext, UserContext } from './container';
-import Tree from './categoryTree';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 
@@ -23,7 +23,7 @@ const Navigation = props => {
     const [catalogState, { updateCategories }] = useContext(CatalogContext);
     const [, { getUserDetails }] = useContext(UserContext);
 
-    // call async actions
+    // request data from server
     useEffect(() => {
         getUserDetails();
     }, [getUserDetails]);
@@ -84,7 +84,7 @@ const Navigation = props => {
                 />
             </header>
             <div className={bodyClassName}>
-                <Tree
+                <CategoryTree
                     categoryId={categoryId}
                     categories={categories}
                     onNavigate={closeDrawer}

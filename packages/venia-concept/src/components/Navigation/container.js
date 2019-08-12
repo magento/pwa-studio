@@ -68,8 +68,6 @@ const Container = props => {
 };
 
 const mapStateToProps = ({ app, catalog, user }) => ({ app, catalog, user });
-// const { categories, rootCategoryId } = catalog;
-// const { currentUser, isSignedIn } = user;
 
 const mapDispatchToProps = {
     closeDrawer,
