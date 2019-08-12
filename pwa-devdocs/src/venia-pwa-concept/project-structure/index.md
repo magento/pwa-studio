@@ -34,7 +34,7 @@ The UPWARD server combines these templates to create an application shell for di
 
 ## The [`static`][] directory
 
-The `static` directory contains the `favicon.ico` icon file, `icons` folder, `robots.txt` file, and other static files. The `venia-upward.yml` config file file uses an UPWARD DirectoryResolver to serve the files in this directory as static resources.
+The `static` directory contains the `favicon.ico` icon file, `icons` folder, `robots.txt` file, and other static files. The `upward.yml` config file file uses an UPWARD DirectoryResolver to serve the files in this directory as static resources.
 
 ## The [`src`][] directory
 

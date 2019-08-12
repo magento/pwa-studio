@@ -31,6 +31,7 @@ services:
       - ./packages/peregrine/scripts:/usr/src/app/packages/peregrine/scripts:rw
       - ./packages/peregrine/lib:/usr/src/app/packages/peregrine/lib:rw
       - ./packages/pwa-buildpack/lib:/usr/src/app/packages/pwa-buildpack/lib:rw
+      - ./packages/pwa-buildpack/bin:/usr/src/app/packages/pwa-buildpack/bin:rw
       - ./packages/upward-js/lib:/usr/src/app/packages/upward-js/lib:rw
       - ./packages/venia-concept/.storybook:/usr/src/app/packages/venia-concept/.storybook:rw
       - ./packages/venia-concept/src:/usr/src/app/packages/venia-concept/src:rw

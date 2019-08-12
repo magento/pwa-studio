@@ -28,6 +28,7 @@ const restartDevServerOnChange = [
     'packages/upward-js/lib/**/*.js',
     'packages/venia-concept/*.{js,json,yml}',
     'packages/venia-concept/.env',
+    'packages/venia-concept/static/**/*',
     'packages/venia-concept/templates/**/*',
     'yarn.lock'
 ];
