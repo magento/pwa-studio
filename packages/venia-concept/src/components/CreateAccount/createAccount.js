@@ -7,6 +7,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
+import { Redirect } from 'src/drivers';
 
 import combine from '../../util/combineValidators';
 import {
@@ -75,6 +76,7 @@ class CreateAccount extends Component {
     render() {
         const { errorMessage, handleSubmit, initialValues, props } = this;
         const { classes, isSignedIn } = props;
+        
         if (isSignedIn) {
             return <Redirect to="/" />;
         }
