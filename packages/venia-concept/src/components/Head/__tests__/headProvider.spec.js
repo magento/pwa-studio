@@ -22,7 +22,7 @@ test('HeadProvider should delete all title tags if any', () => {
     expect(document.getElementsByTagName('title').length).toBe(0);
 });
 
-test('HeadProvider should render title if provided with data-synthetictag set to true', () => {
+test('HeadProvider should render title', () => {
     const newTitle = 'New Title';
     render(
         <HeadProvider>
@@ -32,9 +32,6 @@ test('HeadProvider should render title if provided with data-synthetictag set to
 
     expect(document.title).toBe(newTitle);
     expect(document.getElementsByTagName('title').length).toBe(1);
-    expect(
-        document.getElementsByTagName('title')[0].dataset.synthetictag
-    ).toBeTruthy();
 });
 
 test('HeadProvider should replace all previous title tags with the latest tag', () => {

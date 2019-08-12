@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { HeadProvider as _HeadProvider } from 'react-head';
 
 const filterOutTitleTags = titleTags => {
-    titleTags
-        .filter(titleNode => !titleNode.dataset.synthetictag)
-        .forEach(titleTag => {
-            if (titleTag) titleTag.parentNode.removeChild(titleTag);
-        });
+    titleTags.forEach(titleTag => {
+        if (titleTag) titleTag.parentNode.removeChild(titleTag);
+    });
 };
 
 const HeadProvider = props => {

@@ -1,5 +1,3 @@
 export { default as HeadProvider } from './headProvider';
 
-export { default as Title } from './title';
-
-export { Link, Meta, Style } from 'react-head';
+export { Link, Meta, Style, Title } from 'react-head';
