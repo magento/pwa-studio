@@ -68,8 +68,8 @@
     "redux": "~4.0.1"
   },
   "peerDependencies": {
-    "@magento/babel-preset-peregrine": "~2.1.0",
-    "@magento/peregrine": "~3.0.0",
+    "@magento/babel-preset-peregrine": "3.0.0-alpha.1",
+    "@magento/peregrine": "4.0.0-alpha.1",
     "apollo-cache-inmemory": "~1.4.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.4.13",
