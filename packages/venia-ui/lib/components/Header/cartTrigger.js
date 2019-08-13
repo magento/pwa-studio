@@ -1,75 +1,81 @@
-import React, { Component } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from '@magento/venia-drivers';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
+import { func, number, object, shape, string } from 'prop-types';
+import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
-import { toggleCart } from '../../actions/cart';
+import { getCartDetails, toggleCart } from '../../actions/cart';
+import Icon from '../Icon';
 import CartCounter from './cartCounter';
 
-import Icon from '../Icon';
-import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './cartTrigger.css';
 
-export class Trigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        toggleCart: PropTypes.func.isRequired,
-        itemsQty: PropTypes.number
+const getCartIcon = cartDetails => {
+    const itemsQty = cartDetails.items_qty;
+    const iconColor = 'rgb(var(--venia-text))';
+    const svgAttributes = {
+        stroke: iconColor
     };
 
-    get cartIcon() {
-        const {
-            cart: { details }
-        } = this.props;
-        const itemsQty = details.items_qty;
-        const iconColor = 'rgb(var(--venia-text))';
-        const svgAttributes = {
-            stroke: iconColor
-        };
+    if (itemsQty > 0) {
+        svgAttributes.fill = iconColor;
+    }
 
-        if (itemsQty > 0) {
-            svgAttributes.fill = iconColor;
+    return <Icon src={ShoppingCartIcon} attrs={svgAttributes} />;
+};
+
+const Trigger = props => {
+    const { cart, getCartDetails, toggleCart } = props;
+    const { details: cartDetails } = cart;
+    const { items_qty: numItems } = cartDetails;
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    useEffect(() => {
+        if (getCartDetails) {
+            getCartDetails();
         }
+    }, [getCartDetails]);
 
-        return <Icon src={ShoppingCartIcon} attrs={svgAttributes} />;
-    }
+    const cartIcon = useMemo(() => {
+        return getCartIcon(cartDetails);
+    }, [cartDetails]);
 
-    render() {
-        const {
-            classes,
-            toggleCart,
-            cart: { details }
-        } = this.props;
-        const { cartIcon } = this;
-        const itemsQty = details.items_qty;
+    return (
+        <button
+            className={classes.root}
+            aria-label="Toggle mini cart"
+            onClick={toggleCart}
+        >
+            {cartIcon}
+            <CartCounter counter={numItems} />
+        </button>
+    );
+};
 
-        return (
-            <button
-                className={classes.root}
-                aria-label="Toggle mini cart"
-                onClick={toggleCart}
-            >
-                {cartIcon}
-                <CartCounter counter={itemsQty ? itemsQty : 0} />
-            </button>
-        );
-    }
-}
+Trigger.propTypes = {
+    cart: shape({
+        details: shape({
+            items_qty: number
+        }).isRequired
+    }).isRequired,
+    classes: shape({
+        root: string
+    }),
+    getCartDetails: func,
+    toggleCart: func
+};
 
 const mapStateToProps = ({ cart }) => ({ cart });
 
 const mapDispatchToProps = {
+    getCartDetails,
     toggleCart
 };
 
-export default compose(
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
+const ConnectedTrigger = connect(
+    mapStateToProps,
+    mapDispatchToProps
 )(Trigger);
+
+export default ConnectedTrigger;
