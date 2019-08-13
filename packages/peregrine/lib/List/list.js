@@ -20,16 +20,13 @@ const List = props => {
         selectionModel,
         ...restProps
     } = props;
-    const customProps = useMemo(
-        () => ({
-            classes,
-            getItemKey,
-            items,
-            onSelectionChange,
-            selectionModel
-        }),
-        [classes, getItemKey, items, onSelectionChange, selectionModel]
-    );
+    const customProps = {
+        classes,
+        getItemKey,
+        items,
+        onSelectionChange,
+        selectionModel
+    };
     const Root = useMemo(
         () => fromRenderProp(render, Object.keys(customProps)),
         [render, customProps]
