@@ -42,22 +42,20 @@ const SignIn = props => {
     const handleForgotPassword = useCallback(() => {
         const { current: form } = formRef;
 
-        if (!form) return;
+        if (form) {
+            setDefaultUsername(form.formApi.getValue('email'));
+        }
 
-        const email = form.formApi.getValue('email');
-
-        setDefaultUsername(email);
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
         const { current: form } = formRef;
 
-        if (!form) return;
+        if (form) {
+            setDefaultUsername(form.formApi.getValue('email'));
+        }
 
-        const email = form.formApi.getValue('email');
-
-        setDefaultUsername(email);
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 

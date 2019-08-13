@@ -24,7 +24,7 @@ const Tree = props => {
 
     // fetch categories
     useEffect(() => {
-        if (categoryId) {
+        if (categoryId != null) {
             runQuery({ variables: { id: categoryId } });
         }
     }, [categoryId, runQuery]);

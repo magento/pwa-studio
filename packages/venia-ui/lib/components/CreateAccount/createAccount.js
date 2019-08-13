@@ -38,8 +38,7 @@ class CreateAccount extends Component {
             email: string,
             firstName: string,
             lastName: string
-        }),
-        onSubmit: func
+        })
     };
 
     static defaultProps = {

@@ -1,28 +1,41 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import Branch from '../categoryBranch';
 
 jest.mock('../../../classify');
 
 const props = {
-    name: 'a',
-    path: '1/2/3'
+    category: {
+        id: 1,
+        include_in_menu: 1,
+        name: 'One'
+    },
+    setCategoryId: jest.fn()
 };
 
-test('renders the correct tree', () => {
-    const tree = TestRenderer.create(<Branch {...props} />).toJSON();
+test('renders correctly', () => {
+    const instance = createTestInstance(<Branch {...props} />);
 
-    expect(tree).toMatchSnapshot();
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('calls onDive on click', () => {
-    const onDive = jest.fn();
-    const { root } = TestRenderer.create(<Branch {...props} onDive={onDive} />);
+test('renders null if include flag is off', () => {
+    const nextCategory = { ...props.category, include_in_menu: 0 };
+    const instance = createTestInstance(
+        <Branch {...props} category={nextCategory} />
+    );
 
-    const button = root.findByProps({ className: 'root' });
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('calls setCategoryId on click', () => {
+    const { setCategoryId } = props;
+    const { root } = createTestInstance(<Branch {...props} />);
+
+    const button = root.findByProps({ className: 'target' });
 
     button.props.onClick();
 
-    expect(onDive).toHaveBeenCalledTimes(1);
+    expect(setCategoryId).toHaveBeenCalledTimes(1);
 });

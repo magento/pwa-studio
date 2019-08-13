@@ -52,10 +52,10 @@ const Navigation = props => {
 
         if (parent) {
             setView(parent);
-        } else if (isTopLevel) {
-            closeDrawer();
-        } else if (category) {
+        } else if (category && !isTopLevel) {
             setCategoryId(category.parentId);
+        } else {
+            closeDrawer();
         }
     }, [category, closeDrawer, isTopLevel, view]);
 

@@ -6,8 +6,7 @@ exports[`renders the correct tree 1`] = `
   onSubmit={[Function]}
 >
   <h3>
-    Check out faster, use multiple addresses, track
-                         orders and more by creating an account!
+    Check out faster, use multiple addresses, track orders and more by creating an account!
   </h3>
   <div>
     <span>

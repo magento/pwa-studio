@@ -1,50 +1,57 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { act } from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
+import { createTestInstance } from '@magento/peregrine';
 
 import Leaf from '../categoryLeaf';
 
 jest.mock('../../../classify');
 
 const props = {
-    name: 'a',
-    urlPath: '1/2/3'
+    category: {
+        id: 1,
+        name: 'One',
+        url_path: 'one'
+    },
+    onNavigate: jest.fn()
 };
 
-test('renders the correct tree', () => {
-    const tree = TestRenderer.create(
+test('renders correctly', () => {
+    const instance = createTestInstance(
         <MemoryRouter>
             <Leaf {...props} />
         </MemoryRouter>
-    ).toJSON();
+    );
 
-    expect(tree).toMatchSnapshot();
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('constructs a valid url', () => {
+    const { root } = createTestInstance(
+        <MemoryRouter>
+            <Leaf {...props} />
+        </MemoryRouter>
+    );
+
+    const link = root.findByProps({ className: 'target' });
+
+    expect(link.props.to).toBe('/one.html');
 });
 
 test('calls onNavigate on link click', () => {
-    const onNavigate = jest.fn();
-    const { root } = TestRenderer.create(
-        <MemoryRouter>
-            <Leaf {...props} onNavigate={onNavigate} />
-        </MemoryRouter>
-    );
-
-    const link = root.findByProps({ className: 'root' });
-
-    link.props.onClick();
-
-    expect(onNavigate).toHaveBeenCalledTimes(1);
-});
-
-test("doesn't call onNavigate if it's not a function", () => {
-    const { root } = TestRenderer.create(
+    const { onNavigate } = props;
+    const { root } = createTestInstance(
         <MemoryRouter>
             <Leaf {...props} />
         </MemoryRouter>
     );
 
-    const link = root.findByProps({ className: 'root' });
-    const callback = () => link.props.onClick();
+    const link = root.findByProps({ className: 'target' });
+    const { onClick } = link.props;
 
-    expect(callback).not.toThrow();
+    act(() => {
+        onClick();
+    });
+
+    expect(onNavigate).toHaveBeenCalledTimes(1);
 });
