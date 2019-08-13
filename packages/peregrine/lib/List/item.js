@@ -34,7 +34,10 @@ const Item = props => {
         onClick,
         onFocus
     };
-    const Root = fromRenderProp(render, Object.keys(customProps));
+    const Root = useMemo(
+        () => fromRenderProp(render, Object.keys(customProps)),
+        [render, customProps]
+    );
     return (
         <Root className={classes.root} {...customProps} {...restProps}>
             {getChild(item)}
