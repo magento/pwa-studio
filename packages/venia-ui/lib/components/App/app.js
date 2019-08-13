@@ -36,9 +36,18 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const [{ toasts }, { addToast }] = useToasts();
 
-    const reload = useCallback(() => {
-        window.location.reload();
-    }, []);
+    const reload = useCallback(
+        process.env.NODE_ENV === 'development'
+            ? () => {
+                  console.log(
+                      'Default window.location.reload() error handler not running in developer mode.'
+                  );
+              }
+            : () => {
+                  window.location.reload();
+              },
+        []
+    );
 
     const renderErrors = useMemo(
         () =>

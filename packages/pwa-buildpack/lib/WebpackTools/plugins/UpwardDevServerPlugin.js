@@ -8,8 +8,9 @@ const upward = require('@magento/upward-js');
 // To be used with `node-fetch` in order to allow self-signed certificates.
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
-class UpwardPlugin {
+class UpwardDevServerPlugin {
     constructor(devServer, env, upwardPath) {
+        debug('instantiating with %s', upwardPath);
         this.env = Object.assign(
             {
                 NODE_ENV: 'development'
@@ -66,23 +67,28 @@ class UpwardPlugin {
         // development. Allows for hot reloading of server-side configuration.
 
         const io = {
-            async readFile(filepath, enc) {
-                const absolutePath = path.resolve(
+            async readFile(filepath, enc = 'utf8') {
+                // If a version of the file is output by Webpack into the output folder, prefer that one.
+                const outputBasedPath = path.resolve(
                     compiler.options.output.path,
-                    filepath
+                    path.relative(compiler.options.context, filepath)
                 );
                 // Most likely scenario: UPWARD needs an output asset.
-                debug('readFile %s %s', filepath, enc);
+                debug(
+                    'compiler.outputFileSystem readFile %s %s',
+                    outputBasedPath,
+                    enc
+                );
                 try {
                     return compiler.outputFileSystem.readFileSync(
-                        absolutePath,
+                        outputBasedPath,
                         enc
                     );
                 } catch (e) {
                     debug(
                         'outputFileSystem %s %s. Trying defaultIO...',
-                        filepath,
-                        e.message
+                        outputBasedPath,
+                        e.stack
                     );
                 }
                 // Next most likely scenario: UPWARD needs a file on disk.
@@ -146,4 +152,4 @@ class UpwardPlugin {
     }
 }
 
-module.exports = UpwardPlugin;
+module.exports = UpwardDevServerPlugin;

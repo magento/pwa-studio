@@ -3,7 +3,7 @@ const MemoryFS = require('memory-fs');
 const { promisify: pify } = require('util');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const makeMagentoRootComponentsPlugin = require('..');
+const RootComponentsPlugin = require('../RootComponentsPlugin');
 
 const basic3PageProjectDir = join(
     __dirname,
@@ -48,7 +48,7 @@ test.skip('Creates a chunk for each root when multiple roots exist', async () =>
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
                     join(basic3PageProjectDir, 'RootComponents')
@@ -75,7 +75,7 @@ test.skip('Does not prevent chunk name from being configurable', async () => {
             chunkFilename: '[name].foobar.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
                     join(basic3PageProjectDir, 'RootComponents')
@@ -100,7 +100,7 @@ test.skip('Creates chunks for all roots when multiple values are provided in "ro
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: basic1PageProjectDir,
                 rootComponentsDirs: [
                     join(basic3PageProjectDir, 'RootComponents'),
@@ -125,7 +125,7 @@ test.skip('Works when there is 1 unnamed entry point in the config', async () =>
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
                     join(basic3PageProjectDir, 'RootComponents')
@@ -156,7 +156,7 @@ test.skip('Logs warning when RootComponent file has > 1 @RootComponent comment',
             filename: '[name].js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: projectDir,
                 rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
@@ -181,7 +181,7 @@ test.skip('Build fails when no @RootComponent directive is found', async () => {
             filename: '[name].js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: projectDir,
                 rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
@@ -208,7 +208,7 @@ test.skip('Can resolve dependencies of a RootComponent', async () => {
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: projectDir,
                 rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
@@ -235,7 +235,7 @@ test.skip('Uglify compiles out dynamic imports injected into entry point', async
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
-            await makeMagentoRootComponentsPlugin({
+            new RootComponentsPlugin({
                 context: basic1PageProjectDir,
                 rootComponentsDirs: [
                     join(basic1PageProjectDir, 'RootComponents')

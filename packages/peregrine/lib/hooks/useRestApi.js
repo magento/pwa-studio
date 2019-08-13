@@ -32,7 +32,7 @@ export const useRestApi = endpoint => {
                 receiveError(error.baseMessage);
             }
         },
-        [receiveError, receiveResponse, setLoading]
+        [endpoint, receiveError, receiveResponse, setLoading]
     );
 
     const api = useMemo(
