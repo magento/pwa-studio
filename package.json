@@ -7,9 +7,10 @@
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
-    "packages/venia-concept",
     "packages/upward-js",
-    "packages/upward-spec"
+    "packages/upward-spec",
+    "packages/venia-concept",
+    "packages/venia-ui"
   ],
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",

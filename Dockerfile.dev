@@ -20,6 +20,7 @@ COPY packages/peregrine/package.json ./packages/peregrine/package.json
 COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
 COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
+COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
