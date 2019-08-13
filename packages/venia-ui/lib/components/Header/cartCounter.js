@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { number, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartCounter.css';
 
 const CartCounter = props => {
-    const { counter } = props;
+    const { numItems } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // Don't show anything both when we don't have data to show, and when the counter is zero (0).
-    if (!counter) {
+    // Don't show anything both when we don't have data to show, and when numItems is zero (0).
+    if (!numItems) {
         return null;
     }
 
-    return <span className={classes.root}>{counter}</span>;
+    return <span className={classes.root}>{numItems}</span>;
 };
 
 CartCounter.propTypes = {
     classes: shape({
         root: string
     }),
-    counter: number
+    numItems: number
 };
 
 export default CartCounter;

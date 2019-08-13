@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
-import { connect } from '@magento/venia-drivers';
-import { func, number, object, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
-import { getCartDetails, toggleCart } from '../../actions/cart';
 import Icon from '../Icon';
 import CartCounter from './cartCounter';
 
@@ -48,7 +46,7 @@ const Trigger = props => {
             onClick={toggleCart}
         >
             {cartIcon}
-            <CartCounter counter={numItems} />
+            <CartCounter numItems={numItems} />
         </button>
     );
 };
@@ -66,16 +64,4 @@ Trigger.propTypes = {
     toggleCart: func
 };
 
-const mapStateToProps = ({ cart }) => ({ cart });
-
-const mapDispatchToProps = {
-    getCartDetails,
-    toggleCart
-};
-
-const ConnectedTrigger = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Trigger);
-
-export default ConnectedTrigger;
+export default Trigger;
