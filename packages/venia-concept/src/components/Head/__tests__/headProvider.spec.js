@@ -1,64 +1,73 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import ReactDOM from 'react-dom';
+import TestRenderer from 'react-test-renderer';
 
 import { HeadProvider, Title, Link, Meta, Style } from '../';
 
-afterEach(cleanup);
+beforeAll(() => {
+    ReactDOM.createPortal = jest.fn(element => {
+        return element;
+    });
+});
+
+afterEach(() => {
+    ReactDOM.createPortal.mockClear();
+});
 
 test('HeadProvider should delete all title tags if any', () => {
     document.head.appendChild(document.createElement('title'));
 
     expect(document.getElementsByTagName('title').length).toBe(1);
 
-    render(<HeadProvider />);
+    const instance = TestRenderer.create(<HeadProvider />).root;
 
-    expect(document.getElementsByTagName('title').length).toBe(0);
+    expect(instance.findAllByType('title').length).toBe(0);
 });
 
 test('HeadProvider should render title', () => {
     const newTitle = 'New Title';
-    render(
+    const instance = TestRenderer.create(
         <HeadProvider>
             <Title>{newTitle}</Title>
         </HeadProvider>
-    );
+    ).root;
 
-    expect(document.title).toBe(newTitle);
-    expect(document.getElementsByTagName('title').length).toBe(1);
+    expect(instance.findAllByType('title').length).toBe(1);
+    expect(instance.findByType('title').props.children).toBe(newTitle);
 });
 
 test('HeadProvider should replace all previous title tags with the latest tag', () => {
     const oldTitle = 'Old Title';
     const newTitle = 'New Title';
-    render(
+    const instance = TestRenderer.create(
         <HeadProvider>
             <Title>{oldTitle}</Title>
             <Title>{newTitle}</Title>
         </HeadProvider>
-    );
+    ).root;
 
-    expect(document.getElementsByTagName('title').length).toBe(1);
-    expect(document.title).toBe(newTitle);
+    expect(instance.findAllByType('title').length).toBe(1);
+    expect(instance.findByType('title').props.children).toBe(newTitle);
 });
 
 test('HeadProvider should be able to render multiple meta tags', () => {
     expect(document.getElementsByTagName('meta').length).toBe(0);
 
-    render(
+    const instance = TestRenderer.create(
         <HeadProvider>
             <Meta name="title" content="Sample Title" />
             <Meta name="description" content="Sample Description" />
             <Meta name="keywords" content="Sample Keywords" />
         </HeadProvider>
-    );
+    ).root;
 
-    expect(document.getElementsByTagName('meta').length).toBe(3);
+    expect(instance.findAllByType('meta').length).toBe(3);
 });
 
 test('HeadProvider should be able to render multiple link tags', () => {
     expect(document.getElementsByTagName('link').length).toBe(0);
 
-    render(
+    const instance = TestRenderer.create(
         <HeadProvider>
             <Link rel="manifest" href="/manifest.json" />
             <Link
@@ -68,15 +77,15 @@ test('HeadProvider should be able to render multiple link tags', () => {
             />
             <Link rel="stylesheet" href="styles.css" />
         </HeadProvider>
-    );
+    ).root;
 
-    expect(document.getElementsByTagName('link').length).toBe(3);
+    expect(instance.findAllByType('link').length).toBe(3);
 });
 
 test('HeadProvider should be able to render multiple style tags', () => {
     expect(document.getElementsByTagName('style').length).toBe(0);
 
-    render(
+    const instance = TestRenderer.create(
         <HeadProvider>
             <Style type="text/css">
                 {`.icon {
@@ -91,7 +100,7 @@ test('HeadProvider should be able to render multiple style tags', () => {
                 }`}
             </Style>
         </HeadProvider>
-    );
+    ).root;
 
-    expect(document.getElementsByTagName('style').length).toBe(2);
+    expect(instance.findAllByType('style').length).toBe(2);
 });

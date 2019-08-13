@@ -51,7 +51,6 @@
     "@magento/pwa-buildpack": "~3.0.0",
     "@magento/upward-js": "~2.2.0",
     "@storybook/react": "~4.1.13",
-    "@testing-library/react": "~8.0.8",
     "apollo-cache-inmemory": "~1.4.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "~2.4.13",
