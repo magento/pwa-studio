@@ -1,0 +1,85 @@
+{
+  "name": "@magento/venia-ui",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Venia PWA UI modules for use by other projects",
+  "main": "lib/index.js",
+  "browser": {
+    "@magento/venia-drivers": "./lib/drivers"
+  },
+  "files": [
+    "{lib,static,templates}/*",
+    "{lib,static,templates}/**/*",
+    "upward.yml",
+    "CHANGELOG.md",
+    "LICENSE_AFL.txt",
+    "LICENSE.txt"
+  ],
+  "scripts": {
+    "build": " ",
+    "build:ci": " ",
+    "build:dev": " ",
+    "clean": " ",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+  },
+  "repository": "github:magento-research/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento-research/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
+  "dependencies": {
+    "informed": "~2.1.13",
+    "lodash.over": "~4.7.0",
+    "memoize-one": "~5.0.0",
+    "prop-types": "~15.7.2",
+    "react-feather": "~1.1.6",
+    "redux-actions": "~2.6.4",
+    "redux-thunk": "~2.3.0",
+    "uuid": "~3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "~7.2.3",
+    "@babel/core": "~7.3.4",
+    "@babel/plugin-proposal-class-properties": "~7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "~7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.3.0",
+    "@babel/plugin-transform-runtime": "~7.4.4",
+    "@babel/preset-env": "~7.3.4",
+    "@storybook/react": "~4.1.13",
+    "apollo-client": "2.4.13",
+    "babel-core": "~7.0.0-bridge.0",
+    "babel-jest": "~24.1.0",
+    "babel-loader": "~8.0.5",
+    "babel-plugin-dynamic-import-node": "~2.2.0",
+    "babel-plugin-graphql-tag": "~2.0.0",
+    "enzyme": "~3.9.0",
+    "enzyme-adapter-react-16": "~1.9.1",
+    "identity-obj-proxy": "~3.0.0",
+    "react": "^16.8.3",
+    "react-apollo": "2.5.5",
+    "react-test-renderer": "~16.8.6",
+    "redux": "~4.0.1"
+  },
+  "peerDependencies": {
+    "@magento/babel-preset-peregrine": "~2.1.0",
+    "@magento/peregrine": "~3.0.0",
+    "apollo-cache-inmemory": "~1.4.3",
+    "apollo-cache-persist": "~0.1.1",
+    "apollo-client": "2.4.13",
+    "apollo-link-http": "~1.5.11",
+    "braintree-web-drop-in": "~1.16.0",
+    "react": "^16.8.3",
+    "react-apollo": "2.5.5",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1"
+  },
+  "sideEffects": false
+}

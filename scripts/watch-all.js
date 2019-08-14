@@ -26,10 +26,11 @@ const rootDir = path.resolve(__dirname, '..');
 const restartDevServerOnChange = [
     'packages/pwa-buildpack/lib/**/*.js',
     'packages/upward-js/lib/**/*.js',
-    'packages/venia-concept/*.{js,json,yml}',
-    'packages/venia-concept/.env',
-    'packages/venia-concept/static/**/*',
-    'packages/venia-concept/templates/**/*',
+    'packages/venia-*/*.{js,json,yml}',
+    'packages/venia-*/.env',
+    'packages/venia-*/static/**/*',
+    'packages/venia-*/templates/**/*',
+    'packages/venia-*/static/**/*',
     'yarn.lock'
 ];
 
