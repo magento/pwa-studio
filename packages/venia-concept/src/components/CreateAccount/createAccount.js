@@ -76,7 +76,6 @@ class CreateAccount extends Component {
     render() {
         const { errorMessage, handleSubmit, initialValues, props } = this;
         const { classes, isSignedIn } = props;
-        
         if (isSignedIn) {
             return <Redirect to="/" />;
         }
