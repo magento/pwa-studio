@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
@@ -8,21 +8,25 @@ import CartCounter from './cartCounter';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartTrigger.css';
 
-const getCartIcon = cartDetails => {
-    const itemsQty = cartDetails.items_qty;
-    const iconColor = 'rgb(var(--venia-text))';
-    const svgAttributes = {
-        stroke: iconColor
-    };
+const CART_ICON_FILLED = (
+    <Icon
+        src={ShoppingCartIcon}
+        attrs={{
+            fill: 'rgb(var(--venia-text))',
+            stroke: 'rgb(var(--venia-text))'
+        }}
+    />
+);
+const CART_ICON_EMPTY = (
+    <Icon
+        src={ShoppingCartIcon}
+        attrs={{
+            stroke: 'rgb(var(--venia-text))'
+        }}
+    />
+);
 
-    if (itemsQty > 0) {
-        svgAttributes.fill = iconColor;
-    }
-
-    return <Icon src={ShoppingCartIcon} attrs={svgAttributes} />;
-};
-
-const Trigger = props => {
+const CartTrigger = props => {
     const { cart, getCartDetails, toggleCart } = props;
     const { details: cartDetails } = cart;
     const { items_qty: numItems } = cartDetails;
@@ -35,9 +39,7 @@ const Trigger = props => {
         }
     }, [getCartDetails]);
 
-    const cartIcon = useMemo(() => {
-        return getCartIcon(cartDetails);
-    }, [cartDetails]);
+    const cartIcon = numItems > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
 
     return (
         <button
@@ -51,7 +53,7 @@ const Trigger = props => {
     );
 };
 
-Trigger.propTypes = {
+CartTrigger.propTypes = {
     cart: shape({
         details: shape({
             items_qty: number
@@ -64,4 +66,4 @@ Trigger.propTypes = {
     toggleCart: func
 };
 
-export default Trigger;
+export default CartTrigger;
