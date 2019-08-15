@@ -34,9 +34,7 @@ const CartTrigger = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     useEffect(() => {
-        if (getCartDetails) {
-            getCartDetails();
-        }
+        getCartDetails();
     }, [getCartDetails]);
 
     const cartIcon = numItems > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
@@ -62,7 +60,7 @@ CartTrigger.propTypes = {
     classes: shape({
         root: string
     }),
-    getCartDetails: func,
+    getCartDetails: func.isRequired,
     toggleCart: func
 };
 
