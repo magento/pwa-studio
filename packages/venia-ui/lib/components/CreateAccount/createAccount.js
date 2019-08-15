@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from '@magento/venia-drivers';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -74,7 +75,10 @@ class CreateAccount extends Component {
 
     render() {
         const { errorMessage, handleSubmit, initialValues, props } = this;
-        const { classes } = props;
+        const { classes, isSignedIn } = props;
+        if (isSignedIn) {
+            return <Redirect to="/" />;
+        }
 
         return (
             <Form
