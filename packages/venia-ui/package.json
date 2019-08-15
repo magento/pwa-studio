@@ -77,7 +77,7 @@
     "braintree-web-drop-in": "~1.16.0",
     "react": "~16.9.0",
     "react-apollo": "2.5.5",
-    "react-redux": "^6.0.1",
+    "react-redux": "~6.0.1",
     "react-router-dom": "~5.0.0",
     "redux": "^4.0.1"
   },
