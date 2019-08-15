@@ -1,6 +1,9 @@
 {
   "name": "@magento/upward-js",
   "version": "2.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Implementation of the UPWARD spec as a NodeJS server",
   "main": "./lib/index.js",
   "bin": {
@@ -15,7 +18,7 @@
     "test": "jest",
     "test:spec": "upward-spec ./test_spec.sh"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -25,9 +28,9 @@
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
     "apollo-link": "~1.2.8",
     "apollo-link-http": "~1.5.11",
@@ -37,7 +40,7 @@
     "debug": "~4.1.1",
     "debug-error-middleware": "~1.3.0",
     "dotenv": "~6.2.0",
-    "graphql": "~14.2.1",
+    "graphql": "~14.3.1",
     "graphql-tag": "~2.10.1",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.1",
@@ -60,7 +63,7 @@
     "node-zopfli-es": "^1.0.3"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

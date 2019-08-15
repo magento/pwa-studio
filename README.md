@@ -1,5 +1,5 @@
 # PWA Studio
-  [![Coverage Status](https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg)](https://coveralls.io/github/magento-research/pwa-studio)
+  [![Coverage Status](https://coveralls.io/repos/github/magento/pwa-studio/badge.svg)](https://coveralls.io/github/magento/pwa-studio)
 Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.
 
 ## Documentation
@@ -71,14 +71,13 @@ If you have an issue that cannot be resolved, please [create an issue][].
 * Before pushing a commit, `yarn run prettier` and `yarn run lint` to format and inspect the source code. (There is also a git hook that will do this automatically.)
 
 [Contribution guide]: .github/CONTRIBUTING.md
-[Coverage Status]: https://coveralls.io/repos/github/magento-research/pwa-studio/badge.svg?branch=master
-[create an issue]: https://github.com/magento-research/pwa-studio/issues/new
-[documentation site]: https://magento-research.github.io/pwa-studio/
-[Git hook]: <https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
-[Greenkeeper badge]: https://badges.greenkeeper.io/magento-research/pwa-studio.svg
+[Coverage Status]: https://coveralls.io/repos/github/magento/pwa-studio/badge.svg?branch=master
+[create an issue]: https://github.com/magento/pwa-studio/issues/new
+[documentation site]: https://pwastudio.io
+[Git hook]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
 [NPM]: https://www.npmjs.com/org/magento
-[Troubleshooting]: https://magento-research.github.io/pwa-studio/pwa-buildpack/troubleshooting/
-[Venia storefront setup]: https://magento-research.github.io/pwa-studio/venia-pwa-concept/setup/
+[Troubleshooting]: https://pwastudio.io/pwa-buildpack/troubleshooting/
+[Venia storefront setup]: https://pwastudio.io/venia-pwa-concept/setup/
 [workspace commands]: https://yarnpkg.com/en/docs/cli/workspace
 [Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
 

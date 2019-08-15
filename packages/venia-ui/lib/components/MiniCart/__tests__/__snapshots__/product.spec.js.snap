@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<li>
+  <Image
+    alt="Unit Test Product"
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80&height=100"
+  />
+  <div>
+    Unit Test Product
+  </div>
+  <ProductOptions
+    options={Array []}
+  />
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+      <span>
+        ×
+      </span>
+      <span>
+        <mockConstructor
+          currencyCode="US"
+          value={99}
+        />
+      </span>
+    </div>
+  </div>
+  <Kebab>
+    <Section
+      icon="Heart"
+      isFilled={false}
+      onClick={[Function]}
+      text="Add to favorites"
+    />
+    <Section
+      icon="Edit2"
+      onClick={[Function]}
+      text="Edit item"
+    />
+    <Section
+      icon="Trash"
+      onClick={[Function]}
+      text="Remove item"
+    />
+  </Kebab>
+</li>
+`;

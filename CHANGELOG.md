@@ -132,52 +132,52 @@ This is the easiest way to work with the released versions of PWA Studio.
 
 To upgrade to 3.0.0, update the project's `package.json` file and change the dependency version for PWA Studio.
 
-[pwa studio releases]: https://github.com/magento-research/pwa-studio/releases
-[client side caching topic]: https://magento-research.github.io/pwa-studio/technologies/basic-concepts/client-side-caching/
-[`venia-upward.yml`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
-[hello upward]: https://magento-research.github.io/pwa-studio/tutorials/hello-upward/simple-server/
-[magento compatibility table]: https://magento-research.github.io/pwa-studio/technologies/magento-compatibility/
+[pwa studio releases]: https://github.com/magento/pwa-studio/releases
+[client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
+[`venia-upward.yml`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
+[hello upward]: https://pwastudio.io/tutorials/hello-upward/simple-server/
+[magento compatibility table]: https://pwastudio.io/technologies/magento-compatibility/
 [react hooks]: https://reactjs.org/docs/hooks-intro.html
-[#1253]: https://github.com/magento-research/pwa-studio/pull/1253
-[#1177]: https://github.com/magento-research/pwa-studio/pull/1177
-[#1058]: https://github.com/magento-research/pwa-studio/pull/1058
-[#1175]: https://github.com/magento-research/pwa-studio/pull/1175
-[#1174]: https://github.com/magento-research/pwa-studio/pull/1174
-[#1171]: https://github.com/magento-research/pwa-studio/pull/1171
-[#1169]: https://github.com/magento-research/pwa-studio/pull/1169
-[#1167]: https://github.com/magento-research/pwa-studio/pull/1167
-[#1158]: https://github.com/magento-research/pwa-studio/pull/1158
-[#1155]: https://github.com/magento-research/pwa-studio/pull/1155
-[#1153]: https://github.com/magento-research/pwa-studio/pull/1153
-[#1152]: https://github.com/magento-research/pwa-studio/pull/1152
-[#1150]: https://github.com/magento-research/pwa-studio/pull/1150
-[#1140]: https://github.com/magento-research/pwa-studio/pull/1140
-[#1139]: https://github.com/magento-research/pwa-studio/pull/1139
-[#1132]: https://github.com/magento-research/pwa-studio/pull/1132
-[#1070]: https://github.com/magento-research/pwa-studio/pull/1070
-[#1125]: https://github.com/magento-research/pwa-studio/pull/1125
-[#1109]: https://github.com/magento-research/pwa-studio/pull/1109
-[#1103]: https://github.com/magento-research/pwa-studio/pull/1103
-[#1102]: https://github.com/magento-research/pwa-studio/pull/1102
-[#1097]: https://github.com/magento-research/pwa-studio/pull/1097
-[#1094]: https://github.com/magento-research/pwa-studio/pull/1094
-[#1088]: https://github.com/magento-research/pwa-studio/pull/1088
-[#1087]: https://github.com/magento-research/pwa-studio/pull/1087
-[#1085]: https://github.com/magento-research/pwa-studio/pull/1085
-[#1080]: https://github.com/magento-research/pwa-studio/pull/1080
-[#1077]: https://github.com/magento-research/pwa-studio/pull/1077
-[#1063]: https://github.com/magento-research/pwa-studio/pull/1063
-[#1059]: https://github.com/magento-research/pwa-studio/pull/1059
-[#1048]: https://github.com/magento-research/pwa-studio/pull/1048
-[#1045]: https://github.com/magento-research/pwa-studio/pull/1045
-[#1039]: https://github.com/magento-research/pwa-studio/pull/1039
-[#1027]: https://github.com/magento-research/pwa-studio/pull/1027
-[#1022]: https://github.com/magento-research/pwa-studio/pull/1022
-[#1020]: https://github.com/magento-research/pwa-studio/pull/1020
-[#1019]: https://github.com/magento-research/pwa-studio/pull/1019
-[#1000]: https://github.com/magento-research/pwa-studio/pull/1000
-[#956]: https://github.com/magento-research/pwa-studio/pull/956
-[#910]: https://github.com/magento-research/pwa-studio/pull/910
-[#882]: https://github.com/magento-research/pwa-studio/pull/882
-[#1078]: https://github.com/magento-research/pwa-studio/pull/1078
-[#1043]: https://github.com/magento-research/pwa-studio/pull/1043
+[#1253]: https://github.com/magento/pwa-studio/pull/1253
+[#1177]: https://github.com/magento/pwa-studio/pull/1177
+[#1058]: https://github.com/magento/pwa-studio/pull/1058
+[#1175]: https://github.com/magento/pwa-studio/pull/1175
+[#1174]: https://github.com/magento/pwa-studio/pull/1174
+[#1171]: https://github.com/magento/pwa-studio/pull/1171
+[#1169]: https://github.com/magento/pwa-studio/pull/1169
+[#1167]: https://github.com/magento/pwa-studio/pull/1167
+[#1158]: https://github.com/magento/pwa-studio/pull/1158
+[#1155]: https://github.com/magento/pwa-studio/pull/1155
+[#1153]: https://github.com/magento/pwa-studio/pull/1153
+[#1152]: https://github.com/magento/pwa-studio/pull/1152
+[#1150]: https://github.com/magento/pwa-studio/pull/1150
+[#1140]: https://github.com/magento/pwa-studio/pull/1140
+[#1139]: https://github.com/magento/pwa-studio/pull/1139
+[#1132]: https://github.com/magento/pwa-studio/pull/1132
+[#1070]: https://github.com/magento/pwa-studio/pull/1070
+[#1125]: https://github.com/magento/pwa-studio/pull/1125
+[#1109]: https://github.com/magento/pwa-studio/pull/1109
+[#1103]: https://github.com/magento/pwa-studio/pull/1103
+[#1102]: https://github.com/magento/pwa-studio/pull/1102
+[#1097]: https://github.com/magento/pwa-studio/pull/1097
+[#1094]: https://github.com/magento/pwa-studio/pull/1094
+[#1088]: https://github.com/magento/pwa-studio/pull/1088
+[#1087]: https://github.com/magento/pwa-studio/pull/1087
+[#1085]: https://github.com/magento/pwa-studio/pull/1085
+[#1080]: https://github.com/magento/pwa-studio/pull/1080
+[#1077]: https://github.com/magento/pwa-studio/pull/1077
+[#1063]: https://github.com/magento/pwa-studio/pull/1063
+[#1059]: https://github.com/magento/pwa-studio/pull/1059
+[#1048]: https://github.com/magento/pwa-studio/pull/1048
+[#1045]: https://github.com/magento/pwa-studio/pull/1045
+[#1039]: https://github.com/magento/pwa-studio/pull/1039
+[#1027]: https://github.com/magento/pwa-studio/pull/1027
+[#1022]: https://github.com/magento/pwa-studio/pull/1022
+[#1020]: https://github.com/magento/pwa-studio/pull/1020
+[#1019]: https://github.com/magento/pwa-studio/pull/1019
+[#1000]: https://github.com/magento/pwa-studio/pull/1000
+[#956]: https://github.com/magento/pwa-studio/pull/956
+[#910]: https://github.com/magento/pwa-studio/pull/910
+[#882]: https://github.com/magento/pwa-studio/pull/882
+[#1078]: https://github.com/magento/pwa-studio/pull/1078
+[#1043]: https://github.com/magento/pwa-studio/pull/1043

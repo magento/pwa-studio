@@ -2,7 +2,7 @@
     "version": 2,
     "name": "venia",
     "alias": [
-        "magento-venia-develop"
+        "magento-pwastudio-venia-develop"
     ],
     "scope": "magento-research",
     "env": {
@@ -27,6 +27,7 @@
                     "package.json",
                     ".env",
                     "upward.yml",
+                    "node_modules/@magento/venia-ui/lib/queries/*",
                     "static/*",
                     "templates/*"
                 ],

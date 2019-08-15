@@ -20,7 +20,7 @@ _As a developer, please write developer-facing documentation in README or other 
 
 ## Contribution process
 
-Magento maintains a public roadmap for this and other [Magento Research] repositories in each project's issue board.
+Magento maintains a public roadmap for this and other repositories in each project's issue board.
 
 Any and all community participation in this backlog is encouraged and appreciated.
 Even foundational infrastructure stories are available for a generous developer to take on.
@@ -60,8 +60,7 @@ We will un-assign you from this issue, but please feel free to contribute to ano
 
 #### Step 4: Work on the issue
 
-After you provide an estimate, the issue is now "in progress", and
-you officially become a member of the [Magento Research] organization.
+After you provide an estimate, the issue is now "in progress".
 
 If you need more time to work on the issue, please contact us as soon as possible.
 We may request an update on your progress, but we are willing to accommodate.
@@ -94,8 +93,7 @@ _Please avoid creating GitHub issues asking for help on bugs in your project tha
 
 [code of conduct]: CODE_OF_CONDUCT.md
 [support]: SUPPORT.md
-[official repository]: https://github.com/magento-research/pwa-studio
+[official repository]: https://github.com/magento/pwa-studio
 [meaningful commit messages]: https://chris.beams.io/posts/git-commit/
-[github issue]: https://github.com/magento-research/pwa-studio/issues/new/choose
-[magento research]: https://github.com/magento-research
-[help wanted]: https://github.com/magento-research/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[github issue]: https://github.com/magento/pwa-studio/issues/new/choose
+[help wanted]: https://github.com/magento/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22

@@ -188,5 +188,5 @@ if (configuration.isDev) {
 
 [upward]: {{site.baseurl}}{%link technologies/upward/reference-implementation/index.md %}
 
-[`envvardefinitions.json`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
+[`envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
 [camelcased]: https://npmjs.com/package/camelspace

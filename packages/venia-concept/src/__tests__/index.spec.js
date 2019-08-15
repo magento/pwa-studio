@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
-import store from 'src/store';
+import store from '../store';
 
 jest.mock('react-dom');
 jest.mock('react-router-dom');
@@ -27,7 +27,7 @@ jest.mock('apollo-link-http', () => {
     mockLink.request = request;
     return mockLink;
 });
-jest.mock('src/store', () => ({
+jest.mock('../store', () => ({
     dispatch: jest.fn(),
     getState: jest.fn(),
     replaceReducer: jest.fn(),

@@ -77,10 +77,10 @@ Optimizing the critical path is important to get the best performance out of a p
 [application shell]: {{site.baseurl}}{%link technologies/basic-concepts/app-shell/index.md %}
 
 [redux]: https://redux.js.org/introduction/core-concepts
-[service worker]: https://github.com/magento-research/pwa-studio
-[component data binding]: https://github.com/magento-research/pwa-studio
-[client state, reducers, and actions]: https://github.com/magento-research/pwa-studio
-[loading and offline states]: https://github.com/magento-research/pwa-studio
-[performance patterns]: https://github.com/magento-research/pwa-studio
-[root components and routing]: https://github.com/magento-research/pwa-studio
-[critical path]: https://github.com/magento-research/pwa-studio
+[service worker]: https://github.com/magento/pwa-studio
+[component data binding]: https://github.com/magento/pwa-studio
+[client state, reducers, and actions]: https://github.com/magento/pwa-studio
+[loading and offline states]: https://github.com/magento/pwa-studio
+[performance patterns]: https://github.com/magento/pwa-studio
+[root components and routing]: https://github.com/magento/pwa-studio
+[critical path]: https://github.com/magento/pwa-studio

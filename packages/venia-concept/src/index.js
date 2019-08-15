@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
-import { Adapter } from 'src/drivers';
-import store from 'src/store';
-import app from 'src/actions/app';
-import App, { AppContextProvider } from 'src/components/App';
+import { Adapter } from '@magento/venia-drivers';
+import store from './store';
+import app from '@magento/venia-ui/lib/actions/app';
+import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -49,7 +49,7 @@ if (
 ) {
     window.addEventListener('load', () =>
         navigator.serviceWorker
-            .register('sw.js')
+            .register('/sw.js')
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })
