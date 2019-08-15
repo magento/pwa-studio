@@ -2,9 +2,10 @@ import { connect } from '@magento/venia-drivers';
 import CreateAccount from './createAccount';
 
 const mapStateToProps = ({ user }) => {
-    const { createAccountError } = user;
+    const { createAccountError, isSignedIn } = user;
     return {
-        createAccountError
+        createAccountError,
+        isSignedIn
     };
 };
 
