@@ -38,11 +38,12 @@ const CartTrigger = props => {
     }, [getCartDetails]);
 
     const cartIcon = numItems > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
+    const buttonAriaLabel = `Toggle mini cart. You have ${numItems} items in your cart.`;
 
     return (
         <button
             className={classes.root}
-            aria-label="Toggle mini cart"
+            aria-label={buttonAriaLabel}
             onClick={toggleCart}
         >
             {cartIcon}
