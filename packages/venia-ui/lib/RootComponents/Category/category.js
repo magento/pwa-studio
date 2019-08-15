@@ -17,7 +17,7 @@ import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 
 const Category = props => {
-    const { filterClear, id, openDrawer, pageSize } = props;
+    const { filterClear, id, openDrawer, pageSize, categories } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [paginationValues, paginationApi] = usePagination({
@@ -97,7 +97,7 @@ const Category = props => {
     }
 
     return totalPagesFromData === 0 ? (
-        <NoProductsFound categoryName={data.category.name} />
+        <NoProductsFound categories={categories} />
     ) : (
         <CategoryContent
             classes={classes}
@@ -126,6 +126,14 @@ Category.defaultProps = {
     pageSize: 6
 };
 
+const mapStateToProps = ({ catalog }) => {
+    const categories = catalog.categories;
+
+    return {
+        categories
+    };
+};
+
 const mapDispatchToProps = dispatch => ({
     filterClear: () => dispatch(catalogActions.filterOption.clear()),
     openDrawer: () => dispatch(toggleDrawer('filter'))
@@ -134,7 +142,7 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     withRouter,
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )
 )(Category);
