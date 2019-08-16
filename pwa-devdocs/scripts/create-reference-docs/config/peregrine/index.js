@@ -50,5 +50,9 @@ module.exports = [
     {
         target: 'peregrine/lib/Toasts/useToastContext.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/Toasts/useToasts.js',
+        type: 'function'
     }
 ];

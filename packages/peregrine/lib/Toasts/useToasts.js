@@ -6,8 +6,20 @@ import { useToastContext } from './useToastContext';
 const DEFAULT_TIMEOUT = 5000;
 
 /**
- * Generates an identifier for a toast by inspecting the properties that would
- * differentiate the toasts visually from one another.
+ * Generates an identifier for a toast by inspecting the properties that
+ * differentiate toasts from one another.
+ *
+ * @typedef getToastId
+ * @kind function
+ *
+ * @param {Object} properties A composite identifier object with properties
+ *   that identify a specific toast using its {@link ToastProps}.
+ * @param {String} properties.type Maps to the `type` property of {@link ToastProps}
+ * @param {String} properties.message Maps to the `message` property of {@link ToastProps}
+ * @param {Boolean} properties.dismissable=true Maps to the `dismissable` property of {@link ToastProps}
+ * @param {String} properties.actionText='' Maps to the `actionText` property of {@link ToastProps}
+ * @param {React.Element} properties.icon=()=>{} Maps to the `icon` property of {@link ToastProps}
+ *
  */
 export const getToastId = ({
     type,
@@ -35,15 +47,19 @@ export const getToastId = ({
 /**
  * A hook that provides access to the toast state and toast api.
  *
- * @returns {[ToastState, ToastApi]}
+ * @kind function
+ *
+ * @returns {Object[]} An array containing objects for the toast state and its API: [{@link ../use-toast-context#ToastState ToastState}, {@link API}]
  */
 export const useToasts = () => {
     const [state, dispatch] = useToastContext();
 
     /**
      * Removes a toast from the toast store.
-     * @function removeToast
-     * @params {Number} id - the id of the toast to remove
+     *
+     * @function API.removeToast
+     *
+     * @param {Number} id The id of the toast to remove
      */
     const removeToast = useCallback(
         id => {
@@ -56,44 +72,43 @@ export const useToasts = () => {
     );
 
     /**
-     * Dispatches a add action. Includes all props passed along with a hash id
+     * Dispatches an add action. Includes all props passed along with a hash id
      * and a timeout id generated based on the incoming props.
      *
-     * !Note
-     * If an `onAction` or `onDismiss` callback is provided the implementer MUST
-     * call the passed `remove` function. If no `onDismiss` callback is
-     * provided the toast will be removed immediately
+     * @function API.addToast
      *
-     * @example
-     * addToast({
-     *   type: 'error',
-     *   message: 'An error occurred!',
-     *   actionText: 'Retry',
-     *   onAction: remove => {
-     *     async attemptRetry();
-     *     remove();
-     *   },
-     *   onDismiss: remove => {
-     *     async doSomethingOnDismiss();
-     *     remove();
-     *   },
-     *   icon: <Icon src={SadFaceIcon} />
-     * });
+     * @param {ToastProps} toastProps The object containing props for adding a toast.
      *
-     * @function addToast
-     * @param {Object}   toastProps - The object containing props for adding a toast.
-     * @param {string}   toastProps.type - 'info', 'warning' or 'error'.
-     * @param {string}   toastProps.message - The message to display in the toast.
-     * @param {boolean}  [toastProps.dismissable] - Boolean indicating whether the toast is dismissable. If `onDismiss` is provided this is assumed to be true.
-     * @param {React.Element} [toastProps.icon] - The icon element to display
-     * @param {function} [toastProps.onDismiss] - Callback invoked when a user clicks the dismiss icon.
-     * @param {string}   [toastProps.actionText] - Text to display as a call to action.
-     * @param {function} [toastProps.onAction] - Callback invoked when a user clicks the action text.
-     * @param {Number} [toastProps.timeout] - time, in ms, before the toast is automatically dismissed. If `0` or `false` is passed, the toast will not timeout.
-     *
-     * @returns {Number} id - the key referencing the toast in the store
+     * @returns {Number} id The key referencing the toast in the store
      */
     const addToast = useCallback(
+        /**
+         * Object containing data for creating toasts using {@link API.addToast}.
+         *
+         * @typedef ToastProps
+         *
+         * @property {String} type One of the following toast types: 'info', 'warning',
+         *   or 'error'
+         * @property {String} message The message to display on the toast
+         * @property {Bool} [dismissable] Indicates whether the toast is dismissable.
+         *   If `onDismiss` is provided, this property is assumed to be true.
+         *   This property is optional when creating toasts.
+         * @property {React.Element} [icon] The icon element to display.
+         *   This property is optional when creating toasts.
+         * @property {Function} [onDismiss] Callback invoked when a user clicks the
+         *   dismiss icon.
+         *   This property is optional when creating toasts.
+         * @property {String} [actionText] Text to display as a call to action.
+         *   This property is optional when creating toasts.
+         * @property {Function} [onAction] Callback invoked when a user clicks the action
+         *   text.
+         *   This property is optional when creating toasts.
+         * @property {Number} [timeout] Time, in ms, before the toast is automatically
+         *   dismissed.
+         *   If `0` or `false` is passed, the toast will not timeout.
+         *   This property is optional when creating toasts.
+         *
+         */
         toastProps => {
             const {
                 dismissable,
@@ -160,10 +175,11 @@ export const useToasts = () => {
     );
 
     /**
-     * @typedef ToastApi
-     * @property {addToast} addToast
-     * @property {dispatch} dispatch
-     * @property {removeToast} removeToast
+     * The API for managing toasts.
+     * Use this API to add and remove toasts.
+     *
+     * @typedef API
+     * @type Object
      */
     const api = useMemo(
         () => ({
