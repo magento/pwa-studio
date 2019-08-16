@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 
+import { Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
 import FilterModal from '../../components/FilterModal';
 import Gallery from '../../components/Gallery';
@@ -13,6 +14,7 @@ const CategoryContent = props => {
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : null;
     const title = data ? data.category.name : null;
+    const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
         <div className={classes.headerButtons}>
@@ -27,21 +29,23 @@ const CategoryContent = props => {
     ) : null;
 
     const modal = filters ? <FilterModal filters={filters} /> : null;
-
     return (
-        <article className={classes.root}>
-            <h1 className={classes.title}>
-                <div className={classes.categoryTitle}>{title}</div>
-            </h1>
-            {header}
-            <section className={classes.gallery}>
-                <Gallery data={items} pageSize={pageSize} />
-            </section>
-            <div className={classes.pagination}>
-                <Pagination pageControl={pageControl} />
-            </div>
-            {modal}
-        </article>
+        <Fragment>
+            <Title>{titleContent}</Title>
+            <article className={classes.root}>
+                <h1 className={classes.title}>
+                    <div className={classes.categoryTitle}>{title}</div>
+                </h1>
+                {header}
+                <section className={classes.gallery}>
+                    <Gallery data={items} pageSize={pageSize} />
+                </section>
+                <div className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </div>
+                {modal}
+            </article>
+        </Fragment>
     );
 };
 
