@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
+import { createTestInstance } from '@magento/peregrine';
 
 import Main from '../../Main';
 import Mask from '../../Mask';
@@ -7,8 +7,8 @@ import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
 
 jest.mock('../../Head', () => ({
-    HeadProvider: jest.fn(({ children }) => <div>{children}</div>),
-    Title: jest.fn(({ children }) => <div>{children}</div>)
+    HeadProvider: ({ children }) => <div>{children}</div>,
+    Title: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../MiniCart', () => 'MiniCart');
@@ -73,11 +73,7 @@ test('renders a full page with onlineIndicator and routes', () => {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
     getAndConfirmProps(root, Navigation, { isOpen: false });
     getAndConfirmProps(root, MiniCart, { isOpen: false });
@@ -116,11 +112,7 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
         unhandledErrors: []
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
     // hasBeenOffline means onlineIndicator
     getAndConfirmProps(root, Main, { isOnline: true });
 });
@@ -139,17 +131,13 @@ test('displays open nav or drawer', () => {
     });
 
     const { root: openNav } = createTestInstance(
-        <ToastContextProvider>
-            <App {...propsWithDrawer('nav')} />
-        </ToastContextProvider>
+        <App {...propsWithDrawer('nav')} />
     );
 
     getAndConfirmProps(openNav, Navigation, { isOpen: true });
 
     const { root: openCart } = createTestInstance(
-        <ToastContextProvider>
-            <App {...propsWithDrawer('cart')} />
-        </ToastContextProvider>
+        <App {...propsWithDrawer('cart')} />
     );
 
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
@@ -169,11 +157,7 @@ test('renders with renderErrors', () => {
         renderError: new Error('A render error!')
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
     expect(root).toMatchSnapshot();
 });
@@ -192,11 +176,7 @@ test('renders with unhandledErrors', () => {
         renderError: null
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
     expect(root).toMatchSnapshot();
 });
@@ -215,11 +195,7 @@ test('adds no toasts when no errors are present', () => {
         renderError: null
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).not.toHaveBeenCalled();
 });
@@ -238,11 +214,7 @@ test('adds toasts for render errors', () => {
         renderError: new Error('A render error!')
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).toHaveBeenCalledWith({
         icon: expect.any(Object),
@@ -267,11 +239,7 @@ test('adds toasts for unhandled errors', () => {
         renderError: null
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).toHaveBeenCalledWith({
         icon: expect.any(Object),
