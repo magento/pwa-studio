@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Form } from 'informed';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -14,6 +14,8 @@ import {
 import combine from '../../util/combineValidators';
 import TextInput from '../TextInput';
 import Field from '../Field';
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
+import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
 
 const fields = [
     'city',
@@ -27,39 +29,42 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const {
-        cancel,
-        countries,
-        isAddressInvalid,
-        invalidAddressMessage,
-        initialValues,
-        submit,
-        submitting
-    } = props;
+    const [{ countries }] = useDirectoryContext();
+    const { cancel, submit, submitting } = props;
 
+    const [invalidAddressMessage, setInvalidAddressMessage] = useState('');
+    const [checkoutState, checkoutApi] = useCheckoutContext();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const validationMessage = isAddressInvalid ? invalidAddressMessage : null;
+    const validationMessage = invalidAddressMessage
+        ? invalidAddressMessage
+        : null;
 
-    const values = useMemo(
+    const initialValues = useMemo(
         () =>
             fields.reduce((acc, key) => {
-                acc[key] = initialValues[key];
+                acc[key] = checkoutState.shippingAddress[key];
                 return acc;
             }, {}),
-        [initialValues]
+        [checkoutState.shippingAddress]
     );
 
     const handleSubmit = useCallback(
         values => {
-            submit(values);
+            try {
+                const address = formatAddress(values, countries);
+                checkoutApi.setShippingAddress(address);
+                submit();
+            } catch (e) {
+                setInvalidAddressMessage(e.message);
+            }
         },
-        [submit]
+        [checkoutApi, countries, submit]
     );
 
     return (
         <Form
             className={classes.root}
-            initialValues={values}
+            initialValues={initialValues}
             onSubmit={handleSubmit}
         >
             <div className={classes.body}>
@@ -179,17 +184,27 @@ AddressForm.propTypes = {
     }),
     countries: array,
     invalidAddressMessage: string,
-    initialValues: object,
-    isAddressInvalid: bool,
     submit: func.isRequired,
     submitting: bool
 };
 
-AddressForm.defaultProps = {
-    initialValues: {}
-};
-
 export default AddressForm;
+
+/* helpers */
+function formatAddress(address = {}, countries = []) {
+    const country = countries.find(({ id }) => id === 'US');
+    const { region_code } = address;
+    const { available_regions: regions } = country;
+    const region = regions.find(({ code }) => code === region_code);
+
+    return {
+        country_id: 'US',
+        region_id: region.id,
+        region_code: region.code,
+        region: region.name,
+        ...address
+    };
+}
 
 /*
 const mockAddress = {

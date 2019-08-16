@@ -7,17 +7,15 @@ const storage = new BrowserPersistence();
 
 const initialState = {
     availableShippingMethods: [],
-    billingAddress: null,
-    // editing: null, TODO: Migrate this state to UI
+    billingAddress: {},
     // paymentCode: '', // TODO: Potentially delete if unused.
     paymentData: null,
-    shippingAddress: null,
+    shippingAddress: {},
     shippingMethod: '',
     shippingTitle: ''
     // step: 'cart', TODO: Migrate this state to UI
     // submitting: false, TODO: Migrate this state to UI
     // isAddressInvalid: false, TODO: Migrate to request state
-    // invalidAddressMessage: '' TODO: Migrate to request state
 };
 
 const reducer = (state, { payload, type }) => {
@@ -30,10 +28,12 @@ const reducer = (state, { payload, type }) => {
 
             return {
                 ...state,
-                billingAddress: storedBillingAddress,
+                billingAddress:
+                    storedBillingAddress || initialState.billingAddress,
                 paymentCode: storedPaymentMethod && storedPaymentMethod.code,
                 paymentData: storedPaymentMethod && storedPaymentMethod.data,
-                shippingAddress: storedShippingAddress,
+                shippingAddress:
+                    storedShippingAddress || initialState.shippingAddress,
                 shippingMethod:
                     storedShippingMethod && storedShippingMethod.carrier_code,
                 shippingTitle:
@@ -76,8 +76,7 @@ const reducer = (state, { payload, type }) => {
             return {
                 ...state,
                 paymentCode: payload.code,
-                paymentData: payload.data,
-                step: 'form'
+                paymentData: payload.data
             };
         }
         case 'set shipping address': {

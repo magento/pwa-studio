@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     array,
     bool,
@@ -16,8 +16,8 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 
-const isCartReady = cart => cart.details && cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
     const {
         billingAddress,
@@ -44,17 +44,17 @@ const isCheckoutReady = checkout => {
  * and pass them to the current checkout step.
  */
 const Flow = props => {
+    const [submitting, setSubmitting] = useState(false);
+    const [step, setStep] = useState('cart');
+    const [checkoutState, checkoutApi] = useCheckoutContext();
+
     const {
-        // state
+        // STATE
         cart,
         checkout,
-        directory,
         user,
 
-        // actions
-        beginCheckout,
-        cancelCheckout,
-        submitShippingAddress,
+        // ACTIONS
         submitOrder,
         submitPaymentMethodAndBillingAddress,
         submitShippingMethod
@@ -63,55 +63,58 @@ const Flow = props => {
     const {
         availableShippingMethods,
         billingAddress,
-        invalidAddressMessage,
-        isAddressInvalid,
         paymentData,
         shippingAddress,
         shippingMethod,
-        shippingTitle,
-        step,
-        submitting
-    } = checkout;
+        shippingTitle
+    } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
 
+    const handleBeginCheckout = useCallback(() => {
+        checkoutApi.beginCheckout();
+        setStep('form');
+    }, [checkoutApi, setStep]);
+
+    const handleCancelCheckout = useCallback(() => {
+        checkoutApi.reset();
+        setStep('cart');
+    }, [checkoutApi, setStep]);
+
     switch (step) {
         case 'cart': {
-            const stepProps = {
-                beginCheckout,
-                ready: isCartReady(cart),
-                submitting
-            };
-
-            child = <Cart {...stepProps} />;
+            child = (
+                <Cart
+                    beginCheckout={handleBeginCheckout}
+                    submitting={submitting}
+                />
+            );
             break;
         }
         case 'form': {
             const stepProps = {
                 availableShippingMethods,
                 billingAddress,
-                cancelCheckout,
+                cancelCheckout: handleCancelCheckout,
                 cart,
-                directory,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
                 hasShippingMethod:
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
-                invalidAddressMessage,
-                isAddressInvalid,
                 paymentData,
                 ready: isCheckoutReady(checkout),
                 shippingAddress,
                 shippingMethod,
                 shippingTitle,
-                submitShippingAddress,
                 submitOrder,
                 submitPaymentMethodAndBillingAddress,
                 submitShippingMethod,
-                submitting
+                submitting,
+                setSubmitting,
+                setStep
             };
 
             child = <Form {...stepProps} />;
@@ -134,8 +137,6 @@ const Flow = props => {
 };
 
 Flow.propTypes = {
-    beginCheckout: func,
-    cancelCheckout: func,
     cart: shape({
         details: shape({
             items_count: number
@@ -144,8 +145,6 @@ Flow.propTypes = {
     checkout: shape({
         availableShippingMethods: array,
         billingAddress: object,
-        invalidAddressMessage: string,
-        isAddressInvalid: bool,
         paymentData: object,
         shippingAddress: object,
         shippingMethod: string,
@@ -156,10 +155,8 @@ Flow.propTypes = {
     classes: shape({
         root: string
     }),
-    directory: object,
     submitOrder: func,
     submitPaymentMethodAndBillingAddress: func,
-    submitShippingAddress: func,
     submitShippingMethod: func,
     user: object
 };

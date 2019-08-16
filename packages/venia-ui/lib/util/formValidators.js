@@ -44,7 +44,7 @@ export const validateEmail = value => {
         : 'Please enter a valid email address (Ex: johndoe@domain.com).';
 };
 
-export const validateRegionCode = (value, values, countries) => {
+export const validateRegionCode = (value, values, countries = []) => {
     const country = countries.find(({ id }) => id === 'US');
 
     if (!country) {

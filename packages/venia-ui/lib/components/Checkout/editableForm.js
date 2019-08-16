@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
+import { array, bool, func, object, oneOf, string } from 'prop-types';
 
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
@@ -14,27 +14,17 @@ const EditableForm = props => {
         editing,
         setEditing,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod,
-        submitting,
-        isAddressInvalid,
-        invalidAddressMessage,
-        directory: { countries }
+        submitting
     } = props;
 
     const handleCancel = useCallback(() => {
         setEditing(null);
     }, [setEditing]);
 
-    const handleSubmitAddressForm = useCallback(
-        async formValues => {
-            await submitShippingAddress({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitShippingAddress]
-    );
+    const handleSubmitAddressForm = useCallback(() => {
+        setEditing(null);
+    }, [setEditing]);
 
     const handleSubmitPaymentsForm = useCallback(
         async formValues => {
@@ -63,9 +53,6 @@ const EditableForm = props => {
             return (
                 <AddressForm
                     cancel={handleCancel}
-                    countries={countries}
-                    isAddressInvalid={isAddressInvalid}
-                    invalidAddressMessage={invalidAddressMessage}
                     initialValues={shippingAddress}
                     submit={handleSubmitAddressForm}
                     submitting={submitting}
@@ -109,15 +96,9 @@ EditableForm.propTypes = {
     setEditing: func.isRequired,
     shippingAddress: object,
     shippingMethod: string,
-    submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
-    submitting: bool,
-    isAddressInvalid: bool,
-    invalidAddressMessage: string,
-    directory: shape({
-        countries: array
-    }).isRequired
+    submitting: bool
 };
 
 export default EditableForm;

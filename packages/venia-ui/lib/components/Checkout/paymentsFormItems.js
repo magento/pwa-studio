@@ -20,22 +20,17 @@ import {
     validateEmail
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
-
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
+    const [, checkoutApi] = useCheckoutContext();
+
     const [isReady, setIsReady] = useState(false);
 
-    const {
-        cancel,
-        classes,
-        countries,
-        isSubmitting,
-        setIsSubmitting,
-        submit: submitPaymentData
-    } = props;
+    const { cancel, classes, countries, isSubmitting, setIsSubmitting } = props;
 
     // Currently form state toggles dirty from false to true because of how
     // informed is implemented. This effectively causes this child components
@@ -139,7 +134,6 @@ const PaymentsFormItems = props => {
     // comments for more info.
     const handleSuccess = useCallback(
         value => {
-            setIsSubmitting(false);
             const sameAsShippingAddress = formState.values['addresses_same'];
             let billingAddress;
             if (!sameAsShippingAddress) {
@@ -158,15 +152,14 @@ const PaymentsFormItems = props => {
                     sameAsShippingAddress
                 };
             }
-            submitPaymentData({
-                billingAddress,
-                paymentMethod: {
-                    code: 'braintree',
-                    data: value
-                }
+            checkoutApi.setBillingAddress(billingAddress);
+            checkoutApi.setPaymentMethod({
+                code: 'braintree',
+                data: value
             });
+            setIsSubmitting(false);
         },
-        [formState.values, setIsSubmitting, submitPaymentData]
+        [checkoutApi, formState.values, setIsSubmitting]
     );
 
     // When the address checkbox is unchecked, additional fields are rendered.

@@ -4,6 +4,7 @@ import { CartContextProvider } from '../state/Cart';
 import { CatalogContextProvider } from '../state/Catalog';
 import { CheckoutContextProvider } from '../state/Checkout';
 import { UserContextProvider } from '../state/User';
+import { DirectoryContextProvider } from '../state/Directory';
 
 /**
  * List of essential context providers that are required to run Peregrine
@@ -14,6 +15,7 @@ const contextProviders = [
     CartContextProvider,
     CatalogContextProvider,
     CheckoutContextProvider,
+    DirectoryContextProvider,
     UserContextProvider
 ];
 

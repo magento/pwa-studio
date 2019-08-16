@@ -269,7 +269,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         });
 
         if (isDevServer()) {
-            config.devtool = 'cheap-source-map';
+            config.devtool = 'eval-source-map';
 
             await PWADevServer.configure(
                 {

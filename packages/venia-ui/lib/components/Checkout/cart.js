@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -8,10 +8,12 @@ import { useRestApi } from '@magento/peregrine';
 import { useUserContext } from '@magento/peregrine/lib/state/User';
 import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 import { useCartContext } from '@magento/peregrine/lib/state/Cart';
+import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
 
 const AUTHED_SHIPPING_METHOD_ENDPOINT =
     '/rest/V1/carts/mine/estimate-shipping-methods';
 const AUTHED_CART_ENDPOINT = '/rest/V1/carts/mine';
+const COUNTRIES_ENDPOINT = '/rest/V1/directory/countries';
 const GUEST_CART_ENDPOINT = '/rest/V1/guest-carts';
 
 const SHIPPING_METHOD_OPTIONS = {
@@ -28,10 +30,20 @@ const CART_METHOD_OPTIONS = {
     method: 'POST'
 };
 
+// const isCartReady = cart => cart.details && cart.details.items_count > 0;
+
+const isCheckoutReady = (cartState, checkoutState, directoryState) => {
+    const hasCountries = !!directoryState.countries;
+    const hasShippingMethods = checkoutState.availableShippingMethods.length;
+    return hasCountries && hasShippingMethods;
+    // TODO Add to check once cartState is migrated
+    // && isCartReady(cartState);
+};
 const Cart = props => {
     const [userState] = useUserContext();
     const [cartState, cartApi] = useCartContext();
     const [checkoutState, checkoutApi] = useCheckoutContext();
+    const [directoryState, directoryApi] = useDirectoryContext();
 
     const { cartId } = cartState;
     const { isSignedIn } = userState;
@@ -50,6 +62,27 @@ const Cart = props => {
         shippingMethodsRequestApi
     ] = useRestApi(shippingMethodsEndpoint);
     const { data: shippingMethodsData } = shippingMethodsResponseState;
+
+    const [countriesResponseState, countriesRequestApi] = useRestApi(
+        COUNTRIES_ENDPOINT
+    );
+    const {
+        data: countriesData,
+        loading: countriesLoading
+    } = countriesResponseState;
+
+    // fetch countries/directory if necessary
+    useEffect(() => {
+        if (!countriesData && !countriesLoading) {
+            countriesRequestApi.sendRequest();
+        }
+    }, [countriesData, countriesLoading, countriesRequestApi]);
+
+    useEffect(() => {
+        if (countriesData) {
+            directoryApi.setCountries(countriesData);
+        }
+    }, [countriesData, directoryApi]);
 
     // create a cart if necessary
     useEffect(() => {
@@ -103,21 +136,32 @@ const Cart = props => {
     // write shipping methods to client checkout state
     useEffect(() => {
         if (shippingMethodsData) {
-            checkoutApi.setAvailableShippingMethods(shippingMethodsData);
+            // TODO: Figure out why estimate-shipping-methods is returning empty array
+            // checkoutApi.setAvailableShippingMethods(shippingMethodsData);
+            checkoutApi.setAvailableShippingMethods([
+                {
+                    carrier_code: 'flatrate',
+                    method_code: 'flatrate',
+                    carrier_title: 'Flat Rate',
+                    method_title: 'Fixed',
+                    amount: 5,
+                    base_amount: 5,
+                    available: true,
+                    error_message: '',
+                    price_excl_tax: 5,
+                    price_incl_tax: 5
+                }
+            ]);
         }
     }, [checkoutApi, shippingMethodsData]);
 
-    const handleBeginCheckout = useCallback(async () => {
-        checkoutApi.setCheckoutStateFromStorage();
-    }, [checkoutApi]);
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const disabled = checkoutState.submitting || !cartState.ready;
+    const disabled = !isCheckoutReady(cartState, checkoutState, directoryState);
 
     return (
         <div className={classes.root}>
-            <CheckoutButton disabled={disabled} onClick={handleBeginCheckout} />
+            <CheckoutButton disabled={disabled} onClick={props.beginCheckout} />
         </div>
     );
 };
@@ -127,7 +171,6 @@ Cart.propTypes = {
     classes: shape({
         root: string
     }),
-    ready: bool.isRequired,
     submitting: bool.isRequired
 };
 
