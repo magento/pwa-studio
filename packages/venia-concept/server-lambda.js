@@ -25,7 +25,7 @@ async function serve() {
 console.log('[VENIA] Launching staging server...\n');
 const appStarted = serve();
 
-// This part is for now.sh version 2 and other serverless deployments.
+// This part is for serverless deployments.
 // A lambda probably won't execute against more than one request, but juuuuust
 // in case it does, let's cache the server startup procedure.
 let server;
