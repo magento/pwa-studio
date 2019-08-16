@@ -1,31 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createTestInstance } from '@magento/peregrine';
+
 import CartCounter from '../cartCounter';
 
 const classes = {
     root: 'a'
 };
 
-test('Cart counter is not rendered when cart is empty', () => {
+test('Cart counter is not rendered when numItems is not provided', () => {
+    const component = createTestInstance(<CartCounter classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart counter is not rendered when numItems is zero (0)', () => {
     const itemsQty = 0;
-    const wrapper = shallow(
-        <CartCounter counter={itemsQty} classes={classes} />
-    ).dive();
-    expect(wrapper.find('span').exists()).toBe(false);
+
+    const component = createTestInstance(
+        <CartCounter numItems={itemsQty} classes={classes} />
+    );
+
+    expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('Cart counter is rendered when cart contains items', () => {
+test('Cart counter is rendered correctly when cart contains items', () => {
     const itemsQty = 1;
-    const wrapper = shallow(
-        <CartCounter counter={itemsQty} classes={classes} />
-    ).dive();
-    expect(wrapper.find('span').exists()).toBe(true);
-});
 
-test('Cart counter shows correct item quantity', () => {
-    const itemsQty = 10;
-    const wrapper = shallow(
-        <CartCounter counter={itemsQty} classes={classes} />
-    ).dive();
-    expect(wrapper.find('span').text()).toContain(itemsQty);
+    const component = createTestInstance(
+        <CartCounter numItems={itemsQty} classes={classes} />
+    );
+
+    expect(component.toJSON()).toMatchSnapshot();
 });
