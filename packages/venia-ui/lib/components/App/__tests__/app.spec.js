@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
 
 import Main from '../../Main';
@@ -55,7 +56,16 @@ const getAndConfirmProps = (parent, type, props) => {
     return instance;
 };
 
-afterAll(() => window.location.reload.mockRestore());
+beforeAll(() => {
+    ReactDOM.createPortal = jest.fn(element => {
+        return element;
+    });
+});
+
+afterAll(() => {
+    // ReactDOM.createPortal.mockClear();
+    window.location.reload.mockRestore();
+});
 
 test('renders a full page with onlineIndicator and routes', () => {
     const appProps = {
