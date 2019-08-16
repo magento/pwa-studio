@@ -14,6 +14,7 @@ const CategoryContent = props => {
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : null;
     const title = data ? data.category.name : null;
+    const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
         <div className={classes.headerButtons}>
@@ -30,7 +31,7 @@ const CategoryContent = props => {
     const modal = filters ? <FilterModal filters={filters} /> : null;
     return (
         <Fragment>
-            <Title>{`${title} - Venia`}</Title>
+            <Title>{titleContent}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{title}</div>
