@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
+import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import MiniCart from '../MiniCart';
@@ -122,7 +123,8 @@ const App = props => {
     }
 
     return (
-        <Fragment>
+        <HeadProvider>
+            <Title>{'Home Page - Venia'}</Title>
             <Main
                 isMasked={overlay}
                 hasBeenOffline={hasBeenOffline}
@@ -134,7 +136,7 @@ const App = props => {
             <Navigation isOpen={navIsOpen} />
             <MiniCart isOpen={cartIsOpen} />
             <ToastContainer />
-        </Fragment>
+        </HeadProvider>
     );
 };
 
