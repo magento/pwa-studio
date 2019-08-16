@@ -86,7 +86,7 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 ```
 
 The `@magento/venia-drivers` dependency is not listed in `package.json` or available on the NPM registry.
-Instead, this works because of the following configuration in `venia-library/package.json`:
+Instead, this works because of the following configuration in `venia-ui/package.json`:
 
 ```json
 "browser": {
@@ -95,7 +95,7 @@ Instead, this works because of the following configuration in `venia-library/pac
 ```
 
 Webpack treats this package.json configuration as equivalent to a Webpack alias configuration, as required by [this draft specification](https://github.com/defunctzombie/package-browser-field-spec).
-An app which imports anything from `@magento/venia-library` will substitute the virtual dependency for the real file at build time.
+An app which imports anything from `@magento/venia-ui` will substitute the virtual dependency for the real file at build time.
 In your app, you can override the implementation of `src/drivers` and the `"browser"` field which aliases it, by specifying a Webpack alias as described below.
 
 The default implementation, which is used in the Venia storefront, provides modules that work with the components provided by the [Venia Adapter][].
