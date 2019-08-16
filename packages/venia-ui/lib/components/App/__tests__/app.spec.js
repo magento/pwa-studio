@@ -6,6 +6,10 @@ import Mask from '../../Mask';
 import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
 
+jest.mock('../../Head', () => ({
+    HeadProvider: jest.fn(({ children }) => <div>{children}</div>),
+    Title: jest.fn(({ children }) => <div>{children}</div>)
+}));
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
