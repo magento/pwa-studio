@@ -10,13 +10,7 @@ import ShippingForm from './shippingForm';
  * within the form.
  */
 const EditableForm = props => {
-    const {
-        editing,
-        setEditing,
-        submitPaymentMethodAndBillingAddress,
-        submitShippingMethod,
-        submitting
-    } = props;
+    const { editing, setEditing, submitting } = props;
 
     const handleCancel = useCallback(() => {
         setEditing(null);
@@ -26,25 +20,13 @@ const EditableForm = props => {
         setEditing(null);
     }, [setEditing]);
 
-    const handleSubmitPaymentsForm = useCallback(
-        async formValues => {
-            await submitPaymentMethodAndBillingAddress({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitPaymentMethodAndBillingAddress]
-    );
+    const handleSubmitPaymentsForm = useCallback(() => {
+        setEditing(null);
+    }, [setEditing]);
 
-    const handleSubmitShippingForm = useCallback(
-        async formValues => {
-            await submitShippingMethod({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitShippingMethod]
-    );
+    const handleSubmitShippingForm = useCallback(() => {
+        setEditing(null);
+    }, [setEditing]);
 
     switch (editing) {
         case 'address': {
@@ -65,7 +47,6 @@ const EditableForm = props => {
             return (
                 <PaymentsForm
                     cancel={handleCancel}
-                    countries={countries}
                     initialValues={billingAddress}
                     submit={handleSubmitPaymentsForm}
                     submitting={submitting}
@@ -73,10 +54,9 @@ const EditableForm = props => {
             );
         }
         case 'shippingMethod': {
-            const { availableShippingMethods, shippingMethod } = props;
+            const { shippingMethod } = props;
             return (
                 <ShippingForm
-                    availableShippingMethods={availableShippingMethods}
                     cancel={handleCancel}
                     shippingMethod={shippingMethod}
                     submit={handleSubmitShippingForm}
@@ -96,8 +76,6 @@ EditableForm.propTypes = {
     setEditing: func.isRequired,
     shippingAddress: object,
     shippingMethod: string,
-    submitShippingMethod: func.isRequired,
-    submitPaymentMethodAndBillingAddress: func.isRequired,
     submitting: bool
 };
 

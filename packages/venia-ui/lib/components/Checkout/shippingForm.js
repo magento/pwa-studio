@@ -8,15 +8,11 @@ import Select from '../Select';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './shippingForm.css';
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 
 const ShippingForm = props => {
-    const {
-        availableShippingMethods,
-        cancel,
-        shippingMethod,
-        submit,
-        submitting
-    } = props;
+    const [{ availableShippingMethods }, checkoutApi] = useCheckoutContext();
+    const { cancel, shippingMethod, submit, submitting } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -50,10 +46,10 @@ const ShippingForm = props => {
                 cancel();
                 return;
             }
-
-            submit({ shippingMethod: selectedShippingMethod });
+            checkoutApi.setShippingMethod(selectedShippingMethod);
+            submit();
         },
-        [availableShippingMethods, cancel, submit]
+        [availableShippingMethods, checkoutApi, cancel, submit]
     );
 
     return (

@@ -21,6 +21,7 @@ const initialState = {
 const reducer = (state, { payload, type }) => {
     switch (type) {
         case 'begin checkout': {
+            // TODO: move to action
             const storedBillingAddress = storage.getItem('billing_address');
             const storedPaymentMethod = storage.getItem('paymentMethod');
             const storedShippingAddress = storage.getItem('shipping_address');
@@ -138,6 +139,7 @@ export const useCheckoutState = () => {
 
     const setBillingAddress = useCallback(
         payload => {
+            storage.setItem('billing_address', payload);
             dispatch({
                 payload,
                 type: 'set billing address'
@@ -148,6 +150,7 @@ export const useCheckoutState = () => {
 
     const setPaymentMethod = useCallback(
         payload => {
+            storage.setItem('paymentMethod', payload);
             dispatch({
                 payload,
                 type: 'set payment method'
@@ -158,6 +161,7 @@ export const useCheckoutState = () => {
 
     const setShippingAddress = useCallback(
         payload => {
+            storage.setItem('shipping_address', payload);
             dispatch({
                 payload,
                 type: 'set shipping address'
@@ -168,9 +172,25 @@ export const useCheckoutState = () => {
 
     const setShippingMethod = useCallback(
         payload => {
+            storage.setItem('shippingMethod', payload);
             dispatch({
                 payload,
                 type: 'set shipping method'
+            });
+        },
+        [dispatch]
+    );
+
+    const submitOrder = useCallback(
+        payload => {
+            storage.removeItem('shipping_address');
+            storage.removeItem('billing_address');
+            storage.removeItem('cartId');
+            storage.removeItem('paymentMethod');
+            storage.removeItem('shippingMethod');
+            dispatch({
+                payload,
+                type: 'submit order'
             });
         },
         [dispatch]
@@ -184,7 +204,8 @@ export const useCheckoutState = () => {
             setBillingAddress,
             setPaymentMethod,
             setShippingAddress,
-            setShippingMethod
+            setShippingMethod,
+            submitOrder
         }),
         [
             beginCheckout,
@@ -193,7 +214,8 @@ export const useCheckoutState = () => {
             setBillingAddress,
             setPaymentMethod,
             setShippingAddress,
-            setShippingMethod
+            setShippingMethod,
+            submitOrder
         ]
     );
 

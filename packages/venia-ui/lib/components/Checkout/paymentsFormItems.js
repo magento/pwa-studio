@@ -21,16 +21,19 @@ import {
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
 import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
+import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
+import formatAddress from '../../util/formatAddress';
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
+    const [{ countries }] = useDirectoryContext();
     const [, checkoutApi] = useCheckoutContext();
 
     const [isReady, setIsReady] = useState(false);
 
-    const { cancel, classes, countries, isSubmitting, setIsSubmitting } = props;
+    const { cancel, classes, isSubmitting, setIsSubmitting, submit } = props;
 
     // Currently form state toggles dirty from false to true because of how
     // informed is implemented. This effectively causes this child components
@@ -137,16 +140,19 @@ const PaymentsFormItems = props => {
             const sameAsShippingAddress = formState.values['addresses_same'];
             let billingAddress;
             if (!sameAsShippingAddress) {
-                billingAddress = {
-                    city: formState.values['city'],
-                    email: formState.values['email'],
-                    firstname: formState.values['firstname'],
-                    lastname: formState.values['lastname'],
-                    postcode: formState.values['postcode'],
-                    region_code: formState.values['region_code'],
-                    street: formState.values['street'],
-                    telephone: formState.values['telephone']
-                };
+                billingAddress = formatAddress(
+                    {
+                        city: formState.values['city'],
+                        email: formState.values['email'],
+                        firstname: formState.values['firstname'],
+                        lastname: formState.values['lastname'],
+                        postcode: formState.values['postcode'],
+                        region_code: formState.values['region_code'],
+                        street: formState.values['street'],
+                        telephone: formState.values['telephone']
+                    },
+                    countries
+                );
             } else {
                 billingAddress = {
                     sameAsShippingAddress
@@ -157,9 +163,9 @@ const PaymentsFormItems = props => {
                 code: 'braintree',
                 data: value
             });
-            setIsSubmitting(false);
+            submit();
         },
-        [checkoutApi, formState.values, setIsSubmitting]
+        [checkoutApi, countries, formState.values, submit]
     );
 
     // When the address checkbox is unchecked, additional fields are rendered.

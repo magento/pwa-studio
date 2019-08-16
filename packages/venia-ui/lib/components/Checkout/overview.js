@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import { bool, func, number, object, shape, string } from 'prop-types';
+import { bool, func, number, shape, string } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
 import ShippingAddressSummary from './shippingAddressSummary';
@@ -7,27 +7,57 @@ import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
 import { Price } from '@magento/peregrine';
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
+import isObjectEmpty from '../../util/isObjectEmpty';
 
 /**
  * The Overview component renders summaries for each section of the editable
  * form.
  */
+const isCheckoutReady = checkoutState => {
+    const {
+        billingAddress,
+        paymentData,
+        shippingAddress,
+        shippingMethod
+    } = checkoutState;
+
+    const objectsHaveData = [
+        billingAddress,
+        paymentData,
+        shippingAddress
+    ].every(data => {
+        return !!data && !isObjectEmpty(data);
+    });
+
+    const stringsHaveData = !!shippingMethod && shippingMethod.length > 0;
+
+    return objectsHaveData && stringsHaveData;
+};
+
 const Overview = props => {
+    const [checkoutState] = useCheckoutContext();
+    const {
+        paymentData,
+        shippingAddress,
+        shippingMethod,
+        shippingTitle
+    } = checkoutState;
+
     const {
         cancelCheckout,
         cart,
         classes,
-        hasPaymentMethod,
-        hasShippingAddress,
-        hasShippingMethod,
-        paymentData,
-        ready,
         setEditing,
-        shippingAddress,
-        shippingTitle,
         submitOrder,
         submitting
     } = props;
+
+    const hasPaymentMethod = !!paymentData && !isObjectEmpty(paymentData);
+    const hasShippingAddress =
+        !!shippingAddress && !isObjectEmpty(shippingAddress);
+    const hasShippingMethod =
+        !!shippingMethod && !isObjectEmpty(shippingMethod);
 
     const handleAddressFormClick = useCallback(() => {
         setEditing('address');
@@ -90,7 +120,7 @@ const Overview = props => {
                 <Button onClick={cancelCheckout}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={submitting || !ready}
+                    disabled={submitting || !isCheckoutReady(checkoutState)}
                     onClick={submitOrder}
                 >
                     Confirm Order
@@ -116,14 +146,7 @@ Overview.propTypes = {
         body: string,
         footer: string
     }),
-    hasPaymentMethod: bool,
-    hasShippingAddress: bool,
-    hasShippingMethod: bool,
-    paymentData: object,
-    ready: bool,
     setEditing: func,
-    shippingAddress: object,
-    shippingTitle: string,
     submitOrder: func,
     submitting: bool
 };
