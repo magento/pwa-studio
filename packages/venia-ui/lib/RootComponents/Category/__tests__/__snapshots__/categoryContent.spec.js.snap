@@ -3,7 +3,7 @@
 exports[`renders the correct tree 1`] = `
 <React.Fragment>
   <Title>
-    undefined - Venia
+    Venia
   </Title>
   <article
     className="a"
