@@ -46,5 +46,9 @@ module.exports = [
     {
         target: 'peregrine/lib/hooks/usePagination.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/Toasts/useToastContext.js',
+        type: 'function'
     }
 ];
