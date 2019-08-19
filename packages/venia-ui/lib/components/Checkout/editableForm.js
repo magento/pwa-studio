@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { array, bool, func, object, oneOf, string } from 'prop-types';
+import { array, bool, func, oneOf } from 'prop-types';
 
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
@@ -16,15 +16,7 @@ const EditableForm = props => {
         setEditing(null);
     }, [setEditing]);
 
-    const handleSubmitAddressForm = useCallback(() => {
-        setEditing(null);
-    }, [setEditing]);
-
-    const handleSubmitPaymentsForm = useCallback(() => {
-        setEditing(null);
-    }, [setEditing]);
-
-    const handleSubmitShippingForm = useCallback(() => {
+    const handleSubmit = useCallback(() => {
         setEditing(null);
     }, [setEditing]);
 
@@ -33,7 +25,7 @@ const EditableForm = props => {
             return (
                 <AddressForm
                     cancel={handleCancel}
-                    submit={handleSubmitAddressForm}
+                    submit={handleSubmit}
                     submitting={submitting}
                 />
             );
@@ -42,7 +34,7 @@ const EditableForm = props => {
             return (
                 <PaymentsForm
                     cancel={handleCancel}
-                    submit={handleSubmitPaymentsForm}
+                    submit={handleSubmit}
                     submitting={submitting}
                 />
             );
@@ -51,7 +43,7 @@ const EditableForm = props => {
             return (
                 <ShippingForm
                     cancel={handleCancel}
-                    submit={handleSubmitShippingForm}
+                    submit={handleSubmit}
                     submitting={submitting}
                 />
             );
@@ -66,8 +58,6 @@ EditableForm.propTypes = {
     availableShippingMethods: array,
     editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
     setEditing: func.isRequired,
-    shippingAddress: object,
-    shippingMethod: string,
     submitting: bool
 };
 

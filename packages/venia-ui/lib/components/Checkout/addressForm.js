@@ -183,7 +183,6 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    invalidAddressMessage: string,
     submit: func.isRequired,
     submitting: bool
 };
