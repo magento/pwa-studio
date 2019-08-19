@@ -13,12 +13,11 @@ import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const [submitting, setSubmitting] = useState(false);
     const [step, setStep] = useState('cart');
     const [, checkoutApi] = useCheckoutContext();
 
     const {
-        // STATE
+        // TODO: Remove below once we move state to context
         cart,
         user
     } = props;
@@ -42,7 +41,9 @@ const Flow = props => {
             child = (
                 <Cart
                     beginCheckout={handleBeginCheckout}
-                    submitting={submitting}
+                    // TODO: Remove below once we move state to context
+                    cart={cart}
+                    user={user}
                 />
             );
             break;
@@ -51,9 +52,8 @@ const Flow = props => {
             const stepProps = {
                 cancelCheckout: handleCancelCheckout,
                 cart,
-                submitting,
-                setSubmitting,
-                setStep
+                setStep,
+                user
             };
 
             child = <Form {...stepProps} />;

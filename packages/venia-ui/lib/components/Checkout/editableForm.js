@@ -30,35 +30,27 @@ const EditableForm = props => {
 
     switch (editing) {
         case 'address': {
-            const { shippingAddress } = props;
-
             return (
                 <AddressForm
                     cancel={handleCancel}
-                    initialValues={shippingAddress}
                     submit={handleSubmitAddressForm}
                     submitting={submitting}
                 />
             );
         }
         case 'paymentMethod': {
-            const { billingAddress } = props;
-
             return (
                 <PaymentsForm
                     cancel={handleCancel}
-                    initialValues={billingAddress}
                     submit={handleSubmitPaymentsForm}
                     submitting={submitting}
                 />
             );
         }
         case 'shippingMethod': {
-            const { shippingMethod } = props;
             return (
                 <ShippingForm
                     cancel={handleCancel}
-                    shippingMethod={shippingMethod}
                     submit={handleSubmitShippingForm}
                     submitting={submitting}
                 />

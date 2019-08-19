@@ -1,11 +1,5 @@
 import { connect } from '@magento/venia-drivers';
 
-import {
-    submitOrder,
-    submitPaymentMethodAndBillingAddress,
-    submitShippingMethod
-} from '../../actions/checkout';
-
 import Flow from './flow';
 
 const mapStateToProps = ({ cart, checkout, user }) => ({
@@ -14,13 +8,4 @@ const mapStateToProps = ({ cart, checkout, user }) => ({
     user
 });
 
-const mapDispatchToProps = {
-    submitOrder,
-    submitPaymentMethodAndBillingAddress,
-    submitShippingMethod
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Flow);
+export default connect(mapStateToProps)(Flow);

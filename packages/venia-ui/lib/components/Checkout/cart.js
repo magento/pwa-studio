@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import CheckoutButton from './checkoutButton';
 import defaultClasses from './cart.css';
 import { useRestApi } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/state/User';
+// import { useUserContext } from '@magento/peregrine/lib/state/User';
 import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 import { useCartContext } from '@magento/peregrine/lib/state/Cart';
 import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
@@ -30,18 +30,18 @@ const CART_METHOD_OPTIONS = {
     method: 'POST'
 };
 
-// const isCartReady = cart => cart.details && cart.details.items_count > 0;
+const isCartReady = cart => cart.details && cart.details.items_count > 0;
 
 const isCheckoutReady = (cartState, checkoutState, directoryState) => {
     const hasCountries = !!directoryState.countries;
     const hasShippingMethods = checkoutState.availableShippingMethods.length;
-    return hasCountries && hasShippingMethods;
-    // TODO Add to check once cartState is migrated
-    // && isCartReady(cartState);
+    return hasCountries && hasShippingMethods && isCartReady(cartState);
 };
 const Cart = props => {
-    const [userState] = useUserContext();
-    const [cartState, cartApi] = useCartContext();
+    const { cart: cartState, user: userState } = props;
+    // TODO: Use new state when we migrate cart and user over.
+    // const [userState] = useUserContext();
+    const [, cartApi] = useCartContext();
     const [checkoutState, checkoutApi] = useCheckoutContext();
     const [directoryState, directoryApi] = useDirectoryContext();
 
@@ -136,22 +136,7 @@ const Cart = props => {
     // write shipping methods to client checkout state
     useEffect(() => {
         if (shippingMethodsData) {
-            // TODO: Figure out why estimate-shipping-methods is returning empty array
-            // checkoutApi.setAvailableShippingMethods(shippingMethodsData);
-            checkoutApi.setAvailableShippingMethods([
-                {
-                    carrier_code: 'flatrate',
-                    method_code: 'flatrate',
-                    carrier_title: 'Flat Rate',
-                    method_title: 'Fixed',
-                    amount: 5,
-                    base_amount: 5,
-                    available: true,
-                    error_message: '',
-                    price_excl_tax: 5,
-                    price_incl_tax: 5
-                }
-            ]);
+            checkoutApi.setAvailableShippingMethods(shippingMethodsData);
         }
     }, [checkoutApi, shippingMethodsData]);
 
@@ -170,8 +155,7 @@ Cart.propTypes = {
     beginCheckout: func.isRequired,
     classes: shape({
         root: string
-    }),
-    submitting: bool.isRequired
+    })
 };
 
 export default Cart;

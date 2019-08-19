@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { Form } from 'informed';
-import { array, bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './paymentsForm.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import PaymentsFormItems from './paymentsFormItems';
+import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 
 const DEFAULT_FORM_VALUES = {
     addresses_same: true
@@ -16,7 +17,7 @@ const DEFAULT_FORM_VALUES = {
  * the submission state as well as prepare/set initial values.
  */
 const PaymentsForm = props => {
-    const { initialValues } = props;
+    const [{ billingAddress }] = useCheckoutContext();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,10 +27,10 @@ const PaymentsForm = props => {
     }, [setIsSubmitting]);
 
     let initialFormValues;
-    if (isObjectEmpty(initialValues)) {
+    if (isObjectEmpty(billingAddress)) {
         initialFormValues = DEFAULT_FORM_VALUES;
     } else {
-        if (initialValues.sameAsShippingAddress) {
+        if (billingAddress.sameAsShippingAddress) {
             // If the addresses are the same, don't populate any fields
             // other than the checkbox with an initial value.
             initialFormValues = {
@@ -39,7 +40,7 @@ const PaymentsForm = props => {
             // The addresses are not the same, populate the other fields.
             initialFormValues = {
                 addresses_same: false,
-                ...initialValues
+                ...billingAddress
             };
             delete initialFormValues.sameAsShippingAddress;
         }
@@ -66,21 +67,7 @@ const PaymentsForm = props => {
 PaymentsForm.propTypes = {
     classes: shape({
         root: string
-    }),
-    initialValues: shape({
-        firstname: string,
-        lastname: string,
-        telephone: string,
-        city: string,
-        postcode: string,
-        region_code: string,
-        sameAsShippingAddress: bool,
-        street0: array
     })
-};
-
-PaymentsForm.defaultProps = {
-    initialValues: {}
 };
 
 export default PaymentsForm;

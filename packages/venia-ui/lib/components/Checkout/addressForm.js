@@ -33,7 +33,7 @@ const AddressForm = props => {
     const { cancel, submit, submitting } = props;
 
     const [invalidAddressMessage, setInvalidAddressMessage] = useState('');
-    const [checkoutState, checkoutApi] = useCheckoutContext();
+    const [{ shippingAddress }, checkoutApi] = useCheckoutContext();
     const classes = mergeClasses(defaultClasses, props.classes);
     const validationMessage = invalidAddressMessage
         ? invalidAddressMessage
@@ -42,10 +42,10 @@ const AddressForm = props => {
     const initialValues = useMemo(
         () =>
             fields.reduce((acc, key) => {
-                acc[key] = checkoutState.shippingAddress[key];
+                acc[key] = shippingAddress[key];
                 return acc;
             }, {}),
-        [checkoutState.shippingAddress]
+        [shippingAddress]
     );
 
     const handleSubmit = useCallback(

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Form } from 'informed';
-import { array, bool, func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import Button from '../Button';
 import Label from './label';
@@ -11,32 +11,28 @@ import defaultClasses from './shippingForm.css';
 import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 
 const ShippingForm = props => {
-    const [{ availableShippingMethods }, checkoutApi] = useCheckoutContext();
-    const { cancel, shippingMethod, submit, submitting } = props;
+    const [
+        { availableShippingMethods, shippingMethod },
+        checkoutApi
+    ] = useCheckoutContext();
+    const { cancel, submit, submitting } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    let initialValue;
-    let selectableShippingMethods;
-
-    if (availableShippingMethods.length) {
-        selectableShippingMethods = availableShippingMethods.map(
-            ({ carrier_code, carrier_title }) => ({
-                label: carrier_title,
-                value: carrier_code
-            })
-        );
-        initialValue =
-            shippingMethod || availableShippingMethods[0].carrier_code;
-    } else {
-        selectableShippingMethods = [];
-        initialValue = '';
-    }
+    const initialValue =
+        shippingMethod.carrier_code || availableShippingMethods[0].carrier_code;
+    const selectableShippingMethods = availableShippingMethods.map(
+        ({ carrier_code, carrier_title }) => ({
+            label: carrier_title,
+            value: carrier_code
+        })
+    );
 
     const handleSubmit = useCallback(
         ({ shippingMethod }) => {
             const selectedShippingMethod = availableShippingMethods.find(
-                ({ carrier_code }) => carrier_code === shippingMethod
+                ({ carrier_code }) =>
+                    carrier_code === shippingMethod.carrier_code
             );
 
             if (!selectedShippingMethod) {
@@ -88,7 +84,6 @@ const ShippingForm = props => {
 };
 
 ShippingForm.propTypes = {
-    availableShippingMethods: array.isRequired,
     cancel: func.isRequired,
     classes: shape({
         body: string,
@@ -97,13 +92,8 @@ ShippingForm.propTypes = {
         heading: string,
         shippingMethod: string
     }),
-    shippingMethod: string,
     submit: func.isRequired,
     submitting: bool
-};
-
-ShippingForm.defaultProps = {
-    availableShippingMethods: [{}]
 };
 
 export default ShippingForm;
