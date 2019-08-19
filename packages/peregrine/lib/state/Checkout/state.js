@@ -32,7 +32,8 @@ const reducer = (state, { payload, type }) => {
                 paymentData: storedPaymentMethod && storedPaymentMethod.data,
                 shippingAddress:
                     storedShippingAddress || initialState.shippingAddress,
-                shippingMethod: storedShippingMethod,
+                shippingMethod:
+                    storedShippingMethod || initialState.shippingMethod,
                 shippingTitle:
                     storedShippingMethod && storedShippingMethod.carrier_title
             };
@@ -89,7 +90,10 @@ const reducer = (state, { payload, type }) => {
         case 'set shipping method': {
             return {
                 ...state,
-                shippingMethod: payload.carrier_code,
+                shippingMethod: {
+                    ...state.shippingMethod,
+                    ...payload
+                },
                 shippingTitle: payload.carrier_title
             };
         }
