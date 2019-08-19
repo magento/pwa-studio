@@ -93,7 +93,7 @@ Provide as much detail as you can in each section to help us triage and process 
 **Note:**
 _Please avoid creating GitHub issues asking for help on bugs in your project that are outside the scope of this project._
 
-[code of conduct]: https://github.com/magento/pwa-studio/blob/master/.github/CODE_OF_CONDUCT.md
+[code of conduct]: https://github.com/magento/pwa-studio/blob/develop/.github/CODE_OF_CONDUCT.md
 [support]: https://github.com/magento/pwa-studio/blob/master/.github/SUPPORT.md
 [official repository]: https://github.com/magento/pwa-studio
 [meaningful commit messages]: https://chris.beams.io/posts/git-commit/
