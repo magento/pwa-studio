@@ -49,7 +49,7 @@ export const getToastId = ({
  *
  * @kind function
  *
- * @returns {Object[]} An array containing objects for the toast state and its API: [{@link ../use-toast-context#ToastState ToastState}, {@link API}]
+ * @returns {Object[]} An array containing objects for the toast state and its API: [{@link ../useToastContext#ToastState ToastState}, {@link API}]
  */
 export const useToasts = () => {
     const [state, dispatch] = useToastContext();

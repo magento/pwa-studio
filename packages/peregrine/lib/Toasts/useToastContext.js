@@ -88,7 +88,7 @@ export const ToastContextProvider = ({ children }) => {
  *
  * @typedef useToastContext
  *
- * @return {Object[]} An array containing the state and dispatch function: [{@link ToastState}, {Function}]
+ * @return {Object[]} An array containing the state and dispatch function: [{@link ToastState}, function]
  *
  * @example
  *   const [toastState, dispatch] = useToastState();
