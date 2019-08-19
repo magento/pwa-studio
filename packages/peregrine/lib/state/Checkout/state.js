@@ -8,7 +8,7 @@ const storage = new BrowserPersistence();
 const initialState = {
     availableShippingMethods: [],
     billingAddress: {},
-    paymentCode: '', // TODO: Potentially delete if unused.
+    paymentCode: '',
     paymentData: null,
     shippingAddress: {},
     shippingMethod: {},
