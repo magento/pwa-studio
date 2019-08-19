@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { string, func } from 'prop-types';
 
 import { connect, Query } from '@magento/venia-drivers';
+
+import { Title } from '../../components/Head';
 import { addItemToCart } from '../../actions/cart';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -58,10 +60,13 @@ class Product extends Component {
                     }
 
                     return (
-                        <ProductFullDetail
-                            product={this.mapProduct(product)}
-                            addToCart={this.props.addItemToCart}
-                        />
+                        <Fragment>
+                            <Title>{`${product.name} - Venia`}</Title>
+                            <ProductFullDetail
+                                product={this.mapProduct(product)}
+                                addToCart={this.props.addItemToCart}
+                            />
+                        </Fragment>
                     );
                 }}
             </Query>
