@@ -6,12 +6,19 @@ import { mergeClasses } from '../../classify';
 import AccountLink from './accountLink';
 import defaultClasses from './myAccount.css';
 
+const DEFAULT_TITLE = 'My Account';
+const UNAUTHED_TITLE = 'Signing Out';
+const UNAUTHED_SUBTITLE = 'Please wait...';
+
+const PURCHASE_HISTORY = 'Purchase History';
+const SIGN_OUT = 'Sign Out';
+
 const MyAccount = props => {
     const { signOut, user } = props;
     const { email, firstname, lastname } = user;
-    const name = `${firstname} ${lastname}`.trim() || 'My Account';
-    const title = email ? name : 'Signing Out';
-    const subtitle = email ? email : 'Please wait...';
+    const name = `${firstname} ${lastname}`.trim() || DEFAULT_TITLE;
+    const title = email ? name : UNAUTHED_TITLE;
+    const subtitle = email ? email : UNAUTHED_SUBTITLE;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleSignOut = useCallback(() => {
@@ -27,11 +34,11 @@ const MyAccount = props => {
             <div className={classes.actions}>
                 <AccountLink>
                     <HistoryIcon size={18} />
-                    {'Purchase History'}
+                    {PURCHASE_HISTORY}
                 </AccountLink>
                 <AccountLink onClick={handleSignOut}>
                     <SignOutIcon size={18} />
-                    {'Sign Out'}
+                    {SIGN_OUT}
                 </AccountLink>
             </div>
         </div>

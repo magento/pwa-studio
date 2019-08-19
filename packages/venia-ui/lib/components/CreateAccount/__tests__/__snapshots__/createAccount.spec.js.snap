@@ -5,9 +5,9 @@ exports[`renders the correct tree 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
-  <h3>
+  <p>
     Check out faster, use multiple addresses, track orders and more by creating an account!
-  </h3>
+  </p>
   <div>
     <span>
       <span />

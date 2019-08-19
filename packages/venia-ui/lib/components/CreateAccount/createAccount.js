@@ -87,7 +87,7 @@ class CreateAccount extends Component {
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
-                <h3 className={classes.lead}>{LEAD}</h3>
+                <p className={classes.lead}>{LEAD}</p>
                 <Field label="First Name" required={true}>
                     <TextInput
                         field="customer.firstname"

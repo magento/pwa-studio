@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react';
-import { ChevronUp as ChevronUpIcon, User as UserIcon } from 'react-feather';
+import {
+    ChevronRight as ChevronRightIcon,
+    User as UserIcon
+} from 'react-feather';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -28,7 +31,7 @@ const UserChip = props => {
                     <span className={classes.email}>{email}</span>
                 </span>
                 <span className={classes.icon}>
-                    <Icon src={ChevronUpIcon} />
+                    <Icon src={ChevronRightIcon} />
                 </span>
             </span>
         </button>

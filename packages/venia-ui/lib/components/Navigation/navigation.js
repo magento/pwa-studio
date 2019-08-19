@@ -66,6 +66,9 @@ const Navigation = props => {
     const showForgotPassword = useCallback(() => {
         setView('FORGOT_PASSWORD');
     }, [setView]);
+    const showMainMenu = useCallback(() => {
+        setView('MENU');
+    }, [setView]);
     const showMyAccount = useCallback(() => {
         setView('MY_ACCOUNT');
     }, [setView]);
@@ -101,8 +104,10 @@ const Navigation = props => {
             </div>
             <div className={modalClassName}>
                 <AuthModal
+                    closeDrawer={closeDrawer}
                     showCreateAccount={showCreateAccount}
                     showForgotPassword={showForgotPassword}
+                    showMainMenu={showMainMenu}
                     showMyAccount={showMyAccount}
                     showSignIn={showSignIn}
                     view={view}

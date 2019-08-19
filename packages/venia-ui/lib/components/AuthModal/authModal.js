@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -9,13 +9,14 @@ import SignIn from '../SignIn';
 import { UserContext } from '../Navigation';
 import defaultClasses from './authModal.css';
 
-const noop = () => {};
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
 const AuthModal = props => {
     const {
+        closeDrawer,
         showCreateAccount,
         showForgotPassword,
+        showMainMenu,
         showMyAccount,
         view
     } = props;
@@ -25,6 +26,11 @@ const AuthModal = props => {
     const { currentUser } = userState;
     const classes = mergeClasses(defaultClasses, props.classes);
     let child = null;
+
+    const resetDrawer = useCallback(() => {
+        showMainMenu();
+        closeDrawer();
+    }, [closeDrawer, showMainMenu]);
 
     // if the user is authed, the only valid view is "MY_ACCOUNT"
     useEffect(() => {
@@ -48,7 +54,7 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onClose={noop}
+                    onClose={resetDrawer}
                 />
             );
             break;
@@ -81,6 +87,7 @@ AuthModal.propTypes = {
     }),
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
+    showMainMenu: func.isRequired,
     showMyAccount: func.isRequired,
     view: string.isRequired
 };
