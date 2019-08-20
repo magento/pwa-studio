@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 
+import { generateSrcset } from '../../shared/images';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
 
@@ -12,7 +13,7 @@ import defaultClasses from './image.css';
  * @param {string} props.src the source of the image
  */
 const Image = props => {
-    const { alt, onError, onLoad, placeholder, src, ...rest } = props;
+    const { alt, onError, onLoad, placeholder, src, fileSrc, ...rest } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -47,6 +48,8 @@ const Image = props => {
     const imageClass =
         classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
 
+    const imageSrcset = fileSrc ? generateSrcset(fileSrc) : '';
+
     const actualImage = !error && (
         <img
             {...rest}
@@ -55,6 +58,7 @@ const Image = props => {
             onError={handleError}
             onLoad={handleImageLoad}
             src={src}
+            srcSet={imageSrcset}
         />
     );
 
