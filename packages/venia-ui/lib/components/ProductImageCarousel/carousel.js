@@ -74,6 +74,7 @@ const Carousel = props => {
                     alt={alt}
                     placeholder={transparentPlaceholder}
                     fileSrc={currentImage.file}
+                    sizes={`${DEFAULT_IMAGE_WIDTH}px`}
                 />
                 <Button
                     classes={{
