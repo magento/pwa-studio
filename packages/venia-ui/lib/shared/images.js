@@ -25,6 +25,8 @@ const generateURL = imageURL => (width, height) =>
     })} ${width}w`;
 
 export const generateSrcset = imageURL => {
+    if (!imageURL) return '';
+    
     const generateSrcsetURL = generateURL(imageURL);
     return Object.values(imageWidths)
         .map(width =>
