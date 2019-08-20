@@ -24,7 +24,7 @@ const generateURL = (imageURL, mediaBase) => (width, height) =>
         height: height
     })} ${width}w`;
 
-export const generateSrcset = (imageURL, mediaBase = 'image-product') => {
+export const generateSrcset = (imageURL, mediaBase) => {
     if (!imageURL || !mediaBase) return '';
 
     const generateSrcsetURL = generateURL(imageURL, mediaBase);

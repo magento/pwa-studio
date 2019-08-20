@@ -127,7 +127,7 @@ class GalleryItem extends Component {
                 width={imageWidth}
                 height={imageHeight}
                 sizes={`${imageWidth}px`}
-                srcSet={generateSrcset(small_image)}
+                srcSet={generateSrcset(small_image, 'image-product')}
             />
         );
     };

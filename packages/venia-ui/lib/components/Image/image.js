@@ -48,7 +48,7 @@ const Image = props => {
     const imageClass =
         classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
 
-    const imageSrcset = generateSrcset(fileSrc);
+    const imageSrcset = generateSrcset(fileSrc, 'image-product');
 
     const actualImage = !error && (
         <img
