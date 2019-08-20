@@ -8,6 +8,9 @@ import defaultClasses from './toastContainer.css';
 /**
  * A container for toast notifications.
  *
+ * This component must be a child, nested or otherwise, of a
+ * ToastContextProvider component.
+ *
  * @typedef ToastContainer
  * @kind functional component
  *
