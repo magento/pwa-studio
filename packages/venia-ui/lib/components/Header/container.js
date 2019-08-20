@@ -1,17 +1,20 @@
 import { connect } from '@magento/venia-drivers';
 
-import Header from './header';
 import { toggleSearch } from '../../actions/app';
+import { getCartDetails, toggleCart } from '../../actions/cart';
 
-const mapStateToProps = ({ app }) => {
+import Header from './header';
+
+const mapStateToProps = ({ app, cart }) => {
     const { searchOpen } = app;
 
     return {
+        cart,
         searchOpen
     };
 };
 
-const mapDispatchToProps = { toggleSearch };
+const mapDispatchToProps = { getCartDetails, toggleCart, toggleSearch };
 
 export default connect(
     mapStateToProps,
