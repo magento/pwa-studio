@@ -17,17 +17,17 @@ export const imageWidths = {
     xxxlarge: 2560
 };
 
-const generateURL = imageURL => (width, height) =>
+const generateURL = (imageURL, mediaBase) => (width, height) =>
     `${resourceUrl(imageURL, {
-        type: 'image-product',
+        type: mediaBase,
         width: width,
         height: height
     })} ${width}w`;
 
-export const generateSrcset = imageURL => {
-    if (!imageURL) return '';
-    
-    const generateSrcsetURL = generateURL(imageURL);
+export const generateSrcset = (imageURL, mediaBase = 'image-product') => {
+    if (!imageURL || !mediaBase) return '';
+
+    const generateSrcsetURL = generateURL(imageURL, mediaBase);
     return Object.values(imageWidths)
         .map(width =>
             generateSrcsetURL(width, width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
