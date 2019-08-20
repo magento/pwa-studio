@@ -79,6 +79,7 @@
     background-color: white;
     bottom: 0;
     left: 0;
+    overflow: auto;
     position: absolute;
     right: 0;
     top: 3.5rem;
