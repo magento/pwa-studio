@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
-import { useCartContext } from './context';
+
+import { useCartContext } from '../Cart';
+import { useUserContext } from '../User';
 import { useRestApi } from '../../hooks/useRestApi';
 
 const AUTHED_CART_ENDPOINT = '/rest/V1/carts/mine';
 const GUEST_CART_ENDPOINT = '/rest/V1/guest-carts';
+const AUTHED_ITEMS_ENDPOINT = `${AUTHED_CART_ENDPOINT}/items`;
 
 const CART_METHOD_OPTIONS = {
     method: 'POST'
@@ -12,16 +15,12 @@ const CART_METHOD_OPTIONS = {
 /**
  * Uses the REST endpoint to create a cart if one doesn't exist. Once it creates
  * a cart it stores the id in the cart context.
- * @param {boolean} isSignedIn
  */
-export const useCreateCart = isSignedIn => {
+export const useCreateCart = () => {
     const [{ cartId }, cartApi] = useCartContext();
-    const cartEndpoint = isSignedIn
-        ? AUTHED_CART_ENDPOINT
-        : GUEST_CART_ENDPOINT;
-    const [state, api] = useRestApi(cartEndpoint);
-
-    const { data, loading, error } = state;
+    const [{ isSignedIn }] = useUserContext();
+    const endpoint = isSignedIn ? AUTHED_CART_ENDPOINT : GUEST_CART_ENDPOINT;
+    const [{ data, loading, error }, api] = useRestApi(endpoint);
 
     useEffect(() => {
         if (!cartId && !loading && !data) {
@@ -39,7 +38,7 @@ export const useCreateCart = isSignedIn => {
 
     useEffect(() => {
         if (error) {
-            throw Error(error);
+            throw Error(`Unable to create cart:`, error);
         }
     }, [error]);
 };
