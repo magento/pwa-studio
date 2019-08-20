@@ -8,6 +8,8 @@ Array [
     <img
       alt="Product Name"
       className="thumbnail"
+      sizes="60px"
+      srcSet="undefined 40w,undefined 80w,undefined 160w,undefined 320w,undefined 640w,undefined 1280w,undefined 1600w,undefined 2560w"
     />
   </span>,
   <span
