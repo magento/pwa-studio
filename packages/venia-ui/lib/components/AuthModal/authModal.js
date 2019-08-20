@@ -39,13 +39,20 @@ const AuthModal = props => {
         }
     }, [currentUser, showMyAccount, view]);
 
+    const handleCreateAccount = useCallback(
+        async values => {
+            await createAccount(values);
+            showMyAccount();
+        },
+        [createAccount, showMyAccount]
+    );
+
     switch (view) {
         case 'CREATE_ACCOUNT': {
             child = (
                 <CreateAccount
-                    createAccount={createAccount}
                     initialValues={{ email: username }}
-                    onSubmit={showMyAccount}
+                    onSubmit={handleCreateAccount}
                 />
             );
             break;
