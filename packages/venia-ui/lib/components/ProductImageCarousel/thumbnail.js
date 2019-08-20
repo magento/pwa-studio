@@ -39,6 +39,7 @@ const Thumbnail = props => {
                 classes={{ root: classes.image }}
                 placeholder={transparentPlaceholder}
                 src={src}
+                fileSrc={file}
             />
         ) : null;
     }, [file, isDesktop, label, classes.image]);

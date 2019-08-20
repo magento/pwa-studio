@@ -73,6 +73,7 @@ const Carousel = props => {
                     src={src}
                     alt={alt}
                     placeholder={transparentPlaceholder}
+                    fileSrc={currentImage.file}
                 />
                 <Button
                     classes={{

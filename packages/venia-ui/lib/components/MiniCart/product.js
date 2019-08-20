@@ -43,6 +43,7 @@ const Product = props => {
                 classes={{ root: classes.image }}
                 placeholder={transparentPlaceholder}
                 src={src}
+                fileSrc={image.file}
             />
         );
     }, [image, name, classes.image]);
