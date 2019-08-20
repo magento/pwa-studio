@@ -13,7 +13,8 @@ export const imageWidths = {
     regular: 320,
     large: 640,
     xlarge: 1280,
-    xxlarge: 2560
+    xxlarge: 1600,
+    xxxlarge: 2560
 };
 
 const generateURL = imageURL => (width, height) =>
