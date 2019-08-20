@@ -8,7 +8,7 @@ import CreateAccount from '../createAccount';
 jest.mock('../../../util/formValidators');
 
 const props = {
-    createAccount: jest.fn()
+    onSubmit: jest.fn()
 };
 
 test('renders the correct tree', () => {
@@ -48,5 +48,5 @@ test('calls onSubmit if validation passes', async () => {
     const { errors } = root.findByType(Form).instance.controller.state;
 
     expect(Object.keys(errors)).toHaveLength(0);
-    expect(props.createAccount).toHaveBeenCalledTimes(1);
+    expect(props.onSubmit).toHaveBeenCalledTimes(1);
 });
