@@ -46,24 +46,34 @@ const reducer = (state, { payload, type }) => {
     }
 };
 
-export const useUserState = () => {
+export const useFiltersState = () => {
     const [state, dispatch] = useReducer(reducer, false, init);
 
-    const setUser = useCallback(
+    const applyFilters = useCallback(
         payload => {
             dispatch({
                 payload,
-                type: 'set user'
+                type: 'apply filters'
             });
         },
         [dispatch]
     );
 
-    const reset = useCallback(
+    const clearFilters = useCallback(
         payload => {
             dispatch({
                 payload,
-                type: 'reset'
+                type: 'clear filters'
+            });
+        },
+        [dispatch]
+    );
+
+    const updateFilter = useCallback(
+        payload => {
+            dispatch({
+                payload,
+                type: 'update filter'
             });
         },
         [dispatch]
@@ -71,11 +81,12 @@ export const useUserState = () => {
 
     const api = useMemo(
         () => ({
+            applyFilters,
+            clearFilters,
             dispatch,
-            reset,
-            setUser
+            updateFilter
         }),
-        [reset, setUser]
+        [applyFilters, clearFilters, dispatch, updateFilter]
     );
 
     return [state, api];
