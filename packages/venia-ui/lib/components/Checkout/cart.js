@@ -7,14 +7,13 @@ import defaultClasses from './cart.css';
 import { useRestApi } from '@magento/peregrine';
 // import { useUserContext } from '@magento/peregrine/lib/state/User';
 import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
-import { useCartContext } from '@magento/peregrine/lib/state/Cart';
+// import { useCartContext } from '@magento/peregrine/lib/state/Cart';
 import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
 
+import { useCreateCart } from '@magento/peregrine/lib/state/Cart';
 const AUTHED_SHIPPING_METHOD_ENDPOINT =
     '/rest/V1/carts/mine/estimate-shipping-methods';
-const AUTHED_CART_ENDPOINT = '/rest/V1/carts/mine';
 const COUNTRIES_ENDPOINT = '/rest/V1/directory/countries';
-const GUEST_CART_ENDPOINT = '/rest/V1/guest-carts';
 
 const SHIPPING_METHOD_OPTIONS = {
     method: 'POST',
@@ -24,10 +23,6 @@ const SHIPPING_METHOD_OPTIONS = {
             postcode: null
         }
     })
-};
-
-const CART_METHOD_OPTIONS = {
-    method: 'POST'
 };
 
 const isCartReady = cart => cart.details && cart.details.items_count > 0;
@@ -41,18 +36,14 @@ const Cart = props => {
     const { cart: cartState, user: userState } = props;
     // TODO: Use new state when we migrate cart and user over.
     // const [userState] = useUserContext();
-    const [, cartApi] = useCartContext();
+    // const [{ cartId }, cartApi] = useCartContext();
     const [checkoutState, checkoutApi] = useCheckoutContext();
     const [directoryState, directoryApi] = useDirectoryContext();
 
     const { cartId } = cartState;
     const { isSignedIn } = userState;
 
-    const cartEndpoint = isSignedIn
-        ? AUTHED_CART_ENDPOINT
-        : GUEST_CART_ENDPOINT;
-    const [cartResponseState, cartRequestApi] = useRestApi(cartEndpoint);
-    const { data: cartData } = cartResponseState;
+    useCreateCart(isSignedIn);
 
     const shippingMethodsEndpoint = isSignedIn
         ? AUTHED_SHIPPING_METHOD_ENDPOINT
@@ -83,34 +74,6 @@ const Cart = props => {
             directoryApi.setCountries(countriesData);
         }
     }, [countriesData, directoryApi]);
-
-    // create a cart if necessary
-    useEffect(() => {
-        if (!cartId) {
-            const { data, loading } = cartResponseState;
-
-            if (!loading && !data) {
-                cartRequestApi.sendRequest({
-                    options: CART_METHOD_OPTIONS
-                });
-            }
-        }
-    }, [
-        cartId,
-        cartRequestApi,
-        cartRequestApi.sendRequest,
-        cartResponseState,
-        cartResponseState.data,
-        cartResponseState.loading,
-        isSignedIn
-    ]);
-
-    // write cart contents to client cart state
-    useEffect(() => {
-        if (cartData) {
-            cartApi.setCartId(cartData);
-        }
-    }, [cartApi, cartData]);
 
     // fetch shipping methods
     useEffect(() => {
