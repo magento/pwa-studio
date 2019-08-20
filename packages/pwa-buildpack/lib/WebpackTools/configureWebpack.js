@@ -269,6 +269,9 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         });
 
         if (isDevServer()) {
+            // Using eval-source-map shows original source (non-transpiled) as
+            // well as comments.
+            // See https://webpack.js.org/configuration/devtool/
             config.devtool = 'eval-source-map';
 
             await PWADevServer.configure(
