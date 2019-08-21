@@ -19,15 +19,17 @@ class NavHeader extends Component {
     render() {
         const { classes, onBack, onClose, title, isCategoryRoot } = this.props;
 
+        const backButton = !isCategoryRoot ? (
+            <Trigger key="backButton" action={onBack}>
+                <Icon src={ArrowLeftIcon} />
+            </Trigger>
+        ) : (
+            <div />
+        );
+
         return (
             <Fragment>
-                {!isCategoryRoot ? (
-                    <Trigger key="backButton" action={onBack}>
-                        <Icon src={ArrowLeftIcon} />
-                    </Trigger>
-                ) : (
-                    <div />
-                )}
+                {backButton}
                 <h2 key="title" className={classes.title}>
                     <span>{title}</span>
                 </h2>

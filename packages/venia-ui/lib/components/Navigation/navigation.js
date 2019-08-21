@@ -315,13 +315,11 @@ class Navigation extends PureComponent {
                 ? 'Sign In'
                 : 'Main Menu';
 
+        const isRootClass = isCategoryRoot ? classes.isRoot : null;
+
         return (
             <aside className={className}>
-                <div
-                    className={`${classes.header} ${
-                        isCategoryRoot ? classes.isRoot : null
-                    }`}
-                >
+                <div className={`${classes.header} ${isRootClass}`}>
                     <NavHeader
                         title={title}
                         onBack={handleBack}
