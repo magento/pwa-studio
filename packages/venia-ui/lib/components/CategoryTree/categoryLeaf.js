@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { func, number, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '../../drivers';
@@ -23,7 +23,7 @@ const Leaf = props => {
                 to={resourceUrl(`/${url_path}${suffix}`)}
                 onClick={handleClick}
             >
-                <span className={classes.text}>{`All ${name}`}</span>
+                <span className={classes.text}>{name}</span>
             </Link>
         </li>
     );
@@ -33,11 +33,13 @@ export default Leaf;
 
 Leaf.propTypes = {
     category: shape({
-        id: number,
         name: string.isRequired,
-        parentId: number,
-        position: number,
         url_path: string.isRequired
     }).isRequired,
+    classes: shape({
+        root: string,
+        target: string,
+        text: string
+    }),
     onNavigate: func.isRequired
 };

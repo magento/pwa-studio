@@ -12,7 +12,7 @@ exports[`renders correctly 1`] = `
     <span
       className="text"
     >
-      All One
+      One
     </span>
   </a>
 </li>

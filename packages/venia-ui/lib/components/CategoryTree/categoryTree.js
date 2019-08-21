@@ -37,30 +37,35 @@ const Tree = props => {
     }, [data, updateCategories]);
 
     const rootCategory = categories[categoryId];
-    const { children, url_path } = rootCategory || {};
+    const { children } = rootCategory || {};
 
-    // render a branch for each child category
+    // For each child category, render a direct link if it has no children,
+    // otherwise render a branch.
     const branches = rootCategory
-        ? Array.from(children || [], id => (
-              <Branch
-                  key={id}
-                  category={categories[id]}
-                  setCategoryId={setCategoryId}
-              />
-          ))
+        ? Array.from(children || [], id => {
+              if (categories[id].children_count === '0') {
+                  return (
+                      <Leaf
+                          key={id}
+                          category={categories[id]}
+                          onNavigate={onNavigate}
+                      />
+                  );
+              } else {
+                  return (
+                      <Branch
+                          key={id}
+                          category={categories[id]}
+                          setCategoryId={setCategoryId}
+                      />
+                  );
+              }
+          })
         : null;
-
-    const leaf =
-        rootCategory && url_path ? (
-            <Leaf category={rootCategory} onNavigate={onNavigate} />
-        ) : null;
 
     return (
         <div className={classes.root}>
-            <ul className={classes.tree}>
-                {branches}
-                {leaf}
-            </ul>
+            <ul className={classes.tree}>{branches}</ul>
         </div>
     );
 };
@@ -71,8 +76,7 @@ Tree.propTypes = {
     categories: objectOf(
         shape({
             id: number.isRequired,
-            name: string,
-            url_path: string
+            name: string
         })
     ),
     categoryId: number.isRequired,

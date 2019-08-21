@@ -59,7 +59,6 @@ const reducerMap = {
         }
 
         // merge in the fetched child last
-        // TODO: use `children_count` from graphql once it's accurate
         return {
             ...state,
             categories: {

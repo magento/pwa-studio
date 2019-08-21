@@ -37,10 +37,12 @@ Branch.propTypes = {
     category: shape({
         id: number.isRequired,
         include_in_menu: number,
-        name: string.isRequired,
-        parentId: number,
-        position: number,
-        url_path: string
+        name: string.isRequired
     }).isRequired,
+    classes: shape({
+        root: string,
+        target: string,
+        text: string
+    }),
     setCategoryId: func.isRequired
 };
