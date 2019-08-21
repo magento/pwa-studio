@@ -9,26 +9,27 @@
   "scripts": {
     "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
     "intl": "~1.2.5",
-    "react": "~16.8.3",
-    "react-apollo": "~2.5.5",
-    "react-dom": "~16.8.3",
+    "react": "~16.9.0",
+    "react-apollo": "2.5.5",
+    "react-dom": "~16.9.0",
     "react-router-dom": "~5.0.0",
-    "react-test-renderer": "~16.8.6"
+    "react-test-renderer": "~16.9.0",
+    "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.4.2",
-    "react": "^16.8.0",
-    "react-apollo": "^2.5.3",
-    "react-dom": "^16.8.0",
+    "@babel/runtime": "~7.4.2",
+    "react": "~16.9.0",
+    "react-apollo": "2.5.5",
+    "react-dom": "~16.9.0",
     "react-router-dom": "~5.0.0"
   },
   "engines": {

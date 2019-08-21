@@ -1,3 +1,15 @@
+.idea
+.vscode
+coverage
+node_modules
+storybook-dist
+test-results
+dist
+.DS_Store
+.env
 build-stats.json
+npm-debug.log
 lastCachedGraphQLSchema.json
+test-report.xml
+test-results.json
 yarn-error.log

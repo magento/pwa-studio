@@ -85,6 +85,19 @@ Instead of importing these dependencies directly, Venia components import them f
 import { Link, resourceUrl } from '@magento/venia-drivers';
 ```
 
+The `@magento/venia-drivers` dependency is not listed in `package.json` or available on the NPM registry.
+Instead, this works because of the following configuration in `venia-ui/package.json`:
+
+```json
+"browser": {
+  "@magento/venia-drivers": "src/drivers"
+}
+```
+
+Webpack treats this package.json configuration as equivalent to a Webpack alias configuration, as required by [this draft specification](https://github.com/defunctzombie/package-browser-field-spec).
+An app which imports anything from `@magento/venia-ui` will substitute the virtual dependency for the real file at build time.
+In your app, you can override the implementation of `src/drivers` and the `"browser"` field which aliases it, by specifying a Webpack alias as described below.
+
 The default implementation, which is used in the Venia storefront, provides modules that work with the components provided by the [Venia Adapter][].
 
 | Module name   | Source             |
@@ -173,12 +186,12 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [venia-consumer-example]: https://github.com/magento-research/venia-consumer-example
 [es modules]: https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 [webpack optimization]: https://webpack.js.org/guides/tree-shaking/
-[loadingindicator]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
-[richtext]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/components/RichText
-[venia adapter]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
-[productfulldetail]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail
-[categorylist]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList
-[`src/drivers`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js
+[loadingindicator]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator
+[richtext]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/RichText
+[venia adapter]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
+[productfulldetail]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail
+[categorylist]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList
+[`src/drivers`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js
 [apollo]: https://www.apollographql.com/docs/react/
 [react redux]: https://react-redux.js.org/
 [redux store]: https://redux.js.org/api/store
@@ -186,5 +199,5 @@ See the [venia-consumer-example][] project to see how a non-Venia application ca
 [apollo client]: https://www.apollographql.com/docs/react/essentials/get-started.html#creating-client
 [webpack]: https://webpack.js.org/
 [rollup]: https://rollupjs.org/guide/en
-[`makeurl.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js
-[`adapter.js`]: https://github.com/magento-research/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js
+[`makeurl.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js
+[`adapter.js`]: https://github.com/magento/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js
