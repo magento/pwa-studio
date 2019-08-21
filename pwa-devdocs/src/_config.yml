@@ -9,8 +9,8 @@ logo: PWA Docs
 
 github_link: true
 feedback_link: true
-github_repo: "https://github.com/magento-research/pwa-studio/"
-github_files: "https://github.com/magento-research/pwa-studio/tree/develop/pwa-devdocs/src/"
+github_repo: "https://github.com/magento/pwa-studio/"
+github_files: "https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/"
 
 
 defaults:
@@ -59,4 +59,4 @@ algolia:
     - static
 
 google:
-  analytics: 'UA-66243208-1'
+  gtm: GTM-KRCLXBB

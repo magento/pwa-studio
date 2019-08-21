@@ -1,0 +1,18 @@
+.root {
+    background-color: rgb(var(--venia-background-color));
+    color: rgb(var(--venia-text));
+    position: relative;
+    z-index: 1;
+}
+
+.root_masked {
+    composes: root;
+}
+
+.page {
+    min-height: 100vh;
+}
+
+.page_masked {
+    composes: page;
+}

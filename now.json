@@ -2,7 +2,7 @@
     "version": 2,
     "name": "venia",
     "alias": [
-        "magento-venia-develop"
+        "magento-pwastudio-venia-develop"
     ],
     "scope": "magento-research",
     "env": {
@@ -26,14 +26,15 @@
                 "includeFiles": [
                     "package.json",
                     ".env",
-                    "venia-upward.yml",
+                    "upward.yml",
+                    "node_modules/@magento/venia-ui/lib/queries/*",
                     "static/*",
                     "templates/*"
                 ],
                 "maxLambdaSize": "20mb"
             },
             "src": "packages/venia-concept/server-lambda.js",
-            "use": "@now/node"
+            "use": "@now/node@0.11.1"
         }
     ],
     "routes": [

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an error if isError state is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    id="braintree-dropin-container"
+  />
+</div>
+`;

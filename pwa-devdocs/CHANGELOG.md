@@ -9,4 +9,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **dev:** merge 'assets' and 'output' paths ([36d8157](https://github.com/magento-research/pwa-studio/commit/36d8157))
+* **dev:** merge 'assets' and 'output' paths ([36d8157](https://github.com/magento/pwa-studio/commit/36d8157))

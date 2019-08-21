@@ -1,0 +1,36 @@
+{
+  "name": "@magento/babel-preset-peregrine",
+  "version": "2.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Babel configuration common to progressive web projects build with Peregrine",
+  "main": "index.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/babel-preset-peregrine#readme",
+  "peerDependencies": {
+    "@babel/core": "~7.3.4",
+    "@babel/plugin-proposal-class-properties": "~7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "~7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
+    "@babel/plugin-transform-react-jsx": "~7.3.0",
+    "@babel/plugin-transform-runtime": "~7.4.4",
+    "@babel/preset-env": "~7.3.4",
+    "@babel/runtime": "~7.4.2",
+    "babel-plugin-dynamic-import-node": "~2.2.0",
+    "babel-plugin-graphql-tag": "~2.0.0"
+  },
+  "engines": {
+    "node": ">=10.x",
+    "yarn": ">=1.12.0"
+  }
+}

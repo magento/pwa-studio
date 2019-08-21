@@ -85,9 +85,9 @@ This supports the need for content that a PWA can [cache and reuse when offline]
 [HTTPS]: https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https
 [edge servers]: https://en.wikipedia.org/wiki/Content_delivery_network
 [idempotent]: https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
-[RATIONALE.md]: https://github.com/magento-research/pwa-studio/blob/master/packages/upward-spec/RATIONALE.md
-[`upward.yml`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/upward.yml
-[upward-js]: https://github.com/magento-research/pwa-studio/tree/master/packages/upward-js
+[RATIONALE.md]: https://github.com/magento/pwa-studio/blob/master/packages/upward-spec/RATIONALE.md
+[`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
+[upward-js]: https://github.com/magento/pwa-studio/tree/master/packages/upward-js
 [cache and reuse when offline]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
 [Reference Implementation]: {{ site.baseurl }}{% link technologies/upward/reference-implementation/index.md %}

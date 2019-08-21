@@ -3,52 +3,50 @@
   "version": "3.0.0",
   "private": true,
   "workspaces": [
+    "packages/babel-preset-peregrine",
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
-    "packages/venia-concept",
     "packages/upward-js",
-    "packages/upward-spec"
+    "packages/upward-spec",
+    "packages/venia-concept",
+    "packages/venia-ui"
   ],
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "homepage": "https://github.com/magento-research/pwa-studio",
+  "homepage": "https://github.com/magento/pwa-studio",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
   "scripts": {
-    "build": "yarn workspaces run build",
-    "build:ci": "yarn workspaces run build:ci",
-    "build:dev": "yarn workspaces run build:dev",
-    "clean:all": "yarn workspaces run clean && rimraf ./node_modules",
+    "build": "yarn venia run build",
+    "build:dev": "yarn venia run build:dev",
+    "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
-    "postbuild": "rimraf \"./packages/*/{esm,dist}/{,**/}__*__\"",
-    "prettier": "prettier --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
+    "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
+    "prepare": "node scripts/monorepo-introduction.js",
+    "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:validate": "prettier-check '@(packages|scripts)/**/*.@(js|css)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(js|css)' '*.js'",
-    "stage:venia": "yarn workspace @magento/venia-concept run start; cd - >/dev/null",
-    "stats:venia": "yarn workspace @magento/venia-concept run build:analyze && yarn workspace @magento/venia-concept run stats",
-    "storybook:venia": "yarn workspace @magento/venia-concept run storybook",
+    "stage:venia": "yarn venia run start",
+    "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
+    "storybook:venia": "yarn venia run storybook",
     "test": "jest",
     "test:ci": "jest --no-cache -i --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --no-cache",
     "test:dev": "jest --watch",
-    "validate-queries": "yarn workspace @magento/venia-concept run validate-queries",
+    "validate-queries": "yarn venia run validate-queries",
+    "venia": "yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
-    "watch:buildpack": "yarn workspace @magento/pwa-buildpack run watch; cd - >/dev/null",
-    "watch:peregrine": "yarn workspace @magento/peregrine run watch; cd - >/dev/null",
-    "watch:venia": "yarn workspace @magento/venia-concept run watch; cd - >/dev/null"
+    "watch:venia": "yarn venia run watch"
   },
   "devDependencies": {
     "@magento/eslint-config": "~1.4.1",
-    "babel-eslint": "~10.0.1",
-    "babel-plugin-module-resolver": "~3.2.0",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
-    "concurrently": "^4.1.0",
     "coveralls": "~3.0.3",
     "danger": "^7.1.4",
     "eslint": "~5.14.1",
@@ -61,26 +59,29 @@
     "eslint-plugin-react-hooks": "~1.6.0",
     "execa": "~1.0.0",
     "figures": "~2.0.0",
+    "first-run": "~2.0.0",
+    "graphql-tag": "~2.10.1",
     "husky": "~1.3.1",
+    "identity-obj-proxy": "~3.0.0",
     "jest": "~24.3.1",
     "jest-fetch-mock": "~2.1.1",
     "jest-junit": "~6.3.0",
     "jest-transform-graphql": "~2.1.0",
-    "keypress": "~0.2.1",
     "lerna": "~3.13.0",
     "lodash.debounce": "~4.0.8",
-    "multispinner": "~0.2.1",
     "prettier": "~1.16.4",
     "prettier-check": "~2.0.0",
-    "stream-snitch": "~0.0.3",
-    "wait-for-expect": "~1.1.0"
+    "rimraf": "~2.6.3"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
     "sharp": "~0.22.1"
   },
+  "resolutions": {
+    "graphql": "~14.3.1"
+  },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   },
   "husky": {

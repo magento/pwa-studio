@@ -93,11 +93,11 @@ Provide as much detail as you can in each section to help us triage and process 
 **Note:**
 _Please avoid creating GitHub issues asking for help on bugs in your project that are outside the scope of this project._
 
-[code of conduct]: https://github.com/magento-research/pwa-studio/blob/master/.github/CODE_OF_CONDUCT.md
-[support]: https://github.com/magento-research/pwa-studio/blob/master/.github/SUPPORT.md
-[official repository]: https://github.com/magento-research/pwa-studio
+[code of conduct]: https://github.com/magento/pwa-studio/blob/develop/.github/CODE_OF_CONDUCT.md
+[support]: https://github.com/magento/pwa-studio/blob/master/.github/SUPPORT.md
+[official repository]: https://github.com/magento/pwa-studio
 [meaningful commit messages]: https://chris.beams.io/posts/git-commit/
-[github issue]: https://github.com/magento-research/pwa-studio/issues/new
-[magento research]: https://github.com/magento-research
-[help wanted]: https://github.com/magento-research/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[github issue]: https://github.com/magento/pwa-studio/issues/new
+[magento research]: https://github.com/magento
+[help wanted]: https://github.com/magento/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
 [Venia storefront setup]: {{site.baseurl}}{%link venia-pwa-concept/setup/index.md %}

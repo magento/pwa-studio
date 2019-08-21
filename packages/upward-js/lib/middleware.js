@@ -38,7 +38,8 @@ class UpwardMiddleware {
                     this.io,
                     this.env,
                     this.definition,
-                    req
+                    req,
+                    this.upwardPath
                 );
                 if (typeof response === 'function') {
                     debug('buildResponse returned function');
