@@ -10,7 +10,6 @@ import { useCheckoutContext } from '@magento/peregrine/lib/state/Checkout';
 // import { useCartContext } from '@magento/peregrine/lib/state/Cart';
 import { useDirectoryContext } from '@magento/peregrine/lib/state/Directory';
 
-import { useCreateCart } from '@magento/peregrine/lib/state/Cart';
 const AUTHED_SHIPPING_METHOD_ENDPOINT =
     '/rest/V1/carts/mine/estimate-shipping-methods';
 const COUNTRIES_ENDPOINT = '/rest/V1/directory/countries';
@@ -36,14 +35,14 @@ const Cart = props => {
     const { cart: cartState, user: userState } = props;
     // TODO: Use new state when we migrate cart and user over.
     // const [userState] = useUserContext();
-    // const [{ cartId }, cartApi] = useCartContext();
+    const [, cartApi] = useCartContext();
     const [checkoutState, checkoutApi] = useCheckoutContext();
     const [directoryState, directoryApi] = useDirectoryContext();
 
     const { cartId } = cartState;
     const { isSignedIn } = userState;
 
-    useCreateCart(isSignedIn);
+    cartApi.createCart(isSignedIn);
 
     const shippingMethodsEndpoint = isSignedIn
         ? AUTHED_SHIPPING_METHOD_ENDPOINT

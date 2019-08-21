@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useReducer } from 'react';
+import * as actions from './actions';
 import withLogger from '../../util/withLogger';
 
 const initialState = {
@@ -52,6 +53,40 @@ const reducer = (state, { payload, type }) => {
 const wrappedReducer = withLogger(reducer);
 export const useCartState = () => {
     const [state, dispatch] = useReducer(wrappedReducer, initialState);
+    const { cartId } = state;
+
+    const createCart = useCallback(
+        async isSignedIn => {
+            if (cartId) {
+                return cartId;
+            } else {
+                console.log('No cart found. Creating new cart.');
+                const id = await actions.createCart(isSignedIn);
+                dispatch({
+                    payload: id,
+                    type: 'set cart id'
+                });
+                return id;
+            }
+        },
+        [cartId]
+    );
+
+    const addItem = useCallback(
+        async (item, isSignedIn) => {
+            // Create cart if it doesn't exist
+            const cartId = await createCart(isSignedIn);
+            // add item to cart
+            await actions.addItemToCart(item, cartId, isSignedIn);
+            // update details
+            // const details = await actions.getCartDetails();
+            // dispatch({
+            //     details,
+            //     type: 'set details'
+            // })
+        },
+        [createCart]
+    );
 
     const resetCart = useCallback(
         payload => {
@@ -72,6 +107,7 @@ export const useCartState = () => {
         },
         [dispatch]
     );
+
     const setDetails = useCallback(
         payload => {
             dispatch({
@@ -81,6 +117,7 @@ export const useCartState = () => {
         },
         [dispatch]
     );
+
     const setPaymentMethods = useCallback(
         payload => {
             dispatch({
@@ -90,6 +127,7 @@ export const useCartState = () => {
         },
         [dispatch]
     );
+
     const setTotals = useCallback(
         payload => {
             dispatch({
@@ -99,8 +137,11 @@ export const useCartState = () => {
         },
         [dispatch]
     );
+
     const api = useMemo(
         () => ({
+            addItem,
+            createCart,
             dispatch,
             resetCart,
             setCartId,
@@ -109,6 +150,8 @@ export const useCartState = () => {
             setTotals
         }),
         [
+            addItem,
+            createCart,
             resetCart,
             setCartId,
             setDetails,

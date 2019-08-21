@@ -15,6 +15,8 @@ import RichText from '../RichText';
 import appendOptionsToPayload from '../../util/appendOptionsToPayload';
 import findMatchingVariant from '../../util/findMatchingProductVariant';
 import isProductConfigurable from '../../util/isProductConfigurable';
+import { useCartContext } from '@magento/peregrine/lib/state/Cart';
+import { useUserContext } from '@magento/peregrine/lib/state/User';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -84,8 +86,10 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 };
 
 const ProductFullDetail = props => {
+    const [, cartApi] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
     // Props.
-    const { addToCart, isAddingItem, product } = props;
+    const { isAddingItem, product } = props;
 
     // State.
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -106,7 +110,7 @@ const ProductFullDetail = props => {
     );
 
     // Event handlers.
-    const handleAddToCart = useCallback(() => {
+    const handleAddToCart = useCallback(async () => {
         const payload = {
             item: product,
             productType: product.__typename,
@@ -117,8 +121,8 @@ const ProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addToCart(payload);
-    }, [addToCart, optionCodes, optionSelections, product, quantity]);
+        await cartApi.addItem(payload, isSignedIn);
+    }, [cartApi, isSignedIn, optionCodes, optionSelections, product, quantity]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
