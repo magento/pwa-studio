@@ -23,10 +23,12 @@ const Items = props => {
         // but we must also respect the selection model.
         if (selectionModel === 'radio') {
             // Only one thing can be selected at a time.
-            const target = Array.isArray(initialSelection) ? initialSelection[0] : initialSelection;
+            const target = Array.isArray(initialSelection)
+                ? initialSelection[0]
+                : initialSelection;
             return [getItemKey(target)];
         }
-        
+
         if (selectionModel === 'checkbox') {
             // Multiple things can be selected at a time.
 
@@ -37,7 +39,7 @@ const Items = props => {
 
             return [getItemKey(initialSelection)];
         }
-    }, [getItemKey, initialSelection]);
+    }, [getItemKey, initialSelection, selectionModel]);
 
     const [cursor, setCursor] = useState(null);
     const [hasFocus, setHasFocus] = useState(false);

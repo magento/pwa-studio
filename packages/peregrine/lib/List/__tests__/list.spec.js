@@ -49,16 +49,14 @@ const props = {
 };
 
 test('List component renders correctly', () => {
-    const tree = createTestInstance(
-        <List {...props} />
-    );
+    const tree = createTestInstance(<List {...props} />);
 
     expect(tree.toTree()).toMatchSnapshot();
 });
 
 test('rerenders should not create new root element if props didnt change', () => {
     const renderer = createTestInstance(<List {...props} />);
-    
+
     const firstRoot = renderer.root.children[0];
     renderer.update(<List {...props} />);
 
@@ -67,24 +65,22 @@ test('rerenders should not create new root element if props didnt change', () =>
 
 test('rerenders should create new root element if props change', () => {
     const renderer = createTestInstance(<List {...props} />);
-    
+
     const firstRoot = renderer.root.children[0];
 
-    const updateProps = {...props, render: 'ul'};
+    const updateProps = { ...props, render: 'ul' };
     renderer.update(<List {...updateProps} />);
 
     expect(firstRoot).not.toEqual(renderer.root.children[0]);
 });
 
 test('handleSelectionChange is memoized on onSelectionChange prop', () => {
-    const renderer = createTestInstance(
-        <List {...props} />
-    );
+    const renderer = createTestInstance(<List {...props} />);
 
     const firstHandleSelectionChange = renderer.root.findByType(Items).props
         .onSelectionChange;
-    
-    const updateProps = {...props, onSelectionChange: jest.fn()};
+
+    const updateProps = { ...props, onSelectionChange: jest.fn() };
     renderer.update(<List {...updateProps} />);
 
     const secondHandleSelectionChange = renderer.root.findByType(Items).props
@@ -94,7 +90,7 @@ test('handleSelectionChange is memoized on onSelectionChange prop', () => {
 
 test('renders the component provided using render prop as the container', () => {
     const Nav = () => <nav />;
-    const testProps = {...props, render:Nav};
+    const testProps = { ...props, render: Nav };
     const instance = createTestInstance(<List {...testProps} />).root;
 
     expect(instance.children[0].type).toEqual(Nav);
@@ -102,7 +98,7 @@ test('renders the component provided using render prop as the container', () => 
 
 test('passes the initial selection to Items', () => {
     const initialSelection = { name: 'first' };
-    const testProps = {...props, initialSelection};
+    const testProps = { ...props, initialSelection };
 
     const renderer = createTestInstance(<List {...testProps} />);
     const instance = renderer.root;
