@@ -101,10 +101,25 @@ test('if an initial selection is provided, the matching Item is selected', () =>
     expect(selectedItems[0].props.item.name).toBe('Test Product 1');
 });
 
-test('if an initial selection is an array, the matching Items are selected', () => {
+test('if an initial selection is an array and the selectionModel is radio, only the first matching Item is selected', () => {
     const testProps = {
         ...props,
         initialSelection: [{ id: '001' }, { id: '002' }]
+    };
+
+    const instance = createTestInstance(<Items {...testProps} />).root;
+
+    const selectedItems = instance.findAllByType(Item).filter(ItemNode => {
+        return ItemNode.props.isSelected;
+    });
+    expect(selectedItems).toHaveLength(1);
+});
+
+test('if an initial selection is an array and the selectionMdoel is checkbox, all matching Items are selected', () => {
+    const testProps = {
+        ...props,
+        initialSelection: [{ id: '001' }, { id: '002' }],
+        selectionModel: 'checkbox'
     };
 
     const instance = createTestInstance(<Items {...testProps} />).root;

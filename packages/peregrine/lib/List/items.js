@@ -19,11 +19,23 @@ const Items = props => {
             return null;
         }
 
-        // We store the keys of each item that is initially selected.
-        if (!Array.isArray(initialSelection)) {
+        // We store the keys of each item that is initially selected,
+        // but we must also respect the selection model.
+        if (selectionModel === 'radio') {
+            // Only one thing can be selected at a time.
+            const target = Array.isArray(initialSelection) ? initialSelection[0] : initialSelection;
+            return [getItemKey(target)];
+        }
+        
+        if (selectionModel === 'checkbox') {
+            // Multiple things can be selected at a time.
+
+            // Do we have multiple things?
+            if (Array.isArray(initialSelection)) {
+                return initialSelection.map(getItemKey);
+            }
+
             return [getItemKey(initialSelection)];
-        } else {
-            return initialSelection.map(getItemKey);
         }
     }, [getItemKey, initialSelection]);
 
