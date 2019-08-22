@@ -1208,9 +1208,7 @@ ReactTestInstance {
                             Object {
                               "children": Array [],
                               "isHidden": false,
-                              "props": Object {
-                                "isOpen": false,
-                              },
+                              "props": Object {},
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
                               "type": "Navigation",
@@ -1251,9 +1249,7 @@ ReactTestInstance {
                                 dismiss={[MockFunction]}
                                 isActive={false}
                               />,
-                              <Navigation
-                                isOpen={false}
-                              />,
+                              <Navigation />,
                               <MiniCart
                                 isOpen={false}
                               />,
@@ -1368,15 +1364,11 @@ ReactTestInstance {
                 "index": 3,
                 "key": null,
                 "lastEffect": null,
-                "memoizedProps": Object {
-                  "isOpen": false,
-                },
+                "memoizedProps": Object {},
                 "memoizedState": null,
                 "mode": 0,
                 "nextEffect": null,
-                "pendingProps": Object {
-                  "isOpen": false,
-                },
+                "pendingProps": Object {},
                 "ref": null,
                 "return": [Circular],
                 "selfBaseDuration": 0,
@@ -1481,9 +1473,7 @@ ReactTestInstance {
                               Object {
                                 "children": Array [],
                                 "isHidden": false,
-                                "props": Object {
-                                  "isOpen": false,
-                                },
+                                "props": Object {},
                                 "rootContainerInstance": [Circular],
                                 "tag": "INSTANCE",
                                 "type": "Navigation",
@@ -1517,9 +1507,7 @@ ReactTestInstance {
                                   dismiss={[MockFunction]}
                                   isActive={false}
                                 />,
-                                <Navigation
-                                  isOpen={false}
-                                />,
+                                <Navigation />,
                                 <MiniCart
                                   isOpen={false}
                                 />,
@@ -1584,9 +1572,7 @@ ReactTestInstance {
                             Object {
                               "children": Array [],
                               "isHidden": false,
-                              "props": Object {
-                                "isOpen": false,
-                              },
+                              "props": Object {},
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
                               "type": "Navigation",
@@ -1618,9 +1604,7 @@ ReactTestInstance {
                                 dismiss={[MockFunction]}
                                 isActive={false}
                               />,
-                              <Navigation
-                                isOpen={false}
-                              />,
+                              <Navigation />,
                               <MiniCart
                                 isOpen={false}
                               />,
@@ -1646,9 +1630,7 @@ ReactTestInstance {
                 "stateNode": Object {
                   "children": Array [],
                   "isHidden": false,
-                  "props": Object {
-                    "isOpen": false,
-                  },
+                  "props": Object {},
                   "rootContainerInstance": Object {
                     "children": Array [
                       Object {
@@ -1719,9 +1701,7 @@ ReactTestInstance {
                               dismiss={[MockFunction]}
                               isActive={false}
                             />,
-                            <Navigation
-                              isOpen={false}
-                            />,
+                            <Navigation />,
                             <MiniCart
                               isOpen={false}
                             />,
@@ -1799,9 +1779,7 @@ ReactTestInstance {
                       Object {
                         "children": Array [],
                         "isHidden": false,
-                        "props": Object {
-                          "isOpen": false,
-                        },
+                        "props": Object {},
                         "rootContainerInstance": [Circular],
                         "tag": "INSTANCE",
                         "type": "Navigation",
@@ -1842,9 +1820,7 @@ ReactTestInstance {
                           dismiss={[MockFunction]}
                           isActive={false}
                         />,
-                        <Navigation
-                          isOpen={false}
-                        />,
+                        <Navigation />,
                         <MiniCart
                           isOpen={false}
                         />,
@@ -1898,9 +1874,7 @@ ReactTestInstance {
               dismiss={[MockFunction]}
               isActive={false}
             />,
-            <Navigation
-              isOpen={false}
-            />,
+            <Navigation />,
             <MiniCart
               isOpen={false}
             />,
@@ -1926,9 +1900,7 @@ ReactTestInstance {
               dismiss={[MockFunction]}
               isActive={false}
             />,
-            <Navigation
-              isOpen={false}
-            />,
+            <Navigation />,
             <MiniCart
               isOpen={false}
             />,
@@ -1985,9 +1957,7 @@ ReactTestInstance {
             Object {
               "children": Array [],
               "isHidden": false,
-              "props": Object {
-                "isOpen": false,
-              },
+              "props": Object {},
               "rootContainerInstance": Object {
                 "children": Array [
                   [Circular],
@@ -2046,9 +2016,7 @@ ReactTestInstance {
                 dismiss={[MockFunction]}
                 isActive={false}
               />,
-              <Navigation
-                isOpen={false}
-              />,
+              <Navigation />,
               <MiniCart
                 isOpen={false}
               />,
@@ -2095,9 +2063,7 @@ ReactTestInstance {
             dismiss={[MockFunction]}
             isActive={false}
           />,
-          <Navigation
-            isOpen={false}
-          />,
+          <Navigation />,
           <MiniCart
             isOpen={false}
           />,
@@ -2123,9 +2089,7 @@ ReactTestInstance {
             dismiss={[MockFunction]}
             isActive={false}
           />,
-          <Navigation
-            isOpen={false}
-          />,
+          <Navigation />,
           <MiniCart
             isOpen={false}
           />,
@@ -2432,9 +2396,7 @@ Debug: undefined undefined",
                   Object {
                     "children": Array [],
                     "isHidden": false,
-                    "props": Object {
-                      "isOpen": false,
-                    },
+                    "props": Object {},
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
                     "type": "Navigation",
@@ -2475,9 +2437,7 @@ Debug: undefined undefined",
                       dismiss={[MockFunction]}
                       isActive={false}
                     />,
-                    <Navigation
-                      isOpen={false}
-                    />,
+                    <Navigation />,
                     <MiniCart
                       isOpen={false}
                     />,
@@ -2664,9 +2624,7 @@ Debug: undefined undefined",
                 Object {
                   "children": Array [],
                   "isHidden": false,
-                  "props": Object {
-                    "isOpen": false,
-                  },
+                  "props": Object {},
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
                   "type": "Navigation",
@@ -2707,9 +2665,7 @@ Debug: undefined undefined",
                     dismiss={[MockFunction]}
                     isActive={false}
                   />,
-                  <Navigation
-                    isOpen={false}
-                  />,
+                  <Navigation />,
                   <MiniCart
                     isOpen={false}
                   />,

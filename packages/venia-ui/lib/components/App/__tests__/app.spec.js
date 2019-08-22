@@ -53,7 +53,7 @@ jest.doMock('../renderRoutes', () => () => <Routes />);
 // require app after mock is complete
 const App = require('../app').default;
 
-const getAndConfirmProps = (parent, type, props) => {
+const getAndConfirmProps = (parent, type, props = {}) => {
     const instance = parent.findByType(type);
     expect(instance.props).toMatchObject(props);
     return instance;
@@ -75,7 +75,7 @@ test('renders a full page with onlineIndicator and routes', () => {
     };
     const { root } = createTestInstance(<App {...appProps} />);
 
-    getAndConfirmProps(root, Navigation, { isOpen: false });
+    getAndConfirmProps(root, Navigation);
     getAndConfirmProps(root, MiniCart, { isOpen: false });
 
     const main = getAndConfirmProps(root, Main, {
@@ -134,7 +134,7 @@ test('displays open nav or drawer', () => {
         <App {...propsWithDrawer('nav')} />
     );
 
-    getAndConfirmProps(openNav, Navigation, { isOpen: true });
+    getAndConfirmProps(openNav, Navigation);
 
     const { root: openCart } = createTestInstance(
         <App {...propsWithDrawer('cart')} />
