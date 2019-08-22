@@ -6,11 +6,6 @@ import {
 
 import ProductFullDetail from '../productFullDetail';
 
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-
-    return Object.assign(React, { useState: jest.fn(React.useState) });
-});
 jest.mock('../../../classify');
 
 const mockConfigurableProduct = {

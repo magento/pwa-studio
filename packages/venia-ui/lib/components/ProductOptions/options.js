@@ -8,7 +8,8 @@ import Option from './option';
 class Options extends Component {
     static propTypes = {
         onSelectionChange: func,
-        product: object
+        product: object.isRequired,
+        selectedVariant: object
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -21,7 +22,7 @@ class Options extends Component {
 
     render() {
         const { handleSelectionChange, props } = this;
-        const { product } = props;
+        const { product, selectedVariant } = props;
 
         if (!isProductConfigurable(product)) {
             // Non-configurable products don't have options.
@@ -34,6 +35,7 @@ class Options extends Component {
                 {...option}
                 key={option.attribute_id}
                 onSelectionChange={handleSelectionChange}
+                selectedVariant={selectedVariant}
             />
         ));
     }

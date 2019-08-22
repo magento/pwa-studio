@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense, useCallback, useMemo, useState } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
@@ -8,6 +8,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
 import appendOptionsToPayload from '../../util/appendOptionsToPayload';
+import { findMatchingProductOptionValue } from '../../util/productVariants';
 import isProductConfigurable from '../../util/isProductConfigurable';
 
 import defaultClasses from './cartOptions.css';
@@ -46,19 +47,50 @@ const CartOptions = props => {
     } = props;
     const { name, price, qty } = cartItem;
 
+    // cartItem.options[0] = { value: "Lilac", label: "Fashion Color" }
+    // configItem.configurable_options[0] = attribute_code ("fashion_color"), attribute_id (176), id, label ("Fashion Color"), values[]
+    //   values[0] = default_label, label, store_label, use_default_value, value_index
+    const initialOptionSelections = useMemo(() => {
+        const result = new Map();
+
+        // This set should contain entries like: 176 => 26, not "Fashion Color" => "Lilac".
+        // To transform, we have to find the matching configurable option and value on the configItem.
+        if (cartItem.options) {
+            cartItem.options.forEach(cartItemOption => {
+                const {
+                    option,
+                    value: optionValue
+                } = findMatchingProductOptionValue({
+                    product: configItem,
+                    variantOption: cartItemOption
+                });
+
+                if (option && optionValue) {
+                    const key = option.attribute_id;
+                    const value = optionValue.value_index;
+                    result.set(key, value);
+                }
+            });
+        }
+
+        return result;
+    }, [cartItem, configItem]);
+
     // State.
-    const [optionSelections, setOptionSelections] = useState(new Map());
+    const [optionSelections, setOptionSelections] = useState(
+        initialOptionSelections
+    );
     const [quantity, setQuantity] = useState(qty);
 
     // Callbacks.
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
-            setOptionSelections(
-                new Map(optionSelections).set(
-                    optionId,
-                    Array.from(selection).pop()
-                )
-            );
+            const newSelections = new Map(optionSelections);
+            const lastSelection = Array.from(selection).pop();
+
+            newSelections.set(optionId, lastSelection);
+
+            setOptionSelections(newSelections);
         },
         [optionSelections]
     );
@@ -92,6 +124,7 @@ const CartOptions = props => {
                 <Options
                     onSelectionChange={handleSelectionChange}
                     product={configItem}
+                    selectedVariant={cartItem}
                 />
             </section>
         </Suspense>
