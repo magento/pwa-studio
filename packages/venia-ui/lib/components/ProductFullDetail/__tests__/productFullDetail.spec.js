@@ -107,38 +107,3 @@ test('Configurable Product has correct media gallery image count', async () => {
 
     expect(carouselComponent.props.images).toHaveLength(2);
 });
-
-test('Configurable Product with selections has correct media gallery image count', async () => {
-    useState
-        // window size
-        .mockReturnValueOnce([
-            {
-                innerHeight: 99,
-                innerWidth: 99,
-                outerHeight: 99,
-                outerWidth: 99
-            },
-            jest.fn()
-        ])
-        // quantity
-        .mockReturnValueOnce([1, jest.fn()])
-        // optionSelections
-        .mockReturnValueOnce([new Map([['1', 1]]), jest.fn()]);
-
-    const { root } = createTestInstance(
-        <WindowSizeContextProvider>
-            <ProductFullDetail
-                product={mockConfigurableProduct}
-                isAddingItem={false}
-                classes={{}}
-                addToCart={jest.fn()}
-            />
-        </WindowSizeContextProvider>
-    );
-
-    const productFullDetailComponent = root.children[0].children[0];
-    const carouselComponent =
-        productFullDetailComponent.children[0].children[1].children[0];
-
-    expect(carouselComponent.props.images).toHaveLength(3);
-});
