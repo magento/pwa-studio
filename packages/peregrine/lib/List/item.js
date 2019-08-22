@@ -37,8 +37,7 @@ Item.propTypes = {
     isSelected: bool,
     item: any.isRequired,
     itemIndex: number.isRequired,
-    render: oneOfType([func, string]).isRequired,
-    uniqueId: oneOfType([number, string])
+    render: oneOfType([func, string]).isRequired
 };
 
 Item.defaultProps = {

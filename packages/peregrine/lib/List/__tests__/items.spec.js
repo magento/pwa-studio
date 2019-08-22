@@ -64,23 +64,15 @@ test('Item components are created in the exact same order as items prop', () => 
     });
 });
 
-test('getItemKey is used to generate uniqueId for each of the items', () => {
-    const instance = createTestInstance(<Items {...props} />).root;
-
-    instance.findAllByType(Item).forEach((ItemNode, index) => {
-        expect(ItemNode.props.uniqueId).toBe(items[index].id);
-    });
-});
-
 test('if an initial selection is provided, the matching Item is selected', () => {
     const targetId = '001';
     const testProps = { ...props, ...{ initialSelection: { id: targetId } } };
 
     const instance = createTestInstance(<Items {...testProps} />).root;
 
-    instance.findAllByType(Item).forEach(ItemNode => {
-        const isTheTarget = ItemNode.props.uniqueId === targetId;
-
-        expect(ItemNode.props.isSelected).toBe(isTheTarget);
+    const selectedItems = instance.findAllByType(Item).filter(ItemNode => {
+        return ItemNode.props.isSelected;
     });
+    expect(selectedItems).toHaveLength(1);
+    expect(selectedItems[0].props.item.name).toBe('Test Product 1');
 });

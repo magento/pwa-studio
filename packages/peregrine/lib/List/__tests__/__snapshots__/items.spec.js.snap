@@ -242,7 +242,6 @@ Object {
             },
           ],
         },
-        "uniqueId": "001",
       },
       "rendered": Object {
         "instance": null,
@@ -435,7 +434,6 @@ Object {
             },
           ],
         },
-        "uniqueId": "002",
       },
       "rendered": Object {
         "instance": null,

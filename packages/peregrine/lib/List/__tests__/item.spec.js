@@ -20,7 +20,6 @@ const item = {
 };
 const itemIndex = 1;
 const render = jest.fn(() => <div />);
-const uniqueId = 1;
 
 const props = {
     classes,
@@ -28,8 +27,7 @@ const props = {
     isSelected,
     item,
     itemIndex,
-    render,
-    uniqueId
+    render
 };
 
 test('Item renders correctly', () => {
