@@ -55,6 +55,9 @@ const PWADevServer = {
             contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
+            allowedHosts: [
+                devServer.host,
+            ],
             writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
