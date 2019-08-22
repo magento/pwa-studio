@@ -76,3 +76,41 @@ test('if an initial selection is provided, the matching Item is selected', () =>
     expect(selectedItems).toHaveLength(1);
     expect(selectedItems[0].props.item.name).toBe('Test Product 1');
 });
+
+test('if an initial selection is not provided, no Items are selected', () => {
+    const testProps = { ...props };
+
+    const instance = createTestInstance(<Items {...testProps} />).root;
+
+    const selectedItems = instance.findAllByType(Item).filter(ItemNode => {
+        return ItemNode.props.isSelected;
+    });
+    expect(selectedItems).toHaveLength(0);
+});
+
+test('if an initial selection is provided, the matching Item is selected', () => {
+    const targetId = '001';
+    const testProps = { ...props, initialSelection: { id: targetId } };
+
+    const instance = createTestInstance(<Items {...testProps} />).root;
+
+    const selectedItems = instance.findAllByType(Item).filter(ItemNode => {
+        return ItemNode.props.isSelected;
+    });
+    expect(selectedItems).toHaveLength(1);
+    expect(selectedItems[0].props.item.name).toBe('Test Product 1');
+});
+
+test('if an initial selection is an array, the matching Items are selected', () => {
+    const testProps = {
+        ...props,
+        initialSelection: [{ id: '001' }, { id: '002' }]
+    };
+
+    const instance = createTestInstance(<Items {...testProps} />).root;
+
+    const selectedItems = instance.findAllByType(Item).filter(ItemNode => {
+        return ItemNode.props.isSelected;
+    });
+    expect(selectedItems).toHaveLength(2);
+});
