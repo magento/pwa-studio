@@ -8,8 +8,6 @@ const GenericElement = ({
 }) => {
     if (!domAttributes.className.length) {
         delete domAttributes.className;
-    } else {
-        domAttributes.className = domAttributes.className.join(' ');
     }
 
     return <Tag {...domAttributes}>{children}</Tag>;

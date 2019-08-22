@@ -9,10 +9,6 @@ const Row = ({ data }) => {
     const parallaxSpeed = parseInt(innerElement.dataAttributes.parallaxSpeed, 10);
 
     if (isParallaxEnabled) {
-        if (typeof innerElement.domAttributes.className !== 'string') {
-            innerElement.domAttributes.className = '';
-        }
-
         innerElement.domAttributes.className += ' jarallax';
         innerElement.domAttributes['data-jarallax'] = '';
     }

@@ -8,7 +8,7 @@ const PageBuilderTabs = ({ data }) => {
     const tabsProps = data.element.domAttributes;
     const tabs = data.elements.headers.map(
         (tabHeader, index) => (
-            <Tab {...tabHeader.domAttributes} className={tabHeader.domAttributes.className.concat(tabsClasses.tab)} key={index}>
+            <Tab {...tabHeader.domAttributes} className={tabHeader.domAttributes.className + ' ' + tabsClasses.tab} key={index}>
                 <RichContent data={tabHeader.children} />
             </Tab>
         )
@@ -25,11 +25,11 @@ const PageBuilderTabs = ({ data }) => {
     return (
         <Tabs
             {...tabsProps}
-            className={tabsProps.className.concat(tabsClasses.root)}
+            className={tabsProps.className + ' ' + tabsClasses.root}
             disabledTabClassName={tabsClasses.tabDisabled}
             selectedTabClassName={tabsClasses.tabSelected}
         >
-            <TabList {...tabListProps} className={tabListProps.className.concat(tabsClasses.tabList)}>
+            <TabList {...tabListProps} className={tabListProps.className + ' ' + tabsClasses.tabList}>
                 {tabs}
             </TabList>
             <GenericElement data={tabsContent}>
@@ -37,7 +37,7 @@ const PageBuilderTabs = ({ data }) => {
                     <TabPanel
                         {...child.domAttributes}
                         key={index}
-                        className={child.domAttributes.className.concat(tabsClasses.tabPanel)}
+                        className={child.domAttributes.className + ' ' + tabsClasses.tabPanel}
                         selectedClassName={tabsClasses.tabPanelSelected}
                     >
                         <RichContent data={child.children} />

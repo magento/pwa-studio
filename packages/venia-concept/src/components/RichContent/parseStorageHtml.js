@@ -33,10 +33,6 @@ const serializeElement = htmlEl => {
         }
     }
 
-    // convert className attribute to array for easy appending/removing
-    // TODO - rethink this
-    element.domAttributes.className = element.domAttributes.className.replace(/\s{2,}/g, ' ').trim().split(' ').filter(el => !!el.length);
-
     Object.assign(element.dataAttributes, htmlEl.dataset);
 
     if (element.dataAttributes.contentType) {
