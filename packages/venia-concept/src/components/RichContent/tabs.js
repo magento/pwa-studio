@@ -1,47 +1,49 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
-import defaultClasses from './tabs.css';
-import { mergeClasses } from '../../classify';
+import tabsClasses from './tabs.css';
+import RichContent from './richContent';
+import GenericElement from './genericElement';
 
-const PageBuilderTabs = props => {
-    const {
-        children,
-        data: {
-            elements: { navigation },
-            element: { domAttributes: tabsProps }
-        }
-    } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const [{ children: tabNodes, domAttributes: tabListProps }] = navigation;
-    const tabs = tabNodes.map(
-        ({ children: tabChildren, domAttributes: tabProps }, index) => {
-            const title = tabChildren[0].children[0].children[0];
-            return (
-                <Tab {...tabProps} className={classes.tab} key={index}>
-                    {title}
-                </Tab>
-            );
-        }
+const PageBuilderTabs = ({ data }) => {
+    const tabsProps = data.element.domAttributes;
+    const tabs = data.elements.headers.map(
+        (tabHeader, index) => (
+            <Tab {...tabHeader.domAttributes} className={tabHeader.domAttributes.className.concat(tabsClasses.tab)} key={index}>
+                <RichContent data={tabHeader.children} />
+            </Tab>
+        )
     );
+
+    const tabsNavigation = data.elements.navigation[0];
+    const tabListProps = tabsNavigation.domAttributes;
+    const tabsContent = data.elements.content[0];
+
+    if (!Number.isNaN(data.element.dataAttributes.activeTab)) {
+        tabsProps.defaultIndex = parseInt(data.element.dataAttributes.activeTab, 10);
+    }
+
     return (
         <Tabs
             {...tabsProps}
-            className={classes.root}
-            disabledTabClassName={classes.tabDisabled}
-            selectedTabClassName={classes.tabSelected}
+            className={tabsProps.className.concat(tabsClasses.root)}
+            disabledTabClassName={tabsClasses.tabDisabled}
+            selectedTabClassName={tabsClasses.tabSelected}
         >
-            <TabList {...tabListProps} className={classes.tabList}>
+            <TabList {...tabListProps} className={tabListProps.className.concat(tabsClasses.tabList)}>
                 {tabs}
             </TabList>
-            {Children.map(children, (child, index) => (
-                <TabPanel
-                    key={index}
-                    className={classes.tabPanel}
-                    selectedClassName={classes.tabPanelSelected}
-                >
-                    {child}
-                </TabPanel>
-            ))}
+            <GenericElement data={tabsContent}>
+                {tabsContent.children.map((child, index) => (
+                    <TabPanel
+                        {...child.domAttributes}
+                        key={index}
+                        className={child.domAttributes.className.concat(tabsClasses.tabPanel)}
+                        selectedClassName={tabsClasses.tabPanelSelected}
+                    >
+                        <RichContent data={child.children} />
+                    </TabPanel>
+                ))}
+            </GenericElement>
         </Tabs>
     );
 };

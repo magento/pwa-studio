@@ -54,3 +54,7 @@
 .tabPanelSelected {
     display: block;
 }
+
+[data-content-type="tab-item"]:empty {
+    display: none !important; /* Necessary because of inline styles; to be fixed in MC-18326 */
+}

@@ -1,12 +1,26 @@
 import React from 'react';
 import GenericElement from './genericElement';
+import RichContent from './richContent';
 
-const Row = ({ data, children }) => {
-    const inner = data.elements.inner[0];
+const Row = ({ data }) => {
+    const innerElement = data.elements.inner[0];
+
+    const isParallaxEnabled = !!parseInt(innerElement.dataAttributes.enableParallax, 10);
+    const parallaxSpeed = parseInt(innerElement.dataAttributes.parallaxSpeed, 10);
+
+    if (isParallaxEnabled) {
+        if (typeof innerElement.domAttributes.className !== 'string') {
+            innerElement.domAttributes.className = '';
+        }
+
+        innerElement.domAttributes.className += ' jarallax';
+        innerElement.domAttributes['data-jarallax'] = '';
+    }
+
     return (
         <GenericElement data={data}>
-            <GenericElement data={{ element: inner }}>
-                {children}
+            <GenericElement data={innerElement}>
+                <RichContent data={innerElement.children} />
             </GenericElement>
         </GenericElement>
     );

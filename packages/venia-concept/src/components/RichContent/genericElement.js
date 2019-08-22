@@ -2,19 +2,17 @@ import React from 'react';
 
 const GenericElement = ({
     data: {
-        element: { domAttributes, children: elementChildren, tagName: Tag }
+        element: { domAttributes, tagName: Tag }
     },
     children
 }) => {
-    const tagChildren = elementChildren.map((element, i) =>
-        typeof element === 'string' ? (
-            element
-        ) : (
-            <GenericElement key={i} data={{ element }} />
-        )
-    );
-    const allChildren = [...tagChildren, ...React.Children.toArray(children)];
-    return <Tag {...domAttributes}>{allChildren}</Tag>;
+    if (!domAttributes.className.length) {
+        delete domAttributes.className;
+    } else {
+        domAttributes.className = domAttributes.className.join(' ');
+    }
+
+    return <Tag {...domAttributes}>{children}</Tag>;
 };
 
 export default GenericElement;

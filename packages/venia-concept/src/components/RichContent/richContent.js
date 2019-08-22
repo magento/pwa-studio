@@ -1,55 +1,66 @@
 import React, { Suspense } from 'react';
 import parseStorageHtml from './parseStorageHtml';
 import Row from './row';
-import Column from './column';
-import ColumnGroup from './columnGroup';
+import Container from './container';
+import Image from './image';
 import GenericElement from './genericElement';
 
-export const Widgets = {
+const ContentTypes = {
     static: {
         row: Row,
-        column: Column,
-        'column-group': ColumnGroup
+        column: Container,
+        'column-group': Container,
+        image: Image,
     },
     dynamic: {
         tabs: React.lazy(() => import('./tabs'))
     }
 };
 
-const walk = ({ widgets }) =>
-    widgets.map((node, i) => <RichContent key={i} data={node} />);
+const walk = (children) => children.map((child, i) => {
+    return typeof child === 'string' ? child : <RichContent key={i} data={child} />;
+});
 
 const RichContent = ({ data, html }) => {
-    const fallback = html ? (
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-    ) : null;
-
-    const dataNode = data || parseStorageHtml(html);
-    if (!dataNode.type) {
-        return fallback;
+    if (Array.isArray(data)) {
+        return data.length ? walk(data) : null;
+    } else if (typeof data === 'string') { // TODO - prevent this type check somehow
+        return data;
     }
 
-    const Widget = Widgets.static[dataNode.type];
-    if (Widget) {
+    const dataNode = data || parseStorageHtml(html);
+
+    const StaticContentType = ContentTypes.static[dataNode.type];
+
+    if (StaticContentType) {
         return (
-            <Widget data={dataNode} html={html}>
-                {walk(dataNode)}
-            </Widget>
+            <StaticContentType data={dataNode}>
+                {dataNode.children.length ? walk(dataNode.children) : null}
+            </StaticContentType>
         );
     }
 
-    const DynamicWidget = Widgets.dynamic[dataNode.type];
-    if (DynamicWidget) {
+    const DynamicContentType = ContentTypes.dynamic[dataNode.type];
+
+    if (DynamicContentType) {
+        const fallback = html ? (
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+        ) : null;
+
         return (
             <Suspense fallback={fallback}>
-                <DynamicWidget data={dataNode} html={html}>
-                    {walk(dataNode)}
-                </DynamicWidget>
+                <DynamicContentType data={dataNode}>
+                    {dataNode.children.length ? walk(dataNode.children) : null}
+                </DynamicContentType>
             </Suspense>
         );
     }
 
-    return <GenericElement data={dataNode}>{walk(dataNode)}</GenericElement>;
+    return (
+        <GenericElement data={dataNode}>
+            {dataNode.children.length ? walk(dataNode.children) : null}
+        </GenericElement>
+    );
 };
 
 export default RichContent;

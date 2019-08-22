@@ -5,34 +5,53 @@ const attrToProp = {
 };
 
 let smallScreen;
-const makeElement = dom => {
-    if (dom.nodeType === Node.TEXT_NODE) {
-        return dom.textContent;
+
+/**
+ * @param {HTMLElement} htmlEl
+ * @returns {Object}
+ */
+const serializeElement = htmlEl => {
+    if (htmlEl.nodeType === Node.TEXT_NODE) {
+        return htmlEl.textContent;
     }
+
     const element = {
         children: [],
+        elements: {},
         domAttributes: {},
         dataAttributes: {},
-        tagName: dom.tagName.toLowerCase()
+        tagName: htmlEl.tagName.toLowerCase(),
     };
 
-    for (const attr of dom.attributes) {
+    element.domAttributes.className = '';
+
+    for (const attr of htmlEl.attributes) {
         if (attrToProp.hasOwnProperty(attr.name)) {
             element.domAttributes[attrToProp[attr.name]] = attr.value;
-        } else if (!(attr.name === 'style' || attr.name.startsWith('data-'))) {
+        } else if (attr.name !== 'style') {
             element.domAttributes[attr.name] = attr.value;
         }
     }
 
-    Object.assign(element.dataAttributes, dom.dataset);
+    // convert className attribute to array for easy appending/removing
+    // TODO - rethink this
+    element.domAttributes.className = element.domAttributes.className.replace(/\s{2,}/g, ' ').trim().split(' ').filter(el => !!el.length);
+
+    Object.assign(element.dataAttributes, htmlEl.dataset);
+
+    if (element.dataAttributes.contentType) {
+        element.type = element.dataAttributes.contentType;
+    }
+
+    element.element = element;
 
     const style = (element.domAttributes.style = {});
-    const styleLen = dom.style.length;
+    const styleLen = htmlEl.style.length;
     for (let i = 0; i < styleLen; i++) {
-        const domName = dom.style[i]
-            .replace(/\-\-/, '')
-            .replace(/\-([a-z])/g, match => match[1].toUpperCase());
-        style[domName] = dom.style[domName];
+        const domName = htmlEl.style[i]
+            .replace(/\-\-/, '') // remove first occurrence of two consecutive hyphens (??)
+            .replace(/\-([a-z])/g, match => match[1].toUpperCase()); // convert kebab-case to camelcase
+        style[domName] = htmlEl.style[domName];
     }
 
     if (element.dataAttributes.backgroundImages) {
@@ -48,41 +67,30 @@ const makeElement = dom => {
             style.backgroundImage = `url('${backgroundImage}')`;
         }
     }
+
     return element;
 };
 
-const makeNode = dom => {
-    const element = makeElement(dom);
-    const node = {
-        element,
-        elements: {},
-        type: element.dataAttributes.contentType,
-        widgets: []
-    };
-    return node;
-};
-
-const walk = rootDom => {
+/**
+ * @param {HTMLElement} rootEl
+ * @returns {Object}
+ */
+const walk = (rootEl) => {
     const elementMap = new WeakMap();
 
-    const root = makeNode(rootDom);
-    elementMap.set(rootDom, root.element);
+    const root = serializeElement(rootEl);
+    elementMap.set(rootEl, root.element);
 
     const tree = document.createTreeWalker(
-        rootDom,
+        rootEl,
         NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT
     );
 
     let currentNode = tree.nextNode();
     while (currentNode) {
         const isElementNode = currentNode.nodeType === Node.ELEMENT_NODE;
-        if (isElementNode && currentNode.dataset.contentType) {
-            root.widgets.push(walk(currentNode));
-            currentNode = tree.nextSibling();
-            continue;
-        }
+        let element = serializeElement(currentNode);
 
-        const element = makeElement(currentNode);
         elementMap.set(currentNode, element);
 
         const parentElement = elementMap.get(currentNode.parentNode);
@@ -92,27 +100,41 @@ const walk = rootDom => {
                 currentNode
             );
         }
-        parentElement.children.push(element);
+
+        const isContentTypeContainer = !!element.type;
 
         if (isElementNode) {
             const elementName = element.dataAttributes.element;
-            if (elementName) {
-                const theseElements =
-                    root.elements[elementName] ||
-                    (root.elements[elementName] = []);
-                theseElements.push(element);
+
+            if (isContentTypeContainer) {
+                element = walk(currentNode);
+            } else if (elementName) {
+                if (!root.elements[elementName]) {
+                    root.elements[elementName] = [];
+                }
+
+                root.elements[elementName].push(element);
             }
         }
-        currentNode = tree.nextNode();
+
+        parentElement.children.push(element);
+
+        // assign next node
+        currentNode = isContentTypeContainer ? tree.nextSibling() : tree.nextNode();
     }
+
     return root;
 };
 
-const parseStorageHtml = html => {
+/**
+ * @param {String} htmlStr
+ * @returns {Object}
+ */
+const parseStorageHtml = htmlStr => {
     const container = document.createElement('div');
-    container.innerHTML = html;
-    const rootDom = container.querySelector('[data-element="main"]');
-    return rootDom ? walk(rootDom) : {};
+    container.innerHTML = htmlStr;
+
+    return walk(container);
 };
 
 export default parseStorageHtml;
