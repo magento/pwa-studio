@@ -26,7 +26,7 @@ const findMatchingProductOption = ({ product, variantOption }) => {
  *              This object contains keys attribute_code, attribute_id, id, label, and an array of values.
  *          {Object} value  - The value of the option that matches the given variantOption value.
  *              This object contains keys default_label, label, store_label, use_default_value, and value_index.
- *          
+ *
  *          Note: if either one of these matches cannot be found, undefined is returned.
  */
 const findMatchingProductOptionValue = ({ product, variantOption }) => {
@@ -39,15 +39,13 @@ const findMatchingProductOptionValue = ({ product, variantOption }) => {
         return;
     }
 
-    let matchingProductOptionValue = matchingProductOption.values.find(
+    const matchingProductOptionValue = matchingProductOption.values.find(
         productOptionValue => {
             const targetProperty = productOptionValue.use_default_value
                 ? 'default_label'
                 : 'label';
 
-            return (
-                productOptionValue[targetProperty] === variantOption.value
-            );
+            return productOptionValue[targetProperty] === variantOption.value;
         }
     );
 

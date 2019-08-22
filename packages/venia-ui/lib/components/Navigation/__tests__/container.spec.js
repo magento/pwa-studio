@@ -1,78 +1,109 @@
-import { closeDrawer } from '../../../actions/app';
-import { getAllCategories } from '../../../actions/catalog';
-import {
-    completePasswordReset,
-    createAccount,
-    getUserDetails,
-    resetPassword
-} from '../../../actions/user';
-import Container from '../container';
+import React, { useContext } from 'react';
+import { createTestInstance } from '@magento/peregrine';
+
+import Container, {
+    AppContext,
+    CatalogContext,
+    UserContext
+} from '../container';
 import Navigation from '../navigation';
 
 jest.mock('@magento/venia-drivers', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
-        jest.fn(component => ({
-            component,
-            mapStateToProps,
-            mapDispatchToProps
+        jest.fn(Component => ({
+            Component: jest.fn(Component),
+            mapDispatchToProps,
+            mapStateToProps
         }))
-    ),
-    withRouter: component => {
-        component.defaultProps = {
-            ...component.defaultProps,
-            router: { pathname: 'mocked-path' }
-        };
-        return component;
-    }
+    )
 }));
-jest.mock('../../../actions/app');
-jest.mock('../../../actions/catalog');
-jest.mock('../../../actions/user');
-jest.mock('../navigation');
 
-test('returns a connected Navigation component', () => {
-    expect(Container.component).toBe(Navigation);
-    expect(Container.mapStateToProps).toBeInstanceOf(Function);
-    expect(Container.mapDispatchToProps).toMatchObject({
-        closeDrawer,
-        completePasswordReset,
-        createAccount,
-        getAllCategories,
-        getUserDetails,
-        resetPassword
+jest.mock('../navigation', () => jest.fn(() => <i />));
+
+test('returns a connected Container component', () => {
+    const { mapDispatchToProps, mapStateToProps } = Container;
+
+    expect(mapStateToProps).toBeInstanceOf(Function);
+    expect(mapDispatchToProps).toEqual({
+        closeDrawer: expect.any(Function),
+        createAccount: expect.any(Function),
+        getUserDetails: expect.any(Function),
+        signOut: expect.any(Function),
+        updateCategories: expect.any(Function)
     });
 });
 
-test('mapStateToProps correctly maps state to props', () => {
+test('mapStateToProps maps state to props', () => {
     const { mapStateToProps } = Container;
+    const include = {
+        app: 'a',
+        catalog: 'b',
+        user: 'c'
+    };
+    const exclude = { foo: 'd' };
+    const state = { ...include, ...exclude };
 
-    const state = {
-        catalog: {
-            categories: 'categories',
-            rootCategoryId: 'rootCategoryId'
-        },
-        user: {
-            currentUser: {
-                email: 'email',
-                firstname: 'firstname',
-                lastname: 'lastname'
-            },
-            forgotPassword: 'forgotPassword',
-            isSignedIn: 'isSignedIn'
-        },
-        extra: 'extra'
+    expect(mapStateToProps(state)).toEqual(include);
+});
+
+test('renders correctly', () => {
+    const { Component } = Container;
+    const { root } = createTestInstance(<Component />);
+
+    expect(root.findByType(Navigation)).toBeTruthy();
+});
+
+test('provides several contexts', () => {
+    const { Component } = Container;
+    const log = jest.fn();
+    const props = {
+        app: 'app',
+        catalog: 'catalog',
+        closeDrawer: jest.fn(),
+        createAccount: jest.fn(),
+        getUserDetails: jest.fn(),
+        signOut: jest.fn(),
+        updateCategories: jest.fn(),
+        user: 'user'
     };
 
-    const props = mapStateToProps(state);
+    Navigation.mockImplementationOnce(() => {
+        const [appState, appApi] = useContext(AppContext);
+        const [catalogState, catalogApi] = useContext(CatalogContext);
+        const [userState, userApi] = useContext(UserContext);
 
-    expect(props).not.toHaveProperty('extra');
-    expect(props).toMatchObject({
-        categories: state.catalog.categories,
-        rootCategoryId: state.catalog.rootCategoryId,
-        email: state.user.currentUser.email,
-        firstname: state.user.currentUser.firstname,
-        lastname: state.user.currentUser.lastname,
-        forgotPassword: state.user.forgotPassword,
-        isSignedIn: state.user.isSignedIn
+        log({
+            appState,
+            appApi,
+            catalogState,
+            catalogApi,
+            userState,
+            userApi
+        });
+
+        return <i />;
     });
+
+    createTestInstance(<Component {...props} />);
+
+    expect(log).toHaveBeenCalledTimes(1);
+    expect(log).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+            appState: props.app,
+            appApi: expect.objectContaining({
+                closeDrawer: props.closeDrawer
+            }),
+            catalogState: props.catalog,
+            catalogApi: expect.objectContaining({
+                updateCategories: props.updateCategories
+            }),
+            userState: props.user,
+            userApi: expect.objectContaining({
+                createAccount: props.createAccount,
+                getUserDetails: props.getUserDetails,
+                signOut: props.signOut
+            })
+        })
+    );
 });

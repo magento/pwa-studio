@@ -1,8 +1,8 @@
 .root {
     display: grid;
-    gap: 0.5rem;
+    gap: 1.5rem;
     justify-items: stretch;
-    padding: 0 1.5rem;
+    padding: 1rem 1.5rem;
 }
 
 .forgotPassword {
@@ -33,20 +33,35 @@
     opacity: 0.9;
 }
 
-.showCreateAccountButton,
+.createAccountButton,
+.forgotPasswordButton,
 .signInButton {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     text-align: center;
-    margin-top: 0.5rem;
+}
+
+.signInButton {
+    margin-top: 1rem;
 }
 
 .signInDivider {
     border-color: rgb(var(--venia-border));
     border-style: solid;
     border-width: 0 0 1px;
-    margin: 2rem 1rem;
+    margin: 1.5rem 1rem;
 }
 
 .signInError {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
     color: rgb(var(--venia-error));
-    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.signInError:empty {
+    display: none;
 }
