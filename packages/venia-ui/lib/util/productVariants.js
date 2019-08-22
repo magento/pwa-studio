@@ -5,7 +5,7 @@
  * @param {Object} product: The full, configurable product
  * @param {Object} variantOption: An option of a simple product that is a variant of the full configurable product.
  *
- * @returns {Object} The configurable option of the product that matches the given variantOption label.
+ * @returns {Object or undefined} The configurable option of the product that matches the given variantOption label.
  * This object contains keys attribute_code, attribute_id, id, label, and an array of values.
  */
 const findMatchingProductOption = ({ product, variantOption }) => {
@@ -21,11 +21,13 @@ const findMatchingProductOption = ({ product, variantOption }) => {
  * @param {Object} product: The full, configurable product
  * @param {Object} variantOption: An option of a simple product that is a variant of the full configurable product.
  *
- * @returns {Object} A result object containing:
+ * @returns {Object or undefined} A result object containing:
  *          {Object} option - The configurable option of the product that matches the given variantOption label.
  *              This object contains keys attribute_code, attribute_id, id, label, and an array of values.
  *          {Object} value  - The value of the option that matches the given variantOption value.
  *              This object contains keys default_label, label, store_label, use_default_value, and value_index.
+ *          
+ *          Note: if either one of these matches cannot be found, undefined is returned.
  */
 const findMatchingProductOptionValue = ({ product, variantOption }) => {
     const matchingProductOption = findMatchingProductOption({
@@ -33,19 +35,24 @@ const findMatchingProductOptionValue = ({ product, variantOption }) => {
         variantOption
     });
 
-    let matchingProductOptionValue;
-    if (matchingProductOption) {
-        matchingProductOptionValue = matchingProductOption.values.find(
-            productOptionValue => {
-                const targetProperty = productOptionValue.use_default_value
-                    ? 'default_label'
-                    : 'label';
+    if (!matchingProductOption) {
+        return;
+    }
 
-                return (
-                    productOptionValue[targetProperty] === variantOption.value
-                );
-            }
-        );
+    let matchingProductOptionValue = matchingProductOption.values.find(
+        productOptionValue => {
+            const targetProperty = productOptionValue.use_default_value
+                ? 'default_label'
+                : 'label';
+
+            return (
+                productOptionValue[targetProperty] === variantOption.value
+            );
+        }
+    );
+
+    if (!matchingProductOptionValue) {
+        return;
     }
 
     return {

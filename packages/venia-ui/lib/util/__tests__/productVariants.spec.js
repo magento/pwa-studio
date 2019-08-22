@@ -40,27 +40,23 @@ describe('findMatchingProductOptionValue', () => {
         expect(result.value).toBeDefined();
     });
 
-    test('it returns the correct object when no match is found due to no matching option', () => {
+    test('it returns undefined when no matching option is found', () => {
         const variantOption = Object.assign({}, variant.options[0], {
             label: 'NO_MATCH '
         });
 
         const result = findMatch({ product, variantOption });
 
-        expect(result).toBeInstanceOf(Object);
-        expect(result.option).toBeUndefined();
-        expect(result.value).toBeUndefined();
+        expect(result).toBeUndefined();
     });
 
-    test('it returns the correct object when no match is found due to no matching value', () => {
+    test('it returns undefined when no matching value is found', () => {
         const variantOption = Object.assign({}, variant.options[0], {
             value: 'NO_MATCH '
         });
 
         const result = findMatch({ product, variantOption });
 
-        expect(result).toBeInstanceOf(Object);
-        expect(result.option).toBeDefined();
-        expect(result.value).toBeUndefined();
+        expect(result).toBeUndefined();
     });
 });

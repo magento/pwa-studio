@@ -47,9 +47,6 @@ const CartOptions = props => {
     } = props;
     const { name, price, qty } = cartItem;
 
-    // cartItem.options[0] = { value: "Lilac", label: "Fashion Color" }
-    // configItem.configurable_options[0] = attribute_code ("fashion_color"), attribute_id (176), id, label ("Fashion Color"), values[]
-    //   values[0] = default_label, label, store_label, use_default_value, value_index
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
 
