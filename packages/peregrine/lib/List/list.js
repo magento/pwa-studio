@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { func, object, oneOf, oneOfType, shape, string } from 'prop-types';
+import { array, func, object, oneOf, oneOfType, shape, string } from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
 import iterable from '../validators/iterable';
@@ -69,7 +69,7 @@ List.propTypes = {
     /**
      * A single or list of initial selections.
      */
-    initialSelection: object,
+    initialSelection: oneOfType([array, object]),
     /**
      * An iterable that yields `[key, item]` pairs such as an ES2015 Map
      */
