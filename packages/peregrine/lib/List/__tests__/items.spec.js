@@ -4,7 +4,7 @@ import { Items, Item } from '..';
 import createTestInstance from '../../util/createTestInstance';
 
 const getItemKey = jest.fn(({ id }) => id);
-const initialSelection = {};
+const initialSelection = null;
 const items = [
     {
         id: '001',

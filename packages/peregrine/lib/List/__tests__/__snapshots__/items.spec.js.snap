@@ -8,9 +8,6 @@ Object {
     "getItemKey": [MockFunction] {
       "calls": Array [
         Array [
-          Object {},
-        ],
-        Array [
           Object {
             "id": "001",
             "name": "Test Product 1",
@@ -44,10 +41,6 @@ Object {
       "results": Array [
         Object {
           "type": "return",
-          "value": undefined,
-        },
-        Object {
-          "type": "return",
           "value": "001",
         },
         Object {
@@ -56,7 +49,7 @@ Object {
         },
       ],
     },
-    "initialSelection": Object {},
+    "initialSelection": null,
     "items": Array [
       Object {
         "id": "001",
