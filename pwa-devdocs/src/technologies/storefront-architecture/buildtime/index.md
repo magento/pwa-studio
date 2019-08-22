@@ -70,10 +70,12 @@ This happens when the build process runs the `clean` script.
 
 The next phase uses the `buildpack load-env` command to load and validate the `.env` file, which describes the store project configuration.
 This file is found in the root directory of the Venia concept project.
+
 <!-- TODO: Link to _drafts/configuration-management topic when it is published -->
 
 {: .bs-callout .bs-callout-info}
 If there is no `.env` file in your project, create one with the `buildpack create-env-file` command.
+
 <!-- TODO: Link to _drafts/configuration-management/buildpack-cli/create-env-file topic when it is published -->
 
 #### Query validation
@@ -117,9 +119,7 @@ Use these scripts to keep your codebase well-formatted and test functionality.
 [nodejs]: https://nodejs.org/en/about/
 [webpack]: https://webpack.js.org/
 [transpilation]: https://en.wikipedia.org/wiki/Source-to-source_compiler
-[nodejs]: https://nodejs.org
 [babel]: https://babeljs.io
-[webpack]: https://webpack.js.org
 [npm scripts]: https://docs.npmjs.com/misc/scripts
 [magento store dependency]: #magento-store-dependency
 [service-oriented architecture]: https://en.wikipedia.org/wiki/Service-oriented_architecture

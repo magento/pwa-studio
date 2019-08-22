@@ -50,4 +50,3 @@ If the storefront application is deployed in the same server as Magento, which c
 [service isolation]: https://github.com/magento/architecture/blob/master/design-documents/service-isolation.md
 [php implementation of upward]: https://github.com/magento-research/upward-php
 [reverse proxy]: https://en.wikipedia.org/wiki/Reverse_proxy
-
