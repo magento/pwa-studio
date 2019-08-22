@@ -50,11 +50,9 @@ const ToastContainer = props => {
  * @property {Object} classes An object containing the class names for the
  *   ToastContainer and its Toast components
  * @property {String} classes.root CSS classes for the root container
- * @property {String} classes.item A currently unused CSS class property
  */
 ToastContainer.propTypes = {
     classes: shape({
-        item: string,
         root: string
     })
 };

@@ -18,18 +18,19 @@ Import the ToastContextProvider and wrap it around components that use Toast dat
 ```jsx
 // MyComponent.js
 
-import {ToastContextProvider} from '@peregrine/lib/Toasts/useToastContext'
+import {ToastContextProvider} from '@magento/peregrine'
 import {ToastContainer, AddToastComponent} from './MyToastComponents'
 
 ...
 
-const MyComponent = ()=>{
+const MyComponent = () =>{
 
-  return
+  return (
   <ToastContextProvider>
     <ToastContainer /> // A component which would display based on state.
     <AddToastComponent /> // A component which adds a toast using actions.
   </ToastContextProvider>
+  )
 }
 
 ...
@@ -40,7 +41,7 @@ Call **useToastContext()** to get the current state of the toast store and a dis
 ```jsx
 // MyToastComponents.js
 
-import {useToastContext} from '@peregrine/lib/Toasts/useToastContext';
+import {useToastContext} from '@magnto/peregrine';
 
 export const ToastContainer = () =>{
   const [toastState, toastDispatch] = useToastContext();
@@ -54,10 +55,12 @@ export const ToastContainer = () =>{
 
 export const AddToastComponent = () =>{
   return
-  <div>
+  (
+    <div>
     // Some component that allows you to add toast data using the
     // toastDispatch() function or useToast() hook
-  </div>
+    </div>
+  )
 }
 
 ```
