@@ -4,6 +4,30 @@ title: Buildtime architecture
 
 The build architecture of PWA Studio is the system used to compile JavaScript and CSS source code into a production-ready PWA storefront application.
 
+## Magento store dependency
+
+PWA Studio is part of Magento's [service-oriented architecture][] vision.
+This vision separates the merchant-facing store admin and the shopper-facing storefront application.
+Separating these two applications minimizes the dependencies between them.
+
+The Venia build system respects this principle by running the build process independent from the Magento core application.
+However, the build system does use the Magento API at compilation time for additional validation and optimization of storefront code.
+
+## Repository organization
+
+Unlike Magento themes, the source code for a PWA Studio storefront does not need to be located within the Magento application code.
+A PWA Studio storefront and its backing Magento server are two separate applications, so
+their codebase should be separate from each other.
+
+The Venia concept storefront uses `yarn` for dependency managements, but
+storefronts built using PWA Studio can also use NPM to manage dependencies and run scripts.
+
+Early adopters of PWA Studio have cloned the [`pwa-studio` repository][] and made direct customizations to the Venia concept source.
+This can lead to conflicts when updating to the latest version of the codebase.
+The preferred approach is to add PWA Studio tools and libraries as dependencies in a project. 
+
+<!-- TODO: Mention scaffolding tools whenever they become available to the public -->
+
 ## Build pipeline
 
 The build pipeline is the mechanism that consumes the project source code to generate production-ready files.
@@ -90,21 +114,6 @@ The Venia concept project also contains scripts for formatting (`yarn run pretti
 
 Use these scripts to keep your codebase well-formatted and test functionality.
 
-## Magento store dependency
-
-PWA Studio is part of Magento's [service-oriented architecture][] vision.
-This vision separates the merchant-facing store admin and the shopper-facing storefront application.
-Separating these two applications minimizes the dependencies between them.
-
-The Venia build system respects this principle by running the build process independent from the Magento core application.
-However, the build system does use the Magento API at compilation time for additional validation and optimization of storefront code.
-
-## Repository organization
-
-* PWA code vs Magento code
-* Dependency management
-* Cloning versus scaffolding
-
 [nodejs]: https://nodejs.org/en/about/
 [webpack]: https://webpack.js.org/
 [transpilation]: https://en.wikipedia.org/wiki/Source-to-source_compiler
@@ -116,3 +125,4 @@ However, the build system does use the Magento API at compilation time for addit
 [service-oriented architecture]: https://en.wikipedia.org/wiki/Service-oriented_architecture
 [`package.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/package.json
 [`graphql-cli-validate-magento-pwa-queries`]: https://github.com/magento/pwa-studio/tree/develop/packages/graphql-cli-validate-magento-pwa-queries
+[`pwa-studio` repository]: https://github.com/magento/pwa-studio/
