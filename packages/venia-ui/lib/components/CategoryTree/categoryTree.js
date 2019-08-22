@@ -39,29 +39,22 @@ const Tree = props => {
     const rootCategory = categories[categoryId];
     const { children } = rootCategory || {};
 
-    // For each child category, render a direct link if it has no children,
-    // otherwise render a branch.
-    const branches = rootCategory
-        ? Array.from(children || [], id => {
-              if (categories[id].children_count === '0') {
-                  return (
-                      <Leaf
-                          key={id}
-                          category={categories[id]}
-                          onNavigate={onNavigate}
-                      />
-                  );
-              } else {
-                  return (
-                      <Branch
-                          key={id}
-                          category={categories[id]}
-                          setCategoryId={setCategoryId}
-                      />
-                  );
-              }
-          })
-        : null;
+    // for each child category, render a direct link if it has no children
+    // otherwise render a branch
+    const branches = Array.from((rootCategory && children) || [], id => {
+        const category = categories[id];
+        const isLeaf = category.children_count === '0';
+
+        return isLeaf ? (
+            <Leaf key={id} category={category} onNavigate={onNavigate} />
+        ) : (
+            <Branch
+                key={id}
+                category={category}
+                setCategoryId={setCategoryId}
+            />
+        );
+    });
 
     return (
         <div className={classes.root}>
