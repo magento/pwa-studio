@@ -39,10 +39,7 @@ const walk = (rootEl, contentTypeStructureObj) => {
             continue;
         }
 
-        const props = {
-            type: contentType,
-            children: [],
-        };
+        const props = createContentTypeObject(contentType);
 
         if (pageBuilderConfigAggregators[contentType]) {
             Object.assign(props, pageBuilderConfigAggregators[contentType](currentNode));
