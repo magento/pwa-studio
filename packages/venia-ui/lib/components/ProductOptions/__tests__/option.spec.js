@@ -54,8 +54,8 @@ test('renders no selection at first', () => {
     const { root } = createTestInstance(<Option {...defaultProps} />);
     const selection = root.findByProps({ className: 'selection' });
 
-    expect(selection.children).toHaveLength(1);
-    expect(selection.children[0]).toBe('');
+    expect(selection.children).toHaveLength(2);
+    expect(selection.children[1].children[0]).toBe('None');
 });
 
 test('renders selected value after selection', () => {
@@ -68,8 +68,8 @@ test('renders selected value after selection', () => {
 
     const selection = root.findByProps({ className: 'selection' });
 
-    expect(selection.children).toHaveLength(1);
-    expect(selection.children[0].includes('blue')).toBeTruthy();
+    expect(selection.children).toHaveLength(2);
+    expect(selection.children[1].children[0].includes('blue')).toBeTruthy();
 });
 
 test('calls onSelectionChange callback on selection change', () => {

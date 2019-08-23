@@ -12,10 +12,17 @@ exports[`renders Option component correctly 1`] = `
     </span>
   </h3>
   <i />
-  <p
+  <dl
     className="selection"
   >
-    
-  </p>
+    <dt
+      className="selectionLabel"
+    >
+      Selected Foo:
+    </dt>
+    <dd>
+      None
+    </dd>
+  </dl>
 </div>
 `;

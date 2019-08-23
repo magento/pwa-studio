@@ -52,7 +52,7 @@ class Swatch extends Component {
         } = props;
 
         const className = classes[getClassName('root', isSelected, hasFocus)];
-        const { value_index } = item;
+        const { label, value_index } = item;
 
         // TODO: use the colors from graphQL when they become available.
         const randomColor = memoizedGetRandomColor(value_index);
@@ -67,7 +67,12 @@ class Swatch extends Component {
         });
 
         return (
-            <button {...restProps} className={className} style={finalStyle}>
+            <button
+                {...restProps}
+                title={label}
+                className={className}
+                style={finalStyle}
+            >
                 {icon}
             </button>
         );

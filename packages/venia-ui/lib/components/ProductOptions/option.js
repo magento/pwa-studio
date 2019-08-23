@@ -39,8 +39,8 @@ const Option = props => {
         );
     }, [values]);
 
-    const selectedValueLabel =
-        selection != null ? `Selected ${label} : ${selection}` : '';
+    const selectedValueLabel = `Selected ${label}:`;
+    const selectedValueDescription = selection || 'None';
 
     const handleSelectionChange = useCallback(
         selection => {
@@ -65,7 +65,10 @@ const Option = props => {
                 items={values}
                 onSelectionChange={handleSelectionChange}
             />
-            <p className={classes.selection}>{selectedValueLabel}</p>
+            <dl className={classes.selection}>
+                <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
+                <dd>{selectedValueDescription}</dd>
+            </dl>
         </div>
     );
 };
