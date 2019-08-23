@@ -1,13 +1,9 @@
 import React from 'react';
-import GenericElement from './genericElement';
-import RichContent from './richContent';
 
-const Row = ({ data, children }) => {
+const Row = ({ minHeight, backgroundColor, children }) => {
     return (
-        <div>
-            <div data-enable-parallax="0" data-parallax-speed="0.5">
-                {children}
-            </div>
+        <div data-content-type="row" style={{minHeight: minHeight, backgroundColor: backgroundColor}}>
+            {children}
         </div>
     );
 };
