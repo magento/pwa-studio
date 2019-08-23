@@ -45,6 +45,7 @@ const walk = (rootEl, contentTypeStructureObj) => {
     let currentNode = tree.nextNode();
     while (currentNode) {
         if (currentNode.nodeType !== Node.ELEMENT_NODE) {
+            contentTypeStructureObj.text = currentNode.textContent;
             currentNode = tree.nextNode();
             continue;
         }

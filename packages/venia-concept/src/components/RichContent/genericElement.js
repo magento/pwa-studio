@@ -2,15 +2,11 @@ import React from 'react';
 
 const GenericElement = ({
     data: {
-        element: { domAttributes, tagName: Tag }
+
     },
     children
 }) => {
-    if (!domAttributes.className.length) {
-        delete domAttributes.className;
-    }
-
-    return <Tag {...domAttributes}>{children}</Tag>;
+    return <div>{children}</div>;
 };
 
 export default GenericElement;
