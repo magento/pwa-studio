@@ -8,7 +8,11 @@ export function getBackgroundImages(node) {
     const images = node.getAttribute('data-background-images');
     const response = {
         desktopImage: null,
-        mobileImage: null
+        mobileImage: null,
+        backgroundSize: node.style.backgroundSize,
+        backgroundPosition: node.style.backgroundPosition,
+        backgroundAttachment: node.style.backgroundAttachment,
+        backgroundRepeat: node.style.backgroundRepeat !== "no-repeat",
     };
 
     if (images) {
