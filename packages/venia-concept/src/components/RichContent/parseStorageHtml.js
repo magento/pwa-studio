@@ -1,17 +1,16 @@
 import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator';
 import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
 
-
 const pageBuilderConfigAggregators = {
     row: rowConfigAggregator,
-    image: imageConfigAggregator,
+    image: imageConfigAggregator
 };
 
 const createContentTypeObject = (type, node) => {
     return {
         contentType: type,
-        appearance: node ? node.getAttribute("data-appearance") : null,
-        children: [],
+        appearance: node ? node.getAttribute('data-appearance') : null,
+        children: []
     };
 };
 
@@ -44,7 +43,10 @@ const walk = (rootEl, contentTypeStructureObj) => {
         const props = createContentTypeObject(contentType, currentNode);
 
         if (pageBuilderConfigAggregators[contentType]) {
-            Object.assign(props, pageBuilderConfigAggregators[contentType](currentNode));
+            Object.assign(
+                props,
+                pageBuilderConfigAggregators[contentType](currentNode)
+            );
         }
 
         contentTypeStructureObj.children.push(props);

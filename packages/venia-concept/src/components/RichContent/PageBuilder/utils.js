@@ -5,10 +5,10 @@
  * @returns {{mobileImage: null, desktopImage: null}}
  */
 export function getBackgroundImages(node) {
-    const images = node.getAttribute("data-background-images");
+    const images = node.getAttribute('data-background-images');
     const response = {
         desktopImage: null,
-        mobileImage: null,
+        mobileImage: null
     };
 
     if (images) {

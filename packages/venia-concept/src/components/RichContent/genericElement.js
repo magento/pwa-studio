@@ -1,11 +1,6 @@
 import React from 'react';
 
-const GenericElement = ({
-    data: {
-
-    },
-    children
-}) => {
+const GenericElement = ({ data: {}, children }) => {
     return <div>{children}</div>;
 };
 
