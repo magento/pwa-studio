@@ -35,8 +35,8 @@ const walk = (rootEl, contentTypeStructureObj) => {
             children: [],
         };
 
-        if (pageBuilderVisitors[contentType]) {
-            Object.assign(props, pageBuilderVisitors[contentType](currentNode));
+        if (pageBuilderConfigAggregators[contentType]) {
+            Object.assign(props, pageBuilderConfigAggregators[contentType](currentNode));
         }
 
         contentTypeStructureObj.children.push(props);
@@ -47,7 +47,7 @@ const walk = (rootEl, contentTypeStructureObj) => {
     return contentTypeStructureObj;
 };
 
-const pageBuilderVisitors = {
+const pageBuilderConfigAggregators = {
     row(node) {
         return {
             appearance: node.getAttribute("data-appearance"),
