@@ -14,8 +14,8 @@ const createContentTypeObject = (contentTypeStr) => {
     };
 };
 
-const withStyle = (contentTypeConfigObj, node) => {
-    const style = {};
+const aggregateStyles = (contentTypeConfigObj, node) => {
+    const style = contentTypeConfigObj.style || {};
     const styleLen = node.style.length;
 
     // TODO - determine if this string pre-processing is necessary
@@ -52,12 +52,13 @@ const walk = (rootEl, contentTypeStructureObj) => {
         const contentType = currentNode.getAttribute('data-content-type');
 
         if (!contentType) {
-            // TODO - aggregate styles onto this element (somehow)!
+            // TODO - namespace styles onto this object (somehow)!
+            aggregateStyles(contentTypeStructureObj, currentNode);
             currentNode = tree.nextNode();
             continue;
         }
 
-        const props = withStyle(createContentTypeObject(contentType), currentNode);
+        const props = aggregateStyles(createContentTypeObject(contentType), currentNode);
 
         if (pageBuilderConfigAggregators[contentType]) {
             Object.assign(props, pageBuilderConfigAggregators[contentType](currentNode));
