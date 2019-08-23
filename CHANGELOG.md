@@ -1,102 +1,226 @@
-# Release 3.0.0
+# Release 4.0.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio 3.0.0 and above._
+_This changelog only contains release notes for PWA Studio 4.0.0 and above._
 _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
 
--   [What's new in 3.0.0](#whats-new-in-300)
--   [Updating from 2.1.0](#updating-from-210)
+-   [What's new in 4.0.0](#whats-new-in-400)
+-   [Pull requests merged in this release](#pull-requests-merged-in-this-release)
+-   [Updating from 3.0.0](#updating-from-300)
 
-## What's new in 3.0.0
+## What's new in 4.0.0
 
-PWA Studio 3.0.0 contains improvements, new features, and some breaking changes.
+PWA Studio 4.0.0 contains new features, refactors, breaking changes, and various improvements.
 
-### Summary of major changes
+### Summary of notable changes
 
--   **Peregrine hooks:**
-    Custom [React Hooks][] that contain data and state management logic has been added to the Peregrine library.
-    These hooks allow developers to easily create functional components that focus on presentational logic.
-    These also allow for a more modular use of PWA logic and easier "restyling" of Venia (or any PWA storefront built using PWA Studio).
+The following is a list of the notable changes included in this release.
+
+#### New Peregrine Hooks
+
+This release introduces the following new hooks in Peregrine:
+
+* [Toast hooks][] and [ToastContainer][] - Provide logic for managing toast messages and a container for displaying these messages.
+* [`useWindowSize()`][] - A hook that provides window size data and lets you respond to window resizing events.
+* [`useRestApi()`][] and [`useRestResponse()`][] - Hooks that expose the API for sending REST calls and handling the response.
+* [`useScrollLock()`][] - Hook that gives the ability to lock the `document` element.
+* [`usePagination()`][] - A hook that provides pagination logic for components that need to navigate through paged data.
+* [`useEventListener()`][] - A hook that gives the ability to add a callback function when an event is triggered on an element.
+* [`useCarousel()`][] - A hook for interacting with the state for a carousel of images.
+
+[toast hooks]: https://github.com/magento/pwa-studio/tree/develop/packages/peregrine/lib/Toasts
+[ToastContainer]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/components/ToastContainer
+[`useWindowSize()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useWindowSize.js
+[`useRestApi()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useRestApi.js
+[`useRestResponse()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useRestResponse.js
+[`useScrollLock()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useScrollLock.js 
+[`usePagination()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/usePagination.js
+[`useEventListener()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useEventListener.js
+[`useCarousel()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useCarousel.js
+
+#### Component refactors
+
+This release includes code refactors to existing components.
+The main purpose for this refactor is to extract the logic from these components and convert them into re-useable Peregrine hooks, such as `useCarousel()` and `useScrollLock()`.
+Another reason for refactoring some of these components is to convert them into functional components.
+
+The list of refactored components in this release include:
+
+* **List**, **List Items**, and **List Item** in Peregrine
+* **Category** in RootComponent
+* **Header**, **Checkout**, **MiniCart**, **Image**, and **ProductFullDetail** in Venia
+* Various left drawer components (See PR [#1552][] for the full list of affected components)
 
 ### Summary of breaking changes
 
--   PR [#1169][] includes the following breaking changes:
+This release includes changes that may break projects dependent on PWA Studio and its tools and components.
 
-    -   Removed some public user actions
-    -   Prop type removed in the `CreateAccount` component
-    -   Deleted the `ErrorDisplay` component
-    -   Deleted the `Input` component
+#### `src` to `lib`
 
--   PR [#1078][] includes the following breaking changes:
+The `src` directories in Peregrine and Venia have been renamed to `lib`.
+This enforces the idea that these packages are meant to be consumed as libraries, but
+it also means that you may have to update your import paths in your project.
 
-    -   `SearchBar` component converted into a React hook that uses custom Peregrine hooks
+#### Venia split
 
-### Peregrine changes
+The Venia project is now split into separate `venia-ui` and `venia-concept` packages.
+This paves the way for better extensibility and customizability when it comes to storefront creation.
 
-| Change type | Description                         | PR        |
-| ----------- | ----------------------------------- | --------- |
-| Feature     | New custom React hooks              | [#1078][] |
-| Update      | Upgrade `react-router-dom` to 5.0.0 | [#1063][] |
+The `venia-ui` package contains the templates and components used to create the Venia storefront.
+This package is meant to be used as a component library for custom storefront projects.
 
-### UPWARD changes
+The `venia-concept` package contains the project scripts and configurations used to build and run the actual Venia storefront project.
 
-| Change type | Description                     | PR                   |
-| ----------- | ------------------------------- | -------------------- |
-| Feature     | New resolver added: UrlResolver | [#1058][], [#1175][] |
+This change may also require you to update import paths in your project.
 
-### Venia changes
+See PR [#1499][]
 
-| Change type | Description                                                                 | PR        |
-| ----------- | --------------------------------------------------------------------------- | --------- |
-| Feature     | New SwatchTooltip component                                                 | [#956][]  |
-| Feature     | Focus search input on search icon button click                              | [#1019][] |
-| Update      | Improve the usability of the "Remove item" feature in the MiniCart          | [#882][]  |
-| Tests       | Add component unit tests                                                    | [#1027][] |
-| Bugfix      | Make Create Account and Sign In input style consistent                      | [#1169][] |
-| Bugfix      | Populate **Create Account** fields with correct values after guest checkout | [#1153][] |
-| Bugfix      | Fix expired guest cart errors                                               | [#1150][] |
-| Bugfix      | Fix header logo width style                                                 | [#1070][] |
-| Bugfix      | Disable adding to cart until product options are selected                   | [#1097][] |
-| Bugfix      | Disable update cart button until product options are selected               | [#1125][] |
-| Bugfix      | Update `div` tag with `Fragment`                                            | [#1103][] |
-| Bugfix      | Fix configurable media loading issue                                        | [#1094][] |
-| Bugfix      | Use placeholder in carousel while loading next image                        | [#1085][] |
-| Bugfix      | Add `/` to graphql validation endpoint                                      | [#1045][] |
-| Bugfix      | Fix `makeUrl` for Fastly                                                    | [#1039][] |
-| Bugfix      | Hide menu item from navigation if it is disabled in the Magento admin       | [#1022][] |
-| Bugfix      | Prevent adding to cart during rapid multi-clicking                          | [#910][]  |
+#### New build tools
 
-### Buildpack changes
+This release contains new tools for building, bundling, and configuring storefront projects.
 
-| Change type | Description                           | PR        |
-| ----------- | ------------------------------------- | --------- |
-| Update      | Update `workbox-webpack-plugin` to v4 | [#1102][] |
+**`buildpack` CLI command** - A command line toolkit with subcommands for:
 
-### Misc project changes
+* Generating SSL certificates
+* Creating a `.env` file
+* Loading and validating a project's `.env` file.
 
-| Change type    | Description                             | PR                                         |
-| -------------- | --------------------------------------- | ------------------------------------------ |
-| Update         | Update eslint configuration version     | [#1088][]                                  |
-| Infrastructure | CI/CD and DevOps fixes and improvements | [#1132][], [#1155][], [#1087][], [#1043][] |
-| Infrastructure | GitHub template updates                 | [#1077][], [#1048][]                       |
+See PR [#1498][]
 
-## Documentation changes
+**`configureWebpack()`** - A function that provides an opinionated configuration for Webpack.
+This replaces a large portion of the `webpack.config.js` file in the Venia project in favor of a configurable utility that can be used in other storefront projects.
 
-| Change type   | Description                                                 | PR                                                                          |
-| ------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Documentation | Explainer comments added to the [`venia-upward.yml`][] file | [#1174][]                                                                   |
-| Documentation | New reference docs for Peregrine hooks                      | [#1253][]                                                                   |
-| Documentation | New [Client side caching topic][]                           | [#1152][]                                                                   |
-| Documentation | [Hello UPWARD][] tutorial                                   | [#1080][]                                                                   |
-| Update        | Add explanation to [Magento compatibility table][]          | [#1059][]                                                                   |
-| Feature       | Documentation linting tool added                            | [#1140][], [#1177][]                                                        |
-| Bugfix        | Editorial and minor content fixes                           | [#1171][], [#1167][], [#1158][], [#1139][], [#1109][], [#1020][], [#1000][] |
+**`babel-preset-peregrine`** - A new package that defines a preset for Babel.
+This preset is required for storefronts using Peregrine and Venia-UI components.
+See PR [#1404][].
 
-## Updating from 2.1.0
+## Pull requests merged in this release
 
-The method for updating to 3.0.0 from 2.1.0 depends on how PWA Studio is incorporated into your project.
+| Description                                                                        |    Change type    |    PR     |
+| :--------------------------------------------------------------------------------- | :---------------: | :-------: |
+| \[bug]: Incorrect Order Id Displayed - Replacing functionality                     |    **Bugfix**     | [#1249][] |
+| fix(header): Remove double searchicon at load. Fixes #1273.                        |    **Bugfix**     | [#1274][] |
+| feature: Layered Navigation (Filters)                                              |    **Feature**    | [#797][]  |
+| \[feature]: Toasts                                                                 |    **Feature**    | [#1218][] |
+| Product Out of Stock Message                                                       |       **-**       | [#1229][] |
+| \[BUGFIX] Solved 404 links for 'Edit this page on GitHub'                          |       **-**       | [#1302][] |
+| 1330: Add spacing between image and title on PLP                                   |       **-**       | [#1364][] |
+| enhancement(load): Branded first renders                                           |       **-**       | [#1275][] |
+| Peregrine: Refactoring image carousel component for peregrine                      |   **Refactor**    | [#1268][] |
+| \[docs]: Add federated search to docs                                              | **Documentation** | [#1280][] |
+| bug: fix pagination double fetch                                                   |    **Bugfix**     | [#1381][] |
+| Update Venia setup steps                                                           |       **-**       | [#1427][] |
+| \[doc] add product diagrams                                                        | **Documentation** | [#1360][] |
+| Embed codesandbox examples                                                         |       **-**       | [#1417][] |
+| \[doc] Rewrite Peregrine Overview page                                             | **Documentation** | [#1376][] |
+| MiniCart Refactor                                                                  |   **Refactor**    | [#1266][] |
+| Tutorial page improvements                                                         |       **-**       | [#1292][] |
+| Generate optimized Image URLs using configuration from GraphQL                     |       **-**       | [#1267][] |
+| Product Details Component to Hooks                                                 |       **-**       | [#1240][] |
+| Refactor Header component to function                                              |   **Refactor**    | [#1241][] |
+| bug: Make css-font non render-blocking                                             |       **-**       | [#1196][] |
+| Refactor create-account route to use appShell to get provided requisite properties |   **Refactor**    | [#1430][] |
+| \[feature]: Add height to \`makeUrl\` and enforce crop in middleware if provided   |    **Feature**    | [#1361][] |
+| bug: Fix peregrine watcher and watch:all                                           |    **Bugfix**     | [#1378][] |
+| Improve scroll locking                                                             |       **-**       | [#1449][] |
+| Wrapped Peregrine Context Provider Component                                       |       **-**       | [#1316][] |
+| Category RootComponent Simple Re-Factor                                            |   **Refactor**    | [#1211][] |
+| \[doc] Update usage of UI Component                                                | **Documentation** | [#1462][] |
+| Refactor driver usage to improve Venia portability                                 |   **Refactor**    | [#1217][] |
+| \[doc] usePagination hook docs                                                     | **Documentation** | [#1461][] |
+| \[bug]: Incorrect Order Id Displayed - Replacing functionality                     |    **Bugfix**     | [#1249][] |
+| fix(header): Remove double searchicon at load. Fixes #1273.                        |    **Bugfix**     | [#1274][] |
+| feature: Layered Navigation (Filters)                                              |    **Feature**    | [#797][]  |
+| \[feature]: Toasts                                                                 |    **Feature**    | [#1218][] |
+| Product Out of Stock Message                                                       |       **-**       | [#1229][] |
+| \[BUGFIX] Solved 404 links for 'Edit this page on GitHub'                          |       **-**       | [#1302][] |
+| 1330: Add spacing between image and title on PLP                                   |       **-**       | [#1364][] |
+| enhancement(load): Branded first renders                                           |       **-**       | [#1275][] |
+| Peregrine: Refactoring image carousel component for peregrine                      |   **Refactor**    | [#1268][] |
+| \[docs]: Add federated search to docs                                              | **Documentation** | [#1280][] |
+| bug: fix pagination double fetch                                                   |    **Bugfix**     | [#1381][] |
+| Update Venia setup steps                                                           |       **-**       | [#1427][] |
+| \[doc] add product diagrams                                                        | **Documentation** | [#1360][] |
+| Embed codesandbox examples                                                         |       **-**       | [#1417][] |
+| \[doc] Rewrite Peregrine Overview page                                             | **Documentation** | [#1376][] |
+| MiniCart Refactor                                                                  |   **Refactor**    | [#1266][] |
+| Tutorial page improvements                                                         |       **-**       | [#1292][] |
+| Generate optimized Image URLs using configuration from GraphQL                     |       **-**       | [#1267][] |
+| Product Details Component to Hooks                                                 |       **-**       | [#1240][] |
+| Refactor Header component to function                                              |   **Refactor**    | [#1241][] |
+| bug: Make css-font non render-blocking                                             |       **-**       | [#1196][] |
+| Refactor create-account route to use appShell to get provided requisite properties |   **Refactor**    | [#1430][] |
+| \[feature]: Add height to \`makeUrl\` and enforce crop in middleware if provided   |    **Feature**    | [#1361][] |
+| bug: Fix peregrine watcher and watch:all                                           |    **Bugfix**     | [#1378][] |
+| Improve scroll locking                                                             |       **-**       | [#1449][] |
+| Wrapped Peregrine Context Provider Component                                       |       **-**       | [#1316][] |
+| Category RootComponent Simple Re-Factor                                            |   **Refactor**    | [#1211][] |
+| \[doc] Update usage of UI Component                                                | **Documentation** | [#1462][] |
+| Refactor driver usage to improve Venia portability                                 |   **Refactor**    | [#1217][] |
+| \[doc] usePagination hook docs                                                     | **Documentation** | [#1461][] |
+| \[bug]: Incorrect Order Id Displayed - Replacing functionality                     |    **Bugfix**     | [#1249][] |
+| fix(header): Remove double searchicon at load. Fixes #1273.                        |    **Bugfix**     | [#1274][] |
+| feature: Layered Navigation (Filters)                                              |    **Feature**    | [#797][]  |
+| \[feature]: Toasts                                                                 |    **Feature**    | [#1218][] |
+| Product Out of Stock Message                                                       |       **-**       | [#1229][] |
+| \[BUGFIX] Solved 404 links for 'Edit this page on GitHub'                          |       **-**       | [#1302][] |
+| enhancement(load): Branded first renders                                           |       **-**       | [#1275][] |
+| Peregrine: Refactoring image carousel component for peregrine                      |   **Refactor**    | [#1268][] |
+| \[docs]: Add federated search to docs                                              | **Documentation** | [#1280][] |
+| bug: fix pagination double fetch                                                   |    **Bugfix**     | [#1381][] |
+| Update Venia setup steps                                                           |       **-**       | [#1427][] |
+| \[doc] add product diagrams                                                        | **Documentation** | [#1360][] |
+| Embed codesandbox examples                                                         |       **-**       | [#1417][] |
+| \[doc] Rewrite Peregrine Overview page                                             | **Documentation** | [#1376][] |
+| MiniCart Refactor                                                                  |   **Refactor**    | [#1266][] |
+| Tutorial page improvements                                                         |       **-**       | [#1292][] |
+| Generate optimized Image URLs using configuration from GraphQL                     |       **-**       | [#1267][] |
+| Product Details Component to Hooks                                                 |       **-**       | [#1240][] |
+| Refactor Header component to function                                              |   **Refactor**    | [#1241][] |
+| \[feature]: Add height to \`makeUrl\` and enforce crop in middleware if provided   |    **Feature**    | [#1361][] |
+| Improve scroll locking                                                             |       **-**       | [#1449][] |
+| Category RootComponent Simple Re-Factor                                            |   **Refactor**    | [#1211][] |
+| \[doc] Update usage of UI Component                                                | **Documentation** | [#1462][] |
+| Refactor driver usage to improve Venia portability                                 |   **Refactor**    | [#1217][] |
+| \[doc] usePagination hook docs                                                     | **Documentation** | [#1461][] |
+| \[ux]: Slide filter from side and restrict width                                   |       **-**       | [#1471][] |
+| bug: fix pdp image jutter                                                          |    **Bugfix**     | [#1478][] |
+| Add migration banner                                                               |       **-**       | [#1493][] |
+| MagentoRouteHandler: correct handling of unknown routes                            |       **-**       | [#1495][] |
+| Fixed issue #1549 Signed in customer access to create account page                 |    **Bugfix**     | [#1559][] |
+| \[bug]: Incorrect Order Id Displayed - Replacing functionality                     |    **Bugfix**     | [#1249][] |
+| fix(header): Remove double searchicon at load. Fixes #1273.                        |    **Bugfix**     | [#1274][] |
+| feature: Layered Navigation (Filters)                                              |    **Feature**    | [#797][]  |
+| \[feature]: Toasts                                                                 |    **Feature**    | [#1218][] |
+| Product Out of Stock Message                                                       |       **-**       | [#1229][] |
+| \[BUGFIX] Solved 404 links for 'Edit this page on GitHub'                          |       **-**       | [#1302][] |
+| enhancement(load): Branded first renders                                           |       **-**       | [#1275][] |
+| Bump lodash from 4.17.11 to 4.17.14 in /docker                                     |       **-**       | [#1436][] |
+| \[docs]: Add federated search to docs                                              | **Documentation** | [#1280][] |
+| bug: fix pagination double fetch                                                   |    **Bugfix**     | [#1381][] |
+| Update Venia setup steps                                                           |       **-**       | [#1427][] |
+| \[doc] add product diagrams                                                        | **Documentation** | [#1360][] |
+| Embed codesandbox examples                                                         |       **-**       | [#1417][] |
+| \[doc] Rewrite Peregrine Overview page                                             | **Documentation** | [#1376][] |
+| MiniCart Refactor                                                                  |   **Refactor**    | [#1266][] |
+| Tutorial page improvements                                                         |       **-**       | [#1292][] |
+| Generate optimized Image URLs using configuration from GraphQL                     |       **-**       | [#1267][] |
+| Product Details Component to Hooks                                                 |       **-**       | [#1240][] |
+| Refactor Header component to function                                              |   **Refactor**    | [#1241][] |
+| Refactor create-account route to use appShell to get provided requisite properties |   **Refactor**    | [#1430][] |
+| \[feature]: Add height to \`makeUrl\` and enforce crop in middleware if provided   |    **Feature**    | [#1361][] |
+| Category RootComponent Simple Re-Factor                                            |   **Refactor**    | [#1211][] |
+| \[doc] Update usage of UI Component                                                | **Documentation** | [#1462][] |
+| Refactor driver usage to improve Venia portability                                 |   **Refactor**    | [#1217][] |
+| bug: fix pdp image jutter                                                          |    **Bugfix**     | [#1478][] |
+| V4P2: feat(buildpack): Add Webpack configurator facade                             |       **-**       | [#1498][] |
+| Cart Counter                                                                       |       **-**       | [#1556][] |
+
+## Updating from 3.0.0
+
+The method for updating to 4.0.0 from 3.0.0 depends on how PWA Studio is incorporated into your project.
 The following are common use cases we have identified and how to update the project code.
 
 ### PWA Studio fork
@@ -121,7 +245,7 @@ This is similar to the Git workflow, but without the merging tools Git provides.
 Updating this code involves manually copying updates for the code they use.
 New code may also need to be copied over if the updated code depends on it.
 
-This method can be a chore, and we hope that some of the features in 3.0.0 will help these users migrate to a package management approach.
+This method can be a chore, and we hope that some of the features in 4.0.0 will help these users migrate to a package management approach.
 
 ### NPM packages
 
@@ -130,7 +254,7 @@ This is the easiest way to work with the released versions of PWA Studio.
 
 #### Upgrade method: Update `package.json`
 
-To upgrade to 3.0.0, update the project's `package.json` file and change the dependency version for PWA Studio.
+To upgrade to 4.0.0, update the project's `package.json` file and change the dependency version for PWA Studio.
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 [client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
@@ -138,46 +262,121 @@ To upgrade to 3.0.0, update the project's `package.json` file and change the dep
 [hello upward]: https://pwastudio.io/tutorials/hello-upward/simple-server/
 [magento compatibility table]: https://pwastudio.io/technologies/magento-compatibility/
 [react hooks]: https://reactjs.org/docs/hooks-intro.html
-[#1253]: https://github.com/magento/pwa-studio/pull/1253
-[#1177]: https://github.com/magento/pwa-studio/pull/1177
-[#1058]: https://github.com/magento/pwa-studio/pull/1058
-[#1175]: https://github.com/magento/pwa-studio/pull/1175
-[#1174]: https://github.com/magento/pwa-studio/pull/1174
-[#1171]: https://github.com/magento/pwa-studio/pull/1171
-[#1169]: https://github.com/magento/pwa-studio/pull/1169
-[#1167]: https://github.com/magento/pwa-studio/pull/1167
-[#1158]: https://github.com/magento/pwa-studio/pull/1158
-[#1155]: https://github.com/magento/pwa-studio/pull/1155
-[#1153]: https://github.com/magento/pwa-studio/pull/1153
-[#1152]: https://github.com/magento/pwa-studio/pull/1152
-[#1150]: https://github.com/magento/pwa-studio/pull/1150
-[#1140]: https://github.com/magento/pwa-studio/pull/1140
-[#1139]: https://github.com/magento/pwa-studio/pull/1139
-[#1132]: https://github.com/magento/pwa-studio/pull/1132
-[#1070]: https://github.com/magento/pwa-studio/pull/1070
-[#1125]: https://github.com/magento/pwa-studio/pull/1125
-[#1109]: https://github.com/magento/pwa-studio/pull/1109
-[#1103]: https://github.com/magento/pwa-studio/pull/1103
-[#1102]: https://github.com/magento/pwa-studio/pull/1102
-[#1097]: https://github.com/magento/pwa-studio/pull/1097
-[#1094]: https://github.com/magento/pwa-studio/pull/1094
-[#1088]: https://github.com/magento/pwa-studio/pull/1088
-[#1087]: https://github.com/magento/pwa-studio/pull/1087
-[#1085]: https://github.com/magento/pwa-studio/pull/1085
-[#1080]: https://github.com/magento/pwa-studio/pull/1080
-[#1077]: https://github.com/magento/pwa-studio/pull/1077
-[#1063]: https://github.com/magento/pwa-studio/pull/1063
-[#1059]: https://github.com/magento/pwa-studio/pull/1059
-[#1048]: https://github.com/magento/pwa-studio/pull/1048
-[#1045]: https://github.com/magento/pwa-studio/pull/1045
-[#1039]: https://github.com/magento/pwa-studio/pull/1039
-[#1027]: https://github.com/magento/pwa-studio/pull/1027
-[#1022]: https://github.com/magento/pwa-studio/pull/1022
-[#1020]: https://github.com/magento/pwa-studio/pull/1020
-[#1019]: https://github.com/magento/pwa-studio/pull/1019
-[#1000]: https://github.com/magento/pwa-studio/pull/1000
-[#956]: https://github.com/magento/pwa-studio/pull/956
-[#910]: https://github.com/magento/pwa-studio/pull/910
-[#882]: https://github.com/magento/pwa-studio/pull/882
-[#1078]: https://github.com/magento/pwa-studio/pull/1078
-[#1043]: https://github.com/magento/pwa-studio/pull/1043
+
+[#1249]: https://github.com/magento/pwa-studio/pull/1249
+[#1274]: https://github.com/magento/pwa-studio/pull/1274
+[#797]: https://github.com/magento/pwa-studio/pull/797
+[#1218]: https://github.com/magento/pwa-studio/pull/1218
+[#1229]: https://github.com/magento/pwa-studio/pull/1229
+[#1302]: https://github.com/magento/pwa-studio/pull/1302
+[#1364]: https://github.com/magento/pwa-studio/pull/1364
+[#1275]: https://github.com/magento/pwa-studio/pull/1275
+[#1268]: https://github.com/magento/pwa-studio/pull/1268
+[#1280]: https://github.com/magento/pwa-studio/pull/1280
+[#1381]: https://github.com/magento/pwa-studio/pull/1381
+[#1427]: https://github.com/magento/pwa-studio/pull/1427
+[#1360]: https://github.com/magento/pwa-studio/pull/1360
+[#1417]: https://github.com/magento/pwa-studio/pull/1417
+[#1376]: https://github.com/magento/pwa-studio/pull/1376
+[#1266]: https://github.com/magento/pwa-studio/pull/1266
+[#1292]: https://github.com/magento/pwa-studio/pull/1292
+[#1267]: https://github.com/magento/pwa-studio/pull/1267
+[#1240]: https://github.com/magento/pwa-studio/pull/1240
+[#1241]: https://github.com/magento/pwa-studio/pull/1241
+[#1196]: https://github.com/magento/pwa-studio/pull/1196
+[#1430]: https://github.com/magento/pwa-studio/pull/1430
+[#1361]: https://github.com/magento/pwa-studio/pull/1361
+[#1378]: https://github.com/magento/pwa-studio/pull/1378
+[#1449]: https://github.com/magento/pwa-studio/pull/1449
+[#1316]: https://github.com/magento/pwa-studio/pull/1316
+[#1211]: https://github.com/magento/pwa-studio/pull/1211
+[#1462]: https://github.com/magento/pwa-studio/pull/1462
+[#1217]: https://github.com/magento/pwa-studio/pull/1217
+[#1461]: https://github.com/magento/pwa-studio/pull/1461
+[#1249]: https://github.com/magento/pwa-studio/pull/1249
+[#1274]: https://github.com/magento/pwa-studio/pull/1274
+[#797]: https://github.com/magento/pwa-studio/pull/797
+[#1218]: https://github.com/magento/pwa-studio/pull/1218
+[#1229]: https://github.com/magento/pwa-studio/pull/1229
+[#1302]: https://github.com/magento/pwa-studio/pull/1302
+[#1364]: https://github.com/magento/pwa-studio/pull/1364
+[#1275]: https://github.com/magento/pwa-studio/pull/1275
+[#1268]: https://github.com/magento/pwa-studio/pull/1268
+[#1280]: https://github.com/magento/pwa-studio/pull/1280
+[#1381]: https://github.com/magento/pwa-studio/pull/1381
+[#1427]: https://github.com/magento/pwa-studio/pull/1427
+[#1360]: https://github.com/magento/pwa-studio/pull/1360
+[#1417]: https://github.com/magento/pwa-studio/pull/1417
+[#1376]: https://github.com/magento/pwa-studio/pull/1376
+[#1266]: https://github.com/magento/pwa-studio/pull/1266
+[#1292]: https://github.com/magento/pwa-studio/pull/1292
+[#1267]: https://github.com/magento/pwa-studio/pull/1267
+[#1240]: https://github.com/magento/pwa-studio/pull/1240
+[#1241]: https://github.com/magento/pwa-studio/pull/1241
+[#1196]: https://github.com/magento/pwa-studio/pull/1196
+[#1430]: https://github.com/magento/pwa-studio/pull/1430
+[#1361]: https://github.com/magento/pwa-studio/pull/1361
+[#1378]: https://github.com/magento/pwa-studio/pull/1378
+[#1449]: https://github.com/magento/pwa-studio/pull/1449
+[#1316]: https://github.com/magento/pwa-studio/pull/1316
+[#1211]: https://github.com/magento/pwa-studio/pull/1211
+[#1462]: https://github.com/magento/pwa-studio/pull/1462
+[#1217]: https://github.com/magento/pwa-studio/pull/1217
+[#1461]: https://github.com/magento/pwa-studio/pull/1461
+[#1249]: https://github.com/magento/pwa-studio/pull/1249
+[#1274]: https://github.com/magento/pwa-studio/pull/1274
+[#797]: https://github.com/magento/pwa-studio/pull/797
+[#1218]: https://github.com/magento/pwa-studio/pull/1218
+[#1229]: https://github.com/magento/pwa-studio/pull/1229
+[#1302]: https://github.com/magento/pwa-studio/pull/1302
+[#1275]: https://github.com/magento/pwa-studio/pull/1275
+[#1268]: https://github.com/magento/pwa-studio/pull/1268
+[#1280]: https://github.com/magento/pwa-studio/pull/1280
+[#1381]: https://github.com/magento/pwa-studio/pull/1381
+[#1427]: https://github.com/magento/pwa-studio/pull/1427
+[#1360]: https://github.com/magento/pwa-studio/pull/1360
+[#1417]: https://github.com/magento/pwa-studio/pull/1417
+[#1376]: https://github.com/magento/pwa-studio/pull/1376
+[#1266]: https://github.com/magento/pwa-studio/pull/1266
+[#1292]: https://github.com/magento/pwa-studio/pull/1292
+[#1267]: https://github.com/magento/pwa-studio/pull/1267
+[#1240]: https://github.com/magento/pwa-studio/pull/1240
+[#1241]: https://github.com/magento/pwa-studio/pull/1241
+[#1361]: https://github.com/magento/pwa-studio/pull/1361
+[#1449]: https://github.com/magento/pwa-studio/pull/1449
+[#1211]: https://github.com/magento/pwa-studio/pull/1211
+[#1462]: https://github.com/magento/pwa-studio/pull/1462
+[#1217]: https://github.com/magento/pwa-studio/pull/1217
+[#1461]: https://github.com/magento/pwa-studio/pull/1461
+[#1471]: https://github.com/magento/pwa-studio/pull/1471
+[#1478]: https://github.com/magento/pwa-studio/pull/1478
+[#1493]: https://github.com/magento/pwa-studio/pull/1493
+[#1495]: https://github.com/magento/pwa-studio/pull/1495
+[#1559]: https://github.com/magento/pwa-studio/pull/1559
+[#1249]: https://github.com/magento/pwa-studio/pull/1249
+[#1274]: https://github.com/magento/pwa-studio/pull/1274
+[#797]: https://github.com/magento/pwa-studio/pull/797
+[#1218]: https://github.com/magento/pwa-studio/pull/1218
+[#1229]: https://github.com/magento/pwa-studio/pull/1229
+[#1302]: https://github.com/magento/pwa-studio/pull/1302
+[#1275]: https://github.com/magento/pwa-studio/pull/1275
+[#1436]: https://github.com/magento/pwa-studio/pull/1436
+[#1280]: https://github.com/magento/pwa-studio/pull/1280
+[#1381]: https://github.com/magento/pwa-studio/pull/1381
+[#1427]: https://github.com/magento/pwa-studio/pull/1427
+[#1360]: https://github.com/magento/pwa-studio/pull/1360
+[#1417]: https://github.com/magento/pwa-studio/pull/1417
+[#1376]: https://github.com/magento/pwa-studio/pull/1376
+[#1266]: https://github.com/magento/pwa-studio/pull/1266
+[#1292]: https://github.com/magento/pwa-studio/pull/1292
+[#1267]: https://github.com/magento/pwa-studio/pull/1267
+[#1240]: https://github.com/magento/pwa-studio/pull/1240
+[#1241]: https://github.com/magento/pwa-studio/pull/1241
+[#1430]: https://github.com/magento/pwa-studio/pull/1430
+[#1361]: https://github.com/magento/pwa-studio/pull/1361
+[#1211]: https://github.com/magento/pwa-studio/pull/1211
+[#1462]: https://github.com/magento/pwa-studio/pull/1462
+[#1217]: https://github.com/magento/pwa-studio/pull/1217
+[#1478]: https://github.com/magento/pwa-studio/pull/1478
+[#1498]: https://github.com/magento/pwa-studio/pull/1498
+[#1556]: https://github.com/magento/pwa-studio/pull/1556
