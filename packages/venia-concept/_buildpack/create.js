@@ -1,22 +1,8 @@
 const { resolve } = require('path');
-function createProjectFromVenia(fse) {
-    const gitIgnoredGlob = fse
-        .readFileSync(resolve(__dirname, '../.gitignore'), 'utf-8')
-        .trim()
-        .split('\n')
-        .map(line => {
-            try {
-                if (
-                    fse.statSync(resolve(__dirname, '..', line)).isDirectory()
-                ) {
-                    return line + '{/*,/**/*}';
-                }
-            } catch (e) {}
-            return line;
-        })
-        .join(',');
-    const allIgnoredGlob = `{CHANGELOG*,LICENSE*,.buildpack/*,${gitIgnoredGlob}}`;
 
+const isDebugging = () => !!process.env.DEBUG_PROJECT_CREATION;
+
+function createProjectFromVenia({ fs }) {
     const toCopyFromPackageJson = [
         'main',
         'browser',
@@ -44,7 +30,7 @@ function createProjectFromVenia(fse) {
     ];
     return {
         after({ options }) {
-            fse.writeFileSync(
+            fs.outputFileSync(
                 resolve(options.directory, 'babel.config.js'),
                 "module.exports = { presets: ['@magento/peregrine'] };\n",
                 'utf8'
@@ -56,7 +42,7 @@ function createProjectFromVenia(fse) {
                 targetPath,
                 options: { name, author, npmClient }
             }) => {
-                const pkgTpt = fse.readJsonSync(path);
+                const pkgTpt = fs.readJsonSync(path);
                 const pkg = {
                     name,
                     private: true,
@@ -71,37 +57,33 @@ function createProjectFromVenia(fse) {
                     pkg[prop] = pkgTpt[prop];
                 });
 
-                const npmCli = process.env.DEBUG_PROJECT_CREATION
-                    ? 'yarn'
-                    : npmClient;
+                const npmCli = isDebugging() ? 'yarn' : npmClient;
 
                 const toPackageScript =
                     npmCli === 'yarn'
-                        ? name => pkgTpt.scripts[name]
-                        : name =>
-                              pkgTpt.scripts[name].replace(
-                                  /yarn run/g,
-                                  'npm run'
-                              );
+                        ? script => script
+                        : script =>
+                              script && script.replace(/yarn run/g, 'npm run');
                 scriptsToCopy.forEach(name => {
-                    pkg.scripts[name] = toPackageScript(name);
+                    pkg.scripts[name] = toPackageScript(pkg.scripts[name]);
                 });
 
-                pkg.scripts.build =
-                    'yarn run clean && yarn run validate-queries && yarn run build:prod';
-                if (process.env.DEBUG_PROJECT_CREATION) {
+                pkg.scripts.build = toPackageScript(
+                    'yarn run clean && yarn run validate-queries && yarn run build:prod'
+                );
+                if (isDebugging()) {
                     console.warn(
-                        'process.env.DEBUG_PROJECT_CREATION is true, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'
+                        'Debugging Venia _buildpack/create.js, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'
                     );
                     const workspaceDir = resolve(__dirname, '../../');
-                    fse.readdirSync(workspaceDir).forEach(packageDir => {
+                    fs.readdirSync(workspaceDir).forEach(packageDir => {
                         const packagePath = resolve(workspaceDir, packageDir);
-                        if (!fse.statSync(packagePath).isDirectory()) {
+                        if (!fs.statSync(packagePath).isDirectory()) {
                             return;
                         }
                         let name;
                         try {
-                            name = fse.readJsonSync(
+                            name = fs.readJsonSync(
                                 resolve(packagePath, 'package.json')
                             ).name;
                         } catch (e) {}
@@ -134,7 +116,7 @@ function createProjectFromVenia(fse) {
                     });
                 }
 
-                fse.writeJsonSync(targetPath, pkg, {
+                fs.outputJsonSync(targetPath, pkg, {
                     spaces: 2
                 });
             },
@@ -143,31 +125,26 @@ function createProjectFromVenia(fse) {
                 targetPath,
                 options: { npmClient }
             }) => {
-                const npmCli = process.env.DEBUG_PROJECT_CREATION
-                    ? 'yarn'
-                    : npmClient;
+                const npmCli = isDebugging() ? 'yarn' : npmClient;
                 if (npmCli === 'npm') {
-                    fse.copyFileSync(path, targetPath);
+                    fs.copyFileSync(path, targetPath);
                 }
             },
             'yarn.lock': ({ path, targetPath, options: { npmClient } }) => {
-                const npmCli = process.env.DEBUG_PROJECT_CREATION
-                    ? 'yarn'
-                    : npmClient;
-                if (npmClient === 'yarn') {
-                    fse.copyFileSync(path, targetPath);
+                const npmCli = isDebugging() ? 'yarn' : npmClient;
+                if (npmCli === 'yarn') {
+                    fs.copyFileSync(path, targetPath);
                 }
             },
-            [allIgnoredGlob]: () => {
-                return;
-            },
+            // additional ignores
+            '{CHANGELOG*,LICENSE*,_buildpack/*}': () => null,
             '**/*': ({ stats, path, targetPath }) => {
                 if (stats.isDirectory()) {
-                    fse.ensureDirSync(targetPath);
+                    fs.ensureDirSync(targetPath);
                 } else {
-                    fse.copyFileSync(path, targetPath);
+                    fs.copyFileSync(path, targetPath);
                 }
-            }
+            },
         }
     };
 }

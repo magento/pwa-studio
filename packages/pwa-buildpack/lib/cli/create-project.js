@@ -124,7 +124,6 @@ module.exports.builder = yargs =>
                     'URL of the Magento 2.3 instance to use as a backend. Will be added to `.env` file.'
             }
         })
-        // .demandOption('template')
         .group(['name', 'author'], 'Metadata:')
         .options({
             name: {
