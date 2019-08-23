@@ -11,6 +11,8 @@ jest.mock('react', () => {
 
     return Object.assign(React, { useState: jest.fn(React.useState) });
 });
+
+jest.mock('../../ProductOptions');
 jest.mock('../../../classify');
 
 const mockConfigurableProduct = {
