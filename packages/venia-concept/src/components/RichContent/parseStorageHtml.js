@@ -1,3 +1,12 @@
+import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator';
+import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
+
+
+const pageBuilderConfigAggregators = {
+    row: rowConfigAggregator,
+    image: imageConfigAggregator,
+};
+
 const createContentTypeObject = (contentTypeStr) => {
     return {
         contentType: contentTypeStr,
@@ -45,22 +54,6 @@ const walk = (rootEl, contentTypeStructureObj) => {
     }
 
     return contentTypeStructureObj;
-};
-
-const pageBuilderConfigAggregators = {
-    row(node) {
-        return {
-            appearance: node.getAttribute("data-appearance"),
-            enableParallax: node.childNodes[0].getAttribute("data-enable-parallax"),
-        }
-    },
-    image(node) {
-        return {
-            appearance: node.getAttribute("data-appearance"),
-            desktopImage: node.childNodes[0].getAttribute("src"),
-            mobileImage: node.childNodes[1].getAttribute("src"),
-        }
-    }
 };
 
 /**
