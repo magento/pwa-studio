@@ -3,15 +3,15 @@ import parseStorageHtml from './parseStorageHtml';
 import Row from './row';
 import Column from './column';
 import ColumnGroup from './columnGroup';
-import Container from './container';
 import Image from './image';
-import GenericElement from './genericElement';
+import Heading from "./heading";
 
-
+// TODO move into configuration
 const ContentTypes = {
     static: {
         row: Row,
         'column-group': ColumnGroup,
+        heading: Heading,
         column: Column,
         image: Image,
     },
@@ -20,24 +20,7 @@ const ContentTypes = {
     }
 };
 
-
-const walk = children =>
-    children.map((child, i) => {
-        return typeof child === 'string' ? (
-            child
-        ) : (
-            <RichContent key={i} data={child} />
-        );
-    });
-
 const RichContent = ({ data, html }) => {
-    if (Array.isArray(data)) {
-        return data.length ? walk(data) : null;
-    } else if (typeof data === 'string') {
-        // TODO - prevent this type check somehow
-        return data;
-    }
-
     const dataNode = data || parseStorageHtml(html);
 
     return dataNode.children.map((node, i) => {
@@ -47,7 +30,7 @@ const RichContent = ({ data, html }) => {
             console.log(`Found static content type for ${node.contentType}`, node);
             return (
                 <StaticContentType key={i} {...node}>
-                    <RichContent data={node.children}/>
+                    <RichContent data={node} />
                 </StaticContentType>
             );
         }
@@ -63,7 +46,7 @@ const RichContent = ({ data, html }) => {
             return (
                 <Suspense fallback={fallback}>
                     <DynamicContentType key={i} {...node}>
-                        <RichContent data={node.children}/>
+                        <RichContent data={node} />
                     </DynamicContentType>
                 </Suspense>
             );

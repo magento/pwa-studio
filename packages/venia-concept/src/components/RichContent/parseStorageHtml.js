@@ -1,9 +1,11 @@
 import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator';
 import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
+import headingConfigAggregator from './PageBuilder/ContentTypes/Heading/configAggregator';
 
 const pageBuilderConfigAggregators = {
     row: rowConfigAggregator,
-    image: imageConfigAggregator
+    image: imageConfigAggregator,
+    heading: headingConfigAggregator
 };
 
 const createContentTypeObject = (type, node) => {
