@@ -88,7 +88,6 @@ const App = props => {
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
-    const navIsOpen = drawer === 'nav';
     const cartIsOpen = drawer === 'cart';
 
     useEffect(() => {
@@ -133,7 +132,7 @@ const App = props => {
                 {renderRoutes()}
             </Main>
             <Mask isActive={overlay} dismiss={closeDrawer} />
-            <Navigation isOpen={navIsOpen} />
+            <Navigation />
             <MiniCart isOpen={cartIsOpen} />
             <ToastContainer />
         </HeadProvider>
