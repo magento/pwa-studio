@@ -315,50 +315,48 @@ test('throws if change defs are invalid', () => {
 });
 
 test('returns configuration object', () => {
-    definitions = {
-        sections: [
-            {
-                name: 'trappings',
-                variables: [
-                    {
-                        type: 'str',
-                        name: 'TRAPPING_MONK'
-                    },
-                    {
-                        type: 'str',
-                        name: 'TRAPPING_ELF'
-                    }
-                ]
-            },
-            {
-                name: 'gewgaws',
-                variables: [
-                    {
-                        type: 'str',
-                        name: 'GEWGAW_PALADIN'
-                    },
-                    {
-                        type: 'str',
-                        name: 'GEWGAW_ROGUE'
-                    }
-                ]
-            }
-        ],
-        changes: []
-    };
     let loadEnvironment;
     jest.isolateModules(() => {
+        definitions = {
+            sections: [
+                {
+                    name: 'trappings',
+                    variables: [
+                        {
+                            type: 'str',
+                            name: 'TRAPPING_MONK'
+                        },
+                        {
+                            type: 'str',
+                            name: 'TRAPPING_ELF'
+                        }
+                    ]
+                },
+                {
+                    name: 'gewgaws',
+                    variables: [
+                        {
+                            type: 'str',
+                            name: 'GEWGAW_PALADIN'
+                        },
+                        {
+                            type: 'str',
+                            name: 'GEWGAW_ROGUE'
+                        }
+                    ]
+                }
+            ],
+            changes: []
+        };
         loadEnvironment = require('../loadEnvironment');
     });
     const party = {
-        NODE_ENV: 'test',
         TRAPPING_MONK: 'level 1',
         TRAPPING_ELF: 'level 2',
         GEWGAW_PALADIN: 'level 3',
-        GEWGAW_ROGUE: 'level 4',
-        MUSTANG_SALLY: 'level a million'
+        GEWGAW_ROGUE: 'level 4'
     };
-    const config = loadEnvironment(party);
+    const config = loadEnvironment({ ...party, NODE_ENV: 'test' });
     expect(config).toMatchObject({
         isProd: false,
         isProduction: false,
@@ -371,20 +369,22 @@ test('returns configuration object', () => {
         monk: 'level 1',
         elf: 'level 2'
     });
-    expect(config.sections('gewgaw', 'mustang')).toMatchObject({
+    expect(config.sections('gewgaw', 'trapping')).toMatchObject({
         gewgaw: {
             paladin: 'level 3',
             rogue: 'level 4'
         },
-        mustang: {
-            sally: 'level a million'
+        trapping: {
+            monk: 'level 1',
+            elf: 'level 2'
         }
     });
-    expect(config.all()).toMatchObject({
+    const all = config.all();
+    expect(all).toMatchObject({
         trappingMonk: 'level 1',
         trappingElf: 'level 2',
         gewgawPaladin: 'level 3',
-        gewgawRogue: 'level 4',
-        mustangSally: 'level a million'
+        gewgawRogue: 'level 4'
     });
+    expect(all).not.toHaveProperty('mustang');
 });

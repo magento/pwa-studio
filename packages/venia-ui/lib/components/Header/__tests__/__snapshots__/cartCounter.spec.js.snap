@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cart counter is not rendered when numItems is not provided 1`] = `null`;
+
+exports[`Cart counter is not rendered when numItems is zero (0) 1`] = `null`;
+
+exports[`Cart counter is rendered correctly when cart contains items 1`] = `
+<span
+  className="a"
+>
+  1
+</span>
+`;
