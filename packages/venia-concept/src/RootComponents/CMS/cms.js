@@ -34,7 +34,7 @@ const CMSPage = props => {
         return (
             <div>
                 <RichContent html={data.cmsPage.content} />
-                <CategoryList title="Shop by category" id={2} />
+                {/*<CategoryList title="Shop by category" id={2} />*/}
             </div>
         );
     }

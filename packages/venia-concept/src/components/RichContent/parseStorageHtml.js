@@ -7,28 +7,12 @@ const pageBuilderConfigAggregators = {
     image: imageConfigAggregator,
 };
 
-const createContentTypeObject = (contentTypeStr) => {
+const createContentTypeObject = (type, node) => {
     return {
-        contentType: contentTypeStr,
+        contentType: type,
+        appearance: node ? node.getAttribute("data-appearance") : null,
         children: [],
     };
-};
-
-const aggregateStyles = (contentTypeConfigObj, node) => {
-    const style = contentTypeConfigObj.style || {};
-    const styleLen = node.style.length;
-
-    // TODO - determine if this string pre-processing is necessary
-    for (let i = 0; i < styleLen; i++) {
-        const domName = node.style[i]
-            .replace(/\-\-/, '') // remove first occurrence of two consecutive hyphens (vendor prefixes)
-            .replace(/\-([a-z])/g, match => match[1].toUpperCase()); // convert kebab-case to camelcase
-        style[domName] = node.style[domName];
-    }
-
-    contentTypeConfigObj.style = style;
-
-    return contentTypeConfigObj;
 };
 
 /**
@@ -53,13 +37,11 @@ const walk = (rootEl, contentTypeStructureObj) => {
         const contentType = currentNode.getAttribute('data-content-type');
 
         if (!contentType) {
-            // TODO - namespace styles onto this object (somehow)!
-            aggregateStyles(contentTypeStructureObj, currentNode);
             currentNode = tree.nextNode();
             continue;
         }
 
-        const props = aggregateStyles(createContentTypeObject(contentType), currentNode);
+        const props = createContentTypeObject(contentType, currentNode);
 
         if (pageBuilderConfigAggregators[contentType]) {
             Object.assign(props, pageBuilderConfigAggregators[contentType](currentNode));
@@ -81,7 +63,7 @@ const parseStorageHtml = htmlStr => {
     const container = document.createElement('div');
     container.innerHTML = htmlStr;
 
-    const stageContentType = createContentTypeObject('stage');
+    const stageContentType = createContentTypeObject('root-container');
 
     return walk(container, stageContentType);
 };
