@@ -1,61 +1,64 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useCallback } from 'react';
+import { bool, func, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 import defaultClasses from './forgotPassword.css';
 
-class ForgotPassword extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            instructions: PropTypes.string
-        }),
-        completePasswordReset: PropTypes.func.isRequired,
-        email: PropTypes.string,
-        initialValues: PropTypes.shape({
-            email: PropTypes.string
-        }),
-        isInProgress: PropTypes.bool,
-        onClose: PropTypes.func.isRequired,
-        resetPassword: PropTypes.func.isRequired
-    };
+const INSTRUCTIONS = 'Enter your email below to receive a password reset link.';
 
-    handleFormSubmit = async ({ email }) => {
-        this.props.resetPassword({ email });
-    };
+const ForgotPassword = props => {
+    const {
+        completePasswordReset,
+        email,
+        initialValues,
+        isInProgress,
+        resetPassword,
+        onClose
+    } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    handleContinue = () => {
-        const { completePasswordReset, email, onClose } = this.props;
+    const handleFormSubmit = useCallback(
+        ({ email }) => {
+            resetPassword({ email });
+        },
+        [resetPassword]
+    );
 
+    const handleContinue = useCallback(() => {
         completePasswordReset({ email });
         onClose();
-    };
+    }, [completePasswordReset, email, onClose]);
 
-    render() {
-        const { classes, email, initialValues, isInProgress } = this.props;
+    const children = isInProgress ? (
+        <FormSubmissionSuccessful email={email} onContinue={handleContinue} />
+    ) : (
+        <Fragment>
+            <p className={classes.instructions}>{INSTRUCTIONS}</p>
+            <ForgotPasswordForm
+                initialValues={initialValues}
+                onSubmit={handleFormSubmit}
+            />
+        </Fragment>
+    );
 
-        if (isInProgress) {
-            return (
-                <FormSubmissionSuccessful
-                    email={email}
-                    onContinue={this.handleContinue}
-                />
-            );
-        }
+    return <div className={classes.root}>{children}</div>;
+};
 
-        return (
-            <Fragment>
-                <p className={classes.instructions}>
-                    Enter your email below to receive a password reset link
-                </p>
-                <ForgotPasswordForm
-                    initialValues={initialValues}
-                    onSubmit={this.handleFormSubmit}
-                />
-            </Fragment>
-        );
-    }
-}
+export default ForgotPassword;
 
-export default classify(defaultClasses)(ForgotPassword);
+ForgotPassword.propTypes = {
+    classes: shape({
+        instructions: string,
+        root: string
+    }),
+    completePasswordReset: func.isRequired,
+    email: string,
+    initialValues: shape({
+        email: string
+    }),
+    isInProgress: bool,
+    onClose: func.isRequired,
+    resetPassword: func.isRequired
+};

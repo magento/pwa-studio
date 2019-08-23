@@ -3,56 +3,6 @@ import actions from '../actions';
 const MOCK_PAYLOAD = 'Unit Test Payload';
 const ERROR = new Error('Unit Test');
 
-describe('getAllCategories', () => {
-    const PREFIX = 'CATALOG/GET_ALL_CATEGORIES';
-
-    describe('REQUEST', () => {
-        const EXPECTED_NAME = `${PREFIX}/REQUEST`;
-
-        test('it returns the proper action type', () => {
-            expect(actions.getAllCategories.request.toString()).toBe(
-                EXPECTED_NAME
-            );
-        });
-
-        test('it returns a proper action object', () => {
-            expect(actions.getAllCategories.request(MOCK_PAYLOAD)).toEqual({
-                type: EXPECTED_NAME,
-                payload: MOCK_PAYLOAD
-            });
-
-            expect(actions.getAllCategories.request(ERROR)).toEqual({
-                type: EXPECTED_NAME,
-                payload: ERROR,
-                error: true
-            });
-        });
-    });
-
-    describe('RECEIVE', () => {
-        const EXPECTED_NAME = `${PREFIX}/RECEIVE`;
-
-        test('it returns the proper action type', () => {
-            expect(actions.getAllCategories.receive.toString()).toBe(
-                EXPECTED_NAME
-            );
-        });
-
-        test('it returns a proper action object', () => {
-            expect(actions.getAllCategories.receive(MOCK_PAYLOAD)).toEqual({
-                type: EXPECTED_NAME,
-                payload: MOCK_PAYLOAD
-            });
-
-            expect(actions.getAllCategories.receive(ERROR)).toEqual({
-                type: EXPECTED_NAME,
-                payload: ERROR,
-                error: true
-            });
-        });
-    });
-});
-
 describe('setCurrentPage', () => {
     const PREFIX = 'CATALOG/SET_CURRENT_PAGE';
 

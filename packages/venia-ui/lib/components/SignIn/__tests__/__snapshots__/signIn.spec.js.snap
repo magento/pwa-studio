@@ -1,17 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`displays an error message if there is a sign in error 1`] = `
-<div>
+<div
+  className="root"
+>
   <form
+    className="form"
     onReset={[Function]}
     onSubmit={[Function]}
   >
-    <div>
-      <span>
-        <span />
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
         Email
       </span>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -19,26 +29,42 @@ exports[`displays an error message if there is a sign in error 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="email"
+            className="input"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <span>
-        <span />
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
         Password
       </span>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -46,9 +72,12 @@ exports[`displays an error message if there is a sign in error 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="current-password"
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -56,56 +85,66 @@ exports[`displays an error message if there is a sign in error 1`] = `
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <button
-        type="submit"
-      >
-        <span>
-          Sign In
-        </span>
-      </button>
-    </div>
-    <div>
+    <div
+      className="signInError"
+    >
       The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
     </div>
-    <button
-      onClick={[Function]}
-      type="button"
+    <div
+      className="signInButton"
     >
-      Forgot password?
-    </button>
+      <i />
+    </div>
   </form>
-  <div />
-  <div>
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      <span>
-        Create an Account
-      </span>
-    </button>
+  <div
+    className="forgotPasswordButton"
+  >
+    <i />
+  </div>
+  <div
+    className="signInDivider"
+  />
+  <div
+    className="createAccountButton"
+  >
+    <i />
   </div>
 </div>
 `;
 
 exports[`renders correctly 1`] = `
-<div>
+<div
+  className="root"
+>
   <form
+    className="form"
     onReset={[Function]}
     onSubmit={[Function]}
   >
-    <div>
-      <span>
-        <span />
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
         Email
       </span>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -113,26 +152,42 @@ exports[`renders correctly 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="email"
+            className="input"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <span>
-        <span />
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
         Password
       </span>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -140,9 +195,12 @@ exports[`renders correctly 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="current-password"
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -150,38 +208,38 @@ exports[`renders correctly 1`] = `
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <button
-        type="submit"
-      >
-        <span>
-          Sign In
-        </span>
-      </button>
-    </div>
-    <div />
-    <button
-      onClick={[Function]}
-      type="button"
+    <div
+      className="signInError"
+    />
+    <div
+      className="signInButton"
     >
-      Forgot password?
-    </button>
+      <i />
+    </div>
   </form>
-  <div />
-  <div>
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      <span>
-        Create an Account
-      </span>
-    </button>
+  <div
+    className="forgotPasswordButton"
+  >
+    <i />
+  </div>
+  <div
+    className="signInDivider"
+  />
+  <div
+    className="createAccountButton"
+  >
+    <i />
   </div>
 </div>
 `;
