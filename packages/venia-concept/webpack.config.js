@@ -1,4 +1,5 @@
 const { configureWebpack } = require('@magento/pwa-buildpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
     const config = await configureWebpack({
@@ -43,6 +44,14 @@ module.exports = async env => {
     // Since it's a regular Webpack configuration, the object supports the
     // `module.noParse` option in Webpack, documented here:
     // https://webpack.js.org/configuration/module/#modulenoparse
+    config.plugins = [
+        ...config.plugins,
+        new HTMLWebpackPlugin({
+            title: 'Home Page - Venia',
+            filename: 'index.html',
+            template: './template.html'
+        })
+    ];
 
     return config;
 };
