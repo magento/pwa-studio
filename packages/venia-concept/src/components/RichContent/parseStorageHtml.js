@@ -1,81 +1,14 @@
-const attrToProp = {
-    class: 'className',
-    allowfullscreen: 'allowFullScreen',
-    frameborder: 'frameBorder'
-};
-
-let smallScreen;
-
-/**
- * @param {HTMLElement} htmlEl
- * @returns {Object}
- */
-const serializeElement = htmlEl => {
-    if (htmlEl.nodeType === Node.TEXT_NODE) {
-        return htmlEl.textContent;
-    }
-
-    const element = {
-        children: [],
-        elements: {},
-        domAttributes: {},
-        dataAttributes: {},
-        tagName: htmlEl.tagName.toLowerCase(),
-    };
-
-    element.domAttributes.className = '';
-
-    for (const attr of htmlEl.attributes) {
-        if (attrToProp.hasOwnProperty(attr.name)) {
-            element.domAttributes[attrToProp[attr.name]] = attr.value;
-        } else if (attr.name !== 'style') {
-            element.domAttributes[attr.name] = attr.value;
-        }
-    }
-
-    Object.assign(element.dataAttributes, htmlEl.dataset);
-
-    if (element.dataAttributes.contentType) {
-        element.type = element.dataAttributes.contentType;
-    }
-
-    element.element = element;
-
-    const style = (element.domAttributes.style = {});
-    const styleLen = htmlEl.style.length;
-    for (let i = 0; i < styleLen; i++) {
-        const domName = htmlEl.style[i]
-            .replace(/\-\-/, '') // remove first occurrence of two consecutive hyphens (??)
-            .replace(/\-([a-z])/g, match => match[1].toUpperCase()); // convert kebab-case to camelcase
-        style[domName] = htmlEl.style[domName];
-    }
-
-    if (element.dataAttributes.backgroundImages) {
-        const bgImgs = JSON.parse(
-            element.dataAttributes.backgroundImages.replace(/\\"/g, '"')
-        );
-        let backgroundImage = bgImgs.desktop_image || bgImgs.mobile_image;
-        smallScreen = smallScreen || window.matchMedia('(max-width: 768px)');
-        if (smallScreen.matches && bgImgs.mobile_image) {
-            backgroundImage = bgImgs.mobile_image;
-        }
-        if (backgroundImage) {
-            style.backgroundImage = `url('${backgroundImage}')`;
-        }
-    }
-
-    return element;
-};
-
 /**
  * @param {HTMLElement} rootEl
  * @returns {Object}
  */
-const walk = (rootEl) => {
-    const elementMap = new WeakMap();
-
-    const root = serializeElement(rootEl);
-    elementMap.set(rootEl, root.element);
+const walk = (rootEl, treeArray) => {
+    if (!treeArray) {
+        treeArray = {
+            contentType: "stage",
+            children: []
+        };
+    }
 
     const tree = document.createTreeWalker(
         rootEl,
@@ -84,42 +17,44 @@ const walk = (rootEl) => {
 
     let currentNode = tree.nextNode();
     while (currentNode) {
-        const isElementNode = currentNode.nodeType === Node.ELEMENT_NODE;
-        let element = serializeElement(currentNode);
-
-        elementMap.set(currentNode, element);
-
-        const parentElement = elementMap.get(currentNode.parentNode);
-        if (!parentElement) {
-            throw new Error(
-                'parentElement not found for parent node of',
-                currentNode
-            );
-        }
-
-        const isContentTypeContainer = !!element.type;
-
-        if (isElementNode) {
-            const elementName = element.dataAttributes.element;
-
-            if (isContentTypeContainer) {
-                element = walk(currentNode);
-            } else if (elementName) {
-                if (!root.elements[elementName]) {
-                    root.elements[elementName] = [];
+        if (currentNode.nodeType === Node.ELEMENT_NODE) {
+            const contentType = currentNode.getAttribute('data-content-type');
+            if (contentType) {
+                let props = {
+                    type: contentType,
+                    children: [],
+                };
+                if (pageBuilderVisitors[contentType]) {
+                    props = Object.assign(props, pageBuilderVisitors[contentType](currentNode));
                 }
-
-                root.elements[elementName].push(element);
+                treeArray.children.push(props);
+                walk(currentNode, props);
+                currentNode = tree.nextSibling();
+            } else {
+                currentNode = tree.nextNode();
             }
+        } else {
+            currentNode = tree.nextNode();
         }
-
-        parentElement.children.push(element);
-
-        // assign next node
-        currentNode = isContentTypeContainer ? tree.nextSibling() : tree.nextNode();
     }
 
-    return root;
+    return treeArray;
+};
+
+const pageBuilderVisitors = {
+    row(node) {
+        return {
+            appearance: node.getAttribute("data-appearance"),
+            enableParallax: node.childNodes[0].getAttribute("data-enable-parallax"),
+        }
+    },
+    image(node) {
+        return {
+            appearance: node.getAttribute("data-appearance"),
+            desktopImage: node.childNodes[0].getAttribute("src"),
+            mobileImage: node.childNodes[1].getAttribute("src"),
+        }
+    }
 };
 
 /**

@@ -30,37 +30,18 @@ const RichContent = ({ data, html }) => {
 
     const dataNode = data || parseStorageHtml(html);
 
-    const StaticContentType = ContentTypes.static[dataNode.type];
-
-    if (StaticContentType) {
+    return dataNode.children.map((node) => {
         return (
-            <StaticContentType data={dataNode}>
-                {dataNode.children.length ? walk(dataNode.children) : null}
-            </StaticContentType>
+            <div>
+                <div>{node.type}</div>
+                <div>{node.children.map((child) => {
+                    return (
+                        <div>{child.type}</div>
+                    )
+                })}</div>
+            </div>
         );
-    }
-
-    const DynamicContentType = ContentTypes.dynamic[dataNode.type];
-
-    if (DynamicContentType) {
-        const fallback = html ? (
-            <div dangerouslySetInnerHTML={{ __html: html }} />
-        ) : null;
-
-        return (
-            <Suspense fallback={fallback}>
-                <DynamicContentType data={dataNode}>
-                    {dataNode.children.length ? walk(dataNode.children) : null}
-                </DynamicContentType>
-            </Suspense>
-        );
-    }
-
-    return (
-        <GenericElement data={dataNode}>
-            {dataNode.children.length ? walk(dataNode.children) : null}
-        </GenericElement>
-    );
+    })
 };
 
 export default RichContent;
