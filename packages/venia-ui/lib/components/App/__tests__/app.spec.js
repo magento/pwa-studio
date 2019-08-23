@@ -1,11 +1,15 @@
 import React from 'react';
-import { createTestInstance, ToastContextProvider } from '@magento/peregrine';
+import { createTestInstance } from '@magento/peregrine';
 
 import Main from '../../Main';
 import Mask from '../../Mask';
 import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
 
+jest.mock('../../Head', () => ({
+    HeadProvider: ({ children }) => <div>{children}</div>,
+    Title: () => 'Title'
+}));
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
@@ -49,7 +53,7 @@ jest.doMock('../renderRoutes', () => () => <Routes />);
 // require app after mock is complete
 const App = require('../app').default;
 
-const getAndConfirmProps = (parent, type, props) => {
+const getAndConfirmProps = (parent, type, props = {}) => {
     const instance = parent.findByType(type);
     expect(instance.props).toMatchObject(props);
     return instance;
@@ -69,13 +73,9 @@ test('renders a full page with onlineIndicator and routes', () => {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
-    getAndConfirmProps(root, Navigation, { isOpen: false });
+    getAndConfirmProps(root, Navigation);
     getAndConfirmProps(root, MiniCart, { isOpen: false });
 
     const main = getAndConfirmProps(root, Main, {
@@ -112,11 +112,7 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
         unhandledErrors: []
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
     // hasBeenOffline means onlineIndicator
     getAndConfirmProps(root, Main, { isOnline: true });
 });
@@ -135,17 +131,13 @@ test('displays open nav or drawer', () => {
     });
 
     const { root: openNav } = createTestInstance(
-        <ToastContextProvider>
-            <App {...propsWithDrawer('nav')} />
-        </ToastContextProvider>
+        <App {...propsWithDrawer('nav')} />
     );
 
-    getAndConfirmProps(openNav, Navigation, { isOpen: true });
+    getAndConfirmProps(openNav, Navigation);
 
     const { root: openCart } = createTestInstance(
-        <ToastContextProvider>
-            <App {...propsWithDrawer('cart')} />
-        </ToastContextProvider>
+        <App {...propsWithDrawer('cart')} />
     );
 
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
@@ -165,11 +157,7 @@ test('renders with renderErrors', () => {
         renderError: new Error('A render error!')
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
     expect(root).toMatchSnapshot();
 });
@@ -188,11 +176,7 @@ test('renders with unhandledErrors', () => {
         renderError: null
     };
 
-    const { root } = createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    const { root } = createTestInstance(<App {...appProps} />);
 
     expect(root).toMatchSnapshot();
 });
@@ -211,11 +195,7 @@ test('adds no toasts when no errors are present', () => {
         renderError: null
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).not.toHaveBeenCalled();
 });
@@ -234,11 +214,7 @@ test('adds toasts for render errors', () => {
         renderError: new Error('A render error!')
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).toHaveBeenCalledWith({
         icon: expect.any(Object),
@@ -263,11 +239,7 @@ test('adds toasts for unhandled errors', () => {
         renderError: null
     };
 
-    createTestInstance(
-        <ToastContextProvider>
-            <App {...appProps} />
-        </ToastContextProvider>
-    );
+    createTestInstance(<App {...appProps} />);
 
     expect(mockAddToast).toHaveBeenCalledWith({
         icon: expect.any(Object),

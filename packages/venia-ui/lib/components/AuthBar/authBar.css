@@ -1,0 +1,9 @@
+.root {
+    align-items: center;
+    background-color: white;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    height: 5.5rem;
+    justify-items: center;
+}
