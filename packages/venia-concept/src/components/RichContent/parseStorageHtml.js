@@ -2,12 +2,20 @@ import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator
 import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
 import headingConfigAggregator from './PageBuilder/ContentTypes/Heading/configAggregator';
 
+// TODO move to configuration
 const pageBuilderConfigAggregators = {
     row: rowConfigAggregator,
     image: imageConfigAggregator,
     heading: headingConfigAggregator
 };
 
+/**
+ * Create a basic object representing a content type in our tree
+ *
+ * @param type
+ * @param node
+ * @returns {{appearance: any, children: Array, contentType: *}}
+ */
 const createContentTypeObject = (type, node) => {
     return {
         contentType: type,
@@ -17,7 +25,9 @@ const createContentTypeObject = (type, node) => {
 };
 
 /**
- * @param {HTMLElement} rootEl
+ * Walk over tree nodes extracting each content types configuration
+ *
+ * @param {Node} rootEl
  * @param {Object} contentTypeStructureObj
  * @returns {Object}
  */
@@ -60,6 +70,8 @@ const walk = (rootEl, contentTypeStructureObj) => {
 };
 
 /**
+ * Parse the master format storage HTML
+ *
  * @param {String} htmlStr
  * @returns {Object}
  */
