@@ -1,6 +1,8 @@
 import React from 'react';
+import defaultClasses from './row.css';
+import classify from 'src/classify';
 
-const Row = ({minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, children}) => {
+const Row = ({classes, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, children}) => {
     let image = desktopImage;
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
@@ -15,10 +17,10 @@ const Row = ({minHeight, backgroundColor, desktopImage, mobileImage, backgroundS
         backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
     };
     return (
-        <div data-content-type="row" style={dynamicStyles}>
+        <div data-content-type="row" style={dynamicStyles} className={classes.contained}>
             {children}
         </div>
     );
 };
 
-export default Row;
+export default classify(defaultClasses)(Row);
