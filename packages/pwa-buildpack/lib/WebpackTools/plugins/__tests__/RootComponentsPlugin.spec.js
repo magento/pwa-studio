@@ -1,8 +1,6 @@
 const { join } = require('path');
 const MemoryFS = require('memory-fs');
-const { promisify: pify } = require('util');
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
 const RootComponentsPlugin = require('../RootComponentsPlugin');
 
 const basic3PageProjectDir = join(
@@ -14,29 +12,34 @@ const basic1PageProjectDir = join(
     '__fixtures__/basic-project-1-page'
 );
 
-const compile = async config => {
-    config.mode = 'production';
-    config.optimization = config.optimization || {};
-    config.optimization.splitChunks = {
-        minSize: 1,
-        cacheGroups: {
-            default: {
-                minChunks: 2,
-                reuseExistingChunk: false
+const compile = config =>
+    new Promise((resolve, reject) => {
+        config.mode = 'production';
+        config.optimization = config.optimization || {};
+        config.optimization.minimize = false;
+        config.optimization.splitChunks = {
+            minSize: 1,
+            cacheGroups: {
+                default: {
+                    minChunks: 2,
+                    reuseExistingChunk: false
+                }
             }
-        }
-    };
-    const fs = new MemoryFS();
-    const compiler = webpack(config);
-    compiler.outputFileSystem = fs;
+        };
+        const fs = new MemoryFS();
+        const compiler = webpack(config);
+        compiler.outputFileSystem = fs;
 
-    return {
-        fs,
-        stats: await pify(compiler.run.bind(compiler))()
-    };
-};
+        compiler.run((err, stats) => {
+            if (err || stats.hasErrors()) {
+                reject(new Error(err || stats.toString()));
+            } else {
+                resolve({ fs, stats });
+            }
+        });
+    });
 
-test.skip('Creates a chunk for each root when multiple roots exist', async () => {
+test('Creates a chunk for each root when multiple roots exist', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
@@ -58,12 +61,18 @@ test.skip('Creates a chunk for each root when multiple roots exist', async () =>
     };
 
     const { stats } = await compile(config);
-    expect(stats.compilation.assets['Page1.chunk.js']).toBeTruthy();
-    expect(stats.compilation.assets['Page2.chunk.js']).toBeTruthy();
-    expect(stats.compilation.assets['Page3.chunk.js']).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_catalog_page__default.chunk.js']
+    ).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_product_page__default.chunk.js']
+    ).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_product_page__special.chunk.js']
+    ).toBeTruthy();
 });
 
-test.skip('Does not prevent chunk name from being configurable', async () => {
+test('Does not prevent chunk name from being configurable', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
@@ -85,10 +94,12 @@ test.skip('Does not prevent chunk name from being configurable', async () => {
     };
 
     const { stats } = await compile(config);
-    expect(stats.compilation.assets['Page1.foobar.js']).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_catalog_page__default.foobar.js']
+    ).toBeTruthy();
 });
 
-test.skip('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
+test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: {
@@ -111,11 +122,15 @@ test.skip('Creates chunks for all roots when multiple values are provided in "ro
     };
 
     const { stats } = await compile(config);
-    expect(stats.compilation.assets['Page1.chunk.js']).toBeTruthy();
-    expect(stats.compilation.assets['SomePage.chunk.js']).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_catalog_page__default.chunk.js']
+    ).toBeTruthy();
+    expect(
+        stats.compilation.assets['RootCmp_cms_page__default.chunk.js']
+    ).toBeTruthy();
 });
 
-test.skip('Works when there is 1 unnamed entry point in the config', async () => {
+test('Works when there is 1 unnamed entry point in the config', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: join(basic3PageProjectDir, 'entry.js'),
@@ -136,17 +151,16 @@ test.skip('Works when there is 1 unnamed entry point in the config', async () =>
 
     const { fs } = await compile(config);
     const expectedFiles = [
-        'Page1.chunk.js',
-        'Page2.chunk.js',
-        'Page3.chunk.js',
-        'main.js', // default entry point name when name isn't provided
-        'manifest.json'
+        'RootCmp_catalog_page__default.chunk.js',
+        'RootCmp_product_page__default.chunk.js',
+        'RootCmp_product_page__special.chunk.js',
+        'main.js' // default entry point name when name isn't provided
     ].sort();
     const writtenFiles = fs.readdirSync(config.output.path).sort();
     expect(writtenFiles).toEqual(expectedFiles);
 });
 
-test.skip('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
+test('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
     const projectDir = join(__dirname, '__fixtures__/dupe-root-component');
     const config = {
         context: projectDir,
@@ -171,32 +185,7 @@ test.skip('Logs warning when RootComponent file has > 1 @RootComponent comment',
     console.warn.mockRestore();
 });
 
-test.skip('Build fails when no @RootComponent directive is found', async () => {
-    const projectDir = join(__dirname, '__fixtures__/missing-root-directive');
-    const config = {
-        context: projectDir,
-        entry: join(projectDir, 'entry.js'),
-        output: {
-            path: join(projectDir, 'dist'),
-            filename: '[name].js'
-        },
-        plugins: [
-            new RootComponentsPlugin({
-                context: projectDir,
-                rootComponentsDirs: [join(projectDir, 'RootComponents')]
-            })
-        ]
-    };
-
-    const { stats } = await compile(config);
-    expect(stats.compilation.errors.length).toBe(1);
-    const [firstError] = stats.compilation.errors;
-    expect(firstError.message).toMatch(
-        /Failed to create chunk for the following file, because it is missing a @RootComponent directive/
-    );
-});
-
-test.skip('Can resolve dependencies of a RootComponent', async () => {
+test('Can resolve dependencies of a RootComponent', async () => {
     // https://github.com/DrewML/webpack-loadmodule-bug
     const projectDir = join(__dirname, '__fixtures__/root-component-dep');
     const config = {
@@ -217,62 +206,55 @@ test.skip('Can resolve dependencies of a RootComponent', async () => {
 
     const { fs } = await compile(config);
     const chunkStr = fs.readFileSync(
-        join(projectDir, 'dist/Page1.chunk.js'),
+        join(projectDir, 'dist/RootCmp_product_page__default.chunk.js'),
         'utf8'
     );
     expect(chunkStr).not.toContain('Cannot find module');
 });
 
-test.skip('Uglify compiles out dynamic imports injected into entry point', async () => {
+test('Logs warning if root component exists with no page types', async () => {
+    const projectDir = join(__dirname, '__fixtures__/missing-page-types');
     const config = {
-        context: basic1PageProjectDir,
-        entry: {
-            main: join(basic1PageProjectDir, 'entry.js')
-        },
+        context: projectDir,
+        entry: join(projectDir, 'entry.js'),
         output: {
-            path: join(basic1PageProjectDir, 'dist'),
+            path: join(projectDir, 'dist'),
             filename: '[name].js',
             chunkFilename: '[name].chunk.js'
         },
         plugins: [
             new RootComponentsPlugin({
-                context: basic1PageProjectDir,
-                rootComponentsDirs: [
-                    join(basic1PageProjectDir, 'RootComponents')
-                ]
+                context: projectDir,
+                rootComponentsDirs: [join(projectDir, 'RootComponents')]
             })
-        ],
-        optimization: {
-            minimizer: [
-                new TerserPlugin({
-                    parallel: true,
-                    cache: true,
-                    terserOptions: {
-                        ecma: 8,
-                        parse: {
-                            ecma: 8
-                        },
-                        compress: {
-                            drop_console: true
-                        },
-                        output: {
-                            ecma: 7,
-                            semicolons: false
-                        },
-                        keep_fnames: true
-                    }
-                })
-            ]
-        }
+        ]
     };
 
-    const { fs } = await compile(config);
-    const entryPointSrc = fs.readFileSync(
-        join(config.output.path, 'main.js'),
-        'utf8'
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+    await compile(config);
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching(/RootComponent will never be used/)
     );
-    expect(entryPointSrc).not.toContain('import()');
-    expect(entryPointSrc).not.toContain(
-        'this_function_will_be_removed_by_uglify'
-    );
+    console.warn.mockRestore();
+});
+
+test('Throws exception if no RootComponents exist in project', async () => {
+    const projectDir = join(__dirname, '__fixtures__/no-root-components');
+    const config = {
+        context: projectDir,
+        entry: join(projectDir, 'entry.js'),
+        output: {
+            path: join(projectDir, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].chunk.js'
+        },
+        plugins: [
+            new RootComponentsPlugin({
+                context: projectDir,
+                rootComponentsDirs: [join(projectDir, 'RootComponents')]
+            })
+        ]
+    };
+
+    await expect(compile(config)).rejects.toThrow(/No RootComponents/);
 });

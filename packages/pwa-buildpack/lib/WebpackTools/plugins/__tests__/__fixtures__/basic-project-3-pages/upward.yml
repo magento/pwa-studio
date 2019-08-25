@@ -1,0 +1,3 @@
+nothing: ./nothing.json
+isOutputTarget: ./dist
+isRootDir: ./
