@@ -6,7 +6,7 @@ const { promisify } = require('util');
 const jsYaml = require('js-yaml');
 
 /**
- * @description webpack plugin that merged UPWARD configurations and
+ * @description webpack plugin that merges UPWARD configurations and
  * autodetects file assets relied on by those configurations
  */
 class UpwardIncludePlugin {
@@ -126,15 +126,18 @@ class UpwardIncludePlugin {
         try {
             yamlTxt = await this.fs.readFile(upwardPath);
         } catch (e) {
-            throw new Error(e, `unable to read file ${upwardPath}`);
+            throw new Error(
+                `UpwardIncludePlugin unable to read file ${upwardPath}: ${
+                    e.message
+                }`
+            );
         }
         debug(`read ${upwardPath} file successfully`);
         try {
             definition = await jsYaml.safeLoad(yamlTxt);
         } catch (e) {
             throw new Error(
-                e,
-                `error parsing ${upwardPath} contents: \n\n${yamlTxt}`
+                `UpwardIncludePlugin error parsing ${upwardPath} contents: \n\n${yamlTxt}`
             );
         }
         debug(`parsed ${upwardPath} file successfully: %o`, definition);

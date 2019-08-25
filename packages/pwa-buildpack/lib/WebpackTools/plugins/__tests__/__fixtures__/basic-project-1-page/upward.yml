@@ -1,0 +1,12 @@
+basicProject1Page: foo
+nonexistentFile: './unknown.pif'
+
+status: 200
+headers:
+  inline:
+    content-type: text/html
+body:
+  when:
+    - matches: request.url.pathname
+      pattern: '^/robots.txt'
+      use: './robots.txt'
