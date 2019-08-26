@@ -52,7 +52,8 @@ module.exports = async env => {
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './template.html'
+            template: './template.html',
+            mediaBackendUrl: new URL('/media/', process.env.MAGENTO_BACKEND_URL)
         })
     ];
 
