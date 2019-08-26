@@ -12,7 +12,7 @@ import withLogger from '../util/withLogger';
  *
  * @param {Object} config - an object containing:
  * @param {Func}    getItemKey - A function to get an Item's key.
- * @param {Array}   initiallySelectedKeys - An array of keys that should be selected.
+ * @param {Array}   initialSelection - An array of keys that should be selected.
  * @param {string}  selectionModel - The list's selection type (radio or checkbox).
  * @param {function(Set):void} onSelectionChange - function to be called when the List selection changes.
  *
