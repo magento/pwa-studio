@@ -52,10 +52,7 @@ module.exports = async env => {
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './template.html',
-            imageOptimization: 'backend',
-            mediaBackendURL:
-                'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/'
+            template: './template.html'
         })
     ];
 

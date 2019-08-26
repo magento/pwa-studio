@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-image-optimizing-origin="<%= htmlWebpackPlugin.options.imageOptimization %>" data-media-backend="<%= htmlWebpackPlugin.options.mediaBackendURL %>">
+<html lang="en" data-image-optimizing-origin="<%= process.env.IMAGE_OPTIMIZING_ORIGIN %>" data-media-backend="<%= process.env.MAGENTO_BACKEND_URL %>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +23,7 @@
         -->
         <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-        <link rel="preconnect" href="<%= htmlWebpackPlugin.options.mediaBackendURL %>">
+        <link rel="preconnect" href="<%= process.env.MAGENTO_BACKEND_URL %>">
 
         <style type="text/css">
             /* vietnamese */
