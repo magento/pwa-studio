@@ -54,3 +54,26 @@ export function getVerticalAlignment(node) {
         verticalAlignment: alignment
     };
 }
+
+/**
+ * Retrieve advanced props from content type node
+ *
+ * @param node
+ * @returns {{border: (string|string[]|string), marginRight: (*|string), borderColor: *, paddingBottom: (*|number|string), borderRadius: *, borderWidth: *, paddingRight: (*|number|string), marginBottom: (*|string), paddingTop: (*|string), paddingLeft: (*|string), marginTop: (*|string), marginLeft: (*|string|{get}|number)}}
+ */
+export function getAdvanced(node) {
+    return {
+        border: node.style.borderStyle,
+        borderColor: node.style.borderColor,
+        borderWidth: node.style.borderWidth,
+        borderRadius: node.style.borderRadius,
+        marginTop: node.style.marginTop,
+        marginRight: node.style.marginRight,
+        marginBottom: node.style.marginBottom,
+        marginLeft: node.style.marginLeft,
+        paddingTop: node.style.paddingTop,
+        paddingRight: node.style.paddingRight,
+        paddingBottom: node.style.paddingBottom,
+        paddingLeft: node.style.paddingLeft,
+    }
+}

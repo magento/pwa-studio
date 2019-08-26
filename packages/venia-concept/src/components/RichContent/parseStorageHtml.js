@@ -55,10 +55,16 @@ const walk = (rootEl, contentTypeStructureObj) => {
         const props = createContentTypeObject(contentType, currentNode);
 
         if (pageBuilderConfigAggregators[contentType]) {
-            Object.assign(
-                props,
-                pageBuilderConfigAggregators[contentType](currentNode)
-            );
+            try {
+                Object.assign(
+                    props,
+                    pageBuilderConfigAggregators[contentType](currentNode, props)
+                );
+            } catch (e) {
+                console.error(`Failed to aggregate config for content type ${contentType}.`, e);
+            }
+        } else {
+            console.warn(`No config aggregator defined for content type ${contentType}, this content type won't be rendered.`);
         }
 
         contentTypeStructureObj.children.push(props);

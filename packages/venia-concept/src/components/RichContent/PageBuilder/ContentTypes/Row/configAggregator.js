@@ -1,28 +1,18 @@
-import { getBackgroundImages, getVerticalAlignment } from '../../utils';
+import {getAdvanced, getBackgroundImages, getVerticalAlignment} from '../../utils';
 
-export default node => {
+export default (node, props) => {
+    // Determine which node holds the data for the appearance
+    const dataNode = props.appearance === 'contained' ? node.childNodes[0] : node;
     return {
-        appearance: node.getAttribute('data-appearance'),
-        minHeight: node.childNodes[0].style.minHeight ? node.childNodes[0].style.minHeight : null,
-        ...getVerticalAlignment(node.childNodes[0]),
-        backgroundColor: node.childNodes[0].style.backgroundColor,
-        ...getBackgroundImages(node.childNodes[0]),
-        enableParallax: node.childNodes[0].getAttribute('data-enable-parallax') === "1",
+        minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
+        ...getVerticalAlignment(dataNode),
+        backgroundColor: dataNode.style.backgroundColor,
+        ...getBackgroundImages(dataNode),
+        enableParallax: dataNode.getAttribute('data-enable-parallax') === "1",
         parallaxSpeed: parseFloat(
-            node.childNodes[0].getAttribute('data-parallax-speed')
+            dataNode.getAttribute('data-parallax-speed')
         ),
-        cssClasses: node.childNodes[0].getAttribute('class') ? node.childNodes[0].getAttribute('class') : null,
-        border: node.childNodes[0].style.borderStyle,
-        borderColor: node.childNodes[0].style.borderColor,
-        borderWidth: node.childNodes[0].style.borderWidth,
-        borderRadius: node.childNodes[0].style.borderRadius,
-        marginTop: node.childNodes[0].style.marginTop,
-        marginRight: node.childNodes[0].style.marginRight,
-        marginBottom: node.childNodes[0].style.marginBottom,
-        marginLeft: node.childNodes[0].style.marginLeft,
-        paddingTop: node.childNodes[0].style.paddingTop,
-        paddingRight: node.childNodes[0].style.paddingRight,
-        paddingBottom: node.childNodes[0].style.paddingBottom,
-        paddingLeft: node.childNodes[0].style.paddingLeft,
+        cssClasses: dataNode.getAttribute('class') ? dataNode.getAttribute('class') : null,
+        ...getAdvanced(dataNode),
     };
 };
