@@ -1,19 +1,4 @@
-import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator';
-import columnConfigAggregator from './PageBuilder/ContentTypes/Column/configAggregator';
-import columnGroupConfigAggregator from './PageBuilder/ContentTypes/ColumnGroup/configAggregator';
-import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
-import headingConfigAggregator from './PageBuilder/ContentTypes/Heading/configAggregator';
-import textConfigAggregator from './PageBuilder/ContentTypes/Text/configAggregator';
-
-// TODO move to configuration
-const pageBuilderConfigAggregators = {
-    row: rowConfigAggregator,
-    column: columnConfigAggregator,
-    'column-group': columnGroupConfigAggregator,
-    image: imageConfigAggregator,
-    heading: headingConfigAggregator,
-    text: textConfigAggregator
-};
+import {contentTypesConfig} from "./PageBuilder/config";
 
 /**
  * Create a basic object representing a content type in our tree
@@ -59,11 +44,11 @@ const walk = (rootEl, contentTypeStructureObj) => {
 
         const props = createContentTypeObject(contentType, currentNode);
 
-        if (pageBuilderConfigAggregators[contentType]) {
+        if (contentTypesConfig[contentType] && typeof contentTypesConfig[contentType].configAggregator === 'function') {
             try {
                 Object.assign(
                     props,
-                    pageBuilderConfigAggregators[contentType](
+                    contentTypesConfig[contentType].configAggregator(
                         currentNode,
                         props
                     )
