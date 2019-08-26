@@ -1,8 +1,7 @@
 import {getAdvanced, getBackgroundImages, getVerticalAlignment} from '../../utils';
 
-export default (node, props) => {
+export default (node) => {
     return {
-        appearance: props.appearance,
         minHeight: node.style.minHeight ? node.style.minHeight : null,
         textAlign: node.style.textAlign,
         display: node.style.display,
