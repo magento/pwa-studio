@@ -2,6 +2,23 @@ title: PWA Buildpack
 entries:
   - label: Overview
     url: /pwa-buildpack/
+
+  - label: Configuration management
+    url: /pwa-buildpack/configuration-management/
+    entries:
+
+  - label: Buildpack CLI reference
+    url: /pwa-buildpack/reference/buildpack-cli/
+    entries:
+
+      - label: Create custom origin
+        url: /pwa-buildpack/reference/buildpack-cli/create-custom-origin/
+
+      - label: Create environment file
+        url: /pwa-buildpack/reference/buildpack-cli/create-env-file/
+
+      - label: Load environment file
+        url: /pwa-buildpack/reference/buildpack-cli/load-env/
   
   - label: Tools reference
     entries:
