@@ -2,7 +2,7 @@ import React from 'react';
 import defaultClasses from './columnGroup.css';
 import classify from 'src/classify';
 
-const ColumnGroup = ({ classes, appearance, display, children }) => {
+const ColumnGroup = ({ classes, display, children }) => {
     const dynamicStyles = {
         display
     };

@@ -3,12 +3,11 @@ import defaultClasses from './image.css';
 import classify from 'src/classify';
 
 const Image = ({
-    classes,
     desktopImage,
     mobileImage,
     altText,
     title,
-    link,
+    //link,
     caption,
     textAlign,
     border,

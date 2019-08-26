@@ -3,7 +3,6 @@ import defaultClasses from './column.css';
 import classify from 'src/classify';
 
 const Column = ({
-    appearance,
     classes,
     minHeight,
     verticalAlignment,
