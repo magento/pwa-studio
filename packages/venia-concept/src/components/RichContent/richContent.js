@@ -3,7 +3,6 @@ import parseStorageHtml from './parseStorageHtml';
 import Row from './row';
 import Column from './column';
 import ColumnGroup from './columnGroup';
-import Image from './image';
 import Heading from "./heading";
 
 // TODO move into configuration
@@ -13,7 +12,6 @@ const ContentTypes = {
         'column-group': ColumnGroup,
         heading: Heading,
         column: Column,
-        image: Image,
     },
     dynamic: {
         tabs: React.lazy(() => import('./tabs'))
