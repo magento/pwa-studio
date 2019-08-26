@@ -14,7 +14,7 @@ const ContentTypes = {
         column: Column,
     },
     dynamic: {
-        tabs: React.lazy(() => import('./PageBuilder/ContentTypes/Tabs/tabs'))
+        //tabs: React.lazy(() => import('./PageBuilder/ContentTypes/Tabs/tabs'))
     }
 };
 
