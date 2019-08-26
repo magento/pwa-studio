@@ -1,8 +1,12 @@
 import React from 'react';
 import defaultClasses from './row.css';
 import classify from 'src/classify';
+import {verticalAlignmentToFlex} from "./PageBuilder/utils";
 
-const Row = ({appearance, classes, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+    // Set the default appearance if none is supplied to contained
+    appearance = appearance ? appearance : 'contained';
+    cssClasses = cssClasses ? cssClasses : [];
     let image = desktopImage;
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
@@ -15,6 +19,7 @@ const Row = ({appearance, classes, minHeight, backgroundColor, desktopImage, mob
         backgroundPosition,
         backgroundAttachment,
         backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat',
+        textAlign,
         border,
         borderColor,
         borderWidth,
@@ -29,18 +34,23 @@ const Row = ({appearance, classes, minHeight, backgroundColor, desktopImage, mob
         paddingLeft,
     };
 
-    switch (appearance) {
-        case 'full-bleed':
-            break;
-        case 'full-width':
-            break;
-        case 'contained':
-        default:
-            break;
+    if (verticalAlignment) {
+        dynamicStyles.display = 'flex';
+        dynamicStyles.justifyContent = verticalAlignmentToFlex(verticalAlignment);
+        dynamicStyles.flexDirection = 'column';
     }
 
+    // Full width and contained appearance
+    if (appearance === 'contained') {
+        cssClasses.push(classes.contained);
+    }
+    if (appearance === 'full-width') {
+        children = <div className={classes.contained}>
+            {children}
+        </div>;
+    }
     return (
-        <div data-content-type="row" style={dynamicStyles} className={[classes.contained, ...[cssClasses]].join(' ')}>
+        <div data-content-type="row" style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
             {children}
         </div>
     );

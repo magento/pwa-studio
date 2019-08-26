@@ -28,6 +28,12 @@ export function getBackgroundImages(node) {
     return response;
 }
 
+const alignmentToFlex = {
+    'top': 'flex-start',
+    'middle': 'center',
+    'bottom': 'flex-end',
+};
+
 /**
  * Retrieve vertical alignment from a master format node
  *
@@ -37,22 +43,33 @@ export function getBackgroundImages(node) {
 export function getVerticalAlignment(node) {
     let alignment = null;
     if (node.style.justifyContent) {
-        switch (node.style.justifyContent) {
-            case 'flex-start':
-                alignment = 'top';
-                break;
-            case 'center':
-                alignment = 'middle';
-                break;
-            case 'flex-end':
-                alignment = 'bottom';
-                break;
-        }
+        alignment = flexToVerticalAlignment(node.style.justifyContent);
     }
 
     return {
         verticalAlignment: alignment
     };
+}
+
+/**
+ * Convert vertical alignment values to flex values
+ *
+ * @param alignment
+ * @returns {*}
+ */
+export function verticalAlignmentToFlex(alignment) {
+    return alignmentToFlex[alignment];
+}
+
+/**
+ * Convert flex to vertical alignment values
+ *
+ * @param flex
+ * @returns {*}
+ */
+export function flexToVerticalAlignment(flex) {
+    const flexToAlignment = Object.fromEntries(Object.entries(alignmentToFlex).map(([k, v]) => ([v, k])));
+    return flexToAlignment[flex];
 }
 
 /**
@@ -75,5 +92,6 @@ export function getAdvanced(node) {
         paddingRight: node.style.paddingRight,
         paddingBottom: node.style.paddingBottom,
         paddingLeft: node.style.paddingLeft,
+        textAlign: node.style.textAlign,
     }
 }
