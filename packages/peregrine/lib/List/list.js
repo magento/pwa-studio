@@ -75,7 +75,7 @@ List.propTypes = {
     }),
     getItemKey: func.isRequired,
     /**
-     * A single or list of initial selections.
+     * A single or list of objects that should start off selected.
      */
     initialSelection: oneOfType([array, object]),
     /**
