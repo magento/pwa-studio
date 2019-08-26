@@ -61,7 +61,7 @@ class Product extends Component {
 
                     return (
                         <Fragment>
-                            <Title>{`${product.name} - Venia`}</Title>
+                            <Title>{`${product.name} - ${storeName}`}</Title>
                             <ProductFullDetail
                                 product={this.mapProduct(product)}
                                 addToCart={this.props.addItemToCart}

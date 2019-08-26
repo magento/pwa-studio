@@ -1,4 +1,5 @@
 const { configureWebpack } = require('@magento/pwa-buildpack');
+const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
@@ -46,8 +47,10 @@ module.exports = async env => {
     // https://webpack.js.org/configuration/module/#modulenoparse
     config.plugins = [
         ...config.plugins,
+        new DefinePlugin({
+            storeName: JSON.stringify('Venia')
+        }),
         new HTMLWebpackPlugin({
-            title: 'Home Page - Venia',
             filename: 'index.html',
             template: './template.html',
             imageOptimization: 'backend',

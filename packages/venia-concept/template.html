@@ -7,7 +7,7 @@
         <meta name="theme-color" content="#ff6334">
         <link rel="manifest" href="/manifest.json">
         
-        <title><%= htmlWebpackPlugin.options.title %></title>
+        <title>Home Page - <%= storeName %></title>
 
         <!--
             Apple Specific Tags
@@ -23,7 +23,7 @@
         -->
         <link rel="apple-touch-icon" href="/icons/venia_square_57.png">
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-        <link rel="preconnect" href="{{env.MAGENTO_BACKEND_URL}}">
+        <link rel="preconnect" href="<%= htmlWebpackPlugin.options.mediaBackendURL %>">
 
         <style type="text/css">
             /* vietnamese */
