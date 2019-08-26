@@ -2,8 +2,9 @@ import React from 'react';
 import defaultClasses from './row.css';
 import classify from 'src/classify';
 import {verticalAlignmentToFlex} from "./PageBuilder/utils";
+import { Parallax } from 'react-parallax';
 
-const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, enableParallax, parallaxSpeed, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
     // Set the default appearance if none is supplied to contained
     appearance = appearance ? appearance : 'contained';
     cssClasses = cssClasses ? cssClasses : [];
@@ -14,11 +15,6 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
     const dynamicStyles = {
         minHeight: minHeight,
         backgroundColor: backgroundColor,
-        backgroundImage: image ? `url(${image})` : null,
-        backgroundSize,
-        backgroundPosition,
-        backgroundAttachment,
-        backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat',
         textAlign,
         border,
         borderColor,
@@ -33,6 +29,14 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
         paddingBottom,
         paddingLeft,
     };
+
+    if (!enableParallax) {
+        dynamicStyles.backgroundImage = image ? `url(${image})` : null;
+        dynamicStyles.backgroundSize = backgroundSize;
+        dynamicStyles.backgroundPosition = backgroundPosition;
+        dynamicStyles.backgroundAttachment = backgroundAttachment;
+        dynamicStyles.backgroundRepeat = backgroundRepeat ? 'repeat' : 'no-repeat';
+    }
 
     if (verticalAlignment) {
         dynamicStyles.display = 'flex';
@@ -49,11 +53,16 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
             {children}
         </div>;
     }
-    return (
-        <div data-content-type="row" style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
+
+    if (enableParallax) {
+        return <Parallax strength={parallaxSpeed * 200} bgImage={image} style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
             {children}
-        </div>
-    );
+        </Parallax>;
+    }
+
+    return <div style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
+        {children}
+    </div>;
 };
 
 export default classify(defaultClasses)(Row);
