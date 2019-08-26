@@ -1,10 +1,14 @@
 import rowConfigAggregator from './PageBuilder/ContentTypes/Row/configAggregator';
+import columnConfigAggregator from './PageBuilder/ContentTypes/Column/configAggregator';
+import columnGroupConfigAggregator from './PageBuilder/ContentTypes/ColumnGroup/configAggregator';
 import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
 import headingConfigAggregator from './PageBuilder/ContentTypes/Heading/configAggregator';
 
 // TODO move to configuration
 const pageBuilderConfigAggregators = {
     row: rowConfigAggregator,
+    column: columnConfigAggregator,
+    'column-group': columnGroupConfigAggregator,
     image: imageConfigAggregator,
     heading: headingConfigAggregator
 };
