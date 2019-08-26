@@ -3,7 +3,7 @@ import { Tabs as TabWrapper, TabList, Tab as TabHeader, TabPanel } from 'react-t
 import defaultClasses from "./tabs.css";
 import {mergeClasses} from "../../../../../classify";
 
-const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, navigation, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, navigation, items, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
     classes = mergeClasses(defaultClasses, classes);
     const tabWrapperDynamicStyles = {
         verticalAlignment,
@@ -47,7 +47,16 @@ const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, nav
                     </TabHeader>
                 ))}
             </TabList>
-            {children}
+            {items.map((item, i) => (
+                <TabPanel
+                    key={i}
+                    className={classes.tabPanel}
+                    selectedClassName={classes.tabPanelSelected}
+                    style={item.style}
+                >
+                    {/* TODO - how to render children tab items recursively? */}
+                </TabPanel>
+            ))}
         </TabWrapper>
     );
 };
