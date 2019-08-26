@@ -1,4 +1,4 @@
-import {contentTypesConfig} from "./PageBuilder/config";
+import { contentTypesConfig } from './PageBuilder/config';
 
 /**
  * Create a basic object representing a content type in our tree
@@ -44,7 +44,11 @@ const walk = (rootEl, contentTypeStructureObj) => {
 
         const props = createContentTypeObject(contentType, currentNode);
 
-        if (contentTypesConfig[contentType] && typeof contentTypesConfig[contentType].configAggregator === 'function') {
+        if (
+            contentTypesConfig[contentType] &&
+            typeof contentTypesConfig[contentType].configAggregator ===
+                'function'
+        ) {
             try {
                 Object.assign(
                     props,

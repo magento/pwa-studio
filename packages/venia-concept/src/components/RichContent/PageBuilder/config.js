@@ -1,17 +1,17 @@
-import rowConfigAggregator from "./ContentTypes/Row/configAggregator";
-import Row from './ContentTypes/Row/row';
-import columnConfigAggregator from "./ContentTypes/Column/configAggregator";
-import Column from './ContentTypes/Column/column';
-import columnGroupConfigAggregator from "./ContentTypes/ColumnGroup/configAggregator";
-import ColumnGroup from './ContentTypes/ColumnGroup/columnGroup';
-import imageConfigAggregator from "./ContentTypes/Image/configAggregator";
-import Image from './ContentTypes/Image/image';
-import headingConfigAggregator from "./ContentTypes/Heading/configAggregator";
-import Heading from './ContentTypes/Heading/heading';
-import textConfigAggregator from "./ContentTypes/Text/configAggregator";
-import Text from './ContentTypes/Text/text';
-import blockConfigAggregator from "./ContentTypes/Block/configAggregator";
-import Block from './ContentTypes/Block/block';
+import rowConfigAggregator from './ContentTypes/Row/configAggregator';
+import Row from './ContentTypes/Row';
+import columnConfigAggregator from './ContentTypes/Column/configAggregator';
+import Column from './ContentTypes/Column';
+import columnGroupConfigAggregator from './ContentTypes/ColumnGroup/configAggregator';
+import ColumnGroup from './ContentTypes/ColumnGroup';
+import imageConfigAggregator from './ContentTypes/Image/configAggregator';
+import Image from './ContentTypes/Image';
+import headingConfigAggregator from './ContentTypes/Heading/configAggregator';
+import Heading from './ContentTypes/Heading';
+import textConfigAggregator from './ContentTypes/Text/configAggregator';
+import Text from './ContentTypes/Text';
+import blockConfigAggregator from './ContentTypes/Block/configAggregator';
+import Block from './ContentTypes/Block';
 
 export const contentTypesConfig = {
     row: {
@@ -41,5 +41,5 @@ export const contentTypesConfig = {
     block: {
         configAggregator: blockConfigAggregator,
         component: Block
-    },
+    }
 };

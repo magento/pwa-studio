@@ -1,4 +1,4 @@
-import {getAdvanced} from "../../utils";
+import { getAdvanced } from '../../utils';
 
 export default node => {
     return {

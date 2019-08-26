@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import parseStorageHtml from './parseStorageHtml';
 import Missing from './PageBuilder/missing';
-import {contentTypesConfig} from "./PageBuilder/config";
+import { contentTypesConfig } from './PageBuilder/config';
 
 const RichContent = ({ data, html }) => {
     const dataNode = data || parseStorageHtml(html);
@@ -18,7 +18,10 @@ const RichContent = ({ data, html }) => {
                         <RichContent data={node} />
                     </PageBuilderComponent>
                 );
-            } else if (contentTypeConfig.type && contentTypeConfig.type === 'dynamic') {
+            } else if (
+                contentTypeConfig.type &&
+                contentTypeConfig.type === 'dynamic'
+            ) {
                 const fallback = html ? (
                     <div dangerouslySetInnerHTML={{ __html: html }} />
                 ) : null;
