@@ -55,9 +55,6 @@ const PWADevServer = {
             contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
-            allowedHosts: [
-                devServer.host,
-            ],
             writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
@@ -217,8 +214,8 @@ const PWADevServer = {
 
         // Public path must be an absolute URL to enable hot module replacement
         // If public key is set, then publicPath should equal the public key value - supports proxying https://bit.ly/2EOBVYL
-        webpackDevServerOptions.publicPath = devServer.public
-            ? `https://${devServer.public}/`
+        webpackDevServerOptions.publicPath = process.env.DEV_SERVER_HOST
+            ? `https://${process.env.DEV_SERVER_HOST}/`
             : url.format({
                   protocol: webpackDevServerOptions.https ? 'https:' : 'http:',
                   hostname: webpackDevServerOptions.host,
