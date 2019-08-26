@@ -1,6 +1,18 @@
 import React from 'react';
-import GenericElement from './genericElement';
+import defaultClasses from './columnGroup.css';
+import classify from 'src/classify';
 
-const ColumnGroup = props => <GenericElement {...props} />;
+const ColumnGroup = ({classes, appearance, display, children}) => {
 
-export default ColumnGroup;
+    const dynamicStyles = {
+        display,
+    };
+
+    return (
+        <div data-content-type="column-group" style={dynamicStyles} className={classes.pagebuilderColumnGroup}>
+            {children}
+        </div>
+    );
+};
+
+export default classify(defaultClasses)(ColumnGroup);

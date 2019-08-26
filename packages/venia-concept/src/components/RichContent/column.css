@@ -1,0 +1,10 @@
+.pagebuilderColumn {
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+    .pagebuilderColumn {
+        background-attachment: scroll !important;
+        flex-basis: 100%;
+    }
+}
