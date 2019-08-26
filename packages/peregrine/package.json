@@ -5,62 +5,39 @@
     "access": "public"
   },
   "description": "The core runtime of Magento PWA",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "concurrently --raw yarn:build:cjs yarn:build:esm",
-    "build:ci": "yarn run -s build:esm",
-    "build:cjs": "BABEL_ENV=production babel src --out-dir dist --root-mode 'upward' --source-maps",
-    "build:dev": "yarn run -s build",
-    "build:esm": "BABEL_ENV=development babel src --out-dir esm --root-mode 'upward' --source-maps",
-    "clean": "rimraf dist esm",
-    "prebuild": "yarn run -s clean",
-    "prepublishOnly": "yarn run build",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o storybook-dist",
-    "watch": "yarn run clean && concurrently --raw yarn:watch:cjs yarn:watch:esm",
-    "watch:cjs": "yarn run build:cjs --watch",
-    "watch:esm": "yarn run build:esm --watch"
+    "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
-    "@babel/cli": "~7.2.3",
-    "@babel/core": "~7.3.4",
-    "@babel/plugin-proposal-class-properties": "~7.3.4",
-    "@babel/plugin-proposal-object-rest-spread": "~7.3.4",
-    "@babel/plugin-syntax-dynamic-import": "~7.2.0",
-    "@babel/plugin-syntax-jsx": "~7.2.0",
-    "@babel/plugin-transform-react-jsx": "~7.3.0",
-    "@babel/plugin-transform-runtime": "~7.4.4",
-    "@babel/runtime": "~7.4.2",
-    "@storybook/react": "~4.1.13",
-    "concurrently": "~4.1.0",
     "intl": "~1.2.5",
-    "react": "~16.8.3",
-    "react-apollo": "~2.5.3",
-    "react-dom": "~16.8.3",
+    "react": "~16.9.0",
+    "react-apollo": "2.5.5",
+    "react-dom": "~16.9.0",
     "react-router-dom": "~5.0.0",
-    "react-test-renderer": "~16.8.6",
-    "rimraf": "~2.6.3"
+    "react-test-renderer": "~16.9.0",
+    "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.4.2",
-    "react": "^16.8.0",
-    "react-apollo": "^2.5.3",
-    "react-dom": "^16.8.0",
+    "@babel/runtime": "~7.4.2",
+    "react": "~16.9.0",
+    "react-apollo": "2.5.5",
+    "react-dom": "~16.9.0",
     "react-router-dom": "~5.0.0"
   },
   "engines": {
-    "node": "8.10.0 || >=10.7.0",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   },
-  "module": "esm/index.js",
-  "jsnext:main": "src/index.js",
-  "es2015": "src/index.js",
+  "module": "lib/index.js",
+  "jsnext:main": "lib/index.js",
+  "es2015": "lib/index.js",
   "sideEffects": false
 }

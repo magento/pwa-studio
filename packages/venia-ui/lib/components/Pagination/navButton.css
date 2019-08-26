@@ -1,0 +1,10 @@
+.buttonArrow {
+    composes: button from './tile.css';
+    display: grid;
+    padding-bottom: 1px;
+}
+
+.buttonInactive {
+    composes: buttonArrow;
+    color: #999;
+}

@@ -7,7 +7,7 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/peregrine/src/hooks/useQueryResult.md %}
+{% include auto-generated/peregrine/lib/hooks/useQueryResult.md %}
 
 ## Examples
 

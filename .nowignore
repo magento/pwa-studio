@@ -1,7 +1,6 @@
 node_modules
 dist
 coverage
-esm
 pwa-devdocs
 storybook*
 __test*

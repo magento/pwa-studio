@@ -1,0 +1,21 @@
+.root {
+    display: grid;
+    gap: 1rem;
+}
+
+.text {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.buttonContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    text-align: center;
+}

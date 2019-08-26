@@ -1,0 +1,24 @@
+.root {
+}
+
+.heading {
+    composes: heading from './flow.css';
+}
+
+.body {
+    composes: body from './flow.css';
+}
+
+.footer {
+    composes: footer from './flow.css';
+}
+
+/* fields */
+
+.button {
+    text-transform: capitalize;
+}
+
+.shippingMethod {
+    grid-column-end: span 1;
+}

@@ -1,0 +1,58 @@
+.root {
+    position: relative;
+}
+
+.heading {
+    background-color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    grid-column-end: span 2;
+    line-height: 1rem;
+    padding: 1.5rem 0 1.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    top: 0;
+    z-index: 1;
+}
+
+.body {
+    align-content: start;
+    animation-duration: 224ms;
+    animation-iteration-count: 1;
+    animation-name: enter;
+    background-color: white;
+    bottom: 5rem;
+    box-shadow: 0 -1px rgb(var(--venia-border));
+    display: grid;
+    grid-gap: 0.5rem;
+    left: 0;
+    max-height: calc(100vh - 8.5rem);
+    overflow: auto;
+    padding: 0 1.5rem;
+    position: absolute;
+    right: 0;
+}
+
+.footer {
+    align-items: center;
+    background-color: white;
+    display: grid;
+    grid-auto-columns: min-content;
+    grid-auto-flow: column;
+    grid-gap: 0.75rem;
+    height: 5rem;
+    justify-content: center;
+    justify-items: center;
+    position: relative;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

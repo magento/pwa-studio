@@ -22,7 +22,7 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 Clone the [PWA Studio][] repository into your development environment.
 
 ``` sh
-git clone https://github.com/magento-research/pwa-studio.git
+git clone https://github.com/magento/pwa-studio.git
 ```
 
 ## Step 2. Install PWA Studio dependencies
@@ -36,17 +36,7 @@ In the PWA Studio project's root directory, run the following command to install
 yarn install
 ```
 
-## Step 3. Build the pwa-buildpack package
-
-Setting up Venia requires the use of the `buildpack` CLI tool in the pwa-buildpack package.
-
-Build the pwa-buildpack package to enable the use of this tool:
-
-```sh
-yarn workspace @magento/pwa-buildpack build
-```
-
-## Step 4. Create the `.env` file
+## Step 3. Create the `.env` file
 
 Use the `create-env-file` subcommand for the `buildpack` CLI tool to create a `.env` file for Venia.
 The subcommand generates a `packages/venia-concept/.env` file where you can set the value of `MAGENTO_BACKEND_URL` to the URL of a running Magento instance.
@@ -84,7 +74,7 @@ The Venia storefront has been verified to be compatible with the following local
 
 Don't forget to install the [Venia sample data][]!
 
-## Step 5. Generate SSL certificate
+## Step 4. Generate SSL certificate
 
 PWA features require an HTTPS secure domain.
 
@@ -99,7 +89,7 @@ This feature requires administrative access, so
 it may prompt you for an administrative password at the command line.
 It does not permanently elevate permissions for the dev process but instead, launches a privileged subprocess to execute one command.
 
-## Step 6. Start the server
+## Step 5. Start the server
 
 ### Build artifacts
 
@@ -150,8 +140,8 @@ Congratulations! You have set up your development environment for the Venia stor
 [venia sample data]: {{site.baseurl}}{% link venia-pwa-concept/install-sample-data/index.md %}
 [troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
 
-[venia pwa concept storefront]: https://github.com/magento-research/pwa-studio/tree/master/packages/venia-concept
+[venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
 [vagrant box for magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers
-[pwa studio]: https://github.com/magento-research/pwa-studio
+[pwa studio]: https://github.com/magento/pwa-studio
 [local development instance]: https://devdocs.magento.com/guides/v2.3/install-gde/bk-install-guide.html
 [valet-plus]: https://github.com/weprovide/valet-plus

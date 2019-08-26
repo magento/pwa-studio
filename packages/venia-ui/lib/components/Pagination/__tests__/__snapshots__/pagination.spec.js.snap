@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders nothing when there is only 1 page 1`] = `null`;
+
+exports[`renders when there is more than 1 page 1`] = `
+<div
+  className="root"
+>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    <div
+      className="marker"
+    />
+    1
+  </button>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    2
+  </button>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    3
+  </button>
+</div>
+`;

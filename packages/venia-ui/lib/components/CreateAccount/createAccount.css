@@ -1,0 +1,37 @@
+.root {
+    display: grid;
+    gap: 1rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
+}
+
+.message {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.message:empty {
+    display: none;
+}
+
+.actions {
+    display: grid;
+    justify-items: center;
+    margin-top: 1rem;
+}
+
+.error {
+    composes: message;
+    color: rgb(var(--venia-error));
+}
+
+.lead {
+    composes: message;
+}
+
+.subscribe {
+    margin-left: -0.5rem;
+}
