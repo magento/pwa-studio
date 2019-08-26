@@ -59,7 +59,7 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
         </Parallax>;
     }
 
-    return <div style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
+    return <div style={dynamicStyles} className={cssClasses.join(' ')}>
         {children}
     </div>;
 };

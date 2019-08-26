@@ -37,7 +37,7 @@ const Column = ({appearance, classes, minHeight, verticalAlignment, textAlign, d
     };
 
     return (
-        <div data-content-type="column" style={dynamicStyles} className={[classes.pageBuilderColumn, ...[cssClasses]].join(' ')}>
+        <div data-content-type="column" style={dynamicStyles} className={[classes.pageBuilderColumn, ...cssClasses].join(' ')}>
             {children}
         </div>
     );
