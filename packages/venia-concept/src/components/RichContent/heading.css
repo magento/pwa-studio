@@ -1,0 +1,34 @@
+h1.heading {
+    font-size: 2.5rem;
+    line-height: 2.7rem;
+    margin-bottom: 1.7rem;
+}
+h2.heading {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin-bottom: 1rem;
+}
+h3.heading {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+h4.heading {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+h5.heading {
+    font-size: 1rem;
+    line-height: 1.4rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+h6.heading {
+    font-size: .8rem;
+    line-height: 1.1rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}

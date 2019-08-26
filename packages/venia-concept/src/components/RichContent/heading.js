@@ -1,6 +1,8 @@
 import React from 'react';
+import defaultClasses from "./heading.css";
+import classify from "src/classify";
 
-const Heading = ({headingType, text, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses}) => {
+const Heading = ({classes, headingType, text, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses}) => {
     const HeadingType = `${headingType.toLowerCase()}`;
     const dynamicStyles = {
         textAlign,
@@ -17,6 +19,7 @@ const Heading = ({headingType, text, textAlign, border, borderColor, borderWidth
         paddingBottom,
         paddingLeft,
     };
+    cssClasses.push(classes.heading);
     return (
         <HeadingType style={dynamicStyles} className={cssClasses}>
             {text}
@@ -24,4 +27,4 @@ const Heading = ({headingType, text, textAlign, border, borderColor, borderWidth
     );
 };
 
-export default Heading;
+export default classify(defaultClasses)(Heading);
