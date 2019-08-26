@@ -1,7 +1,6 @@
 import {getBorder, getCssClasses, getMargin, getPadding, getTextAlign} from "../../utils";
 
 export default node => {
-    console.log(node);
     const imageNode = node.childNodes[0].nodeName === 'A' ? node.childNodes[0].childNodes : node.childNodes;
     const props = {
         desktopImage: imageNode[0].getAttribute('src'),

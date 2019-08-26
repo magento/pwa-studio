@@ -5,6 +5,7 @@ import Column from './PageBuilder/ContentTypes/Column/column';
 import ColumnGroup from './PageBuilder/ContentTypes/ColumnGroup/columnGroup';
 import Heading from "./PageBuilder/ContentTypes/Heading/heading";
 import Image from "./PageBuilder/ContentTypes/Image/image";
+import Missing from "./PageBuilder/missing";
 
 // TODO move into configuration
 const ContentTypes = {
@@ -25,20 +26,15 @@ const RichContent = ({ data, html }) => {
 
     return dataNode.children.map((node, i) => {
         const StaticContentType = ContentTypes.static[node.contentType];
+        const DynamicContentType = ContentTypes.dynamic[node.contentType];
 
         if (StaticContentType) {
-            console.log(`Found static content type for ${node.contentType}`, node);
             return (
                 <StaticContentType key={i} {...node}>
                     <RichContent data={node} />
                 </StaticContentType>
             );
-        }
-
-        const DynamicContentType = ContentTypes.dynamic[node.contentType];
-
-        if (DynamicContentType) {
-            console.log(`Found dynamic content type for ${node.contentType}`, node);
+        } else if (DynamicContentType) {
             const fallback = html ? (
                 <div dangerouslySetInnerHTML={{__html: html}}/>
             ) : null;
@@ -52,8 +48,7 @@ const RichContent = ({ data, html }) => {
             );
         }
 
-        return null;
-
+        return <Missing key={i} contentType={node.contentType} />;
     });
 };
 
