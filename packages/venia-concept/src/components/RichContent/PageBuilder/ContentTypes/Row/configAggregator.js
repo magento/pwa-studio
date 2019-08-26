@@ -12,7 +12,6 @@ export default (node, props) => {
         parallaxSpeed: parseFloat(
             dataNode.getAttribute('data-parallax-speed')
         ),
-        cssClasses: dataNode.getAttribute('class') ? dataNode.getAttribute('class') : null,
         ...getAdvanced(dataNode),
     };
 };
