@@ -1,45 +1,10 @@
 import { dispatch, getState } from '../../../store';
 import actions from '../actions';
-import mockData from '../mockData';
-import {
-    getAllCategories,
-    setCurrentPage,
-    setPrevPageTotal
-} from '../asyncActions';
+import { setCurrentPage, setPrevPageTotal } from '../asyncActions';
 
 jest.mock('../../../store');
 
 const thunkArgs = [dispatch, getState];
-
-afterEach(() => {
-    dispatch.mockClear();
-});
-
-describe('getAllCategories', () => {
-    test('it returns a thunk', () => {
-        expect(getAllCategories()).toBeInstanceOf(Function);
-    });
-
-    test('its thunk returns undefined', async () => {
-        const result = await getAllCategories()(...thunkArgs);
-
-        expect(result).toBeUndefined();
-    });
-
-    test('its thunk dispatches actions', async () => {
-        await getAllCategories()(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getAllCategories.request()
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getAllCategories.receive(mockData)
-        );
-    });
-});
 
 describe('setCurrentPage', () => {
     const PAYLOAD = 2;

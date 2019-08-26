@@ -54,7 +54,8 @@ Item.propTypes = {
     item: PropTypes.any.isRequired,
     itemIndex: PropTypes.number.isRequired,
     render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
-    uniqueID: PropTypes.number
+    uniqueID: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired
 };
 
 Item.defaultProps = {

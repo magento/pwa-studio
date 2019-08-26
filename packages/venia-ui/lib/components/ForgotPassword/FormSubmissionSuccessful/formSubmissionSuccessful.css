@@ -1,14 +1,21 @@
+.root {
+    display: grid;
+    gap: 1rem;
+}
+
 .text {
-    padding: 0.5rem 1.5rem;
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
     font-size: 0.875rem;
     font-weight: 300;
     line-height: 1.25rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    overflow-wrap: break-word;
+    padding: 1rem;
 }
 
 .buttonContainer {
-    margin: 0 auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
     text-align: center;
 }
