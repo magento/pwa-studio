@@ -1,15 +1,16 @@
-import { completePasswordReset, resetPassword } from '../../actions/user';
+import { resetPassword } from '../../actions/user';
 import { connect } from '../../drivers';
 import ForgotPassword from './forgotPassword';
 
 const mapStateToProps = ({ user }) => {
-    const { email, isInProgress } = user.forgotPassword;
+    const { resetPasswordError } = user;
 
-    return { email, isInProgress };
+    return {
+        error: resetPasswordError
+    };
 };
 
 const mapDispatchToProps = {
-    completePasswordReset,
     resetPassword
 };
 

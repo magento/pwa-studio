@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -18,25 +18,24 @@ const ERROR_MESSAGE =
 
 const SignIn = props => {
     const {
-        isGettingDetails,
-        isSigningIn,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
         signIn,
-        signInError
+        hasError
     } = props;
 
     const formRef = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const hasError = signInError && Object.keys(signInError).length;
     const errorMessage = hasError ? ERROR_MESSAGE : null;
+    const [isSigningIn, setIsSigningIn] = useState(false);
 
     const handleSubmit = useCallback(
         ({ email: username, password }) => {
+            setIsSigningIn(true);
             signIn({ username, password });
         },
-        [signIn]
+        [setIsSigningIn, signIn]
     );
 
     const handleForgotPassword = useCallback(() => {
@@ -59,8 +58,7 @@ const SignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
-    // if a request is in progress, avoid rendering the form
-    if (isGettingDetails || isSigningIn) {
+    if (isSigningIn) {
         return (
             <div className={classes.modal_active}>
                 <LoadingIndicator>{'Signing In'}</LoadingIndicator>
@@ -132,11 +130,9 @@ SignIn.propTypes = {
         signInDivider: string,
         signInError: string
     }),
-    isGettingDetails: bool,
-    isSigningIn: bool,
     setDefaultUsername: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
     signIn: func.isRequired,
-    signInError: shape({})
+    hasError: bool
 };

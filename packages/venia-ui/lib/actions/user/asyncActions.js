@@ -48,7 +48,7 @@ export const signIn = credentials =>
 export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
     await clearToken();
-    await dispatch(actions.signIn.reset());
+    await dispatch(actions.reset());
 
     // Now that we're signed out, forget the old (customer) cart
     // and fetch a new guest cart.
@@ -79,60 +79,43 @@ export const getUserDetails = () =>
         }
     };
 
-export const createNewUserRequest = accountInfo =>
-    async function thunk(...args) {
-        const [dispatch] = args;
-
-        dispatch(actions.resetCreateAccountError.request());
-
-        try {
-            await request('/rest/V1/customers', {
-                method: 'POST',
-                body: JSON.stringify(accountInfo)
-            });
-
-            await dispatch(
-                signIn({
-                    username: accountInfo.customer.email,
-                    password: accountInfo.password
-                })
-            );
-        } catch (error) {
-            dispatch(actions.createAccountError.receive(error));
-
-            /*
-             * Throw error again to notify async action which dispatched handleCreateAccount.
-             */
-            throw error;
-        }
-    };
-
 export const createAccount = accountInfo => async dispatch => {
-    /*
-     * Server validation error is handled in handleCreateAccount.
-     * We set createAccountError in Redux and throw error again
-     * to notify redux-thunk action which dispatched handleCreateAccount action.
-     */
+    dispatch(actions.createAccount.request());
+
     try {
-        await dispatch(createNewUserRequest(accountInfo));
-    } catch (e) {}
+        await request('/rest/V1/customers', {
+            method: 'POST',
+            body: JSON.stringify(accountInfo)
+        });
+
+        await dispatch(
+            signIn({
+                username: accountInfo.customer.email,
+                password: accountInfo.password
+            })
+        );
+    } catch (error) {
+        dispatch(actions.createAccount.receive(error));
+
+        /*
+         * Throw error again to notify async action which dispatched handleCreateAccount.
+         */
+        throw error;
+    }
 };
 
 export const resetPassword = ({ email }) =>
     async function thunk(...args) {
         const [dispatch] = args;
 
-        dispatch(actions.resetPassword.request(email));
+        dispatch(actions.resetPassword.request());
 
         // TODO: actually make the call to the API.
         // For now, just return a resolved promise.
-        const response = await Promise.resolve(email);
+        await Promise.resolve(email);
 
-        dispatch(actions.resetPassword.receive(response));
+        dispatch(actions.resetPassword.receive());
     };
-
-export const completePasswordReset = email => async dispatch =>
-    dispatch(actions.completePasswordReset(email));
 
 async function setToken(token) {
     // TODO: Get correct token expire time from API

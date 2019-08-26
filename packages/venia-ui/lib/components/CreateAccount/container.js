@@ -4,7 +4,7 @@ import CreateAccount from './createAccount';
 const mapStateToProps = ({ user }) => {
     const { createAccountError, isSignedIn } = user;
     return {
-        createAccountError,
+        hasError: !!createAccountError,
         isSignedIn
     };
 };
