@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Missing from './missing';
 import { contentTypesConfig } from './config';
 

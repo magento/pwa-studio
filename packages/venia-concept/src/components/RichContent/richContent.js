@@ -1,7 +1,7 @@
-import React  from 'react';
-import detectPageBuilder from "./PageBuilder/detectPageBuilder";
-import PageBuilder from "./PageBuilder";
-import parseStorageHtml from "./PageBuilder/parseStorageHtml";
+import React from 'react';
+import detectPageBuilder from './PageBuilder/detectPageBuilder';
+import PageBuilder from './PageBuilder';
+import parseStorageHtml from './PageBuilder/parseStorageHtml';
 
 const toHTML = str => ({ __html: str });
 
