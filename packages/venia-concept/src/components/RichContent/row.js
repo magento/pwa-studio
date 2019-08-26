@@ -7,7 +7,6 @@ import { Parallax } from 'react-parallax';
 const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, enableParallax, parallaxSpeed, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
     // Set the default appearance if none is supplied to contained
     appearance = appearance ? appearance : 'contained';
-    cssClasses = cssClasses ? cssClasses : [];
     let image = desktopImage;
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
@@ -55,7 +54,7 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
     }
 
     if (enableParallax) {
-        return <Parallax strength={parallaxSpeed * 200} bgImage={image} style={dynamicStyles} className={[...[cssClasses]].join(' ')}>
+        return <Parallax strength={parallaxSpeed * 200} bgImage={image} style={dynamicStyles} className={cssClasses}>
             {children}
         </Parallax>;
     }

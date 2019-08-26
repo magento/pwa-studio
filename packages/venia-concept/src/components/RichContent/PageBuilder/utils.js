@@ -93,5 +93,6 @@ export function getAdvanced(node) {
         paddingBottom: node.style.paddingBottom,
         paddingLeft: node.style.paddingLeft,
         textAlign: node.style.textAlign,
+        cssClasses: node.getAttribute('class') ? node.getAttribute('class') : [],
     }
 }
