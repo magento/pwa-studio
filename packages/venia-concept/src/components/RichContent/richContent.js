@@ -1,43 +1,16 @@
-import React, { Suspense } from 'react';
-import parseStorageHtml from './parseStorageHtml';
-import Missing from './PageBuilder/missing';
-import { contentTypesConfig } from './PageBuilder/config';
+import React  from 'react';
+import detectPageBuilder from "./PageBuilder/detectPageBuilder";
+import PageBuilder from "./PageBuilder";
+import parseStorageHtml from "./PageBuilder/parseStorageHtml";
 
-const RichContent = ({ data, html }) => {
-    const dataNode = data || parseStorageHtml(html);
+const toHTML = str => ({ __html: str });
 
-    return dataNode.children.map((node, i) => {
-        const contentTypeConfig = contentTypesConfig[node.contentType];
+const RichContent = ({ html }) => {
+    if (detectPageBuilder(html)) {
+        return <PageBuilder data={parseStorageHtml(html)} />;
+    }
 
-        if (contentTypeConfig) {
-            const PageBuilderComponent = contentTypeConfig.component;
-
-            if (!contentTypeConfig.type) {
-                return (
-                    <PageBuilderComponent key={i} {...node}>
-                        <RichContent data={node} />
-                    </PageBuilderComponent>
-                );
-            } else if (
-                contentTypeConfig.type &&
-                contentTypeConfig.type === 'dynamic'
-            ) {
-                const fallback = html ? (
-                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                ) : null;
-
-                return (
-                    <Suspense fallback={fallback}>
-                        <PageBuilderComponent key={i} {...node}>
-                            <RichContent data={node} />
-                        </PageBuilderComponent>
-                    </Suspense>
-                );
-            }
-        }
-
-        return <Missing key={i} contentType={node.contentType} />;
-    });
+    return <div dangerouslySetInnerHTML={toHTML(html)} />;
 };
 
 export default RichContent;
