@@ -6,77 +6,81 @@
 # This object uses a ConditionalResolver to determine the object value based
 # on the URL pattern in the request object.
 veniaResponse:
-  resolver: conditional
-  when:
-    # Requests to graphql/rest endpoints, the media library, and cache are
-    # handled by the top-level 'veniaProxy' object, which is a ProxyResolver
-    # that passes the request through to the backing Magento server.
-    - matches: request.url.pathname
-      pattern: '^/(graphql|rest)(/|$)'
-      use: veniaProxy
-    - matches: request.url.pathname
-      pattern: '^/(robots\.txt|favicon\.ico)'
-      use: staticFromRoot
-    - matches: fileExtension
-      pattern: '(js|json|png|svg|ico|css|txt)'
-      use: veniaStatic
-  default: veniaAppShell
+    resolver: conditional
+    when:
+        # Requests to graphql/rest endpoints, the media library, and cache are
+        # handled by the top-level 'veniaProxy' object, which is a ProxyResolver
+        # that passes the request through to the backing Magento server.
+        - matches: request.url.pathname
+          pattern: '^/(graphql|rest)(/|$)'
+          use: veniaProxy
+        - matches: request.url.pathname
+          pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
+          use: staticFromRoot
+        - matches: fileExtension
+          pattern: '(js|json|png|svg|ico|css|txt)'
+          use: veniaStatic
+    default: veniaAppShell
 
 # A FileResolver for serving certain files directly from document root,
 # even though they are published to the `static` folder in build assets.
 staticFromRoot:
-  inline:
-    status: 200
-    headers:
-      resolver: inline
-      inline:
-        content-type: contentTypeFromExtension
-    body:
-      resolver: file
-      file:
-        resolver: template
-        engine: mustache
-        provide:
-          filename: request.url.pathname
-        template:
-          resolver: inline
-          inline: './static/{{ filename }}'
+    inline:
+        status: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type: contentTypeFromExtension
+        body:
+            resolver: file
+            file:
+                resolver: template
+                engine: mustache
+                provide:
+                    filename: request.url.pathname
+                template:
+                    resolver: inline
+                    inline: './static/{{ filename }}'
 
 contentTypeFromExtension:
-  when:
-    - matches: fileExtension
-      pattern: '^ico$'
-      use:
-        inline: image/x-icon
-    - matches: fileExtension
-      pattern: '^txt$'
-      use:
-        inline: text/plain
-  default:
-    inline: text/html
+    when:
+        - matches: fileExtension
+          pattern: '^ico$'
+          use:
+              inline: image/x-icon
+        - matches: fileExtension
+          pattern: '^txt$'
+          use:
+              inline: text/plain
+        - matches: fileExtension
+          pattern: '^json$'
+          use:
+              inline: application/json
+    default:
+        inline: text/html
 
 # Contains the file extension--the part after the dot--of the URL path.
 fileExtension:
-  resolver: conditional
-  when:
-    - matches: request.url.pathname
-      pattern: '\.(.*)$'
-      use: $match.$1
-  default:
-    inline: ''
+    resolver: conditional
+    when:
+        - matches: request.url.pathname
+          pattern: '\.(.*)$'
+          use: $match.$1
+    default:
+        inline: ''
 
 # A ProxyResolver object that passes a request to the backend Magento
 # server defined in the MAGENTO_BACKEND_URL environment variable.
 # An UPWARD server infers this object as a ProxyResolver due to the presence
 # of the 'target' property.
 veniaProxy:
-  resolver: proxy
-  target: env.MAGENTO_BACKEND_URL
-  # A local Magento install may have SSH configured and untrusted,
-  # which is not a major concern, especially if containerized.
-  ignoreSSLErrors:
-    resolver: inline
-    inline: true
+    resolver: proxy
+    target: env.MAGENTO_BACKEND_URL
+    # A local Magento install may have SSH configured and untrusted,
+    # which is not a major concern, especially if containerized.
+    ignoreSSLErrors:
+        resolver: inline
+        inline: true
 
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.
@@ -85,29 +89,29 @@ veniaProxy:
 # This object uses properties in the top-level 'veniaResource' object to return
 # the appropriate response values.
 veniaAppShell:
-  resolver: inline
-  inline:
-    status:
-      resolver: inline
-      inline: 200
-    headers:
-      resolver: inline
-      inline:
-        content-type:
-          inline: text/html
-    body:
-      resolver: file
-      file:
-        resolver: inline
-        inline: './index.html'
+    resolver: inline
+    inline:
+        status:
+            resolver: inline
+            inline: 200
+        headers:
+            resolver: inline
+            inline:
+                content-type:
+                    inline: text/html
+        body:
+            resolver: file
+            file:
+                resolver: inline
+                inline: './index.html'
 
 # The veniaStatic object is a DirectoryResolver that allows access to the files
 # inside the project's compiled './dist' directory.
 veniaStatic:
-  resolver: directory
-  directory:
-    resolver: inline
-    inline: '.'
+    resolver: directory
+    directory:
+        resolver: inline
+        inline: '.'
 
 # These are no-ops at runtime; nothing refers to these context values in the
 # rest of this file. They exist to declare that the files in the `./templates`
@@ -119,10 +123,10 @@ veniaStatic:
 # The templates directory includes partials which are only required by other
 # templates, and the UpwardIncludePlugin cannot parse templates to see them.
 veniaTemplateIncludes:
-  resolver: directory
-  directory:
-    resolver: inline
-    inline: './templates'
+    resolver: directory
+    directory:
+        resolver: inline
+        inline: './templates'
 
 # The static directory includes files which don't need to be compiled.
 # They are served by the `veniaStatic` DirectoryResolver, along with the
@@ -130,7 +134,7 @@ veniaTemplateIncludes:
 # directory, the UpwardIncludePlugin will not copy it to avoid circular
 # dependency. TODO: This is kind of confusing.
 veniaStaticIncludes:
-  resolver: directory
-  directory:
-    resolver: inline
-    inline: './static'
+    resolver: directory
+    directory:
+        resolver: inline
+        inline: './static'
