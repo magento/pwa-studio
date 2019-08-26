@@ -11,7 +11,7 @@ export const name = 'checkout';
 const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
-    paymentCode: '', // TODO: Is this used? I couldn't find any refs besides here in the store. -srugh
+    paymentCode: '',
     paymentData: null,
     shippingAddress: null,
     shippingMethod: '',
