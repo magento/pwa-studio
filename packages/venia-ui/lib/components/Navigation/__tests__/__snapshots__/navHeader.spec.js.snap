@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 Array [
-  <i />,
+  <div />,
   <h2
     className="title"
   >
