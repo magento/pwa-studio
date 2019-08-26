@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './columnGroup.css';
-import classify from 'src/classify';
+import classify from "../../../../../classify";
 
 const ColumnGroup = ({ classes, display, children }) => {
     const dynamicStyles = {

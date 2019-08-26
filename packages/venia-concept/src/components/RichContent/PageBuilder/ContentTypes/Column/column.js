@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './column.css';
-import classify from 'src/classify';
+import classify from "../../../../../classify";
 
 const Column = ({
     classes,

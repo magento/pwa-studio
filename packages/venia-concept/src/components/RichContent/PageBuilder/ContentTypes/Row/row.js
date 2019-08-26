@@ -1,8 +1,8 @@
 import React from 'react';
 import defaultClasses from './row.css';
-import classify from 'src/classify';
 import { verticalAlignmentToFlex } from '../../utils';
 import { Parallax } from 'react-parallax';
+import classify from "../../../../../classify";
 
 const Row = ({
     classes,
