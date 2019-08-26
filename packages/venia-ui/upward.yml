@@ -14,20 +14,53 @@ veniaResponse:
     - matches: request.url.pathname
       pattern: '^/(graphql|rest)(/|$)'
       use: veniaProxy
+    - matches: request.url.pathname
+      pattern: '^/(robots\.txt|favicon\.ico)'
+      use: staticFromRoot
     - matches: fileExtension
-      pattern: 'js'
-      use: veniaBundles
-    - matches: fileExtension
-      pattern: '(json|png|svg|ico|css|txt)'
+      pattern: '(js|json|png|svg|ico|css|txt)'
       use: veniaStatic
   default: veniaAppShell
+
+# A FileResolver for serving certain files directly from document root,
+# even though they are published to the `static` folder in build assets.
+staticFromRoot:
+  inline:
+    status: 200
+    headers:
+      resolver: inline
+      inline:
+        content-type: contentTypeFromExtension
+    body:
+      resolver: file
+      file:
+        resolver: template
+        engine: mustache
+        provide:
+          filename: request.url.pathname
+        template:
+          resolver: inline
+          inline: './static/{{ filename }}'
+
+contentTypeFromExtension:
+  when:
+    - matches: fileExtension
+      pattern: '^ico$'
+      use:
+        inline: image/x-icon
+    - matches: fileExtension
+      pattern: '^txt$'
+      use:
+        inline: text/plain
+  default:
+    inline: text/html
 
 # Contains the file extension--the part after the dot--of the URL path.
 fileExtension:
   resolver: conditional
   when:
     - matches: request.url.pathname
-      pattern: '^\.(.*)$'
+      pattern: '\.(.*)$'
       use: $match.$1
   default:
     inline: ''
@@ -68,35 +101,36 @@ veniaAppShell:
         resolver: inline
         inline: './index.html'
 
-# The veniaBundles object is a DirectoryResolver that allows access to the
-# bundled files in the project's './dist' diretory.
-#
-# NOTE: The UPWARD server is able to interpret this entry as a
-# DirectoryResolver because of the presence of the 'directory' property.
-veniaBundles:
+# The veniaStatic object is a DirectoryResolver that allows access to the files
+# inside the project's compiled './dist' directory.
+veniaStatic:
   resolver: directory
   directory:
     resolver: inline
     inline: '.'
 
-# The veniaStatic object is a DirectoryResolver that allows access to the files
-# inside the project's './static' directory.
-veniaStatic:
-  resolver: directory
-  directory:
-    resolver: inline
-    inline: './static'
+# These are no-ops at runtime; nothing refers to these context values in the
+# rest of this file. They exist to declare that the files in the `./templates`
+# and `./static` directories are required and should be copied into the build
+# assets by the UpwardIncludePlugin. Since they are not directly mentioned
+# elsewhere in this file or any other upward.yml file in the build, the
+# UpwardIncludePlugin would fail to copy them if they were not mentioned here.
 
-# This is a no-op at runtime; nothing refers to this context value in the rest
-# of this file. It exists to declare that template evaluation requires _all_
-# files in `./templates`, not just the ones detected by mention in this file.
-# This is the only way that the UpwardIncludePlugin dependency detector can
-# know about the _template partials_, which are only used inside template
-# evaluation and cannot be easily statically analyzed by the plugin.
-#
-# TLDR: mentioning './templates' makes Webpack copy the whole dir into ./dist
+# The templates directory includes partials which are only required by other
+# templates, and the UpwardIncludePlugin cannot parse templates to see them.
 veniaTemplateIncludes:
   resolver: directory
   directory:
     resolver: inline
     inline: './templates'
+
+# The static directory includes files which don't need to be compiled.
+# They are served by the `veniaStatic` DirectoryResolver, along with the
+# bundles and other assets, but since that resolver serves the `.` dist
+# directory, the UpwardIncludePlugin will not copy it to avoid circular
+# dependency. TODO: This is kind of confusing.
+veniaStaticIncludes:
+  resolver: directory
+  directory:
+    resolver: inline
+    inline: './static'
