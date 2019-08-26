@@ -54,7 +54,7 @@ const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor
     }
 
     if (enableParallax) {
-        return <Parallax strength={parallaxSpeed * 200} bgImage={image} style={dynamicStyles} className={cssClasses}>
+        return <Parallax strength={parallaxSpeed * 200} bgImage={image} style={dynamicStyles} className={cssClasses.join(' ')}>
             {children}
         </Parallax>;
     }
