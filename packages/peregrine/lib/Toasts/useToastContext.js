@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import withLogger from '../util/withLogger';
+
 /**
- * The state of the toast store.
+ * The current state of the toast store.
+ *
  * @typedef {Object} ToastState
- * @property {Map} toasts - map of id => toast
+ *
+ * @property {Map} toasts Map object associating an id to toast data
  */
 const initialState = {
     toasts: new Map()
@@ -65,14 +68,12 @@ const ToastContext = createContext();
 const wrappedReducer = withLogger(reducer);
 
 /**
- * A context provider that provides the toast state object and the dispatch
- * function.
+ * A [context]{@link https://reactjs.org/docs/context.html} provider that
+ * provides the toast state object and a dispatch function to toast
+ * functionality consumers.
  *
- * @example
- *   <ToastContextProvider>
- *     <ToastContainer /> // A component which would display based on state.
- *     <AddToastComponent /> // A component which adds a toast using actions.
- *   </ToastContextProvider>
+ * @typedef ToastContextProvider
+ *
  */
 export const ToastContextProvider = ({ children }) => {
     const store = useReducer(wrappedReducer, initialState);
@@ -83,9 +84,12 @@ export const ToastContextProvider = ({ children }) => {
 
 /**
  * A hook that provides access to the toast state and dispatch.
- * !Any component using this hook _must_ be a child of a `ToastContextProvider`.
+ * Any component using this hook _must_ be a child of a {@link ToastContextProvider}.
  *
- * @return {[ToastState, Function]} The toast context value.
+ * @typedef useToastContext
+ *
+ * @return {Object[]} An array containing the state and dispatch function: [{@link ToastState}, function]
+ *
  * @example
  *   const [toastState, dispatch] = useToastState();
  */
