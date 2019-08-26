@@ -10,6 +10,10 @@ import headingConfigAggregator from './ContentTypes/Heading/configAggregator';
 import Heading from './ContentTypes/Heading';
 import textConfigAggregator from './ContentTypes/Text/configAggregator';
 import Text from './ContentTypes/Text';
+import tabsConfigAggregator from './ContentTypes/Tabs/configAggregator';
+import Tabs from './ContentTypes/Tabs';
+import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
+import TabItem from './ContentTypes/TabItem';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
 import Block from './ContentTypes/Block';
 
@@ -37,6 +41,14 @@ export const contentTypesConfig = {
     text: {
         configAggregator: textConfigAggregator,
         component: Text
+    },
+    tabs: {
+        configAggregator: tabsConfigAggregator,
+        component: Tabs,
+    },
+    'tab-item': {
+        configAggregator: tabItemConfigAggregator,
+        component: TabItem,
     },
     block: {
         configAggregator: blockConfigAggregator,
