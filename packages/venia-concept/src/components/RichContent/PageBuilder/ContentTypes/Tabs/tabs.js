@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tabs as TabWrapper, TabList, Tab as TabHeader } from 'react-tabs';
-import tabsClasses from './tabs.css';
+import { Tabs as TabWrapper, TabList, Tab as TabHeader, TabPanel } from 'react-tabs';
+import defaultClasses from "./tabs.css";
 import classify from 'src/classify';
 import defaultClasses from "../Column/column.css";
 
