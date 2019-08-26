@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import tabsClasses from './tabs.css';
-import RichContent from './richContent';
+import RichContent from '../../../richContent';
 import GenericElement from './genericElement';
 
 const PageBuilderTabs = ({ data }) => {

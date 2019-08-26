@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import parseStorageHtml from './parseStorageHtml';
-import Row from './row';
-import Column from './column';
-import ColumnGroup from './columnGroup';
-import Heading from "./heading";
+import Row from './PageBuilder/ContentTypes/Row/row';
+import Column from './PageBuilder/ContentTypes/Column/column';
+import ColumnGroup from './PageBuilder/ContentTypes/ColumnGroup/columnGroup';
+import Heading from "./PageBuilder/ContentTypes/Heading/heading";
 
 // TODO move into configuration
 const ContentTypes = {
@@ -14,7 +14,7 @@ const ContentTypes = {
         column: Column,
     },
     dynamic: {
-        tabs: React.lazy(() => import('./tabs'))
+        tabs: React.lazy(() => import('./PageBuilder/ContentTypes/Tabs/tabs'))
     }
 };
 

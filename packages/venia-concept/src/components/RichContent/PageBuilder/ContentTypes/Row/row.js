@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultClasses from './row.css';
 import classify from 'src/classify';
-import {verticalAlignmentToFlex} from "./PageBuilder/utils";
+import {verticalAlignmentToFlex} from "../../utils";
 import { Parallax } from 'react-parallax';
 
 const Row = ({classes, appearance, verticalAlignment, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, enableParallax, parallaxSpeed, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {

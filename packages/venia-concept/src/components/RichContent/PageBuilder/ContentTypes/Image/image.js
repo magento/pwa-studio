@@ -1,6 +1,6 @@
 import React from 'react';
 import imageClasses from './image.css';
-import RichContent from './richContent';
+import RichContent from '../../../richContent';
 import GenericElement from './genericElement';
 
 const PageBuilderImage = ({ data }) => {
