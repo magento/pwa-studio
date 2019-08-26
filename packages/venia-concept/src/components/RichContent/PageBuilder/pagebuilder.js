@@ -16,28 +16,11 @@ const PageBuilder = ({ data }) => {
         if (contentTypeConfig) {
             const PageBuilderComponent = contentTypeConfig.component;
 
-            if (!contentTypeConfig.type) {
-                return (
-                    <PageBuilderComponent key={i} {...treeItem}>
-                        <PageBuilder data={treeItem} />
-                    </PageBuilderComponent>
-                );
-            } else if (
-                contentTypeConfig.type &&
-                contentTypeConfig.type === 'dynamic'
-            ) {
-                const fallback = html ? (
-                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                ) : null;
-
-                return (
-                    <Suspense fallback={fallback}>
-                        <PageBuilderComponent key={i} {...treeItem}>
-                            <PageBuilder data={treeItem} />
-                        </PageBuilderComponent>
-                    </Suspense>
-                );
-            }
+            return (
+                <PageBuilderComponent key={i} {...treeItem}>
+                    <PageBuilder data={treeItem} />
+                </PageBuilderComponent>
+            );
         }
 
         return <Missing key={i} contentType={treeItem.contentType} />;
