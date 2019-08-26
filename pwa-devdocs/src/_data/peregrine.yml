@@ -28,6 +28,13 @@ entries:
           - label: useSearchParam
             url: /peregrine/reference/hooks/useSearchParam/
 
+          - label: useToasts
+            url: /peregrine/reference/toasts/useToasts
+
+          - label: useToastContext
+            url: /peregrine/reference/toasts/useToastContext/
+
+
     - label: React components
       entries:
           - label: ContainerChild
