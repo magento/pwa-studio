@@ -1,6 +1,5 @@
-export default (node, props) => {
+export default (node) => {
     return {
-        appearance: props.appearance,
         display: node.style.display,
     };
 };
