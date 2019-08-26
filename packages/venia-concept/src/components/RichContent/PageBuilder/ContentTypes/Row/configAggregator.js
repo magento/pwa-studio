@@ -1,8 +1,8 @@
 import { getBackgroundImages, getVerticalAlignment } from '../../utils';
 
 export default node => {
-    console.log(node);
     return {
+        appearance: node.getAttribute('data-appearance'),
         minHeight: node.childNodes[0].style.minHeight ? node.childNodes[0].style.minHeight : null,
         ...getVerticalAlignment(node.childNodes[0]),
         backgroundColor: node.childNodes[0].style.backgroundColor,
@@ -11,7 +11,7 @@ export default node => {
         parallaxSpeed: parseFloat(
             node.childNodes[0].getAttribute('data-parallax-speed')
         ),
-        cssClasses: node.childNodes[0].getAttribute('class'),
+        cssClasses: node.childNodes[0].getAttribute('class') ? node.childNodes[0].getAttribute('class') : null,
         border: node.childNodes[0].style.borderStyle,
         borderColor: node.childNodes[0].style.borderColor,
         borderWidth: node.childNodes[0].style.borderWidth,

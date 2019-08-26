@@ -2,7 +2,7 @@ import React from 'react';
 import defaultClasses from './row.css';
 import classify from 'src/classify';
 
-const Row = ({classes, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+const Row = ({appearance, classes, minHeight, backgroundColor, desktopImage, mobileImage, backgroundSize, backgroundPosition, backgroundAttachment, backgroundRepeat, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
     let image = desktopImage;
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
@@ -28,6 +28,17 @@ const Row = ({classes, minHeight, backgroundColor, desktopImage, mobileImage, ba
         paddingBottom,
         paddingLeft,
     };
+
+    switch (appearance) {
+        case 'full-bleed':
+            break;
+        case 'full-width':
+            break;
+        case 'contained':
+        default:
+            break;
+    }
+
     return (
         <div data-content-type="row" style={dynamicStyles} className={[classes.contained, ...[cssClasses]].join(' ')}>
             {children}
