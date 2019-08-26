@@ -102,9 +102,11 @@ class ServiceResolver extends AbstractResolver {
                 }
             })
             .catch(async e => {
-                const {print} = require('graphql/language/printer');
+                const { print } = require('graphql/language/printer');
                 throw new Error(
-                    `ServiceResolver: Request to ${endpoint.toString()} failed: ${e}.\n\nQuery: ${print(await parsedQuery.render())}\n\nVariables:\n\n ${JSON.stringify(variables)}`
+                    `ServiceResolver: Request to ${endpoint.toString()} failed: ${e}.\n\nQuery: ${print(
+                        await parsedQuery.render()
+                    )}\n\nVariables:\n\n ${JSON.stringify(variables)}`
                 );
             });
     }

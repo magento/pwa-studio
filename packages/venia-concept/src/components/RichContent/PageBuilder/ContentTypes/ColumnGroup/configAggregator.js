@@ -1,5 +1,5 @@
-export default (node) => {
+export default node => {
     return {
-        display: node.style.display,
+        display: node.style.display
     };
 };

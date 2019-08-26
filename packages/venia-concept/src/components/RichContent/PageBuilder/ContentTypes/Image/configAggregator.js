@@ -1,7 +1,16 @@
-import {getBorder, getCssClasses, getMargin, getPadding, getTextAlign} from "../../utils";
+import {
+    getBorder,
+    getCssClasses,
+    getMargin,
+    getPadding,
+    getTextAlign
+} from '../../utils';
 
 export default node => {
-    const imageNode = node.childNodes[0].nodeName === 'A' ? node.childNodes[0].childNodes : node.childNodes;
+    const imageNode =
+        node.childNodes[0].nodeName === 'A'
+            ? node.childNodes[0].childNodes
+            : node.childNodes;
     const props = {
         desktopImage: imageNode[0].getAttribute('src'),
         mobileImage: imageNode[1].getAttribute('src'),
@@ -11,7 +20,7 @@ export default node => {
         ...getMargin(node),
         ...getBorder(node.childNodes[0]),
         ...getCssClasses(node),
-        ...getTextAlign(node),
+        ...getTextAlign(node)
     };
     if (props.desktopImage === props.mobileImage) {
         props.mobileImage = null;

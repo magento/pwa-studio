@@ -12,7 +12,7 @@ export function getBackgroundImages(node) {
         backgroundSize: node.style.backgroundSize,
         backgroundPosition: node.style.backgroundPosition,
         backgroundAttachment: node.style.backgroundAttachment,
-        backgroundRepeat: node.style.backgroundRepeat !== "no-repeat",
+        backgroundRepeat: node.style.backgroundRepeat !== 'no-repeat'
     };
 
     if (images) {
@@ -29,9 +29,9 @@ export function getBackgroundImages(node) {
 }
 
 const alignmentToFlex = {
-    'top': 'flex-start',
-    'middle': 'center',
-    'bottom': 'flex-end',
+    top: 'flex-start',
+    middle: 'center',
+    bottom: 'flex-end'
 };
 
 /**
@@ -68,7 +68,9 @@ export function verticalAlignmentToFlex(alignment) {
  * @returns {*}
  */
 export function flexToVerticalAlignment(flex) {
-    const flexToAlignment = Object.fromEntries(Object.entries(alignmentToFlex).map(([k, v]) => ([v, k])));
+    const flexToAlignment = Object.fromEntries(
+        Object.entries(alignmentToFlex).map(([k, v]) => [v, k])
+    );
     return flexToAlignment[flex];
 }
 
@@ -85,7 +87,7 @@ export function getAdvanced(node) {
         ...getBorder(node),
         ...getTextAlign(node),
         ...getCssClasses(node)
-    }
+    };
 }
 
 export function getPadding(node) {
@@ -93,8 +95,8 @@ export function getPadding(node) {
         paddingTop: node.style.paddingTop,
         paddingRight: node.style.paddingRight,
         paddingBottom: node.style.paddingBottom,
-        paddingLeft: node.style.paddingLeft,
-    }
+        paddingLeft: node.style.paddingLeft
+    };
 }
 
 export function getMargin(node) {
@@ -102,8 +104,8 @@ export function getMargin(node) {
         marginTop: node.style.marginTop,
         marginRight: node.style.marginRight,
         marginBottom: node.style.marginBottom,
-        marginLeft: node.style.marginLeft,
-    }
+        marginLeft: node.style.marginLeft
+    };
 }
 
 export function getBorder(node) {
@@ -111,18 +113,20 @@ export function getBorder(node) {
         border: node.style.borderStyle,
         borderColor: node.style.borderColor,
         borderWidth: node.style.borderWidth,
-        borderRadius: node.style.borderRadius,
-    }
+        borderRadius: node.style.borderRadius
+    };
 }
 
 export function getTextAlign(node) {
     return {
-        textAlign: node.style.textAlign,
-    }
+        textAlign: node.style.textAlign
+    };
 }
 
 export function getCssClasses(node) {
     return {
-        cssClasses: node.getAttribute('class') ? node.getAttribute('class').split(' ') : [],
-    }
+        cssClasses: node.getAttribute('class')
+            ? node.getAttribute('class').split(' ')
+            : []
+    };
 }

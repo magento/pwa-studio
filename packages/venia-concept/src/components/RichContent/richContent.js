@@ -3,10 +3,10 @@ import parseStorageHtml from './parseStorageHtml';
 import Row from './PageBuilder/ContentTypes/Row/row';
 import Column from './PageBuilder/ContentTypes/Column/column';
 import ColumnGroup from './PageBuilder/ContentTypes/ColumnGroup/columnGroup';
-import Heading from "./PageBuilder/ContentTypes/Heading/heading";
-import Image from "./PageBuilder/ContentTypes/Image/image";
-import Text from "./PageBuilder/ContentTypes/Text/text";
-import Missing from "./PageBuilder/missing";
+import Heading from './PageBuilder/ContentTypes/Heading/heading';
+import Image from './PageBuilder/ContentTypes/Image/image';
+import Text from './PageBuilder/ContentTypes/Text/text';
+import Missing from './PageBuilder/missing';
 
 // TODO move into configuration
 const ContentTypes = {
@@ -38,7 +38,7 @@ const RichContent = ({ data, html }) => {
             );
         } else if (DynamicContentType) {
             const fallback = html ? (
-                <div dangerouslySetInnerHTML={{__html: html}}/>
+                <div dangerouslySetInnerHTML={{ __html: html }} />
             ) : null;
 
             return (
