@@ -3,6 +3,7 @@ import columnConfigAggregator from './PageBuilder/ContentTypes/Column/configAggr
 import columnGroupConfigAggregator from './PageBuilder/ContentTypes/ColumnGroup/configAggregator';
 import imageConfigAggregator from './PageBuilder/ContentTypes/Image/configAggregator';
 import headingConfigAggregator from './PageBuilder/ContentTypes/Heading/configAggregator';
+import textConfigAggregator from './PageBuilder/ContentTypes/Text/configAggregator';
 
 // TODO move to configuration
 const pageBuilderConfigAggregators = {
@@ -10,7 +11,8 @@ const pageBuilderConfigAggregators = {
     column: columnConfigAggregator,
     'column-group': columnGroupConfigAggregator,
     image: imageConfigAggregator,
-    heading: headingConfigAggregator
+    heading: headingConfigAggregator,
+    text: textConfigAggregator
 };
 
 /**
@@ -44,7 +46,6 @@ const walk = (rootEl, contentTypeStructureObj) => {
     let currentNode = tree.nextNode();
     while (currentNode) {
         if (currentNode.nodeType !== Node.ELEMENT_NODE) {
-            contentTypeStructureObj.text = currentNode.textContent;
             currentNode = tree.nextNode();
             continue;
         }
