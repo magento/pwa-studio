@@ -90,6 +90,12 @@ export function getAdvanced(node) {
     };
 }
 
+/**
+ * Retrieve the padding from a content type node
+ *
+ * @param node
+ * @returns {{paddingBottom: *, paddingRight: *, paddingTop: *, paddingLeft: *}}
+ */
 export function getPadding(node) {
     return {
         paddingTop: node.style.paddingTop,
@@ -99,6 +105,12 @@ export function getPadding(node) {
     };
 }
 
+/**
+ * Retrieve the margin from a content type node
+ *
+ * @param node
+ * @returns {{marginRight: *, marginBottom: *, marginTop: *, marginLeft: *}}
+ */
 export function getMargin(node) {
     return {
         marginTop: node.style.marginTop,
@@ -108,6 +120,12 @@ export function getMargin(node) {
     };
 }
 
+/**
+ * Retrieve the border from a content type node
+ *
+ * @param node
+ * @returns {{border: (string|string), borderColor: *, borderRadius: *, borderWidth: *}}
+ */
 export function getBorder(node) {
     return {
         border: node.style.borderStyle,
@@ -117,12 +135,23 @@ export function getBorder(node) {
     };
 }
 
+/**
+ * Retrieve the text align from a content type node
+ *
+ * @param node
+ * @returns {{textAlign: *}}
+ */
 export function getTextAlign(node) {
     return {
         textAlign: node.style.textAlign
     };
 }
 
+/**
+ * Retrieve the CSS classes from a content type node
+ * @param node
+ * @returns {{cssClasses: any}}
+ */
 export function getCssClasses(node) {
     return {
         cssClasses: node.getAttribute('class')
