@@ -1,37 +1,44 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Trigger } from '../cartTrigger';
+import { createTestInstance } from '@magento/peregrine';
+
+import Trigger from '../cartTrigger';
 
 const classes = {
     root: 'a'
 };
-
+const getCartDetails = jest.fn();
 const toggleCart = jest.fn();
 
-test('Cart icon layout is outline only, when cart is empty', () => {
+test('Cart icon svg has no fill when cart is empty', () => {
     const props = {
         cart: {
             details: {
                 items_qty: 0
             }
-        }
+        },
+        classes,
+        getCartDetails,
+        toggleCart
     };
-    const wrapper = mount(
-        <Trigger {...props} classes={classes} toggleCart={toggleCart} />
-    );
-    expect(wrapper.find('svg').prop('fill')).toContain('none');
+
+    const component = createTestInstance(<Trigger {...props} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('Cart icon layout is filled, when cart contains items', () => {
+test('Cart icon svg has fill and correct value when cart contains items', () => {
     const props = {
         cart: {
             details: {
-                items_qty: 1
+                items_qty: 10
             }
-        }
+        },
+        classes,
+        getCartDetails,
+        toggleCart
     };
-    const wrapper = mount(
-        <Trigger {...props} classes={classes} toggleCart={toggleCart} />
-    );
-    expect(wrapper.find('svg').prop('fill')).not.toContain('none');
+
+    const component = createTestInstance(<Trigger {...props} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
 });

@@ -1,41 +1,35 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { func, shape, string } from 'prop-types';
 
-import classify from '../../../classify';
+import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './formSubmissionSuccessful.css';
 
-class FormSubmissionSuccessful extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            text: PropTypes.string,
-            buttonContainer: PropTypes.string
-        }),
-        email: PropTypes.string,
-        onContinue: PropTypes.func.isRequired
-    };
+const FormSubmissionSuccessful = props => {
+    const { email, onContinue } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    get textMessage() {
-        const { email } = this.props;
+    const textMessage = `If there is an account associated with ${email}, you will receive an email with a link to change your password.`;
+    const CONTINUE_SHOPPING = 'Continue Shopping';
 
-        return `If there is an account associated with
-            ${email} you will receive an
-            email with a link to change your password`;
-    }
-
-    render() {
-        const { textMessage } = this;
-        const { classes, onContinue } = this.props;
-
-        return (
-            <div>
-                <p className={classes.text}>{textMessage}</p>
-                <div className={classes.buttonContainer}>
-                    <Button onClick={onContinue}>Continue Shopping</Button>
-                </div>
+    return (
+        <div className={classes.root}>
+            <p className={classes.text}>{textMessage}</p>
+            <div className={classes.buttonContainer}>
+                <Button onClick={onContinue}>{CONTINUE_SHOPPING}</Button>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-export default classify(defaultClasses)(FormSubmissionSuccessful);
+export default FormSubmissionSuccessful;
+
+FormSubmissionSuccessful.propTypes = {
+    classes: shape({
+        buttonContainer: string,
+        root: string,
+        text: string
+    }),
+    email: string,
+    onContinue: func.isRequired
+};

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <i />,
+  <h2
+    className="title"
+  >
+    <span>
+      Main Menu
+    </span>
+  </h2>,
+  <i />,
+]
+`;

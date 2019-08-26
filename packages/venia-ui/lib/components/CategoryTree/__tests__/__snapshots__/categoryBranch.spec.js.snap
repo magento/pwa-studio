@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="root"
+>
+  <button
+    className="target"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="text"
+    >
+      One
+    </span>
+  </button>
+</li>
+`;
+
+exports[`renders null if include flag is off 1`] = `null`;
