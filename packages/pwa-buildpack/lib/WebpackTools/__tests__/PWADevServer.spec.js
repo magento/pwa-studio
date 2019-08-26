@@ -397,6 +397,6 @@ test('.configure() allows a `public` override', async () => {
     );
 
     expect(config.devServer).toMatchObject({
-        publicPath: 'https://docker.local/'
+        publicPath: 'http://0.0.0.0:10001/bork/'
     });
 });
