@@ -23,6 +23,9 @@ entries:
   - label: Reference
     entries:
 
+      - label: Configure webpack
+        url: /pwa-buildpack/reference/configure-webpack
+
       - label: Environment variables
         url: /pwa-buildpack/reference/environment-variables/
 
