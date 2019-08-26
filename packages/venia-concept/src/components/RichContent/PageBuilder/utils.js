@@ -80,19 +80,49 @@ export function flexToVerticalAlignment(flex) {
  */
 export function getAdvanced(node) {
     return {
-        border: node.style.borderStyle,
-        borderColor: node.style.borderColor,
-        borderWidth: node.style.borderWidth,
-        borderRadius: node.style.borderRadius,
-        marginTop: node.style.marginTop,
-        marginRight: node.style.marginRight,
-        marginBottom: node.style.marginBottom,
-        marginLeft: node.style.marginLeft,
+        ...getPadding(node),
+        ...getMargin(node),
+        ...getBorder(node),
+        ...getTextAlign(node),
+        ...getCssClasses(node)
+    }
+}
+
+export function getPadding(node) {
+    return {
         paddingTop: node.style.paddingTop,
         paddingRight: node.style.paddingRight,
         paddingBottom: node.style.paddingBottom,
         paddingLeft: node.style.paddingLeft,
+    }
+}
+
+export function getMargin(node) {
+    return {
+        marginTop: node.style.marginTop,
+        marginRight: node.style.marginRight,
+        marginBottom: node.style.marginBottom,
+        marginLeft: node.style.marginLeft,
+    }
+}
+
+export function getBorder(node) {
+    return {
+        border: node.style.borderStyle,
+        borderColor: node.style.borderColor,
+        borderWidth: node.style.borderWidth,
+        borderRadius: node.style.borderRadius,
+    }
+}
+
+export function getTextAlign(node) {
+    return {
         textAlign: node.style.textAlign,
+    }
+}
+
+export function getCssClasses(node) {
+    return {
         cssClasses: node.getAttribute('class') ? node.getAttribute('class').split(' ') : [],
     }
 }

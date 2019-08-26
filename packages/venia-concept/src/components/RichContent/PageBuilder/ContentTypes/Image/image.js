@@ -1,20 +1,36 @@
 import React from 'react';
-import imageClasses from './image.css';
-import RichContent from '../../../richContent';
-import GenericElement from './genericElement';
+import defaultClasses from "./image.css";
+import classify from "src/classify";
 
-const PageBuilderImage = ({ data }) => {
-    // TODO - not desirable to alter state of data directly within our component
-    data.elements.desktop_image[0].domAttributes.className +=
-        ' ' + imageClasses['pagebuilder-mobile-hidden'];
-    data.elements.mobile_image[0].domAttributes.className +=
-        ' ' + imageClasses['pagebuilder-mobile-only'];
-
+const Image = ({classes, desktopImage, mobileImage, altText, title, link, caption, textAlign, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses}) => {
+    const figureStyles = {
+        textAlign,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+    };
+    const imageStyles = {
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+    };
     return (
-        <GenericElement data={data}>
-            <RichContent data={data.children} />
-        </GenericElement>
+        <>
+            <figure style={figureStyles} className={cssClasses}>
+                <picture>
+                    {mobileImage ? <source media="(max-width: 768px)" srcSet={mobileImage} /> : ''}
+                    <img src={desktopImage} title={title} alt={altText} style={imageStyles} />
+                </picture>
+                {caption ? <figcaption>{caption}</figcaption> : ''}
+            </figure>
+        </>
     );
 };
 
-export default PageBuilderImage;
+export default classify(defaultClasses)(Image);

@@ -4,6 +4,7 @@ import Row from './PageBuilder/ContentTypes/Row/row';
 import Column from './PageBuilder/ContentTypes/Column/column';
 import ColumnGroup from './PageBuilder/ContentTypes/ColumnGroup/columnGroup';
 import Heading from "./PageBuilder/ContentTypes/Heading/heading";
+import Image from "./PageBuilder/ContentTypes/Image/image";
 
 // TODO move into configuration
 const ContentTypes = {
@@ -12,6 +13,7 @@ const ContentTypes = {
         'column-group': ColumnGroup,
         heading: Heading,
         column: Column,
+        image: Image
     },
     dynamic: {
         //tabs: React.lazy(() => import('./PageBuilder/ContentTypes/Tabs/tabs'))
