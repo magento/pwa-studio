@@ -2,6 +2,14 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.root.tab-align-left .tabContent {
+    border-top-left-radius: 0 !important;
+}
+
+.root.tab-align-right .tabContent {
+    border-top-right-radius: 0 !important;
+}
+
 .tabHeader.tabSelected {
     background: #fff;
     color: black;
@@ -13,14 +21,6 @@
     font-size: 0;
     margin: 0 0 -1px;
     padding: 0;
-}
-
-.tabNavigation.tab-align-left .tabContent {
-    border-top-left-radius: 0 !important;
-}
-
-.tabNavigation.tab-align-right .tabContent {
-    border-top-right-radius: 0 !important;
 }
 
 .tabHeader {
