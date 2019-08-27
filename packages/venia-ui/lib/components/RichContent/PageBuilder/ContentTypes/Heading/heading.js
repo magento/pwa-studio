@@ -40,7 +40,7 @@ const Heading = ({
     };
     cssClasses.push(classes.heading);
     return (
-        <HeadingType style={dynamicStyles} className={cssClasses}>
+        <HeadingType style={dynamicStyles} className={cssClasses.join(' ')}>
             {text}
         </HeadingType>
     );
