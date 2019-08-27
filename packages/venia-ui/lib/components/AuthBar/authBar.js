@@ -2,8 +2,8 @@ import React, { useCallback, useContext } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
+import { UserContext } from '../../context/user';
 import Button from '../Button';
-import { UserContext } from '../Navigation';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
 

@@ -2,11 +2,11 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
+import { UserContext } from '../../context/user';
 import CreateAccount from '../CreateAccount';
 import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
-import { UserContext } from '../Navigation';
 import defaultClasses from './authModal.css';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];

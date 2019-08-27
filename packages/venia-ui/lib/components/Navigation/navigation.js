@@ -2,10 +2,12 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
+import { AppContext } from '../../context/app';
+import { CatalogContext } from '../../context/catalog';
+import { UserContext } from '../../context/user';
 import AuthBar from '../AuthBar';
 import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';
-import { AppContext, CatalogContext, UserContext } from './container';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 
