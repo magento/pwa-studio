@@ -1,5 +1,5 @@
 import React from 'react';
 
-const TabItem = () => null;
+const TabItem = ({children}) => children;
 
 export default TabItem;

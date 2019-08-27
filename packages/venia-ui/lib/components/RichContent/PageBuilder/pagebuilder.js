@@ -10,21 +10,21 @@ import { contentTypesConfig } from './config';
  * @constructor
  */
 const PageBuilder = ({ data }) => {
-    return data.children.map((treeItem, i) => {
-        const contentTypeConfig = contentTypesConfig[treeItem.contentType];
+    const contentTypeConfig = contentTypesConfig[data.contentType];
 
-        if (contentTypeConfig) {
-            const PageBuilderComponent = contentTypeConfig.component;
+    if (contentTypeConfig) {
+        const PageBuilderComponent = contentTypeConfig.component;
 
-            return (
-                <PageBuilderComponent key={i} {...treeItem}>
-                    <PageBuilder data={treeItem} />
-                </PageBuilderComponent>
-            );
-        }
+        return (
+            <PageBuilderComponent {...data}>
+                {data.children.map((childTreeItem, i) => (
+                    <PageBuilder key={i} data={childTreeItem} />
+                ))}
+            </PageBuilderComponent>
+        );
+    }
 
-        return <Missing key={i} contentType={treeItem.contentType} />;
-    });
+    return <Missing key={i} contentType={data.contentType} />;
 };
 
 export default PageBuilder;

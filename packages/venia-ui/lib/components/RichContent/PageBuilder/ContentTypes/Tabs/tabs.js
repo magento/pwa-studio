@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Tabs as TabWrapper, TabList, Tab as TabHeader, TabPanel } from 'react-tabs';
 import defaultClasses from "./tabs.css";
 import {mergeClasses} from "../../../../../classify";
@@ -47,14 +47,14 @@ const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, nav
                     </TabHeader>
                 ))}
             </TabList>
-            {items.map((item, i) => (
+            {Children.map(children, (child, index) => (
                 <TabPanel
-                    key={i}
+                    key={index}
                     className={classes.tabPanel}
                     selectedClassName={classes.tabPanelSelected}
-                    style={item.style}
+
                 >
-                    {/* TODO - how to render children tab items recursively? */}
+                    {child}
                 </TabPanel>
             ))}
         </TabWrapper>
