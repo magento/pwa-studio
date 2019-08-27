@@ -16,8 +16,14 @@ entries:
           - label: useApolloContext
             url: /peregrine/reference/hooks/useApolloContext/
 
+          - label: useEventListener
+            url: /peregrine/reference/hooks/useEventListener/
+
           - label: useDropdown
             url: /peregrine/reference/hooks/useDropdown/
+
+          - label: usePagination
+            url: /peregrine/reference/hooks/usePagination/
 
           - label: useQuery
             url: /peregrine/reference/hooks/useQuery/
@@ -34,6 +40,8 @@ entries:
           - label: useToastContext
             url: /peregrine/reference/toasts/useToastContext/
 
+          - label: useWindowSize
+            url: /peregrine/reference/hooks/useWindowSize/
 
     - label: React components
       entries:
