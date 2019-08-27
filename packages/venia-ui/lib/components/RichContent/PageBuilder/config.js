@@ -1,3 +1,4 @@
+import * as React from "react";
 import rowConfigAggregator from './ContentTypes/Row/configAggregator';
 import Row from './ContentTypes/Row';
 import columnConfigAggregator from './ContentTypes/Column/configAggregator';
@@ -11,13 +12,11 @@ import Heading from './ContentTypes/Heading';
 import textConfigAggregator from './ContentTypes/Text/configAggregator';
 import Text from './ContentTypes/Text';
 import tabsConfigAggregator from './ContentTypes/Tabs/configAggregator';
-import Tabs from './ContentTypes/Tabs';
 import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
-import TabItem from './ContentTypes/TabItem';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
-import Block from './ContentTypes/Block';
 import productsConfigAggregator from './ContentTypes/Products/configAggregator';
-import Products from './ContentTypes/Products';
+
+export const Lazy = 'lazy';
 
 export const contentTypesConfig = {
     row: {
@@ -45,19 +44,23 @@ export const contentTypesConfig = {
         component: Text
     },
     tabs: {
+        load: Lazy,
         configAggregator: tabsConfigAggregator,
-        component: Tabs
+        component: React.lazy(() => import('./ContentTypes/Tabs'))
     },
     'tab-item': {
+        load: Lazy,
         configAggregator: tabItemConfigAggregator,
-        component: TabItem
+        component: React.lazy(() => import('./ContentTypes/TabItem'))
     },
     block: {
+        load: Lazy,
         configAggregator: blockConfigAggregator,
-        component: Block
+        component: React.lazy(() => import('./ContentTypes/Block'))
     },
     products: {
+        load: Lazy,
         configAggregator: productsConfigAggregator,
-        component: Products
+        component: React.lazy(() => import('./ContentTypes/Products'))
     }
 };

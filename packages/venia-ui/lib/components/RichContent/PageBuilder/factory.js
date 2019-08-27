@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Missing from './missing';
-import { contentTypesConfig } from './config';
+import {contentTypesConfig, Lazy} from './config';
+
+/**
+ * Render a content type
+ *
+ * @param Component
+ * @param data
+ * @returns {*}
+ */
+const renderContentType = (Component, data) => {
+    return <Component {...data}>
+        {data.children.map((childTreeItem, i) => (
+            <ContentTypeFactory key={i} data={childTreeItem} />
+        ))}
+    </Component>;
+};
 
 /**
  * Create an instance of a content type component based on configuration
@@ -15,13 +30,14 @@ const ContentTypeFactory = ({ data }) => {
     if (contentTypeConfig) {
         const PageBuilderComponent = contentTypeConfig.component;
 
-        return (
-            <PageBuilderComponent {...data}>
-                {data.children.map((childTreeItem, i) => (
-                    <ContentTypeFactory key={i} data={childTreeItem} />
-                ))}
-            </PageBuilderComponent>
-        );
+        // If we're lazy loading add some suspense
+        if (contentTypeConfig.load === Lazy) {
+            return <Suspense fallback={'Loading...'}>
+                {renderContentType(PageBuilderComponent, data)}
+            </Suspense>;
+        }
+
+        return renderContentType(PageBuilderComponent, data);
     }
 
     return <Missing contentType={data.contentType} />;
