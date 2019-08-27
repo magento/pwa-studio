@@ -2,8 +2,8 @@ import { getAdvanced } from '../../utils';
 
 export default node => {
     return {
-        text: node.innerText,
-        headingType: node.nodeName,
+        text: node.textContent,
+        headingType: node.nodeName.toLowerCase(),
         ...getAdvanced(node)
     };
 };

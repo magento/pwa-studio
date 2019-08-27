@@ -30,7 +30,7 @@ export default node => {
     }
     const captionElement = node.querySelector('figcaption');
     if (captionElement) {
-        props.caption = captionElement.innerText;
+        props.caption = captionElement.textContent;
     }
     return props;
 };

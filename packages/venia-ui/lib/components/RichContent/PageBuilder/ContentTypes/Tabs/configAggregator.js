@@ -15,7 +15,7 @@ export default node => {
     };
 
     const headerEls = navigationEl.childNodes;
-    const headers = [].map.call(headerEls, headerEl => headerEl.innerText);
+    const headers = [].map.call(headerEls, headerEl => headerEl.textContent);
 
     const contentEl = node.childNodes[1];
     const content = {
