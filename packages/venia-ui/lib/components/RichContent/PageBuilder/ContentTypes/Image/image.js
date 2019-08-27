@@ -42,7 +42,7 @@ const Image = ({
     };
     return (
         <>
-            <figure style={figureStyles} className={cssClasses}>
+            <figure style={figureStyles} className={cssClasses.join(' ')}>
                 <picture>
                     {mobileImage ? (
                         <source

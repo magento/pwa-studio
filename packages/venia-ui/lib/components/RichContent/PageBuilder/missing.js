@@ -1,8 +1,9 @@
 import React from 'react';
 import defaultClasses from './missing.css';
-import classify from '../../../classify';
+import { mergeClasses } from '../../../classify';
 
 const Missing = ({ classes, contentType }) => {
+    classes = mergeClasses(defaultClasses, classes);
     return (
         <div className={classes.missing}>
             <strong>Error:</strong> No component for{' '}
@@ -11,4 +12,4 @@ const Missing = ({ classes, contentType }) => {
     );
 };
 
-export default classify(defaultClasses)(Missing);
+export default Missing;

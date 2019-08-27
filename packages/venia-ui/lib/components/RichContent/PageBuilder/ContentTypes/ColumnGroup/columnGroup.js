@@ -10,7 +10,6 @@ const ColumnGroup = ({ classes, display, children }) => {
 
     return (
         <div
-            data-content-type="column-group"
             style={dynamicStyles}
             className={classes.pagebuilderColumnGroup}
         >

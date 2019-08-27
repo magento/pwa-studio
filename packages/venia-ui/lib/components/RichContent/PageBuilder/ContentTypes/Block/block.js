@@ -34,7 +34,7 @@ const Block = ({
         paddingLeft
     };
     return (
-        <div style={dynamicStyles} className={cssClasses}>
+        <div style={dynamicStyles} className={cssClasses.join(' ')}>
             <RichContent html={richContent} />
         </div>
     );

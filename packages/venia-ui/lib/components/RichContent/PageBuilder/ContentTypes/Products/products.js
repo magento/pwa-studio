@@ -76,7 +76,7 @@ const Products = ({
     `;
 
     return (
-        <div style={dynamicStyles} className={cssClasses}>
+        <div style={dynamicStyles} className={cssClasses.join(' ')}>
             <Query query={productsQuery} variables={{ skus }}>
                 {({ loading, error, data }) => {
                     if (error) return 'Data fetch error...';

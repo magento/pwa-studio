@@ -70,7 +70,6 @@ const Column = ({
 
     return (
         <div
-            data-content-type="column"
             style={dynamicStyles}
             className={[classes.pageBuilderColumn, ...cssClasses].join(' ')}
         >

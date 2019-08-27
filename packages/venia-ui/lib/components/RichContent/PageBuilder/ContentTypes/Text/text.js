@@ -42,7 +42,7 @@ const Text = ({
     return (
         <div
             style={dynamicStyles}
-            className={cssClasses}
+            className={cssClasses.join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
         />
     );
