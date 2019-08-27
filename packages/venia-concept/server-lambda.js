@@ -1,3 +1,6 @@
+/*
+ * TODO: either comment and annotate this file, or remove it if it is not needed.
+ */
 const path = require('path');
 process.chdir(path.resolve(__dirname, 'dist'));
 const { bestPractices, createUpwardServer } = require('@magento/upward-js');

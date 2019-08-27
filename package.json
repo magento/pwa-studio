@@ -19,13 +19,14 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "scripts": {
-    "build": "yarn venia run build",
+    "build": "yarn venia run build && yarn now:prepare",
     "build:dev": "yarn venia run build:dev",
     "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
+    "now:prepare": "cp -r packages/venia-concept/dist public",
     "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
     "prepare": "node scripts/monorepo-introduction.js",
     "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(js|css)' '*.js'",
