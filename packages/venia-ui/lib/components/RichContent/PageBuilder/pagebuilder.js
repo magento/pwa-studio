@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentTypeFactory from './factory';
+import parseStorageHtml from "./parseStorageHtml";
 
 /**
  * Page Builder component for rendering Page Builder master storage format in React
@@ -8,7 +9,8 @@ import ContentTypeFactory from './factory';
  * @returns {*}
  * @constructor
  */
-const PageBuilder = ({ data }) => {
+const PageBuilder = ({ masterFormat }) => {
+    const data = parseStorageHtml(masterFormat);
     return data.children.map((child, i) => {
         return <ContentTypeFactory key={i} data={child} />;
     });

@@ -4,7 +4,7 @@ import {
     getVerticalAlignment
 } from '../../utils';
 
-export default (node, props) => {
+export default node => {
     return {
         textAlign: node.style.textAlign,
         display: node.style.display,
