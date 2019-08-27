@@ -12,11 +12,11 @@ Many of these characteristics follow Magento's vision for [service isolation][].
 A PWA Studio storefront application communicates with Magento using its external API.
 Those external API services communicate with Magento's interal service modules and returns any results through that same external API.
 
-**GraphQL** is the main service to use for client data and store behavior.
-GraphQL coverage increases with every Magento release, but
-until full coverage is complete, developers can use the **REST** service to fill in these coverage gaps.
+**GraphQL** is the preferred API to use for client data and store behavior.
+GraphQL API coverage increases with every Magento release, but
+until full coverage is complete, developers can use the **REST API** to fill in existing coverage gaps.
 
-To make secure, admin-authorized calls, configure the storefront's [UPWARD][] server to make the request using REST/RPC.
+To make secure, admin-authorized calls, configure the storefront's [UPWARD][] server to make the request using REST or RPC.
 
 Use **HTTPS** when passing requests through the UPWARD server to static and media resources in Magento.
 
@@ -28,7 +28,7 @@ the Magento application should not know about or be aware of the storefront.
 
 ## Decoupled deployments
 
-A PWA Studio storefront and it's backing Magento instance should be deployed as separate instances on separate hardware.
+A PWA Studio storefront and its backing Magento instance should be deployed as separate instances on separate hardware.
 Using [UPWARD][] allows you to deploy these applications using different technology stacks with the dependency configured at build-time.
 
 Another option is to deploy the storefront to the Magento server directly using the [PHP implementation of UPWARD][].

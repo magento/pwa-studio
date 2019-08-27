@@ -18,16 +18,16 @@ Instead, it defines its own frontend files and uses Magento's GraphQL and REST s
 
 For more information about headless eCommerce, read the Magento blog post titled [The Future Is Headless][].
 
-## Magento micro-services
+## Magento microservices
 
-Micro-service architecture is an architectural design pattern that splits an application into granular services.
-Each service runs independent from the others but still communicate with each other to provide different functionalities.
+Microservice architecture is a design pattern that separates an application into independent, deployable services.
+Each independent service communicates with the others through lightweight APIs.
 This is known as **service isolation**.
 
-In Magento, services, such as those for customers, product catalog, and checkout, provide an API through [service contracts][].
+Magento services, such as those for customers, product catalog, and checkout, provide an API through [service contracts][].
 PWA Studio storefronts interact with these services through [Magento's GraphQL][] and REST services.
 
-For more information about Magento's push for service isolation, read [Magento Service Isolation Vision][].
+For more information about Magento's research on service isolation, see [Magento Service Isolation Vision][].
 
 [the future is headless]: https://magento.com/blog/best-practices/future-headless
 [magento's graphql]: https://github.com/magento/graphql-ce

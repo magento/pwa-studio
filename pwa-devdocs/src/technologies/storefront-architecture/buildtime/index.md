@@ -86,8 +86,6 @@ This script uses the [`graphql-cli-validate-magento-pwa-queries`][] tool to anal
 {: .bs-callout .bs-callout-info}
 The connected Magento instance is defined by the `MAGENTO_BACKEND_URL` environment variable.
 
-See [Magento store dependency][].
-
 #### Webpack execution
 
 The final step in the build process uses the webpack CLI (`webpack`) to process files into bundles.
@@ -121,7 +119,6 @@ Use these scripts to keep your codebase well-formatted and test functionality.
 [transpilation]: https://en.wikipedia.org/wiki/Source-to-source_compiler
 [babel]: https://babeljs.io
 [npm scripts]: https://docs.npmjs.com/misc/scripts
-[magento store dependency]: #magento-store-dependency
 [service-oriented architecture]: https://en.wikipedia.org/wiki/Service-oriented_architecture
 [`package.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/package.json
 [`graphql-cli-validate-magento-pwa-queries`]: https://github.com/magento/pwa-studio/tree/develop/packages/graphql-cli-validate-magento-pwa-queries
