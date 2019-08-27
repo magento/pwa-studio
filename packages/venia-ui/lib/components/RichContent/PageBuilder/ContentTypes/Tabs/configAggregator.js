@@ -9,7 +9,7 @@ export default node => {
     const navigationEl = node.childNodes[0];
     const navigation = {
         style: {
-            ...getAdvanced(navigationEl),
+            ...getAdvanced(navigationEl)
         },
         ...getCssClasses(navigationEl)
     };

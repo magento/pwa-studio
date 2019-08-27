@@ -64,16 +64,14 @@ const Tabs = ({
             {...tabWrapperProps}
         >
             <TabList
-                className={[...navigation.cssClasses, classes.tabNavigation].join(
-                    ' '
-                )}
+                className={[
+                    ...navigation.cssClasses,
+                    classes.tabNavigation
+                ].join(' ')}
                 style={navigation.style}
             >
                 {headers.map((header, i) => (
-                    <TabHeader
-                        className={classes.tabHeader}
-                        key={i}
-                    >
+                    <TabHeader className={classes.tabHeader} key={i}>
                         {header}
                     </TabHeader>
                 ))}
@@ -82,30 +80,32 @@ const Tabs = ({
                 {Children.map(children, (child, index) => {
                     const data = child.props.data;
 
-                    const tabPanelDynamicStyles = Object.fromEntries([
-                        'verticalAlignment',
-                        'display',
-                        'justifyContent',
-                        'flexDirection',
-                        'backgroundRepeat',
-                        'backgroundSize',
-                        'backgroundPosition',
-                        'backgroundAttachment',
-                        'backgroundRepeat',
-                        'minHeight',
-                        'border',
-                        'borderColor',
-                        'borderWidth',
-                        'borderRadius',
-                        'marginTop',
-                        'marginRight',
-                        'marginBottom',
-                        'marginLeft',
-                        'paddingTop',
-                        'paddingRight',
-                        'paddingBottom',
-                        'paddingLeft'
-                    ].map(val => [val, data[val]]));
+                    const tabPanelDynamicStyles = Object.fromEntries(
+                        [
+                            'verticalAlignment',
+                            'display',
+                            'justifyContent',
+                            'flexDirection',
+                            'backgroundRepeat',
+                            'backgroundSize',
+                            'backgroundPosition',
+                            'backgroundAttachment',
+                            'backgroundRepeat',
+                            'minHeight',
+                            'border',
+                            'borderColor',
+                            'borderWidth',
+                            'borderRadius',
+                            'marginTop',
+                            'marginRight',
+                            'marginBottom',
+                            'marginLeft',
+                            'paddingTop',
+                            'paddingRight',
+                            'paddingBottom',
+                            'paddingLeft'
+                        ].map(val => [val, data[val]])
+                    );
 
                     return (
                         <TabPanel
@@ -116,7 +116,7 @@ const Tabs = ({
                         >
                             {child}
                         </TabPanel>
-                    )
+                    );
                 })}
             </div>
         </TabWrapper>

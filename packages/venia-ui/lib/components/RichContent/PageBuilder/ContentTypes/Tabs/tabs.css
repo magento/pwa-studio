@@ -41,8 +41,8 @@
     cursor: pointer !important;
     font-size: 14px;
     font-weight: 600;
-    padding: .875rem 1.25rem;
-    transition: all .3s;
+    padding: 0.875rem 1.25rem;
+    transition: all 0.3s;
     vertical-align: middle;
     white-space: normal;
 }
