@@ -113,7 +113,6 @@ export default class MagentoRouteHandler extends Component {
             // associate the matching RootComponent with this location
             this.setRouteComponent(pathname, RootComponent, { id });
         } catch (e) {
-
             if (process.env.NODE_ENV === 'development') {
                 console.error(e);
             }

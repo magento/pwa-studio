@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './heading.css';
-import {mergeClasses} from "../../../../../classify";
+import { mergeClasses } from '../../../../../classify';
 
 const Heading = ({
     classes,

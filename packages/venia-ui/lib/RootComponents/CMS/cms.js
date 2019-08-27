@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@magento/peregrine';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import RichContent from "../../components/RichContent";
+import RichContent from '../../components/RichContent';
 
 const CMSPage = props => {
     const { id } = props;

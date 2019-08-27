@@ -1,12 +1,17 @@
-import {getAdvanced, getBackgroundImages, getCssClasses, getVerticalAlignment} from '../../utils';
+import {
+    getAdvanced,
+    getBackgroundImages,
+    getCssClasses,
+    getVerticalAlignment
+} from '../../utils';
 
-export default (node) => {
+export default node => {
     const navigationEl = node.childNodes[0];
     const navigation = {
         style: {
             ...getAdvanced(navigationEl),
         },
-        ...getCssClasses(navigationEl),
+        ...getCssClasses(navigationEl)
     };
 
     const headerEls = navigationEl.childNodes;
@@ -20,7 +25,9 @@ export default (node) => {
     };
 
     return {
-        defaultIndex: node.getAttribute('data-active-tab') ? parseInt(node.getAttribute('data-active-tab'), 10) : 0,
+        defaultIndex: node.getAttribute('data-active-tab')
+            ? parseInt(node.getAttribute('data-active-tab'), 10)
+            : 0,
         headers,
         navigation,
         content,
@@ -28,6 +35,6 @@ export default (node) => {
         ...getVerticalAlignment(node),
         backgroundColor: node.style.backgroundColor,
         ...getBackgroundImages(node),
-        ...getAdvanced(node),
+        ...getAdvanced(node)
     };
 };

@@ -7,11 +7,7 @@ const toHTML = str => ({ __html: str });
 
 const RichContent = ({ html }) => {
     if (detectPageBuilder(html)) {
-        const htmlStructureObj = parseStorageHtml(html);
-
-        return htmlStructureObj.children.map((htmlChildObj, i) =>
-            <PageBuilder key={i} data={htmlChildObj} />
-        );
+        return <PageBuilder data={parseStorageHtml(html)} />;
     }
 
     return <div dangerouslySetInnerHTML={toHTML(html)} />;

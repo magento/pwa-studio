@@ -1,4 +1,8 @@
-import {getAdvanced, getBackgroundImages, getVerticalAlignment} from '../../utils';
+import {
+    getAdvanced,
+    getBackgroundImages,
+    getVerticalAlignment
+} from '../../utils';
 
 export default (node, props) => {
     return {
