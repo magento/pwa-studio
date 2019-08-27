@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
-const getMediaURL = () => {
-    return fetch(process.env.MAGENTO_BACKEND_URL, {
+const getMediaURL = () =>
+    fetch(new URL('graphql', process.env.MAGENTO_BACKEND_URL).toString(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -9,19 +9,18 @@ const getMediaURL = () => {
         })
     })
         .then(result => result.json())
-        .then(json => json.data)
+        .then(json => json.data.storeConfig.secure_base_media_url)
         .catch(err => {
             console.error(err);
             return '';
         });
-};
 
 class MediaBackendURLFetcherPlugin {
     apply(compiler) {
         compiler.hooks.emit.tapPromise('MediaBackendURLFetcherPlugin', () => {
             return new Promise(resolve => {
                 getMediaURL().then(url => {
-                    process.env.magentoMediaBackendURL = url;
+                    global.magentoMediaBackendURL = url;
                     resolve();
                 });
             });

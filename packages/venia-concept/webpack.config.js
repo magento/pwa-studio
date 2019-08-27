@@ -1,6 +1,7 @@
 const { configureWebpack } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MediaBackendUrlFetcherPlugin = require('./MediaBackendURLFetcherPlugin');
 
 module.exports = async env => {
     const config = await configureWebpack({
@@ -50,10 +51,10 @@ module.exports = async env => {
         new DefinePlugin({
             storeName: JSON.stringify('Venia')
         }),
+        new MediaBackendUrlFetcherPlugin(),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './template.html',
-            mediaBackendUrl: new URL('/media/', process.env.MAGENTO_BACKEND_URL)
+            template: './template.html'
         })
     ];
 
