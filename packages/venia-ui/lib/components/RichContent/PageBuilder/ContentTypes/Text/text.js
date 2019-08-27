@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './text.css';
-import {mergeClasses} from "../../../../../classify";
+import { mergeClasses } from '../../../../../classify';
 
 const toHTML = str => ({ __html: str });
 

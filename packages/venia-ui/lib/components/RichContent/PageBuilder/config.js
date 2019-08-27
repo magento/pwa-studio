@@ -16,6 +16,8 @@ import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
 import TabItem from './ContentTypes/TabItem';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
 import Block from './ContentTypes/Block';
+import productsConfigAggregator from './ContentTypes/Products/configAggregator';
+import Products from './ContentTypes/Products';
 
 export const contentTypesConfig = {
     row: {
@@ -44,11 +46,11 @@ export const contentTypesConfig = {
     },
     tabs: {
         configAggregator: tabsConfigAggregator,
-        component: Tabs,
+        component: Tabs
     },
     'tab-item': {
         configAggregator: tabItemConfigAggregator,
-        component: TabItem,
+        component: TabItem
     },
     block: {
         configAggregator: blockConfigAggregator,
