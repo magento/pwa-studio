@@ -15,6 +15,9 @@ veniaResponse:
           pattern: '^/(graphql|rest)(/|$)'
           use: veniaProxy
         - matches: request.url.pathname
+          pattern: '/magentosite\.cloud/'
+          use: veniaProxy
+        - matches: request.url.pathname
           pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
           use: staticFromRoot
         - matches: fileExtension

@@ -91,6 +91,7 @@
     "informed": "~2.1.13",
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
+    "node-fetch": "~2.6.0",
     "prettier": "~1.16.4",
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
