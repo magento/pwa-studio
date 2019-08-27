@@ -3,7 +3,7 @@ import { Tabs as TabWrapper, TabList, Tab as TabHeader, TabPanel } from 'react-t
 import defaultClasses from "./tabs.css";
 import {mergeClasses} from "../../../../../classify";
 
-const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, navigation, items, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
+const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, navigation, content, border, borderColor, borderWidth, borderRadius, marginTop, marginRight, marginBottom, marginLeft, paddingTop, paddingRight, paddingBottom, paddingLeft, cssClasses, children}) => {
     classes = mergeClasses(defaultClasses, classes);
     const tabWrapperDynamicStyles = {
         verticalAlignment,
@@ -37,26 +37,59 @@ const Tabs = ({classes, verticalAlignment, minHeight, defaultIndex, headers, nav
             {...tabWrapperProps}
         >
             <TabList
-                className={[...navigation.cssClasses, classes.tabList].join(' ')}
+                className={[...navigation.cssClasses, classes.tabNavigation].join(' ')}
+                style={navigation.style}
             >
                 {headers.map((header, i) => (
                     <TabHeader
+                        className={classes.tabHeader}
                         key={i}
                     >
                         {header}
                     </TabHeader>
                 ))}
             </TabList>
-            {Children.map(children, (child, index) => (
-                <TabPanel
-                    key={index}
-                    className={classes.tabPanel}
-                    selectedClassName={classes.tabPanelSelected}
+            <div className={classes.tabContent} style={content.style}>
+                {Children.map(children, (child, index) => {
+                    const data = child.props.data;
 
-                >
-                    {child}
-                </TabPanel>
-            ))}
+                    const tabPanelDynamicStyles = Object.fromEntries([
+                        'verticalAlignment',
+                        'display',
+                        'justifyContent',
+                        'flexDirection',
+                        'backgroundRepeat',
+                        'backgroundSize',
+                        'backgroundPosition',
+                        'backgroundAttachment',
+                        'backgroundRepeat',
+                        'minHeight',
+                        'border',
+                        'borderColor',
+                        'borderWidth',
+                        'borderRadius',
+                        'marginTop',
+                        'marginRight',
+                        'marginBottom',
+                        'marginLeft',
+                        'paddingTop',
+                        'paddingRight',
+                        'paddingBottom',
+                        'paddingLeft'
+                    ].map(val => [val, data[val]]));
+
+                    return (
+                        <TabPanel
+                            key={index}
+                            className={classes.tabPanel}
+                            selectedClassName={classes.tabPanelSelected}
+                            style={tabPanelDynamicStyles}
+                        >
+                            {child}
+                        </TabPanel>
+                    )
+                })}
+            </div>
         </TabWrapper>
     );
 };
