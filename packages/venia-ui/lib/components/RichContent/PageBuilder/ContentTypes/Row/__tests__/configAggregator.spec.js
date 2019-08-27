@@ -9,7 +9,7 @@ test('config is aggregated correctly for row appearance == contained', () => {
 
     expect(config).toEqual(expect.objectContaining({
         minHeight: null,
-        backgroundColor: '',
+        backgroundColor: null,
         enableParallax: false,
         parallaxSpeed: 0.5
     }));

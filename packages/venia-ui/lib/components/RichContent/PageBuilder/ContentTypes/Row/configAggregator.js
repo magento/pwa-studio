@@ -11,7 +11,7 @@ export default (node, props) => {
     return {
         minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
         ...getVerticalAlignment(dataNode),
-        backgroundColor: dataNode.style.backgroundColor,
+        backgroundColor: dataNode.style.backgroundColor ? dataNode.style.backgroundColor : null,
         ...getBackgroundImages(dataNode),
         enableParallax: dataNode.getAttribute('data-enable-parallax') === '1',
         parallaxSpeed: parseFloat(dataNode.getAttribute('data-parallax-speed')),
