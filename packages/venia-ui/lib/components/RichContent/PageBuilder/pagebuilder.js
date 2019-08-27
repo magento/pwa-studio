@@ -1,6 +1,5 @@
 import React from 'react';
-import Missing from './missing';
-import { contentTypesConfig } from './config';
+import ContentTypeFactory from "./factory";
 
 /**
  * Page Builder component for rendering Page Builder master storage format in React
@@ -10,21 +9,9 @@ import { contentTypesConfig } from './config';
  * @constructor
  */
 const PageBuilder = ({ data }) => {
-    const contentTypeConfig = contentTypesConfig[data.contentType];
-
-    if (contentTypeConfig) {
-        const PageBuilderComponent = contentTypeConfig.component;
-
-        return (
-            <PageBuilderComponent {...data}>
-                {data.children.map((childTreeItem, i) => (
-                    <PageBuilder key={i} data={childTreeItem} />
-                ))}
-            </PageBuilderComponent>
-        );
-    }
-
-    return <Missing key={i} contentType={data.contentType} />;
+    return data.children.map((child, i) => {
+        return <ContentTypeFactory key={i} data={child} />;
+    });
 };
 
 export default PageBuilder;
