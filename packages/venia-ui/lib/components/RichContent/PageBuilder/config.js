@@ -55,5 +55,9 @@ export const contentTypesConfig = {
     block: {
         configAggregator: blockConfigAggregator,
         component: Block
+    },
+    products: {
+        configAggregator: productsConfigAggregator,
+        component: Products
     }
 };
