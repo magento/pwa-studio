@@ -18,7 +18,7 @@ export default node => {
         title: imageNode[0].getAttribute('title'),
         ...getPadding(node),
         ...getMargin(node),
-        ...getBorder(node.childNodes[0]),
+        ...getBorder(imageNode[0]),
         ...getCssClasses(node),
         ...getTextAlign(node)
     };
