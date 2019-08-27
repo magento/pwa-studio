@@ -39,13 +39,14 @@ module.exports = async env => {
         env
     });
 
-    // configureWebpack() returns a regular Webpack configuration object.
-    // You can customize the build by mutating the object here, as in
-    // this example:
+    /**
+     * configureWebpack() returns a regular Webpack configuration object.
+     * You can customize the build by mutating the object here, as in
+     * this example. Since it's a regular Webpack configuration, the object
+     * supports the `module.noParse` option in Webpack, documented here:
+     * https://webpack.js.org/configuration/module/#modulenoparse
+     */
     config.module.noParse = [/braintree\-web\-drop\-in/];
-    // Since it's a regular Webpack configuration, the object supports the
-    // `module.noParse` option in Webpack, documented here:
-    // https://webpack.js.org/configuration/module/#modulenoparse
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
