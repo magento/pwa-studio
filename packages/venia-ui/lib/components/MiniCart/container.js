@@ -1,5 +1,5 @@
 import { connect } from '@magento/venia-drivers';
-import { isEmptyCartVisible, isMiniCartMaskOpen } from '../../selectors/cart';
+import { isCartEmpty } from '../../selectors/cart';
 import { closeDrawer } from '../../actions/app';
 import {
     beginEditItem,
@@ -16,8 +16,7 @@ const mapStateToProps = state => {
 
     return {
         cart,
-        isCartEmpty: isEmptyCartVisible(state),
-        isMiniCartMaskOpen: isMiniCartMaskOpen(state)
+        isCartEmpty: isCartEmpty(state)
     };
 };
 

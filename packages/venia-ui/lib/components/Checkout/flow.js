@@ -1,14 +1,5 @@
-import React from 'react';
-import {
-    array,
-    bool,
-    func,
-    number,
-    object,
-    oneOf,
-    shape,
-    string
-} from 'prop-types';
+import React, { useCallback } from 'react';
+import { array, bool, func, number, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Cart from './cart';
@@ -49,11 +40,13 @@ const Flow = props => {
         cart,
         checkout,
         directory,
+        step,
         user,
 
         // actions
         beginCheckout,
         cancelCheckout,
+        setStep,
         submitShippingAddress,
         submitOrder,
         submitPaymentMethodAndBillingAddress,
@@ -63,26 +56,36 @@ const Flow = props => {
     const {
         availableShippingMethods,
         billingAddress,
-        invalidAddressMessage,
-        isAddressInvalid,
         paymentData,
         shippingAddress,
         shippingMethod,
-        shippingTitle,
-        step,
-        submitting
+        shippingTitle
     } = checkout;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
 
+    const handleBeginCheckout = useCallback(async () => {
+        await beginCheckout();
+        setStep('form');
+    }, [beginCheckout, setStep]);
+
+    const handleCancelCheckout = useCallback(async () => {
+        await cancelCheckout();
+        setStep('cart');
+    }, [cancelCheckout, setStep]);
+
+    const handleSubmitOrder = useCallback(async () => {
+        await submitOrder();
+        setStep('receipt');
+    }, [setStep, submitOrder]);
+
     switch (step) {
         case 'cart': {
             const stepProps = {
-                beginCheckout,
-                ready: isCartReady(cart),
-                submitting
+                beginCheckout: handleBeginCheckout,
+                ready: isCartReady(cart)
             };
 
             child = <Cart {...stepProps} />;
@@ -92,7 +95,7 @@ const Flow = props => {
             const stepProps = {
                 availableShippingMethods,
                 billingAddress,
-                cancelCheckout,
+                cancelCheckout: handleCancelCheckout,
                 cart,
                 directory,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
@@ -100,18 +103,15 @@ const Flow = props => {
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
                 hasShippingMethod:
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
-                invalidAddressMessage,
-                isAddressInvalid,
                 paymentData,
                 ready: isCheckoutReady(checkout),
                 shippingAddress,
                 shippingMethod,
                 shippingTitle,
                 submitShippingAddress,
-                submitOrder,
+                submitOrder: handleSubmitOrder,
                 submitPaymentMethodAndBillingAddress,
-                submitShippingMethod,
-                submitting
+                submitShippingMethod
             };
 
             child = <Form {...stepProps} />;
@@ -149,9 +149,7 @@ Flow.propTypes = {
         paymentData: object,
         shippingAddress: object,
         shippingMethod: string,
-        shippingTitle: string,
-        step: oneOf(['cart', 'form', 'receipt']).isRequired,
-        submitting: bool
+        shippingTitle: string
     }).isRequired,
     classes: shape({
         root: string

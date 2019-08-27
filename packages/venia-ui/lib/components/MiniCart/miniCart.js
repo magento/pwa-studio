@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
 import Body from './body';
@@ -11,6 +11,8 @@ import { mergeClasses } from '../../classify';
 import getCurrencyCode from '../../util/getCurrencyCode';
 
 const MiniCart = props => {
+    const [step, setStep] = useState('cart');
+
     // Props.
     const {
         beginEditItem,
@@ -19,7 +21,6 @@ const MiniCart = props => {
         closeDrawer,
         endEditItem,
         isCartEmpty,
-        isMiniCartMaskOpen,
         isOpen,
         removeItemFromCart,
         updateItemInCart
@@ -34,24 +35,42 @@ const MiniCart = props => {
     const rootClass = isOpen ? classes.root_open : classes.root;
     const subtotal = cart.totals.subtotal;
 
-    const showFooter = !(isCartEmpty || isLoading || isEditingItem);
+    const showFooter =
+        step === 'receipt' ||
+        step === 'form' ||
+        !((isCartEmpty && step === 'cart') || isLoading || isEditingItem);
+
+    const isMiniCartMaskOpen = step === 'form';
+
+    const handleClose = useCallback(() => {
+        setStep('cart');
+        closeDrawer();
+    }, [closeDrawer, setStep]);
+
+    const handleMaskClick = useCallback(() => {
+        setStep('cart');
+        cancelCheckout();
+    }, [cancelCheckout, setStep]);
+
     const footer = showFooter ? (
         <Footer
             cart={cart}
             currencyCode={currencyCode}
             isMiniCartMaskOpen={isMiniCartMaskOpen}
             numItems={numItems}
+            setStep={setStep}
+            step={step}
             subtotal={subtotal}
         />
     ) : null;
 
     return (
         <aside className={rootClass}>
-            <Header closeDrawer={closeDrawer} isEditingItem={isEditingItem} />
+            <Header closeDrawer={handleClose} isEditingItem={isEditingItem} />
             <Body
                 beginEditItem={beginEditItem}
                 cartItems={cartItems}
-                closeDrawer={closeDrawer}
+                closeDrawer={handleClose}
                 currencyCode={currencyCode}
                 editItem={editItem}
                 endEditItem={endEditItem}
@@ -62,7 +81,7 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={updateItemInCart}
             />
-            <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
+            <Mask isActive={isMiniCartMaskOpen} dismiss={handleMaskClick} />
             {footer}
         </aside>
     );

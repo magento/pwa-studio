@@ -84,7 +84,10 @@ describe('beginCheckout', () => {
     test('beginCheckout thunk dispatches actions', async () => {
         await beginCheckout()(...thunkArgs);
 
-        expect(dispatch).toHaveBeenNthCalledWith(1, actions.begin());
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.begin(expect.any(Object))
+        );
         // TODO: test fails but "Compared values have no visual difference."
         // expect(dispatch).toHaveBeenNthCalledWith(2, cartActions.getShippingMethods());
         // expect(dispatch).toHaveBeenNthCalledWith(3, directoryActions.getCountries());
@@ -292,7 +295,7 @@ describe('submitShippingAddress', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.shippingAddress.submit(payload)
+            actions.shippingAddress.submit()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,

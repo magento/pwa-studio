@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Form } from 'informed';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -27,18 +27,12 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const {
-        cancel,
-        countries,
-        isAddressInvalid,
-        invalidAddressMessage,
-        initialValues,
-        submit,
-        submitting
-    } = props;
+    const { cancel, countries, initialValues, submit } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const validationMessage = isAddressInvalid ? invalidAddressMessage : null;
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [invalidAddressMessage, setInvalidAddressMessage] = useState('');
 
     const values = useMemo(
         () =>
@@ -50,8 +44,14 @@ const AddressForm = props => {
     );
 
     const handleSubmit = useCallback(
-        values => {
-            submit(values);
+        async values => {
+            try {
+                setIsSubmitting(true);
+                await submit(values);
+            } catch (error) {
+                setInvalidAddressMessage(error.message);
+                setIsSubmitting(false);
+            }
         },
         [submit]
     );
@@ -64,6 +64,9 @@ const AddressForm = props => {
         >
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
+                <div className={classes.validationMessage}>
+                    {invalidAddressMessage}
+                </div>
                 <div className={classes.firstname}>
                     <Field label="First Name">
                         <TextInput
@@ -140,7 +143,6 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.validation}>{validationMessage}</div>
             </div>
             <div className={classes.footer}>
                 <Button className={classes.button} onClick={cancel}>
@@ -150,7 +152,7 @@ const AddressForm = props => {
                     className={classes.button}
                     type="submit"
                     priority="high"
-                    disabled={submitting}
+                    disabled={isSubmitting}
                 >
                     Use Address
                 </Button>
@@ -178,11 +180,8 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    invalidAddressMessage: string,
     initialValues: object,
-    isAddressInvalid: bool,
-    submit: func.isRequired,
-    submitting: bool
+    submit: func.isRequired
 };
 
 AddressForm.defaultProps = {

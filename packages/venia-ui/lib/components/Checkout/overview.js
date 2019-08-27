@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { bool, func, number, object, shape, string } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
@@ -25,9 +25,10 @@ const Overview = props => {
         setEditing,
         shippingAddress,
         shippingTitle,
-        submitOrder,
-        submitting
+        submitOrder
     } = props;
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleAddressFormClick = useCallback(() => {
         setEditing('address');
@@ -40,6 +41,19 @@ const Overview = props => {
     const handleShippingFormClick = useCallback(() => {
         setEditing('shippingMethod');
     }, [setEditing]);
+
+    const handleSubmitOrder = useCallback(async () => {
+        setIsSubmitting(true);
+        try {
+            await submitOrder();
+        } catch (error) {
+            setIsSubmitting(false);
+        }
+    }, [submitOrder]);
+
+    const currencyCode =
+        (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
+    const subtotal = (cart && cart.totals && cart.totals.subtotal) || 0;
 
     return (
         <Fragment>
@@ -78,10 +92,7 @@ const Overview = props => {
                     />
                 </Section>
                 <Section label="TOTAL">
-                    <Price
-                        currencyCode={cart.totals.quote_currency_code}
-                        value={cart.totals.subtotal || 0}
-                    />
+                    <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
                     <span>{cart.details.items_qty} Items</span>
                 </Section>
@@ -90,8 +101,8 @@ const Overview = props => {
                 <Button onClick={cancelCheckout}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={submitting || !ready}
-                    onClick={submitOrder}
+                    disabled={isSubmitting || !ready}
+                    onClick={handleSubmitOrder}
                 >
                     Confirm Order
                 </Button>

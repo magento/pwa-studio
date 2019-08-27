@@ -21,10 +21,7 @@ const defaultProps = {
 test('renders Cart component', () => {
     const props = {
         ...defaultProps,
-        checkout: {
-            step: 'cart',
-            submitting: false
-        }
+        step: 'cart'
     };
     const component = testRenderer.create(<Flow {...props} />);
 
@@ -34,9 +31,7 @@ test('renders Cart component', () => {
 test('renders Form component', () => {
     const props = {
         ...defaultProps,
-        checkout: {
-            step: 'form'
-        }
+        step: 'form'
     };
     const component = testRenderer.create(<Flow {...props} />);
 
@@ -46,9 +41,7 @@ test('renders Form component', () => {
 test('renders Receipt component', () => {
     const props = {
         ...defaultProps,
-        checkout: {
-            step: 'receipt'
-        }
+        step: 'receipt'
     };
     const component = testRenderer.create(<Flow {...props} />);
 

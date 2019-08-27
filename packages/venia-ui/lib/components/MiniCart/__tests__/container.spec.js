@@ -12,8 +12,7 @@ jest.mock('@magento/venia-drivers', () => ({
     )
 }));
 jest.mock('../../../selectors/cart', () => ({
-    isEmptyCartVisible: jest.fn(() => true),
-    isMiniCartMaskOpen: jest.fn(() => true)
+    isCartEmpty: jest.fn(() => true)
 }));
 
 test('it returns a connected MiniCart component', () => {
@@ -43,7 +42,6 @@ test('mapStateToProps returns the proper props', () => {
     expect(props).not.toHaveProperty('extra');
     expect(props).toMatchObject({
         cart: expect.any(Object),
-        isCartEmpty: expect.any(Boolean),
-        isMiniCartMaskOpen: expect.any(Boolean)
+        isCartEmpty: expect.any(Boolean)
     });
 });

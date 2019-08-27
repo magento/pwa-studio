@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -14,10 +14,9 @@ const ShippingForm = props => {
         availableShippingMethods,
         cancel,
         shippingMethod,
-        submit,
-        submitting
+        submit: submitShippingMethod
     } = props;
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let initialValue;
@@ -38,7 +37,8 @@ const ShippingForm = props => {
     }
 
     const handleSubmit = useCallback(
-        ({ shippingMethod }) => {
+        async ({ shippingMethod }) => {
+            setIsSubmitting(true);
             const selectedShippingMethod = availableShippingMethods.find(
                 ({ carrier_code }) => carrier_code === shippingMethod
             );
@@ -48,12 +48,20 @@ const ShippingForm = props => {
                     `Could not find the selected shipping method ${selectedShippingMethod} in the list of available shipping methods.`
                 );
                 cancel();
-                return;
+            } else {
+                await submitShippingMethod({
+                    shippingMethod: selectedShippingMethod
+                });
             }
 
-            submit({ shippingMethod: selectedShippingMethod });
+            setIsSubmitting(false);
         },
-        [availableShippingMethods, cancel, submit]
+        [
+            availableShippingMethods,
+            cancel,
+            setIsSubmitting,
+            submitShippingMethod
+        ]
     );
 
     return (
@@ -82,7 +90,7 @@ const ShippingForm = props => {
                     className={classes.button}
                     priority="high"
                     type="submit"
-                    disabled={submitting}
+                    disabled={isSubmitting}
                 >
                     Use Method
                 </Button>

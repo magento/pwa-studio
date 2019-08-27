@@ -3,7 +3,7 @@
 exports[`renders the correct tree 1`] = `
 <aside>
   <Header
-    closeDrawer={[MockFunction]}
+    closeDrawer={[Function]}
     isEditingItem={false}
   />
   <Body
@@ -21,7 +21,7 @@ exports[`renders the correct tree 1`] = `
         },
       ]
     }
-    closeDrawer={[MockFunction]}
+    closeDrawer={[Function]}
     currencyCode="NZD"
     editItem={null}
     endEditItem={[MockFunction]}
@@ -33,7 +33,7 @@ exports[`renders the correct tree 1`] = `
     updateItemInCart={[MockFunction]}
   />
   <MiniCartMask
-    dismiss={[MockFunction]}
+    dismiss={[Function]}
     isActive={false}
   />
   <Footer
@@ -68,6 +68,8 @@ exports[`renders the correct tree 1`] = `
     currencyCode="NZD"
     isMiniCartMaskOpen={false}
     numItems={1}
+    setStep={[Function]}
+    step="cart"
     subtotal={99}
   />
 </aside>

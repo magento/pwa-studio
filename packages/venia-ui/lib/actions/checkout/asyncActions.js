@@ -13,7 +13,23 @@ const storage = new BrowserPersistence();
 
 export const beginCheckout = () =>
     async function thunk(dispatch) {
-        dispatch(actions.begin());
+        const storedBillingAddress = storage.getItem('billing_address');
+        const storedPaymentMethod = storage.getItem('paymentMethod');
+        const storedShippingAddress = storage.getItem('shipping_address');
+        const storedShippingMethod = storage.getItem('shippingMethod');
+
+        dispatch(
+            actions.begin({
+                billingAddress: storedBillingAddress,
+                paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+                paymentData: storedPaymentMethod && storedPaymentMethod.data,
+                shippingAddress: storedShippingAddress,
+                shippingMethod:
+                    storedShippingMethod && storedShippingMethod.carrier_code,
+                shippingTitle:
+                    storedShippingMethod && storedShippingMethod.carrier_title
+            })
+        );
         dispatch(getShippingMethods());
         dispatch(getCountries());
     };
@@ -132,7 +148,7 @@ export const submitPaymentMethod = payload =>
 
 export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.shippingAddress.submit(payload));
+        dispatch(actions.shippingAddress.submit());
 
         const { cart, directory } = getState();
 
@@ -145,17 +161,12 @@ export const submitShippingAddress = payload =>
         let { formValues: address } = payload;
         try {
             address = formatAddress(address, countries);
+            await saveShippingAddress(address);
+            dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
-            dispatch(
-                actions.shippingAddress.reject({
-                    invalidAddressMessage: error.message
-                })
-            );
+            dispatch(actions.shippingAddress.reject());
             throw error;
         }
-
-        await saveShippingAddress(address);
-        dispatch(actions.shippingAddress.accept(address));
     };
 
 export const submitShippingMethod = payload =>

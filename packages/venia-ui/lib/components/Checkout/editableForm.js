@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
+import { array, func, object, oneOf, shape, string } from 'prop-types';
 
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
@@ -16,9 +16,6 @@ const EditableForm = props => {
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
-        submitting,
-        isAddressInvalid,
-        invalidAddressMessage,
         directory: { countries }
     } = props;
 
@@ -64,11 +61,8 @@ const EditableForm = props => {
                 <AddressForm
                     cancel={handleCancel}
                     countries={countries}
-                    isAddressInvalid={isAddressInvalid}
-                    invalidAddressMessage={invalidAddressMessage}
                     initialValues={shippingAddress}
                     submit={handleSubmitAddressForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -81,7 +75,6 @@ const EditableForm = props => {
                     countries={countries}
                     initialValues={billingAddress}
                     submit={handleSubmitPaymentsForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -93,7 +86,6 @@ const EditableForm = props => {
                     cancel={handleCancel}
                     shippingMethod={shippingMethod}
                     submit={handleSubmitShippingForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -112,9 +104,6 @@ EditableForm.propTypes = {
     submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
-    submitting: bool,
-    isAddressInvalid: bool,
-    invalidAddressMessage: string,
     directory: shape({
         countries: array
     }).isRequired
