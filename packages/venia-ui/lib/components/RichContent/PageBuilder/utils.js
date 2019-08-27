@@ -68,8 +68,9 @@ export function verticalAlignmentToFlex(alignment) {
  * @returns {*}
  */
 export function flexToVerticalAlignment(flex) {
-    const flexToAlignment = Object.fromEntries(
-        Object.entries(alignmentToFlex).map(([k, v]) => [v, k])
+    const flexToAlignment = Object.assign(
+        {},
+        ...Object.entries(alignmentToFlex).map(([a, b]) => ({ [b]: a }))
     );
     return flexToAlignment[flex];
 }

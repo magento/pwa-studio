@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import Missing from './missing';
-import {contentTypesConfig, Lazy} from './config';
+import { contentTypesConfig, Lazy } from './config';
 
 /**
  * Render a content type
@@ -10,11 +10,13 @@ import {contentTypesConfig, Lazy} from './config';
  * @returns {*}
  */
 const renderContentType = (Component, data) => {
-    return <Component {...data}>
-        {data.children.map((childTreeItem, i) => (
-            <ContentTypeFactory key={i} data={childTreeItem} />
-        ))}
-    </Component>;
+    return (
+        <Component {...data}>
+            {data.children.map((childTreeItem, i) => (
+                <ContentTypeFactory key={i} data={childTreeItem} />
+            ))}
+        </Component>
+    );
 };
 
 /**
@@ -32,9 +34,11 @@ const ContentTypeFactory = ({ data }) => {
 
         // If we're lazy loading add some suspense
         if (contentTypeConfig.load === Lazy) {
-            return <Suspense fallback={'Loading...'}>
-                {renderContentType(PageBuilderComponent, data)}
-            </Suspense>;
+            return (
+                <Suspense fallback={'Loading...'}>
+                    {renderContentType(PageBuilderComponent, data)}
+                </Suspense>
+            );
         }
 
         return renderContentType(PageBuilderComponent, data);

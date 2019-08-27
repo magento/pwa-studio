@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import rowConfigAggregator from './ContentTypes/Row/configAggregator';
 import Row from './ContentTypes/Row';
 import columnConfigAggregator from './ContentTypes/Column/configAggregator';

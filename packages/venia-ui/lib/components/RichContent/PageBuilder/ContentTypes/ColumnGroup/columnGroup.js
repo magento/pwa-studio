@@ -9,10 +9,7 @@ const ColumnGroup = ({ classes, display, children }) => {
     };
 
     return (
-        <div
-            style={dynamicStyles}
-            className={classes.pagebuilderColumnGroup}
-        >
+        <div style={dynamicStyles} className={classes.pagebuilderColumnGroup}>
             {children}
         </div>
     );
