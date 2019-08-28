@@ -11,6 +11,7 @@ import defaultClasses from './image.css';
  * @param {string} props.classes any classes to apply to this component
  * @param {string} prop.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string} props.src the source of the image
+ * @param {string} props.fileSrc the raw source of the image without width and height added
  */
 const Image = props => {
     const { alt, onError, onLoad, placeholder, src, fileSrc, ...rest } = props;

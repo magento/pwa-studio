@@ -4,17 +4,20 @@ import { resourceUrl } from '@magento/venia-drivers';
 export const transparentPlaceholder =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII=';
 
+/**
+ * This is specific to the Venia store-front sample data.
+ */
 export const DEFAULT_WIDTH_TO_HEIGHT_RATIO = 4 / 5;
 
 export const imageWidths = {
-    icon: 40,
-    thumbnail: 80,
-    small: 160,
-    regular: 320,
-    large: 640,
-    xlarge: 1280,
-    xxlarge: 1600,
-    xxxlarge: 2560
+    ICON: 40,
+    THUMBNAIL: 80,
+    SMALL: 160,
+    REGULAR: 320,
+    LARGE: 640,
+    XLARGE: 1280,
+    XXLARGE: 1600,
+    XXXLARGE: 2560
 };
 
 const generateURL = (imageURL, mediaBase) => (width, height) =>
