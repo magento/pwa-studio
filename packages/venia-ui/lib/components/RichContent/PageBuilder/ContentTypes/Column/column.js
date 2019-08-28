@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultClasses from './column.css';
 import { mergeClasses } from '../../../../../classify';
-import { arrayOf, oneOf, shape, string } from 'prop-types';
+import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
 
 const Column = ({
     classes,
@@ -97,7 +97,7 @@ Column.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: string,
+    backgroundRepeat: bool,
     border: string,
     borderColor: string,
     borderWidth: string,

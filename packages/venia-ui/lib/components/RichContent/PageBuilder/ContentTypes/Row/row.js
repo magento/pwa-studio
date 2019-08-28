@@ -3,7 +3,7 @@ import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { Parallax } from 'react-parallax';
 import { mergeClasses } from '../../../../../classify';
-import { arrayOf, oneOf, shape, string, float } from 'prop-types';
+import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 
 const Row = ({
     classes,
@@ -36,10 +36,11 @@ const Row = ({
     children
 }) => {
     classes = mergeClasses(defaultClasses, classes);
+    cssClasses = cssClasses ? cssClasses : [];
     // Set the default appearance if none is supplied to contained
     appearance = appearance ? appearance : 'contained';
     let image = desktopImage;
-    if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
+    if (mobileImage && typeof window.matchMedia === 'function' &&  window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
     const dynamicStyles = {
@@ -118,9 +119,9 @@ Row.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: string,
-    enableParallax: string,
-    parallaxSpeed: float,
+    backgroundRepeat: bool,
+    enableParallax: bool,
+    parallaxSpeed: number,
     textAlign: string,
     border: string,
     borderColor: string,
