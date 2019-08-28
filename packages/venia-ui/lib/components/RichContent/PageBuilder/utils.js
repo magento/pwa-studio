@@ -41,13 +41,13 @@ const alignmentToFlex = {
  * @returns {{verticalAlignment: null}}
  */
 export function getVerticalAlignment(node) {
-    let alignment = null;
+    let verticalAlignment = null;
     if (node.style.justifyContent) {
-        alignment = flexToVerticalAlignment(node.style.justifyContent);
+        verticalAlignment = flexToVerticalAlignment(node.style.justifyContent);
     }
 
     return {
-        verticalAlignment: alignment
+        verticalAlignment
     };
 }
 
