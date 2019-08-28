@@ -5,14 +5,13 @@ import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
 
 const Column = ({
     classes,
+    appearance,
     minHeight,
     verticalAlignment,
     textAlign,
     display,
     width,
     justifyContent,
-    flexDirection,
-    alignSelf,
     backgroundColor,
     desktopImage,
     mobileImage,
@@ -40,6 +39,29 @@ const Column = ({
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
+
+    let alignSelf, flexDirection;
+
+    switch (appearance) {
+        case 'align-top':
+            alignSelf = 'flex-start';
+            flexDirection = 'column';
+            break;
+        case 'align-center':
+            alignSelf = 'center';
+            flexDirection = 'column';
+            break;
+        case 'align-bottom':
+            alignSelf = 'flex-end';
+            flexDirection = 'column';
+            break;
+        case 'full-height':
+        default:
+            alignSelf = 'stretch';
+            flexDirection = 'column';
+            break;
+    }
+
     const dynamicStyles = {
         minHeight,
         backgroundColor,
@@ -83,14 +105,13 @@ Column.propTypes = {
     classes: shape({
         pagebuilderColumn: string
     }),
+    appearance: oneOf(['align-top', 'align-center', 'align-bottom', 'full-height']),
     minHeight: string,
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     textAlign: string,
     display: string,
     width: string,
     justifyContent: string,
-    flexDirection: string,
-    alignSelf: string,
     backgroundColor: string,
     desktopImage: string,
     mobileImage: string,
