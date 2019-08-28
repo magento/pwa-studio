@@ -50,7 +50,7 @@ module.exports = async env => {
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
-            storeName: JSON.stringify('Venia')
+            STORE_NAME: JSON.stringify('Venia')
         }),
         new MediaBackendUrlFetcherPlugin(),
         new HTMLWebpackPlugin({

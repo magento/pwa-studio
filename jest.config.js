@@ -175,7 +175,10 @@ const jestConfig = {
         '__fixtures__',
         '__helpers__',
         '__snapshots__'
-    ]
+    ],
+    globals: {
+        STORE_NAME: 'Venia'
+    }
 };
 
 if (process.env.npm_lifecycle_event === 'test:ci') {

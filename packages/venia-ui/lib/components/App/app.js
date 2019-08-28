@@ -123,7 +123,7 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <Title>{`Home Page - ${storeName}`}</Title>
+            <Title>{`Home Page - ${STORE_NAME}`}</Title>
             <Main
                 isMasked={overlay}
                 hasBeenOffline={hasBeenOffline}
