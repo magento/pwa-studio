@@ -40,8 +40,8 @@ const Column = ({
         image = mobileImage;
     }
     const dynamicStyles = {
-        minHeight: minHeight,
-        backgroundColor: backgroundColor,
+        minHeight,
+        backgroundColor,
         textAlign,
         display,
         width,
