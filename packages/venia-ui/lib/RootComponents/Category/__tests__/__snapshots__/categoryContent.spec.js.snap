@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+<React.Fragment>
+  <Title>
+    Venia
+  </Title>
+  <article
+    className="a"
+  >
+    <h1
+      className="b"
+    >
+      <div />
+    </h1>
+    <section
+      className="c"
+    >
+      <Classify(Gallery)
+        data={
+          Object {
+            "id": 1,
+          }
+        }
+        pageSize={6}
+      />
+    </section>
+    <div
+      className="d"
+    >
+      <Classify(Pagination)
+        pageControl={Object {}}
+      />
+    </div>
+  </article>
+</React.Fragment>
+`;

@@ -31,7 +31,10 @@ module.exports.handler = function buildpackCli({ directory, coreDevMode }) {
         }
     }
     if (error) {
-        // eslint-disable-next-line no-process-exit
-        process.exit(1);
+        // signal to the outer CLI manager that it can quietly exit 1 instead of
+        // printing a large stack trace
+        const handledError = new Error(error);
+        handledError.expected = true;
+        throw handledError;
     }
 };

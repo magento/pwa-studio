@@ -4,7 +4,6 @@ const path = require('path');
 const dotenv = require('dotenv');
 const envalid = require('envalid');
 const camelspace = require('camelspace');
-const { pick } = require('lodash');
 const prettyLogger = require('../util/pretty-logger');
 
 const buildpackVersion = require('../../package.json').version;
@@ -103,7 +102,7 @@ function throwReport({ errors }) {
  */
 class Configuration {
     constructor(env, envFilePresent) {
-        this.env = env;
+        this.env = Object.assign({}, env);
         this.envFilePresent = envFilePresent;
         this.isProd = env.isProd;
         this.isProduction = env.isProduction;
@@ -152,21 +151,19 @@ function loadEnvironment(dirOrEnv, logger = prettyLogger) {
      */
     try {
         const loadedEnv = envalid.cleanEnv(compatEnv, envalidValidationConfig, {
+            dotEnvPath: null, // we parse dotEnv manually to do custom error msgs
             reporter: throwReport,
-            dotEnvPath: null // we parse dotEnv manually to do custom error msgs
+            strict: true
         });
         if (debug.enabled) {
             // Only do this prettiness if we gotta
             debug(
                 'Current known env',
                 '\n  ' +
-                    inspect(
-                        pick(loadedEnv, Object.keys(envalidValidationConfig)),
-                        {
-                            colors: true,
-                            compact: false
-                        }
-                    )
+                    inspect(loadedEnv, {
+                        colors: true,
+                        compact: false
+                    })
                         .replace(/\s*[\{\}]\s*/gm, '')
                         .replace(/,\n\s+/gm, '\n  ') +
                     '\n'

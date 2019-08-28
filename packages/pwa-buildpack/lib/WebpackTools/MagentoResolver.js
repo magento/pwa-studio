@@ -7,9 +7,11 @@ module.exports = {
     async configure(options) {
         validateConfig('.configure()', options);
         return {
+            alias: {},
             modules: [options.paths.root, 'node_modules'],
             mainFiles: ['index'],
-            extensions: ['.mjs', '.js', '.json', '.graphql']
+            mainFields: ['esnext', 'es2015', 'module', 'browser', 'main'],
+            extensions: ['.wasm', '.mjs', '.js', '.json', '.graphql']
         };
     }
 };
