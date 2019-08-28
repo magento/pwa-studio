@@ -81,7 +81,8 @@ Image.propTypes = {
     onError: func,
     onLoad: func,
     placeholder: string,
-    src: string
+    src: string,
+    fileSrc: string
 };
 
 export default Image;
