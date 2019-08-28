@@ -1,10 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import { string, func } from 'prop-types';
 
-import { connect, Query } from '@magento/venia-drivers';
+import { Query } from '@magento/venia-drivers';
 
 import { Title } from '../../components/Head';
-import { addItemToCart } from '../../actions/cart';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
@@ -20,7 +19,6 @@ import productQuery from '../../queries/getProductDetail.graphql';
  */
 class Product extends Component {
     static propTypes = {
-        addItemToCart: func.isRequired,
         cartId: string
     };
 
@@ -59,7 +57,6 @@ class Product extends Component {
                             <Title>{`${product.name} - ${STORE_NAME}`}</Title>
                             <ProductFullDetail
                                 product={this.mapProduct(product)}
-                                addToCart={this.props.addItemToCart}
                             />
                         </Fragment>
                     );
@@ -69,11 +66,4 @@ class Product extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    addItemToCart
-};
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(Product);
+export default Product;

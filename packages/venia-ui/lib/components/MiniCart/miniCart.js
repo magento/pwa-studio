@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 import Body from './body';
 import Footer from './footer';
@@ -12,20 +12,20 @@ import getCurrencyCode from '../../util/getCurrencyCode';
 
 const MiniCart = props => {
     const [step, setStep] = useState('cart');
-
     // Props.
     const {
-        beginEditItem,
         cancelCheckout,
         cart,
         closeDrawer,
-        endEditItem,
         isCartEmpty,
         isOpen,
         removeItemFromCart,
         updateItemInCart
     } = props;
-    const { editItem, isEditingItem, isLoading, isUpdatingItem } = cart;
+
+    const { isLoading, isUpdatingItem } = cart;
+
+    const [isEditingItem, setIsEditingItem] = useState(false);
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -44,6 +44,7 @@ const MiniCart = props => {
 
     const handleClose = useCallback(() => {
         setStep('cart');
+        setIsEditingItem(false);
         closeDrawer();
     }, [closeDrawer, setStep]);
 
@@ -51,6 +52,29 @@ const MiniCart = props => {
         setStep('cart');
         cancelCheckout();
     }, [cancelCheckout, setStep]);
+
+    const handleBeginEditItem = useCallback(() => {
+        setIsEditingItem(true);
+    }, []);
+
+    const handleEndEditItem = useCallback(() => {
+        setIsEditingItem(false);
+    }, []);
+
+    const handleUpdateItemInCart = useCallback(
+        async (...args) => {
+            try {
+                await updateItemInCart(...args);
+            }
+            catch (error) {
+                console.log('Unable to update item:', error.message);
+            }
+            finally {
+                setIsEditingItem(false);
+            }
+        },
+        [updateItemInCart]
+    );
 
     const footer = showFooter ? (
         <Footer
@@ -68,18 +92,17 @@ const MiniCart = props => {
         <aside className={rootClass}>
             <Header closeDrawer={handleClose} isEditingItem={isEditingItem} />
             <Body
-                beginEditItem={beginEditItem}
+                beginEditItem={handleBeginEditItem}
                 cartItems={cartItems}
                 closeDrawer={handleClose}
                 currencyCode={currencyCode}
-                editItem={editItem}
-                endEditItem={endEditItem}
+                endEditItem={handleEndEditItem}
                 isCartEmpty={isCartEmpty}
                 isEditingItem={isEditingItem}
                 isLoading={isLoading}
                 isUpdatingItem={isUpdatingItem}
                 removeItemFromCart={removeItemFromCart}
-                updateItemInCart={updateItemInCart}
+                updateItemInCart={handleUpdateItemInCart}
             />
             <Mask isActive={isMiniCartMaskOpen} dismiss={handleMaskClick} />
             {footer}
@@ -88,7 +111,6 @@ const MiniCart = props => {
 };
 
 MiniCart.propTypes = {
-    beginEditItem: func.isRequired,
     cancelCheckout: func,
     cart: shape({
         details: shape({
@@ -108,8 +130,6 @@ MiniCart.propTypes = {
             ),
             items_qty: number
         }).isRequired,
-        editItem: object,
-        isEditingItem: bool,
         isLoading: bool,
         isUpdatingItem: bool,
         totals: shape({
@@ -123,9 +143,7 @@ MiniCart.propTypes = {
         title: string
     }),
     closeDrawer: func,
-    endEditItem: func.isRequired,
     isCartEmpty: bool,
-    isMiniCartMaskOpen: bool,
     isOpen: bool,
     removeItemFromCart: func,
     updateItemInCart: func

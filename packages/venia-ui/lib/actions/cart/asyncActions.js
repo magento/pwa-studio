@@ -200,9 +200,6 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
         }
 
         await dispatch(getCartDetails({ forceRefresh: true }));
-
-        // Close the edit dialog only after the cart is finished updating.
-        dispatch(endEditItem());
     };
 };
 
@@ -292,12 +289,6 @@ export const removeItemFromCart = payload => {
         }
     };
 };
-
-export const beginEditItem = item => async dispatch =>
-    dispatch(actions.beginEditItem(item));
-
-export const endEditItem = () => async dispatch =>
-    dispatch(actions.endEditItem());
 
 export const getCartDetails = (payload = {}) => {
     const { forceRefresh } = payload;
