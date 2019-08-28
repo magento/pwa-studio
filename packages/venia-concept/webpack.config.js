@@ -58,8 +58,8 @@ module.exports = async env => {
             template: './template.html',
             minify: {
                 collapseWhitespace: true,
-                removeComments: true,
-              }
+                removeComments: true
+            }
         })
     ];
 
