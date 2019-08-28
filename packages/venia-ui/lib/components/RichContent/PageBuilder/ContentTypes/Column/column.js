@@ -10,7 +10,6 @@ const Column = ({
     verticalAlignment,
     textAlign,
     width,
-    justifyContent,
     backgroundColor,
     desktopImage,
     mobileImage,
@@ -57,6 +56,21 @@ const Column = ({
         case 'full-height':
         default:
             alignSelf = 'stretch';
+            break;
+    }
+
+    let justifyContent;
+
+    switch (verticalAlignment) {
+        case 'top':
+        default:
+            justifyContent = 'flex-start';
+            break;
+        case 'middle':
+            justifyContent = 'center';
+            break;
+        case 'bottom':
+            justifyContent = 'flex-end';
             break;
     }
 
@@ -108,7 +122,6 @@ Column.propTypes = {
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     textAlign: string,
     width: string,
-    justifyContent: string,
     backgroundColor: string,
     desktopImage: string,
     mobileImage: string,
