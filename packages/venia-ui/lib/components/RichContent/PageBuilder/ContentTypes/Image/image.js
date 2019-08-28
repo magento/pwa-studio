@@ -1,6 +1,7 @@
 import React from 'react';
-import defaultClasses from './image.css';
+import { arrayOf, string } from 'prop-types';
 
+// TODO: implement link functionality
 const Image = ({
     desktopImage,
     mobileImage,
@@ -63,6 +64,28 @@ const Image = ({
             </figure>
         </>
     );
+};
+
+Image.propTypes = {
+    desktopImage: string,
+    mobileImage: string,
+    altText: string,
+    title: string,
+    //link: string,
+    caption: string,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Image;

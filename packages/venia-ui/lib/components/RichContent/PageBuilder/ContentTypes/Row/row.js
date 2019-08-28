@@ -3,6 +3,7 @@ import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { Parallax } from 'react-parallax';
 import { mergeClasses } from '../../../../../classify';
+import { arrayOf, oneOf, shape, string, float } from 'prop-types';
 
 const Row = ({
     classes,
@@ -103,6 +104,36 @@ const Row = ({
             {children}
         </div>
     );
+};
+
+Row.propTypes = {
+    classes: shape({
+        contained: string
+    }),
+    verticalAlignment: oneOf(['top', 'middle', 'bottom']),
+    minHeight: string,
+    backgroundColor: string,
+    desktopImage: string,
+    mobileImage: string,
+    backgroundSize: string,
+    backgroundPosition: string,
+    backgroundAttachment: string,
+    backgroundRepeat: string,
+    enableParallax: string,
+    parallaxSpeed: float,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Row;

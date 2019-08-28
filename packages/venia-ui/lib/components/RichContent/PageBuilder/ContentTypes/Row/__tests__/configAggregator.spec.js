@@ -7,12 +7,14 @@ test('config is aggregated correctly for row appearance == contained', () => {
         appearance: 'contained'
     });
 
-    expect(config).toEqual(expect.objectContaining({
-        minHeight: null,
-        backgroundColor: null,
-        enableParallax: false,
-        parallaxSpeed: 0.5
-    }));
+    expect(config).toEqual(
+        expect.objectContaining({
+            minHeight: null,
+            backgroundColor: null,
+            enableParallax: false,
+            parallaxSpeed: 0.5
+        })
+    );
 });
 
 test('config is aggregated correctly for row appearance != contained', () => {
@@ -22,10 +24,12 @@ test('config is aggregated correctly for row appearance != contained', () => {
         appearance: 'full-bleed'
     });
 
-    expect(config).toEqual(expect.objectContaining({
-        minHeight: '900px',
-        backgroundColor: 'rgb(33, 255, 255)',
-        enableParallax: true,
-        parallaxSpeed: 2.0
-    }));
+    expect(config).toEqual(
+        expect.objectContaining({
+            minHeight: '900px',
+            backgroundColor: 'rgb(33, 255, 255)',
+            enableParallax: true,
+            parallaxSpeed: 2.0
+        })
+    );
 });

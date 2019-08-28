@@ -6,11 +6,12 @@ import {
     getPadding,
     getTextAlign,
     getVerticalAlignment
-} from "../utils";
+} from '../utils';
 
 test('can retrieve background image from node', () => {
     const node = document.createElement('div');
-    node.innerHTML = '<div data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;{{media url=wysiwyg/gear/gear-main.jpg}}\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;{{media url=wysiwyg/magento-logo.png}}\\&quot;}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: center center; background-size: contain; background-repeat: repeat; background-attachment: fixed;"></div>';
+    node.innerHTML =
+        '<div data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;{{media url=wysiwyg/gear/gear-main.jpg}}\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;{{media url=wysiwyg/magento-logo.png}}\\&quot;}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: center center; background-size: contain; background-repeat: repeat; background-attachment: fixed;"></div>';
     expect(getBackgroundImages(node.childNodes[0])).toEqual({
         desktopImage: '{{media url=wysiwyg/gear/gear-main.jpg}}',
         mobileImage: '{{media url=wysiwyg/magento-logo.png}}',
@@ -18,17 +19,23 @@ test('can retrieve background image from node', () => {
         backgroundPosition: 'center center',
         backgroundAttachment: 'fixed',
         backgroundRepeat: true
-    })
+    });
 });
 
 test('can retrieve vertical alignment', () => {
     const node = document.createElement('div');
     node.innerHTML = '<div style="justify-content: flex-start;"></div>';
-    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual('top');
+    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual(
+        'top'
+    );
     node.innerHTML = '<div style="justify-content: center;"></div>';
-    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual('middle');
+    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual(
+        'middle'
+    );
     node.innerHTML = '<div style="justify-content: flex-end;"></div>';
-    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual('bottom');
+    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual(
+        'bottom'
+    );
 });
 
 test('can retrieve padding', () => {
@@ -69,19 +76,20 @@ test('can retrieve margin', () => {
 
 test('can retrieve border', () => {
     const node = document.createElement('div');
-    node.innerHTML = '<div style="border-style: solid; border-color: rgb(255, 0, 0); border-width: 5px; border-radius: 2px;"></div></div>';
+    node.innerHTML =
+        '<div style="border-style: solid; border-color: rgb(255, 0, 0); border-width: 5px; border-radius: 2px;"></div></div>';
     expect(getBorder(node.childNodes[0])).toEqual({
         border: 'solid',
         borderColor: 'rgb(255, 0, 0)',
         borderWidth: '5px',
-        borderRadius: '2px',
+        borderRadius: '2px'
     });
     node.innerHTML = '<div style="border: 10px double red;"></div></div>';
     expect(getBorder(node.childNodes[0])).toEqual({
         border: 'double',
         borderColor: 'red',
         borderWidth: '10px',
-        borderRadius: '',
+        borderRadius: ''
     });
 });
 
@@ -94,7 +102,11 @@ test('can retrieve text align', () => {
 test('can retrieve CSS classes', () => {
     const node = document.createElement('div');
     node.innerHTML = '<div class="one two three"></div>';
-    expect(getCssClasses(node.childNodes[0]).cssClasses).toEqual(['one', 'two', 'three']);
+    expect(getCssClasses(node.childNodes[0]).cssClasses).toEqual([
+        'one',
+        'two',
+        'three'
+    ]);
     node.innerHTML = '<div></div>';
     expect(getCssClasses(node.childNodes[0]).cssClasses).toEqual([]);
 });

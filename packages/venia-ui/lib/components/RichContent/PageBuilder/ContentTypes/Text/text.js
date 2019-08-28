@@ -1,6 +1,7 @@
 import React from 'react';
 import defaultClasses from './text.css';
 import { mergeClasses } from '../../../../../classify';
+import { arrayOf, shape, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
@@ -23,6 +24,7 @@ const Text = ({
     cssClasses
 }) => {
     classes = mergeClasses(defaultClasses, classes);
+    cssClasses = cssClasses ? cssClasses : [];
     const dynamicStyles = {
         textAlign,
         border,
@@ -46,6 +48,26 @@ const Text = ({
             dangerouslySetInnerHTML={toHTML(content)}
         />
     );
+};
+
+Text.propTypes = {
+    classes: shape({
+        text: string
+    }),
+    content: string,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Text;
