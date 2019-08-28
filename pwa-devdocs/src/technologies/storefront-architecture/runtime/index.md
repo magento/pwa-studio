@@ -24,7 +24,7 @@ Use **HTTPS** when passing requests through the UPWARD server to static and medi
 
 The coupling between a PWA Studio storefront and Magento should go in one direction.
 The storefront has a dependency on Magento, which is attached as a service, but
-the Magento application should not know about or be aware of the storefront.
+the Magento application should not have a dependency on the storefront.
 
 ## Decoupled deployments
 

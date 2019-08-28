@@ -32,7 +32,7 @@ The preferred approach is to add PWA Studio tools and libraries as dependencies 
 
 The build pipeline is the mechanism that consumes the project source code to generate production-ready files.
 This process includes code [transpilation][] and smart script bundling.
-Like most modern Web compilation tools, it is build on [NodeJS][].
+Like most modern Web compilation tools, it is built on [NodeJS][].
 
 The main tools used for the build pipeline are [Babel][] and [Webpack][].
 The Buildpack library provides a convenient API for configuring these tools, but the underlying API for building a Magento PWA is a direct configuration of Babel and Webpack.
@@ -63,8 +63,7 @@ yarn run build
 
 #### Cleanup step
 
-Before code is generated, old artifacts are deleted from Venia concept's `dist` directory.
-This happens when the build process runs the `clean` script.
+The build process runs a `clean` script to remove old artifacts from the Venia concept's `dist` directory before generating the code.
 
 #### Environment validation
 
