@@ -24,6 +24,7 @@ const Text = ({
     cssClasses
 }) => {
     classes = mergeClasses(defaultClasses, classes);
+    cssClasses = cssClasses ? cssClasses : [];
     const dynamicStyles = {
         textAlign,
         border,
