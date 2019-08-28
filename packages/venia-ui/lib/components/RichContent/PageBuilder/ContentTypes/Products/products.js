@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import GalleryItems from '../../../../Gallery/items';
 import defaultClasses from './products.css';
 import { mergeClasses } from '../../../../../classify';
+import { arrayOf, shape, string } from 'prop-types';
 
 const Products = ({
     classes,
@@ -108,6 +109,27 @@ const Products = ({
             </Query>
         </div>
     );
+};
+
+Products.propTypes = {
+    classes: shape({
+        gallery: string,
+        items: string
+    }),
+    skus: arrayOf(string),
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Products;

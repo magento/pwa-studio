@@ -7,6 +7,7 @@ import {
 } from 'react-tabs';
 import defaultClasses from './tabs.css';
 import { mergeClasses } from '../../../../../classify';
+import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 
 const Tabs = ({
     classes,
@@ -121,6 +122,68 @@ const Tabs = ({
             </div>
         </TabWrapper>
     );
+};
+
+Tabs.propTypes = {
+    classes: shape({
+        tabHeader: string,
+        tabPanelSelected: string,
+        tabPanel: string,
+        tabContent: string,
+        tabNavigation: string,
+        tabDisabled: string,
+        tabItem: string
+    }),
+    verticalAlignment: oneOf(['top', 'middle', 'bottom']),
+    minHeight: string,
+    defaultIndex: number,
+    headers: arrayOf(string),
+    navigation: shape({
+        style: shape({
+            textAlign: string,
+            border: string,
+            borderColor: string,
+            borderWidth: string,
+            borderRadius: string,
+            marginTop: string,
+            marginRight: string,
+            marginBottom: string,
+            marginLeft: string,
+            paddingTop: string,
+            paddingRight: string,
+            paddingBottom: string
+        }),
+        cssClasses: arrayOf(string)
+    }),
+    content: shape({
+        style: shape({
+            textAlign: string,
+            border: string,
+            borderColor: string,
+            borderWidth: string,
+            borderRadius: string,
+            marginTop: string,
+            marginRight: string,
+            marginBottom: string,
+            marginLeft: string,
+            paddingTop: string,
+            paddingRight: string,
+            paddingBottom: string
+        })
+    }),
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Tabs;

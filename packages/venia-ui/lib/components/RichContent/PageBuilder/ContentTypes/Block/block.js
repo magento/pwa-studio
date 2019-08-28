@@ -1,5 +1,6 @@
 import React from 'react';
 import RichContent from '../../../richContent';
+import { arrayOf, string } from 'prop-types';
 
 const Block = ({
     richContent,
@@ -38,6 +39,23 @@ const Block = ({
             <RichContent html={richContent} />
         </div>
     );
+};
+
+Block.propTypes = {
+    richContent: string,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Block;

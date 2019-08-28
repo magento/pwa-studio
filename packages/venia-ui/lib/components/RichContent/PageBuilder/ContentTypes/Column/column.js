@@ -1,6 +1,7 @@
 import React from 'react';
 import defaultClasses from './column.css';
 import { mergeClasses } from '../../../../../classify';
+import { arrayOf, oneOf, shape, string } from 'prop-types';
 
 const Column = ({
     classes,
@@ -76,6 +77,39 @@ const Column = ({
             {children}
         </div>
     );
+};
+
+Column.propTypes = {
+    classes: shape({
+        pagebuilderColumn: string
+    }),
+    minHeight: string,
+    verticalAlignment: oneOf(['top', 'middle', 'bottom']),
+    textAlign: string,
+    display: string,
+    width: string,
+    justifyContent: string,
+    flexDirection: string,
+    alignSelf: string,
+    backgroundColor: string,
+    desktopImage: string,
+    mobileImage: string,
+    backgroundSize: string,
+    backgroundPosition: string,
+    backgroundAttachment: string,
+    backgroundRepeat: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    cssClasses: arrayOf(string)
 };
 
 export default Column;
