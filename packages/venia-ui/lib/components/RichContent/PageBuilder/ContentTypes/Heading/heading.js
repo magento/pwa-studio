@@ -22,6 +22,7 @@ const Heading = ({
     cssClasses
 }) => {
     classes = mergeClasses(defaultClasses, classes);
+    cssClasses = cssClasses ? cssClasses : [];
     const HeadingType = `${headingType.toLowerCase()}`;
     const dynamicStyles = {
         textAlign,
