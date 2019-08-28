@@ -19,6 +19,7 @@ const Block = ({
     paddingLeft,
     cssClasses
 }) => {
+    cssClasses = cssClasses ? cssClasses : [];
     const dynamicStyles = {
         textAlign,
         border,
