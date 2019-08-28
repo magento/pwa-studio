@@ -1,0 +1,15 @@
+.root {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.user {
+    display: grid;
+    gap: 0.5rem;
+    grid-auto-flow: row;
+}
+
+.subtitle {
+    color: rgb(var(--venia-text-alt));
+}
