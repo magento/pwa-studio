@@ -111,6 +111,7 @@ Row.propTypes = {
     classes: shape({
         contained: string
     }),
+    appearance: oneOf(['contained', 'full-width', 'full-bleed']),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     minHeight: string,
     backgroundColor: string,
