@@ -29,7 +29,7 @@ test('tapPromise function should be called on compiler hooks', () => {
     expect(tapPromise.mock.calls[0][1] instanceof Function).toBeTruthy();
 });
 
-test('second argument to tapPromise should return a Promise which when resolved should set global.magentoMediaBackendURL to a URL', () => {
+test('second argument to tapPromise should return a Promise which when resolved should set global.MAGENTO_MEDIA_BACKEND_URL to a URL', () => {
     const expectedMediaURL =
         'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/';
     fetch.mockResponseOnce(
@@ -42,12 +42,12 @@ test('second argument to tapPromise should return a Promise which when resolved 
         })
     );
 
-    expect(global.magentoMediaBackendURL).toBe(undefined);
+    expect(global.MAGENTO_MEDIA_BACKEND_URL).toBe(undefined);
 
     const mediaBackendURLFetcher = new MediaBackendURLFetcherPlugin();
     mediaBackendURLFetcher.apply(compiler);
 
     return tapPromise.mock.calls[0][1].call().then(() => {
-        expect(global.magentoMediaBackendURL).toBe(expectedMediaURL);
+        expect(global.MAGENTO_MEDIA_BACKEND_URL).toBe(expectedMediaURL);
     });
 });

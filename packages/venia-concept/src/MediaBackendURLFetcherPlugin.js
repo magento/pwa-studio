@@ -22,7 +22,7 @@ class MediaBackendURLFetcherPlugin {
             () =>
                 new Promise(resolve => {
                     getMediaURL().then(url => {
-                        global.magentoMediaBackendURL = url;
+                        global.MAGENTO_MEDIA_BACKEND_URL = url;
                         resolve();
                     });
                 })
