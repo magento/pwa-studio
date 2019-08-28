@@ -24,6 +24,7 @@ const Image = ({
     paddingLeft,
     cssClasses
 }) => {
+    cssClasses = cssClasses ? cssClasses : [];
     const figureStyles = {
         textAlign,
         marginTop,
