@@ -17,14 +17,16 @@ const getMediaURL = () =>
 
 class MediaBackendURLFetcherPlugin {
     apply(compiler) {
-        compiler.hooks.emit.tapPromise('MediaBackendURLFetcherPlugin', () => {
-            return new Promise(resolve => {
-                getMediaURL().then(url => {
-                    global.magentoMediaBackendURL = url;
-                    resolve();
-                });
-            });
-        });
+        compiler.hooks.emit.tapPromise(
+            'MediaBackendURLFetcherPlugin',
+            () =>
+                new Promise(resolve => {
+                    getMediaURL().then(url => {
+                        global.magentoMediaBackendURL = url;
+                        resolve();
+                    });
+                })
+        );
     }
 }
 

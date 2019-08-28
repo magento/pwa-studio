@@ -135,7 +135,14 @@ const jestConfig = {
         configureProject('upward-js', 'Upward JS', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('venia-concept', 'Venia Storefront', testVenia),
+        configureProject('venia-concept', 'Venia Storefront', inPackage => {
+            const veniaConceptConfig = testVenia(inPackage);
+            veniaConceptConfig.setupFiles = [
+                ...veniaConceptConfig.setupFilesAfterEnv,
+                inPackage('scripts/fetch-mock.js')
+            ];
+            return veniaConceptConfig;
+        }),
         configureProject('venia-ui', 'Venia UI', testVenia),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
