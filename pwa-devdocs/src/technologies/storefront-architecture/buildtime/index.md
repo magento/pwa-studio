@@ -35,7 +35,7 @@ This process includes code [transpilation][] and smart script bundling.
 Like most modern Web compilation tools, it is build on [NodeJS][].
 
 The main tools used for the build pipeline are [Babel][] and [Webpack][].
-The Buildpack library provides a convenience API for configuring these tools, but the underlying API for building a Magento PWA is just direct configuration of Babel and Webpack.
+The Buildpack library provides a convenient API for configuring these tools, but the underlying API for building a Magento PWA is just direct configuration of Babel and Webpack.
 
 The Venia example storefront project contains an opinionated build pipeline setup, using Buildpack's `configureWebpack` API, but
 developers can also use the PWA-Studio build libraries and configurations to define custom pipelines.

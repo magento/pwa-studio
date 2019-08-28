@@ -10,11 +10,11 @@ Many of these characteristics follow Magento's vision for [service isolation][].
 ## API-only relationships
 
 A PWA Studio storefront application communicates with Magento using its external API.
-Those external API services communicate with Magento's interal service modules and returns any results through that same external API.
+Those external API services communicate with Magento's internal service modules and returns any results through that same external API.
 
 **GraphQL** is the preferred API to use for client data and store behavior.
-GraphQL API coverage increases with every Magento release, but
-until full coverage is complete, developers can use the **REST API** to fill in existing coverage gaps.
+[GraphQL API][] coverage increases with every Magento release, but
+until full coverage is complete, developers can use the [**REST API**][] to fill in existing coverage gaps.
 
 To make secure, admin-authorized calls, configure the storefront's [UPWARD][] server to make the request using REST or RPC.
 
@@ -50,3 +50,5 @@ If the storefront application is deployed in the same server as Magento, which c
 [service isolation]: https://github.com/magento/architecture/blob/master/design-documents/service-isolation.md
 [php implementation of upward]: https://github.com/magento-research/upward-php
 [reverse proxy]: https://en.wikipedia.org/wiki/Reverse_proxy
+[graphql api]: https://devdocs.magento.com/guides/v2.3/graphql/
+[**rest api**]: https://devdocs.magento.com/guides/v2.3/rest/bk-rest.html
