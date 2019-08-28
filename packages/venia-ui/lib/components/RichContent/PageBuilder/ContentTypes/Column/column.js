@@ -4,6 +4,7 @@ import { mergeClasses } from '../../../../../classify';
 
 const Column = ({
     classes,
+    appearance,
     minHeight,
     verticalAlignment,
     textAlign,
@@ -11,7 +12,6 @@ const Column = ({
     width,
     justifyContent,
     flexDirection,
-    alignSelf,
     backgroundColor,
     desktopImage,
     mobileImage,
@@ -39,6 +39,25 @@ const Column = ({
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
+
+    let alignSelf;
+
+    switch (appearance) {
+        case 'align-top':
+            alignSelf = 'flex-start';
+            break;
+        case 'align-center':
+            alignSelf = 'center';
+            break;
+        case 'align-bottom':
+            alignSelf = 'flex-end';
+            break;
+        case 'full-height':
+        default:
+            alignSelf = 'stretch';
+            break;
+    }
+
     const dynamicStyles = {
         minHeight,
         backgroundColor,
