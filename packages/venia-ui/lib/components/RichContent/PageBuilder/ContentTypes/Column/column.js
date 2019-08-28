@@ -9,7 +9,6 @@ const Column = ({
     minHeight,
     verticalAlignment,
     textAlign,
-    display,
     width,
     justifyContent,
     backgroundColor,
@@ -40,25 +39,24 @@ const Column = ({
         image = mobileImage;
     }
 
-    let alignSelf, flexDirection;
+    const flexDirection = 'column',
+        display = 'flex';
+
+    let alignSelf;
 
     switch (appearance) {
         case 'align-top':
             alignSelf = 'flex-start';
-            flexDirection = 'column';
             break;
         case 'align-center':
             alignSelf = 'center';
-            flexDirection = 'column';
             break;
         case 'align-bottom':
             alignSelf = 'flex-end';
-            flexDirection = 'column';
             break;
         case 'full-height':
         default:
             alignSelf = 'stretch';
-            flexDirection = 'column';
             break;
     }
 
@@ -109,7 +107,6 @@ Column.propTypes = {
     minHeight: string,
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     textAlign: string,
-    display: string,
     width: string,
     justifyContent: string,
     backgroundColor: string,
