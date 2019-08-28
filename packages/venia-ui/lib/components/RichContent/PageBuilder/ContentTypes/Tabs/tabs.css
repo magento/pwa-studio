@@ -13,7 +13,7 @@
 .tabHeader.tabSelected {
     background: #fff;
     color: black;
-    z-index: 19;
+    z-index: 3;
 }
 
 .tabNavigation {
@@ -78,7 +78,7 @@
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
-    z-index: 9;
+    z-index: 2;
 }
 
 .tabNavigation li:first-child {
