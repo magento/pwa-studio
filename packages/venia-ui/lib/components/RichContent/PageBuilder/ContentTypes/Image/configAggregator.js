@@ -7,6 +7,7 @@ import {
 } from '../../utils';
 
 export default node => {
+    console.log(node.outerHTML);
     const imageNode =
         node.childNodes[0].nodeName === 'A'
             ? node.childNodes[0].childNodes
