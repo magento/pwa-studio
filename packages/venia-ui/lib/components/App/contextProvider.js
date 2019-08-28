@@ -6,7 +6,9 @@ import {
 } from '@magento/peregrine';
 
 import AppContextProvider from '../../context/app';
+import CartContextProvider from '../../context/cart';
 import CatalogContextProvider from '../../context/catalog';
+import CheckoutContextProvider from '../../context/checkout';
 import ErrorContextProvider from '../../context/unhandledErrors';
 import UserContextProvider from '../../context/user';
 
@@ -17,10 +19,12 @@ import UserContextProvider from '../../context/user';
  */
 const contextProviders = [
     Peregrine,
+    ErrorContextProvider,
     AppContextProvider,
     UserContextProvider,
     CatalogContextProvider,
-    ErrorContextProvider,
+    CartContextProvider,
+    CheckoutContextProvider,
     WindowSizeContextProvider,
     ToastContextProvider
 ];
