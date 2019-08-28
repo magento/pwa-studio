@@ -7,7 +7,7 @@ The build architecture of PWA Studio is the system used to compile JavaScript an
 ## Magento store dependency
 
 PWA Studio is part of Magento's [service-oriented architecture][] vision.
-This vision separates the merchant-facing store admin and the shopper-facing storefront application.
+This vision minimizes dependencies by separating the merchant-facing store admin and the shopper-facing storefront application.
 Separating these two applications minimizes the dependencies between them.
 
 The Venia build system respects this principle by running the build process independent from the Magento core application.
@@ -17,9 +17,9 @@ However, the build system does use the Magento API at compilation time for addit
 
 Unlike Magento themes, the source code for a PWA Studio storefront does not need to be located within the Magento application code.
 A PWA Studio storefront and its backing Magento server are two separate applications, so
-their codebase should be separate from each other.
+their codebase is separate from each other.
 
-The Venia concept storefront uses `yarn` for dependency managements, but
+The Venia concept storefront uses the `yarn` package for dependency management, but
 storefronts built using PWA Studio can also use NPM to manage dependencies and run scripts.
 
 Early adopters of PWA Studio have cloned the [`pwa-studio` repository][] and made direct customizations to the Venia concept source.
@@ -35,7 +35,7 @@ This process includes code [transpilation][] and smart script bundling.
 Like most modern Web compilation tools, it is build on [NodeJS][].
 
 The main tools used for the build pipeline are [Babel][] and [Webpack][].
-The Buildpack library provides a convenient API for configuring these tools, but the underlying API for building a Magento PWA is just direct configuration of Babel and Webpack.
+The Buildpack library provides a convenient API for configuring these tools, but the underlying API for building a Magento PWA is a direct configuration of Babel and Webpack.
 
 The Venia example storefront project contains an opinionated build pipeline setup, using Buildpack's `configureWebpack` API, but
 developers can also use the PWA-Studio build libraries and configurations to define custom pipelines.

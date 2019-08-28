@@ -42,7 +42,7 @@ Since the coupling between the storefront and Magento is one way, Magento does n
 This means that the Magento frontend theme, such as Luma, is still available by connecting directly to the Magento server.
 
 Use a [reverse proxy][] in your Magento server to route incoming frontend traffic to the storefront application.
-If the storefront application is deployed in the same server as Magento, which can be the case if you are using [Magento cloud][] hosting, then the `magento-upward-connector` module will handle the frontend replacement.
+If the storefront application is deployed in the same server as Magento, which can be the case if you are using [Magento cloud][] hosting, then the `magento-upward-connector` module handles the frontend replacement.
 
 [upward]: {{site.baseurl}}{% link technologies/upward/index.md %}
 [magento cloud]: {{site.baseurl}}{%link tutorials/cloud-deploy/index.md %}
