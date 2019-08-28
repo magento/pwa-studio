@@ -31,7 +31,7 @@ const catalogCacheHandler = new workbox.strategies.StaleWhileRevalidate({
     plugins: [
         new workbox.expiration.Plugin({
             maxEntries: 60,
-            maxAgeSeconds: thirtyDays // 30 Days
+            maxAgeSeconds: thirtyDays
         }),
         new workbox.cacheableResponse.Plugin({
             statuses: [0, 200]
