@@ -15,6 +15,13 @@ const getMediaURL = () =>
             return '';
         });
 
+/**
+ * Webpack plugin that makes GraphQL call to get the Media
+ * Backend URL which is needed by WebpackHTMLPlugin to be
+ * replace in template.html. This is done by fetching the URL
+ * from GraphQL and placing it in global.MAGENTO_MEDIA_BACKEND_URL
+ * for the WebpackHTMLPlugin to pickup.
+ */
 class MediaBackendURLFetcherPlugin {
     apply(compiler) {
         compiler.hooks.emit.tapPromise(
