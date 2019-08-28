@@ -55,7 +55,11 @@ module.exports = async env => {
         new MediaBackendUrlFetcherPlugin(),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './template.html'
+            template: './template.html',
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+              }
         })
     ];
 
