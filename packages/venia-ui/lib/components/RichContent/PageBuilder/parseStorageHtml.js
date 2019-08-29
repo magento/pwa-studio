@@ -84,12 +84,11 @@ const walk = (rootEl, contentTypeStructureObj) => {
  * @returns {Object}
  */
 const parseStorageHtml = htmlStr => {
-    const container = document.createElement('div');
-    container.innerHTML = htmlStr;
+    const container = new DOMParser().parseFromString(htmlStr, "text/html");
 
     const stageContentType = createContentTypeObject('root-container');
 
-    return walk(container, stageContentType);
+    return walk(container.body, stageContentType);
 };
 
 export default parseStorageHtml;
