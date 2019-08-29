@@ -18,6 +18,8 @@ import productsConfigAggregator from './ContentTypes/Products/configAggregator';
 import buttonsConfigAggregator from './ContentTypes/Buttons/configAggregator';
 import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregator';
 import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
+import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
+
 
 export const Lazy = 'lazy';
 
@@ -80,5 +82,10 @@ export const contentTypesConfig = {
         load: Lazy,
         configAggregator: htmlConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Html'))
+    },
+    divider: {
+        load: Lazy,
+        configAggregator: dividerConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Divider'))
     }
 };
