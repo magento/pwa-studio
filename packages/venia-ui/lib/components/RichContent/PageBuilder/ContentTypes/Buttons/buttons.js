@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './buttons.css';
-import { arrayOf, string } from 'prop-types';
+import { oneOf, arrayOf, string } from 'prop-types';
 
 const Buttons = ({
     appearance,
@@ -46,8 +46,7 @@ const Buttons = ({
 };
 
 Buttons.propTypes = {
-    text: string,
-    textAlign: string,
+    appearance: oneOf(['inline', 'stacked']),
     border: string,
     borderColor: string,
     borderWidth: string,
