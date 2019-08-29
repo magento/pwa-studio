@@ -1,6 +1,7 @@
 import React from 'react';
 import defaultClasses from './buttonItem.css';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
+import { Link } from '@magento/venia-drivers';
 
 const ButtonItem = ({
     buttonType,
@@ -41,13 +42,39 @@ const ButtonItem = ({
     const cssButtonTypeSuffix = buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
 
     if (typeof link === 'string') {
+        let isExternalUrl;
+        const linkOpts = {};
+
+        try {
+            const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
+            const baseUrlObj = new URL(baseUrl);
+            const urlObj = new URL(link);
+            isExternalUrl = baseUrlObj.host !== urlObj.host;
+
+            if (isExternalUrl) {
+                linkOpts['href'] = link;
+            } else {
+                linkOpts['to'] = urlObj.pathname;
+            }
+        } catch (e) {
+            isExternalUrl = true;
+            linkOpts['href'] = link;
+        }
+
+        const LinkComponent = isExternalUrl ? 'a' : Link;
+
         return (
             <div className={cssClasses.join(' ')}>
-                <a className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix]].join(' ')} href={link} {...openInNewTab ? {target: '_blank'} : ''} style={dynamicInnerStyles}>
+                <LinkComponent
+                    {...linkOpts}
+                    className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix]].join(' ')}
+                    {...openInNewTab ? {target: '_blank'} : ''}
+                    style={dynamicInnerStyles}
+                >
                     <span>{text}</span>
-                </a>
+                </LinkComponent>
             </div>
-        )
+        );
     } else {
         return (
             <div className={cssClasses.join(' ')}>
@@ -55,7 +82,7 @@ const ButtonItem = ({
                     <span>{text}</span>
                 </div>
             </div>
-        )
+        );
     }
 };
 
