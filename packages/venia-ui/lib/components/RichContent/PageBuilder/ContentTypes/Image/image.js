@@ -61,6 +61,7 @@ const Image = ({
                     title={title}
                     alt={altText}
                     style={imageStyles}
+                    loading="lazy"
                 />
             </picture>
             {caption ? <figcaption>{caption}</figcaption> : ''}
