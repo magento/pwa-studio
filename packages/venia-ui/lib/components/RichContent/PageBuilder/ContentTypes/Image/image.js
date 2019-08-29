@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, bool, oneOf, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
-import resolveLinkProps from '../../../resolveLinkProps';
+import resolveLinkProps from '../../resolveLinkProps';
 
 const Image = ({
     desktopImage,

@@ -2,7 +2,7 @@ import React from 'react';
 import defaultClasses from './buttonItem.css';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
-import resolveLinkProps from '../../../resolveLinkProps';
+import resolveLinkProps from '../../resolveLinkProps';
 
 const ButtonItem = ({
     buttonType,
