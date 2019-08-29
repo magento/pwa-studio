@@ -42,6 +42,5 @@ module.exports = {
     useQueryResult,
     useSearchParam,
     useWindowSize,
-
     useToasts
 };

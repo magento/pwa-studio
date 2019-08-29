@@ -1,52 +1,40 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createTestInstance } from '@magento/peregrine';
 
 import Button from '../../../Button';
 import FormSubmissionSuccessful from '../formSubmissionSuccessful';
 
-const classes = {
-    text: 'text'
+jest.mock('../../../../classify');
+jest.mock('../../../Button', () => () => <i />);
+
+const props = {
+    email: 'test@example.com',
+    onContinue: jest.fn()
 };
-const email = 'test@example.com';
 
 test('renders correctly', () => {
-    const wrapper = shallow(
-        <FormSubmissionSuccessful
-            classes={classes}
-            email={email}
-            onContinue={() => {}}
-        />
-    ).dive();
+    const tree = createTestInstance(<FormSubmissionSuccessful {...props} />);
 
-    expect(wrapper.find(`.${classes.text}`)).toHaveLength(1);
-    expect(wrapper.find(Button)).toHaveLength(1);
+    expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('text message contains email', () => {
-    const wrapper = shallow(
-        <FormSubmissionSuccessful
-            classes={classes}
-            email={email}
-            onContinue={() => {}}
-        />
-    ).dive();
-
-    expect(wrapper.find(`.${classes.text}`).text()).toEqual(
-        expect.stringContaining(email)
+    const { root } = createTestInstance(
+        <FormSubmissionSuccessful {...props} />
     );
+
+    const text = root.findByProps({ className: 'text' });
+
+    expect(text.children[0]).toEqual(expect.stringContaining(props.email));
 });
 
 test('handles continue button click', () => {
-    const onContinue = jest.fn();
+    const { onContinue } = props;
+    const { root } = createTestInstance(
+        <FormSubmissionSuccessful {...props} />
+    );
 
-    const wrapper = shallow(
-        <FormSubmissionSuccessful
-            classes={classes}
-            email={email}
-            onContinue={onContinue}
-        />
-    ).dive();
-    wrapper.find(Button).simulate('click');
+    root.findByType(Button).props.onClick();
 
-    expect(onContinue).toBeCalled();
+    expect(onContinue).toHaveBeenCalledTimes(1);
 });
