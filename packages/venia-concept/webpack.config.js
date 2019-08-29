@@ -50,6 +50,10 @@ module.exports = async env => {
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
+            /**
+             * Make sure to add the same constants to
+             * the globals object in jest.config.js.
+             */
             STORE_NAME: JSON.stringify('Venia')
         }),
         new MediaBackendUrlFetcherPlugin(),
