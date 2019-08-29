@@ -5,6 +5,7 @@ export default node => {
         display: node.style.display,
         text: node.textContent,
         textAlign: node.style.textAlign,
+        openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
         ...getAdvanced(node.childNodes[0]),
         ...getCssClasses(node),
     };
