@@ -4,6 +4,7 @@ export default node => {
     const props = {
         display: node.style.display,
         text: node.textContent,
+        textAlign: node.style.textAlign,
         ...getAdvanced(node.childNodes[0]),
         ...getCssClasses(node),
     };

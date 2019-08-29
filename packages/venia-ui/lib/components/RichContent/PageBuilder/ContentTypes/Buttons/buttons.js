@@ -34,14 +34,8 @@ const Buttons = ({
         paddingLeft
     };
 
-    switch (appearance) {
-        case 'inline':
-        default:
-
-            break;
-        case 'stacked':
-
-            break;
+    if (appearance === 'stacked') {
+        dynamicStyles.flexDirection = 'column';
     }
 
     return (

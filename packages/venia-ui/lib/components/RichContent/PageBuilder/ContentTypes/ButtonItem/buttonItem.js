@@ -7,7 +7,7 @@ const ButtonItem = ({
     link,
     openInNewTab,
     text,
-    display, // TODO - remove and calculate in component based on parent component's (button's) appearance
+    textAlign,
     border,
     borderColor,
     borderWidth,
@@ -22,11 +22,8 @@ const ButtonItem = ({
     paddingLeft,
     cssClasses = []
 }) => {
-    const dynamicOuterStyles = { // TODO - this is dictated by inline/stacked appearance of parent buttons component
-        display
-    };
-
     const dynamicInnerStyles = {
+        textAlign,
         border,
         borderColor,
         borderWidth,
@@ -45,7 +42,7 @@ const ButtonItem = ({
 
     if (typeof link === 'string') {
         return (
-            <div className={cssClasses.join(' ')} style={dynamicOuterStyles}>
+            <div className={cssClasses.join(' ')}>
                 <a className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix]].join(' ')} href={link} {...openInNewTab ? {target: '_blank'} : ''} style={dynamicInnerStyles}>
                     <span>{text}</span>
                 </a>
@@ -53,7 +50,7 @@ const ButtonItem = ({
         )
     } else {
         return (
-            <div className={cssClasses.join(' ')} style={dynamicOuterStyles}>
+            <div className={cssClasses.join(' ')}>
                 <div className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix], defaultClasses.emptyLink].join(' ')} style={dynamicInnerStyles}>
                     <span>{text}</span>
                 </div>
@@ -67,6 +64,7 @@ ButtonItem.propTypes = {
     link: string,
     openInNewTab: bool,
     text: string,
+    textAlign: string,
     border: string,
     borderColor: string,
     borderWidth: string,
