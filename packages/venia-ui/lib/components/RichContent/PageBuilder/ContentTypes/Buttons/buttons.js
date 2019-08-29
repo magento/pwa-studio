@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import defaultClasses from './buttons.css';
-import { oneOf, arrayOf, string } from 'prop-types';
+import { oneOf, arrayOf, string, bool } from 'prop-types';
 
 const Buttons = ({
     appearance,
+    isSameWidth,
     textAlign,
     border,
     borderColor,
@@ -20,6 +21,14 @@ const Buttons = ({
     children,
     cssClasses = []
 }) => {
+    useEffect(() => {
+        if (!isSameWidth) {
+            return;
+        }
+
+        // TODO - resize button children to maxWidth of widest button
+    });
+
     const dynamicStyles = {
         border,
         borderColor,
@@ -61,6 +70,7 @@ const Buttons = ({
 
 Buttons.propTypes = {
     appearance: oneOf(['inline', 'stacked']),
+    isSameWidth: bool,
     textAlign: string,
     border: string,
     borderColor: string,
