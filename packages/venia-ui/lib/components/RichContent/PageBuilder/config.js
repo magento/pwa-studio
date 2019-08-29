@@ -17,6 +17,7 @@ import blockConfigAggregator from './ContentTypes/Block/configAggregator';
 import productsConfigAggregator from './ContentTypes/Products/configAggregator';
 import buttonsConfigAggregator from './ContentTypes/Buttons/configAggregator';
 import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregator';
+import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 
 export const Lazy = 'lazy';
 
@@ -74,5 +75,10 @@ export const contentTypesConfig = {
         load: Lazy,
         configAggregator: productsConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Products'))
+    },
+    html: {
+        load: Lazy,
+        configAggregator: htmlConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Html'))
     }
 };

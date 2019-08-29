@@ -1,12 +1,9 @@
 import React from 'react';
-import defaultClasses from './text.css';
-import { mergeClasses } from '../../../../../classify';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, string } from 'prop-types';
 import RichText from '../../../../RichText';
 
-const Text = ({
-    classes,
-    content,
+const Html = ({
+    html,
     textAlign,
     border,
     borderColor,
@@ -22,8 +19,10 @@ const Text = ({
     paddingLeft,
     cssClasses
 }) => {
-    classes = mergeClasses(defaultClasses, classes);
     cssClasses = cssClasses ? cssClasses : [];
+    const doc = document.createElement('div');
+    doc.innerHTML = html;
+    console.log(doc);
     const dynamicStyles = {
         textAlign,
         border,
@@ -39,19 +38,15 @@ const Text = ({
         paddingBottom,
         paddingLeft
     };
-    cssClasses.push(classes.text);
     return (
         <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            <RichText content={content} />
+            <RichText content={html} />
         </div>
     );
 };
 
-Text.propTypes = {
-    classes: shape({
-        text: string
-    }),
-    content: string,
+Html.propTypes = {
+    html: string,
     textAlign: string,
     border: string,
     borderColor: string,
@@ -67,4 +62,4 @@ Text.propTypes = {
     cssClasses: arrayOf(string)
 };
 
-export default Text;
+export default Html;
