@@ -16,6 +16,7 @@ export default node => {
         mobileImage: imageNode[1].getAttribute('src'),
         altText: imageNode[0].getAttribute('alt'),
         title: imageNode[0].getAttribute('title'),
+         openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
         ...getPadding(node),
         ...getMargin(node),
         ...getBorder(imageNode[0]),
@@ -27,6 +28,7 @@ export default node => {
     }
     if (node.childNodes[0].nodeName === 'A') {
         props.link = node.childNodes[0].getAttribute('href');
+        props.linkType = node.childNodes[0].getAttribute('data-link-type');
     }
     const captionElement = node.querySelector('figcaption');
     if (captionElement) {

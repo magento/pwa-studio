@@ -1,13 +1,15 @@
 import React from 'react';
-import { arrayOf, string } from 'prop-types';
+import { arrayOf, bool, oneOf, string } from 'prop-types';
+import { Link } from '@magento/venia-drivers';
 
-// TODO: implement link functionality
 const Image = ({
     desktopImage,
     mobileImage,
     altText,
     title,
-    //link,
+    link,
+    linkType,
+    openInNewTab,
     caption,
     textAlign,
     border,
@@ -22,9 +24,8 @@ const Image = ({
     paddingRight,
     paddingBottom,
     paddingLeft,
-    cssClasses
+    cssClasses = []
 }) => {
-    cssClasses = cssClasses ? cssClasses : [];
     const figureStyles = {
         textAlign,
         marginTop,
@@ -42,8 +43,60 @@ const Image = ({
         borderWidth,
         borderRadius
     };
-    return (
-        <>
+
+    if (typeof link === 'string') {
+        let isExternalUrl;
+        const linkOpts = {};
+
+        try {
+            const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
+            const baseUrlObj = new URL(baseUrl);
+            const urlObj = new URL(link);
+            isExternalUrl = baseUrlObj.host !== urlObj.host;
+
+            if (isExternalUrl) {
+                linkOpts['href'] = link;
+            } else {
+                linkOpts['to'] = urlObj.pathname;
+                if (linkType !== 'default' && !/\.html$/.test(linkOpts['to'])) {
+                    linkOpts['to'] += '.html';
+                }
+            }
+        } catch (e) {
+            isExternalUrl = true;
+            linkOpts['href'] = link;
+        }
+
+        const LinkComponent = isExternalUrl ? 'a' : Link;
+
+        return (
+            <figure style={figureStyles} className={cssClasses.join(' ')}>
+                <LinkComponent
+                    {...linkOpts}
+                    {...openInNewTab ? {target: '_blank'} : ''}
+                >
+                    <picture>
+                        {mobileImage ? (
+                            <source
+                                media="(max-width: 768px)"
+                                srcSet={mobileImage}
+                            />
+                        ) : (
+                            ''
+                        )}
+                        <img
+                            src={desktopImage}
+                            title={title}
+                            alt={altText}
+                            style={imageStyles}
+                        />
+                    </picture>
+                    {caption ? <figcaption>{caption}</figcaption> : ''}
+                </LinkComponent>
+            </figure>
+        );
+    } else {
+        return (
             <figure style={figureStyles} className={cssClasses.join(' ')}>
                 <picture>
                     {mobileImage ? (
@@ -63,8 +116,8 @@ const Image = ({
                 </picture>
                 {caption ? <figcaption>{caption}</figcaption> : ''}
             </figure>
-        </>
-    );
+        );
+    }
 };
 
 Image.propTypes = {
@@ -72,7 +125,9 @@ Image.propTypes = {
     mobileImage: string,
     altText: string,
     title: string,
-    //link: string,
+    link: string,
+    linkType: oneOf(['default', 'category', 'product', 'page']),
+    openInNewTab: bool,
     caption: string,
     textAlign: string,
     border: string,
