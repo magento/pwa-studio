@@ -35,7 +35,7 @@ const ContentTypeFactory = ({ data }) => {
         // If we're lazy loading add some suspense
         if (contentTypeConfig.load === Lazy) {
             return (
-                <Suspense fallback={'Loading...'}>
+                <Suspense fallback={''}>
                     {renderContentType(PageBuilderComponent, data)}
                 </Suspense>
             );
