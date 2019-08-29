@@ -45,8 +45,7 @@ const testVenia = inPackage => ({
     browser: true,
     moduleNameMapper: {
         // Mock binary files to avoid excess RAM usage.
-        '\\.(jpg|jpeg|png)$':
-            '<rootDir>/packages/venia-ui/__mocks__/fileMock.js',
+        '\\.(jpg|jpeg|png)$': inPackage('__mocks__/fileMock.js'),
         // CSS module classes are dynamically generated, but that makes
         // it hard to test React components using DOM classnames.
         // This mapping forces CSS Modules to return literal identies,
