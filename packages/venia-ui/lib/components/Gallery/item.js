@@ -125,6 +125,7 @@ class GalleryItem extends Component {
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
+                loading="lazy"
             />
         );
     };
