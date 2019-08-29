@@ -2,7 +2,8 @@ import React from 'react';
 import defaultClasses from './text.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
-import RichText from '../../../../RichText';
+
+const toHTML = str => ({ __html: str });
 
 const Text = ({
     classes,
@@ -41,9 +42,11 @@ const Text = ({
     };
     cssClasses.push(classes.text);
     return (
-        <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            <RichText content={content} />
-        </div>
+        <div
+            style={dynamicStyles}
+            className={cssClasses.join(' ')}
+            dangerouslySetInnerHTML={toHTML(content)}
+        />
     );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { arrayOf, string } from 'prop-types';
-import RichText from '../../../../RichText';
+
+const toHTML = str => ({ __html: str });
 
 const Html = ({
     html,
@@ -20,9 +21,6 @@ const Html = ({
     cssClasses
 }) => {
     cssClasses = cssClasses ? cssClasses : [];
-    const doc = document.createElement('div');
-    doc.innerHTML = html;
-    console.log(doc);
     const dynamicStyles = {
         textAlign,
         border,
@@ -39,9 +37,11 @@ const Html = ({
         paddingLeft
     };
     return (
-        <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            <RichText content={html} />
-        </div>
+        <div
+            style={dynamicStyles}
+            className={cssClasses.join(' ')}
+            dangerouslySetInnerHTML={toHTML(html)}
+        />
     );
 };
 
