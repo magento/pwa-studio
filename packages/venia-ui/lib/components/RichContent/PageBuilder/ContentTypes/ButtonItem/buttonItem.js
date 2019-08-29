@@ -6,6 +6,7 @@ import { Link } from '@magento/venia-drivers';
 const ButtonItem = ({
     buttonType,
     link,
+    linkType,
     openInNewTab,
     text,
     textAlign,
@@ -55,6 +56,9 @@ const ButtonItem = ({
                 linkOpts['href'] = link;
             } else {
                 linkOpts['to'] = urlObj.pathname;
+                if (linkType !== 'default' && !/\.html$/.test(linkOpts['to'])) {
+                    linkOpts['to'] += '.html';
+                }
             }
         } catch (e) {
             isExternalUrl = true;
@@ -89,6 +93,7 @@ const ButtonItem = ({
 ButtonItem.propTypes = {
     buttonType: oneOf(['primary', 'secondary', 'link']),
     link: string,
+    linkType: oneOf(['default', 'category', 'product', 'page']),
     openInNewTab: bool,
     text: string,
     textAlign: string,
