@@ -46,9 +46,9 @@
   "devDependencies": {
     "@magento/eslint-config": "~1.4.1",
     "chalk": "~2.4.2",
-    "chokidar": "~2.1.2",
+    "chokidar": "~3.0.2",
     "coveralls": "~3.0.3",
-    "danger": "^7.1.4",
+    "danger": "^9.1.8",
     "eslint": "~5.14.1",
     "eslint-plugin-babel": "~5.3.0",
     "eslint-plugin-graphql": "~3.0.3",
@@ -78,7 +78,8 @@
     "sharp": "~0.22.1"
   },
   "resolutions": {
-    "graphql": "~14.3.1"
+    "graphql": "~14.3.1",
+    "micromatch":"~4.0.2"
   },
   "engines": {
     "node": ">=10.x",
