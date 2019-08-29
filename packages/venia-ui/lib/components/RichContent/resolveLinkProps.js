@@ -1,6 +1,6 @@
 export default (link, linkType) => {
     let isExternalUrl;
-    const linkOpts = {};
+    const linkProps = {};
 
     try {
         const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
@@ -9,18 +9,16 @@ export default (link, linkType) => {
         isExternalUrl = baseUrlObj.host !== urlObj.host;
 
         if (isExternalUrl) {
-            linkOpts['href'] = link;
+            linkProps['href'] = link;
         } else {
-            linkOpts['to'] = urlObj.pathname;
-            if (linkType !== 'default' && !/\.html$/.test(linkOpts['to'])) {
-                linkOpts['to'] += '.html';
+            linkProps['to'] = urlObj.pathname;
+            if (linkType !== 'default' && !/\.html$/.test(linkProps['to'])) {
+                linkProps['to'] += '.html';
             }
         }
     } catch (e) {
-        linkOpts['href'] = link;
+        linkProps['href'] = link;
     }
 
-    return {
-        linkOpts
-    };
+    return linkProps;
 };

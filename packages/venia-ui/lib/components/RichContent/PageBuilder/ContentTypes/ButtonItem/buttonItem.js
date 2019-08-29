@@ -2,7 +2,7 @@ import React from 'react';
 import defaultClasses from './buttonItem.css';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
-import resolveLink from '../../../resolveLink';
+import resolveLinkProps from '../../../resolveLinkProps';
 
 const ButtonItem = ({
     buttonType,
@@ -44,13 +44,13 @@ const ButtonItem = ({
     const cssButtonTypeSuffix = buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
 
     if (typeof link === 'string') {
-        const linkOpts = resolveLink(link, linkType);
-        const LinkComponent = linkOpts['to'] ? Link : 'a';
+        const linkProps = resolveLinkProps(link, linkType);
+        const LinkComponent = linkProps.to ? Link : 'a';
 
         return (
             <div className={cssClasses.join(' ')}>
                 <LinkComponent
-                    {...linkOpts}
+                    {...linkProps}
                     className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix]].join(' ')}
                     {...openInNewTab ? {target: '_blank'} : ''}
                     style={dynamicInnerStyles}

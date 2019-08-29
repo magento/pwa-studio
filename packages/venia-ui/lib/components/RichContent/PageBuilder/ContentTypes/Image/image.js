@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, bool, oneOf, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
-import resolveLink from '../../../resolveLink';
+import resolveLinkProps from '../../../resolveLinkProps';
 
 const Image = ({
     desktopImage,
@@ -68,13 +68,13 @@ const Image = ({
     );
 
     if (typeof link === 'string') {
-        const linkOpts = resolveLink(link, linkType);
-        const LinkComponent = linkOpts['to'] ? Link : 'a';
+        const linkProps = resolveLinkProps(link, linkType);
+        const LinkComponent = linkProps.to ? Link : 'a';
 
         return (
             <figure style={figureStyles} className={cssClasses.join(' ')}>
                 <LinkComponent
-                    {...linkOpts}
+                    {...linkProps}
                     {...openInNewTab ? {target: '_blank'} : ''}
                 >
                     {PictureFragment}
