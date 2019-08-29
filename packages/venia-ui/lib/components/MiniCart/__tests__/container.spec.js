@@ -19,10 +19,8 @@ test('it returns a connected MiniCart component', () => {
     expect(Container.component).toBe(MiniCart);
     expect(Container.mapStateToProps).toBeInstanceOf(Function);
     expect(Container.mapDispatchToProps).toMatchObject({
-        beginEditItem: expect.any(Function),
         cancelCheckout: expect.any(Function),
         closeDrawer: expect.any(Function),
-        endEditItem: expect.any(Function),
         removeItemFromCart: expect.any(Function),
         updateItemInCart: expect.any(Function)
     });
@@ -33,7 +31,7 @@ test('mapStateToProps returns the proper props', () => {
 
     const state = {
         cart: {},
-        checkout: { step: 'cart' },
+        checkout: {},
         extra: 'extra'
     };
 

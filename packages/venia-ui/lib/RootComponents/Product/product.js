@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-import { string, func } from 'prop-types';
+import { string } from 'prop-types';
 
 import { Query } from '@magento/venia-drivers';
 

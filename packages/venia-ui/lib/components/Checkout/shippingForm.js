@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -13,10 +13,10 @@ const ShippingForm = props => {
     const {
         availableShippingMethods,
         cancel,
+        isSubmitting,
         shippingMethod,
         submit: submitShippingMethod
     } = props;
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let initialValue;
@@ -37,8 +37,7 @@ const ShippingForm = props => {
     }
 
     const handleSubmit = useCallback(
-        async ({ shippingMethod }) => {
-            setIsSubmitting(true);
+        ({ shippingMethod }) => {
             const selectedShippingMethod = availableShippingMethods.find(
                 ({ carrier_code }) => carrier_code === shippingMethod
             );
@@ -49,19 +48,12 @@ const ShippingForm = props => {
                 );
                 cancel();
             } else {
-                await submitShippingMethod({
+                submitShippingMethod({
                     shippingMethod: selectedShippingMethod
                 });
             }
-
-            setIsSubmitting(false);
         },
-        [
-            availableShippingMethods,
-            cancel,
-            setIsSubmitting,
-            submitShippingMethod
-        ]
+        [availableShippingMethods, cancel, submitShippingMethod]
     );
 
     return (
@@ -109,6 +101,7 @@ ShippingForm.propTypes = {
         heading: string,
         shippingMethod: string
     }),
+    isSubmitting: bool,
     shippingMethod: string,
     submit: func.isRequired,
     submitting: bool

@@ -1,7 +1,5 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
 import AddressForm from '../addressForm';
-import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 jest.mock('../../../classify');
@@ -27,18 +25,10 @@ test('renders an AddressForm component', () => {
 test('renders validation block with message if address is incorrect', () => {
     const props = {
         ...defaultProps,
-        submit: () => {
-            throw new Error('address failure');
-        }
+        error: 'Oops'
     };
 
     const instance = createTestInstance(<AddressForm {...props} />);
-
-    act(() => {
-        const form = instance.root.findByType(Form);
-        form.props.onSubmit();
-    });
-
     expect(instance.toJSON()).toMatchSnapshot();
 });
 

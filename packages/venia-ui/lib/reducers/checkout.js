@@ -6,10 +6,16 @@ export const name = 'checkout';
 const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
+    billingAddressError: null,
+    isSubmitting: false,
+    orderError: null,
+    paymentMethodError: null,
     paymentCode: '',
     paymentData: null,
     shippingAddress: null,
+    shippingAddressError: null,
     shippingMethod: '',
+    shippingMethodError: null,
     shippingTitle: ''
 };
 
@@ -20,13 +26,18 @@ const reducerMap = {
             ...payload
         };
     },
-    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.submit]: state => ({
+        ...state,
+        billingAddressError: null,
+        isSubmitting: true
+    }),
     [actions.billingAddress.accept]: (state, { payload }) => {
         // Billing address can either be an object with address props OR
         // an object with a single prop, `sameAsShippingAddress`, so we need
         // to do some special handling to make sure the store reflects that.
         const newState = {
-            ...state
+            ...state,
+            isSubmitting: false
         };
         if (payload.sameAsShippingAddress) {
             newState.billingAddress = {
@@ -40,7 +51,13 @@ const reducerMap = {
         }
         return newState;
     },
-    [actions.billingAddress.reject]: state => state,
+    [actions.billingAddress.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            billingAddressError: payload,
+            isSubmitting: false
+        };
+    },
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {
         if (error) {
             return state;
@@ -55,10 +72,15 @@ const reducerMap = {
             }))
         };
     },
-    [actions.shippingAddress.submit]: state => state,
+    [actions.shippingAddress.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        shippingAddressError: null
+    }),
     [actions.shippingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             shippingAddress: {
                 ...state.shippingAddress,
                 ...payload,
@@ -66,28 +88,69 @@ const reducerMap = {
             }
         };
     },
-    [actions.shippingAddress.reject]: state => state,
-    [actions.paymentMethod.submit]: state => state,
+    [actions.shippingAddress.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            isSubmitting: false,
+            shippingAddressError: payload
+        };
+    },
+    [actions.paymentMethod.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        paymentMethodError: null
+    }),
     [actions.paymentMethod.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             paymentCode: payload.code,
             paymentData: payload.data
         };
     },
-    [actions.paymentMethod.reject]: state => state,
-    [actions.shippingMethod.submit]: state => state,
+    [actions.paymentMethod.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            isSubmitting: false,
+            paymentMethodError: payload
+        };
+    },
+    [actions.shippingMethod.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        shippingMethodError: null
+    }),
     [actions.shippingMethod.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             shippingMethod: payload.carrier_code,
             shippingTitle: payload.carrier_title
         };
     },
-    [actions.shippingMethod.reject]: state => state,
-    [actions.order.submit]: state => state,
-    [actions.order.accept]: state => state,
-    [actions.order.reject]: state => state,
+    [actions.shippingMethod.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            isSubmitting: false,
+            shippingMethodError: payload
+        };
+    },
+    [actions.order.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        orderError: null
+    }),
+    [actions.order.accept]: state => ({
+        ...state,
+        isSubmitting: false
+    }),
+    [actions.order.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            isSubmitting: false,
+            orderError: payload
+        };
+    },
     [actions.reset]: () => initialState
 };
 

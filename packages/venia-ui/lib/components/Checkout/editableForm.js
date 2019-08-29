@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { array, func, object, oneOf, shape, string } from 'prop-types';
+import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
@@ -12,7 +12,9 @@ import ShippingForm from './shippingForm';
 const EditableForm = props => {
     const {
         editing,
+        isSubmitting,
         setEditing,
+        shippingAddressError,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
@@ -61,7 +63,9 @@ const EditableForm = props => {
                 <AddressForm
                     cancel={handleCancel}
                     countries={countries}
+                    error={shippingAddressError}
                     initialValues={shippingAddress}
+                    isSubmitting={isSubmitting}
                     submit={handleSubmitAddressForm}
                 />
             );
@@ -74,6 +78,7 @@ const EditableForm = props => {
                     cancel={handleCancel}
                     countries={countries}
                     initialValues={billingAddress}
+                    isSubmitting={isSubmitting}
                     submit={handleSubmitPaymentsForm}
                 />
             );
@@ -84,6 +89,7 @@ const EditableForm = props => {
                 <ShippingForm
                     availableShippingMethods={availableShippingMethods}
                     cancel={handleCancel}
+                    isSubmitting={isSubmitting}
                     shippingMethod={shippingMethod}
                     submit={handleSubmitShippingForm}
                 />
@@ -98,8 +104,10 @@ const EditableForm = props => {
 EditableForm.propTypes = {
     availableShippingMethods: array,
     editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
+    isSubmitting: bool,
     setEditing: func.isRequired,
     shippingAddress: object,
+    shippingAddressError: string,
     shippingMethod: string,
     submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,

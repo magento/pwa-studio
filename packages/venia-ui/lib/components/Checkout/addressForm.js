@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Form } from 'informed';
-import { array, func, object, shape, string } from 'prop-types';
+import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -27,12 +27,16 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const { cancel, countries, initialValues, submit } = props;
+    const {
+        cancel,
+        countries,
+        initialValues,
+        isSubmitting,
+        error,
+        submit
+    } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [invalidAddressMessage, setInvalidAddressMessage] = useState('');
 
     const values = useMemo(
         () =>
@@ -43,30 +47,11 @@ const AddressForm = props => {
         [initialValues]
     );
 
-    const handleSubmit = useCallback(
-        async values => {
-            try {
-                setIsSubmitting(true);
-                await submit(values);
-            } catch (error) {
-                setInvalidAddressMessage(error.message);
-                setIsSubmitting(false);
-            }
-        },
-        [submit]
-    );
-
     return (
-        <Form
-            className={classes.root}
-            initialValues={values}
-            onSubmit={handleSubmit}
-        >
+        <Form className={classes.root} initialValues={values} onSubmit={submit}>
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
-                <div className={classes.validationMessage}>
-                    {invalidAddressMessage}
-                </div>
+                <div className={classes.validationMessage}>{error}</div>
                 <div className={classes.firstname}>
                     <Field label="First Name">
                         <TextInput
@@ -180,7 +165,9 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
+    error: string,
     initialValues: object,
+    isSubmitting: bool,
     submit: func.isRequired
 };
 

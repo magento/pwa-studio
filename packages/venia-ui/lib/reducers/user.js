@@ -19,7 +19,11 @@ const initialState = {
     },
     createAccountError: null,
     getDetailsError: null,
+    isCreatingAccount: null,
+    isGettingDetails: null,
+    isResettingPassword: null,
     isSignedIn: isSignedIn(),
+    isSigningIn: null,
     resetPasswordError: null,
     signInError: null
 };
@@ -28,6 +32,7 @@ const reducerMap = {
     [actions.signIn.request]: state => {
         return {
             ...state,
+            isSigningIn: true,
             signInError: null
         };
     },
@@ -42,60 +47,72 @@ const reducerMap = {
         return {
             ...state,
             isSignedIn: true,
+            isSigningIn: false,
             signInError: null
         };
     },
     [actions.getDetails.request]: state => {
         return {
             ...state,
-            getDetailsError: null
+            getDetailsError: null,
+            isGettingDetails: true
         };
     },
     [actions.getDetails.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
-                getDetailsError: payload
+                getDetailsError: payload,
+                isGettingDetails: false
             };
         }
 
         return {
             ...state,
             currentUser: payload,
-            getDetailsError: null
+            getDetailsError: null,
+            isGettingDetails: false
         };
     },
     [actions.createAccount.request]: state => {
         return {
             ...state,
-            createAccountError: null
+            createAccountError: null,
+            isCreatingAccount: true
         };
     },
     [actions.createAccount.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
-                createAccountError: payload
+                createAccountError: payload,
+                isCreatingAccount: false
             };
         }
 
         return {
             ...state,
-            createAccountError: null
+            createAccountError: null,
+            isCreatingAccount: false
         };
     },
-    [actions.resetPassword.request]: state => state,
+    [actions.resetPassword.request]: state => ({
+        ...state,
+        isResettingPassword: true
+    }),
     // TODO: handle the reset password response from the API.
     [actions.resetPassword.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
+                isResettingPassword: false,
                 resetPasswordError: payload
             };
         }
 
         return {
             ...state,
+            isResettingPassword: false,
             resetPasswordError: null
         };
     },

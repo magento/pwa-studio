@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
@@ -9,7 +9,12 @@ import defaultClasses from './forgotPassword.css';
 const INSTRUCTIONS = 'Enter your email below to receive a password reset link.';
 
 const ForgotPassword = props => {
-    const { initialValues, resetPassword, onClose } = props;
+    const {
+        initialValues,
+        isResettingPassword,
+        resetPassword,
+        onClose
+    } = props;
 
     const [inProgress, setInProgress] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState(null);
@@ -26,6 +31,7 @@ const ForgotPassword = props => {
     );
 
     const handleContinue = useCallback(() => {
+        setInProgress(false);
         onClose();
     }, [onClose]);
 
@@ -40,6 +46,7 @@ const ForgotPassword = props => {
             <ForgotPasswordForm
                 initialValues={initialValues}
                 onSubmit={handleFormSubmit}
+                isResettingPassword={isResettingPassword}
             />
         </Fragment>
     );
@@ -58,6 +65,7 @@ ForgotPassword.propTypes = {
     initialValues: shape({
         email: string
     }),
+    isResettingPassword: bool,
     onClose: func.isRequired,
     resetPassword: func.isRequired
 };

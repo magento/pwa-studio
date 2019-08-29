@@ -48,11 +48,6 @@ const MiniCart = props => {
         closeDrawer();
     }, [closeDrawer, setStep]);
 
-    const handleMaskClick = useCallback(() => {
-        setStep('cart');
-        cancelCheckout();
-    }, [cancelCheckout, setStep]);
-
     const handleBeginEditItem = useCallback(() => {
         setIsEditingItem(true);
     }, []);
@@ -65,11 +60,9 @@ const MiniCart = props => {
         async (...args) => {
             try {
                 await updateItemInCart(...args);
-            }
-            catch (error) {
+            } catch (error) {
                 console.log('Unable to update item:', error.message);
-            }
-            finally {
+            } finally {
                 setIsEditingItem(false);
             }
         },
@@ -104,7 +97,7 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={handleUpdateItemInCart}
             />
-            <Mask isActive={isMiniCartMaskOpen} dismiss={handleMaskClick} />
+            <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
             {footer}
         </aside>
     );

@@ -191,37 +191,6 @@ describe('removeItem.receive', () => {
     });
 });
 
-describe('beginEditItem', () => {
-    const actionType = actions.beginEditItem;
-
-    test('it sets isEditingItem to true and editItem to payload', () => {
-        const action = {
-            type: actionType,
-            payload: { item_id: 1 }
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toHaveProperty('isEditingItem', true);
-        expect(result).toHaveProperty('editItem', action.payload);
-    });
-});
-
-describe('endEditItem', () => {
-    const actionType = actions.endEditItem;
-
-    test('it sets isEditingItem to false and editItem to null', () => {
-        const action = {
-            type: actionType
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toHaveProperty('isEditingItem', false);
-        expect(result).toHaveProperty('editItem', null);
-    });
-});
-
 describe('checkoutActions.order.accept', () => {
     const actionType = checkoutActions.order.accept;
 

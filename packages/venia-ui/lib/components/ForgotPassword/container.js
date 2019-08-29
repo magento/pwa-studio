@@ -3,10 +3,11 @@ import { connect } from '../../drivers';
 import ForgotPassword from './forgotPassword';
 
 const mapStateToProps = ({ user }) => {
-    const { resetPasswordError } = user;
+    const { isResettingPassword, resetPasswordError } = user;
 
     return {
-        error: resetPasswordError
+        error: resetPasswordError,
+        isResettingPassword
     };
 };
 

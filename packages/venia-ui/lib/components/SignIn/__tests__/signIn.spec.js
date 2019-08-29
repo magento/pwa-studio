@@ -16,7 +16,8 @@ const props = {
     showCreateAccount: jest.fn(),
     showForgotPassword: jest.fn(),
     signIn: jest.fn(),
-    hasError: false
+    hasError: false,
+    isSigningIn: false
 };
 
 test('renders correctly', () => {
@@ -26,11 +27,11 @@ test('renders correctly', () => {
 });
 
 test('renders the loading indicator when form is submitting', () => {
-    const { root } = createTestInstance(<SignIn {...props} />);
-
-    act(() => {
-        root.findByType(Form).props.onSubmit({});
-    });
+    const testProps = {
+        ...props,
+        isSigningIn: true
+    };
+    const { root } = createTestInstance(<SignIn {...testProps} />);
 
     act(() => {
         expect(root.findByType(LoadingIndicator)).toBeTruthy();
@@ -40,7 +41,7 @@ test('renders the loading indicator when form is submitting', () => {
 test('displays an error message if there is a sign in error', () => {
     const testProps = {
         ...props,
-        hasError: { message: 'foo ' }
+        hasError: true
     };
 
     const component = createTestInstance(<SignIn {...testProps} />);

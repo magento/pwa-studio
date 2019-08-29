@@ -528,7 +528,7 @@ describe('updateItemInCart', () => {
 
         await updateItemInCart(payload, targetItemId)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.updateItem.request(payload)
@@ -543,8 +543,6 @@ describe('updateItemInCart', () => {
         );
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        // closeOptionsDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
     });
 
     // test('it calls writeImageToCache', async () => {
@@ -591,7 +589,7 @@ describe('updateItemInCart', () => {
 
         await updateItemInCart(payload, targetItemId)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(7);
+        expect(dispatch).toHaveBeenCalledTimes(6);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.updateItem.request(payload)
@@ -608,8 +606,6 @@ describe('updateItemInCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(5, expect.any(Function));
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(6, expect.any(Function));
-        // closeOptionsDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
     });
 
     test('its thunk retries on 404 failure if the user is signed in', async () => {
@@ -628,7 +624,7 @@ describe('updateItemInCart', () => {
 
         await updateItemInCart(payload, targetItemId)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(8);
+        expect(dispatch).toHaveBeenCalledTimes(7);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.updateItem.request(payload)
@@ -660,8 +656,6 @@ describe('updateItemInCart', () => {
 
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
-        // closeOptionsDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(8, expect.any(Function));
     });
 
     test('its thunk uses the proper endpoint when the user is signed in', async () => {

@@ -5,15 +5,16 @@ import Button from '../../Button';
 import defaultClasses from './receipt.css';
 
 const Receipt = props => {
-    const { createAccount, history, reset, user } = props;
+    const { createAccount, history, reset, onClose, user } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     useEffect(() => reset, [reset]);
 
     const handleCreateAccount = useCallback(() => {
+        onClose();
         createAccount(history);
-    }, [createAccount, history]);
+    }, [createAccount, onClose, history]);
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.
@@ -60,6 +61,7 @@ Receipt.propTypes = {
         footer: string,
         root: string
     }),
+    onClose: func,
     order: shape({
         id: string
     }).isRequired,

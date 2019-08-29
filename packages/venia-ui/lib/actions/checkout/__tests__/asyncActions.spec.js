@@ -191,12 +191,8 @@ describe('submitPaymentMethodAndBillingAddress', () => {
     test('submitPaymentMethodAndBillingAddress thunk dispatches paymentMethod and billing address actions', async () => {
         await submitPaymentMethodAndBillingAddress(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledWith(
-            actions.billingAddress.submit(payload.formValues.billingAddress)
-        );
-        expect(dispatch).toHaveBeenCalledWith(
-            actions.paymentMethod.submit(payload.formValues.paymentMethod)
-        );
+        expect(dispatch).toHaveBeenCalledWith(actions.billingAddress.submit());
+        expect(dispatch).toHaveBeenCalledWith(actions.paymentMethod.submit());
     });
 });
 
@@ -226,7 +222,7 @@ describe('submitBillingAddress', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.billingAddress.submit(sameAsShippingPayload)
+            actions.billingAddress.submit()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -240,7 +236,7 @@ describe('submitBillingAddress', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.billingAddress.submit(differentFromShippingPayload)
+            actions.billingAddress.submit()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -339,7 +335,7 @@ describe('submitPaymentMethod', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.paymentMethod.submit(payload)
+            actions.paymentMethod.submit()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -394,7 +390,7 @@ describe('submitShippingMethod', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.shippingMethod.submit(payload)
+            actions.shippingMethod.submit()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -459,9 +455,11 @@ describe('submitOrder', () => {
     });
 
     test('submitOrder thunk returns undefined', async () => {
-        mockGetItem.mockImplementationOnce(
-            () => mockBillingAddressSameAsShipping
-        );
+        mockGetItem
+            .mockImplementationOnce(() => mockBillingAddressSameAsShipping)
+            .mockImplementationOnce(() => mockPaymentMethod)
+            .mockImplementationOnce(() => mockShippingAddress)
+            .mockImplementationOnce(() => mockShippingMethod);
 
         const result = await submitOrder()(...thunkArgs);
 
@@ -503,10 +501,7 @@ describe('submitOrder', () => {
                 billing_address: expect.any(Object)
             })
         );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            actions.order.accept(response)
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
         expect(dispatch).toHaveBeenCalledTimes(3);
 
         expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
@@ -552,10 +547,7 @@ describe('submitOrder', () => {
                 billing_address: expect.any(Object)
             })
         );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            actions.order.accept(response)
-        );
+        expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
         expect(dispatch).toHaveBeenCalledTimes(3);
 
         expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
@@ -576,7 +568,11 @@ describe('submitOrder', () => {
         const error = new Error('ERROR');
         request.mockRejectedValueOnce(error);
 
-        await submitOrder()(...thunkArgs);
+        try {
+            await submitOrder()(...thunkArgs);
+        } catch (err) {
+            // intentional throw
+        }
 
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
         expect(dispatch).toHaveBeenNthCalledWith(

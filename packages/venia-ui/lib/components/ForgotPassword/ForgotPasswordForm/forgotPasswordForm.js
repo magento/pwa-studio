@@ -28,7 +28,12 @@ class ForgotPasswordForm extends Component {
     };
 
     render() {
-        const { classes, initialValues, onSubmit } = this.props;
+        const {
+            classes,
+            initialValues,
+            isResettingPassword,
+            onSubmit
+        } = this.props;
 
         return (
             <Form
@@ -45,7 +50,11 @@ class ForgotPasswordForm extends Component {
                     />
                 </Field>
                 <div className={classes.buttonContainer}>
-                    <Button type="submit" priority="high">
+                    <Button
+                        disabled={isResettingPassword}
+                        type="submit"
+                        priority="high"
+                    >
                         Submit
                     </Button>
                 </div>

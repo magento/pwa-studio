@@ -16,9 +16,7 @@ exports[`renders an AddressForm component 1`] = `
     </h2>
     <div
       className="validationMessage"
-    >
-      
-    </div>
+    />
     <div
       className="firstname"
     >
@@ -388,7 +386,6 @@ exports[`renders an AddressForm component 1`] = `
     </button>
     <button
       className="button"
-      disabled={false}
       type="submit"
     >
       <span
@@ -418,7 +415,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     <div
       className="validationMessage"
     >
-      address failure
+      Oops
     </div>
     <div
       className="firstname"
@@ -789,7 +786,6 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     </button>
     <button
       className="button"
-      disabled={false}
       type="submit"
     >
       <span

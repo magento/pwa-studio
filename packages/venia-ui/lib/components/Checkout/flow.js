@@ -56,8 +56,10 @@ const Flow = props => {
     const {
         availableShippingMethods,
         billingAddress,
+        isSubmitting,
         paymentData,
         shippingAddress,
+        shippingAddressError,
         shippingMethod,
         shippingTitle
     } = checkout;
@@ -81,11 +83,15 @@ const Flow = props => {
         setStep('receipt');
     }, [setStep, submitOrder]);
 
+    const handleCloseReceipt = useCallback(() => {
+        setStep('cart');
+    }, [setStep]);
+
     switch (step) {
         case 'cart': {
             const stepProps = {
                 beginCheckout: handleBeginCheckout,
-                ready: isCartReady(cart)
+                ready: !isSubmitting && isCartReady(cart)
             };
 
             child = <Cart {...stepProps} />;
@@ -103,9 +109,11 @@ const Flow = props => {
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
                 hasShippingMethod:
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
+                isSubmitting,
                 paymentData,
                 ready: isCheckoutReady(checkout),
                 shippingAddress,
+                shippingAddressError,
                 shippingMethod,
                 shippingTitle,
                 submitShippingAddress,
@@ -119,7 +127,8 @@ const Flow = props => {
         }
         case 'receipt': {
             const stepProps = {
-                user
+                user,
+                onClose: handleCloseReceipt
             };
 
             child = <Receipt {...stepProps} />;
@@ -144,10 +153,10 @@ Flow.propTypes = {
     checkout: shape({
         availableShippingMethods: array,
         billingAddress: object,
-        invalidAddressMessage: string,
-        isAddressInvalid: bool,
+        isSubmitting: bool,
         paymentData: object,
         shippingAddress: object,
+        shippingAddressError: string,
         shippingMethod: string,
         shippingTitle: string
     }).isRequired,

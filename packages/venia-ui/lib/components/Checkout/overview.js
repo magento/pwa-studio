@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { bool, func, number, object, shape, string } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
@@ -20,6 +20,7 @@ const Overview = props => {
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
+        isSubmitting,
         paymentData,
         ready,
         setEditing,
@@ -27,8 +28,6 @@ const Overview = props => {
         shippingTitle,
         submitOrder
     } = props;
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleAddressFormClick = useCallback(() => {
         setEditing('address');
@@ -41,15 +40,6 @@ const Overview = props => {
     const handleShippingFormClick = useCallback(() => {
         setEditing('shippingMethod');
     }, [setEditing]);
-
-    const handleSubmitOrder = useCallback(async () => {
-        setIsSubmitting(true);
-        try {
-            await submitOrder();
-        } catch (error) {
-            setIsSubmitting(false);
-        }
-    }, [submitOrder]);
 
     const currencyCode =
         (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
@@ -102,7 +92,7 @@ const Overview = props => {
                 <Button
                     priority="high"
                     disabled={isSubmitting || !ready}
-                    onClick={handleSubmitOrder}
+                    onClick={submitOrder}
                 >
                     Confirm Order
                 </Button>
@@ -130,6 +120,7 @@ Overview.propTypes = {
     hasPaymentMethod: bool,
     hasShippingAddress: bool,
     hasShippingMethod: bool,
+    isSubmitting: bool,
     paymentData: object,
     ready: bool,
     setEditing: func,

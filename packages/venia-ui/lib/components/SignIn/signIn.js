@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -18,6 +18,7 @@ const ERROR_MESSAGE =
 
 const SignIn = props => {
     const {
+        isSigningIn,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
@@ -28,14 +29,12 @@ const SignIn = props => {
     const formRef = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
     const errorMessage = hasError ? ERROR_MESSAGE : null;
-    const [isSigningIn, setIsSigningIn] = useState(false);
 
     const handleSubmit = useCallback(
         ({ email: username, password }) => {
-            setIsSigningIn(true);
             signIn({ username, password });
         },
-        [setIsSigningIn, signIn]
+        [signIn]
     );
 
     const handleForgotPassword = useCallback(() => {
@@ -130,6 +129,7 @@ SignIn.propTypes = {
         signInDivider: string,
         signInError: string
     }),
+    isSigningIn: bool,
     setDefaultUsername: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,

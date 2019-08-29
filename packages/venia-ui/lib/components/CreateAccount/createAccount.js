@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Redirect } from '@magento/venia-drivers';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../classify';
@@ -22,7 +22,13 @@ const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
-    const { hasError, initialValues = {}, isSignedIn, onSubmit } = props;
+    const {
+        hasError,
+        initialValues = {},
+        isCreatingAccount,
+        isSignedIn,
+        onSubmit
+    } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const sanitizedInitialValues = useMemo(() => {
         const { email, firstName, lastName, ...rest } = initialValues;
@@ -37,23 +43,6 @@ const CreateAccount = props => {
         ? 'An error occurred. Please try again.'
         : null;
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const handleSubmit = useCallback(
-        values => {
-            setIsSubmitting(true);
-            onSubmit(values);
-        },
-        [onSubmit]
-    );
-
-    useEffect(() => {
-        if (hasError) {
-            // Because `handleSubmit` can have side-effects that involve routing
-            // and open modals only set submitting to false to avoid mem leaks.
-            setIsSubmitting(false);
-        }
-    }, [hasError]);
-
     if (isSignedIn) {
         return <Redirect to="/" />;
     }
@@ -62,7 +51,7 @@ const CreateAccount = props => {
         <Form
             className={classes.root}
             initialValues={sanitizedInitialValues}
-            onSubmit={handleSubmit}
+            onSubmit={onSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
             <Field label="First Name" required={true}>
@@ -118,7 +107,11 @@ const CreateAccount = props => {
             </div>
             <div className={classes.error}>{errorMessage}</div>
             <div className={classes.actions}>
-                <Button disabled={isSubmitting} type="submit" priority="high">
+                <Button
+                    disabled={isCreatingAccount}
+                    type="submit"
+                    priority="high"
+                >
                     {'Submit'}
                 </Button>
             </div>
@@ -134,7 +127,6 @@ CreateAccount.propTypes = {
         root: string,
         subscribe: string
     }),
-    onSubmit: func.isRequired,
     error: shape({
         message: string
     }),
@@ -142,7 +134,9 @@ CreateAccount.propTypes = {
         email: string,
         firstName: string,
         lastName: string
-    })
+    }),
+    isSubmitting: bool,
+    onSubmit: func.isRequired
 };
 
 export default CreateAccount;

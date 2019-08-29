@@ -22,7 +22,7 @@ test('attaches the submit handler', () => {
 
     const { onSubmit } = root.findByType(Form).props;
 
-    expect(onSubmit).toBeInstanceOf(Function);
+    expect(typeof onSubmit).toBe('function');
 });
 
 test('calls onSubmit if validation passes', async () => {
