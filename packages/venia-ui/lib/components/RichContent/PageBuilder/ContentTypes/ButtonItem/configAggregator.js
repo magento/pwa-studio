@@ -24,6 +24,7 @@ export default node => {
 
     if (node.childNodes[0].nodeName === 'A') {
         props.link = node.childNodes[0].getAttribute('href');
+        props.linkType = node.childNodes[0].getAttribute('data-link-type');
     }
 
     return props;
