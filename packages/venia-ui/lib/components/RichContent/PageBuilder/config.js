@@ -15,6 +15,8 @@ import tabsConfigAggregator from './ContentTypes/Tabs/configAggregator';
 import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
 import productsConfigAggregator from './ContentTypes/Products/configAggregator';
+import buttonsConfigAggregator from './ContentTypes/Buttons/configAggregator';
+import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregator';
 
 export const Lazy = 'lazy';
 
@@ -52,6 +54,16 @@ export const contentTypesConfig = {
         load: Lazy,
         configAggregator: tabItemConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/TabItem'))
+    },
+    buttons: {
+        load: Lazy,
+        configAggregator: buttonsConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Buttons'))
+    },
+    'button-item': {
+        load: Lazy,
+        configAggregator: buttonItemConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/ButtonItem'))
     },
     block: {
         load: Lazy,
