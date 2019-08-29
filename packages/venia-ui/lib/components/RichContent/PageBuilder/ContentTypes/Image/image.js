@@ -1,6 +1,7 @@
 import React from 'react';
 import { arrayOf, bool, oneOf, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
+import resolveLink from '../../../resolveLink';
 
 const Image = ({
     desktopImage,
@@ -44,30 +45,31 @@ const Image = ({
         borderRadius
     };
 
+    const PictureFragment = (
+        <>
+            <picture>
+                {mobileImage ? (
+                    <source
+                        media="(max-width: 768px)"
+                        srcSet={mobileImage}
+                    />
+                ) : (
+                    ''
+                )}
+                <img
+                    src={desktopImage}
+                    title={title}
+                    alt={altText}
+                    style={imageStyles}
+                />
+            </picture>
+            {caption ? <figcaption>{caption}</figcaption> : ''}
+        </>
+    );
+
     if (typeof link === 'string') {
-        let isExternalUrl;
-        const linkOpts = {};
-
-        try {
-            const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
-            const baseUrlObj = new URL(baseUrl);
-            const urlObj = new URL(link);
-            isExternalUrl = baseUrlObj.host !== urlObj.host;
-
-            if (isExternalUrl) {
-                linkOpts['href'] = link;
-            } else {
-                linkOpts['to'] = urlObj.pathname;
-                if (linkType !== 'default' && !/\.html$/.test(linkOpts['to'])) {
-                    linkOpts['to'] += '.html';
-                }
-            }
-        } catch (e) {
-            isExternalUrl = true;
-            linkOpts['href'] = link;
-        }
-
-        const LinkComponent = isExternalUrl ? 'a' : Link;
+        const linkOpts = resolveLink(link, linkType);
+        const LinkComponent = linkOpts['to'] ? Link : 'a';
 
         return (
             <figure style={figureStyles} className={cssClasses.join(' ')}>
@@ -75,46 +77,14 @@ const Image = ({
                     {...linkOpts}
                     {...openInNewTab ? {target: '_blank'} : ''}
                 >
-                    <picture>
-                        {mobileImage ? (
-                            <source
-                                media="(max-width: 768px)"
-                                srcSet={mobileImage}
-                            />
-                        ) : (
-                            ''
-                        )}
-                        <img
-                            src={desktopImage}
-                            title={title}
-                            alt={altText}
-                            style={imageStyles}
-                        />
-                    </picture>
-                    {caption ? <figcaption>{caption}</figcaption> : ''}
+                    {PictureFragment}
                 </LinkComponent>
             </figure>
         );
     } else {
         return (
             <figure style={figureStyles} className={cssClasses.join(' ')}>
-                <picture>
-                    {mobileImage ? (
-                        <source
-                            media="(max-width: 768px)"
-                            srcSet={mobileImage}
-                        />
-                    ) : (
-                        ''
-                    )}
-                    <img
-                        src={desktopImage}
-                        title={title}
-                        alt={altText}
-                        style={imageStyles}
-                    />
-                </picture>
-                {caption ? <figcaption>{caption}</figcaption> : ''}
+                {PictureFragment}
             </figure>
         );
     }

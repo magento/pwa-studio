@@ -2,6 +2,7 @@ import React from 'react';
 import defaultClasses from './buttonItem.css';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
+import resolveLink from '../../../resolveLink';
 
 const ButtonItem = ({
     buttonType,
@@ -43,29 +44,8 @@ const ButtonItem = ({
     const cssButtonTypeSuffix = buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
 
     if (typeof link === 'string') {
-        let isExternalUrl;
-        const linkOpts = {};
-
-        try {
-            const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
-            const baseUrlObj = new URL(baseUrl);
-            const urlObj = new URL(link);
-            isExternalUrl = baseUrlObj.host !== urlObj.host;
-
-            if (isExternalUrl) {
-                linkOpts['href'] = link;
-            } else {
-                linkOpts['to'] = urlObj.pathname;
-                if (linkType !== 'default' && !/\.html$/.test(linkOpts['to'])) {
-                    linkOpts['to'] += '.html';
-                }
-            }
-        } catch (e) {
-            isExternalUrl = true;
-            linkOpts['href'] = link;
-        }
-
-        const LinkComponent = isExternalUrl ? 'a' : Link;
+        const linkOpts = resolveLink(link, linkType);
+        const LinkComponent = linkOpts['to'] ? Link : 'a';
 
         return (
             <div className={cssClasses.join(' ')}>
