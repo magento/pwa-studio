@@ -40,7 +40,11 @@ const Row = ({
     // Set the default appearance if none is supplied to contained
     appearance = appearance ? appearance : 'contained';
     let image = desktopImage;
-    if (mobileImage && typeof window.matchMedia === 'function' &&  window.matchMedia('(max-width: 768px)').matches) {
+    if (
+        mobileImage &&
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(max-width: 768px)').matches
+    ) {
         image = mobileImage;
     }
     const dynamicStyles = {

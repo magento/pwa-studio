@@ -117,7 +117,12 @@ Column.propTypes = {
     classes: shape({
         pagebuilderColumn: string
     }),
-    appearance: oneOf(['align-top', 'align-center', 'align-bottom', 'full-height']),
+    appearance: oneOf([
+        'align-top',
+        'align-center',
+        'align-bottom',
+        'full-height'
+    ]),
     minHeight: string,
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     textAlign: string,
