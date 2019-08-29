@@ -4,6 +4,7 @@ import { oneOf, arrayOf, string } from 'prop-types';
 
 const Buttons = ({
     appearance,
+    textAlign,
     border,
     borderColor,
     borderWidth,
@@ -34,6 +35,19 @@ const Buttons = ({
         paddingLeft
     };
 
+    switch (textAlign) {
+        case 'left':
+        default:
+            dynamicStyles.justifyContent = 'flex-start';
+            break;
+        case 'center':
+            dynamicStyles.justifyContent = 'center';
+            break;
+        case 'right':
+            dynamicStyles.justifyContent = 'flex-end';
+            break;
+    }
+
     if (appearance === 'stacked') {
         dynamicStyles.flexDirection = 'column';
     }
@@ -47,6 +61,7 @@ const Buttons = ({
 
 Buttons.propTypes = {
     appearance: oneOf(['inline', 'stacked']),
+    textAlign: string,
     border: string,
     borderColor: string,
     borderWidth: string,
