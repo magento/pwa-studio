@@ -36,26 +36,4 @@ const getMediaURL = () =>
             });
     });
 
-/**
- * An Async function that will asynchronously fetch the
- * store name from magento graphql server. Also will set the
- * STORE_NAME value on the global object to the resulting name.
- *
- * @returns Promise that will resolve to the store name.
- */
-const getStoreName = () =>
-    new Promise(resolve => {
-        /**
-         * TODO
-         * There is no way as of now to get the store name from storeConfig.
-         * storeConfig.default_title is just a filler.
-         */
-        fetchQuery('query { storeConfig { default_title } }')
-            .then(json => json.data.storeConfig.default_title)
-            .then(storeName => {
-                global.STORE_NAME = storeName;
-                resolve(storeName);
-            });
-    });
-
-module.exports = { getMediaURL, getStoreName };
+module.exports = { getMediaURL };
