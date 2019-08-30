@@ -29,6 +29,10 @@ const getMediaURL = () =>
             .then(url => {
                 global.MAGENTO_MEDIA_BACKEND_URL = url;
                 resolve(url);
+            })
+            .catch(err => {
+                console.error('Unable to fetch Media URL', err);
+                resolve('');
             });
     });
 

@@ -4,7 +4,13 @@
  */
 class AsyncWebpackPlugin {
     constructor(callback) {
-        this.callback = callback;
+        if (callback) {
+            this.callback = callback;
+        } else {
+            throw new Error(
+                'A callback function needs to be provided while creating an instance of AsyncWebpackPlugin.'
+            );
+        }
     }
 
     apply(compiler) {
