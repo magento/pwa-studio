@@ -106,7 +106,7 @@ const Column = ({
     return (
         <div
             style={dynamicStyles}
-            className={[classes.pageBuilderColumn, ...cssClasses].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
         >
             {children}
         </div>
