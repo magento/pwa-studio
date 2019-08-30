@@ -228,17 +228,13 @@ const getInitiallySelectedKeys = ({
  * @function updateSelectedKeysInternal
  *
  * @param {Key} key - The key to update (add to or remove from) the Set.
- * @param {Set} previousSelectedKeys - The keys that are currently in the Set.
+ * @param {Set} selectedKeys - The keys that are currently in the Set.
  * @param {Set} selectionModel - One of "radio" or "checkbox".
  *  Informs whether multiple keys can be selected at the same time.
  *
  * @returns {Set} - The new Set of selectedKeys.
  */
-const updateSelectedKeysInternal = (
-    key,
-    previousSelectedKeys,
-    selectionModel
-) => {
+const updateSelectedKeysInternal = (key, selectedKeys, selectionModel) => {
     let newSelectedKeys;
 
     if (selectionModel === 'radio') {
@@ -258,8 +254,7 @@ const updateSelectedKeysInternal = (
         }
     }
 
-    // Set the new
-    setSelectedKeys(newSelectedKeys);
+    return newSelectedKeys;
 };
 
 // Custom Type Definitions
