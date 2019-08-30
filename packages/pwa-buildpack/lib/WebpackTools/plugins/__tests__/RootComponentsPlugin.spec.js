@@ -1,4 +1,4 @@
-const { join } = require('path');
+const { join, relative } = require('path');
 const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
 const RootComponentsPlugin = require('../RootComponentsPlugin');
@@ -115,7 +115,7 @@ test('Creates chunks for all roots when multiple values are provided in "rootCom
                 context: basic1PageProjectDir,
                 rootComponentsDirs: [
                     join(basic3PageProjectDir, 'RootComponents'),
-                    join(basic1PageProjectDir, 'RootComponents')
+                    'RootComponents'
                 ]
             })
         ]

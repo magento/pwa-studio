@@ -1,6 +1,5 @@
 const debug = require('../../util/debug').makeFileLogger(__filename);
-const { promisify } = require('util');
-const walk = require('klaw');
+const walk = require('../../util/klaw-bound-fs');
 const InjectPlugin = require('webpack-inject-plugin').default;
 const directiveParser = require('@magento/directive-parser');
 const { isAbsolute, join, relative } = require('path');
@@ -12,6 +11,7 @@ const toRootComponentMapKey = (type, variant = 'default') =>
     `RootCmp_${type}__${variant}`;
 
 // ES Modules have a "default" property, CommonJS modules do not
+/* istanbul ignore next: depends on environment */
 const esModuleInterop = mod => mod.default || mod;
 
 const extensionRE = /m?[jt]s$/;
@@ -32,21 +32,8 @@ class RootComponentsPlugin {
 
     apply(compiler) {
         this.compiler = compiler;
-        this.bindFs();
+        this.readFile = (...args) => this.compiler.inputFileSystem.readFileSync(...args);
         this.injectRootComponentLoader();
-    }
-
-    bindFs() {
-        // TODO: klaw calls the stat method out of context, so we need to bind
-        // it to its `this` here. this is a one-line fix in that library; gotta
-        // open a PR to node-klaw
-        debug('binding inputFileSystem');
-        this.fs = {};
-        ['stat', 'lstat', 'readFile', 'readdir'].forEach(method => {
-            this.fs[method] = (...args) =>
-                this.compiler.inputFileSystem[method](...args);
-        });
-        this.readFile = promisify(this.fs.readFile);
     }
 
     injectRootComponentLoader() {
@@ -59,13 +46,9 @@ class RootComponentsPlugin {
         return new Promise(resolve => {
             const jsFiles = [];
             const done = () => resolve(jsFiles);
-            const fs = this.fs;
             walk(dir, {
                 filter: x => !micromatch.some(x, ignore, { basename: true }),
-                fs: {
-                    readdir: fs.readdir.bind(fs),
-                    stat: fs.stat.bind(fs)
-                }
+                fs: this.compiler.inputFileSystem
             })
                 .on('readable', function() {
                     let item;
@@ -113,18 +96,15 @@ class RootComponentsPlugin {
                 await Promise.all(
                     rootComponentFiles.map(async rootComponentFile => {
                         debug('reading file %s', rootComponentFile);
-                        const fileContents = await this.readFile(
-                            rootComponentFile
+                        const rootComponentSource = await this.readFile(
+                            rootComponentFile,
+                            { encoding: 'utf8' }
                         );
-                        const rootComponentSource =
-                            typeof fileContents !== 'string'
-                                ? fileContents
-                                : fileContents.toString('utf8');
                         debug(
                             'parsing %s source for directives',
                             rootComponentSource.slice(0, 80)
                         );
-                        const { directives = [], errors } = directiveParser(
+                        const { directives, errors } = directiveParser(
                             '\n' + rootComponentSource + '\n'
                         );
                         debug(
