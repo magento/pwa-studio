@@ -1,18 +1,21 @@
 import React, { createContext, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 
-import { closeDrawer } from '../actions/app';
+import actions from '../actions/app/actions';
+import * as asyncActions from '../actions/app/asyncActions';
 import { connect } from '../drivers';
 
 export const AppContext = createContext();
 
 const AppContextProvider = props => {
-    const { app: appState, children, closeDrawer } = props;
+    const { actions, appState, asyncActions, children } = props;
 
     const appApi = useMemo(
         () => ({
-            closeDrawer
+            actions,
+            ...asyncActions
         }),
-        [closeDrawer]
+        [actions, asyncActions]
     );
 
     const contextValue = useMemo(() => [appState, appApi], [appApi, appState]);
@@ -24,9 +27,12 @@ const AppContextProvider = props => {
     );
 };
 
-const mapStateToProps = ({ app }) => ({ app });
+const mapStateToProps = ({ app }) => ({ appState: app });
 
-const mapDispatchToProps = { closeDrawer };
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    asyncActions: bindActionCreators(asyncActions, dispatch)
+});
 
 export default connect(
     mapStateToProps,

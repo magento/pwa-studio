@@ -1,50 +1,21 @@
 import React, { createContext, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 
-import {
-    addItemToCart,
-    beginEditItem,
-    createCart,
-    endEditItem,
-    getCartDetails,
-    removeItemFromCart,
-    updateItemInCart
-} from '../actions/cart';
+import actions from '../actions/cart/actions';
+import * as asyncActions from '../actions/cart/asyncActions';
 import { connect } from '../drivers';
 
 export const CartContext = createContext();
 
 const CartContextProvider = props => {
-    const {
-        addItemToCart,
-        beginEditItem,
-        cart: cartState,
-        children,
-        createCart,
-        endEditItem,
-        getCartDetails,
-        removeItemFromCart,
-        updateItemInCart
-    } = props;
+    const { actions, asyncActions, cartState, children } = props;
 
     const cartApi = useMemo(
         () => ({
-            addItemToCart,
-            beginEditItem,
-            createCart,
-            endEditItem,
-            getCartDetails,
-            removeItemFromCart,
-            updateItemInCart
+            actions,
+            ...asyncActions
         }),
-        [
-            addItemToCart,
-            beginEditItem,
-            createCart,
-            endEditItem,
-            getCartDetails,
-            removeItemFromCart,
-            updateItemInCart
-        ]
+        [actions, asyncActions]
     );
 
     const contextValue = useMemo(() => [cartState, cartApi], [
@@ -59,17 +30,12 @@ const CartContextProvider = props => {
     );
 };
 
-const mapStateToProps = ({ cart }) => ({ cart });
+const mapStateToProps = ({ cart }) => ({ cartState: cart });
 
-const mapDispatchToProps = {
-    addItemToCart,
-    beginEditItem,
-    createCart,
-    endEditItem,
-    getCartDetails,
-    removeItemFromCart,
-    updateItemInCart
-};
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    asyncActions: bindActionCreators(asyncActions, dispatch)
+});
 
 export default connect(
     mapStateToProps,

@@ -1,33 +1,21 @@
 import React, { createContext, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 
-import {
-    createAccount,
-    getUserDetails,
-    signIn,
-    signOut
-} from '../actions/user';
+import actions from '../actions/user/actions';
+import * as asyncActions from '../actions/user/asyncActions';
 import { connect } from '../drivers';
 
 export const UserContext = createContext();
 
 const UserContextProvider = props => {
-    const {
-        children,
-        createAccount,
-        getUserDetails,
-        signIn,
-        signOut,
-        user: userState
-    } = props;
+    const { actions, asyncActions, children, userState } = props;
 
     const userApi = useMemo(
         () => ({
-            createAccount,
-            getUserDetails,
-            signIn,
-            signOut
+            actions,
+            ...asyncActions
         }),
-        [createAccount, getUserDetails, signIn, signOut]
+        [actions, asyncActions]
     );
 
     const contextValue = useMemo(() => [userState, userApi], [
@@ -42,14 +30,12 @@ const UserContextProvider = props => {
     );
 };
 
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = ({ user }) => ({ userState: user });
 
-const mapDispatchToProps = {
-    createAccount,
-    getUserDetails,
-    signIn,
-    signOut
-};
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    asyncActions: bindActionCreators(asyncActions, dispatch)
+});
 
 export default connect(
     mapStateToProps,

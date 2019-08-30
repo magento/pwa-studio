@@ -22,7 +22,9 @@ const ancestors = {
 const Navigation = props => {
     // retrieve app state from context
     const [appState, { closeDrawer }] = useContext(AppContext);
-    const [catalogState, { updateCategories }] = useContext(CatalogContext);
+    const [catalogState, { actions: catalogActions }] = useContext(
+        CatalogContext
+    );
     const [, { getUserDetails }] = useContext(UserContext);
 
     // request data from server
@@ -94,7 +96,7 @@ const Navigation = props => {
                     categories={categories}
                     onNavigate={closeDrawer}
                     setCategoryId={setCategoryId}
-                    updateCategories={updateCategories}
+                    updateCategories={catalogActions.updateCategories}
                 />
             </div>
             <div className={classes.footer}>

@@ -1,62 +1,21 @@
 import React, { createContext, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 
-import {
-    beginCheckout,
-    cancelCheckout,
-    getShippingMethods,
-    resetCheckout,
-    submitBillingAddress,
-    submitOrder,
-    submitPaymentMethod,
-    submitPaymentMethodAndBillingAddress,
-    submitShippingAddress,
-    submitShippingMethod
-} from '../actions/checkout';
+import actions from '../actions/checkout/actions';
+import * as asyncActions from '../actions/checkout/asyncActions';
 import { connect } from '../drivers';
 
 export const CheckoutContext = createContext();
 
 const CheckoutContextProvider = props => {
-    const {
-        beginCheckout,
-        cancelCheckout,
-        checkout: checkoutState,
-        children,
-        getShippingMethods,
-        resetCheckout,
-        submitBillingAddress,
-        submitOrder,
-        submitPaymentMethod,
-        submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
-        submitShippingMethod
-    } = props;
+    const { actions, asyncActions, checkoutState, children } = props;
 
     const checkoutApi = useMemo(
         () => ({
-            beginCheckout,
-            cancelCheckout,
-            getShippingMethods,
-            resetCheckout,
-            submitBillingAddress,
-            submitOrder,
-            submitPaymentMethod,
-            submitPaymentMethodAndBillingAddress,
-            submitShippingAddress,
-            submitShippingMethod
+            actions,
+            ...asyncActions
         }),
-        [
-            beginCheckout,
-            cancelCheckout,
-            getShippingMethods,
-            resetCheckout,
-            submitBillingAddress,
-            submitOrder,
-            submitPaymentMethod,
-            submitPaymentMethodAndBillingAddress,
-            submitShippingAddress,
-            submitShippingMethod
-        ]
+        [actions, asyncActions]
     );
 
     const contextValue = useMemo(() => [checkoutState, checkoutApi], [
@@ -71,20 +30,12 @@ const CheckoutContextProvider = props => {
     );
 };
 
-const mapStateToProps = ({ checkout }) => ({ checkout });
+const mapStateToProps = ({ checkout }) => ({ checkoutState: checkout });
 
-const mapDispatchToProps = {
-    beginCheckout,
-    cancelCheckout,
-    getShippingMethods,
-    resetCheckout,
-    submitBillingAddress,
-    submitOrder,
-    submitPaymentMethod,
-    submitPaymentMethodAndBillingAddress,
-    submitShippingAddress,
-    submitShippingMethod
-};
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    asyncActions: bindActionCreators(asyncActions, dispatch)
+});
 
 export default connect(
     mapStateToProps,

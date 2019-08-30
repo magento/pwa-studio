@@ -1,18 +1,21 @@
 import React, { createContext, useMemo } from 'react';
+import { bindActionCreators } from 'redux';
 
-import catalogActions from '../actions/catalog';
+import actions from '../actions/catalog/actions';
+import * as asyncActions from '../actions/catalog/asyncActions';
 import { connect } from '../drivers';
 
 export const CatalogContext = createContext();
 
 const CatalogContextProvider = props => {
-    const { catalog: catalogState, children, updateCategories } = props;
+    const { actions, asyncActions, catalogState, children } = props;
 
     const catalogApi = useMemo(
         () => ({
-            updateCategories
+            actions,
+            ...asyncActions
         }),
-        [updateCategories]
+        [actions, asyncActions]
     );
 
     const contextValue = useMemo(() => [catalogState, catalogApi], [
@@ -27,11 +30,12 @@ const CatalogContextProvider = props => {
     );
 };
 
-const mapStateToProps = ({ catalog }) => ({ catalog });
+const mapStateToProps = ({ catalog }) => ({ catalogState: catalog });
 
-const mapDispatchToProps = {
-    updateCategories: catalogActions.updateCategories
-};
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+    asyncActions: bindActionCreators(asyncActions, dispatch)
+});
 
 export default connect(
     mapStateToProps,
