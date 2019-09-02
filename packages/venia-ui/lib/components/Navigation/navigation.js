@@ -76,7 +76,8 @@ const Navigation = props => {
         setView('SIGN_IN');
     }, [setView]);
 
-    const menuTopLevelClassName = isTopLevel && view === 'MENU' ? classes.isRoot : '';
+    const menuTopLevelClassName =
+        isTopLevel && view === 'MENU' ? classes.isRoot : '';
 
     return (
         <aside className={rootClassName}>
