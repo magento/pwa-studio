@@ -76,11 +76,11 @@ const Navigation = props => {
         setView('SIGN_IN');
     }, [setView]);
 
-    const isRootClass = isTopLevel && view === 'MENU' ? classes.isRoot : null;
+    const menuTopLevelClassName = isTopLevel && view === 'MENU' ? classes.isRoot : '';
 
     return (
         <aside className={rootClassName}>
-            <header className={`${classes.header} ${isRootClass}`}>
+            <header className={`${classes.header} ${menuTopLevelClassName}`}>
                 <NavHeader
                     isTopLevel={isTopLevel}
                     onBack={handleBack}
