@@ -2,9 +2,11 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
+import { AppContext } from '../../../context/app';
+import { CatalogContext } from '../../../context/catalog';
+import { UserContext } from '../../../context/user';
 import AuthModal from '../../AuthModal';
 import CategoryTree from '../../CategoryTree';
-import { AppContext, CatalogContext, UserContext } from '../container';
 import NavHeader from '../navHeader';
 import Navigation from '../navigation';
 
@@ -13,6 +15,19 @@ jest.mock('../../AuthBar', () => () => <i />);
 jest.mock('../../AuthModal', () => () => <i />);
 jest.mock('../../CategoryTree', () => () => <i />);
 jest.mock('../navHeader', () => () => <i />);
+
+jest.mock('../../../context/app', () => {
+    const { createContext } = require('react');
+    return { AppContext: createContext() };
+});
+jest.mock('../../../context/catalog', () => {
+    const { createContext } = require('react');
+    return { CatalogContext: createContext() };
+});
+jest.mock('../../../context/user', () => {
+    const { createContext } = require('react');
+    return { UserContext: createContext() };
+});
 
 const mockAppContext = [{ drawer: 'nav' }, { closeDrawer: jest.fn() }];
 
@@ -28,16 +43,6 @@ const mockCatalogContext = [
 ];
 
 const mockUserContext = [{}, { getUserDetails: jest.fn() }];
-
-jest.mock('../container', () => {
-    const { createContext } = require('react');
-
-    return {
-        AppContext: createContext(),
-        CatalogContext: createContext(),
-        UserContext: createContext()
-    };
-});
 
 const MockContext = props => (
     <AppContext.Provider value={mockAppContext}>
