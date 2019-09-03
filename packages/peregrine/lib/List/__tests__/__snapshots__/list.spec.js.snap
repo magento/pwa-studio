@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshot testing List component 1`] = `
+exports[`List component renders correctly 1`] = `
 Object {
   "instance": null,
   "nodeType": "component",
@@ -52,6 +52,7 @@ Object {
         },
       ],
     },
+    "initialSelection": null,
     "items": Array [
       Object {
         "id": "001",
@@ -211,6 +212,7 @@ Object {
             ],
           }
         }
+        initialSelection={null}
         items={
           Array [
             Object {
@@ -450,6 +452,7 @@ Object {
               ],
             }
           }
+          initialSelection={null}
           items={
             Array [
               Object {
@@ -600,6 +603,7 @@ Object {
                 },
               ],
             },
+            "initialSelection": null,
             "items": Array [
               Object {
                 "id": "001",
@@ -784,8 +788,8 @@ Object {
                   ],
                 },
                 "setFocus": [Function],
-                "uniqueID": "001",
-                "updateSelection": [Function],
+                "uniqueId": "001",
+                "updateSelectedKeys": [Function],
               },
               "rendered": Object {
                 "instance": null,
@@ -977,8 +981,8 @@ Object {
                   ],
                 },
                 "setFocus": [Function],
-                "uniqueID": "002",
-                "updateSelection": [Function],
+                "uniqueId": "002",
+                "updateSelectedKeys": [Function],
               },
               "rendered": Object {
                 "instance": null,
