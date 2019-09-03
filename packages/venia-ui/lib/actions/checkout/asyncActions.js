@@ -109,10 +109,8 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const {
-            cart,
-            directory: { countries }
-        } = getState();
+        const { cart, directory } = getState();
+        const { countries } = directory;
 
         const { cartId } = cart;
         if (!cartId) {

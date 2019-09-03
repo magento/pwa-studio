@@ -12,8 +12,8 @@ const Receipt = props => {
     useEffect(() => reset, [reset]);
 
     const handleCreateAccount = useCallback(() => {
-        onClose();
         createAccount(history);
+        onClose();
     }, [createAccount, onClose, history]);
 
     const handleViewOrderDetails = useCallback(() => {
