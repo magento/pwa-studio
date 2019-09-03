@@ -59,6 +59,10 @@ const getAndConfirmProps = (parent, type, props = {}) => {
     return instance;
 };
 
+beforeAll(() => {
+    global.STORE_NAME = 'Venia';
+});
+
 afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
