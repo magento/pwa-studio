@@ -1,30 +1,30 @@
 import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import { any, bool, func, number, oneOfType, shape, string } from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
 
-const isString = item => typeof item === 'string';
-
-const getChild = item => (isString(item) ? item : null);
-
 const Item = props => {
     const {
-        uniqueID: key,
         classes,
         hasFocus,
         isSelected,
         item,
         itemIndex,
         render,
-        updateSelection,
         setFocus,
+        uniqueId: key,
+        updateSelectedKeys,
         ...restProps
     } = props;
-    const onClick = useCallback(() => updateSelection(key), [
-        updateSelection,
-        key
+
+    const children = typeof item === 'string' ? item : null;
+
+    const onClick = useCallback(() => updateSelectedKeys(key), [
+        key,
+        updateSelectedKeys
     ]);
-    const onFocus = useCallback(() => setFocus(key), [setFocus, key]);
+    const onFocus = useCallback(() => setFocus(key), [key, setFocus]);
+
     const customProps = {
         classes,
         hasFocus,
@@ -34,28 +34,31 @@ const Item = props => {
         onClick,
         onFocus
     };
+
     const Root = useMemo(
         () => fromRenderProp(render, Object.keys(customProps)),
         [render, customProps]
     );
+
     return (
         <Root className={classes.root} {...customProps} {...restProps}>
-            {getChild(item)}
+            {children}
         </Root>
     );
 };
 
 Item.propTypes = {
-    classes: PropTypes.shape({
-        root: PropTypes.string
+    classes: shape({
+        root: string
     }),
-    hasFocus: PropTypes.bool,
-    isSelected: PropTypes.bool,
-    item: PropTypes.any.isRequired,
-    itemIndex: PropTypes.number.isRequired,
-    render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
-    uniqueID: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired
+    hasFocus: bool,
+    isSelected: bool,
+    item: any.isRequired,
+    itemIndex: number.isRequired,
+    render: oneOfType([func, string]).isRequired,
+    setFocus: func,
+    uniqueId: oneOfType([number, string]).isRequired,
+    updateSelectedKeys: func.isRequired
 };
 
 Item.defaultProps = {
