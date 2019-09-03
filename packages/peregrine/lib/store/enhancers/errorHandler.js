@@ -21,7 +21,7 @@
  *
  */
 import app from '../actions/app';
-import errorRecord from '../util/createErrorRecord';
+import errorRecord from '../../util/createErrorRecord';
 const APP_DISMISS_ERROR = app.markErrorHandled.toString();
 
 /**

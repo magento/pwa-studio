@@ -1,7 +1,7 @@
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import log from './log';
+import log from '../middleware/log';
 
 const middleware = [thunk];
 

@@ -4,7 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
 import store from './store';
-import app from '@magento/venia-ui/lib/actions/app';
+import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import './index.css';
 

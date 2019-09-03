@@ -1,5 +1,5 @@
 import actions from './actions';
-import { preserveQueryParams } from '../../util/preserveQueryParams';
+import { preserveQueryParams } from '../../../util/preserveQueryParams';
 import { persistentQueries } from '../../shared/persistentQueries';
 
 export const serialize = (params, keys = [], isArray = false) => {

@@ -1,6 +1,6 @@
 import { RestApi } from '@magento/peregrine';
 import { Util } from '@magento/peregrine';
-import { refresh } from '../../util/router-helpers';
+import { refresh } from '../../../util/router-helpers';
 import { getCartDetails, removeCart } from '../cart';
 
 import actions from './actions';
