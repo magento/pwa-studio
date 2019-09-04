@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { generateSrcset } from '../../shared/images';
@@ -35,11 +35,6 @@ const Image = props => {
             onError();
         }
     }, [onError]);
-
-    // On mount, reset loaded to false.
-    useEffect(() => {
-        setIsLoaded(false);
-    }, [src]);
 
     // Render a placeholder until the image is loaded.
     const placeholderImage = placeholder && !isLoaded && (
