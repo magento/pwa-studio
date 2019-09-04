@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
+import { AppContext } from '@magento/peregrine/lib/context/app';
+import { CatalogContext } from '@magento/peregrine/lib/context/catalog';
+import { UserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
-import { AppContext } from '../../context/app';
-import { CatalogContext } from '../../context/catalog';
-import { UserContext } from '../../context/user';
 import AuthBar from '../AuthBar';
 import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';

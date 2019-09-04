@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
+import { AppContext } from '@magento/peregrine/lib/context/app';
+import { ErrorContext } from '@magento/peregrine/lib/context/unhandledErrors';
 
 import App from './app';
 import { useErrorBoundary } from './useErrorBoundary';
-import { AppContext } from '../../context/app';
-import { ErrorContext } from '../../context/unhandledErrors';
 
 const AppContainer = () => {
     const ErrorBoundary = useErrorBoundary(App);

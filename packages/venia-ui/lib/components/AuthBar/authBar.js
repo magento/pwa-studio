@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import { UserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
-import { UserContext } from '../../context/user';
 import Button from '../Button';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
