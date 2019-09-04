@@ -1,54 +1,43 @@
 import { handleActions } from 'redux-actions';
-import get from 'lodash/get';
-import { Util } from '@magento/peregrine';
 import actions from '../actions/checkout';
-
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
 
 export const name = 'checkout';
 
 const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
+    billingAddressError: null,
+    isSubmitting: false,
+    orderError: null,
+    paymentMethodError: null,
     paymentCode: '',
     paymentData: null,
     shippingAddress: null,
+    shippingAddressError: null,
     shippingMethod: '',
-    shippingTitle: '',
-    step: 'cart',
-    submitting: false,
-    isAddressInvalid: false,
-    invalidAddressMessage: ''
+    shippingMethodError: null,
+    shippingTitle: ''
 };
 
 const reducerMap = {
-    [actions.begin]: state => {
-        const storedBillingAddress = storage.getItem('billing_address');
-        const storedPaymentMethod = storage.getItem('paymentMethod');
-        const storedShippingAddress = storage.getItem('shipping_address');
-        const storedShippingMethod = storage.getItem('shippingMethod');
-
+    [actions.begin]: (state, { payload }) => {
         return {
             ...state,
-            billingAddress: storedBillingAddress,
-            paymentCode: storedPaymentMethod && storedPaymentMethod.code,
-            paymentData: storedPaymentMethod && storedPaymentMethod.data,
-            shippingAddress: storedShippingAddress,
-            shippingMethod:
-                storedShippingMethod && storedShippingMethod.carrier_code,
-            shippingTitle:
-                storedShippingMethod && storedShippingMethod.carrier_title,
-            step: 'form'
+            ...payload
         };
     },
-    [actions.billingAddress.submit]: state => state,
+    [actions.billingAddress.submit]: state => ({
+        ...state,
+        billingAddressError: null,
+        isSubmitting: true
+    }),
     [actions.billingAddress.accept]: (state, { payload }) => {
         // Billing address can either be an object with address props OR
         // an object with a single prop, `sameAsShippingAddress`, so we need
         // to do some special handling to make sure the store reflects that.
         const newState = {
-            ...state
+            ...state,
+            isSubmitting: false
         };
         if (payload.sameAsShippingAddress) {
             newState.billingAddress = {
@@ -62,7 +51,13 @@ const reducerMap = {
         }
         return newState;
     },
-    [actions.billingAddress.reject]: state => state,
+    [actions.billingAddress.reject]: (state, { payload }) => {
+        return {
+            ...state,
+            billingAddressError: payload,
+            isSubmitting: false
+        };
+    },
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {
         if (error) {
             return state;
@@ -77,101 +72,83 @@ const reducerMap = {
             }))
         };
     },
-    [actions.shippingAddress.submit]: state => {
-        return {
-            ...state,
-            submitting: true
-        };
-    },
+    [actions.shippingAddress.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        shippingAddressError: null
+    }),
     [actions.shippingAddress.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             shippingAddress: {
                 ...state.shippingAddress,
                 ...payload,
                 street: [...payload.street]
-            },
-            step: 'form',
-            submitting: false,
-            isAddressInvalid: false,
-            invalidAddressMessage: ''
+            }
         };
     },
-    [actions.shippingAddress.reject]: (state, actionArgs) => {
-        const invalidAddressMessage = get(
-            actionArgs,
-            'payload.invalidAddressMessage',
-            ''
-        );
-
+    [actions.shippingAddress.reject]: (state, { payload }) => {
         return {
             ...state,
-            submitting: false,
-            isAddressInvalid: invalidAddressMessage ? true : false,
-            invalidAddressMessage
+            isSubmitting: false,
+            shippingAddressError: payload
         };
     },
-    [actions.paymentMethod.submit]: state => {
-        return {
-            ...state,
-            submitting: true
-        };
-    },
+    [actions.paymentMethod.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        paymentMethodError: null
+    }),
     [actions.paymentMethod.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             paymentCode: payload.code,
-            paymentData: payload.data,
-            step: 'form',
-            submitting: false
+            paymentData: payload.data
         };
     },
-    [actions.paymentMethod.reject]: state => {
+    [actions.paymentMethod.reject]: (state, { payload }) => {
         return {
             ...state,
-            submitting: false
+            isSubmitting: false,
+            paymentMethodError: payload
         };
     },
-    [actions.shippingMethod.submit]: state => {
-        return {
-            ...state,
-            submitting: true
-        };
-    },
+    [actions.shippingMethod.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        shippingMethodError: null
+    }),
     [actions.shippingMethod.accept]: (state, { payload }) => {
         return {
             ...state,
+            isSubmitting: false,
             shippingMethod: payload.carrier_code,
-            shippingTitle: payload.carrier_title,
-            step: 'form',
-            submitting: false,
-            isAddressInvalid: false,
-            invalidAddressMessage: ''
+            shippingTitle: payload.carrier_title
         };
     },
-    [actions.shippingMethod.reject]: state => {
+    [actions.shippingMethod.reject]: (state, { payload }) => {
         return {
             ...state,
-            submitting: false
+            isSubmitting: false,
+            shippingMethodError: payload
         };
     },
-    [actions.order.submit]: state => {
+    [actions.order.submit]: state => ({
+        ...state,
+        isSubmitting: true,
+        orderError: null
+    }),
+    [actions.order.accept]: state => ({
+        ...state,
+        isSubmitting: false
+    }),
+    [actions.order.reject]: (state, { payload }) => {
         return {
             ...state,
-            submitting: true
-        };
-    },
-    [actions.order.accept]: state => {
-        return {
-            ...state,
-            step: 'receipt',
-            submitting: false
-        };
-    },
-    [actions.order.reject]: state => {
-        return {
-            ...state,
-            submitting: false
+            isSubmitting: false,
+            orderError: payload
         };
     },
     [actions.reset]: () => initialState

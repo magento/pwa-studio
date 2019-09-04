@@ -1,18 +1,17 @@
-import {
-    completePasswordReset,
-    resetPassword
-} from '@magento/peregrine/lib/store/actions/user';
+import { resetPassword } from '@magento/peregrine/lib/store/actions/user';
 import { connect } from '../../drivers';
 import ForgotPassword from './forgotPassword';
 
 const mapStateToProps = ({ user }) => {
-    const { email, isInProgress } = user.forgotPassword;
+    const { isResettingPassword, resetPasswordError } = user;
 
-    return { email, isInProgress };
+    return {
+        error: resetPasswordError,
+        isResettingPassword
+    };
 };
 
 const mapDispatchToProps = {
-    completePasswordReset,
     resetPassword
 };
 

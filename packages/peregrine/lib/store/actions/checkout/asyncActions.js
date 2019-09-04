@@ -13,7 +13,23 @@ const storage = new BrowserPersistence();
 
 export const beginCheckout = () =>
     async function thunk(dispatch) {
-        dispatch(actions.begin());
+        const storedBillingAddress = storage.getItem('billing_address');
+        const storedPaymentMethod = storage.getItem('paymentMethod');
+        const storedShippingAddress = storage.getItem('shipping_address');
+        const storedShippingMethod = storage.getItem('shippingMethod');
+
+        dispatch(
+            actions.begin({
+                billingAddress: storedBillingAddress,
+                paymentCode: storedPaymentMethod && storedPaymentMethod.code,
+                paymentData: storedPaymentMethod && storedPaymentMethod.data,
+                shippingAddress: storedShippingAddress,
+                shippingMethod:
+                    storedShippingMethod && storedShippingMethod.carrier_code,
+                shippingTitle:
+                    storedShippingMethod && storedShippingMethod.carrier_title
+            })
+        );
         dispatch(getShippingMethods());
         dispatch(getCountries());
     };
@@ -91,33 +107,33 @@ export const submitPaymentMethodAndBillingAddress = payload =>
 
 export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.billingAddress.submit(payload));
+        dispatch(actions.billingAddress.submit());
 
         const { cart, directory } = getState();
+        const { countries } = directory;
 
         const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
 
-        let desiredBillingAddress = payload;
-        if (!payload.sameAsShippingAddress) {
-            const { countries } = directory;
-            try {
+        try {
+            let desiredBillingAddress = payload;
+            if (!payload.sameAsShippingAddress) {
                 desiredBillingAddress = formatAddress(payload, countries);
-            } catch (error) {
-                dispatch(actions.billingAddress.reject(error));
-                throw error;
             }
-        }
 
-        await saveBillingAddress(desiredBillingAddress);
-        dispatch(actions.billingAddress.accept(desiredBillingAddress));
+            await saveBillingAddress(desiredBillingAddress);
+            dispatch(actions.billingAddress.accept(desiredBillingAddress));
+        } catch (error) {
+            dispatch(actions.billingAddress.reject(error));
+            throw error;
+        }
     };
 
 export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.paymentMethod.submit(payload));
+        dispatch(actions.paymentMethod.submit());
 
         const { cart } = getState();
 
@@ -126,41 +142,42 @@ export const submitPaymentMethod = payload =>
             throw new Error('Missing required information: cartId');
         }
 
-        await savePaymentMethod(payload);
-        dispatch(actions.paymentMethod.accept(payload));
+        try {
+            await savePaymentMethod(payload);
+            dispatch(actions.paymentMethod.accept(payload));
+        } catch (error) {
+            dispatch(actions.paymentMethod.reject(error));
+            throw error;
+        }
     };
 
 export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.shippingAddress.submit(payload));
+        dispatch(actions.shippingAddress.submit());
 
-        const { cart, directory } = getState();
+        const {
+            cart,
+            directory: { countries }
+        } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
 
-        const { countries } = directory;
-        let { formValues: address } = payload;
         try {
-            address = formatAddress(address, countries);
+            const address = formatAddress(payload.formValues, countries);
+            await saveShippingAddress(address);
+            dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
-            dispatch(
-                actions.shippingAddress.reject({
-                    invalidAddressMessage: error.message
-                })
-            );
+            dispatch(actions.shippingAddress.reject(error));
             throw error;
         }
-
-        await saveShippingAddress(address);
-        dispatch(actions.shippingAddress.accept(address));
     };
 
 export const submitShippingMethod = payload =>
     async function thunk(dispatch, getState) {
-        dispatch(actions.shippingMethod.submit(payload));
+        dispatch(actions.shippingMethod.submit());
 
         const { cart } = getState();
         const { cartId } = cart;
@@ -168,9 +185,14 @@ export const submitShippingMethod = payload =>
             throw new Error('Missing required information: cartId');
         }
 
-        const desiredShippingMethod = payload.formValues.shippingMethod;
-        await saveShippingMethod(desiredShippingMethod);
-        dispatch(actions.shippingMethod.accept(desiredShippingMethod));
+        try {
+            const desiredShippingMethod = payload.formValues.shippingMethod;
+            await saveShippingMethod(desiredShippingMethod);
+            dispatch(actions.shippingMethod.accept(desiredShippingMethod));
+        } catch (error) {
+            dispatch(actions.shippingMethod.reject(error));
+            throw error;
+        }
     };
 
 export const submitOrder = () =>
@@ -251,9 +273,10 @@ export const submitOrder = () =>
             await clearShippingAddress();
             await clearShippingMethod();
 
-            dispatch(actions.order.accept(response));
+            dispatch(actions.order.accept());
         } catch (error) {
             dispatch(actions.order.reject(error));
+            throw error;
         }
     };
 

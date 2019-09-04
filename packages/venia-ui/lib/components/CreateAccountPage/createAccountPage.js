@@ -14,9 +14,10 @@ class CreateAccountPage extends Component {
         history: PropTypes.shape({})
     };
 
-    createAccount = accountInfo => {
+    createAccount = async accountInfo => {
         const { createAccount, history } = this.props;
-        createAccount({ accountInfo, history });
+        await createAccount(accountInfo);
+        history.push('/');
     };
 
     render() {
