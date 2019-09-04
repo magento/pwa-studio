@@ -33,6 +33,7 @@ staticFromRoot:
                 content-type: contentTypeFromExtension
         body:
             resolver: file
+            parse: text
             file:
                 resolver: template
                 engine: mustache
