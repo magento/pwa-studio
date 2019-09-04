@@ -3,7 +3,7 @@ import { RestApi, Util } from '@magento/peregrine';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
 import { getCountries } from '../directory';
-import { getAccountInformation } from '../../selectors/checkoutReceipt';
+import { getAccountInformation } from '@magento/peregrine/lib/store/selectors/checkoutReceipt';
 import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 

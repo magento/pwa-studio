@@ -1,5 +1,8 @@
 import { connect } from '@magento/venia-drivers';
-import { isEmptyCartVisible, isMiniCartMaskOpen } from '../../selectors/cart';
+import {
+    isEmptyCartVisible,
+    isMiniCartMaskOpen
+} from '@magento/peregrine/lib/store/selectors/cart';
 import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
 import {
     beginEditItem,
