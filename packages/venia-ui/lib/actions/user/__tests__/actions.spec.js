@@ -30,63 +30,32 @@ test('signIn.receive() returns a proper action object', () => {
     });
 });
 
-test('createAccountError.request.toString() returns the proper action type', () => {
-    expect(actions.createAccountError.request.toString()).toBe(
-        'USER/CREATE_ACCOUNT_ERROR/REQUEST'
+test('createAccount.request.toString() returns the proper action type', () => {
+    expect(actions.createAccount.request.toString()).toBe(
+        'USER/CREATE_ACCOUNT/REQUEST'
     );
 });
 
-test('createAccountError.request() returns a proper action object', () => {
-    expect(actions.createAccountError.request(payload)).toEqual({
-        type: 'USER/CREATE_ACCOUNT_ERROR/REQUEST',
+test('createAccount.request() returns a proper action object', () => {
+    expect(actions.createAccount.request(payload)).toEqual({
+        type: 'USER/CREATE_ACCOUNT/REQUEST',
         payload
     });
 });
 
-test('createAccountError.receive.toString() returns the proper action type', () => {
-    expect(actions.createAccountError.receive.toString()).toBe(
-        'USER/CREATE_ACCOUNT_ERROR/RECEIVE'
+test('createAccount.receive.toString() returns the proper action type', () => {
+    expect(actions.createAccount.receive.toString()).toBe(
+        'USER/CREATE_ACCOUNT/RECEIVE'
     );
 });
 
-test('createAccountError.receive() returns a proper action object', () => {
-    expect(actions.createAccountError.receive(payload)).toEqual({
-        type: 'USER/CREATE_ACCOUNT_ERROR/RECEIVE',
+test('createAccount.receive() returns a proper action object', () => {
+    expect(actions.createAccount.receive(payload)).toEqual({
+        type: 'USER/CREATE_ACCOUNT/RECEIVE',
         payload
     });
-    expect(actions.createAccountError.receive(error)).toEqual({
-        type: 'USER/CREATE_ACCOUNT_ERROR/RECEIVE',
-        payload: error,
-        error: true
-    });
-});
-
-test('resetCreateAccountError.request.toString() returns the proper action type', () => {
-    expect(actions.resetCreateAccountError.request.toString()).toBe(
-        'USER/RESET_CREATE_ACCOUNT_ERROR/REQUEST'
-    );
-});
-
-test('resetCreateAccountError.request() returns a proper action object', () => {
-    expect(actions.resetCreateAccountError.request(payload)).toEqual({
-        type: 'USER/RESET_CREATE_ACCOUNT_ERROR/REQUEST',
-        payload
-    });
-});
-
-test('resetCreateAccountError.receive.toString() returns the proper action type', () => {
-    expect(actions.resetCreateAccountError.receive.toString()).toBe(
-        'USER/RESET_CREATE_ACCOUNT_ERROR/RECEIVE'
-    );
-});
-
-test('resetCreateAccountError.receive() returns a proper action object', () => {
-    expect(actions.resetCreateAccountError.receive(payload)).toEqual({
-        type: 'USER/RESET_CREATE_ACCOUNT_ERROR/RECEIVE',
-        payload
-    });
-    expect(actions.resetCreateAccountError.receive(error)).toEqual({
-        type: 'USER/RESET_CREATE_ACCOUNT_ERROR/RECEIVE',
+    expect(actions.createAccount.receive(error)).toEqual({
+        type: 'USER/CREATE_ACCOUNT/RECEIVE',
         payload: error,
         error: true
     });
@@ -119,26 +88,6 @@ describe('resetPassword', () => {
         });
         expect(actions.resetPassword.receive(error)).toEqual({
             type: 'USER/RESET_PASSWORD/RECEIVE',
-            payload: error,
-            error: true
-        });
-    });
-});
-
-describe('completePasswordReset', () => {
-    test('completePasswordReset.toString() returns the proper action type', () => {
-        expect(actions.completePasswordReset.toString()).toBe(
-            'USER/COMPLETE_PASSWORD_RESET'
-        );
-    });
-
-    test('completePasswordReset() returns a proper action object', () => {
-        expect(actions.completePasswordReset(payload)).toEqual({
-            type: 'USER/COMPLETE_PASSWORD_RESET',
-            payload
-        });
-        expect(actions.completePasswordReset(error)).toEqual({
-            type: 'USER/COMPLETE_PASSWORD_RESET',
             payload: error,
             error: true
         });

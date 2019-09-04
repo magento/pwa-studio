@@ -51,7 +51,8 @@
     grid-column-end: span 2;
 }
 
-.validation {
+.validationMessage {
     grid-column-end: span 2;
     line-height: normal;
+    color: red;
 }

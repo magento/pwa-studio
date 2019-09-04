@@ -35,6 +35,7 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
         <Receipt
             createAccount={handleCreateAccountMock}
             classes={classes}
+            onClose={() => {}}
             user={userProp}
         />
     );

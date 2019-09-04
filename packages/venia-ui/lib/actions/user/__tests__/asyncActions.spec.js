@@ -11,9 +11,7 @@ import {
     signIn,
     signOut,
     getUserDetails,
-    completePasswordReset,
     createAccount,
-    createNewUserRequest,
     resetPassword
 } from '../asyncActions';
 
@@ -53,40 +51,34 @@ afterAll(() => {
     getState.mockRestore();
 });
 
-test('createAccount() returns a thunk', () => {
-    expect(createAccount()).toBeInstanceOf(Function);
-});
-
-describe('createNewUserRequest', () => {
+describe('#createAccount', () => {
     test('it returns a thunk', () => {
-        expect(createNewUserRequest()).toBeInstanceOf(Function);
+        expect(createAccount()).toBeInstanceOf(Function);
     });
 
-    test('its thunk dispatches resetCreateAccountError', async () => {
-        await createNewUserRequest(accountInfo)(...thunkArgs);
+    test('its thunk dispatches createAccount', async () => {
+        await createAccount(accountInfo)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledWith(
-            actions.resetCreateAccountError.request()
-        );
+        expect(dispatch).toHaveBeenCalledWith(actions.createAccount.request());
     });
 
     test('its thunk dispatches signIn', async () => {
-        await createNewUserRequest(accountInfo)(...thunkArgs);
+        await createAccount(accountInfo)(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
     });
 
-    test('its thunk dispatches createAccountError on invalid account info', async () => {
+    test('its thunk dispatches createAccount on invalid account info', async () => {
         const error = new TypeError('ERROR');
         request.mockRejectedValueOnce(error);
 
         try {
-            await createNewUserRequest({})(...thunkArgs);
+            await createAccount({})(...thunkArgs);
         } catch (e) {}
 
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.createAccountError.receive(error)
+            actions.createAccount.receive(error)
         );
     });
 });
@@ -169,7 +161,7 @@ describe('signOut', () => {
         await signOut(mockParam)(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, actions.signIn.reset());
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.reset());
         const removeCart = expect.any(Function);
         expect(dispatch).toHaveBeenNthCalledWith(2, removeCart);
         const getCartDetails = expect.any(Function);
@@ -250,33 +242,11 @@ describe('resetPassword', () => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.resetPassword.request(email)
+            actions.resetPassword.request()
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.resetPassword.receive(email)
+            actions.resetPassword.receive()
         );
-    });
-});
-
-describe('completePasswordReset', () => {
-    const payload = 'test';
-
-    test('completePasswordReset() to return a thunk', () => {
-        expect(completePasswordReset()).toBeInstanceOf(Function);
-    });
-
-    test('completePasswordReset thunk returns undefined', async () => {
-        const result = await completePasswordReset(payload)(...thunkArgs);
-        expect(result).toBeUndefined();
-    });
-
-    test('completePasswordReset thunk dispatches actions', async () => {
-        await completePasswordReset(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledWith(
-            actions.completePasswordReset(payload)
-        );
-        expect(dispatch).toHaveBeenCalledTimes(1);
     });
 });

@@ -10,9 +10,7 @@ export const initialState = {
     cartId: null,
     details: {},
     detailsError: null,
-    editItem: null,
     isLoading: false,
-    isEditingItem: false,
     isUpdatingItem: false,
     isAddingItem: false,
     paymentMethods: [],
@@ -117,20 +115,6 @@ const reducerMap = {
         return {
             ...state,
             ...payload
-        };
-    },
-    [actions.beginEditItem]: (state, { payload }) => {
-        return {
-            ...state,
-            editItem: payload,
-            isEditingItem: true
-        };
-    },
-    [actions.endEditItem]: state => {
-        return {
-            ...state,
-            editItem: null,
-            isEditingItem: false
         };
     },
     [checkoutActions.order.accept]: () => {

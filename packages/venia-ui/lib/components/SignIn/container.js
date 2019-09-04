@@ -3,12 +3,17 @@ import SignIn from './signIn';
 import { signIn } from '../../actions/user';
 
 const mapStateToProps = ({ user }) => {
-    const { isGettingDetails, isSigningIn, signInError } = user;
-
-    return {
+    const {
         isGettingDetails,
         isSigningIn,
-        signInError
+        signInError,
+        getDetailsError
+    } = user;
+
+    return {
+        // Either error signifies a problem.
+        hasError: !!signInError || !!getDetailsError,
+        isSigningIn: isGettingDetails || isSigningIn
     };
 };
 
