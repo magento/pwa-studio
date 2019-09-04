@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { Util } from '@magento/peregrine';
+import { Util } from '../../index';
 const { BrowserPersistence } = Util;
 
 const storage = new BrowserPersistence();

@@ -1,4 +1,4 @@
-import { RestApi } from '@magento/peregrine';
+import { RestApi } from '../../../index';
 
 import actions from './actions';
 

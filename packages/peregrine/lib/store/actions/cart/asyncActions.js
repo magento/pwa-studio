@@ -1,4 +1,4 @@
-import { RestApi, Util } from '@magento/peregrine';
+import { RestApi, Util } from '../../../index';
 
 import { closeDrawer, toggleDrawer } from '../app';
 import checkoutActions from '../checkout';

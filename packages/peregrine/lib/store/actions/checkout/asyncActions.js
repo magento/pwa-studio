@@ -1,9 +1,9 @@
-import { RestApi, Util } from '@magento/peregrine';
+import { RestApi, Util } from '../../../index';
 
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
 import { getCountries } from '../directory';
-import { getAccountInformation } from '@magento/peregrine/lib/store/selectors/checkoutReceipt';
+import { getAccountInformation } from '../../selectors/checkoutReceipt';
 import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
