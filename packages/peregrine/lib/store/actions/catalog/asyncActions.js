@@ -1,6 +1,5 @@
 import actions from './actions';
 import { preserveQueryParams } from '../../../util/preserveQueryParams';
-import { persistentQueries } from '../../shared/persistentQueries';
 
 export const serialize = (params, keys = [], isArray = false) => {
     const serialized = Object.keys(params)
@@ -60,7 +59,7 @@ export const removeFilter = ({ group, title, value }, history, location) =>
         const {
             catalog: { chosenFilterOptions }
         } = getState();
-        const newQueryParam = preserveQueryParams(location, persistentQueries);
+        const newQueryParam = preserveQueryParams(location);
 
         const oldState = chosenFilterOptions[group] || [];
         const newState = oldState.filter(item => {

@@ -1,10 +1,11 @@
+import { persistentQueries } from './persistentQueries';
 /**
  * Function takes location object, filters through it and creates
  * new query params with preserved values from the array.
  * @param {object} location
  * @param {array} queries
  */
-export const preserveQueryParams = (location, queries) => {
+export const preserveQueryParams = (location, queries = persistentQueries) => {
     if (!location) return null;
     const newQueryParam = new URLSearchParams();
     const { search } = location;

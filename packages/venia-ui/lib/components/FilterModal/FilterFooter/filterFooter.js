@@ -8,8 +8,7 @@ import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import isObjectEmpty from '../../../util/isObjectEmpty';
-import { preserveQueryParams } from '../../../util/preserveQueryParams';
-import { persistentQueries } from '../../../shared/persistentQueries';
+import { preserveQueryParams } from '@magento/peregrine/lib/util/preserveQueryParams';
 class FilterFooter extends Component {
     static propTypes = {
         classes: PropTypes.shape({
@@ -27,7 +26,7 @@ class FilterFooter extends Component {
 
     resetFilterOptions = () => {
         const { history, filterClear, location } = this.props;
-        const queryParams = preserveQueryParams(location, persistentQueries);
+        const queryParams = preserveQueryParams(location);
         queryParams
             ? history.push('?' + queryParams.toString())
             : history.push();
@@ -41,7 +40,7 @@ class FilterFooter extends Component {
             closeDrawer,
             location
         } = this.props;
-        const queryParams = preserveQueryParams(location, persistentQueries);
+        const queryParams = preserveQueryParams(location);
         history.push(
             '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
         );

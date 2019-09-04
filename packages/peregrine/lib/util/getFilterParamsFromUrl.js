@@ -1,4 +1,4 @@
-import { persistentQueries } from '../shared/persistentQueries';
+import { persistentQueries } from './persistentQueries';
 
 export const getFilterParams = () => {
     const params = new URLSearchParams(window.location.search);
