@@ -1,4 +1,4 @@
-import { transparentPlaceholder } from '../../shared/images';
+import { transparentPlaceholder } from '../../../util/images';
 
 export const itemMock = {
     id: 1,

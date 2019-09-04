@@ -3,7 +3,7 @@ import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
 import classify from '../../classify';
-import { transparentPlaceholder } from '../../shared/images';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
