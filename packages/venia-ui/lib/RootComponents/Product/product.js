@@ -4,7 +4,7 @@ import { string, func } from 'prop-types';
 import { connect, Query } from '@magento/venia-drivers';
 
 import { Title } from '../../components/Head';
-import { addItemToCart } from '../../actions/cart';
+import { addItemToCart } from '@magento/peregrine/lib/store/actions/cart';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';

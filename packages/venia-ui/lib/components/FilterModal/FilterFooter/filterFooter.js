@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import catalogActions, { serialize } from '../../../actions/catalog';
+import catalogActions, {
+    serialize
+} from '@magento/peregrine/lib/store/actions/catalog';
 import { withRouter } from 'react-router-dom';
-import { closeDrawer } from '../../../actions/app';
+import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
 import classify from '../../../classify';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';

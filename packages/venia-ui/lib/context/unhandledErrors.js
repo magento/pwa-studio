@@ -1,6 +1,6 @@
 import React, { createContext, useMemo } from 'react';
 
-import appActions from '../actions/app';
+import appActions from '@magento/peregrine/lib/store/actions/app';
 import { connect } from '../drivers';
 
 export const ErrorContext = createContext();

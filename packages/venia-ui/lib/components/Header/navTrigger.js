@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import classify from '../../classify';
-import { toggleDrawer } from '../../actions/app';
+import { toggleDrawer } from '@magento/peregrine/lib/store/actions/app';
 import defaultClasses from './navTrigger.css';
 
 class Trigger extends Component {

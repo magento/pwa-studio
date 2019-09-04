@@ -1,8 +1,8 @@
 import React, { createContext, useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 
-import actions from '../actions/cart/actions';
-import * as asyncActions from '../actions/cart/asyncActions';
+import actions from '@magento/peregrine/lib/store/actions/cart/actions';
+import * as asyncActions from '@magento/peregrine/lib/store/actions/cart/asyncActions';
 import { connect } from '../drivers';
 
 export const CartContext = createContext();
