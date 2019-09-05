@@ -30,9 +30,7 @@ const NavHeader = props => {
         <Trigger key="backButton" action={onBack}>
             <Icon src={backIcon} />
         </Trigger>
-    ) : (
-        <div />
-    );
+    ) : null;
 
     return (
         <Fragment>

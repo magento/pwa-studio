@@ -5,7 +5,7 @@ exports[`renders correctly when closed 1`] = `
   className="root"
 >
   <header
-    className="header isRoot"
+    className="isRoot"
   >
     <i />
   </header>
@@ -32,7 +32,7 @@ exports[`renders correctly when open 1`] = `
   className="root_open"
 >
   <header
-    className="header isRoot"
+    className="isRoot"
   >
     <i />
   </header>

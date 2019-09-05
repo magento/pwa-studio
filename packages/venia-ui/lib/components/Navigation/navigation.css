@@ -93,5 +93,7 @@
 }
 
 .isRoot {
-    grid-template-columns: 1rem 1fr 3.5rem;
+    composes: header;
+    grid-template-columns: 1fr 3.5rem;
+    padding-left: 1rem;
 }
