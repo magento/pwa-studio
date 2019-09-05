@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import actions from '@magento/peregrine/lib/store/actions/cart/actions';
 import * as asyncActions from '@magento/peregrine/lib/store/actions/cart/asyncActions';
 
-export const CartContext = createContext();
+const CartContext = createContext();
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
@@ -41,3 +41,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CartContextProvider);
+
+export const useCartContext = () => useContext(CartContext);

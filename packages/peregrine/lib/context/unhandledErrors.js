@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import appActions from '@magento/peregrine/lib/store/actions/app';
 
-export const ErrorContext = createContext();
+const ErrorContext = createContext();
 
 const ErrorContextProvider = props => {
     const { children, markErrorHandled, unhandledErrors } = props;
@@ -37,3 +37,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(ErrorContextProvider);
+
+export const useErrorContext = () => useContext(ErrorContext);

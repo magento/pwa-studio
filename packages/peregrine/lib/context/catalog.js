@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import actions from '@magento/peregrine/lib/store/actions/catalog/actions';
 import * as asyncActions from '@magento/peregrine/lib/store/actions/catalog/asyncActions';
 
-export const CatalogContext = createContext();
+const CatalogContext = createContext();
 
 const CatalogContextProvider = props => {
     const { actions, asyncActions, catalogState, children } = props;
@@ -41,3 +41,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CatalogContextProvider);
+
+export const useCatalogContext = () => useContext(CatalogContext);

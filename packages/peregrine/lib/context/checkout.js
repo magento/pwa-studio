@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import actions from '@magento/peregrine/lib/store/actions/checkout/actions';
 import * as asyncActions from '@magento/peregrine/lib/store/actions/checkout/asyncActions';
 
-export const CheckoutContext = createContext();
+const CheckoutContext = createContext();
 
 const CheckoutContextProvider = props => {
     const { actions, asyncActions, checkoutState, children } = props;
@@ -41,3 +41,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CheckoutContextProvider);
+
+export const useCheckoutContext = () => useContext(CheckoutContext);

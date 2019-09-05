@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
-import { UserContext } from '@magento/peregrine/lib/context/user';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
@@ -22,7 +22,7 @@ const AuthModal = props => {
     } = props;
 
     const [username, setUsername] = useState('');
-    const [userState, { createAccount, signOut }] = useContext(UserContext);
+    const [userState, { createAccount, signOut }] = useUserContext();
     const { currentUser } = userState;
     const classes = mergeClasses(defaultClasses, props.classes);
     let child = null;

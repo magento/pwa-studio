@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import actions from '@magento/peregrine/lib/store/actions/app/actions';
 import * as asyncActions from '@magento/peregrine/lib/store/actions/app/asyncActions';
 
-export const AppContext = createContext();
+const AppContext = createContext();
 
 const AppContextProvider = props => {
     const { actions, appState, asyncActions, children } = props;
@@ -38,3 +38,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(AppContextProvider);
+
+export const useAppContext = () => useContext(AppContext);
