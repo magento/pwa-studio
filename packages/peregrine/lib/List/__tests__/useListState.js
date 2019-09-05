@@ -5,6 +5,12 @@ import { useListState } from '../useListState';
 import createTestInstance from '../../util/createTestInstance';
 
 const log = jest.fn();
+const props = {
+    getItemKey: jest.fn(() => 'some_value'),
+    initialSelection: undefined,
+    onSelectionChange: jest.fn(),
+    selectionModel: 'radio'
+};
 
 const Component = props => {
     const { listStateProps } = props;
@@ -14,22 +20,76 @@ const Component = props => {
     return null;
 };
 
-test('testing initialState and its shape', () => {
-    const props = { selectionModel: 'radio', onSelectionChange: jest.fn() };
+test('the shapes of state and api are correct', () => {
     createTestInstance(<Component listStateProps={props} />);
+
     const [state, api] = log.mock.calls[0][0];
 
-    expect(state).toEqual({
-        cursor: null,
-        hasFocus: false,
-        selection: new Set()
-    });
+    expect(state).toHaveProperty('cursor');
+    expect(state).toHaveProperty('hasFocus');
+    expect(state).toHaveProperty('selectedKeys');
+    // cursor can be a string or a number.
+    expect(state.hasFocus).toBeInstanceOf(Boolean);
+    expect(state.selectedKeys).toBeInstanceOf(Set);
+
     expect(api).toHaveProperty('setFocus');
     expect(api).toHaveProperty('removeFocus');
-    expect(api).toHaveProperty('updateSelection');
-    expect(typeof api.setFocus).toBe('function');
-    expect(typeof api.removeFocus).toBe('function');
-    expect(typeof api.updateSelection).toBe('function');
+    expect(api).toHaveProperty('updateSelectedKeys');
+    expect(api.setFocus).toBeInstanceOf(Function);
+    expect(api.removeFocus).toBeInstanceOf(Function);
+    expect(api.updateSelectedKeys).toBeInstanceOf(Function);
+});
+
+test('selectedKeys is empty when no initial selection is passed', () => {
+    createTestInstance(<Component listStateProps={props} />);
+
+    const [state] = log.mock.calls[0][0];
+    const { selectedKeys } = state;
+
+    expect(selectedKeys).toHaveLength(0);
+});
+
+test('passing an initial selection sets selectedKeys correctly', () => {
+    const myProps = {
+        ...props,
+        initialSelection: [{ name: 'first' }]
+    };
+
+    createTestInstance(<Component listStateProps={myProps} />);
+
+    const [state] = log.mock.calls[0][0];
+    const { selectedKeys } = state;
+
+    expect(selectedKeys).toHaveLength(1);
+});
+
+test('radio lists can only have one initially selected key', () => {
+    const myProps = {
+        ...props,
+        initialSelection: [{ name: 'first' }, { name: 'second' }]
+    };
+
+    createTestInstance(<Component listStateProps={myProps} />);
+
+    const [state] = log.mock.calls[0][0];
+    const { selectedKeys } = state;
+
+    expect(selectedKeys).toHaveLength(1);
+});
+
+test('checkbox lists can have multiple initially selected keys', () => {
+    const myProps = {
+        ...props,
+        initialSelection: [{ name: 'first' }, { name: 'second' }],
+        selectionModel: 'checkbox'
+    };
+
+    createTestInstance(<Component listStateProps={myProps} />);
+
+    const [state] = log.mock.calls[0][0];
+    const { selectedKeys } = state;
+
+    expect(selectedKeys).toHaveLength(2);
 });
 
 test('setFocus should update cursor and hasFocus values inside state', () => {
@@ -65,7 +125,7 @@ test('removeFocus should set hasFocus value to false leaving cursor untouched', 
     expect(state.hasFocus).not.toBeTruthy();
 });
 
-test('updateSelection should replace the selected ID inside selection state when selectionModel is radio', () => {
+test('updateSelectedKeys should replace the selected ID inside selection state when selectionModel is radio', () => {
     const props = {
         selectionModel: 'radio',
         onSelectionChange: jest.fn()
@@ -73,33 +133,33 @@ test('updateSelection should replace the selected ID inside selection state when
     createTestInstance(<Component listStateProps={props} />);
     let [state, api] = log.mock.calls[0][0];
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[1][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
 
-    api.updateSelection('002');
+    api.updateSelectedKeys('002');
     [state, api] = log.mock.calls[2][0];
 
-    expect(state.selection.has('001')).not.toBeTruthy();
-    expect(state.selection.has('002')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).not.toBeTruthy();
+    expect(state.selectedKeys.has('002')).toBeTruthy();
 });
 
-test('updateSelection should add the new ID into selection state when selectionModel is checkbox', () => {
+test('updateSelectedKeys should add the new ID into selection state when selectionModel is checkbox', () => {
     const props = { selectionModel: 'checkbox', onSelectionChange: jest.fn() };
     createTestInstance(<Component listStateProps={props} />);
     let [state, api] = log.mock.calls[0][0];
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[1][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
 
-    api.updateSelection('002');
+    api.updateSelectedKeys('002');
     [state, api] = log.mock.calls[2][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
-    expect(state.selection.has('002')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('002')).toBeTruthy();
 });
 
 test('onSelectionChange should be triggered when selection state changes', () => {
@@ -111,7 +171,7 @@ test('onSelectionChange should be triggered when selection state changes', () =>
 
     const [, api] = log.mock.calls[0][0];
     act(() => {
-        api.updateSelection('001');
+        api.updateSelectedKeys('001');
     });
 
     expect(onSelectionChange).toHaveBeenNthCalledWith(2, new Set(['001']));
@@ -130,15 +190,15 @@ test('ID selection should have toggling behavior when selectionModel is checkbox
     createTestInstance(<Component listStateProps={props} />);
     let [state, api] = log.mock.calls[0][0];
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[1][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[2][0];
 
-    expect(state.selection.has('001')).not.toBeTruthy();
+    expect(state.selectedKeys.has('001')).not.toBeTruthy();
 });
 
 test('ID selection should not have toggling behavior when selectionModel is radio', () => {
@@ -146,15 +206,15 @@ test('ID selection should not have toggling behavior when selectionModel is radi
     createTestInstance(<Component listStateProps={props} />);
     let [state, api] = log.mock.calls[0][0];
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[1][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
 
-    api.updateSelection('001');
+    api.updateSelectedKeys('001');
     [state, api] = log.mock.calls[2][0];
 
-    expect(state.selection.has('001')).toBeTruthy();
+    expect(state.selectedKeys.has('001')).toBeTruthy();
 });
 
 test('setFocus and removeFocus should be memoized', () => {
@@ -176,7 +236,7 @@ test('setFocus and removeFocus should be memoized', () => {
     );
 });
 
-test('updateSelection should get new reference if selectionModel argument changes', () => {
+test('updateSelectedKeys should get new reference if selectionModel argument changes', () => {
     const initialProps = {
         selectionModel: 'radio',
         onSelectionChange: jest.fn()
@@ -191,7 +251,7 @@ test('updateSelection should get new reference if selectionModel argument change
         />
     );
 
-    expect(log.mock.calls[1][0][1].updateSelection).not.toBe(
-        log.mock.calls[0][0][1].updateSelection
+    expect(log.mock.calls[1][0][1].updateSelectedKeys).not.toBe(
+        log.mock.calls[0][0][1].updateSelectedKeys
     );
 });
