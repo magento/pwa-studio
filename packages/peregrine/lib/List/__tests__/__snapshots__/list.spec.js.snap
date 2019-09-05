@@ -765,6 +765,9 @@ Object {
                     },
                   ],
                 },
+                "setFocus": [Function],
+                "uniqueId": "001",
+                "updateSelectedKeys": [Function],
               },
               "rendered": Object {
                 "instance": null,
@@ -957,6 +960,9 @@ Object {
                     },
                   ],
                 },
+                "setFocus": [Function],
+                "uniqueId": "002",
+                "updateSelectedKeys": [Function],
               },
               "rendered": Object {
                 "instance": null,

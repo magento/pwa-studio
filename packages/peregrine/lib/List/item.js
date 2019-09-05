@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { any, bool, func, number, oneOfType, shape, string } from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
@@ -11,11 +11,29 @@ const Item = props => {
         item,
         itemIndex,
         render,
+        setFocus,
+        uniqueId: key,
+        updateSelectedKeys,
         ...restProps
     } = props;
 
     const children = typeof item === 'string' ? item : null;
-    const customProps = { classes, hasFocus, isSelected, item, itemIndex };
+
+    const onClick = useCallback(() => updateSelectedKeys(key), [
+        key,
+        updateSelectedKeys
+    ]);
+    const onFocus = useCallback(() => setFocus(key), [key, setFocus]);
+
+    const customProps = {
+        classes,
+        hasFocus,
+        isSelected,
+        item,
+        itemIndex,
+        onClick,
+        onFocus
+    };
 
     const Root = useMemo(
         () => fromRenderProp(render, Object.keys(customProps)),
@@ -37,7 +55,10 @@ Item.propTypes = {
     isSelected: bool,
     item: any.isRequired,
     itemIndex: number.isRequired,
-    render: oneOfType([func, string]).isRequired
+    render: oneOfType([func, string]).isRequired,
+    setFocus: func,
+    uniqueId: oneOfType([number, string]).isRequired,
+    updateSelectedKeys: func.isRequired
 };
 
 Item.defaultProps = {
