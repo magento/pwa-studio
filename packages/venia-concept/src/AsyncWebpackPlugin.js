@@ -1,6 +1,6 @@
 /**
  * A Webpack plugin that takes an Async function to execute and
- * halts webpacks execution till the Async function is not completed.
+ * halts webpacks execution till the Async function is completed.
  */
 class AsyncWebpackPlugin {
     constructor(callback) {
