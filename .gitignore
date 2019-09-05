@@ -6,7 +6,6 @@ jsconfig.json
 coverage
 test-results
 dist
-public
 storybook-dist
 .idea
 test-report.xml
