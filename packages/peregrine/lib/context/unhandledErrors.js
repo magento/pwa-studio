@@ -1,4 +1,4 @@
-import React, { createContext, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import appActions from '@magento/peregrine/lib/store/actions/app';
