@@ -42,7 +42,7 @@ staticFromRoot:
                     filename: request.url.pathname
                 template:
                     resolver: inline
-                    inline: './static/{{ filename }}'
+                    inline: './venia-static/{{ filename }}'
 
 contentTypeFromExtension:
     when:
@@ -139,4 +139,4 @@ veniaStaticIncludes:
     resolver: directory
     directory:
         resolver: inline
-        inline: './static'
+        inline: './venia-static'
