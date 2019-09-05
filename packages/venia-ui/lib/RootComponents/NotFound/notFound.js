@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import classify from '../../classify';
+import React, { useCallback } from 'react';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './notFound.css';
+import { withRouter } from '@magento/venia-drivers';
+import { compose } from 'redux';
 
-class NotFound extends Component {
-    // TODO: Should not be a default here, we just don't have
-    // the wiring in place to map route info down the tree (yet)
-    static defaultProps = {
-        id: 3
-    };
+const NotFound = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { history } = props;
 
-    goBack() {
+    const handleGoBack = useCallback(() => {
         history.back();
-    }
+    }, [history]);
 
-    render() {
-        const { classes } = this.props;
+    return (
+        <div className={classes.root}>
+            <h1> Offline! </h1>
+            <button onClick={handleGoBack}> Go Back </button>
+        </div>
+    );
+};
 
-        return (
-            <div className={classes.root}>
-                <h1> Offline! </h1>
-                <button onClick={this.goBack}> Go Back </button>
-            </div>
-        );
-    }
-}
+// TODO: Should not be a default here, we just don't have
+// the wiring in place to map route info down the tree (yet)
+NotFound.defaultProps = {
+    id: 3
+};
 
-export default classify(defaultClasses)(NotFound);
+export default compose(withRouter)(Category);

@@ -1,72 +1,76 @@
-import React, { Component } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import defaultClasses from './suggestedProduct.css';
 
-const productUrlSuffix = '.html';
+const PRODUCT_URL_SUFFIX = '.html';
 
-class SuggestedProduct extends Component {
-    static propTypes = {
-        url_key: string.isRequired,
-        small_image: string.isRequired,
-        name: string.isRequired,
-        onNavigate: func,
-        price: shape({
-            regularPrice: shape({
-                amount: shape({
-                    currency: string,
-                    value: number
-                })
-            })
-        }).isRequired,
-        classes: shape({
-            root: string,
-            image: string,
-            name: string,
-            price: string,
-            thumbnail: string
-        })
-    };
+const SuggestedProduct = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { url_key, small_image, name, onNavigate, price } = props;
 
-    handleClick = () => {
-        const { onNavigate } = this.props;
-
+    const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate();
         }
-    };
+    }, [onNavigate]);
 
-    render() {
-        const { handleClick, props } = this;
-        const { classes, url_key, small_image, name, price } = props;
+    const uri = useMemo(() => resourceUrl(`/${url_key}${PRODUCT_URL_SUFFIX}`), [
+        url_key
+    ]);
 
-        const uri = resourceUrl(`/${url_key}${productUrlSuffix}`);
+    const imageSource = useMemo(
+        () =>
+            resourceUrl(small_image, {
+                type: 'image-product',
+                width: 60
+            }),
+        [small_image]
+    );
 
-        return (
-            <Link className={classes.root} to={uri} onClick={handleClick}>
-                <span className={classes.image}>
-                    <img
-                        alt={name}
-                        className={classes.thumbnail}
-                        src={resourceUrl(small_image, {
-                            type: 'image-product',
-                            width: 60
-                        })}
-                    />
-                </span>
-                <span className={classes.name}>{name}</span>
-                <span className={classes.price}>
-                    <Price
-                        currencyCode={price.regularPrice.amount.currency}
-                        value={price.regularPrice.amount.value}
-                    />
-                </span>
-            </Link>
-        );
-    }
-}
+    return (
+        <Link className={classes.root} to={uri} onClick={handleClick}>
+            <span className={classes.image}>
+                <img
+                    alt={name}
+                    className={classes.thumbnail}
+                    src={imageSource}
+                />
+            </span>
+            <span className={classes.name}>{name}</span>
+            <span className={classes.price}>
+                <Price
+                    currencyCode={price.regularPrice.amount.currency}
+                    value={price.regularPrice.amount.value}
+                />
+            </span>
+        </Link>
+    );
+};
 
-export default classify(defaultClasses)(SuggestedProduct);
+SuggestedProduct.propTypes = {
+    url_key: string.isRequired,
+    small_image: string.isRequired,
+    name: string.isRequired,
+    onNavigate: func,
+    price: shape({
+        regularPrice: shape({
+            amount: shape({
+                currency: string,
+                value: number
+            })
+        })
+    }).isRequired,
+    classes: shape({
+        root: string,
+        image: string,
+        name: string,
+        price: string,
+        thumbnail: string
+    })
+};
+
+export default SuggestedProduct;
