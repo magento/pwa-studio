@@ -1,9 +1,10 @@
-const { configureWebpack } = require('@magento/pwa-buildpack');
+const {
+    configureWebpack,
+    AsyncWebpackPlugin,
+    fetcherUtils: { getMediaURL }
+} = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-
-const AsyncWebpackPlugin = require('./src/AsyncWebpackPlugin');
-const { getMediaURL } = require('./src/webpackUtils');
 
 module.exports = async env => {
     const config = await configureWebpack({
