@@ -165,9 +165,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                         {
                             loader: 'file-loader',
                             options: {
-                                name: '[name]-[hash:base58:3].[ext]',
-                                outputPath: 'static',
-                                publicPath: '/static'
+                                name: '[name]-[hash:base58:3].[ext]'
                             }
                         }
                     ]
