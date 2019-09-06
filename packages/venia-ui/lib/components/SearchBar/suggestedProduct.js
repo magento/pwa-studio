@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
-import classify from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
+import { generateSrcset } from '../../shared/images';
+import classify from '../../classify';
 import defaultClasses from './suggestedProduct.css';
 
 const productUrlSuffix = '.html';
+
+const width = 60;
 
 class SuggestedProduct extends Component {
     static propTypes = {
@@ -44,6 +47,7 @@ class SuggestedProduct extends Component {
         const { classes, url_key, small_image, name, price } = props;
 
         const uri = resourceUrl(`/${url_key}${productUrlSuffix}`);
+        const imageSrcset = generateSrcset(small_image, 'image-product');
 
         return (
             <Link className={classes.root} to={uri} onClick={handleClick}>
@@ -53,8 +57,10 @@ class SuggestedProduct extends Component {
                         className={classes.thumbnail}
                         src={resourceUrl(small_image, {
                             type: 'image-product',
-                            width: 60
+                            width
                         })}
+                        srcSet={imageSrcset}
+                        sizes={`${width}px`}
                     />
                 </span>
                 <span className={classes.name}>{name}</span>

@@ -49,6 +49,7 @@ Object {
         },
       ],
     },
+    "initialSelection": null,
     "items": Array [
       Object {
         "id": "001",
@@ -245,8 +246,8 @@ Object {
           ],
         },
         "setFocus": [Function],
-        "uniqueID": "001",
-        "updateSelection": [Function],
+        "uniqueId": "001",
+        "updateSelectedKeys": [Function],
       },
       "rendered": Object {
         "instance": null,
@@ -438,8 +439,8 @@ Object {
           ],
         },
         "setFocus": [Function],
-        "uniqueID": "002",
-        "updateSelection": [Function],
+        "uniqueId": "002",
+        "updateSelectedKeys": [Function],
       },
       "rendered": Object {
         "instance": null,

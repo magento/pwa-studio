@@ -53,6 +53,17 @@
 
 /* derived classes */
 
+.root_lowPriority {
+    composes: root;
+    border-width: 0;
+    color: rgb(var(--venia-error));
+    text-decoration: underline;
+}
+
+.root_lowPriority:focus {
+    box-shadow: none;
+}
+
 .root_normalPriority {
     composes: root;
 }

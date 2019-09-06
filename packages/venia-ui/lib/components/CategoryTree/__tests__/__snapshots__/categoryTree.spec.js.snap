@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with data 1`] = `
+<div
+  className="root"
+>
+  <ul
+    className="tree"
+  >
+    <i />
+    <i />
+  </ul>
+</div>
+`;
+
+exports[`renders correctly without data 1`] = `
+<div
+  className="root"
+>
+  <ul
+    className="tree"
+  />
+</div>
+`;
