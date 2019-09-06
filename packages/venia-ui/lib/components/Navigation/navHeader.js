@@ -26,11 +26,15 @@ const NavHeader = props => {
     const title = titles[view] || titles.MENU;
     const backIcon = isTopLevel && view === 'MENU' ? MenuIcon : ArrowLeftIcon;
 
+    const backButton = !(isTopLevel && view === 'MENU') ? (
+        <Trigger key="backButton" action={onBack}>
+            <Icon src={backIcon} />
+        </Trigger>
+    ) : null;
+
     return (
         <Fragment>
-            <Trigger key="backButton" action={onBack}>
-                <Icon src={backIcon} />
-            </Trigger>
+            {backButton}
             <h2 key="title" className={classes.title}>
                 <span>{title}</span>
             </h2>
