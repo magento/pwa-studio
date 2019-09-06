@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import CartContextProvider, { CartContext } from '../cart';
+import CartContextProvider, { useCartContext } from '../cart';
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(Component => ({
             Component: jest.fn(Component),
@@ -15,7 +15,7 @@ jest.mock('@magento/venia-drivers', () => ({
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
-    const contextValue = useContext(CartContext);
+    const contextValue = useCartContext();
 
     useEffect(() => {
         log(contextValue);
@@ -28,15 +28,7 @@ test('returns a connected component', () => {
     const { mapDispatchToProps, mapStateToProps } = CartContextProvider;
 
     expect(mapStateToProps).toBeInstanceOf(Function);
-    expect(mapDispatchToProps).toEqual({
-        addItemToCart: expect.any(Function),
-        beginEditItem: expect.any(Function),
-        createCart: expect.any(Function),
-        endEditItem: expect.any(Function),
-        getCartDetails: expect.any(Function),
-        removeItemFromCart: expect.any(Function),
-        updateItemInCart: expect.any(Function)
-    });
+    expect(mapDispatchToProps).toBeInstanceOf(Function);
 });
 
 test('mapStateToProps maps state to props', () => {
@@ -45,7 +37,21 @@ test('mapStateToProps maps state to props', () => {
     const exclude = { foo: 'b' };
     const state = { ...include, ...exclude };
 
-    expect(mapStateToProps(state)).toEqual(include);
+    expect(mapStateToProps(state)).toEqual({
+        cartState: include.cart
+    });
+});
+
+test('mapDispatchToProps maps dispatch to props', () => {
+    const { mapDispatchToProps } = CartContextProvider;
+    const mockDispatch = jest.fn();
+
+    mapDispatchToProps(mockDispatch);
+
+    expect(mapDispatchToProps(mockDispatch)).toEqual({
+        actions: expect.any(Object),
+        asyncActions: expect.any(Object)
+    });
 });
 
 test('renders children', () => {
@@ -63,14 +69,9 @@ test('renders children', () => {
 test('provides state and actions via context', () => {
     const { Component } = CartContextProvider;
     const props = {
-        cart: 'cart',
-        addItemToCart: jest.fn(),
-        beginEditItem: jest.fn(),
-        createCart: jest.fn(),
-        endEditItem: jest.fn(),
-        getCartDetails: jest.fn(),
-        removeItemFromCart: jest.fn(),
-        updateItemInCart: jest.fn()
+        actions: { one: 'one' },
+        cartState: 'cartState',
+        asyncActions: { one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -81,15 +82,11 @@ test('provides state and actions via context', () => {
 
     expect(log).toHaveBeenCalledTimes(1);
     expect(log).toHaveBeenNthCalledWith(1, [
-        props.cart,
+        props.cartState,
         expect.objectContaining({
-            addItemToCart: props.addItemToCart,
-            beginEditItem: props.beginEditItem,
-            createCart: props.createCart,
-            endEditItem: props.endEditItem,
-            getCartDetails: props.getCartDetails,
-            removeItemFromCart: props.removeItemFromCart,
-            updateItemInCart: props.updateItemInCart
+            actions: props.actions,
+            one: 'one',
+            two: 'two'
         })
     ]);
 });

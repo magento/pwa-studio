@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import ErrorContextProvider, { ErrorContext } from '../unhandledErrors';
+import ErrorContextProvider, { useErrorContext } from '../unhandledErrors';
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(Component => ({
             Component: jest.fn(Component),
@@ -15,7 +15,7 @@ jest.mock('@magento/venia-drivers', () => ({
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
-    const contextValue = useContext(ErrorContext);
+    const contextValue = useErrorContext();
 
     useEffect(() => {
         log(contextValue);
@@ -39,7 +39,9 @@ test('mapStateToProps maps state to props', () => {
     const exclude = { foo: 'b' };
     const state = { ...include, ...exclude };
 
-    expect(mapStateToProps(state)).toEqual(include);
+    expect(mapStateToProps(state)).toEqual({
+        unhandledErrors: include.unhandledErrors
+    });
 });
 
 test('renders children', () => {
@@ -57,8 +59,8 @@ test('renders children', () => {
 test('provides state and actions via context', () => {
     const { Component } = ErrorContextProvider;
     const props = {
-        unhandledErrors: 'unhandledErrors',
-        markErrorHandled: jest.fn()
+        markErrorHandled: 'markErrorHandled',
+        unhandledErrors: 'unhandledErrors'
     };
 
     createTestInstance(

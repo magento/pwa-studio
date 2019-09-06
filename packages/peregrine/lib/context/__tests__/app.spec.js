@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import AppContextProvider, { AppContext } from '../app';
+import AppContextProvider, { useAppContext } from '../app';
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(Component => ({
             Component: jest.fn(Component),
@@ -15,7 +15,7 @@ jest.mock('@magento/venia-drivers', () => ({
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
-    const contextValue = useContext(AppContext);
+    const contextValue = useAppContext();
 
     useEffect(() => {
         log(contextValue);
@@ -28,9 +28,7 @@ test('returns a connected component', () => {
     const { mapDispatchToProps, mapStateToProps } = AppContextProvider;
 
     expect(mapStateToProps).toBeInstanceOf(Function);
-    expect(mapDispatchToProps).toEqual({
-        closeDrawer: expect.any(Function)
-    });
+    expect(mapDispatchToProps).toBeInstanceOf(Function);
 });
 
 test('mapStateToProps maps state to props', () => {
@@ -39,7 +37,21 @@ test('mapStateToProps maps state to props', () => {
     const exclude = { foo: 'b' };
     const state = { ...include, ...exclude };
 
-    expect(mapStateToProps(state)).toEqual(include);
+    expect(mapStateToProps(state)).toEqual({
+        appState: include.app
+    });
+});
+
+test('mapDispatchToProps maps dispatch to props', () => {
+    const { mapDispatchToProps } = AppContextProvider;
+    const mockDispatch = jest.fn();
+
+    mapDispatchToProps(mockDispatch);
+
+    expect(mapDispatchToProps(mockDispatch)).toEqual({
+        actions: expect.any(Object),
+        asyncActions: expect.any(Object)
+    });
 });
 
 test('renders children', () => {
@@ -57,8 +69,9 @@ test('renders children', () => {
 test('provides state and actions via context', () => {
     const { Component } = AppContextProvider;
     const props = {
-        app: 'app',
-        closeDrawer: jest.fn()
+        actions: { one: 'one' },
+        appState: 'appState',
+        asyncActions: { one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -69,9 +82,11 @@ test('provides state and actions via context', () => {
 
     expect(log).toHaveBeenCalledTimes(1);
     expect(log).toHaveBeenNthCalledWith(1, [
-        props.app,
+        props.appState,
         expect.objectContaining({
-            closeDrawer: props.closeDrawer
+            actions: props.actions,
+            one: 'one',
+            two: 'two'
         })
     ]);
 });

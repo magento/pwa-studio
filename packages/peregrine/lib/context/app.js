@@ -2,8 +2,8 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import actions from '@magento/peregrine/lib/store/actions/app/actions';
-import * as asyncActions from '@magento/peregrine/lib/store/actions/app/asyncActions';
+import actions from '../store/actions/app/actions';
+import * as asyncActions from '../store/actions/app/asyncActions';
 
 const AppContext = createContext();
 

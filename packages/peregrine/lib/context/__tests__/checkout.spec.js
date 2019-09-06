@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import CheckoutContextProvider, { CheckoutContext } from '../checkout';
+import CheckoutContextProvider, { useCheckoutContext } from '../checkout';
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(Component => ({
             Component: jest.fn(Component),
@@ -15,7 +15,7 @@ jest.mock('@magento/venia-drivers', () => ({
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
-    const contextValue = useContext(CheckoutContext);
+    const contextValue = useCheckoutContext();
 
     useEffect(() => {
         log(contextValue);
@@ -24,37 +24,11 @@ const Consumer = jest.fn(() => {
     return <i />;
 });
 
-const fromEntries = array => {
-    const object = {};
-
-    for (const [key, value] of array) {
-        object[key] = value;
-    }
-
-    return object;
-};
-
-const actionCreators = [
-    'beginCheckout',
-    'cancelCheckout',
-    'getShippingMethods',
-    'resetCheckout',
-    'submitBillingAddress',
-    'submitOrder',
-    'submitPaymentMethod',
-    'submitPaymentMethodAndBillingAddress',
-    'submitShippingAddress',
-    'submitShippingMethod'
-];
-
 test('returns a connected component', () => {
     const { mapDispatchToProps, mapStateToProps } = CheckoutContextProvider;
-    const expectedApi = fromEntries(
-        actionCreators.map(key => [key, expect.any(Function)])
-    );
 
     expect(mapStateToProps).toBeInstanceOf(Function);
-    expect(mapDispatchToProps).toEqual(expectedApi);
+    expect(mapDispatchToProps).toBeInstanceOf(Function);
 });
 
 test('mapStateToProps maps state to props', () => {
@@ -63,7 +37,21 @@ test('mapStateToProps maps state to props', () => {
     const exclude = { foo: 'b' };
     const state = { ...include, ...exclude };
 
-    expect(mapStateToProps(state)).toEqual(include);
+    expect(mapStateToProps(state)).toEqual({
+        checkoutState: include.checkout
+    });
+});
+
+test('mapDispatchToProps maps dispatch to props', () => {
+    const { mapDispatchToProps } = CheckoutContextProvider;
+    const mockDispatch = jest.fn();
+
+    mapDispatchToProps(mockDispatch);
+
+    expect(mapDispatchToProps(mockDispatch)).toEqual({
+        actions: expect.any(Object),
+        asyncActions: expect.any(Object)
+    });
 });
 
 test('renders children', () => {
@@ -80,12 +68,10 @@ test('renders children', () => {
 
 test('provides state and actions via context', () => {
     const { Component } = CheckoutContextProvider;
-    const expectedApi = fromEntries(
-        actionCreators.map(key => [key, jest.fn()])
-    );
     const props = {
-        checkout: 'checkout',
-        ...expectedApi
+        actions: { one: 'one' },
+        checkoutState: 'checkoutState',
+        asyncActions: { one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -96,7 +82,11 @@ test('provides state and actions via context', () => {
 
     expect(log).toHaveBeenCalledTimes(1);
     expect(log).toHaveBeenNthCalledWith(1, [
-        props.checkout,
-        expect.objectContaining(expectedApi)
+        props.checkoutState,
+        expect.objectContaining({
+            actions: props.actions,
+            one: 'one',
+            two: 'two'
+        })
     ]);
 });

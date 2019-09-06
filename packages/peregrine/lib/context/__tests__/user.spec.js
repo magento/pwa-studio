@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import UserContextProvider, { UserContext } from '../user';
+import UserContextProvider, { useUserContext } from '../user';
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
         jest.fn(Component => ({
             Component: jest.fn(Component),
@@ -15,7 +15,7 @@ jest.mock('@magento/venia-drivers', () => ({
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
-    const contextValue = useContext(UserContext);
+    const contextValue = useUserContext();
 
     useEffect(() => {
         log(contextValue);
@@ -28,12 +28,7 @@ test('returns a connected component', () => {
     const { mapDispatchToProps, mapStateToProps } = UserContextProvider;
 
     expect(mapStateToProps).toBeInstanceOf(Function);
-    expect(mapDispatchToProps).toEqual({
-        createAccount: expect.any(Function),
-        getUserDetails: expect.any(Function),
-        signIn: expect.any(Function),
-        signOut: expect.any(Function)
-    });
+    expect(mapDispatchToProps).toBeInstanceOf(Function);
 });
 
 test('mapStateToProps maps state to props', () => {
@@ -42,7 +37,21 @@ test('mapStateToProps maps state to props', () => {
     const exclude = { foo: 'b' };
     const state = { ...include, ...exclude };
 
-    expect(mapStateToProps(state)).toEqual(include);
+    expect(mapStateToProps(state)).toEqual({
+        userState: include.user
+    });
+});
+
+test('mapDispatchToProps maps dispatch to props', () => {
+    const { mapDispatchToProps } = UserContextProvider;
+    const mockDispatch = jest.fn();
+
+    mapDispatchToProps(mockDispatch);
+
+    expect(mapDispatchToProps(mockDispatch)).toEqual({
+        actions: expect.any(Object),
+        asyncActions: expect.any(Object)
+    });
 });
 
 test('renders children', () => {
@@ -60,11 +69,9 @@ test('renders children', () => {
 test('provides state and actions via context', () => {
     const { Component } = UserContextProvider;
     const props = {
-        user: 'user',
-        createAccount: jest.fn(),
-        getUserDetails: jest.fn(),
-        signIn: jest.fn(),
-        signOut: jest.fn()
+        actions: { one: 'one' },
+        userState: 'userState',
+        asyncActions: { one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -75,12 +82,11 @@ test('provides state and actions via context', () => {
 
     expect(log).toHaveBeenCalledTimes(1);
     expect(log).toHaveBeenNthCalledWith(1, [
-        props.user,
+        props.userState,
         expect.objectContaining({
-            createAccount: props.createAccount,
-            getUserDetails: props.getUserDetails,
-            signIn: props.signIn,
-            signOut: props.signOut
+            actions: props.actions,
+            one: 'one',
+            two: 'two'
         })
     ]);
 });
