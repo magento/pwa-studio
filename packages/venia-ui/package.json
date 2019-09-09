@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -69,8 +69,8 @@
     "redux": "~4.0.1"
   },
   "peerDependencies": {
-    "@magento/babel-preset-peregrine": "1.0.0-alpha.1",
-    "@magento/peregrine": "4.0.0-alpha.1",
+    "@magento/babel-preset-peregrine": "1.0.0-alpha.2",
+    "@magento/peregrine": "4.0.0-alpha.2",
     "apollo-cache-inmemory": "~1.4.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.4.13",
