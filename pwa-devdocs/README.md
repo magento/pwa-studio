@@ -25,7 +25,7 @@ Use the following instructions to build a local instance of the documentation.
     ```
 3.  Change into the **pwa-devdocs** directory using the following command:
     ```
-    cd packages/pwa-devdocs
+    cd pwa-devdocs
     ```
 4.  Run the following command to install the required node modules for the project:
     ```
