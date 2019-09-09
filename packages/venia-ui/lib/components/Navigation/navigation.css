@@ -91,3 +91,9 @@
     composes: modal enter visible;
     transform: translate3d(0, 0, 0);
 }
+
+.isRoot {
+    composes: header;
+    grid-template-columns: 1fr 3.5rem;
+    padding-left: 1rem;
+}
