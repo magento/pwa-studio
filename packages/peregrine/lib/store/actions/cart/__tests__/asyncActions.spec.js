@@ -1,6 +1,5 @@
 import { RestApi } from '@magento/peregrine';
 
-import { dispatch, getState } from '../../../store';
 import checkoutActions from '../../checkout';
 import {
     mockGetItem,
@@ -19,31 +18,14 @@ import {
     writeImageToCache
 } from '../asyncActions';
 
-jest.mock('../../../store');
-
+const dispatch = jest.fn();
+const getState = jest.fn(() => ({
+    app: { drawer: null },
+    cart: { cartId: 'CART_ID' },
+    user: { isSignedIn: false }
+}));
 const thunkArgs = [dispatch, getState];
 const { request } = RestApi.Magento2;
-
-beforeAll(() => {
-    getState.mockImplementation(() => ({
-        app: { drawer: null },
-        cart: { cartId: 'CART_ID' },
-        user: { isSignedIn: false }
-    }));
-});
-
-afterEach(() => {
-    dispatch.mockClear();
-    request.mockClear();
-    getState.mockClear();
-    mockGetItem.mockClear();
-    mockSetItem.mockClear();
-    mockRemoveItem.mockClear();
-});
-
-afterAll(() => {
-    getState.mockRestore();
-});
 
 describe('createCart', () => {
     test('it returns a thunk', () => {
