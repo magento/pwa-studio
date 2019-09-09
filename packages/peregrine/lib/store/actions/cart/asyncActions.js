@@ -1,11 +1,10 @@
-import { RestApi, Util } from '../../../index';
-
+import { Magento2 } from '../../../RestApi';
+import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer, toggleDrawer } from '../app';
 import checkoutActions from '../checkout';
 import actions from './actions';
 
-const { request } = RestApi.Magento2;
-const { BrowserPersistence } = Util;
+const { request } = Magento2;
 const storage = new BrowserPersistence();
 
 export const createCart = () =>

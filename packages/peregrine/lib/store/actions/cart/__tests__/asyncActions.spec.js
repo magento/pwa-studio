@@ -1,11 +1,10 @@
-import { RestApi } from '@magento/peregrine';
-
-import checkoutActions from '../../checkout';
+import { Magento2 } from '../../../../RestApi';
 import {
     mockGetItem,
-    mockSetItem,
-    mockRemoveItem
-} from '@magento/util/simplePersistence';
+    mockRemoveItem,
+    mockSetItem
+} from '../../../../util/simplePersistence';
+import checkoutActions from '../../checkout';
 import actions from '../actions';
 import {
     addItemToCart,
@@ -18,6 +17,10 @@ import {
     writeImageToCache
 } from '../asyncActions';
 
+jest.mock('../../../../RestApi');
+jest.mock('../../../../util/simplePersistence');
+
+const { request } = Magento2;
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({
     app: { drawer: null },
@@ -25,7 +28,6 @@ const getState = jest.fn(() => ({
     user: { isSignedIn: false }
 }));
 const thunkArgs = [dispatch, getState];
-const { request } = RestApi.Magento2;
 
 describe('createCart', () => {
     test('it returns a thunk', () => {
