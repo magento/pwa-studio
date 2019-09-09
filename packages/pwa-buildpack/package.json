@@ -53,9 +53,9 @@
     "portscanner": "~2.2.0",
     "redis": "~2.8.0",
     "tar": "~4.4.8",
-    "virtual-module-webpack-plugin": "~0.4.1",
     "walk-object": "~4.0.0",
     "webpack-assets-manifest": "~3.1.1",
+    "webpack-inject-plugin": "~1.5.3",
     "word-wrap": "~1.2.3",
     "write-file-webpack-plugin": "~4.5.0",
     "yargs": "~13.2.2"
