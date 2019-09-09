@@ -88,6 +88,22 @@ Provide as much detail as you can in each section to help us triage and process 
 -   Feature suggestion - A missing feature you would like to see implemented in the project
 -   Other - Any other type of task related to the project
 
+### Definition of Done
+
+- Addresses open issue
+  - Meets listed acceptance criteria
+  - Key stakeholder approves (original issue author, product / business / QA / UX)
+- Documentation:
+  - Public API
+  - New concepts (def?)
+  - Code functionality for maintainers
+- Test coverage:
+  - Unit tests & some integrations in Jest
+  - Current MFTF test cases pass (not additional ones)
+- Coding standards:
+  - Code does not violate best practices as defined (where?)
+  - Reviewed by X people representing Y stakeholders
+  
 **Note:**
 _Please avoid creating GitHub issues asking for help on bugs in your project that are outside the scope of this project._
 
