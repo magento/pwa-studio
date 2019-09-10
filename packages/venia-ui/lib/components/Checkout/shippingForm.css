@@ -14,11 +14,6 @@
 }
 
 /* fields */
-
-.button {
-    text-transform: capitalize;
-}
-
 .shippingMethod {
     grid-column-end: span 1;
 }

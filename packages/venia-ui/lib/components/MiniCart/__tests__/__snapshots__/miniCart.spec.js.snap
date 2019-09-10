@@ -64,7 +64,7 @@ exports[`renders the correct tree 1`] = `
     updateItemInCart={[Function]}
   />
   <button
-    onClick={[MockFunction]}
+    onClick={[Function]}
   />
   <Footer
     cart={

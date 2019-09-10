@@ -12,7 +12,6 @@ import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from '../../shared/images';
 import Icon from '../Icon';
 import Image from '../Image';
-import Button from '../Button';
 
 const DEFAULT_IMAGE_WIDTH = 640;
 const DEFAULT_IMAGE_HEIGHT = 800;
@@ -60,14 +59,12 @@ const Carousel = props => {
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
-                <Button
-                    classes={{
-                        root_normalPriority: classes.previousButton
-                    }}
+                <button
+                    className={classes.previousButton}
                     onClick={handlePrevious}
                 >
                     <Icon src={ChevronLeftIcon} size={40} />
-                </Button>
+                </button>
                 <Image
                     classes={{ root: classes.currentImage }}
                     src={src}
@@ -76,14 +73,9 @@ const Carousel = props => {
                     fileSrc={currentImage.file}
                     sizes={`${DEFAULT_IMAGE_WIDTH}px`}
                 />
-                <Button
-                    classes={{
-                        root_normalPriority: classes.nextButton
-                    }}
-                    onClick={handleNext}
-                >
+                <button className={classes.nextButton} onClick={handleNext}>
                     <Icon src={ChevronRightIcon} size={40} />
-                </Button>
+                </button>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
