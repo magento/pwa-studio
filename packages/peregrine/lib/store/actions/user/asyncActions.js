@@ -1,11 +1,11 @@
-import { RestApi, Util } from '../../../index';
+import { Magento2 } from '../../../RestApi';
+import BrowserPersistence from '../../../util/simplePersistence';
 import { refresh } from '../../../util/router-helpers';
 import { getCartDetails, removeCart } from '../cart';
 
 import actions from './actions';
 
-const { request } = RestApi.Magento2;
-const { BrowserPersistence } = Util;
+const { request } = Magento2;
 const storage = new BrowserPersistence();
 
 export const signIn = credentials =>

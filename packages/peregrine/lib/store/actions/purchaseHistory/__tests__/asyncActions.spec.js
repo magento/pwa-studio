@@ -1,15 +1,10 @@
-import { dispatch } from '../../../store';
 import actions from '../actions';
 import { getPurchaseHistory } from '../asyncActions';
 import mockData from '../mockData';
 
-jest.mock('../../../store');
-
-const thunkArgs = [dispatch];
-
-afterEach(() => {
-    dispatch.mockClear();
-});
+const dispatch = jest.fn();
+const getState = jest.fn();
+const thunkArgs = [dispatch, getState];
 
 describe('getPurchaseHistory', () => {
     test('it returns a thunk', () => {

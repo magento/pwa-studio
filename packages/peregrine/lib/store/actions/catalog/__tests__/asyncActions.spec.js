@@ -1,9 +1,8 @@
-import { dispatch, getState } from '../../../store';
 import actions from '../actions';
 import { setCurrentPage, setPrevPageTotal } from '../asyncActions';
 
-jest.mock('../../../store');
-
+const dispatch = jest.fn();
+const getState = jest.fn();
 const thunkArgs = [dispatch, getState];
 
 describe('setCurrentPage', () => {

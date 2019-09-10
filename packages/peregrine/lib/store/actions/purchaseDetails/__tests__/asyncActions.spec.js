@@ -1,11 +1,10 @@
-import { dispatch, getState } from '../../../store';
 import { fetchOrderDetails } from '../asyncActions';
 
-//TODO: write the rest part of the test when fetching async action will be in working condition(currently it's mock)
-jest.mock('../../../store');
-
+const dispatch = jest.fn();
+const getState = jest.fn();
 const thunkArgs = [dispatch, getState];
 
+// TODO: write the rest part of the test when fetching async action will be in working condition(currently it's mock)
 test('fetchOrderDetails() to return a thunk', () => {
     expect(fetchOrderDetails()).toBeInstanceOf(Function);
 });

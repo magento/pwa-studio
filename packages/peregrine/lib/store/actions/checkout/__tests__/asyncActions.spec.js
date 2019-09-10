@@ -1,12 +1,9 @@
-import { RestApi } from '@magento/peregrine';
-
-import { dispatch, getState } from '../../../store';
+import { Magento2 } from '../../../../RestApi';
 import {
     mockGetItem,
-    mockSetItem,
-    mockRemoveItem
-} from '@magento/util/simplePersistence';
-
+    mockRemoveItem,
+    mockSetItem
+} from '../../../../util/simplePersistence';
 import actions from '../actions';
 import {
     beginCheckout,
@@ -22,10 +19,13 @@ import {
 } from '../asyncActions';
 import checkoutReceiptActions from '../../checkoutReceipt';
 
-jest.mock('../../../store');
+jest.mock('../../../../RestApi');
+jest.mock('../../../../util/simplePersistence');
 
+const { request } = Magento2;
+const dispatch = jest.fn();
+const getState = jest.fn();
 const thunkArgs = [dispatch, getState];
-const { request } = RestApi.Magento2;
 
 const address = {
     country_id: 'US',

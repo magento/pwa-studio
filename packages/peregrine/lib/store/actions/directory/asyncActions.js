@@ -1,8 +1,7 @@
-import { RestApi } from '../../../index';
-
+import { Magento2 } from '../../../RestApi';
 import actions from './actions';
 
-const { request } = RestApi.Magento2;
+const { request } = Magento2;
 
 export const getCountries = () =>
     async function thunk(dispatch, getState) {

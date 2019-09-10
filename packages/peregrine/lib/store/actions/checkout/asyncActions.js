@@ -1,5 +1,5 @@
-import { RestApi, Util } from '../../../index';
-
+import { Magento2 } from '../../../RestApi';
+import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
 import { getCountries } from '../directory';
@@ -7,8 +7,7 @@ import { getAccountInformation } from '../../selectors/checkoutReceipt';
 import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
-const { request } = RestApi.Magento2;
-const { BrowserPersistence } = Util;
+const { request } = Magento2;
 const storage = new BrowserPersistence();
 
 export const beginCheckout = () =>

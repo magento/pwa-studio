@@ -1,18 +1,13 @@
-import { RestApi } from '@magento/peregrine';
-
-import { dispatch, getState } from '../../../store';
+import { Magento2 } from '../../../../RestApi';
 import actions from '../actions';
 import { getCountries } from '../asyncActions';
 
-jest.mock('../../../store');
+jest.mock('../../../../RestApi');
 
+const { request } = Magento2;
+const dispatch = jest.fn();
+const getState = jest.fn();
 const thunkArgs = [dispatch, getState];
-const { request } = RestApi.Magento2;
-
-afterEach(() => {
-    dispatch.mockClear();
-    request.mockClear();
-});
 
 test('getCountries() to return a thunk', () => {
     expect(getCountries()).toBeInstanceOf(Function);

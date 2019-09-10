@@ -1,11 +1,4 @@
-import { RestApi } from '@magento/peregrine';
-
-import { dispatch, getState } from '../../../store';
-import {
-    mockGetItem,
-    mockSetItem,
-    mockRemoveItem
-} from '@magento/util/simplePersistence';
+import { Magento2 } from '../../../../RestApi';
 import actions from '../actions';
 import {
     signIn,
@@ -15,10 +8,15 @@ import {
     resetPassword
 } from '../asyncActions';
 
-jest.mock('../../../store');
+jest.mock('../../../../RestApi');
+jest.mock('../../../../util/simplePersistence');
 
+const { request } = Magento2;
+const dispatch = jest.fn();
+const getState = jest.fn(() => ({
+    user: { isSignedIn: false }
+}));
 const thunkArgs = [dispatch, getState];
-const { request } = RestApi.Magento2;
 
 const credentials = {
     username: 'USERNAME',
@@ -31,25 +29,6 @@ const accountInfo = {
     },
     password: 'PASSWORD'
 };
-
-beforeAll(() => {
-    getState.mockImplementation(() => ({
-        user: { isSignedIn: false }
-    }));
-});
-
-afterEach(() => {
-    dispatch.mockClear();
-    request.mockClear();
-    getState.mockClear();
-    mockGetItem.mockClear();
-    mockSetItem.mockClear();
-    mockRemoveItem.mockClear();
-});
-
-afterAll(() => {
-    getState.mockRestore();
-});
 
 describe('#createAccount', () => {
     test('it returns a thunk', () => {
