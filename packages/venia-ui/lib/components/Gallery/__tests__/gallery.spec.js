@@ -8,9 +8,7 @@ const items = [
     {
         id: 1,
         name: 'Test Product 1',
-        small_image: {
-            url: '/test/product/1.png'
-        },
+        small_image: '/test/product/1.png',
         price: {
             regularPrice: {
                 amount: {
@@ -35,7 +33,12 @@ const items = [
         }
     }
 ];
+//Maybe update? https://github.com/airbnb/enzyme/pull/1914
+jest.mock('react', () => {
+    const r = jest.requireActual('react');
 
+    return { ...r, memo: x => x };
+});
 test('renders if `data` is an empty array', () => {
     const wrapper = shallow(<Gallery classes={classes} data={[]} />).dive();
 
