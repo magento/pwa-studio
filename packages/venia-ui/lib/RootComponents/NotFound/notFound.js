@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './notFound.css';
-import { withRouter } from '@magento/venia-drivers';
-import { compose } from 'redux';
 
 const NotFound = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { history } = props;
+    const { history } = window;
 
     const handleGoBack = useCallback(() => {
         history.back();
@@ -26,4 +24,4 @@ NotFound.defaultProps = {
     id: 3
 };
 
-export default compose(withRouter)(Category);
+export default NotFound;
