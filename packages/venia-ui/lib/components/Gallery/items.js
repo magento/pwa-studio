@@ -1,4 +1,4 @@
-import React, { Component, memo, useMemo } from 'react';
+import React, { Component, memo } from 'react';
 import { arrayOf, number, shape } from 'prop-types';
 import GalleryItem from './item';
 
@@ -45,24 +45,4 @@ class GalleryItems extends Component {
     }
 }
 const PureGalleryItems = memo(GalleryItems);
-// map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-const mapGalleryItem = item => {
-    const { small_image } = item;
-    return {
-        ...item,
-        small_image:
-            typeof small_image === 'object' ? small_image.url : small_image
-    };
-};
-
-const GalleryItemsContainer = props => {
-    const { items } = props;
-    const newItems = useMemo(
-        () => (items === emptyData ? items : items.map(mapGalleryItem)),
-        [items]
-    );
-    const newProps = { ...props, items: newItems };
-    return <PureGalleryItems {...newProps} />;
-};
-
-export { GalleryItemsContainer as default, emptyData };
+export { PureGalleryItems as default, emptyData };
