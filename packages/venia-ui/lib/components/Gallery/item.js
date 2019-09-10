@@ -4,11 +4,7 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
 
 import classify from '../../classify';
-<<<<<<< HEAD
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-=======
 import { transparentPlaceholder, generateSrcset } from '../../shared/images';
->>>>>>> origin/feature/peregrine-implementation
 import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
