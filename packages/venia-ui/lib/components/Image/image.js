@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 
-import { generateSrcset } from '@magento/peregrine/lib/util/images';
+import { generateSrcset } from '../../util/images';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
 

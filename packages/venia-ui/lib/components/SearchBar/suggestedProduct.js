@@ -3,7 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
-import { generateSrcset } from '@magento/peregrine/lib/util/images';
+import { generateSrcset } from '../../util/images';
 import classify from '../../classify';
 import defaultClasses from './suggestedProduct.css';
 
