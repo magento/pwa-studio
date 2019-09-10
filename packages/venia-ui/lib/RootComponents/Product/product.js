@@ -1,8 +1,5 @@
-import React, { Fragment, Component } from 'react';
-import { string } from 'prop-types';
-
-import { Query } from '@magento/venia-drivers';
-
+import React, { Fragment, useCallback, useEffect } from 'react';
+import { useQuery } from '@magento/peregrine';
 import { Title } from '../../components/Head';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -17,53 +14,56 @@ import productQuery from '../../queries/getProductDetail.graphql';
  * https://github.com/magento/graphql-ce/issues/86
  * TODO: Replace with a single product query when possible.
  */
-class Product extends Component {
-    static propTypes = {
-        cartId: string
-    };
+const Product = () => {
+    const [{ data, loading, error }, { runQuery, setLoading }] = useQuery(
+        productQuery
+    );
 
-    componentDidMount() {
+    useEffect(() => {
         window.scrollTo(0, 0);
-    }
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            await runQuery({
+                variables: {
+                    urlKey: getUrlKey(),
+                    onServer: false
+                }
+            });
+            setLoading(false);
+        };
+        fetchData();
+    }, []); // eslint-disable-line
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-    mapProduct(product) {
+    const mapProduct = useCallback(product => {
         const { description } = product;
         return {
             ...product,
             description:
                 typeof description === 'object' ? description.html : description
         };
-    }
+    }, []);
 
-    render() {
+    if (error) {
+        return <div>Data Fetch Error</div>;
+    } else if (loading || !data) {
+        return fullPageLoadingIndicator;
+    } else {
+        const product = data.productDetail.items[0];
+
+        if (!product) {
+            return <ErrorView outOfStock={true} />;
+        }
         return (
-            <Query
-                query={productQuery}
-                variables={{ urlKey: getUrlKey(), onServer: false }}
-            >
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return fullPageLoadingIndicator;
-
-                    const product = data.productDetail.items[0];
-
-                    if (!product) {
-                        return <ErrorView outOfStock={true} />;
-                    }
-
-                    return (
-                        <Fragment>
-                            <Title>{`${product.name} - ${STORE_NAME}`}</Title>
-                            <ProductFullDetail
-                                product={this.mapProduct(product)}
-                            />
-                        </Fragment>
-                    );
-                }}
-            </Query>
+            <Fragment>
+                <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+                <ProductFullDetail product={mapProduct(product)} />
+            </Fragment>
         );
     }
-}
+};
 
 export default Product;

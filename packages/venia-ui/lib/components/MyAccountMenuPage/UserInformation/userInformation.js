@@ -1,44 +1,43 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classify from '../../../classify';
+import React from 'react';
+import { shape, string } from 'prop-types';
+import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import { User as UserIcon } from 'react-feather';
 import defaultClasses from './userInformation.css';
 
-class UserInformation extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            userInformationContainer: PropTypes.string,
-            userInformationSecondary: PropTypes.string,
-            iconContainer: PropTypes.string
-        }),
-        user: PropTypes.shape({
-            email: PropTypes.string,
-            firstname: PropTypes.string,
-            lastname: PropTypes.string,
-            fullname: PropTypes.string
-        })
-    };
+const UserInformation = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { user } = props;
+    const { fullname, email } = user || {};
 
-    render() {
-        const { user, classes } = this.props;
-        const { fullname, email } = user || {};
+    const display = fullname.trim() || 'Loading...';
 
-        const display = fullname.trim() || 'Loading...';
-
-        return (
-            <div className={classes.root}>
-                <div className={classes.iconContainer}>
-                    <Icon src={UserIcon} size={18} />
-                </div>
-                <div className={classes.userInformationContainer}>
-                    <p className={classes.fullName}>{display}</p>
-                    <p className={classes.email}>{email}</p>
-                </div>
+    return (
+        <div className={classes.root}>
+            <div className={classes.iconContainer}>
+                <Icon src={UserIcon} size={18} />
             </div>
-        );
-    }
-}
+            <div className={classes.userInformationContainer}>
+                <p className={classes.fullName}>{display}</p>
+                <p className={classes.email}>{email}</p>
+            </div>
+        </div>
+    );
+};
 
-export default classify(defaultClasses)(UserInformation);
+UserInformation.propTypes = {
+    classes: shape({
+        root: string,
+        userInformationContainer: string,
+        userInformationSecondary: string,
+        iconContainer: string
+    }),
+    user: shape({
+        email: string,
+        firstname: string,
+        lastname: string,
+        fullname: string
+    })
+};
+
+export default UserInformation;
