@@ -39,6 +39,8 @@ const Thumbnail = props => {
                 classes={{ root: classes.image }}
                 placeholder={transparentPlaceholder}
                 src={src}
+                fileSrc={file}
+                sizes={`${DEFAULT_THUMBNAIL_WIDTH}px`}
             />
         ) : null;
     }, [file, isDesktop, label, classes.image]);
