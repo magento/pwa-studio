@@ -23,7 +23,11 @@ const SuggestedProduct = props => {
     const uri = useMemo(() => resourceUrl(`/${url_key}${PRODUCT_URL_SUFFIX}`), [
         url_key
     ]);
-    const imageSrcset = useMemo(() => generateSrcset(small_image, 'image-product'), [small_image]);
+
+    const imageSrcset = useMemo(
+        () => generateSrcset(small_image, 'image-product'),
+        [small_image]
+    );
 
     const imageSource = useMemo(
         () =>
