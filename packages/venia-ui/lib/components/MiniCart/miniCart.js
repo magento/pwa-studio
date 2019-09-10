@@ -69,6 +69,11 @@ const MiniCart = props => {
         [updateItemInCart]
     );
 
+    const handleDismiss = useCallback(() => {
+        setStep('cart');
+        cancelCheckout();
+    }, [cancelCheckout]);
+
     const footer = showFooter ? (
         <Footer
             cart={cart}
@@ -97,7 +102,7 @@ const MiniCart = props => {
                 removeItemFromCart={removeItemFromCart}
                 updateItemInCart={handleUpdateItemInCart}
             />
-            <Mask isActive={isMiniCartMaskOpen} dismiss={cancelCheckout} />
+            <Mask isActive={isMiniCartMaskOpen} dismiss={handleDismiss} />
             {footer}
         </aside>
     );
