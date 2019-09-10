@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
+
 import classify from '../../classify';
+<<<<<<< HEAD
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+=======
+import { transparentPlaceholder, generateSrcset } from '../../shared/images';
+>>>>>>> origin/feature/peregrine-implementation
 import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
@@ -125,6 +130,8 @@ class GalleryItem extends Component {
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
+                sizes={`${imageWidth}px`}
+                srcSet={generateSrcset(small_image, 'image-product')}
             />
         );
     };
