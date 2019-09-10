@@ -5,23 +5,23 @@ title: Custom project templates
 
 <!-- ATTN JC: This is a draft document; the API being described is not public yet. -->
 
-PWA Studio [scaffolding tools][] allow you to specify a template to build a new storefront project from.
-The default template the tools use is the `venia-concept` project.
+PWA Studio [scaffolding tools][] allow you to specify a template to build a new storefront project.
+The default template they use is the `venia-concept` project.
 
 ## Buildpack folder
 
 The `venia-concept` has a `_buildpack` directory in the project root and a script called `create.js` inside that directory.
-The presence of this file in this folder indicates that this project can be used as a template for the [`buildpack create-project`][] command.
+The presence of `create.js` within the `_buildpack` directory indicates that this project can be used as a template for the [`buildpack create-project`][] command.
 
 ### The `create.js` file
 
 The `create.js` file defines a function that returns an object with `ignores`, `before`, `visitor`, and `after` properties.
-These properties are functions that provide instructions for the create project command.
+These properties are functions that provide instructions for the buildpack `create-project` command.
 
 The function defined in `create.js` is passed in an object with the following properties:
 
 * `fs` - An instance of the [`fs-extra` library][], which provides utilities for most of the common copy operations.
-* `tasks` - An object which provides common handlers that template developer frequently use for globs.
+* `tasks` - An object which provides common handlers that template developers can use for globs.
 * `options` - An object that contains the parameters used in the `buildpack create-project` command.
 
 When the create project command executes, it walks the template project's directory tree and applies the instructions provided by the returned object's properties.

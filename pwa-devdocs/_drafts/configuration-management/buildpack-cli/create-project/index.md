@@ -11,7 +11,7 @@ The tool collects the parameter values through its interactive prompt and passes
 
 This tool is also available for developers or third-party automation tools to use directly.
 
-Usage example with `npx`:
+**Example:** Using the command with `npx`:
 
 ```sh
 npx @magento/pwa-buildpack create-project ./new-pwa \

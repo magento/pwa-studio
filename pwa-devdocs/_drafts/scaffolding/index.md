@@ -4,7 +4,7 @@ title: Scaffolding
 
 <!-- TODO: Publish this topic under in the pwa-buildpack section when the feature is available to the public -->
 
-Project scaffolding is a method or technique for auto-generating files to support a specific project structure.
+Project scaffolding is a technique for auto-generating files to support a specific project structure.
 PWA Studio provides scaffolding tools to simplify project creation and help developers get started.
 
 Developers should use the PWA Studio libraries Magento publishes to the NPM package repository.
