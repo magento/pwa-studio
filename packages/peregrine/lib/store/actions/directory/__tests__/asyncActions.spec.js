@@ -6,7 +6,7 @@ jest.mock('../../../../RestApi');
 
 const { request } = Magento2;
 const dispatch = jest.fn();
-const getState = jest.fn();
+const getState = jest.fn(() => ({}));
 const thunkArgs = [dispatch, getState];
 
 test('getCountries() to return a thunk', () => {
