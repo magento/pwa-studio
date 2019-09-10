@@ -35,7 +35,7 @@ test('renders validation block with message if address is incorrect', () => {
 test('cancel instance function calls props cancel function', () => {
     const { root } = createTestInstance(<AddressForm {...defaultProps} />);
 
-    const button = root.findAllByProps({ className: 'button' })[0];
+    const button = root.findAllByProps({ className: 'root_normalPriority' })[0];
     button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
 });
