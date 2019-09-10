@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
-import { AppContext } from '../../context/app';
-import { CatalogContext } from '../../context/catalog';
-import { UserContext } from '../../context/user';
 import AuthBar from '../AuthBar';
 import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';
@@ -21,11 +21,9 @@ const ancestors = {
 
 const Navigation = props => {
     // retrieve app state from context
-    const [appState, { closeDrawer }] = useContext(AppContext);
-    const [catalogState, { actions: catalogActions }] = useContext(
-        CatalogContext
-    );
-    const [, { getUserDetails }] = useContext(UserContext);
+    const [appState, { closeDrawer }] = useAppContext();
+    const [catalogState, { actions: catalogActions }] = useCatalogContext();
+    const [, { getUserDetails }] = useUserContext();
 
     // request data from server
     useEffect(() => {

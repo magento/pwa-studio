@@ -3,7 +3,7 @@ import { connect } from '@magento/venia-drivers';
 import { func, node, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import { toggleDrawer } from '../../actions/app';
+import { toggleDrawer } from '@magento/peregrine/lib/store/actions/app';
 import defaultClasses from './navTrigger.css';
 
 const Trigger = props => {

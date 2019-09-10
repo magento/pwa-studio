@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Icon from '../../../Icon';
+import { createTestInstance } from '@magento/peregrine';
 import UserInformation from '../userInformation';
 
 const classes = {
@@ -17,11 +16,9 @@ const user = {
 };
 
 test('renders correctly', () => {
-    const wrapper = shallow(
+    const wrapper = createTestInstance(
         <UserInformation user={user} classes={classes} />
-    ).dive();
+    );
 
-    expect(wrapper.find(Icon)).toHaveLength(1);
-    expect(wrapper.find(`.${classes.fullName}`).text()).toBe(user.fullname);
-    expect(wrapper.find(`.${classes.email}`).text()).toBe(user.email);
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

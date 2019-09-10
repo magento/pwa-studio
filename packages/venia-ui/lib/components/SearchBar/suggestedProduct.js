@@ -4,7 +4,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
-import { generateSrcset } from '../../shared/images';
+import { generateSrcset } from '../../util/images';
 import defaultClasses from './suggestedProduct.css';
 
 const PRODUCT_URL_SUFFIX = '.html';

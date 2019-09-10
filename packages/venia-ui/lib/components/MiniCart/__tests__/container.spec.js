@@ -11,7 +11,8 @@ jest.mock('@magento/venia-drivers', () => ({
         }))
     )
 }));
-jest.mock('../../../selectors/cart', () => ({
+
+jest.mock('@magento/peregrine/lib/store/selectors/cart', () => ({
     isCartEmpty: jest.fn(() => true)
 }));
 

@@ -1,4 +1,4 @@
-import { resetPassword } from '../../actions/user';
+import { resetPassword } from '@magento/peregrine/lib/store/actions/user';
 import { connect } from '../../drivers';
 import ForgotPassword from './forgotPassword';
 

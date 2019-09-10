@@ -1,5 +1,5 @@
 import { connect } from '@magento/venia-drivers';
-import { addItemToCart } from '../../actions/cart';
+import { addItemToCart } from '@magento/peregrine/lib/store/actions/cart';
 import ProductFullDetail from './productFullDetail';
 
 const mapDispatchToProps = {

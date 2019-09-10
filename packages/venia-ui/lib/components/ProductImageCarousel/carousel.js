@@ -9,7 +9,7 @@ import {
 import { mergeClasses } from '../../classify';
 import Thumbnail from './thumbnail';
 import defaultClasses from './carousel.css';
-import { transparentPlaceholder } from '../../shared/images';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import Icon from '../Icon';
 import Image from '../Image';
 
