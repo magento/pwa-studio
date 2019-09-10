@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './button.css';
 
-class Button extends Component {
-    static propTypes = {
-        classes: shape({
-            content: string,
-            root: string
-        }).isRequired
-    };
+const Button = props => {
+    const { children, classes: propClasses, ...rest } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    render() {
-        const { children, classes, ...rest } = this.props;
+    return (
+        <button {...rest} className={classes.root}>
+            <span className={classes.content}>{children}</span>
+        </button>
+    );
+};
 
-        return (
-            <button {...rest} className={classes.root}>
-                <span className={classes.content}>{children}</span>
-            </button>
-        );
-    }
-}
+Button.propTypes = {
+    classes: shape({
+        content: string,
+        root: string
+    }).isRequired
+};
 
-export default classify(defaultClasses)(Button);
+export default Button;
