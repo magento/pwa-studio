@@ -19,7 +19,7 @@ In addition to the NPM packages.json and Venia specific validation and testing f
 [`server.js`][]
 : A node script that runs the UPWARD staging server when the `yarn run stage:venia` command is used.
 
-[`upward.yml`][]
+[`venia-upward.yml`][]
 : The [UPWARD server specification][] for the Venia PWA storefront.
   This file describes the server behavior for the middle tier service between the PWA and Magento.
 
