@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
@@ -14,6 +14,16 @@ import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '../../util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+
+// map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+const mapGalleryItem = item => {
+    const { small_image } = item;
+    return {
+        ...item,
+        small_image:
+            typeof small_image === 'object' ? small_image.url : small_image
+    };
+};
 
 const Category = props => {
     const { filterClear, id, openDrawer, pageSize } = props;
@@ -36,6 +46,19 @@ const Category = props => {
     const [queryResult, queryApi] = useQuery(categoryQuery);
     const { data, error, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
+    const compatibleData = useMemo(
+        () =>
+            loading || error || !data
+                ? null
+                : {
+                      ...data,
+                      products: {
+                          ...data.products,
+                          items: data.products.items.map(mapGalleryItem)
+                      }
+                  },
+        [loading, data, error]
+    );
 
     // clear any stale filters
     useEffect(() => {
@@ -98,7 +121,7 @@ const Category = props => {
     return (
         <CategoryContent
             classes={classes}
-            data={loading ? null : data}
+            data={compatibleData}
             filterClear={filterClear}
             openDrawer={openDrawer}
             pageControl={pageControl}
