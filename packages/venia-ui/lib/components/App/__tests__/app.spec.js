@@ -32,7 +32,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('../../../util/createErrorRecord', () => ({
+jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue({
         error: { message: 'A render error', stack: 'errorStack' },
