@@ -23,7 +23,7 @@ const ButtonGroup = props => {
 ButtonGroup.propTypes = {
     classes: shape({
         root: string
-    }).isRequired,
+    }),
     items: arrayOf(
         shape({
             children: node.isRequired,
