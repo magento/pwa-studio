@@ -1,5 +1,4 @@
 import actions from '@magento/peregrine/lib/store/actions/checkoutReceipt';
-import { createAccount } from '@magento/peregrine/lib/store/actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
 
@@ -24,7 +23,6 @@ test('returns a connected Receipt component', () => {
     expect(Container.component).toBe(Receipt);
     expect(Container.mapStateToProps).toBeInstanceOf(Function);
     expect(Container.mapDispatchToProps).toMatchObject({
-        createAccount,
         reset: actions.reset
     });
 });

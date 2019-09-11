@@ -1,12 +1,20 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
+/**
+ * A component that displays some basic information about an order and has
+ * a call to action for viewing order details and creating an account.
+ */
 const Receipt = props => {
-    const { createAccount, history, reset, onClose, user } = props;
+    const { history, reset, onClose } = props;
 
+    const [, { createAccount }] = useCheckoutContext();
+    const [{ isSignedIn }] = useUserContext();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     useEffect(() => reset, [reset]);
@@ -28,7 +36,7 @@ const Receipt = props => {
                     You will receive an order confirmation email with order
                     status and other details.
                 </div>
-                {user.isSignedIn ? (
+                {isSignedIn ? (
                     <Fragment>
                         <div className={classes.textBlock}>
                             You can also visit your account page for more
@@ -65,17 +73,12 @@ Receipt.propTypes = {
     order: shape({
         id: string
     }).isRequired,
-    createAccount: func.isRequired,
-    reset: func.isRequired,
-    user: shape({
-        isSignedIn: bool
-    })
+    reset: func.isRequired
 };
 
 Receipt.defaultProps = {
     order: {},
-    reset: () => {},
-    createAccount: () => {}
+    reset: () => {}
 };
 
 export default Receipt;

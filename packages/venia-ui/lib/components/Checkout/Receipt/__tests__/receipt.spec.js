@@ -1,10 +1,10 @@
 import React from 'react';
 import testRenderer, { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-import { shallow } from 'enzyme';
 
 import Receipt from '../receipt';
 import Button from '../../../Button';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const classes = {
     header: 'header',
@@ -13,14 +13,28 @@ const classes = {
 
 jest.mock('../../../../classify');
 
-const userProp = { isSignedIn: false };
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {};
+    const api = { createAccount: jest.fn() };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
 
 test('renders a Receipt component correctly', () => {
     const props = {
         order: { id: '123' },
-        createAccount: jest.fn(),
-        reset: jest.fn(),
-        user: userProp
+        reset: jest.fn()
     };
 
     const component = testRenderer.create(<Receipt {...props} />);
@@ -29,28 +43,24 @@ test('renders a Receipt component correctly', () => {
 });
 
 test('calls `handleCreateAccount` when `Create an Account` button is pressed', () => {
-    const handleCreateAccountMock = jest.fn();
+    const [, { createAccount }] = useCheckoutContext();
 
-    const wrapper = shallow(
-        <Receipt
-            createAccount={handleCreateAccountMock}
-            classes={classes}
-            onClose={() => {}}
-            user={userProp}
-        />
+    const wrapper = createTestInstance(
+        <Receipt classes={classes} onClose={() => {}} />
     );
 
-    wrapper.find(Button).simulate('click');
-
-    expect(handleCreateAccountMock).toBeCalled();
+    wrapper.root.findByType(Button).props.onClick();
+    expect(createAccount).toBeCalled();
 });
 
 test('calls `reset` when component was unmounted', () => {
     const resetHandlerMock = jest.fn();
 
     const instance = createTestInstance(
-        <Receipt reset={resetHandlerMock} classes={classes} user={userProp} />
+        <Receipt reset={resetHandlerMock} classes={classes} />
     );
+
+    expect(resetHandlerMock).not.toBeCalled();
 
     act(() => {
         instance.unmount();
