@@ -2,7 +2,7 @@ import React from 'react';
 import { string, shape, objectOf, number } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
-import noProductsFound from './noProductsFound.png'
+import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
 
 // TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
@@ -32,7 +32,11 @@ const NoProductsFound = props => {
 
     return (
         <div className={classes.root}>
-            <img src={noProductsFound} alt="Sorry! There are no products in this category" className={classes.image}/>
+            <img
+                src={noProductsFound}
+                alt="Sorry! There are no products in this category"
+                className={classes.image}
+            />
             <h2 className={classes.title}>
                 Sorry! There are no products in this category
             </h2>
