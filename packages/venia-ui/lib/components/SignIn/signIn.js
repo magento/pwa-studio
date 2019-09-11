@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../classify';
