@@ -10,6 +10,7 @@ import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './signIn.css';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 // Note: we can't access the actual message that comes back from the server
 // without doing some fragile string manipulation. Hardcoded for now.
@@ -17,14 +18,14 @@ const ERROR_MESSAGE =
     'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
 
 const SignIn = props => {
-    const {
-        isSigningIn,
-        setDefaultUsername,
-        showCreateAccount,
-        showForgotPassword,
-        signIn,
-        hasError
-    } = props;
+    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+
+    const [
+        { isGettingDetails, isSigningIn, signInError, getDetailsError },
+        { signIn }
+    ] = useUserContext();
+
+    const hasError = !!signInError || !!getDetailsError;
 
     const formRef = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -57,7 +58,7 @@ const SignIn = props => {
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
 
-    if (isSigningIn) {
+    if (isGettingDetails || isSigningIn) {
         return (
             <div className={classes.modal_active}>
                 <LoadingIndicator>{'Signing In'}</LoadingIndicator>
@@ -129,10 +130,7 @@ SignIn.propTypes = {
         signInDivider: string,
         signInError: string
     }),
-    isSigningIn: bool,
     setDefaultUsername: func.isRequired,
     showCreateAccount: func.isRequired,
-    showForgotPassword: func.isRequired,
-    signIn: func.isRequired,
-    hasError: bool
+    showForgotPassword: func.isRequired
 };
