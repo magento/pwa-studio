@@ -18,6 +18,7 @@ import NoProductsFound from './NoProductsFound';
 
 const Category = props => {
     const { filterClear, id, openDrawer, pageSize, categories } = props;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [paginationValues, paginationApi] = usePagination({

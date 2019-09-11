@@ -28,3 +28,8 @@
 .listItem:not(:last-child) {
     margin-bottom: 0.5rem;
 }
+
+.image {
+    margin-bottom: 2rem;
+    max-width: 200px;
+}
