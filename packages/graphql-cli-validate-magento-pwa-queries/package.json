@@ -32,5 +32,8 @@
   },
   "peerDependencies": {
     "graphql-cli": "^3"
+  },
+  "resolutions": {
+    "npm-run": "~5.0.0"
   }
 }
