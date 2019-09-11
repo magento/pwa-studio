@@ -95,12 +95,7 @@ const mockConfigurableProduct = {
 test('Configurable Product has correct media gallery image count', async () => {
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
-            <ProductFullDetail
-                product={mockConfigurableProduct}
-                isAddingItem={false}
-                classes={{}}
-                addToCart={jest.fn()}
-            />
+            <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
         </WindowSizeContextProvider>
     );
 
