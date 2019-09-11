@@ -1,5 +1,4 @@
 import actions from './actions';
-import mockData from './mockData';
 import { preserveQueryParams } from '../../util/preserveQueryParams';
 import { persistentQueries } from '../../shared/persistentQueries';
 
@@ -73,22 +72,6 @@ export const removeFilter = ({ group, title, value }, history, location) =>
         if (history) {
             const filters = { ...chosenFilterOptions, [group]: newState };
             updateCatalogUrl(filters, history, newQueryParam);
-        }
-    };
-
-export const getAllCategories = () =>
-    async function thunk(dispatch) {
-        dispatch(actions.getAllCategories.request());
-
-        try {
-            // TODO: implement rest or graphql call for categories
-            // `/rest/V1/categories` requires auth for some reason
-            // TODO: we need to configure Jest to support dynamic imports
-            // const { default: payload } = await import('./mockData');
-
-            dispatch(actions.getAllCategories.receive(mockData));
-        } catch (error) {
-            dispatch(actions.getAllCategories.receive(error));
         }
     };
 

@@ -357,7 +357,6 @@ test('returns configuration object', () => {
         GEWGAW_ROGUE: 'level 4'
     };
     const config = loadEnvironment({ ...party, NODE_ENV: 'test' });
-    debugger;
     expect(config).toMatchObject({
         isProd: false,
         isProduction: false,

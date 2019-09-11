@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
+import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import MiniCart from '../MiniCart';
@@ -87,7 +88,6 @@ const App = props => {
 
     const { app, closeDrawer } = props;
     const { drawer, hasBeenOffline, isOnline, overlay } = app;
-    const navIsOpen = drawer === 'nav';
     const cartIsOpen = drawer === 'cart';
 
     useEffect(() => {
@@ -122,7 +122,8 @@ const App = props => {
     }
 
     return (
-        <Fragment>
+        <HeadProvider>
+            <Title>{`Home Page - ${STORE_NAME}`}</Title>
             <Main
                 isMasked={overlay}
                 hasBeenOffline={hasBeenOffline}
@@ -131,10 +132,10 @@ const App = props => {
                 {renderRoutes()}
             </Main>
             <Mask isActive={overlay} dismiss={closeDrawer} />
-            <Navigation isOpen={navIsOpen} />
+            <Navigation />
             <MiniCart isOpen={cartIsOpen} />
             <ToastContainer />
-        </Fragment>
+        </HeadProvider>
     );
 };
 

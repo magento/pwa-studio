@@ -55,7 +55,6 @@ const PWADevServer = {
             contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
-            writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
                 poll: !!parseInt(devServer.watchOptionsUsePolling) || false
@@ -237,7 +236,7 @@ const PWADevServer = {
             new UpwardDevServerPlugin(
                 webpackDevServerOptions,
                 process.env,
-                path.resolve(webpackConfig.output.path, upwardPath)
+                path.resolve(webpackConfig.context, upwardPath)
             )
         );
 

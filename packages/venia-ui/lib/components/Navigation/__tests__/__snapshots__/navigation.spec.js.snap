@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when closed 1`] = `
+<aside
+  className="root"
+>
+  <header
+    className="isRoot"
+  >
+    <i />
+  </header>
+  <div
+    className="body"
+  >
+    <i />
+  </div>
+  <div
+    className="footer"
+  >
+    <i />
+  </div>
+  <div
+    className="modal"
+  >
+    <i />
+  </div>
+</aside>
+`;
+
+exports[`renders correctly when open 1`] = `
+<aside
+  className="root_open"
+>
+  <header
+    className="isRoot"
+  >
+    <i />
+  </header>
+  <div
+    className="body"
+  >
+    <i />
+  </div>
+  <div
+    className="footer"
+  >
+    <i />
+  </div>
+  <div
+    className="modal"
+  >
+    <i />
+  </div>
+</aside>
+`;

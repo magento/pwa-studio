@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 import { Menu as MenuIcon, Search as SearchIcon } from 'react-feather';
 
 import Icon from '../Icon';
@@ -17,8 +17,17 @@ import defaultClasses from './header.css';
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
 const Header = props => {
-    const { hasBeenOffline, isOnline, searchOpen, toggleSearch } = props;
+    const {
+        cart,
+        getCartDetails,
+        hasBeenOffline,
+        isOnline,
+        searchOpen,
+        toggleCart,
+        toggleSearch
+    } = props;
 
+    const cartTriggerProps = { cart, getCartDetails, toggleCart };
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = searchOpen ? classes.open : classes.closed;
     const searchIcon = <Icon src={SearchIcon} />;
@@ -52,7 +61,7 @@ const Header = props => {
                     >
                         {searchIcon}
                     </SearchTrigger>
-                    <CartTrigger />
+                    <CartTrigger {...cartTriggerProps} />
                 </div>
             </div>
             <Suspense fallback={searchOpen ? suspenseFallback : null}>
@@ -71,6 +80,7 @@ const Header = props => {
 };
 
 Header.propTypes = {
+    cart: object,
     classes: shape({
         closed: string,
         logo: string,
@@ -79,7 +89,9 @@ Header.propTypes = {
         secondaryActions: string,
         toolbar: string
     }),
+    getCartDetails: func,
     searchOpen: bool,
+    toggleCart: func,
     toggleSearch: func.isRequired
 };
 

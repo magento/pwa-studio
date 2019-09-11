@@ -85,6 +85,17 @@ test('rewrites requests with resize params to the express-sharp pattern', () => 
     expect(mockSharpMiddleware).toHaveBeenCalledWith(req, res, next);
 });
 
+test('adds height and crop if height is present', () => {
+    addImgOptMiddleware(app, config);
+    req.url = '/product.jpg?width=200&height=400';
+    req.query = {
+        width: 200,
+        height: 400
+    };
+    filterMiddleware(req, res, next);
+    expect(req.url).toBe('/resize/200/400?url=%2Fproduct.jpg&crop=true');
+});
+
 test('translates query parameters if present', () => {
     addImgOptMiddleware(app, config);
     req.url = '/product.jpg?width=200&otherParam=foo';

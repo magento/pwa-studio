@@ -3,12 +3,21 @@ import { act } from 'react-test-renderer';
 import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
+import Button from '../../Button';
+import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
+
+jest.mock('../../../classify');
+jest.mock('../../Button', () => () => <i />);
+jest.mock('../../LoadingIndicator', () => () => <i />);
 
 const props = {
     isGettingDetails: false,
     isSigningIn: false,
-    signIn: function() {},
+    setDefaultUsername: jest.fn(),
+    showCreateAccount: jest.fn(),
+    showForgotPassword: jest.fn(),
+    signIn: jest.fn(),
     signInError: {}
 };
 
@@ -18,17 +27,26 @@ test('renders correctly', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-// TODO: test skipped because of strange exception thrown:
-// "TypeError: val.getMockName is not a function"
-test.skip('renders the loading indicator if signing in', () => {
+test('renders the loading indicator if fetching details', () => {
+    const testProps = {
+        ...props,
+        isGettingDetails: true
+    };
+
+    const { root } = createTestInstance(<SignIn {...testProps} />);
+
+    expect(root.findByType(LoadingIndicator)).toBeTruthy();
+});
+
+test('renders the loading indicator if signing in', () => {
     const testProps = {
         ...props,
         isSigningIn: true
     };
 
-    const component = createTestInstance(<SignIn {...testProps} />);
+    const { root } = createTestInstance(<SignIn {...testProps} />);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(root.findByType(LoadingIndicator)).toBeTruthy();
 });
 
 test('displays an error message if there is a sign in error', () => {
@@ -42,17 +60,78 @@ test('displays an error message if there is a sign in error', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('calls `onSignIn` when sign in button is pressed', () => {
-    const signIn = jest.fn();
-    const onForgotPassword = jest.fn();
+test('calls `signIn` on submit', () => {
+    const { signIn } = props;
+    const values = { email: 'a', password: 'b' };
 
-    const { root } = createTestInstance(
-        <SignIn signIn={signIn} onForgotPassword={onForgotPassword} />
-    );
+    const { root } = createTestInstance(<SignIn {...props} />);
 
     act(() => {
-        root.findByType(Form).props.onSubmit();
+        root.findByType(Form).props.onSubmit(values);
     });
 
     expect(signIn).toHaveBeenCalledTimes(1);
+    expect(signIn).toHaveBeenNthCalledWith(1, {
+        username: values.email,
+        password: values.password
+    });
+});
+
+test('changes view to CreateAccount', () => {
+    const { setDefaultUsername, showCreateAccount } = props;
+    const { root } = createTestInstance(<SignIn {...props} />);
+
+    const { onClick } = root
+        .findByProps({ className: 'createAccountButton' })
+        .findByType(Button).props;
+
+    act(() => {
+        onClick();
+    });
+
+    expect(setDefaultUsername).toHaveBeenCalledTimes(1);
+    expect(showCreateAccount).toHaveBeenCalledTimes(1);
+});
+
+test('changes view to ForgotPassword', () => {
+    const { setDefaultUsername, showForgotPassword } = props;
+    const { root } = createTestInstance(<SignIn {...props} />);
+
+    const { onClick } = root
+        .findByProps({ className: 'forgotPasswordButton' })
+        .findByType(Button).props;
+
+    act(() => {
+        onClick();
+    });
+
+    expect(setDefaultUsername).toHaveBeenCalledTimes(1);
+    expect(showForgotPassword).toHaveBeenCalledTimes(1);
+});
+
+test("avoids reading the form if it doesn't exist", () => {
+    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const instance = createTestInstance(<SignIn {...props} />);
+    const { root } = instance;
+
+    const { onClick: createAccount } = root
+        .findByProps({ className: 'createAccountButton' })
+        .findByType(Button).props;
+    const { onClick: forgotPassword } = root
+        .findByProps({ className: 'forgotPasswordButton' })
+        .findByType(Button).props;
+
+    instance.unmount();
+
+    act(() => {
+        createAccount();
+    });
+
+    act(() => {
+        forgotPassword();
+    });
+
+    expect(setDefaultUsername).not.toHaveBeenCalled();
+    expect(showCreateAccount).toHaveBeenCalledTimes(1);
+    expect(showForgotPassword).toHaveBeenCalledTimes(1);
 });

@@ -1,9 +1,7 @@
 const debug = require('../../util/debug').makeFileLogger(__filename);
-const { ProvidePlugin } = require('webpack');
-const { promisify } = require('util');
-const walk = require('klaw');
+const walk = require('../../util/klaw-bound-fs');
+const InjectPlugin = require('webpack-inject-plugin').default;
 const directiveParser = require('@magento/directive-parser');
-const VirtualModulePlugin = require('virtual-module-webpack-plugin');
 const { isAbsolute, join, relative } = require('path');
 const micromatch = require('micromatch');
 
@@ -11,6 +9,10 @@ const prettyLogger = require('../../util/pretty-logger');
 
 const toRootComponentMapKey = (type, variant = 'default') =>
     `RootCmp_${type}__${variant}`;
+
+// ES Modules have a "default" property, CommonJS modules do not
+/* istanbul ignore next: depends on environment */
+const esModuleInterop = mod => mod.default || mod;
 
 const extensionRE = /m?[jt]s$/;
 
@@ -30,46 +32,24 @@ class RootComponentsPlugin {
 
     apply(compiler) {
         this.compiler = compiler;
-        // TODO: klaw calls the stat method out of context, so we need to bind
-        // it to its `this` here. this is a one-line fix in that library; gotta
-        // open a PR to node-klaw
-        this.fs = {};
-        ['stat', 'lstat', 'readFile', 'readdir'].forEach(method => {
-            this.fs[method] = (...args) =>
-                compiler.inputFileSystem[method](...args);
-        });
-        this.readFile = promisify(this.fs.readFile);
-        // Provide `fetchRootComponent` as a global: Expose the source as a
-        // module, and then use a ProvidePlugin to inline it.
-        const inject = () => this.injectRootComponentLoader();
-        debug('apply: subscribing to beforeRun and watchRun');
-        compiler.hooks.beforeRun.tapPromise('RootComponentsPlugin', inject);
-        compiler.hooks.watchRun.tapPromise('RootComponentsPlugin', inject);
+        this.readFile = (...args) =>
+            this.compiler.inputFileSystem.readFileSync(...args);
+        this.injectRootComponentLoader();
     }
-    async injectRootComponentLoader() {
-        debug('injectRootComponentLoader: running this.buildFetchModule');
-        await this.buildFetchModule();
-        debug('applying VirtualModulePlugin and ProvidePlugin');
-        new VirtualModulePlugin({
-            moduleName: 'FETCH_ROOT_COMPONENT',
-            contents: this.contents
-        }).apply(this.compiler);
-        new ProvidePlugin({
-            fetchRootComponent: 'FETCH_ROOT_COMPONENT'
-        }).apply(this.compiler);
+
+    injectRootComponentLoader() {
+        debug('applying InjectPlugin to create global');
+        new InjectPlugin(() => this.buildFetchModule()).apply(this.compiler);
     }
+
     findRootComponentsIn(dir) {
         const ignore = this.opts.ignore || ['__*__'];
         return new Promise(resolve => {
             const jsFiles = [];
             const done = () => resolve(jsFiles);
-            const fs = this.fs;
             walk(dir, {
                 filter: x => !micromatch.some(x, ignore, { basename: true }),
-                fs: {
-                    readdir: fs.readdir.bind(fs),
-                    stat: fs.stat.bind(fs)
-                }
+                fs: this.compiler.inputFileSystem
             })
                 .on('readable', function() {
                     let item;
@@ -117,18 +97,15 @@ class RootComponentsPlugin {
                 await Promise.all(
                     rootComponentFiles.map(async rootComponentFile => {
                         debug('reading file %s', rootComponentFile);
-                        const fileContents = await this.readFile(
-                            rootComponentFile
+                        const rootComponentSource = await this.readFile(
+                            rootComponentFile,
+                            { encoding: 'utf8' }
                         );
-                        const rootComponentSource =
-                            typeof fileContents !== 'string'
-                                ? fileContents
-                                : fileContents.toString('utf8');
                         debug(
                             'parsing %s source for directives',
                             rootComponentSource.slice(0, 80)
                         );
-                        const { directives = [], errors } = directiveParser(
+                        const { directives, errors } = directiveParser(
                             '\n' + rootComponentSource + '\n'
                         );
                         debug(
@@ -155,7 +132,7 @@ class RootComponentsPlugin {
                         }
 
                         if (rootComponentDirectives.length > 1) {
-                            console.warn(
+                            prettyLogger.warn(
                                 `Found more than 1 RootComponent Directive in ${rootComponentFile}. Only the first will be used`
                             );
                         }
@@ -166,7 +143,7 @@ class RootComponentsPlugin {
                         } = rootComponentDirectives[0];
 
                         if (!pageTypes || pageTypes.length === 0) {
-                            console.warn(
+                            prettyLogger.warn(
                                 `No pageTypes specified for RootComponent ${rootComponentFile}. RootComponent will never be used.`
                             );
                         } else {
@@ -182,7 +159,7 @@ class RootComponentsPlugin {
                                 );
                                 importerSources[
                                     key
-                                ] = `() => import(/* webpackChunkName: "${key}" */'${relative(
+                                ] = `() => import(/* webpackChunkName: "${key}" */'./${relative(
                                     context,
                                     rootComponentFile
                                 )}')`;
@@ -198,22 +175,37 @@ class RootComponentsPlugin {
         const rootComponentEntries = Object.entries(rootComponentImporters);
 
         if (rootComponentEntries.length === 0) {
-            prettyLogger.error(
+            throw new Error(
                 `No RootComponents were found in any of these directories: \n - ${rootComponentsDirsAbs.join(
                     '\n - '
                 )}.\n\nThe MagentoRouter will not be able to load SEO URLs.`
             );
         }
 
-        this.contents = `
-            const rootComponentsMap = {
-            ${rootComponentEntries.map(entry => entry.join(':')).join(',\n')}
-            };
-            const key = ${toRootComponentMapKey.toString()};
-            export default function fetchRootComponent(type, variant = 'default') {
-                return rootComponentsMap[key(type, variant)]().then(m => m.default || m);
-            };
-        `;
+        // create stringified, mapped object
+        const rootComponentsMap = `{${rootComponentEntries
+            .map(entry => entry.join(':'))
+            .join(',\n')}}`;
+
+        // create importer function to expose to other modules
+        const importer = `function importRootComponent(type, variant) {
+            const importerKey = getKey(type, variant);
+            return rootComponentsMap[importerKey]()
+                .then(esModuleInterop);
+        }`;
+
+        // add shared utility functions, mapping, and importer to factory fn
+        const importerFactory = `() => {
+            const getKey = ${toRootComponentMapKey.toString()};
+            const esModuleInterop = ${esModuleInterop.toString()};
+            const rootComponentsMap = ${rootComponentsMap};
+            return ${importer}
+        }`;
+
+        // assign factory return value, the importer function, to global
+        const wrapped = `;window.fetchRootComponent = (${importerFactory.toString()})()`;
+
+        return wrapped;
     }
 }
 

@@ -43,6 +43,8 @@ const Product = props => {
                 classes={{ root: classes.image }}
                 placeholder={transparentPlaceholder}
                 src={src}
+                fileSrc={image.file}
+                sizes={`${imageWidth}px`}
             />
         );
     }, [image, name, classes.image]);

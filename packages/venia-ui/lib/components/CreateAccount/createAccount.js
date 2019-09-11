@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from '@magento/venia-drivers';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -7,7 +8,6 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-
 import combine from '../../util/combineValidators';
 import {
     validateEmail,
@@ -16,8 +16,10 @@ import {
     validateConfirmPassword,
     hasLengthAtLeast
 } from '../../util/formValidators';
-
 import defaultClasses from './createAccount.css';
+
+const LEAD =
+    'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 class CreateAccount extends Component {
     static propTypes = {
@@ -28,6 +30,7 @@ class CreateAccount extends Component {
             root: string,
             subscribe: string
         }),
+        onSubmit: func.isRequired,
         createAccountError: shape({
             message: string
         }),
@@ -35,8 +38,7 @@ class CreateAccount extends Component {
             email: string,
             firstName: string,
             lastName: string
-        }),
-        onSubmit: func
+        })
     };
 
     static defaultProps = {
@@ -66,15 +68,15 @@ class CreateAccount extends Component {
 
     handleSubmit = values => {
         const { onSubmit } = this.props;
-
-        if (typeof onSubmit === 'function') {
-            onSubmit(values);
-        }
+        onSubmit(values);
     };
 
     render() {
         const { errorMessage, handleSubmit, initialValues, props } = this;
-        const { classes } = props;
+        const { classes, isSignedIn } = props;
+        if (isSignedIn) {
+            return <Redirect to="/" />;
+        }
 
         return (
             <Form
@@ -82,10 +84,7 @@ class CreateAccount extends Component {
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
-                <h3 className={classes.lead}>
-                    {`Check out faster, use multiple addresses, track
-                         orders and more by creating an account!`}
-                </h3>
+                <p className={classes.lead}>{LEAD}</p>
                 <Field label="First Name" required={true}>
                     <TextInput
                         field="customer.firstname"
