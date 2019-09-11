@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an editable Form component if editing 1`] = `
+<div
+  className="root"
+>
+  <Overview
+    classes={
+      Object {
+        "root": "root",
+      }
+    }
+    editing="address"
+    setEditing={[Function]}
+  />
+</div>
+`;
+
+exports[`renders an overview Form component if not editing 1`] = `
+<div
+  className="root"
+>
+  <Overview
+    classes={
+      Object {
+        "root": "root",
+      }
+    }
+    setEditing={[Function]}
+  />
+</div>
+`;

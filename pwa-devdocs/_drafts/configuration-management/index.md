@@ -100,11 +100,11 @@ Use the `Configuration` object only when moving between logic layers:
 **Bad**: passing the `Configuration` object to library methods
 
 ```js
-config.devServer = await PWADevServer.configure({
+await PWADevServer.configure({
     publicPath: config.output.publicPath,
     graphqlPlayground: true,
     projectConfig: loadEnvironment(__dirname)
-});
+}, config);
 ```
 
 The same principle holds when creating your own utilities.
@@ -123,7 +123,7 @@ class MyWebpackPlugin {
 
 ```js
 const projectConfig = loadEnvironment(__dirname);
-config.devServer = await PWADevServer.configure({
+await PWADevServer.configure({
     publicPath: config.output.publicPath,
     graphqlPlayground: true,
     ...projectConfig.sections(
@@ -132,7 +132,7 @@ config.devServer = await PWADevServer.configure({
         'customOrigin'
     ),
     ...projectConfig.section('magento')
-});
+}, config);
 ```
 
 ### Naming convention
@@ -195,4 +195,4 @@ If you are contributing to the PWA Studio project and want to add new functional
 [twelve-factor app]: https://12factor.net/config 
 [envalid]: https://npmjs.com/package/envalid
 [camelspace]: https://npmjs.com/package/camelspace
-[`packages/pwa-buildpack/envvardefinitions.json`]: https://github.com/magento-research/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
+[`packages/pwa-buildpack/envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json

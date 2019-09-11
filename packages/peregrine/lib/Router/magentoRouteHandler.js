@@ -94,8 +94,12 @@ export default class MagentoRouteHandler extends Component {
                 route: pathname
             });
 
-            const { type, id } = resolvedRoute;
+            // urlResolver query returns null if a route can't be found
+            if (!resolvedRoute) {
+                throw new Error('404');
+            }
 
+            const { type, id } = resolvedRoute;
             // if resolution and destructuring succeed but return no match
             // then we have a straightforward 404 Not Found
             if (!type || !id) {

@@ -3,7 +3,7 @@
 1. Install Docker for your system: https://docs.docker.com/install
 2. Clone the repository:
     ```
-    git clone https://github.com/magento-research/pwa-studio
+    git clone https://github.com/magento/pwa-studio
     ```
     *Note*: Windows users will want to ensure that [shared drives](https://docs.docker.com/docker-for-windows/#shared-drives) are enabled.
 3. In the root of the repository, run 

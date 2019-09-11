@@ -5,11 +5,10 @@ _site/
 node_modules
 src/builds
 
-Gemfile.lock
+
 
 *.tar
 
 *.log
-*.lock
 
 **/auto-generated

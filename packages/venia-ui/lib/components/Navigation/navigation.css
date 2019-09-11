@@ -1,0 +1,99 @@
+/* animation helpers */
+
+.enter {
+    transition-duration: 384ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.exit {
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* module */
+
+.root {
+    composes: exit hidden;
+    background-color: white;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    left: 0;
+    max-width: 360px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    transform: translate3d(-100%, 0, 0);
+    transition-property: opacity, transform, visibility;
+    width: 100%;
+    z-index: 3;
+}
+
+.root_open {
+    composes: root enter visible;
+    box-shadow: 1px 0 rgb(var(--venia-border));
+    transform: translate3d(0, 0, 0);
+}
+
+.header {
+    align-content: center;
+    background-color: rgb(var(--venia-grey));
+    box-shadow: 0 1px rgb(var(--venia-border));
+    display: grid;
+    grid-auto-columns: 3.5rem;
+    grid-auto-flow: column;
+    grid-auto-rows: 3.5rem;
+    grid-template-columns: 3.5rem 1fr 3.5rem;
+    height: 3.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.body {
+    composes: exit visible;
+    min-height: 0;
+    overflow: auto;
+    transition-property: opacity, visibility;
+}
+
+.body_masked {
+    composes: body enter hidden;
+}
+
+.footer {
+    box-shadow: 0 -1px rgb(var(--venia-border));
+}
+
+.modal {
+    composes: exit hidden;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 3.5rem;
+    transform: translate3d(-100%, 0, 0);
+    transition-property: opacity, transform, visibility;
+}
+
+.modal_open {
+    composes: modal enter visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.isRoot {
+    composes: header;
+    grid-template-columns: 1fr 3.5rem;
+    padding-left: 1rem;
+}

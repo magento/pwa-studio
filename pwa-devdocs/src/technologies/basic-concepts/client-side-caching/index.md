@@ -78,7 +78,7 @@ This strategy is set using the `fetchPolicy` prop on the `Query` component.
 Caching for Apollo is set up in the [`src/drivers/adapter.js`][] file.
 
 [service worker]: https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
-[`src/sw.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/sw.js
+[`src/sw.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/sw.js
 [workbox]: https://developers.google.com/web/tools/workbox/
 [caching strategies]: https://developers.google.com/web/tools/workbox/modules/workbox-strategies
 [stale-while-revalidate]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate
@@ -86,4 +86,4 @@ Caching for Apollo is set up in the [`src/drivers/adapter.js`][] file.
 [cache first]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network
 [`inmemorycache`]: https://www.apollographql.com/docs/react/advanced/caching
 [`apollo-cache-persist`]: https://github.com/apollographql/apollo-cache-persist
-[`src/drivers/adapter.js`]: https://github.com/magento-research/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
+[`src/drivers/adapter.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js

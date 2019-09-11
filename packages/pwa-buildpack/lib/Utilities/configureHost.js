@@ -5,11 +5,12 @@ const devcert = require('devcert');
 const os = require('os');
 const chalk = require('chalk');
 const execa = require('execa');
+const pkgDir = require('pkg-dir');
 const { username } = os.userInfo();
 
 /**
  * Monkeypatch devcert to fix
- * https://github.com/magento-research/pwa-studio/issues/679 which is blocked by
+ * https://github.com/magento/pwa-studio/issues/679 which is blocked by
  * https://github.com/davewasmer/devcert/pull/30.
  * TODO: Remove this when a release of devcert without this bug is available
  */
@@ -38,8 +39,17 @@ const isSudoSession = () =>
         .then(() => true)
         .catch(() => false);
 
-const alreadyProvisioned = hostname =>
-    devcert.configuredDomains().includes(hostname);
+const alreadyProvisioned = hostname => {
+    const configuredDomains = devcert.configuredDomains();
+    debug(
+        'checking for %s in devcert.configuredDomains() === %o',
+        hostname,
+        configuredDomains
+    );
+    const isProvisioned = configuredDomains.includes(hostname);
+    debug('isProvisioned? %s', isProvisioned);
+    return isProvisioned;
+};
 
 function getCert(hostname) {
     // Manually create a Promise here to obtain a "reject" function in closure,
@@ -54,6 +64,7 @@ function getCert(hostname) {
                 ),
             30000
         );
+        debug('set UI timeout for getCert("%s")', hostname);
         try {
             if (!alreadyProvisioned(hostname)) {
                 if (process.stdin.isTTY) {
@@ -64,8 +75,14 @@ Please enter the password for ${chalk.whiteBright(
                                 username
                             )} on ${chalk.whiteBright(os.hostname())}.`)
                         );
+                    } else {
+                        debug('appears to be a sudo session already');
                     }
                 } else {
+                    debug(
+                        'non-interactive! cleared UI timeout for getCert("%s")',
+                        hostname
+                    );
                     clearTimeout(timeout);
                     return reject(
                         new Error(
@@ -75,6 +92,8 @@ Please enter the password for ${chalk.whiteBright(
                 }
             }
             const certBuffers = await devcert.certificateFor(hostname);
+            debug('certBuffers arrived with %s', Object.keys(certBuffers));
+            debug('success! cleared UI timeout for getCert("%s")', hostname);
             clearTimeout(timeout);
             resolve({
                 key: certBuffers.key.toString('utf8'),
@@ -82,43 +101,65 @@ Please enter the password for ${chalk.whiteBright(
             });
         } catch (e) {
             clearTimeout(timeout);
+            debug(
+                'failure! cleared UI timeout for getCert("%s"): %o',
+                hostname,
+                e
+            );
             reject(e);
         }
     });
 }
 
-function getUniqueDomainAndPorts(customName, addUniqueHash) {
+function getUniqueDomainAndPorts(directory, customName, addUniqueHash) {
+    debug(
+        'getUniqueDomainAndPorts(directory %s, customName %s, addUniqueHash %s',
+        directory,
+        customName,
+        addUniqueHash
+    );
     let name = DEFAULT_NAME;
+
     if (customName && typeof customName === 'string') {
         name = customName;
     } else {
-        const pkgLoc = join(process.cwd(), 'package.json');
+        const packageDir = pkgDir.sync(directory);
+        debug(
+            'try getting package name from pkgDir.sync(%s), which is %s',
+            directory,
+            packageDir
+        );
+        const pkgLoc = join(packageDir, 'package.json');
         try {
             // eslint-disable-next-line node/no-missing-require
             const pkg = require(pkgLoc);
+            debug('retrieved %s: %O', pkgLoc, pkg);
             if (!pkg.name || typeof pkg.name !== 'string') {
                 throw new Error(
                     `package.json does not have a usable "name" field!`
                 );
             }
             name = pkg.name;
+            debug('retrieved project name %s from %s', name, pkgLoc);
         } catch (e) {
             console.warn(
                 debug.errorMsg(
                     `Using default "${name}" prefix. Could not autodetect project name from package.json: `
-                ),
-                e
+                )
             );
+            debug('pkgDir failed %s', e);
         }
     }
     const dirHash = createHash('md4');
     // Using a hash of the current directory is a natural way of preserving
     // the same "unique" ID for each project, and changing it only when its
     // location on disk has changed.
-    dirHash.update(process.cwd());
+    dirHash.update(directory);
     const digest = dirHash.digest('base64');
+    debug('digest created %s', digest);
 
     const subdomain = addUniqueHash ? `${name}-${digest.slice(0, 5)}` : name;
+    debug('subdomain created %s', subdomain);
     // Base64 truncated to 5 characters, stripped of special characters,
     // and lowercased to be a valid domain, is about 36^5 unique values.
     // There is therefore a chance of a duplicate ID and host collision,
@@ -139,6 +180,7 @@ function getUniqueDomainAndPorts(customName, addUniqueHash) {
         development: 8000 + uniquePortOffset,
         staging: 9000 + uniquePortOffset
     };
+    debug('ports created %o', ports);
     // In contrast, port collisions are more likely (1 in 1000), It could be a
     // lower probability if we allowed more possible ports, but for convenience
     // and developer recognition, we limit ports to the 8xxx range for
@@ -154,13 +196,17 @@ function getUniqueDomainAndPorts(customName, addUniqueHash) {
     };
 }
 
-async function configureHost({
-    addUniqueHash = true,
-    subdomain,
-    exactDomain,
-    interactive = true
-} = {}) {
+async function configureHost(options) {
+    debug('options %o', options);
+    const {
+        addUniqueHash = true,
+        dir,
+        subdomain,
+        exactDomain,
+        interactive = true
+    } = options;
     const { uniqueSubdomain, ports } = getUniqueDomainAndPorts(
+        dir,
         exactDomain || subdomain,
         addUniqueHash
     );

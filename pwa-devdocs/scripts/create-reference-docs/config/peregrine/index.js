@@ -23,10 +23,10 @@ module.exports = [
         target: 'peregrine/lib/hooks/useDropdown.js',
         type: 'function'
     },
-//    {
-//        target: 'peregrine/lib/hooks/useWindowSize.js',
-//        type: 'function'
-//    },
+    {
+        target: 'peregrine/lib/hooks/useWindowSize.js',
+        type: 'function'
+    },
     {
         target: 'peregrine/lib/hooks/useApolloContext.js',
         type: 'function'
@@ -41,6 +41,18 @@ module.exports = [
     },
     {
         target: 'peregrine/lib/hooks/useQueryResult.js',
+        type: 'function'
+    },
+    {
+        target: 'peregrine/lib/hooks/usePagination.js',
+        type: 'function'
+    },
+    {
+        target: 'peregrine/lib/Toasts/useToastContext.js',
+        type: 'function'
+    },
+    {
+        target: 'peregrine/lib/Toasts/useToasts.js',
         type: 'function'
     }
 ];

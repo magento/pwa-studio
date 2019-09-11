@@ -1,16 +1,18 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
 const dotenv = require('dotenv');
-let loadEnvCliBuilder;
+const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
 
+let oldMagentoBackendUrl;
 beforeEach(() => {
-    jest.spyOn(process, 'exit').mockImplementation(() => {});
+    oldMagentoBackendUrl = process.env.MAGENTO_BACKEND_URL;
+    process.env.MAGENTO_BACKEND_URL = '';
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    loadEnvCliBuilder = require('../cli/load-env');
 });
 afterEach(() => {
+    process.env.MAGENTO_BACKEND_URL = oldMagentoBackendUrl;
     jest.resetAllMocks();
 });
 
@@ -22,6 +24,17 @@ test('is a yargs builder', () => {
     });
 });
 
+test('handler throws on env missing required variables on errors', () => {
+    // missing required variables
+    dotenv.config.mockReturnValueOnce({
+        parsed: {}
+    });
+    expect(() => loadEnvCliBuilder.handler({ directory: '.' })).toThrow(
+        'MAGENTO_BACKEND_URL'
+    );
+    expect(console.error).toHaveBeenCalled();
+});
+
 test('handler loads from dotenv file', () => {
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
     dotenv.config.mockReturnValueOnce({
@@ -30,8 +43,6 @@ test('handler loads from dotenv file', () => {
     loadEnvCliBuilder.handler({
         directory: '.'
     });
-    expect(process.exit).not.toHaveBeenCalled();
-    process.env.MAGENTO_BACKEND_URL = '';
 });
 
 test('warns if dotenv file does not exist', () => {
@@ -48,7 +59,6 @@ test('warns if dotenv file does not exist', () => {
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('No .env file')
     );
-    expect(process.exit).not.toHaveBeenCalled();
     process.env.MAGENTO_BACKEND_URL = '';
 });
 
@@ -68,6 +78,5 @@ test('creates a .env file from example values if --core-dev-mode', () => {
         expect.stringContaining('Creating new .env file')
     );
     expect(createEnv).toHaveBeenCalled();
-    expect(process.exit).not.toHaveBeenCalled();
     process.env.MAGENTO_BACKEND_URL = '';
 });

@@ -39,6 +39,49 @@ const path = require('path');
 // transpile, or 'lib' for code that doesn't have to.
 const testGlob = '/**/{src,lib}/**/__tests__/*.(test|spec).js';
 
+// Reusable test configuration for Venia UI and storefront packages.
+const testVenia = inPackage => ({
+    // Expose jsdom to tests.
+    browser: true,
+    moduleNameMapper: {
+        // Mock binary files to avoid excess RAM usage.
+        '\\.(jpg|jpeg|png)$':
+            '<rootDir>/packages/venia-ui/__mocks__/fileMock.js',
+        // CSS module classes are dynamically generated, but that makes
+        // it hard to test React components using DOM classnames.
+        // This mapping forces CSS Modules to return literal identies,
+        // so e.g. `classes.root` is always `"root"`.
+        '\\.css$': 'identity-obj-proxy',
+        '\\.svg$': 'identity-obj-proxy'
+    },
+    // Reproduce the Webpack resolution config that lets Venia import
+    // from `src` instead of with relative paths:
+    modulePaths: [
+        inPackage(),
+        inPackage('node_modules'),
+        '<rootDir>/node_modules'
+    ],
+    // Set up Enzyme React 16 adapter for testing React components
+    setupFilesAfterEnv: [
+        path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
+    ],
+    // Give jsdom a real URL for router testing.
+    testURL: 'https://localhost/',
+    transform: {
+        // Reproduce the Webpack `graphql-tag/loader` that lets Venia
+        // import `.graphql` files into JS.
+        '\\.(gql|graphql)$': 'jest-transform-graphql',
+        // Use the default babel-jest for everything else.
+        '.*': 'babel-jest'
+    },
+    // Normally babel-jest ignores node_modules and only transpiles the current
+    // package's source. The below setting forces babel-jest to transpile
+    // @magento namespaced packages like Peregrine and Venia UI as well, when
+    // it's testing Venia. That way, changes in sibling packages don't require a
+    // full compile.
+    transformIgnorePatterns: ['node_modules/(?!@magento/)']
+});
+
 const configureProject = (dir, displayName, cb) =>
     // Defaults that every project config must include.
     // Jest should properly merge some of these in from the root configuration,
@@ -68,6 +111,9 @@ const configureProject = (dir, displayName, cb) =>
     );
 const jestConfig = {
     projects: [
+        configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
+            testEnvironment: 'node'
+        })),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
@@ -90,45 +136,15 @@ const jestConfig = {
         configureProject('upward-js', 'Upward JS', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('venia-concept', 'Venia Concept', inPackage => ({
-            // Expose jsdom to tests.
-            browser: true,
-            moduleNameMapper: {
-                // Mock binary files to avoid excess RAM usage.
-                '\\.(jpg|jpeg|png)$': inPackage('__mocks__/fileMock.js'),
-                // CSS module classes are dynamically generated, but that makes
-                // it hard to test React components using DOM classnames.
-                // This mapping forces CSS Modules to return literal identies,
-                // so e.g. `classes.root` is always `"root"`.
-                '\\.css$': 'identity-obj-proxy',
-                '\\.svg$': 'identity-obj-proxy'
-            },
-            // Reproduce the Webpack resolution config that lets Venia import
-            // from `src` instead of with relative paths:
-            modulePaths: [
-                inPackage(),
-                inPackage('node_modules'),
-                '<rootDir>/node_modules'
-            ],
-            // Set up Enzyme React 16 adapter for testing React components
-            setupFilesAfterEnv: [
-                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
-            ],
-            // Give jsdom a real URL for router testing.
-            testURL: 'https://localhost/',
-            transform: {
-                // Reproduce the Webpack `graphql-tag/loader` that lets Venia
-                // import `.graphql` files into JS.
-                '\\.(gql|graphql)$': 'jest-transform-graphql',
-                // Use the default babel-jest for everything else.
-                '.*': 'babel-jest'
-            },
-            // Normally babel-jest ignores node_modules and only transpiles the
-            // current package's source. This forces babel-jest to transpile
-            // Peregrine as well, when it's testing Venia. That way, Peregrine
-            // changes don't require a full compile.
-            transformIgnorePatterns: ['node_modules/(?!@magento/peregrine)']
-        })),
+        configureProject('venia-concept', 'Venia Storefront', inPackage => {
+            const veniaConceptConfig = testVenia(inPackage);
+            veniaConceptConfig.setupFiles = [
+                ...veniaConceptConfig.setupFilesAfterEnv,
+                inPackage('scripts/fetch-mock.js')
+            ];
+            return veniaConceptConfig;
+        }),
+        configureProject('venia-ui', 'Venia UI', testVenia),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
@@ -167,7 +183,10 @@ const jestConfig = {
         '__fixtures__',
         '__helpers__',
         '__snapshots__'
-    ]
+    ],
+    globals: {
+        STORE_NAME: 'Venia'
+    }
 };
 
 if (process.env.npm_lifecycle_event === 'test:ci') {

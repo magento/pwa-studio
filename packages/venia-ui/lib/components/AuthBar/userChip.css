@@ -1,0 +1,36 @@
+.root {
+    width: 100%;
+}
+
+.content {
+    align-items: center;
+    display: grid;
+    font-size: 0.875rem;
+    height: 5.5rem;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: 3rem 1fr 3rem;
+    line-height: 1rem;
+    padding: 0 0.5rem;
+    text-align: center;
+}
+
+.avatar {
+}
+
+.user {
+    display: grid;
+    gap: 0.25rem;
+    grid-auto-flow: row;
+    text-align: left;
+}
+
+.fullName {
+}
+
+.email {
+    color: rgb(var(--venia-text-alt));
+}
+
+.icon {
+}

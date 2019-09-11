@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cart icon svg has fill and correct value when cart contains items 1`] = `
+<button
+  aria-label="Toggle mini cart. You have 10 items in your cart."
+  className="a"
+  onClick={[MockFunction]}
+>
+  <span>
+    <svg
+      fill="rgb(var(--venia-text))"
+      height="24"
+      stroke="rgb(var(--venia-text))"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="9"
+        cy="21"
+        r="1"
+      />
+      <circle
+        cx="20"
+        cy="21"
+        r="1"
+      />
+      <path
+        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+      />
+    </svg>
+  </span>
+  <span>
+    10
+  </span>
+</button>
+`;
+
+exports[`Cart icon svg has no fill when cart is empty 1`] = `
+<button
+  aria-label="Toggle mini cart. You have 0 items in your cart."
+  className="a"
+  onClick={[MockFunction]}
+>
+  <span>
+    <svg
+      fill="none"
+      height="24"
+      stroke="rgb(var(--venia-text))"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="9"
+        cy="21"
+        r="1"
+      />
+      <circle
+        cx="20"
+        cy="21"
+        r="1"
+      />
+      <path
+        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+      />
+    </svg>
+  </span>
+</button>
+`;

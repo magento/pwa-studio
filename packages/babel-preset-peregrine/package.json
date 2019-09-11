@@ -9,13 +9,13 @@
   "scripts": {
     "clean": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/babel-preset-peregrine#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/babel-preset-peregrine#readme",
   "peerDependencies": {
     "@babel/core": "~7.3.4",
     "@babel/plugin-proposal-class-properties": "~7.3.4",
@@ -30,7 +30,7 @@
     "babel-plugin-graphql-tag": "~2.0.0"
   },
   "engines": {
-    "node": "10.x",
+    "node": ">=10.x",
     "yarn": ">=1.12.0"
   }
 }

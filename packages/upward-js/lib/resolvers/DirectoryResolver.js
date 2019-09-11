@@ -1,4 +1,5 @@
 const debug = require('debug')('upward-js:DirectoryResolver');
+const path = require('path');
 const serveStatic = require('express').static;
 const AbstractResolver = require('./AbstractResolver');
 
@@ -29,11 +30,18 @@ class DirectoryResolver extends AbstractResolver {
 
         let server = DirectoryResolver.servers.get(directory);
         if (!server) {
-            debug(`creating new server for ${directory}`);
-            server = serveStatic(directory, {
-                fallthrough: false,
-                index: false
-            });
+            debug(
+                `creating new server for ${directory} relative to ${
+                    this.visitor.upwardPath
+                }`
+            );
+            server = serveStatic(
+                path.resolve(path.dirname(this.visitor.upwardPath), directory),
+                {
+                    fallthrough: false,
+                    index: false
+                }
+            );
             DirectoryResolver.servers.set(directory, server);
         }
 

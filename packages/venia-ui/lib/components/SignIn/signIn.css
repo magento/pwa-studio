@@ -1,0 +1,67 @@
+.root {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
+}
+
+.forgotPassword {
+    display: block;
+    text-decoration: underline;
+    color: rgb(var(--venia-error));
+    font-size: 0.8rem;
+}
+
+.form {
+    display: grid;
+    row-gap: 1rem;
+}
+
+.modal {
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(var(--venia-grey));
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.modal_active {
+    visibility: visible;
+    composes: modal;
+    opacity: 0.9;
+}
+
+.createAccountButton,
+.forgotPasswordButton,
+.signInButton {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.signInButton {
+    margin-top: 1rem;
+}
+
+.signInDivider {
+    border-color: rgb(var(--venia-border));
+    border-style: solid;
+    border-width: 0 0 1px;
+    margin: 1.5rem 1rem;
+}
+
+.signInError {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
+    color: rgb(var(--venia-error));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.signInError:empty {
+    display: none;
+}

@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays an error message if there is a sign in error 1`] = `
+<div
+  className="root"
+>
+  <form
+    className="form"
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
+        Email
+      </span>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="email"
+            className="input"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
+        Password
+      </span>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="current-password"
+            className="input"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="signInError"
+    >
+      The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
+    </div>
+    <div
+      className="signInButton"
+    >
+      <i />
+    </div>
+  </form>
+  <div
+    className="forgotPasswordButton"
+  >
+    <i />
+  </div>
+  <div
+    className="signInDivider"
+  />
+  <div
+    className="createAccountButton"
+  >
+    <i />
+  </div>
+</div>
+`;
+
+exports[`renders correctly 1`] = `
+<div
+  className="root"
+>
+  <form
+    className="form"
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
+        Email
+      </span>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="email"
+            className="input"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="root"
+    >
+      <span
+        className="label"
+      >
+        <span
+          className="requiredSymbol"
+        />
+        Password
+      </span>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            autoComplete="current-password"
+            className="input"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+    <div
+      className="signInError"
+    />
+    <div
+      className="signInButton"
+    >
+      <i />
+    </div>
+  </form>
+  <div
+    className="forgotPasswordButton"
+  >
+    <i />
+  </div>
+  <div
+    className="signInDivider"
+  />
+  <div
+    className="createAccountButton"
+  >
+    <i />
+  </div>
+</div>
+`;
