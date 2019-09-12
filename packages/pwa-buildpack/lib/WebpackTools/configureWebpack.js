@@ -99,7 +99,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         output: {
             path: paths.output,
             publicPath: '/',
-            filename: '[name].js',
+            filename: '[name].[contenthash].js',
             strictModuleExceptionHandling: true,
             chunkFilename: '[name]-[chunkhash].js'
         },
@@ -246,10 +246,13 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         vendorTest += `(${vendor.join('|')})[\\\/]`;
     }
     config.optimization = {
+        moduleIds: 'hashed',
+        runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
                 vendor: {
                     test: new RegExp(vendorTest),
+                    name: 'vendors',
                     chunks: 'all'
                 }
             }
