@@ -151,7 +151,6 @@ See PR [#1404][].
 | Fixed missing import of `catalogActions` when clearing filters                                                  |  **Bugfix**  | [#1626][] |
 | Fixed a bug that prevented the logo from loading when using `upward-php`                                        |  **Bugfix**  | [#1637][] |
 | Refactored image tags to utilize `srcset` and `sizes` for optimized images                                      | **Refactor** | [#1584][] |
-| Removed back arrow for first level in main menu                                                                 |  **Update**  | [#1337][] |
 
 ### Peregrine library
 
@@ -183,7 +182,6 @@ See PR [#1404][].
 | Removed errant debugger statement in test file                      | **Bugfix**  | [#1572][] |
 | Replaced `cheap-source-map` with `eval-source-map` for devtool      | **Update**  | [#1581][] |
 | Added Webpack HTML Plugin to generate HTML at compile               | **Feature** | [#1595][] |
-| Improve test coverage                                               | **Update**  | [#1598][] |
 
 ### Documentation
 
@@ -242,6 +240,7 @@ See PR [#1404][].
 | Updated dependencies to react@~16.9.0                                                      |  **Update**  | [#1564][] |
 | Updated GraphQL Yarn lock                                                                  |  **Update**  | [#1629][] |
 | Removed Now.sh pipeline                                                                    |  **Update**  | [#1575][] |
+| Bumped `eslint-utils` from 1.4.0 to 1.4.2                                                  |  **Update**  | [#1640][] |
 
 ## Updating from 3.0.0
 
@@ -407,5 +406,4 @@ To upgrade to 4.0.0, update the project's `package.json` file and change the dep
 [#1637]: https://github.com/magento/pwa-studio/pull/1637
 [#1584]: https://github.com/magento/pwa-studio/pull/1584
 [#1575]: https://github.com/magento/pwa-studio/pull/1575
-[#1598]: https://github.com/magento/pwa-studio/pull/1598
-[#1337]: https://github.com/magento/pwa-studio/pull/1337
+[#1640]: https://github.com/magento/pwa-studio/pull/1640
