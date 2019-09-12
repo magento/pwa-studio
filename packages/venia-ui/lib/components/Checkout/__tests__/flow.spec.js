@@ -10,6 +10,7 @@ jest.mock('../../../classify');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 jest.mock('../cart', () => 'Cart');
+<<<<<<< HEAD
 jest.mock('@magento/peregrine', () => {
     const state = {};
     const api = {
@@ -21,7 +22,51 @@ jest.mock('@magento/peregrine', () => {
         useToasts
     };
 });
+=======
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {};
+>>>>>>> f0836b8f... Use context in Checkout component
 
+    const api = {};
+
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {
+        // availableShippingMethods,
+        // billingAddress,
+        // isSubmitting,
+        // paymentData,
+        // shippingAddress,
+        // shippingAddressError,
+        // shippingMethod,
+        // shippingTitle
+    };
+
+    const api = {
+        beginCheckout: jest.fn(),
+        cancelCheckout: jest.fn(),
+        submitOrder: jest.fn(),
+        submitPaymentMethodAndBillingAddress: jest.fn(),
+        submitShippingAddress: jest.fn(),
+        submitShippingMethod: jest.fn()
+    };
+
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {};
+
+    const api = {};
+
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
 const defaultProps = {
     cart: {
         details: {}
