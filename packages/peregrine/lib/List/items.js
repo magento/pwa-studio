@@ -1,47 +1,70 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useMemo } from 'react';
+import { array, func, object, oneOf, oneOfType, string } from 'prop-types';
 
-import { useListState } from './useListState';
 import iterable from '../validators/iterable';
 import Item from './item';
+import { useListState } from './useListState';
 
 const Items = props => {
     const {
         getItemKey,
+        initialSelection,
         items,
+        onSelectionChange,
         renderItem,
-        selectionModel,
-        onSelectionChange
+        selectionModel
     } = props;
-    const [
-        { cursor, hasFocus, selection },
-        { setFocus, removeFocus, updateSelection }
-    ] = useListState({ selectionModel, onSelectionChange });
-    const itemsElements = items.map((item, index) => {
-        const key = getItemKey(item, index);
-        return (
-            <Item
-                key={key}
-                uniqueID={key}
-                item={item}
-                itemIndex={index}
-                render={renderItem}
-                hasFocus={hasFocus && cursor === key}
-                isSelected={selection.has(key)}
-                updateSelection={updateSelection}
-                setFocus={setFocus}
-                onBlur={removeFocus}
-            />
-        );
+
+    const [state, api] = useListState({
+        getItemKey,
+        initialSelection,
+        onSelectionChange,
+        selectionModel
     });
-    return <Fragment>{itemsElements}</Fragment>;
+    const { cursor, hasFocus, selectedKeys } = state;
+    const { removeFocus, setFocus, updateSelectedKeys } = api;
+
+    const children = useMemo(() => {
+        return Array.from(items, (item, index) => {
+            const key = getItemKey(item, index);
+
+            return (
+                <Item
+                    hasFocus={hasFocus && cursor === key}
+                    isSelected={selectedKeys.has(key)}
+                    item={item}
+                    itemIndex={index}
+                    key={key}
+                    onBlur={removeFocus}
+                    render={renderItem}
+                    setFocus={setFocus}
+                    uniqueId={key}
+                    updateSelectedKeys={updateSelectedKeys}
+                />
+            );
+        });
+    }, [
+        cursor,
+        getItemKey,
+        hasFocus,
+        items,
+        removeFocus,
+        renderItem,
+        selectedKeys,
+        setFocus,
+        updateSelectedKeys
+    ]);
+
+    return <Fragment>{children}</Fragment>;
 };
 
 Items.propTypes = {
-    getItemKey: PropTypes.func.isRequired,
+    getItemKey: func.isRequired,
+    initialSelection: oneOfType([array, object]),
     items: iterable.isRequired,
-    renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
+    onSelectionChange: func,
+    renderItem: oneOfType([func, string]),
+    selectionModel: oneOf(['checkbox', 'radio'])
 };
 
 Items.defaultProps = {

@@ -32,15 +32,12 @@ const PWADevServer = {
             upwardPath = 'upward.yml'
         } = devServerConfig;
 
-        const {
-            context
-        } = webpackConfig;
+        const { context } = webpackConfig;
 
         const webpackDevServerOptions = {
             contentBase: false, // UpwardDevServerPlugin serves static files
             compress: true,
             hot: true,
-            writeToDisk: true,
             watchOptions: {
                 // polling is CPU intensive - provide the option to turn it on if needed
                 poll: !!parseInt(devServer.watchOptionsUsePolling) || false
@@ -130,7 +127,9 @@ const PWADevServer = {
                 if (!customOriginConfig) {
                     console.warn(
                         chalk.yellowBright(
-                            `Custom origins are enabled for this project, but one has not yet been set up. Run ${chalk.whiteBright('buildpack create-custom-origin <projectRoot>')} to initialize a custom origin.`
+                            `Custom origins are enabled for this project, but one has not yet been set up. Run ${chalk.whiteBright(
+                                'buildpack create-custom-origin <projectRoot>'
+                            )} to initialize a custom origin.`
                         )
                     );
                 } else {
@@ -228,7 +227,7 @@ const PWADevServer = {
             new UpwardDevServerPlugin(
                 webpackDevServerOptions,
                 process.env,
-                path.resolve(webpackConfig.output.path, upwardPath)
+                path.resolve(webpackConfig.context, upwardPath)
             )
         );
 
