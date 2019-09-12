@@ -1,6 +1,8 @@
 import actions from './actions';
 import { preserveQueryParams } from '../../../util/preserveQueryParams';
 
+// A utility function to seralize filters to query param.
+// TODO: Move this to a utility file
 export const serialize = (params, keys = [], isArray = false) => {
     const serialized = Object.keys(params)
         .map(key => {
@@ -82,4 +84,14 @@ export const setCurrentPage = payload =>
 export const setPrevPageTotal = payload =>
     async function thunk(dispatch) {
         dispatch(actions.setPrevPageTotal.receive(payload));
+    };
+
+export const setToApplied = payload =>
+    async function thunk(dispatch) {
+        dispatch(actions.filterOption.setToApplied(payload));
+    };
+
+export const filterClear = payload =>
+    async function thunk(dispatch) {
+        dispatch(actions.filterOption.clear(payload));
     };
