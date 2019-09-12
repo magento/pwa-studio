@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "3.0.0",
+  "version": "4.0.0-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
     "@magento/express-sharp": "~2.1.1-newdeps.1",
-    "@magento/upward-js": "~2.2.0",
+    "@magento/upward-js": "3.0.0-alpha.5",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
     "camelspace": "~1.0.0",
