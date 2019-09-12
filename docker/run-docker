@@ -38,11 +38,10 @@ main () {
 env_setup () {
   ENVFILE=./.env
   message "Adding env vars from $CONFIG_ENV_FILE to $ENVFILE for docker setup."
-  cp $CONFIG_ENV_FILE $ENVFILE
+  cp "$CONFIG_ENV_FILE" $ENVFILE
   echo "ENVFILEPATH=$CONFIG_ENV_FILE" >> $ENVFILE
   cat $ENVFILE
   . $ENVFILE
-  DOMAIN=$DEV_SERVER_HOST
 }
 
 create_certificate () {
@@ -51,7 +50,7 @@ create_certificate () {
   [ -d ./docker/certs ] || mkdir ./docker/certs
   # install devcert dependency
   cd ./docker && yarn install && cd -
-  node ./docker/makeHostAndCert $DOMAIN || STATUS=$?
+  node ./docker/makeHostAndCert "$DEV_SERVER_HOST" || STATUS=$?
 }
 
 start_docker () {
@@ -60,7 +59,7 @@ start_docker () {
   docker-compose build || BUILD_STATUS=$?
 
   clean_up_env &    # clean up the environment in the background
-  
+
   if [ "$BUILD_STATUS" == 0 ]; then
     message "Starting Docker network and containers"
     docker-compose up
@@ -71,7 +70,7 @@ start_docker () {
 
 clean_up_env () {
   # the docker-compose command needs the .env file to be present in order to run
-  # but we want to remove it after execution so it doesn't pollute the dev environment 
+  # but we want to remove it after execution so it doesn't pollute the dev environment
   # when switching git branches or running the application outside of docker
   if [ -f .env ]; then
     sleep 20
@@ -89,4 +88,4 @@ message () {
   echo ""
 }
 
-main 
+main
