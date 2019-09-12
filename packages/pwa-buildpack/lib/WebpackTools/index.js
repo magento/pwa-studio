@@ -4,6 +4,5 @@ module.exports = {
     ServiceWorkerPlugin: require('./plugins/ServiceWorkerPlugin'),
     MagentoResolver: require('./MagentoResolver'),
     PWADevServer: require('./PWADevServer'),
-    UpwardDevServerPlugin: require('./plugins/UpwardDevServerPlugin'),
-    AsyncWebpackPlugin: require('./plugins/AsyncWebpackPlugin')
+    UpwardDevServerPlugin: require('./plugins/UpwardDevServerPlugin')
 };

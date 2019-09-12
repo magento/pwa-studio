@@ -1,12 +1,12 @@
 const {
     configureWebpack,
-    AsyncWebpackPlugin,
     fetcherUtils: { getMediaURL }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
+    await getMediaURL();
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
@@ -59,7 +59,6 @@ module.exports = async env => {
              */
             STORE_NAME: JSON.stringify('Venia')
         }),
-        new AsyncWebpackPlugin(getMediaURL),
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './template.html',
