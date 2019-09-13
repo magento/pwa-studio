@@ -84,46 +84,9 @@ function remotelyResolveRoute(opts) {
 /**
  * @description Calls remote endpoints to see if anything can handle this route.
  * @param {{ route: string, apiBase: string}} opts
- * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE" | "AEM_PAGE"}}
+ * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}}
  */
 function fetchRoute(opts) {
-    return fetchAEMRoute(opts).catch(e => {
-        console.error('AEM route fetch failed:', e);
-        return fetchMagentoRoute(opts);
-    });
-}
-
-/**
- * @description Calls the AEM API for a routable document
- * @param {{ route: string, apiBase: string}} opts
- * @returns {Promise<{type: "AEM_PAGE"}>}
- */
-function fetchAEMRoute(opts) {
-    const url = new URL(
-        `/content/we-retail/us/en${opts.route}.json`,
-        opts.apiBase
-    );
-    console.log('fetchAEMRoute', url.href);
-    return fetch(url, {
-        method: 'GET',
-        credentials: 'include'
-    })
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            return {
-                type: 'AEM_PAGE',
-                id: opts.route
-            };
-        });
-}
-
-/**
- * @description Calls the M2 GraphQL API for results from the urlResolver query
- * @param {{ route: string, apiBase: string}} opts
- * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
- */
-function fetchMagentoRoute(opts) {
     const url = new URL('/graphql', opts.apiBase);
     return fetch(url, {
         method: 'POST',
