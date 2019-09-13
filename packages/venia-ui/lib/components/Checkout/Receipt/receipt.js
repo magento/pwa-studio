@@ -1,20 +1,28 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
 
 const Receipt = props => {
-    const { createAccount, history, reset, onClose, user } = props;
+    const { createAccount, drawer, history, reset, onClose, user } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    useEffect(() => reset, [reset]);
+    // When the drawer is closed reset the state of the receipt. We use a ref
+    // because drawer can change if the mask is clicked. Mask updates drawer.
+    const prevDrawer = useRef(null);
+    useEffect(() => {
+        if (prevDrawer.current === 'cart' && drawer !== 'cart') {
+            reset();
+            onClose();
+        }
+        prevDrawer.current = drawer;
+    }, [drawer, onClose, reset]);
 
     const handleCreateAccount = useCallback(() => {
         createAccount(history);
-        onClose();
-    }, [createAccount, onClose, history]);
+    }, [createAccount, history]);
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.

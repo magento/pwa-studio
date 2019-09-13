@@ -26,6 +26,10 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
+    RECEIPT: {
+        SET_ORDER: null,
+        RESET: null
+    },
     SHIPPING_METHOD: {
         SUBMIT: null,
         ACCEPT: null,
