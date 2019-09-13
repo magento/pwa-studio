@@ -10,6 +10,17 @@ jest.mock('../../../classify');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 jest.mock('../cart', () => 'Cart');
+jest.mock('@magento/peregrine', () => {
+    const state = {};
+    const api = {
+        addToast: jest.fn()
+    };
+
+    const useToasts = jest.fn(() => [state, api]);
+    return {
+        useToasts
+    };
+});
 
 const defaultProps = {
     cart: {

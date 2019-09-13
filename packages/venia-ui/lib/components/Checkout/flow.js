@@ -7,6 +7,11 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
+import { useToasts } from '@magento/peregrine';
+import Icon from '../Icon';
+
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const isCartReady = cart => cart.details && cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
@@ -67,7 +72,7 @@ const Flow = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
-
+    const [, { addToast }] = useToasts();
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
         setStep('form');
@@ -79,9 +84,19 @@ const Flow = props => {
     }, [cancelCheckout, setStep]);
 
     const handleSubmitOrder = useCallback(async () => {
-        await submitOrder();
-        setStep('receipt');
-    }, [setStep, submitOrder]);
+        try {
+            await submitOrder();
+            setStep('receipt');
+        } catch (e) {
+            addToast({
+                type: 'error',
+                icon: ErrorIcon,
+                message:
+                    'Something went wrong submitting your order! Try again later.',
+                timeout: 7000
+            });
+        }
+    }, [addToast, setStep, submitOrder]);
 
     const handleCloseReceipt = useCallback(() => {
         setStep('cart');
