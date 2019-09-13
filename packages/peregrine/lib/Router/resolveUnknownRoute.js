@@ -84,7 +84,7 @@ function remotelyResolveRoute(opts) {
 /**
  * @description Calls remote endpoints to see if anything can handle this route.
  * @param {{ route: string, apiBase: string}} opts
- * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}}
+ * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
     const url = new URL('/graphql', opts.apiBase);
