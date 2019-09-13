@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-image-optimizing-origin="<%= process.env.IMAGE_OPTIMIZING_ORIGIN %>" data-media-backend="<%= global.MAGENTO_MEDIA_BACKEND_URL %>">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#ff6334">
+        <link rel="manifest" href="/manifest.json">
+
+        <title>Home Page - <%= STORE_NAME %></title>
+
+        <!--
+            Apple Specific Tags
+
+            To be included until Safari supports WebAppManifest
+            See Docs:
+            - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+            - https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+        -->
+        <!--
+            Apple Icons for Homescreen
+            Sizes: https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/
+        -->
+        <link rel="apple-touch-icon" href="/venia-static/icons/venia_square_57.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/venia-static/icons/apple-touch-icon.png">
+        <link rel="preconnect" href="<%= process.env.MAGENTO_BACKEND_URL %>">
+
+        <style type="text/css">
+            /* vietnamese */
+            @font-face {
+              font-family: 'Muli';
+              font-style: normal;
+              font-weight: 300;
+              font-display: swap;
+              src: local('Muli Light'), local('Muli-Light'), url(https://fonts.gstatic.com/s/muli/v13/7Au_p_0qiz-adZnkOCr2z24PMFk-0g.woff2) format('woff2');
+              unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+            }
+            /* latin-ext */
+            @font-face {
+              font-family: 'Muli';
+              font-style: normal;
+              font-weight: 300;
+              font-display: swap;
+              src: local('Muli Light'), local('Muli-Light'), url(https://fonts.gstatic.com/s/muli/v13/7Au_p_0qiz-adZnkOCv2z24PMFk-0g.woff2) format('woff2');
+              unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+            }
+            /* latin */
+            @font-face {
+              font-family: 'Muli';
+              font-style: normal;
+              font-weight: 300;
+              font-display: swap;
+              src: local('Muli Light'), local('Muli-Light'), url(https://fonts.gstatic.com/s/muli/v13/7Au_p_0qiz-adZnkOCX2z24PMFk.woff2) format('woff2');
+              unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+          </style>
+    </head>
+    <body>
+        <div id="root" />
+    </body>
+</html>

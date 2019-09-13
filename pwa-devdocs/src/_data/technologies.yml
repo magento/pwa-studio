@@ -9,6 +9,15 @@ entries:
     - label: Magento theme vs PWA storefront
       url: /technologies/theme-vs-storefront/
 
+    - label: PWA Storefront architecture
+      url: /technologies/storefront-architecture/
+      entries:
+          - label: Runtime architecture
+            url: /technologies/storefront-architecture/runtime/
+          
+          - label: Build-time architecture
+            url: /technologies/storefront-architecture/buildtime/
+
     - label: Tools and libraries
       url: /technologies/tools-libraries/
 
