@@ -119,7 +119,7 @@ See PR [#1404][].
 | Fixed a bug that displayed the search suggestion box when there are no results                                  |  **Bugfix**  | [#1252][] |
 | Added a name property for the search trigger button to improve accessibility                                    | **Refactor** | [#1395][] |
 | Update Billing Address Form to show additional fields                                                           |  **Update**  | [#1286][] |
-| Refactored MiniCart component                                                                                   | **Refactor** | [#1266][] |
+| Refactored MiniCart components into functions from classes                                                      | **Refactor** | [#1266][] |
 | Removed errant debugger statement in tests                                                                      |  **Update**  | [#1353][] |
 | Added ability to source media URL from GraphQL                                                                  | **Feature**  | [#1267][] |
 | Refactored Product Details component to use hooks                                                               | **Refactor** | [#1240][] |
@@ -129,15 +129,15 @@ See PR [#1404][].
 | Refactored `create-account` route to use `appShell` to get provided requisite properties                        | **Refactor** | [#1430][] |
 | Fixed bug that prevented the Braintree dropin from lazy loading                                                 |  **Bugfix**  | [#1419][] |
 | Added height to `makeUrl()` and enforced crop in middleware if provided                                         | **Feature**  | [#1361][] |
-| Refactored Checkout                                                                                             | **Refactor** | [#1309][] |
+| Refactored Checkout components to use hooks, fix bugs, and split code into functional components                | **Refactor** | [#1309][] |
 | Fixed a bug that caused a tooltips memory leak on mobile                                                        |  **Bugfix**  | [#1288][] |
 | Fixed a bug where suspense temporarily loads a fallback component while the SearchBar component is being loaded |  **Bugfix**  | [#1351][] |
 | Improved scroll locking                                                                                         | **Feature**  | [#1449][] |
 | Updated `webpack-bundle-analyzer` dependency                                                                    |  **Update**  | [#1466][] |
 | Added insecure flag to GraphQL schema validation                                                                |  **Update**  | [#1313][] |
-| Refactored Category RootComponent                                                                               | **Refactor** | [#1211][] |
+| Refactored Category RootComponent into functional components and use hooks                                      | **Refactor** | [#1211][] |
 | Refactored driver usage to improve Venia portability                                                            | **Refactor** | [#1217][] |
-| Refactored slide filter UX                                                                                      | **Refactor** | [#1471][] |
+| Refactored slide filter UX to make it behave like the nav menu                                                  | **Refactor** | [#1471][] |
 | Refactored the edit steps out of redux and into local checkout state                                            | **Refactor** | [#1338][] |
 | Fixed product page image jutter                                                                                 |  **Bugfix**  | [#1478][] |
 | Removed root-relative imports from Venia code                                                                   | **Refactor** | [#1497][] |
@@ -147,7 +147,7 @@ See PR [#1404][].
 | Fixed handling of head and meta tags                                                                            |  **Bugfix**  | [#1537][] |
 | Fixed test config                                                                                               |  **Bugfix**  | [#1606][] |
 | Fixed a bug where `Image` isLoaded state was incorrectly being set to `false`                                   |  **Bugfix**  | [#1618][] |
-| Refactored left drawer components                                                                               | **Refactor** | [#1552][] |
+| Refactored left drawer components to use hooks, improve performance, and clean up the UI                        | **Refactor** | [#1552][] |
 | Fixed missing import of `catalogActions` when clearing filters                                                  |  **Bugfix**  | [#1626][] |
 | Fixed a bug that prevented the logo from loading when using `upward-php`                                        |  **Bugfix**  | [#1637][] |
 | Refactored image tags to utilize `srcset` and `sizes` for optimized images                                      | **Refactor** | [#1584][] |
@@ -169,7 +169,7 @@ See PR [#1404][].
 | Removed Storybook from peregrine and update references                     |  **Update**  | [#1482][] |
 | Fixed bug in MagentoRouteHandler so it can correctly handle unknown routes |  **Bugfix**  | [#1495][] |
 | Refactored list components to use hooks                                    | **Refactor** | [#1515][] |
-| Changed prop type of `uniqueID` for list Item component.                   |  **Update**  | [#1586][] |
+| Changed prop type of `uniqueID` for list Item component                    |  **Update**  | [#1586][] |
 | Added support for List initial selections                                  | **Feature**  | [#1589][] |
 
 ### Build tools
@@ -177,7 +177,7 @@ See PR [#1404][].
 | Description                                                         | Change type |    PR     |
 | :------------------------------------------------------------------ | :---------: | :-------: |
 | Added tools for a unified system of environment-based configuration | **Feature** | [#1224][] |
-| Added feature to allow Graphql playground to autodetect queries     | **Feature** | [#1219][] |
+| Added feature to allow GraphQL playground to autodetect queries     | **Feature** | [#1219][] |
 | Added Webpack configuration utility                                 | **Feature** | [#1498][] |
 | Removed errant debugger statement in test file                      | **Bugfix**  | [#1572][] |
 | Replaced `cheap-source-map` with `eval-source-map` for devtool      | **Update**  | [#1581][] |
@@ -242,9 +242,9 @@ See PR [#1404][].
 | Removed Now.sh pipeline                                                                    |  **Update**  | [#1575][] |
 | Bumped `eslint-utils` from 1.4.0 to 1.4.2                                                  |  **Update**  | [#1640][] |
 
-## Updating from 3.0.0
+## Upgrading from a previous version
 
-The method for updating to 4.0.0 from 3.0.0 depends on how PWA Studio is incorporated into your project.
+The method for updating to 4.0.0 from a previous version depends on how PWA Studio is incorporated into your project.
 The following are common use cases we have identified and how to update the project code.
 
 ### PWA Studio fork
