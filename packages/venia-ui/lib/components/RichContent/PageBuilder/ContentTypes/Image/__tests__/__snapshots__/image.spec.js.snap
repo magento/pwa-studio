@@ -20,6 +20,7 @@ exports[`renders a Image component 1`] = `
   <picture>
     
     <img
+      loading="lazy"
       src="test-image.png"
       style={
         Object {
@@ -59,6 +60,7 @@ exports[`renders a Image component with all props configured 1`] = `
     />
     <img
       alt="Alt Text"
+      loading="lazy"
       src="desktop-image.png"
       style={
         Object {
