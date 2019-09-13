@@ -43,25 +43,10 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-if (
-    process.env.NODE_ENV === 'production' ||
-    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED
-) {
-    window.addEventListener('load', () =>
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then(registration => {
-                console.log('Service worker registered: ', registration);
-            })
-            .catch(error => {
-                console.log('Service worker registration failed: ', error);
-            })
-    );
-}
-
 window.addEventListener('online', () => {
     store.dispatch(app.setOnline());
 });
+
 window.addEventListener('offline', () => {
     store.dispatch(app.setOffline());
 });

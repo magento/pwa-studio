@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const loadEnvironment = require('../Utilities/loadEnvironment');
+const createFileHash = require('../Utilities/fileHash');
 const RootComponentsPlugin = require('./plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('./plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('./plugins/UpwardIncludePlugin');
@@ -90,18 +91,32 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
 
     const mode = getMode(env, projectConfig);
 
+    const serviceWorkerFileHash = await createFileHash('./src/sw.js');
+
+    projectConfig.env = {
+        ...projectConfig.env,
+        SERVICE_WORKER_HASH: serviceWorkerFileHash
+    };
+
     const config = {
         mode,
         context, // Node global for the running script's directory
         entry: {
-            client: path.resolve(paths.src, 'index.js')
+            client: path.resolve(paths.src, 'index.js'),
+            registerSW: path.resolve(paths.src, 'registerSW.js')
         },
         output: {
             path: paths.output,
             publicPath: '/',
-            filename: '[name].[contenthash].js',
+            filename:
+                mode === 'production'
+                    ? '[name].[contenthash].js'
+                    : '[name].[hash].js',
             strictModuleExceptionHandling: true,
-            chunkFilename: '[name]-[chunkhash].js'
+            chunkFilename:
+                mode === 'production'
+                    ? '[name].[chunkhash].js'
+                    : '[name].[hash].js'
         },
         module: {
             rules: [
@@ -201,7 +216,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                 injectManifestConfig: {
                     include: [/\.js$/],
                     swSrc: './src/sw.js',
-                    swDest: './sw.js'
+                    swDest: `./sw.${serviceWorkerFileHash}.js`
                 }
             }),
             new UpwardIncludePlugin({
@@ -246,13 +261,10 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         vendorTest += `(${vendor.join('|')})[\\\/]`;
     }
     config.optimization = {
-        moduleIds: 'hashed',
-        runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
                 vendor: {
                     test: new RegExp(vendorTest),
-                    name: 'vendors',
                     chunks: 'all'
                 }
             }
@@ -294,26 +306,45 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
             hints: 'warning'
         };
         config.devtool = false;
-        config.optimization.minimizer = [
-            new TerserPlugin({
-                parallel: true,
-                cache: true,
-                terserOptions: {
-                    ecma: 8,
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        drop_console: true
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
+        config.optimization = {
+            ...config.optimization,
+            moduleIds: 'hashed',
+            runtimeChunk: 'single',
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: new RegExp(vendorTest),
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
                 }
+            },
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ]
+        };
+        config.plugins.push(
+            new webpack.optimize.LimitChunkCountPlugin({
+                maxChunks: 5
             })
-        ];
+        );
     } else {
         throw Error(`Unsupported environment mode in webpack config: ${mode}`);
     }
