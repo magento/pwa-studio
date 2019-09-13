@@ -10,7 +10,7 @@ jest.mock('../../../classify');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 jest.mock('../cart', () => 'Cart');
-<<<<<<< HEAD
+
 jest.mock('@magento/peregrine', () => {
     const state = {};
     const api = {
@@ -22,11 +22,9 @@ jest.mock('@magento/peregrine', () => {
         useToasts
     };
 });
-=======
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {};
->>>>>>> f0836b8f... Use context in Checkout component
-
     const api = {};
 
     const useCartContext = jest.fn(() => [state, api]);
