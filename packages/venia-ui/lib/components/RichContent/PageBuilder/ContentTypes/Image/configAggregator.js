@@ -16,7 +16,7 @@ export default node => {
         mobileImage: imageNode[1].getAttribute('src'),
         altText: imageNode[0].getAttribute('alt'),
         title: imageNode[0].getAttribute('title'),
-         openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
+        openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
         ...getPadding(node),
         ...getMargin(node),
         ...getBorder(imageNode[0]),

@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect } from 'react';
 import defaultClasses from './buttons.css';
 import { oneOf, arrayOf, string, bool } from 'prop-types';
 
@@ -62,7 +62,10 @@ const Buttons = ({
     }
 
     return (
-        <div style={dynamicStyles} className={[defaultClasses.root, ...cssClasses].join(' ')}>
+        <div
+            style={dynamicStyles}
+            className={[defaultClasses.root, ...cssClasses].join(' ')}
+        >
             {children}
         </div>
     );

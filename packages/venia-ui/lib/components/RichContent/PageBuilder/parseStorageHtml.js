@@ -84,7 +84,7 @@ const walk = (rootEl, contentTypeStructureObj) => {
  * @returns {Object}
  */
 const parseStorageHtml = htmlStr => {
-    const container = new DOMParser().parseFromString(htmlStr, "text/html");
+    const container = new DOMParser().parseFromString(htmlStr, 'text/html');
 
     const stageContentType = createContentTypeObject('root-container');
 

@@ -41,7 +41,8 @@ const ButtonItem = ({
         paddingLeft
     };
 
-    const cssButtonTypeSuffix = buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
+    const cssButtonTypeSuffix =
+        buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
 
     if (typeof link === 'string') {
         const linkProps = resolveLinkProps(link, linkType);
@@ -51,8 +52,11 @@ const ButtonItem = ({
             <div className={cssClasses.join(' ')}>
                 <LinkComponent
                     {...linkProps}
-                    className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix]].join(' ')}
-                    {...openInNewTab ? {target: '_blank'} : ''}
+                    className={[
+                        defaultClasses.button,
+                        defaultClasses['button' + cssButtonTypeSuffix]
+                    ].join(' ')}
+                    {...(openInNewTab ? { target: '_blank' } : '')}
                     style={dynamicInnerStyles}
                 >
                     <span>{text}</span>
@@ -62,7 +66,14 @@ const ButtonItem = ({
     } else {
         return (
             <div className={cssClasses.join(' ')}>
-                <div className={[defaultClasses.button, defaultClasses['button' + cssButtonTypeSuffix], defaultClasses.emptyLink].join(' ')} style={dynamicInnerStyles}>
+                <div
+                    className={[
+                        defaultClasses.button,
+                        defaultClasses['button' + cssButtonTypeSuffix],
+                        defaultClasses.emptyLink
+                    ].join(' ')}
+                    style={dynamicInnerStyles}
+                >
                     <span>{text}</span>
                 </div>
             </div>

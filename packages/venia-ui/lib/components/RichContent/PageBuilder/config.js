@@ -20,7 +20,6 @@ import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregat
 import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 
-
 export const Lazy = 'lazy';
 
 export const contentTypesConfig = {

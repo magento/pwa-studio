@@ -1,4 +1,4 @@
-import {getAdvanced, getCssClasses} from '../../utils';
+import { getAdvanced, getCssClasses } from '../../utils';
 
 export default node => {
     const props = {
@@ -7,14 +7,16 @@ export default node => {
         textAlign: node.style.textAlign,
         openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
         ...getAdvanced(node.childNodes[0]),
-        ...getCssClasses(node),
+        ...getCssClasses(node)
     };
 
     let buttonType;
 
     if (node.childNodes[0].classList.contains('pagebuilder-button-secondary')) {
         buttonType = 'secondary';
-    } else if (node.childNodes[0].classList.contains('pagebuilder-button-link')) {
+    } else if (
+        node.childNodes[0].classList.contains('pagebuilder-button-link')
+    ) {
         buttonType = 'link';
     } else {
         buttonType = 'primary';

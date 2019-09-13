@@ -3,7 +3,9 @@ export default (link, linkType) => {
     const linkProps = {};
 
     try {
-        const baseUrl = document.querySelector('link[rel="preconnect"]').getAttribute('href'); // TODO - some better way to get this?
+        const baseUrl = document
+            .querySelector('link[rel="preconnect"]')
+            .getAttribute('href'); // TODO - some better way to get this?
         const baseUrlObj = new URL(baseUrl);
         const urlObj = new URL(link);
         isExternalUrl = baseUrlObj.host !== urlObj.host;

@@ -49,10 +49,7 @@ const Image = ({
         <>
             <picture>
                 {mobileImage ? (
-                    <source
-                        media="(max-width: 768px)"
-                        srcSet={mobileImage}
-                    />
+                    <source media="(max-width: 768px)" srcSet={mobileImage} />
                 ) : (
                     ''
                 )}
@@ -76,7 +73,7 @@ const Image = ({
             <figure style={figureStyles} className={cssClasses.join(' ')}>
                 <LinkComponent
                     {...linkProps}
-                    {...openInNewTab ? {target: '_blank'} : ''}
+                    {...(openInNewTab ? { target: '_blank' } : '')}
                 >
                     {PictureFragment}
                 </LinkComponent>

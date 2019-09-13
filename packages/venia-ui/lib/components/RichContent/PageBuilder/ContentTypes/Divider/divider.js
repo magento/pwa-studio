@@ -54,7 +54,7 @@ const Divider = ({
 
 Divider.propTypes = {
     classes: shape({
-        hr: string,
+        hr: string
     }),
     width: string,
     color: string,
