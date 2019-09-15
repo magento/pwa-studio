@@ -65,11 +65,12 @@ test('calls onSelectionChange function with attribute_id and selection', () => {
         onSelectionChange: onSelectionChangeMock
     };
     const component = testRenderer.create(<Option {...props} />);
+    const set = new Set(['test']);
 
-    component.root.children[0].instance.handleSelectionChange('test');
+    component.root.children[0].instance.handleSelectionChange(set);
     expect(onSelectionChangeMock).toHaveBeenCalledWith(
         defaultProps.attribute_id,
-        'test'
+        set
     );
 
     onSelectionChangeMock.mockReset();
