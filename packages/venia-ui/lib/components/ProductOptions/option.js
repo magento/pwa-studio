@@ -25,9 +25,10 @@ class Option extends Component {
     handleSelectionChange = selection => {
         const { attribute_id, onSelectionChange } = this.props;
 
-        if (onSelectionChange) {
+        typeof onSelectionChange === 'function' &&
+            selection &&
+            selection.size &&
             onSelectionChange(attribute_id, selection);
-        }
     };
 
     get listComponent() {
