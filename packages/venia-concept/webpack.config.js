@@ -6,7 +6,9 @@ const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    await getMediaURL();
+    getMediaURL().then(mediaURL => {
+        global.MAGENTO_MEDIA_BACKEND_URL = mediaURL;
+    });
     const config = await configureWebpack({
         context: __dirname,
         vendor: [

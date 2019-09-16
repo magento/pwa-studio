@@ -19,24 +19,16 @@ const fetchQuery = query =>
 
 /**
  * An Async function that will asynchronously fetch the
- * media backend Url from magento graphql server. Also
- * will set the MAGENTO_MEDIA_BACKEND_URL value on global
- * object to the resulting url.
+ * media backend Url from magento graphql server.
  *
  * @returns Promise that will resolve to the media backend url.
  */
 const getMediaURL = () =>
-    new Promise(resolve => {
-        fetchQuery('query { storeConfig { secure_base_media_url } }')
-            .then(json => json.data.storeConfig.secure_base_media_url)
-            .then(url => {
-                global.MAGENTO_MEDIA_BACKEND_URL = url;
-                resolve(url);
-            })
-            .catch(err => {
-                console.error('Unable to fetch Media URL', err);
-                resolve('');
-            });
-    });
+    fetchQuery('query { storeConfig { secure_base_media_url } }')
+        .then(json => json.data.storeConfig.secure_base_media_url)
+        .catch(err => {
+            console.error('Unable to fetch Media URL', err);
+            return '';
+        });
 
 module.exports = { getMediaURL };

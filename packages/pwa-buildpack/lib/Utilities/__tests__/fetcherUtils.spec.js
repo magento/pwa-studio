@@ -6,7 +6,6 @@ const { getMediaURL } = require('../fetcherUtils');
 beforeEach(() => {
     process.env.MAGENTO_BACKEND_URL =
         'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/';
-    global.MAGENTO_MEDIA_BACKEND_URL = undefined;
 });
 
 test('getMediaURL should make a POST call to process.env.MAGENTO_BACKEND_URL', () => {
@@ -28,7 +27,10 @@ test('getMediaURL should make a POST call to process.env.MAGENTO_BACKEND_URL', (
         );
         expect(fetch.mock.calls[0][1]).toEqual({
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept-Encoding': 'gzip'
+            },
             body: JSON.stringify({
                 query: 'query { storeConfig { secure_base_media_url } }'
             })
@@ -36,7 +38,7 @@ test('getMediaURL should make a POST call to process.env.MAGENTO_BACKEND_URL', (
     });
 });
 
-test('getMediaURL should fetch the media URL and set it to global.MAGENTO_MEDIA_BACKEND_URL and also resolve with that url', () => {
+test('getMediaURL should fetch the media URL and resolve with it', () => {
     const expectedMediaURL =
         'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/';
 
@@ -52,11 +54,8 @@ test('getMediaURL should fetch the media URL and set it to global.MAGENTO_MEDIA_
         })
     );
 
-    expect(global.MAGENTO_MEDIA_BACKEND_URL).toBe(undefined);
-
     return getMediaURL().then(url => {
         expect(url).toBe(expectedMediaURL);
-        expect(global.MAGENTO_MEDIA_BACKEND_URL).toBe(expectedMediaURL);
     });
 });
 
