@@ -1,0 +1,550 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot testing Items component 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "getItemKey": [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "id": "001",
+            "name": "Test Product 1",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": "/test/product/1.png",
+          },
+          0,
+        ],
+        Array [
+          Object {
+            "id": "002",
+            "name": "Test Product 2",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": "/test/product/2.png",
+          },
+          1,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": "001",
+        },
+        Object {
+          "type": "return",
+          "value": "002",
+        },
+      ],
+    },
+    "initialSelection": null,
+    "items": Array [
+      Object {
+        "id": "001",
+        "name": "Test Product 1",
+        "price": Object {
+          "regularPrice": Object {
+            "amount": Object {
+              "value": 100,
+            },
+          },
+        },
+        "small_image": "/test/product/1.png",
+      },
+      Object {
+        "id": "002",
+        "name": "Test Product 2",
+        "price": Object {
+          "regularPrice": Object {
+            "amount": Object {
+              "value": 100,
+            },
+          },
+        },
+        "small_image": "/test/product/2.png",
+      },
+    ],
+    "onSelectionChange": [MockFunction] {
+      "calls": Array [
+        Array [
+          Set {},
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    },
+    "renderItem": [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "children": null,
+            "className": undefined,
+            "classes": Object {},
+            "hasFocus": false,
+            "isSelected": false,
+            "item": Object {
+              "id": "001",
+              "name": "Test Product 1",
+              "price": Object {
+                "regularPrice": Object {
+                  "amount": Object {
+                    "value": 100,
+                  },
+                },
+              },
+              "small_image": "/test/product/1.png",
+            },
+            "itemIndex": 0,
+            "onBlur": [Function],
+            "onClick": [Function],
+            "onFocus": [Function],
+          },
+          Object {},
+        ],
+        Array [
+          Object {
+            "children": null,
+            "className": undefined,
+            "classes": Object {},
+            "hasFocus": false,
+            "isSelected": false,
+            "item": Object {
+              "id": "002",
+              "name": "Test Product 2",
+              "price": Object {
+                "regularPrice": Object {
+                  "amount": Object {
+                    "value": 100,
+                  },
+                },
+              },
+              "small_image": "/test/product/2.png",
+            },
+            "itemIndex": 1,
+            "onBlur": [Function],
+            "onClick": [Function],
+            "onFocus": [Function],
+          },
+          Object {},
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": <div />,
+        },
+        Object {
+          "type": "return",
+          "value": <div />,
+        },
+      ],
+    },
+    "selectionModel": "radio",
+  },
+  "rendered": Array [
+    Object {
+      "instance": null,
+      "nodeType": "component",
+      "props": Object {
+        "classes": Object {},
+        "hasFocus": false,
+        "isSelected": false,
+        "item": Object {
+          "id": "001",
+          "name": "Test Product 1",
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {
+                "value": 100,
+              },
+            },
+          },
+          "small_image": "/test/product/1.png",
+        },
+        "itemIndex": 0,
+        "onBlur": [Function],
+        "render": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "001",
+                  "name": "Test Product 1",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/1.png",
+                },
+                "itemIndex": 0,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "002",
+                  "name": "Test Product 2",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/2.png",
+                },
+                "itemIndex": 1,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+          ],
+        },
+        "setFocus": [Function],
+        "uniqueId": "001",
+        "updateSelectedKeys": [Function],
+      },
+      "rendered": Object {
+        "instance": null,
+        "nodeType": "component",
+        "props": Object {
+          "children": null,
+          "className": undefined,
+          "classes": Object {},
+          "hasFocus": false,
+          "isSelected": false,
+          "item": Object {
+            "id": "001",
+            "name": "Test Product 1",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": "/test/product/1.png",
+          },
+          "itemIndex": 0,
+          "onBlur": [Function],
+          "onClick": [Function],
+          "onFocus": [Function],
+        },
+        "rendered": Object {
+          "instance": null,
+          "nodeType": "host",
+          "props": Object {},
+          "rendered": Array [],
+          "type": "div",
+        },
+        "type": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "001",
+                  "name": "Test Product 1",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/1.png",
+                },
+                "itemIndex": 0,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "002",
+                  "name": "Test Product 2",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/2.png",
+                },
+                "itemIndex": 1,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+          ],
+        },
+      },
+      "type": [Function],
+    },
+    Object {
+      "instance": null,
+      "nodeType": "component",
+      "props": Object {
+        "classes": Object {},
+        "hasFocus": false,
+        "isSelected": false,
+        "item": Object {
+          "id": "002",
+          "name": "Test Product 2",
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {
+                "value": 100,
+              },
+            },
+          },
+          "small_image": "/test/product/2.png",
+        },
+        "itemIndex": 1,
+        "onBlur": [Function],
+        "render": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "001",
+                  "name": "Test Product 1",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/1.png",
+                },
+                "itemIndex": 0,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "002",
+                  "name": "Test Product 2",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/2.png",
+                },
+                "itemIndex": 1,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+          ],
+        },
+        "setFocus": [Function],
+        "uniqueId": "002",
+        "updateSelectedKeys": [Function],
+      },
+      "rendered": Object {
+        "instance": null,
+        "nodeType": "component",
+        "props": Object {
+          "children": null,
+          "className": undefined,
+          "classes": Object {},
+          "hasFocus": false,
+          "isSelected": false,
+          "item": Object {
+            "id": "002",
+            "name": "Test Product 2",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": "/test/product/2.png",
+          },
+          "itemIndex": 1,
+          "onBlur": [Function],
+          "onClick": [Function],
+          "onFocus": [Function],
+        },
+        "rendered": Object {
+          "instance": null,
+          "nodeType": "host",
+          "props": Object {},
+          "rendered": Array [],
+          "type": "div",
+        },
+        "type": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "001",
+                  "name": "Test Product 1",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/1.png",
+                },
+                "itemIndex": 0,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+            Array [
+              Object {
+                "children": null,
+                "className": undefined,
+                "classes": Object {},
+                "hasFocus": false,
+                "isSelected": false,
+                "item": Object {
+                  "id": "002",
+                  "name": "Test Product 2",
+                  "price": Object {
+                    "regularPrice": Object {
+                      "amount": Object {
+                        "value": 100,
+                      },
+                    },
+                  },
+                  "small_image": "/test/product/2.png",
+                },
+                "itemIndex": 1,
+                "onBlur": [Function],
+                "onClick": [Function],
+                "onFocus": [Function],
+              },
+              Object {},
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+            Object {
+              "type": "return",
+              "value": <div />,
+            },
+          ],
+        },
+      },
+      "type": [Function],
+    },
+  ],
+  "type": [Function],
+}
+`;

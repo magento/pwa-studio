@@ -27,11 +27,10 @@ const graf = txt =>
 const paragraphs = (...grafs) => grafs.map(graf).join(blankline);
 
 module.exports = function printEnvFile(
-    useEnv,
+    passedEnv,
     { logger = prettyLogger, useExamples } = {}
 ) {
-    const passedEnv = typeof useEnv === 'string' ? {} : useEnv;
-    const { env, error } = loadEnvironment(useEnv, logger);
+    const { env, error } = loadEnvironment(passedEnv, logger);
     if (error && !useExamples) {
         logger.warn(
             `The current environment is not yet valid; please set any missing variables to build the project before generating a .env file.`

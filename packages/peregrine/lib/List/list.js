@@ -1,5 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo, useCallback } from 'react';
+import {
+    array,
+    func,
+    object,
+    oneOf,
+    oneOfType,
+    shape,
+    string
+} from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
 import iterable from '../validators/iterable';
@@ -9,89 +17,96 @@ import Items from './items';
  * The **List** component maps a collection of data objects into an array of elements.
  * It also manages the selection and focus of those elements.
  */
-class List extends Component {
-    static propTypes = {
-        /**
-         * Class names to use when styling this component
-         */
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        getItemKey: PropTypes.func.isRequired,
-        /**
-         * An iterable that yields `[key, item]` pairs such as an ES2015 Map
-         */
-        items: iterable.isRequired,
-        /**
-         * A render prop for the list element. A tagname string, such as `"div"`, is also valid.
-         */
-        render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-            .isRequired,
-        /**
-         * A render prop for the list item elements. A tagname string, such as `"div"`, is also valid.
-         */
-        renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-        /**
-         * A callback that fires when the selection state changes.
-         */
-        onSelectionChange: PropTypes.func,
-        /**
-         * A string corresponding to a selection model.
-         */
-        selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
+const List = props => {
+    const {
+        classes,
+        getItemKey,
+        initialSelection,
+        items,
+        render,
+        renderItem,
+        onSelectionChange,
+        selectionModel,
+        ...restProps
+    } = props;
+
+    const customProps = {
+        classes,
+        getItemKey,
+        items,
+        onSelectionChange,
+        selectionModel
     };
 
-    static defaultProps = {
-        classes: {},
-        getItemKey: ({ id }) => id,
-        items: [],
-        render: 'div',
-        renderItem: 'div',
-        selectionModel: 'radio'
-    };
+    const handleSelectionChange = useCallback(
+        selection => {
+            if (onSelectionChange) {
+                onSelectionChange(selection);
+            }
+        },
+        [onSelectionChange]
+    );
 
-    render() {
-        const {
-            classes,
-            getItemKey,
-            items,
-            render,
-            renderItem,
-            onSelectionChange,
-            selectionModel,
-            ...restProps
-        } = this.props;
+    const Root = useMemo(
+        () => fromRenderProp(render, Object.keys(customProps)),
+        [render, customProps]
+    );
 
-        const customProps = {
-            classes,
-            getItemKey,
-            items,
-            onSelectionChange,
-            selectionModel
-        };
+    return (
+        <Root className={classes.root} {...customProps} {...restProps}>
+            <Items
+                getItemKey={getItemKey}
+                initialSelection={initialSelection}
+                items={items}
+                renderItem={renderItem}
+                selectionModel={selectionModel}
+                onSelectionChange={handleSelectionChange}
+            />
+        </Root>
+    );
+};
 
-        const Root = fromRenderProp(render, Object.keys(customProps));
+List.propTypes = {
+    /**
+     * Class names to use when styling this component
+     */
+    classes: shape({
+        root: string
+    }),
+    getItemKey: func.isRequired,
+    /**
+     * A single or list of objects that should start off selected.
+     */
+    initialSelection: oneOfType([array, object]),
+    /**
+     * An iterable that yields `[key, item]` pairs such as an ES2015 Map
+     */
+    items: iterable.isRequired,
+    /**
+     * A render prop for the list element. A tagname string, such as `"div"`, is also valid.
+     */
+    render: oneOfType([func, string]).isRequired,
+    /**
+     * A render prop for the list item elements. A tagname string, such as `"div"`, is also valid.
+     */
+    renderItem: oneOfType([func, string]),
+    /**
+     * A callback that fires when the selection state changes.
+     */
+    onSelectionChange: func,
+    /**
+     * A string corresponding to a selection model.
+     */
+    selectionModel: oneOf(['checkbox', 'radio'])
+};
 
-        return (
-            <Root className={classes.root} {...customProps} {...restProps}>
-                <Items
-                    items={items}
-                    getItemKey={getItemKey}
-                    renderItem={renderItem}
-                    selectionModel={selectionModel}
-                    onSelectionChange={this.handleSelectionChange}
-                />
-            </Root>
-        );
-    }
-
-    handleSelectionChange = selection => {
-        const { onSelectionChange } = this.props;
-
-        if (onSelectionChange) {
-            onSelectionChange(selection);
-        }
-    };
-}
+List.defaultProps = {
+    classes: {},
+    getItemKey: ({ id }) => id,
+    items: [],
+    render: 'div',
+    renderItem: 'div',
+    selectionModel: 'radio'
+};
 
 export default List;

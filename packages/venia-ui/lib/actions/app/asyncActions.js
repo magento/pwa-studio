@@ -1,4 +1,5 @@
 import actions from './actions';
+import catalogActions from '../catalog/actions';
 
 export const toggleDrawer = name => async dispatch =>
     dispatch(actions.toggleDrawer(name));

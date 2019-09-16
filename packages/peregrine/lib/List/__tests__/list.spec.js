@@ -1,12 +1,11 @@
-import React, { Fragment } from 'react';
-import { shallow } from 'enzyme';
+import React from 'react';
 
-import List from '..';
+import List, { Items } from '..';
+import createTestInstance from '../../util/createTestInstance';
 
-const classes = {
-    root: 'abc'
-};
-
+const classes = { root: 'abc' };
+const getItemKey = jest.fn(({ id }) => id);
+const initialSelection = null;
 const items = [
     {
         id: '001',
@@ -33,95 +32,78 @@ const items = [
         }
     }
 ];
+const onSelectionChange = jest.fn();
+const render = 'div';
+const renderItem = jest.fn(() => <div />);
+const selectionModel = 'radio';
 
-test('renders a div by default', () => {
-    const props = { classes };
-    const wrapper = shallow(<List {...props} />).dive();
+const props = {
+    classes,
+    getItemKey,
+    initialSelection,
+    items,
+    render,
+    renderItem,
+    onSelectionChange,
+    selectionModel
+};
 
-    expect(wrapper.type()).toEqual('div');
-    expect(wrapper.prop('className')).toEqual(classes.root);
+test('List component renders correctly', () => {
+    const tree = createTestInstance(<List {...props} />);
+
+    expect(tree.toTree()).toMatchSnapshot();
 });
 
-test('renders a provided tagname', () => {
-    const props = { classes, render: 'ul' };
-    const wrapper = shallow(<List {...props} />).dive();
+test('rerenders should not create new root element if props didnt change', () => {
+    const renderer = createTestInstance(<List {...props} />);
 
-    expect(wrapper.type()).toEqual('ul');
-    expect(wrapper.prop('className')).toEqual(classes.root);
+    const firstRoot = renderer.root.children[0];
+    renderer.update(<List {...props} />);
+
+    expect(firstRoot).toEqual(renderer.root.children[0]);
 });
 
-test('renders a provided component', () => {
+test('rerenders should create new root element if props change', () => {
+    const renderer = createTestInstance(<List {...props} />);
+
+    const firstRoot = renderer.root.children[0];
+
+    const updateProps = { ...props, render: 'ul' };
+    renderer.update(<List {...updateProps} />);
+
+    expect(firstRoot).not.toEqual(renderer.root.children[0]);
+});
+
+test('handleSelectionChange is memoized on onSelectionChange prop', () => {
+    const renderer = createTestInstance(<List {...props} />);
+
+    const firstHandleSelectionChange = renderer.root.findByType(Items).props
+        .onSelectionChange;
+
+    const updateProps = { ...props, onSelectionChange: jest.fn() };
+    renderer.update(<List {...updateProps} />);
+
+    const secondHandleSelectionChange = renderer.root.findByType(Items).props
+        .onSelectionChange;
+    expect(firstHandleSelectionChange).not.toEqual(secondHandleSelectionChange);
+});
+
+test('renders the component provided using render prop as the container', () => {
     const Nav = () => <nav />;
-    const props = { render: Nav };
-    const wrapper = shallow(<List {...props} />);
+    const testProps = { ...props, render: Nav };
+    const instance = createTestInstance(<List {...testProps} />).root;
 
-    expect(wrapper.type()).toEqual(Nav);
-    expect(wrapper.dive().type()).toEqual('nav');
+    expect(instance.children[0].type).toEqual(Nav);
 });
 
-test('passes only rest props to basic `render`', () => {
-    const props = { classes, items, render: 'ul', renderItem: 'li' };
-    const wrapper = shallow(<List {...props} data-id="b" />).dive();
+test('passes the initial selection to Items', () => {
+    const initialSelection = { name: 'first' };
+    const testProps = { ...props, initialSelection };
 
-    expect(wrapper.props()).toHaveProperty('data-id');
-    expect(wrapper.props()).not.toHaveProperty('classes');
-    expect(wrapper.props()).not.toHaveProperty('items');
-    expect(wrapper.props()).not.toHaveProperty('onSelectionChange');
-    expect(wrapper.props()).not.toHaveProperty('selectionModel');
-    expect(wrapper.props()).not.toHaveProperty('render');
-    expect(wrapper.props()).not.toHaveProperty('renderItem');
-});
+    const renderer = createTestInstance(<List {...testProps} />);
+    const instance = renderer.root;
 
-test('passes custom and rest props to composite `render`', () => {
-    const Nav = () => <nav />;
-    const props = { classes, items, render: Nav, renderItem: 'a' };
-    const wrapper = shallow(<List {...props} data-id="b" />);
-
-    expect(wrapper.props()).toHaveProperty('data-id');
-    expect(wrapper.props()).toHaveProperty('classes');
-    expect(wrapper.props()).toHaveProperty('items');
-    expect(wrapper.props()).toHaveProperty('onSelectionChange');
-    expect(wrapper.props()).toHaveProperty('selectionModel');
-    expect(wrapper.props()).not.toHaveProperty('render');
-    expect(wrapper.props()).not.toHaveProperty('renderItem');
-});
-
-test('renders a fragment as `children`', () => {
-    const props = { classes, items };
-    const wrapper = shallow(<List {...props} />);
-
-    expect(
-        wrapper
-            .childAt(0)
-            .dive()
-            .type()
-    ).toEqual(Fragment);
-});
-
-test('passes correct props through to `Items`', () => {
-    const Item = () => <li />;
-    const selectionModel = 'checkbox';
-    const props = { items, renderItem: Item, selectionModel };
-    const wrapper = shallow(<List {...props} />);
-
-    expect(wrapper.childAt(0).props()).toMatchObject(props);
-});
-
-test('calls `onSelectionChange` on selection change', () => {
-    const onSelectionChange = jest.fn();
-    const selection = new Set();
-    const props = { items, onSelectionChange };
-    const wrapper = shallow(<List {...props} />);
-
-    wrapper.instance().handleSelectionChange(selection);
-    expect(onSelectionChange).toHaveBeenCalledWith(selection);
-});
-
-test('does not throw if `onSelectionChange` is not provided', () => {
-    const selection = new Set();
-    const props = { items };
-    const wrapper = shallow(<List {...props} />);
-
-    const cb = () => wrapper.instance().handleSelectionChange(selection);
-    expect(cb).not.toThrow();
+    const expected = initialSelection;
+    const actual = instance.findByType(Items).props.initialSelection;
+    expect(actual).toEqual(expected);
 });

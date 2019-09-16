@@ -165,9 +165,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                         {
                             loader: 'file-loader',
                             options: {
-                                name: '[name]-[hash:base58:3].[ext]',
-                                outputPath: 'static',
-                                publicPath: '/static'
+                                name: '[name]-[hash:base58:3].[ext]'
                             }
                         }
                     ]
@@ -269,7 +267,10 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         });
 
         if (isDevServer()) {
-            config.devtool = 'cheap-source-map';
+            // Using eval-source-map shows original source (non-transpiled) as
+            // well as comments.
+            // See https://webpack.js.org/configuration/devtool/
+            config.devtool = 'eval-source-map';
 
             await PWADevServer.configure(
                 {

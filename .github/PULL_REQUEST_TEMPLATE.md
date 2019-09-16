@@ -30,16 +30,7 @@ Closes #ISSUE_NUMBER.
 
 ## Screenshots / Screen Captures (if appropriate)
 
-## Proposed Labels for Change Type/Package
-<!--- What type of change level would you suggest for this PR? -->
-<!--- Major, Minor, or Patch? -->
-<!--- See https://pwastudio.io/technologies/versioning/ for help -->
-- [ ] major (e.g x.0.0 - a breaking change)
-- [ ] minor (e.g 0.x.0 - a backwards compatible addition)
-- [ ] patch (e.g 0.0.x - a bug fix)
-
-## Checklist:
-<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
-<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] I have updated the documentation accordingly, if necessary.
-- [ ] I have added tests to cover my changes, if necessary.
+## Checklist
+<!--- Go over all the following points, and make sure you've done anything necessary -->
+* I have updated the documentation accordingly, if necessary.
+* I have added tests to cover my changes, if necessary.

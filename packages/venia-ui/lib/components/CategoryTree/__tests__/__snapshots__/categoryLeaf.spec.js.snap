@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="root"
+>
+  <a
+    className="target"
+    href="/one.html"
+    onClick={[Function]}
+  >
+    <span
+      className="text"
+    >
+      One
+    </span>
+  </a>
+</li>
+`;
