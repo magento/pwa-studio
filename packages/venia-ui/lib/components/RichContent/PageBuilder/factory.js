@@ -35,9 +35,7 @@ const ContentTypeFactory = ({ data }) => {
         children = <MissingComponent contentType={data.contentType} />;
     }
 
-    return <Suspense fallback={''}>
-        {children}
-    </Suspense>;
+    return <Suspense fallback={''}>{children}</Suspense>;
 };
 
 export default ContentTypeFactory;
