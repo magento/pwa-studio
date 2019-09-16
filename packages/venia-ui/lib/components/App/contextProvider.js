@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
     PeregrineContextProvider as Peregrine,
     ToastContextProvider,
@@ -17,10 +16,10 @@ const contextProviders = [
     ToastContextProvider
 ];
 
-const AppContextProvider = ({ children }) => {
+const ContextProvider = ({ children }) => {
     return contextProviders.reduceRight((memo, ContextProvider) => {
         return <ContextProvider>{memo}</ContextProvider>;
     }, children);
 };
 
-export default AppContextProvider;
+export default ContextProvider;

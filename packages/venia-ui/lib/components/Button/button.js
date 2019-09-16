@@ -1,40 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { oneOf, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './button.css';
 
 const getRootClassName = priority => `root_${priority}Priority`;
 
-export class Button extends Component {
-    static propTypes = {
-        classes: shape({
-            content: string,
-            root: string,
-            root_highPriority: string,
-            root_lowPriority: string,
-            root_normalPriority: string
-        }).isRequired,
-        priority: oneOf(['high', 'low', 'normal']).isRequired,
-        type: oneOf(['button', 'reset', 'submit']).isRequired
-    };
+export const Button = props => {
+    const {
+        children,
+        classes: propClasses,
+        priority,
+        type,
+        ...restProps
+    } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
+    const rootClassName = classes[getRootClassName(priority)];
 
-    static defaultProps = {
-        priority: 'normal',
-        type: 'button'
-    };
+    return (
+        <button className={rootClassName} type={type} {...restProps}>
+            <span className={classes.content}>{children}</span>
+        </button>
+    );
+};
 
-    render() {
-        const { children, classes, priority, type, ...restProps } = this.props;
+Button.propTypes = {
+    classes: shape({
+        content: string,
+        root: string,
+        root_highPriority: string,
+        root_lowPriority: string,
+        root_normalPriority: string
+    }),
+    priority: oneOf(['high', 'low', 'normal']).isRequired,
+    type: oneOf(['button', 'reset', 'submit']).isRequired
+};
 
-        const rootClassName = classes[getRootClassName(priority)];
+Button.defaultProps = {
+    priority: 'normal',
+    type: 'button'
+};
 
-        return (
-            <button className={rootClassName} type={type} {...restProps}>
-                <span className={classes.content}>{children}</span>
-            </button>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Button);
+export default Button;
