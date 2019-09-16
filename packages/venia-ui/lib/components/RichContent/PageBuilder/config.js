@@ -20,8 +20,6 @@ import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregat
 import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 
-export const Lazy = 'lazy';
-
 export const contentTypesConfig = {
     row: {
         configAggregator: rowConfigAggregator,
@@ -48,43 +46,37 @@ export const contentTypesConfig = {
         component: Text
     },
     tabs: {
-        load: Lazy,
         configAggregator: tabsConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Tabs'))
     },
     'tab-item': {
-        load: Lazy,
         configAggregator: tabItemConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/TabItem'))
     },
     buttons: {
-        load: Lazy,
         configAggregator: buttonsConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Buttons'))
     },
     'button-item': {
-        load: Lazy,
         configAggregator: buttonItemConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/ButtonItem'))
     },
     block: {
-        load: Lazy,
         configAggregator: blockConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Block'))
     },
     products: {
-        load: Lazy,
         configAggregator: productsConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Products'))
     },
     html: {
-        load: Lazy,
         configAggregator: htmlConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Html'))
     },
     divider: {
-        load: Lazy,
         configAggregator: dividerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Divider'))
     }
 };
+
+export const MissingComponent = React.lazy(() => import('./missing'));

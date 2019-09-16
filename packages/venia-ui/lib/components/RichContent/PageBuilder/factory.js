@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
-import Missing from './missing';
-import { contentTypesConfig, Lazy } from './config';
+import { contentTypesConfig, MissingComponent } from './config';
 
 /**
  * Render a content type
@@ -29,22 +28,16 @@ const renderContentType = (Component, data) => {
 const ContentTypeFactory = ({ data }) => {
     const contentTypeConfig = contentTypesConfig[data.contentType];
 
-    if (contentTypeConfig) {
-        const PageBuilderComponent = contentTypeConfig.component;
-
-        // If we're lazy loading add some suspense
-        if (contentTypeConfig.load === Lazy) {
-            return (
-                <Suspense fallback={''}>
-                    {renderContentType(PageBuilderComponent, data)}
-                </Suspense>
-            );
-        }
-
-        return renderContentType(PageBuilderComponent, data);
+    let children;
+    if (contentTypeConfig && contentTypeConfig.component) {
+        children = renderContentType(contentTypeConfig.component, data);
+    } else {
+        children = <MissingComponent contentType={data.contentType} />;
     }
 
-    return <Missing contentType={data.contentType} />;
+    return <Suspense fallback={''}>
+        {children}
+    </Suspense>;
 };
 
 export default ContentTypeFactory;
