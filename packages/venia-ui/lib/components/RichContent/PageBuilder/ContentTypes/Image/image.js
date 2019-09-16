@@ -47,7 +47,11 @@ const Image = props => {
         borderRadius
     };
 
-    const SourceFragment = mobileImage ? (<source media="(max-width: 768px)" srcSet={mobileImage} />) : '';
+    const SourceFragment = mobileImage ? (
+        <source media="(max-width: 768px)" srcSet={mobileImage} />
+    ) : (
+        ''
+    );
     const PictureFragment = (
         <>
             <picture>

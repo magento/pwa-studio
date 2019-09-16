@@ -78,7 +78,7 @@ const Products = props => {
 
     const renderResult = useCallback(
         resultProps => {
-            const { data, error, loading } = resultProps
+            const { data, error, loading } = resultProps;
 
             if (error) return 'Data fetch error...';
             if (loading) return 'Loading products...';
@@ -107,7 +107,7 @@ const Products = props => {
             );
         },
         [classes, skus] // make sure to include all the deps
-    )
+    );
 
     return (
         <div style={dynamicStyles} className={cssClasses.join(' ')}>

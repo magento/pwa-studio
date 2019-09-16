@@ -47,14 +47,14 @@ const Buttons = props => {
     };
 
     const justifyMap = {
-        left: "flex-start",
-        center: "center",
-        right: "flex-end"
+        left: 'flex-start',
+        center: 'center',
+        right: 'flex-end'
     };
 
-    dynamicStyles.justifyContent = "flex-start";
+    dynamicStyles.justifyContent = 'flex-start';
     if (textAlign) {
-        dynamicStyles.justifyContent = justifyMap[textAlign] || "flex-start";
+        dynamicStyles.justifyContent = justifyMap[textAlign] || 'flex-start';
     }
 
     if (appearance === 'stacked') {
