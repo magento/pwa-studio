@@ -34,6 +34,6 @@
     "graphql-cli": "^3"
   },
   "resolutions": {
-    "npm-run": "~5.0.0"
+    "**/graphql-cli/npm-run": "~5.0.0"
   }
 }
