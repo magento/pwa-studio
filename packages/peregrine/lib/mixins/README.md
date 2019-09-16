@@ -6,6 +6,8 @@ Peregrine mixins are hooks that contain component logic.
 
 The following example shows how a component looks after the logic has migrated. Notice how all logic is contained within a single component hook that takes props and returns the necessary render values.
 
+### Before
+
 ```js
 import React from 'react';
 import { useQuery } from '@magento/peregrine';
@@ -38,6 +40,8 @@ const MyComponent = props => {
     );
 };
 ```
+
+### After
 
 ```js
 import React from 'react';

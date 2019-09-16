@@ -61,7 +61,7 @@ Receipt.propTypes = {
         footer: string,
         root: string
     }),
-    onClose: func,
+    onClose: func.isRequired,
     order: shape({
         id: string
     }).isRequired,
