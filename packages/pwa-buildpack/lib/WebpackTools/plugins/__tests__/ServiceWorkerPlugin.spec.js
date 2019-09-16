@@ -1,10 +1,35 @@
 jest.mock('workbox-webpack-plugin');
 jest.mock('write-file-webpack-plugin');
 
+jest.mock('../../../Utilities/fileHash');
+
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
+const createFileHash = require('../../../Utilities/fileHash');
+
+const FAKE_FILE_HASH = '1234';
+
+createFileHash.mockReturnValue(Promise.resolve(FAKE_FILE_HASH));
+
 const ServiceWorkerPlugin = require('../ServiceWorkerPlugin');
+
+let fakeCompiler = {};
+
+beforeAll(() => {
+    const tap = jest.fn();
+    fakeCompiler = {
+        hooks: {
+            compilation: {
+                tap
+            }
+        }
+    };
+});
+
+beforeEach(() => {
+    WorkboxPlugin.GenerateSW.mockReset();
+});
 
 test('throws if options are missing', () => {
     expect(() => new ServiceWorkerPlugin({})).toThrow(
@@ -51,23 +76,25 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
         expect.objectContaining({
             globDirectory: 'path/to/assets',
             globPatterns: expect.arrayContaining([expect.any(String)]),
-            swDest: 'sw.js'
+            swDest: `sw.${FAKE_FILE_HASH}.js`
         })
     );
     expect(workboxApply).toHaveBeenCalledWith(fakeCompiler);
 });
 
-test('.apply calls nothing but warns in console in dev', () => {
+test('.apply calls nothing but warns in console in dev when enableServiceWorkerDebugging is set to false', () => {
     const plugin = new ServiceWorkerPlugin({
         mode: 'development',
+        enableServiceWorkerDebugging: false,
         runtimeCacheAssetPath: 'https://location/of/assets',
         paths: {
             output: 'path/to/assets'
         }
     });
+
     jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
 
-    plugin.apply({});
+    plugin.apply(fakeCompiler);
 
     expect(WriteFileWebpackPlugin).not.toHaveBeenCalled();
     expect(WorkboxPlugin.GenerateSW).not.toHaveBeenCalled();
@@ -90,8 +117,6 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
             output: 'path/to/assets'
         }
     });
-
-    const fakeCompiler = {};
     const workboxApply = jest.fn();
     const writeFileApply = jest.fn();
     WorkboxPlugin.GenerateSW.mockImplementationOnce(() => ({
@@ -105,9 +130,8 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
 
     expect(WriteFileWebpackPlugin).toHaveBeenCalledWith(
         expect.objectContaining({
-            test: expect.objectContaining({
-                source: 'sw.js$'
-            })
+            test: new RegExp(`sw.${FAKE_FILE_HASH}.js$`),
+            log: true
         })
     );
 
@@ -117,7 +141,7 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
         expect.objectContaining({
             globDirectory: 'path/to/assets',
             globPatterns: expect.arrayContaining([expect.any(String)]),
-            swDest: 'sw.js'
+            swDest: `sw.${FAKE_FILE_HASH}.js`
         })
     );
 });

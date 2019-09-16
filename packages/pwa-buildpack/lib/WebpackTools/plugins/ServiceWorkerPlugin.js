@@ -39,6 +39,7 @@ class ServiceWorkerPlugin {
         if (this.config.runtimeCacheConfig) {
             config.runtimeCaching = this.config.runtimeCacheConfig;
         }
+
         new WorkboxPlugin.GenerateSW(config).apply(compiler);
     }
 
@@ -62,7 +63,10 @@ class ServiceWorkerPlugin {
     }
 
     applyWorkboxInDevMode(compiler) {
-        // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
+        /**
+         * add a WriteFilePlugin to write out the service worker to the
+         * filesystem so it can be served by M2, even though it's under dev
+         */
         if (
             this.config.enableServiceWorkerDebugging &&
             !this.config.injectManifest
@@ -81,10 +85,14 @@ class ServiceWorkerPlugin {
         ) {
             this.applyInjectManifest(compiler);
         } else {
-            // TODO: (feature) emit a structured { code, severity, resolution } object
-            // on Environment that might throw and might not
+            /**
+             * TODO: (feature) emit a structured { code, severity, resolution } object
+             * on Environment that might throw and might not
+             */
             console.warn(
-                `Emitting no ServiceWorker in development mode. To enable development mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` to the ServiceWorkerPlugin configuration.`
+                `Emitting no ServiceWorker in development mode. To enable development 
+                mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` 
+                to the ServiceWorkerPlugin configuration.`
             );
         }
     }
