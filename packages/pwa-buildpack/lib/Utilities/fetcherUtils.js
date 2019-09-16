@@ -3,7 +3,10 @@ const fetch = require('node-fetch');
 const fetchQuery = query =>
     fetch(new URL('graphql', process.env.MAGENTO_BACKEND_URL).toString(), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip'
+        },
         body: JSON.stringify({
             query
         })
