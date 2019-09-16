@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import FilterModal from './filterModal';
-import { closeDrawer } from '../../actions/app';
-import catalogActions, { addFilter, removeFilter } from '../../actions/catalog';
+import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
+import catalogActions, {
+    addFilter,
+    removeFilter
+} from '@magento/peregrine/lib/store/actions/catalog';
 
 const mapStateToProps = ({ app }) => {
     const { drawer } = app;

@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './fieldIcons.css';
 
-class FieldIcons extends Component {
-    static propTypes = {
-        classes: shape({
-            after: string,
-            before: string,
-            root: string
-        })
+const FieldIcons = props => {
+    const { after, before, children } = props;
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const style = {
+        '--iconsBefore': before ? 1 : 0,
+        '--iconsAfter': after ? 1 : 0
     };
 
-    render() {
-        const { after, before, children, classes } = this.props;
+    return (
+        <span className={classes.root} style={style}>
+            <span className={classes.input}>{children}</span>
+            <span className={classes.before}>{before}</span>
+            <span className={classes.after}>{after}</span>
+        </span>
+    );
+};
 
-        const style = {
-            '--iconsBefore': before ? 1 : 0,
-            '--iconsAfter': after ? 1 : 0
-        };
+FieldIcons.propTypes = {
+    classes: shape({
+        after: string,
+        before: string,
+        root: string
+    })
+};
 
-        return (
-            <span className={classes.root} style={style}>
-                <span className={classes.input}>{children}</span>
-                <span className={classes.before}>{before}</span>
-                <span className={classes.after}>{after}</span>
-            </span>
-        );
-    }
-}
-
-export default classify(defaultClasses)(FieldIcons);
+export default FieldIcons;

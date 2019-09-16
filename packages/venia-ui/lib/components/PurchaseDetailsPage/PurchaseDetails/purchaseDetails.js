@@ -13,6 +13,10 @@ const loadingIndicator = (
     <LoadingIndicator>{`Fetching Order...`}</LoadingIndicator>
 );
 
+// TODO: If/when we use this component we should:
+//  - rewrite as function component
+//  - refactor to use useRest or useQuery hooks and move isFetching
+//    from store to view based on hook state
 class PurchaseDetails extends Component {
     static propTypes = {
         classes: shape({

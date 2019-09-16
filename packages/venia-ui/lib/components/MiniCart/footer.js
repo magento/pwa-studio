@@ -14,6 +14,8 @@ const Footer = props => {
         currencyCode,
         isMiniCartMaskOpen,
         numItems,
+        setStep,
+        step,
         subtotal
     } = props;
 
@@ -35,7 +37,7 @@ const Footer = props => {
                 subtotal={subtotal}
             />
             <Suspense fallback={placeholderButton}>
-                <Checkout cart={cart} />
+                <Checkout cart={cart} setStep={setStep} step={step} />
             </Suspense>
         </div>
     );

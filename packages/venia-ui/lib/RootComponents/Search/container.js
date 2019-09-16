@@ -1,8 +1,11 @@
 import { connect } from '@magento/venia-drivers';
-import { toggleDrawer } from '../../actions/app';
+import { toggleDrawer } from '@magento/peregrine/lib/store/actions/app';
 import Search from './search';
-import catalogActions from '../../actions/catalog';
-import { executeSearch, toggleSearch } from '../../actions/app';
+import catalogActions from '@magento/peregrine/lib/store/actions/catalog';
+import {
+    executeSearch,
+    toggleSearch
+} from '@magento/peregrine/lib/store/actions/app';
 
 const mapStateToProps = ({ app }) => {
     const { searchOpen } = app;
