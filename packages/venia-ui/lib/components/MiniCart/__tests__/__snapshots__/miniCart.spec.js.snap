@@ -2,12 +2,44 @@
 
 exports[`renders the correct tree 1`] = `
 <aside>
-  <Header
-    closeDrawer={[MockFunction]}
-    isEditingItem={false}
-  />
+  <div>
+    <h2>
+      Shopping Cart
+    </h2>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        <svg
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="18"
+            x2="6"
+            y1="6"
+            y2="18"
+          />
+          <line
+            x1="6"
+            x2="18"
+            y1="6"
+            y2="18"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
   <Body
-    beginEditItem={[MockFunction]}
+    beginEditItem={[Function]}
     cartItems={
       Array [
         Object {
@@ -21,20 +53,18 @@ exports[`renders the correct tree 1`] = `
         },
       ]
     }
-    closeDrawer={[MockFunction]}
+    closeDrawer={[Function]}
     currencyCode="NZD"
-    editItem={null}
-    endEditItem={[MockFunction]}
+    endEditItem={[Function]}
     isCartEmpty={false}
     isEditingItem={false}
     isLoading={false}
     isUpdatingItem={false}
     removeItemFromCart={[MockFunction]}
-    updateItemInCart={[MockFunction]}
+    updateItemInCart={[Function]}
   />
-  <MiniCartMask
-    dismiss={[MockFunction]}
-    isActive={false}
+  <button
+    onClick={[Function]}
   />
   <Footer
     cart={
@@ -68,6 +98,8 @@ exports[`renders the correct tree 1`] = `
     currencyCode="NZD"
     isMiniCartMaskOpen={false}
     numItems={1}
+    setStep={[Function]}
+    step="cart"
     subtotal={99}
   />
 </aside>

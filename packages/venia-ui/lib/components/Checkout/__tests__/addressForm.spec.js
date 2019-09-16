@@ -1,6 +1,6 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
 import AddressForm from '../addressForm';
+import { createTestInstance } from '@magento/peregrine';
 
 jest.mock('../../../classify');
 
@@ -17,36 +17,25 @@ beforeEach(() => {
 });
 
 test('renders an AddressForm component', () => {
-    const component = testRenderer.create(<AddressForm {...defaultProps} />);
+    const instance = createTestInstance(<AddressForm {...defaultProps} />);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders validation block with message if address is incorrect', () => {
     const props = {
         ...defaultProps,
-        isAddressInvalid: true,
-        invalidAddressMessage: 'whoops'
+        error: 'Oops'
     };
-    const component = testRenderer.create(<AddressForm {...props} />);
 
-    expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('does not renders validation block with message if address is incorrect but no incorrect address message', () => {
-    const props = {
-        ...defaultProps,
-        isAddressInvalid: true
-    };
-    const component = testRenderer.create(<AddressForm {...props} />);
-
-    expect(component.toJSON()).toMatchSnapshot();
+    const instance = createTestInstance(<AddressForm {...props} />);
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('cancel instance function calls props cancel function', () => {
-    const { root } = testRenderer.create(<AddressForm {...defaultProps} />);
+    const { root } = createTestInstance(<AddressForm {...defaultProps} />);
 
-    const button = root.findAllByProps({ className: 'button' })[0];
+    const button = root.findAllByProps({ className: 'root_normalPriority' })[0];
     button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
 });

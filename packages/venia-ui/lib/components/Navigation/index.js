@@ -1,3 +1,2 @@
-export { default, AppContext, CatalogContext, UserContext } from './container';
+export { default } from './navigation';
 export { default as NavHeader } from './navHeader';
-export { default as Navigation } from './navigation';

@@ -1,6 +1,6 @@
 import { connect } from '@magento/venia-drivers';
 
-import { fetchOrderDetails } from '../../../actions/purchaseDetails/asyncActions';
+import { fetchOrderDetails } from '@magento/peregrine/lib/store/actions/purchaseDetails/asyncActions';
 import purchaseDetailsPage from './purchaseDetails';
 import {
     getCommonOrderDetails,

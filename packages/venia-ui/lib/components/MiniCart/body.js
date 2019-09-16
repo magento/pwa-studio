@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -14,13 +14,13 @@ const loadingIndicator = (
 );
 
 const Body = props => {
+    const [editItem, setEditItem] = useState(null);
     // Props.
     const {
         beginEditItem,
         cartItems,
         closeDrawer,
         currencyCode,
-        editItem,
         endEditItem,
         isCartEmpty,
         isEditingItem,
@@ -34,13 +34,17 @@ const Body = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // Callbacks.
-    const handleEditItem = useCallback(
+    const handleBeginEditItem = useCallback(
         item => {
-            beginEditItem(item);
+            beginEditItem();
+            setEditItem(item);
         },
         [beginEditItem]
     );
-
+    const handleEndEditItem = useCallback(() => {
+        endEditItem();
+        setEditItem(null);
+    }, [endEditItem]);
     // Render.
     if (isLoading) {
         return loadingIndicator;
@@ -54,7 +58,7 @@ const Body = props => {
         return (
             <EditItem
                 currencyCode={currencyCode}
-                endEditItem={endEditItem}
+                endEditItem={handleEndEditItem}
                 isUpdatingItem={isUpdatingItem}
                 item={editItem}
                 updateItemInCart={updateItemInCart}
@@ -65,7 +69,7 @@ const Body = props => {
     return (
         <div className={classes.root}>
             <ProductList
-                beginEditItem={handleEditItem}
+                beginEditItem={handleBeginEditItem}
                 cartItems={cartItems}
                 currencyCode={currencyCode}
                 removeItemFromCart={removeItemFromCart}
