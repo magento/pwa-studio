@@ -102,55 +102,55 @@ See PR [#1404][].
 
 | Description                                                                                                     | Change type  |    PR     |
 | :-------------------------------------------------------------------------------------------------------------- | :----------: | :-------: |
-| Refactored the create account form                                                                              | **Refactor** | [#835][]  |
 | Added a feature that allows CSS in `node_modules` to circumvent CSS modules                                     | **Feature**  | [#1242][] |
+| Added a layered navigation modal component for filters                                                          | **Feature**  | [#797][]  |
+| Added ability to source media URL from GraphQL                                                                  | **Feature**  | [#1267][] |
+| Added height to `makeUrl()` and enforced crop in middleware if provided                                         | **Feature**  | [#1361][] |
+| Improved scroll locking                                                                                         | **Feature**  | [#1449][] |
+| Update Billing Address Form to show additional fields                                                           |  **Update**  | [#1286][] |
+| Removed errant debugger statement in tests                                                                      |  **Update**  | [#1353][] |
+| Updated feathericons to 2.0.x                                                                                   |  **Update**  | [#1416][] |
+| Updated `webpack-bundle-analyzer` dependency                                                                    |  **Update**  | [#1466][] |
+| Added insecure flag to GraphQL schema validation                                                                |  **Update**  | [#1313][] |
+| Refactored the create account form                                                                              | **Refactor** | [#835][]  |
+| Refactored templates to allow branded first renders                                                             | **Refactor** | [#1275][] |
+| Added a name property for the search trigger button to improve accessibility                                    | **Refactor** | [#1395][] |
+| Refactored MiniCart components into functions from classes                                                      | **Refactor** | [#1266][] |
+| Refactored Product Details component to use hooks                                                               | **Refactor** | [#1240][] |
+| Refactored the Header component into a function                                                                 | **Refactor** | [#1241][] |
+| Refactored `create-account` route to use `appShell` to get provided requisite properties                        | **Refactor** | [#1430][] |
+| Refactored Checkout components to use hooks, fix bugs, and split code into functional components                | **Refactor** | [#1309][] |
+| Refactored Category RootComponent into functional components and use hooks                                      | **Refactor** | [#1211][] |
+| Refactored driver usage to improve Venia portability                                                            | **Refactor** | [#1217][] |
+| Refactored slide filter UX to make it behave like the nav menu                                                  | **Refactor** | [#1471][] |
+| Refactored the edit steps out of redux and into local checkout state                                            | **Refactor** | [#1338][] |
+| Removed root-relative imports from Venia code                                                                   | **Refactor** | [#1497][] |
+| Moved the majority of Venia components into a separate UI library                                               | **Refactor** | [#1499][] |
+| Refactored left drawer components to use hooks, improve performance, and clean up the UI                        | **Refactor** | [#1552][] |
+| Refactored image tags to utilize `srcset` and `sizes` for optimized images                                      | **Refactor** | [#1584][] |
 | Fixed the order ID being displayed incorrectly                                                                  |  **Bugfix**  | [#1249][] |
 | Removed duplicate search icon during load                                                                       |  **Bugfix**  | [#1274][] |
-| Added a layered navigation modal component for filters                                                          | **Feature**  | [#797][]  |
 | Fixed a bug that prevented the loading of JS resources from root                                                |  **Bugfix**  | [#1257][] |
 | Fixed a bug that reloaded the cart twice when the last item is removed                                          |  **Bugfix**  | [#1230][] |
 | Fixed a bug that created an infinite loop when a product is out of stock                                        |  **Bugfix**  | [#1229][] |
 | Fixed a bug that allowed the submission of undefined search queries                                             |  **Bugfix**  | [#1363][] |
 | Fixed the the continue shopping button background color and hover color                                         |  **Bugfix**  | [#1264][] |
 | Fixed the spacing between image and title on the product list page                                              |  **Bugfix**  | [#1364][] |
-| Refactored templates to allow branded first renders                                                             | **Refactor** | [#1275][] |
 | Fixed the warning about export `loadingIndicator` not being found during build                                  |  **Bugfix**  | [#1391][] |
 | Fixed a bug that made Webpack fail on missing modules                                                           |  **Bugfix**  | [#1388][] |
 | Fixed a bug that displayed the search suggestion box when there are no results                                  |  **Bugfix**  | [#1252][] |
-| Added a name property for the search trigger button to improve accessibility                                    | **Refactor** | [#1395][] |
-| Update Billing Address Form to show additional fields                                                           |  **Update**  | [#1286][] |
-| Refactored MiniCart components into functions from classes                                                      | **Refactor** | [#1266][] |
-| Removed errant debugger statement in tests                                                                      |  **Update**  | [#1353][] |
-| Added ability to source media URL from GraphQL                                                                  | **Feature**  | [#1267][] |
-| Refactored Product Details component to use hooks                                                               | **Refactor** | [#1240][] |
-| Refactored the Header component into a function                                                                 | **Refactor** | [#1241][] |
 | Fixed a bug that caused CSS font to block rendering                                                             |  **Bugfix**  | [#1196][] |
-| Updated feathericons to 2.0.x                                                                                   |  **Update**  | [#1416][] |
-| Refactored `create-account` route to use `appShell` to get provided requisite properties                        | **Refactor** | [#1430][] |
 | Fixed bug that prevented the Braintree dropin from lazy loading                                                 |  **Bugfix**  | [#1419][] |
-| Added height to `makeUrl()` and enforced crop in middleware if provided                                         | **Feature**  | [#1361][] |
-| Refactored Checkout components to use hooks, fix bugs, and split code into functional components                | **Refactor** | [#1309][] |
 | Fixed a bug that caused a tooltips memory leak on mobile                                                        |  **Bugfix**  | [#1288][] |
 | Fixed a bug where suspense temporarily loads a fallback component while the SearchBar component is being loaded |  **Bugfix**  | [#1351][] |
-| Improved scroll locking                                                                                         | **Feature**  | [#1449][] |
-| Updated `webpack-bundle-analyzer` dependency                                                                    |  **Update**  | [#1466][] |
-| Added insecure flag to GraphQL schema validation                                                                |  **Update**  | [#1313][] |
-| Refactored Category RootComponent into functional components and use hooks                                      | **Refactor** | [#1211][] |
-| Refactored driver usage to improve Venia portability                                                            | **Refactor** | [#1217][] |
-| Refactored slide filter UX to make it behave like the nav menu                                                  | **Refactor** | [#1471][] |
-| Refactored the edit steps out of redux and into local checkout state                                            | **Refactor** | [#1338][] |
 | Fixed product page image jutter                                                                                 |  **Bugfix**  | [#1478][] |
-| Removed root-relative imports from Venia code                                                                   | **Refactor** | [#1497][] |
-| Moved the majority of Venia components into a separate UI library                                               | **Refactor** | [#1499][] |
 | Fixed bug that allowed a signed in customer to access the create account page                                   |  **Bugfix**  | [#1559][] |
 | Fixed a bug that prevented the cart counter from persisting after reload                                        |  **Bugfix**  | [#1556][] |
 | Fixed handling of head and meta tags                                                                            |  **Bugfix**  | [#1537][] |
 | Fixed test config                                                                                               |  **Bugfix**  | [#1606][] |
 | Fixed a bug where `Image` isLoaded state was incorrectly being set to `false`                                   |  **Bugfix**  | [#1618][] |
-| Refactored left drawer components to use hooks, improve performance, and clean up the UI                        | **Refactor** | [#1552][] |
 | Fixed missing import of `catalogActions` when clearing filters                                                  |  **Bugfix**  | [#1626][] |
 | Fixed a bug that prevented the logo from loading when using `upward-php`                                        |  **Bugfix**  | [#1637][] |
-| Refactored image tags to utilize `srcset` and `sizes` for optimized images                                      | **Refactor** | [#1584][] |
 
 ### Peregrine library
 
@@ -160,17 +160,17 @@ See PR [#1404][].
 | Added Toast feature                                                        | **Feature**  | [#1218][] |
 | Added eslint plugin for react hooks                                        | **Feature**  | [#1358][] |
 | Added a `withLogger` util function for `useReducer`                        | **Feature**  | [#1374][] |
-| Refactored the image carousel component into hooks and visual components   | **Refactor** | [#1268][] |
-| Fixed a bug that caused a pagination double fetch                          |  **Bugfix**  | [#1381][] |
 | Added a REST API Hook                                                      | **Feature**  | [#1321][] |
-| Fixed peregrine watcher and watch:all                                      |  **Bugfix**  | [#1378][] |
 | Added a Peregrine context provider                                         | **Feature**  | [#1316][] |
-| Fixed ApolloContext hook                                                   |  **Bugfix**  | [#1467][] |
-| Removed Storybook from peregrine and update references                     |  **Update**  | [#1482][] |
-| Fixed bug in MagentoRouteHandler so it can correctly handle unknown routes |  **Bugfix**  | [#1495][] |
-| Refactored list components to use hooks                                    | **Refactor** | [#1515][] |
-| Changed prop type of `uniqueID` for list Item component                    |  **Update**  | [#1586][] |
 | Added support for List initial selections                                  | **Feature**  | [#1589][] |
+| Removed Storybook from peregrine and update references                     |  **Update**  | [#1482][] |
+| Changed prop type of `uniqueID` for list Item component                    |  **Update**  | [#1586][] |
+| Refactored the image carousel component into hooks and visual components   | **Refactor** | [#1268][] |
+| Refactored list components to use hooks                                    | **Refactor** | [#1515][] |
+| Fixed a bug that caused a pagination double fetch                          |  **Bugfix**  | [#1381][] |
+| Fixed peregrine watcher and watch:all                                      |  **Bugfix**  | [#1378][] |
+| Fixed ApolloContext hook                                                   |  **Bugfix**  | [#1467][] |
+| Fixed bug in MagentoRouteHandler so it can correctly handle unknown routes |  **Bugfix**  | [#1495][] |
 
 ### Build tools
 
@@ -179,60 +179,57 @@ See PR [#1404][].
 | Added tools for a unified system of environment-based configuration | **Feature** | [#1224][] |
 | Added feature to allow GraphQL playground to autodetect queries     | **Feature** | [#1219][] |
 | Added Webpack configuration utility                                 | **Feature** | [#1498][] |
-| Removed errant debugger statement in test file                      | **Bugfix**  | [#1572][] |
-| Replaced `cheap-source-map` with `eval-source-map` for devtool      | **Update**  | [#1581][] |
 | Added Webpack HTML Plugin to generate HTML at compile               | **Feature** | [#1595][] |
+| Replaced `cheap-source-map` with `eval-source-map` for devtool      | **Update**  | [#1581][] |
+| Removed errant debugger statement in test file                      | **Bugfix**  | [#1572][] |
 
 ### Documentation
 
 | Description                                                              |    Change type    |    PR     |
 | :----------------------------------------------------------------------- | :---------------: | :-------: |
-| Updated docs project dependencies                                        |    **Update**     | [#1234][] |
-| Fixed the an issue that created 404 links for 'Edit this page on GitHub' |    **Bugfix**     | [#1302][] |
-| Bumped `lodash` version from 4.17.11 to 4.17.14 in `pwa-devdocs`         |    **Update**     | [#1434][] |
+| Added topic for deploying a storefront to the Magento Cloud              | **Documentation** | [#1232][] |
+| Create `usePagination()` hook docs                                       | **Documentation** | [#1461][] |
+| Created environment variables documentation                              | **Documentation** | [#1566][] |
+| Created Toasts reference docs                                            | **Documentation** | [#1574][] |
+| Create architecture overview topics                                      | **Documentation** | [#1538][] |
 | Added Google Tag manager for analytics                                   |    **Feature**    | [#1450][] |
 | Added ability to search across all DevDocs documentation sites           |    **Feature**    | [#1280][] |
-| Updated Venia Setup steps                                                |    **Update**     | [#1458][] |
-| Updated `useWindowSize()` docs                                           |    **Update**     | [#1457][] |
-| Revised `useEventListener()` doc blocks                                  |   **Refactor**    | [#1442][] |
-| Updated the modular components docs                                      |    **Update**     | [#1439][] |
-| Update devdocs project dependencies                                      |    **Update**     | [#1437][] |
-| Revised configuration management draft                                   |   **Refactor**    | [#1435][] |
-| Updated Venia Setup steps                                                |    **Update**     | [#1427][] |
 | Added product diagrams to relevant topics                                |    **Feature**    | [#1360][] |
 | Embeded codesandbox examples to some reference topics                    |    **Feature**    | [#1417][] |
-| Rewrote Peregrine Overview page                                          |   **Refactor**    | [#1376][] |
+| Updated docs project dependencies                                        |    **Update**     | [#1234][] |
+| Bumped `lodash` version from 4.17.11 to 4.17.14 in `pwa-devdocs`         |    **Update**     | [#1434][] |
+| Updated Venia Setup steps                                                |    **Update**     | [#1458][] |
+| Updated `useWindowSize()` docs                                           |    **Update**     | [#1457][] |
+| Updated the modular components docs                                      |    **Update**     | [#1439][] |
+| Update devdocs project dependencies                                      |    **Update**     | [#1437][] |
+| Updated Venia Setup steps                                                |    **Update**     | [#1427][] |
 | Updated the `axios` dependency version                                   |    **Update**     | [#1352][] |
-| Improved Tutorial page discoverability and content                       |   **Refactor**    | [#1292][] |
-| Added topic for deploying a storefront to the Magento Cloud              | **Documentation** | [#1232][] |
-| Removed broken links                                                     |    **Bugfix**     | [#1238][] |
 | Updated usage of UI Component                                            |    **Update**     | [#1462][] |
-| Create `usePagination()` hook docs                                       | **Documentation** | [#1461][] |
 | Added site migration banner (pre migration)                              |    **Update**     | [#1493][] |
 | Restored doc site banner's original content (post migration)             |    **Update**     | [#1506][] |
 | Updated repository references after the migration                        |    **Update**     | [#1511][] |
 | Updated link to point to files in `develop` instead of `master`          |    **Update**     | [#1560][] |
+| Revised `useEventListener()` doc blocks                                  |   **Refactor**    | [#1442][] |
+| Revised configuration management draft                                   |   **Refactor**    | [#1435][] |
+| Rewrote Peregrine Overview page                                          |   **Refactor**    | [#1376][] |
+| Improved Tutorial page discoverability and content                       |   **Refactor**    | [#1292][] |
+| Fixed the an issue that created 404 links for 'Edit this page on GitHub' |    **Bugfix**     | [#1302][] |
+| Removed broken links                                                     |    **Bugfix**     | [#1238][] |
 | Fixed links in the “Contributing” section                                |    **Bugfix**     | [#1557][] |
-| Created environment variables documentation                              | **Documentation** | [#1566][] |
 | Fixed link in Contributing page                                          |    **Bugfix**     | [#1571][] |
-| Created Toasts reference docs                                            | **Documentation** | [#1574][] |
-| Create architecture overview topics                                      | **Documentation** | [#1538][] |
 
 ### Misc
 
 | Description                                                                                | Change type  |    PR     |
 | :----------------------------------------------------------------------------------------- | :----------: | :-------: |
-| Fixed filename casing inconsistency                                                        | **Refactor** | [#1304][] |
+| Refactored Peregrine package and added babel preset                                        | **Feature**  | [#1404][] |
 | Bumped `lodash` version from 4.17.11 to 4.17.14 in `docker` project                        |  **Update**  | [#1436][] |
 | Added a `publishConfig` property to the `graphql-cli-validate-magento-pwa-queries` package |  **Update**  | [#1424][] |
-| Fixed `develop` branch deployment on AWS                                                   |  **Bugfix**  | [#1444][] |
 | Merged `master` branch changes to `develop`                                                |  **Update**  | [#1392][] |
 | Added `dangerfile.js` to list of files to ignore                                           |  **Update**  | [#1307][] |
-| Refactored Peregrine package and added babel preset                                        | **Feature**  | [#1404][] |
 | Updated the PR template for danger checks and updated danger                               |  **Update**  | [#1269][] |
 | Removed repetitive section from PR template                                                |  **Update**  | [#1372][] |
 | Updated `js-yaml` dependency to 3.13.1                                                     |  **Update**  | [#1464][] |
-| Simplified the creation and consumption of image URLs                                      | **Refactor** | [#1213][] |
 | Updated project to use less restrictive version                                            |  **Update**  | [#1480][] |
 | Updated `now.json` alias to avoid collisions                                               |  **Update**  | [#1522][] |
 | Added `publishConfig` keys to upward-spec and upward-js                                    |  **Update**  | [#1544][] |
@@ -241,6 +238,9 @@ See PR [#1404][].
 | Updated GraphQL Yarn lock                                                                  |  **Update**  | [#1629][] |
 | Removed Now.sh pipeline                                                                    |  **Update**  | [#1575][] |
 | Bumped `eslint-utils` from 1.4.0 to 1.4.2                                                  |  **Update**  | [#1640][] |
+| Fixed filename casing inconsistency                                                        | **Refactor** | [#1304][] |
+| Simplified the creation and consumption of image URLs                                      | **Refactor** | [#1213][] |
+| Fixed `develop` branch deployment on AWS                                                   |  **Bugfix**  | [#1444][] |
 
 ## Upgrading from a previous version
 
