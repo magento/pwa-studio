@@ -21,6 +21,9 @@ const CMSPage = props => {
     }, [id, runQuery, setLoading]);
 
     if (error) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(error);
+        }
         return <div>Page Fetch Error</div>;
     }
 
