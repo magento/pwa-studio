@@ -31,12 +31,13 @@ test('Should return different value if the contents of the same file have change
     fs.truncateSync('sampleFile.txt', 11);
 });
 
-test('Should not throw error if given file path is invalid. Instead should print error in console', async () => {
+test('Should not throw error if given file path is invalid. Instead should print error in console and resolve to empty string as hash', async () => {
     const errorLogger = jest.fn();
 
     console.error = errorLogger;
 
-    await createFileHash('./sampleFile');
+    const hash = await createFileHash('./sampleFile');
 
+    expect(hash).toBe('');
     expect(errorLogger).toHaveBeenCalled();
 });
