@@ -2,24 +2,25 @@ import React from 'react';
 import RichContent from '../../../richContent';
 import { arrayOf, string } from 'prop-types';
 
-const Block = ({
-    richContent,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses
-}) => {
-    cssClasses = cssClasses ? cssClasses : [];
+const Block = props => {
+    const {
+        richContent,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
+
     const dynamicStyles = {
         textAlign,
         border,
@@ -35,6 +36,7 @@ const Block = ({
         paddingBottom,
         paddingLeft
     };
+
     return (
         <div style={dynamicStyles} className={cssClasses.join(' ')}>
             <RichContent html={richContent} />

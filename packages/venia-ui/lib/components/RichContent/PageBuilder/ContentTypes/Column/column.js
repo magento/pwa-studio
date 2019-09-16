@@ -3,36 +3,37 @@ import defaultClasses from './column.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
 
-const Column = ({
-    classes,
-    appearance,
-    minHeight,
-    verticalAlignment,
-    textAlign,
-    width,
-    backgroundColor,
-    desktopImage,
-    mobileImage,
-    backgroundSize,
-    backgroundPosition,
-    backgroundAttachment,
-    backgroundRepeat,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses,
-    children
-}) => {
-    classes = mergeClasses(defaultClasses, classes);
+const Column = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        appearance,
+        minHeight,
+        verticalAlignment,
+        textAlign,
+        width,
+        backgroundColor,
+        desktopImage,
+        mobileImage,
+        backgroundSize,
+        backgroundPosition,
+        backgroundAttachment,
+        backgroundRepeat,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses,
+        children
+    } = props;
+
     let image = desktopImage;
     if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;

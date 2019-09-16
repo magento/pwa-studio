@@ -1,11 +1,11 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import Block from '../block';
 
 jest.mock('../../../../../../classify');
 
 test('renders a Block component', () => {
-    const component = testRenderer.create(<Block />);
+    const component = createTestInstance(<Block />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -29,7 +29,7 @@ test('renders a Block component with all props configured and Page Builder rich 
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = testRenderer.create(<Block {...blockProps} />);
+    const component = createTestInstance(<Block {...blockProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -38,7 +38,7 @@ test('renders a Block component with HTML content', () => {
     const blockProps = {
         richContent: '<h1>Testing HTML content</h1>'
     };
-    const component = testRenderer.create(<Block {...blockProps} />);
+    const component = createTestInstance(<Block {...blockProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });

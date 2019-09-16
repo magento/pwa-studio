@@ -3,28 +3,28 @@ import defaultClasses from './divider.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
 
-const Divider = ({
-    classes,
-    width,
-    color,
-    thickness,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses
-}) => {
-    classes = mergeClasses(defaultClasses, classes);
-    cssClasses = cssClasses ? cssClasses : [];
+const Divider = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        width,
+        color,
+        thickness,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
+
     const dynamicStyles = {
         textAlign,
         border,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Query } from '@magento/venia-drivers';
 import gql from 'graphql-tag';
 import GalleryItems from '../../../../Gallery/items';
@@ -6,25 +6,25 @@ import defaultClasses from './products.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
 
-const Products = ({
-    classes,
-    skus,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses
-}) => {
-    classes = mergeClasses(defaultClasses, classes);
+const Products = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        skus,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
 
     const dynamicStyles = {
         textAlign,
@@ -76,36 +76,43 @@ const Products = ({
         }
     `;
 
+    const renderResult = useCallback(
+        resultProps => {
+            const { data, error, loading } = resultProps
+
+            if (error) return 'Data fetch error...';
+            if (loading) return 'Loading products...';
+
+            if (data.products.items.length === 0) {
+                return <div>No products to display</div>;
+            }
+
+            // We have to manually resort the products
+            const products = [];
+            skus.forEach(sku => {
+                const product = data.products.items.find(
+                    product => product.sku === sku
+                );
+                if (product) {
+                    products.push(product);
+                }
+            });
+
+            return (
+                <div className={classes.gallery}>
+                    <div className={classes.items}>
+                        <GalleryItems items={products} />
+                    </div>
+                </div>
+            );
+        },
+        [classes, skus] // make sure to include all the deps
+    )
+
     return (
         <div style={dynamicStyles} className={cssClasses.join(' ')}>
             <Query query={productsQuery} variables={{ skus }}>
-                {({ loading, error, data }) => {
-                    if (error) return 'Data fetch error...';
-                    if (loading) return 'Loading products...';
-
-                    if (data.products.items.length === 0) {
-                        return <div>No products to display</div>;
-                    }
-
-                    // We have to manually resort the products
-                    const products = [];
-                    skus.forEach(sku => {
-                        const product = data.products.items.find(
-                            product => product.sku === sku
-                        );
-                        if (product) {
-                            products.push(product);
-                        }
-                    });
-
-                    return (
-                        <div className={classes.gallery}>
-                            <div className={classes.items}>
-                                <GalleryItems items={products} />
-                            </div>
-                        </div>
-                    );
-                }}
+                {renderResult}
             </Query>
         </div>
     );

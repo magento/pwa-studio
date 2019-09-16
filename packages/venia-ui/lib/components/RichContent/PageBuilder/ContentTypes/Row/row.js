@@ -5,40 +5,37 @@ import { Parallax } from 'react-parallax';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 
-const Row = ({
-    classes,
-    appearance,
-    verticalAlignment,
-    minHeight,
-    backgroundColor,
-    desktopImage,
-    mobileImage,
-    backgroundSize,
-    backgroundPosition,
-    backgroundAttachment,
-    backgroundRepeat,
-    enableParallax,
-    parallaxSpeed,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses,
-    children
-}) => {
-    classes = mergeClasses(defaultClasses, classes);
-    cssClasses = cssClasses ? cssClasses : [];
-    // Set the default appearance if none is supplied to contained
-    appearance = appearance ? appearance : 'contained';
+const Row = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        appearance = 'contained',
+        verticalAlignment,
+        minHeight,
+        backgroundColor,
+        desktopImage,
+        mobileImage,
+        backgroundSize,
+        backgroundPosition,
+        backgroundAttachment,
+        backgroundRepeat,
+        enableParallax,
+        parallaxSpeed,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
+
     let image = desktopImage;
     if (
         mobileImage &&
@@ -87,6 +84,8 @@ const Row = ({
     if (appearance === 'contained') {
         cssClasses.push(classes.contained);
     }
+
+    let children = props.children;
     if (appearance === 'full-width') {
         children = <div className={classes.contained}>{children}</div>;
     }

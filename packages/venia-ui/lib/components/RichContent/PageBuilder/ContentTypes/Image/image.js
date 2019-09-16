@@ -3,30 +3,32 @@ import { arrayOf, bool, oneOf, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
 
-const Image = ({
-    desktopImage,
-    mobileImage,
-    altText,
-    title,
-    link,
-    linkType,
-    openInNewTab,
-    caption,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses = []
-}) => {
+const Image = props => {
+    const {
+        desktopImage,
+        mobileImage,
+        altText,
+        title,
+        link,
+        linkType,
+        openInNewTab,
+        caption,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
+
     const figureStyles = {
         textAlign,
         marginTop,
@@ -45,14 +47,11 @@ const Image = ({
         borderRadius
     };
 
+    const SourceFragment = mobileImage ? (<source media="(max-width: 768px)" srcSet={mobileImage} />) : '';
     const PictureFragment = (
         <>
             <picture>
-                {mobileImage ? (
-                    <source media="(max-width: 768px)" srcSet={mobileImage} />
-                ) : (
-                    ''
-                )}
+                {SourceFragment}
                 <img
                     src={desktopImage}
                     title={title}

@@ -1,5 +1,5 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import Image from '../image';
 
 jest.mock('../../../../../../classify');
@@ -8,7 +8,7 @@ test('renders a Image component', () => {
     const imageProps = {
         desktopImage: 'test-image.png'
     };
-    const component = testRenderer.create(<Image {...imageProps} />);
+    const component = createTestInstance(<Image {...imageProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -35,7 +35,7 @@ test('renders a Image component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = testRenderer.create(<Image {...imageProps} />);
+    const component = createTestInstance(<Image {...imageProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });

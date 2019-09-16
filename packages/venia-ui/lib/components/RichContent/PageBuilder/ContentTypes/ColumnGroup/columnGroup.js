@@ -3,8 +3,9 @@ import defaultClasses from './columnGroup.css';
 import { mergeClasses } from '../../../../../classify';
 import { shape, string } from 'prop-types';
 
-const ColumnGroup = ({ classes, display, children }) => {
-    classes = mergeClasses(defaultClasses, classes);
+const ColumnGroup = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { display, children } = props;
     const dynamicStyles = {
         display
     };

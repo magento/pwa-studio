@@ -7,8 +7,7 @@ exports[`renders a Missing component 1`] = `
   <strong>
     Error:
   </strong>
-   No component for
-   
+   No component for 
   <strong>
     test-content-type
   </strong>

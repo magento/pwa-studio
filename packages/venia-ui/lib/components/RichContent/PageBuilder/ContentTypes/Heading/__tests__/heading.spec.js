@@ -1,5 +1,5 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import Heading from '../heading';
 
 jest.mock('../../../../../../classify');
@@ -9,7 +9,7 @@ test('renders a Heading component', () => {
         headingType: 'h2',
         text: 'Testing Heading'
     };
-    const component = testRenderer.create(<Heading {...headingProps} />);
+    const component = createTestInstance(<Heading {...headingProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -33,7 +33,7 @@ test('renders a Heading component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = testRenderer.create(<Heading {...headingProps} />);
+    const component = createTestInstance(<Heading {...headingProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });

@@ -2,25 +2,27 @@ import React, { useEffect } from 'react';
 import defaultClasses from './buttons.css';
 import { oneOf, arrayOf, string, bool } from 'prop-types';
 
-const Buttons = ({
-    appearance,
-    isSameWidth,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    children,
-    cssClasses = []
-}) => {
+const Buttons = props => {
+    const {
+        appearance,
+        isSameWidth,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        children,
+        cssClasses = []
+    } = props;
+
     useEffect(() => {
         if (!isSameWidth) {
             return;
@@ -44,17 +46,15 @@ const Buttons = ({
         paddingLeft
     };
 
-    switch (textAlign) {
-        case 'left':
-        default:
-            dynamicStyles.justifyContent = 'flex-start';
-            break;
-        case 'center':
-            dynamicStyles.justifyContent = 'center';
-            break;
-        case 'right':
-            dynamicStyles.justifyContent = 'flex-end';
-            break;
+    const justifyMap = {
+        left: "flex-start",
+        center: "center",
+        right: "flex-end"
+    };
+
+    dynamicStyles.justifyContent = "flex-start";
+    if (textAlign) {
+        dynamicStyles.justifyContent = justifyMap[textAlign] || "flex-start";
     }
 
     if (appearance === 'stacked') {

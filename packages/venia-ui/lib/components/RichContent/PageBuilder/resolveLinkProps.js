@@ -1,12 +1,15 @@
+/**
+ * Resolve link properties
+ *
+ * @param {string} link
+ * @param {string} linkType
+ */
 export default (link, linkType) => {
     let isExternalUrl;
     const linkProps = {};
 
     try {
-        const baseUrl = document
-            .querySelector('link[rel="preconnect"]')
-            .getAttribute('href'); // TODO - some better way to get this?
-        const baseUrlObj = new URL(baseUrl);
+        const baseUrlObj = new URL(process.env.MAGENTO_BACKEND_URL);
         const urlObj = new URL(link);
         isExternalUrl = baseUrlObj.host !== urlObj.host;
 

@@ -5,26 +5,26 @@ import { arrayOf, shape, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
-const Text = ({
-    classes,
-    content,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses
-}) => {
-    classes = mergeClasses(defaultClasses, classes);
-    cssClasses = cssClasses ? cssClasses : [];
+const Text = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        content,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses = []
+    } = props;
+
     const dynamicStyles = {
         textAlign,
         border,

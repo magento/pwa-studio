@@ -1,11 +1,11 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import Row from '../row';
 
 jest.mock('../../../../../../classify');
 
 test('renders a Row component', () => {
-    const component = testRenderer.create(<Row />);
+    const component = createTestInstance(<Row />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -39,7 +39,7 @@ test('renders a Row component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = testRenderer.create(<Row {...rowProps} />);
+    const component = createTestInstance(<Row {...rowProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });

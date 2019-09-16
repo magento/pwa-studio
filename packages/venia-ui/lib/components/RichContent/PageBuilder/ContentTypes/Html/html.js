@@ -3,24 +3,24 @@ import { arrayOf, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
-const Html = ({
-    html,
-    textAlign,
-    border,
-    borderColor,
-    borderWidth,
-    borderRadius,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    cssClasses
-}) => {
-    cssClasses = cssClasses ? cssClasses : [];
+const Html = props => {
+    const {
+        html,
+        textAlign,
+        border,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
+        cssClasses
+    } = props;
     const dynamicStyles = {
         textAlign,
         border,

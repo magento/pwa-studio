@@ -1,15 +1,25 @@
 import React from 'react';
 import defaultClasses from './missing.css';
 import { mergeClasses } from '../../../classify';
+import { shape, string } from 'prop-types';
 
-const Missing = ({ classes, contentType }) => {
-    classes = mergeClasses(defaultClasses, classes);
+const Missing = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <div className={classes.missing}>
-            <strong>Error:</strong> No component for{' '}
-            <strong>{contentType}</strong> content type.
+            <strong>{'Error:'}</strong>
+            {' No component for '}
+            <strong>{props.contentType}</strong>
+            {' content type.'}
         </div>
     );
+};
+
+Missing.propTypes = {
+    classes: shape({
+        missing: string
+    }),
+    contentType: string
 };
 
 export default Missing;

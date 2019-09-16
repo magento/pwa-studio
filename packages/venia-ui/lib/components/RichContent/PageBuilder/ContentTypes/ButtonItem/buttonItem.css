@@ -14,7 +14,12 @@
     box-shadow: none;
 }
 
+div.button {
+    cursor: default;
+}
+
 .buttonPrimary {
+    composes: button;
     background: #1979c3;
     border: 1px solid #1979c3;
     color: #ffffff;
@@ -27,6 +32,7 @@
 }
 
 .buttonLink {
+    composes: button;
     color: #006bb4;
     box-shadow: none;
     box-sizing: border-box;
@@ -43,6 +49,7 @@
 }
 
 .buttonSecondary {
+    composes: button;
     background: #eeeeee;
     border: 1px solid #cccccc;
     color: #333333;
@@ -52,8 +59,4 @@
     background: #e1e1e1;
     border: 1px solid #cccccc;
     color: #333333;
-}
-
-.emptyLink {
-    cursor: default;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import Text from '../text';
 
 jest.mock('../../../../../../classify');
@@ -8,7 +8,7 @@ test('renders a Text component', () => {
     const textProps = {
         content: '<p>Test text component.</p>'
     };
-    const component = testRenderer.create(<Text {...textProps} />);
+    const component = createTestInstance(<Text {...textProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -31,7 +31,7 @@ test('renders a Text component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = testRenderer.create(<Text {...textProps} />);
+    const component = createTestInstance(<Text {...textProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
