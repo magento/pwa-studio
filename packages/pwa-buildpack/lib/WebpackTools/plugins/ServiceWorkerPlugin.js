@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
@@ -9,7 +10,15 @@ const optionsValidator = require('../../util/options-validator');
 let SERVICE_WORKER_FILENAME = 'sw.js';
 let SERVICE_WORKER_HASH = '';
 
-createFileHash('./src/sw.js').then(hash => {
+const DEFAULT_SW_FILE_PATH = path.join(
+    path.resolve(__dirname).split('/packages')[0],
+    'packages',
+    'venia-concept',
+    'src',
+    'sw.js'
+);
+
+createFileHash(DEFAULT_SW_FILE_PATH).then(hash => {
     SERVICE_WORKER_HASH = hash;
     SERVICE_WORKER_FILENAME = `sw.${hash}.js`;
 });

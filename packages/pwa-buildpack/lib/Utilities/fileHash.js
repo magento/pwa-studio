@@ -14,7 +14,7 @@ function createFileHash(filePath) {
             });
 
             fd.on('error', function() {
-                throw new Error('Error reading file');
+                throw new Error(`Error reading file ${filePath}`);
             });
 
             fd.pipe(hash);
