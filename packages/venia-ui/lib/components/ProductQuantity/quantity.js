@@ -1,41 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import Select from '../Select';
 import mockData from './mockData';
 import defaultClasses from './quantity.css';
 
-class Quantity extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string
-        }),
-        items: arrayOf(
-            shape({
-                value: number
-            })
-        )
-    };
+const Quantity = props => {
+    const { classes: propClasses, selectLabel, ...restProps } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    static defaultProps = {
-        selectLabel: "product's quantity"
-    };
+    return (
+        <div className={classes.root}>
+            <Select
+                {...restProps}
+                field="quantity"
+                aria-label={selectLabel}
+                items={mockData}
+            />
+        </div>
+    );
+};
+Quantity.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    items: arrayOf(
+        shape({
+            value: number
+        })
+    )
+};
 
-    render() {
-        const { classes, selectLabel, ...restProps } = this.props;
+Quantity.defaultProps = {
+    selectLabel: "product's quantity"
+};
 
-        return (
-            <div className={classes.root}>
-                <Select
-                    {...restProps}
-                    field="quantity"
-                    aria-label={selectLabel}
-                    items={mockData}
-                />
-            </div>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Quantity);
+export default Quantity;

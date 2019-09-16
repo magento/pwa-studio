@@ -4,7 +4,7 @@ import { bool, func, number, shape, string } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './thumbnail.css';
-import { transparentPlaceholder } from '../../shared/images';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import Image from '../Image';
 import { useWindowSize } from '@magento/peregrine';
 

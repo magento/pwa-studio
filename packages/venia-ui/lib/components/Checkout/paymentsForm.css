@@ -14,10 +14,6 @@
     composes: footer from './flow.css';
 }
 
-.button {
-    text-transform: capitalize;
-}
-
 .textInput {
     background: white;
     border: 1px solid rgb(var(--venia-text-alt));

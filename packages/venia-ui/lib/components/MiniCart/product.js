@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import { resourceUrl } from '@magento/venia-drivers';
 
 import Image from '../Image';
-import { transparentPlaceholder } from '../../shared/images';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import Kebab from './kebab';
 import ProductOptions from './productOptions';
