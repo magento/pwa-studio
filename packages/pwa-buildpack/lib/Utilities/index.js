@@ -3,5 +3,5 @@ module.exports = {
     configureHost: require('./configureHost'),
     createDotEnvFile: require('./createDotEnvFile'),
     loadEnvironment: require('./loadEnvironment'),
-    createFileHash: require('./fileHash')
+    createFileHash: require('./createFileHash')
 };

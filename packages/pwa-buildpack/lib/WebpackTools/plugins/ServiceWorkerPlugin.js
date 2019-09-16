@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
-const createFileHash = require('../../Utilities/fileHash');
+const createFileHash = require('../../Utilities/createFileHash');
 const optionsValidator = require('../../util/options-validator');
 
 // No longer modifiable since v4

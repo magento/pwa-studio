@@ -1,12 +1,12 @@
 jest.mock('workbox-webpack-plugin');
 jest.mock('write-file-webpack-plugin');
 
-jest.mock('../../../Utilities/fileHash');
+jest.mock('../../../Utilities/createFileHash');
 
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
-const createFileHash = require('../../../Utilities/fileHash');
+const createFileHash = require('../../../Utilities/createFileHash');
 
 const FAKE_FILE_HASH = '1234';
 

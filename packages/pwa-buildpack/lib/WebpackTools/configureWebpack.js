@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const loadEnvironment = require('../Utilities/loadEnvironment');
-const createFileHash = require('../Utilities/fileHash');
+const createFileHash = require('../Utilities/createFileHash');
 const RootComponentsPlugin = require('./plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('./plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('./plugins/UpwardIncludePlugin');
