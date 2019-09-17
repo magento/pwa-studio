@@ -1,39 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from '@magento/venia-drivers';
+import React from 'react';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useErrorContext } from '@magento/peregrine/lib/context/unhandledErrors';
 
-import appActions, { closeDrawer } from '../../actions/app';
 import App from './app';
+import { useErrorBoundary } from './useErrorBoundary';
 
-class AppContainer extends Component {
-    static get initialState() {
-        return {
-            renderError: null
-        };
-    }
+const AppContainer = () => {
+    const ErrorBoundary = useErrorBoundary(App);
+    const [appState, appApi] = useAppContext();
+    const [unhandledErrors, errorApi] = useErrorContext();
 
-    static getDerivedStateFromError(renderError) {
-        return { renderError };
-    }
-
-    state = AppContainer.initialState;
-
-    render() {
-        const { renderError } = this.state;
-        return <ConnectedApp renderError={renderError} />;
-    }
-}
-
-const mapStateToProps = ({ app, unhandledErrors }) => ({
-    app,
-    unhandledErrors
-});
-
-const { markErrorHandled } = appActions;
-const mapDispatchToProps = { closeDrawer, markErrorHandled };
-
-const ConnectedApp = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+    return (
+        <ErrorBoundary
+            unhandledErrors={unhandledErrors}
+            app={appState}
+            {...appApi}
+            {...errorApi}
+        />
+    );
+};
 
 export default AppContainer;

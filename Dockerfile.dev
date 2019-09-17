@@ -24,17 +24,13 @@ COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
+COPY lerna.json ./lerna.json
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
 
 # copy over the rest of the package files
 COPY packages ./packages
-
-# set in docker-compose
-ARG ENVFILEPATH
-# copy configuration env file from host file system to venia-concept .env for build
-COPY ${ENVFILEPATH} ./packages/venia-concept/.env
 
 # run yarn again to reestablish workspace symlinks
 RUN yarn install --frozen-lockfile
@@ -51,7 +47,5 @@ RUN chown -R node:node /usr/src/app
 # copy build from previous stage
 COPY --from=build /usr/src/app .
 USER node
-# Pass the `HOST` arg from docker-compose args and set it to the HOST
-ARG HOST
 # command to run application
-CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch", "-- --host ${HOST}"]
+CMD [ "yarn", "workspace", "@magento/venia-concept", "run", "watch"]

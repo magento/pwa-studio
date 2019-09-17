@@ -7,7 +7,7 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingAddress,
     submitShippingMethod
-} from '../../actions/checkout';
+} from '@magento/peregrine/lib/store/actions/checkout';
 
 import Flow from './flow';
 

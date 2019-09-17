@@ -52,6 +52,15 @@ const simulate = {
     }
 };
 
+const listeningApp = {
+    address() {
+        return {
+            address: '0.0.0.0',
+            port: 8000
+        };
+    }
+};
+
 beforeEach(() => {
     configureHost.mockReset();
     portscanner.checkPortStatus.mockReset();
@@ -76,10 +85,6 @@ test('.configure() adds `devServer` and plugins to webpack config', async () => 
     });
 
     expect(config.plugins.length).toBeGreaterThan(0);
-
-    expect(console.warn).toHaveBeenCalledWith(
-        expect.stringMatching(/avoid\s+ServiceWorker\s+collisions/m)
-    );
 });
 
 test('.configure() logs that a custom origin has not yet been created', async () => {
@@ -97,8 +102,7 @@ test('.configure() logs that a custom origin has not yet been created', async ()
         compress: true,
         hot: true,
         host: '0.0.0.0',
-        port: 10001,
-        publicPath: 'http://0.0.0.0:10001/bork/'
+        port: 10001
     });
 });
 
@@ -122,8 +126,7 @@ test('.configure() creates a project-unique host if customOrigin config set in e
         https: {
             key: 'the chickie',
             cert: 'chop chop'
-        },
-        publicPath: 'https://bork.bork.bork:8001/bork/'
+        }
     });
 });
 
@@ -147,8 +150,7 @@ test('.configure() lets devServer.host override customOrigin.host', async () => 
         compress: true,
         hot: true,
         host: 'borque.borque',
-        port: 8001,
-        publicPath: 'http://borque.borque:8001/bork/'
+        port: 8001
     });
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching(/overriding the custom hostname/)
@@ -171,8 +173,7 @@ test('.configure() falls back to an open port if desired port is not available, 
         https: {
             key: 'the chickie',
             cert: 'chop chop'
-        },
-        publicPath: 'https://bork.bork.bork:10001/bork/'
+        }
     });
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching(/port\s+8001\s+is\s+in\s+use/m)
@@ -214,6 +215,7 @@ test('debugErrorMiddleware and notifier attached', async () => {
     };
     const waitUntilValid = jest.fn();
     const server = {
+        listeningApp,
         middleware: {
             waitUntilValid
         }
@@ -278,6 +280,7 @@ test('graphql-playground middleware attached', async () => {
     };
     const waitUntilValid = jest.fn();
     const server = {
+        listeningApp,
         middleware: {
             waitUntilValid,
             context: {
@@ -366,6 +369,7 @@ test('graphql-playground middleware handles error during project query read', as
     };
     const waitUntilValid = jest.fn();
     const server = {
+        listeningApp,
         middleware: {
             waitUntilValid,
             context: {
@@ -383,20 +387,4 @@ test('graphql-playground middleware handles error during project query read', as
     const res = {};
     readHook(stats);
     await expect(middlewareProxy(req, res)).rejects.toThrow('ENOENT');
-});
-
-test('.configure() allows a `public` override', async () => {
-    const config = mockConfig();
-    await PWADevServer.configure(
-        {
-            devServer: {
-                public: 'docker.local'
-            }
-        },
-        config
-    );
-
-    expect(config.devServer).toMatchObject({
-        publicPath: 'https://docker.local/'
-    });
 });

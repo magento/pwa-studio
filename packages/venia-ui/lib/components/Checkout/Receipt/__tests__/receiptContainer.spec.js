@@ -1,5 +1,5 @@
-import actions from '../../../../actions/checkoutReceipt';
-import { createAccount } from '../../../../actions/checkout';
+import actions from '@magento/peregrine/lib/store/actions/checkoutReceipt';
+import { createAccount } from '@magento/peregrine/lib/store/actions/checkout';
 import Container from '../receiptContainer';
 import Receipt from '../receipt';
 

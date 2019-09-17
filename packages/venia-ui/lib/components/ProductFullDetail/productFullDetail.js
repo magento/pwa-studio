@@ -85,7 +85,7 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 
 const ProductFullDetail = props => {
     // Props.
-    const { addToCart, isAddingItem, product } = props;
+    const { addItemToCart, isAddingItem, product } = props;
 
     // State.
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -117,8 +117,8 @@ const ProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addToCart(payload);
-    }, [addToCart, optionCodes, optionSelections, product, quantity]);
+        addItemToCart(payload);
+    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -184,7 +184,7 @@ const ProductFullDetail = props => {
 };
 
 ProductFullDetail.propTypes = {
-    addToCart: func.isRequired,
+    addItemToCart: func.isRequired,
     classes: shape({
         cartActions: string,
         description: string,
