@@ -8,6 +8,7 @@ import actions from '../actions';
 import {
     beginCheckout,
     formatAddress,
+    getCountries,
     getShippingMethods,
     resetCheckout,
     submitBillingAddress,
@@ -53,7 +54,7 @@ const paymentMethod = {
 beforeAll(() => {
     getState.mockImplementation(() => ({
         cart: { cartId: 'CART_ID' },
-        directory: { countries },
+        checkout: { countries },
         user: { isSignedIn: false }
     }));
 });
@@ -90,7 +91,7 @@ describe('beginCheckout', () => {
         );
         // TODO: test fails but "Compared values have no visual difference."
         // expect(dispatch).toHaveBeenNthCalledWith(2, cartActions.getShippingMethods());
-        // expect(dispatch).toHaveBeenNthCalledWith(3, directoryActions.getCountries());
+        // expect(dispatch).toHaveBeenNthCalledWith(3, checkoutActions.getCountries());
         expect(dispatch).toHaveBeenCalledTimes(3);
     });
 });
@@ -113,6 +114,82 @@ describe('resetCheckout', () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
         expect(dispatch).toHaveBeenNthCalledWith(3, actions.reset());
         expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+});
+
+describe('getCounries', () => {
+    test('getCountries() to return a thunk', () => {
+        expect(getCountries()).toBeInstanceOf(Function);
+    });
+
+    test('getCountries thunk returns undefined', async () => {
+        const result = await getCountries()(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('getCountries thunk requests API data if not cached', async () => {
+        getState.mockImplementationOnce(() => ({
+            checkout: {
+                countries: null
+            }
+        }));
+
+        await getCountries()(...thunkArgs);
+
+        expect(request).toHaveBeenCalled();
+    });
+
+    test('getCountries thunk does nothing if data is present', async () => {
+        getState.mockImplementationOnce(() => ({
+            checkout: {
+                countries: []
+            }
+        }));
+
+        await getCountries()(...thunkArgs);
+
+        expect(request).not.toHaveBeenCalled();
+    });
+
+    test('getCountries thunk dispatches actions on success', async () => {
+        const response = 'FOO';
+
+        getState.mockImplementationOnce(() => ({
+            checkout: {}
+        }));
+
+        request.mockResolvedValueOnce(response);
+        await getCountries()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getCountries.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getCountries.receive(response)
+        );
+    });
+
+    test('getCountries thunk dispatches actions on failure', async () => {
+        const error = new Error('BAR');
+
+        getState.mockImplementationOnce(() => ({
+            checkout: {}
+        }));
+
+        request.mockRejectedValueOnce(error);
+        await getCountries()(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            1,
+            actions.getCountries.request()
+        );
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.getCountries.receive(error)
+        );
     });
 });
 
@@ -265,7 +342,7 @@ describe('submitBillingAddress', () => {
     test('submitBillingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
-            directory: { countries }
+            checkout: { countries }
         }));
         await expect(
             submitBillingAddress(sameAsShippingPayload)(...thunkArgs)
@@ -309,7 +386,7 @@ describe('submitShippingAddress', () => {
     test('submitShippingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
-            directory: { countries }
+            checkout: { countries }
         }));
         await expect(
             submitShippingAddress(payload)(...thunkArgs)
@@ -474,7 +551,7 @@ describe('submitOrder', () => {
                 },
                 cartId: 'CART_ID'
             },
-            directory: { countries },
+            checkout: { countries },
             user: { isSignedIn: false }
         };
 
@@ -520,7 +597,7 @@ describe('submitOrder', () => {
                 },
                 cartId: 'CART_ID'
             },
-            directory: { countries },
+            checkout: { countries },
             user: { isSignedIn: false }
         };
 

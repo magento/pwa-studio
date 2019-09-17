@@ -18,7 +18,7 @@ const EditableForm = props => {
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
-        directory: { countries }
+        checkout: { countries }
     } = props;
 
     const handleCancel = useCallback(() => {
@@ -112,7 +112,7 @@ EditableForm.propTypes = {
     submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
-    directory: shape({
+    checkout: shape({
         countries: array
     }).isRequired
 };
