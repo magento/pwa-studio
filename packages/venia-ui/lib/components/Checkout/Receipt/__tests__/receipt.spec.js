@@ -45,16 +45,32 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
     expect(handleCreateAccountMock).toBeCalled();
 });
 
-test('calls `reset` when component was unmounted', () => {
+test('calls `reset` and `onClose` when cart drawer is closed', () => {
     const resetHandlerMock = jest.fn();
+    const onCloseMock = jest.fn();
 
     const instance = createTestInstance(
-        <Receipt reset={resetHandlerMock} classes={classes} user={userProp} />
+        <Receipt
+            drawer={'cart'}
+            reset={resetHandlerMock}
+            classes={classes}
+            user={userProp}
+            onClose={onCloseMock}
+        />
     );
 
     act(() => {
-        instance.unmount();
+        instance.update(
+            <Receipt
+                drawer={null}
+                reset={resetHandlerMock}
+                classes={classes}
+                user={userProp}
+                onClose={onCloseMock}
+            />
+        );
     });
 
     expect(resetHandlerMock).toBeCalled();
+    expect(onCloseMock).toBeCalled();
 });

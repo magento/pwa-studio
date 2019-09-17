@@ -12,6 +12,9 @@ const initialState = {
     paymentMethodError: null,
     paymentCode: '',
     paymentData: null,
+    receipt: {
+        order: {}
+    },
     shippingAddress: null,
     shippingAddressError: null,
     shippingMethod: '',
@@ -115,6 +118,18 @@ const reducerMap = {
             paymentMethodError: payload
         };
     },
+    [actions.receipt.setOrder]: (state, { payload }) => ({
+        ...state,
+        receipt: {
+            order: payload
+        }
+    }),
+    [actions.receipt.reset]: state => ({
+        ...state,
+        receipt: {
+            ...initialState.receipt
+        }
+    }),
     [actions.shippingMethod.submit]: state => ({
         ...state,
         isSubmitting: true,
