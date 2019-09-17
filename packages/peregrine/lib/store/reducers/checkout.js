@@ -189,7 +189,7 @@ const reducerMap = {
 
         return {
             ...initialState,
-            preservedState
+            ...preservedState
         };
     }
 };
