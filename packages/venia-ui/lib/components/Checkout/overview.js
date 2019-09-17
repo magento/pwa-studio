@@ -20,13 +20,13 @@ const Overview = props => {
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
+        isSubmitting,
         paymentData,
         ready,
         setEditing,
         shippingAddress,
         shippingTitle,
-        submitOrder,
-        submitting
+        submitOrder
     } = props;
 
     const handleAddressFormClick = useCallback(() => {
@@ -40,6 +40,10 @@ const Overview = props => {
     const handleShippingFormClick = useCallback(() => {
         setEditing('shippingMethod');
     }, [setEditing]);
+
+    const currencyCode =
+        (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
+    const subtotal = (cart && cart.totals && cart.totals.subtotal) || 0;
 
     return (
         <Fragment>
@@ -78,10 +82,7 @@ const Overview = props => {
                     />
                 </Section>
                 <Section label="TOTAL">
-                    <Price
-                        currencyCode={cart.totals.quote_currency_code}
-                        value={cart.totals.subtotal || 0}
-                    />
+                    <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
                     <span>{cart.details.items_qty} Items</span>
                 </Section>
@@ -90,7 +91,7 @@ const Overview = props => {
                 <Button onClick={cancelCheckout}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={submitting || !ready}
+                    disabled={isSubmitting || !ready}
                     onClick={submitOrder}
                 >
                     Confirm Order
@@ -119,6 +120,7 @@ Overview.propTypes = {
     hasPaymentMethod: bool,
     hasShippingAddress: bool,
     hasShippingMethod: bool,
+    isSubmitting: bool,
     paymentData: object,
     ready: bool,
     setEditing: func,

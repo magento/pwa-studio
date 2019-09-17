@@ -1,36 +1,32 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { bool, func, node, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './searchTrigger.css';
 
-class SearchTrigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            open: PropTypes.string
-        }),
-        searchOpen: PropTypes.bool,
-        toggleSearch: PropTypes.func.isRequired
-    };
+const SearchTrigger = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { children, toggleSearch, searchOpen } = props;
+    const searchClass = searchOpen ? classes.open : classes.root;
+    return (
+        <button
+            className={searchClass}
+            aria-label={'Search'}
+            onClick={toggleSearch}
+        >
+            {children}
+        </button>
+    );
+};
 
-    render() {
-        const { children, classes, toggleSearch, searchOpen } = this.props;
-        const searchClass = searchOpen ? classes.open : classes.root;
+SearchTrigger.propTypes = {
+    children: node,
+    classes: shape({
+        root: string,
+        open: string
+    }),
+    searchOpen: bool,
+    toggleSearch: func.isRequired
+};
 
-        return (
-            <Fragment>
-                <button
-                    className={searchClass}
-                    aria-label={'Search'}
-                    onClick={toggleSearch}
-                >
-                    {children}
-                </button>
-            </Fragment>
-        );
-    }
-}
-
-export default classify(defaultClasses)(SearchTrigger);
+export default SearchTrigger;

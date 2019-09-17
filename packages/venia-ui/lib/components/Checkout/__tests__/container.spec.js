@@ -5,7 +5,7 @@ import {
     submitOrder,
     submitPaymentMethodAndBillingAddress,
     submitShippingMethod
-} from '../../../actions/checkout';
+} from '@magento/peregrine/lib/store/actions/checkout';
 
 import ConnectedCheckoutContainer from '../index';
 

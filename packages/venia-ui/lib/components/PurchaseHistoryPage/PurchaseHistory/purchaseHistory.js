@@ -6,6 +6,10 @@ import classify from '../../../classify';
 import PurchaseHistoryItem from '../PurchaseHistoryItem';
 import defaultClasses from './purchaseHistory.css';
 
+// TODO: If/when we use this component we should:
+//  - rewrite as function component
+//  - refactor to use useRest or useQuery hooks and move isFetching
+//    from store to view based on hook state
 class PurchaseHistory extends Component {
     static propTypes = {
         classes: shape({

@@ -1,36 +1,39 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, node, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import Button from './button';
 import defaultClasses from './buttonGroup.css';
 
-class ButtonGroup extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string
-        }).isRequired,
-        items: arrayOf(
-            shape({
-                children: node.isRequired,
-                key: string.isRequired
-            })
-        ).isRequired
-    };
+const ButtonGroup = props => {
+    const { items } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    static defaultProps = {
-        items: []
-    };
+    const children = useMemo(
+        () =>
+            Array.from(items, ({ key, ...itemProps }) => (
+                <Button key={key} {...itemProps} />
+            )),
+        [items]
+    );
 
-    render() {
-        const { classes, items } = this.props;
+    return <div className={classes.root}>{children}</div>;
+};
 
-        const children = Array.from(items, ({ key, ...itemProps }) => (
-            <Button key={key} {...itemProps} />
-        ));
+ButtonGroup.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    items: arrayOf(
+        shape({
+            children: node.isRequired,
+            key: string.isRequired
+        })
+    ).isRequired
+};
 
-        return <div className={classes.root}>{children}</div>;
-    }
-}
+ButtonGroup.defaultProps = {
+    items: []
+};
 
-export default classify(defaultClasses)(ButtonGroup);
+export default ButtonGroup;

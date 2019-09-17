@@ -1,12 +1,15 @@
 import React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import MiniCart from '../miniCart';
+import Body from '../body';
+import Footer from '../footer';
 
-const renderer = new ShallowRenderer();
+jest.mock('../body', () => 'Body');
+jest.mock('../footer', () => 'Footer');
 
 const baseProps = {
-    beginEditItem: jest.fn(),
     cancelCheckout: jest.fn(),
     cart: {
         details: {
@@ -35,18 +38,16 @@ const baseProps = {
         }
     },
     closeDrawer: jest.fn(),
-    endEditItem: jest.fn(),
     isCartEmpty: false,
-    isMiniCartMaskOpen: false,
     isOpen: true,
     removeItemFromCart: jest.fn(),
     updateItemInCart: jest.fn()
 };
 
 test('renders the correct tree', () => {
-    const tree = renderer.render(<MiniCart {...baseProps} />);
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
 
-    expect(tree).toMatchSnapshot();
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('doesnt render a footer when cart is empty', () => {
@@ -55,27 +56,27 @@ test('doesnt render a footer when cart is empty', () => {
         isCartEmpty: true
     };
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
-
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    const instance = createTestInstance(<MiniCart {...props} />);
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });
 
 test('doesnt render a footer when cart is editing', () => {
     const props = {
         ...baseProps,
-        cart: {
-            ...baseProps.cart,
-            isEditingItem: true
-        }
+        isCartEmpty: false
     };
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
+    const instance = createTestInstance(<MiniCart {...props} />);
 
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    act(() => {
+        instance.root.findByType(Body).props.beginEditItem();
+    });
+
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });
 
 test('doesnt render a footer when cart is loading', () => {
@@ -87,9 +88,8 @@ test('doesnt render a footer when cart is loading', () => {
         }
     };
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
-
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    const instance = createTestInstance(<MiniCart {...props} />);
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });
