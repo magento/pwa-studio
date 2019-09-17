@@ -117,7 +117,7 @@ describe('resetCheckout', () => {
     });
 });
 
-describe('getCounries', () => {
+describe('getCountries', () => {
     test('getCountries() to return a thunk', () => {
         expect(getCountries()).toBeInstanceOf(Function);
     });
