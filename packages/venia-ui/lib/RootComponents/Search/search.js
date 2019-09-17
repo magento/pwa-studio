@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Query, Redirect } from '@magento/venia-drivers';
-import { bool, func, object, shape, string } from 'prop-types';
+import { object, shape, string } from 'prop-types';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 
 import { mergeClasses } from '../../classify';
@@ -14,18 +16,18 @@ import CategoryFilters from './categoryFilters';
 import defaultClasses from './search.css';
 
 const Search = props => {
-    const {
-        executeSearch,
-        filterClear,
-        history,
-        location,
-        openDrawer,
-        searchOpen,
-        toggleSearch
-    } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const { history, location } = props;
     const shouldClear = useRef(false);
+    const classes = mergeClasses(defaultClasses, props.classes);
 
+    // retrieve app state and action creators
+    const [appState, appApi] = useAppContext();
+    const { searchOpen } = appState;
+    const { executeSearch, toggleDrawer, toggleSearch } = appApi;
+    const [, catalogApi] = useCatalogContext();
+    const { clear: clearFilters } = catalogApi.actions.filterOption;
+
+    // retrieve search params
     const inputText = getQueryParameterValue({
         location,
         queryParameter: 'query'
@@ -37,6 +39,10 @@ const Search = props => {
     const queryVariable = categoryId
         ? { inputText, categoryId }
         : { inputText };
+
+    const openDrawer = useCallback(() => {
+        toggleDrawer('filter');
+    }, [toggleDrawer]);
 
     // memoize the render prop for Query
     // TODO: replace with `useQuery` hook
@@ -105,7 +111,7 @@ const Search = props => {
     useEffect(() => {
         // clear filters if there are no filter params
         if (isObjectEmpty(getFilterParams())) {
-            filterClear();
+            clearFilters();
         }
 
         // ensure search is open to begin with
@@ -119,11 +125,11 @@ const Search = props => {
     // but don't clear them on mount
     useEffect(() => {
         if (shouldClear.current) {
-            filterClear();
+            clearFilters();
         } else {
             shouldClear.current = true;
         }
-    }, [filterClear, inputText]);
+    }, [clearFilters, inputText]);
 
     // redirect to the home page if the query doesn't contain input
     if (!inputText) {
@@ -145,10 +151,6 @@ Search.propTypes = {
         root: string,
         totalPages: string
     }),
-    executeSearch: func.isRequired,
     history: object,
-    location: object.isRequired,
-    openDrawer: func.isRequired,
-    searchOpen: bool,
-    toggleSearch: func
+    location: object.isRequired
 };

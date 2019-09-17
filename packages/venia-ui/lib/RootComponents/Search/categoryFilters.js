@@ -1,20 +1,12 @@
 import React, { useCallback } from 'react';
 import { X as CloseIcon } from 'react-feather';
-import gql from 'graphql-tag';
 import { Query } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../../components/Icon';
+import GET_CATEGORY_NAME from '../../queries/getCategoryName.graphql';
 import getQueryParameterValue from '../../util/getQueryParameterValue';
 import defaultClasses from './categoryFilters.css';
-
-const GET_CATEGORY_NAME = gql`
-    query getCategoryName($id: Int!) {
-        category(id: $id) {
-            name
-        }
-    }
-`;
 
 const CategoryFilters = props => {
     const { categoryId, executeSearch, history, location } = props;
