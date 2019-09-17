@@ -1,0 +1,24 @@
+.root {
+    font-size: 0;
+}
+
+.inner {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+}
+
+.container {
+    border-radius: inherit;
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.video {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
