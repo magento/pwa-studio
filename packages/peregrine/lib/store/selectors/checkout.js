@@ -1,7 +1,5 @@
-export const getOrderInformation = ({ checkoutReceipt: { order } }) => order;
-
 export const getAccountInformation = ({
-    checkoutReceipt: {
+    receipt: {
         order: {
             billing_address: {
                 email,

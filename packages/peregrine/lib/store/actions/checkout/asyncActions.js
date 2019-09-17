@@ -2,8 +2,7 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
-import { getAccountInformation } from '../../selectors/checkoutReceipt';
-import checkoutReceiptActions from '../checkoutReceipt';
+import { getAccountInformation } from '../../selectors/checkout';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -42,6 +41,11 @@ export const resetCheckout = () =>
         await dispatch(closeDrawer());
         await dispatch(createCart());
         dispatch(actions.reset());
+    };
+
+export const resetReceipt = () =>
+    async function thunk(dispatch) {
+        await dispatch(actions.receipt.reset());
     };
 
 export const getCountries = () =>
@@ -275,7 +279,7 @@ export const submitOrder = () =>
             });
 
             dispatch(
-                checkoutReceiptActions.setOrderInformation({
+                actions.receipt.setOrder({
                     id: response,
                     billing_address
                 })
@@ -296,7 +300,8 @@ export const submitOrder = () =>
     };
 
 export const createAccount = history => async (dispatch, getState) => {
-    const accountInfo = getAccountInformation(getState());
+    const { checkout } = getState();
+    const accountInfo = getAccountInformation(checkout);
 
     await dispatch(resetCheckout());
 

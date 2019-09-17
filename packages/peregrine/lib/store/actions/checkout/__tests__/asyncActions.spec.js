@@ -18,7 +18,6 @@ import {
     submitShippingMethod,
     submitPaymentMethodAndBillingAddress
 } from '../asyncActions';
-import checkoutReceiptActions from '../../checkoutReceipt';
 
 jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
@@ -573,7 +572,7 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            checkoutReceiptActions.setOrderInformation({
+            actions.receipt.setOrder({
                 id: response,
                 billing_address: expect.any(Object)
             })
@@ -619,7 +618,7 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            checkoutReceiptActions.setOrderInformation({
+            actions.receipt.setOrder({
                 id: response,
                 billing_address: expect.any(Object)
             })

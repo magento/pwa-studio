@@ -1,22 +1,11 @@
-import { getOrderInformation, getAccountInformation } from '../checkoutReceipt';
-
-test('getOrderInformation returns order', () => {
-    const order = { id: 1, billing_address: {} };
-    const state = {
-        checkoutReceipt: {
-            order
-        }
-    };
-
-    expect(getOrderInformation(state)).toEqual(order);
-});
+import { getAccountInformation } from '../checkout';
 
 test('getAccountInformation returns account information', () => {
     const email = 'test@example.com';
     const firstName = 'First Name';
     const lastName = 'Last Name';
     const state = {
-        checkoutReceipt: {
+        receipt: {
             order: {
                 billing_address: {
                     email,
