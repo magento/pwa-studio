@@ -1,0 +1,106 @@
+.root {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.root.tab-align-left .tabContent {
+    border-top-left-radius: 0 !important;
+}
+
+.root.tab-align-right .tabContent {
+    border-top-right-radius: 0 !important;
+}
+
+.tabHeader.tabSelected {
+    background: #fff;
+    color: black;
+    z-index: 3;
+}
+
+.tabNavigation {
+    display: block;
+    font-size: 0;
+    margin: 0 0 -1px;
+    padding: 0;
+}
+
+.tabHeader {
+    list-style: none;
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    display: inline-block;
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    position: relative;
+    word-wrap: break-word;
+    z-index: 1;
+    color: #000;
+    cursor: pointer !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.875rem 1.25rem;
+    transition: all 0.3s;
+    vertical-align: middle;
+    white-space: normal;
+}
+
+.tabHeader:focus {
+    outline: 0;
+}
+
+.tabHeader:focus:after {
+    content: '';
+    position: absolute;
+    height: 5px;
+    left: -4px;
+    right: -4px;
+    bottom: -5px;
+    background: #fff;
+}
+
+.tabHeader:not(:first-child) {
+    margin-left: -1px;
+}
+
+.tabPanelSelected {
+    display: block;
+}
+
+.tabPanel:empty {
+    display: none !important; /* Necessary because of inline styles; to be fixed in MC-18326 */
+}
+
+.tabContent {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.tabNavigation li:first-child {
+    margin-left: 0 !important;
+}
+
+.tabDisabled {
+    color: GrayText;
+    cursor: default;
+}
+
+.tabItem {
+    box-sizing: border-box;
+    min-height: inherit;
+}
+
+.tabItem:not(:first-child) {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .tabItem {
+        background-attachment: scroll !important;
+    }
+}

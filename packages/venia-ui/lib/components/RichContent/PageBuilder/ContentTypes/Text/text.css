@@ -1,0 +1,41 @@
+.text {
+    word-wrap: break-word;
+}
+.text h1 {
+    font-size: 2.5rem;
+    line-height: 2.7rem;
+    margin-bottom: 1.7rem;
+}
+.text h2 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin-bottom: 1rem;
+}
+.text h3 {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+.text h4 {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+.text h5 {
+    font-size: 1rem;
+    line-height: 1.4rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+.text h6 {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+.text p {
+    margin-bottom: 12px;
+    line-height: 1.4rem;
+}

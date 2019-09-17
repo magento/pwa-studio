@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Missing component 1`] = `
+<div
+  className="missing"
+>
+  <strong>
+    Error:
+  </strong>
+   No component for 
+  <strong>
+    test-content-type
+  </strong>
+   content type.
+</div>
+`;
