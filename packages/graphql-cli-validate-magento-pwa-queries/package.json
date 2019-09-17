@@ -9,6 +9,7 @@
   "scripts": {
     "build": "cp ../../magento-compatibility.js ./lib/",
     "clean": "rimraf ./lib/magento-compatibility.js ./node_modules",
+    "prepare": "yarn run -s build",
     "test": "jest"
   },
   "repository": "https://github.com/magento/pwa-studio",
