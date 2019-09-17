@@ -12,7 +12,7 @@ exports[`renders the correct tree 1`] = `
       </div>
     }
   >
-    <Connect(Flow) />
+    <Memo(ConnectFunction) />
   </React.Suspense>
 </div>
 `;

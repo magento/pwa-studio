@@ -19,6 +19,9 @@ export {
 } from './hooks/useWindowSize';
 export { getToastId, useToasts, ToastContextProvider } from './Toasts';
 
+// store
+export { enhancer, reducers } from './store';
+
 // components
 export { default as ContainerChild } from './ContainerChild';
 export { default as List, Items, Item } from './List';

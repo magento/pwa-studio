@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Form } from 'informed';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
@@ -30,15 +30,13 @@ const AddressForm = props => {
     const {
         cancel,
         countries,
-        isAddressInvalid,
-        invalidAddressMessage,
         initialValues,
-        submit,
-        submitting
+        isSubmitting,
+        error,
+        submit
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const validationMessage = isAddressInvalid ? invalidAddressMessage : null;
 
     const values = useMemo(
         () =>
@@ -49,21 +47,11 @@ const AddressForm = props => {
         [initialValues]
     );
 
-    const handleSubmit = useCallback(
-        values => {
-            submit(values);
-        },
-        [submit]
-    );
-
     return (
-        <Form
-            className={classes.root}
-            initialValues={values}
-            onSubmit={handleSubmit}
-        >
+        <Form className={classes.root} initialValues={values} onSubmit={submit}>
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
+                <div className={classes.validationMessage}>{error}</div>
                 <div className={classes.firstname}>
                     <Field label="First Name">
                         <TextInput
@@ -140,18 +128,10 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.validation}>{validationMessage}</div>
             </div>
             <div className={classes.footer}>
-                <Button className={classes.button} onClick={cancel}>
-                    Cancel
-                </Button>
-                <Button
-                    className={classes.button}
-                    type="submit"
-                    priority="high"
-                    disabled={submitting}
-                >
+                <Button onClick={cancel}>Cancel</Button>
+                <Button type="submit" priority="high" disabled={isSubmitting}>
                     Use Address
                 </Button>
             </div>
@@ -178,11 +158,10 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    invalidAddressMessage: string,
+    error: string,
     initialValues: object,
-    isAddressInvalid: bool,
-    submit: func.isRequired,
-    submitting: bool
+    isSubmitting: bool,
+    submit: func.isRequired
 };
 
 AddressForm.defaultProps = {

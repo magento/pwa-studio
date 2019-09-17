@@ -1,7 +1,7 @@
 import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import { signOut } from '../../../actions/user';
-import { getUserInformation } from '../../../selectors/user';
+import { signOut } from '@magento/peregrine/lib/store/actions/user';
+import { getUserInformation } from '@magento/peregrine/lib/store/selectors/user';
 import MyAccountMenuPage from './myAccountMenuPage';
 
 export default compose(

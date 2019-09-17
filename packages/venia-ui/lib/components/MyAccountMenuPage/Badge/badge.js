@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classify from '../../../classify';
+import React from 'react';
+import { node, shape, string } from 'prop-types';
+import { mergeClasses } from '../../../classify';
 import defaultClasses from './badge.css';
 
-class Badge extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            text: PropTypes.string
-        }),
-        children: PropTypes.node
-    };
+const Badge = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { children } = props;
 
-    render() {
-        const { classes, children } = this.props;
+    return (
+        <span className={classes.root}>
+            <span className={classes.text}>{children}</span>
+        </span>
+    );
+};
 
-        return (
-            <span className={classes.root}>
-                <span className={classes.text}>{children}</span>
-            </span>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Badge);
+Badge.propTypes = {
+    classes: shape({
+        root: string,
+        text: string
+    }),
+    children: node
+};
+export default Badge;

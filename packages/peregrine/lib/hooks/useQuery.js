@@ -27,7 +27,7 @@ export const useQuery = query => {
      * @param {DocumentNode} query A GraphQL document
      */
     const runQuery = useCallback(
-        async ({ variables }) => {
+        async ({ variables } = {}) => {
             let payload;
             try {
                 payload = await apolloClient.query({ query, variables });

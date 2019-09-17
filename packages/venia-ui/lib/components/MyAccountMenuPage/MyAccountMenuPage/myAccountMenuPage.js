@@ -1,47 +1,44 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classify from '../../../classify';
+import React, { useCallback } from 'react';
+import { func, shape, string } from 'prop-types';
+import { mergeClasses } from '../../../classify';
 import Logo from '../../Logo';
 import MyAccountMenu from '../MyAccountMenu';
 import Header from '../Header';
 import defaultClasses from './myAccountMenuPage.css';
 
-class MyAccountMenuPage extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            logoContainer: PropTypes.string
-        }),
-        signOut: PropTypes.func,
-        onClose: PropTypes.func,
-        history: PropTypes.shape({}),
-        user: PropTypes.shape({
-            email: PropTypes.string,
-            firstname: PropTypes.string,
-            lastname: PropTypes.string,
-            fullname: PropTypes.string
-        })
-    };
+const MyAccountMenuPage = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { history, onClose, signOut, user } = props;
 
-    handleSignOut = () => {
-        const { signOut, history } = this.props;
-
+    const handleSignOut = useCallback(() => {
         signOut({ history });
-    };
+    }, [history, signOut]);
 
-    render() {
-        const { classes, user, onClose } = this.props;
-
-        return (
-            <div className={classes.root}>
-                <Header user={user} onClose={onClose} />
-                <MyAccountMenu signOut={this.handleSignOut} />
-                <div className={classes.logoContainer}>
-                    <Logo height={32} />
-                </div>
+    return (
+        <div className={classes.root}>
+            <Header user={user} onClose={onClose} />
+            <MyAccountMenu signOut={handleSignOut} />
+            <div className={classes.logoContainer}>
+                <Logo height={32} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-export default classify(defaultClasses)(MyAccountMenuPage);
+MyAccountMenuPage.propTypes = {
+    classes: shape({
+        root: string,
+        logoContainer: string
+    }),
+    signOut: func.isRequired,
+    onClose: func.isRequired,
+    history: shape({}),
+    user: shape({
+        email: string,
+        firstname: string,
+        lastname: string,
+        fullname: string
+    })
+};
+
+export default MyAccountMenuPage;

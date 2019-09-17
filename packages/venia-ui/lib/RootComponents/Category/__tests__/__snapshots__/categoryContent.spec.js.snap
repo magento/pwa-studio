@@ -16,7 +16,7 @@ exports[`renders the correct tree 1`] = `
     <section
       className="c"
     >
-      <Classify(Gallery)
+      <Gallery
         data={
           Object {
             "id": 1,

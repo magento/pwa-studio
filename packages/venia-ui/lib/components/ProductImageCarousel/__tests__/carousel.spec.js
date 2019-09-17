@@ -115,7 +115,7 @@ test('renders prior image when previous button is clicked', () => {
     });
 
     const leftButton = component.root.findAllByProps({
-        className: 'root_normalPriority'
+        className: 'previousButton'
     })[0];
 
     act(() => {
@@ -136,7 +136,7 @@ test('renders last image when previous button is clicked and first item is activ
     );
 
     const leftButton = component.root.findAllByProps({
-        className: 'root_normalPriority'
+        className: 'previousButton'
     })[0];
 
     act(() => {
@@ -157,8 +157,8 @@ test('renders next image when next Button is clicked', () => {
     );
 
     const rightButton = component.root.findAllByProps({
-        className: 'root_normalPriority'
-    })[1];
+        className: 'nextButton'
+    })[0];
 
     act(() => {
         rightButton.props.onClick();
@@ -185,8 +185,8 @@ test('renders first image when next Button is clicked and last item is active', 
     });
 
     const rightButton = component.root.findAllByProps({
-        className: 'root_normalPriority'
-    })[1];
+        className: 'nextButton'
+    })[0];
 
     act(() => {
         rightButton.props.onClick();
