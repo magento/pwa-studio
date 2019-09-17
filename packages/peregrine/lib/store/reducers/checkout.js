@@ -177,21 +177,11 @@ const reducerMap = {
             orderError: payload
         };
     },
-    [actions.reset]: state => {
-        const preservedState = {};
-
-        // Avoid refetching countries.
-        if (state.countries) {
-            preservedState.countries = {
-                ...state.countries
-            };
-        }
-
-        return {
-            ...initialState,
-            ...preservedState
-        };
-    }
+    [actions.reset]: state => ({
+        ...initialState,
+        // Avoid refetching countries
+        countries: state.countries
+    })
 };
 
 export default handleActions(reducerMap, initialState);
