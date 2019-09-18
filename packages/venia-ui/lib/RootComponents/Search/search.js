@@ -28,7 +28,7 @@ const Search = props => {
     const { clear: clearFilters } = catalogApi.actions.filterOption;
 
     // retrieve search params
-    const inputText = getQueryParameterValue({
+    const queryValue = getQueryParameterValue({
         location,
         queryParameter: 'query'
     });
@@ -37,8 +37,8 @@ const Search = props => {
         queryParameter: 'category'
     });
     const queryVariable = categoryId
-        ? { inputText, categoryId }
-        : { inputText };
+        ? { queryValue, categoryId }
+        : { queryValue };
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -115,7 +115,7 @@ const Search = props => {
         }
 
         // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && inputText) {
+        if (toggleSearch && !searchOpen && queryValue) {
             toggleSearch();
         }
     }, []);
@@ -129,10 +129,10 @@ const Search = props => {
         } else {
             shouldClear.current = true;
         }
-    }, [clearFilters, inputText]);
+    }, [clearFilters, queryValue]);
 
     // redirect to the home page if the query doesn't contain input
-    if (!inputText) {
+    if (!queryValue) {
         return <Redirect to="/" />;
     }
 
