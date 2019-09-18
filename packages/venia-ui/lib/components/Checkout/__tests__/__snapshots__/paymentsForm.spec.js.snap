@@ -76,7 +76,7 @@ exports[`renders a PaymentsForm component 1`] = `
     className="footer"
   >
     <button
-      className="button"
+      className="root_normalPriority"
       onClick={[MockFunction]}
       type="button"
     >
@@ -87,7 +87,7 @@ exports[`renders a PaymentsForm component 1`] = `
       </span>
     </button>
     <button
-      className="button"
+      className="root_highPriority"
       disabled={true}
       type="submit"
     >
@@ -510,7 +510,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     className="footer"
   >
     <button
-      className="button"
+      className="root_normalPriority"
       onClick={[MockFunction]}
       type="button"
     >
@@ -521,7 +521,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       </span>
     </button>
     <button
-      className="button"
+      className="root_highPriority"
       disabled={true}
       type="submit"
     >

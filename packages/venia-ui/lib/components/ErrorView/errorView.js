@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
@@ -11,19 +11,20 @@ const messages = new Map()
         'This Product is currently out of stock. Please try again later.'
     );
 
-class ErrorView extends Component {
-    render() {
-        const { loading, notFound, outOfStock } = this.props;
-        const message = loading
+const ErrorView = props => {
+    const { loading, notFound, outOfStock } = props;
+
+    const message = useMemo(() => {
+        return loading
             ? messages.get('loading')
             : notFound
             ? messages.get('notFound')
             : outOfStock
             ? messages.get('outOfStock')
             : messages.get('internalError');
+    }, [loading, notFound, outOfStock]);
 
-        return <h1>{message}</h1>;
-    }
-}
+    return <h1>{message}</h1>;
+};
 
 export default ErrorView;

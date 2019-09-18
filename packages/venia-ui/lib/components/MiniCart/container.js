@@ -1,13 +1,11 @@
 import { connect } from '@magento/venia-drivers';
-import { isEmptyCartVisible, isMiniCartMaskOpen } from '../../selectors/cart';
-import { closeDrawer } from '../../actions/app';
+import { isCartEmpty } from '@magento/peregrine/lib/store/selectors/cart';
+import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
 import {
-    beginEditItem,
-    endEditItem,
     updateItemInCart,
     removeItemFromCart
-} from '../../actions/cart';
-import { cancelCheckout } from '../../actions/checkout';
+} from '@magento/peregrine/lib/store/actions/cart';
+import { cancelCheckout } from '@magento/peregrine/lib/store/actions/checkout';
 
 import MiniCart from './miniCart';
 
@@ -16,16 +14,13 @@ const mapStateToProps = state => {
 
     return {
         cart,
-        isCartEmpty: isEmptyCartVisible(state),
-        isMiniCartMaskOpen: isMiniCartMaskOpen(state)
+        isCartEmpty: isCartEmpty(state)
     };
 };
 
 const mapDispatchToProps = {
-    beginEditItem,
     cancelCheckout,
     closeDrawer,
-    endEditItem,
     removeItemFromCart,
     updateItemInCart
 };

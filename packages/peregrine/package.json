@@ -21,8 +21,10 @@
     "react": "~16.9.0",
     "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",
+    "react-redux": "~7.1.1",
     "react-router-dom": "~5.0.0",
     "react-test-renderer": "~16.9.0",
+    "redux": "~4.0.4",
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
@@ -30,7 +32,9 @@
     "react": "~16.9.0",
     "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",
-    "react-router-dom": "~5.0.0"
+    "react-redux": "~7.1.1",
+    "react-router-dom": "~5.0.0",
+    "redux": "~4.0.4"
   },
   "engines": {
     "node": ">=10.x",

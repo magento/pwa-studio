@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/express-sharp": "~2.1.1-newdeps.1",
+    "@magento/express-sharp": "~2.1.2",
     "@magento/upward-js": "~2.2.0",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
@@ -53,9 +53,9 @@
     "portscanner": "~2.2.0",
     "redis": "~2.8.0",
     "tar": "~4.4.8",
-    "virtual-module-webpack-plugin": "~0.4.1",
     "walk-object": "~4.0.0",
     "webpack-assets-manifest": "~3.1.1",
+    "webpack-inject-plugin": "~1.5.3",
     "word-wrap": "~1.2.3",
     "write-file-webpack-plugin": "~4.5.0",
     "yargs": "~13.2.2"

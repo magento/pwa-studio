@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import Gallery from '../../components/Gallery';
 import classify from '../../classify';
 import Icon from '../../components/Icon';
-import { getFilterParams } from '../../util/getFilterParamsFromUrl';
+import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import getQueryParameterValue from '../../util/getQueryParameterValue';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { X as CloseIcon } from 'react-feather';

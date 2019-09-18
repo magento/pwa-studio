@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import Button from '../../Button';
@@ -8,50 +8,53 @@ import TextInput from '../../TextInput';
 
 import { isRequired } from '../../../util/formValidators';
 
-import classify from '../../../classify';
+import { mergeClasses } from '../../../classify';
 import defaultClasses from './forgotPasswordForm.css';
 
-class ForgotPasswordForm extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            form: PropTypes.string,
-            buttonContainer: PropTypes.string
-        }),
-        initialValues: PropTypes.shape({
-            email: PropTypes.string
-        }),
-        onSubmit: PropTypes.func.isRequired
-    };
+const ForgotPasswordForm = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { initialValues, isResettingPassword, onSubmit } = props;
 
-    static defaultProps = {
-        initialValues: {}
-    };
+    return (
+        <Form
+            className={classes.root}
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+        >
+            <Field label="Email Address" required={true}>
+                <TextInput
+                    autoComplete="email"
+                    field="email"
+                    validate={isRequired}
+                    validateOnBlur
+                />
+            </Field>
+            <div className={classes.buttonContainer}>
+                <Button
+                    disabled={isResettingPassword}
+                    type="submit"
+                    priority="high"
+                >
+                    Submit
+                </Button>
+            </div>
+        </Form>
+    );
+};
 
-    render() {
-        const { classes, initialValues, onSubmit } = this.props;
+ForgotPasswordForm.propTypes = {
+    classes: shape({
+        form: string,
+        buttonContainer: string
+    }),
+    initialValues: shape({
+        email: string
+    }),
+    onSubmit: func.isRequired
+};
 
-        return (
-            <Form
-                className={classes.root}
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-            >
-                <Field label="Email Address" required={true}>
-                    <TextInput
-                        autoComplete="email"
-                        field="email"
-                        validate={isRequired}
-                        validateOnBlur
-                    />
-                </Field>
-                <div className={classes.buttonContainer}>
-                    <Button type="submit" priority="high">
-                        Submit
-                    </Button>
-                </div>
-            </Form>
-        );
-    }
-}
+ForgotPasswordForm.defaultProps = {
+    initialValues: {}
+};
 
-export default classify(defaultClasses)(ForgotPasswordForm);
+export default ForgotPasswordForm;

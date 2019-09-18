@@ -7,7 +7,7 @@ import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import renderRoutes from './renderRoutes';
-import errorRecord from '../../util/createErrorRecord';
+import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
