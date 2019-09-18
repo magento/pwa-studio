@@ -11,10 +11,9 @@ import {
 
 import Flow from './flow';
 
-const mapStateToProps = ({ cart, checkout, directory, user }) => ({
+const mapStateToProps = ({ cart, checkout, user }) => ({
     cart,
     checkout,
-    directory,
     user
 });
 

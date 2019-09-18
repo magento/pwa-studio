@@ -7,6 +7,7 @@ const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
     billingAddressError: null,
+    countries: null,
     isSubmitting: false,
     orderError: null,
     paymentMethodError: null,
@@ -59,6 +60,16 @@ const reducerMap = {
             ...state,
             billingAddressError: payload,
             isSubmitting: false
+        };
+    },
+    [actions.getCountries.receive]: (state, { payload, error }) => {
+        if (error) {
+            return state;
+        }
+
+        return {
+            ...state,
+            countries: payload
         };
     },
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {
@@ -166,7 +177,11 @@ const reducerMap = {
             orderError: payload
         };
     },
-    [actions.reset]: () => initialState
+    [actions.reset]: state => ({
+        ...initialState,
+        // Avoid refetching countries
+        countries: state.countries
+    })
 };
 
 export default handleActions(reducerMap, initialState);

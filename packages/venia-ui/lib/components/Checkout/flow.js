@@ -44,7 +44,6 @@ const Flow = props => {
         // state
         cart,
         checkout,
-        directory,
         step,
         user,
 
@@ -118,7 +117,7 @@ const Flow = props => {
                 billingAddress,
                 cancelCheckout: handleCancelCheckout,
                 cart,
-                directory,
+                checkout,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
@@ -178,7 +177,6 @@ Flow.propTypes = {
     classes: shape({
         root: string
     }),
-    directory: object,
     submitOrder: func,
     submitPaymentMethodAndBillingAddress: func,
     submitShippingAddress: func,

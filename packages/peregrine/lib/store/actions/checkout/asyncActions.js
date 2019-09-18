@@ -2,7 +2,6 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
-import { getCountries } from '../directory';
 import { getAccountInformation } from '../../selectors/checkout';
 import actions from './actions';
 
@@ -47,6 +46,23 @@ export const resetCheckout = () =>
 export const resetReceipt = () =>
     async function thunk(dispatch) {
         await dispatch(actions.receipt.reset());
+    };
+
+export const getCountries = () =>
+    async function thunk(dispatch, getState) {
+        const { checkout } = getState();
+
+        if (checkout.countries) {
+            return;
+        }
+
+        try {
+            dispatch(actions.getCountries.request());
+            const response = await request('/rest/V1/directory/countries');
+            dispatch(actions.getCountries.receive(response));
+        } catch (error) {
+            dispatch(actions.getCountries.receive(error));
+        }
     };
 
 export const getShippingMethods = () => {
@@ -112,8 +128,8 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, directory } = getState();
-        const { countries } = directory;
+        const { cart, checkout } = getState();
+        const { countries } = checkout;
 
         const { cartId } = cart;
         if (!cartId) {
@@ -160,7 +176,7 @@ export const submitShippingAddress = payload =>
 
         const {
             cart,
-            directory: { countries }
+            checkout: { countries }
         } = getState();
 
         const { cartId } = cart;
