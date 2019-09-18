@@ -4,13 +4,13 @@ import Row from '../row';
 
 jest.mock('../../../../../../classify');
 
-test('renders a Row component', () => {
+test('render row with no props', () => {
     const component = createTestInstance(<Row />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders a Row component with all props configured', () => {
+test('render row with all props configured', () => {
     const rowProps = {
         appearance: 'full-width',
         verticalAlignment: 'middle',
@@ -22,7 +22,7 @@ test('renders a Row component with all props configured', () => {
         backgroundPosition: 'center center',
         backgroundAttachment: 'fixed',
         backgroundRepeat: true,
-        enableParallax: true,
+        enableParallax: false,
         parallaxSpeed: 0.5,
         textAlign: 'right',
         border: 'solid',
@@ -39,6 +39,30 @@ test('renders a Row component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
+    const component = createTestInstance(<Row {...rowProps} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('render row with mobile image displayed and parallax enabled', () => {
+    const rowProps = {
+        mobileImage: 'mobile.jpg',
+        enableParallax: true,
+    };
+
+    window.matchMedia = jest.fn().mockImplementation(query => {
+        return {
+            matches: true,
+            media: query,
+            onchange: null,
+            addListener: jest.fn(), // deprecated
+            removeListener: jest.fn(), // deprecated
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            dispatchEvent: jest.fn(),
+        };
+    });
+
     const component = createTestInstance(<Row {...rowProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
