@@ -37,8 +37,8 @@ const Search = props => {
         queryParameter: 'category'
     });
     const queryVariable = categoryId
-        ? { queryValue, categoryId }
-        : { queryValue };
+        ? { inputText: queryValue, categoryId }
+        : { inputText: queryValue };
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
