@@ -1,5 +1,4 @@
 import { connect } from '@magento/venia-drivers';
-import { isCartEmpty } from '@magento/peregrine/lib/store/selectors/cart';
 import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
 import {
     updateItemInCart,
@@ -14,7 +13,7 @@ const mapStateToProps = state => {
 
     return {
         cart,
-        isCartEmpty: isCartEmpty(state)
+        isCartEmpty: cart.isEmpty
     };
 };
 
