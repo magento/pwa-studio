@@ -4,6 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Receipt from '../receipt';
 import Button from '../../../Button';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const classes = {
@@ -12,6 +13,16 @@ const classes = {
 };
 
 jest.mock('../../../../classify');
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        drawer: 'cart'
+    };
+    const api = {};
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
@@ -25,7 +36,10 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
 
 jest.mock('@magento/peregrine/lib/context/checkout', () => {
     const state = {};
-    const api = { createAccount: jest.fn() };
+    const api = {
+        createAccount: jest.fn(),
+        resetReceipt: jest.fn()
+    };
     const useCheckoutContext = jest.fn(() => [state, api]);
 
     return { useCheckoutContext };
@@ -54,27 +68,21 @@ test('calls `handleCreateAccount` when `Create an Account` button is pressed', (
 });
 
 test('calls `reset` and `onClose` when cart drawer is closed', () => {
-    const resetHandlerMock = jest.fn();
+    const [appState] = useAppContext();
+    const [, { resetReceipt }] = useCheckoutContext();
     const onCloseMock = jest.fn();
 
     const instance = createTestInstance(
-        <Receipt reset={resetHandlerMock} classes={classes} />
+        <Receipt classes={classes} onClose={onCloseMock} />
     );
 
-    expect(resetHandlerMock).not.toBeCalled();
+    expect(resetReceipt).not.toBeCalled();
 
     act(() => {
-        instance.update(
-            <Receipt
-                drawer={null}
-                reset={resetHandlerMock}
-                classes={classes}
-                user={userProp}
-                onClose={onCloseMock}
-            />
-        );
+        appState.drawer = null;
+        instance.update(<Receipt classes={classes} onClose={onCloseMock} />);
     });
 
-    expect(resetHandlerMock).toBeCalled();
+    expect(resetReceipt).toBeCalled();
     expect(onCloseMock).toBeCalled();
 });
