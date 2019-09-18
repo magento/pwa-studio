@@ -13,7 +13,8 @@ import { serialize } from '@magento/peregrine/lib/store/actions/catalog';
 const FilterFooter = props => {
     const { history, location } = props;
     const [, { closeDrawer }] = useAppContext();
-    const [{ chosenFilterOptions }, { filterClear }] = useCatalogContext();
+    const [{ chosenFilterOptions }, catalogApi] = useCatalogContext();
+    const { clear: filterClear } = catalogApi.actions.filterOption;
 
     const resetFilterOptions = useCallback(() => {
         const queryParams = preserveQueryParams(location);

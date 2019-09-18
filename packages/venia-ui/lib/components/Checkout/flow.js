@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Cart from './cart';
@@ -161,7 +161,9 @@ const Flow = props => {
 Flow.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    setStep: func,
+    step: string
 };
 
 export default Flow;

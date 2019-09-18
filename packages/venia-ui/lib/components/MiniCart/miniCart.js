@@ -22,6 +22,7 @@ const MiniCart = props => {
     const [, { cancelCheckout }] = useCheckoutContext();
     const [step, setStep] = useState('cart');
 
+    // TODO: Obtain this from derived cart state once #1703 is merged.
     const isCartEmpty =
         !cartState.details.items || cartState.details.items.length === 0;
 

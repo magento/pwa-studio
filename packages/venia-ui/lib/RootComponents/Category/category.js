@@ -13,7 +13,8 @@ import defaultClasses from './category.css';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
 const Category = props => {
-    const [, { filterClear }] = useCatalogContext();
+    const [, catalogApi] = useCatalogContext();
+    const { clear: filterClear } = catalogApi.actions.filterOption;
 
     const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);

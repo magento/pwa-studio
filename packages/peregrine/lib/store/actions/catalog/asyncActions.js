@@ -85,13 +85,3 @@ export const setPrevPageTotal = payload =>
     async function thunk(dispatch) {
         dispatch(actions.setPrevPageTotal.receive(payload));
     };
-
-export const setToApplied = payload =>
-    async function thunk(dispatch) {
-        dispatch(actions.filterOption.setToApplied(payload));
-    };
-
-export const filterClear = payload =>
-    async function thunk(dispatch) {
-        dispatch(actions.filterOption.clear(payload));
-    };

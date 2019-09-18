@@ -21,7 +21,8 @@ const FilterModal = props => {
     const { filters } = props;
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [, catalogApi] = useCatalogContext();
-    const { setToApplied } = catalogApi;
+    const { setToApplied } = catalogApi.actions.filterOption;
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
 
