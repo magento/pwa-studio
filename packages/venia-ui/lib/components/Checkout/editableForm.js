@@ -12,14 +12,13 @@ import ShippingForm from './shippingForm';
 const EditableForm = props => {
     const {
         editing,
+        isSubmitting,
         setEditing,
+        shippingAddressError,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
-        submitting,
-        isAddressInvalid,
-        invalidAddressMessage,
-        directory: { countries }
+        checkout: { countries }
     } = props;
 
     const handleCancel = useCallback(() => {
@@ -64,11 +63,10 @@ const EditableForm = props => {
                 <AddressForm
                     cancel={handleCancel}
                     countries={countries}
-                    isAddressInvalid={isAddressInvalid}
-                    invalidAddressMessage={invalidAddressMessage}
+                    error={shippingAddressError}
                     initialValues={shippingAddress}
+                    isSubmitting={isSubmitting}
                     submit={handleSubmitAddressForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -80,8 +78,8 @@ const EditableForm = props => {
                     cancel={handleCancel}
                     countries={countries}
                     initialValues={billingAddress}
+                    isSubmitting={isSubmitting}
                     submit={handleSubmitPaymentsForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -91,9 +89,9 @@ const EditableForm = props => {
                 <ShippingForm
                     availableShippingMethods={availableShippingMethods}
                     cancel={handleCancel}
+                    isSubmitting={isSubmitting}
                     shippingMethod={shippingMethod}
                     submit={handleSubmitShippingForm}
-                    submitting={submitting}
                 />
             );
         }
@@ -106,16 +104,15 @@ const EditableForm = props => {
 EditableForm.propTypes = {
     availableShippingMethods: array,
     editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
+    isSubmitting: bool,
     setEditing: func.isRequired,
     shippingAddress: object,
+    shippingAddressError: string,
     shippingMethod: string,
     submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
-    submitting: bool,
-    isAddressInvalid: bool,
-    invalidAddressMessage: string,
-    directory: shape({
+    checkout: shape({
         countries: array
     }).isRequired
 };

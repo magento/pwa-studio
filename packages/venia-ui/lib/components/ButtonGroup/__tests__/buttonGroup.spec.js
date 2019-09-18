@@ -1,14 +1,14 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import Button from '../button';
 import ButtonGroup from '../buttonGroup';
 
 jest.mock('../../../classify');
-jest.mock('../button');
+jest.mock('../button', () => 'Button');
 
 test('renders a div', () => {
-    const { root } = TestRenderer.create(<ButtonGroup />);
+    const { root } = createTestInstance(<ButtonGroup />);
 
     const el = root.findByProps({ className: 'root' });
 
@@ -22,7 +22,7 @@ test('renders children from `items`', () => {
         { key: 'c', children: 'c' }
     ];
 
-    const { root } = TestRenderer.create(<ButtonGroup items={items} />);
+    const { root } = createTestInstance(<ButtonGroup items={items} />);
 
     const el = root.findByProps({ className: 'root' });
 

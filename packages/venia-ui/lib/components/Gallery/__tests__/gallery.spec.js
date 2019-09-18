@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
+jest.mock('../items', () => 'GalleryItems');
 
 const classes = { root: 'foo' };
 const items = [
@@ -40,22 +41,13 @@ jest.mock('react', () => {
     return { ...r, memo: x => x };
 });
 test('renders if `data` is an empty array', () => {
-    const wrapper = shallow(<Gallery classes={classes} data={[]} />).dive();
-
-    expect(wrapper.hasClass(classes.root)).toBe(true);
+    const wrapper = createTestInstance(<Gallery classes={classes} data={[]} />);
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
 test('renders if `data` is an array of objects', () => {
-    const wrapper = shallow(<Gallery classes={classes} data={items} />).dive();
-
-    expect(wrapper.hasClass(classes.root)).toBe(true);
-});
-
-test('renders GalleryItems with props', () => {
-    const wrapper = shallow(<Gallery data={items} />).dive();
-    const child = wrapper.find('GalleryItems');
-    const props = { items };
-
-    expect(child).toHaveLength(1);
-    expect(child.props()).toMatchObject(props);
+    const wrapper = createTestInstance(
+        <Gallery classes={classes} data={items} />
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

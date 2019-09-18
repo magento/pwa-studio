@@ -13,11 +13,10 @@ const ShippingForm = props => {
     const {
         availableShippingMethods,
         cancel,
+        isSubmitting,
         shippingMethod,
-        submit,
-        submitting
+        submit: submitShippingMethod
     } = props;
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let initialValue;
@@ -48,12 +47,13 @@ const ShippingForm = props => {
                     `Could not find the selected shipping method ${selectedShippingMethod} in the list of available shipping methods.`
                 );
                 cancel();
-                return;
+            } else {
+                submitShippingMethod({
+                    shippingMethod: selectedShippingMethod
+                });
             }
-
-            submit({ shippingMethod: selectedShippingMethod });
         },
-        [availableShippingMethods, cancel, submit]
+        [availableShippingMethods, cancel, submitShippingMethod]
     );
 
     return (
@@ -75,15 +75,8 @@ const ShippingForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button className={classes.button} onClick={cancel}>
-                    Cancel
-                </Button>
-                <Button
-                    className={classes.button}
-                    priority="high"
-                    type="submit"
-                    disabled={submitting}
-                >
+                <Button onClick={cancel}>Cancel</Button>
+                <Button priority="high" type="submit" disabled={isSubmitting}>
                     Use Method
                 </Button>
             </div>
@@ -101,6 +94,7 @@ ShippingForm.propTypes = {
         heading: string,
         shippingMethod: string
     }),
+    isSubmitting: bool,
     shippingMethod: string,
     submit: func.isRequired,
     submitting: bool

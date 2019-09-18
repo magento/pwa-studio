@@ -7,14 +7,13 @@ import {
     submitPaymentMethodAndBillingAddress,
     submitShippingAddress,
     submitShippingMethod
-} from '../../actions/checkout';
+} from '@magento/peregrine/lib/store/actions/checkout';
 
 import Flow from './flow';
 
-const mapStateToProps = ({ cart, checkout, directory, user }) => ({
+const mapStateToProps = ({ cart, checkout, user }) => ({
     cart,
     checkout,
-    directory,
     user
 });
 

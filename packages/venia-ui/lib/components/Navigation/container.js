@@ -1,9 +1,13 @@
 import React, { createContext, useMemo } from 'react';
 
 import { connect } from '../../drivers';
-import { closeDrawer } from '../../actions/app';
-import catalogActions from '../../actions/catalog';
-import { createAccount, getUserDetails, signOut } from '../../actions/user';
+import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
+import catalogActions from '@magento/peregrine/lib/store/actions/catalog';
+import {
+    createAccount,
+    getUserDetails,
+    signOut
+} from '@magento/peregrine/lib/store/actions/user';
 import Navigation from './navigation';
 
 /**

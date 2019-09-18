@@ -12,13 +12,12 @@ jest.mock('../../Button', () => () => <i />);
 jest.mock('../../LoadingIndicator', () => () => <i />);
 
 const props = {
-    isGettingDetails: false,
-    isSigningIn: false,
     setDefaultUsername: jest.fn(),
     showCreateAccount: jest.fn(),
     showForgotPassword: jest.fn(),
     signIn: jest.fn(),
-    signInError: {}
+    hasError: false,
+    isSigningIn: false
 };
 
 test('renders correctly', () => {
@@ -27,32 +26,22 @@ test('renders correctly', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders the loading indicator if fetching details', () => {
-    const testProps = {
-        ...props,
-        isGettingDetails: true
-    };
-
-    const { root } = createTestInstance(<SignIn {...testProps} />);
-
-    expect(root.findByType(LoadingIndicator)).toBeTruthy();
-});
-
-test('renders the loading indicator if signing in', () => {
+test('renders the loading indicator when form is submitting', () => {
     const testProps = {
         ...props,
         isSigningIn: true
     };
-
     const { root } = createTestInstance(<SignIn {...testProps} />);
 
-    expect(root.findByType(LoadingIndicator)).toBeTruthy();
+    act(() => {
+        expect(root.findByType(LoadingIndicator)).toBeTruthy();
+    });
 });
 
 test('displays an error message if there is a sign in error', () => {
     const testProps = {
         ...props,
-        signInError: { message: 'foo ' }
+        hasError: true
     };
 
     const component = createTestInstance(<SignIn {...testProps} />);
