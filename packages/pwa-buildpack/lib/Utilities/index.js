@@ -3,5 +3,6 @@ module.exports = {
     configureHost: require('./configureHost'),
     createDotEnvFile: require('./createDotEnvFile'),
     loadEnvironment: require('./loadEnvironment'),
-    createFileHash: require('./createFileHash')
+    createFileHash: require('./createFileHash'),
+    fetcherUtils: require('./fetcherUtils')
 };
