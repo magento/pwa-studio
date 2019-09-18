@@ -6,14 +6,12 @@ import CheckoutButton from './checkoutButton';
 import defaultClasses from './cart.css';
 
 const Cart = props => {
-    const { beginCheckout, ready, submitting } = props;
+    const { beginCheckout, ready } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const disabled = submitting || !ready;
 
     return (
         <div className={classes.root}>
-            <CheckoutButton disabled={disabled} onClick={beginCheckout} />
+            <CheckoutButton disabled={!ready} onClick={beginCheckout} />
         </div>
     );
 };
@@ -23,8 +21,7 @@ Cart.propTypes = {
     classes: shape({
         root: string
     }),
-    ready: bool.isRequired,
-    submitting: bool.isRequired
+    ready: bool.isRequired
 };
 
 export default Cart;

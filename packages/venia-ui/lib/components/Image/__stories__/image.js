@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
-import { transparentPlaceholder } from '../../../shared/images';
 import Image from '../image';
 import '../../../index.css';
 

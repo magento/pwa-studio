@@ -1,19 +1,21 @@
 import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import actions from '../../../actions/checkoutReceipt';
-import { createAccount } from '../../../actions/checkout';
+import {
+    createAccount,
+    resetReceipt
+} from '@magento/peregrine/lib/store/actions/checkout';
 import Receipt from './receipt';
-import { getOrderInformation } from '../../../selectors/checkoutReceipt';
 
-const { reset } = actions;
-
-const mapStateToProps = state => ({
-    order: getOrderInformation(state)
-});
+const mapStateToProps = ({ app, checkout }) => {
+    return {
+        drawer: app.drawer,
+        order: checkout.receipt.order
+    };
+};
 
 const mapDispatchToProps = {
     createAccount,
-    reset
+    reset: resetReceipt
 };
 
 export default compose(

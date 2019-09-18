@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
-import { toggleDrawer } from '../../actions/app';
-import catalogActions from '../../actions/catalog';
+import { toggleDrawer } from '@magento/peregrine/lib/store/actions/app';
+import catalogActions from '@magento/peregrine/lib/store/actions/catalog';
 import { mergeClasses } from '../../classify';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -11,7 +11,7 @@ import { connect, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import categoryQuery from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
-import { getFilterParams } from '../../util/getFilterParamsFromUrl';
+import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';

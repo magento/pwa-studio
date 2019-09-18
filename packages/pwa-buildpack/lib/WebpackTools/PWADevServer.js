@@ -4,7 +4,6 @@ const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
-const url = require('url');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
@@ -17,22 +16,9 @@ const webpack = require('webpack');
 const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
-const secureHostWarning = chalk.redBright(`
-    To enable all PWA features and avoid ServiceWorker collisions, PWA Studio
-    highly recommends using the ${chalk.whiteBright(
-        '"provideSecureHost"'
-    )} configuration
-    option of PWADevServer.
-`);
-
-const helpText = `
-    To autogenerate a unique host based on project name
-    and location on disk, simply add:
-    ${chalk.whiteBright('provideSecureHost: true')}
-    to PWADevServer configuration options.
-
-    More options for this feature are described in documentation.
-`;
+// We only need the HTTP server to detect if the host is SSL or not.
+const HttpsServer = require('https').Server;
+const isHttpsServer = server => server instanceof HttpsServer;
 
 const PWADevServer = {
     async configure(devServerConfig, webpackConfig) {
@@ -46,10 +32,7 @@ const PWADevServer = {
             upwardPath = 'upward.yml'
         } = devServerConfig;
 
-        const {
-            context,
-            output: { publicPath }
-        } = webpackConfig;
+        const { context } = webpackConfig;
 
         const webpackDevServerOptions = {
             contentBase: false, // UpwardDevServerPlugin serves static files
@@ -59,30 +42,53 @@ const PWADevServer = {
                 // polling is CPU intensive - provide the option to turn it on if needed
                 poll: !!parseInt(devServer.watchOptionsUsePolling) || false
             },
-            host: '0.0.0.0',
+            // 'host' and 'port' here will be replaced with any custom origin.
+            host: devServer.host || '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
             stats: 'normal',
             after(app, server) {
                 app.use(debugErrorMiddleware());
-                let readyNotice = chalk.green(
-                    `PWADevServer ready at ${chalk.greenBright.underline(
-                        webpackDevServerOptions.publicPath
-                    )}`
-                );
-                if (graphqlPlayground) {
-                    readyNotice +=
-                        '\n' +
-                        chalk.blueBright(
-                            `GraphQL Playground ready at ${chalk.blueBright.underline(
-                                new url.URL(
-                                    '/graphiql',
-                                    webpackDevServerOptions.publicPath
-                                )
-                            )}`
+                server.middleware.waitUntilValid(() => {
+                    // We can try to set the hostname and port for the dev
+                    // server all we want, but the only reliable way to know
+                    // what it is is to detect it once it's mounted and
+                    // listening. This should cover all use cases.
+                    let url;
+                    // if an override URL is set, then the URL constructor will
+                    // parse it. This is the case where webpack-dev-server is
+                    // running in a container and doesn't know its public URL,
+                    // so the config has to supply it.
+                    try {
+                        url = new URL(webpackDevServerOptions.publicPath).href;
+                    } catch (e) {
+                        // otherwise, put the URL together from what's available to us in the closure.
+                        const scheme = isHttpsServer(server.listeningApp)
+                            ? 'https://'
+                            : 'http://';
+                        const detectedAddress = server.listeningApp.address();
+                        const hostname =
+                            server.hostname || detectedAddress.address;
+                        url = new URL(
+                            webpackConfig.output.publicPath,
+                            scheme + hostname
                         );
-                }
-                server.middleware.waitUntilValid(() =>
+                        url.port = detectedAddress.port;
+                    }
+                    let readyNotice = chalk.green(
+                        `PWADevServer ready at ${chalk.greenBright.underline(
+                            url.href
+                        )}`
+                    );
+                    if (graphqlPlayground) {
+                        readyNotice +=
+                            '\n' +
+                            chalk.blueBright(
+                                `GraphQL Playground ready at ${chalk.blueBright.underline(
+                                    new URL('/graphiql', url.origin).href
+                                )}`
+                            );
+                    }
                     console.log(
                         boxen(readyNotice, {
                             borderColor: 'gray',
@@ -91,8 +97,8 @@ const PWADevServer = {
                             margin: 1,
                             padding: 1
                         })
-                    )
-                );
+                    );
+                });
             },
             before(app) {
                 addImgOptMiddleware(app, {
@@ -110,6 +116,7 @@ const PWADevServer = {
                     }`
                 );
                 webpackDevServerOptions.host = host;
+                webpackDevServerOptions.port = devServer.port || 0;
             } else {
                 const customOriginConfig = await configureHost(
                     Object.assign(customOrigin, {
@@ -120,7 +127,9 @@ const PWADevServer = {
                 if (!customOriginConfig) {
                     console.warn(
                         chalk.yellowBright(
-                            'Custom origins are enabled for this project, but one has not yet been set up. Run `npx @magento/pwa-buildpack init-custom-origin <projectRoot>` to initialize a custom origin.'
+                            `Custom origins are enabled for this project, but one has not yet been set up. Run ${chalk.whiteBright(
+                                'buildpack create-custom-origin <projectRoot>'
+                            )} to initialize a custom origin.`
                         )
                     );
                 } else {
@@ -149,8 +158,6 @@ const PWADevServer = {
                     }
                 }
             }
-        } else {
-            console.warn(secureHostWarning + helpText);
         }
 
         if (graphqlPlayground) {
@@ -211,24 +218,8 @@ const PWADevServer = {
             };
         }
 
-        // Public path must be an absolute URL to enable hot module replacement
-        // If public key is set, then publicPath should equal the public key value - supports proxying https://bit.ly/2EOBVYL
-        webpackDevServerOptions.publicPath = devServer.public
-            ? `https://${devServer.public}/`
-            : url.format({
-                  protocol: webpackDevServerOptions.https ? 'https:' : 'http:',
-                  hostname: webpackDevServerOptions.host,
-                  port: webpackDevServerOptions.port,
-                  // ensure trailing slash
-                  pathname: publicPath.replace(/([^\/])$/, '$1/')
-              });
-
         // now decorate the webpack config object itself!
         webpackConfig.devServer = webpackDevServerOptions;
-
-        // A DevServer generates its own unique output path at startup. It needs
-        // to assign the main outputPath to this value as well.
-        webpackConfig.output.publicPath = webpackDevServerOptions.publicPath;
 
         const plugins = webpackConfig.plugins || (webpackConfig.plugins = []);
         plugins.push(
