@@ -4,8 +4,8 @@ const crypto = require('crypto');
 function createFileHash(filePath) {
     const result = new Promise(resolve => {
         try {
-            var fd = fs.createReadStream(filePath);
             if (fs.existsSync(filePath)) {
+                var fd = fs.createReadStream(filePath);
                 var hash = crypto.createHash('md5');
                 hash.setEncoding('hex');
 
