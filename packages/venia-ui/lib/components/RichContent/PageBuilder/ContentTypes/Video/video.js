@@ -71,9 +71,7 @@ const Video = props => {
                     src={url}
                 />
             </div>
-        ) : (
-            ''
-        );
+        ) : '';
 
     return (
         <div
