@@ -1,9 +1,20 @@
+const path = require('path');
 const fs = require('fs');
 
 const createFileHash = require('../createFileHash');
 
+const DEFAULT_SAMPLE_FILE_PATH = path.join(
+    path.resolve(__dirname).split('/packages')[0],
+    'packages',
+    'pwa-buildpack',
+    'lib',
+    'Utilities',
+    '__tests__',
+    'sampleFile.txt'
+);
+
 test('Should return a promise that resolves to a string', async () => {
-    const returnValue = createFileHash('./sampleFile.txt');
+    const returnValue = createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
     expect(returnValue instanceof Promise).toBeTruthy();
 
@@ -13,22 +24,22 @@ test('Should return a promise that resolves to a string', async () => {
 });
 
 test('Should return same hash if the contents of the file has not changed', async () => {
-    const oldValue = await createFileHash('./sampleFile.txt');
-    const newValue = await createFileHash('./sampleFile.txt');
+    const oldValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
+    const newValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
     expect(oldValue === newValue).toBeTruthy();
 });
 
 test('Should return different value if the contents of the same file have changed', async () => {
-    const oldValue = await createFileHash('./sampleFile.txt');
+    const oldValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
-    fs.appendFileSync('sampleFile.txt', ' Venia here.');
+    fs.appendFileSync(`${__dirname}/sampleFile.txt`, ' Venia here.');
 
-    const newValue = await createFileHash('./sampleFile.txt');
+    const newValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
+
+    fs.truncateSync(`${__dirname}/sampleFile.txt`, 11);
 
     expect(oldValue === newValue).toBeFalsy();
-
-    fs.truncateSync('sampleFile.txt', 11);
 });
 
 test('Should not throw error if given file path is invalid. Instead should print error in console and resolve to empty string as hash', async () => {
