@@ -22,9 +22,17 @@ const actionMap = {
         ACCEPT: null,
         REJECT: null
     },
+    GET_COUNTRIES: {
+        REQUEST: null,
+        RECEIVE: null
+    },
     GET_SHIPPING_METHODS: {
         REQUEST: null,
         RECEIVE: null
+    },
+    RECEIPT: {
+        SET_ORDER: null,
+        RESET: null
     },
     SHIPPING_METHOD: {
         SUBMIT: null,

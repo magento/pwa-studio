@@ -46,7 +46,7 @@ test('mapStateToProps correctly maps state to props', () => {
     const state = {
         cart: {},
         checkout: {},
-        directory: {},
+        checkout: {},
         extra: 'extra'
     };
 
@@ -54,7 +54,6 @@ test('mapStateToProps correctly maps state to props', () => {
     expect(props).not.toHaveProperty('extra');
     expect(props).toMatchObject({
         cart: state.cart,
-        checkout: state.checkout,
-        directory: state.directory
+        checkout: state.checkout
     });
 });
