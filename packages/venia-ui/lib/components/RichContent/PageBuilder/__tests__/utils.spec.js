@@ -5,7 +5,8 @@ import {
     getMargin,
     getPadding,
     getTextAlign,
-    getVerticalAlignment
+    getVerticalAlignment,
+    verticalAlignmentToFlex
 } from '../utils';
 
 test('can retrieve background image from node', () => {
@@ -17,8 +18,7 @@ test('can retrieve background image from node', () => {
 
 test('can set image properties with no image properties in node', () => {
     const node = document.createElement('div');
-    node.innerHTML =
-        '<div/>';
+    node.innerHTML = '<div/>';
     expect(getBackgroundImages(node.childNodes[0])).toMatchSnapshot();
 });
 
@@ -38,11 +38,18 @@ test('can retrieve vertical alignment', () => {
     );
 });
 
+test('can convert vertical alignment to flex property', () => {
+    expect(verticalAlignmentToFlex('top')).toEqual('flex-start');
+    expect(verticalAlignmentToFlex('middle')).toEqual('center');
+    expect(verticalAlignmentToFlex('bottom')).toEqual('flex-end');
+});
+
 test('can set vertical alignment with no vertical alignment properties in node', () => {
     const node = document.createElement('div');
-    node.innerHTML =
-        '<div/>';
-    expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toBeNull();
+    node.innerHTML = '<div/>';
+    expect(
+        getVerticalAlignment(node.childNodes[0]).verticalAlignment
+    ).toBeNull();
 });
 
 test('can retrieve padding', () => {

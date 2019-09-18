@@ -1,4 +1,5 @@
 import parseStorageHtml from '../parseStorageHtml';
+import * as config from '../config';
 
 test('parse valid root element', () => {
     const testMasterFormat =
@@ -9,11 +10,27 @@ test('parse valid root element', () => {
 });
 
 test('test invalid content type and expect warning', () => {
-    const testInvalidMasterFormat =
-        '<div data-content-type="garbage"/>';
+    const testInvalidMasterFormat = '<div data-content-type="garbage"/>';
 
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     parseStorageHtml(testInvalidMasterFormat);
 
     expect(console.warn).toHaveBeenCalled();
+});
+
+test('test failing configAggregator reports error to console', () => {
+    config['contentTypesConfig'] = {
+        broken: {
+            configAggregator: () => {
+                throw 'Invalid config aggregator';
+            }
+        }
+    };
+
+    const testInvalidMasterFormat = '<div data-content-type="broken"/>';
+
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    parseStorageHtml(testInvalidMasterFormat);
+
+    expect(console.error).toHaveBeenCalled();
 });
