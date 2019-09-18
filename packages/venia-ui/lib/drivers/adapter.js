@@ -5,6 +5,8 @@ import { persistCache } from 'apollo-cache-persist';
 import { ApolloContext, ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import introspectionQueryResultData from '../../../venia-concept/fragmentTypes.json';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
@@ -47,7 +49,11 @@ export default class VeniaAdapter extends Component {
         });
     }
     static apolloCache() {
-        const cache = new InMemoryCache();
+        const fragmentMatcher = new IntrospectionFragmentMatcher({
+            introspectionQueryResultData
+        });
+
+        const cache = new InMemoryCache({ fragmentMatcher });
 
         persistCache({
             cache,
