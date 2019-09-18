@@ -19,7 +19,7 @@ const Html = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        cssClasses
+        cssClasses = []
     } = props;
     const dynamicStyles = {
         textAlign,
