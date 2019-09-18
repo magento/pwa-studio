@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { object, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Cart from './cart';
@@ -57,7 +57,7 @@ const Flow = props => {
     ] = useCheckoutContext();
     const [user] = useUserContext();
 
-    const { directory, step, setStep } = props;
+    const { step, setStep } = props;
 
     const {
         availableShippingMethods,
@@ -119,7 +119,7 @@ const Flow = props => {
                 billingAddress,
                 cancelCheckout: handleCancelCheckout,
                 cart,
-                directory,
+                checkout: checkoutState,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
@@ -161,8 +161,7 @@ const Flow = props => {
 Flow.propTypes = {
     classes: shape({
         root: string
-    }),
-    directory: object
+    })
 };
 
 export default Flow;

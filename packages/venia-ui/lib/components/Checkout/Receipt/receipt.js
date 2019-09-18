@@ -1,28 +1,38 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef } from 'react';
 import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 /**
  * A component that displays some basic information about an order and has
  * a call to action for viewing order details and creating an account.
  */
 const Receipt = props => {
-    const { history, reset, onClose } = props;
+    const { history, onClose } = props;
 
-    const [, { createAccount }] = useCheckoutContext();
+    const [{ drawer }] = useAppContext();
+    const [, { createAccount, resetReceipt }] = useCheckoutContext();
     const [{ isSignedIn }] = useUserContext();
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    useEffect(() => reset, [reset]);
+    // When the drawer is closed reset the state of the receipt. We use a ref
+    // because drawer can change if the mask is clicked. Mask updates drawer.
+    const prevDrawer = useRef(null);
+    useEffect(() => {
+        if (prevDrawer.current === 'cart' && drawer !== 'cart') {
+            resetReceipt();
+            onClose();
+        }
+        prevDrawer.current = drawer;
+    }, [drawer, onClose, resetReceipt]);
 
     const handleCreateAccount = useCallback(() => {
         createAccount(history);
-        onClose();
-    }, [createAccount, onClose, history]);
+    }, [createAccount, history]);
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.
@@ -69,16 +79,15 @@ Receipt.propTypes = {
         footer: string,
         root: string
     }),
+    drawer: string,
     onClose: func.isRequired,
     order: shape({
         id: string
-    }).isRequired,
-    reset: func.isRequired
+    }).isRequired
 };
 
 Receipt.defaultProps = {
-    order: {},
-    reset: () => {}
+    order: {}
 };
 
 export default Receipt;
