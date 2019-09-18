@@ -12,10 +12,6 @@ jest.mock('@magento/venia-drivers', () => ({
     )
 }));
 
-jest.mock('@magento/peregrine/lib/store/selectors/cart', () => ({
-    isCartEmpty: jest.fn(() => true)
-}));
-
 test('it returns a connected MiniCart component', () => {
     expect(Container.component).toBe(MiniCart);
     expect(Container.mapStateToProps).toBeInstanceOf(Function);
@@ -31,7 +27,9 @@ test('mapStateToProps returns the proper props', () => {
     const { mapStateToProps } = Container;
 
     const state = {
-        cart: {},
+        cart: {
+            details: {}
+        },
         checkout: {},
         extra: 'extra'
     };
@@ -40,7 +38,6 @@ test('mapStateToProps returns the proper props', () => {
 
     expect(props).not.toHaveProperty('extra');
     expect(props).toMatchObject({
-        cart: expect.any(Object),
-        isCartEmpty: expect.any(Boolean)
+        cart: expect.any(Object)
     });
 });

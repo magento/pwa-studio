@@ -8,7 +8,7 @@ import * as asyncActions from '../store/actions/cart/asyncActions';
 const CartContext = createContext();
 
 const isCartEmpty = cart =>
-    !cart.details.items || cart.details.items.length === 0;
+    !cart || !cart.details.items || cart.details.items.length === 0;
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
