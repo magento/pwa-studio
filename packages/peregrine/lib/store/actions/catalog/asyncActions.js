@@ -1,42 +1,11 @@
 import actions from './actions';
 import { preserveQueryParams } from '../../../util/preserveQueryParams';
-
-// A utility function to seralize filters to query param.
-// TODO: Move this to a utility file
-export const serialize = (params, keys = [], isArray = false) => {
-    const serialized = Object.keys(params)
-        .map(key => {
-            const val = params[key];
-            const isObject =
-                Object.prototype.toString.call(val) === '[object Object]';
-            if (isObject || Array.isArray(val)) {
-                if (val.length === 0) return null;
-                keys.push(Array.isArray(params) ? '' : key);
-                return serialize(val, keys, Array.isArray(val));
-            } else {
-                let tKey = key;
-
-                if (keys.length > 0) {
-                    const tKeys = isArray
-                        ? keys.filter(v => v != '')
-                        : [...keys, key].filter(v => v != '');
-                    tKey = tKeys.reduce((str, k) => {
-                        return '' === str ? k : `${str}[${k}]`;
-                    }, '');
-                }
-
-                return isArray ? `${tKey}[]=${val}` : `${tKey}=${val}`;
-            }
-        })
-        .filter(Boolean)
-        .join('&');
-
-    keys.pop();
-    return serialized;
-};
+import serializeToParam from '../../../util/serializeToParam';
 
 const updateCatalogUrl = (filters, history, queryParams) => {
-    history.push('?' + queryParams.toString() + '&' + serialize(filters));
+    history.push(
+        '?' + queryParams.toString() + '&' + serializeToParam(filters)
+    );
 };
 
 export const addFilter = ({ group, title, value }, history) =>

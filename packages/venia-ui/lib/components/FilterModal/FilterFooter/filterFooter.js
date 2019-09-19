@@ -8,7 +8,7 @@ import isObjectEmpty from '../../../util/isObjectEmpty';
 import { preserveQueryParams } from '@magento/peregrine/lib/util/preserveQueryParams';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { serialize } from '@magento/peregrine/lib/store/actions/catalog';
+import serializeToParam from '@magento/peregrine/lib/util/serializeToParam';
 
 const FilterFooter = props => {
     const { history, location } = props;
@@ -27,7 +27,10 @@ const FilterFooter = props => {
     const handleApplyFilters = useCallback(() => {
         const queryParams = preserveQueryParams(location);
         history.push(
-            '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
+            '?' +
+                queryParams.toString() +
+                '&' +
+                serializeToParam(chosenFilterOptions)
         );
         closeDrawer();
     }, [chosenFilterOptions, closeDrawer, history, location]);

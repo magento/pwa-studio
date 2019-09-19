@@ -32,16 +32,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 jest.mock('@magento/peregrine/lib/context/checkout', () => {
-    const state = {
-        // availableShippingMethods,
-        // billingAddress,
-        // isSubmitting,
-        // paymentData,
-        // shippingAddress,
-        // shippingAddressError,
-        // shippingMethod,
-        // shippingTitle
-    };
+    const state = {};
 
     const api = {
         beginCheckout: jest.fn(),
