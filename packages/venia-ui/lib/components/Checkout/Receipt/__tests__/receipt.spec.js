@@ -1,10 +1,11 @@
 import React from 'react';
 import testRenderer, { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-import { shallow } from 'enzyme';
 
 import Receipt from '../receipt';
 import Button from '../../../Button';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const classes = {
     header: 'header',
@@ -13,14 +14,41 @@ const classes = {
 
 jest.mock('../../../../classify');
 
-const userProp = { isSignedIn: false };
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        drawer: 'cart'
+    };
+    const api = {};
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {};
+    const api = {
+        createAccount: jest.fn(),
+        resetReceipt: jest.fn()
+    };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
 
 test('renders a Receipt component correctly', () => {
     const props = {
         order: { id: '123' },
-        createAccount: jest.fn(),
-        reset: jest.fn(),
-        user: userProp
+        reset: jest.fn()
     };
 
     const component = testRenderer.create(<Receipt {...props} />);
@@ -29,48 +57,32 @@ test('renders a Receipt component correctly', () => {
 });
 
 test('calls `handleCreateAccount` when `Create an Account` button is pressed', () => {
-    const handleCreateAccountMock = jest.fn();
+    const [, { createAccount }] = useCheckoutContext();
 
-    const wrapper = shallow(
-        <Receipt
-            createAccount={handleCreateAccountMock}
-            classes={classes}
-            onClose={() => {}}
-            user={userProp}
-        />
+    const wrapper = createTestInstance(
+        <Receipt classes={classes} onClose={() => {}} />
     );
 
-    wrapper.find(Button).simulate('click');
-
-    expect(handleCreateAccountMock).toBeCalled();
+    wrapper.root.findByType(Button).props.onClick();
+    expect(createAccount).toBeCalled();
 });
 
 test('calls `reset` and `onClose` when cart drawer is closed', () => {
-    const resetHandlerMock = jest.fn();
+    const [appState] = useAppContext();
+    const [, { resetReceipt }] = useCheckoutContext();
     const onCloseMock = jest.fn();
 
     const instance = createTestInstance(
-        <Receipt
-            drawer={'cart'}
-            reset={resetHandlerMock}
-            classes={classes}
-            user={userProp}
-            onClose={onCloseMock}
-        />
+        <Receipt classes={classes} onClose={onCloseMock} />
     );
 
+    expect(resetReceipt).not.toBeCalled();
+
     act(() => {
-        instance.update(
-            <Receipt
-                drawer={null}
-                reset={resetHandlerMock}
-                classes={classes}
-                user={userProp}
-                onClose={onCloseMock}
-            />
-        );
+        appState.drawer = null;
+        instance.update(<Receipt classes={classes} onClose={onCloseMock} />);
     });
 
-    expect(resetHandlerMock).toBeCalled();
+    expect(resetReceipt).toBeCalled();
     expect(onCloseMock).toBeCalled();
 });
