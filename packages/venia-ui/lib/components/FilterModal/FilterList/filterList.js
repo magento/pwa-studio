@@ -24,9 +24,12 @@ const FilterList = props => {
 
     const isOptionActive = useCallback(
         option => {
-            chosenOptions.findIndex(
-                item => item.value === option.value && item.name === option.name
-            ) > -1;
+            return (
+                chosenOptions.findIndex(
+                    item =>
+                        item.value === option.value && item.name === option.name
+                ) > -1
+            );
         },
         [chosenOptions]
     );
