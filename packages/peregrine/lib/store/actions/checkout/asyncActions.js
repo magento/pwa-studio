@@ -305,7 +305,7 @@ export const createAccount = history => async (dispatch, getState) => {
         email,
         firstname: firstName,
         lastname: lastName
-    } = checkout.receipt.order.billingAddress;
+    } = checkout.receipt.order.billing_address;
 
     const accountInfo = {
         email,
