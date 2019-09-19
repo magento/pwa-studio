@@ -21,6 +21,13 @@ Just starting out with Progressive Web Application technologies in general?
 Check out Magento U's learning resource page for PWA.
 It contains links to online training, tutorials, and courses on the technologies you need to know to use PWA Studio.
 
+### Venia
+
+[![Venia](https://raw.githubusercontent.com/wiki/magento/pwa-studio/images/venia.png)][venia]
+
+[Venia][] is a Magento PWA storefront created and powered by PWA Studio tools and libraries.
+Developers can use Venia as a reference storefront for their own projects or as a starting point for customization.
+
 ## About this repository
 
 To facilitate local development, testing, and versioning, PWA Studio is structured as a monorepo using [Yarn Workspaces][].
@@ -155,6 +162,7 @@ For more information about contributing to this repository, see the [Contributio
 [backlog board]: https://github.com/magento/pwa-studio/projects/1
 [#pwa slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2
 [babel]: https://babeljs.io/
+[venia]: https://venia.magento.com/
 
 [zengang]: https://github.com/zengang
 [zengang-image]: https://avatars2.githubusercontent.com/u/10513114?v=4&s=60&s=60
