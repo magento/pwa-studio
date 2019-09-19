@@ -1,11 +1,14 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
+import { compose } from 'redux';
 import { func, shape, string } from 'prop-types';
+
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { withRouter } from '@magento/venia-drivers';
 
 /**
  * A component that displays some basic information about an order and has
@@ -90,4 +93,4 @@ Receipt.defaultProps = {
     order: {}
 };
 
-export default Receipt;
+export default compose(withRouter)(Receipt);
