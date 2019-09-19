@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
+// Right now I've hardcoded this url because we only have env.MAGENTO_BACKEND_URL on run time
 fetch('https://staging-5em2ouy-mfwmkrjfqvbjk.us-4.magentosite.cloud/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
