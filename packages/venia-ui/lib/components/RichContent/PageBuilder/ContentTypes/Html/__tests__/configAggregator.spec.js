@@ -10,7 +10,8 @@ test('config is aggregated correctly for html content type', () => {
         })
     ).toEqual(
         expect.objectContaining({
-            html: '<button href="{{config path=&quot;web/unsecure/base_url&quot;}}">{{widget type="Magento\\Cms\\Block\\Widget\\Page\\Link" anchor_text="Anchor Custom Text" title="Anchor Custom Title" template="widget/link/link_inline.phtml" page_id="2"}}</button><img src="{{media url=catalog/category/carefree.jpg}}" alt="">',
+            html:
+                '<button href="{{config path=&quot;web/unsecure/base_url&quot;}}">{{widget type="Magento\\Cms\\Block\\Widget\\Page\\Link" anchor_text="Anchor Custom Text" title="Anchor Custom Title" template="widget/link/link_inline.phtml" page_id="2"}}</button><img src="{{media url=catalog/category/carefree.jpg}}" alt="">'
         })
     );
 });
