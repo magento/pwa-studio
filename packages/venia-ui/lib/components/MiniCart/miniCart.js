@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
 import Body from './body';
 import Footer from './footer';
@@ -9,31 +9,37 @@ import defaultClasses from './miniCart.css';
 
 import { mergeClasses } from '../../classify';
 import getCurrencyCode from '../../util/getCurrencyCode';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const MiniCart = props => {
+    const [, { closeDrawer }] = useAppContext();
+    const [
+        cartState,
+        { updateItemInCart, removeItemFromCart }
+    ] = useCartContext();
+    const [, { cancelCheckout }] = useCheckoutContext();
     const [step, setStep] = useState('cart');
-    // Props.
-    const {
-        cancelCheckout,
-        cart,
-        closeDrawer,
-        isCartEmpty,
-        isOpen,
-        removeItemFromCart,
-        updateItemInCart
-    } = props;
 
-    const { isLoading, isUpdatingItem } = cart;
+    // TODO: Obtain this from derived cart state once #1703 is merged.
+    const isCartEmpty =
+        !cartState.details.items || cartState.details.items.length === 0;
+
+    // Props.
+    const { isOpen } = props;
+
+    const { isLoading, isUpdatingItem } = cartState;
 
     const [isEditingItem, setIsEditingItem] = useState(false);
 
     // Members.
     const classes = mergeClasses(defaultClasses, props.classes);
-    const currencyCode = getCurrencyCode(cart);
-    const cartItems = cart.details.items;
-    const numItems = cart.details.items_qty;
+    const currencyCode = getCurrencyCode(cartState);
+    const cartItems = cartState.details.items;
+    const numItems = cartState.details.items_qty;
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const subtotal = cart.totals.subtotal;
+    const subtotal = cartState.totals.subtotal;
 
     const showFooter =
         step === 'receipt' ||
@@ -76,7 +82,7 @@ const MiniCart = props => {
 
     const footer = showFooter ? (
         <Footer
-            cart={cart}
+            cart={cartState}
             currencyCode={currencyCode}
             isMiniCartMaskOpen={isMiniCartMaskOpen}
             numItems={numItems}
@@ -109,42 +115,13 @@ const MiniCart = props => {
 };
 
 MiniCart.propTypes = {
-    cancelCheckout: func,
-    cart: shape({
-        details: shape({
-            currency: shape({
-                quote_currency_code: string
-            }),
-            items: arrayOf(
-                shape({
-                    item_id: number,
-                    name: string,
-                    price: number,
-                    product_type: string,
-                    qty: number,
-                    quote_id: string,
-                    sku: string
-                })
-            ),
-            items_qty: number
-        }).isRequired,
-        isLoading: bool,
-        isUpdatingItem: bool,
-        totals: shape({
-            subtotal: number
-        }).isRequired
-    }).isRequired,
     classes: shape({
         header: string,
         root: string,
         root_open: string,
         title: string
     }),
-    closeDrawer: func,
-    isCartEmpty: bool,
-    isOpen: bool,
-    removeItemFromCart: func,
-    updateItemInCart: func
+    isOpen: bool
 };
 
 export default MiniCart;
