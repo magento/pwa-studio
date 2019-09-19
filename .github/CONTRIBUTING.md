@@ -99,7 +99,7 @@ Provide as much detail as you can in each section to help us triage and process 
 
   - **Public API** -
     API documentation provide reference information and examples to help developers understand how to use the PWA Studio library.
-    Most of this documentation come from JSDoc blocks in the source code, so
+    Most of this documentation comes from JSDoc blocks in the source code, so
     changes that add or modify the public API also require JSDoc block changes.
 
   - **New project concepts** -
@@ -116,8 +116,12 @@ Provide as much detail as you can in each section to help us triage and process 
   - Unit tests & some integrations in Jest
   - Current MFTF test cases pass (not additional ones)
 - Coding standards:
-  - Code does not violate best practices as defined (where?)
-  - Reviewed by X people representing Y stakeholders
+  - Code passes all linting steps, adhering to code format and patterns
+  - Code does not violate [PWA Studio coding standards and best practices](https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions)
+  - Minimum number of reviewers for a major change should be 2
+  - Minimum number of reviewers for a minor change should be 1
+  - Minimum number of reviewers for a hotfix/patch should be 1, and that 1 must be the tech lead
+
   
 **Note:**
 _Please avoid creating GitHub issues asking for help on bugs in your project that are outside the scope of this project._

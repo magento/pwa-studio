@@ -28,6 +28,9 @@ Closes #ISSUE_NUMBER.
 <!-- should be populated after code review. -->
 ### Verification Stakeholders
 <!-- People who must verify that this solves the attached issue. -->
+### Specification
+<!-- Changes to `upward-spec` and/or `upward-js` packages must be reviewed -->
+<!-- by `UPWARD-PHP` maintainers to ensure continued compatibility -->
 
 ### Verification Steps
 <!-- Please describe in detail how a reviewer can verify your changes, -->
