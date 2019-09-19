@@ -18,7 +18,7 @@ test('renders the product list when appropriate', () => {
 test('renders the loading indicator when appropriate', () => {
     const props = {
         ...baseProps,
-        isLoading: true
+        isLoading: false
     };
 
     const tree = renderer.render(<Body {...props} />);
@@ -29,7 +29,7 @@ test('renders the loading indicator when appropriate', () => {
 test('renders the empty mini cart when appropriate', () => {
     const props = {
         ...baseProps,
-        isCartEmpty: true
+        isCartEmpty: false
     };
 
     const tree = renderer.render(<Body {...props} />);
