@@ -5,6 +5,7 @@ import { usePagination, useQuery } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { withRouter } from '@magento/venia-drivers';
 import categoryQuery from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
@@ -121,4 +122,4 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-export default Category;
+export default withRouter(Category);
