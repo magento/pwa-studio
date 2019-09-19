@@ -3,6 +3,18 @@ import { arrayOf, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
+/**
+ * Page Builder HTML component.
+ *
+ * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
+ *
+ * @typedef Html
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that renders HTML with optional styling properties.
+ */
 const Html = props => {
     const {
         html,
@@ -21,6 +33,7 @@ const Html = props => {
         paddingLeft,
         cssClasses = []
     } = props;
+
     const dynamicStyles = {
         textAlign,
         border,
@@ -45,6 +58,27 @@ const Html = props => {
     );
 };
 
+/**
+ * Props for {@link Html}
+ *
+ * @typedef props
+ *
+ * @property {String} html HTML code to be rendered as part of component
+ * @property {String} textAlign Alignment of the video within the parent container
+ * @property {String} border CSS border property
+ * @property {String} borderColor CSS border color property
+ * @property {String} borderWidth CSS border width property
+ * @property {String} borderRadius CSS border radius property
+ * @property {String} marginTop CSS margin top property
+ * @property {String} marginRight CSS margin right property
+ * @property {String} marginBottom CSS margin bottom property
+ * @property {String} marginLeft CSS margin left property
+ * @property {String} paddingTop CSS padding top property
+ * @property {String} paddingRight CSS padding right property
+ * @property {String} paddingBottom CSS padding bottom property
+ * @property {String} paddingLeft CSS padding left property
+ * @property {Array} cssClasses List of CSS classes to be applied to the component
+ */
 Html.propTypes = {
     html: string,
     textAlign: string,
