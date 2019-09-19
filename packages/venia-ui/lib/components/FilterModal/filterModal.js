@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import FilterFooter from './FilterFooter';
 import { array, arrayOf, shape, string } from 'prop-types';
-import { List } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 import { X as CloseIcon } from 'react-feather';
 import Icon from '../Icon';
@@ -36,6 +35,18 @@ const FilterModal = props => {
         prevDrawer.current = drawer;
     }, [drawer, setToApplied]);
 
+    const filtersList = useMemo(
+        () =>
+            filters.map(item => {
+                return <FilterBlock key={item.request_var} item={item} />;
+            }),
+        [filters]
+    );
+
+    const filtersContainer = (
+        <ul className={classes.filterOptionsContainer}>{filtersList}</ul>
+    );
+
     return (
         <Modal>
             <aside className={modalClass}>
@@ -48,19 +59,7 @@ const FilterModal = props => {
                     </div>
 
                     <FiltersCurrent keyPrefix="modal" />
-
-                    <List
-                        items={filters}
-                        getItemKey={({ request_var }) => request_var}
-                        render={renderProps => (
-                            <ul className={classes.filterOptionsContainer}>
-                                {renderProps.children}
-                            </ul>
-                        )}
-                        renderItem={renderProps => (
-                            <FilterBlock item={renderProps.item} />
-                        )}
-                    />
+                    {filtersContainer}
                 </div>
                 <FilterFooter />
             </aside>
