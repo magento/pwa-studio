@@ -6,10 +6,24 @@ import { createTestInstance } from '@magento/peregrine';
 import Button from '../../Button';
 import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
 jest.mock('../../LoadingIndicator', () => () => <i />);
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const userState = {
+        isGettingDetails: false,
+        isSigningIn: false,
+        signInError: null,
+        getDetailsError: null
+    };
+    const userApi = { signIn: jest.fn() };
+    const useUserContext = jest.fn(() => [userState, userApi]);
+
+    return { useUserContext };
+});
 
 const props = {
     setDefaultUsername: jest.fn(),
@@ -27,9 +41,14 @@ test('renders correctly', () => {
 });
 
 test('renders the loading indicator when form is submitting', () => {
+    const [userState, userApi] = useUserContext();
+    useUserContext.mockReturnValueOnce([
+        { ...userState, isSigningIn: true },
+        userApi
+    ]);
+
     const testProps = {
-        ...props,
-        isSigningIn: true
+        ...props
     };
     const { root } = createTestInstance(<SignIn {...testProps} />);
 
@@ -39,9 +58,13 @@ test('renders the loading indicator when form is submitting', () => {
 });
 
 test('displays an error message if there is a sign in error', () => {
+    const [userState, userApi] = useUserContext();
+    useUserContext.mockReturnValueOnce([
+        { ...userState, signInError: new Error() },
+        userApi
+    ]);
     const testProps = {
-        ...props,
-        hasError: true
+        ...props
     };
 
     const component = createTestInstance(<SignIn {...testProps} />);
@@ -50,7 +73,8 @@ test('displays an error message if there is a sign in error', () => {
 });
 
 test('calls `signIn` on submit', () => {
-    const { signIn } = props;
+    const [, { signIn }] = useUserContext();
+
     const values = { email: 'a', password: 'b' };
 
     const { root } = createTestInstance(<SignIn {...props} />);

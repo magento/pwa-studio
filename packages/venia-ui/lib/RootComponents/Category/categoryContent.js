@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { shape, string } from 'prop-types';
 
 import { Title } from '../../components/Head';
@@ -7,9 +7,16 @@ import FilterModal from '../../components/FilterModal';
 import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const CategoryContent = props => {
-    const { data, openDrawer, pageControl, pageSize } = props;
+    const [, { toggleDrawer }] = useAppContext();
+
+    const handleOpenFilters = useCallback(() => {
+        toggleDrawer('filter');
+    }, [toggleDrawer]);
+
+    const { data, pageControl, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : null;
@@ -20,7 +27,7 @@ const CategoryContent = props => {
         <div className={classes.headerButtons}>
             <button
                 className={classes.filterButton}
-                onClick={openDrawer}
+                onClick={handleOpenFilters}
                 type="button"
             >
                 {'Filter'}

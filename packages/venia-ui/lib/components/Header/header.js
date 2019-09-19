@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { Menu as MenuIcon, Search as SearchIcon } from 'react-feather';
 
 import Icon from '../Icon';
@@ -13,19 +13,17 @@ import OnlineIndicator from '../OnlineIndicator';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
 const Header = props => {
-    const {
-        cart,
-        getCartDetails,
-        hasBeenOffline,
-        isOnline,
-        searchOpen,
-        toggleCart,
-        toggleSearch
-    } = props;
+    const [
+        { hasBeenOffline, isOnline, searchOpen },
+        { toggleSearch }
+    ] = useAppContext();
+    const [cart, { getCartDetails, toggleCart }] = useCartContext();
 
     const cartTriggerProps = { cart, getCartDetails, toggleCart };
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -80,7 +78,6 @@ const Header = props => {
 };
 
 Header.propTypes = {
-    cart: object,
     classes: shape({
         closed: string,
         logo: string,
@@ -88,11 +85,7 @@ Header.propTypes = {
         primaryActions: string,
         secondaryActions: string,
         toolbar: string
-    }),
-    getCartDetails: func,
-    searchOpen: bool,
-    toggleCart: func,
-    toggleSearch: func.isRequired
+    })
 };
 
 export default Header;

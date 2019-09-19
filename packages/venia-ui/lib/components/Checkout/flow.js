@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { array, bool, func, number, object, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Cart from './cart';
@@ -7,6 +7,9 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
 
@@ -40,22 +43,21 @@ const isCheckoutReady = checkout => {
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const {
-        // state
-        cart,
-        checkout,
-        step,
-        user,
+    const [cart] = useCartContext();
+    const [
+        checkoutState,
+        {
+            beginCheckout,
+            cancelCheckout,
+            submitOrder,
+            submitPaymentMethodAndBillingAddress,
+            submitShippingAddress,
+            submitShippingMethod
+        }
+    ] = useCheckoutContext();
+    const [user] = useUserContext();
 
-        // actions
-        beginCheckout,
-        cancelCheckout,
-        setStep,
-        submitShippingAddress,
-        submitOrder,
-        submitPaymentMethodAndBillingAddress,
-        submitShippingMethod
-    } = props;
+    const { step, setStep } = props;
 
     const {
         availableShippingMethods,
@@ -66,7 +68,7 @@ const Flow = props => {
         shippingAddressError,
         shippingMethod,
         shippingTitle
-    } = checkout;
+    } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -117,7 +119,7 @@ const Flow = props => {
                 billingAddress,
                 cancelCheckout: handleCancelCheckout,
                 cart,
-                checkout,
+                checkout: checkoutState,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
@@ -125,7 +127,7 @@ const Flow = props => {
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
                 isSubmitting,
                 paymentData,
-                ready: isCheckoutReady(checkout),
+                ready: isCheckoutReady(checkoutState),
                 shippingAddress,
                 shippingAddressError,
                 shippingMethod,
@@ -157,31 +159,11 @@ const Flow = props => {
 };
 
 Flow.propTypes = {
-    beginCheckout: func,
-    cancelCheckout: func,
-    cart: shape({
-        details: shape({
-            items_count: number
-        })
-    }),
-    checkout: shape({
-        availableShippingMethods: array,
-        billingAddress: object,
-        isSubmitting: bool,
-        paymentData: object,
-        shippingAddress: object,
-        shippingAddressError: string,
-        shippingMethod: string,
-        shippingTitle: string
-    }).isRequired,
     classes: shape({
         root: string
     }),
-    submitOrder: func,
-    submitPaymentMethodAndBillingAddress: func,
-    submitShippingAddress: func,
-    submitShippingMethod: func,
-    user: object
+    setStep: func,
+    step: string
 };
 
 export default Flow;
