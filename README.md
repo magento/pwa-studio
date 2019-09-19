@@ -66,12 +66,8 @@ We would like to recognize the following community members for their recent effo
 [![speedy008-image]][speedy008]
 [![shashidesilva-image]][shashidesilva]
 [![sanjay-wagento-image]][sanjay-wagento]
-[![realchriswells-image]][realchriswells]
-[![prakashpatel07-image]][prakashpatel07]
-[![pradeep-cedcoss-image]][pradeep-cedcoss]
 [![philwinkle-image]][philwinkle]
 [![niklaswolf-image]][niklaswolf]
-[![niklas-wolf-image]][niklas-wolf]
 [![neeta-wagento-image]][neeta-wagento]
 [![narendravyas24-image]][narendravyas24]
 [![mzeis-image]][mzeis]
@@ -83,7 +79,6 @@ We would like to recognize the following community members for their recent effo
 [![kanhaiya5590-image]][kanhaiya5590]
 [![jflanaganuk-image]][jflanaganuk]
 [![jaimin-ktpl-image]][jaimin-ktpl]
-[![gavin2point0-image]][gavin2point0]
 [![gauravagarwal1001-image]][gauravagarwal1001]
 [![fooman-image]][fooman]
 [![edwinbos-image]][edwinbos]
@@ -96,7 +91,6 @@ We would like to recognize the following community members for their recent effo
 [![ankitsrivastavacedcoss-image]][ankitsrivastavacedcoss]
 [![andreas-ateles-image]][andreas-ateles]
 [![adrian-martinez-interactiv4-image]][adrian-martinez-interactiv4]
-[![MarynaVozniuk-image]][MarynaVozniuk]
 [![Jordaneisenburger-image]][Jordaneisenburger]
 [![Jakhotiya-image]][Jakhotiya]
 [![DanielRuf-image]][DanielRuf]
@@ -131,6 +125,13 @@ We would like to recognize the following community members for their recent effo
 [![AlexeyKaryka-image]][AlexeyKaryka]
 [![mage2pratik-image]][mage2pratik]
 [![Starotitorov-image]][Starotitorov]
+
+[realchriswells][],
+[prakashpatel07][],
+[pradeep-cedcoss][],
+[niklas-wolf][],
+[gavin2point0][],
+[MarynaVozniuk][]
 
 For more information about contributing to this repository, see the [Contribution guide][].
 
