@@ -1,5 +1,5 @@
 import React from 'react';
-import RichContent from '../../../richContent';
+import CmsBlock from '../../../../CmsBlock/block';
 import { arrayOf, string } from 'prop-types';
 
 /**
@@ -51,7 +51,7 @@ const Block = props => {
 
     return (
         <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            <RichContent html={richContent} />
+            <CmsBlock content={richContent} />
         </div>
     );
 };
