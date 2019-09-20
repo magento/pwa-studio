@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
+import { array, func, object } from 'prop-types';
 
 import isProductConfigurable from '../../util/isProductConfigurable';
 
@@ -9,7 +9,7 @@ class Options extends Component {
     static propTypes = {
         onSelectionChange: func,
         product: object.isRequired,
-        selectedVariant: object
+        selectedValues: array
     };
 
     handleSelectionChange = (optionId, selection) => {
@@ -22,7 +22,7 @@ class Options extends Component {
 
     render() {
         const { handleSelectionChange, props } = this;
-        const { product, selectedVariant } = props;
+        const { product, selectedValues } = props;
 
         if (!isProductConfigurable(product)) {
             // Non-configurable products don't have options.
@@ -30,14 +30,25 @@ class Options extends Component {
         }
 
         const { configurable_options } = product;
-        return configurable_options.map(option => (
-            <Option
-                {...option}
-                key={option.attribute_id}
-                onSelectionChange={handleSelectionChange}
-                selectedVariant={selectedVariant}
-            />
-        ));
+
+        // Render a list of options passing in any pre-selected values.
+        // TODO: wrap in useMemo
+        return configurable_options.map(option => {
+            const selectedValue =
+                (selectedValues &&
+                    selectedValues.find(
+                        selectedOption => selectedOption.label === option.label
+                    ).value) ||
+                undefined;
+            return (
+                <Option
+                    {...option}
+                    key={option.attribute_id}
+                    onSelectionChange={handleSelectionChange}
+                    selectedValue={selectedValue}
+                />
+            );
+        });
     }
 }
 

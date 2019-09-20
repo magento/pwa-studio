@@ -121,7 +121,7 @@ const CartOptions = props => {
                 <Options
                     onSelectionChange={handleSelectionChange}
                     product={configItem}
-                    selectedVariant={cartItem}
+                    selectedValues={cartItem.options}
                 />
             </section>
         </Suspense>

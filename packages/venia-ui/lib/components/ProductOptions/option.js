@@ -1,5 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
-import { arrayOf, func, object, shape, string } from 'prop-types';
+import {
+    arrayOf,
+    func,
+    number,
+    object,
+    oneOfType,
+    shape,
+    string
+} from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import getOptionType from './getOptionType';
@@ -13,7 +21,7 @@ const Option = props => {
         attribute_id,
         label,
         onSelectionChange,
-        selectedVariant,
+        selectedValue,
         values
     } = props;
 
@@ -36,25 +44,15 @@ const Option = props => {
         return optionType === 'swatch' ? SwatchList : TileList;
     }, [attribute_code, values]);
 
-    let initialSelection = {};
-    if (selectedVariant) {
-        // If we have a selected variant, pass it through to List.
-        // Attempt to find an option of the variant that's one of the product's configurable options.
-        // If found, set that configurable option as the initial selection of the List.
-        selectedVariant.options.find(option => {
-            const { value: variantValue } = option;
-
-            const matchingValue = values.find(potentialMatchingValue => {
-                const { default_label: value } = potentialMatchingValue;
-
-                return value === variantValue;
-            });
-
-            if (matchingValue) {
-                initialSelection = matchingValue;
-            }
-        });
-    }
+    const initialSelection = useMemo(() => {
+        let selection = {};
+        if (selectedValue) {
+            selection =
+                values.find(value => value.default_label === selectedValue) ||
+                {};
+        }
+        return selection;
+    }, [selectedValue, values]);
 
     return (
         <div className={classes.root}>
@@ -80,7 +78,7 @@ Option.propTypes = {
     }),
     label: string.isRequired,
     onSelectionChange: func,
-    selectedVariant: object,
+    selectedValue: oneOfType([number, string]), // TODO: can these be objects?
     values: arrayOf(object).isRequired
 };
 
