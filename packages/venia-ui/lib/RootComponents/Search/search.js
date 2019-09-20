@@ -1,181 +1,156 @@
-import React, { Component } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Query, Redirect } from '@magento/venia-drivers';
-import { bool, func, object, shape, string } from 'prop-types';
-import gql from 'graphql-tag';
-
-import Gallery from '../../components/Gallery';
-import classify from '../../classify';
-import Icon from '../../components/Icon';
+import { object, shape, string } from 'prop-types';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
-import getQueryParameterValue from '../../util/getQueryParameterValue';
-import isObjectEmpty from '../../util/isObjectEmpty';
-import { X as CloseIcon } from 'react-feather';
+
+import { mergeClasses } from '../../classify';
+import Gallery from '../../components/Gallery';
 import FilterModal from '../../components/FilterModal';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import defaultClasses from './search.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
+import getQueryParameterValue from '../../util/getQueryParameterValue';
+import isObjectEmpty from '../../util/isObjectEmpty';
+import CategoryFilters from './categoryFilters';
+import defaultClasses from './search.css';
 
-const getCategoryName = gql`
-    query getCategoryName($id: Int!) {
-        category(id: $id) {
-            name
-        }
-    }
-`;
+const Search = props => {
+    const { history, location } = props;
+    const shouldClear = useRef(false);
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-export class Search extends Component {
-    static propTypes = {
-        classes: shape({
-            noResult: string,
-            root: string,
-            totalPages: string
-        }),
-        openDrawer: func.isRequired,
-        executeSearch: func.isRequired,
-        history: object,
-        location: object.isRequired,
-        match: object,
-        searchOpen: bool,
-        toggleSearch: func
-    };
+    // retrieve app state and action creators
+    const [appState, appApi] = useAppContext();
+    const { searchOpen } = appState;
+    const { executeSearch, toggleDrawer, toggleSearch } = appApi;
+    const [, catalogApi] = useCatalogContext();
+    const { clear: clearFilters } = catalogApi.actions.filterOption;
 
-    componentDidMount() {
-        // Ensure that search is open when the user lands on the search page.
-        const { location, searchOpen, toggleSearch, filterClear } = this.props;
+    // retrieve search params
+    const queryValue = getQueryParameterValue({
+        location,
+        queryParameter: 'query'
+    });
+    const categoryId = getQueryParameterValue({
+        location,
+        queryParameter: 'category'
+    });
+    const queryVariable = categoryId
+        ? { inputText: queryValue, categoryId }
+        : { inputText: queryValue };
 
-        const inputText = getQueryParameterValue({
-            location,
-            queryParameter: 'query'
-        });
+    const openDrawer = useCallback(() => {
+        toggleDrawer('filter');
+    }, [toggleDrawer]);
 
-        isObjectEmpty(getFilterParams()) && filterClear();
+    // memoize the render prop for Query
+    // TODO: replace with `useQuery` hook
+    const renderResult = useCallback(
+        resultProps => {
+            const { data, error, loading } = resultProps;
 
-        if (toggleSearch && !searchOpen && inputText) {
-            toggleSearch();
-        }
-    }
+            if (error) return <div>Data Fetch Error</div>;
+            if (loading) return fullPageLoadingIndicator;
 
-    componentDidUpdate(prevProps) {
-        const queryPrev = getQueryParameterValue({
-            location: prevProps.location,
-            queryParameter: 'query'
-        });
+            const { products } = data;
+            const { filters, total_count, items } = products;
 
-        const queryCurrent = getQueryParameterValue({
-            location: this.props.location,
-            queryParameter: 'query'
-        });
-        if (queryPrev !== queryCurrent) {
-            this.props.filterClear();
-        }
-    }
+            if (items.length === 0) {
+                return (
+                    <div className={classes.noResult}>No results found!</div>
+                );
+            }
 
-    getCategoryName = (categoryId, classes) => (
-        <div className={classes.categoryFilters}>
-            <button
-                className={classes.categoryFilter}
-                onClick={this.handleClearCategoryFilter}
-            >
-                <small className={classes.categoryFilterText}>
-                    <Query
-                        query={getCategoryName}
-                        variables={{ id: categoryId }}
-                    >
-                        {({ loading, error, data }) => {
-                            if (error) return null;
-                            if (loading) return 'Loading...';
-                            return data.category.name;
-                        }}
-                    </Query>
-                </small>
-                <Icon
-                    src={CloseIcon}
-                    attrs={{
-                        width: '13px',
-                        height: '13px'
-                    }}
+            const maybeCategoryFilters = categoryId ? (
+                <CategoryFilters
+                    categoryId={categoryId}
+                    executeSearch={executeSearch}
+                    history={history}
+                    location={location}
                 />
-            </button>
-        </div>
+            ) : null;
+
+            const maybeFilterButtons = filters ? (
+                <div className={classes.headerButtons}>
+                    <button
+                        onClick={openDrawer}
+                        className={classes.filterButton}
+                    >
+                        Filter
+                    </button>
+                </div>
+            ) : null;
+
+            const maybeFilterModal = filters ? (
+                <FilterModal filters={filters} />
+            ) : null;
+
+            return (
+                <article className={classes.root}>
+                    <div className={classes.categoryTop}>
+                        <div className={classes.totalPages}>
+                            {`${total_count} items`}
+                        </div>
+                        {maybeCategoryFilters}
+                        {maybeFilterButtons}
+                    </div>
+                    {maybeFilterModal}
+                    <section className={classes.gallery}>
+                        <Gallery data={items} />
+                    </section>
+                </article>
+            );
+        },
+        [categoryId, classes, executeSearch, history, location, openDrawer]
     );
 
-    handleClearCategoryFilter = () => {
-        const inputText = getQueryParameterValue({
-            location: this.props.location,
-            queryParameter: 'query'
-        });
-
-        if (inputText) {
-            this.props.executeSearch(inputText, this.props.history);
-        }
-    };
-
-    render() {
-        const { classes, location, openDrawer } = this.props;
-        const { getCategoryName } = this;
-
-        const inputText = getQueryParameterValue({
-            location,
-            queryParameter: 'query'
-        });
-        const categoryId = getQueryParameterValue({
-            location,
-            queryParameter: 'category'
-        });
-
-        if (!inputText) {
-            return <Redirect to="/" />;
+    // derive initial state from query params
+    // never re-run this effect, even if deps change
+    /* eslint-disable react-hooks/exhaustive-deps */
+    useEffect(() => {
+        // clear filters if there are no filter params
+        if (isObjectEmpty(getFilterParams())) {
+            clearFilters();
         }
 
-        const queryVariable = categoryId
-            ? { inputText, categoryId }
-            : { inputText };
+        // ensure search is open to begin with
+        if (toggleSearch && !searchOpen && queryValue) {
+            toggleSearch();
+        }
+    }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
-        return (
-            <Query query={PRODUCT_SEARCH} variables={queryVariable}>
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return fullPageLoadingIndicator;
-                    const { products } = data;
-                    const { filters, total_count, items } = products;
+    // clear filters whenever the `query` search param changes
+    // but don't clear them on mount
+    useEffect(() => {
+        if (shouldClear.current) {
+            clearFilters();
+        } else {
+            shouldClear.current = true;
+        }
+    }, [clearFilters, queryValue]);
 
-                    if (data.products.items.length === 0)
-                        return (
-                            <div className={classes.noResult}>
-                                No results found!
-                            </div>
-                        );
-
-                    return (
-                        <article className={classes.root}>
-                            <div className={classes.categoryTop}>
-                                <div className={classes.totalPages}>
-                                    {total_count} items{' '}
-                                </div>
-                                {categoryId &&
-                                    getCategoryName(categoryId, classes)}
-                                {filters && (
-                                    <div className={classes.headerButtons}>
-                                        <button
-                                            onClick={openDrawer}
-                                            className={classes.filterButton}
-                                        >
-                                            Filter
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-
-                            {filters && <FilterModal filters={filters} />}
-                            <section className={classes.gallery}>
-                                <Gallery data={items} />
-                            </section>
-                        </article>
-                    );
-                }}
-            </Query>
-        );
+    // redirect to the home page if the query doesn't contain input
+    if (!queryValue) {
+        return <Redirect to="/" />;
     }
-}
 
-export default classify(defaultClasses)(Search);
+    return (
+        <Query query={PRODUCT_SEARCH} variables={queryVariable}>
+            {renderResult}
+        </Query>
+    );
+};
+
+export default Search;
+
+Search.propTypes = {
+    classes: shape({
+        noResult: string,
+        root: string,
+        totalPages: string
+    }),
+    history: object,
+    location: object.isRequired
+};
