@@ -78,7 +78,7 @@ Option.propTypes = {
     }),
     label: string.isRequired,
     onSelectionChange: func,
-    selectedValue: oneOfType([number, string]), // TODO: can these be objects?
+    selectedValue: oneOfType([number, string]),
     values: arrayOf(object).isRequired
 };
 
