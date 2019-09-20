@@ -5,7 +5,7 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import AccountLink from './accountLink';
 import defaultClasses from './myAccount.css';
-import useMyAccount from '@magento/peregrine/lib/mixins/MyAccount/useMyAccount';
+import { useMyAccount } from '@magento/peregrine/lib/mixins/MyAccount/useMyAccount';
 
 const PURCHASE_HISTORY = 'Purchase History';
 const SIGN_OUT = 'Sign Out';
@@ -13,9 +13,11 @@ const SIGN_OUT = 'Sign Out';
 const MyAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { handleSignOut, subtitle, title } = useMyAccount({
+    const mixinProps = useMyAccount({
         onSignOut: props.onSignOut
     });
+
+    const { handleSignOut, subtitle, title } = mixinProps;
 
     return (
         <div className={classes.root}>

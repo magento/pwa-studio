@@ -5,8 +5,8 @@ const DEFAULT_TITLE = 'My Account';
 const UNAUTHED_TITLE = 'Signing Out';
 const UNAUTHED_SUBTITLE = 'Please wait...';
 
-const useMyAccount = props => {
-    const { signOut } = props;
+export const useMyAccount = props => {
+    const { onSignOut } = props;
     const [{ currentUser }] = useUserContext();
     const { email, firstname, lastname } = currentUser;
     const name = `${firstname} ${lastname}`.trim() || DEFAULT_TITLE;
@@ -14,8 +14,9 @@ const useMyAccount = props => {
     const subtitle = email ? email : UNAUTHED_SUBTITLE;
 
     const handleSignOut = useCallback(() => {
-        signOut({ history: window.history });
-    }, [signOut]);
+        // TODO: Get this value from router context when implemented.
+        onSignOut({ history: window.history });
+    }, [onSignOut]);
 
     return {
         handleSignOut,
@@ -23,5 +24,3 @@ const useMyAccount = props => {
         title
     };
 };
-
-export default useMyAccount;
