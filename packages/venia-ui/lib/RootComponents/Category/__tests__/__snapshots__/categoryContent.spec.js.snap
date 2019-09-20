@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders the correct tree 1`] = `
-<React.Fragment>
-  <Title>
-    Venia
-  </Title>
+Array [
+  "Title",
   <article
     className="a"
   >
     <h1
       className="b"
     >
-      <div />
+      <div>
+        Name
+      </div>
     </h1>
     <section
       className="c"
@@ -28,10 +28,10 @@ exports[`renders the correct tree 1`] = `
     <div
       className="d"
     >
-      <Classify(Pagination)
+      <Pagination
         pageControl={Object {}}
       />
     </div>
-  </article>
-</React.Fragment>
+  </article>,
+]
 `;

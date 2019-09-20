@@ -1,12 +1,25 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { compose } from 'redux';
+import { func, shape, string } from 'prop-types';
+
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { withRouter } from '@magento/venia-drivers';
 
+/**
+ * A component that displays some basic information about an order and has
+ * a call to action for viewing order details and creating an account.
+ */
 const Receipt = props => {
-    const { createAccount, drawer, history, reset, onClose, user } = props;
+    const { history, onClose } = props;
 
+    const [{ drawer }] = useAppContext();
+    const [, { createAccount, resetReceipt }] = useCheckoutContext();
+    const [{ isSignedIn }] = useUserContext();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // When the drawer is closed reset the state of the receipt. We use a ref
@@ -14,11 +27,11 @@ const Receipt = props => {
     const prevDrawer = useRef(null);
     useEffect(() => {
         if (prevDrawer.current === 'cart' && drawer !== 'cart') {
-            reset();
+            resetReceipt();
             onClose();
         }
         prevDrawer.current = drawer;
-    }, [drawer, onClose, reset]);
+    }, [drawer, onClose, resetReceipt]);
 
     const handleCreateAccount = useCallback(() => {
         createAccount(history);
@@ -36,7 +49,7 @@ const Receipt = props => {
                     You will receive an order confirmation email with order
                     status and other details.
                 </div>
-                {user.isSignedIn ? (
+                {isSignedIn ? (
                     <Fragment>
                         <div className={classes.textBlock}>
                             You can also visit your account page for more
@@ -73,18 +86,11 @@ Receipt.propTypes = {
     onClose: func.isRequired,
     order: shape({
         id: string
-    }).isRequired,
-    createAccount: func.isRequired,
-    reset: func.isRequired,
-    user: shape({
-        isSignedIn: bool
-    })
+    }).isRequired
 };
 
 Receipt.defaultProps = {
-    order: {},
-    reset: () => {},
-    createAccount: () => {}
+    order: {}
 };
 
-export default Receipt;
+export default compose(withRouter)(Receipt);

@@ -1,20 +1,18 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 import defaultClasses from './forgotPassword.css';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const INSTRUCTIONS = 'Enter your email below to receive a password reset link.';
 
 const ForgotPassword = props => {
-    const {
-        initialValues,
-        isResettingPassword,
-        resetPassword,
-        onClose
-    } = props;
+    const [{ isResettingPassword }, { resetPassword }] = useUserContext();
+
+    const { initialValues, onClose } = props;
 
     const [inProgress, setInProgress] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState(null);
@@ -65,7 +63,5 @@ ForgotPassword.propTypes = {
     initialValues: shape({
         email: string
     }),
-    isResettingPassword: bool,
-    onClose: func.isRequired,
-    resetPassword: func.isRequired
+    onClose: func.isRequired
 };

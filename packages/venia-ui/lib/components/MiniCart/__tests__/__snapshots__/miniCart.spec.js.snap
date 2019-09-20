@@ -56,7 +56,6 @@ exports[`renders the correct tree 1`] = `
     closeDrawer={[Function]}
     currencyCode="NZD"
     endEditItem={[Function]}
-    isCartEmpty={false}
     isEditingItem={false}
     isLoading={false}
     isUpdatingItem={false}
