@@ -2,7 +2,7 @@
 
 exports[`renders a html component 1`] = `
 <div
-  className=""
+  className="root"
   dangerouslySetInnerHTML={
     Object {
       "__html": undefined,
@@ -30,7 +30,7 @@ exports[`renders a html component 1`] = `
 
 exports[`renders a html component with all props configured 1`] = `
 <div
-  className="test-class"
+  className="root test-class"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<button>Html button</button>",

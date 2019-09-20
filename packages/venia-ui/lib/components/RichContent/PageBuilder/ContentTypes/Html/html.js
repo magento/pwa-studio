@@ -1,5 +1,7 @@
 import React from 'react';
-import { arrayOf, string } from 'prop-types';
+import defaultClasses from './html.css';
+import { mergeClasses } from '../../../../../classify';
+import { arrayOf, shape, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
@@ -16,6 +18,7 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that renders HTML with optional styling properties.
  */
 const Html = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         html,
         textAlign,
@@ -52,7 +55,7 @@ const Html = props => {
     return (
         <div
             style={dynamicStyles}
-            className={cssClasses.join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(html)}
         />
     );
@@ -63,6 +66,8 @@ const Html = props => {
  *
  * @typedef props
  *
+ * @property {Object} classes An object containing the class names for the Html
+ * @property {String} classes.root CSS classes for the root container element
  * @property {String} html HTML code to be rendered as part of component
  * @property {String} textAlign Alignment of the video within the parent container
  * @property {String} border CSS border property
@@ -80,6 +85,9 @@ const Html = props => {
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
 Html.propTypes = {
+    classes: shape({
+        root: string
+    }),
     html: string,
     textAlign: string,
     border: string,
