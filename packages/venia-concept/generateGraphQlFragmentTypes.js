@@ -1,8 +1,9 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
+const config = require('dotenv').config();
+const MAGENTO_BACKEND_URL = config.parsed.MAGENTO_BACKEND_URL;
 
-// Right now I've hardcoded this url because we only have process.env.MAGENTO_BACKEND_URL on run time
-fetch('https://staging-5em2ouy-mfwmkrjfqvbjk.us-4.magentosite.cloud/graphql', {
+fetch(`${MAGENTO_BACKEND_URL}/graphql`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
