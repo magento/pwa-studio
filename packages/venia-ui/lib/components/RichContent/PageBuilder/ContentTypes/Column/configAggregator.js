@@ -1,10 +1,6 @@
 import {
     getAdvanced,
     getBackgroundImages,
-    getBorder,
-    getCssClasses,
-    getMargin,
-    getTextAlign,
     getVerticalAlignment
 } from '../../utils';
 
@@ -16,10 +12,6 @@ export default node => {
         backgroundColor: node.style.backgroundColor,
         ...getAdvanced(node),
         ...getBackgroundImages(node),
-        ...getBorder(node),
-        ...getCssClasses(node),
-        ...getMargin(node),
-        ...getTextAlign(node),
         ...getVerticalAlignment(node)
     };
 };

@@ -6,5 +6,9 @@ module.exports = [
   {
     target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Column/column.js',
     type: 'function'
+  },
+  {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ColumnGroup/columnGroup.js',
+    type: 'function'
   }
 ];

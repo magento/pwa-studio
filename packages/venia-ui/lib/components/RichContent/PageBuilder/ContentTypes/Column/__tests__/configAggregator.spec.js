@@ -70,30 +70,9 @@ test('column config is aggregated correctly retrieving all properties', () => {
 
     expect(aggregatedConfig).toEqual(
         expect.objectContaining({
-            backgroundAttachment: 'scroll',
             backgroundColor: 'rgb(193, 193, 193)',
-            backgroundPosition: 'left top',
-            backgroundRepeat: false,
-            backgroundSize: 'cover',
-            border: 'solid',
-            borderColor: 'rgb(0, 0, 0)',
-            borderRadius: '10px',
-            borderWidth: '1px',
-            cssClasses: ['pagebuilder-column', 'myCssColumnClass'],
-            desktopImage: 'image-desktop.png',
             display: 'flex',
-            marginBottom: '10px',
-            marginLeft: '10px',
-            marginRight: '10px',
-            marginTop: '10px',
             minHeight: '300px',
-            mobileImage: 'image-mobile.png',
-            paddingBottom: '10px',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            paddingTop: '10px',
-            textAlign: 'center',
-            verticalAlignment: 'top',
             width: expect.any(String)
         })
     );
