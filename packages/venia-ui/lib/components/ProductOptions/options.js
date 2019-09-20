@@ -22,33 +22,28 @@ class Options extends Component {
 
     render() {
         const { handleSelectionChange, props } = this;
-        const { product, selectedValues } = props;
+        const { product, selectedValues = [] } = props;
 
         if (!isProductConfigurable(product)) {
             // Non-configurable products don't have options.
             return null;
         }
 
-        const { configurable_options } = product;
+        const selectedValueMap = new Map();
+        for (const { label, value } of selectedValues) {
+            selectedValueMap.set(label, value);
+        }
 
+        const { configurable_options } = product;
         // Render a list of options passing in any pre-selected values.
-        // TODO: wrap in useMemo
-        return configurable_options.map(option => {
-            const selectedValue =
-                (selectedValues &&
-                    selectedValues.find(
-                        selectedOption => selectedOption.label === option.label
-                    ).value) ||
-                undefined;
-            return (
-                <Option
-                    {...option}
-                    key={option.attribute_id}
-                    onSelectionChange={handleSelectionChange}
-                    selectedValue={selectedValue}
-                />
-            );
-        });
+        return configurable_options.map(option => (
+            <Option
+                {...option}
+                key={option.attribute_id}
+                onSelectionChange={handleSelectionChange}
+                selectedValue={selectedValueMap.get(option.label)}
+            />
+        ));
     }
 }
 
