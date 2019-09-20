@@ -22,10 +22,6 @@ const MiniCart = props => {
     const [, { cancelCheckout }] = useCheckoutContext();
     const [step, setStep] = useState('cart');
 
-    // TODO: Obtain this from derived cart state once #1703 is merged.
-    const isCartEmpty =
-        !cartState.details.items || cartState.details.items.length === 0;
-
     // Props.
     const { isOpen } = props;
 
@@ -44,7 +40,7 @@ const MiniCart = props => {
     const showFooter =
         step === 'receipt' ||
         step === 'form' ||
-        !((isCartEmpty && step === 'cart') || isLoading || isEditingItem);
+        !((cartState.isEmpty && step === 'cart') || isLoading || isEditingItem);
 
     const isMiniCartMaskOpen = step === 'form';
 
@@ -101,7 +97,7 @@ const MiniCart = props => {
                 closeDrawer={handleClose}
                 currencyCode={currencyCode}
                 endEditItem={handleEndEditItem}
-                isCartEmpty={isCartEmpty}
+                isCartEmpty={cartState.isEmpty}
                 isEditingItem={isEditingItem}
                 isLoading={isLoading}
                 isUpdatingItem={isUpdatingItem}
