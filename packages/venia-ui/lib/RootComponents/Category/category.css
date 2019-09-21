@@ -9,6 +9,7 @@
 }
 
 .pagination {
+    position: relative;
     bottom: 0;
 }
 
