@@ -1,7 +1,6 @@
 const { resolve } = require('path');
 const fetch = require('node-fetch');
 const os = require('os');
-const isValidNpmName = require('is-valid-npm-name');
 const tar = require('tar');
 const camelspace = require('camelspace');
 const fse = require('fs-extra');
@@ -21,12 +20,6 @@ const templateAliases = {
 };
 
 async function makeDirFromNpmPackage(packageName) {
-    const nameCheck = isValidNpmName(packageName);
-    if (typeof nameCheck === 'string') {
-        throw new Error(
-            `Invalid template: interpreted "${packageName}" as NPM package, which was invalid for the following reasons:\n${nameCheck}`
-        );
-    }
     const packageDir = resolve(tmpDir, packageName);
     // NPM extracts a tarball to './package'
     const packageRoot = resolve(packageDir, 'package');
@@ -90,7 +83,6 @@ async function findTemplateDir(templateName) {
         // if that succeeded, then...
         return template.dir;
     } catch (e) {
-        prettyLogger.info(`No template at ${template.dir}.`);
         return makeDirFromNpmPackage(template.npm);
     }
 }

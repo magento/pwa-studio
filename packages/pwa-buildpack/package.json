@@ -44,7 +44,6 @@
     "fs-extra": "~7.0.1",
     "gitignore-to-glob": "~0.3.0",
     "graphql-playground-middleware-express": "~1.7.12",
-    "is-valid-npm-name": "~0.0.4",
     "js-yaml": "~3.13.1",
     "klaw": "~3.0.0",
     "lodash": "~4.17.11",

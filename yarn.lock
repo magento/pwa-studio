@@ -9538,7 +9538,7 @@ is-utf8@^0.2.0:
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
   integrity sha1-Sw2hRCEE0bM2NA6AeX6GXPOffXI=
 
-is-valid-npm-name@^0.0.4, is-valid-npm-name@~0.0.4:
+is-valid-npm-name@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/is-valid-npm-name/-/is-valid-npm-name-0.0.4.tgz#a1b54efb539bd8565188a4b265ceedec9602c9c2"
   integrity sha512-9s0d84feee8/IF9dCzp9q/Tsv2aatPN10UIcM1oDKa+m7HpiUrYE2UvGq+2A0nAOTJyt6BHR7TOty1sPsBxlxw==
