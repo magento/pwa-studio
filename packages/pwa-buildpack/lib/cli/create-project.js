@@ -191,16 +191,40 @@ module.exports.handler = async function buildpackCli(argv) {
                 .stdout
         );
     }
-    prettyLogger.success(`Created new PWA project ${directory}`);
-    const buildpackPrefix =
-        params.npmClient === 'yarn' ? 'yarn buildpack' : 'npm run buildpack --';
-    let createCustomOriginCmd = buildpackPrefix + ' create-custom-origin ./';
+    const showCommand = command =>
+        ' - ' + chalk.whiteBright(`${params.npmClient} ${command}`);
+    const buildpackPrefix = params.npmClient === 'npm' ? ' --' : '';
+    const customOriginCommand = `run buildpack${buildpackPrefix} create-custom-origin .`;
+    const prerequisites = [];
     if (process.cwd() !== resolve(directory)) {
-        createCustomOriginCmd = `cd ${directory} && ${createCustomOriginCmd}`;
+        prerequisites.push(`cd ${directory}`);
     }
-    prettyLogger.warn(
-        `For the best PWA development experience, consider creating a custom domain for this project by running: \n\t${chalk.whiteBright(
-            createCustomOriginCmd
-        )}`
-    );
+    if (!params.install) {
+        prerequisites.push(`${params.npmClient} install`);
+    }
+    const prerequisiteCommand = prerequisites.join(' && ');
+    const prerequisiteNotice =
+        prerequisiteCommand.length > 0
+            ? `- ${chalk.whiteBright(
+                  prerequisiteCommand
+              )} before running the below commands.`
+            : '';
+    prettyLogger.warn(`Created new PWA project ${params.name}. Next steps:
+    ${prerequisiteNotice}
+    ${showCommand(
+        customOriginCommand
+    )} to generate a unique, secure custom domain for your new project. ${chalk.greenBright(
+        'Highly recommended.'
+    )}
+    ${showCommand(
+        'run watch'
+    )} to start the dev server and do real-time development.
+    ${showCommand(
+        'run build'
+    )} to build the project into optimized assets in the '/dist' directory
+    ${showCommand(
+        'start'
+    )} after build to preview the app on a local staging server.
+
+`);
 };
