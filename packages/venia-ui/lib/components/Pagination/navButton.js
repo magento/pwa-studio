@@ -17,8 +17,8 @@ const NavIcons = {
 };
 
 const defaultSkipAttributes = {
-    width: '1.2rem',
-    height: '1.2rem'
+    width: '19px',
+    height: '19px'
 };
 
 const activeFill = {
