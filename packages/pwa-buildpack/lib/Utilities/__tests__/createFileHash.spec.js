@@ -9,14 +9,14 @@ const DEFAULT_SAMPLE_FILE_PATH = path.join(
     'pwa-buildpack',
     'lib',
     'Utilities',
-    '__tests__',
+    '__fixtures__',
     'sampleFile.txt'
 );
 
 test('Should return a promise that resolves to a string', async () => {
     const returnValue = createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
-    expect(returnValue instanceof Promise).toBeTruthy();
+    expect(returnValue).toBeInstanceOf(Promise);
 
     const hash = await returnValue;
 
@@ -27,28 +27,29 @@ test('Should return same hash if the contents of the file has not changed', asyn
     const oldValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
     const newValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
-    expect(oldValue === newValue).toBeTruthy();
+    expect(oldValue).toBe(newValue);
 });
 
 test('Should return different value if the contents of the same file have changed', async () => {
     const oldValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
-    fs.appendFileSync(`${__dirname}/sampleFile.txt`, ' Venia here.');
+    fs.appendFileSync(DEFAULT_SAMPLE_FILE_PATH, ' Venia here.');
 
     const newValue = await createFileHash(DEFAULT_SAMPLE_FILE_PATH);
 
-    fs.truncateSync(`${__dirname}/sampleFile.txt`, 11);
+    expect(oldValue).not.toBe(newValue);
 
-    expect(oldValue === newValue).toBeFalsy();
+    // Clean up
+    fs.truncateSync(DEFAULT_SAMPLE_FILE_PATH, 11);
 });
 
-test('Should not throw error if given file path is invalid. Instead should print error in console and resolve to empty string as hash', async () => {
-    const errorLogger = jest.fn();
-
-    console.error = errorLogger;
+test('Should not throw error if given file path is invalid. Instead should print error in console and resolve to random string as hash', async () => {
+    const errorLogger = jest.spyOn(console, 'error');
 
     const hash = await createFileHash('./sampleFile');
 
-    expect(hash).toBe('');
     expect(errorLogger).toHaveBeenCalled();
+    expect(hash).not.toBe('');
+
+    errorLogger.mockRestore();
 });
