@@ -22,7 +22,9 @@ try {
  * UPWARD, and then used in various places: here, the UPWARD resolution
  * path itself, the `makeURL` function in the client, etc.
  */
-const wantsResizing = req => !!req.query.width;
+const wantsResizing = req =>
+    req.path.indexOf('/media') === 0 &&
+    (!!req.query.format || !!req.query.auto || !!req.query.width);
 
 function addImgOptMiddleware(app, config) {
     const { backendUrl, cacheExpires, cacheDebug, redisClient } = config;
@@ -81,7 +83,11 @@ https://github.com/nodejs/node-gyp#installation`
             }
 
             const { width, height } = incomingQuery;
-            let rewrittenUrl = `https://0.0.0.0/resize/${width}`;
+            let rewrittenUrl = `https://0.0.0.0/resize/`;
+
+            if (width) {
+                rewrittenUrl += `${width}`;
+            }
 
             // If we received height and width we should force crop since our
             // implementation of express sharp defaults fit to "outside" if crop
