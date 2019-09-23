@@ -1,56 +1,89 @@
 import React from 'react';
-import testRenderer from 'react-test-renderer';
+import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import Option from '../option';
-
 import SwatchList from '../swatchList';
 import TileList from '../tileList';
 
 jest.mock('../../../classify');
-jest.mock('../../../util/getRandomColor');
-jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
+jest.mock('../swatchList', () => () => <i />);
+jest.mock('../tileList', () => () => <i />);
 
 const defaultProps = {
     attribute_id: '1',
-    attribute_code: 'fashion_color',
-    label: 'Color',
+    attribute_code: 'foo',
+    label: 'Foo',
     values: [
         {
-            label: 'red',
+            store_label: 'red',
             value_index: 0
         },
         {
-            label: 'blue',
+            store_label: 'blue',
             value_index: 1
         }
     ]
 };
 
 test('renders Option component correctly', () => {
-    const component = testRenderer.create(<Option {...defaultProps} />);
+    const component = createTestInstance(<Option {...defaultProps} />);
+
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders a SwatchList if attribute_code prop is "fashion_color"', () => {
-    const component = testRenderer.create(<Option {...defaultProps} />);
+test('renders a SwatchList for color attributes', () => {
+    const { root } = createTestInstance(
+        <Option
+            {...defaultProps}
+            attribute_code="fashion_color"
+            label="Fashion Color"
+        />
+    );
 
-    expect(() => {
-        // findByType throws if not found.
-        // @see https://reactjs.org/docs/test-renderer.html#testinstancefindbytype.
-        component.root.findByType(SwatchList);
-    }).not.toThrow();
+    expect(root.findByType(SwatchList)).toBeTruthy();
 });
 
-test('renders a TileList if attribute_code prop is not "fashion_color"', () => {
-    const props = {
-        ...defaultProps,
-        attribute_code: 'not_fashion_color'
-    };
-    const component = testRenderer.create(<Option {...props} />);
+test('renders a Tile List for other attributes', () => {
+    const { root } = createTestInstance(<Option {...defaultProps} />);
 
-    expect(() => {
-        // findByType throws if not found.
-        // @see https://reactjs.org/docs/test-renderer.html#testinstancefindbytype.
-        component.root.findByType(TileList);
-    }).not.toThrow();
+    expect(root.findByType(TileList)).toBeTruthy();
+});
+
+test('renders no selection at first', () => {
+    const { root } = createTestInstance(<Option {...defaultProps} />);
+    const selection = root.findByProps({ className: 'selection' });
+
+    expect(selection.children).toHaveLength(2);
+    expect(selection.children[1].children[0]).toBe('None');
+});
+
+test('renders selected value after selection', () => {
+    const { root } = createTestInstance(<Option {...defaultProps} />);
+    const { onSelectionChange } = root.findByType(TileList).props;
+
+    act(() => {
+        onSelectionChange(new Set().add(1));
+    });
+
+    const selection = root.findByProps({ className: 'selection' });
+
+    expect(selection.children).toHaveLength(2);
+    expect(selection.children[1].children[0].includes('blue')).toBeTruthy();
+});
+
+test('calls onSelectionChange callback on selection change', () => {
+    const mockCallback = jest.fn();
+    const { root } = createTestInstance(
+        <Option {...defaultProps} onSelectionChange={mockCallback} />
+    );
+    const { onSelectionChange } = root.findByType(TileList).props;
+    const nextSelection = new Set().add(1);
+
+    act(() => {
+        onSelectionChange(nextSelection);
+    });
+
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(mockCallback).toHaveBeenNthCalledWith(1, '1', nextSelection);
 });
