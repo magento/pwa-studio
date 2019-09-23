@@ -1,15 +1,17 @@
 import React, { useCallback, useMemo } from 'react';
-import { func, shape } from 'prop-types';
+import { shape } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import CreateAccountForm from '../CreateAccount';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
 import { getCreateAccountInitialValues } from './helpers';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const CreateAccountPage = props => {
+    const [, { createAccount }] = useUserContext();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { createAccount, history } = props;
+    const { history } = props;
 
     const handleCreateAccount = useCallback(
         async accountInfo => {
@@ -35,7 +37,6 @@ const CreateAccountPage = props => {
 };
 
 CreateAccountPage.propTypes = {
-    createAccount: func,
     initialValues: shape({}),
     history: shape({})
 };

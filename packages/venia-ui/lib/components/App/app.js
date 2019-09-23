@@ -124,13 +124,7 @@ const App = props => {
     return (
         <HeadProvider>
             <Title>{`Home Page - ${STORE_NAME}`}</Title>
-            <Main
-                isMasked={overlay}
-                hasBeenOffline={hasBeenOffline}
-                isOnline={isOnline}
-            >
-                {renderRoutes()}
-            </Main>
+            <Main isMasked={overlay}>{renderRoutes()}</Main>
             <Mask isActive={overlay} dismiss={closeDrawer} />
             <Navigation />
             <MiniCart isOpen={cartIsOpen} />

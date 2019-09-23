@@ -132,20 +132,16 @@ const jestConfig = {
             // Give jsdom a real URL for router testing.
             testURL: 'https://localhost/'
         })),
-        configureProject('pwa-buildpack', 'Buildpack', () => ({
-            testEnvironment: 'node'
+        configureProject('pwa-buildpack', 'Buildpack', inPackage => ({
+            testEnvironment: 'node',
+            setupFiles: [inPackage('scripts/fetch-mock.js')]
         })),
         configureProject('upward-js', 'Upward JS', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('venia-concept', 'Venia Storefront', inPackage => {
-            const veniaConceptConfig = testVenia(inPackage);
-            veniaConceptConfig.setupFiles = [
-                ...veniaConceptConfig.setupFilesAfterEnv,
-                inPackage('scripts/fetch-mock.js')
-            ];
-            return veniaConceptConfig;
-        }),
+        configureProject('venia-concept', 'Venia Storefront', inPackage =>
+            testVenia(inPackage)
+        ),
         configureProject('venia-ui', 'Venia UI', testVenia),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({

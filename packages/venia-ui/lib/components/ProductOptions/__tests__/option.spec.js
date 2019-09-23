@@ -3,11 +3,13 @@ import testRenderer from 'react-test-renderer';
 
 import Option from '../option';
 
+import SwatchList from '../swatchList';
+import TileList from '../tileList';
+
 jest.mock('../../../classify');
 jest.mock('../../../util/getRandomColor');
 jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
-const onSelectionChangeMock = jest.fn();
 const defaultProps = {
     attribute_id: '1',
     attribute_code: 'fashion_color',
@@ -32,10 +34,11 @@ test('renders Option component correctly', () => {
 test('renders a SwatchList if attribute_code prop is "fashion_color"', () => {
     const component = testRenderer.create(<Option {...defaultProps} />);
 
-    // TODO: Is there a better way to do typeof checks for HOC wrapped things?
-    expect(
-        component.root.children[0].instance.listComponent.displayName
-    ).toContain('SwatchList');
+    expect(() => {
+        // findByType throws if not found.
+        // @see https://reactjs.org/docs/test-renderer.html#testinstancefindbytype.
+        component.root.findByType(SwatchList);
+    }).not.toThrow();
 });
 
 test('renders a TileList if attribute_code prop is not "fashion_color"', () => {
@@ -45,32 +48,9 @@ test('renders a TileList if attribute_code prop is not "fashion_color"', () => {
     };
     const component = testRenderer.create(<Option {...props} />);
 
-    // TODO: Is there a better way to do typeof checks for HOC wrapped things?
-    expect(
-        component.root.children[0].instance.listComponent.displayName
-    ).toContain('TileList');
-});
-
-test('does not call onSelectionChange if not provided', () => {
-    const component = testRenderer.create(<Option {...defaultProps} />);
-    component.root.children[0].instance.handleSelectionChange('test');
-    expect(onSelectionChangeMock).not.toHaveBeenCalled();
-
-    onSelectionChangeMock.mockReset();
-});
-
-test('calls onSelectionChange function with attribute_id and selection', () => {
-    const props = {
-        ...defaultProps,
-        onSelectionChange: onSelectionChangeMock
-    };
-    const component = testRenderer.create(<Option {...props} />);
-
-    component.root.children[0].instance.handleSelectionChange('test');
-    expect(onSelectionChangeMock).toHaveBeenCalledWith(
-        defaultProps.attribute_id,
-        'test'
-    );
-
-    onSelectionChangeMock.mockReset();
+    expect(() => {
+        // findByType throws if not found.
+        // @see https://reactjs.org/docs/test-renderer.html#testinstancefindbytype.
+        component.root.findByType(TileList);
+    }).not.toThrow();
 });

@@ -33,7 +33,7 @@ async function prepare() {
         'packages',
         'venia-concept'
     );
-    const veniaRelativePath = path.relative(process.cwd(), veniaPath);
+
     try {
         const {
             configureHost,
@@ -44,7 +44,7 @@ async function prepare() {
         if (customOrigin.enabled) {
             const customOriginConfig = await configureHost(
                 Object.assign(customOrigin, {
-                    dir: veniaRelativePath,
+                    dir: veniaPath,
                     interactive: false
                 })
             );
@@ -54,7 +54,7 @@ async function prepare() {
                         'Set up a custom origin for your copy of venia-concept:\n\t'
                     ) +
                         chalk.whiteBright(
-                            `yarn buildpack create-custom-origin ${veniaRelativePath}`
+                            `yarn buildpack create-custom-origin ${veniaPath}`
                         )
                 );
             }
