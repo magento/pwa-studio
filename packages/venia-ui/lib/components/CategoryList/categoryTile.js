@@ -47,6 +47,6 @@ CategoryTile.propTypes = {
         image: string,
         imageWrapper: string,
         name: string
-    }).isRequired
+    })
 };
 export default CategoryTile;
