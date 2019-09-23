@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
-import { useCategoryTree } from '@magento/peregrine/lib/mixins/CategoryTree';
+import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { mergeClasses } from '../../classify';
 import MENU_QUERY from '../../queries/getNavigationMenu.graphql';
@@ -17,14 +17,14 @@ const Tree = props => {
         updateCategories
     } = props;
 
-    const mixinProps = useCategoryTree({
+    const talonProps = useCategoryTree({
         categories,
         categoryId,
         query: MENU_QUERY,
         updateCategories
     });
 
-    const { childCategories } = mixinProps;
+    const { childCategories } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // for each child category, render a direct link if it has no children
