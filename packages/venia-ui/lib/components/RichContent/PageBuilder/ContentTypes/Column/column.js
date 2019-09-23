@@ -135,7 +135,7 @@ const Column = props => {
  * @property {String} backgroundAttachment CSS background-attachment property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} backgroundPosition CSS background-position property
- * @property {String} backgroundRepeat CSS background-repeat property
+ * @property {Boolean} backgroundRepeat CSS background-repeat property
  * @property {String} backgroundSize CSS background-size property
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
