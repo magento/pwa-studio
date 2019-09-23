@@ -78,7 +78,8 @@
     "sharp": "~0.22.1"
   },
   "resolutions": {
-    "graphql": "~14.3.1"
+    "graphql": "~14.3.1",
+    "**/graphql-cli/npm-run": "~5.0.0"
   },
   "engines": {
     "node": ">=10.x",
