@@ -3,10 +3,18 @@ import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
+// import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import ProductFullDetail from '../productFullDetail';
 
 jest.mock('../../../classify');
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const cartState = { isAddingItem: false };
+    const cartApi = { addItemToCart: jest.fn() };
+    const useCartContext = jest.fn(() => [cartState, cartApi]);
+
+    return { useCartContext };
+});
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
@@ -87,12 +95,7 @@ const mockConfigurableProduct = {
 test('Configurable Product has correct media gallery image count', async () => {
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
-            <ProductFullDetail
-                product={mockConfigurableProduct}
-                isAddingItem={false}
-                classes={{}}
-                addToCart={jest.fn()}
-            />
+            <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
         </WindowSizeContextProvider>
     );
 

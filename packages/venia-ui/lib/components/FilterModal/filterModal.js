@@ -1,85 +1,86 @@
-import React, { Component } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import FilterFooter from './FilterFooter';
-import PropTypes from 'prop-types';
-import { List } from '@magento/peregrine';
-import { FiltersCurrent } from './FiltersCurrent';
-import classify from '../../classify';
+import { array, arrayOf, shape, string } from 'prop-types';
+import { mergeClasses } from '../../classify';
 import { X as CloseIcon } from 'react-feather';
 import Icon from '../Icon';
 import FilterBlock from './filterBlock';
+import FiltersCurrent from './FiltersCurrent';
 import defaultClasses from './filterModal.css';
 import { Modal } from '../Modal';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
-class FilterModal extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            modalWrapper: PropTypes.string,
-            header: PropTypes.string,
-            headerTitle: PropTypes.string,
-            filterOptionsContainer: PropTypes.string
-        }),
-        filters: PropTypes.arrayOf(
-            PropTypes.shape({
-                request_var: PropTypes.string,
-                items: PropTypes.array
-            })
-        ),
-        addFilter: PropTypes.func,
-        removeFilter: PropTypes.func,
-        closeDrawer: PropTypes.func
-    };
+/**
+ * A view that displays applicable and applied filters.
+ *
+ * @param {Object} props.filters - filters to display
+ */
+const FilterModal = props => {
+    const { filters } = props;
+    const [{ drawer }, { closeDrawer }] = useAppContext();
+    const [, catalogApi] = useCatalogContext();
+    const { setToApplied } = catalogApi.actions.filterOption;
 
-    componentDidUpdate() {
-        const { drawer } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
 
-        if (drawer !== 'filter') {
-            this.props.setToApplied();
+    // If the user closes the drawer without clicking "Apply filters" we need to
+    // make sure we reset to the last applied filters (url param values).
+    const prevDrawer = useRef(null);
+    useEffect(() => {
+        if (prevDrawer.current === 'filter' && drawer === null) {
+            setToApplied();
         }
-    }
+        prevDrawer.current = drawer;
+    }, [drawer, setToApplied]);
 
-    render() {
-        const { classes, drawer, closeDrawer } = this.props;
-        const modalClass =
-            drawer === 'filter' ? classes.rootOpen : classes.root;
+    const filtersList = useMemo(
+        () =>
+            filters.map(item => {
+                return <FilterBlock key={item.request_var} item={item} />;
+            }),
+        [filters]
+    );
 
-        return (
-            <Modal>
-                <aside className={modalClass}>
-                    <div className={classes.modalWrapper}>
-                        <div className={classes.header}>
-                            <span className={classes.headerTitle}>
-                                FILTER BY
-                            </span>
-                            <button onClick={closeDrawer}>
-                                <Icon src={CloseIcon} />
-                            </button>
-                        </div>
+    const filtersContainer = (
+        <ul className={classes.filterOptionsContainer}>{filtersList}</ul>
+    );
 
-                        <FiltersCurrent keyPrefix="modal" />
-
-                        <List
-                            items={this.props.filters}
-                            getItemKey={({ request_var }) => request_var}
-                            render={props => (
-                                <ul className={classes.filterOptionsContainer}>
-                                    {props.children}
-                                </ul>
-                            )}
-                            renderItem={props => (
-                                <FilterBlock
-                                    item={props.item}
-                                    addFilter={this.props.addFilter}
-                                    removeFilter={this.props.removeFilter}
-                                />
-                            )}
-                        />
+    return (
+        <Modal>
+            <aside className={modalClass}>
+                <div className={classes.modalWrapper}>
+                    <div className={classes.header}>
+                        <span className={classes.headerTitle}>FILTER BY</span>
+                        <button onClick={closeDrawer}>
+                            <Icon src={CloseIcon} />
+                        </button>
                     </div>
-                    <FilterFooter />
-                </aside>
-            </Modal>
-        );
-    }
-}
 
-export default classify(defaultClasses)(FilterModal);
+                    <FiltersCurrent keyPrefix="modal" />
+                    {filtersContainer}
+                </div>
+                <FilterFooter />
+            </aside>
+        </Modal>
+    );
+};
+
+FilterModal.propTypes = {
+    classes: shape({
+        root: string,
+        modalWrapper: string,
+        header: string,
+        headerTitle: string,
+        filterOptionsContainer: string
+    }),
+    filters: arrayOf(
+        shape({
+            request_var: string,
+            items: array
+        })
+    )
+};
+
+export default FilterModal;

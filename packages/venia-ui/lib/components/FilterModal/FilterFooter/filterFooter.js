@@ -1,113 +1,81 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import catalogActions, {
-    serialize
-} from '@magento/peregrine/lib/store/actions/catalog';
+import React, { useCallback } from 'react';
+import { object, shape, string } from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { closeDrawer } from '@magento/peregrine/lib/store/actions/app';
-import classify from '../../../classify';
+import { mergeClasses } from '../../../classify';
 import defaultClasses from './filterFooter.css';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
 import isObjectEmpty from '../../../util/isObjectEmpty';
 import { preserveQueryParams } from '@magento/peregrine/lib/util/preserveQueryParams';
-class FilterFooter extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            resetButton: PropTypes.string,
-            resetButtonDisabled: PropTypes.string,
-            applyButton: PropTypes.string,
-            applyButtonDisabled: PropTypes.string,
-            footer: PropTypes.string
-        }),
-        history: PropTypes.object,
-        filterClear: PropTypes.func,
-        chosenFilterOptions: PropTypes.object,
-        closeDrawer: PropTypes.func
-    };
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import serializeToParam from '@magento/peregrine/lib/util/serializeToParam';
 
-    resetFilterOptions = () => {
-        const { history, filterClear, location } = this.props;
+const FilterFooter = props => {
+    const { history, location } = props;
+    const [, { closeDrawer }] = useAppContext();
+    const [{ chosenFilterOptions }, catalogApi] = useCatalogContext();
+    const { clear: filterClear } = catalogApi.actions.filterOption;
+
+    const resetFilterOptions = useCallback(() => {
         const queryParams = preserveQueryParams(location);
         queryParams
             ? history.push('?' + queryParams.toString())
             : history.push();
         filterClear();
-    };
+    }, [filterClear, history, location]);
 
-    handleApplyFilters = () => {
-        const {
-            history,
-            chosenFilterOptions,
-            closeDrawer,
-            location
-        } = this.props;
+    const handleApplyFilters = useCallback(() => {
         const queryParams = preserveQueryParams(location);
         history.push(
-            '?' + queryParams.toString() + '&' + serialize(chosenFilterOptions)
+            '?' +
+                queryParams.toString() +
+                '&' +
+                serializeToParam(chosenFilterOptions)
         );
         closeDrawer();
-    };
+    }, [chosenFilterOptions, closeDrawer, history, location]);
 
-    getFooterButtons = areOptionsPristine => {
-        const { classes } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const areOptionsPristine = isObjectEmpty(chosenFilterOptions);
 
-        const resetButtonClass = areOptionsPristine
-            ? classes.resetButtonDisabled
-            : classes.resetButton;
+    const resetButtonClass = areOptionsPristine
+        ? classes.resetButtonDisabled
+        : classes.resetButton;
 
-        const applyButtonClass = areOptionsPristine
-            ? classes.applyButtonDisabled
-            : classes.applyButton;
+    const applyButtonClass = areOptionsPristine
+        ? classes.applyButtonDisabled
+        : classes.applyButton;
 
-        return (
-            <Fragment>
-                <button
-                    onClick={this.resetFilterOptions}
-                    disabled={areOptionsPristine}
-                    className={resetButtonClass}
-                >
-                    Reset Filters
-                </button>
-                <button
-                    onClick={this.handleApplyFilters}
-                    disabled={areOptionsPristine}
-                    className={applyButtonClass}
-                >
-                    Apply Filters
-                </button>
-            </Fragment>
-        );
-    };
-
-    render() {
-        const { classes, chosenFilterOptions } = this.props;
-        const footerButtons = this.getFooterButtons(
-            isObjectEmpty(chosenFilterOptions)
-        );
-
-        return <div className={classes.footer}>{footerButtons}</div>;
-    }
-}
-
-const mapStateToProps = ({ catalog }) => {
-    const { chosenFilterOptions } = catalog;
-
-    return {
-        chosenFilterOptions: chosenFilterOptions
-    };
+    return (
+        <div className={classes.footer}>
+            <button
+                onClick={resetFilterOptions}
+                disabled={areOptionsPristine}
+                className={resetButtonClass}
+            >
+                Reset Filters
+            </button>
+            <button
+                onClick={handleApplyFilters}
+                disabled={areOptionsPristine}
+                className={applyButtonClass}
+            >
+                Apply Filters
+            </button>
+        </div>
+    );
 };
 
-const mapDispatchToProps = {
-    filterClear: catalogActions.filterOption.clear,
-    closeDrawer: closeDrawer
+FilterFooter.propTypes = {
+    classes: shape({
+        resetButton: string,
+        resetButtonDisabled: string,
+        applyButton: string,
+        applyButtonDisabled: string,
+        footer: string
+    }),
+    history: object,
+    location: object
 };
 
-export default compose(
-    withRouter,
-    classify(defaultClasses),
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
-)(FilterFooter);
+export default compose(withRouter)(FilterFooter);

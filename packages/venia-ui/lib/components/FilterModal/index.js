@@ -1,1 +1,1 @@
-export { default } from './filterModalContainer';
+export { default } from './filterModal';
