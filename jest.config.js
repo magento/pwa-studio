@@ -45,7 +45,8 @@ const testVenia = inPackage => ({
     browser: true,
     moduleNameMapper: {
         // Mock binary files to avoid excess RAM usage.
-        '\\.(jpg|jpeg|png)$': inPackage('__mocks__/fileMock.js'),
+        '\\.(jpg|jpeg|png)$':
+            '<rootDir>/packages/venia-ui/__mocks__/fileMock.js',
         // CSS module classes are dynamically generated, but that makes
         // it hard to test React components using DOM classnames.
         // This mapping forces CSS Modules to return literal identies,
@@ -129,13 +130,16 @@ const jestConfig = {
             // Give jsdom a real URL for router testing.
             testURL: 'https://localhost/'
         })),
-        configureProject('pwa-buildpack', 'Buildpack', () => ({
-            testEnvironment: 'node'
+        configureProject('pwa-buildpack', 'Buildpack', inPackage => ({
+            testEnvironment: 'node',
+            setupFiles: [inPackage('scripts/fetch-mock.js')]
         })),
         configureProject('upward-js', 'Upward JS', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('venia-concept', 'Venia Storefront', testVenia),
+        configureProject('venia-concept', 'Venia Storefront', inPackage =>
+            testVenia(inPackage)
+        ),
         configureProject('venia-ui', 'Venia UI', testVenia),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
@@ -175,7 +179,10 @@ const jestConfig = {
         '__fixtures__',
         '__helpers__',
         '__snapshots__'
-    ]
+    ],
+    globals: {
+        STORE_NAME: 'Venia'
+    }
 };
 
 if (process.env.npm_lifecycle_event === 'test:ci') {

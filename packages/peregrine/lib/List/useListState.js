@@ -3,29 +3,110 @@ import { useMemo, useReducer, useCallback, useEffect } from 'react';
 import withLogger from '../util/withLogger';
 
 /**
- * Helper function to update selection of given key in the items list.
+ * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains
+ * logic for handling a list of items.
  *
- * @function updateSelection
+ * It returns the state of the list and an API object for managing the items in the list.
  *
- * @param {Key} key
- * @param {Set} prevSelection
- * @param {Set} selectionModel
- * @returns {Set}
+ * @typedef {function} useListState
+ *
+ * @param {Object} config - an object containing:
+ * @param {Func}    getItemKey - A function to get an Item's key.
+ * @param {Array}   initialSelection - An array of keys that should be selected.
+ * @param {string}  selectionModel - The list's selection type (radio or checkbox).
+ * @param {function(Set):void} onSelectionChange - function to be called when the List selection changes.
+ *
+ * @return {Object[]} An array with two entries containing the following content: [ {@link ListState}, {@link API}]
  */
-const updateSelection = (key, prevSelection, selectionModel) => {
-    let selection;
-    if (selectionModel === 'radio') {
-        selection = new Set().add(key);
-    }
-    if (selectionModel === 'checkbox') {
-        selection = new Set(prevSelection);
-        if (selection.has(key)) {
-            selection.delete(key);
-        } else {
-            selection.add(key);
+export const useListState = ({
+    getItemKey,
+    initialSelection,
+    onSelectionChange,
+    selectionModel
+}) => {
+    const initialState = useMemo(
+        () => getInitialState({ getItemKey, initialSelection, selectionModel }),
+        [getItemKey, initialSelection, selectionModel]
+    );
+
+    const [state, dispatch] = useReducer(wrappedReducer, initialState);
+    const { selectedKeys } = state;
+
+    // Whenever the selectedKeys changes, notify.
+    useEffect(() => {
+        if (onSelectionChange) {
+            onSelectionChange(selectedKeys);
         }
-    }
-    return selection;
+    }, [onSelectionChange, selectedKeys]);
+
+    /*
+     *  Functions of the API.
+     */
+
+    /**
+     * Function to remove focus on any item if it has focus.
+     *
+     * @typedef {function} removeFocus
+     *
+     * @param {void}
+     * @returns {void}
+     */
+    const removeFocus = useCallback(
+        () => dispatch({ type: 'REMOVE_FOCUS' }),
+        []
+    );
+
+    /**
+     * Function to set focus on a given item in the list.
+     *
+     * @typedef {function} setFocus
+     *
+     * @param {Key} key - Key of the item to set focus on.
+     * @returns {void}
+     */
+    const setFocus = useCallback(
+        key => dispatch({ type: 'SET_FOCUS', payload: { key } }),
+        []
+    );
+
+    /**
+     * Function to update the selected keys.
+     *
+     * @typedef {function} updateSelectedKeys
+     *
+     * @param {Key} key - The key of the item in the list to select (or deselect).
+     * @returns {void}
+     */
+    const updateSelectedKeys = useCallback(
+        key =>
+            dispatch({
+                type: 'UPDATE_SELECTED_KEYS',
+                payload: { key, selectionModel }
+            }),
+        [selectionModel]
+    );
+
+    /**
+     * The API for managing the Items inside the List.
+     *
+     * This object should never change.
+     * @typedef {Object} API
+     *
+     * @property {setFocus} setFocus
+     * @property {removeFocus} removeFocus
+     * @property {updateSelectedKeys} updateSelectedKeys
+     */
+
+    const api = useMemo(
+        () => ({
+            setFocus,
+            removeFocus,
+            updateSelectedKeys
+        }),
+        [setFocus, removeFocus, updateSelectedKeys]
+    );
+
+    return [state, api];
 };
 
 /**
@@ -34,13 +115,15 @@ const updateSelection = (key, prevSelection, selectionModel) => {
  * @function reducer
  *
  * @param {ListState} state
- * @param {Object} action
+ * @param {Object} action - object that contains:
  * @param {string} action.type
- * @param {Object} action.payload
+ * @param {Object} action.payload - object that contains:
  * @param {Key} action.payload.key
  * @param {string} action.payload.selectionModel
  */
 const reducer = (state, { type, payload }) => {
+    const { selectedKeys } = state;
+
     switch (type) {
         case 'REMOVE_FOCUS':
             return {
@@ -53,14 +136,17 @@ const reducer = (state, { type, payload }) => {
                 hasFocus: true,
                 cursor: payload.key
             };
-        case 'UPDATE_SELECTION': {
+        case 'UPDATE_SELECTED_KEYS': {
+            const { key, selectionModel } = payload;
+            const newSelectedKeys = updateSelectedKeysInternal(
+                key,
+                selectedKeys,
+                selectionModel
+            );
+
             return {
                 ...state,
-                selection: updateSelection(
-                    payload.key,
-                    state.selection,
-                    payload.selectionModel
-                )
+                selectedKeys: newSelectedKeys
             };
         }
         default:
@@ -70,56 +156,105 @@ const reducer = (state, { type, payload }) => {
 
 const wrappedReducer = withLogger(reducer);
 
-const initialState = {
-    cursor: null,
-    hasFocus: false,
-    selection: new Set()
+/**
+ * Helper function to update the List's Set of selected keys.
+ *
+ * @function getInitialState
+ *
+ * @param {Object}  options - an object containing:
+ * @param {Func}    getItemKey - Get an item's key.
+ * @param {Array}   initialSelection - An array of keys that should be selected initially.
+ * @param {string}  selectionModel
+ *
+ * @returns {Object} - {@link ListState}
+ */
+const getInitialState = ({ getItemKey, initialSelection, selectionModel }) => {
+    const initiallySelectedKeys = getInitiallySelectedKeys({
+        getItemKey,
+        initialSelection,
+        selectionModel
+    });
+
+    return {
+        cursor: null,
+        hasFocus: false,
+        selectedKeys: new Set(initiallySelectedKeys)
+    };
 };
 
 /**
- * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that contains
- * logic for handling a list of items.
+ * Helper function to validate and set the initial list of selected keys.
  *
- * It returns the state of the list and an API object for managing the items in the list.
- *
- * @typedef {function} useListState
- *
- * @param {Object} config
- * @param {string} config.selectionModel - type of the items selection that needs to be implemented (radio or checkbox)
- * @param {function(Set):void} config.onSelectionChange - function to be called when a item in the list is clicked.
- * @return {Object[]} An array with two entries containing the following content: [ {@link ListState}, {@link API}]
+ * @param {Object}  options - an object containing:
+ * @param {Func}    getItemKey - Get an item's key.
+ * @param {Array}   initialSelection - An array of keys that should be selected initially.
+ * @param {string}  selectionModel
  */
-export const useListState = ({ selectionModel, onSelectionChange }) => {
-    const [state, dispatch] = useReducer(wrappedReducer, initialState);
-    // when ever the selection changes, make the call
-    useEffect(() => {
-        onSelectionChange && onSelectionChange(state.selection);
-    }, [onSelectionChange, state.selection]);
-    const removeFocus = useCallback(
-        () => dispatch({ type: 'REMOVE_FOCUS' }),
-        []
-    );
-    const updateSelection = useCallback(
-        key =>
-            dispatch({
-                type: 'UPDATE_SELECTION',
-                payload: { key, selectionModel }
-            }),
-        [selectionModel]
-    );
-    const setFocus = useCallback(
-        key => dispatch({ type: 'SET_FOCUS', payload: { key } }),
-        []
-    );
-    const api = useMemo(
-        () => ({
-            setFocus,
-            removeFocus,
-            updateSelection
-        }),
-        [setFocus, removeFocus, updateSelection]
-    );
-    return [state, api];
+const getInitiallySelectedKeys = ({
+    getItemKey,
+    initialSelection,
+    selectionModel
+}) => {
+    if (!initialSelection) {
+        return null;
+    }
+
+    // We store the keys of each item that is initially selected,
+    // but we must also respect the selection model.
+    if (selectionModel === 'radio') {
+        // Only one thing can be selected at a time.
+        const target = Array.isArray(initialSelection)
+            ? initialSelection[0]
+            : initialSelection;
+
+        return [getItemKey(target)];
+    }
+
+    if (selectionModel === 'checkbox') {
+        // Multiple things can be selected at a time.
+
+        // Do we have multiple things?
+        if (Array.isArray(initialSelection)) {
+            return initialSelection.map(getItemKey);
+        }
+
+        return [getItemKey(initialSelection)];
+    }
+};
+
+/**
+ * Helper function to update the List's Set of selected keys.
+ *
+ * @function updateSelectedKeysInternal
+ *
+ * @param {Key} key - The key to update (add to or remove from) the Set.
+ * @param {Set} selectedKeys - The keys that are currently in the Set.
+ * @param {Set} selectionModel - One of "radio" or "checkbox".
+ *  Informs whether multiple keys can be selected at the same time.
+ *
+ * @returns {Set} - The new Set of selectedKeys.
+ */
+const updateSelectedKeysInternal = (key, selectedKeys, selectionModel) => {
+    let newSelectedKeys;
+
+    if (selectionModel === 'radio') {
+        // For radio, only one item can be selected at a time.
+        newSelectedKeys = new Set().add(key);
+    }
+
+    if (selectionModel === 'checkbox') {
+        newSelectedKeys = new Set(selectedKeys);
+
+        if (!newSelectedKeys.has(key)) {
+            // The item is being selected.
+            newSelectedKeys.add(key);
+        } else {
+            // The item is being deselected.
+            newSelectedKeys.delete(key);
+        }
+    }
+
+    return newSelectedKeys;
 };
 
 // Custom Type Definitions
@@ -131,49 +266,11 @@ export const useListState = ({ selectionModel, onSelectionChange }) => {
  */
 
 /**
- * Function to set focus on a given item in the list.
- *
- * @typedef {function} SetFocus
- *
- * @param {Key} key - Key of the item to set focus on.
- * @returns {void}
- */
-
-/**
- * Function to remove focus on any item if it has focus.
- *
- * @typedef {function} RemoveFocus
- *
- * @param {void}
- * @returns {void}
- */
-
-/**
- * Function to update selection.
- *
- * @typedef {function} UpdateSelection
- *
- * @param {Key} key - The key of the item in the list to select.
- * @returns {void}
- */
-
-/**
- * The API for managing the Items inside the List.
- *
- * This object should never change.
- * @typedef {Object} API
- *
- * @property {SetFocus} setFocus
- * @property {RemoveFocus} removeFocus
- * @property {UpdateSelection} updateSelection
- */
-
-/**
- * The current state of List.
+ * The current state of the List.
  *
  * @typedef {Object} ListState
  *
  * @property {Key} cursor
  * @property {boolean} hasFocus
- * @property {Set} selection
+ * @property {Set} selectedKeys
  */

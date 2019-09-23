@@ -55,6 +55,8 @@ class Swatch extends Component {
         const { label, value_index } = item;
 
         // TODO: use the colors from graphQL when they become available.
+        //   https://github.com/magento/graphql-ce/issues/196
+        //   https://github.com/magento/pwa-studio/issues/1633
         const randomColor = memoizedGetRandomColor(value_index);
 
         // We really want to avoid specifying presentation within JS.

@@ -1,38 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bool, node, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './field.css';
 
-class Field extends Component {
-    static propTypes = {
-        children: node,
-        classes: shape({
-            label: string,
-            root: string
-        }),
-        label: node,
-        required: bool
-    };
+const Field = props => {
+    const { children, label, required } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const requiredSymbol = required ? (
+        <span className={classes.requiredSymbol} />
+    ) : null;
 
-    get requiredSymbol() {
-        const { classes, required } = this.props;
-        return required ? <span className={classes.requiredSymbol} /> : null;
-    }
+    return (
+        <div className={classes.root}>
+            <span className={classes.label}>
+                {requiredSymbol}
+                {label}
+            </span>
+            {children}
+        </div>
+    );
+};
 
-    render() {
-        const { children, classes, label } = this.props;
+Field.propTypes = {
+    children: node,
+    classes: shape({
+        label: string,
+        root: string
+    }),
+    label: node,
+    required: bool
+};
 
-        return (
-            <div className={classes.root}>
-                <span className={classes.label}>
-                    {this.requiredSymbol}
-                    {label}
-                </span>
-                {children}
-            </div>
-        );
-    }
-}
-
-export default classify(defaultClasses)(Field);
+export default Field;

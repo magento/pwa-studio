@@ -6,19 +6,32 @@ import { createTestInstance } from '@magento/peregrine';
 import Button from '../../Button';
 import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
 jest.mock('../../LoadingIndicator', () => () => <i />);
 
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const userState = {
+        isGettingDetails: false,
+        isSigningIn: false,
+        signInError: null,
+        getDetailsError: null
+    };
+    const userApi = { signIn: jest.fn() };
+    const useUserContext = jest.fn(() => [userState, userApi]);
+
+    return { useUserContext };
+});
+
 const props = {
-    isGettingDetails: false,
-    isSigningIn: false,
     setDefaultUsername: jest.fn(),
     showCreateAccount: jest.fn(),
     showForgotPassword: jest.fn(),
     signIn: jest.fn(),
-    signInError: {}
+    hasError: false,
+    isSigningIn: false
 };
 
 test('renders correctly', () => {
@@ -27,32 +40,31 @@ test('renders correctly', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders the loading indicator if fetching details', () => {
-    const testProps = {
-        ...props,
-        isGettingDetails: true
-    };
+test('renders the loading indicator when form is submitting', () => {
+    const [userState, userApi] = useUserContext();
+    useUserContext.mockReturnValueOnce([
+        { ...userState, isSigningIn: true },
+        userApi
+    ]);
 
+    const testProps = {
+        ...props
+    };
     const { root } = createTestInstance(<SignIn {...testProps} />);
 
-    expect(root.findByType(LoadingIndicator)).toBeTruthy();
-});
-
-test('renders the loading indicator if signing in', () => {
-    const testProps = {
-        ...props,
-        isSigningIn: true
-    };
-
-    const { root } = createTestInstance(<SignIn {...testProps} />);
-
-    expect(root.findByType(LoadingIndicator)).toBeTruthy();
+    act(() => {
+        expect(root.findByType(LoadingIndicator)).toBeTruthy();
+    });
 });
 
 test('displays an error message if there is a sign in error', () => {
+    const [userState, userApi] = useUserContext();
+    useUserContext.mockReturnValueOnce([
+        { ...userState, signInError: new Error() },
+        userApi
+    ]);
     const testProps = {
-        ...props,
-        signInError: { message: 'foo ' }
+        ...props
     };
 
     const component = createTestInstance(<SignIn {...testProps} />);
@@ -61,7 +73,8 @@ test('displays an error message if there is a sign in error', () => {
 });
 
 test('calls `signIn` on submit', () => {
-    const { signIn } = props;
+    const [, { signIn }] = useUserContext();
+
     const values = { email: 'a', password: 'b' };
 
     const { root } = createTestInstance(<SignIn {...props} />);

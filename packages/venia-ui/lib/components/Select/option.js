@@ -1,30 +1,28 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { bool, shape, string } from 'prop-types';
 
-class Option extends Component {
-    static propTypes = {
-        disabled: PropTypes.bool,
-        item: PropTypes.shape({
-            label: PropTypes.string,
-            value: PropTypes.string.isRequired
-        }).isRequired
-    };
+const Option = props => {
+    const { disabled, item } = props;
+    const { label, value } = item;
+    const text = label != null ? label : value;
 
-    static defaultProps = {
-        disabled: false
-    };
+    return (
+        <option value={value} disabled={disabled}>
+            {text}
+        </option>
+    );
+};
 
-    render() {
-        const { disabled, item } = this.props;
-        const { label, value } = item;
-        const text = label != null ? label : value;
+Option.propTypes = {
+    disabled: bool,
+    item: shape({
+        label: string,
+        value: string.isRequired
+    }).isRequired
+};
 
-        return (
-            <option value={value} disabled={disabled}>
-                {text}
-            </option>
-        );
-    }
-}
+Option.defaultProps = {
+    disabled: false
+};
 
 export default Option;

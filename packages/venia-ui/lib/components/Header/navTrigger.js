@@ -1,44 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from '@magento/venia-drivers';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import { node, shape, string } from 'prop-types';
 
-import classify from '../../classify';
-import { toggleDrawer } from '../../actions/app';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './navTrigger.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
-class Trigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        openNav: PropTypes.func.isRequired
-    };
+const Trigger = props => {
+    const [, { toggleDrawer }] = useAppContext();
 
-    render() {
-        const { children, classes, openNav } = this.props;
+    const handleOpenNavigation = useCallback(() => {
+        toggleDrawer('nav');
+    }, [toggleDrawer]);
 
-        return (
-            <button
-                className={classes.root}
-                aria-label="Toggle navigation panel"
-                onClick={openNav}
-            >
-                {children}
-            </button>
-        );
-    }
-}
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { children } = props;
+    return (
+        <button
+            className={classes.root}
+            aria-label="Toggle navigation panel"
+            onClick={handleOpenNavigation}
+        >
+            {children}
+        </button>
+    );
+};
 
-const mapDispatchToProps = dispatch => ({
-    openNav: () => dispatch(toggleDrawer('nav'))
-});
+Trigger.propTypes = {
+    children: node,
+    classes: shape({
+        root: string
+    })
+};
 
-export default compose(
-    classify(defaultClasses),
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(Trigger);
+export default Trigger;

@@ -1,10 +1,6 @@
-import React, { Fragment, Component } from 'react';
-import { string, func } from 'prop-types';
-
-import { connect, Query } from '@magento/venia-drivers';
-
+import React, { Fragment, useCallback, useEffect } from 'react';
+import { Query } from '@magento/venia-drivers';
 import { Title } from '../../components/Head';
-import { addItemToCart } from '../../actions/cart';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
@@ -18,67 +14,45 @@ import productQuery from '../../queries/getProductDetail.graphql';
  * https://github.com/magento/graphql-ce/issues/86
  * TODO: Replace with a single product query when possible.
  */
-class Product extends Component {
-    static propTypes = {
-        addItemToCart: func.isRequired,
-        cartId: string
-    };
-
-    addToCart = async (item, quantity) => {
-        const { addItemToCart, cartId } = this.props;
-        await addItemToCart({ cartId, item, quantity });
-    };
-
-    componentDidMount() {
+const Product = () => {
+    useEffect(() => {
         window.scrollTo(0, 0);
-    }
+    }, []);
 
     // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-    mapProduct(product) {
+    const mapProduct = useCallback(product => {
         const { description } = product;
         return {
             ...product,
             description:
                 typeof description === 'object' ? description.html : description
         };
-    }
+    }, []);
 
-    render() {
-        return (
-            <Query
-                query={productQuery}
-                variables={{ urlKey: getUrlKey(), onServer: false }}
-            >
-                {({ loading, error, data }) => {
-                    if (error) return <div>Data Fetch Error</div>;
-                    if (loading) return fullPageLoadingIndicator;
+    return (
+        <Query
+            query={productQuery}
+            variables={{ urlKey: getUrlKey(), onServer: false }}
+        >
+            {({ loading, error, data }) => {
+                if (error) return <div>Data Fetch Error</div>;
+                if (loading) return fullPageLoadingIndicator;
 
-                    const product = data.productDetail.items[0];
+                const product = data.productDetail.items[0];
 
-                    if (!product) {
-                        return <ErrorView outOfStock={true} />;
-                    }
+                if (!product) {
+                    return <ErrorView outOfStock={true} />;
+                }
 
-                    return (
-                        <Fragment>
-                            <Title>{`${product.name} - Venia`}</Title>
-                            <ProductFullDetail
-                                product={this.mapProduct(product)}
-                                addToCart={this.props.addItemToCart}
-                            />
-                        </Fragment>
-                    );
-                }}
-            </Query>
-        );
-    }
-}
-
-const mapDispatchToProps = {
-    addItemToCart
+                return (
+                    <Fragment>
+                        <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+                        <ProductFullDetail product={mapProduct(product)} />
+                    </Fragment>
+                );
+            }}
+        </Query>
+    );
 };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(Product);
+export default Product;

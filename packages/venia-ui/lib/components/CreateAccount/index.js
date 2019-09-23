@@ -1,2 +1,1 @@
-export { default as CreateAccount } from './createAccount';
-export { default } from './container';
+export { default } from './createAccount';

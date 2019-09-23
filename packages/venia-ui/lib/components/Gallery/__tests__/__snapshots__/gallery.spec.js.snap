@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders if \`data\` is an array of objects 1`] = `
+<div
+  className="foo"
+>
+  <div>
+    <GalleryItems
+      items={
+        Array [
+          Object {
+            "id": 1,
+            "name": "Test Product 1",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "currency": "USD",
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": Object {
+              "url": "/test/product/1.png",
+            },
+          },
+          Object {
+            "id": 2,
+            "name": "Test Product 2",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "currency": "USD",
+                  "value": 100,
+                },
+              },
+            },
+            "small_image": "/test/product/2.png",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`renders if \`data\` is an empty array 1`] = `
+<div
+  className="foo"
+>
+  <div>
+    <GalleryItems />
+  </div>
+</div>
+`;

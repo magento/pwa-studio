@@ -32,7 +32,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('../../../util/createErrorRecord', () => ({
+jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue({
         error: { message: 'A render error', stack: 'errorStack' },
@@ -59,6 +59,10 @@ const getAndConfirmProps = (parent, type, props = {}) => {
     return instance;
 };
 
+beforeAll(() => {
+    global.STORE_NAME = 'Venia';
+});
+
 afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
@@ -82,8 +86,12 @@ test('renders a full page with onlineIndicator and routes', () => {
         isMasked: false
     });
 
-    // hasBeenOffline means onlineIndicator
-    getAndConfirmProps(root, Main, { isOnline: false });
+    expect(mockAddToast).toHaveBeenCalledWith({
+        type: 'error',
+        icon: expect.any(Object),
+        message: 'You are offline. Some features may be unavailable.',
+        timeout: 3000
+    });
     // renderRoutes should just return a fake component here
     expect(main.findByType(Routes)).toBeTruthy();
 
@@ -112,9 +120,13 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
         unhandledErrors: []
     };
 
-    const { root } = createTestInstance(<App {...appProps} />);
-    // hasBeenOffline means onlineIndicator
-    getAndConfirmProps(root, Main, { isOnline: true });
+    createTestInstance(<App {...appProps} />);
+    expect(mockAddToast).toHaveBeenCalledWith({
+        type: 'info',
+        icon: expect.any(Object),
+        message: 'You are online.',
+        timeout: 3000
+    });
 });
 
 test('displays open nav or drawer', () => {

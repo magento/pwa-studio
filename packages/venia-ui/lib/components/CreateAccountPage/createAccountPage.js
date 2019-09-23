@@ -1,40 +1,44 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useMemo } from 'react';
+import { shape } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import CreateAccountForm from '../CreateAccount';
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
 import { getCreateAccountInitialValues } from './helpers';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-class CreateAccountPage extends Component {
-    static propTypes = {
-        createAccount: PropTypes.func,
-        initialValues: PropTypes.shape({}),
-        history: PropTypes.shape({})
-    };
+const CreateAccountPage = props => {
+    const [, { createAccount }] = useUserContext();
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const { history } = props;
 
-    createAccount = accountInfo => {
-        const { createAccount, history } = this.props;
-        createAccount({ accountInfo, history });
-    };
+    const handleCreateAccount = useCallback(
+        async accountInfo => {
+            await createAccount(accountInfo);
+            history.push('/');
+        },
+        [createAccount, history]
+    );
 
-    render() {
-        const initialValues = getCreateAccountInitialValues(
-            window.location.search
-        );
-        return (
-            <div className={this.props.classes.container}>
-                <CreateAccountForm
-                    initialValues={initialValues}
-                    onSubmit={this.createAccount}
-                />
-            </div>
-        );
-    }
-}
+    const initialValues = useMemo(
+        () => getCreateAccountInitialValues(window.location.search),
+        []
+    );
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(CreateAccountPage);
+    return (
+        <div className={classes.container}>
+            <CreateAccountForm
+                initialValues={initialValues}
+                onSubmit={handleCreateAccount}
+            />
+        </div>
+    );
+};
+
+CreateAccountPage.propTypes = {
+    initialValues: shape({}),
+    history: shape({})
+};
+
+export default compose(withRouter)(CreateAccountPage);

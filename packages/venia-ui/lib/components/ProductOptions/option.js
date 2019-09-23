@@ -1,5 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { arrayOf, func, object, shape, string } from 'prop-types';
+import {
+    arrayOf,
+    func,
+    number,
+    object,
+    oneOfType,
+    shape,
+    string
+} from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import getOptionType from './getOptionType';
@@ -23,10 +31,21 @@ const Option = props => {
         attribute_id,
         label,
         onSelectionChange,
+        selectedValue,
         values
     } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const [selection, setSelection] = useState(null);
+
+    const initialSelection = useMemo(() => {
+        let selection = {};
+        if (selectedValue) {
+            selection =
+                values.find(value => value.default_label === selectedValue) ||
+                {};
+        }
+        return selection;
+    }, [selectedValue, values]);
 
     const ValueList = useMemo(() => getListComponent(attribute_code, values), [
         attribute_code,
@@ -62,6 +81,7 @@ const Option = props => {
             </h3>
             <ValueList
                 getItemKey={getItemKey}
+                initialSelection={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
             />
@@ -73,16 +93,17 @@ const Option = props => {
     );
 };
 
-export default Option;
-
 Option.propTypes = {
-    attribute_id: string,
     attribute_code: string.isRequired,
+    attribute_id: string,
     classes: shape({
         root: string,
         title: string
     }),
     label: string.isRequired,
     onSelectionChange: func,
+    selectedValue: oneOfType([number, string]),
     values: arrayOf(object).isRequired
 };
+
+export default Option;

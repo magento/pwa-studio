@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     WindowSizeContextProvider,
     createTestInstance
@@ -6,14 +6,15 @@ import {
 
 import ProductFullDetail from '../productFullDetail';
 
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-
-    return Object.assign(React, { useState: jest.fn(React.useState) });
-});
-
 jest.mock('../../ProductOptions');
 jest.mock('../../../classify');
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const cartState = { isAddingItem: false };
+    const cartApi = { addItemToCart: jest.fn() };
+    const useCartContext = jest.fn(() => [cartState, cartApi]);
+
+    return { useCartContext };
+});
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
@@ -94,12 +95,7 @@ const mockConfigurableProduct = {
 test('Configurable Product has correct media gallery image count', async () => {
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
-            <ProductFullDetail
-                product={mockConfigurableProduct}
-                isAddingItem={false}
-                classes={{}}
-                addToCart={jest.fn()}
-            />
+            <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
         </WindowSizeContextProvider>
     );
 
@@ -108,39 +104,4 @@ test('Configurable Product has correct media gallery image count', async () => {
         productFullDetailComponent.children[0].children[1].children[0];
 
     expect(carouselComponent.props.images).toHaveLength(2);
-});
-
-test('Configurable Product with selections has correct media gallery image count', async () => {
-    useState
-        // window size
-        .mockReturnValueOnce([
-            {
-                innerHeight: 99,
-                innerWidth: 99,
-                outerHeight: 99,
-                outerWidth: 99
-            },
-            jest.fn()
-        ])
-        // quantity
-        .mockReturnValueOnce([1, jest.fn()])
-        // optionSelections
-        .mockReturnValueOnce([new Map([['1', 1]]), jest.fn()]);
-
-    const { root } = createTestInstance(
-        <WindowSizeContextProvider>
-            <ProductFullDetail
-                product={mockConfigurableProduct}
-                isAddingItem={false}
-                classes={{}}
-                addToCart={jest.fn()}
-            />
-        </WindowSizeContextProvider>
-    );
-
-    const productFullDetailComponent = root.children[0].children[0];
-    const carouselComponent =
-        productFullDetailComponent.children[0].children[1].children[0];
-
-    expect(carouselComponent.props.images).toHaveLength(3);
 });

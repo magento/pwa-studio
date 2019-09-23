@@ -1,8 +1,8 @@
 import React, { Suspense, useCallback, useState } from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
-
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import defaultClasses from './productFullDetail.css';
 import { mergeClasses } from '../../classify';
 
@@ -84,8 +84,10 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 };
 
 const ProductFullDetail = props => {
+    const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+
     // Props.
-    const { addToCart, isAddingItem, product } = props;
+    const { product } = props;
 
     // State.
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -117,8 +119,8 @@ const ProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addToCart(payload);
-    }, [addToCart, optionCodes, optionSelections, product, quantity]);
+        addItemToCart(payload);
+    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -184,7 +186,6 @@ const ProductFullDetail = props => {
 };
 
 ProductFullDetail.propTypes = {
-    addToCart: func.isRequired,
     classes: shape({
         cartActions: string,
         description: string,
@@ -200,7 +201,6 @@ ProductFullDetail.propTypes = {
         root: string,
         title: string
     }),
-    isAddingItem: bool,
     product: shape({
         __typename: string,
         id: number,

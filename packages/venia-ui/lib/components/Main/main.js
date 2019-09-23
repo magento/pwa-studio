@@ -8,7 +8,7 @@ import Header from '../Header';
 import defaultClasses from './main.css';
 
 const Main = props => {
-    const { children, hasBeenOffline, isMasked, isOnline } = props;
+    const { children, isMasked } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const rootClass = isMasked ? classes.root_masked : classes.root;
@@ -18,7 +18,7 @@ const Main = props => {
 
     return (
         <main className={rootClass}>
-            <Header hasBeenOffline={hasBeenOffline} isOnline={isOnline} />
+            <Header />
             <div className={pageClass}>{children}</div>
             <Footer />
         </main>
@@ -34,7 +34,5 @@ Main.propTypes = {
         root: string,
         root_masked: string
     }),
-    hasBeenOffline: bool,
-    isMasked: bool,
-    isOnline: bool
+    isMasked: bool
 };
