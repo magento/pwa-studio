@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
-import { useQuery } from '@magento/peregrine';
+import { useCategoryTree } from '@magento/peregrine/lib/mixins/CategoryTree';
 
 import { mergeClasses } from '../../classify';
 import MENU_QUERY from '../../queries/getNavigationMenu.graphql';
@@ -17,33 +17,20 @@ const Tree = props => {
         updateCategories
     } = props;
 
+    const mixinProps = useCategoryTree({
+        categories,
+        categoryId,
+        query: MENU_QUERY,
+        updateCategories
+    });
+
+    const { childCategories } = mixinProps;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const [queryResult, queryApi] = useQuery(MENU_QUERY);
-    const { data } = queryResult;
-    const { runQuery } = queryApi;
-
-    // fetch categories
-    useEffect(() => {
-        if (categoryId != null) {
-            runQuery({ variables: { id: categoryId } });
-        }
-    }, [categoryId, runQuery]);
-
-    // update redux with fetched categories
-    useEffect(() => {
-        if (data && data.category) {
-            updateCategories(data.category);
-        }
-    }, [data, updateCategories]);
-
-    const rootCategory = categories[categoryId];
-    const { children } = rootCategory || {};
 
     // for each child category, render a direct link if it has no children
     // otherwise render a branch
-    const branches = Array.from((rootCategory && children) || [], id => {
-        const category = categories[id];
-        const isLeaf = category.children_count === '0';
+    const branches = Array.from(childCategories, childCategory => {
+        const [id, { category, isLeaf }] = childCategory;
 
         return isLeaf ? (
             <Leaf key={id} category={category} onNavigate={onNavigate} />
