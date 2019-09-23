@@ -1,6 +1,26 @@
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '../../hooks/useQuery';
 
+/**
+ * @typedef {object} CategoryNode
+ * @prop {object} category - category data
+ * @prop {boolean} isLeaf - true if the category has no children
+ */
+
+/**
+ * @typedef { import("graphql").DocumentNode } DocumentNode
+ */
+
+/**
+ * Returns props necessary to render a CategoryTree component.
+ *
+ * @param {object} props
+ * @param {object} props.categories - all fetched categories
+ * @param {number} props.categoryId - category id for this node
+ * @param {DocumentNode} props.query - GraphQL query
+ * @param {function} props.updateCategories - bound action creator
+ * @return {{ childCategories: Map<number, CategoryNode> }}
+ */
 export const useCategoryTree = props => {
     const { categories, categoryId, query, updateCategories } = props;
 
