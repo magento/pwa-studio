@@ -14,6 +14,12 @@ const classes = {
 
 jest.mock('../../../../classify');
 
+jest.mock('@magento/venia-drivers', () => {
+    const withRouter = jest.fn(arg => arg);
+
+    return { withRouter };
+});
+
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
         drawer: 'cart'
