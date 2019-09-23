@@ -80,24 +80,23 @@ test('renders the correct tree', () => {
 });
 
 test('doesnt render a footer when cart is empty', () => {
-    const props = {
-        ...baseProps,
-        isCartEmpty: true
-    };
+    const [cartState, cartApi] = useCartContext();
+    useCartContext.mockReturnValueOnce([
+        {
+            ...cartState,
+            isEmpty: true
+        },
+        cartApi
+    ]);
 
-    const instance = createTestInstance(<MiniCart {...props} />);
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
     expect(() => {
         instance.root.findByType(Footer);
     }).toThrow();
 });
 
 test('doesnt render a footer when cart is editing', () => {
-    const props = {
-        ...baseProps,
-        isCartEmpty: false
-    };
-
-    const instance = createTestInstance(<MiniCart {...props} />);
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
 
     act(() => {
         instance.root.findByType(Body).props.beginEditItem();
@@ -109,15 +108,16 @@ test('doesnt render a footer when cart is editing', () => {
 });
 
 test('doesnt render a footer when cart is loading', () => {
-    const props = {
-        ...baseProps,
-        cart: {
-            ...baseProps.cart,
+    const [cartState, cartApi] = useCartContext();
+    useCartContext.mockReturnValueOnce([
+        {
+            ...cartState,
             isLoading: true
-        }
-    };
+        },
+        cartApi
+    ]);
 
-    const instance = createTestInstance(<MiniCart {...props} />);
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
     expect(() => {
         instance.root.findByType(Footer);
     }).toThrow();
