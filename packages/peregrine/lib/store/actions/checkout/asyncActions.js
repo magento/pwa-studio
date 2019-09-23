@@ -2,7 +2,6 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
-import { getAccountInformation } from '../../selectors/checkout';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -301,7 +300,18 @@ export const submitOrder = () =>
 
 export const createAccount = history => async (dispatch, getState) => {
     const { checkout } = getState();
-    const accountInfo = getAccountInformation(checkout);
+
+    const {
+        email,
+        firstname: firstName,
+        lastname: lastName
+    } = checkout.receipt.order.billing_address;
+
+    const accountInfo = {
+        email,
+        firstName,
+        lastName
+    };
 
     await dispatch(resetCheckout());
 
