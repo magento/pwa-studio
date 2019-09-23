@@ -38,7 +38,10 @@ const EditItem = props => {
             return;
         }
 
-        const fetchItemOptions = async () => {
+        // We know the item has options, but we don't know the
+        // other possible values those options could take on.
+        // Fetch them now.
+        const fetchItemVariants = async () => {
             setLoading(true);
 
             await runQuery({
@@ -51,7 +54,7 @@ const EditItem = props => {
             setLoading(false);
         };
 
-        fetchItemOptions();
+        fetchItemVariants();
     }, [item, itemHasOptions, runQuery, setLoading]);
 
     /*
@@ -85,13 +88,13 @@ const EditItem = props => {
         return loadingIndicator;
     }
 
-    // We do have this item's data.
-    const itemWithOptions = data.products.items[0];
+    // We have all of the possible variants for this item.
+    const itemWithVariants = data.products.items[0];
 
     return (
         <CartOptions
             cartItem={item}
-            configItem={itemWithOptions}
+            configItem={itemWithVariants}
             currencyCode={currencyCode}
             endEditItem={endEditItem}
             isUpdatingItem={isUpdatingItem}

@@ -1,21 +1,24 @@
-import React from 'react';
-import { connect } from '@magento/venia-drivers';
-import { func, node, shape, string } from 'prop-types';
+import React, { useCallback } from 'react';
+import { node, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import { toggleDrawer } from '@magento/peregrine/lib/store/actions/app';
 import defaultClasses from './navTrigger.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const Trigger = props => {
+    const [, { toggleDrawer }] = useAppContext();
+
+    const handleOpenNavigation = useCallback(() => {
+        toggleDrawer('nav');
+    }, [toggleDrawer]);
+
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const { children, openNav } = props;
-
+    const { children } = props;
     return (
         <button
             className={classes.root}
             aria-label="Toggle navigation panel"
-            onClick={openNav}
+            onClick={handleOpenNavigation}
         >
             {children}
         </button>
@@ -26,15 +29,7 @@ Trigger.propTypes = {
     children: node,
     classes: shape({
         root: string
-    }),
-    openNav: func.isRequired
+    })
 };
 
-const mapDispatchToProps = dispatch => ({
-    openNav: () => dispatch(toggleDrawer('nav'))
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(Trigger);
+export default Trigger;

@@ -70,12 +70,18 @@ If you have an issue that cannot be resolved, please [create an issue][].
 * To add a dependency, use [workspace commands][] (e.g., `yarn workspace @magento/venia-concept add my-module`). This will associate the dependency with the right package.
 * Before pushing a commit, `yarn run prettier` and `yarn run lint` to format and inspect the source code. (There is also a git hook that will do this automatically.)
 
+## Dependency Resolutions
+
+This project's `package.json` contains some [selective dependency resolutions][], a feature of Yarn.
+We use these primarily to pull in important security updates from transitive dependencies.
+
 [Contribution guide]: .github/CONTRIBUTING.md
 [Coverage Status]: https://coveralls.io/repos/github/magento/pwa-studio/badge.svg?branch=master
 [create an issue]: https://github.com/magento/pwa-studio/issues/new
 [documentation site]: https://pwastudio.io
 [Git hook]: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
 [NPM]: https://www.npmjs.com/org/magento
+[selective dependency resolutions]: https://yarnpkg.com/lang/en/docs/selective-version-resolutions/
 [Troubleshooting]: https://pwastudio.io/pwa-buildpack/troubleshooting/
 [Venia storefront setup]: https://pwastudio.io/venia-pwa-concept/setup/
 [workspace commands]: https://yarnpkg.com/en/docs/cli/workspace

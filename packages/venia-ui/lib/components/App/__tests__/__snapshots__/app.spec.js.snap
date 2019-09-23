@@ -1104,18 +1104,14 @@ ReactTestInstance {
             "lastEffect": null,
             "memoizedProps": Object {
               "children": <Routes />,
-              "hasBeenOffline": true,
               "isMasked": false,
-              "isOnline": false,
             },
             "memoizedState": null,
             "mode": 0,
             "nextEffect": null,
             "pendingProps": Object {
               "children": <Routes />,
-              "hasBeenOffline": true,
               "isMasked": false,
-              "isOnline": false,
             },
             "ref": null,
             "return": [Circular],
@@ -1196,9 +1192,7 @@ ReactTestInstance {
                               "isHidden": false,
                               "props": Object {
                                 "children": <Routes />,
-                                "hasBeenOffline": true,
                                 "isMasked": false,
-                                "isOnline": false,
                               },
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
@@ -1239,9 +1233,7 @@ ReactTestInstance {
                                 Home Page - Venia
                               </Title>,
                               <Main
-                                hasBeenOffline={true}
                                 isMasked={false}
-                                isOnline={false}
                               >
                                 <Routes />
                               </Main>,
@@ -1451,9 +1443,7 @@ ReactTestInstance {
                                 "isHidden": false,
                                 "props": Object {
                                   "children": <Routes />,
-                                  "hasBeenOffline": true,
                                   "isMasked": false,
-                                  "isOnline": false,
                                 },
                                 "rootContainerInstance": [Circular],
                                 "tag": "INSTANCE",
@@ -1497,9 +1487,7 @@ ReactTestInstance {
                                   Home Page - Venia
                                 </Title>,
                                 <Main
-                                  hasBeenOffline={true}
                                   isMasked={false}
-                                  isOnline={false}
                                 >
                                   <Routes />
                                 </Main>,
@@ -1550,9 +1538,7 @@ ReactTestInstance {
                               "isHidden": false,
                               "props": Object {
                                 "children": <Routes />,
-                                "hasBeenOffline": true,
                                 "isMasked": false,
-                                "isOnline": false,
                               },
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
@@ -1594,9 +1580,7 @@ ReactTestInstance {
                                 Home Page - Venia
                               </Title>,
                               <Main
-                                hasBeenOffline={true}
                                 isMasked={false}
-                                isOnline={false}
                               >
                                 <Routes />
                               </Main>,
@@ -1645,9 +1629,7 @@ ReactTestInstance {
                             "isHidden": false,
                             "props": Object {
                               "children": <Routes />,
-                              "hasBeenOffline": true,
                               "isMasked": false,
-                              "isOnline": false,
                             },
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
@@ -1691,9 +1673,7 @@ ReactTestInstance {
                               Home Page - Venia
                             </Title>,
                             <Main
-                              hasBeenOffline={true}
                               isMasked={false}
-                              isOnline={false}
                             >
                               <Routes />
                             </Main>,
@@ -1751,9 +1731,7 @@ ReactTestInstance {
               "isHidden": false,
               "props": Object {
                 "children": <Routes />,
-                "hasBeenOffline": true,
                 "isMasked": false,
-                "isOnline": false,
               },
               "rootContainerInstance": Object {
                 "children": Array [
@@ -1810,9 +1788,7 @@ ReactTestInstance {
                           Home Page - Venia
                         </Title>,
                         <Main
-                          hasBeenOffline={true}
                           isMasked={false}
-                          isOnline={false}
                         >
                           <Routes />
                         </Main>,
@@ -1864,9 +1840,7 @@ ReactTestInstance {
               Home Page - Venia
             </Title>,
             <Main
-              hasBeenOffline={true}
               isMasked={false}
-              isOnline={false}
             >
               <Routes />
             </Main>,
@@ -1890,9 +1864,7 @@ ReactTestInstance {
               Home Page - Venia
             </Title>,
             <Main
-              hasBeenOffline={true}
               isMasked={false}
-              isOnline={false}
             >
               <Routes />
             </Main>,
@@ -1923,9 +1895,7 @@ ReactTestInstance {
               "isHidden": false,
               "props": Object {
                 "children": <Routes />,
-                "hasBeenOffline": true,
                 "isMasked": false,
-                "isOnline": false,
               },
               "rootContainerInstance": Object {
                 "children": Array [
@@ -2006,9 +1976,7 @@ ReactTestInstance {
                 Home Page - Venia
               </Title>,
               <Main
-                hasBeenOffline={true}
                 isMasked={false}
-                isOnline={false}
               >
                 <Routes />
               </Main>,
@@ -2053,9 +2021,7 @@ ReactTestInstance {
             Home Page - Venia
           </Title>,
           <Main
-            hasBeenOffline={true}
             isMasked={false}
-            isOnline={false}
           >
             <Routes />
           </Main>,
@@ -2079,9 +2045,7 @@ ReactTestInstance {
             Home Page - Venia
           </Title>,
           <Main
-            hasBeenOffline={true}
             isMasked={false}
-            isOnline={false}
           >
             <Routes />
           </Main>,
@@ -2374,9 +2338,7 @@ Debug: undefined undefined",
                     "isHidden": false,
                     "props": Object {
                       "children": <Routes />,
-                      "hasBeenOffline": true,
                       "isMasked": false,
-                      "isOnline": false,
                     },
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
@@ -2427,9 +2389,7 @@ Debug: undefined undefined",
                       Home Page - Venia
                     </Title>,
                     <Main
-                      hasBeenOffline={true}
                       isMasked={false}
-                      isOnline={false}
                     >
                       <Routes />
                     </Main>,
@@ -2602,9 +2562,7 @@ Debug: undefined undefined",
                   "isHidden": false,
                   "props": Object {
                     "children": <Routes />,
-                    "hasBeenOffline": true,
                     "isMasked": false,
-                    "isOnline": false,
                   },
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
@@ -2655,9 +2613,7 @@ Debug: undefined undefined",
                     Home Page - Venia
                   </Title>,
                   <Main
-                    hasBeenOffline={true}
                     isMasked={false}
-                    isOnline={false}
                   >
                     <Routes />
                   </Main>,

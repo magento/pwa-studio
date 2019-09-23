@@ -6,6 +6,17 @@ import { createTestInstance } from '@magento/peregrine';
 import CreateAccount from '../createAccount';
 
 jest.mock('../../../util/formValidators');
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const userState = {
+        createAccountError: null,
+        isCreatingAccount: false,
+        isSignedIn: false
+    };
+    const userApi = {};
+    const useUserContext = jest.fn(() => [userState, userApi]);
+
+    return { useUserContext };
+});
 
 const props = {
     onSubmit: jest.fn()

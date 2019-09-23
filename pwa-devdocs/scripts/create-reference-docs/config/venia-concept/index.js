@@ -4,11 +4,23 @@ module.exports = [
     type: 'function'
   },
   {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ColumnGroup/columnGroup.js',
+    type: 'function'
+  },
+  {
     target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Column/column.js',
     type: 'function'
   },
   {
-    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ColumnGroup/columnGroup.js',
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Block/block.js',
+    type: 'function'
+  },
+  {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Html/html.js',
+    type: 'function'
+  },
+  {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Divider/divider.js',
     type: 'function'
   }
 ];
