@@ -7,7 +7,7 @@ import { useCategoryTile } from '@magento/peregrine/lib/mixins/CategoryList/useC
 
 const CategoryTile = props => {
     const mixinProps = useCategoryTile({
-        item: props.item,
+        item: props.item
     });
 
     const { image, item } = mixinProps;

@@ -21,7 +21,7 @@ export const useCategoryTile = props => {
                 url: image,
                 type: 'image-category',
                 width: previewImageSize
-            }
+            };
         } else if (previewProduct) {
             return {
                 url: previewProduct.small_image,
@@ -33,10 +33,13 @@ export const useCategoryTile = props => {
         }
     }, [image, productImagePreview]);
 
-    const itemObject = useMemo(() => ({
-        name: item.name,
-        url: `/${item.url_key}${categoryUrlSuffix}`
-    }), [item]);
+    const itemObject = useMemo(
+        () => ({
+            name: item.name,
+            url: `/${item.url_key}${categoryUrlSuffix}`
+        }),
+        [item]
+    );
 
     return {
         image: imageObj,
