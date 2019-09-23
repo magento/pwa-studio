@@ -128,7 +128,7 @@ const Row = props => {
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Video
+ * @property {Object} classes An object containing the class names for the Row
  * @property {String} classes.contained CSS classes for the contained appearance element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
@@ -140,7 +140,7 @@ const Row = props => {
  * @property {Boolean} backgroundRepeat CSS background-repeat property
  * @property {Boolean} enableParallax Enable parallax on this row
  * @property {Number} parallaxSpeed The speed which Parallax should scroll, from -1.0 to 2.0
- * @property {String} textAlign Alignment of the video within the parent container
+ * @property {String} textAlign Alignment of content within the row
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
