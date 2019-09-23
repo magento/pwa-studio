@@ -4,6 +4,14 @@ module.exports = [
     type: 'function'
   },
   {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ColumnGroup/columnGroup.js',
+    type: 'function'
+  },
+  {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Column/column.js',
+    type: 'function'
+  },
+  {
     target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Block/block.js',
     type: 'function'
   },
