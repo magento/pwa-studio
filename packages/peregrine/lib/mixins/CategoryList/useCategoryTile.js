@@ -4,36 +4,42 @@ import { useMemo } from 'react';
 const categoryUrlSuffix = '.html';
 const previewImageSize = 480;
 
+/**
+ *
+ * @returns {Object} retVal - an object containing image and item props.
+ * @returns {Object} retVal.image - an object containing url, type and width for the category image
+ * @returns {Object} retVal.item - an object containing name and url for the category tile
+ */
 export const useCategoryTile = props => {
-    const { item, resourceUrl } = props;
+    const { item } = props;
     const { image, productImagePreview } = item;
 
-    const imagePath = useMemo(() => {
+    const imageObj = useMemo(() => {
         const previewProduct = productImagePreview.items[0];
         if (image) {
-            return resourceUrl(image, {
+            return {
+                url: image,
                 type: 'image-category',
                 width: previewImageSize
-            });
+            }
         } else if (previewProduct) {
-            return resourceUrl(previewProduct.small_image, {
+            return {
+                url: previewProduct.small_image,
                 type: 'image-product',
                 width: previewImageSize
-            });
+            };
         } else {
             return null;
         }
-    }, [image, productImagePreview, resourceUrl]);
+    }, [image, productImagePreview]);
 
-    // interpolation doesn't work inside `url()` for legacy reasons
-    // so a custom property should wrap its value in `url()`
-    const imageUrl = imagePath ? `url(${imagePath})` : 'none';
-    const imageWrapperStyle = { '--venia-image': imageUrl };
+    const itemObject = useMemo(() => ({
+        name: item.name,
+        url: `/${item.url_key}${categoryUrlSuffix}`
+    }), [item]);
 
     return {
-        imagePath,
-        imageWrapperStyle,
-        itemName: item.name,
-        itemUrl: `/${item.url_key}${categoryUrlSuffix}`
+        image: imageObj,
+        item: itemObject
     };
 };

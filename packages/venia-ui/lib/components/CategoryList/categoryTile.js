@@ -8,23 +8,33 @@ import { useCategoryTile } from '@magento/peregrine/lib/mixins/CategoryList/useC
 const CategoryTile = props => {
     const mixinProps = useCategoryTile({
         item: props.item,
-        resourceUrl
     });
 
-    const { imagePath, imageWrapperStyle, itemName, itemUrl } = mixinProps;
+    const { image, item } = mixinProps;
+
+    const imagePath = resourceUrl(image.url, {
+        type: image.type,
+        width: image.width
+    });
+
+    // interpolation doesn't work inside `url()` for legacy reasons
+    // so a custom property should wrap its value in `url()`
+    const imageUrl = imagePath ? `url(${imagePath})` : 'none';
+    const imageWrapperStyle = { '--venia-image': imageUrl };
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // render an actual image element for accessibility
     const imagePreview = imagePath ? (
-        <img className={classes.image} src={imagePath} alt={itemName} />
+        <img className={classes.image} src={imagePath} alt={item.name} />
     ) : null;
 
     return (
-        <Link className={classes.root} to={itemUrl}>
+        <Link className={classes.root} to={item.url}>
             <span className={classes.imageWrapper} style={imageWrapperStyle}>
                 {imagePreview}
             </span>
-            <span className={classes.name}>{itemName}</span>
+            <span className={classes.name}>{item.name}</span>
         </Link>
     );
 };
