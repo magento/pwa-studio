@@ -4,6 +4,10 @@ module.exports = [
     type: 'function'
   },
   {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Html/html.js',
+    type: 'function'
+  },
+  {
     target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Divider/divider.js',
     type: 'function'
   }
