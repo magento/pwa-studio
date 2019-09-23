@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
@@ -8,44 +7,22 @@ import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
-
-const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
+import { useAuthModal } from '@magento/peregrine/lib/mixins/AuthModal/useAuthModal';
 
 const AuthModal = props => {
-    const {
-        closeDrawer,
-        showCreateAccount,
-        showForgotPassword,
-        showMainMenu,
-        showMyAccount,
-        view
-    } = props;
-
-    const [username, setUsername] = useState('');
-    const [userState, { createAccount, signOut }] = useUserContext();
-    const { currentUser } = userState;
     const classes = mergeClasses(defaultClasses, props.classes);
     let child = null;
 
-    const resetDrawer = useCallback(() => {
-        showMainMenu();
-        closeDrawer();
-    }, [closeDrawer, showMainMenu]);
-
-    // if the user is authed, the only valid view is "MY_ACCOUNT"
-    useEffect(() => {
-        if (currentUser && currentUser.id && UNAUTHED_ONLY.includes(view)) {
-            showMyAccount();
-        }
-    }, [currentUser, showMyAccount, view]);
-
-    const handleCreateAccount = useCallback(
-        async values => {
-            await createAccount(values);
-            showMyAccount();
-        },
-        [createAccount, showMyAccount]
-    );
+    const {
+        currentUser,
+        handleClose,
+        handleCreateAccount,
+        handleSignOut,
+        setUsername,
+        showCreateAccount,
+        showForgotPassword,
+        username
+    } = useAuthModal(props);
 
     switch (view) {
         case 'CREATE_ACCOUNT': {
@@ -61,13 +38,13 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onClose={resetDrawer}
+                    onClose={handleClose}
                 />
             );
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccount signOut={signOut} user={currentUser} />;
+            child = <MyAccount signOut={handleSignOut} user={currentUser} />;
             break;
         }
         case 'SIGN_IN': {
