@@ -10,7 +10,7 @@ import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './signIn.css';
-import { useSignIn } from '@magento/peregrine/lib/mixins/SignIn/useSignIn';
+import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
