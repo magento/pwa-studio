@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -10,55 +10,21 @@ import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './signIn.css';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-
-// Note: we can't access the actual message that comes back from the server
-// without doing some fragile string manipulation. Hardcoded for now.
-const ERROR_MESSAGE =
-    'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
+import { useSignIn } from '@magento/peregrine/lib/mixins/SignIn/useSignIn';
 
 const SignIn = props => {
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
-
-    const [
-        { isGettingDetails, isSigningIn, signInError, getDetailsError },
-        { signIn }
-    ] = useUserContext();
-
-    const hasError = !!signInError || !!getDetailsError;
-
-    const formRef = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const errorMessage = hasError ? ERROR_MESSAGE : null;
 
-    const handleSubmit = useCallback(
-        ({ email: username, password }) => {
-            signIn({ username, password });
-        },
-        [signIn]
-    );
+    const {
+        errorMessage,
+        formRef,
+        handleCreateAccount,
+        handleForgotPassword,
+        handleSubmit,
+        isBusy
+    } = useSignIn(props);
 
-    const handleForgotPassword = useCallback(() => {
-        const { current: form } = formRef;
-
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
-        }
-
-        showForgotPassword();
-    }, [setDefaultUsername, showForgotPassword]);
-
-    const handleCreateAccount = useCallback(() => {
-        const { current: form } = formRef;
-
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
-        }
-
-        showCreateAccount();
-    }, [setDefaultUsername, showCreateAccount]);
-
-    if (isGettingDetails || isSigningIn) {
+    if (isBusy) {
         return (
             <div className={classes.modal_active}>
                 <LoadingIndicator>{'Signing In'}</LoadingIndicator>
