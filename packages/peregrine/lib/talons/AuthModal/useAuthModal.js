@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useUserContext } from '../../context/user';
 
-const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
-
 /**
  * Returns props necessary to render an AuthModal component.
  *
@@ -38,7 +36,7 @@ export const useAuthModal = props => {
 
     // if the user is authed, the only valid view is "MY_ACCOUNT"
     useEffect(() => {
-        if (currentUser && currentUser.id && UNAUTHED_ONLY.includes(view)) {
+        if (currentUser && currentUser.id) {
             showMyAccount();
         }
     }, [currentUser, showMyAccount, view]);
