@@ -3,10 +3,10 @@ import {
     WindowSizeContextProvider,
     createTestInstance
 } from '@magento/peregrine';
-// import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import ProductFullDetail from '../productFullDetail';
 
+jest.mock('../../ProductOptions');
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
