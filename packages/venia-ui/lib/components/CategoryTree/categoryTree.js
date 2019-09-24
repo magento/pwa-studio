@@ -9,7 +9,6 @@ import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.css';
 
 const Tree = props => {
-    console.log(MENU_QUERY);
     const {
         categories,
         categoryId,
