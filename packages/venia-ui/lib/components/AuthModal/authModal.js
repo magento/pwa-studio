@@ -14,7 +14,6 @@ const AuthModal = props => {
     let child = null;
 
     const {
-        currentUser,
         handleClose,
         handleCreateAccount,
         handleSignOut,
@@ -44,7 +43,7 @@ const AuthModal = props => {
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccount signOut={handleSignOut} user={currentUser} />;
+            child = <MyAccount onSignOut={handleSignOut} />;
             break;
         }
         case 'SIGN_IN': {

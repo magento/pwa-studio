@@ -41,7 +41,6 @@ export const useAuthModal = props => {
     }, [signOut]);
 
     return {
-        currentUser,
         handleClose,
         handleCreateAccount,
         handleSignOut,
