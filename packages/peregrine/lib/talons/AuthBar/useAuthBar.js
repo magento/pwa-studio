@@ -8,8 +8,13 @@ import { useUserContext } from '../../context/user';
  * @param {boolean} props.disabled - whether sign in button should be disabled
  * @param {function} props.showMyAccount - callback that displays my account view
  * @param {function} props.showSignIn - callback that displays sign in view
-
- * @return {{ currentUser: object, handleClick: function, isSignedIn: boolean, isSignInDisabled: boolean, showMyAccount: function }}
+ * @return {{
+ *   currentUser: object,
+ *   handleShowMyAccount: function,
+ *   handleSignIn: function,
+ *   isSignedIn: boolean,
+ *   isSignInDisabled: boolean
+ * }}
  */
 export const useAuthBar = props => {
     const { disabled, showMyAccount, showSignIn } = props;
