@@ -2,21 +2,19 @@ import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import Cart from './cart';
+import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
 
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
-const isCartReady = cart => cart.details && cart.details.items_count > 0;
 const isCheckoutReady = checkout => {
     const {
         billingAddress,
@@ -55,8 +53,6 @@ const Flow = props => {
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const [user] = useUserContext();
-
     const { step, setStep } = props;
 
     const {
@@ -105,12 +101,15 @@ const Flow = props => {
 
     switch (step) {
         case 'cart': {
-            const stepProps = {
-                beginCheckout: handleBeginCheckout,
-                ready: !isSubmitting && isCartReady(cart)
-            };
-
-            child = <Cart {...stepProps} />;
+            const checkoutDisabled = isSubmitting || cart.isEmpty;
+            child = (
+                <div className={classes.footer}>
+                    <CheckoutButton
+                        disabled={checkoutDisabled}
+                        onClick={handleBeginCheckout}
+                    />
+                </div>
+            );
             break;
         }
         case 'form': {
@@ -142,12 +141,7 @@ const Flow = props => {
             break;
         }
         case 'receipt': {
-            const stepProps = {
-                user,
-                onClose: handleCloseReceipt
-            };
-
-            child = <Receipt {...stepProps} />;
+            child = <Receipt onClose={handleCloseReceipt} />;
             break;
         }
         default: {
