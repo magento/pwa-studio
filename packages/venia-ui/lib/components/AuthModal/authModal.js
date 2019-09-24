@@ -7,7 +7,7 @@ import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
-import { useAuthModal } from '@magento/peregrine/lib/mixins/AuthModal/useAuthModal';
+import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
 const AuthModal = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
