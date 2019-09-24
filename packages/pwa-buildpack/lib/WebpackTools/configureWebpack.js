@@ -94,7 +94,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
     /**
      * Creating hash of the service worker file based on its content.
      * If the contents dont change, hash wont change and the client
-     * wont be obligated to download the new file. Client will be 
+     * wont be obligated to download the new file. Client will be
      * using the cached version of the same service worker.
      */
     const serviceWorkerFileHash = await createFileHash('./src/sw.js');
@@ -339,7 +339,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                 cacheGroups: {
                     /**
                      * Creating the vendors bundle. This bundle
-                     * will have all the packages that the app 
+                     * will have all the packages that the app
                      * needs to render. Since these dont change
                      * often, it is advantageous to bundle them
                      * separately and cache them on the client.
