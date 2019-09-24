@@ -4,6 +4,10 @@ module.exports = [
     type: 'function'
   },
   {
+    target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Video/video.js',
+    type: 'function'
+  },
+  {
     target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ColumnGroup/columnGroup.js',
     type: 'function'
   },
