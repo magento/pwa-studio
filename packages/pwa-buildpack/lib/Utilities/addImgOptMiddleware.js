@@ -65,7 +65,13 @@ https://github.com/nodejs/node-gyp#installation`
             const imageUrl = new URL(incomingUrl, backendUrl);
             debug('imageUrl', imageUrl);
 
-            const optParamNames = ['auto', 'format', 'width', 'height', 'quality'];
+            const optParamNames = [
+                'auto',
+                'format',
+                'width',
+                'height',
+                'quality'
+            ];
 
             // Start with the original search params, so
             // we can preserve any non-imageopt parameters

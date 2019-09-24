@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 import { jarallax } from 'jarallax';
+import { resourceUrl } from '@magento/venia-drivers';
 
 /**
  * Page Builder Row component.
@@ -19,6 +20,7 @@ import { jarallax } from 'jarallax';
  */
 const Row = props => {
     const backgroundElement = useRef(null);
+    const [bgImageStyle, setBgImageStyle] = useState(null);
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
         appearance = 'contained',
@@ -72,13 +74,18 @@ const Row = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
-        backgroundImage: image ? `url(${image})` : null,
-        backgroundSize,
-        backgroundPosition,
-        backgroundAttachment,
-        backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
+        paddingLeft
     };
+
+    if (image) {
+        dynamicStyles.backgroundImage = bgImageStyle;
+        dynamicStyles.backgroundSize = backgroundSize;
+        dynamicStyles.backgroundPosition = backgroundPosition;
+        dynamicStyles.backgroundAttachment = backgroundAttachment;
+        dynamicStyles.backgroundRepeat = backgroundRepeat
+            ? 'repeat'
+            : 'no-repeat';
+    }
 
     if (verticalAlignment) {
         dynamicStyles.display = 'flex';
@@ -98,19 +105,37 @@ const Row = props => {
         children = <div className={classes.contained}>{children}</div>;
     }
 
+    // Determine the containers width and optimize the image
+    useEffect(() => {
+        if (
+            image &&
+            backgroundElement.current &&
+            backgroundElement.current.offsetWidth
+        ) {
+            setBgImageStyle(
+                `url(${resourceUrl(image, {
+                    type: 'image-wysiwyg',
+                    width: backgroundElement.current.offsetWidth,
+                    quality: 85
+                })})`
+            );
+        }
+    }, [setBgImageStyle]);
+
+    // Initiate jarallax for Parallax
     useEffect(() => {
         let parallaxElement;
-        if (enableParallax) {
+        if (enableParallax && bgImageStyle) {
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, { speed: parallaxSpeed });
         }
 
         return () => {
-            if (enableParallax && parallaxElement) {
+            if (enableParallax && parallaxElement && bgImageStyle) {
                 jarallax(parallaxElement, 'destroy');
             }
         };
-    });
+    }, [bgImageStyle]);
 
     return (
         <div

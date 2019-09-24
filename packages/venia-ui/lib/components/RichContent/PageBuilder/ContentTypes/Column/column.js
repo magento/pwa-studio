@@ -19,7 +19,7 @@ import { resourceUrl } from '@magento/venia-drivers';
 const Column = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const [bgImageStyle, setBgImageStyle] = useState(null);
-    const columnElementRef = useRef(null);
+    const columnElement = useRef(null);
     const {
         appearance,
         backgroundAttachment,
@@ -124,16 +124,17 @@ const Column = props => {
             : 'no-repeat';
     }
 
+    // Determine the containers width and optimize the image
     useEffect(() => {
         if (
             image &&
-            columnElementRef.current &&
-            columnElementRef.current.offsetWidth
+            columnElement.current &&
+            columnElement.current.offsetWidth
         ) {
             setBgImageStyle(
                 `url(${resourceUrl(image, {
                     type: 'image-wysiwyg',
-                    width: columnElementRef.current.offsetWidth,
+                    width: columnElement.current.offsetWidth,
                     quality: 85
                 })})`
             );
@@ -143,7 +144,7 @@ const Column = props => {
     return (
         <div
             style={dynamicStyles}
-            ref={columnElementRef}
+            ref={columnElement}
             className={[classes.root, ...cssClasses].join(' ')}
         >
             {children}
