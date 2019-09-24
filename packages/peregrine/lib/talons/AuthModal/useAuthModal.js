@@ -53,12 +53,10 @@ export const useAuthModal = props => {
         [createAccount, showMyAccount]
     );
 
-    const handleSignOut = useCallback(
-        (...args) => {
-            signOut(...args);
-        },
-        [signOut]
-    );
+    const handleSignOut = useCallback(() => {
+        // TODO: Get history from router context when implemented.
+        signOut({ history: window.history });
+    }, [signOut]);
 
     return {
         handleClose,
