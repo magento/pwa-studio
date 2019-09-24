@@ -1,26 +1,25 @@
 import React from 'react';
-import defaultClasses from './divider.css';
+import defaultClasses from './video.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
 
 /**
- * Page Builder Divider component.
+ * Page Builder Video component.
  *
  * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
  *
- * @typedef Divider
+ * @typedef Video
  * @kind functional component
  *
  * @param {props} props React component props
  *
- * @returns {React.Element} A React component that displays a Divider.
+ * @returns {React.Element} A React component that displays a Video using an iframe.
  */
-const Divider = props => {
+const Video = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
-        width,
-        color,
-        thickness,
+        url,
+        maxWidth,
         textAlign,
         border,
         borderColor,
@@ -37,44 +36,71 @@ const Divider = props => {
         cssClasses = []
     } = props;
 
-    const dynamicStyles = {
+    const mainStyles = {
         textAlign,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft
+    };
+    const innerStyles = {
+        maxWidth
+    };
+    const wrapperStyles = {
         border,
         borderColor,
         borderWidth,
         borderRadius,
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft,
         paddingTop,
         paddingRight,
         paddingBottom,
         paddingLeft
     };
-    const hrStyles = {
-        width,
-        borderColor: color,
-        borderWidth: thickness
-    };
+
+    const Video =
+        url && url.length ? (
+            <div className={classes.container}>
+                <iframe
+                    className={classes.video}
+                    title={url}
+                    frameBorder="0"
+                    allowFullScreen="1"
+                    loading="lazy"
+                    src={url}
+                />
+            </div>
+        ) : (
+            ''
+        );
+
     return (
-        <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            <hr style={hrStyles} className={classes.hr} />
+        <div
+            style={mainStyles}
+            className={[classes.root, ...cssClasses].join(' ')}
+        >
+            <div style={innerStyles} className={classes.inner}>
+                <div style={wrapperStyles} className={classes.wrapper}>
+                    {Video}
+                </div>
+            </div>
         </div>
     );
 };
 
 /**
- * Props for {@link Divider}
+ * Props for {@link Video}
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Divider
- * @property {String} classes.hr CSS classes for the hr element
- * @property {String} width Width of the divider
- * @property {String} color Color of the divider
- * @property {String} thickness Thickness of the divider
- * @property {String} textAlign Alignment of the divider within the parent container
+ * @property {Object} classes An object containing the class names for the Video
+ * @property {String} classes.root CSS classes for the root container element
+ * @property {String} classes.inner CSS classes for the inner container element
+ * @property {String} classes.wrapper CSS classes for the wrapper container element
+ * @property {String} classes.container CSS classes for the container element
+ * @property {String} classes.video CSS classes for the video element
+ * @property {String} url Embed URL to render the video from an external provider (YouTube, Vimeo etc)
+ * @property {String} maxWidth Maximum width of the video
+ * @property {String} textAlign Alignment of the video within the parent container
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
@@ -89,13 +115,16 @@ const Divider = props => {
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
-Divider.propTypes = {
+Video.propTypes = {
     classes: shape({
-        hr: string
+        root: string,
+        inner: string,
+        wrapper: string,
+        container: string,
+        video: string
     }),
-    width: string,
-    color: string,
-    thickness: string,
+    url: string,
+    maxWidth: string,
     textAlign: string,
     border: string,
     borderColor: string,
@@ -111,4 +140,4 @@ Divider.propTypes = {
     cssClasses: arrayOf(string)
 };
 
-export default Divider;
+export default Video;

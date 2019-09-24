@@ -24,7 +24,7 @@ exports[`renders a Block component 1`] = `
   <div
     dangerouslySetInnerHTML={
       Object {
-        "__html": undefined,
+        "__html": "",
       }
     }
   />

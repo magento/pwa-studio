@@ -5,7 +5,10 @@ import Block from '../block';
 jest.mock('../../../../../../classify');
 
 test('renders a Block component', () => {
-    const component = createTestInstance(<Block />);
+    const blockProps = {
+        richContent: ''
+    };
+    const component = createTestInstance(<Block {...blockProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
