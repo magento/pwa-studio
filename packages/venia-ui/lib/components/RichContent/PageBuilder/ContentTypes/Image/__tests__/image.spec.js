@@ -19,6 +19,9 @@ test('renders a Image component with all props configured', () => {
         mobileImage: 'mobile-image.png',
         altText: 'Alt Text',
         title: 'Title Text',
+        link: 'http://www.adobe.com/',
+        linkType: 'default',
+        openInNewTab: true,
         caption: 'Example Caption',
         textAlign: 'right',
         border: 'solid',
@@ -35,6 +38,17 @@ test('renders a Image component with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
+    const component = createTestInstance(<Image {...imageProps} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('renders a Image component with openInNewTab set to false', () => {
+    const imageProps = {
+        link: '',
+        openInNewTab: false,
+    };
+
     const component = createTestInstance(<Image {...imageProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
