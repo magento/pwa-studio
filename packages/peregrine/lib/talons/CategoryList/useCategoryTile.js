@@ -5,10 +5,11 @@ const categoryUrlSuffix = '.html';
 const previewImageSize = 480;
 
 /**
+ * Returns props necessary to render a CategoryTile component.
  *
- * @returns {Object} retVal - an object containing image and item props.
- * @returns {Object} retVal.image - an object containing url, type and width for the category image
- * @returns {Object} retVal.item - an object containing name and url for the category tile
+ * @returns {Object} props necessary to render a category tile
+ * @returns {Object} .image - an object containing url, type and width for the category image
+ * @returns {Object} .item - an object containing name and url for the category tile
  */
 export const useCategoryTile = props => {
     const { item } = props;
