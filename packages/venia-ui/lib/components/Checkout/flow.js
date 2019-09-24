@@ -7,101 +7,62 @@ import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
 
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
-
-const isCheckoutReady = checkout => {
-    const {
-        billingAddress,
-        paymentData,
-        shippingAddress,
-        shippingMethod
-    } = checkout;
-
-    const objectsHaveData = [
-        billingAddress,
-        paymentData,
-        shippingAddress
-    ].every(data => {
-        return !!data && !isObjectEmpty(data);
-    });
-
-    const stringsHaveData = !!shippingMethod && shippingMethod.length > 0;
-
-    return objectsHaveData && stringsHaveData;
-};
 
 /**
  * This Flow component's primary purpose is to take relevant state and actions
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const [cart] = useCartContext();
-    const [
-        checkoutState,
-        {
-            beginCheckout,
-            cancelCheckout,
-            submitOrder,
-            submitPaymentMethodAndBillingAddress,
-            submitShippingAddress,
-            submitShippingMethod
-        }
-    ] = useCheckoutContext();
-    const { step, setStep } = props;
+    const [, { addToast }] = useToasts();
+    const onSubmitError = useCallback(() => {
+        addToast({
+            type: 'error',
+            icon: ErrorIcon,
+            message:
+                'Something went wrong submitting your order! Try again later.',
+            timeout: 7000
+        });
+    }, [addToast]);
+
+    const talonProps = useFlow({
+        ...props,
+        onSubmitError
+    });
 
     const {
         availableShippingMethods,
         billingAddress,
+        cartState,
+        checkoutDisabled,
+        checkoutState,
+        isReady,
         isSubmitting,
         paymentData,
         shippingAddress,
         shippingAddressError,
         shippingMethod,
-        shippingTitle
-    } = checkoutState;
+        shippingTitle,
+        submitPaymentMethodAndBillingAddress,
+        submitShippingAddress,
+        submitShippingMethod,
+        handleBeginCheckout,
+        handleCancelCheckout,
+        handleCloseReceipt,
+        handleSubmitOrder,
+        step
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
-    const [, { addToast }] = useToasts();
-    const handleBeginCheckout = useCallback(async () => {
-        await beginCheckout();
-        setStep('form');
-    }, [beginCheckout, setStep]);
-
-    const handleCancelCheckout = useCallback(async () => {
-        await cancelCheckout();
-        setStep('cart');
-    }, [cancelCheckout, setStep]);
-
-    const handleSubmitOrder = useCallback(async () => {
-        try {
-            await submitOrder();
-            setStep('receipt');
-        } catch (e) {
-            addToast({
-                type: 'error',
-                icon: ErrorIcon,
-                message:
-                    'Something went wrong submitting your order! Try again later.',
-                timeout: 7000
-            });
-        }
-    }, [addToast, setStep, submitOrder]);
-
-    const handleCloseReceipt = useCallback(() => {
-        setStep('cart');
-    }, [setStep]);
-
     switch (step) {
         case 'cart': {
-            const checkoutDisabled = isSubmitting || cart.isEmpty;
             child = (
                 <div className={classes.footer}>
                     <CheckoutButton
@@ -117,7 +78,7 @@ const Flow = props => {
                 availableShippingMethods,
                 billingAddress,
                 cancelCheckout: handleCancelCheckout,
-                cart,
+                cart: cartState,
                 checkout: checkoutState,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
@@ -126,7 +87,7 @@ const Flow = props => {
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
                 isSubmitting,
                 paymentData,
-                ready: isCheckoutReady(checkoutState),
+                ready: isReady,
                 shippingAddress,
                 shippingAddressError,
                 shippingMethod,

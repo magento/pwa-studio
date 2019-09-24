@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 
@@ -8,53 +8,18 @@ import Select from '../Select';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './shippingForm.css';
+import { useShippingForm } from '@magento/peregrine/lib/talons/Checkout/useShippingForm';
 
 const ShippingForm = props => {
+    const talonProps = useShippingForm(props);
     const {
-        availableShippingMethods,
-        cancel,
-        isSubmitting,
-        shippingMethod,
-        submit: submitShippingMethod
-    } = props;
+        handleCancel,
+        handleSubmit,
+        initialValue,
+        isDisabled,
+        selectableShippingMethods
+    } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    let initialValue;
-    let selectableShippingMethods;
-
-    if (availableShippingMethods.length) {
-        selectableShippingMethods = availableShippingMethods.map(
-            ({ carrier_code, carrier_title }) => ({
-                label: carrier_title,
-                value: carrier_code
-            })
-        );
-        initialValue =
-            shippingMethod || availableShippingMethods[0].carrier_code;
-    } else {
-        selectableShippingMethods = [];
-        initialValue = '';
-    }
-
-    const handleSubmit = useCallback(
-        ({ shippingMethod }) => {
-            const selectedShippingMethod = availableShippingMethods.find(
-                ({ carrier_code }) => carrier_code === shippingMethod
-            );
-
-            if (!selectedShippingMethod) {
-                console.warn(
-                    `Could not find the selected shipping method ${selectedShippingMethod} in the list of available shipping methods.`
-                );
-                cancel();
-            } else {
-                submitShippingMethod({
-                    shippingMethod: selectedShippingMethod
-                });
-            }
-        },
-        [availableShippingMethods, cancel, submitShippingMethod]
-    );
 
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
@@ -75,8 +40,8 @@ const ShippingForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={cancel}>Cancel</Button>
-                <Button priority="high" type="submit" disabled={isSubmitting}>
+                <Button onClick={handleCancel}>Cancel</Button>
+                <Button priority="high" type="submit" disabled={isDisabled}>
                     Use Method
                 </Button>
             </div>
@@ -86,7 +51,7 @@ const ShippingForm = props => {
 
 ShippingForm.propTypes = {
     availableShippingMethods: array.isRequired,
-    cancel: func.isRequired,
+    onCancel: func.isRequired,
     classes: shape({
         body: string,
         button: string,
@@ -96,7 +61,7 @@ ShippingForm.propTypes = {
     }),
     isSubmitting: bool,
     shippingMethod: string,
-    submit: func.isRequired,
+    onSubmit: func.isRequired,
     submitting: bool
 };
 

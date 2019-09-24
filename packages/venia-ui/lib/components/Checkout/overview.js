@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import { bool, func, number, object, shape, string } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
@@ -7,6 +7,7 @@ import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
 import { Price } from '@magento/peregrine';
+import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
 
 /**
  * The Overview component renders summaries for each section of the editable
@@ -15,36 +16,24 @@ import { Price } from '@magento/peregrine';
 const Overview = props => {
     const {
         cancelCheckout,
-        cart,
-        classes,
+        currencyCode,
+        handleAddressFormClick,
+        handlePaymentFormClick,
+        handleShippingFormClick,
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
         isSubmitting,
+        numItems,
         paymentData,
         ready,
-        setEditing,
         shippingAddress,
         shippingTitle,
-        submitOrder
-    } = props;
+        submitOrder,
+        subtotal
+    } = useOverview(props);
 
-    const handleAddressFormClick = useCallback(() => {
-        setEditing('address');
-    }, [setEditing]);
-
-    const handlePaymentFormClick = useCallback(() => {
-        setEditing('paymentMethod');
-    }, [setEditing]);
-
-    const handleShippingFormClick = useCallback(() => {
-        setEditing('shippingMethod');
-    }, [setEditing]);
-
-    const currencyCode =
-        (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
-    const subtotal = (cart && cart.totals && cart.totals.subtotal) || 0;
-
+    const { classes } = props;
     return (
         <Fragment>
             <div className={classes.body}>
@@ -84,7 +73,7 @@ const Overview = props => {
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
-                    <span>{cart.details.items_qty} Items</span>
+                    <span>{numItems} Items</span>
                 </Section>
             </div>
             <div className={classes.footer}>

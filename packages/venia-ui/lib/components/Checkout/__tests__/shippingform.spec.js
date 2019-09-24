@@ -25,8 +25,8 @@ const mockSubmit = jest.fn();
 const mockCancel = jest.fn();
 const defaultProps = {
     availableShippingMethods,
-    cancel: mockCancel,
-    submit: mockSubmit
+    onCancel: mockCancel,
+    onSubmit: mockSubmit
 };
 
 beforeEach(() => {
