@@ -126,11 +126,7 @@ const Column = props => {
 
     // Determine the containers width and optimize the image
     useEffect(() => {
-        if (
-            image &&
-            columnElement.current &&
-            columnElement.current.offsetWidth
-        ) {
+        if (image && columnElement.current) {
             setBgImageStyle(
                 `url(${resourceUrl(image, {
                     type: 'image-wysiwyg',
@@ -141,7 +137,7 @@ const Column = props => {
                 })})`
             );
         }
-    }, [setBgImageStyle]);
+    }, [image, setBgImageStyle]);
 
     return (
         <div

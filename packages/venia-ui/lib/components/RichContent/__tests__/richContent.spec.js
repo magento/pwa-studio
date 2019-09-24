@@ -2,6 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import RichContent from '../richContent';
 
+jest.mock('@magento/venia-drivers', () => ({
+    resourceUrl: jest.fn(src => src)
+}));
+
 test('renders a RichContent component', () => {
     const component = createTestInstance(<RichContent />);
 

@@ -87,12 +87,7 @@ exports[`renders a Block component with all props configured and Page Builder ri
     className="root contained"
     style={
       Object {
-        "backgroundAttachment": "scroll",
         "backgroundColor": null,
-        "backgroundImage": null,
-        "backgroundPosition": "left top",
-        "backgroundRepeat": "no-repeat",
-        "backgroundSize": "cover",
         "border": "solid",
         "borderColor": "rgb(255, 0, 0)",
         "borderRadius": "2px",

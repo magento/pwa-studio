@@ -6,12 +6,7 @@ exports[`renders a Column component 1`] = `
   style={
     Object {
       "alignSelf": "stretch",
-      "backgroundAttachment": undefined,
       "backgroundColor": undefined,
-      "backgroundImage": null,
-      "backgroundPosition": undefined,
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": undefined,
       "border": undefined,
       "borderColor": undefined,
       "borderRadius": undefined,

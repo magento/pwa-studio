@@ -107,11 +107,7 @@ const Row = props => {
 
     // Determine the containers width and optimize the image
     useEffect(() => {
-        if (
-            image &&
-            backgroundElement.current &&
-            backgroundElement.current.offsetWidth
-        ) {
+        if (image && backgroundElement.current) {
             let elementWidth = backgroundElement.current.offsetWidth;
             let elementHeight = backgroundElement.current.offsetHeight;
             // If parallax is enabled resize are a higher resolution, as the image will be zoomed
@@ -129,7 +125,7 @@ const Row = props => {
                 })})`
             );
         }
-    }, [setBgImageStyle]);
+    }, [enableParallax, image, setBgImageStyle]);
 
     // Initiate jarallax for Parallax
     useEffect(() => {
@@ -144,7 +140,7 @@ const Row = props => {
                 jarallax(parallaxElement, 'destroy');
             }
         };
-    }, [bgImageStyle]);
+    }, [bgImageStyle, enableParallax, parallaxSpeed]);
 
     return (
         <div

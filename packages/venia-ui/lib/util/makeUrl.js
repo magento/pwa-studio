@@ -47,7 +47,10 @@ const mediaBases = new Map()
  * @param {number} props.quality - the desired quality of the image
  * @param {number} props.crop - should the image be cropped
  */
-const makeOptimizedUrl = (path, { type, width, height, quality, crop } = {}) => {
+const makeOptimizedUrl = (
+    path,
+    { type, width, height, quality, crop } = {}
+) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;

@@ -72,12 +72,7 @@ exports[`render row with no props 1`] = `
   className="root contained"
   style={
     Object {
-      "backgroundAttachment": undefined,
       "backgroundColor": undefined,
-      "backgroundImage": null,
-      "backgroundPosition": undefined,
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": undefined,
       "border": undefined,
       "borderColor": undefined,
       "borderRadius": undefined,
