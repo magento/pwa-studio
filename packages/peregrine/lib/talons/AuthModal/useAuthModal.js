@@ -10,7 +10,6 @@ import { useUserContext } from '../../context/user';
  * @param {function} props.showForgotPassword - callback that shows forgot password view
  * @param {function} props.showMainMenu - callback that shows main menu view
  * @param {function} props.showMyAccount - callback that shows my account view
- * @param {string} props.view - enum string of current view
  * @return {{
  *  handleClose: function,
  *  handleCreateAccount: function,
@@ -18,6 +17,7 @@ import { useUserContext } from '../../context/user';
  *  setUsername: function,
  *  showCreateAccount: function,
  *  showForgotPassword: function,
+ *  showMyAccount: function,
  *  username: string
  * }}
  */
@@ -27,8 +27,7 @@ export const useAuthModal = props => {
         showCreateAccount,
         showForgotPassword,
         showMainMenu,
-        showMyAccount,
-        view
+        showMyAccount
     } = props;
 
     const [username, setUsername] = useState('');
@@ -39,7 +38,7 @@ export const useAuthModal = props => {
         if (currentUser && currentUser.id) {
             showMyAccount();
         }
-    }, [currentUser, showMyAccount, view]);
+    }, [currentUser, showMyAccount]);
 
     const handleClose = useCallback(() => {
         showMainMenu();
@@ -54,9 +53,12 @@ export const useAuthModal = props => {
         [createAccount, showMyAccount]
     );
 
-    const handleSignOut = useCallback(() => {
-        signOut();
-    }, [signOut]);
+    const handleSignOut = useCallback(
+        (...args) => {
+            signOut(...args);
+        },
+        [signOut]
+    );
 
     return {
         handleClose,
@@ -65,6 +67,7 @@ export const useAuthModal = props => {
         setUsername,
         showCreateAccount,
         showForgotPassword,
+        showMyAccount,
         username
     };
 };

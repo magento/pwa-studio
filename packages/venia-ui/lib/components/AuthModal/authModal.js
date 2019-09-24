@@ -10,9 +10,6 @@ import defaultClasses from './authModal.css';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
 const AuthModal = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
-    let child = null;
-
     const {
         handleClose,
         handleCreateAccount,
@@ -20,10 +17,12 @@ const AuthModal = props => {
         setUsername,
         showCreateAccount,
         showForgotPassword,
+        showMyAccount,
         username
     } = useAuthModal(props);
 
-    switch (view) {
+    let child = null;
+    switch (props.view) {
         case 'CREATE_ACCOUNT': {
             child = (
                 <CreateAccount
@@ -59,6 +58,7 @@ const AuthModal = props => {
         }
     }
 
+    const classes = mergeClasses(defaultClasses, props.classes);
     return <div className={classes.root}>{child}</div>;
 };
 
