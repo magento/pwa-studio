@@ -47,8 +47,6 @@ const Video = props => {
         maxWidth
     };
     const wrapperStyles = {
-        // The below is required for a quirk in some browsers that won't display borders on videos
-        backgroundColor: borderColor,
         border,
         borderColor,
         borderWidth,
@@ -81,7 +79,7 @@ const Video = props => {
             className={[classes.root, ...cssClasses].join(' ')}
         >
             <div style={innerStyles} className={classes.inner}>
-                <div style={wrapperStyles}>{Video}</div>
+                <div style={wrapperStyles} className={classes.wrapper}>{Video}</div>
             </div>
         </div>
     );
@@ -95,6 +93,7 @@ const Video = props => {
  * @property {Object} classes An object containing the class names for the Video
  * @property {String} classes.root CSS classes for the root container element
  * @property {String} classes.inner CSS classes for the inner container element
+ * @property {String} classes.wrapper CSS classes for the wrapper container element
  * @property {String} classes.container CSS classes for the container element
  * @property {String} classes.video CSS classes for the video element
  * @property {String} url Embed URL to render the video from an external provider (YouTube, Vimeo etc)
@@ -118,6 +117,7 @@ Video.propTypes = {
     classes: shape({
         root: string,
         inner: string,
+        wrapper: string,
         container: string,
         video: string
     }),

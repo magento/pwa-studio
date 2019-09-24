@@ -23,7 +23,6 @@ exports[`renders a Video component 1`] = `
     <div
       style={
         Object {
-          "backgroundColor": undefined,
           "border": undefined,
           "borderColor": undefined,
           "borderRadius": undefined,
@@ -72,7 +71,6 @@ exports[`renders a Video component with all props configured 1`] = `
     <div
       style={
         Object {
-          "backgroundColor": "red",
           "border": "solid",
           "borderColor": "red",
           "borderRadius": "15px",
@@ -121,7 +119,6 @@ exports[`renders an empty Video component 1`] = `
     <div
       style={
         Object {
-          "backgroundColor": undefined,
           "border": undefined,
           "borderColor": undefined,
           "borderRadius": undefined,

@@ -8,8 +8,12 @@
     width: 100%;
 }
 
+.wrapper {
+    overflow: hidden;
+    transform: translateZ(0px);
+}
+
 .container {
-    border-radius: inherit;
     overflow: hidden;
     padding-top: 56.25%;
     position: relative;
