@@ -3,7 +3,7 @@ import { arrayOf, string, shape } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import defaultClasses from './categoryTile.css';
-import { useCategoryTile } from '@magento/peregrine/lib/mixins/CategoryList/useCategoryTile';
+import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
 const CategoryTile = props => {
     const mixinProps = useCategoryTile({

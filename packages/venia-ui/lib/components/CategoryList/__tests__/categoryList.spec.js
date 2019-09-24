@@ -4,19 +4,18 @@ import { createTestInstance } from '@magento/peregrine';
 import LoadingIndicator from '../../LoadingIndicator';
 import CategoryTile from '../categoryTile';
 import CategoryList from '../categoryList';
-import { useCategoryList } from '@magento/peregrine/lib/mixins/CategoryList/useCategoryList';
-
-import { useCategoryTile } from '@magento/peregrine/lib/mixins/CategoryList/useCategoryTile';
+import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
+import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
 jest.mock('@magento/venia-drivers');
 jest.mock('../../../classify');
-jest.mock('@magento/peregrine/lib/mixins/CategoryList/useCategoryTile', () => {
+jest.mock('@magento/peregrine/lib/talons/CategoryList/useCategoryTile', () => {
     return {
         useCategoryTile: jest.fn()
     };
 });
 
-jest.mock('@magento/peregrine/lib/mixins/CategoryList/useCategoryList', () => {
+jest.mock('@magento/peregrine/lib/talons/CategoryList/useCategoryList', () => {
     return {
         useCategoryList: jest.fn()
     };
@@ -26,6 +25,7 @@ useCategoryTile.mockReturnValue({
     image: {},
     item: {}
 });
+
 useCategoryList.mockReturnValue({
     data: {
         category: {

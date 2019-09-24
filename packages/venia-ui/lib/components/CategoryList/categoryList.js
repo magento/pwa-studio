@@ -5,7 +5,7 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './categoryList.css';
 import CategoryTile from './categoryTile';
 import categoryListQuery from '../../queries/getCategoryList.graphql';
-import { useCategoryList } from '@magento/peregrine/lib/mixins/CategoryList/useCategoryList';
+import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
 // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
 const mapCategory = categoryItem => {
