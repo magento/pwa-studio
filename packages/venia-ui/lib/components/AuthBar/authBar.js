@@ -5,7 +5,7 @@ import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
-import { useAuthBar } from '@magento/peregrine/lib/mixins/AuthBar/useAuthBar';
+import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 
 const AuthBar = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
