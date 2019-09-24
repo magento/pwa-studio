@@ -116,7 +116,7 @@ const Row = props => {
         <div
             ref={backgroundElement}
             style={dynamicStyles}
-            className={cssClasses.join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
         >
             {children}
         </div>
@@ -129,7 +129,8 @@ const Row = props => {
  * @typedef props
  *
  * @property {Object} classes An object containing the class names for the Row
- * @property {String} classes.contained CSS classes for the contained appearance element
+ * @property {String} classes.contained CSS class for the contained appearance element
+ * @property {String} classes.root CSS class for the row root element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
@@ -157,6 +158,7 @@ const Row = props => {
  */
 Row.propTypes = {
     classes: shape({
+        root: string,
         contained: string
     }),
     appearance: oneOf(['contained', 'full-width', 'full-bleed']),

@@ -2,7 +2,7 @@
 
 exports[`render row with all props configured 1`] = `
 <div
-  className="test-class"
+  className="root test-class"
   style={
     Object {
       "backgroundAttachment": "fixed",
@@ -39,7 +39,7 @@ exports[`render row with all props configured 1`] = `
 
 exports[`render row with mobile image displayed and parallax enabled 1`] = `
 <div
-  className="contained"
+  className="root contained"
   style={
     Object {
       "backgroundAttachment": undefined,
@@ -69,7 +69,7 @@ exports[`render row with mobile image displayed and parallax enabled 1`] = `
 
 exports[`render row with no props 1`] = `
 <div
-  className="contained"
+  className="root contained"
   style={
     Object {
       "backgroundAttachment": undefined,
