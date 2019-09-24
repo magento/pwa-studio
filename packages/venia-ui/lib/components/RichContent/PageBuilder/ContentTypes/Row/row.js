@@ -4,6 +4,7 @@ import { verticalAlignmentToFlex } from '../../utils';
 import { Parallax } from 'react-parallax';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
+import { resourceUrl } from '@magento/venia-drivers';
 
 const Row = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -62,8 +63,10 @@ const Row = props => {
         paddingLeft
     };
 
-    if (!enableParallax) {
-        dynamicStyles.backgroundImage = image ? `url(${image})` : null;
+    if (!enableParallax && image) {
+        dynamicStyles.backgroundImage = image
+            ? `url(${resourceUrl(image, { type: 'image-wysiwyg' })})`
+            : null;
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;

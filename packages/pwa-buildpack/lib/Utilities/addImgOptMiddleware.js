@@ -65,7 +65,7 @@ https://github.com/nodejs/node-gyp#installation`
             const imageUrl = new URL(incomingUrl, backendUrl);
             debug('imageUrl', imageUrl);
 
-            const optParamNames = ['auto', 'format', 'width', 'height'];
+            const optParamNames = ['auto', 'format', 'width', 'height', 'quality'];
 
             // Start with the original search params, so
             // we can preserve any non-imageopt parameters
@@ -82,11 +82,9 @@ https://github.com/nodejs/node-gyp#installation`
                 params.set('format', 'webp');
             }
 
-            const { width, height } = incomingQuery;
-            let rewrittenUrl = `https://0.0.0.0/resize/`;
-
+            const { width, height, quality } = incomingQuery;
             if (width) {
-                rewrittenUrl += `${width}`;
+                params.set('width', width);
             }
 
             // If we received height and width we should force crop since our
@@ -98,11 +96,15 @@ https://github.com/nodejs/node-gyp#installation`
             //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
             //   https://sharp.pixelplumbing.com/en/stable/api-resize/
             if (height) {
-                rewrittenUrl += `/${height}`;
+                params.set('height', height);
                 params.set('crop', true);
             }
 
-            const rewritten = new URL(rewrittenUrl);
+            if (quality) {
+                params.set('quality', quality);
+            }
+
+            const rewritten = new URL(`https://0.0.0.0/resize/`);
             rewritten.search = params.toString();
 
             debug({ rewritten });

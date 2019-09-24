@@ -2,6 +2,7 @@ import React from 'react';
 import { arrayOf, bool, oneOf, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
+import { resourceUrl } from '@magento/venia-drivers';
 
 const Image = props => {
     const {
@@ -48,7 +49,10 @@ const Image = props => {
     };
 
     const SourceFragment = mobileImage ? (
-        <source media="(max-width: 768px)" srcSet={mobileImage} />
+        <source
+            media="(max-width: 768px)"
+            srcSet={resourceUrl(mobileImage, { type: 'image-wysiwyg' })}
+        />
     ) : (
         ''
     );
@@ -57,7 +61,7 @@ const Image = props => {
             <picture>
                 {SourceFragment}
                 <img
-                    src={desktopImage}
+                    src={resourceUrl(desktopImage, { type: 'image-wysiwyg' })}
                     title={title}
                     alt={altText}
                     style={imageStyles}
