@@ -2,9 +2,14 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import RichContent from '../richContent';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('../PageBuilder/config', () => {
+    return () => {
+        return {
+            configAggregator: () => {},
+            component: ({contentType, children}) => <div dataContentType={contentType}>{children}</div>
+        }
+    }
+});
 
 test('renders a RichContent component', () => {
     const component = createTestInstance(<RichContent />);

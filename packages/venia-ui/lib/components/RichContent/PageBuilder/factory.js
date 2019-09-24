@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { contentTypesConfig, MissingComponent } from './config';
+import getContentTypeConfig, { MissingComponent } from './config';
 
 /**
  * Render a content type
@@ -26,7 +26,7 @@ const renderContentType = (Component, data) => {
  * @constructor
  */
 const ContentTypeFactory = ({ data }) => {
-    const contentTypeConfig = contentTypesConfig[data.contentType];
+    const contentTypeConfig = getContentTypeConfig(data.contentType);
 
     let children;
     if (contentTypeConfig && contentTypeConfig.component) {

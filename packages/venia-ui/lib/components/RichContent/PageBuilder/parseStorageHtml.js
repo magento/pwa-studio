@@ -1,4 +1,4 @@
-import { contentTypesConfig } from './config';
+import getContentTypeConfig from './config';
 
 /**
  * Create a basic object representing a content type in our tree
@@ -43,16 +43,17 @@ const walk = (rootEl, contentTypeStructureObj) => {
         }
 
         const props = createContentTypeObject(contentType, currentNode);
+        const contentTypeConfig = getContentTypeConfig(contentType);
 
         if (
-            contentTypesConfig[contentType] &&
-            typeof contentTypesConfig[contentType].configAggregator ===
+            contentTypeConfig &&
+            typeof contentTypeConfig.configAggregator ===
                 'function'
         ) {
             try {
                 Object.assign(
                     props,
-                    contentTypesConfig[contentType].configAggregator(
+                    contentTypeConfig.configAggregator(
                         currentNode,
                         props
                     )

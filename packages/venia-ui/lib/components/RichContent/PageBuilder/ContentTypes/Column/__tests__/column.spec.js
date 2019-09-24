@@ -12,6 +12,15 @@ test('renders a Column component', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('renders a Column with appearance align bottom', () => {
+    const columnProps = {
+        appearance: 'align-bottom',
+    };
+    const component = createTestInstance(<Column {...columnProps} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('renders a Column component with all props configured', () => {
     window.matchMedia = jest.fn().mockImplementation(query => {
         return {

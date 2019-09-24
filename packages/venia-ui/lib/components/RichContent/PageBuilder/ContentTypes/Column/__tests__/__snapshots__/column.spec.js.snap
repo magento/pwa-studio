@@ -138,3 +138,34 @@ exports[`renders a Column component with all props configured 1`] = `
   }
 />
 `;
+
+exports[`renders a Column with appearance align bottom 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "alignSelf": "flex-end",
+      "backgroundColor": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-start",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+      "verticalAlignment": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;

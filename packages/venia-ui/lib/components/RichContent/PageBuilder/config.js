@@ -21,7 +21,7 @@ import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 
-export const contentTypesConfig = {
+const contentTypesConfig = {
     row: {
         configAggregator: rowConfigAggregator,
         component: Row
@@ -83,5 +83,17 @@ export const contentTypesConfig = {
         component: React.lazy(() => import('./ContentTypes/Video'))
     }
 };
+
+/**
+ * Retrieve a content types configuration
+ *
+ * @param {string} contentType
+ * @returns {*}
+ */
+export default function getContentTypeConfig(contentType) {
+    if (contentTypesConfig[contentType]) {
+        return contentTypesConfig[contentType];
+    }
+}
 
 export const MissingComponent = React.lazy(() => import('./missing'));
