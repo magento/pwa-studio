@@ -44,7 +44,7 @@ test('image config aggregator sets proper mobileImage when desktopImage equals m
 
     expect(config).toEqual(
         expect.objectContaining({
-            desktopImage: "same-image.png",
+            desktopImage: 'same-image.png',
             mobileImage: null
         })
     );

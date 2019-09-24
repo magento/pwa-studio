@@ -46,7 +46,7 @@ test('renders a Image component with all props configured', () => {
 test('renders a Image component with openInNewTab set to false', () => {
     const imageProps = {
         link: '',
-        openInNewTab: false,
+        openInNewTab: false
     };
 
     const component = createTestInstance(<Image {...imageProps} />);
