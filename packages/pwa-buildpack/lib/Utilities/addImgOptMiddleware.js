@@ -70,7 +70,8 @@ https://github.com/nodejs/node-gyp#installation`
                 'format',
                 'width',
                 'height',
-                'quality'
+                'quality',
+                'crop'
             ];
 
             // Start with the original search params, so
@@ -88,7 +89,7 @@ https://github.com/nodejs/node-gyp#installation`
                 params.set('format', 'webp');
             }
 
-            const { width, height, quality } = incomingQuery;
+            const { width, height, quality, crop } = incomingQuery;
             if (width) {
                 params.set('width', width);
             }
@@ -103,7 +104,13 @@ https://github.com/nodejs/node-gyp#installation`
             //   https://sharp.pixelplumbing.com/en/stable/api-resize/
             if (height) {
                 params.set('height', height);
-                params.set('crop', true);
+                if (!crop) {
+                    params.set('crop', true);
+                }
+            }
+
+            if (crop) {
+                params.set('crop', crop);
             }
 
             if (quality) {

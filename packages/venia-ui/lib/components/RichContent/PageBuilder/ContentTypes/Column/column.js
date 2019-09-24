@@ -135,7 +135,9 @@ const Column = props => {
                 `url(${resourceUrl(image, {
                     type: 'image-wysiwyg',
                     width: columnElement.current.offsetWidth,
-                    quality: 85
+                    height: columnElement.current.offsetHeight,
+                    quality: 85,
+                    crop: false
                 })})`
             );
         }

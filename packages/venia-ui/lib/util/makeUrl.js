@@ -45,8 +45,9 @@ const mediaBases = new Map()
  * @param {number} props.width - the desired resize width of the image
  * @param {number} props.height - the desired resize height of the image
  * @param {number} props.quality - the desired quality of the image
+ * @param {number} props.crop - should the image be cropped
  */
-const makeOptimizedUrl = (path, { type, width, height, quality } = {}) => {
+const makeOptimizedUrl = (path, { type, width, height, quality, crop } = {}) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;
@@ -80,6 +81,9 @@ const makeOptimizedUrl = (path, { type, width, height, quality } = {}) => {
     }
     if (quality) {
         params.set('quality', quality);
+    }
+    if (crop !== undefined) {
+        params.set('crop', crop);
     }
 
     baseURL.search = params.toString();

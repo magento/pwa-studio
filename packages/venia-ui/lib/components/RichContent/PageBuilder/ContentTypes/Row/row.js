@@ -112,11 +112,20 @@ const Row = props => {
             backgroundElement.current &&
             backgroundElement.current.offsetWidth
         ) {
+            let elementWidth = backgroundElement.current.offsetWidth;
+            let elementHeight = backgroundElement.current.offsetHeight;
+            // If parallax is enabled resize are a higher resolution, as the image will be zoomed
+            if (enableParallax) {
+                elementWidth = Math.round(elementWidth * 1.25);
+                elementHeight = Math.round(elementHeight * 1.25);
+            }
             setBgImageStyle(
                 `url(${resourceUrl(image, {
                     type: 'image-wysiwyg',
-                    width: backgroundElement.current.offsetWidth,
-                    quality: 85
+                    width: elementWidth,
+                    height: elementHeight,
+                    quality: 85,
+                    crop: false
                 })})`
             );
         }
