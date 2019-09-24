@@ -1,7 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 
-const DEFAULT_RANDOM_STRING = crypto.randomBytes(8).toString('hex');
+const getDefaultRandomString = () => crypto.randomBytes(8).toString('hex');
 
 function createFileHash(filePath) {
     const result = new Promise(resolve => {
@@ -19,7 +19,7 @@ function createFileHash(filePath) {
                 fileStream.on('error', function() {
                     hash.end();
                     console.error(`Unable to read file ${filePath}`);
-                    resolve(DEFAULT_RANDOM_STRING);
+                    resolve(getDefaultRandomString());
                 });
 
                 fileStream.pipe(hash);
@@ -28,7 +28,7 @@ function createFileHash(filePath) {
             }
         } catch (err) {
             console.error(`Unable to create hash of ${filePath}`, err);
-            resolve(DEFAULT_RANDOM_STRING);
+            resolve(getDefaultRandomString());
         }
     });
 
