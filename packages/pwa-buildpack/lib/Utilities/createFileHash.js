@@ -26,7 +26,7 @@ function createFileHash(filePath) {
         }
     }).catch(err => {
         console.error(err);
-        return getDefaultRandomString()
+        return getDefaultRandomString();
     });
 
     return result;
