@@ -15,6 +15,18 @@ Array [
     <div
       className="root"
     />
+    <dl
+      className="selection"
+    >
+      <dt
+        className="selectionLabel"
+      >
+        Selected option-1:
+      </dt>
+      <dd>
+        None
+      </dd>
+    </dl>
   </div>,
   <div
     className="root"
@@ -29,6 +41,18 @@ Array [
     <div
       className="root"
     />
+    <dl
+      className="selection"
+    >
+      <dt
+        className="selectionLabel"
+      >
+        Selected option-1:
+      </dt>
+      <dd>
+        None
+      </dd>
+    </dl>
   </div>,
 ]
 `;
