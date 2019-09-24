@@ -79,7 +79,9 @@ const Video = props => {
             className={[classes.root, ...cssClasses].join(' ')}
         >
             <div style={innerStyles} className={classes.inner}>
-                <div style={wrapperStyles} className={classes.wrapper}>{Video}</div>
+                <div style={wrapperStyles} className={classes.wrapper}>
+                    {Video}
+                </div>
             </div>
         </div>
     );
