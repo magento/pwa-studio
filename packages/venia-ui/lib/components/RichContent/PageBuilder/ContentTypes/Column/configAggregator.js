@@ -7,15 +7,11 @@ import {
 export default node => {
     return {
         minHeight: node.style.minHeight ? node.style.minHeight : null,
-        textAlign: node.style.textAlign,
         display: node.style.display,
         width: node.style.width,
-        ...getVerticalAlignment(node),
         backgroundColor: node.style.backgroundColor,
+        ...getAdvanced(node),
         ...getBackgroundImages(node),
-        cssClasses: node.getAttribute('class')
-            ? node.getAttribute('class')
-            : null,
-        ...getAdvanced(node)
+        ...getVerticalAlignment(node)
     };
 };

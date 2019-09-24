@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Redirect } from '@magento/venia-drivers';
-import { bool, func, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../classify';
@@ -17,18 +17,19 @@ import {
     hasLengthAtLeast
 } from '../../util/formValidators';
 import defaultClasses from './createAccount.css';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
-    const {
-        hasError,
-        initialValues = {},
-        isCreatingAccount,
-        isSignedIn,
-        onSubmit
-    } = props;
+    const { initialValues = {}, onSubmit } = props;
+
+    const [
+        { createAccountError, isCreatingAccount, isSignedIn }
+    ] = useUserContext();
+    const hasError = !!createAccountError;
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const sanitizedInitialValues = useMemo(() => {
         const { email, firstName, lastName, ...rest } = initialValues;
@@ -127,15 +128,11 @@ CreateAccount.propTypes = {
         root: string,
         subscribe: string
     }),
-    error: shape({
-        message: string
-    }),
     initialValues: shape({
         email: string,
         firstName: string,
         lastName: string
     }),
-    isSubmitting: bool,
     onSubmit: func.isRequired
 };
 
