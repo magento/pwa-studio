@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useUserContext } from '../../context/user';
 
+const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
+
 /**
  * Returns props necessary to render an AuthModal component.
  *
@@ -27,18 +29,20 @@ export const useAuthModal = props => {
         showCreateAccount,
         showForgotPassword,
         showMainMenu,
-        showMyAccount
+        showMyAccount,
+        view
     } = props;
 
     const [username, setUsername] = useState('');
     const [{ currentUser }, { createAccount, signOut }] = useUserContext();
 
-    // if the user is authed, the only valid view is "MY_ACCOUNT"
+    // If the user is authed, the only valid view is "MY_ACCOUNT".
+    // view an also be `MENU` but in that case we don't want to act.
     useEffect(() => {
-        if (currentUser && currentUser.id) {
+        if (currentUser && currentUser.id && UNAUTHED_ONLY.includes(view)) {
             showMyAccount();
         }
-    }, [currentUser, showMyAccount]);
+    }, [currentUser, showMyAccount, view]);
 
     const handleClose = useCallback(() => {
         showMainMenu();
