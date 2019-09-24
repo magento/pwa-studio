@@ -32,7 +32,7 @@ const Row = props => {
         backgroundAttachment,
         backgroundRepeat,
         enableParallax,
-        parallaxSpeed,
+        parallaxSpeed = 0.5,
         textAlign,
         border,
         borderColor,
@@ -102,7 +102,7 @@ const Row = props => {
         let parallaxElement;
         if (enableParallax) {
             parallaxElement = backgroundElement.current;
-            jarallax(parallaxElement, { speed: parallaxSpeed || 0.5 });
+            jarallax(parallaxElement, { speed: parallaxSpeed });
         }
 
         return () => {
@@ -110,7 +110,7 @@ const Row = props => {
                 jarallax(parallaxElement, 'destroy');
             }
         };
-    }, []);
+    });
 
     return (
         <div
