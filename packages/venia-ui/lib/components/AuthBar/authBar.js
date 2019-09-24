@@ -12,16 +12,20 @@ const AuthBar = props => {
 
     const {
         currentUser,
-        disabled,
-        handleClick,
+        handleShowMyAccount,
+        handleSignIn,
         isSignedIn,
-        showMyAccount
+        isSignInDisabled
     } = useAuthBar(props);
 
     const child = isSignedIn ? (
-        <UserChip user={currentUser} showMyAccount={showMyAccount} />
+        <UserChip user={currentUser} showMyAccount={handleShowMyAccount} />
     ) : (
-        <Button disabled={!!disabled} priority="high" onClick={handleClick}>
+        <Button
+            disabled={isSignInDisabled}
+            priority="high"
+            onClick={handleSignIn}
+        >
             {'Sign In'}
         </Button>
     );
