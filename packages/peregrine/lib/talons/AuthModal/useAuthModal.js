@@ -3,6 +3,26 @@ import { useUserContext } from '../../context/user';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
+/**
+ * Returns props necessary to render an AuthModal component.
+ *
+ * @param {object} props
+ * @param {function} props.closeDrawer - callback that closes drawer
+ * @param {function} props.showCreateAccount - callback that shows create account view
+ * @param {function} props.showForgotPassword - callback that shows forgot password view
+ * @param {function} props.showMainMenu - callback that shows main menu view
+ * @param {function} props.showMyAccount - callback that shows my account view
+ * @param {string} props.view - enum string of current view
+ * @return {{
+ *  handleClose: function,
+ *  handleCreateAccount: function,
+ *  handleSignOut: function,
+ *  setUsername: function,
+ *  showCreateAccount: function,
+ *  showForgotPassword: function,
+ *  username: string
+ * }}
+ */
 export const useAuthModal = props => {
     const {
         closeDrawer,
