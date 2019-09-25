@@ -1,14 +1,16 @@
 const {
     configureWebpack,
-    fetcherUtils: { getMediaURL }
+    graphQL: { getMediaURL, getUnionAndInterfaceTypes }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    getMediaURL().then(mediaURL => {
-        global.MAGENTO_MEDIA_BACKEND_URL = mediaURL;
-    });
+    const mediaUrl = await getMediaURL();
+    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
+
+    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
@@ -59,6 +61,7 @@ module.exports = async env => {
              * Make sure to add the same constants to
              * the globals object in jest.config.js.
              */
+            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
             STORE_NAME: JSON.stringify('Venia')
         }),
         new HTMLWebpackPlugin({
