@@ -5,21 +5,21 @@ import {
     getMargin,
     getPadding,
     getTextAlign,
-    getVerticalAlignment
+    getVerticalAlignment,
+    verticalAlignmentToFlex
 } from '../utils';
 
 test('can retrieve background image from node', () => {
     const node = document.createElement('div');
     node.innerHTML =
         '<div data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;{{media url=wysiwyg/gear/gear-main.jpg}}\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;{{media url=wysiwyg/magento-logo.png}}\\&quot;}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: center center; background-size: contain; background-repeat: repeat; background-attachment: fixed;"></div>';
-    expect(getBackgroundImages(node.childNodes[0])).toEqual({
-        desktopImage: '{{media url=wysiwyg/gear/gear-main.jpg}}',
-        mobileImage: '{{media url=wysiwyg/magento-logo.png}}',
-        backgroundSize: 'contain',
-        backgroundPosition: 'center center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: true
-    });
+    expect(getBackgroundImages(node.childNodes[0])).toMatchSnapshot();
+});
+
+test('can set image properties with no image properties in node', () => {
+    const node = document.createElement('div');
+    node.innerHTML = '<div/>';
+    expect(getBackgroundImages(node.childNodes[0])).toMatchSnapshot();
 });
 
 test('can retrieve vertical alignment', () => {
@@ -36,6 +36,20 @@ test('can retrieve vertical alignment', () => {
     expect(getVerticalAlignment(node.childNodes[0]).verticalAlignment).toEqual(
         'bottom'
     );
+});
+
+test('can convert vertical alignment to flex property', () => {
+    expect(verticalAlignmentToFlex('top')).toEqual('flex-start');
+    expect(verticalAlignmentToFlex('middle')).toEqual('center');
+    expect(verticalAlignmentToFlex('bottom')).toEqual('flex-end');
+});
+
+test('can set vertical alignment with no vertical alignment properties in node', () => {
+    const node = document.createElement('div');
+    node.innerHTML = '<div/>';
+    expect(
+        getVerticalAlignment(node.childNodes[0]).verticalAlignment
+    ).toBeNull();
 });
 
 test('can retrieve padding', () => {
