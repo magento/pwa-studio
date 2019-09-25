@@ -39,17 +39,6 @@ export const useFlow = props => {
     ] = useCheckoutContext();
     const { onSubmitError, step, setStep } = props;
 
-    const {
-        availableShippingMethods,
-        billingAddress,
-        isSubmitting,
-        paymentData,
-        shippingAddress,
-        shippingAddressError,
-        shippingMethod,
-        shippingTitle
-    } = checkoutState;
-
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
         setStep('form');
@@ -74,18 +63,10 @@ export const useFlow = props => {
     }, [setStep]);
 
     return {
-        availableShippingMethods,
-        billingAddress,
         cartState,
-        checkoutDisabled: isSubmitting || cartState.isEmpty,
+        checkoutDisabled: checkoutState.isSubmitting || cartState.isEmpty,
         checkoutState,
         isReady: isCheckoutReady(checkoutState),
-        isSubmitting,
-        paymentData,
-        shippingAddress,
-        shippingAddressError,
-        shippingMethod,
-        shippingTitle,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,

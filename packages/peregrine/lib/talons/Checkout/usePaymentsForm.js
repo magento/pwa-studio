@@ -5,6 +5,11 @@ const DEFAULT_FORM_VALUES = {
     addresses_same: true
 };
 
+/**
+ * Returns props necessary to render a PaymentsForm component.
+ *
+ * @param {Object} props.initialValues initial values from state
+ */
 export const usePaymentsForm = props => {
     const { initialValues } = props;
     const [isSubmitting, setIsSubmitting] = useState(false);

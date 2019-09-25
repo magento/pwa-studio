@@ -36,18 +36,10 @@ const Flow = props => {
     });
 
     const {
-        availableShippingMethods,
-        billingAddress,
         cartState,
         checkoutDisabled,
         checkoutState,
         isReady,
-        isSubmitting,
-        paymentData,
-        shippingAddress,
-        shippingAddressError,
-        shippingMethod,
-        shippingTitle,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
@@ -57,6 +49,17 @@ const Flow = props => {
         handleSubmitOrder,
         step
     } = talonProps;
+
+    const {
+        availableShippingMethods,
+        billingAddress,
+        isSubmitting,
+        paymentData,
+        shippingAddress,
+        shippingAddressError,
+        shippingMethod,
+        shippingTitle
+    } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 

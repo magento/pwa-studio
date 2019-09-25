@@ -20,12 +20,10 @@ import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/use
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
-    const { classes } = props;
+    const { classes, countries, onCancel } = props;
     const {
         addressDiffers,
         anchorRef,
-        countries,
-        handleCancel,
         handleError,
         handleSuccess,
         isDisabled,
@@ -136,7 +134,7 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button onClick={onCancel}>Cancel</Button>
                 <Button priority="high" type="submit" disabled={isDisabled}>
                     Use Card
                 </Button>

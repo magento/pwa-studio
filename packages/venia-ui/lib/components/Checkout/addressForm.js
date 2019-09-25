@@ -28,26 +28,21 @@ const fields = [
 ];
 
 const AddressForm = props => {
+    const { countries, error, isSubmitting, onCancel, onSubmit } = props;
+
     const talonProps = useAddressForm({
-        ...props,
-        fields
+        fields,
+        initialValues: props.initialValues
     });
 
-    const {
-        countries,
-        error,
-        handleCancel,
-        handleSubmit,
-        initialValues,
-        isSubmitting
-    } = talonProps;
+    const { initialValues } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <Form
             className={classes.root}
             initialValues={initialValues}
-            onSubmit={handleSubmit}
+            onSubmit={onSubmit}
         >
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
@@ -130,7 +125,7 @@ const AddressForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button onClick={onCancel}>Cancel</Button>
                 <Button type="submit" priority="high" disabled={isSubmitting}>
                     Use Address
                 </Button>

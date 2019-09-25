@@ -3,19 +3,12 @@ import { useMemo } from 'react';
 /**
  * Returns values used to render an AddressForm component.
  * @param {Object} props
- * @param {Object} props.fields an array of fields to reduce over for initial values
- * @param {Object} props... TODO complete these
+ * @param {Object[]} props.fields an array of fields to reduce over for initial values
+ * @param {Object} props.initialValues Object containing some initial values from state
+ * @returns {Object} initialValues a map of form fields and corresponding initial values.
  */
 export const useAddressForm = props => {
-    const {
-        onCancel,
-        countries,
-        fields,
-        initialValues,
-        isSubmitting,
-        error,
-        onSubmit
-    } = props;
+    const { fields, initialValues } = props;
 
     const values = useMemo(
         () =>
@@ -27,11 +20,6 @@ export const useAddressForm = props => {
     );
 
     return {
-        countries,
-        error,
-        handleCancel: onCancel,
-        handleSubmit: onSubmit,
-        initialValues: values,
-        isSubmitting
+        initialValues: values
     };
 };

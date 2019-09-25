@@ -2,16 +2,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 // TODO install informed?
 import { useFormState } from 'informed';
 
+/**
+ *
+ * @param {boolean} props.isSubmitting whether or not the payment form items are
+ * @param {function} props.setIsSubmitting callback for setting submitting state
+ * @param {function} props.onSubmit submit callback
+ */
 export const usePaymentsFormItems = props => {
     const [isReady, setIsReady] = useState(false);
 
-    const {
-        onCancel,
-        countries,
-        isSubmitting,
-        setIsSubmitting,
-        onSubmit: submitPaymentData
-    } = props;
+    const { isSubmitting, setIsSubmitting, onSubmit } = props;
 
     // Currently form state toggles dirty from false to true because of how
     // informed is implemented. This effectively causes this child components
@@ -52,7 +52,7 @@ export const usePaymentsFormItems = props => {
                     sameAsShippingAddress
                 };
             }
-            submitPaymentData({
+            onSubmit({
                 billingAddress,
                 paymentMethod: {
                     code: 'braintree',
@@ -60,7 +60,7 @@ export const usePaymentsFormItems = props => {
                 }
             });
         },
-        [formState.values, setIsSubmitting, submitPaymentData]
+        [formState.values, setIsSubmitting, onSubmit]
     );
 
     // When the address checkbox is unchecked, additional fields are rendered.
@@ -79,8 +79,6 @@ export const usePaymentsFormItems = props => {
     return {
         addressDiffers,
         anchorRef,
-        countries,
-        handleCancel: onCancel,
         handleError,
         handleSuccess,
         isDisabled: !isReady || isSubmitting,

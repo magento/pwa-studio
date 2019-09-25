@@ -12,15 +12,29 @@ import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEdita
  */
 const EditableForm = props => {
     const {
-        countries,
+        checkout,
         editing,
+        isSubmitting,
+        setEditing,
+        shippingAddressError,
+        submitPaymentMethodAndBillingAddress,
+        submitShippingAddress,
+        submitShippingMethod
+    } = props;
+
+    const {
+        countries,
         handleCancel,
         handleSubmitAddressForm,
         handleSubmitPaymentsForm,
-        handleSubmitShippingForm,
-        isSubmitting,
-        shippingAddressError
-    } = useEditableForm(props);
+        handleSubmitShippingForm
+    } = useEditableForm({
+        checkout,
+        setEditing,
+        submitPaymentMethodAndBillingAddress,
+        submitShippingAddress,
+        submitShippingMethod
+    });
 
     switch (editing) {
         case 'address': {

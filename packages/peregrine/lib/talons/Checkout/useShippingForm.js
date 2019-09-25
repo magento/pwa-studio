@@ -1,12 +1,22 @@
 import { useCallback } from 'react';
+/**
+ * Returns props necessary to render a shipping form.
+ *
+ * @param {Object} props
+ * @param {Object[]} props.availableShippingMethods an array of possible shipping methods
+ * @param {function} onCancel callback for cancellation
+ * @param {function} onSubmit callback for submission
+ * @param {string} initialValue current selected shipping method value
+ *
+ * @returns {{
+ *      handleCancel: function,
+ *      handleSubmit: function,
+ *      initialValue: object,
+ *      selectableShippingMethods: array
+ * }}
+ */
 export const useShippingForm = props => {
-    const {
-        availableShippingMethods,
-        isSubmitting,
-        onCancel,
-        onSubmit,
-        shippingMethod
-    } = props;
+    const { availableShippingMethods, onCancel, onSubmit } = props;
 
     let initialValue;
     let selectableShippingMethods;
@@ -19,7 +29,7 @@ export const useShippingForm = props => {
             })
         );
         initialValue =
-            shippingMethod || availableShippingMethods[0].carrier_code;
+            props.initialValue || availableShippingMethods[0].carrier_code;
     } else {
         selectableShippingMethods = [];
         initialValue = '';
@@ -48,7 +58,6 @@ export const useShippingForm = props => {
         handleCancel: onCancel,
         handleSubmit,
         initialValue,
-        isDisabled: isSubmitting,
         selectableShippingMethods
     };
 };

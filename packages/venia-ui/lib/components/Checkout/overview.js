@@ -16,24 +16,35 @@ import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview'
 const Overview = props => {
     const {
         cancelCheckout,
-        currencyCode,
-        handleAddressFormClick,
-        handlePaymentFormClick,
-        handleShippingFormClick,
+        cart,
+        classes,
         hasPaymentMethod,
         hasShippingAddress,
         hasShippingMethod,
         isSubmitting,
-        numItems,
         paymentData,
         ready,
+        setEditing,
         shippingAddress,
         shippingTitle,
-        submitOrder,
-        subtotal
-    } = useOverview(props);
+        submitOrder
+    } = props;
 
-    const { classes } = props;
+    const {
+        currencyCode,
+        handleAddressFormClick,
+        handlePaymentFormClick,
+        handleShippingFormClick,
+        isSubmitDisabled,
+        numItems,
+        subtotal
+    } = useOverview({
+        cart,
+        isSubmitting,
+        ready,
+        setEditing
+    });
+
     return (
         <Fragment>
             <div className={classes.body}>
@@ -80,7 +91,7 @@ const Overview = props => {
                 <Button onClick={cancelCheckout}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={isSubmitting || !ready}
+                    disabled={isSubmitDisabled}
                     onClick={submitOrder}
                 >
                     Confirm Order

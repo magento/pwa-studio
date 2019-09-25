@@ -11,14 +11,28 @@ import defaultClasses from './shippingForm.css';
 import { useShippingForm } from '@magento/peregrine/lib/talons/Checkout/useShippingForm';
 
 const ShippingForm = props => {
-    const talonProps = useShippingForm(props);
+    const {
+        availableShippingMethods,
+        isSubmitting,
+        onCancel,
+        onSubmit,
+        shippingMethod
+    } = props;
+
+    const talonProps = useShippingForm({
+        availableShippingMethods,
+        onCancel,
+        onSubmit,
+        initialValue: shippingMethod
+    });
+
     const {
         handleCancel,
         handleSubmit,
         initialValue,
-        isDisabled,
         selectableShippingMethods
     } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -41,7 +55,7 @@ const ShippingForm = props => {
             </div>
             <div className={classes.footer}>
                 <Button onClick={handleCancel}>Cancel</Button>
-                <Button priority="high" type="submit" disabled={isDisabled}>
+                <Button priority="high" type="submit" disabled={isSubmitting}>
                     Use Method
                 </Button>
             </div>
