@@ -22,6 +22,7 @@ Local and global are the two different types of state a component can depend on.
 Local state data is any data scoped within a component or its children components.
 This type of data is not shared with a component's parent or peer data.
 Otherwise, that data should be [lifted][].
+
 For example, form data is never used outside of that components, so
 it is categorized as local state data.
 
@@ -29,6 +30,8 @@ Global state data is any data made available to components in the entire applica
 Components that depend on a global state value subscribe to changes for that value and re-render themselves.
 Most components do not depend on the entire global state.
 Instead, a component only uses small pieces of the entire global state.
+
+Shopping cart data is an example of global state data that components in different levels of the application use and modify.
 
 ## Common state management technologies
 
@@ -78,13 +81,14 @@ Hooks help developers to decompose large components into smaller functions that 
 
 Since PWA Studio favors using function components over classes, it uses many of React's [built-in hooks][] in its Venia and Peregrine libraries.
 The Peregrine library also provides [custom React hooks][] for storefront developers.
-These hooks contain common Magento storefront logic.
+These hooks contain common Magento storefront logic such as state management.
 
 ## State management in PWA Studio
 
 State management in PWA Studio is a mix of the Redux library, React hooks, and React context providers.
 The Redux library is the underlying technology that powers state management behind the scenes, but
-components that need global state data use React hooks and context providers to read or update the current state.
+components do not interact with the global store directly.
+Instead, components that need global state data use React hooks and context providers to read or update the current state.
 
 ### Context providers
 
@@ -112,7 +116,7 @@ import { Adapter } from '@magento/venia-drivers';
 import { PeregrineContextProvider } from '@magento/peregrine';
 
 import store from './store'; // This was defined in the previous example
-import MyApplication from `./MyApplication`;
+import MyApplication from `./src/components/MyApplication`;
 
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -133,7 +137,7 @@ ReactDOM.render(
 
 ### Global state slices
 
-Peregrine exposes the global state data in slices through the `PeregrineContextProvider` and custom React hooks.
+Peregrine exposes global state data in slices through the `PeregrineContextProvider` component and custom React hooks.
 A state data slice is a subset of values from the global state.
 Each slice contains data about a specific part of the application, such as the shopping cart state or user session state.
 
