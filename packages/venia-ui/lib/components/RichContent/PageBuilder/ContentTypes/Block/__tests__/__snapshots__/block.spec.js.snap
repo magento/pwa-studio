@@ -84,7 +84,7 @@ exports[`renders a Block component with all props configured and Page Builder ri
   }
 >
   <div
-    className="contained"
+    className="root contained"
     style={
       Object {
         "backgroundAttachment": "scroll",
