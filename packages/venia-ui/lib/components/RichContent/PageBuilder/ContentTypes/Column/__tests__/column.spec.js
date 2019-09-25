@@ -14,7 +14,7 @@ test('renders a Column component', () => {
 
 test('renders a Column with appearance align bottom', () => {
     const columnProps = {
-        appearance: 'align-bottom',
+        appearance: 'align-bottom'
     };
     const component = createTestInstance(<Column {...columnProps} />);
 

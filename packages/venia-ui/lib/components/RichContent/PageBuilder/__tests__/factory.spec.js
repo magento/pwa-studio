@@ -11,12 +11,12 @@ test('factory should render instance of content type', () => {
         }
     };
     const TestComponent = () => <div>Test Component</div>;
-    config.default = jest.fn().mockImplementation((contentType) => {
+    config.default = jest.fn().mockImplementation(contentType => {
         if (contentType === 'test') {
             return {
                 configAggregator: () => {},
                 component: TestComponent
-            }
+            };
         }
     });
     const component = createTestInstance(<ContentTypeFactory {...props} />);
@@ -49,14 +49,14 @@ test('factory should render all children content types', () => {
         </div>
     );
     const ChildComponent = () => <div>Child Component</div>;
-    config.default = jest.fn().mockImplementation((contentType) => {
+    config.default = jest.fn().mockImplementation(contentType => {
         if (contentType === 'parent') {
             return {
                 configAggregator: () => {
                     return {};
                 },
                 component: ParentComponent
-            }
+            };
         }
         if (contentType === 'child') {
             return {
@@ -64,7 +64,7 @@ test('factory should render all children content types', () => {
                     return {};
                 },
                 component: ChildComponent
-            }
+            };
         }
     });
     const component = createTestInstance(<ContentTypeFactory {...props} />);
@@ -72,7 +72,7 @@ test('factory should render all children content types', () => {
     expect(component.root.findAllByType(ChildComponent).length).toEqual(3);
 });
 
-test('factory should render Missing for content types that aren\'t supported', () => {
+test("factory should render Missing for content types that aren't supported", () => {
     const props = {
         data: {
             contentType: 'broken',

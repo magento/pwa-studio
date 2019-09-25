@@ -47,16 +47,12 @@ const walk = (rootEl, contentTypeStructureObj) => {
 
         if (
             contentTypeConfig &&
-            typeof contentTypeConfig.configAggregator ===
-                'function'
+            typeof contentTypeConfig.configAggregator === 'function'
         ) {
             try {
                 Object.assign(
                     props,
-                    contentTypeConfig.configAggregator(
-                        currentNode,
-                        props
-                    )
+                    contentTypeConfig.configAggregator(currentNode, props)
                 );
             } catch (e) {
                 console.error(

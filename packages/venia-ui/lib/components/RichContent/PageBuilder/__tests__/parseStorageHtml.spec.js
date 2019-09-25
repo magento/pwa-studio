@@ -1,19 +1,21 @@
 import parseStorageHtml from '../parseStorageHtml';
 
 jest.mock('../config', () => {
-    return (contentType) => {
+    return contentType => {
         if (contentType === 'none') {
-            return null
+            return null;
         }
         if (contentType === 'error') {
             return {
-                configAggregator: () => { throw 'Error'; }
-            }
+                configAggregator: () => {
+                    throw 'Error';
+                }
+            };
         }
         return {
             configAggregator: () => {}
-        }
-    }
+        };
+    };
 });
 
 const testMasterFormat =

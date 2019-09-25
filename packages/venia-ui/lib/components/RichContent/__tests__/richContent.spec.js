@@ -6,9 +6,11 @@ jest.mock('../PageBuilder/config', () => {
     return () => {
         return {
             configAggregator: () => {},
-            component: ({contentType, children}) => <div dataContentType={contentType}>{children}</div>
-        }
-    }
+            component: ({ contentType, children }) => (
+                <div dataContentType={contentType}>{children}</div>
+            )
+        };
+    };
 });
 
 test('renders a RichContent component', () => {
