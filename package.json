@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@magento/eslint-config": "~1.4.1",
+    "@types/jest": "~24.0.18",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
     "coveralls": "~3.0.3",
@@ -78,7 +79,8 @@
     "sharp": "~0.22.1"
   },
   "resolutions": {
-    "graphql": "~14.3.1"
+    "graphql": "~14.3.1",
+    "**/graphql-cli/npm-run": "~5.0.0"
   },
   "engines": {
     "node": ">=10.x",

@@ -19,6 +19,7 @@ import buttonsConfigAggregator from './ContentTypes/Buttons/configAggregator';
 import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregator';
 import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
+import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 
 export const contentTypesConfig = {
     row: {
@@ -76,6 +77,10 @@ export const contentTypesConfig = {
     divider: {
         configAggregator: dividerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Divider'))
+    },
+    video: {
+        configAggregator: videoConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Video'))
     }
 };
 

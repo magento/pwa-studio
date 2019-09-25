@@ -2,9 +2,6 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
 import { clearCartId, createCart } from '../cart';
-import { getCountries } from '../directory';
-import { getAccountInformation } from '../../selectors/checkoutReceipt';
-import checkoutReceiptActions from '../checkoutReceipt';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -43,6 +40,28 @@ export const resetCheckout = () =>
         await dispatch(closeDrawer());
         await dispatch(createCart());
         dispatch(actions.reset());
+    };
+
+export const resetReceipt = () =>
+    async function thunk(dispatch) {
+        await dispatch(actions.receipt.reset());
+    };
+
+export const getCountries = () =>
+    async function thunk(dispatch, getState) {
+        const { checkout } = getState();
+
+        if (checkout.countries) {
+            return;
+        }
+
+        try {
+            dispatch(actions.getCountries.request());
+            const response = await request('/rest/V1/directory/countries');
+            dispatch(actions.getCountries.receive(response));
+        } catch (error) {
+            dispatch(actions.getCountries.receive(error));
+        }
     };
 
 export const getShippingMethods = () => {
@@ -108,8 +127,8 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, directory } = getState();
-        const { countries } = directory;
+        const { cart, checkout } = getState();
+        const { countries } = checkout;
 
         const { cartId } = cart;
         if (!cartId) {
@@ -156,7 +175,7 @@ export const submitShippingAddress = payload =>
 
         const {
             cart,
-            directory: { countries }
+            checkout: { countries }
         } = getState();
 
         const { cartId } = cart;
@@ -259,7 +278,7 @@ export const submitOrder = () =>
             });
 
             dispatch(
-                checkoutReceiptActions.setOrderInformation({
+                actions.receipt.setOrder({
                     id: response,
                     billing_address
                 })
@@ -280,7 +299,19 @@ export const submitOrder = () =>
     };
 
 export const createAccount = history => async (dispatch, getState) => {
-    const accountInfo = getAccountInformation(getState());
+    const { checkout } = getState();
+
+    const {
+        email,
+        firstname: firstName,
+        lastname: lastName
+    } = checkout.receipt.order.billing_address;
+
+    const accountInfo = {
+        email,
+        firstName,
+        lastName
+    };
 
     await dispatch(resetCheckout());
 

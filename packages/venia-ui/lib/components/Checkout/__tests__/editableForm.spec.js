@@ -18,7 +18,7 @@ const mockSubmitShippingMethod = jest.fn();
 const mockSubmitPaymentMethodAndBillingAddress = jest.fn();
 
 const defaultProps = {
-    directory: {},
+    checkout: {},
     setEditing: mockSetEditing,
     submitShippingAddress: mockSubmitShippingAddress,
     submitShippingMethod: mockSubmitShippingMethod,

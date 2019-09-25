@@ -163,6 +163,7 @@ exports[`renders the correct tree 1`] = `
   <div />
   <div>
     <button
+      disabled={false}
       type="submit"
     >
       <span>
