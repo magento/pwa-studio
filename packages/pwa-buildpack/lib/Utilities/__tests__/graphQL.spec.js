@@ -26,9 +26,9 @@ describe('getMediaUrl', () => {
                 })
             })
         );
-    
+
         await getMediaURL();
-        
+
         const [fetchUrl, fetchOptions] = fetch.mock.calls[0];
 
         expect(fetchUrl).toBe(
@@ -44,12 +44,12 @@ describe('getMediaUrl', () => {
         expect(fetchOptions.headers).toHaveProperty('Accept-Encoding');
         expect(typeof fetchOptions.body).toBe('string');
     });
-    
+
     test('it should fetch the media URL and resolve with it', async () => {
         // Setup: mock a successful fetch.
         const expectedMediaURL =
             'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/';
-    
+
         fetch.mockReturnValueOnce(
             Promise.resolve({
                 json: () => ({
@@ -61,22 +61,22 @@ describe('getMediaUrl', () => {
                 })
             })
         );
-    
+
         // Test.
         const result = await getMediaURL();
 
         // Assert.
         expect(result).toBe(expectedMediaURL);
     });
-    
+
     test('it should reject when an error occurs', async () => {
         // Setup: simulate a failed fetch.
         fetch.mockReturnValueOnce(Promise.reject());
-    
+
         // Test & Assert.
         await expect(getMediaURL()).rejects;
     });
-    
+
     test('it should reject when the response does not contain storeConfig.secure_base_media_url', async () => {
         // Setup: simulate a response that doesn't have storeConfig.secure_base_media_url.
         fetch.mockReturnValueOnce(
@@ -86,7 +86,7 @@ describe('getMediaUrl', () => {
                 })
             })
         );
-    
+
         // Test & Assert.
         await expect(getMediaURL()).rejects.toThrow();
     });
@@ -100,9 +100,11 @@ describe('getSchemaTypes', () => {
                 json: () => ({
                     data: {
                         __schema: {
-                            types: [{
-                                unit: 'test'
-                            }]
+                            types: [
+                                {
+                                    unit: 'test'
+                                }
+                            ]
                         }
                     }
                 })
@@ -133,13 +135,16 @@ describe('getUnionAndInterfaceTypes', () => {
                 json: () => ({
                     data: {
                         __schema: {
-                            types: [{
-                                name: 'keeper',
-                                possibleTypes: 'unit test'
-                            }, {
-                                name: 'discarded',
-                                possibleTypes: null
-                            }]
+                            types: [
+                                {
+                                    name: 'keeper',
+                                    possibleTypes: 'unit test'
+                                },
+                                {
+                                    name: 'discarded',
+                                    possibleTypes: null
+                                }
+                            ]
                         }
                     }
                 })

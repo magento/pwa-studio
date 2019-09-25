@@ -4,7 +4,10 @@ import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
 import { ApolloContext, ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import {
+    InMemoryCache,
+    IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
