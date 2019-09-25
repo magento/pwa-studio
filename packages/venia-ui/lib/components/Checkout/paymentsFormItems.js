@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
 import BraintreeDropin from './braintreeDropin';
@@ -21,15 +21,29 @@ import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/use
  */
 const PaymentsFormItems = props => {
     const { classes, countries, onCancel } = props;
+
     const {
         addressDiffers,
-        anchorRef,
         handleError,
         handleSuccess,
         isDisabled,
         isSubmitting,
         setIsReady
     } = usePaymentsFormItems(props);
+
+    const anchorRef = useRef(null);
+    // When the address checkbox is unchecked, additional fields are rendered.
+    // This causes the form to grow, and potentially to overflow, so the new
+    // fields may go unnoticed. To reveal them, we scroll them into view.
+    useEffect(() => {
+        if (addressDiffers) {
+            const { current: element } = anchorRef;
+
+            if (element instanceof HTMLElement) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [addressDiffers]);
 
     const billingAddressFields = addressDiffers ? (
         <Fragment>

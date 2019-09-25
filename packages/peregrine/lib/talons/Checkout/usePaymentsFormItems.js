@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-// TODO install informed?
+import { useCallback, useState } from 'react';
 import { useFormState } from 'informed';
 
 /**
@@ -20,7 +19,6 @@ export const usePaymentsFormItems = props => {
     // If they resolve it or we move away from informed we can probably get some
     // extra performance.
     const formState = useFormState();
-    const anchorRef = useRef(null);
     const addressDiffers = formState.values.addresses_same === false;
 
     const handleError = useCallback(() => {
@@ -63,22 +61,8 @@ export const usePaymentsFormItems = props => {
         [formState.values, setIsSubmitting, onSubmit]
     );
 
-    // When the address checkbox is unchecked, additional fields are rendered.
-    // This causes the form to grow, and potentially to overflow, so the new
-    // fields may go unnoticed. To reveal them, we scroll them into view.
-    useEffect(() => {
-        if (addressDiffers) {
-            const { current: element } = anchorRef;
-
-            if (element instanceof HTMLElement) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [addressDiffers]);
-
     return {
         addressDiffers,
-        anchorRef,
         handleError,
         handleSuccess,
         isDisabled: !isReady || isSubmitting,
