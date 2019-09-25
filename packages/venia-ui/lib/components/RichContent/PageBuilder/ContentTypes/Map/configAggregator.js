@@ -1,0 +1,25 @@
+import { getAdvanced } from '../../utils';
+import Map from '../Map';
+
+export default node => {
+    const locations = JSON.parse(node.getAttribute('data-locations') || []).map(
+        location => {
+            location.name = location.location_name;
+            delete location.location_name;
+
+            return location;
+        }
+    );
+
+    const isShowControls = node.getAttribute('data-show-controls') === 'true';
+
+    return {
+        height: node.style.height,
+        locations,
+        mapOptions: Object.assign({}, Map.defaultProps.mapOptions, {
+            disableDefaultUI: !isShowControls,
+            mapTypeControl: isShowControls
+        }),
+        ...getAdvanced(node)
+    };
+};
