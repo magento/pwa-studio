@@ -2,10 +2,7 @@ import { useCallback } from 'react';
 
 export const useEditableForm = props => {
     const {
-        editing,
-        isSubmitting,
         setEditing,
-        shippingAddressError,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod,
@@ -48,12 +45,9 @@ export const useEditableForm = props => {
 
     return {
         countries,
-        editing,
         handleCancel,
         handleSubmitAddressForm,
         handleSubmitPaymentsForm,
-        handleSubmitShippingForm,
-        isSubmitting,
-        shippingAddressError
+        handleSubmitShippingForm
     };
 };
