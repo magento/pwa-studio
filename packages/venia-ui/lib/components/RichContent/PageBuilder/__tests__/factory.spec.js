@@ -68,7 +68,7 @@ test('factory should render all children content types', () => {
     expect(component.root.findAllByType(ChildComponent).length).toEqual(3);
 });
 
-test("factory should render Missing for content types that aren't supported", () => {
+test('factory should render Missing for content types that aren\'t supported', () => {
     const props = {
         data: {
             contentType: 'broken',
