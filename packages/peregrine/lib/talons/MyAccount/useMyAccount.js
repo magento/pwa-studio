@@ -14,8 +14,7 @@ export const useMyAccount = props => {
     const subtitle = email ? email : UNAUTHED_SUBTITLE;
 
     const handleSignOut = useCallback(() => {
-        // TODO: Get this value from router context when implemented.
-        onSignOut({ history: window.history });
+        onSignOut();
     }, [onSignOut]);
 
     return {
