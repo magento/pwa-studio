@@ -35,3 +35,17 @@ test('image config aggregator retrieves image data with anchor', () => {
         })
     );
 });
+
+test('image config aggregator sets proper mobileImage when desktopImage equals mobilImage', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<figure class="another-class-image" data-content-type="image" data-appearance="full-width" data-element="main" style="text-align: center; margin: 1px 2px 3px 4px; padding: 5px 6px 7px 8px; border-style: none;"><a href="/test-link" target="" data-link-type="page" title="Title Text" data-element="link"><img class="pagebuilder-mobile-hidden" src="same-image.png" alt="Alt Text" title="Title Text" data-element="desktop_image" style="border-style: solid; border-color: rgb(255, 0, 0); border-width: 5px; border-radius: 10px; max-width: 100%; height: auto;"><img class="pagebuilder-mobile-only" src="same-image.png" alt="Alt Text" title="Title Text" data-element="mobile_image" style="border-style: solid; border-color: rgb(255, 0, 0); border-width: 5px; border-radius: 10px; max-width: 100%; height: auto;"></a><figcaption data-element="caption">Test Caption</figcaption></figure>`;
+
+    const config = configAggregator(node.childNodes[0]);
+
+    expect(config).toEqual(
+        expect.objectContaining({
+            desktopImage: 'same-image.png',
+            mobileImage: null
+        })
+    );
+});
