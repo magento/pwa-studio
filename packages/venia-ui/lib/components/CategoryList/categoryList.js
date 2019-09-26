@@ -34,7 +34,7 @@ const CategoryList = props => {
         id
     });
 
-    const { childCategories, error } = talonProps;
+    const { childCategories, error, loading } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -54,7 +54,7 @@ const CategoryList = props => {
             </div>
         );
     }
-    if (!childCategories) {
+    if (loading || !childCategories) {
         child = fullPageLoadingIndicator;
     } else if (childCategories.length === 0) {
         child = (
