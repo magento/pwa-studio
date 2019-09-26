@@ -9,7 +9,14 @@ import { useCallback } from 'react';
  * @param {function} props.setEditing set editing state object
  */
 export const useOverview = props => {
-    const { cart, isSubmitting, ready, setEditing } = props;
+    const {
+        cancelCheckout,
+        cart,
+        isSubmitting,
+        ready,
+        setEditing,
+        submitOrder
+    } = props;
 
     const handleAddressFormClick = useCallback(() => {
         setEditing('address');
@@ -23,6 +30,14 @@ export const useOverview = props => {
         setEditing('shippingMethod');
     }, [setEditing]);
 
+    const handleCancel = useCallback(() => {
+        cancelCheckout();
+    }, [cancelCheckout]);
+
+    const handleSubmit = useCallback(() => {
+        submitOrder();
+    }, [submitOrder]);
+
     const currencyCode =
         (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
     const numItems = (cart && cart.details && cart.details.items_qty) || 0;
@@ -31,8 +46,10 @@ export const useOverview = props => {
     return {
         currencyCode,
         handleAddressFormClick,
+        handleCancel,
         handlePaymentFormClick,
         handleShippingFormClick,
+        handleSubmit,
         isSubmitDisabled: isSubmitting || !ready,
         numItems,
         subtotal

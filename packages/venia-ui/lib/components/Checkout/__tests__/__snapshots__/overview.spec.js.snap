@@ -132,7 +132,7 @@ Array [
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -144,7 +144,7 @@ Array [
     <button
       className="root_highPriority"
       disabled={true}
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -289,7 +289,7 @@ Array [
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -301,7 +301,7 @@ Array [
     <button
       className="root_highPriority"
       disabled={true}
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -446,7 +446,7 @@ Array [
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -458,7 +458,7 @@ Array [
     <button
       className="root_highPriority"
       disabled={true}
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -603,7 +603,7 @@ Array [
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -615,7 +615,7 @@ Array [
     <button
       className="root_highPriority"
       disabled={true}
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span

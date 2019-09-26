@@ -33,16 +33,20 @@ const Overview = props => {
     const {
         currencyCode,
         handleAddressFormClick,
+        handleCancel,
         handlePaymentFormClick,
         handleShippingFormClick,
+        handleSubmit,
         isSubmitDisabled,
         numItems,
         subtotal
     } = useOverview({
+        cancelCheckout,
         cart,
         isSubmitting,
         ready,
-        setEditing
+        setEditing,
+        submitOrder
     });
 
     return (
@@ -88,11 +92,11 @@ const Overview = props => {
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={cancelCheckout}>Back to Cart</Button>
+                <Button onClick={handleCancel}>Back to Cart</Button>
                 <Button
                     priority="high"
                     disabled={isSubmitDisabled}
-                    onClick={submitOrder}
+                    onClick={handleSubmit}
                 >
                     Confirm Order
                 </Button>

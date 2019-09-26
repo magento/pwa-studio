@@ -20,16 +20,29 @@ import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/use
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
-    const { classes, countries, onCancel } = props;
+    const {
+        classes,
+        countries,
+        isSubmitting,
+        onCancel,
+        onSubmit,
+        setIsSubmitting
+    } = props;
 
     const {
         addressDiffers,
+        handleCancel,
         handleError,
         handleSuccess,
         isDisabled,
-        isSubmitting,
         setIsReady
-    } = usePaymentsFormItems(props);
+    } = usePaymentsFormItems({
+        isSubmitting,
+        onCancel,
+        setIsSubmitting,
+        onCancel,
+        onSubmit
+    });
 
     const anchorRef = useRef(null);
     // When the address checkbox is unchecked, additional fields are rendered.
@@ -148,7 +161,7 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={handleCancel}>Cancel</Button>
                 <Button priority="high" type="submit" disabled={isDisabled}>
                     Use Card
                 </Button>

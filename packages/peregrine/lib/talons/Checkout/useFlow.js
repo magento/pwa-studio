@@ -37,7 +37,7 @@ export const useFlow = props => {
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const { onSubmitError, step, setStep } = props;
+    const { onSubmitError, setStep } = props;
 
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
@@ -73,7 +73,6 @@ export const useFlow = props => {
         handleBeginCheckout,
         handleCancelCheckout,
         handleCloseReceipt,
-        handleSubmitOrder,
-        step
+        handleSubmitOrder
     };
 };

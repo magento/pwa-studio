@@ -17,7 +17,9 @@ const PaymentsForm = props => {
         initialValues,
         isSubmitting,
         setIsSubmitting
-    } = usePaymentsForm(props);
+    } = usePaymentsForm({
+        initialValues: props.initialValues
+    });
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const formChildrenProps = {

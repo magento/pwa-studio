@@ -13,11 +13,18 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
  * a call to action for viewing order details and creating an account.
  */
 const Receipt = props => {
+    const { history, onClose } = props;
+    const talonProps = useReceipt({
+        history,
+        onClose
+    });
+
     const {
         handleCreateAccount,
         handleViewOrderDetails,
         isSignedIn
-    } = useReceipt(props);
+    } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (

@@ -5,8 +5,7 @@ export const useEditableForm = props => {
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
-        submitShippingMethod,
-        checkout: { countries }
+        submitShippingMethod
     } = props;
 
     const handleCancel = useCallback(() => {
@@ -44,7 +43,6 @@ export const useEditableForm = props => {
     );
 
     return {
-        countries,
         handleCancel,
         handleSubmitAddressForm,
         handleSubmitPaymentsForm,
