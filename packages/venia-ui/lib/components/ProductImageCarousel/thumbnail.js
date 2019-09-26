@@ -75,9 +75,9 @@ const Thumbnail = props => {
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Thumnail component
+ * @property {Object} classes An object containing the class names for the Thumbnail component
  * @property {string} classes.root classes for root container
- * @property {string} classes.rootSelected classes for thumnail corresponding to selected item
+ * @property {string} classes.rootSelected classes for the selected thumbnail item
  * @property {bool} isActive is image associated is active in carousel
  * @property {string} item.label label for image
  * @property {string} item.file filePath of image
