@@ -1,8 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
-import { useFieldState, useFormApi } from 'informed';
 import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
-import { useSearchParam } from '@magento/peregrine';
 
 import Icon from '../Icon';
 import TextInput from '../TextInput';
@@ -13,29 +11,8 @@ const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 const SearchField = props => {
     const { location, onChange, onFocus } = props;
-    const { value } = useFieldState('search_query');
-    const formApi = useFormApi();
-
-    const setValue = useCallback(
-        queryValue => {
-            // update search field
-            if (queryValue) {
-                formApi.setValue('search_query', queryValue);
-            }
-
-            // trigger the effects of clearing the field
-            if (typeof onChange === 'function') {
-                onChange('');
-            }
-        },
-        [formApi, onChange]
-    );
-
-    useSearchParam({ location, parameter: 'query', setValue });
-
-    const resetForm = useCallback(() => {
-        formApi.reset();
-    }, [formApi]);
+    const talonProps = useSearchField({ location, onChange });
+    const { resetForm, value } = talonProps;
 
     const resetButton = value ? (
         <Trigger action={resetForm}>{clearIcon}</Trigger>
