@@ -3,6 +3,16 @@ import { any, bool, func, number, oneOfType, shape, string } from 'prop-types';
 
 import fromRenderProp from '../util/fromRenderProp';
 
+/**
+ * The **Item** Component is reponsible for rendering each item in list
+ *
+ * @typedef Item
+ * @kind functional component
+ *
+ * @param {props} props
+ *
+ * @returns{React.Element} A React component for rendering each item in list.
+ */
 const Item = props => {
     const {
         classes,
@@ -47,6 +57,22 @@ const Item = props => {
     );
 };
 
+/**
+ * props for {@link Item}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes css classes prop for Item
+ * @property {string} classes.root css classes for Item root container
+ * @property {bool} hasFocus Is item has focus
+ * @property {bool} isSelected Is item selected
+ * @property {any} item item data
+ * @property {number} itemIndex index of item
+ * @property {func | string} render A render prop for the list item. A tagname string, such as `"div"`, is also valid
+ * @property {func} setFocus A callback for setting focus
+ * @property {number | string} uniqueId unique Id given forthe item
+ * @property {func} updateSelectedKeys A callback for updating selected items
+ */
 Item.propTypes = {
     classes: shape({
         root: string
@@ -61,6 +87,11 @@ Item.propTypes = {
     updateSelectedKeys: func.isRequired
 };
 
+/**
+ * default props for {@link Item}
+ *
+ * @typedef @defaultProps
+ */
 Item.defaultProps = {
     classes: {},
     hasFocus: false,
