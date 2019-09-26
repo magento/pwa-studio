@@ -2,6 +2,7 @@ module.exports = {
     addImgOptMiddleware: require('./addImgOptMiddleware'),
     configureHost: require('./configureHost'),
     createDotEnvFile: require('./createDotEnvFile'),
-    loadEnvironment: require('./loadEnvironment'),
-    graphQL: require('./graphQL')
+    createProject: require('./createProject'),
+    graphQL: require('./graphQL'),
+    loadEnvironment: require('./loadEnvironment')
 };

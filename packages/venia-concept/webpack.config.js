@@ -31,6 +31,9 @@ module.exports = async env => {
             'redux-thunk'
         ],
         special: {
+            'react-feather': {
+                esModules: true
+            },
             '@magento/peregrine': {
                 esModules: true,
                 cssModules: true
