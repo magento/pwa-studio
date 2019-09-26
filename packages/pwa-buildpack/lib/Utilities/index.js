@@ -2,7 +2,8 @@ module.exports = {
     addImgOptMiddleware: require('./addImgOptMiddleware'),
     configureHost: require('./configureHost'),
     createDotEnvFile: require('./createDotEnvFile'),
-    loadEnvironment: require('./loadEnvironment'),
+    createProject: require('./createProject'),
     createFileHash: require('./createFileHash'),
-    fetcherUtils: require('./fetcherUtils')
+    fetcherUtils: require('./fetcherUtils'),
+    loadEnvironment: require('./loadEnvironment')
 };
