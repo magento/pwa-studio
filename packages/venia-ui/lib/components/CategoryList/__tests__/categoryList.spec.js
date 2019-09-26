@@ -121,7 +121,7 @@ test('renders category tiles', () => {
     };
 
     useCategoryList.mockReturnValueOnce({
-        data
+        childCategories: data.category.children
     });
 
     const { root } = createTestInstance(<CategoryList id={2} title="foo" />);

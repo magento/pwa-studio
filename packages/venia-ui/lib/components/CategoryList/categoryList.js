@@ -34,7 +34,7 @@ const CategoryList = props => {
         id
     });
 
-    const { data, error, loading } = mixinProps;
+    const { childCategories, error } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -54,16 +54,16 @@ const CategoryList = props => {
             </div>
         );
     }
-    if (loading || !data) {
+    if (!childCategories) {
         child = fullPageLoadingIndicator;
-    } else if (data.category.children.length === 0) {
+    } else if (childCategories.length === 0) {
         child = (
             <div className={classes.noResults}>No child categories found.</div>
         );
     } else {
         child = (
             <div className={classes.content}>
-                {data.category.children.map(item => (
+                {childCategories.map(item => (
                     <CategoryTile item={mapCategory(item)} key={item.url_key} />
                 ))}
             </div>

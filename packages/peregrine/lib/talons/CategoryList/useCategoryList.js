@@ -7,12 +7,12 @@ import { useQuery } from '../../hooks/useQuery';
  * @param {object} props
  * @param {object} props.query - category data
  * @param {string} props.id - category id
- * @return {{ data: object, error: boolean, loading: boolean }}
+ * @return {{ childCategories: array, error: object }}
  */
 export const useCategoryList = props => {
     const { query, id } = props;
     const [queryResult, queryApi] = useQuery(query);
-    const { data, error, loading } = queryResult;
+    const { data, error } = queryResult;
     const { runQuery, setLoading } = queryApi;
 
     useEffect(() => {
@@ -32,8 +32,8 @@ export const useCategoryList = props => {
     }, [runQuery, setLoading, id]);
 
     return {
-        data,
         error,
-        loading
+        childCategories:
+            (data && data.category && data.category.children) || null
     };
 };
