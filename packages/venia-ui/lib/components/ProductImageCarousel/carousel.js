@@ -18,13 +18,16 @@ const DEFAULT_IMAGE_HEIGHT = 800;
 
 /**
  * Carousel component for product images
+ * Carousel - Component that holds number of images
+ * where typically one image visible, and other
+ * images can be navigated through previous and next buttons
  *
  * @typedef ProductImageCarousel
  * @kind functional component
  *
  * @param {props} props
  *
- * @returns {React.Element} React carousel component that displays product image
+ * @returns {React.Element} React carousel component that displays a product image
  */
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -101,7 +104,7 @@ const Carousel = props => {
  *
  * @property {Object} classes An object containing the class names for the
  * ProductImageCarousel component
- * @property {string} classes.currentImage classes for image visble
+ * @property {string} classes.currentImage classes for visible image
  * @property {string} classes.imageContainer classes for image container
  * @property {string} classes.nextButton classes for next button
  * @property {string} classes.previousButton classes for previous button
