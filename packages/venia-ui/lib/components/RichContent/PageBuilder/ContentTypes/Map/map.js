@@ -55,6 +55,7 @@ const Map = props => {
         key,
         locations,
         height,
+        mapOptions,
         textAlign,
         border,
         borderColor,
@@ -93,6 +94,9 @@ const Map = props => {
             return;
         }
 
+        let googleMapsEvent;
+        const mapOverlayInstances = [];
+
         const apiOptions = {
             key,
             v: '3'
@@ -100,10 +104,9 @@ const Map = props => {
 
         loadGoogleMapsApi(apiOptions)
             .then(googleMaps => {
-                const map = new googleMaps.Map(
-                        mapElement.current,
-                        props.mapOptions
-                    ),
+                googleMapsEvent = googleMaps.event;
+
+                const map = new googleMaps.Map(mapElement.current, mapOptions),
                     positions = [];
 
                 let activeInfoWindow;
@@ -135,6 +138,9 @@ const Map = props => {
                         infoWindow.open(map, marker);
                         activeInfoWindow = infoWindow;
                     });
+
+                    mapOverlayInstances.push(marker);
+                    mapOverlayInstances.push(infoWindow);
                 });
 
                 // set the bounds of the map to the perimeter of the furthest locations in either direction
@@ -155,7 +161,17 @@ const Map = props => {
                 }
             })
             .catch(error => console.error(error));
-    });
+
+        return () => {
+            if (!googleMapsEvent) {
+                return;
+            }
+
+            mapOverlayInstances.forEach(mapOverlayInstance => {
+                googleMapsEvent.clearInstanceListeners(mapOverlayInstance);
+            });
+        };
+    }, [key, locations, mapOptions]);
 
     return (
         <div
