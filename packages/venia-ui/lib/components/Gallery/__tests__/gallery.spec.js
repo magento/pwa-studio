@@ -2,7 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
-jest.mock('@magento/venia-drivers');
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children }) => children,
+    resourceUrl: () => 'a.url'
+}));
 const classes = { root: 'foo' };
 const items = [
     {
