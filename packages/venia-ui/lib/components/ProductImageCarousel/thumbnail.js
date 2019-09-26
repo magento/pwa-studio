@@ -11,6 +11,17 @@ import { useWindowSize } from '@magento/peregrine';
 const DEFAULT_THUMBNAIL_WIDTH = 240;
 const DEFAULT_THUMBNAIL_HEIGHT = 300;
 
+/**
+ * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel
+ * Shows up only in desktop devices
+ * 
+ * @typedef Thumbnail
+ * @kind functional component
+ * 
+ * @param {props} props
+ * 
+ * @returns {React.Element} React thumbnail component that displays product thumbnail
+ */
 const Thumbnail = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -59,6 +70,20 @@ const Thumbnail = props => {
     );
 };
 
+/**
+* Props for {@link Thumbnail}
+*
+* @typedef props
+*
+* @property {Object} classes An object containing the class names for the Thumnail component
+* @property {string} classes.root classes for root container
+* @property {string} classes.rootSelected classes for thumnail corresponding to selected item 
+* @property {bool} isActive is image associated is active in carousel
+* @property {string} item.label label for image
+* @property {string} item.file filePath of image
+* @property {number} itemIndex index number of thumbnail
+* @property {func} onClickHandler A callback for handling click events on thumbnail
+*/
 Thumbnail.propTypes = {
     classes: shape({
         root: string,

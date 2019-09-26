@@ -24,7 +24,7 @@ const DEFAULT_IMAGE_HEIGHT = 800;
  *
  * @param {props} props
  *
- *  * @returns {React.Element} React carousel component that displays product image .
+ * @returns {React.Element} React carousel component that displays product image
  */
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -97,7 +97,7 @@ const Carousel = props => {
 /**
  * Props for {@link ProductImageCarousel}
  *
- * typedef props
+ * @typedef props
  *
  * @property {Object} classes An object containing the class names for the
  * ProductImageCarousel component
@@ -110,7 +110,7 @@ const Carousel = props => {
  * @property {string} images.label label for image
  * @property {string} image.position Position of image in Carousel
  * @property {bool} image.disabled Is image disabled
- * @property {file} image.file filePath of image
+ * @property {string} image.file filePath of image
  */
 Carousel.propTypes = {
     classes: shape({
