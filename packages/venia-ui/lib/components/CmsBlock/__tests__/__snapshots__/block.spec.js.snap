@@ -22,7 +22,7 @@ exports[`renders a Block component with HTML content 1`] = `
 
 exports[`renders a Block component with all props configured and Page Builder rich content 1`] = `
 <div
-  className="contained"
+  className="root contained"
   style={
     Object {
       "backgroundAttachment": "scroll",
