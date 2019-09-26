@@ -1,6 +1,7 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
+import { useSearchField } from '@magento/peregrine/lib/talons/SearchBar';
 
 import Icon from '../Icon';
 import TextInput from '../TextInput';
