@@ -9,7 +9,7 @@ const emptyData = Array.from({ length: pageSize }).fill(null);
 
 // inline the placeholder elements, since they're constant
 const defaultPlaceholders = emptyData.map((_, index) => (
-    <GalleryItem key={index} placeholder={true} />
+    <GalleryItem key={index} />
 ));
 
 class GalleryItems extends Component {
@@ -29,7 +29,7 @@ class GalleryItems extends Component {
             ? Array.from({ length: pageSize })
                   .fill(null)
                   .map((_, index) => (
-                      <GalleryItem key={index} placeholder={true} />
+                      <GalleryItem key={index} />
                   ))
             : defaultPlaceholders;
     }
