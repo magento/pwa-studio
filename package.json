@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
+    "packages/create-pwa",
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/peregrine",
     "packages/pwa-buildpack",
@@ -56,7 +57,7 @@
     "eslint-plugin-node": "~8.0.1",
     "eslint-plugin-package-json": "~0.1.3",
     "eslint-plugin-react": "~7.12.4",
-    "eslint-plugin-react-hooks": "~1.6.0",
+    "eslint-plugin-react-hooks": "~2.0.1",
     "execa": "~1.0.0",
     "figures": "~2.0.0",
     "first-run": "~2.0.0",
