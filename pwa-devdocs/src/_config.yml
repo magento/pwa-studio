@@ -29,11 +29,19 @@ defaults:
       path: "pwa-buildpack"
     values:
       toc-group: "pwa-buildpack"
+      
+  -
+    scope:
+      path: "pagebuilder"
+    values:
+      toc-group: "pagebuilder"
+
   -
     scope:
       path: "peregrine"
     values:
       toc-group: "peregrine"
+
   -
     scope:
       path: "venia-pwa-concept"
