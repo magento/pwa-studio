@@ -119,6 +119,8 @@ a corresponding `Context.Consumer` acquires the data and subscribes to any chang
 PWA Studio uses the Context feature to provide application state data to storefront components through the [`PeregrineContextProvider`][] component.
 Wrapping an application with the `PeregrineContextProvider` lets its components access different slices of the entire application state.
 
+{% raw %}
+
 ```jsx
 // Example src/index.js
 
@@ -148,6 +150,8 @@ ReactDOM.render(
 
 ```
 
+{% endraw %}
+
 ### Global state slices
 
 Peregrine exposes global state data in slices through the `PeregrineContextProvider` component and custom React hooks.
@@ -162,7 +166,7 @@ The decomposed array yields the state data and an API object to update that stat
 ```jsx
 // Example src/components/MyWelcomeMessage/myWelcomeMessage.js
 
-import { useUserContext } from '@magento/peregrine/lib/context/user`;
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const MyWelcomeMessage = () => {
     const [userContext, userContextApi] = useUserContext();
