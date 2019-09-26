@@ -23,8 +23,18 @@ Local state data is any data scoped within a component or its children component
 This type of data is not shared with a component's parent or peer data.
 Otherwise, that data should be [lifted][].
 
-For example, form data is never used outside of that components, so
+For example, a button component's disabled state is never used outside that component, so
 it is categorized as local state data.
+
+```jsx
+const MyButton = () => {
+    const [isDisabled, setIsDisabled] = useState(false);
+
+    const handleClick= useCallback(() => setIsDisabled(true),[])
+
+    return <button onClick={handleClick} disabled={isDisabled}>Click me!</button>;
+}
+```
 
 Global state data is any data made available to components in the entire application.
 Components that depend on a global state value subscribe to changes for that value and re-render themselves.
@@ -56,7 +66,8 @@ and the Redux pattern can be seen in hooks such as [`useQueryResult()`][] and [`
 Currently, PWA Studio abstracts away its Redux implementation details using Peregrine hooks and context providers.
 This opens up the possibility of the project replacing Redux in Peregrine with another state management library without breaking state dependent components, such as those in Venia.
 
-Since Peregrine components require a Redux store, you must create one in your storefront application project and provide reducers:
+PWA Studio allows you to customize reducers and enhancers.
+The following example uses `combineReducers()` to combine the default Peregrine reducers with custom reducers specific to the project and uses the combined reducers when creating the Redux store.
 
 ```jsx
 // Example src/store.js file
@@ -64,8 +75,10 @@ Since Peregrine components require a Redux store, you must create one in your st
 import { combineReducers, createStore } from 'redux';
 import { enhancer, reducers } from '@magento/peregrine';
 
+import myReducers from './lib/reducers';
+
 // You can add your own reducers here and combine them with the Peregrine exports.
-const rootReducer = combineReducers(reducers);
+const rootReducer = combineReducers(reducers, myReducers);
 
 export default createStore(rootReducer, enhancer);
 ```
