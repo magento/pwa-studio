@@ -2,7 +2,7 @@ import { getAdvanced } from '../../utils';
 import Map from '../Map';
 
 export default node => {
-    const locations = JSON.parse(node.getAttribute('data-locations') || []).map(
+    const locations = JSON.parse(node.getAttribute('data-locations')).map(
         location => {
             location.name = location.location_name;
             delete location.location_name;
