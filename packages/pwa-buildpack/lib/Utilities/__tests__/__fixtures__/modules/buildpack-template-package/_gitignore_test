@@ -1,0 +1,5 @@
+_gitignore_test
+ignorefile
+ignoreexp/*.txt
+ignoredir
+nonexistentfile
