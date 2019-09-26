@@ -52,7 +52,7 @@ const Map = props => {
     const mapElement = useRef(null);
 
     const {
-        key,
+        apiKey,
         locations,
         height,
         mapOptions,
@@ -98,7 +98,7 @@ const Map = props => {
         const mapOverlayInstances = [];
 
         const apiOptions = {
-            key,
+            key: apiKey,
             v: '3'
         };
 
@@ -171,7 +171,7 @@ const Map = props => {
                 googleMapsEvent.clearInstanceListeners(mapOverlayInstance);
             });
         };
-    }, [key, locations, mapOptions]);
+    }, [apiKey, locations, mapOptions]);
 
     return (
         <div
@@ -183,7 +183,7 @@ const Map = props => {
 };
 
 Map.propTypes = {
-    key: string,
+    apiKey: string,
     height: string,
     showControls: bool,
     mapOptions: shape({
@@ -239,7 +239,8 @@ Map.propTypes = {
 };
 
 Map.defaultProps = {
-    key: process.env.GOOGLE_MAPS_API_KEY,
+    apiKey: process.env.GOOGLE_MAPS_API_KEY,
+    locations: [],
     mapOptions: {
         zoom: 8,
         scrollwheel: false,
