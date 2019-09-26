@@ -7,6 +7,10 @@ import {
 } from '../../utils';
 
 export default node => {
+    if (!node.childNodes[0]) {
+        return {};
+    }
+
     const imageNode =
         node.childNodes[0].nodeName === 'A'
             ? node.childNodes[0].childNodes
