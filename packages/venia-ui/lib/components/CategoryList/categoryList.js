@@ -29,7 +29,7 @@ const mapCategory = categoryItem => {
 
 const CategoryList = props => {
     const { id, title } = props;
-    const mixinProps = useCategoryList({
+    const talonProps = useCategoryList({
         query: categoryListQuery,
         id
     });
