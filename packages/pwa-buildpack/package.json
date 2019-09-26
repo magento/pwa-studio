@@ -52,7 +52,6 @@
     "pkg-dir": "~4.1.0",
     "portscanner": "~2.2.0",
     "redis": "~2.8.0",
-    "require-graphql-file": "~1.0.1",
     "tar": "~4.4.8",
     "walk-object": "~4.0.0",
     "webpack-assets-manifest": "~3.1.1",
