@@ -2,8 +2,6 @@
 title: State management
 ---
 
-<!-- TODO: publish this under the technologies/basic-concepts directory -->
-
 ## What is state management
 
 An application, such as a PWA storefront, uses state data to render dynamic content to the user.
@@ -185,7 +183,7 @@ const MyWelcomeMessage = () => {
 export default MyWelcomeMessage;
 ```
 
-<!-- TODO: Update these links to point to master before publishing -->
+<!-- TODO: Update these links to point to master when they are available in master -->
 [`usequeryresult()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useQueryResult.js
 [`userestresponse()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useRestResponse.js
 [`peregrinecontextprovider`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/PeregrineContextProvider/peregrineContextProvider.js
