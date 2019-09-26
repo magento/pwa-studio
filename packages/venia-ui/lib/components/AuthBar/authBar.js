@@ -1,25 +1,31 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
+import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 
 const AuthBar = props => {
-    const { disabled, showMyAccount, showSignIn } = props;
-    const [{ currentUser, isSignedIn }] = useUserContext();
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const handleClick = useCallback(() => {
-        showSignIn();
-    }, [showSignIn]);
+    const {
+        currentUser,
+        handleShowMyAccount,
+        handleSignIn,
+        isSignedIn,
+        isSignInDisabled
+    } = useAuthBar(props);
 
     const child = isSignedIn ? (
-        <UserChip user={currentUser} showMyAccount={showMyAccount} />
+        <UserChip user={currentUser} showMyAccount={handleShowMyAccount} />
     ) : (
-        <Button disabled={!!disabled} priority="high" onClick={handleClick}>
+        <Button
+            disabled={isSignInDisabled}
+            priority="high"
+            onClick={handleSignIn}
+        >
             {'Sign In'}
         </Button>
     );
