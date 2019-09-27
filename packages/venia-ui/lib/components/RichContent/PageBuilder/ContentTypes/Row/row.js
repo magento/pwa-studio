@@ -121,7 +121,8 @@ const Row = props => {
                     width: elementWidth,
                     height: elementHeight,
                     quality: 85,
-                    crop: false
+                    crop: false,
+                    fit: 'cover'
                 })})`
             );
         }

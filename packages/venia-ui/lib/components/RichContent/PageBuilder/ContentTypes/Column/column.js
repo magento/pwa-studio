@@ -133,7 +133,8 @@ const Column = props => {
                     width: columnElement.current.offsetWidth,
                     height: columnElement.current.offsetHeight,
                     quality: 85,
-                    crop: false
+                    crop: false,
+                    fit: 'cover'
                 })})`
             );
         }
