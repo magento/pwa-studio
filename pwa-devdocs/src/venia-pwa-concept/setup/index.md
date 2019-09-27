@@ -113,7 +113,7 @@ Use any of the following commands from the **project root directory** to start t
 
 : Generates build artifacts and runs the staging environment, which uses more compressed assets and more closely reflects production.
 
-### Browsing to the application
+### Browsing the application
 
 After the development server is up and running, look for a similar line in the terminal output (the port may differ for your instance):
 
