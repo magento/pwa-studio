@@ -160,6 +160,7 @@ class M2ApiRequest {
      * @private
      */
     _fetch() {
+        console.log('sending a request to', this.resourceUrl);
         return this._transport(this.resourceUrl, this.opts)
             .then(
                 // When the network operation completes, remove from cache
@@ -182,6 +183,7 @@ class M2ApiRequest {
                 // An M2ApiRequest will reject, passing server errors
                 // to the client, in the event of an HTTP error code.
                 if (!response.ok) {
+                    console.log('The response was not ok!');
                     return (
                         response
                             // The response may or may not be JSON.

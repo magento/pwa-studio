@@ -38,7 +38,10 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
-  "dependencies": {},
+  "dependencies": {
+    "apollo-link-error": "~1.1.12",
+    "apollo-link-retry": "~2.2.15"
+  },
   "devDependencies": {
     "@babel/core": "~7.3.4",
     "@babel/plugin-proposal-class-properties": "~7.3.4",
