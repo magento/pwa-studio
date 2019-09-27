@@ -9,12 +9,16 @@ jest.mock('load-google-maps-api', () =>
 );
 
 test('render map with no props', () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const component = createTestInstance(<Map />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('render map with all props configured', () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const mapProps = {
         appearance: 'default',
         locations: [
@@ -48,6 +52,8 @@ test('render map with all props configured', () => {
 });
 
 test('map with locations calls loadGoogleMapsApi', () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const locations = [
         {
             position: {
@@ -70,9 +76,18 @@ test('map without locations does not call loadGoogleMapsApi', () => {
 });
 
 test('map with 1 location', async () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const mapProps = {
         locations: [
             {
+                name: 'Adobe',
+                comment: 'Main Office',
+                address: '123 Fake St',
+                city: 'San Jose',
+                state: 'CA',
+                zipcode: '12345',
+                country: 'USA',
                 position: {
                     latitude: 0,
                     longitude: 1
@@ -107,6 +122,8 @@ test('map with 1 location', async () => {
 });
 
 test('map with > 1 location', async () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const mapProps = {
         locations: [
             {
@@ -153,6 +170,8 @@ test('map with > 1 location', async () => {
 });
 
 test('map unmount causes event listeners to be unbound', async () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
     const mapProps = {
         locations: [
             {
@@ -175,4 +194,62 @@ test('map unmount causes event listeners to be unbound', async () => {
     expect(mocks.googleMaps.event.clearInstanceListeners).toHaveBeenCalledTimes(
         2
     );
+});
+
+test('useEffect cleanup before loadGoogleMapsApi is resolved', async () => {
+    mocks.stub.mockResolvedValue(mocks.googleMaps);
+
+    const mapProps = {
+        locations: [
+            {
+                position: {
+                    latitude: 0,
+                    longitude: 1
+                }
+            }
+        ]
+    };
+
+    const eventMock = mocks.googleMaps.event;
+    delete mocks.googleMaps.event;
+
+    const component = await createTestInstance(<Map {...mapProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
+
+    component.unmount();
+
+    mocks.googleMaps.event = eventMock;
+    expect(mocks.googleMaps.event.clearInstanceListeners).not.toHaveBeenCalled();
+});
+
+test('catch calls console.error', (finish) => {
+    mocks.stub.mockRejectedValue('Something went wrong');
+
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const mapProps = {
+        locations: [
+            {
+                position: {
+                    latitude: 0,
+                    longitude: 1
+                }
+            }
+        ]
+    };
+
+    createTestInstance(<Map {...mapProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
+
+    // async/await does not work here for promise rejection
+    setTimeout(() => {
+        expect(console.error).toHaveBeenCalledWith('Something went wrong');
+        finish();
+    }, 0);
 });

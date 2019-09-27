@@ -31,8 +31,9 @@ mocks.googleMaps = {
 };
 
 const stub = jest.fn();
-stub.mockResolvedValue(mocks.googleMaps);
 
 export { mocks };
+
+mocks.stub = stub;
 
 export default stub;
