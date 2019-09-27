@@ -43,11 +43,7 @@ const apolloLink = ApolloLink.from([
 ]);
 
 ReactDOM.render(
-    <Adapter
-        apiBase={apiBase}
-        apollo={{ link: apolloLink }}
-        store={store}
-    >
+    <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
             <App />
         </AppContextProvider>
