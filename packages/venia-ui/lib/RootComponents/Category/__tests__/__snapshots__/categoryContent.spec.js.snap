@@ -17,12 +17,11 @@ Array [
       className="c"
     >
       <Gallery
-        data={
+        items={
           Object {
             "id": 1,
           }
         }
-        pageSize={6}
       />
     </section>
     <div

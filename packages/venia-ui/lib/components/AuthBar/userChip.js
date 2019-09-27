@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
     ChevronRight as ChevronRightIcon,
     User as UserIcon
@@ -8,17 +8,12 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import defaultClasses from './userChip.css';
+import { useUserChip } from '@magento/peregrine/lib/talons/AuthBar/useUserChip';
 
 const UserChip = props => {
-    const { showMyAccount, user } = props;
-    const { email, firstname, lastname } = user || {};
-    const fullname = `${firstname} ${lastname}`;
-    const display = fullname.trim() || 'Loading...';
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const handleClick = useCallback(() => {
-        showMyAccount();
-    }, [showMyAccount]);
+    const { display, email, handleClick } = useUserChip(props);
 
     return (
         <button className={classes.root} onClick={handleClick}>
