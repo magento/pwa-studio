@@ -6,7 +6,7 @@ import Item from './item';
 import { useListState } from './useListState';
 
 /**
- * The **Item** is a container holding all the items
+ * The **Item** component is a container holding all the items
  *
  * @typedef Items
  * @kind functional component

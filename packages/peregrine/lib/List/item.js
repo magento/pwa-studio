@@ -64,13 +64,13 @@ const Item = props => {
  *
  * @property {Object} classes css classes prop for Item
  * @property {string} classes.root css classes for Item root container
- * @property {bool} hasFocus Is item has focus
- * @property {bool} isSelected Is item selected
+ * @property {bool} hasFocus Does the item have focus
+ * @property {bool} isSelected Does the item is selected
  * @property {any} item item data
  * @property {number} itemIndex index of item
  * @property {func | string} render A render prop for the list item. A tagname string, such as `"div"`, is also valid
  * @property {func} setFocus A callback for setting focus
- * @property {number | string} uniqueId unique Id given forthe item
+ * @property {number | string} uniqueId unique Id given for the item
  * @property {func} updateSelectedKeys A callback for updating selected items
  */
 Item.propTypes = {
