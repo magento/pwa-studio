@@ -1,4 +1,4 @@
-import findMatchingVariant from '../findMatchingProductVariant';
+import { findMatchingVariant } from '../findMatchingProductVariant';
 
 const sampleItem = {
     sku: 'PARENT',
