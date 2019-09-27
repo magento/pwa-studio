@@ -26,8 +26,9 @@ export const useAutocomplete = props => {
     const valid = value && value.length > 2;
 
     // determine message type
-    const hasResult = data && data.products && data.products.items;
-    const resultCount = hasResult && data.products.items.length;
+    const products = data && data.products;
+    const hasResult = products && products.items;
+    const resultCount = hasResult && products.items.length;
     let messageType = '';
 
     if (error) {
@@ -62,8 +63,9 @@ export const useAutocomplete = props => {
     return {
         hasResult,
         messageType,
-        resultCount,
+        products,
         queryResult,
+        resultCount,
         value
     };
 };
