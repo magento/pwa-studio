@@ -1,7 +1,8 @@
 import {
     getAdvanced,
     getBackgroundImages,
-    getVerticalAlignment
+    getVerticalAlignment,
+    getIsHidden
 } from '../../utils';
 
 export default (node, props) => {
@@ -17,6 +18,7 @@ export default (node, props) => {
         ...getBackgroundImages(dataNode),
         enableParallax: dataNode.getAttribute('data-enable-parallax') === '1',
         parallaxSpeed: parseFloat(dataNode.getAttribute('data-parallax-speed')),
-        ...getAdvanced(dataNode)
+        ...getAdvanced(dataNode),
+        ...getIsHidden(node)
     };
 };

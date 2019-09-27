@@ -87,7 +87,8 @@ export function getAdvanced(node) {
         ...getMargin(node),
         ...getBorder(node),
         ...getTextAlign(node),
-        ...getCssClasses(node)
+        ...getCssClasses(node),
+        ...getIsHidden(node)
     };
 }
 
@@ -158,5 +159,17 @@ export function getCssClasses(node) {
         cssClasses: node.getAttribute('class')
             ? node.getAttribute('class').split(' ')
             : []
+    };
+}
+
+/**
+ * Retrieve if CSS display property is set to none from a content type node
+ *
+ * @param node
+ * @returns {{isHidden: boolean}}
+ */
+export function getIsHidden(node) {
+    return {
+        isHidden: node.style.display === 'none'
     };
 }
