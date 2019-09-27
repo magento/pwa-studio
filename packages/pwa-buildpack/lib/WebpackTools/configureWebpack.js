@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const loadEnvironment = require('../Utilities/loadEnvironment');
+const createFileHash = require('../Utilities/createFileHash');
 const RootComponentsPlugin = require('./plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('./plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('./plugins/UpwardIncludePlugin');
@@ -90,18 +91,38 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
 
     const mode = getMode(env, projectConfig);
 
+    /**
+     * Creating hash of the service worker file based on its content.
+     * If the contents dont change, hash wont change and the client
+     * wont be obligated to download the new file. Client will be
+     * using the cached version of the same service worker.
+     */
+    const serviceWorkerFileHash = await createFileHash('./src/sw.js');
+
+    projectConfig.env = {
+        ...projectConfig.env,
+        SERVICE_WORKER_HASH: serviceWorkerFileHash
+    };
+
     const config = {
         mode,
         context, // Node global for the running script's directory
         entry: {
-            client: path.resolve(paths.src, 'index.js')
+            client: path.resolve(paths.src, 'index.js'),
+            registerSW: path.resolve(paths.src, 'registerSW.js')
         },
         output: {
             path: paths.output,
             publicPath: '/',
-            filename: '[name].js',
+            filename:
+                mode === 'production'
+                    ? '[name].[contenthash].js'
+                    : '[name].[hash].js',
             strictModuleExceptionHandling: true,
-            chunkFilename: '[name]-[chunkhash].js'
+            chunkFilename:
+                mode === 'production'
+                    ? '[name].[chunkhash].js'
+                    : '[name].[hash].js'
         },
         module: {
             rules: [
@@ -194,6 +215,11 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                 context
             }),
             new webpack.EnvironmentPlugin(projectConfig.env),
+            /**
+             * Calling the ServiceWorkerPlugin with the destination
+             * of the compiled SW file to be based on the
+             * hash of the uncompiled SW file.
+             */
             new ServiceWorkerPlugin({
                 mode,
                 paths,
@@ -201,7 +227,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                 injectManifestConfig: {
                     include: [/\.js$/],
                     swSrc: './src/sw.js',
-                    swDest: './sw.js'
+                    swDest: `./sw.${serviceWorkerFileHash}.js`
                 }
             }),
             new UpwardIncludePlugin({
@@ -241,6 +267,12 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         ],
         devtool: 'source-map'
     };
+    /**
+     * Creating regex that will match all the vendors
+     * (node modules) that will needed for rendering
+     * the app. This will be used by the split chunks
+     * plugin to create a chunk for all the vendors.
+     */
     let vendorTest = '[\\/]node_modules[\\/]';
     if (vendor.length > 0) {
         vendorTest += `(${vendor.join('|')})[\\\/]`;
@@ -291,26 +323,60 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
             hints: 'warning'
         };
         config.devtool = false;
-        config.optimization.minimizer = [
-            new TerserPlugin({
-                parallel: true,
-                cache: true,
-                terserOptions: {
-                    ecma: 8,
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        drop_console: true
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
+        config.optimization = {
+            ...config.optimization,
+            moduleIds: 'hashed',
+            /**
+             * This will move the runtime configuration to
+             * its own bundle. Since runtime config tends to
+             * change on each compile even though the app logic
+             * doesn't, if not separated the whole client bundle
+             * needs to be downloaded. Separating them will only
+             * download runtime bundle and use the cached client code.
+             */
+            runtimeChunk: 'single',
+            splitChunks: {
+                cacheGroups: {
+                    /**
+                     * Creating the vendors bundle. This bundle
+                     * will have all the packages that the app
+                     * needs to render. Since these dont change
+                     * often, it is advantageous to bundle them
+                     * separately and cache them on the client.
+                     */
+                    vendor: {
+                        test: new RegExp(vendorTest),
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
                 }
+            },
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ]
+        };
+        config.plugins.push(
+            new webpack.optimize.LimitChunkCountPlugin({
+                maxChunks: 5
             })
-        ];
+        );
     } else {
         throw Error(`Unsupported environment mode in webpack config: ${mode}`);
     }
