@@ -38,10 +38,6 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
-  "dependencies": {
-    "apollo-link-error": "~1.1.12",
-    "apollo-link-retry": "~2.2.15"
-  },
   "devDependencies": {
     "@babel/core": "~7.3.4",
     "@babel/plugin-proposal-class-properties": "~7.3.4",
@@ -64,6 +60,7 @@
     "apollo-client": "2.4.13",
     "apollo-link-context": "~1.0.17",
     "apollo-link-http": "~1.5.11",
+    "apollo-link-retry": "~2.2.15",
     "babel-core": "~7.0.0-bridge.0",
     "babel-eslint": "~10.0.1",
     "babel-jest": "~24.1.0",

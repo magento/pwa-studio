@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
 import { RetryLink } from 'apollo-link-retry';
 import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
@@ -34,23 +33,11 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-        ),
-      );
-  
-    if (networkError) console.log(`[Network error]: ${networkError}`);
-  });
-
 // @see https://www.apollographql.com/docs/link/composition/.
 const apolloLink = ApolloLink.from([
     // by default, RetryLink will retry an operation five (5) times.
     new RetryLink(),
     authLink,
-    errorLink,
     // An apollo-link-http Link
     Adapter.apolloLink(apiBase)
 ]);
