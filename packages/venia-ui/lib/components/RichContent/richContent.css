@@ -1,0 +1,56 @@
+.root h1,
+.root h2,
+.root h3,
+.root h4,
+.root h5,
+.root h6 {
+    word-break: break-word;
+    line-height: 1.25em;
+    margin-bottom: 3rem;
+}
+
+.root h1 {
+    font-size: 2rem;
+}
+.root h2 {
+    font-size: 1.625rem;
+}
+.root h3 {
+    font-size: 1.375rem;
+}
+.root h4 {
+    font-size: 1.125rem;
+}
+.root h5 {
+    font-size: 1rem;
+}
+.root h6 {
+    font-size: 0.875rem;
+}
+
+@media only screen and (min-width: 769px) {
+    .root h1 {
+        font-size: 3rem;
+        font-weight: 300;
+    }
+    .root h2 {
+        font-size: 2.25rem;
+        font-weight: 400;
+    }
+    .root h3 {
+        font-size: 1.75rem;
+        font-weight: 400;
+    }
+    .root h4 {
+        font-size: 1.375rem;
+        font-weight: 400;
+    }
+    .root h5 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    .root h6 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}

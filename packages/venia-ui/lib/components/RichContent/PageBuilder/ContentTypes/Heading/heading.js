@@ -1,7 +1,5 @@
 import React from 'react';
-import defaultClasses from './heading.css';
-import { mergeClasses } from '../../../../../classify';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, string } from 'prop-types';
 
 /**
  * Page Builder Heading component.
@@ -16,7 +14,6 @@ import { arrayOf, shape, string } from 'prop-types';
  * @returns {React.Element} A React component that renders Heading with optional styling properties.
  */
 const Heading = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         headingType,
         text,
@@ -35,7 +32,6 @@ const Heading = props => {
         paddingLeft,
         cssClasses = []
     } = props;
-    const headingTypeClass = classes[headingType];
     const HeadingType = `${headingType}`;
     const dynamicStyles = {
         textAlign,
@@ -52,14 +48,9 @@ const Heading = props => {
         paddingBottom,
         paddingLeft
     };
-    cssClasses.push(classes.heading);
+    const className = cssClasses.length ? cssClasses.join(' ') : null;
     return (
-        <HeadingType
-            style={dynamicStyles}
-            className={[classes.root, headingTypeClass, ...cssClasses].join(
-                ' '
-            )}
-        >
+        <HeadingType style={dynamicStyles} className={className}>
             {text}
         </HeadingType>
     );
@@ -70,9 +61,6 @@ const Heading = props => {
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Heading
- * @property {String} classes.root CSS class for the root container element
- * @property {String} classes.headingTypeClass CSS class representing heading type
  * @property {String} headingType Level of HTML heading
  * @property {String} text Heading text
  * @property {String} textAlign Alignment of the text within the parent container
@@ -91,10 +79,6 @@ const Heading = props => {
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
 Heading.propTypes = {
-    classes: shape({
-        root: string,
-        headingTypeClass: string
-    }),
     headingType: string,
     text: string,
     textAlign: string,
