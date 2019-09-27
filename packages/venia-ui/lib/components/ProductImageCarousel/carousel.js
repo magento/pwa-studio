@@ -16,6 +16,19 @@ import Image from '../Image';
 const DEFAULT_IMAGE_WIDTH = 640;
 const DEFAULT_IMAGE_HEIGHT = 800;
 
+/**
+ * Carousel component for product images
+ * Carousel - Component that holds number of images
+ * where typically one image visible, and other
+ * images can be navigated through previous and next buttons
+ *
+ * @typedef ProductImageCarousel
+ * @kind functional component
+ *
+ * @param {props} props
+ *
+ * @returns {React.Element} React carousel component that displays a product image
+ */
 const Carousel = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -32,6 +45,7 @@ const Carousel = props => {
 
     const currentImage = sortedImages[activeItemIndex] || {};
 
+    // if file value is present, form magento image file url
     const src = currentImage.file
         ? resourceUrl(currentImage.file, {
               type: 'image-product',
@@ -42,6 +56,7 @@ const Carousel = props => {
 
     const alt = currentImage.label || 'image-product';
 
+    // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
             sortedImages.map((item, index) => (
@@ -82,6 +97,24 @@ const Carousel = props => {
     );
 };
 
+/**
+ * Props for {@link ProductImageCarousel}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the
+ * ProductImageCarousel component
+ * @property {string} classes.currentImage classes for visible image
+ * @property {string} classes.imageContainer classes for image container
+ * @property {string} classes.nextButton classes for next button
+ * @property {string} classes.previousButton classes for previous button
+ * @property {string} classes.root classes for root container
+ * @property {Object[]} images Product images input for Carousel
+ * @property {string} images.label label for image
+ * @property {string} image.position Position of image in Carousel
+ * @property {bool} image.disabled Is image disabled
+ * @property {string} image.file filePath of image
+ */
 Carousel.propTypes = {
     classes: shape({
         currentImage: string,
