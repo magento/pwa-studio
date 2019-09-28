@@ -2,14 +2,14 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Map from '../map';
 import loadGoogleMapsApi from 'load-google-maps-api';
-import { mocks } from '../__mocks__/loadGoogleMapsApi';
+import stub, { mocks } from '../__mocks__/loadGoogleMapsApi';
 
 jest.mock('load-google-maps-api', () =>
     require('../__mocks__/loadGoogleMapsApi')
 );
 
 test('render map with no props', () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const component = createTestInstance(<Map />);
 
@@ -17,7 +17,7 @@ test('render map with no props', () => {
 });
 
 test('render map with all props configured', () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const mapProps = {
         appearance: 'default',
@@ -52,7 +52,7 @@ test('render map with all props configured', () => {
 });
 
 test('map with locations calls loadGoogleMapsApi', () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const locations = [
         {
@@ -76,7 +76,7 @@ test('map without locations does not call loadGoogleMapsApi', () => {
 });
 
 test('map with 1 location', async () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const mapProps = {
         locations: [
@@ -88,6 +88,7 @@ test('map with 1 location', async () => {
                 state: 'CA',
                 zipcode: '12345',
                 country: 'USA',
+                phone: '123-456-7890',
                 position: {
                     latitude: 0,
                     longitude: 1
@@ -122,7 +123,7 @@ test('map with 1 location', async () => {
 });
 
 test('map with > 1 location', async () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const mapProps = {
         locations: [
@@ -133,6 +134,9 @@ test('map with > 1 location', async () => {
                 }
             },
             {
+                name: 'Somewhere else',
+                city: 'Next Door',
+                state: 'OR',
                 position: {
                     latitude: 0,
                     longitude: 2
@@ -170,7 +174,7 @@ test('map with > 1 location', async () => {
 });
 
 test('map unmount causes event listeners to be unbound', async () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const mapProps = {
         locations: [
@@ -197,7 +201,7 @@ test('map unmount causes event listeners to be unbound', async () => {
 });
 
 test('useEffect cleanup before loadGoogleMapsApi is resolved', async () => {
-    mocks.stub.mockResolvedValue(mocks.googleMaps);
+    stub.mockResolvedValue(mocks.googleMaps);
 
     const mapProps = {
         locations: [
@@ -226,7 +230,7 @@ test('useEffect cleanup before loadGoogleMapsApi is resolved', async () => {
 });
 
 test('catch calls console.error', (finish) => {
-    mocks.stub.mockRejectedValue('Something went wrong');
+    stub.mockRejectedValue('Something went wrong');
 
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -247,9 +251,47 @@ test('catch calls console.error', (finish) => {
         }
     });
 
-    // async/await does not work here for promise rejection
+    // async/await does not work here (promise rejection happens after expectation)
     setTimeout(() => {
         expect(console.error).toHaveBeenCalledWith('Something went wrong');
         finish();
     }, 0);
+});
+
+test('clicking on marker', async () => {
+    stub.mockResolvedValue(mocks.googleMaps);
+
+    const mapProps = {
+        locations: [
+            {
+                position: {
+                    latitude: 0,
+                    longitude: 1
+                }
+            }
+        ]
+    };
+
+    await createTestInstance(<Map {...mapProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
+
+    expect(mocks.googleMapsMarkerInstance.addListener).toHaveBeenCalledTimes(1);
+
+    const eventListenerCallback = mocks.googleMapsMarkerInstance.addListener.mock.calls[0][1];
+
+    eventListenerCallback();
+    expect(mocks.googleMapsInfoWindowInstanceOpen).toHaveBeenCalledWith(
+        mocks.googleMapsInstance,
+        mocks.googleMapsMarkerInstance
+    );
+
+    eventListenerCallback();
+    expect(mocks.googleMapsInfoWindowInstanceClose).toHaveBeenCalledTimes(1);
+    expect(mocks.googleMapsInfoWindowInstanceOpen).toHaveBeenCalledWith(
+        mocks.googleMapsInstance,
+        mocks.googleMapsMarkerInstance
+    );
 });

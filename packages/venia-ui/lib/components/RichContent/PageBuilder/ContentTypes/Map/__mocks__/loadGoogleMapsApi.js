@@ -8,8 +8,14 @@ const mocks = {
         addListener: jest.fn()
     },
     googleMapsLatLngBoundsInstanceExtend: jest.fn(),
+    googleMapsInfoWindowInstanceOpen: jest.fn(),
+    googleMapsInfoWindowInstanceClose: jest.fn(),
     GoogleMapsLatLngBoundsConstructor: jest.fn(() => ({
         extend: mocks.googleMapsLatLngBoundsInstanceExtend
+    })),
+    GoogleMapsInfoWindowConstructor: jest.fn(() => ({
+        open: mocks.googleMapsInfoWindowInstanceOpen,
+        close: mocks.googleMapsInfoWindowInstanceClose
     }))
 };
 
@@ -20,7 +26,7 @@ mocks.googleMapsInstance = {
 };
 
 mocks.googleMaps = {
-    InfoWindow: jest.fn(),
+    InfoWindow: mocks.GoogleMapsInfoWindowConstructor,
     LatLng: jest.fn(() => jest.fn()),
     LatLngBounds: mocks.GoogleMapsLatLngBoundsConstructor,
     Map: jest.fn(() => mocks.googleMapsInstance),
@@ -30,10 +36,8 @@ mocks.googleMaps = {
     }
 };
 
-const stub = jest.fn();
+const stub = jest.fn(); // acts as promise in test
 
 export { mocks };
-
-mocks.stub = stub;
 
 export default stub;
