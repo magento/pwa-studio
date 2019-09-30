@@ -2,11 +2,9 @@
 title: Page Builder Integration
 ---
 
-Page Builder integrates into PWA studio by providing React components that are equivalent to the Magento Page Builder content types. It then populates those components with the data from the master format HTML. Here is a visualization of this process:
+The Page Builder integration into PWA studio provides React components that are equivalent to the native content types in Page Builder. The Page Builder integration code then populates those components with the property data from the master format HTML and renders them to the Venia PWA app. A visualization of this process follows:
 
 ![Page Builder Integration Overview](PageBuilderIntegration.svg)
-
-
 
 ## Detailed flow
 

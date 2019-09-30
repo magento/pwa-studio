@@ -118,8 +118,8 @@
                 <tspan x="7.55078125" y="18">4</tspan>
             </text>
         </g>
-        <text id="Populate-components" font-family="Helvetica" font-size="13" font-weight="normal" line-spacing="16" fill="#D0021B">
-            <tspan x="15.246582" y="457">Populate components</tspan>
+        <text id="Populates-components" font-family="Helvetica" font-size="13" font-weight="normal" line-spacing="16" fill="#D0021B">
+            <tspan x="8.74658203" y="457">Populates components</tspan>
             <tspan x="25.3901367" y="473">with property values</tspan>
             <tspan x="31.2045898" y="489">from master format</tspan>
         </text>
@@ -136,8 +136,8 @@
                 <tspan x="7.55078125" y="18">6</tspan>
             </text>
         </g>
-        <text id="Return-all-component" font-family="Helvetica" font-size="13" font-weight="normal" line-spacing="16" fill="#D0021B">
-            <tspan x="227" y="222">Return all components needed </tspan>
+        <text id="Returns-all-componen" font-family="Helvetica" font-size="13" font-weight="normal" line-spacing="16" fill="#D0021B">
+            <tspan x="227" y="222">Returns all components needed </tspan>
             <tspan x="227" y="238">to render Page Builder content </tspan>
             <tspan x="227" y="254">within the PWA app (Venia)</tspan>
         </text>
