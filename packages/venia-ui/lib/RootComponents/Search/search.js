@@ -97,7 +97,7 @@ const Search = props => {
                     </div>
                     {maybeFilterModal}
                     <section className={classes.gallery}>
-                        <Gallery data={items} />
+                        <Gallery items={items} />
                     </section>
                 </article>
             );

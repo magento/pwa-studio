@@ -24,14 +24,27 @@ const Header = props => {
     } = useHeader();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = searchOpen ? classes.open : classes.closed;
-    const suspenseFallback = (
+    const rootClass = searchOpen ? classes.open : classes.closed; 
+    const searchBarFallback = (
         <div className={classes.searchFallback}>
             <div className={classes.input}>
                 <div className={classes.loader} />
             </div>
         </div>
     );
+    const searchBar = searchOpen ? (
+        <Suspense fallback={searchBarFallback}>
+            <Route
+                render={({ history, location }) => (
+                    <SearchBar
+                        isOpen={searchOpen}
+                        history={history}
+                        location={location}
+                    />
+                )}
+            />
+        </Suspense>
+    ) : null;
 
     return (
         <header className={rootClass}>
@@ -54,17 +67,7 @@ const Header = props => {
                     <CartTrigger />
                 </div>
             </div>
-            <Suspense fallback={searchOpen ? suspenseFallback : null}>
-                <Route
-                    render={({ history, location }) => (
-                        <SearchBar
-                            isOpen={searchOpen}
-                            history={history}
-                            location={location}
-                        />
-                    )}
-                />
-            </Suspense>
+            {searchBar}
         </header>
     );
 };
